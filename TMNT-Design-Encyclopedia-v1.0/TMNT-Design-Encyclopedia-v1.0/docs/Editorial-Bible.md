@@ -1,3 +1,0 @@
-# Editorial Bible
-
-Mechanics first.
