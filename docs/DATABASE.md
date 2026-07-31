@@ -1,0 +1,126 @@
+# SewerGraph Database Specification
+
+## Purpose
+
+SewerGraph is the SQLite knowledge database for TMNT Design Studio. It stores durable information that cannot be safely recreated from other canonical sources or that must be preserved as project history.
+
+## Database principles
+
+1. Imported Magic facts remain separate from TMNT interpretation.
+2. Derived Capabilities are reproducible from explicit rules.
+3. Designer overrides are rare, documented, and auditable.
+4. Recommendations, Deck Profiles, theme coverage, and deck-health scores are computed rather than canonical stored truth.
+5. Deck Versions are immutable historical snapshots.
+6. Every table has one clear responsibility.
+7. Foreign keys are always enabled.
+8. Migrations are ordered, recorded, and immutable after release.
+
+## Logical domains
+
+### 1. System and imports
+
+- `schema_migrations` — records applied migration versions.
+- `metadata` — stores small database-level values such as schema version and source dates.
+- `imports` — records Scryfall import attempts, status, counts, and errors.
+
+### 2. Magic facts
+
+- `cards` — stores the canonical Oracle-level card identity and common searchable facts.
+- `card_printings` — stores printing-specific fields when needed, including Scryfall card ID, set, collector number, rarity, artist, and release date.
+- `card_faces` — stores ordered faces for multifaced cards.
+- `legalities` — stores per-format legality; Version 1 filters to Standard.
+- `keywords` / `card_keywords` — normalized keyword vocabulary and card relationships.
+- `types` / `card_types` — normalized card types.
+- `subtypes` / `card_subtypes` — normalized card subtypes.
+
+Oracle identity and printing identity must not be conflated. Oracle-level design knowledge attaches to the underlying card unless a printing-specific distinction is intentionally required.
+
+### 3. Capabilities
+
+- `capabilities` — canonical gameplay-function vocabulary.
+- `capability_rules` — explicit rules used to derive Capabilities from card facts.
+- `card_capabilities` — derived results, including confidence and rule provenance.
+- `capability_overrides` — documented additions, removals, or adjustments made by designers.
+
+The effective Capability set is computed from derived results plus active overrides.
+
+### 4. TMNT knowledge and intent
+
+- `characters` — TMNT characters, allies, villains, teams, or factions.
+- `design_intents` — direct children of Characters defining a specific gameplay interpretation.
+- `themes` — narrative and identity concepts.
+- `design_intent_themes` — prioritized Themes for a Design Intent.
+- `theme_capabilities` — explains which Capabilities express each Theme.
+- `design_intent_capabilities` — optional direct capability priorities for intent-specific needs not fully captured by reusable Theme mappings.
+- `experience_goals` — intended player experiences attached to a Design Intent.
+
+### 5. Sewer Decks
+
+- `decks` — a Sewer Deck owned by one Design Intent.
+- `deck_versions` — immutable snapshots with version labels, status, and notes.
+- `deck_cards` — card quantities in a Deck Version.
+
+A Deck Version must support validation for Standard legality, 60-card minimum main deck, and normal copy limits, with explicit handling for cards whose rules override copy limits.
+
+### 6. Design knowledge
+
+- `design_notes` — categorized human-authored notes attached to supported subjects.
+- `design_decisions` — durable decisions with rationale and status.
+- `card_relationships` — curated card-to-card relationships such as Supports, Conflicts With, Replacement, Upgrade, or Combo.
+- `design_sessions` — records focused deck-design work and resulting changes.
+
+### 7. Playtesting
+
+- `playtest_sessions` — test sessions tied to one Deck Version.
+- `playtest_observations` — measurable findings and qualitative feedback.
+
+Version 1 may begin with session-level data and expand to individual game records only when real use demonstrates the need.
+
+## Stored versus computed
+
+### Stored
+
+- Imported card facts
+- Capability rules and derived results
+- Capability overrides and rationale
+- Characters and Design Intents
+- Themes and priorities
+- Decks, versions, and card quantities
+- Notes, decisions, sessions, and observations
+
+### Computed
+
+- Deck Profile
+- Mana curve and color balance
+- Capability coverage
+- Theme coverage
+- Identity drift
+- Deck health
+- Candidate rankings
+- Recommendation score, confidence, and explanation
+- Dossiers
+
+## Planned migration sequence
+
+1. `001_initialize.sql`
+2. `002_mtg_core.sql`
+3. `003_capabilities.sql`
+4. `004_tmnt_knowledge.sql`
+5. `005_decks.sql`
+6. `006_design_history.sql`
+7. `007_playtesting.sql`
+8. `008_indexes.sql`
+9. `009_seed_foundation.sql`
+
+## Validation requirements
+
+A fresh database build must:
+
+- Apply all migrations without error.
+- Record each migration exactly once.
+- Enforce foreign keys.
+- Reject invalid enumerated values and quantities.
+- Prevent duplicate natural relationships.
+- Preserve Deck Version history.
+- Support safe repeatable Scryfall imports.
+- Produce no stored recommendations or other unreproducible analysis.
