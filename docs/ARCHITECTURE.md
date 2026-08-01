@@ -147,3 +147,26 @@ Explainable Recommendations
 - SQLite database.
 - CLI before graphical UI.
 - Leonardo as the first reference implementation.
+
+
+## Capability Engine execution
+
+The Oracle card is the analysis unit. Ordered card faces and normalized keywords may contribute
+attributed evidence, but never become independent capability owners. Narrow, versioned rules read
+named objective fields. Every match records its source fact, matched value, face number when
+applicable, rule identity and version, confidence, derivation run, and Scryfall import.
+
+Derivation replaces the current computed and evidence layers inside one immediate transaction. A
+failure rolls back those changes and records a failed run, leaving the prior successful results
+visible. Identical facts and the same rule-set checksum produce identical results. The engine contains
+no Character, Design Intent, Theme, Deck Profile, recommendation, ranking, or deck-analysis logic.
+
+Effective capabilities resolve at read time. Matching derived rules combine by maximum confidence
+while retaining every evidence row. One active override may then add, remove, or adjust a capability.
+Remove suppresses without deleting evidence; add supplies override confidence; adjust applies a
+signed delta clamped to 0–1. Conflicting active overrides are rejected, never last-write-wins.
+
+The initial `2026.08.1` rule set strips parenthetical reminder text, evaluates face text instead of
+duplicated card-level text for multiface cards, excludes controller-owned removal targets and
+opponent-only benefits, and treats temporary mana as fixing rather than permanent ramp. The full
+catalog and rule-quality controls are specified in `docs/CAPABILITIES.md`.

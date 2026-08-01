@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.0 — Capability Engine
+
+### Added
+
+- Canonical 20-item Capability catalog with stable identifiers, narrow definitions, categories, and status.
+- Versioned, checksummed rules over Oracle text, keywords, and face-specific facts.
+- Transactional derivation linked to the exact Scryfall import and rule set, with per-match evidence.
+- Auditable add/remove/adjust overrides and effective Capability resolution.
+- Derive, inspect, and status CLI commands plus offline edge-case and rollback coverage.
+- Capability catalog/rule guide with evidence sources, examples, negative controls, and limitations.
+- Release-review controls for opponent-only effects, owner-targeted removal, reminder text,
+  temporary mana, multiface evidence duplication, and override field integrity.
+
+### Boundaries
+
+- Confidence is evidence strength only; rule matches combine by maximum and overrides remain distinct.
+- No TMNT judgment, theme scoring, Deck Profile, recommendation, ranking, or deck analysis is present.
+
 ## v0.3.0 — Scryfall Import Pipeline
 
 ### Added

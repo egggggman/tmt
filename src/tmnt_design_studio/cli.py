@@ -3,14 +3,22 @@ from typing import Annotated
 
 import typer
 
+from tmnt_design_studio.capabilities import (
+    CapabilityError,
+    derive_capabilities,
+    engine_status,
+    inspect_card,
+)
 from tmnt_design_studio.database import connect, initialize_database, migration_scripts
 from tmnt_design_studio.scryfall import ScryfallImportError, import_scryfall
 
 app = typer.Typer(no_args_is_help=True, help="TMNT Design Studio tools.")
 import_app = typer.Typer(no_args_is_help=True, help="Import objective source facts.")
 database_app = typer.Typer(no_args_is_help=True, help="Inspect SewerGraph.")
+capability_app = typer.Typer(no_args_is_help=True, help="Derive and inspect card capabilities.")
 app.add_typer(import_app, name="import")
 app.add_typer(database_app, name="database")
+app.add_typer(capability_app, name="capabilities")
 
 
 @app.callback()
@@ -88,3 +96,113 @@ def database_status(
         )
         if latest["error"]:
             typer.echo(f"Error: {latest['error']}")
+
+
+@capability_app.command("derive")
+def capability_derive(
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+) -> None:
+    """Replace current derived results using the active versioned rule set."""
+    try:
+        summary = derive_capabilities(database)
+    except CapabilityError as error:
+        typer.echo(f"Capability derivation failed: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(
+        f"Capability run #{summary['run_id']} succeeded: {summary['card_count']} cards, "
+        f"{summary['result_count']} rule results, {summary['evidence_count']} evidence records; "
+        f"rules {summary['ruleset_version']}, Scryfall import #{summary['import_id']}."
+    )
+
+
+@capability_app.command("inspect")
+def capability_inspect(
+    card: Annotated[str, typer.Argument(help="Oracle ID or exact card name.")],
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+) -> None:
+    """Explain the effective capabilities and evidence for one Oracle card."""
+    try:
+        result = inspect_card(database, card)
+    except CapabilityError as error:
+        typer.echo(str(error), err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"{result['name']} ({result['oracle_id']})")
+    facts = result["facts"]
+    typer.echo(f"Facts: {facts['type_line']}; mana value {facts['mana_value']}")
+    typer.echo(f"Oracle text: {facts['oracle_text'] or '(none)'}")
+    typer.echo(f"Keywords: {', '.join(facts['keywords']) or '(none)'}")
+    for face in facts["faces"]:
+        typer.echo(
+            f"Face {face['face_number']} — {face['name']}: {face['type_line']}; "
+            f"{face['oracle_text'] or '(no Oracle text)'}"
+        )
+    typer.echo("Derived capabilities:")
+    if not result["derived"]:
+        typer.echo("- none")
+    for capability in result["derived"]:
+        typer.echo(
+            f"- {capability['name']}: {capability['confidence']:.2f} "
+            f"via {capability['rule_key']} (run #{capability['derivation_run_id']})"
+        )
+    typer.echo("Evidence:")
+    if not result["evidence"]:
+        typer.echo("- none")
+    for evidence in result["evidence"]:
+        face = f" face {evidence['face_number']}" if evidence["face_number"] is not None else ""
+        typer.echo(
+            f"- {evidence['rule_key']}{face}: {evidence['source_field']} "
+            f"matched {evidence['matched_value']!r}"
+        )
+    typer.echo("Overrides:")
+    if not result["overrides"]:
+        typer.echo("- none")
+    for override in result["overrides"]:
+        state = "active" if override["active"] else "inactive"
+        value = override["confidence"]
+        if override["confidence_delta"] is not None:
+            value = override["confidence_delta"]
+        typer.echo(
+            f"- #{override['id']} {override['identifier']} {override['action']} {value} "
+            f"({state}): {override['rationale']}; evidence {override['evidence_context']}"
+        )
+    typer.echo("Effective capabilities:")
+    if not result["effective"]:
+        typer.echo("- none")
+    for capability in result["effective"]:
+        typer.echo(
+            f"- {capability['name']}: {capability['confidence']:.2f} ({capability['source']})"
+        )
+
+
+@capability_app.command("status")
+def capability_status(
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+) -> None:
+    """Report the active rules and latest source-linked derivation run."""
+    status = engine_status(database)
+    typer.echo(f"Rule set: {status['ruleset_version']} ({status['rules_checksum'][:12]}...)")
+    run = status["latest_run"]
+    if run is None:
+        typer.echo("Latest capability run: none")
+        return
+    typer.echo(
+        f"Latest capability run: #{run['id']} {run['status']}; Scryfall import "
+        f"#{run['import_id']} checksum {(run['import_checksum'] or 'unavailable')[:12]}; "
+        f"{run['card_count']} cards/{run['result_count']} results"
+    )
+    if run["error"]:
+        typer.echo(f"Latest run error: {run['error']}")
+    typer.echo(
+        f"Failed runs: {status['failed_run_count']}; "
+        f"active overrides: {status['active_override_count']}"
+    )
+    successful = status["latest_successful_run"]
+    if successful and successful["id"] != run["id"]:
+        typer.echo(
+            f"Previous successful state remains from run #{successful['id']} "
+            f"({successful['result_count']} results)."
+        )
+    for warning in status["warnings"]:
+        typer.echo(f"Warning: {warning}")
+    for capability, count in status["counts"].items():
+        typer.echo(f"- {capability}: {count}")

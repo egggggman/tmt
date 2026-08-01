@@ -70,3 +70,19 @@ This document summarizes the product and architecture decisions accepted before 
 
 20. **Golden rule**  
     Store facts. Compute intelligence. Preserve decisions.
+
+
+## Capability Engine decisions
+
+21. **Oracle-level derivation**
+    Oracle cards are Capability Engine analysis units; faces contribute attributed evidence.
+
+22. **Replace derivations, preserve audit**
+    Current derivations are atomically replaceable computed intelligence. Rule-set identity, source
+    import, evidence, run outcomes, and explicit overrides form the durable audit trail.
+
+23. **Confidence and override precedence**
+    Confidence measures objective evidence strength only. Rules combine by maximum confidence.
+    One active add, remove, or signed adjustment decision applies after derivation. Conflicts are
+    invalid rather than implicit last-write-wins.
+

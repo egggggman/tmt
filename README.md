@@ -38,7 +38,7 @@ Character
 - Capabilities derived automatically with documented overrides.
 - Leonardo as the first reference implementation.
 
-Current milestone: **v0.1.0 — Architecture and Database Foundation**.
+Current milestone: **v0.4.0 — Capability Engine**.
 
 ## SewerGraph commands
 
@@ -60,5 +60,18 @@ Inspect schema and latest import status:
 ```console
 tmnt database status --database tmnt-design-studio.db
 ```
+
+Derive capabilities, inspect one Oracle card with its evidence, and report the active rule set:
+
+```console
+tmnt capabilities derive --database tmnt-design-studio.db
+tmnt capabilities inspect "Card Name" --database tmnt-design-studio.db
+tmnt capabilities status --database tmnt-design-studio.db
+```
+
+Confidence is evidence strength on a 0–1 scale, never card quality, theme fit, or a recommendation.
+Derivation atomically replaces the computed layer. Overrides remain separate, explicit decisions.
+See [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) for the complete vocabulary, evidence sources,
+examples, negative controls, confidence semantics, and limitations.
 
 Import attempts retain source metadata, SHA-256 checksum, timestamps, counts, warnings, errors, and outcome. Fact changes commit transactionally; failed attempts remain auditable without exposing partial changes.
