@@ -12,22 +12,28 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from hashlib import sha256
 from io import BytesIO
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from tmnt_design_studio.database import connect, initialize_database
 
 BULK_DATA_URL = "https://api.scryfall.com/bulk-data"
 USER_AGENT = "TMNTDesignStudio/0.3.0 (+https://github.com/egggggman/tmt)"
+REQUEST_HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 LEGALITY_VALUES = {"legal", "not_legal", "restricted", "banned"}
 CARD_TYPES = {
     "Artifact",
     "Battle",
+    "Boss",
+    "Card",
     "Conspiracy",
     "Creature",
     "Dungeon",
+    "Emblem",
     "Enchantment",
     "Instant",
+    "Event",
+    "Hero",
     "Kindred",
     "Land",
     "Phenomenon",
@@ -35,6 +41,11 @@ CARD_TYPES = {
     "Planeswalker",
     "Scheme",
     "Sorcery",
+    "Sticker",
+    "Stickers",
+    "Summon",
+    "Token",
+    "Universewalker",
     "Vanguard",
 }
 
@@ -56,7 +67,7 @@ class ImportSummary:
 
 
 def _request_json(url: str) -> Any:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(url, headers=REQUEST_HEADERS)
     try:
         with urllib.request.urlopen(request, timeout=120) as response:  # noqa: S310
             return json.loads(response.read())
@@ -67,7 +78,7 @@ def _request_json(url: str) -> Any:
 
 
 def _download(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(url, headers=REQUEST_HEADERS)
     try:
         with urllib.request.urlopen(request, timeout=300) as response:  # noqa: S310
             return response.read()
@@ -83,14 +94,45 @@ def _decode_payload(raw: bytes, source_name: str) -> list[dict[str, Any]]:
             raw = gzip.decompress(raw)
         elif raw.startswith(b"PK\x03\x04"):
             with zipfile.ZipFile(BytesIO(raw)) as archive:
-                json_files = sorted(name for name in archive.namelist() if name.endswith(".json"))
-                if len(json_files) != 1:
+                json_members = sorted(
+                    (member for member in archive.infolist() if member.filename.endswith(".json")),
+                    key=lambda member: member.filename,
+                )
+                if len(json_members) != 1:
                     raise ScryfallImportError(
                         f"{source_name} archive must contain exactly one JSON file; "
-                        f"found {len(json_files)}"
+                        f"found {len(json_members)}"
                     )
-                raw = archive.read(json_files[0])
-        decoded = json.loads(raw)
+                member = json_members[0]
+                member_path = PurePosixPath(member.filename)
+                if (
+                    "\\" in member.filename
+                    or member_path.is_absolute()
+                    or len(member_path.parts) != 1
+                    or ".." in member_path.parts
+                    or member.is_dir()
+                ):
+                    raise ScryfallImportError(
+                        f"{source_name} archive JSON must be one safe root-level file"
+                    )
+                raw = archive.read(member)
+        try:
+            decoded = json.loads(raw)
+        except json.JSONDecodeError as array_error:
+            text = raw.decode("utf-8")
+            if text.lstrip().startswith("["):
+                raise array_error
+            decoded = []
+            for line_number, line in enumerate(text.splitlines(), 1):
+                if not line.strip():
+                    continue
+                try:
+                    decoded.append(json.loads(line))
+                except json.JSONDecodeError as line_error:
+                    raise ScryfallImportError(
+                        f"Malformed Scryfall JSONL in {source_name} at line {line_number}: "
+                        f"{line_error}"
+                    ) from line_error
     except (
         gzip.BadGzipFile,
         zipfile.BadZipFile,
@@ -123,9 +165,12 @@ def _source(file: Path | None, bulk_type: str) -> tuple[bytes, dict[str, Any]]:
         ),
         None,
     )
-    if match is None or not isinstance(match.get("download_uri"), str):
+    download_uri = (match.get("jsonl_download_uri") if isinstance(match, dict) else None) or (
+        match.get("download_uri") if isinstance(match, dict) else None
+    )
+    if match is None or not isinstance(download_uri, str):
         raise ScryfallImportError(f"Scryfall did not advertise bulk data type {bulk_type!r}")
-    return _download(match["download_uri"]), match
+    return _download(download_uri), match
 
 
 def _required(record: dict[str, Any], field: str, position: int) -> str:
@@ -141,6 +186,30 @@ def _type_parts(type_line: str) -> tuple[list[str], list[str]]:
     types = [token for token in left.split() if token in CARD_TYPES]
     subtypes = right.split() if separator else []
     return types, subtypes
+
+
+def _canonicalize_record(record: dict[str, Any], position: int) -> dict[str, Any]:
+    if record.get("oracle_id"):
+        return record
+    faces = record.get("card_faces")
+    if record.get("layout") != "reversible_card" or not isinstance(faces, list) or not faces:
+        _required(record, "oracle_id", position)
+    face_oracle_ids = {
+        face.get("oracle_id") for face in faces if isinstance(face, dict) and face.get("oracle_id")
+    }
+    if len(face_oracle_ids) != 1:
+        raise ScryfallImportError(
+            f"Record {position} reversible faces must share exactly one Oracle id"
+        )
+    first_face = faces[0]
+    if not isinstance(first_face, dict):
+        raise ScryfallImportError(f"Record {position} face 0 must be an object")
+    canonical = dict(record)
+    canonical["oracle_id"] = face_oracle_ids.pop()
+    for field in ("name", "mana_cost", "cmc", "oracle_text", "type_line"):
+        if first_face.get(field) is not None:
+            canonical[field] = first_face[field]
+    return canonical
 
 
 def _validate(records: list[dict[str, Any]]) -> list[str]:
@@ -180,7 +249,10 @@ def _validate(records: list[dict[str, Any]]) -> list[str]:
             if not isinstance(face, dict):
                 raise ScryfallImportError(f"Record {position} face {face_number} must be an object")
             _required(face, "name", position)
-            _required(face, "type_line", position)
+            if not face.get("type_line"):
+                warnings.append(
+                    f"Record {position} face {face_number} uses its card-level type line"
+                )
     return warnings
 
 
@@ -201,35 +273,52 @@ def import_scryfall(
 ) -> ImportSummary:
     """Import one bulk snapshot and return its recorded outcome."""
     initialize_database(database)
-    raw, metadata = _source(file, bulk_type)
-    checksum = sha256(raw).hexdigest()
-    source_uri = str(metadata.get("download_uri") or metadata.get("uri") or "")
-    source_type = str(metadata.get("type") or bulk_type)
-    source_updated_at = metadata.get("updated_at")
-    source_date = str(source_updated_at)[:10] if source_updated_at else None
-    metadata_json = json.dumps(metadata, sort_keys=True, separators=(",", ":"))
     started_at = datetime.now(UTC).isoformat()
+    initial_uri = str(file.resolve()) if file is not None else BULK_DATA_URL
+    initial_type = "local_fixture" if file is not None else bulk_type
 
     with connect(database) as connection, connection:
         cursor = connection.execute(
-            "INSERT INTO imports(source, source_date, status, source_uri, source_type, "
-            "source_updated_at, checksum, source_size, source_metadata, started_at) "
-            "VALUES ('scryfall', ?, 'running', ?, ?, ?, ?, ?, ?, ?)",
-            (
-                source_date,
-                source_uri,
-                source_type,
-                source_updated_at,
-                checksum,
-                len(raw),
-                metadata_json,
-                started_at,
-            ),
+            "INSERT INTO imports(source, status, source_uri, source_type, started_at) "
+            "VALUES ('scryfall', 'running', ?, ?, ?)",
+            (initial_uri, initial_type, started_at),
         )
         import_id = int(cursor.lastrowid)
 
     try:
-        records = _decode_payload(raw, source_uri or "Scryfall source")
+        raw, metadata = _source(file, bulk_type)
+        checksum = sha256(raw).hexdigest()
+        source_uri = str(
+            metadata.get("jsonl_download_uri")
+            or metadata.get("download_uri")
+            or metadata.get("uri")
+            or initial_uri
+        )
+        source_type = str(metadata.get("type") or initial_type)
+        source_updated_at = metadata.get("updated_at")
+        source_date = str(source_updated_at)[:10] if source_updated_at else None
+        metadata_json = json.dumps(metadata, sort_keys=True, separators=(",", ":"))
+        with connect(database) as connection, connection:
+            connection.execute(
+                "UPDATE imports SET source_date=?, source_uri=?, source_type=?, "
+                "source_updated_at=?, checksum=?, source_size=?, source_metadata=? WHERE id=?",
+                (
+                    source_date,
+                    source_uri,
+                    source_type,
+                    source_updated_at,
+                    checksum,
+                    len(raw),
+                    metadata_json,
+                    import_id,
+                ),
+            )
+        records = [
+            _canonicalize_record(record, position)
+            for position, record in enumerate(
+                _decode_payload(raw, source_uri or "Scryfall source"), 1
+            )
+        ]
         warnings = _validate(records)
         oracle_ids = sorted({str(record["oracle_id"]) for record in records})
         scryfall_ids = sorted(str(record["id"]) for record in records)
@@ -280,18 +369,30 @@ def import_scryfall(
                     "ON CONFLICT(oracle_id, format) DO UPDATE SET legality=excluded.legality",
                     (oracle_id, record["legalities"]["standard"]),
                 )
-            placeholders = ",".join("?" for _ in oracle_ids)
+            connection.execute(
+                "CREATE TEMP TABLE current_import_oracle_ids(oracle_id TEXT PRIMARY KEY)"
+            )
+            connection.execute(
+                "CREATE TEMP TABLE current_import_scryfall_ids(scryfall_id TEXT PRIMARY KEY)"
+            )
+            connection.executemany(
+                "INSERT INTO current_import_oracle_ids(oracle_id) VALUES (?)",
+                ((oracle_id,) for oracle_id in oracle_ids),
+            )
+            connection.executemany(
+                "INSERT INTO current_import_scryfall_ids(scryfall_id) VALUES (?)",
+                ((scryfall_id,) for scryfall_id in scryfall_ids),
+            )
             for relationship in ("card_faces", "card_keywords", "card_types", "card_subtypes"):
                 connection.execute(
-                    f"DELETE FROM {relationship} WHERE oracle_id IN ({placeholders})", oracle_ids
+                    f"DELETE FROM {relationship} WHERE oracle_id IN "
+                    "(SELECT oracle_id FROM current_import_oracle_ids)"
                 )
-            if scryfall_ids:
-                printing_placeholders = ",".join("?" for _ in scryfall_ids)
-                connection.execute(
-                    f"DELETE FROM card_printings WHERE oracle_id IN ({placeholders}) "
-                    f"AND scryfall_id NOT IN ({printing_placeholders})",
-                    [*oracle_ids, *scryfall_ids],
-                )
+            connection.execute(
+                "DELETE FROM card_printings WHERE oracle_id IN "
+                "(SELECT oracle_id FROM current_import_oracle_ids) AND scryfall_id NOT IN "
+                "(SELECT scryfall_id FROM current_import_scryfall_ids)"
+            )
             for record in sorted(
                 records, key=lambda item: (str(item["oracle_id"]), str(item["id"]))
             ):
@@ -307,7 +408,7 @@ def import_scryfall(
                             face["name"],
                             face.get("mana_cost"),
                             face.get("oracle_text"),
-                            face["type_line"],
+                            face.get("type_line") or record["type_line"],
                         ),
                     )
                 types, subtypes = _type_parts(str(record["type_line"]))
@@ -325,19 +426,17 @@ def import_scryfall(
                 raise ScryfallImportError(
                     f"Foreign-key validation found {len(foreign_key_errors)} error(s)"
                 )
-            printing_parameters = ",".join("?" for _ in scryfall_ids)
             actual_printings = connection.execute(
-                f"SELECT COUNT(*) FROM card_printings WHERE scryfall_id IN ({printing_parameters})",
-                scryfall_ids,
+                "SELECT COUNT(*) FROM card_printings WHERE scryfall_id IN "
+                "(SELECT scryfall_id FROM current_import_scryfall_ids)"
             ).fetchone()[0]
             if actual_printings != len(records):
                 raise ScryfallImportError(
                     f"Expected {len(records)} imported printings but found {actual_printings}"
                 )
             legal_count = connection.execute(
-                f"SELECT COUNT(*) FROM legalities WHERE format='standard' AND legality='legal' "
-                f"AND oracle_id IN ({placeholders})",
-                oracle_ids,
+                "SELECT COUNT(*) FROM legalities WHERE format='standard' AND legality='legal' "
+                "AND oracle_id IN (SELECT oracle_id FROM current_import_oracle_ids)"
             ).fetchone()[0]
             connection.execute(
                 "UPDATE imports SET status='succeeded', imported_count=?, processed_count=?, "

@@ -48,7 +48,7 @@ Initialize or migrate a database:
 tmnt init tmnt-design-studio.db
 ```
 
-Import Scryfall's `default_cards` bulk snapshot, or use a deterministic local JSON, gzip, or ZIP source:
+Import Scryfall's `default_cards` bulk snapshot, or use a deterministic local JSON array, JSON Lines, gzip, or ZIP source:
 
 ```console
 tmnt import scryfall --database tmnt-design-studio.db
@@ -62,4 +62,3 @@ tmnt database status --database tmnt-design-studio.db
 ```
 
 Import attempts retain source metadata, SHA-256 checksum, timestamps, counts, warnings, errors, and outcome. Fact changes commit transactionally; failed attempts remain auditable without exposing partial changes.
-

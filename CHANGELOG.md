@@ -12,6 +12,9 @@
 - `tmnt import scryfall` and `tmnt database status` commands with human-readable summaries.
 - Fixture integration coverage for fresh, repeated, changed, malformed, and injected-failure
   imports.
+- Durable audit records for metadata and download failures.
+- Strict ZIP validation for one safe, root-level JSON member.
+- Compatibility with Scryfall's current gzipped JSON Lines bulk-data descriptor and payload.
 
 ### Validated
 
