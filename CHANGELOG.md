@@ -1,6 +1,26 @@
 # Changelog
 
-## v0.2.0 â€” Executable Foundation
+## v0.3.0 — Scryfall Import Pipeline
+
+### Added
+
+- Scryfall bulk-data download and deterministic local JSON, gzip, or ZIP fixture ingestion.
+- Transactional Oracle cards, printings, ordered faces, Standard legality, keywords, card types,
+  and subtypes normalization.
+- Import audit metadata with SHA-256 checksum, source details, timestamps, counts, warnings,
+  errors, and explicit outcomes.
+- `tmnt import scryfall` and `tmnt database status` commands with human-readable summaries.
+- Fixture integration coverage for fresh, repeated, changed, malformed, and injected-failure
+  imports.
+
+### Validated
+
+- Repeated imports preserve stable fact and natural-relationship counts.
+- Failed fact transactions retain a failed audit record without partial fact mutations.
+- Duplicate identities, expected printing counts, Standard legality, and foreign keys are checked.
+- Only objective Magic facts are imported; computed intelligence remains outside canonical storage.
+
+## v0.2.0 — Executable Foundation
 
 ### Added
 
@@ -18,16 +38,16 @@
 - Repeated initialization is idempotent.
 - Failed migrations roll back without being recorded.
 - Invalid foreign keys, enumerations, quantities, and duplicate natural relationships are rejected.
-- Character â†’ Design Intent â†’ Sewer Deck â†’ Deck Version terminology is preserved.
+- Character → Design Intent → Sewer Deck → Deck Version terminology is preserved.
 - Computed Deck Profiles and recommendations are not stored as canonical truth.
 
-## v0.1.0 â€” Architecture and Database Foundation
+## v0.1.0 — Architecture and Database Foundation
 
 ### Added
 
 - Canonical TMNT Design Studio project identity.
 - Sewer Deck terminology and Standard-only Version 1 scope.
-- Character â†’ Design Intent â†’ Sewer Deck â†’ Deck Version hierarchy.
+- Character → Design Intent → Sewer Deck → Deck Version hierarchy.
 - Separation of Magic facts, mechanics, Capabilities, and TMNT Themes.
 - Hybrid Capability Engine design with documented designer overrides.
 - Context-aware recommendation architecture.

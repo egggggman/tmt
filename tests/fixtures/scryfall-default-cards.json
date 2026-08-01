@@ -1,0 +1,82 @@
+[
+  {
+    "id": "printing-alpha-1",
+    "oracle_id": "oracle-alpha",
+    "name": "Sewer Scout",
+    "mana_cost": "{1}{G}",
+    "cmc": 2,
+    "oracle_text": "Vigilance",
+    "color_identity": ["G"],
+    "type_line": "Creature — Turtle Ninja",
+    "set": "tst",
+    "collector_number": "1",
+    "rarity": "common",
+    "artist": "April O'Neil",
+    "released_at": "2026-01-01",
+    "keywords": ["Vigilance"],
+    "legalities": {"standard": "legal"}
+  },
+  {
+    "id": "printing-alpha-2",
+    "oracle_id": "oracle-alpha",
+    "name": "Sewer Scout",
+    "mana_cost": "{1}{G}",
+    "cmc": 2,
+    "oracle_text": "Vigilance",
+    "color_identity": ["G"],
+    "type_line": "Creature — Turtle Ninja",
+    "set": "ts2",
+    "collector_number": "8",
+    "rarity": "uncommon",
+    "artist": "Irma Langinstein",
+    "released_at": "2026-02-01",
+    "keywords": ["Vigilance"],
+    "legalities": {"standard": "legal"}
+  },
+  {
+    "id": "printing-beta",
+    "oracle_id": "oracle-beta",
+    "name": "Hidden Passage",
+    "mana_cost": "{2}{U}",
+    "cmc": 3,
+    "oracle_text": "Draw a card.",
+    "color_identity": ["U"],
+    "type_line": "Instant",
+    "set": "tst",
+    "collector_number": "2",
+    "rarity": "common",
+    "artist": "Vernon Fenwick",
+    "released_at": "2026-01-01",
+    "keywords": [],
+    "legalities": {"standard": "not_legal"}
+  },
+  {
+    "id": "printing-gamma",
+    "oracle_id": "oracle-gamma",
+    "name": "Mutate // Mobilize",
+    "cmc": 4,
+    "color_identity": ["R", "W"],
+    "type_line": "Creature — Mutant",
+    "set": "tst",
+    "collector_number": "3",
+    "rarity": "rare",
+    "artist": "Hamato Yoshi",
+    "released_at": "2026-01-01",
+    "keywords": ["Double strike"],
+    "legalities": {"standard": "legal"},
+    "card_faces": [
+      {
+        "name": "Mutate",
+        "mana_cost": "{2}{R}",
+        "oracle_text": "Double strike",
+        "type_line": "Creature — Mutant"
+      },
+      {
+        "name": "Mobilize",
+        "mana_cost": "{W}",
+        "oracle_text": "Creatures you control get +1/+1 until end of turn.",
+        "type_line": "Instant"
+      }
+    ]
+  }
+]

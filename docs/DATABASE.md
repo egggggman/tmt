@@ -124,3 +124,10 @@ A fresh database build must:
 - Preserve Deck Version history.
 - Support safe repeatable Scryfall imports.
 - Produce no stored recommendations or other unreproducible analysis.
+
+## Scryfall import audit and transaction behavior
+
+Migration `010_import_audit.sql` extends `imports` with the source URI and type, source update time, SHA-256 checksum, byte size, processed/imported/skipped/warning/error counts, serialized warnings, and canonical source metadata.
+
+The audit attempt is committed before fact processing. All fact upserts, natural-relationship replacement, validation, and the successful outcome transition occur in one immediate transaction. Failures roll back that transaction, then update the durable attempt to `failed`. Reimporting an identical source produces stable fact rows and natural relationships while adding a new audit attempt.
+

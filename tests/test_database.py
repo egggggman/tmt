@@ -58,15 +58,12 @@ def test_fresh_database_initializes(tmp_path):
         ).fetchall()
         assert [row[0] for row in recorded] == applied
         expected_checksums = {
-            version: sha256(script.encode()).hexdigest()
-            for version, script in migration_scripts()
+            version: sha256(script.encode()).hexdigest() for version, script in migration_scripts()
         }
         assert {row[0]: row[1] for row in recorded} == expected_checksums
         tables = {
             row[0]
-            for row in connection.execute(
-                "SELECT name FROM sqlite_master WHERE type = 'table'"
-            )
+            for row in connection.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
         }
         assert tables == EXPECTED_TABLES
         assert not tables & {"deck_profiles", "recommendations", "recommendation_scores"}
@@ -90,7 +87,7 @@ def test_cli_init_is_idempotent(tmp_path):
     second = runner.invoke(app, ["init", str(path)])
 
     assert first.exit_code == 0
-    assert "9 migration(s) applied" in first.stdout
+    assert "10 migration(s) applied" in first.stdout
     assert second.exit_code == 0
     assert "already current" in second.stdout
     assert path.is_file()
@@ -161,12 +158,18 @@ def test_failed_migration_rolls_back_and_is_not_recorded(tmp_path, monkeypatch):
         initialize_database(path)
 
     with connect(path) as connection:
-        assert connection.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='should_rollback'"
-        ).fetchone() is None
-        assert connection.execute(
-            "SELECT 1 FROM schema_migrations WHERE version='010_broken'"
-        ).fetchone() is None
+        assert (
+            connection.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='should_rollback'"
+            ).fetchone()
+            is None
+        )
+        assert (
+            connection.execute(
+                "SELECT 1 FROM schema_migrations WHERE version='010_broken'"
+            ).fetchone()
+            is None
+        )
 
 
 def test_applied_migration_checksum_is_verified(tmp_path, monkeypatch):

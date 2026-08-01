@@ -1,7 +1,7 @@
 [project]
 name = "tmnt-design-studio"
-version = "0.2.0"
-description = "Executable foundation for TMNT Design Studio"
+version = "0.3.0"
+description = "Knowledge-driven deck design tools for TMNT Design Studio"
 requires-python = ">=3.12"
 dependencies = ["typer>=0.12,<1"]
 
@@ -24,4 +24,3 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
-
