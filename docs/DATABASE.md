@@ -54,6 +54,9 @@ versioned rule keys, confidence, fields read, exclusions, and descriptions; plus
 Overrides retain add/remove/adjust decisions separately with rationale, evidence context, signed
 confidence delta, active state, and timestamps. A partial unique index permits only one active
 decision for an Oracle card and Capability; inactive rows retain history.
+Insert/update triggers require nonblank rationale and evidence context and enforce action-specific
+fields: add requires confidence, remove permits neither confidence field, and adjust requires only a
+signed delta. Updates refresh the audit timestamp.
 
 Confidence is evidence strength in `[0,1]`: 0 means no support and 1 means direct, unambiguous
 support. Initial rules use 0.75–0.98. Multiple rules combine by maximum, not addition, while all

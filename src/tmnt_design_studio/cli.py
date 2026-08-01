@@ -127,15 +127,50 @@ def capability_inspect(
         typer.echo(str(error), err=True)
         raise typer.Exit(1) from error
     typer.echo(f"{result['name']} ({result['oracle_id']})")
-    for capability in result["capabilities"]:
+    facts = result["facts"]
+    typer.echo(f"Facts: {facts['type_line']}; mana value {facts['mana_value']}")
+    typer.echo(f"Oracle text: {facts['oracle_text'] or '(none)'}")
+    typer.echo(f"Keywords: {', '.join(facts['keywords']) or '(none)'}")
+    for face in facts["faces"]:
         typer.echo(
-            f"- {capability['name']}: {capability['confidence']:.2f} ({capability['source']})"
+            f"Face {face['face_number']} — {face['name']}: {face['type_line']}; "
+            f"{face['oracle_text'] or '(no Oracle text)'}"
         )
+    typer.echo("Derived capabilities:")
+    if not result["derived"]:
+        typer.echo("- none")
+    for capability in result["derived"]:
+        typer.echo(
+            f"- {capability['name']}: {capability['confidence']:.2f} "
+            f"via {capability['rule_key']} (run #{capability['derivation_run_id']})"
+        )
+    typer.echo("Evidence:")
+    if not result["evidence"]:
+        typer.echo("- none")
     for evidence in result["evidence"]:
         face = f" face {evidence['face_number']}" if evidence["face_number"] is not None else ""
         typer.echo(
-            f"  evidence {evidence['rule_key']}{face}: {evidence['source_field']} "
+            f"- {evidence['rule_key']}{face}: {evidence['source_field']} "
             f"matched {evidence['matched_value']!r}"
+        )
+    typer.echo("Overrides:")
+    if not result["overrides"]:
+        typer.echo("- none")
+    for override in result["overrides"]:
+        state = "active" if override["active"] else "inactive"
+        value = override["confidence"]
+        if override["confidence_delta"] is not None:
+            value = override["confidence_delta"]
+        typer.echo(
+            f"- #{override['id']} {override['identifier']} {override['action']} {value} "
+            f"({state}): {override['rationale']}; evidence {override['evidence_context']}"
+        )
+    typer.echo("Effective capabilities:")
+    if not result["effective"]:
+        typer.echo("- none")
+    for capability in result["effective"]:
+        typer.echo(
+            f"- {capability['name']}: {capability['confidence']:.2f} ({capability['source']})"
         )
 
 
@@ -155,5 +190,19 @@ def capability_status(
         f"#{run['import_id']} checksum {(run['import_checksum'] or 'unavailable')[:12]}; "
         f"{run['card_count']} cards/{run['result_count']} results"
     )
+    if run["error"]:
+        typer.echo(f"Latest run error: {run['error']}")
+    typer.echo(
+        f"Failed runs: {status['failed_run_count']}; "
+        f"active overrides: {status['active_override_count']}"
+    )
+    successful = status["latest_successful_run"]
+    if successful and successful["id"] != run["id"]:
+        typer.echo(
+            f"Previous successful state remains from run #{successful['id']} "
+            f"({successful['result_count']} results)."
+        )
+    for warning in status["warnings"]:
+        typer.echo(f"Warning: {warning}")
     for capability, count in status["counts"].items():
         typer.echo(f"- {capability}: {count}")

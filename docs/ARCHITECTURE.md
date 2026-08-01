@@ -166,3 +166,7 @@ while retaining every evidence row. One active override may then add, remove, or
 Remove suppresses without deleting evidence; add supplies override confidence; adjust applies a
 signed delta clamped to 0–1. Conflicting active overrides are rejected, never last-write-wins.
 
+The initial `2026.08.1` rule set strips parenthetical reminder text, evaluates face text instead of
+duplicated card-level text for multiface cards, excludes controller-owned removal targets and
+opponent-only benefits, and treats temporary mana as fixing rather than permanent ramp. The full
+catalog and rule-quality controls are specified in `docs/CAPABILITIES.md`.

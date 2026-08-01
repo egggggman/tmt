@@ -63,6 +63,38 @@ ALTER TABLE capability_overrides ADD COLUMN updated_at TEXT NOT NULL DEFAULT CUR
 CREATE UNIQUE INDEX capability_overrides_one_active
     ON capability_overrides(oracle_id, capability_id) WHERE active = 1;
 
+CREATE TRIGGER capability_overrides_validate_insert
+BEFORE INSERT ON capability_overrides
+FOR EACH ROW
+WHEN trim(NEW.rationale) = ''
+  OR trim(NEW.evidence_context) = ''
+  OR (NEW.action = 'add' AND (NEW.confidence IS NULL OR NEW.confidence_delta IS NOT NULL))
+  OR (NEW.action = 'remove' AND (NEW.confidence IS NOT NULL OR NEW.confidence_delta IS NOT NULL))
+  OR (NEW.action = 'adjust' AND (NEW.confidence IS NOT NULL OR NEW.confidence_delta IS NULL))
+BEGIN
+    SELECT RAISE(ABORT, 'capability override fields do not match action');
+END;
+
+CREATE TRIGGER capability_overrides_validate_update
+BEFORE UPDATE ON capability_overrides
+FOR EACH ROW
+WHEN trim(NEW.rationale) = ''
+  OR trim(NEW.evidence_context) = ''
+  OR (NEW.action = 'add' AND (NEW.confidence IS NULL OR NEW.confidence_delta IS NOT NULL))
+  OR (NEW.action = 'remove' AND (NEW.confidence IS NOT NULL OR NEW.confidence_delta IS NOT NULL))
+  OR (NEW.action = 'adjust' AND (NEW.confidence IS NOT NULL OR NEW.confidence_delta IS NULL))
+BEGIN
+    SELECT RAISE(ABORT, 'capability override fields do not match action');
+END;
+
+CREATE TRIGGER capability_overrides_touch_updated_at
+AFTER UPDATE ON capability_overrides
+FOR EACH ROW
+WHEN NEW.updated_at = OLD.updated_at
+BEGIN
+    UPDATE capability_overrides SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+END;
+
 CREATE INDEX capability_runs_status ON capability_derivation_runs(status, id);
 CREATE INDEX capability_evidence_card ON capability_evidence(oracle_id, capability_id);
 CREATE INDEX card_capabilities_run ON card_capabilities(derivation_run_id);

@@ -71,5 +71,7 @@ tmnt capabilities status --database tmnt-design-studio.db
 
 Confidence is evidence strength on a 0–1 scale, never card quality, theme fit, or a recommendation.
 Derivation atomically replaces the computed layer. Overrides remain separate, explicit decisions.
+See [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md) for the complete vocabulary, evidence sources,
+examples, negative controls, confidence semantics, and limitations.
 
 Import attempts retain source metadata, SHA-256 checksum, timestamps, counts, warnings, errors, and outcome. Fact changes commit transactionally; failed attempts remain auditable without exposing partial changes.

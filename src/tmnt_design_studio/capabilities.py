@@ -13,7 +13,7 @@ from pathlib import Path
 
 from tmnt_design_studio.database import connect, initialize_database
 
-RULESET_VERSION = "2026.08.0"
+RULESET_VERSION = "2026.08.1"
 
 CATALOG = (
     (
@@ -32,7 +32,7 @@ CATALOG = (
         "protection",
         "protection",
         "interaction",
-        "Prevents harm to a permanent or player through protection, hexproof, indestructible, or prevention.",
+        "Grants your permanent or player hexproof, indestructible, or protection from a quality.",
     ),
     ("counterspell", "counterspell", "interaction", "Counters a spell or ability on the stack."),
     ("card-draw", "card draw", "cards", "Directly instructs a player to draw one or more cards."),
@@ -133,6 +133,7 @@ RULES = (
         "oracle_text",
         r"destroy target (?:nonland )?(?:permanent|creature|artifact|enchantment|planeswalker)",
         0.95,
+        exclude=(r"destroy target [^.]* you control",),
     ),
     Rule(
         "target.exile",
@@ -140,6 +141,7 @@ RULES = (
         "oracle_text",
         r"exile target (?:nonland )?(?:permanent|creature|artifact|enchantment|planeswalker)",
         0.95,
+        exclude=(r"exile target [^.]* you control",),
     ),
     Rule(
         "wipe.destroy-all",
@@ -147,6 +149,7 @@ RULES = (
         "oracle_text",
         r"destroy all (?:creatures|artifacts|enchantments|nonland permanents|permanents)",
         0.98,
+        exclude=(r"destroy all creatures (?:blocking|blocked)",),
     ),
     Rule(
         "wipe.exile-all",
@@ -167,7 +170,8 @@ RULES = (
         "protect.grant",
         "protection",
         "oracle_text",
-        r"(?:gains?|have) (?:hexproof|indestructible|protection from)",
+        r"(?:you|target .* you control|.* you control) (?:gains?|have) "
+        r"(?:hexproof|indestructible|protection from)",
         0.90,
     ),
     Rule(
@@ -184,7 +188,12 @@ RULES = (
         "oracle_text",
         r"\bdraw (?:a|one|two|three|x|that many) cards?\b",
         0.90,
-        exclude=(r"if you would draw", r"skip that draw"),
+        exclude=(
+            r"if you would draw",
+            r"skip that draw",
+            r"instead of drawing",
+            r"opponent[^.]{0,60}draw",
+        ),
     ),
     Rule("selection.scry", "card-selection", "keyword", r"^(?:scry|surveil)$", 0.95, "keyword"),
     Rule(
@@ -201,13 +210,12 @@ RULES = (
         r"put (?:a|up to one|that) land card .* onto the battlefield",
         0.90,
     ),
-    Rule("ramp.mana", "ramp", "oracle_text", r"add (?:\{[wubrgc]\}|one mana of any color)", 0.80),
     Rule("fix.any-color", "mana-fixing", "oracle_text", r"add one mana of any color", 0.98),
     Rule(
         "token.create",
         "token-creation",
         "oracle_text",
-        r"create (?:a|an|one|two|three|x|that many|those) .* tokens?",
+        r"\bcreate (?:a|an|one|two|three|x|that many|those) .* tokens?",
         0.95,
     ),
     Rule(
@@ -246,12 +254,18 @@ RULES = (
         0.90,
         "keyword",
     ),
-    Rule("evasion.unblockable", "evasion", "oracle_text", r"can't be blocked", 0.95),
+    Rule(
+        "evasion.unblockable",
+        "evasion",
+        "oracle_text",
+        r"(?:this creature|target creature you control) can't be blocked",
+        0.95,
+    ),
     Rule(
         "life.gain",
         "life-gain",
         "oracle_text",
-        r"\b(?:you|target player) gains? (?:[0-9x]+|that much) life\b",
+        r"\byou gain (?:[0-9x]+|that much) life\b",
         0.95,
     ),
     Rule(
@@ -282,6 +296,7 @@ RULES = (
         "oracle_text",
         r"return target (?:nonland )?permanent .* to (?:its|their) owner's hand",
         0.90,
+        exclude=(r"return target [^.]*\[?you control\]?",),
     ),
     Rule(
         "tempo.tap",
@@ -339,6 +354,13 @@ def install_rules(connection: sqlite3.Connection) -> None:
             "description=excluded.description,category=excluded.category,status='active'",
             (identifier, name, definition, category),
         )
+    identifiers = [item[0] for item in CATALOG]
+    catalog_placeholders = ",".join("?" for _ in identifiers)
+    connection.execute(
+        f"UPDATE capabilities SET status='deprecated' "
+        f"WHERE identifier IS NOT NULL AND identifier NOT IN ({catalog_placeholders})",
+        identifiers,
+    )
     for rule in RULES:
         capability_id = connection.execute(
             "SELECT id FROM capabilities WHERE identifier=?", (rule.capability,)
@@ -379,7 +401,15 @@ def _facts(
     card = connection.execute("SELECT * FROM cards WHERE oracle_id=?", (oracle_id,)).fetchone()
     if card is None:
         return []
-    facts = [("oracle_text", card["oracle_text"] or "", "oracle_text", None)]
+    faces = connection.execute(
+        "SELECT face_number,oracle_text FROM card_faces WHERE oracle_id=? ORDER BY face_number",
+        (oracle_id,),
+    ).fetchall()
+    facts = []
+    if not faces:
+        facts.append(
+            ("oracle_text", _strip_reminder_text(card["oracle_text"] or ""), "oracle_text", None)
+        )
     facts.extend(
         ("keyword", row[0], "keyword", None)
         for row in connection.execute(
@@ -388,12 +418,21 @@ def _facts(
             (oracle_id,),
         )
     )
-    for face in connection.execute(
-        "SELECT face_number,oracle_text FROM card_faces WHERE oracle_id=? ORDER BY face_number",
-        (oracle_id,),
-    ):
-        facts.append(("oracle_text", face["oracle_text"] or "", "face", face["face_number"]))
+    for face in faces:
+        facts.append(
+            (
+                "oracle_text",
+                _strip_reminder_text(face["oracle_text"] or ""),
+                "face",
+                face["face_number"],
+            )
+        )
     return facts
+
+
+def _strip_reminder_text(value: str) -> str:
+    """Remove balanced, non-nested parenthetical reminder text before matching."""
+    return re.sub(r"\([^()]*\)", "", value)
 
 
 def derive_capabilities(
@@ -548,6 +587,26 @@ def inspect_card(database: str | Path, card: str) -> dict[str, object]:
         ).fetchone()
         if row is None:
             raise CapabilityError(f"Card not found: {card}")
+        derived = [
+            dict(item)
+            for item in connection.execute(
+                "SELECT c.identifier,c.name,r.rule_key,cc.confidence,cc.derivation_run_id "
+                "FROM card_capabilities cc JOIN capabilities c ON c.id=cc.capability_id "
+                "JOIN capability_rules r ON r.id=cc.rule_id WHERE cc.oracle_id=? "
+                "ORDER BY c.identifier,r.rule_key",
+                (row["oracle_id"],),
+            )
+        ]
+        overrides = [
+            dict(item)
+            for item in connection.execute(
+                "SELECT o.id,c.identifier,o.action,o.confidence,o.confidence_delta,o.rationale,"
+                "o.evidence_context,o.active,o.created_at,o.updated_at FROM capability_overrides o "
+                "JOIN capabilities c ON c.id=o.capability_id WHERE o.oracle_id=? "
+                "ORDER BY c.identifier,o.id",
+                (row["oracle_id"],),
+            )
+        ]
         effective = effective_capabilities(connection, row["oracle_id"])
         evidence = [
             dict(item)
@@ -559,9 +618,36 @@ def inspect_card(database: str | Path, card: str) -> dict[str, object]:
                 (row["oracle_id"],),
             )
         ]
+        faces = [
+            dict(item)
+            for item in connection.execute(
+                "SELECT face_number,name,mana_cost,oracle_text,type_line FROM card_faces "
+                "WHERE oracle_id=? ORDER BY face_number",
+                (row["oracle_id"],),
+            )
+        ]
+        keywords = [
+            item[0]
+            for item in connection.execute(
+                "SELECT k.name FROM keywords k JOIN card_keywords ck ON ck.keyword_id=k.id "
+                "WHERE ck.oracle_id=? ORDER BY k.name",
+                (row["oracle_id"],),
+            )
+        ]
         return {
             "oracle_id": row["oracle_id"],
             "name": row["name"],
+            "facts": {
+                "mana_cost": row["mana_cost"],
+                "mana_value": row["mana_value"],
+                "type_line": row["type_line"],
+                "oracle_text": row["oracle_text"],
+                "keywords": keywords,
+                "faces": faces,
+            },
+            "derived": derived,
+            "overrides": overrides,
+            "effective": effective,
             "capabilities": effective,
             "evidence": evidence,
         }
@@ -573,6 +659,16 @@ def engine_status(database: str | Path) -> dict[str, object]:
             "SELECT r.*,i.checksum import_checksum,i.source_updated_at FROM capability_derivation_runs r "
             "JOIN imports i ON i.id=r.import_id ORDER BY r.id DESC LIMIT 1"
         ).fetchone()
+        latest_success = connection.execute(
+            "SELECT id,ruleset_version,import_id,completed_at,card_count,result_count "
+            "FROM capability_derivation_runs WHERE status='succeeded' ORDER BY id DESC LIMIT 1"
+        ).fetchone()
+        failures = connection.execute(
+            "SELECT COUNT(*) FROM capability_derivation_runs WHERE status='failed'"
+        ).fetchone()[0]
+        active_overrides = connection.execute(
+            "SELECT COUNT(*) FROM capability_overrides WHERE active=1"
+        ).fetchone()[0]
         counts = dict(
             connection.execute(
                 "SELECT c.identifier,COUNT(DISTINCT cc.oracle_id) FROM capabilities c LEFT JOIN "
@@ -581,7 +677,14 @@ def engine_status(database: str | Path) -> dict[str, object]:
         )
         return {
             "latest_run": dict(run) if run else None,
+            "latest_successful_run": dict(latest_success) if latest_success else None,
+            "failed_run_count": failures,
+            "active_override_count": active_overrides,
             "counts": counts,
             "ruleset_version": RULESET_VERSION,
             "rules_checksum": _rules_checksum(),
+            "warnings": [
+                "Rules use narrow English Oracle text and keywords; no full rules interpretation "
+                "or inferred combo semantics is attempted."
+            ],
         }
