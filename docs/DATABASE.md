@@ -124,3 +124,15 @@ A fresh database build must:
 - Preserve Deck Version history.
 - Support safe repeatable Scryfall imports.
 - Produce no stored recommendations or other unreproducible analysis.
+
+## Scryfall import audit and transaction behavior
+
+Migration `010_import_audit.sql` extends `imports` with the source URI and type, source update time, SHA-256 checksum, byte size, processed/imported/skipped/warning/error counts, serialized warnings, and canonical source metadata.
+
+The audit attempt is committed before source acquisition and fact processing. All fact upserts, natural-relationship replacement, validation, and the successful outcome transition occur in one immediate transaction. Failures roll back that transaction, then update the durable attempt to `failed`.
+
+Reimporting an identical source produces stable fact rows and natural relationships while adding a new audit attempt. Identical snapshots are intentionally revalidated rather than skipped so every operator-requested attempt has a complete, independently auditable outcome. A changed source updates canonical facts by their natural identities and replaces relationships for every included Oracle ID.
+
+ZIP input must contain exactly one root-level JSON file. Zero JSON members, multiple JSON members, nested members, parent traversal, absolute paths, and backslash-based paths are rejected before the member is read. Archives are read in memory and are never extracted to the filesystem.
+
+The importer accepts both legacy Scryfall JSON-array bulk payloads and the current gzipped JSON Lines bulk payload advertised by `jsonl_download_uri`.
