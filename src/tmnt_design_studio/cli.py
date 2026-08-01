@@ -10,15 +10,23 @@ from tmnt_design_studio.capabilities import (
     inspect_card,
 )
 from tmnt_design_studio.database import connect, initialize_database, migration_scripts
+from tmnt_design_studio.deck_analysis import (
+    DeckAnalysisError,
+    analysis_status,
+    analyze_deck,
+    inspect_deck,
+)
 from tmnt_design_studio.scryfall import ScryfallImportError, import_scryfall
 
 app = typer.Typer(no_args_is_help=True, help="TMNT Design Studio tools.")
 import_app = typer.Typer(no_args_is_help=True, help="Import objective source facts.")
 database_app = typer.Typer(no_args_is_help=True, help="Inspect SewerGraph.")
 capability_app = typer.Typer(no_args_is_help=True, help="Derive and inspect card capabilities.")
+deck_app = typer.Typer(no_args_is_help=True, help="Compute and inspect objective deck analysis.")
 app.add_typer(import_app, name="import")
 app.add_typer(database_app, name="database")
 app.add_typer(capability_app, name="capabilities")
+app.add_typer(deck_app, name="deck")
 
 
 @app.callback()
@@ -206,3 +214,99 @@ def capability_status(
         typer.echo(f"Warning: {warning}")
     for capability, count in status["counts"].items():
         typer.echo(f"- {capability}: {count}")
+
+
+@deck_app.command("analyze")
+def deck_analyze(
+    deck_version_id: Annotated[int, typer.Argument(help="Immutable Deck Version ID.")],
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+    diagnostic: Annotated[
+        bool,
+        typer.Option(help="Allow a non-60-card main deck while preserving a warning."),
+    ] = False,
+) -> None:
+    """Compute metrics and threshold findings for one Deck Version."""
+    try:
+        result = analyze_deck(database, deck_version_id, diagnostic=diagnostic)
+    except DeckAnalysisError as error:
+        typer.echo(f"Deck analysis failed: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(
+        f"Deck analysis run #{result['run_id']} succeeded for Deck Version "
+        f"#{deck_version_id}: {result['metric_count']} metrics, "
+        f"{result['finding_count']} findings, {result['relationship_count']} relationships; "
+        f"engine {result['engine_version']}, Scryfall import #{result['import_id']}, "
+        f"Capability run #{result['capability_run_id']}."
+    )
+    for warning in result["warnings"]:
+        typer.echo(f"Warning: {warning}")
+
+
+@deck_app.command("inspect")
+def deck_inspect(
+    deck_version_id: Annotated[int, typer.Argument(help="Immutable Deck Version ID.")],
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+) -> None:
+    """Explain the current metrics, findings, relationships, and provenance."""
+    try:
+        result = inspect_deck(database, deck_version_id)
+    except DeckAnalysisError as error:
+        typer.echo(str(error), err=True)
+        raise typer.Exit(1) from error
+    run = result["run"]
+    typer.echo(f"{run['deck_name']} — {run['version_label']} (Deck Version #{deck_version_id})")
+    typer.echo(
+        f"Run #{run['id']}; engine {run['engine_version']} "
+        f"{run['engine_checksum'][:12]}...; Scryfall import #{run['import_id']} "
+        f"{run['import_checksum'][:12]}...; Capability run #{run['capability_run_id']} "
+        f"({run['ruleset_version']} {run['capability_checksum'][:12]}...)."
+    )
+    typer.echo("Metrics:")
+    for key, metric in result["metrics"].items():
+        typer.echo(f"- {key}: {metric['value']} [{metric['formula']}]")
+    typer.echo("Findings:")
+    if not result["findings"]:
+        typer.echo("- none")
+    for finding in result["findings"]:
+        typer.echo(
+            f"- {finding['severity']} {finding['rule_key']}: {finding['message']} "
+            f"(metric: {finding['metric_key']}; threshold: {finding['threshold_json']})"
+        )
+    typer.echo("Relationships:")
+    if not result["relationships"]:
+        typer.echo("- none")
+    for relationship in result["relationships"]:
+        typer.echo(
+            f"- {relationship['relationship_key']}: {relationship['left_fact']} → "
+            f"{relationship['right_fact']} [evidence: {relationship['evidence_json']}]"
+        )
+    for warning in result["warnings"]:
+        typer.echo(f"Warning: {warning}")
+
+
+@deck_app.command("status")
+def deck_status(
+    database: Annotated[Path, typer.Option("--database", "-d")] = Path("tmnt-design-studio.db"),
+) -> None:
+    """Report Deck Analysis engine identity and persisted run status."""
+    status = analysis_status(database)
+    typer.echo(
+        f"Deck Analysis engine: {status['engine_version']} ({status['engine_checksum'][:12]}...)"
+    )
+    run = status["latest_run"]
+    if run is None:
+        typer.echo("Latest run: none")
+    else:
+        typer.echo(
+            f"Latest run: #{run['id']} {run['status']}; Deck Version "
+            f"#{run['deck_version_id']}; Scryfall import #{run['import_id']}; "
+            f"Capability run #{run['capability_run_id']}"
+        )
+        if run["error"]:
+            typer.echo(f"Error: {run['error']}")
+    typer.echo(
+        f"Succeeded runs: {status['succeeded_runs']}; failed runs: "
+        f"{status['failed_runs']}; current Deck Versions: {status['current_deck_versions']}"
+    )
+    for warning in status["warnings"]:
+        typer.echo(f"Warning: {warning}")

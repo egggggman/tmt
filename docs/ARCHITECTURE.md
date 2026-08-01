@@ -93,7 +93,15 @@ Derives gameplay Capabilities from card facts, mechanics, and rules text. It use
 
 ### Deck Analysis Engine
 
-Builds a Deck Profile from a specific Deck Version. It evaluates curve, color balance, capability distribution, interaction density, theme coverage, synergy, and health.
+Reads one immutable Deck Version plus current imported Magic facts and effective Capabilities. Its
+metrics layer computes objective composition, curve, color, Capability, density, and redundancy
+facts. Its analysis layer emits deterministic observations and warnings from named thresholds.
+Every run identifies the deck checksum, Scryfall import, Capability run and checksum, and analysis
+engine version and checksum.
+
+This engine does not build a Deck Profile, judge theme or Character fit, recommend cards, predict
+matchups, or label a deck good or bad. Minimal relationships report only co-occurring objective
+facts. Failed runs preserve audit history while leaving the prior successful current result intact.
 
 ### Context-Aware Recommendation Engine
 

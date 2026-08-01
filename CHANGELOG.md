@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.5.0 — Deck Analysis Engine
+
+### Added
+
+- Deterministic Deck Metrics for composition, mana value, color requirements and sources, all 20
+  effective Capabilities, densities, ratios, duplicates, and objective redundancy.
+- Explainable findings with severity, metric, named rule, exact threshold, and minimal fact
+  relationships.
+- Transactional current results and durable successful/failed run history linked to Deck Version,
+  Scryfall import, Capability run, and versioned checksums.
+- Strict deck-size, Standard-legality, printing, copy-limit, and current-provenance validation plus
+  an explicitly warned diagnostic-size mode.
+- `tmnt deck analyze`, `tmnt deck inspect`, and `tmnt deck status` commands.
+
+### Boundaries
+
+- No TMNT or Design Intent judgment, recommendation, tuning, matchup prediction, deck-health grade,
+  or AI heuristic is present.
+- Mana-source reporting separates land production from nonland fixing/ramp and does not judge mana
+  base quality.
+
 ## v0.4.0 — Capability Engine
 
 ### Added

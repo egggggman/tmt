@@ -78,7 +78,16 @@ evidence remains visible. Adjustment overrides use a `[-1,1]` delta and clamp to
 - `deck_versions` — immutable snapshots with version labels, status, and notes.
 - `deck_cards` — card quantities in a Deck Version.
 
-A Deck Version must support validation for Standard legality, 60-card minimum main deck, and normal copy limits, with explicit handling for cards whose rules override copy limits.
+A Deck Version must support validation for Standard legality, exactly 60 main-deck cards, and normal copy limits, with explicit handling for cards whose rules override copy limits. Diagnostic analysis may inspect a different size while preserving a warning.
+
+Migration `012_deck_analysis_engine.sql` adds reproducible computed-analysis storage:
+
+- `deck_analysis_engine_versions` — immutable analysis version and checksum identities.
+- `deck_analysis_runs` — successful and failed attempts with complete source provenance.
+- `deck_analysis_metrics` — JSON values with formulas and evidence.
+- `deck_analysis_findings` — severity, named rule, source metric, message, and threshold.
+- `deck_analysis_relationships` — objective fact relationships and contributing card evidence.
+- `current_deck_analyses` — the latest successful result pointer per Deck Version.
 
 ### 6. Design knowledge
 
@@ -131,6 +140,7 @@ Version 1 may begin with session-level data and expand to individual game record
 9. `009_seed_foundation.sql`
 10. `010_import_audit.sql`
 11. `011_capability_engine.sql`
+12. `012_deck_analysis_engine.sql`
 
 ## Validation requirements
 

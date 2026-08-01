@@ -86,3 +86,17 @@ This document summarizes the product and architecture decisions accepted before 
     One active add, remove, or signed adjustment decision applies after derivation. Conflicts are
     invalid rather than implicit last-write-wins.
 
+## Deck Analysis Engine decisions
+
+24. **Separate metrics from interpretation**
+    Objective Deck Metrics are computed first. Analysis statements are a second, deterministic
+    layer whose named metric and exact threshold are persisted.
+
+25. **Strict, source-linked analysis**
+    Normal runs require exactly 60 Standard-legal cards, resolved printings, and a Capability run
+    for the latest successful Scryfall import. Diagnostic mode relaxes only deck size.
+
+26. **Neutral outputs only**
+    Mana availability, density, redundancy, and relationships are facts. Character judgment,
+    Design Intent scoring, recommendations, tuning, matchup prediction, and qualitative grades
+    belong to later systems.

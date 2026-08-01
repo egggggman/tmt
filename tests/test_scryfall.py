@@ -372,7 +372,7 @@ def test_cli_import_and_database_status(tmp_path):
     assert imported.exit_code == 0, imported.stdout
     assert "3 Oracle cards, 4 printings, 2 Standard-legal cards" in imported.stdout
     assert status.exit_code == 0, status.stdout
-    assert "Schema: 11/11 migrations applied" in status.stdout
+    assert "Schema: 12/12 migrations applied" in status.stdout
     assert "Latest Scryfall import: #1 succeeded" in status.stdout
 
 
@@ -383,7 +383,7 @@ def test_database_status_before_first_import(tmp_path):
     status = CliRunner().invoke(app, ["database", "status", "--database", str(database)])
 
     assert status.exit_code == 0, status.stdout
-    assert "Schema: 11/11 migrations applied" in status.stdout
+    assert "Schema: 12/12 migrations applied" in status.stdout
     assert "Latest Scryfall import: none" in status.stdout
 
 
