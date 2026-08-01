@@ -1,0 +1,27 @@
+[project]
+name = "tmnt-design-studio"
+version = "0.2.0"
+description = "Executable foundation for TMNT Design Studio"
+requires-python = ">=3.12"
+dependencies = ["typer>=0.12,<1"]
+
+[project.scripts]
+tmnt = "tmnt_design_studio.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=8,<9", "ruff>=0.8,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
