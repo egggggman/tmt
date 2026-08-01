@@ -22,4 +22,23 @@ CREATE TABLE deck_cards (
     quantity INTEGER NOT NULL CHECK (quantity > 0),
     PRIMARY KEY (deck_version_id, oracle_id, section)
 );
-
+CREATE TRIGGER preserve_deck_versions_update
+BEFORE UPDATE ON deck_versions
+BEGIN
+    SELECT RAISE(ABORT, 'Deck Versions are immutable');
+END;
+CREATE TRIGGER preserve_deck_versions_delete
+BEFORE DELETE ON deck_versions
+BEGIN
+    SELECT RAISE(ABORT, 'Deck Versions are immutable');
+END;
+CREATE TRIGGER preserve_deck_cards_update
+BEFORE UPDATE ON deck_cards
+BEGIN
+    SELECT RAISE(ABORT, 'Deck Version card snapshots are immutable');
+END;
+CREATE TRIGGER preserve_deck_cards_delete
+BEFORE DELETE ON deck_cards
+BEGIN
+    SELECT RAISE(ABORT, 'Deck Version card snapshots are immutable');
+END;
