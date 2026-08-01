@@ -1,6 +1,6 @@
 [project]
 name = "tmnt-design-studio"
-version = "0.3.0"
+version = "0.4.0"
 description = "Knowledge-driven deck design tools for TMNT Design Studio"
 requires-python = ">=3.12"
 dependencies = ["typer>=0.12,<1"]

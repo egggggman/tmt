@@ -44,6 +44,21 @@ Oracle identity and printing identity must not be conflated. Oracle-level design
 
 The effective Capability set is computed from derived results plus active overrides.
 
+Migration `011_capability_engine.sql` adds stable catalog identifiers, categories, and status;
+versioned rule keys, confidence, fields read, exclusions, and descriptions; plus these audit tables:
+
+- `capability_rule_sets` — immutable version/checksum identity for reproducible rules.
+- `capability_derivation_runs` — outcome, timestamps, counts, exact rule set, and source import.
+- `capability_evidence` — source fact, matched value, optional face, rule, run, and confidence.
+
+Overrides retain add/remove/adjust decisions separately with rationale, evidence context, signed
+confidence delta, active state, and timestamps. A partial unique index permits only one active
+decision for an Oracle card and Capability; inactive rows retain history.
+
+Confidence is evidence strength in `[0,1]`: 0 means no support and 1 means direct, unambiguous
+support. Initial rules use 0.75–0.98. Multiple rules combine by maximum, not addition, while all
+evidence remains visible. Adjustment overrides use a `[-1,1]` delta and clamp to `[0,1]`.
+
 ### 4. TMNT knowledge and intent
 
 - `characters` — TMNT characters, allies, villains, teams, or factions.
@@ -111,6 +126,8 @@ Version 1 may begin with session-level data and expand to individual game record
 7. `007_playtesting.sql`
 8. `008_indexes.sql`
 9. `009_seed_foundation.sql`
+10. `010_import_audit.sql`
+11. `011_capability_engine.sql`
 
 ## Validation requirements
 
