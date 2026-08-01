@@ -1,2 +1,1 @@
 """Immutable SewerGraph SQL migrations."""
-
