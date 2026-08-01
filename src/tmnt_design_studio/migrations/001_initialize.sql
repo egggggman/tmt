@@ -1,5 +1,6 @@
 CREATE TABLE schema_migrations (
     version TEXT PRIMARY KEY,
+    checksum TEXT NOT NULL CHECK (length(checksum) = 64),
     applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE metadata (
@@ -17,4 +18,3 @@ CREATE TABLE imports (
     started_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completed_at TEXT
 );
-
