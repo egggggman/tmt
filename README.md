@@ -3,7 +3,12 @@
 TMNT Design Studio is a knowledge-driven system for creating **Sewer Decks**: 60-card,
 Standard-legal Magic: The Gathering decks that express a TMNT Character through a clear Design
 Intent. It stores objective facts, computes reproducible intelligence, and preserves human decisions
-and history.
+and history. It exists to make deck-building reasoning inspectable, preserve the path from source
+material to design decisions, and help a community learn together.
+
+TMNT Design Studio is an independent, non-commercial fan project created to celebrate the TMNT and
+Magic communities. It is not affiliated with, endorsed by, or presented as authorized by any rights
+holder.
 
 > Store facts. Compute intelligence. Preserve decisions.
 
@@ -15,6 +20,14 @@ Implemented layers import Scryfall Magic Facts, derive Effective Capabilities wi
 compute deterministic Deck Metrics and Findings. Design Intent behavior begins in v0.6.0; Alignment,
 Recommendations, and expanded Playtesting follow. See the [Roadmap](docs/ROADMAP.md) for confirmed
 milestones and deliberately deferred work.
+
+Completed releases:
+
+- **v0.1.0** — Architecture Foundation
+- **v0.2.0** — Executable Foundation
+- **v0.3.0** — Scryfall Import Pipeline
+- **v0.4.0** — Capability Engine
+- **v0.5.0** — Deck Analysis Engine
 
 ## Core hierarchy
 
@@ -64,7 +77,16 @@ The [World Guide](docs/WORLD_GUIDE.md) defines the living underground community.
 playful learning section. These layers inform, connect, celebrate, and preserve community history;
 they never change Magic Facts, engine behavior, or analytical results.
 
-## Commands
+## Quick start
+
+Install the project with [uv](https://docs.astral.sh/uv/), then initialize or migrate SewerGraph:
+
+```console
+uv sync
+uv run tmnt init tmnt-design-studio.db
+```
+
+The commands below assume the environment is active; prefix them with `uv run` when appropriate.
 
 Initialize or migrate SewerGraph:
 
@@ -97,4 +119,12 @@ tmnt deck status --database tmnt-design-studio.db
 
 See [Capabilities](docs/CAPABILITIES.md) and [Deck Analysis](docs/DECK_ANALYSIS.md) for complete
 semantics, Provenance, validation, and limitations.
+
+## Contribution philosophy
+
+Contributions should be small in responsibility, evidence-backed, explainable, and respectful of
+source material and one another. Start with [Contributing](CONTRIBUTING.md), use the
+[Glossary](docs/GLOSSARY.md), preserve architectural boundaries, and propose hard-to-reverse changes
+through an ADR or RFC before implementation. Community before ego; always leave room for the Rule of
+Joy.
 
