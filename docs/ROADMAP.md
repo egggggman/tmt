@@ -68,9 +68,12 @@ and use real play Evidence to challenge assumptions without rewriting history.
 
 ### v1.0.0 â€” First fully explainable Character Sewer Deck
 
-Deliver one complete 60-card, Standard-legal Character Sewer Deck with an inspectable path through
-Magic Facts, Capabilities, Deck Metrics, Design Intent, Alignment, Recommendations, decisions, and
-playtesting. Publish its development story for the community.
+The system can design, analyze, align, recommend, version, and explain one complete Standard-legal
+Leonardo Sewer Deck from end to end.
+
+That means one complete 60-card Deck has an inspectable path through Magic Facts, Capabilities, Deck
+Metrics, Design Intent, Alignment, Recommendations, decisions, and Playtesting, with its development
+story preserved for the community.
 
 ## Beyond v1
 
