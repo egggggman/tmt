@@ -7,8 +7,9 @@ living underground community. Its purpose is to inform, connect, celebrate, and 
 history. The publication is community-first, not hero-first and not project marketing disguised as
 news.
 
-The motto **â€œFor Mutants. By Mutants.â€** may be used as publication language. April Oâ€™Neil serves as
-the **Surface Correspondent**â€”an important reporting role, not editor, owner, or central figure.
+April Oâ€™Neil serves as the **Surface Correspondent**â€”an important reporting role, not editor, owner,
+or central figure. No publication motto is canonized here because the proposed wording could not be
+verified in existing repository material; adopting one requires owner confirmation.
 
 ## Editorial standard
 
@@ -86,4 +87,3 @@ relationships reward attentive readers and make history feel lived rather than r
 The Press may translate technical or design work through a Surface Report or milestone story, but it
 does not alter analytical behavior or supply hidden evidence. See the [World Guide](WORLD_GUIDE.md),
 [Architecture](ARCHITECTURE.md), and [Project Constitution](PROJECT_CONSTITUTION.md).
-
