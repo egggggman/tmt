@@ -74,6 +74,41 @@ iteration through a new immutable Deck Version
 Arrows indicate allowed reasoning dependencies, not automatic execution. A later layer reads the
 outputs and Provenance of earlier layers; it does not rewrite them.
 
+### Layer responsibilities
+
+| Layer | Sole responsibility |
+|---|---|
+| Scryfall / Imported Magic Facts | Supply attributable objective card data. |
+| Capability Engine | Derive what an Oracle Card does from explicit rules and Evidence. |
+| Deck Metrics | Measure one immutable Deck Version reproducibly. |
+| Deck Analysis | Interpret metrics as Findings through named deterministic rules. |
+| Design Intent | Define the human-authored target for one Character interpretation. |
+| Alignment | Compare Evidence from the deck with that target. |
+| Recommendations | Suggest contextual changes with reasons, constraints, and tradeoffs. |
+| Playtesting | Record observed outcomes for a specific Deck Version. |
+| Iteration | Preserve a decision by creating a new immutable Deck Version. |
+
+No layer may silently perform another layer's responsibility. In particular, a metric is not a
+Finding, a Finding is not Alignment, and Alignment is not a Recommendation.
+
+## Provenance model
+
+Every computed result identifies the exact upstream identities that can change its meaning: source
+import, immutable Deck Version where applicable, Rule Set or Engine Version, checksums, and Audit Run.
+Evidence points to the specific source field, relationship, threshold, observation, or explicit
+decision that supports the result. Current materialized results are replaceable; the lineage and
+historical decisions needed to explain them are preserved.
+
+## Objective and subjective separation
+
+Imported Magic Facts, Raw Capabilities, Effective Capabilities, and Deck Metrics remain objective
+within their documented rules. Findings are deterministic interpretations of metrics. Design Intent,
+Alignment, Recommendations, Overrides, and accepted tradeoffs introduce explicit human context or
+judgment and must never be disguised as universal truth.
+
+The community/world layer is presentation and participation. It can communicate any layer but cannot
+supply hidden engine inputs, rewrite Provenance, or change analytical output.
+
 ## Implemented layers
 
 ### SewerGraph and migrations â€” v0.2.0
@@ -162,3 +197,12 @@ The world and publication layers can explain analytical work but cannot affect e
 - CLI before graphical UI.
 - Leonardo as the first end-to-end reference Character.
 
+
+## Future expansion guidance
+
+Add a new layer only when its responsibility cannot be expressed honestly by an existing layer.
+Define its inputs, outputs, Provenance, deterministic or human-authored status, failure behavior, and
+inspection path before implementation. Prefer one bounded reference case before generalization.
+Preserve released migrations and historical Engine Versions, and introduce ADRs or RFCs for
+hard-to-reverse boundary changes. Additional formats, interfaces, automation, and world experiences
+must extend these invariants rather than bypass them.
