@@ -6,6 +6,9 @@ These principles guide how contributors make product, engineering, editorial, an
 decisions. They translate the values in the [Project Constitution](PROJECT_CONSTITUTION.md) into
 habits of judgment without prescribing a specific implementation.
 
+Related governance: [Project Constitution](PROJECT_CONSTITUTION.md), [Glossary](GLOSSARY.md), and
+[Roadmap](ROADMAP.md).
+
 ## Simplicity over cleverness
 
 Prefer the smallest idea that can be understood, tested, and maintained. Cleverness is useful only

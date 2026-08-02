@@ -7,6 +7,9 @@ identity as it grows. It governs direction and judgment; implementation details 
 [Architecture](ARCHITECTURE.md), [Database](DATABASE.md), and accepted
 [Decisions](DECISIONS.md).
 
+Related governance: [Design Principles](DESIGN_PRINCIPLES.md), [Glossary](GLOSSARY.md), and
+[Roadmap](ROADMAP.md).
+
 ## Mission
 
 TMNT Design Studio exists to explore how a 60-card, Standard-legal Magic deck can express a specific

@@ -9,7 +9,8 @@ SewerGraph is the SQLite knowledge database for TMNT Design Studio. It stores du
 1. Imported Magic facts remain separate from TMNT interpretation.
 2. Derived Capabilities are reproducible from explicit rules.
 3. Designer overrides are rare, documented, and auditable.
-4. Recommendations, Deck Profiles, theme coverage, and deck-health scores are computed rather than canonical stored truth.
+4. Deck Metrics, Findings, Alignment, and Recommendations are computed rather than canonical source
+   facts; persisted computed results require complete version and provenance identity.
 5. Deck Versions are immutable historical snapshots.
 6. Every table has one clear responsibility.
 7. Foreign keys are always enabled.
@@ -117,15 +118,10 @@ Version 1 may begin with session-level data and expand to individual game record
 
 ### Computed
 
-- Deck Profile
-- Mana curve and color balance
-- Capability coverage
-- Theme coverage
-- Identity drift
-- Deck health
-- Candidate rankings
-- Recommendation score, confidence, and explanation
-- Dossiers
+- Deck Metrics and Findings, which may be persisted with complete reproducibility provenance
+- Alignment evidence and Design Intent coverage (future)
+- Candidate rankings and Recommendation explanations (future)
+- Generated dossiers and other presentation views
 
 ## Planned migration sequence
 

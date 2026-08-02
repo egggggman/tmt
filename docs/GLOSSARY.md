@@ -5,6 +5,9 @@
 This is the canonical vocabulary for TMNT Design Studio. Definitions here state what a term means
 across the project; linked specifications provide implementation detail.
 
+Related governance: [Project Constitution](PROJECT_CONSTITUTION.md),
+[Design Principles](DESIGN_PRINCIPLES.md), and [Roadmap](ROADMAP.md).
+
 ### Alignment
 
 An explainable assessment of how evidence from a card, relationship, or Deck Version supports a

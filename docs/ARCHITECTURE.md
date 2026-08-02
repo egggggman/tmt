@@ -4,6 +4,11 @@
 
 TMNT Design Studio is a knowledge-driven deck design system. It combines objective Magic card data, curated TMNT design intent, derived card capabilities, deck analysis, explainable recommendations, and preserved design history.
 
+The [Project Constitution](PROJECT_CONSTITUTION.md) explains why the system exists;
+[Design Principles](DESIGN_PRINCIPLES.md) guide tradeoffs; the [Glossary](GLOSSARY.md) owns shared
+definitions; and the [Roadmap](ROADMAP.md) describes dependency order. The surrounding living world
+is governed by the [World Guide](WORLD_GUIDE.md) and does not alter analytical results.
+
 ## Golden rule
 
 > Store facts. Compute intelligence. Preserve decisions.
@@ -47,13 +52,10 @@ Results that can be recreated from facts and intent.
 
 Examples:
 
-- Deck Profile
-- Mana curve
-- Capability balance
-- Theme coverage
-- Identity drift
-- Deck health
-- Recommendation score
+- Deck Metrics
+- Findings
+- Alignment evidence (future)
+- Recommendation results (future)
 
 Analysis is computed. Cached results may be stored only when needed for performance and must remain reproducible.
 
@@ -132,11 +134,13 @@ Effective Card Capabilities
   ↓
 Deck Analysis Engine
   ↓
-Deck Profile
+Deck Metrics and Findings
   ↓
-Recommendation Engine
+Design Intent and Alignment (future)
   ↓
-Explainable Recommendations
+Recommendation Engine (future)
+  ↓
+Explainable Recommendations (future)
 ```
 
 ## Component boundaries
@@ -146,6 +150,18 @@ Explainable Recommendations
 - **CLI/UI** presents results and gathers designer input.
 - **Encyclopedia** publishes durable reference material and dossiers.
 - **Underground Press** publishes design journals, card spotlights, development reports, and project updates.
+
+## Software and World boundary
+
+Software owns imported Facts, deterministic engines, persisted provenance, auditable decisions, and
+inspection interfaces. World material owns stories, community traditions, editorial framing, and
+participation. The Underground Press may explain or celebrate a Capability, Deck Metric, Finding, or
+decision, but its narrative cannot change that result or become hidden engine input.
+
+Presentation links back to evidence and canonical documents. Official source canon, objective project
+Facts, project interpretation, editorial opinion, humor, and project-world continuity remain
+distinguishable. See the [World Guide](WORLD_GUIDE.md) and
+[Underground Press Style Guide](UNDERGROUND_PRESS_STYLE_GUIDE.md).
 
 ## Version 1 constraints
 
