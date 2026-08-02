@@ -10,6 +10,11 @@ Current release: **v0.5.0 â€” Deck Analysis Engine**.
 - v0.4.0 deterministic Capability Engine, Evidence, Confidence, Overrides, and audit runs.
 - v0.5.0 objective Deck Metrics and deterministic Deck Analysis Findings.
 
+## Current focus
+
+- Consolidate governance, terminology, onboarding, architecture, roadmap, and world documentation.
+- Prepare the Design Intent RFC without implementing v0.6.0 behavior.
+
 ## Next architectural layer
 
 **v0.6.0 â€” Design Intent** will define a rigorous, versionable human interpretation of a Character.
