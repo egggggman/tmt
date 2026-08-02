@@ -1,46 +1,20 @@
 # Project State
 
-Version: **v0.1.0 — Architecture and Database Foundation**
+Current release: **v0.5.0 â€” Deck Analysis Engine**.
 
-## Current status
+## Implemented
 
-- Repository online and structurally flattened.
-- GitHub confirmed as the canonical project home.
-- Product scope frozen to Standard-legal Sewer Decks for Version 1.
-- Canonical hierarchy accepted: Character → Design Intent → Sewer Deck → Deck Version.
-- Sewer Deck terminology accepted; these are not Commander decks.
-- Design goal accepted: balance character fidelity with competitive Standard strength.
-- Mechanics, Capabilities, and Themes separated into distinct concepts.
-- Capability Engine approach accepted: rules-based derivation plus documented designer overrides.
-- Context-aware recommendation model accepted.
-- Python, SQLite, uv, migrations, tests, and CLI selected for implementation.
-- Leonardo selected as the first reference implementation.
-- Encyclopedia and Underground Press retained as components of the broader Studio ecosystem.
+- v0.1.0 architecture and database foundation.
+- v0.2.0 executable Python, SQLite migration, CLI, test, lint, and CI foundation.
+- v0.3.0 transactional Scryfall Magic Fact import and import audit.
+- v0.4.0 deterministic Capability Engine, Evidence, Confidence, Overrides, and audit runs.
+- v0.5.0 objective Deck Metrics and deterministic Deck Analysis Findings.
 
-## Foundation work in progress
+## Next architectural layer
 
-- Synchronize repository documents with the accepted architecture.
-- Add the canonical architecture and database specifications.
-- Add architectural decision records.
-- Add the Python project scaffold.
-- Implement executable database migrations.
-- Validate a fresh database build.
+**v0.6.0 â€” Design Intent** will define a rigorous, versionable human interpretation of a Character.
+It must not alter imported Magic Facts or current analytical behavior.
 
-## Next executable milestone
+See the [Roadmap](docs/ROADMAP.md) for direction and [Architecture](docs/ARCHITECTURE.md) for exact
+implementation status and boundaries.
 
-```bash
-tmnt init
-```
-
-The command must create a valid SewerGraph database, apply all migrations exactly once, enable foreign keys, and verify the resulting schema.
-
-## Next product milestone
-
-Complete the Leonardo reference implementation:
-
-- Character record
-- First Design Intent
-- Theme and capability priorities
-- First complete Standard-legal Sewer Deck
-- Context-aware recommendation support
-- Initial playtest evidence
