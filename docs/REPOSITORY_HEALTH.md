@@ -21,7 +21,9 @@ The highest-severity applicable outcome governs the review.
 - Canonical documents are identifiable and cross-linked.
 - Current behavior and release status are accurate.
 - Historical material is labeled; duplicate sources do not compete.
-- Relative links resolve and headings remain readable.
+- Relative links resolve, every referenced file exists, and headings remain readable.
+- Stale TODOs, placeholders, missing-file references, outdated diagrams, and duplicate headings are
+  either corrected or recorded as findings.
 
 ### Terminology
 
@@ -65,6 +67,12 @@ The highest-severity applicable outcome governs the review.
 - In-universe content follows the [World Guide](WORLD_GUIDE.md).
 - The Underground Press follows its [publication guide](UNDERGROUND_PRESS.md).
 - Software stays invisible in-universe and narrative never becomes analytical Evidence.
+
+### User experience
+
+- CLI and documentation use actionable language and expose failure context.
+- Navigation, inspection output, and world presentation do not obscure source Evidence or current
+  implementation status.
 
 ### User onboarding
 
