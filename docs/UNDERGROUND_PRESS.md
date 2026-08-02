@@ -1,23 +1,28 @@
 # The Underground Press
 
-## Mission
+## Purpose and mission
 
-The Underground Press is an in-universe community newspaper: sincere journalism created for the
-living underground community. Its purpose is to inform, connect, celebrate, and preserve community
-history. The publication is community-first, not hero-first and not project marketing disguised as
-news.
+This document governs how The Underground Press reports. The [World Guide](WORLD_GUIDE.md) owns
+world canon, the section taxonomy, edition classifications, milestone publication policy, Puzzle
+Dojo formats, and future world expansion.
 
-**Tagline:** *For Mutants. By Mutants.*
+The Underground Press is sincere journalism created for the living underground community. Its
+mission is to **inform, connect, celebrate, and preserve community history**. It is community-first,
+not hero-first and not project marketing disguised as news.
 
-April O'Neil serves as the **Surface Correspondent**—an important reporting role, not editor-in-chief,
+> **For Mutants. By Mutants.**
+
+April O'Neil is the **Surface Correspondent**—an important reporting role, not editor-in-chief,
 owner, or the sole face of the paper. The publication belongs to the community.
 
-## Editorial standard
+## Editorial philosophy
+
+Sincere journalism comes first, community life second, with quiet humor around the edges.
 
 - **Truth before excitement.** Verify before publishing and distinguish fact, report, rumor, and
   opinion.
 - **Community first.** Ask who benefits, who bears risk, and whose voice is missing.
-- **Hope without naÃ¯vetÃ©.** Make room for courage and progress without hiding danger or uncertainty.
+- **Hope without naivete.** Make room for courage and progress without hiding danger or uncertainty.
 - **Organic humor.** Let humor arise from people and situations; never use it to trivialize harm.
 - **Timeless language.** Prefer clear, durable headlines over clickbait, hype, or disposable trends.
 
@@ -33,63 +38,28 @@ owner, or the sole face of the paper. The publication belongs to the community.
   could endanger the underground community.
 - No story is worth avoidable harm.
 
-The canonical section taxonomy, edition classifications, milestone triggers, and world constraints live
-in the [World Guide](WORLD_GUIDE.md). This guide supplies the reporting practice used within those
-boundaries.
+## Publication structure
 
-## Permanent sections
+Use the permanent and conditional sections defined in the
+[World Guide](WORLD_GUIDE.md#the-underground-press). Puzzle Dojo follows the formats and
+curiosity-first standard defined there. Editions are published only for the qualifying events in
+that guide and use its exact classifications.
 
-- Front Page
-- From the News Desk
-- City Desk
-- Surface Report
-- Public Safety
-- Community Board
-- Arts & Culture
-- Letters to the Editor
-- Classifieds
-- Weather
-- Community Calendar
-- Puzzle Dojo
-- Back Page
+In-world copy reports what the community experiences and why it matters. It never mentions GitHub,
+commits, pull requests, databases, software releases, AI, or being fictional.
 
-## Occasional and special sections
-
-Investigation, Editorial, Hero Spotlight, and Science & Technology appear when reporting warrants
-them. Sports, dining, and history are occasional features rather than mandatory departments.
-
-## Puzzle Dojo
-
-Puzzle Dojo may include TMNT-themed crosswords, Sudoku, ciphers, mazes, logic puzzles, word searches,
-and hidden-object or recurring hidden-pizza elements. Games should reward attention, teach something,
-advance community texture, or deepen the player experience. They are never filler.
-
-## Milestone publication policy
-
-The Press is not regularly scheduled. Publish only when the community has something worth reporting
-or celebrating: a major release, design milestone, community milestone, meaningful special edition,
-or urgent Extra. Routine bug fixes, refactors, dependency updates, and minor documentation changes do
-not receive editions.
-
-Every edition uses the canonical **Community Edition**, **Milestone Edition**, **Special Edition**, or
-**Extra Edition** classification and records:
-
-- issue number;
-- title;
-- publication date;
-- edition type; and
-- milestone or event reference.
-
-Preserve every issue as community history.
-
-## Living story principle
+## Living story practice
 
 The Underground remembers. Small stories may recur over many issues; not every thread requires a
 planned conclusion. Callbacks, corrections, changed businesses, repeated traditions, and evolving
 relationships reward attentive readers and make history feel lived rather than reset.
 
+Preserve each edition's issue number, title, publication date, classification, and triggering
+community event. Corrections add to that history rather than silently replacing it.
+
 ## Relationship to TMNT Design Studio
 
-The Press may translate technical or design work through a Surface Report or milestone story, but it
-does not alter analytical behavior or supply hidden evidence. See the [World Guide](WORLD_GUIDE.md),
-[Architecture](ARCHITECTURE.md), and [Project Constitution](PROJECT_CONSTITUTION.md).
+The Press may translate a milestone into a Surface Report or community story, but it does not alter
+analytical behavior, supply hidden Evidence, or redefine canonical technical terms. Technical
+boundaries remain in [Architecture](ARCHITECTURE.md); project values remain in the
+[Project Constitution](PROJECT_CONSTITUTION.md).
