@@ -2,7 +2,9 @@
 
 ## Purpose
 
-TMNT Design Studio is a knowledge-driven deck design system. It combines objective Magic card data, curated TMNT design intent, derived card capabilities, deck analysis, explainable recommendations, and preserved design history.
+TMNT Design Studio is a layered, knowledge-driven system for designing explainable Character Sewer
+Decks. This document defines technical responsibilities, dependency order, implementation status,
+and invariants. Project values live in the [Constitution](PROJECT_CONSTITUTION.md).
 
 ## Golden rule
 
@@ -12,169 +14,151 @@ TMNT Design Studio is a knowledge-driven deck design system. It combines objecti
 
 ### Facts
 
-Objective information that can be imported or directly recorded.
+Authoritative imports or direct observations: Oracle text, types, Standard legality, card quantities,
+and recorded play outcomes. Facts are stored with Provenance.
 
-Examples:
+### Intent and decisions
 
-- Card name
-- Mana cost
-- Oracle text
-- Types and keywords
-- Standard legality
-- Deck card quantities
-- Playtest date and result
+Human-authored direction such as Character, Design Intent, priorities, experience goals, accepted
+weaknesses, Override rationale, and design decisions. Intent is stored and meaningfully versioned.
 
-Facts are stored.
+### Computed intelligence
 
-### Intent
-
-Human-authored design direction.
-
-Examples:
-
-- Character
-- Design Intent manifesto
-- Theme priorities
-- Desired capabilities
-- Experience goals
-- Accepted weaknesses
-
-Intent is stored and versioned when it changes meaningfully.
-
-### Analysis
-
-Results that can be recreated from facts and intent.
-
-Examples:
-
-- Deck Profile
-- Mana curve
-- Capability balance
-- Theme coverage
-- Identity drift
-- Deck health
-- Recommendation score
-
-Analysis is computed. Cached results may be stored only when needed for performance and must remain reproducible.
+Reproducible results such as Effective Capabilities, Deck Metrics, Findings, future Alignment, and
+future Recommendations. Current results may be persisted for inspection and performance only with
+their exact inputs, rules, versions, and audit history.
 
 ### Presentation
 
-Human-readable views over facts, intent, and analysis.
-
-Examples:
-
-- Card Dossier
-- Character Dossier
-- Deck Dossier
-- Underground Press article
-
-Presentation is generated rather than treated as canonical data.
+Human-readable views such as dossiers, reports, and Underground Press articles. Presentation is
+generated or authored communication; it is never a hidden analytical input.
 
 ## Domain hierarchy
 
 ```text
 Character
-└── Design Intent
-    └── Sewer Deck
-        └── Deck Version
+â””â”€â”€ Design Intent
+    â””â”€â”€ Sewer Deck
+        â””â”€â”€ Deck Version
 ```
 
-A Character may own multiple Design Intents directly. This supports multiple authentic playstyles for multifaceted characters without overwriting prior work.
+A Character may own multiple Design Intents. Each represents an authentic but distinct gameplay
+interpretation without overwriting the others.
 
-## Engines
-
-### Scryfall Importer
-
-Imports objective Magic facts and records import history. It does not make TMNT judgments.
-
-### Capability Engine
-
-Derives gameplay Capabilities from card facts, mechanics, and rules text. It uses explicit, testable rules and supports documented designer overrides.
-
-### Deck Analysis Engine
-
-Reads one immutable Deck Version plus current imported Magic facts and effective Capabilities. Its
-metrics layer computes objective composition, curve, color, Capability, density, and redundancy
-facts. Its analysis layer emits deterministic observations and warnings from named thresholds.
-Every run identifies the deck checksum, Scryfall import, Capability run and checksum, and analysis
-engine version and checksum.
-
-This engine does not build a Deck Profile, judge theme or Character fit, recommend cards, predict
-matchups, or label a deck good or bad. Minimal relationships report only co-occurring objective
-facts. Failed runs preserve audit history while leaving the prior successful current result intact.
-
-### Context-Aware Recommendation Engine
-
-Ranks candidate cards for a specific Design Intent and current deck state. It considers:
-
-- Standard legality
-- Character and Design Intent fit
-- Current capability gaps
-- Mana curve needs
-- Theme coverage
-- Synergy and redundancy
-- Competitive value
-- Playtest evidence
-- Designer overrides
-
-Every recommendation must expose its evidence.
-
-## System flow
+## Master reasoning flow
 
 ```text
 Scryfall
-  ↓
-Magic Facts
-  ↓
-Capability Engine
-  ↓
-Effective Card Capabilities
-  ↓
-Deck Analysis Engine
-  ↓
-Deck Profile
-  ↓
-Recommendation Engine
-  ↓
-Explainable Recommendations
+  â†“
+objective Magic Facts                         [implemented: v0.3.0]
+  â†“
+Capability Engine                             [implemented: v0.4.0]
+  â†“
+Effective Capabilities + Evidence
+  â†“
+Deck Metrics
+  â†“
+Deck Analysis + Findings                      [implemented: v0.5.0]
+  â†“
+Design Intent                                 [planned: v0.6.0]
+  â†“
+Alignment                                     [planned: v0.7.0]
+  â†“
+Recommendations                               [planned: v0.8.0]
+  â†“
+Playtesting                                   [planned expansion: v0.9.0]
+  â†“
+iteration through a new immutable Deck Version
 ```
+
+Arrows indicate allowed reasoning dependencies, not automatic execution. A later layer reads the
+outputs and Provenance of earlier layers; it does not rewrite them.
+
+## Implemented layers
+
+### SewerGraph and migrations â€” v0.2.0
+
+SQLite stores durable facts, intent foundations, decisions, overrides, immutable Deck Versions,
+Provenance, and run history. Migrations are ordered, checksummed, transactional, and immutable after
+release. Foreign keys are enabled and verified by the application connection layer. See
+[Database](DATABASE.md).
+
+### Scryfall Importer â€” v0.3.0
+
+Imports objective Oracle Cards, Printings, ordered Card Faces, Standard legality, keywords, types,
+and subtypes. Import attempts retain source metadata, checksums, counts, warnings, errors, timing,
+and outcome. Failed fact transactions do not expose partial changes.
+
+### Capability Engine â€” v0.4.0
+
+The Oracle Card is the analysis unit. Card Faces and normalized fields contribute attributed
+Evidence. Narrow, versioned rules read named objective fields; each match records source fact,
+matched value, face, rule, Confidence, Rule Set, run, and source import.
+
+Derivation atomically replaces the current computed layer while preserving run history. Effective
+Capabilities resolve derived rules plus one active, documented add/remove/adjust Override. Conflicts
+are invalid rather than last-write-wins. Full semantics live in [Capabilities](CAPABILITIES.md).
+
+### Deck Analysis Engine â€” v0.5.0
+
+Reads one immutable Deck Version, current Magic Facts, and Effective Capabilities. It computes
+objective composition, curve, color, Capability, density, ratio, duplicate, and redundancy Deck
+Metrics, then emits deterministic Findings from named thresholds.
+
+Every run identifies the deck checksum, Scryfall import, Capability run and checksum, Engine Version,
+and checksum. It does not judge Character fit, build a profile, recommend cards, predict matchups, or
+label a deck good or bad. See [Deck Analysis](DECK_ANALYSIS.md).
+
+## Planned layers
+
+### Design Intent â€” v0.6.0
+
+Preserves a versionable human interpretation of a Character. It cannot alter imported Magic Facts,
+Capability Evidence, or Deck Metrics.
+
+### Alignment â€” v0.7.0
+
+Interprets how evidence supports a specific Design Intent. It is contextual and explainable, never a
+universal card-quality score.
+
+### Recommendations â€” v0.8.0
+
+Proposes contextual changes using a Deck Version, Design Intent, Alignment, objective needs, and
+constraints. Every Recommendation must cite Evidence, rules, tradeoffs, and versions.
+
+### Playtesting and iteration â€” v0.9.0
+
+Connects structured sessions and observations to immutable Deck Versions. Learning informs later
+decisions and new versions without rewriting prior evidence.
 
 ## Component boundaries
 
-- **SewerGraph** stores durable facts, intent, decisions, overrides, decks, versions, and playtest evidence.
-- **Engines** compute analysis and recommendations.
-- **CLI/UI** presents results and gathers designer input.
-- **Encyclopedia** publishes durable reference material and dossiers.
-- **Underground Press** publishes design journals, card spotlights, development reports, and project updates.
+- **SewerGraph** stores durable state and auditable computed run outputs.
+- **Engines** derive one bounded class of reproducible intelligence.
+- **CLI/UI** coordinates services, presents results, and gathers explicit human input.
+- **TMNT Design Encyclopedia** publishes durable research and editorial outputs.
+- **The Underground Press** reports, connects, celebrates, and preserves community history.
+
+The world and publication layers can explain analytical work but cannot affect engine results.
+
+## Architectural invariants
+
+1. Imported facts remain objective and retain source Provenance.
+2. Computed intelligence is reproducible from exact versioned inputs and rules.
+3. Human intent, Overrides, rationale, and decisions are explicit and preserved.
+4. Layers do not bypass one another or silently rewrite upstream meaning.
+5. Recommendations must cite Evidence and expose constraints and tradeoffs.
+6. Design Intent cannot alter imported Magic Facts.
+7. Community and in-universe content cannot affect analytical results.
+8. Presentation never becomes canonical truth merely because it is persuasive.
+9. Failed runs preserve audit history without replacing the prior successful current result.
+10. Planned behavior is labeled planned until implementation and release evidence exist.
 
 ## Version 1 constraints
 
 - Standard only.
-- 60-card Sewer Decks.
-- Python implementation.
-- SQLite database.
+- Exactly 60 main-deck cards for strict analysis.
+- Python and SQLite.
 - CLI before graphical UI.
-- Leonardo as the first reference implementation.
+- Leonardo as the first end-to-end reference Character.
 
-
-## Capability Engine execution
-
-The Oracle card is the analysis unit. Ordered card faces and normalized keywords may contribute
-attributed evidence, but never become independent capability owners. Narrow, versioned rules read
-named objective fields. Every match records its source fact, matched value, face number when
-applicable, rule identity and version, confidence, derivation run, and Scryfall import.
-
-Derivation replaces the current computed and evidence layers inside one immediate transaction. A
-failure rolls back those changes and records a failed run, leaving the prior successful results
-visible. Identical facts and the same rule-set checksum produce identical results. The engine contains
-no Character, Design Intent, Theme, Deck Profile, recommendation, ranking, or deck-analysis logic.
-
-Effective capabilities resolve at read time. Matching derived rules combine by maximum confidence
-while retaining every evidence row. One active override may then add, remove, or adjust a capability.
-Remove suppresses without deleting evidence; add supplies override confidence; adjust applies a
-signed delta clamped to 0–1. Conflicting active overrides are rejected, never last-write-wins.
-
-The initial `2026.08.1` rule set strips parenthetical reminder text, evaluates face text instead of
-duplicated card-level text for multiface cards, excludes controller-owned removal targets and
-opponent-only benefits, and treats temporary mana as fixing rather than permanent ramp. The full
-catalog and rule-quality controls are specified in `docs/CAPABILITIES.md`.
