@@ -3,8 +3,8 @@
 ## Vision
 
 TMNT Design Studio will deliver one fully explainable Character Sewer Deck whose lineage can be
-followed from objective Magic Facts through Capabilities, Deck Metrics, Design Intent, Alignment,
-Recommendations, Playtesting, iteration, and preserved decisions. The same foundation may support
+followed from objective Magic Facts through Capabilities, Deck Metrics, Deck Analysis, Design Intent,
+Alignment, Recommendations, Playtesting, iteration, and preserved decisions. The same foundation may support
 future decks, research, education, and community publishing without becoming opaque.
 
 ## Guiding philosophy
