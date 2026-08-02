@@ -45,6 +45,12 @@ EXPECTED_TABLES = {
     "capability_rule_sets",
     "capability_derivation_runs",
     "capability_evidence",
+    "deck_analysis_engine_versions",
+    "deck_analysis_runs",
+    "deck_analysis_metrics",
+    "deck_analysis_findings",
+    "deck_analysis_relationships",
+    "current_deck_analyses",
 }
 
 
@@ -90,7 +96,7 @@ def test_cli_init_is_idempotent(tmp_path):
     second = runner.invoke(app, ["init", str(path)])
 
     assert first.exit_code == 0
-    assert "11 migration(s) applied" in first.stdout
+    assert "12 migration(s) applied" in first.stdout
     assert second.exit_code == 0
     assert "already current" in second.stdout
     assert path.is_file()

@@ -18,7 +18,7 @@ from typing import Any
 from tmnt_design_studio.database import connect, initialize_database
 
 BULK_DATA_URL = "https://api.scryfall.com/bulk-data"
-USER_AGENT = "TMNTDesignStudio/0.4.0 (+https://github.com/egggggman/tmt)"
+USER_AGENT = "TMNTDesignStudio/0.5.0 (+https://github.com/egggggman/tmt)"
 REQUEST_HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 LEGALITY_VALUES = {"legal", "not_legal", "restricted", "banned"}
 CARD_TYPES = {
