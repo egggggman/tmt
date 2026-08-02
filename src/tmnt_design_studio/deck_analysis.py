@@ -394,135 +394,360 @@ def compute_metrics(
         ),
         "capability_totals": Metric(
             capability_totals,
-            "per Capabilió{h‘éì¶»§q«^u[žH[\˜XÝ[ÛˆØ\Xš[]HÈ›Û›[™ØÛÝ[‹ˆ×Kˆ
-Kˆ™X]Ù[œÚ]HŽˆY]šXÊˆ™X]ØÛÜY\ÈÈ›Û›[™ØÛÝ[Yˆ›Û›[™ØÛÝ[[ÙHŒˆ››Û›[™Ü™X]\™K[™\ÝØ[Ù\‹˜]KÜˆš[š\Ú\ˆÛÜY\ÈÈ›Û›[™ØÛÝ[‹ˆ×Kˆ
-Kˆ™š[š\Ú\—Ù[œÚ]HŽˆY]šXÊˆš[š\Ú\—ØÛÜY\ÈÈ›Û›[™ØÛÝ[Yˆ›Û›[™ØÛÝ[[ÙHŒˆ˜ÛÜY\ÈÚ]š[š\Ú\ˆØ\Xš[]HÈ›Û›[™ØÛÝ[‹ˆ×Kˆ
-Kˆ›[™Ü˜][ÈŽˆY]šXÊˆ[™ØÛÝ[ÈÝ[YˆÝ[[ÙHŒ›[™ØÛÝ[ÈÝ[ØØ\™ØÛÝ[‹×Bˆ
-Kˆ˜Ü™X]\™WÜ˜][ÈŽˆY]šXÊˆ\WØÛÝ[ÖÈ˜Ü™X]\™H—HÈÝ[YˆÝ[[ÙHŒˆ˜Ü™X]\™HÛÜHÛÝ[ÈÝ[ØØ\™ØÛÝ[‹ˆ×Kˆ
-Kˆ™\XØ]WÙÜ›Ý\ÈŽˆY]šXÊˆ\XØ]WÙÜ›Ý\Ë›XZ[‹YXÚÈÜ˜XÛHØ\™ÈÚ]]X[]HˆH‹\XØ]WÙÜ›Ý\Âˆ
-Kˆœ™Y[™[˜ÞWÙÜ›Ý\ÈŽˆY]šXÊˆ™Y[™[˜ÞKØ\Xš[]Y\È™\™\Ù[YžH[Ü™H[ˆÛ™H[š\]YHÜ˜XÛHØ\™‹™Y[™[˜ÞBˆ
-KˆBˆ™]\›ˆY]šXÜËØ\™ØØ\Â‚‚™YˆÙš[™[™ÜÊY]šXÜÎˆXÝÜÝ‹Y]šX×JHOˆ\ÝÙXÝÜÝ‹Øš™XÝWN‚ˆš[™[™ÜÎˆ\ÝÙXÝÜÝ‹Øš™XÝWHH×Bˆ\ÝÙÜ˜[HHY]šXÜÖÈ›X[˜WÝ˜[YWÚ\ÝÙÜ˜[H—K˜[YBˆYˆ\ÝÙÜ˜[N‚ˆXZÈHX^
-\ÝÙÜ˜[K˜[Y\Ê
-JBˆ[Ù\ÈHÝ˜[YH›Üˆ˜[YKÛÝ[[ˆ\ÝÙÜ˜[Kš][\Ê
-HYˆÛÝ[OHXZ×Bˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆ›ØœÙ\˜][Ûˆ‹ˆœ[WÚÙ^HŽˆ˜Ý\™K›[ÙH‹ˆ›Y]šX×ÚÙ^HŽˆ›X[˜WÝ˜[YWÚ\ÝÙÜ˜[H‹ˆ›Y\ÜØYÙHŽˆˆ•HXÚÈ\È[ÜÝÙˆ]È›Û›[™Ø\™È]X[˜H˜[YHÉË	Ëš›Ú[Š[Ù\Ê_H
-ÜXZßHÛÜY\ÊKˆ‹ˆ™\ÚÛŽˆÈœ[HŽˆ˜[\ÝÙÜ˜[Hš[œÈ\]X[ÈX^[][HÛÜHÛÝ[ŸKˆBˆ
-Bˆ\ÈHY]šXÜÖÈ˜ÛÛÜ—Ü™\]Z\™[Y[×ØžWÜ\—K˜[YBˆÛÝ\˜Ù\ÈHY]šXÜÖÈ›[™ØÛÛÜ—Ü›ÙXÝ[Ûˆ—K˜[YBˆ›ÜˆÛÛÜˆ[ˆÓÓÔ”Î‚ˆYˆ\ÖØÛÛÜ—HˆÛÝ\˜Ù\ÖØÛÛÜ—VÈ[œ™\ÝšXÝY—N‚ˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆØ\›š[™È‹ˆœ[WÚÙ^HŽˆˆ›X[˜KœÚÜ˜[žØÛÛÜ‹›ÝÙ\Š
-_H‹ˆ›Y]šX×ÚÙ^HŽˆ›X[˜WÜÛÝ\˜ÙWØ]˜Z[Xš[]H‹ˆ›Y\ÜØYÙHŽˆˆžØÛÛÜŸH™\]Z\™[Y[È
-Ü\ÖØÛÛÜ—_H\ÊH^ÙYY[œ™\ÝšXÝYØÛÛÜŸK\›ÙXÚ[™È[™ÛÝ\˜Ù\È
-ÜÛÝ\˜Ù\ÖØÛÛÜ—VÉÝ[œ™\ÝšXÝY	×_JKˆ‹ˆ™\ÚÛŽˆÈœ\ØÛÝ[ÙÝÝ[œ™\ÝšXÝYÛ[™ÜÛÝ\˜Ù\ÈŽˆY_KˆBˆ
-BˆØ\Xš[]Y\ÈHY]šXÜÖÈ˜Ø\Xš[]WÝÝ[È—K˜[YBˆYˆØ\Xš[]Y\ÖÈ˜›Ø\™]Ú\H—VÈ˜ÛÜWØÛÝ[—HOH‚ˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆØ\›š[™È‹ˆœ[WÚÙ^HŽˆ˜Ø\Xš[]K››ËX›Ø\™]Ú\H‹ˆ›Y]šX×ÚÙ^HŽˆ˜Ø\Xš[]WÝÝ[È‹ˆ›Y\ÜØYÙHŽˆ•HXÚÈÛÛZ[œÈ›È›Ø\™]Ú\HØ\Xš[]Kˆ‹ˆ™\ÚÛŽˆÈ˜ÛÜWØÛÝ[ŽˆKˆBˆ
-Bˆ™[[Ý˜[HØ\Xš[]Y\ÖÈ\™Ù]Y\™[[Ý˜[—VÈ˜ÛÜWØÛÝ[—Bˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆš[™›Ü›X][Ûˆ‹ˆœ[WÚÙ^HŽˆ˜Ø\Xš[]K\™Ù]Y\™[[Ý˜[‹ˆ›Y]šX×ÚÙ^HŽˆ˜Ø\Xš[]WÝÝ[È‹ˆ›Y\ÜØYÙHŽˆˆžÜ™[[Ý˜[HØ\™ÛÜY\ÈÛÛšX]H\™Ù]Y™[[Ý˜[ˆ‹ˆ™\ÚÛŽˆÈœ™\ÜŽˆ˜ÛÜWØÛÝ[ŸKˆBˆ
-Bˆš[š\Ú\œÈHØ\Xš[]Y\ÖÈ™š[š\Ú\ˆ—VÈ˜ÛÜWØÛÝ[—Bˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆš[™›Ü›X][Ûˆ‹ˆœ[WÚÙ^HŽˆ˜Ø\Xš[]K™š[š\Ú\œÈ‹ˆ›Y]šX×ÚÙ^HŽˆ˜Ø\Xš[]WÝÝ[È‹ˆ›Y\ÜØYÙHŽˆˆžÙš[š\Ú\œßHØ\™ÛÜY\È\™HÛ\ÜÚYšYY\Èš[š\Ú\œËˆ‹ˆ™\ÚÛŽˆÈœ™\ÜŽˆ˜ÛÜWØÛÝ[ŸKˆBˆ
-BˆÜ™X]\™WÜ˜][ÈH›Ø]
-Y]šXÜÖÈ˜Ü™X]\™WÜ˜][È—K˜[YJBˆš[™[™ÜË˜\[™
-ˆÂˆœÙ]™\š]HŽˆ›ØœÙ\˜][Ûˆ‹ˆœ[WÚÙ^HŽˆ˜ÛÛ\ÜÚ][Û‹˜Ü™X]\™K\˜][È‹ˆ›Y]šX×ÚÙ^HŽˆ˜Ü™X]\™WÜ˜][È‹ˆ›Y\ÜØYÙHŽˆˆÜ™X]\™HØ\™ÈXZÙH\ØÜ™X]\™WÜ˜][Î‹ŒI_HÙˆHXZ[ˆXÚËˆ‹ˆ™\ÚÛŽˆÈœ™\ÜŽˆœ˜][ÈŸKˆBˆ
-Bˆ™]\›ˆš[™[™ÜÂ‚‚™YˆÜ™[][ÛœÚ\ÊˆÛÛ›™XÝ[ÛŽˆÜ[]LËÛÛ›™XÝ[Û‹Ø\™Îˆ\ÝÜÜ[]LË”›Ý×KØ\™ØØ\ÎˆXÝÜÝ‹Ù]ÜÝ—WBŠHOˆ\ÝÙXÝÜÝ‹Øš™XÝWN‚ˆXZ[ˆHÜ›ÝÈ›Üˆ›ÝÈ[ˆØ\™ÈYˆ›ÝÖÈœÙXÝ[Ûˆ—HOH›XZ[ˆ—BˆØ\™Ý\\ÈHÜ›ÝÖÈ›Ü˜XÛWÚY—NˆÝ\\ÊÛÛ›™XÝ[Û‹›ÝÖÈ›Ü˜XÛWÚY—JH›Üˆ›ÝÈ[ˆXZ[ŸBˆØ\™ÜÝX\\ÈHÜ›ÝÖÈ›Ü˜XÛWÚY—NˆÜÝX\\ÊÛÛ›™XÝ[Û‹›ÝÖÈ›Ü˜XÛWÚY—JH›Üˆ›ÝÈ[ˆXZ[ŸBˆ˜XÝÎˆXÝÜÝ‹Ù]ÜÝ—WHHÂˆ\Y˜XÝŽˆÂˆ›ÝÖÈ›Ü˜XÛWÚY—H›Üˆ›ÝÈ[ˆXZ[ˆYˆ\Y˜XÝˆ[ˆØ\™Ý\\ÖÜ›ÝÖÈ›Ü˜XÛWÚY—WBˆKˆ‘\]Z\Y[ŽˆÂˆ›ÝÖÈ›Ü˜XÛWÚY—H›Üˆ›ÝÈ[ˆXZ[ˆYˆ‘\]Z\Y[ˆ[ˆØ\™ÜÝX\\ÖÜ›ÝÖÈ›Ü˜XÛWÚY—WBˆKˆBˆ›ÜˆØ\Xš[]H[ˆÐTP’SUWÒQÎ‚ˆ˜XÝÖØØ\Xš[]WHHÂˆ›ÝÖÈ›Ü˜XÛWÚY—H›Üˆ›ÝÈ[ˆXZ[ˆYˆØ\Xš[]H[ˆØ\™ØØ\ÖÜ›ÝÖÈ›Ü˜XÛWÚY—WBˆBˆ™[][ÛœÚ\ÈH×Bˆ›ÜˆÙ^KYšYÚ[ˆSSTÒT×ÔÔPÖÈœ™[][ÛœÚ\È—N‚ˆYˆ˜XÝË™Ù]
-Y
-H[™˜XÝË™Ù]
-šYÚ
-N‚ˆ™[][ÛœÚ\Ë˜\[™
-ˆÂˆœ™[][ÛœÚ\ÚÙ^HŽˆÙ^Kˆ›YÙ˜XÝŽˆYˆœšYÚÙ˜XÝŽˆšYÚˆ™]šY[˜ÙHŽˆÂˆ›YÛÜ˜XÛWÚYÈŽˆÛÜY
-˜XÝÖÛYJKˆœšYÚÛÜ˜XÛWÚYÈŽˆÛÜY
-˜XÝÖÜšYÚJKˆKˆBˆ
-Bˆ™]\›ˆ™[][ÛœÚ\Â‚‚™Yˆ[˜[^™WÙXÚÊˆ]X˜\ÙNˆÝˆ]ˆXÚ×Ý™\œÚ[Û—ÚYˆ[ˆ
-‹ˆXYÛ›ÜÝXÎˆ›ÛÛH˜[ÙKˆ˜Z[ØY\—ÛY]šXÜÎˆ›ÛÛH˜[ÙKŠHOˆXÝÜÝ‹Øš™XÝN‚ˆ[š]X[^™WÙ]X˜\ÙJ]X˜\ÙJBˆÚXÚÜÝ[HH[™Ú[™WØÚXÚÜÝ[J
-BˆÝ\YH]][YK››ÝÊUÊKš\ÛÙ›Ü›X]
+            "per Capability: copies, unique Oracle cards, and sum(quantity Ã— effective confidence)",
+            [],
+        ),
+        "interaction_density": Metric(
+            interaction_copies / nonland_count if nonland_count else 0.0,
+            "nonland copies with any interaction Capability / nonland_count",
+            [],
+        ),
+        "threat_density": Metric(
+            threat_copies / nonland_count if nonland_count else 0.0,
+            "nonland Creature, Planeswalker, Battle, or finisher copies / nonland_count",
+            [],
+        ),
+        "finisher_density": Metric(
+            finisher_copies / nonland_count if nonland_count else 0.0,
+            "copies with finisher Capability / nonland_count",
+            [],
+        ),
+        "land_ratio": Metric(
+            land_count / total if total else 0.0, "land_count / total_card_count", []
+        ),
+        "creature_ratio": Metric(
+            type_counts["creature"] / total if total else 0.0,
+            "creature copy count / total_card_count",
+            [],
+        ),
+        "duplicate_groups": Metric(
+            duplicate_groups, "main-deck Oracle cards with quantity > 1", duplicate_groups
+        ),
+        "redundancy_groups": Metric(
+            redundancy, "Capabilities represented by more than one unique Oracle card", redundancy
+        ),
+    }
+    return metrics, card_caps
 
-BˆÚ]ÛÛ›™XÝ
-]X˜\ÙJH\ÈÛÛ›™XÝ[Û‹ÛÛ›™XÝ[ÛŽ‚ˆ[\ÜYØ\Xš[]HHÜ›Ý™[˜[˜ÙJÛÛ›™XÝ[ÛŠBˆ™\œÚ[Û‹Ø\™ËØ\›š[™ÜÈHÛØYÙXÚÊÛÛ›™XÝ[Û‹XÚ×Ý™\œÚ[Û—ÚYXYÛ›ÜÝXÊBˆXÚ×ØÚXÚÜÝ[HHÙXÚ×ØÚXÚÜÝ[J™\œÚ[Û‹Ø\™ÊBˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈXÚ×Ø[˜[\Ú\×Ù[™Ú[™WÝ™\œÚ[ÛœÊ™\œÚ[Û‹ÚXÚÜÝ[K\ØÜš\[Û‹Ý]\ÊH‚ˆ•SQTÈ
-ËËË	ØXÝ]™IÊHÓˆÓÓ‘“PÕ
-™\œÚ[ÛŠHÈ“ÕS‘È‹ˆ
-ˆS‘ÒS‘WÕ‘T”ÒSÓ‹ˆÚXÚÜÝ[Kˆ’[š]X[]\›Z[š\ÝXÈXÚÈY]šXÜÈ[™XÚÈ[˜[\Ú\È[\È‹ˆ
-Kˆ
-BˆÝÜ™YHÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕÚXÚÜÝ[H”“ÓHXÚ×Ø[˜[\Ú\×Ù[™Ú[™WÝ™\œÚ[ÛœÈÒT‘H™\œÚ[ÛOÈ‹
-S‘ÒS‘WÕ‘T”ÒSÓ‹
-Bˆ
-K™™]ÚÛ™J
-VÌBˆYˆÝÜ™YOHÚXÚÜÝ[N‚ˆ˜Z\ÙHXÚÐ[˜[\Ú\Ñ\œ›ÜŠˆˆ[˜[\Ú\È[™Ú[™HÑS‘ÒS‘WÕ‘T”ÒSÓŸHÚ[™ÙYÚ]Ý]H™\œÚ[Ûˆ[\‚ˆ
-BˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ•TUHXÚ×Ø[˜[\Ú\×Ù[™Ú[™WÝ™\œÚ[ÛœÈÑUÝ]\ÏPÐTÑHÒSˆ™\œÚ[ÛOÈSˆ	ØXÝ]™IÈSÑH	Ü™]\™Y	ÈS‘‹ˆ
-S‘ÒS‘WÕ‘T”ÒSÓ‹
-Kˆ
-Bˆ[—ÚYHÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈXÚ×Ø[˜[\Ú\×Ü[œÊXÚ×Ý™\œÚ[Û—ÚY[\ÜÚYØ\Xš[]WÜ[—ÚY[™Ú[™WÝ™\œÚ[Û‹‚ˆ™[™Ú[™WØÚXÚÜÝ[KXÚ×ØÚXÚÜÝ[KÝ]\ËXYÛ›ÜÝXËÝ\YØ]Ø\›š[™ÜÊH‚ˆ•SQTÈ
-ËËËËËË	Ü[›š[™ÉËËËÊH‹ˆ
-ˆXÚ×Ý™\œÚ[Û—ÚYˆ[\ÜYÈšY—KˆØ\Xš[]VÈšY—KˆS‘ÒS‘WÕ‘T”ÒSÓ‹ˆÚXÚÜÝ[KˆXÚ×ØÚXÚÜÝ[Kˆ[
-XYÛ›ÜÝXÊKˆÝ\YˆœÛÛ‹™[\ÊØ\›š[™ÜÊKˆ
-Kˆ
-K›\Ý›ÝÚYˆžN‚ˆÚ]ÛÛ›™XÝ
-]X˜\ÙJH\ÈÛÛ›™XÝ[ÛŽ‚ˆÛÛ›™XÝ[Û‹™^XÝ]J‘QÒSˆSSQQPUHŠBˆËÝ\œ™[ØØ\Xš[]HHÜ›Ý™[˜[˜ÙJÛÛ›™XÝ[ÛŠBˆYˆÝ\œ™[ØØ\Xš[]VÈšY—HOHØ\Xš[]VÈšY—N‚ˆ˜Z\ÙHXÚÐ[˜[\Ú\Ñ\œ›ÜŠØ\Xš[]H›Ý™[˜[˜ÙHÚ[™ÙYÚ[H[˜[\Ú\ÈØ\È[›š[™ÈŠBˆËÝ\œ™[ØØ\™ËÈHÛØYÙXÚÊÛÛ›™XÝ[Û‹XÚ×Ý™\œÚ[Û—ÚYXYÛ›ÜÝXÊBˆYˆÙXÚ×ØÚXÚÜÝ[J™\œÚ[Û‹Ý\œ™[ØØ\™ÊHOHXÚ×ØÚXÚÜÝ[N‚ˆ˜Z\ÙHXÚÐ[˜[\Ú\Ñ\œ›ÜŠ‘XÚÈ™\œÚ[Ûˆ˜XÝÈÚ[™ÙYÚ[H[˜[\Ú\ÈØ\È[›š[™ÈŠBˆY]šXÜËØ\™ØØ\ÈHÛÛ\]WÛY]šXÜÊÛÛ›™XÝ[Û‹Ý\œ™[ØØ\™ÊBˆ›ÜˆÙ^KY]šXÈ[ˆÛÜY
-Y]šXÜËš][\Ê
-JN‚ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈXÚ×Ø[˜[\Ú\×ÛY]šXÜÊ[—ÚYY]šX×ÚÙ^K˜[YWÚœÛÛ‹›Ü›][K]šY[˜ÙWÚœÛÛŠH‚ˆ•SQTÈ
-ËËËËÊH‹ˆ
-ˆ[—ÚYˆÙ^KˆœÛÛ‹™[\ÊY]šXË˜[YKÛÜÚÙ^\ÏUYJKˆY]šXË™›Ü›][KˆœÛÛ‹™[\ÊY]šXË™]šY[˜ÙKÛÜÚÙ^\ÏUYJKˆ
-Kˆ
-BˆYˆ˜Z[ØY\—ÛY]šXÜÎ‚ˆ˜Z\ÙH[[YQ\œ›ÜŠš[š™XÝYXÚÈ[˜[\Ú\È˜Z[\™HŠBˆš[™[™ÜÈHÙš[™[™ÜÊY]šXÜÊBˆ›ÜˆÜ™[˜[š[™[™È[ˆ[[Y\˜]Jš[™[™ÜÊN‚ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈXÚ×Ø[˜[\Ú\×Ùš[™[™ÜÊ[—ÚYÜ™[˜[Ù]™\š]K[WÚÙ^KY]šX×ÚÙ^K‚ˆ›Y\ÜØYÙK™\ÚÛÚœÛÛŠHSQTÈ
-ËËËËËËÊH‹ˆ
-ˆ[—ÚYˆÜ™[˜[ˆš[™[™ÖÈœÙ]™\š]H—Kˆš[™[™ÖÈœ[WÚÙ^H—Kˆš[™[™ÖÈ›Y]šX×ÚÙ^H—Kˆš[™[™ÖÈ›Y\ÜØYÙH—KˆœÛÛ‹™[\Êš[™[™ÖÈ™\ÚÛ—KÛÜÚÙ^\ÏUYJKˆ
-Kˆ
-Bˆ™[][ÛœÚ\ÈHÜ™[][ÛœÚ\ÊÛÛ›™XÝ[Û‹Ý\œ™[ØØ\™ËØ\™ØØ\ÊBˆ›Üˆ™[][ÛœÚ\[ˆ™[][ÛœÚ\Î‚ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈXÚ×Ø[˜[\Ú\×Ü™[][ÛœÚ\Ê[—ÚY™[][ÛœÚ\ÚÙ^KYÙ˜XÝ‚ˆœšYÚÙ˜XÝ]šY[˜ÙWÚœÛÛŠHSQTÈ
-ËËËËÊH‹ˆ
-ˆ[—ÚYˆ™[][ÛœÚ\Èœ™[][ÛœÚ\ÚÙ^H—Kˆ™[][ÛœÚ\È›YÙ˜XÝ—Kˆ™[][ÛœÚ\ÈœšYÚÙ˜XÝ—KˆœÛÛ‹™[\Ê™[][ÛœÚ\È™]šY[˜ÙH—KÛÜÚÙ^\ÏUYJKˆ
-Kˆ
-BˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ•TUHXÚ×Ø[˜[\Ú\×Ü[œÈÑUÝ]\ÏIÜÝXØÙYYY	ËÛÛ\]YØ]OËY]šX×ØÛÝ[OË‚ˆ™š[™[™×ØÛÝ[OË™[][ÛœÚ\ØÛÝ[OÈÒT‘HYOÈ‹ˆ
-ˆ]][YK››ÝÊUÊKš\ÛÙ›Ü›X]
 
-Kˆ[ŠY]šXÜÊKˆ[Šš[™[™ÜÊKˆ[Š™[][ÛœÚ\ÊKˆ[—ÚYˆ
-Kˆ
-BˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ’S”ÑT•S•ÈÝ\œ™[ÙXÚ×Ø[˜[\Ù\ÊXÚ×Ý™\œÚ[Û—ÚY[—ÚY
-HSQTÈ
-ËÊH‚ˆ“ÓˆÓÓ‘“PÕ
-XÚ×Ý™\œÚ[Û—ÚY
-HÈTUHÑU[—ÚYY^ÛYYœ[—ÚY‹ˆ
-XÚ×Ý™\œÚ[Û—ÚY[—ÚY
-Kˆ
-BˆÛÛ›™XÝ[Û‹˜ÛÛ[Z]
+def _findings(metrics: dict[str, Metric]) -> list[dict[str, object]]:
+    findings: list[dict[str, object]] = []
+    histogram = metrics["mana_value_histogram"].value
+    if histogram:
+        peak = max(histogram.values())
+        modes = [value for value, count in histogram.items() if count == peak]
+        findings.append(
+            {
+                "severity": "observation",
+                "rule_key": "curve.mode",
+                "metric_key": "mana_value_histogram",
+                "message": f"The deck has most of its nonland cards at mana value {', '.join(modes)} ({peak} copies).",
+                "threshold": {"rule": "all histogram bins equal to maximum copy count"},
+            }
+        )
+    pips = metrics["color_requirements_by_pip"].value
+    sources = metrics["land_color_production"].value
+    for color in COLORS:
+        if pips[color] > sources[color]["unrestricted"]:
+            findings.append(
+                {
+                    "severity": "warning",
+                    "rule_key": f"mana.shortfall.{color.lower()}",
+                    "metric_key": "mana_source_availability",
+                    "message": f"{color} requirements ({pips[color]} pips) exceed unrestricted {color}-producing land sources ({sources[color]['unrestricted']}).",
+                    "threshold": {"pip_count_gt_unrestricted_land_sources": True},
+                }
+            )
+    capabilities = metrics["capability_totals"].value
+    if capabilities["board-wipe"]["copy_count"] == 0:
+        findings.append(
+            {
+                "severity": "warning",
+                "rule_key": "capability.no-board-wipe",
+                "metric_key": "capability_totals",
+                "message": "The deck contains no board-wipe Capability.",
+                "threshold": {"copy_count": 0},
+            }
+        )
+    removal = capabilities["targeted-removal"]["copy_count"]
+    findings.append(
+        {
+            "severity": "information",
+            "rule_key": "capability.targeted-removal",
+            "metric_key": "capability_totals",
+            "message": f"{removal} card copies contribute targeted removal.",
+            "threshold": {"report": "copy_count"},
+        }
+    )
+    finishers = capabilities["finisher"]["copy_count"]
+    findings.append(
+        {
+            "severity": "information",
+            "rule_key": "capability.finishers",
+            "metric_key": "capability_totals",
+            "message": f"{finishers} card copies are classified as finishers.",
+            "threshold": {"report": "copy_count"},
+        }
+    )
+    creature_ratio = float(metrics["creature_ratio"].value)
+    findings.append(
+        {
+            "severity": "observation",
+            "rule_key": "composition.creature-ratio",
+            "metric_key": "creature_ratio",
+            "message": f"Creature cards make up {creature_ratio:.1%} of the main deck.",
+            "threshold": {"report": "ratio"},
+        }
+    )
+    return findings
 
-Bˆ™]\›ˆÂˆœ[—ÚYŽˆ[—ÚYˆ™XÚ×Ý™\œÚ[Û—ÚYŽˆXÚ×Ý™\œÚ[Û—ÚYˆ™XÚ×ØÚXÚÜÝ[HŽˆXÚ×ØÚXÚÜÝ[Kˆ™[™Ú[™WÝ™\œÚ[ÛˆŽˆS‘ÒS‘WÕ‘T”ÒSÓ‹ˆ™[™Ú[™WØÚXÚÜÝ[HŽˆÚXÚÜÝ[Kˆš[\ÜÚYŽˆ[\ÜYÈšY—Kˆ˜Ø\Xš[]WÜ[—ÚYŽˆØ\Xš[]VÈšY—Kˆ›Y]šX×ØÛÝ[Žˆ[ŠY]šXÜÊKˆ™š[™[™×ØÛÝ[Žˆ[Šš[™[™ÜÊKˆœ™[][ÛœÚ\ØÛÝ[Žˆ[Š™[][ÛœÚ\ÊKˆØ\›š[™ÜÈŽˆØ\›š[™ÜËˆBˆ^Ù\^Ù\[Ûˆ\È\œ›ÜŽ‚ˆÚ]ÛÛ›™XÝ
-]X˜\ÙJH\ÈÛÛ›™XÝ[Û‹ÛÛ›™XÝ[ÛŽ‚ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ•TUHXÚ×Ø[˜[\Ú\×Ü[œÈÑUÝ]\ÏIÙ˜Z[Y	ËÛÛ\]YØ]OË\œ›ÜOÈÒT‘HYOÈ‹ˆ
-]][YK››ÝÊUÊKš\ÛÙ›Ü›X]
 
-KÝŠ\œ›ÜŠK[—ÚY
-Kˆ
-Bˆ˜Z\ÙHXÚÐ[˜[\Ú\Ñ\œ›ÜŠÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚™Yˆ[œÜXÝÙXÚÊ]X˜\ÙNˆÝˆ]XÚ×Ý™\œÚ[Û—ÚYˆ[
-HOˆXÝÜÝ‹Øš™XÝN‚ˆÚ]ÛÛ›™XÝ
-]X˜\ÙJH\ÈÛÛ›™XÝ[ÛŽ‚ˆ[ˆHÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕ‹Š‹‹™\œÚ[Û—ÛX™[›˜[YHXÚ×Û˜[YKK˜ÚXÚÜÝ[H[\ÜØÚXÚÜÝ[K‚ˆ˜Ü‹œ[\Ù]Ý™\œÚ[Û‹œËœ[\×ØÚXÚÜÝ[HØ\Xš[]WØÚXÚÜÝ[H”“ÓHÝ\œ™[ÙXÚ×Ø[˜[\Ù\ÈØH‚ˆ’“ÒSˆXÚ×Ø[˜[\Ú\×Ü[œÈˆÓˆ‹šYXØKœ[—ÚY“ÒSˆXÚ×Ý™\œÚ[ÛœÈˆÓˆ‹šY\‹™XÚ×Ý™\œÚ[Û—ÚY‚ˆ’“ÒSˆXÚÜÈÓˆšYY‹™XÚ×ÚY“ÒSˆ[\ÜÈHÓˆKšY\‹š[\ÜÚY‚ˆ’“ÒSˆØ\Xš[]WÙ\š]˜][Û—Ü[œÈÜˆÓˆÜ‹šY\‹˜Ø\Xš[]WÜ[—ÚY‚ˆ’“ÒSˆØ\Xš[]WÜ[WÜÙ]ÈœÈÓˆœË™\œÚ[ÛXÜ‹œ[\Ù]Ý™\œÚ[Ûˆ‚ˆ•ÒT‘HØK™XÚ×Ý™\œÚ[Û—ÚYOÈ‹ˆ
-XÚ×Ý™\œÚ[Û—ÚY
-Kˆ
-K™™]ÚÛ™J
-BˆYˆ[ˆ\È›Û™N‚ˆ˜Z\ÙHXÚÐ[˜[\Ú\Ñ\œ›ÜŠˆ“›ÈÝXØÙ\ÜÙ[[˜[\Ú\È›ÜˆXÚÈ™\œÚ[ÛˆÙXÚ×Ý™\œÚ[Û—ÚYHŠBˆY]šXÜÈHÂˆ›ÝÖÈ›Y]šX×ÚÙ^H—NˆÂˆ˜[YHŽˆœÛÛ‹›ØYÊ›ÝÖÈ˜[YWÚœÛÛˆ—JKˆ™›Ü›][HŽˆ›ÝÖÈ™›Ü›][H—Kˆ™]šY[˜ÙHŽˆœÛÛ‹›ØYÊ›ÝÖÈ™]šY[˜ÙWÚœÛÛˆ—JKˆBˆ›Üˆ›ÝÈ[ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕ
-ˆ”“ÓHXÚ×Ø[˜[\Ú\×ÛY]šXÜÈÒT‘H[—ÚYOÈÔ‘Tˆ–HY]šX×ÚÙ^H‹ˆ
-[–ÈšY—K
-Kˆ
-BˆBˆš[™[™ÜÈHÂˆXÝ
-›ÝÊBˆ›Üˆ›ÝÈ[ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕÙ]™\š]K[WÚÙ^KY]šX×ÚÙ^KY\ÜØYÙK™\ÚÛÚœÛÛˆ”“ÓHXÚ×Ø[˜[\Ú\×Ùš[™[™ÜÈ‚ˆ•ÒT‘H[—ÚYOÈÔ‘Tˆ–HÜ™[˜[‹ˆ
-[–ÈšY—K
-Kˆ
-BˆBˆ™[][ÛœÚ\ÈHÂˆXÝ
-›ÝÊBˆ›Üˆ›ÝÈ[ˆÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕ™[][ÛœÚ\ÚÙ^KYÙ˜XÝšYÚÙ˜XÝ]šY[˜ÙWÚœÛÛˆ”“ÓHXÚ×Ø[˜[\Ú\×Ü™[][ÛœÚ\È‚ˆ•ÒT‘H[—ÚYOÈÔ‘Tˆ–H™[][ÛœÚ\ÚÙ^H‹ˆ
-[–ÈšY—K
-Kˆ
-BˆBˆ™]\›ˆÂˆœ[ˆŽˆXÝ
-[ŠKˆ›Y]šXÜÈŽˆY]šXÜËˆ™š[™[™ÜÈŽˆš[™[™ÜËˆœ™[][ÛœÚ\ÈŽˆ™[][ÛœÚ\ËˆØ\›š[™ÜÈŽˆœÛÛ‹›ØYÊ[–ÈØ\›š[™ÜÈ—JKˆB‚‚™Yˆ[˜[\Ú\×ÜÝ]\Ê]X˜\ÙNˆÝˆ]
-HOˆXÝÜÝ‹Øš™XÝN‚ˆÚ]ÛÛ›™XÝ
-]X˜\ÙJH\ÈÛÛ›™XÝ[ÛŽ‚ˆ]\ÝHÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕ
-ˆ”“ÓHXÚ×Ø[˜[\Ú\×Ü[œÈÔ‘Tˆ–HYTÐÈSRUH‚ˆ
-K™™]ÚÛ™J
-BˆÝXØÙYYYHÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕÓÕS•
+def _relationships(
+    connection: sqlite3.Connection, cards: list[sqlite3.Row], card_caps: dict[str, set[str]]
+) -> list[dict[str, object]]:
+    main = [row for row in cards if row["section"] == "main"]
+    card_types = {row["oracle_id"]: _types(connection, row["oracle_id"]) for row in main}
+    card_subtypes = {row["oracle_id"]: _subtypes(connection, row["oracle_id"]) for row in main}
+    facts: dict[str, set[str]] = {
+        "Artifact": {
+            row["oracle_id"] for row in main if "Artifact" in card_types[row["oracle_id"]]
+        },
+        "Equipment": {
+            row["oracle_id"] for row in main if "Equipment" in card_subtypes[row["oracle_id"]]
+        },
+    }
+    for capability in CAPABILITY_IDS:
+        facts[capability] = {
+            row["oracle_id"] for row in main if capability in card_caps[row["oracle_id"]]
+        }
+    relationships = []
+    for key, left, right in ANALYSIS_SPEC["relationships"]:
+        if facts.get(left) and facts.get(right):
+            relationships.append(
+                {
+                    "relationship_key": key,
+                    "left_fact": left,
+                    "right_fact": right,
+                    "evidence": {
+                        "left_oracle_ids": sorted(facts[left]),
+                        "right_oracle_ids": sorted(facts[right]),
+                    },
+                }
+            )
+    return relationships
 
-ŠH”“ÓHXÚ×Ø[˜[\Ú\×Ü[œÈÒT‘HÝ]\ÏIÜÝXØÙYYY	È‚ˆ
-K™™]ÚÛ™J
-VÌBˆ˜Z[YHÛÛ›™XÝ[Û‹™^XÝ]Jˆ”ÑSPÕÓÕS•
 
-ŠH”“ÓHXÚ×Ø[˜[\Ú\×Ü[œÈÒT‘HÝ]\ÏIÙ˜Z[Y	È‚ˆ
-K™™]ÚÛ™J
-VÌBˆÝ\œ™[HÛÛ›™XÝ[Û‹™^XÝ]J”ÑSPÕÓÕS•
+def analyze_deck(
+    database: str | Path,
+    deck_version_id: int,
+    *,
+    diagnostic: bool = False,
+    fail_after_metrics: bool = False,
+) -> dict[str, object]:
+    initialize_database(database)
+    checksum = engine_checksum()
+    started = datetime.now(UTC).isoformat()
+    with connect(database) as connection, connection:
+        imported, capability = _provenance(connection)
+        version, cards, warnings = _load_deck(connection, deck_version_id, diagnostic)
+        deck_checksum = _deck_checksum(version, cards)
+        connection.execute(
+            "INSERT INTO deck_analysis_engine_versions(version,checksum,description,status) "
+            "VALUES (?,?,?,'active') ON CONFLICT(version) DO NOTHING",
+            (
+                ENGINE_VERSION,
+                checksum,
+                "Initial deterministic Deck Metrics and Deck Analysis rules",
+            ),
+        )
+        stored = connection.execute(
+            "SELECT checksum FROM deck_analysis_engine_versions WHERE version=?", (ENGINE_VERSION,)
+        ).fetchone()[0]
+        if stored != checksum:
+            raise DeckAnalysisError(
+                f"Analysis engine {ENGINE_VERSION} changed without a version bump"
+            )
+        connection.execute(
+            "UPDATE deck_analysis_engine_versions SET status=CASE WHEN version=? THEN 'active' ELSE 'retired' END",
+            (ENGINE_VERSION,),
+        )
+        run_id = connection.execute(
+            "INSERT INTO deck_analysis_runs(deck_version_id,import_id,capability_run_id,engine_version,"
+            "engine_checksum,deck_checksum,status,diagnostic,started_at,warnings) "
+            "VALUES (?,?,?,?,?,?,'running',?,?,?)",
+            (
+                deck_version_id,
+                imported["id"],
+                capability["id"],
+                ENGINE_VERSION,
+                checksum,
+                deck_checksum,
+                int(diagnostic),
+                started,
+                json.dumps(warnings),
+            ),
+        ).lastrowid
+    try:
+        with connect(database) as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            _, current_capability = _provenance(connection)
+            if current_capability["id"] != capability["id"]:
+                raise DeckAnalysisError("Capability provenance changed while analysis was running")
+            _, current_cards, _ = _load_deck(connection, deck_version_id, diagnostic)
+            if _deck_checksum(version, current_cards) != deck_checksum:
+                raise DeckAnalysisError("Deck Version facts changed while analysis was running")
+            metrics, card_caps = compute_metrics(connection, current_cards)
+            for key, metric in sorted(metrics.items()):
+                connection.execute(
+                    "INSERT INTO deck_analysis_metrics(run_id,metric_key,value_json,formula,evidence_json) "
+                    "VALUES (?,?,?,?,?)",
+                    (
+                        run_id,
+                        key,
+                        json.dumps(metric.value, sort_keys=True),
+                        metric.formula,
+                        json.dumps(metric.evidence, sort_keys=True),
+                    ),
+                )
+            if fail_after_metrics:
+                raise RuntimeError("injected deck analysis failure")
+            findings = _findings(metrics)
+            for ordinal, finding in enumerate(findings):
+                connection.execute(
+                    "INSERT INTO deck_analysis_findings(run_id,ordinal,severity,rule_key,metric_key,"
+                    "message,threshold_json) VALUES (?,?,?,?,?,?,?)",
+                    (
+                        run_id,
+                        ordinal,
+                        finding["severity"],
+                        finding["rule_key"],
+                        finding["metric_key"],
+                        finding["message"],
+                        json.dumps(finding["threshold"], sort_keys=True),
+                    ),
+                )
+            relationships = _relationships(connection, current_cards, card_caps)
+            for relationship in relationships:
+                connection.execute(
+                    "INSERT INTO deck_analysis_relationships(run_id,relationship_key,left_fact,"
+                    "right_fact,evidence_json) VALUES (?,?,?,?,?)",
+                    (
+                        run_id,
+                        relationship["relationship_key"],
+                        relationship["left_fact"],
+                        relationship["right_fact"],
+                        json.dumps(relationship["evidence"], sort_keys=True),
+                    ),
+                )
+            connection.execute(
+                "UPDATE deck_analysis_runs SET status='succeeded',completed_at=?,metric_count=?,"
+                "finding_count=?,relationship_count=? WHERE id=?",
+                (
+                    datetime.now(UTC).isoformat(),
+                    len(metrics),
+                    len(findings),
+                    len(relationships),
+                    run_id,
+                ),
+            )
+            connection.execute(
+                "INSERT INTO current_deck_analyses(deck_version_id,run_id) VALUES (?,?) "
+                "ON CONFLICT(deck_version_id) DO UPDATE SET run_id=excluded.run_id",
+                (deck_version_id, run_id),
+            )
+            connection.commit()
+        return {
+            "run_id": run_id,
+            "deck_version_id": deck_version_id,
+            "deck_checksum": deck_checksum,
+            "engine_version": ENGINE_VERSION,
+            "engine_checksum": checksum,
+            "import_id": imported["id"],
+            "capability_run_id": capability["id"],
+            "metric_count": len(metrics),
+            "finding_count": len(findings),
+            "relationship_count": len(relationships),
+            "warnings": warnings,
+        }
+    except Exception as error:
+        with connect(database) as connection, connection:
+            connection.execute(
+                "UPDATE deck_analysis_runs SET status='failed',completed_at=?,error=? WHERE id=?",
+                (datetime.now(UTC).isoformat(), str(error), run_id),
+            )
+        raise DeckAnalysisError(str(error)) from error
 
-ŠH”“ÓHÝ\œ™[ÙXÚ×Ø[˜[\Ù\ÈŠK™™]ÚÛ™J
-VÌBˆ™]\›ˆÂˆ™[™Ú[™WÝ™\œÚ[ÛˆŽˆS‘ÒS‘WÕ‘T”ÒSÓ‹ˆ™[™Ú[™WØÚXÚÜÝ[HŽˆ[™Ú[™WØÚXÚÜÝ[J
-Kˆ›]\ÝÜ[ˆŽˆXÝ
-]\Ý
-HYˆ]\Ý[ÙH›Û™KˆœÝXØÙYYYÜ[œÈŽˆÝXØÙYYYˆ™˜Z[YÜ[œÈŽˆ˜Z[Yˆ˜Ý\œ™[ÙXÚ×Ý™\œÚ[ÛœÈŽˆÝ\œ™[ˆØ\›š[™ÜÈŽˆÂˆ“X[˜K\ÛÝ\˜ÙHÛÝ[È\™HÛÛœÙ\˜]]™H˜XÝË›ÝHX[˜KX˜\ÙH]X[]HÜ˜YKˆ‚ˆKˆB
+
+def inspect_deck(database: str | Path, deck_version_id: int) -> dict[str, object]:
+    with connect(database) as connection:
+        run = connection.execute(
+            "SELECT r.*,dv.version_label,d.name deck_name,i.checksum import_checksum,"
+            "cr.ruleset_version,rs.rules_checksum capability_checksum FROM current_deck_analyses ca "
+            "JOIN deck_analysis_runs r ON r.id=ca.run_id JOIN deck_versions dv ON dv.id=r.deck_version_id "
+            "JOIN decks d ON d.id=dv.deck_id JOIN imports i ON i.id=r.import_id "
+            "JOIN capability_derivation_runs cr ON cr.id=r.capability_run_id "
+            "JOIN capability_rule_sets rs ON rs.version=cr.ruleset_version "
+            "WHERE ca.deck_version_id=?",
+            (deck_version_id,),
+        ).fetchone()
+        if run is None:
+            raise DeckAnalysisError(f"No successful analysis for Deck Version {deck_version_id}")
+        metrics = {
+            row["metric_key"]: {
+                "value": json.loads(row["value_json"]),
+                "formula": row["formula"],
+                "evidence": json.loads(row["evidence_json"]),
+            }
+            for row in connection.execute(
+                "SELECT * FROM deck_analysis_metrics WHERE run_id=? ORDER BY metric_key",
+                (run["id"],),
+            )
+        }
+        findings = [
+            dict(row)
+            for row in connection.execute(
+                "SELECT severity,rule_key,metric_key,message,threshold_json FROM deck_analysis_findings "
+                "WHERE run_id=? ORDER BY ordinal",
+                (run["id"],),
+            )
+        ]
+        relationships = [
+            dict(row)
+            for row in connection.execute(
+                "SELECT relationship_key,left_fact,right_fact,evidence_json FROM deck_analysis_relationships "
+                "WHERE run_id=? ORDER BY relationship_key",
+                (run["id"],),
+            )
+        ]
+        return {
+            "run": dict(run),
+            "metrics": metrics,
+            "findings": findings,
+            "relationships": relationships,
+            "warnings": json.loads(run["warnings"]),
+        }
+
+
+def analysis_status(database: str | Path) -> dict[str, object]:
+    with connect(database) as connection:
+        latest = connection.execute(
+            "SELECT * FROM deck_analysis_runs ORDER BY id DESC LIMIT 1"
+        ).fetchone()
+        succeeded = connection.execute(
+            "SELECT COUNT(*) FROM deck_analysis_runs WHERE status='succeeded'"
+        ).fetchone()[0]
+        failed = connection.execute(
+            "SELECT COUNT(*) FROM deck_analysis_runs WHERE status='failed'"
+        ).fetchone()[0]
+        current = connection.execute("SELECT COUNT(*) FROM current_deck_analyses").fetchone()[0]
+        return {
+            "engine_version": ENGINE_VERSION,
+            "engine_checksum": engine_checksum(),
+            "latest_run": dict(latest) if latest else None,
+            "succeeded_runs": succeeded,
+            "failed_runs": failed,
+            "current_deck_versions": current,
+            "warnings": [
+                "Mana-source counts are conservative facts, not a mana-base quality grade."
+            ],
+        }
