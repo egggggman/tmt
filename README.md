@@ -30,6 +30,19 @@ Character
 
 > Store facts. Compute intelligence. Preserve decisions.
 
+## Governance and direction
+
+- [Project Constitution](docs/PROJECT_CONSTITUTION.md) — why the project exists and the values that
+  govern it.
+- [Design Principles](docs/DESIGN_PRINCIPLES.md) — how project, engineering, editorial, and deck
+  design decisions are made.
+- [Glossary](docs/GLOSSARY.md) — canonical definitions for shared project terminology.
+- [Roadmap](docs/ROADMAP.md) — milestone history and the vision-oriented path to and beyond v1.0.
+
+Implementation boundaries remain in [Architecture](docs/ARCHITECTURE.md), durable technical choices
+in [Accepted Decisions](docs/DECISIONS.md), and storage responsibilities in
+[the SewerGraph specification](docs/DATABASE.md).
+
 ## Version 0.1 scope
 
 - Standard only.
