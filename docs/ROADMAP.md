@@ -2,116 +2,107 @@
 
 ## Vision
 
-TMNT Design Studio will make one complete, explainable Character deck whose lineage can be followed
-from objective Magic facts to Capability evidence, Deck Metrics, Design Intent, Alignment,
-recommendations, playtesting, and preserved design decisions. The same foundation should support
-future decks, research, educational experiences, and community publishing without becoming opaque.
+TMNT Design Studio will deliver one fully explainable Character Sewer Deck whose lineage can be
+followed from objective Magic Facts through Capabilities, Deck Metrics, Design Intent, Alignment,
+Recommendations, Playtesting, iteration, and preserved decisions. The same foundation may support
+future decks, research, education, and community publishing without becoming opaque.
 
 ## Guiding philosophy
 
-The roadmap follows the [Project Constitution](PROJECT_CONSTITUTION.md) and
+This roadmap follows the [Project Constitution](PROJECT_CONSTITUTION.md) and
 [Design Principles](DESIGN_PRINCIPLES.md): foundations before features, objective before subjective,
-deterministic first, and community before ego. Milestones add one bounded responsibility at a time.
+deterministic first, and community before ego. It is vision-oriented, not schedule-oriented.
 
 ## Milestone history
 
-### v0.1.0 — Architecture and Database Foundation
+Completed status is based on `CHANGELOG.md`, tagged releases, and current implementationâ€”not the
+aspirations of older roadmap drafts.
 
-Established the project identity, Sewer Deck terminology, Standard-only Version 1 scope, domain
+### v0.1.0 â€” Architecture foundation â€” Complete
+
+Established project identity, Sewer Deck terminology, Standard-only Version 1 scope, domain
 hierarchy, architectural boundaries, and initial database design.
 
-### v0.2.0 — Executable Foundation
+### v0.2.0 â€” Executable foundation â€” Complete
 
-Introduced the Python package, SQLite migration runner, CLI foundation, immutable Deck Versions,
+Added the Python package, SQLite migration runner, CLI foundation, immutable Deck Versions,
 foreign-key enforcement, tests, Ruff, and GitHub Actions.
 
-### v0.3.0 — Scryfall Import Pipeline
+### v0.3.0 â€” Scryfall import pipeline â€” Complete
 
-Added transactional import of objective Oracle cards, printings, faces, legality, keywords, types,
-subtypes, and durable source audit metadata.
+Added transactional Magic Fact import, normalized Oracle Cards, Printings, Card Faces, Standard
+legality, and durable source audit metadata.
 
-### v0.4.0 — Capability Engine
+### v0.4.0 â€” Capability Engine â€” Complete
 
-Added the canonical Capability catalog, versioned deterministic rules, per-match evidence,
-confidence semantics, explicit overrides, effective resolution, and derivation audit.
+Added the canonical Capability catalog, versioned deterministic rules, Evidence, Confidence,
+Overrides, Effective Capability resolution, and derivation audit.
 
-### v0.5.0 — Deck Analysis Engine
+### v0.5.0 â€” Deck Analysis Engine â€” Complete
 
-Established the objective Deck Metrics and explainable deterministic Finding layer over an immutable
-Deck Version, with strict source provenance and transactional history.
+Added objective Deck Metrics and deterministic Findings for an immutable Deck Version, with strict
+source Provenance and transactional current/run history.
 
-## Future milestones
+## Confirmed future milestones
 
-### v0.6.0 — Design Intent
+### v0.6.0 â€” Design Intent
 
-Create a rigorous, versionable way to express one interpretation of a Character: themes, priorities,
-desired experiences, accepted weaknesses, source evidence, and authored rationale. Prove the model
-with one bounded reference intent before broad expansion.
+Create a rigorous, versionable expression of one Character interpretation: source Evidence, themes,
+priorities, desired experiences, accepted weaknesses, and authored rationale. Prove one bounded
+reference intent before broad expansion.
 
-### v0.7.0 — Alignment
+### v0.7.0 â€” Alignment
 
-Compute explainable evidence for how cards, Capabilities, relationships, and Deck Versions support a
-specific Design Intent. Keep objective inputs separate from subjective interpretation, expose every
-factor, and avoid collapsing alignment into universal card quality.
+Compute explainable evidence for how cards, Capabilities, Relationships, and Deck Versions support a
+specific Design Intent. Keep objective inputs separate from interpretation.
 
-### v0.8.0 — Recommendations
+### v0.8.0 â€” Recommendations
 
-Produce contextual card and change proposals from a specific Deck Version, Design Intent, Alignment,
-and objective deck needs. Every recommendation must expose constraints, evidence, tradeoffs, and
-confidence; none is an automatic command.
+Produce contextual proposals from a Deck Version, Design Intent, Alignment, and objective deck needs.
+Every Recommendation exposes constraints, Evidence, tradeoffs, and Confidence; none is a command.
 
-### v0.9.0 — Playtesting
+### v0.9.0 â€” Playtesting and iteration
 
-Record structured sessions and observations, connect findings to immutable Deck Versions, and use
-real play evidence to challenge prior assumptions. Preserve both measurements and human observations
-without rewriting history.
+Record structured Playtest Sessions and observations, connect learning to immutable Deck Versions,
+and use real play Evidence to challenge assumptions without rewriting history.
 
-### v1.0 — Explainable Character Deck
+### v1.0.0 â€” First fully explainable Character Sewer Deck
 
-Deliver one complete 60-card, Standard-legal Character deck with an inspectable path through source
-facts, Capabilities, Deck Metrics, Design Intent, Alignment, recommendations, decisions, and playtest
-evidence. Publish the story of its development for the community.
+Deliver one complete 60-card, Standard-legal Character Sewer Deck with an inspectable path through
+Magic Facts, Capabilities, Deck Metrics, Design Intent, Alignment, Recommendations, decisions, and
+playtesting. Publish its development story for the community.
 
 ## Beyond v1
 
-Possible future directions include:
+Aspirational possibilitiesâ€”not commitmentsâ€”include additional Characters and Design Intents, richer
+playtest evidence, interactive explainability tools, Puzzle Dojo learning experiences, durable
+Underground Press archives, visual inspection tools, and carefully bounded assistive AI that never
+hides Evidence or replaces accountable judgment.
 
-- additional Characters and multiple Design Intents per Character;
-- richer playtest and metagame evidence without matchup guarantees;
-- the Underground Press as a durable community publication and archive;
-- Puzzle Dojo educational exercises and interactive explainability tools;
-- Surface Reports that make bounded project work accessible to broader audiences;
-- visual inspection tools and contributor workflows;
-- additional Magic formats only after Standard-first experience demonstrates a need;
-- carefully bounded assistive AI that never hides evidence or replaces accountable judgment.
+Additional Magic formats may be considered only after Standard-first experience demonstrates a real
+need and the architecture can preserve explainability.
 
-These are possibilities, not commitments.
+## Deliberately deferred and out of scope
 
-## Deliberately deferred
-
-- Supporting every Character before one end-to-end reference deck works.
-- Supporting formats beyond Standard in Version 1.
-- Opaque scoring, autonomous deck construction, or unexplained recommendations.
-- Matchup prediction, competitive guarantees, and universal deck-health grades.
-- A graphical interface before the underlying responsibilities and inspection paths are stable.
-- Publishing scale, monetization, or audience growth at the expense of community trust.
+- Opaque AI scoring or non-explainable automation.
+- Autonomous deck construction presented as authority.
+- Monetization or publishing scale at the expense of community trust.
+- Unrelated franchises.
+- Additional Magic formats until Standard is proven.
+- Matchup guarantees and universal deck-quality grades.
+- A graphical interface before underlying responsibilities and inspection paths are stable.
 - Speculative features without evidence of a real contributor or user need.
 
 ## Success criteria
 
-The roadmap is succeeding when:
-
-- a newcomer can understand the project’s vocabulary and boundaries;
-- every important output can be traced to evidence, rules, versions, and decisions;
-- identical inputs reproduce identical deterministic analysis;
-- subjective interpretation is visible and challengeable rather than disguised as fact;
-- each milestone has a clear responsibility and leaves prior history intact;
-- contributors can participate without hidden knowledge or status gates;
-- the resulting deck is legal, playable, recognizable, explainable, and enjoyable;
-- the project creates useful community knowledge in addition to software.
+The roadmap is succeeding when a newcomer understands the vocabulary and boundaries; important
+outputs trace to Evidence, rules, versions, and decisions; deterministic analysis reproduces;
+interpretation remains visible and challengeable; each milestone has one clear responsibility; and
+the resulting deck is legal, playable, recognizable, explainable, and joyful.
 
 ## Living document
 
-This roadmap is vision-oriented, not schedule-oriented. Version numbers describe a dependency order
-and learning path, not delivery dates. It should evolve through explicit review as evidence changes,
-while preserving milestone history and the constitutional mission.
+Version numbers describe dependency order and a learning path, not delivery dates. This roadmap may
+evolve through explicit review as evidence changes, while preserving completed history and the
+constitutional mission.
+
