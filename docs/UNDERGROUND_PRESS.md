@@ -7,9 +7,10 @@ living underground community. Its purpose is to inform, connect, celebrate, and 
 history. The publication is community-first, not hero-first and not project marketing disguised as
 news.
 
-April Oâ€™Neil serves as the **Surface Correspondent**â€”an important reporting role, not editor, owner,
-or central figure. No publication motto is canonized here because the proposed wording could not be
-verified in existing repository material; adopting one requires owner confirmation.
+**Tagline:** *For Mutants. By Mutants.*
+
+April O'Neil serves as the **Surface Correspondent**—an important reporting role, not editor-in-chief,
+owner, or the sole face of the paper. The publication belongs to the community.
 
 ## Editorial standard
 
@@ -31,6 +32,10 @@ verified in existing repository material; adopting one requires owner confirmati
 - Sensitive locations, routes, identities, capabilities, and routines are withheld when disclosure
   could endanger the underground community.
 - No story is worth avoidable harm.
+
+The canonical section taxonomy, edition classifications, milestone triggers, and world constraints live
+in the [World Guide](WORLD_GUIDE.md). This guide supplies the reporting practice used within those
+boundaries.
 
 ## Permanent sections
 
@@ -66,7 +71,8 @@ or celebrating: a major release, design milestone, community milestone, meaningf
 or urgent Extra. Routine bug fixes, refactors, dependency updates, and minor documentation changes do
 not receive editions.
 
-Every edition is classified as **Community**, **Milestone**, **Special**, or **Extra** and records:
+Every edition uses the canonical **Community Edition**, **Milestone Edition**, **Special Edition**, or
+**Extra Edition** classification and records:
 
 - issue number;
 - title;
