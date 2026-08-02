@@ -7,6 +7,9 @@ from objective Magic facts to Capability evidence, Deck Metrics, Design Intent, 
 recommendations, playtesting, and preserved design decisions. The same foundation should support
 future decks, research, educational experiences, and community publishing without becoming opaque.
 
+Related governance: [Project Constitution](PROJECT_CONSTITUTION.md),
+[Design Principles](DESIGN_PRINCIPLES.md), and [Glossary](GLOSSARY.md).
+
 ## Guiding philosophy
 
 The roadmap follows the [Project Constitution](PROJECT_CONSTITUTION.md) and

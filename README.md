@@ -24,24 +24,52 @@ Character
 - **Deck Analysis Engine** — computes objective deck metrics and explainable threshold findings.
 - **Context-Aware Recommendation Engine** — recommends cards based on the current deck, its Design Intent, and its unmet needs.
 - **TMNT Design Encyclopedia** — human-readable reference material and dossiers.
-- **Underground Press** — future publishing layer for design journals, card spotlights, deck development reports, and project updates.
+- **Underground Press** — community publishing layer for design journals, card spotlights, reports, and preserved project history.
 
 ## Architectural rule
 
 > Store facts. Compute intelligence. Preserve decisions.
 
-## Governance and direction
+## Documentation
+
+### Getting started
+
+- [Contributor Journey](docs/CONTRIBUTOR_JOURNEY.md) — a path through the first 30 minutes, first day,
+  and first contribution.
+- [Repository Map](docs/REPOSITORY_MAP.md) — where code, tests, documentation, fixtures, and future
+  project assets belong.
+- [Glossary](docs/GLOSSARY.md) — canonical definitions for shared project terminology.
+
+### Governance
 
 - [Project Constitution](docs/PROJECT_CONSTITUTION.md) — why the project exists and the values that
   govern it.
-- [Design Principles](docs/DESIGN_PRINCIPLES.md) — how project, engineering, editorial, and deck
-  design decisions are made.
-- [Glossary](docs/GLOSSARY.md) — canonical definitions for shared project terminology.
+- [Design Principles](docs/DESIGN_PRINCIPLES.md) — how engineering, editorial, and deck-design
+  decisions are made.
 - [Roadmap](docs/ROADMAP.md) — milestone history and the vision-oriented path to and beyond v1.0.
+- [Accepted Decisions](docs/DECISIONS.md) — durable product, knowledge-model, and engineering choices.
 
-Implementation boundaries remain in [Architecture](docs/ARCHITECTURE.md), durable technical choices
-in [Accepted Decisions](docs/DECISIONS.md), and storage responsibilities in
-[the SewerGraph specification](docs/DATABASE.md).
+### Architecture
+
+- [Architecture](docs/ARCHITECTURE.md) — information classes, reasoning flow, and layer boundaries.
+- [SewerGraph Database](docs/DATABASE.md) — persistence responsibilities and migration history.
+- [Capability Engine](docs/CAPABILITIES.md) — catalog, rules, evidence, Confidence, and Overrides.
+- [Deck Analysis Engine](docs/DECK_ANALYSIS.md) — Deck Metrics, Findings, provenance, and limitations.
+
+### World
+
+- [World Guide](docs/WORLD_GUIDE.md) — the living Underground Community and the Software/World
+  boundary.
+- [Underground Press Style Guide](docs/UNDERGROUND_PRESS_STYLE_GUIDE.md) — editorial standards,
+  permanent sections, canon rules, and milestone publication policy.
+
+### Development and contributing
+
+- [Repository Health](docs/REPOSITORY_HEALTH.md) — documentation, terminology, architecture, code,
+  test, world, and user-experience audit practices.
+- [Contributor Journey](docs/CONTRIBUTOR_JOURNEY.md) — focused issues, architectural discussion,
+  validation, and pull-request expectations.
+- [Changelog](CHANGELOG.md) — historical release scope and validation.
 
 ## Version 0.1 scope
 

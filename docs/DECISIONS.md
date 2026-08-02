@@ -39,8 +39,10 @@ This document summarizes the product and architecture decisions accepted before 
 10. **Recommendations are computed**  
     Recommendation scores and explanations are not canonical stored facts. They must be reproducible from current facts, intent, rules, and deck state.
 
-11. **Deck Profiles are computed analysis**  
-    Curve, theme coverage, capability balance, identity drift, and deck health are generated from a Deck Version.
+11. **Deck analysis is computed**
+    Objective Deck Metrics and deterministic Findings are generated from a Deck Version. The earlier
+    umbrella term “Deck Profile” was superseded by the narrower v0.5.0 vocabulary; future Alignment
+    and Recommendation layers remain separate responsibilities.
 
 12. **Preserve evidence and interpretation separately**  
     Objective playtest observations and subjective designer opinions must remain distinguishable.
