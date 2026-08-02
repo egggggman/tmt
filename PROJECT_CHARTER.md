@@ -1,10 +1,17 @@
 # Project Charter
 
+This short charter is retained as an early statement of project scope. Canonical governance now
+lives in the [Project Constitution](docs/PROJECT_CONSTITUTION.md), with direction in the
+[Roadmap](docs/ROADMAP.md) and shared vocabulary in the [Glossary](docs/GLOSSARY.md).
+
 ## Goal
-Build a maintainable ecosystem containing the encyclopedia, deck project, database, Underground Press, research, and tooling.
+
+Build and preserve a maintainable ecosystem for explainable Character Sewer Deck design, including
+SewerGraph, analytical engines, the TMNT Design Encyclopedia, the Underground Press, research, and
+tooling.
 
 ## Success
-- Well organized
-- Version controlled
-- Backed up
-- Expandable
+
+The project is organized, version-controlled, backed up, explainable, expandable, welcoming, and
+faithful to its architectural boundaries.
+

@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased — Repository governance
+
+### Documentation
+
+- Consolidated canonical project philosophy, design principles, terminology, architecture, roadmap,
+  onboarding, world governance, and repository-health review practices.
+- Defined the complete reasoning pipeline and kept objective facts, computed intelligence, authored
+  intent, recommendations, playtest observations, and community presentation in separate layers.
+- Canonized The Underground Press mission, tagline, publication taxonomy, milestone policy, and
+  relationship to the living world.
+- Prepared governance and Design Intent RFC orientation without implementing v0.6.0 behavior.
+
+
 ## v0.5.0 — Deck Analysis Engine
 
 ### Added
