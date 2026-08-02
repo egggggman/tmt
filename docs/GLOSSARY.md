@@ -12,10 +12,16 @@ A planned, explainable assessment of how evidence from a card, Relationship, or 
 supports a specific Design Intent. Alignment is interpretation, not an objective card fact or
 universal quality score. Planned for v0.7.0.
 
+### Audit
+
+The practice and preserved evidence needed to reconstruct what happened, when, from which inputs and
+rules, with what outcome, and under whose explicit decision where applicable.
+
 ### Audit Run
 
-A durable record of one attempted engine or import execution: inputs, versions, checksums, timing,
-outcome, counts, and errors. Successful and failed runs remain available for reconstruction.
+One durable record produced by that practice for an attempted engine or import execution: inputs,
+versions, checksums, timing, outcome, counts, and errors. Successful and failed runs remain available
+for reconstruction.
 
 ### Capability
 
@@ -87,6 +93,12 @@ a derived result or decision.
 The ability to trace a result through inputs, Evidence, rules, thresholds, Confidence, versions,
 Provenance, and human decisions in inspectable language.
 
+### Fact
+
+Objective information imported from an authoritative source or directly observed and recorded
+without project-specific interpretation. A Magic Fact is the card-domain specialization of this
+term. Facts remain distinct from interpretations and decisions.
+
 ### Finding
 
 An explainable statement produced by applying a named deterministic rule or threshold to one or more
@@ -132,6 +144,12 @@ decisions behind a result.
 The Underground Pressâ€™s community puzzle and learning section. It may use crosswords, Sudoku,
 ciphers, mazes, logic puzzles, word searches, and recurring hidden elements. It is not an engine.
 
+### Raw Capability
+
+A Capability emitted directly by deterministic rule derivation before any active Override is applied.
+Raw Capabilities retain their original Confidence, Evidence, Rule Set, and Provenance. Compare
+[Effective Capability](#effective-capability).
+
 ### Recommendation
 
 A planned contextual proposal to consider a card or change for a specific Design Intent and Deck
@@ -171,7 +189,8 @@ milestone for a general in-universe audience. It is presentation, not canonical 
 ### The Underground Press
 
 The in-universe community newspaper that informs, connects, celebrates, and preserves underground
-community history. See [The Underground Press](UNDERGROUND_PRESS.md).
+community history under the tagline *For Mutants. By Mutants.* See the [World Guide](WORLD_GUIDE.md)
+and [Press guide](UNDERGROUND_PRESS.md).
 
 ### TMNT Design Studio
 
