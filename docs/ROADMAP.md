@@ -54,6 +54,10 @@ reference intent before broad expansion.
 The [Design Intent RFC](DESIGN_INTENT_RFC.md) is the Under Review architecture milestone for this
 work. Its presence does not mark the v0.6.0 runtime or persistence implementation complete.
 
+Immediately after RFC acceptance, build Leonardo Prototype 0.1 with the existing Capability and Deck
+Analysis engines, then playtest it. Use that evidence to challenge the envelope before adding
+Alignment, Recommendations, or generalized Character machinery.
+
 ### v0.7.0 â€” Alignment
 
 Compute explainable evidence for how cards, Capabilities, Relationships, and Deck Versions support a
