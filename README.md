@@ -68,7 +68,7 @@ implementation status, and invariants.
 
 Technical source-of-truth documents remain [Architecture](docs/ARCHITECTURE.md),
 [Database](docs/DATABASE.md), [Accepted Decisions](docs/DECISIONS.md),
-[Capabilities](docs/CAPABILITIES.md), and [Deck Analysis](docs/DECK_ANALYSIS.md).
+[Capabilities](docs/CAPABILITIES.md), [Deck Analysis](docs/DECK_ANALYSIS.md), and the\n[Design Intent RFC](docs/DESIGN_INTENT_RFC.md).
 
 ## Community world and publishing
 
