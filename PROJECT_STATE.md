@@ -13,7 +13,8 @@ Current release: **v0.5.0 â€” Deck Analysis Engine**.
 ## Current focus
 
 - Consolidate governance, terminology, onboarding, architecture, roadmap, and world documentation.
-- Prepare the Design Intent RFC without implementing v0.6.0 behavior.
+- Review the [Design Intent RFC](docs/DESIGN_INTENT_RFC.md) without treating it as implemented
+  v0.6.0 behavior.
 
 ## Next architectural layer
 
