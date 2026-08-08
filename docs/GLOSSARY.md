@@ -65,9 +65,11 @@ Changes create a new Deck Version rather than rewriting history.
 
 ### Design Intent
 
-A planned, human-authored interpretation of how a Character should be expressed through play. It may
-describe themes, priorities, desired experiences, source Evidence, and accepted weaknesses. The
-storage foundation exists; the v0.6.0 behavior is not yet implemented.
+A planned, human-authored interpretation of how a Character's philosophy should be experienced
+through gameplay, not how a deck must be constructed. It defines Core Values, Strategic Principles,
+Gameplay Objectives, a measurable Design Envelope, and narrative Design Tensions with Evidence and
+lifecycle Provenance. The storage foundation exists; v0.6.0 behavior is not yet implemented. See the
+[Design Intent RFC](DESIGN_INTENT_RFC.md).
 
 ### Determinism
 
