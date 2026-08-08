@@ -13,8 +13,10 @@ Current release: **v0.5.0 â€” Deck Analysis Engine**.
 ## Current focus
 
 - Consolidate governance, terminology, onboarding, architecture, roadmap, and world documentation.
-- Review the [Design Intent RFC](docs/DESIGN_INTENT_RFC.md) without treating it as implemented
+- Accept the [Design Intent RFC](docs/DESIGN_INTENT_RFC.md) without treating it as implemented
   v0.6.0 behavior.
+- Build and playtest Leonardo Prototype 0.1 using existing Capability and Deck Analysis outputs
+  before implementing Alignment or Recommendations.
 
 ## Next architectural layer
 
