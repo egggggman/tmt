@@ -51,6 +51,9 @@ Create a rigorous, versionable expression of one Character interpretation: sourc
 priorities, desired experiences, accepted weaknesses, and authored rationale. Prove one bounded
 reference intent before broad expansion.
 
+The [Design Intent RFC](DESIGN_INTENT_RFC.md) is the Under Review architecture milestone for this
+work. Its presence does not mark the v0.6.0 runtime or persistence implementation complete.
+
 ### v0.7.0 â€” Alignment
 
 Compute explainable evidence for how cards, Capabilities, Relationships, and Deck Versions support a
