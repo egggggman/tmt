@@ -128,8 +128,10 @@ Evidence is classified conceptually as:
 
 Character and Design Evidence make an intent reviewable. Validation Evidence accumulates without
 silently rewriting an Accepted version; a meaningful changed conclusion produces a new version.
-Evidence should be attributable enough for another contributor to inspect or challenge it. This RFC
-does not prescribe a universal citation schema.
+Evidence should be attributable enough for another contributor to inspect or challenge it. The first
+version uses a small durable evidence record: evidence class, source title or description, source
+locator, contributor, and rationale. A URI and accessed date are optional when applicable. This is
+an inspectable citation contract, not a universal bibliography schema.
 
 ## Explainability contract
 
@@ -153,7 +155,11 @@ The lifecycle is **Draft → Under Review → Accepted → Superseded or Retired
 - **Superseded:** replaced for future use by a newer Accepted version; historical references remain valid.
 - **Retired:** not recommended for future use, but preserved historically.
 
-An Accepted intent is never mutated in place. A meaningful change creates a new version. Historical
+An Accepted intent is never mutated in place. A meaningful change creates a new version. Major
+versions change the interpretation or model incompatibly; minor versions change Core Values,
+Strategic Principles, Gameplay Objectives, Design Tensions, or the Design Envelope meaningfully;
+patch versions clarify wording or correct metadata without changing meaning. Evidence and playtest
+observations may accumulate beside an Accepted version, but may not silently alter it. Historical
 analyses identify the exact Accepted Design Intent version they used and remain reproducible. A
 Design Intent becomes Accepted only after documented maintainer review and approval. Community
 proposals and feedback may inform the decision, but current project authority rests with maintainers.
@@ -245,6 +251,9 @@ Capabilities and Deck Metrics are initially UNCONSTRAINED.
 
 Before Acceptance, maintainers should attach Character Evidence for the interpretation and each Core
 Value, then review the Design Evidence encoded in the objective, target, and tension rationales.
+Leonardo `0.1.0` remains Under Review until that evidence review is complete. Candidate-deck or
+playtest Validation Evidence is not a prerequisite for initial Acceptance; it is the next mechanism
+for testing and, when necessary, superseding the hypotheses.
 Candidate-deck analysis should record every metric against Capability rule set `2026.08.1` and Deck
 Analysis engine `2026.08.0`. Later playtests should record Validation Evidence for whether the deck
 actually establishes, coordinates, preserves, recovers, and finishes as intended. Evidence that
@@ -253,9 +262,9 @@ Accepted `0.1.0`.
 
 ## Conflicts and repository reconciliation
 
-The requested production baseline names v0.5.1, while the inspected repository declares v0.5.0 in
-`pyproject.toml`, `README.md`, `CHANGELOG.md`, package version constants, and the Scryfall user agent.
-This documentation-only RFC does not resolve that release-identity conflict.
+The canonical production baseline is v0.5.0. The inspected `main` branch agrees across
+`pyproject.toml`, `README.md`, `PROJECT_STATE.md`, `CHANGELOG.md`, package version constants, and the
+Scryfall user agent. No v0.5.1 release or tag is evidenced, so this RFC does not invent one.
 
 Several requested root documents do not exist: `PROJECT_CHARTER.md`, `PROJECT_STATE.md`, `ROADMAP.md`,
 `GLOSSARY.md`, and `STYLE_GUIDE.md`. Their current canonical responsibilities are mostly covered by
@@ -272,32 +281,36 @@ Architecture currently names a future Recommendation Engine immediately after De
 component description, while its system flow correctly places future Design Intent and Alignment
 before Recommendations. This RFC makes the latter dependency authoritative for v0.6 planning.
 
-## Implementation contract and remaining questions
+## Implementation contract and resolved first-pass decisions
 
 Implementation may begin once this RFC is Accepted, but v0.6 remains incomplete until code and
 persistence satisfy lifecycle, immutable-version, provenance, evidence, envelope, and trace
-contracts. Implementation must not invent product philosophy to answer these bounded questions:
+contracts. The first pass deliberately chooses the smallest useful representation:
 
-1. What durable source/citation representation should Character Evidence use?
-2. Which fields make a change “meaningful” for semantic versioning, beyond the invariant that any
-   changed Accepted meaning creates a new version?
-3. Should the first persistence pass normalize trace relationships, or store a validated versioned
-   document while the model is exercised?
-4. Is Leonardo `0.1.0` accepted with the RFC after evidence review, or retained Under Review until a
-   candidate deck supplies initial Validation Evidence?
-5. Which repository release/tag is the actual v0.5.1 production baseline?
+1. Character Evidence uses the bounded evidence record defined above. Rich bibliography formats wait
+   for demonstrated need.
+2. Semantic versions follow the major/minor/patch meaning policy above; Accepted versions remain
+   immutable.
+3. The first persistence pass stores a validated, versioned Design Intent document plus immutable
+   acceptance metadata. Trace relationships are normalized only after real query or reuse needs
+   demonstrate value.
+4. Leonardo `0.1.0` remains Under Review until Character and Design Evidence receive documented
+   maintainer review. Initial deck or playtest Validation Evidence is not required to accept the
+   hypothesis.
+5. v0.5.0 is the canonical repository baseline. No v0.5.1 release is assumed.
 
-These choices affect representation and acceptance timing, not the gameplay philosophy or layer
-boundaries defined here.
+These are architectural defaults, not new runtime behavior. They preserve a reversible path while
+allowing a Leonardo prototype to reach the table quickly.
 
 ## RFC acceptance review
 
 This RFC defines Design Intent and its distinction from Character; assigns ownership to every
 component; defines envelope, UNCONSTRAINED behavior, explanation, evidence, lifecycle, supersession,
 and maintainer approval; and represents Leonardo using only current Capabilities and Deck Metrics.
-Every Leonardo target has an upward trace. Subject to the five bounded decisions above—especially
-baseline identity and evidence representation—the implementation can begin without inventing new
-gameplay philosophy.
+Every Leonardo target has an upward trace. The bounded first-pass decisions above are resolved, so
+implementation can begin without inventing new gameplay philosophy. The immediate validation path
+is Leonardo Prototype 0.1: construct a legal candidate deck, run existing Deck Analysis, play it,
+and record observations before building Alignment or Recommendations.
 
 ## Out of scope
 
