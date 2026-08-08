@@ -317,4 +317,3 @@ and record observations before building Alignment or Recommendations.
 This RFC does not implement or design algorithms for a Design Intent runtime engine, database
 migration, Alignment, Recommendations, scoring, authenticity, AI/ML, deck generation or tuning,
 playtest simulation, matchup prediction, personality scoring, or Design Tension optimization.
-
