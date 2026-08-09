@@ -12,7 +12,7 @@ This is intentionally a **playtest artifact**, not a claim of optimal constructi
 
 ## Decklist — 60 cards
 
-### Creatures — 23
+### Creatures — 24
 
 - 4 Prehistoric Pet
 - 3 Leonardo, Leader in Blue
@@ -132,8 +132,52 @@ Prototype 0.1 uses only cards from **Magic: The Gathering | Teenage Mutant Ninja
 
 No TMC-only Turtle Team-Up / Commander card is used, because those new-to-Magic cards are not Standard-legal merely by appearing in the TMNT product line.
 
+## Deck Analysis baseline
+
+Analyzed as immutable Deck Version **#1** with Deck Analysis Engine **2026.08.0**, Scryfall import
+**#3**, and Capability run **#3**. The normal (non-diagnostic) run succeeded, confirming the exact
+60-card main deck passed the engine's structural, copy-limit, resolved-printing, Standard-legality,
+and current-provenance preconditions.
+
+### Structure and curve
+
+- 60 cards: 22 lands and 38 nonlands.
+- 24 creature cards (40.0% of the deck); the earlier section label of 23 was corrected because
+  Mighty Mutanimals is also a Creature.
+- Nonland mana values: 11 at MV 1, 13 at MV 2, 7 at MV 3, and 7 at MV 4.
+- Average nonland mana value: 2.26; median: 2; modal value: 2.
+- 22 unrestricted white sources for 39 white mana symbols. The engine reports its conservative
+  `mana.shortfall.w` warning; treat this as a sequencing/missed-land-drop playtest hypothesis, not a
+  verdict, because pip count is not a castability simulation.
+
+### Capability findings
+
+- Card selection: 9 copies across 3 cards.
+- Token creation: 6 copies across 3 cards.
+- Life gain: 5 copies across 2 cards.
+- Evasion: 4 copies; targeted removal: 3 copies; combat support: 3 copies; equipment synergy: 2
+  copies.
+- Interaction density: 7.9% of nonlands; threat density: 63.2% of nonlands.
+- The engine classifies 0 protection, 0 recursion, 0 finishers, and 0 board wipes. These objective
+  rule outputs expose gaps between authored intent language and the current Capability catalog;
+  they do not prove the play patterns are absent. Test protection, recovery, and closing power at
+  the table before changing either cards or rules.
+
+The run also found one artifact/equipment-synergy relationship. No Alignment or Recommendation
+judgment was performed.
+
 ## Next step
 
-Run the existing Deck Analysis Engine against this exact list once represented as an immutable Deck Version, correct only obvious functional defects, then play it.
+Sleeve or import this exact list and play it unchanged for 3–5 games. A plain-text digital import
+list and physical pull checklist are available in
+[PROTOTYPE_0.1.txt](PROTOTYPE_0.1.txt). The existing Deck Analysis Engine has completed its normal
+validation path; no Alignment or Recommendation result is required.
+
+For physical play, pull the quantities in the text list, verify 60 cards with no sideboard, and
+sleeve it as a fixed snapshot. For digital play, import the text list directly; it contains only the
+deck-import lines and no annotations.
+
+Use [PLAYTEST_LOG.md](PLAYTEST_LOG.md) for the first games. Preserve this list as Prototype 0.1;
+changes informed by play become a new Deck Version.
 
 Do **not** build Alignment or Recommendations first.
