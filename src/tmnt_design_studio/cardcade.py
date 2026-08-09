@@ -15,8 +15,8 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-ENGINE_VERSION = "cardcade-0.1.0"
-MATCH_SCHEMA_VERSION = "1.0.0"
+ENGINE_VERSION = "cardcade-0.2.0"
+MATCH_SCHEMA_VERSION = "1.1.0"
 STAGES = {"smoke": 20, "calibration": 100, "development": 500, "validation": 1000}
 
 
@@ -34,6 +34,8 @@ class DeckProfile:
     interaction_value: float
     synergy: str
     strategy: str
+    artifact_plan: str | None = None
+    artifact_rate: float = 0.0
 
 
 def load_roster(path: Path) -> list[DeckProfile]:
@@ -87,9 +89,19 @@ def _opening_hand(rng: random.Random, profile: DeckProfile) -> tuple[list[int], 
     return hand, library, mulligans
 
 
+def _classify_spell(rng: random.Random, profile: DeckProfile) -> str:
+    roll = rng.random()
+    if roll < profile.creature_rate:
+        return "creature"
+    if roll < profile.creature_rate + profile.interaction_rate * (1 - profile.creature_rate):
+        return "interaction"
+    return "support"
+
+
 def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str, Any]:
     hand, library, mulligans = _opening_hand(rng, profile)
     lands = board = support = interaction = mana_spent = missed = 0
+    artifacts = artifact_setup = artifact_payoffs = sequencing_holds = affinity_saved = 0
     board_t3 = 0
     for turn in range(1, 9):
         if (turn > 1 or not on_play) and library:
@@ -100,26 +112,68 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         else:
             missed += 1
         mana = lands
-        while choices := [mv for mv in hand if 0 < mv <= mana]:
-            mv = min(choices)
+        while choices := [
+            mv
+            for mv in hand
+            if mv > 0
+            and (
+                mv <= mana
+                or (
+                    profile.artifact_plan == "affinity"
+                    and mv - min(artifacts, 3, mv - 1) <= mana
+                )
+            )
+        ]:
+            affordable = [mv for mv in choices if mv <= mana]
+            if not affordable:
+                break
+            mv = min(affordable)
+            if profile.artifact_plan == "affinity" and artifacts >= 2:
+                expensive = [
+                    value
+                    for value in choices
+                    if value >= 4 and value - min(artifacts, 3, value - 1) <= mana
+                ]
+                if expensive:
+                    mv = max(expensive)
+                    affinity_saved += min(artifacts, 3, mv - 1)
+            elif profile.artifact_plan and artifacts < 2:
+                setup = [value for value in affordable if value <= 2]
+                if setup:
+                    mv = min(setup)
+                elif any(value >= 4 for value in affordable):
+                    sequencing_holds += 1
+                    break
             hand.remove(mv)
-            mana -= mv
+            discount = (
+                min(artifacts, 3, mv - 1)
+                if profile.artifact_plan == "affinity" and mv >= 4
+                else 0
+            )
+            paid = mv - discount
+            mana -= min(mana, paid)
             mana_spent += mv
-            roll = rng.random()
-            if roll < profile.creature_rate:
+            spell_type = _classify_spell(rng, profile)
+            if spell_type == "creature":
                 board += 1
-            elif roll < (
-                profile.creature_rate
-                + profile.interaction_rate * (1 - profile.creature_rate)
-            ):
+            elif spell_type == "interaction":
                 interaction += 1
             else:
                 support += 1
+            is_artifact = profile.artifact_plan and (
+                spell_type == "support" or rng.random() < profile.artifact_rate
+            )
+            if is_artifact:
+                artifacts += 1
+                if mv <= 2:
+                    artifact_setup += 1
+            if profile.artifact_plan and mv >= 4 and artifacts >= 2:
+                artifact_payoffs += 1
         if turn == 3:
             board_t3 = board
     synergy = board >= 3 and support + interaction >= 1 and mana_spent >= 10
-    if profile.id in {"donatello", "krang"}:
-        synergy = support >= 2 and board >= 2 and mana_spent >= 11
+    if profile.artifact_plan:
+        synergy = artifact_setup >= 2 and artifact_payoffs >= 1 and mana_spent >= 11
     return {
         "mulligans": mulligans,
         "lands_t8": lands,
@@ -130,6 +184,13 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         "board_t8": board,
         "support": support,
         "interaction": interaction,
+        "interaction_used": 0,
+        "interaction_dead": interaction,
+        "artifacts_cast": artifacts,
+        "artifact_setup_cast": artifact_setup,
+        "artifact_payoffs_cast": artifact_payoffs,
+        "artifact_sequencing_holds": sequencing_holds,
+        "affinity_mana_saved": affinity_saved,
         "mana_spent": mana_spent,
         "cards_in_hand_t8": len(hand),
         "strategy_executed": synergy,
@@ -141,7 +202,10 @@ def _score(profile: DeckProfile, state: dict[str, Any]) -> float:
         profile.board_value * state["board_t8"]
         + profile.mana_value * state["mana_spent"]
         + profile.support_value * state["support"]
-        + profile.interaction_value * state["interaction"]
+        + profile.interaction_value * state["interaction_used"]
+        + 0.45 * state["artifact_setup_cast"]
+        + 0.85 * state["artifact_payoffs_cast"]
+        + 0.12 * state["affinity_mana_saved"]
         - 0.8 * state["mulligans"]
     )
 
@@ -150,8 +214,11 @@ def simulate_match(
     rng: random.Random, run_id: str, index: int, a: DeckProfile, b: DeckProfile, a_starts: bool
 ) -> dict[str, Any]:
     a_state, b_state = _pilot(rng, a, a_starts), _pilot(rng, b, not a_starts)
+    for state, opponent in ((a_state, b_state), (b_state, a_state)):
+        state["interaction_used"] = min(state["interaction"], opponent["board_t8"])
+        state["interaction_dead"] = state["interaction"] - state["interaction_used"]
     delta = _score(a, a_state) - _score(b, b_state)
-    delta += 0.3 * (a_state["interaction"] - b_state["interaction"])
+    delta += 0.3 * (a_state["interaction_used"] - b_state["interaction_used"])
     delta += 1.5 if a_starts else -1.5
     delta += rng.gauss(0, 3.8)
     winner = a.id if delta > 0 else b.id
@@ -187,7 +254,6 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
         json.dumps([asdict(deck) for deck in roster], sort_keys=True).encode()
     ).hexdigest()
     run_id = f"{ENGINE_VERSION}-{seed}-{games}-{roster_hash[:8]}"
-    rng = random.Random(seed)
     matches = []
     pairings = {}
     index = 0
@@ -195,7 +261,8 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
         rows = []
         for game in range(games):
             index += 1
-            row = simulate_match(rng, run_id, index, a, b, game % 2 == 0)
+            game_seed = f"{seed}:{a.id}:{b.id}:{game}"
+            row = simulate_match(random.Random(game_seed), run_id, index, a, b, game % 2 == 0)
             rows.append(row)
             matches.append(row)
         a_wins = sum(row["winner"] == a.id for row in rows)
@@ -207,6 +274,12 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             "sampling_95_ci": [max(0, p-1.96*se), min(1, p+1.96*se)],
             "first_player_win_rate": _rate(rows, lambda r: r["winner"] == r["starting_player"]),
             "average_turns": sum(r["turns"] for r in rows)/games,
+            "deck_a_interaction_used_rate": _rate(
+                rows, lambda r, deck_id=a.id: r["players"][deck_id]["interaction_used"] > 0
+            ),
+            "deck_b_interaction_used_rate": _rate(
+                rows, lambda r, deck_id=b.id: r["players"][deck_id]["interaction_used"] > 0
+            ),
         }
     decks = {}
     for deck in roster:
@@ -221,14 +294,78 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             "strategy_execution_rate": sum(s["strategy_executed"] for s in states)/len(states),
             "average_board_t3": sum(s["board_t3"] for s in states)/len(states),
             "average_board_t8": sum(s["board_t8"] for s in states)/len(states),
+            "average_interaction_seen": sum(s["interaction"] for s in states)/len(states),
+            "average_interaction_used": sum(s["interaction_used"] for s in states)/len(states),
+            "average_interaction_dead": sum(s["interaction_dead"] for s in states)/len(states),
+            "artifact_setup_rate": sum(s["artifact_setup_cast"] >= 2 for s in states)/len(states),
+            "artifact_payoff_rate": sum(s["artifact_payoffs_cast"] > 0 for s in states)/len(states),
+            "average_artifacts_cast": sum(s["artifacts_cast"] for s in states)/len(states),
+            "average_artifact_sequencing_holds": sum(
+                s["artifact_sequencing_holds"] for s in states
+            )/len(states),
+            "average_affinity_mana_saved": sum(
+                s["affinity_mana_saved"] for s in states
+            )/len(states),
         }
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "engine_version": ENGINE_VERSION,
         "model_scope": "heuristic rehearsal; not a Magic rules engine or real balance evidence",
         "seed": seed, "games_per_pairing": games, "pairing_count": 45,
         "total_games": len(matches), "roster_hash": roster_hash,
+        "first_player_win_rate": _rate(
+            matches, lambda match: match["winner"] == match["starting_player"]
+        ),
         "decks": decks, "pairings": pairings, "matches": matches,
+    }
+
+
+def compare_runs(baseline: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
+    """Compare two same-protocol runs without making deck-change recommendations."""
+    if baseline["games_per_pairing"] != candidate["games_per_pairing"]:
+        raise ValueError("sensitivity runs must use the same games-per-pairing protocol")
+    if set(baseline["pairings"]) != set(candidate["pairings"]):
+        raise ValueError("sensitivity runs must contain the same pairings")
+    shifts = []
+    for pairing_id, current in candidate["pairings"].items():
+        previous = baseline["pairings"][pairing_id]
+        shifts.append(
+            {
+                "pairing": pairing_id,
+                "baseline_deck_a_win_rate": previous["deck_a_win_rate"],
+                "candidate_deck_a_win_rate": current["deck_a_win_rate"],
+                "shift": current["deck_a_win_rate"] - previous["deck_a_win_rate"],
+            }
+        )
+    shifts.sort(key=lambda row: abs(row["shift"]), reverse=True)
+    return {
+        "schema_version": "1.0.0",
+        "baseline_run_id": baseline["matches"][0]["run_id"],
+        "candidate_run_id": candidate["matches"][0]["run_id"],
+        "protocol": {
+            "games_per_pairing": candidate["games_per_pairing"],
+            "pairings": candidate["pairing_count"],
+            "total_games": candidate["total_games"],
+            "seed": candidate["seed"],
+        },
+        "first_player_win_rate": {
+            "baseline": _rate(
+                baseline["matches"],
+                lambda match: match["winner"] == match["starting_player"],
+            ),
+            "candidate": candidate["first_player_win_rate"],
+        },
+        "deck_win_rate_shifts": {
+            deck_id: candidate["decks"][deck_id]["win_rate"]
+            - baseline["decks"][deck_id]["win_rate"]
+            for deck_id in candidate["decks"]
+        },
+        "matchup_shifts": shifts,
+        "diagnostics": {
+            deck_id: candidate["decks"][deck_id]
+            for deck_id in ("donatello", "krang", "shredder")
+        },
+        "governance": "evidence and hypotheses only; no decklist mutations authorized",
     }
 
 
