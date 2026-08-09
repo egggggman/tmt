@@ -1,0 +1,25 @@
+{
+  "source": "tmnt-design-studio.db cards table; derived 2026-08-09",
+  "cards": {
+    "Fugitive Droid": {"mana_value": 1, "card_type": "creature", "artifact_permanent": true},
+    "Buzz Bots": {"mana_value": 2, "card_type": "creature", "artifact_permanent": true},
+    "Crustacean Commando": {"mana_value": 2, "card_type": "creature", "artifact_tokens": 1},
+    "Utrom Scientists": {"mana_value": 3, "card_type": "creature", "artifact_permanent": true},
+    "Krang, Master Mind": {"mana_value": 8, "card_type": "creature", "artifact_permanent": true, "artifact_payoff": true, "affinity": true, "affinity_floor": 2},
+    "Ray Fillet, Man Ray": {"mana_value": 4, "card_type": "creature", "artifact_tokens": 1},
+    "Stockman, Mad Fly-entist": {"mana_value": 5, "card_type": "creature"},
+    "Sewer-veillance Cam": {"mana_value": 1, "card_type": "support", "artifact_permanent": true},
+    "Does Machines": {"mana_value": 2, "card_type": "support", "artifact_payoff": true},
+    "Negate": {"mana_value": 2, "card_type": "interaction"},
+    "Ooze Spill": {"mana_value": 3, "card_type": "interaction", "artifact_tokens": 1},
+    "Retro-Mutation": {"mana_value": 3, "card_type": "interaction"},
+    "Donatello, Way with Machines": {"mana_value": 3, "card_type": "creature", "artifact_payoff": true},
+    "Donatello, Gadget Master": {"mana_value": 3, "card_type": "creature", "artifact_payoff": true},
+    "Donatello, Turtle Techie": {"mana_value": 4, "card_type": "creature", "artifact_payoff": true},
+    "Donatello, Mutant Mechanic": {"mana_value": 4, "card_type": "creature", "artifact_payoff": true},
+    "Bespoke Bō": {"mana_value": 2, "card_type": "support", "artifact_permanent": true},
+    "Donatello's Technique": {"mana_value": 2, "card_type": "interaction", "artifact_payoff": true},
+    "Return to the Sewers": {"mana_value": 3, "card_type": "support"},
+    "Island": {"mana_value": 0, "card_type": "land"}
+  }
+}

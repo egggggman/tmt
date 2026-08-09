@@ -15,8 +15,8 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-ENGINE_VERSION = "cardcade-0.2.0"
-MATCH_SCHEMA_VERSION = "1.1.0"
+ENGINE_VERSION = "cardcade-0.3.0"
+MATCH_SCHEMA_VERSION = "1.2.0"
 STAGES = {"smoke": 20, "calibration": 100, "development": 500, "validation": 1000}
 
 
@@ -36,16 +36,62 @@ class DeckProfile:
     strategy: str
     artifact_plan: str | None = None
     artifact_rate: float = 0.0
+    cards: tuple[CardModel, ...] = ()
+
+
+@dataclass(frozen=True)
+class CardModel:
+    name: str
+    mana_value: int
+    card_type: str = "generic"
+    artifact_permanent: bool = False
+    artifact_tokens: int = 0
+    artifact_payoff: bool = False
+    affinity: bool = False
+    affinity_floor: int = 0
 
 
 def load_roster(path: Path) -> list[DeckProfile]:
     data = json.loads(path.read_text(encoding="utf-8"))
-    return [
-        DeckProfile(
-            **{**row, "mana_curve": {int(key): value for key, value in row["mana_curve"].items()}}
+    model_path = path.with_name("card-model-0.3.json")
+    card_models = json.loads(model_path.read_text(encoding="utf-8"))["cards"]
+    roster = []
+    for row in data["decks"]:
+        deck_cards = []
+        if not row.get("artifact_plan"):
+            roster.append(
+                DeckProfile(
+                    **{
+                        **row,
+                        "mana_curve": {
+                            int(key): value for key, value in row["mana_curve"].items()
+                        },
+                    }
+                )
+            )
+            continue
+        in_deck = False
+        for line in (path.parents[0] / ".." / row["decklist"]).resolve().read_text(
+            encoding="utf-8"
+        ).splitlines():
+            if line.strip() == "Deck":
+                in_deck = True
+                continue
+            if in_deck and line.strip():
+                quantity, name = line.split(" ", 1)
+                derived = card_models[name]
+                card = CardModel(name=name, **derived)
+                deck_cards.extend([card] * int(quantity))
+        roster.append(
+            DeckProfile(
+                **{
+                    **row,
+                    "mana_curve": {int(key): value for key, value in row["mana_curve"].items()},
+                    "cards": tuple(deck_cards),
+                }
+            )
         )
-        for row in data["decks"]
-    ]
+    return roster
 
 
 def validate_roster(roster: list[DeckProfile], root: Path) -> list[dict[str, Any]]:
@@ -71,25 +117,38 @@ def validate_roster(roster: list[DeckProfile], root: Path) -> list[dict[str, Any
     return results
 
 
-def _cards(profile: DeckProfile) -> list[int]:
-    return [mv for mv, count in profile.mana_curve.items() for _ in range(count)]
+def _cards(profile: DeckProfile) -> list[CardModel]:
+    if profile.cards:
+        return list(profile.cards)
+    return [
+        CardModel(name=f"generic-{mv}-{index}", mana_value=mv)
+        for mv, count in profile.mana_curve.items()
+        for index in range(count)
+    ]
 
 
-def _opening_hand(rng: random.Random, profile: DeckProfile) -> tuple[list[int], list[int], int]:
+def _opening_hand(
+    rng: random.Random, profile: DeckProfile
+) -> tuple[list[CardModel], list[CardModel], int]:
     deck = _cards(profile)
     mulligans = 0
     while True:
         rng.shuffle(deck)
         hand, library = deck[:7], deck[7:]
-        if 2 <= hand.count(0) <= 5 or mulligans == 2:
+        lands = sum(card.mana_value == 0 for card in hand)
+        if 2 <= lands <= 5 or mulligans == 2:
             break
         mulligans += 1
     for _ in range(mulligans):
-        hand.remove(0 if hand.count(0) > 3 else max((x for x in hand if x), default=0))
+        lands = [card for card in hand if card.mana_value == 0]
+        spells = [card for card in hand if card.mana_value > 0]
+        hand.remove(lands[0] if len(lands) > 3 else max(spells, key=lambda card: card.mana_value))
     return hand, library, mulligans
 
 
-def _classify_spell(rng: random.Random, profile: DeckProfile) -> str:
+def _classify_spell(rng: random.Random, profile: DeckProfile, card: CardModel) -> str:
+    if card.card_type != "generic":
+        return card.card_type
     roll = rng.random()
     if roll < profile.creature_rate:
         return "creature"
@@ -102,72 +161,77 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
     hand, library, mulligans = _opening_hand(rng, profile)
     lands = board = support = interaction = mana_spent = missed = 0
     artifacts = artifact_setup = artifact_payoffs = sequencing_holds = affinity_saved = 0
+    affinity_spells = affinity_discount_events = mana_value_cast = 0
     board_t3 = 0
     for turn in range(1, 9):
         if (turn > 1 or not on_play) and library:
             hand.append(library.pop(0))
-        if 0 in hand:
-            hand.remove(0)
+        land = next((card for card in hand if card.mana_value == 0), None)
+        if land:
+            hand.remove(land)
             lands += 1
         else:
             missed += 1
         mana = lands
         while choices := [
-            mv
-            for mv in hand
-            if mv > 0
+            card
+            for card in hand
+            if card.mana_value > 0
             and (
-                mv <= mana
-                or (
-                    profile.artifact_plan == "affinity"
-                    and mv - min(artifacts, 3, mv - 1) <= mana
-                )
+                card.mana_value <= mana
+                or card.affinity
+                and card.mana_value - min(artifacts, card.mana_value - card.affinity_floor) <= mana
             )
         ]:
-            affordable = [mv for mv in choices if mv <= mana]
-            if not affordable:
-                break
-            mv = min(affordable)
+            affordable = [card for card in choices if card.mana_value <= mana]
+            card = min(affordable, key=lambda choice: choice.mana_value) if affordable else None
             if profile.artifact_plan == "affinity" and artifacts >= 2:
                 expensive = [
-                    value
-                    for value in choices
-                    if value >= 4 and value - min(artifacts, 3, value - 1) <= mana
+                    choice
+                    for choice in choices
+                    if choice.affinity
+                    and choice.mana_value
+                    - min(artifacts, choice.mana_value - choice.affinity_floor)
+                    <= mana
                 ]
                 if expensive:
-                    mv = max(expensive)
-                    affinity_saved += min(artifacts, 3, mv - 1)
+                    card = max(expensive, key=lambda choice: choice.mana_value)
             elif profile.artifact_plan and artifacts < 2:
-                setup = [value for value in affordable if value <= 2]
+                setup = [
+                    choice
+                    for choice in affordable
+                    if choice.artifact_permanent or choice.artifact_tokens
+                ]
                 if setup:
-                    mv = min(setup)
-                elif any(value >= 4 for value in affordable):
+                    card = min(setup, key=lambda choice: choice.mana_value)
+                elif any(choice.artifact_payoff for choice in affordable):
                     sequencing_holds += 1
                     break
-            hand.remove(mv)
+            if card is None:
+                break
+            hand.remove(card)
             discount = (
-                min(artifacts, 3, mv - 1)
-                if profile.artifact_plan == "affinity" and mv >= 4
-                else 0
+                min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
             )
-            paid = mv - discount
+            affinity_saved += discount
+            affinity_spells += int(card.affinity)
+            affinity_discount_events += int(discount > 0)
+            paid = card.mana_value - discount
             mana -= min(mana, paid)
-            mana_spent += mv
-            spell_type = _classify_spell(rng, profile)
+            mana_spent += paid
+            mana_value_cast += card.mana_value
+            spell_type = _classify_spell(rng, profile, card)
             if spell_type == "creature":
                 board += 1
             elif spell_type == "interaction":
                 interaction += 1
             else:
                 support += 1
-            is_artifact = profile.artifact_plan and (
-                spell_type == "support" or rng.random() < profile.artifact_rate
-            )
-            if is_artifact:
-                artifacts += 1
-                if mv <= 2:
-                    artifact_setup += 1
-            if profile.artifact_plan and mv >= 4 and artifacts >= 2:
+            artifacts_added = int(card.artifact_permanent) + card.artifact_tokens
+            artifacts += artifacts_added
+            if artifacts_added:
+                artifact_setup += artifacts_added
+            if card.artifact_payoff and artifacts >= 2:
                 artifact_payoffs += 1
         if turn == 3:
             board_t3 = board
@@ -191,7 +255,10 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         "artifact_payoffs_cast": artifact_payoffs,
         "artifact_sequencing_holds": sequencing_holds,
         "affinity_mana_saved": affinity_saved,
+        "affinity_spells_cast": affinity_spells,
+        "affinity_discount_events": affinity_discount_events,
         "mana_spent": mana_spent,
+        "mana_value_cast": mana_value_cast,
         "cards_in_hand_t8": len(hand),
         "strategy_executed": synergy,
     }
@@ -203,8 +270,8 @@ def _score(profile: DeckProfile, state: dict[str, Any]) -> float:
         + profile.mana_value * state["mana_spent"]
         + profile.support_value * state["support"]
         + profile.interaction_value * state["interaction_used"]
-        + 0.45 * state["artifact_setup_cast"]
-        + 0.85 * state["artifact_payoffs_cast"]
+        + 0.45 * min(state["artifact_setup_cast"], 2)
+        + 0.85 * min(state["artifact_payoffs_cast"], 1)
         + 0.12 * state["affinity_mana_saved"]
         - 0.8 * state["mulligans"]
     )
@@ -306,9 +373,17 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             "average_affinity_mana_saved": sum(
                 s["affinity_mana_saved"] for s in states
             )/len(states),
+            "average_affinity_spells_cast": sum(
+                s["affinity_spells_cast"] for s in states
+            )/len(states),
+            "affinity_discount_event_rate": sum(
+                s["affinity_discount_events"] > 0 for s in states
+            )/len(states),
+            "average_mana_value_cast": sum(s["mana_value_cast"] for s in states)/len(states),
+            "average_mana_paid": sum(s["mana_spent"] for s in states)/len(states),
         }
     return {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "engine_version": ENGINE_VERSION,
         "model_scope": "heuristic rehearsal; not a Magic rules engine or real balance evidence",
         "seed": seed, "games_per_pairing": games, "pairing_count": 45,
