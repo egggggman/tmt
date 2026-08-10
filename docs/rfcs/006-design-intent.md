@@ -1,6 +1,6 @@
 # RFC 006 — Design Intent
 
-Status: Proposed for acceptance
+Status: Accepted
 
 ## Decision summary
 
@@ -238,10 +238,11 @@ Store only project-relevant authorship and evidence metadata. Do not require per
 - [x] Alternatives and tradeoffs are documented.
 - [x] Existing canonical terminology is preserved.
 - [x] No runtime, schema, migration, engine, or license behavior is changed by this RFC.
-- [ ] Maintainer explicitly accepts the RFC.
+- [x] Maintainer explicitly accepted the RFC through the playable-first course correction.
 
-## Owner decision required
+## Acceptance record
 
-**Accept RFC 006 as the Design Intent contract and authorize Leonardo Prototype 0.1 construction.**
-
-This is the only blocking human decision. No Alignment or Recommendation engine is required before the prototype is built and played.
+RFC 006 is accepted as the Design Intent contract. Leonardo Prototype 0.1 was authorized by the
+owner's explicit **COWABUNGA** course correction: finish the RFC, build the prototype, play it, and
+learn from it. No Alignment or Recommendation engine is required before the prototype is built and
+played.

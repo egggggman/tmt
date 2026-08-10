@@ -1,5 +1,33 @@
 # Changelog
 
+## Cardcade Engine 0.6
+
+- Replaced anonymous curve-slot classification and deck-specific outcome multipliers with a frozen
+  card-fact snapshot and generic, deck-identity-independent role derivation across all ten decks.
+- Preserved Engine 0.5 prior auditing and validated artifact sequencing/affinity behavior while
+  selecting those paths from card facts rather than named deck plans.
+- Added generic role-use telemetry, cross-identity tests, and a reproducible 900-game comparison
+  against the neutralized Engine 0.5 baseline.
+- Failed the stability gate with 18 matchup shifts over 15 points; Prototype 0.3 remains frozen
+  pending richer rules-text semantics and magnitude/relevance modeling.
+
+## Cardcade Engine 0.5
+
+- Inventoried and exposed all six deck-varying profile-strength priors and every global score term.
+- Added reproducible neutralization, isolated-field attribution, and bounded sensitivity conditions.
+- Preserved roster 0.2 and all historical runs; no Prototype 0.3 or card change was created.
+- Reproduced Smoke 0.5 and found Donatello/Krang strength survives neutralization while Leonardo's
+  weakness is partly prior-driven; deck design remains frozen pending card-derived role modeling.
+
+## Prototype 0.2 design cycle
+
+- Preserved all Prototype 0.1 decklists and created surgical Donatello and Krang Prototype 0.2
+  candidates from Calibration 0.1 evidence.
+- Froze roster 0.2 with the other eight decks unchanged and ran the exact balanced 20-game smoke
+  protocol.
+- Recorded a recalibration block: intended engine reliability moved, but aggregate strength and
+  matchup polarity remain unresolved.
+
 ## Unreleased — Repository governance
 
 ### Documentation

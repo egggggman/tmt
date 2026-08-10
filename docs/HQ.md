@@ -46,8 +46,8 @@ accepted history, until merged.
 | SewerGraph and analytical foundation through Deck Analysis v0.5.0 | Design Studio | Implemented on `main` | Scryfall facts, capabilities, database migrations | `src/tmnt_design_studio/`, `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/DECK_ANALYSIS.md` |
 | Design Intent contract | Design Studio | Accepted RFC; implementation remains a Design Studio concern | Canon/source research and existing analysis layers | `docs/rfcs/006-design-intent.md` |
 | Leonardo Prototype 0.1 | Design Studio | Preserved on `main` | Design Intent, Standard legality, deck analysis | `decks/leonardo/PROTOTYPE_0.1.md` |
-| Ten-deck Prototype 0.1 baseline and Prototype 0.2 candidates | Design Studio | Pending in Cardcade PR #15; do not duplicate or revise from HQ | Design Intent and Cardcade evidence | `decks/` in PR #15 |
-| Cardcade engine, rosters, smoke runs, calibration, and audit evidence | TMNT the Cardcade Game | Pending in draft PR #15; engine stability gate is not yet satisfied | Frozen deck versions and reproducible card facts | `cardcade/`, `src/tmnt_design_studio/cardcade.py`, and `tests/test_cardcade.py` in PR #15 |
+| Ten-deck Prototype 0.1 baseline and Prototype 0.2 candidates | Design Studio | Preserved on `main` following merged PR #15; do not revise from HQ | Design Intent and Cardcade evidence | `decks/` |
+| Cardcade engine, rosters, smoke runs, calibration, and audit evidence | TMNT the Cardcade Game | Preserved on `main` following merged PR #15; Engine 0.6 stability gate is not satisfied | Frozen deck versions and reproducible card facts | `cardcade/`, `src/tmnt_design_studio/cardcade.py`, and `tests/test_cardcade.py` |
 | Physical battle-set products and print specifications | Mr. Paperback | Planned; no accepted production package yet | Stable deck dimensions/content, token needs, brand and print tests | Repository location to be assigned when the first specification is accepted |
 | Canon and source research | Canon / Source Material | Foundation present; expand only as deck or product work requires | Attributed TMNT sources and project interpretation | `docs/Knowledge-Architecture.md`, `docs/WORLD_GUIDE.md`, `encyclopedia/` |
 | Underground Press publication system | The Underground Press | Governed; production remains distinct | World continuity and bounded project milestones | `docs/UNDERGROUND_PRESS.md`, `docs/Editorial-Bible.md` |
@@ -58,7 +58,7 @@ accepted history, until merged.
 ### Active milestones
 
 - Preserve the implemented v0.1.0-v0.5.0 analytical foundation and Leonardo Prototype 0.1.
-- Review Cardcade PR #15 as a separate evidence package. It preserves Prototype 0.1, introduces
+- Preserve merged PR #15 as a separate evidence package. It retains Prototype 0.1, introduces
   bounded Prototype 0.2 candidates, and records Cardcade through Engine 0.6 without authorizing
   Prototype 0.3.
 - Establish this HQ map as the coordination surface for later Design Studio, Cardcade, Canon,
@@ -66,19 +66,20 @@ accepted history, until merged.
 
 ### Blockers
 
-- Cardcade's Engine 0.6 stability gate fails in PR #15, so larger calibration and Design Studio deck
-  revisions remain blocked pending credible engine behavior.
+- Cardcade's Engine 0.6 stability gate remains failed after merged PR #15, so larger calibration and
+  Design Studio deck revisions remain blocked pending credible engine behavior.
 - Physical-product specifications depend on sufficiently stable deck contents and identified token,
   reference, and packaging requirements.
 
 ### Immediate priorities
 
-1. Review and resolve PR #15 on its own merits without mixing HQ governance into it.
+1. Treat merged PR #15 as preserved evidence, not proof that Cardcade is validated.
 2. Keep Prototype 0.3 frozen until Cardcade evidence is credible and Design Studio explicitly
    authorizes a revision hypothesis.
-3. After Cardcade evidence is accepted, route findings to Design Studio for the smallest
+3. Improve and validate Cardcade behavior before larger calibration or further deck revisions.
+4. After Cardcade evidence is accepted, route findings to Design Studio for the smallest
    evidence-backed deck decision.
-4. Add Master Project Map rows when a meaningful system, artifact, prototype, or physical product
+5. Add Master Project Map rows when a meaningful system, artifact, prototype, or physical product
    gains an owner or accepted repository location; do not create duplicate trackers.
 
 ## Change discipline

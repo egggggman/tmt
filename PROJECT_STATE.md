@@ -17,8 +17,8 @@ Current software release: **v0.5.0 — Deck Analysis Engine**.
 
 - The accepted product target is a complete ten-deck TMNT battle set, not a single Leonardo deck.
 - Leonardo Prototype 0.1 and the Design Intent RFC are accepted on `main`.
-- The ten-deck Prototype 0.1 baseline, bounded Prototype 0.2 candidates, and Cardcade evidence remain
-  pending in draft PR #15. Prototype 0.3 is not authorized.
+- The ten-deck Prototype 0.1 baseline, bounded Prototype 0.2 candidates, and Cardcade through Engine
+  0.6 are preserved on `main` following merged PR #15. Prototype 0.3 is not authorized.
 
 ## Validation gate
 

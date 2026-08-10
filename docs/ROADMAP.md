@@ -14,6 +14,22 @@ This roadmap follows the [Project Constitution](PROJECT_CONSTITUTION.md) and
 [Design Principles](DESIGN_PRINCIPLES.md): foundations before features, objective before subjective,
 deterministic first, and community before ego. It is vision-oriented, not schedule-oriented.
 
+The delivery priority is **playable first, explainable increasingly**. Current objective facts,
+Capabilities, and Deck Analysis are enough to produce Prototype 0.1 decks and gather lightweight
+table notes. Design Intent targets are hypotheses to test, not hard truth. Alignment,
+Recommendations, and a structured Playtesting Engine remain future milestones rather than gates to
+building and playing decks.
+
+## Immediate learning loop
+
+1. Preserve a bounded Design Intent without requiring perfect certainty.
+2. Build a legal 60-card prototype from current Scryfall facts and Capabilities.
+3. Run the existing Deck Analysis Engine and record objective findings.
+4. Play, log fun and friction, and revise through a new preserved Deck Version.
+
+Leonardo Prototype 0.1 is the first loop. Further engine work must earn priority by making decks
+more fun, distinct, functional, or explainable.
+
 ## Milestone history
 
 Completed status is based on `CHANGELOG.md`, tagged releases, and current implementation—not the
@@ -48,7 +64,7 @@ source Provenance and transactional current/run history.
 
 - The Design Intent RFC and Leonardo Prototype 0.1 are accepted on `main`.
 - The ten-deck Prototype 0.1 baseline, bounded Prototype 0.2 candidates, and Cardcade through Engine
-  0.6 are pending in draft PR #15.
+  0.6 are preserved on `main` following merged PR #15.
 - Cardcade Engine 0.6 fails its stability gate. Its findings are hypotheses, not authority to change
   decks; Prototype 0.3 remains unauthorized.
 - The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio

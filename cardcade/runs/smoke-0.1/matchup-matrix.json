@@ -1,0 +1,122 @@
+{
+  "leonardo": {
+    "leonardo": null,
+    "raphael": 0.3,
+    "donatello": 0.5,
+    "michelangelo": 0.4,
+    "splinter": 0.45,
+    "april_oneil": 0.35,
+    "casey_jones": 0.55,
+    "shredder": 0.25,
+    "krang": 0.75,
+    "bebop_rocksteady": 0.45
+  },
+  "raphael": {
+    "leonardo": 0.7,
+    "raphael": null,
+    "donatello": 0.5,
+    "michelangelo": 0.55,
+    "splinter": 0.65,
+    "april_oneil": 0.3,
+    "casey_jones": 0.4,
+    "shredder": 0.45,
+    "krang": 0.7,
+    "bebop_rocksteady": 0.5
+  },
+  "donatello": {
+    "leonardo": 0.5,
+    "raphael": 0.5,
+    "donatello": null,
+    "michelangelo": 0.5,
+    "splinter": 0.5,
+    "april_oneil": 0.55,
+    "casey_jones": 0.45,
+    "shredder": 0.55,
+    "krang": 0.45,
+    "bebop_rocksteady": 0.5
+  },
+  "michelangelo": {
+    "leonardo": 0.6,
+    "raphael": 0.44999999999999996,
+    "donatello": 0.5,
+    "michelangelo": null,
+    "splinter": 0.55,
+    "april_oneil": 0.45,
+    "casey_jones": 0.65,
+    "shredder": 0.45,
+    "krang": 0.6,
+    "bebop_rocksteady": 0.55
+  },
+  "splinter": {
+    "leonardo": 0.55,
+    "raphael": 0.35,
+    "donatello": 0.5,
+    "michelangelo": 0.44999999999999996,
+    "splinter": null,
+    "april_oneil": 0.45,
+    "casey_jones": 0.5,
+    "shredder": 0.3,
+    "krang": 0.45,
+    "bebop_rocksteady": 0.5
+  },
+  "april_oneil": {
+    "leonardo": 0.65,
+    "raphael": 0.7,
+    "donatello": 0.44999999999999996,
+    "michelangelo": 0.55,
+    "splinter": 0.55,
+    "april_oneil": null,
+    "casey_jones": 0.3,
+    "shredder": 0.45,
+    "krang": 0.65,
+    "bebop_rocksteady": 0.65
+  },
+  "casey_jones": {
+    "leonardo": 0.44999999999999996,
+    "raphael": 0.6,
+    "donatello": 0.55,
+    "michelangelo": 0.35,
+    "splinter": 0.5,
+    "april_oneil": 0.7,
+    "casey_jones": null,
+    "shredder": 0.4,
+    "krang": 0.6,
+    "bebop_rocksteady": 0.55
+  },
+  "shredder": {
+    "leonardo": 0.75,
+    "raphael": 0.55,
+    "donatello": 0.44999999999999996,
+    "michelangelo": 0.55,
+    "splinter": 0.7,
+    "april_oneil": 0.55,
+    "casey_jones": 0.6,
+    "shredder": null,
+    "krang": 0.65,
+    "bebop_rocksteady": 0.7
+  },
+  "krang": {
+    "leonardo": 0.25,
+    "raphael": 0.30000000000000004,
+    "donatello": 0.55,
+    "michelangelo": 0.4,
+    "splinter": 0.55,
+    "april_oneil": 0.35,
+    "casey_jones": 0.4,
+    "shredder": 0.35,
+    "krang": null,
+    "bebop_rocksteady": 0.35
+  },
+  "bebop_rocksteady": {
+    "leonardo": 0.55,
+    "raphael": 0.5,
+    "donatello": 0.5,
+    "michelangelo": 0.44999999999999996,
+    "splinter": 0.5,
+    "april_oneil": 0.35,
+    "casey_jones": 0.44999999999999996,
+    "shredder": 0.30000000000000004,
+    "krang": 0.65,
+    "bebop_rocksteady": null
+  }
+}
