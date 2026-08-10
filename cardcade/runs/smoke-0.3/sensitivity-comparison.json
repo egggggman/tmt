@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "protocol": {"seed": 20260809, "decks": 10, "pairings": 45, "games_per_pairing": 20, "total_games": 900, "starts_per_deck_per_pairing": 10},
+  "aggregate": {"first_player_win_rate": {"engine_0_1": 0.5222222222, "engine_0_2": 0.5255555556, "engine_0_3": 0.5222222222}},
+  "focus_decks": {
+    "donatello": {"win_rate": {"engine_0_1": 0.5, "engine_0_2": 0.4888888889, "engine_0_3": 0.6444444444}, "engine_0_3_setup_rate": 0.9833333333, "engine_0_3_payoff_rate": 0.9611111111, "engine_0_3_full_execution_rate": 0.9277777778},
+    "krang": {"win_rate": {"engine_0_1": 0.3888888889, "engine_0_2": 0.7111111111, "engine_0_3": 0.6166666667}, "average_affinity_mana_saved": {"engine_0_2": 2.9222222222, "engine_0_3": 2.3444444444}, "engine_0_3_affinity_spells_cast": 0.5944444444, "engine_0_3_discount_event_rate": 0.4833333333},
+    "shredder": {"win_rate": {"engine_0_1": 0.6111111111, "engine_0_2": 0.5277777778, "engine_0_3": 0.4722222222}}
+  },
+  "largest_engine_0_2_to_0_3_matchup_shifts": [
+    {"pairing": "donatello_vs_shredder", "engine_0_2": 0.35, "engine_0_3": 0.75, "shift": 0.4},
+    {"pairing": "splinter_vs_krang", "engine_0_2": 0.1, "engine_0_3": 0.45, "shift": 0.35},
+    {"pairing": "donatello_vs_april_oneil", "engine_0_2": 0.5, "engine_0_3": 0.85, "shift": 0.35},
+    {"pairing": "donatello_vs_michelangelo", "engine_0_2": 0.5, "engine_0_3": 0.75, "shift": 0.25},
+    {"pairing": "donatello_vs_krang", "engine_0_2": 0.3, "engine_0_3": 0.5, "shift": 0.2}
+  ],
+  "decision": "calibration_blocked",
+  "governance": "evidence and hypotheses only; no decklist mutations authorized"
+}

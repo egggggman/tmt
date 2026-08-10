@@ -1,0 +1,12 @@
+{
+  "engine_version": "cardcade-0.6.0",
+  "seed": 20260809,
+  "games_per_pairing": 20,
+  "pairings": 45,
+  "total_games": 900,
+  "starts_per_deck_per_pairing": 10,
+  "roster": "cardcade/roster-0.2.json",
+  "roster_hash": "21a325fb6184f160e928d29b3d7e130543ee06108f2e644e2c8e54010d937cb9",
+  "primary_baseline": "Engine 0.5 neutralized condition",
+  "governance": "evidence only; decklists and Prototype histories frozen"
+}

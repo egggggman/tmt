@@ -13,6 +13,22 @@ This roadmap follows the [Project Constitution](PROJECT_CONSTITUTION.md) and
 [Design Principles](DESIGN_PRINCIPLES.md): foundations before features, objective before subjective,
 deterministic first, and community before ego. It is vision-oriented, not schedule-oriented.
 
+The delivery priority is **playable first, explainable increasingly**. Current objective facts,
+Capabilities, and Deck Analysis are enough to produce Prototype 0.1 decks and gather lightweight
+table notes. Design Intent targets are hypotheses to test, not hard truth. Alignment,
+Recommendations, and a structured Playtesting Engine remain future milestones rather than gates to
+building and playing decks.
+
+## Immediate learning loop
+
+1. Preserve a bounded Design Intent without requiring perfect certainty.
+2. Build a legal 60-card prototype from current Scryfall facts and Capabilities.
+3. Run the existing Deck Analysis Engine and record objective findings.
+4. Play, log fun and friction, and revise through a new preserved Deck Version.
+
+Leonardo Prototype 0.1 is the first loop. Further engine work must earn priority by making decks
+more fun, distinct, functional, or explainable.
+
 ## Milestone history
 
 Completed status is based on `CHANGELOG.md`, tagged releases, and current implementation—not the
