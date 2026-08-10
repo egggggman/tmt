@@ -1,5 +1,6 @@
 import json
 from copy import deepcopy
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -12,6 +13,7 @@ from tmnt_design_studio.cardcade import (
     _score,
     apply_profile_prior_condition,
     compare_runs,
+    derive_card_model,
     load_roster,
     profile_prior_inventory,
     run_profile_strength_audit,
@@ -92,6 +94,46 @@ def test_card_derived_model_limits_affinity_to_actual_affinity_cards():
     assert {card.name for card in affinity_cards} == {"Krang, Master Mind"}
     assert all(card.mana_value == 8 and card.affinity_floor == 2 for card in affinity_cards)
     assert not next(card for card in krang.cards if card.name == "Ray Fillet, Man Ray").affinity
+
+
+def test_all_ten_decks_use_actual_card_facts_and_emit_generic_roles():
+    roster = load_roster(ROSTER_02)
+    assert {deck.id for deck in roster} == {
+        "leonardo", "raphael", "donatello", "michelangelo", "splinter",
+        "april_oneil", "casey_jones", "shredder", "krang", "bebop_rocksteady",
+    }
+    for deck in roster:
+        assert len(deck.cards) == 60
+        assert all(card.card_type != "generic" for card in deck.cards)
+        assert all(card.roles for card in deck.cards if card.card_type != "land")
+        assert any(card.card_type == "creature" for card in deck.cards)
+        assert any(card.card_type in {"interaction", "support"} for card in deck.cards)
+
+
+def test_same_card_facts_derive_same_roles_and_values_without_deck_identity():
+    facts = {
+        "mana_value": 2,
+        "mana_cost": "{1}{U}",
+        "type_line": "Instant",
+        "oracle_text": "Return target nonland permanent to its owner's hand. Draw a card.",
+        "keywords": [],
+    }
+    leonardo_copy = derive_card_model("Leonardo label", facts)
+    krang_copy = derive_card_model("Krang label", facts)
+    assert replace(leonardo_copy, name="same") == replace(krang_copy, name="same")
+    assert set(leonardo_copy.roles) == {"card_advantage", "tempo"}
+
+
+def test_engine_06_outcomes_ignore_all_legacy_profile_strength_priors():
+    roster = load_roster(ROSTER_02)
+    neutral = apply_profile_prior_condition(roster)
+    authored_run = run_round_robin(roster, 2, 20260809)
+    neutral_run = run_round_robin(neutral, 2, 20260809)
+    assert authored_run["decks"] == neutral_run["decks"]
+    assert authored_run["pairings"] == neutral_run["pairings"]
+    assert [row["winner"] for row in authored_run["matches"]] == [
+        row["winner"] for row in neutral_run["matches"]
+    ]
 
 
 def test_affinity_discount_respects_card_colored_mana_floor():

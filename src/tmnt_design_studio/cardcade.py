@@ -10,13 +10,14 @@ import hashlib
 import json
 import math
 import random
+import re
 from dataclasses import asdict, dataclass
 from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-ENGINE_VERSION = "cardcade-0.5.0"
-MATCH_SCHEMA_VERSION = "1.3.0"
+ENGINE_VERSION = "cardcade-0.6.0"
+MATCH_SCHEMA_VERSION = "1.4.0"
 STAGES = {"smoke": 20, "calibration": 100, "development": 500, "validation": 1000}
 PROFILE_PRIOR_FIELDS = (
     "creature_rate",
@@ -57,27 +58,133 @@ class CardModel:
     artifact_payoff: bool = False
     affinity: bool = False
     affinity_floor: int = 0
+    roles: tuple[str, ...] = ()
+    board_units: float = 0.0
+    card_units: float = 0.0
+    interaction_units: float = 0.0
+    support_units: float = 0.0
+    tempo_units: float = 0.0
+    acceleration_units: float = 0.0
+    finisher_units: float = 0.0
+
+
+def derive_card_model(name: str, facts: dict[str, Any]) -> CardModel:
+    """Convert objective card facts into deck-agnostic roles and coarse outcome units."""
+    text = facts["oracle_text"].lower()
+    type_line = facts["type_line"].lower()
+    keywords = {keyword.lower() for keyword in facts.get("keywords", [])}
+    roles: set[str] = set()
+    creature = "creature" in type_line
+    land = "land" in type_line
+    artifact = "artifact" in type_line and not any(
+        card_type in type_line for card_type in ("instant", "sorcery")
+    )
+    if creature:
+        roles.add("threat")
+    if re.search(
+        r"(?:destroy|exile) (?:up to (?:one|two) )?target .*?(?:creature|permanent)", text
+    ):
+        roles.add("removal")
+    if re.search(r"(?:destroy|exile) all (?:creatures|permanents)", text):
+        roles.add("board_wipe")
+    if "counter target spell" in text:
+        roles.add("counterspell")
+    if {"hexproof", "indestructible", "protection"} & keywords or re.search(
+        r"(?:gains?|have) (?:hexproof|indestructible|protection from)", text
+    ):
+        roles.add("protection")
+    draw = re.findall(r"draw (?:a|one|two|three|x|that many) cards?", text)
+    if draw and "skip that draw" not in text:
+        roles.add("card_advantage")
+    if re.search(r"\b(?:scry|surveil) [0-9x]|look at the top .* cards? of your library", text):
+        roles.add("selection")
+    if re.search(r"put .* land card .* onto the battlefield|add one mana of any color", text):
+        roles.add("acceleration")
+    token_match = re.search(r"create (?:a|an|one|two|three|x|that many) (.*?) tokens?", text)
+    if token_match:
+        roles.add("token_creation")
+    if re.search(
+        r"return target .* card from .* graveyard|cast target .* card from .* graveyard", text
+    ):
+        roles.add("recursion")
+    if re.search(r"return target .* permanent .* owner's hand|tap target .* doesn't untap", text):
+        roles.add("tempo")
+    if "creatures you control get +" in text or "equipment" in type_line:
+        roles.add("board_support")
+    if "artifact" in text:
+        roles.add("artifact_synergy")
+    if "equipment" in text or "equip " in text:
+        roles.add("equipment_synergy")
+    affinity = "affinity for artifacts" in text
+    if affinity or re.search(r"costs? .* less", text):
+        roles.add("cost_reduction")
+    if "additional combat phase" in text or "creatures you control gain double strike" in text:
+        roles.add("finisher")
+    if not land and not roles:
+        roles.add("utility")
+
+    token_units = 1.0 if "token_creation" in roles else 0.0
+    board_units = float(creature) + token_units
+    interaction_units = sum(
+        value
+        for role, value in {"removal": 1.0, "board_wipe": 1.5, "counterspell": 1.0}.items()
+        if role in roles
+    )
+    card_units = (1.0 if "card_advantage" in roles else 0.0) + (
+        0.35 if "selection" in roles else 0.0
+    ) + (0.7 if "recursion" in roles else 0.0)
+    support_units = sum(
+        value
+        for role, value in {
+            "protection": 0.6,
+            "board_support": 0.65,
+            "equipment_synergy": 0.35,
+            "artifact_synergy": 0.25,
+            "utility": 0.2,
+        }.items()
+        if role in roles
+    )
+    generic_cost = int(facts["mana_value"])
+    affinity_floor = max(0, len(re.findall(r"\{[wubrg]\}", facts.get("mana_cost", "").lower())))
+    card_type = (
+        "land"
+        if land
+        else "creature"
+        if creature
+        else "interaction"
+        if interaction_units
+        else "support"
+    )
+    artifact_tokens = int(
+        bool(token_match) and "token_creation" in roles and "artifact" in token_match.group(1)
+    )
+    return CardModel(
+        name=name,
+        mana_value=generic_cost,
+        card_type=card_type,
+        artifact_permanent=artifact,
+        artifact_tokens=artifact_tokens,
+        artifact_payoff="artifact_synergy" in roles and not artifact,
+        affinity=affinity,
+        affinity_floor=affinity_floor,
+        roles=tuple(sorted(roles)),
+        board_units=board_units,
+        card_units=card_units,
+        interaction_units=interaction_units,
+        support_units=support_units,
+        tempo_units=0.7 if "tempo" in roles else 0.0,
+        acceleration_units=0.65 if "acceleration" in roles or "cost_reduction" in roles else 0.0,
+        finisher_units=1.25 if "finisher" in roles else 0.0,
+    )
 
 
 def load_roster(path: Path) -> list[DeckProfile]:
     data = json.loads(path.read_text(encoding="utf-8"))
-    model_path = path.with_name("card-model-0.3.json")
+    model_path = path.with_name("card-model-0.6.json")
     card_models = json.loads(model_path.read_text(encoding="utf-8"))["cards"]
     roster = []
     for row in data["decks"]:
         deck_cards = []
-        if not row.get("artifact_plan"):
-            roster.append(
-                DeckProfile(
-                    **{
-                        **row,
-                        "mana_curve": {
-                            int(key): value for key, value in row["mana_curve"].items()
-                        },
-                    }
-                )
-            )
-            continue
         in_deck = False
         for line in (path.parents[0] / ".." / row["decklist"]).resolve().read_text(
             encoding="utf-8"
@@ -87,8 +194,7 @@ def load_roster(path: Path) -> list[DeckProfile]:
                 continue
             if in_deck and line.strip():
                 quantity, name = line.split(" ", 1)
-                derived = card_models[name]
-                card = CardModel(name=name, **derived)
+                card = derive_card_model(name, card_models[name])
                 deck_cards.extend([card] * int(quantity))
         roster.append(
             DeckProfile(
@@ -137,9 +243,8 @@ def profile_prior_inventory(roster: list[DeckProfile]) -> dict[str, Any]:
                 "neutral_value": means[field],
                 "deck_values": {deck.id: getattr(deck, field) for deck in roster},
                 "use": (
-                    "generic spell classification"
-                    if field in {"creature_rate", "interaction_rate"}
-                    else "cast-line valuation and/or final game score"
+                    "legacy audited input; no Engine 0.6 classification, line-choice, "
+                    "or outcome effect"
                 ),
             }
             for field in PROFILE_PRIOR_FIELDS
@@ -212,14 +317,9 @@ def _opening_hand(
 
 
 def _classify_spell(rng: random.Random, profile: DeckProfile, card: CardModel) -> str:
-    if card.card_type != "generic":
-        return card.card_type
-    roll = rng.random()
-    if roll < profile.creature_rate:
-        return "creature"
-    if roll < profile.creature_rate + profile.interaction_rate * (1 - profile.creature_rate):
-        return "interaction"
-    return "support"
+    """Return the role derived from card facts; retained signature avoids run-protocol churn."""
+    del rng, profile
+    return card.card_type
 
 
 def _casting_cost(card: CardModel, artifacts: int) -> int:
@@ -240,14 +340,21 @@ def _line_value(
 ) -> tuple[float, str]:
     """Estimate immediate and delayed value without treating a tag as a command."""
     cost = _casting_cost(card, artifacts)
-    type_value = {
-        "creature": profile.board_value,
-        "interaction": profile.interaction_value * (0.55 if board == 0 else 0.75),
-        "support": profile.support_value,
-        "generic": 0.75,
-    }[card.card_type]
-    value = type_value + 0.12 * card.mana_value
-    reasons = ["immediate_board" if card.card_type == "creature" else "immediate_utility"]
+    del profile
+    board_units = card.board_units or float(card.card_type == "creature")
+    support_units = card.support_units or (0.2 if card.card_type == "support" else 0.0)
+    interaction_units = card.interaction_units or float(card.card_type == "interaction")
+    value = (
+        0.9 * board_units
+        + 0.7 * card.card_units
+        + (0.45 if board == 0 else 0.75) * interaction_units
+        + 0.55 * support_units
+        + 0.6 * card.tempo_units
+        + 0.55 * card.acceleration_units
+        + 0.8 * card.finisher_units
+        + 0.08 * card.mana_value
+    )
+    reasons = ["card_fact_roles:" + ",".join(card.roles)]
 
     setup_added = int(card.artifact_permanent) + card.artifact_tokens
     payoff_ready = artifacts >= 2
@@ -337,6 +444,8 @@ def _choose_cast(
 def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str, Any]:
     hand, library, mulligans = _opening_hand(rng, profile)
     lands = board = support = interaction = mana_spent = missed = 0
+    cards_value = tempo = acceleration = finishers = 0.0
+    role_usage: dict[str, int] = {}
     artifacts = artifact_setup = artifact_payoffs = sequencing_holds = affinity_saved = 0
     affinity_spells = affinity_discount_events = mana_value_cast = 0
     payoff_cards_cast = payoff_rejections = decision_count = 0
@@ -361,7 +470,10 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
                 _casting_cost(card, artifacts) <= mana
             )
         ]:
-            if profile.artifact_plan:
+            if any(
+                choice.artifact_permanent or choice.artifact_tokens or choice.artifact_payoff
+                for choice in profile.cards
+            ):
                 card, decision = _choose_cast(
                     profile, hand, choices, artifacts=artifacts, board=board, mana=mana
                 )
@@ -392,13 +504,16 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
             mana -= min(mana, paid)
             mana_spent += paid
             mana_value_cast += card.mana_value
-            spell_type = _classify_spell(rng, profile, card)
-            if spell_type == "creature":
-                board += 1
-            elif spell_type == "interaction":
-                interaction += 1
-            else:
-                support += 1
+            _classify_spell(rng, profile, card)
+            board += card.board_units or float(card.card_type == "creature")
+            interaction += card.interaction_units or float(card.card_type == "interaction")
+            support += card.support_units or (0.2 if card.card_type == "support" else 0.0)
+            cards_value += card.card_units
+            tempo += card.tempo_units
+            acceleration += card.acceleration_units
+            finishers += card.finisher_units
+            for role in card.roles:
+                role_usage[role] = role_usage.get(role, 0) + 1
             artifacts_added = int(card.artifact_permanent) + card.artifact_tokens
             artifacts += artifacts_added
             if artifacts_added:
@@ -410,8 +525,12 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
                 artifact_payoffs += 1
         if turn == 3:
             board_t3 = board
-    synergy = board >= 3 and support + interaction >= 1 and mana_spent >= 10
-    if profile.artifact_plan:
+    synergy = board >= 3 and support + interaction + cards_value >= 1 and mana_spent >= 10
+    has_artifact_engine = any(
+        card.artifact_permanent or card.artifact_tokens or card.artifact_payoff
+        for card in profile.cards
+    )
+    if has_artifact_engine:
         synergy = artifact_setup >= 2 and artifact_payoffs >= 1 and mana_spent >= 11
     return {
         "mulligans": mulligans,
@@ -422,6 +541,11 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         "board_t3": board_t3,
         "board_t8": board,
         "support": support,
+        "card_advantage": cards_value,
+        "tempo": tempo,
+        "acceleration": acceleration,
+        "finishers": finishers,
+        "role_usage": role_usage,
         "interaction": interaction,
         "interaction_used": 0,
         "interaction_dead": interaction,
@@ -452,12 +576,17 @@ def _score(profile: DeckProfile, state: dict[str, Any]) -> float:
 
 
 def _score_components(profile: DeckProfile, state: dict[str, Any]) -> dict[str, float]:
-    """Return outcome terms separately so injected priors are observable."""
+    """Return universal card/gameplay terms separately from legacy profile priors."""
+    del profile
     return {
-        "board_value": profile.board_value * state["board_t8"],
-        "mana_value": profile.mana_value * state["mana_spent"],
-        "support_value": profile.support_value * state["support"],
-        "interaction_value": profile.interaction_value * state["interaction_used"],
+        "board_value": 1.35 * state["board_t8"],
+        "mana_value": 0.32 * state.get("mana_value_cast", state["mana_spent"]),
+        "support_value": 0.70 * state["support"],
+        "interaction_value": 0.90 * state["interaction_used"],
+        "card_advantage": 0.85 * state.get("card_advantage", 0),
+        "tempo": 0.70 * state.get("tempo", 0),
+        "acceleration": 0.65 * state.get("acceleration", 0),
+        "finishers": 1.00 * state.get("finishers", 0),
         "artifact_setup": 0.45 * min(state["artifact_setup_cast"], 2),
         "artifact_payoff": 0.85 * min(state["artifact_payoffs_cast"], 1),
         "affinity_savings": 0.12 * state["affinity_mana_saved"],
@@ -549,6 +678,7 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
     for deck in roster:
         rows = [row for row in matches if deck.id in (row["deck_a"], row["deck_b"])]
         states = [row["players"][deck.id] for row in rows]
+        role_names = sorted({role for state in states for role in state["role_usage"]})
         decks[deck.id] = {
             "games": len(rows),
             "win_rate": _rate(rows, lambda r, deck_id=deck.id: r["winner"] == deck_id),
@@ -596,6 +726,10 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             )/len(states),
             "average_mana_value_cast": sum(s["mana_value_cast"] for s in states)/len(states),
             "average_mana_paid": sum(s["mana_spent"] for s in states)/len(states),
+            "average_role_usage": {
+                role: sum(s["role_usage"].get(role, 0) for s in states) / len(states)
+                for role in role_names
+            },
         }
     return {
         "schema_version": MATCH_SCHEMA_VERSION,

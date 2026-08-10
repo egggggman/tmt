@@ -1,5 +1,16 @@
 # Changelog
 
+## Cardcade Engine 0.6
+
+- Replaced anonymous curve-slot classification and deck-specific outcome multipliers with a frozen
+  card-fact snapshot and generic, deck-identity-independent role derivation across all ten decks.
+- Preserved Engine 0.5 prior auditing and validated artifact sequencing/affinity behavior while
+  selecting those paths from card facts rather than named deck plans.
+- Added generic role-use telemetry, cross-identity tests, and a reproducible 900-game comparison
+  against the neutralized Engine 0.5 baseline.
+- Failed the stability gate with 18 matchup shifts over 15 points; Prototype 0.3 remains frozen
+  pending richer rules-text semantics and magnitude/relevance modeling.
+
 ## Cardcade Engine 0.5
 
 - Inventoried and exposed all six deck-varying profile-strength priors and every global score term.

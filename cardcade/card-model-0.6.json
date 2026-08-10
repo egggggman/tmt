@@ -1,0 +1,973 @@
+{
+  "schema_version": "1.0.0",
+  "source": "tmnt-design-studio.db cards/keywords; frozen for Engine 0.6",
+  "cards": {
+    "Anchovy & Banana Pizza": {
+      "oracle_id": "5f4834c7-cd63-420b-8492-ef127ffd4f45",
+      "mana_cost": "{2}{B}{B}",
+      "mana_value": 4,
+      "type_line": "Artifact \u2014 Food",
+      "oracle_text": "When this artifact enters, destroy target creature.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "keywords": []
+    },
+    "April O'Neil, Hacktivist": {
+      "oracle_id": "d379a919-02cd-46fd-a6ce-b66a77745ae7",
+      "mana_cost": "{3}{U}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Human Scientist",
+      "oracle_text": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+      "keywords": []
+    },
+    "April O'Neil, Kunoichi Trainee": {
+      "oracle_id": "3f166376-2739-411c-8f42-96f2ef28ef86",
+      "mana_cost": "{1}{W}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Human Ninja",
+      "oracle_text": "When April O'Neil enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\nApril O'Neil can't be blocked by creatures with power 3 or greater.",
+      "keywords": [
+        "Scry"
+      ]
+    },
+    "April, Reporter of the Weird": {
+      "oracle_id": "1c371003-e4f0-4d7c-b021-273176772f97",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Human Detective",
+      "oracle_text": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.",
+      "keywords": []
+    },
+    "Bebop & Rocksteady": {
+      "oracle_id": "a08b0a07-6da2-4ff6-88e5-88355dd84589",
+      "mana_cost": "{1}{B/G}{B/G}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Boar Rhino Mutant",
+      "oracle_text": "Whenever Bebop & Rocksteady attack or block, sacrifice a permanent unless you discard a card.",
+      "keywords": []
+    },
+    "Bebop, Warthog Warrior": {
+      "oracle_id": "39c813e1-0e26-440a-b9bd-e781f7576b8b",
+      "mana_cost": "{4}{B}",
+      "mana_value": 5,
+      "type_line": "Legendary Creature \u2014 Boar Mutant Warrior",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)\nRhinos you control have menace.\nSwampcycling {2} ({2}, Discard this card: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.)",
+      "keywords": [
+        "Cycling",
+        "Landcycling",
+        "Menace",
+        "Swampcycling",
+        "Typecycling"
+      ]
+    },
+    "Bespoke B\u014d": {
+      "oracle_id": "679480aa-f9ad-4a6c-bd79-db9f9f75433d",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "When this Equipment enters, return up to one other target nonland permanent to its owner's hand.\nEquipped creature gets +2/+1 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Buzz Bots": {
+      "oracle_id": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d",
+      "mana_cost": "{1}{U}",
+      "mana_value": 2,
+      "type_line": "Artifact Creature \u2014 Robot Insect",
+      "oracle_text": "Flying, vigilance\nWhen this creature dies, draw a card.",
+      "keywords": [
+        "Flying",
+        "Vigilance"
+      ]
+    },
+    "Casey Jones, Jury-Rig Justiciar": {
+      "oracle_id": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Human Berserker",
+      "oracle_text": "Haste\nWhen Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "keywords": [
+        "Haste"
+      ]
+    },
+    "Casey Jones, Vigilante": {
+      "oracle_id": "bc163b5a-0b1a-4257-8c07-5c7d5284015f",
+      "mana_cost": "{1}{R}{R}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Human Berserker",
+      "oracle_text": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "keywords": []
+    },
+    "Cool but Rude": {
+      "oracle_id": "1f076303-d160-4e02-aa1e-9ed6040c3735",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Enchantment \u2014 Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you attack, you may discard a card. If you do, draw a card.\n{1}{R}: Level 2\nWhenever you discard a card, this Class deals 2 damage to each opponent.\n{1}{R}: Level 3\nWhen this Class becomes level 3, search your library for a card, put it into your hand, shuffle, then discard a card at random.",
+      "keywords": []
+    },
+    "Courier of Comestibles": {
+      "oracle_id": "049d8b06-db90-4b9c-8195-d987b3ef1005",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Human Citizen",
+      "oracle_text": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "keywords": [
+        "Food"
+      ]
+    },
+    "Cowabunga!": {
+      "oracle_id": "a1ddf985-1646-468c-b1a4-ab6bb8e9dd7c",
+      "mana_cost": "{G}",
+      "mana_value": 1,
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top four cards of your library. You may reveal a Mutant, Ninja, Turtle, or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "keywords": []
+    },
+    "Crustacean Commando": {
+      "oracle_id": "b24a87af-407f-4c58-80b4-caab9c65a233",
+      "mana_cost": "{1}{U}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Crab Mutant Soldier",
+      "oracle_text": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Death in the Family": {
+      "oracle_id": "f599471a-31a6-4fb0-bf27-c5b707e1db6a",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature with mana value 3 or less.",
+      "keywords": []
+    },
+    "Does Machines": {
+      "oracle_id": "df54b79d-f31d-4582-86c0-1d34ec77be0f",
+      "mana_cost": "{1}{U}",
+      "mana_value": 2,
+      "type_line": "Enchantment \u2014 Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, mill two cards, draw two cards, then discard two cards.\n{1}{U}: Level 2\nWhen this Class becomes level 2, return up to two target artifact cards from your graveyard to your hand.\n{4}{U}: Level 3\nAt the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types.",
+      "keywords": [
+        "Mill"
+      ]
+    },
+    "Donatello's Technique": {
+      "oracle_id": "194284f7-cf92-4d9f-a8ce-e4dc3505ab7a",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Sorcery",
+      "oracle_text": "Sneak {U} (You may cast this spell for {U} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nDraw two cards.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Donatello, Gadget Master": {
+      "oracle_id": "bb6aef0d-052b-44e6-b4cd-2d2eafd84969",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {1}{U} (You may cast this spell for {1}{U} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Donatello, Mutant Mechanic": {
+      "oracle_id": "f6a7838d-380f-4752-a647-c55c2a0eb6e2",
+      "mana_cost": "{3}{U}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.\nWhenever an artifact you control is put into a graveyard from the battlefield, if it had counters on it, put those counters on up to one target artifact or creature you control.",
+      "keywords": []
+    },
+    "Donatello, Turtle Techie": {
+      "oracle_id": "f84850bc-6348-449e-bd82-bb39e2119bec",
+      "mana_cost": "{3}{U}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "When Donatello enters, if you control an artifact, draw a card.",
+      "keywords": []
+    },
+    "Donatello, Way with Machines": {
+      "oracle_id": "194af2be-50c7-484b-bdd3-402bad70335b",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Flying\nWhenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "keywords": [
+        "Flying"
+      ]
+    },
+    "Dream Beavers": {
+      "oracle_id": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e",
+      "mana_cost": "{B}",
+      "mana_value": 1,
+      "type_line": "Creature \u2014 Beaver Nightmare",
+      "oracle_text": "Flying\nWhen this creature enters, each opponent loses 1 life and you gain 1 life. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "keywords": [
+        "Flying",
+        "Scry"
+      ]
+    },
+    "Foot Mystic": {
+      "oracle_id": "2043fbde-48c4-4a77-8911-8991d77de1eb",
+      "mana_cost": "{3}{B}",
+      "mana_value": 4,
+      "type_line": "Creature \u2014 Human Ninja Warlock",
+      "oracle_text": "Lifelink\nDisappear \u2014 When this creature enters, if a permanent left the battlefield under your control this turn, create a 1/1 black Ninja creature token.",
+      "keywords": [
+        "Disappear",
+        "Lifelink"
+      ]
+    },
+    "Forest": {
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Basic Land \u2014 Forest",
+      "oracle_text": "({T}: Add {G}.)",
+      "keywords": []
+    },
+    "Frog Butler": {
+      "oracle_id": "5b865275-4114-44d0-9832-ae5d3b4efba4",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Frog Spirit",
+      "oracle_text": "Deathtouch\n{T}: Add one mana of any color.\n{2}: This creature gains reach until end of turn.",
+      "keywords": [
+        "Deathtouch"
+      ]
+    },
+    "Fugitive Droid": {
+      "oracle_id": "c04d4fd4-e5aa-431d-824b-8bc94245f103",
+      "mana_cost": "{U}",
+      "mana_value": 1,
+      "type_line": "Artifact Creature \u2014 Robot Scientist",
+      "oracle_text": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.\n{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+      "keywords": []
+    },
+    "Guac & Marshmallow Pizza": {
+      "oracle_id": "d6d83a51-9d57-44a7-aae3-a96d43ec5ac8",
+      "mana_cost": "{G}",
+      "mana_value": 1,
+      "type_line": "Artifact \u2014 Food",
+      "oracle_text": "Flash\nWhen this artifact enters, target creature gets +2/+2 until end of turn. Untap it.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "keywords": [
+        "Flash"
+      ]
+    },
+    "Hamato Guardian Stance": {
+      "oracle_id": "e08b19ca-f9d7-4c33-b37a-a77b37aabf1b",
+      "mana_cost": "{W}",
+      "mana_value": 1,
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "keywords": [
+        "Scry"
+      ]
+    },
+    "Hard-Won Jitte": {
+      "oracle_id": "ab433d41-e801-405c-81f7-06fa6640797d",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "Equipped creature has double strike.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Ice Cream Kitty": {
+      "oracle_id": "f8131dca-ba6e-4ca4-943e-a3d26c75b8b8",
+      "mana_cost": "{1}{B/G}",
+      "mana_value": 2,
+      "type_line": "Artifact Creature \u2014 Food Cat Mutant",
+      "oracle_text": "{2}, Sacrifice another creature or token: Draw a card. Activate only as a sorcery.\n{2}, {T}, Sacrifice this creature: You gain 3 life.",
+      "keywords": []
+    },
+    "Illegitimate Business": {
+      "oracle_id": "01ee70d4-6527-45ae-9600-bd3d16b3037d",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {G}.",
+      "keywords": []
+    },
+    "Improvised Arsenal": {
+      "oracle_id": "4f02aa99-481c-4089-8f7c-cfe7eaa7dda0",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "Equipped creature gets +1/+0 for each artifact you control.\n{4}{R}: Create a token that's a copy of this Equipment.\nEquip {R}",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Insectoid Exterminator": {
+      "oracle_id": "3d081701-514b-4611-b5a1-239b8f335fb6",
+      "mana_cost": "{2}{B}",
+      "mana_value": 3,
+      "type_line": "Creature \u2014 Insect Mutant",
+      "oracle_text": "Flying\nDisappear \u2014 At the beginning of your end step, if a permanent left the battlefield under your control this turn, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "keywords": [
+        "Disappear",
+        "Flying",
+        "Scry"
+      ]
+    },
+    "Island": {
+      "oracle_id": "b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Basic Land \u2014 Island",
+      "oracle_text": "({T}: Add {U}.)",
+      "keywords": []
+    },
+    "Krang, Master Mind": {
+      "oracle_id": "52562194-4a97-40d2-aa73-7827f7834f2f",
+      "mana_cost": "{6}{U}{U}",
+      "mana_value": 8,
+      "type_line": "Legendary Artifact Creature \u2014 Utrom Warrior",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.\nKrang gets +1/+0 for each other artifact you control.",
+      "keywords": [
+        "Affinity"
+      ]
+    },
+    "Leader's Talent": {
+      "oracle_id": "134430b7-d566-485a-bd5c-7db8a285f4ca",
+      "mana_cost": "{1}{W}",
+      "mana_value": 2,
+      "type_line": "Enchantment \u2014 Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you attack, put a +1/+1 counter on target attacking creature.\n{2}{W}: Level 2\nWhenever a creature you control leaves the battlefield, if it had a counter on it, you gain 2 life.\n{3}{W}: Level 3\nWhenever you cast a spell, put a +1/+1 counter on each creature you control.",
+      "keywords": []
+    },
+    "Leonardo's Technique": {
+      "oracle_id": "e98c2af9-1393-487d-b8e9-f49a67bb7296",
+      "mana_cost": "{3}{W}",
+      "mana_value": 4,
+      "type_line": "Sorcery",
+      "oracle_text": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nReturn one or two target creature cards each with mana value 3 or less from your graveyard to the battlefield.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Leonardo, Big Brother": {
+      "oracle_id": "6496eea7-38f5-4428-a379-b08b0eeb5239",
+      "mana_cost": "{2}{W}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nLeonardo gets +1/+0 for each other creature you control.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Leonardo, Cutting Edge": {
+      "oracle_id": "933fe6e5-8d00-4411-aa54-7780382c1ea6",
+      "mana_cost": "{1}{W}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nLifelink\nWhenever you gain life, put a +1/+1 counter on Leonardo.",
+      "keywords": [
+        "Lifelink",
+        "Sneak"
+      ]
+    },
+    "Leonardo, Leader in Blue": {
+      "oracle_id": "348c7e22-2179-41b8-a5d2-8dd488e7e66d",
+      "mana_cost": "{W}",
+      "mana_value": 1,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {3}{W}{W} (You may cast this spell for {3}{W}{W} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhen Leonardo enters, if his sneak cost was paid, creatures you control get +2/+0 until end of turn.\n{1}{W}: Leonardo gains first strike until end of turn.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Leonardo, Sewer Samurai": {
+      "oracle_id": "74e3243b-6707-4769-8767-7cf2ef71009a",
+      "mana_cost": "{3}{W}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle Samurai",
+      "oracle_text": "Sneak {2}{W}{W}\nDouble strike\nDuring your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+      "keywords": [
+        "Double strike",
+        "Sneak"
+      ]
+    },
+    "Lita, Little Orphan Amphibian": {
+      "oracle_id": "212fdb7c-1c7e-4eed-b1ed-bcc14a425da8",
+      "mana_cost": "{1}{W}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Alliance \u2014 Whenever another creature you control enters, choose one that hasn't been chosen this turn.\n\u2022 Put a +1/+1 counter on Lita.\n\u2022 Create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\n\u2022 Scry 1.",
+      "keywords": [
+        "Alliance",
+        "Food",
+        "Scry"
+      ]
+    },
+    "Make Your Move": {
+      "oracle_id": "8226f31d-6f51-49c3-87f7-0c68f7f4f9ce",
+      "mana_cost": "{2}{W}",
+      "mana_value": 3,
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact, enchantment, or creature with power 4 or greater.",
+      "keywords": []
+    },
+    "Manhole Missile": {
+      "oracle_id": "c596b847-4e05-4279-8675-b4e39cb3dc91",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Manhole Missile deals 3 damage to target creature. You may put a card from your hand on the bottom of your library. If you do, draw a card.",
+      "keywords": []
+    },
+    "Michelangelo's Technique": {
+      "oracle_id": "42f12942-9ac1-497e-a8b7-9f66a5afd0ae",
+      "mana_cost": "{4}{G}",
+      "mana_value": 5,
+      "type_line": "Sorcery",
+      "oracle_text": "Sneak {3}{G} (You may cast this spell for {3}{G} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nLook at the top eight cards of your library. Put up to two creature cards with total mana value 6 or less from among them onto the battlefield and the rest on the bottom of your library in a random order.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Michelangelo, Game Master": {
+      "oracle_id": "594c6b1f-ff0e-4122-8b29-852632a22a79",
+      "mana_cost": "{2}{G}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Disappear \u2014 At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo.",
+      "keywords": [
+        "Disappear"
+      ]
+    },
+    "Michelangelo, Improviser": {
+      "oracle_id": "1939679b-ea2e-4a75-b3ce-d7af68437484",
+      "mana_cost": "{3}{G}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {2}{G}{G} (You may cast this spell for {2}{G}{G} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Michelangelo, Mutant BFF": {
+      "oracle_id": "fe1eb8b3-c605-4711-a057-ed3565bfe75c",
+      "mana_cost": "{2}{G}{G}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Each creature you control with a counter on it can't be blocked by more than one creature.\nWhenever Michelangelo enters or attacks, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Michelangelo, Weirdness to 11": {
+      "oracle_id": "170ab932-9d50-4ce7-9a42-08e1edce7e7c",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")\nIf one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead.",
+      "keywords": []
+    },
+    "Mighty Mutanimals": {
+      "oracle_id": "fcdc7dfc-04b5-411a-ab49-282b9c2608e2",
+      "mana_cost": "{2}{W}{W}",
+      "mana_value": 4,
+      "type_line": "Creature \u2014 Mutant Rebel",
+      "oracle_text": "When this creature enters, create a 2/2 red Mutant creature token.\nAlliance \u2014 Whenever another creature you control enters, put a +1/+1 counter on target creature you control.",
+      "keywords": [
+        "Alliance"
+      ]
+    },
+    "Mind Transfer Protocol": {
+      "oracle_id": "0d80d0f7-a436-431c-a54e-e7dd7dbba8de",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target artifact or creature becomes an artifact creature with base power and toughness 4/5.\nDraw a card.",
+      "keywords": []
+    },
+    "Mountain": {
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Basic Land \u2014 Mountain",
+      "oracle_text": "({T}: Add {R}.)",
+      "keywords": []
+    },
+    "Mouser Attack!": {
+      "oracle_id": "bae5dc68-1fd1-428d-bee7-c238e07b21ea",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Choose one \u2014\n\u2022 Create a 1/1 colorless Robot artifact creature token.\n\u2022 Target creature gets +3/+0 and gains first strike until end of turn.",
+      "keywords": []
+    },
+    "Mouser Foundry": {
+      "oracle_id": "404e958b-ead9-4ec7-b786-7b3d65e29967",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters or leaves the battlefield, create a 1/1 colorless Robot artifact creature token.\n{4}{R}, Sacrifice this artifact: It deals 3 damage to target creature.",
+      "keywords": []
+    },
+    "Mutagen Man, Living Ooze": {
+      "oracle_id": "472d9a18-19a0-46c0-a4bf-328ebec7ce41",
+      "mana_cost": "{X}{G}{G}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Ooze Mutant",
+      "oracle_text": "Trample\nActivated abilities of artifact tokens you control cost {1} less to activate.\nWhen Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": [
+        "Trample"
+      ]
+    },
+    "Mutant Chain Reaction": {
+      "oracle_id": "ea9fc868-374b-4acc-be0d-4283907b4524",
+      "mana_cost": "{2}{G}",
+      "mana_value": 3,
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy up to one target artifact, enchantment, or creature with flying. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Mutant Town Musicians": {
+      "oracle_id": "9f318ddc-3dc5-4e43-92b3-3a776e41c56e",
+      "mana_cost": "{2}{R}",
+      "mana_value": 3,
+      "type_line": "Creature \u2014 Mutant Bard Performer",
+      "oracle_text": "Trample\nAlliance \u2014 Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+      "keywords": [
+        "Alliance",
+        "Trample"
+      ]
+    },
+    "Negate": {
+      "oracle_id": "3407fe41-fdd3-4119-8f70-4bc4590a379f",
+      "mana_cost": "{1}{U}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell.",
+      "keywords": []
+    },
+    "Ninja Teen": {
+      "oracle_id": "2c5044ff-a303-4276-8e23-7caac30a275b",
+      "mana_cost": "{2}{B}",
+      "mana_value": 3,
+      "type_line": "Enchantment \u2014 Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever a creature you control leaves the battlefield, each opponent loses 1 life.\n{1}{B}: Level 2\nCreatures you control get +1/+0 and have menace.\n{B}: Level 3\nCreature cards in your graveyard have sneak {3}{B}.\nYou may cast creature spells from your graveyard using their sneak abilities.",
+      "keywords": []
+    },
+    "Null Group Biological Assets": {
+      "oracle_id": "49598fd5-2aad-4974-b499-38b60fc371b6",
+      "mana_cost": "{2}{R}",
+      "mana_value": 3,
+      "type_line": "Creature \u2014 Mutant Mercenary",
+      "oracle_text": "During your turn, this creature has first strike.\nWhenever this creature attacks, you may discard a card. If you do, draw a card.",
+      "keywords": []
+    },
+    "Ooze Spill": {
+      "oracle_id": "c1c5f9da-1396-4406-b803-b64f66b8e49d",
+      "mana_cost": "{1}{U}{U}",
+      "mana_value": 3,
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Oroku Saki, Shredder Rising": {
+      "oracle_id": "d14f620c-0fbd-485c-9fe4-34949e742147",
+      "mana_cost": "{2}{B}",
+      "mana_value": 3,
+      "type_line": "Legendary Creature \u2014 Human Ninja",
+      "oracle_text": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhenever Oroku Saki deals combat damage to a player, you draw a card and lose 1 life.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Pain 101": {
+      "oracle_id": "e9975888-c75f-471e-a70d-17449e92226d",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+      "keywords": []
+    },
+    "Paramecia Coloniex": {
+      "oracle_id": "9076a886-efe0-4c99-8661-f0fd7a7b3129",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Zombie Worm",
+      "oracle_text": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)\nWhen this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+      "keywords": [
+        "Mill"
+      ]
+    },
+    "Plains": {
+      "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Basic Land \u2014 Plains",
+      "oracle_text": "({T}: Add {W}.)",
+      "keywords": []
+    },
+    "Prehistoric Pet": {
+      "oracle_id": "2519ccc0-c206-41fb-aa15-2ef88025ff96",
+      "mana_cost": "{W}",
+      "mana_value": 1,
+      "type_line": "Creature \u2014 Dinosaur Ninja",
+      "oracle_text": "This creature can't be blocked by creatures with greater power.\n{1}{W}, {T}: Return another target creature you control to its owner's hand. Activate only during your turn.",
+      "keywords": []
+    },
+    "Purple Dragon Punks": {
+      "oracle_id": "d1edb950-a118-4b4d-a0ef-9a6683d74c9f",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Human Rogue",
+      "oracle_text": "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+      "keywords": []
+    },
+    "Putrid Pals": {
+      "oracle_id": "3aa3b908-e8d3-4944-8ced-5219d4129594",
+      "mana_cost": "{2}{B/G}{B/G}",
+      "mana_value": 4,
+      "type_line": "Creature \u2014 Human Ooze Mutant",
+      "oracle_text": "Deathtouch\nDisappear \u2014 This creature enters with two +1/+1 counters on it if a permanent left the battlefield under your control this turn.",
+      "keywords": [
+        "Deathtouch",
+        "Disappear"
+      ]
+    },
+    "Quintessential Katana": {
+      "oracle_id": "e9685c61-e33d-4ae0-9dd3-7fd0df5eb46f",
+      "mana_cost": "{W}",
+      "mana_value": 1,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has \"Whenever this creature deals combat damage, untap it and you gain 2 life.\"\nWhenever a Ninja you control enters, you may attach this Equipment to it.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Raphael's Technique": {
+      "oracle_id": "f58a5f8b-254c-4206-bdbe-55a23798ed2d",
+      "mana_cost": "{4}{R}{R}",
+      "mana_value": 6,
+      "type_line": "Instant",
+      "oracle_text": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nEach player may discard their hand and draw seven cards.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Raphael, Most Attitude": {
+      "oracle_id": "eaf194a7-d95f-4738-9052-92ad00443a76",
+      "mana_cost": "{3}{R}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)\nAlliance \u2014 Whenever another creature you control enters, you may exile the top card of your library.\nWhenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+      "keywords": [
+        "Alliance",
+        "Menace"
+      ]
+    },
+    "Raphael, Ninja Destroyer": {
+      "oracle_id": "fdb8e862-c642-4b7b-b061-400de6061ffe",
+      "mana_cost": "{2}{R}{R}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Raphael must be blocked if able.\nEnrage \u2014 Whenever Raphael is dealt damage, add that much {R}. Until end of turn, you don't lose this mana as steps and phases end.",
+      "keywords": [
+        "Enrage"
+      ]
+    },
+    "Raphael, Tough Turtle": {
+      "oracle_id": "2c72e6d2-bbb0-42de-b465-438d584cbddc",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Alliance \u2014 Whenever another creature you control enters, Raphael deals 1 damage to target opponent.",
+      "keywords": [
+        "Alliance"
+      ]
+    },
+    "Raphael, the Nightwatcher": {
+      "oracle_id": "8c1e5b25-ee5a-4ea9-a715-08dd1a4f51c4",
+      "mana_cost": "{2}{R}{R}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "oracle_text": "Sneak {1}{R}{R} (You may cast this spell for {1}{R}{R} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nAttacking creatures you control have double strike.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Ravenous Robots": {
+      "oracle_id": "45873747-f2a4-4d83-9492-bfc97df7b605",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Artifact Creature \u2014 Robot",
+      "oracle_text": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.\n{R}, {T}: Creature tokens you control gain haste until end of turn.",
+      "keywords": []
+    },
+    "Ray Fillet, Man Ray": {
+      "oracle_id": "698098b8-b8e4-4e88-b13a-6b039579d192",
+      "mana_cost": "{3}{U}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Fish Mutant",
+      "oracle_text": "Flying\nWhen Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")\n{2}, Remove a +1/+1 counter from a creature you control: Draw a card.",
+      "keywords": [
+        "Flying"
+      ]
+    },
+    "Retro-Mutation": {
+      "oracle_id": "d8b5de6d-8654-4550-bccb-79de6cbef4d5",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Enchantment \u2014 Aura",
+      "oracle_text": "Flash\nEnchant creature\nEnchanted creature is a Turtle with base power and toughness 0/1. It can't attack and loses all abilities. (It also loses all other creature types.)",
+      "keywords": [
+        "Enchant",
+        "Flash"
+      ]
+    },
+    "Return to the Sewers": {
+      "oracle_id": "a3ee8565-f34c-4073-bc94-3fe9ec6bbe8a",
+      "mana_cost": "{3}{U}",
+      "mana_value": 4,
+      "type_line": "Instant",
+      "oracle_text": "Target creature's owner puts it on their choice of the top or bottom of their library. You create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Rock Soldiers": {
+      "oracle_id": "0217da8e-e74f-4f5c-ab75-f17600f94405",
+      "mana_cost": "{3}{R}",
+      "mana_value": 4,
+      "type_line": "Artifact Creature \u2014 Elemental Soldier",
+      "oracle_text": "When this creature enters, destroy up to one target noncreature artifact.",
+      "keywords": []
+    },
+    "Rocksteady, Crash Courser": {
+      "oracle_id": "f9330a7b-8a65-4e04-a777-bf6512332850",
+      "mana_cost": "{4}{G}{G}",
+      "mana_value": 6,
+      "type_line": "Legendary Creature \u2014 Rhino Mutant",
+      "oracle_text": "Rocksteady can't be blocked by more than one creature.\nBoars you control can't be blocked by more than one creature.\nForestcycling {2} ({2}, Discard this card: Search your library for a Forest card, reveal it, put it into your hand, then shuffle.)",
+      "keywords": [
+        "Cycling",
+        "Forestcycling",
+        "Landcycling",
+        "Typecycling"
+      ]
+    },
+    "Saved by the Shell": {
+      "oracle_id": "7ef5c812-ad7d-4d6c-8ee5-68561e7e4bd7",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "This spell costs {1} less to cast if you control a Turtle.\nPut a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+      "keywords": []
+    },
+    "Sewer-veillance Cam": {
+      "oracle_id": "25c83d45-581f-48ba-b6bb-feb66e8a65c7",
+      "mana_cost": "{U}",
+      "mana_value": 1,
+      "type_line": "Artifact",
+      "oracle_text": "Flash\nWhen this artifact enters or leaves the battlefield, you may tap or untap target creature.\n{3}{U}, Sacrifice this artifact: Draw two cards.",
+      "keywords": [
+        "Flash"
+      ]
+    },
+    "Shark Shredder, Killer Clone": {
+      "oracle_id": "dabd0867-ee3f-40cb-8314-b4a3966f8b24",
+      "mana_cost": "{2}{B}{B}",
+      "mana_value": 4,
+      "type_line": "Legendary Creature \u2014 Shark Octopus Ninja",
+      "oracle_text": "Sneak {3}{B}{B}\nFirst strike\nWhenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+      "keywords": [
+        "First strike",
+        "Sneak"
+      ]
+    },
+    "Shredder's Armor": {
+      "oracle_id": "bda5d0aa-3ed0-4f8c-80ae-f9cb8ed0ac82",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "Equipped creature gets +2/+1.\nWhen this Equipment enters, attach it to target creature you control.\nEquip\u2014Sacrifice another nonland permanent. Activate only once each turn.",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Shredder's Technique": {
+      "oracle_id": "d92714c0-4e22-47f9-a4d4-405894e734d0",
+      "mana_cost": "{2}{B}",
+      "mana_value": 3,
+      "type_line": "Sorcery",
+      "oracle_text": "Sneak {B} (You may cast this spell for {B} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nDestroy target creature or enchantment. If an enchantment was destroyed this way, you lose 2 life.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Shredder, Unrelenting": {
+      "oracle_id": "59d96fc0-6580-43c2-8c6a-dcf983644561",
+      "mana_cost": "{4}{B}",
+      "mana_value": 5,
+      "type_line": "Legendary Creature \u2014 Human Ninja",
+      "oracle_text": "Sneak {3}{B} (You may cast this spell for {3}{B} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nDeathtouch\nWhenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "keywords": [
+        "Deathtouch",
+        "Sneak"
+      ]
+    },
+    "Skateboard": {
+      "oracle_id": "decfde5e-ea53-4b15-8f69-51da7ef39d15",
+      "mana_cost": "{1}",
+      "mana_value": 1,
+      "type_line": "Artifact \u2014 Equipment",
+      "oracle_text": "When this Equipment enters, tap target permanent.\nEquipped creature gets +1/+0 and has haste.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+      "keywords": [
+        "Equip"
+      ]
+    },
+    "Slithering Cryptid": {
+      "oracle_id": "f570bac8-9987-4963-af02-476d18abc847",
+      "mana_cost": "{2}{G/U}",
+      "mana_value": 3,
+      "type_line": "Creature \u2014 Fish Mutant",
+      "oracle_text": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    },
+    "Spicy Oatmeal Pizza": {
+      "oracle_id": "9665f940-c0a4-4d3e-b889-8049cf549a4f",
+      "mana_cost": "{2}{R}",
+      "mana_value": 3,
+      "type_line": "Artifact \u2014 Food",
+      "oracle_text": "When this artifact enters, it deals 4 damage to any target and 3 damage to you.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "keywords": []
+    },
+    "Splinter's Technique": {
+      "oracle_id": "532ee9c3-391c-44db-8ed5-a1d28fd7f876",
+      "mana_cost": "{3}{B}",
+      "mana_value": 4,
+      "type_line": "Sorcery",
+      "oracle_text": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Splinter, Hamato Yoshi": {
+      "oracle_id": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Rat",
+      "oracle_text": "Sneak {B} (You may cast this spell for {B} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nMenace (This creature can't be blocked except by two or more creatures.)\nOther Ninjas you control get +1/+1.",
+      "keywords": [
+        "Menace",
+        "Sneak"
+      ]
+    },
+    "Squirrelanoids": {
+      "oracle_id": "315ddc7a-c39c-43d9-b134-23acbd865e3e",
+      "mana_cost": "{B}",
+      "mana_value": 1,
+      "type_line": "Creature \u2014 Squirrel Mutant",
+      "oracle_text": "Deathtouch",
+      "keywords": [
+        "Deathtouch"
+      ]
+    },
+    "Stockman, Mad Fly-entist": {
+      "oracle_id": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88",
+      "mana_cost": "{4}{U}",
+      "mana_value": 5,
+      "type_line": "Legendary Creature \u2014 Insect Mutant Scientist",
+      "oracle_text": "Flying\nWhen Stockman enters, draw a card, then discard a card.\nIslandcycling {2} ({2}, Discard this card: Search your library for an Island card, reveal it, put it into your hand, then shuffle.)",
+      "keywords": [
+        "Cycling",
+        "Flying",
+        "Islandcycling",
+        "Landcycling",
+        "Typecycling"
+      ]
+    },
+    "Stomped by the Foot": {
+      "oracle_id": "10185447-a13f-40d8-a8b6-39ce801f2fc0",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Kicker\u2014Sacrifice an artifact or creature. (You may sacrifice an artifact or creature in addition to any other costs as you cast this spell.)\nTarget creature gets -2/-2 until end of turn. If this spell was kicked, that creature gets -5/-5 until end of turn instead.",
+      "keywords": [
+        "Kicker"
+      ]
+    },
+    "Super Shredder": {
+      "oracle_id": "b7ee76bf-d15a-489e-8f05-414788f8f649",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Mutant Ninja Human",
+      "oracle_text": "Menace\nWhenever another permanent leaves the battlefield, put a +1/+1 counter on Super Shredder.",
+      "keywords": [
+        "Menace"
+      ]
+    },
+    "Swamp": {
+      "oracle_id": "56719f6a-1a6c-4c0a-8d21-18f7d7350b68",
+      "mana_cost": "",
+      "mana_value": 0,
+      "type_line": "Basic Land \u2014 Swamp",
+      "oracle_text": "({T}: Add {B}.)",
+      "keywords": []
+    },
+    "Tainted Treats": {
+      "oracle_id": "60826714-b9fd-4c89-b9f2-1a3c3229686b",
+      "mana_cost": "{1}{B}{G}",
+      "mana_value": 3,
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact or creature. If its mana value was 4 or less, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "keywords": [
+        "Food"
+      ]
+    },
+    "Tenderize": {
+      "oracle_id": "a03fa584-ceb5-410c-9b80-f75d00215537",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control deals damage equal to its power to target creature an opponent controls.",
+      "keywords": []
+    },
+    "The Last Ronin's Technique": {
+      "oracle_id": "6a51bb21-0c01-4ad8-99d7-17685db90b69",
+      "mana_cost": "{3}{W}",
+      "mana_value": 4,
+      "type_line": "Instant",
+      "oracle_text": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nCreate three 1/1 white Ninja Turtle Spirit creature tokens. If this spell's sneak cost was paid, they enter tapped and attacking.",
+      "keywords": [
+        "Sneak"
+      ]
+    },
+    "Tunnel Rats": {
+      "oracle_id": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289",
+      "mana_cost": "{1}{B}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Rat",
+      "oracle_text": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "keywords": []
+    },
+    "Utrom Scientists": {
+      "oracle_id": "89793c8c-98a3-4621-ad3d-cfc5949c65da",
+      "mana_cost": "{2}{U}",
+      "mana_value": 3,
+      "type_line": "Artifact Creature \u2014 Utrom Robot Scientist",
+      "oracle_text": "When this creature enters, tap up to one target creature and put a stun counter on it. (If a permanent with a stun counter would become untapped, remove one from it instead.)",
+      "keywords": []
+    },
+    "Wingnut, Bat on the Belfry": {
+      "oracle_id": "392a71c7-8f6d-46b8-bcc3-613e086d86ed",
+      "mana_cost": "{1}{R}",
+      "mana_value": 2,
+      "type_line": "Legendary Creature \u2014 Bat Mutant",
+      "oracle_text": "Alliance \u2014 Whenever another creature you control enters, Wingnut gains your choice of flying, menace, or haste until end of turn.\nWhenever Wingnut attacks, each other attacking creature gets +1/+0 until end of turn.",
+      "keywords": [
+        "Alliance"
+      ]
+    },
+    "Zoo Escapees": {
+      "oracle_id": "107e9ada-4e2e-4032-addd-274bca956621",
+      "mana_cost": "{1}{G}",
+      "mana_value": 2,
+      "type_line": "Creature \u2014 Boar Rhino",
+      "oracle_text": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "keywords": []
+    }
+  }
+}

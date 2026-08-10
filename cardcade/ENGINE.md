@@ -4,6 +4,25 @@ Cardcade is a bounded heuristic rehearsal system, not a Magic rules engine. It c
 versioned deck profiles and emits reproducible observations and hypotheses. It does not edit
 decklists or authorize Design Studio revisions.
 
+## Engine 0.6 generic card-fact modeling
+
+Engine `cardcade-0.6.0` loads the actual 60 frozen cards for every deck and derives generic roles
+from versioned mana costs/values, type lines, Oracle text, and keywords. The same facts always yield
+the same role units regardless of deck or character identity. All six Engine 0.5 profile priors
+remain inspectable but no longer affect classification, line choice, or outcomes. Artifact
+sequencing is enabled by card facts rather than `artifact_plan`; affinity still requires actual
+Affinity rules text and respects the colored-mana floor.
+
+Card-derived values are card identity/count, mana data, type and text facts, roles, role-unit events,
+artifact setup/payoff facts, and affinity eligibility. Universal heuristics remain for role-unit
+magnitudes, scoring weights, line-choice look-ahead, artifact milestones, interaction target caps,
+starting-player advantage, mulligan penalty, and closing variance. They are not fitted to outcomes.
+
+Smoke 0.6 preserves the exact 900-game protocol but fails the stability gate with 18 matchups over
+15 points. Zero observed tempo and finisher use identifies the next correction: richer rules-text
+semantics and magnitude modeling, including quantities, conditions, modal/triggered effects,
+creature combat contribution, and target/relevance handling. Prototype 0.3 remains unauthorized.
+
 ## Engine 0.5 profile-strength audit
 
 Engine `cardcade-0.5.0` makes all six deck-varying, non-card-derived numeric priors inspectable and
