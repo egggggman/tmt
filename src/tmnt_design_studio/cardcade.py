@@ -15,8 +15,8 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-ENGINE_VERSION = "cardcade-0.3.0"
-MATCH_SCHEMA_VERSION = "1.2.0"
+ENGINE_VERSION = "cardcade-0.4.0"
+MATCH_SCHEMA_VERSION = "1.3.0"
 STAGES = {"smoke": 20, "calibration": 100, "development": 500, "validation": 1000}
 
 
@@ -157,11 +157,126 @@ def _classify_spell(rng: random.Random, profile: DeckProfile, card: CardModel) -
     return "support"
 
 
+def _casting_cost(card: CardModel, artifacts: int) -> int:
+    discount = (
+        min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
+    )
+    return card.mana_value - discount
+
+
+def _line_value(
+    profile: DeckProfile,
+    card: CardModel,
+    *,
+    artifacts: int,
+    board: int,
+    mana: int,
+    hand: list[CardModel],
+) -> tuple[float, str]:
+    """Estimate immediate and delayed value without treating a tag as a command."""
+    cost = _casting_cost(card, artifacts)
+    type_value = {
+        "creature": profile.board_value,
+        "interaction": profile.interaction_value * (0.55 if board == 0 else 0.75),
+        "support": profile.support_value,
+        "generic": 0.75,
+    }[card.card_type]
+    value = type_value + 0.12 * card.mana_value
+    reasons = ["immediate_board" if card.card_type == "creature" else "immediate_utility"]
+
+    setup_added = int(card.artifact_permanent) + card.artifact_tokens
+    payoff_ready = artifacts >= 2
+    payoff_waiting = any(choice.artifact_payoff and choice is not card for choice in hand)
+    if setup_added:
+        relevant_setup = min(setup_added, max(0, 2 - artifacts))
+        value += 0.38 * relevant_setup
+        if relevant_setup and payoff_waiting:
+            value += 0.32
+            reasons.append("enables_delayed_payoff")
+        elif artifacts >= 2:
+            value -= 0.10 * setup_added
+            reasons.append("setup_saturated")
+    if card.artifact_payoff:
+        if payoff_ready:
+            relevance = min(1.0, (artifacts + board) / 4)
+            value += 0.72 * relevance
+            reasons.append("payoff_relevant")
+        else:
+            # A payoff creature may still be the best board play.  It is not forced to wait,
+            # but the unrealized synergy is explicitly valued below a live payoff.
+            value -= 0.28
+            reasons.append("payoff_not_ready")
+    if card.affinity:
+        saved = card.mana_value - cost
+        value += 0.16 * saved
+        reasons.append("affinity_efficiency")
+
+    # Prefer lines that use available mana, while preserving resources when a low-value play
+    # would merely empty the hand.  This term is intentionally smaller than board/card value.
+    value += 0.10 * cost
+    value -= 0.18 * max(0, mana - cost) if len(hand) <= 2 else 0
+    return value, "+".join(reasons)
+
+
+def _choose_cast(
+    profile: DeckProfile,
+    hand: list[CardModel],
+    choices: list[CardModel],
+    *,
+    artifacts: int,
+    board: int,
+    mana: int,
+) -> tuple[CardModel | None, dict[str, Any]]:
+    """Compare legal casts with one-step sequencing alternatives and a preserve option."""
+    evaluated = []
+    for index, card in enumerate(choices):
+        immediate, reason = _line_value(
+            profile, card, artifacts=artifacts, board=board, mana=mana, hand=hand
+        )
+        remaining = mana - _casting_cost(card, artifacts)
+        next_artifacts = artifacts + int(card.artifact_permanent) + card.artifact_tokens
+        followups = [
+            other
+            for other_index, other in enumerate(choices)
+            if other_index != index and _casting_cost(other, next_artifacts) <= remaining
+        ]
+        followup_value = 0.0
+        if followups:
+            followup_value = max(
+                _line_value(
+                    profile,
+                    other,
+                    artifacts=next_artifacts,
+                    board=board + int(card.card_type == "creature"),
+                    mana=remaining,
+                    hand=hand,
+                )[0]
+                for other in followups
+            )
+        evaluated.append((immediate + 0.65 * followup_value, immediate, card, reason))
+    evaluated.sort(key=lambda row: (row[0], row[1], -row[2].mana_value, row[2].name), reverse=True)
+    best = evaluated[0]
+    preserve_value = 0.45 if len(hand) <= 2 else 0.0
+    chosen = best[2] if best[0] >= preserve_value else None
+    return chosen, {
+        "legal_lines": len(evaluated) + 1,
+        "rejected_lines": len(evaluated) if chosen is None else len(evaluated) - 1,
+        "chosen_reason": best[3] if chosen is not None else "resource_preservation",
+        "chosen_value": round(best[0], 4) if chosen is not None else preserve_value,
+        "best_rejected_value": round(
+            max((row[0] for row in evaluated if row[2] is not chosen), default=preserve_value), 4
+        ),
+    }
+
+
 def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str, Any]:
     hand, library, mulligans = _opening_hand(rng, profile)
     lands = board = support = interaction = mana_spent = missed = 0
     artifacts = artifact_setup = artifact_payoffs = sequencing_holds = affinity_saved = 0
     affinity_spells = affinity_discount_events = mana_value_cast = 0
+    payoff_cards_cast = payoff_rejections = decision_count = 0
+    legal_lines = rejected_lines = resource_preservations = 0
+    chosen_reasons: dict[str, int] = {}
     board_t3 = 0
     for turn in range(1, 9):
         if (turn > 1 or not on_play) and library:
@@ -178,35 +293,27 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
             for card in hand
             if card.mana_value > 0
             and (
-                card.mana_value <= mana
-                or card.affinity
-                and card.mana_value - min(artifacts, card.mana_value - card.affinity_floor) <= mana
+                _casting_cost(card, artifacts) <= mana
             )
         ]:
-            affordable = [card for card in choices if card.mana_value <= mana]
-            card = min(affordable, key=lambda choice: choice.mana_value) if affordable else None
-            if profile.artifact_plan == "affinity" and artifacts >= 2:
-                expensive = [
-                    choice
-                    for choice in choices
-                    if choice.affinity
-                    and choice.mana_value
-                    - min(artifacts, choice.mana_value - choice.affinity_floor)
-                    <= mana
-                ]
-                if expensive:
-                    card = max(expensive, key=lambda choice: choice.mana_value)
-            elif profile.artifact_plan and artifacts < 2:
-                setup = [
-                    choice
-                    for choice in affordable
-                    if choice.artifact_permanent or choice.artifact_tokens
-                ]
-                if setup:
-                    card = min(setup, key=lambda choice: choice.mana_value)
-                elif any(choice.artifact_payoff for choice in affordable):
+            if profile.artifact_plan:
+                card, decision = _choose_cast(
+                    profile, hand, choices, artifacts=artifacts, board=board, mana=mana
+                )
+                decision_count += 1
+                legal_lines += decision["legal_lines"]
+                rejected_lines += decision["rejected_lines"]
+                reason = decision["chosen_reason"]
+                chosen_reasons[reason] = chosen_reasons.get(reason, 0) + 1
+                payoff_rejections += sum(
+                    choice.artifact_payoff and choice is not card for choice in choices
+                )
+                if card is None:
                     sequencing_holds += 1
+                    resource_preservations += 1
                     break
+            else:
+                card = min(choices, key=lambda choice: _casting_cost(choice, artifacts))
             if card is None:
                 break
             hand.remove(card)
@@ -231,7 +338,10 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
             artifacts += artifacts_added
             if artifacts_added:
                 artifact_setup += artifacts_added
-            if card.artifact_payoff and artifacts >= 2:
+            payoff_cards_cast += int(card.artifact_payoff)
+            # Realization depends on relevant infrastructure before the payoff resolves;
+            # the payoff cannot count itself as setup.
+            if card.artifact_payoff and artifacts - artifacts_added >= 2:
                 artifact_payoffs += 1
         if turn == 3:
             board_t3 = board
@@ -253,7 +363,15 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         "artifacts_cast": artifacts,
         "artifact_setup_cast": artifact_setup,
         "artifact_payoffs_cast": artifact_payoffs,
+        "artifact_payoff_cards_cast": payoff_cards_cast,
+        "artifact_payoffs_realized": artifact_payoffs,
+        "artifact_payoff_lines_rejected": payoff_rejections,
         "artifact_sequencing_holds": sequencing_holds,
+        "sequencing_decisions": decision_count,
+        "sequencing_legal_lines": legal_lines,
+        "sequencing_rejected_lines": rejected_lines,
+        "resource_preservation_holds": resource_preservations,
+        "sequencing_chosen_reasons": chosen_reasons,
         "affinity_mana_saved": affinity_saved,
         "affinity_spells_cast": affinity_spells,
         "affinity_discount_events": affinity_discount_events,
@@ -366,9 +484,27 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             "average_interaction_dead": sum(s["interaction_dead"] for s in states)/len(states),
             "artifact_setup_rate": sum(s["artifact_setup_cast"] >= 2 for s in states)/len(states),
             "artifact_payoff_rate": sum(s["artifact_payoffs_cast"] > 0 for s in states)/len(states),
+            "artifact_payoff_cast_rate": sum(
+                s["artifact_payoff_cards_cast"] > 0 for s in states
+            )/len(states),
+            "average_artifact_payoffs_realized": sum(
+                s["artifact_payoffs_realized"] for s in states
+            )/len(states),
+            "average_artifact_payoff_lines_rejected": sum(
+                s["artifact_payoff_lines_rejected"] for s in states
+            )/len(states),
             "average_artifacts_cast": sum(s["artifacts_cast"] for s in states)/len(states),
             "average_artifact_sequencing_holds": sum(
                 s["artifact_sequencing_holds"] for s in states
+            )/len(states),
+            "average_sequencing_decisions": sum(
+                s["sequencing_decisions"] for s in states
+            )/len(states),
+            "average_sequencing_rejected_lines": sum(
+                s["sequencing_rejected_lines"] for s in states
+            )/len(states),
+            "resource_preservation_hold_rate": sum(
+                s["resource_preservation_holds"] > 0 for s in states
             )/len(states),
             "average_affinity_mana_saved": sum(
                 s["affinity_mana_saved"] for s in states
@@ -383,7 +519,7 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             "average_mana_paid": sum(s["mana_spent"] for s in states)/len(states),
         }
     return {
-        "schema_version": "1.2.0",
+        "schema_version": MATCH_SCHEMA_VERSION,
         "engine_version": ENGINE_VERSION,
         "model_scope": "heuristic rehearsal; not a Magic rules engine or real balance evidence",
         "seed": seed, "games_per_pairing": games, "pairing_count": 45,
@@ -404,17 +540,19 @@ def compare_runs(baseline: dict[str, Any], candidate: dict[str, Any]) -> dict[st
     shifts = []
     for pairing_id, current in candidate["pairings"].items():
         previous = baseline["pairings"][pairing_id]
+        shift = round(current["deck_a_win_rate"] - previous["deck_a_win_rate"], 10)
         shifts.append(
             {
                 "pairing": pairing_id,
                 "baseline_deck_a_win_rate": previous["deck_a_win_rate"],
                 "candidate_deck_a_win_rate": current["deck_a_win_rate"],
-                "shift": current["deck_a_win_rate"] - previous["deck_a_win_rate"],
+                "shift": shift,
             }
         )
     shifts.sort(key=lambda row: abs(row["shift"]), reverse=True)
+    threshold_exceeded = [row for row in shifts if abs(row["shift"]) > 0.15]
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "baseline_run_id": baseline["matches"][0]["run_id"],
         "candidate_run_id": candidate["matches"][0]["run_id"],
         "protocol": {
@@ -436,6 +574,15 @@ def compare_runs(baseline: dict[str, Any], candidate: dict[str, Any]) -> dict[st
             for deck_id in candidate["decks"]
         },
         "matchup_shifts": shifts,
+        "engine_stability_gate": {
+            "criterion": (
+                "no unexplained matchup movement greater than 15 percentage points "
+                "between consecutive same-protocol engines"
+            ),
+            "threshold": 0.15,
+            "threshold_exceeded": threshold_exceeded,
+            "passed": not threshold_exceeded,
+        },
         "diagnostics": {
             deck_id: candidate["decks"][deck_id]
             for deck_id in ("donatello", "krang", "shredder")

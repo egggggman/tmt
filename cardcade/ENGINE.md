@@ -4,7 +4,23 @@ Cardcade is a bounded heuristic rehearsal system, not a Magic rules engine. It c
 versioned deck profiles and emits reproducible observations and hypotheses. It does not edit
 decklists or authorize Design Studio revisions.
 
-## Engine 0.3
+## Engine 0.4
+
+Engine `cardcade-0.4.0` replaces forced artifact sequencing with a comparison of every legal cast,
+a resource-preservation option, and one-step look-ahead across alternative sequences. Decisions
+weigh immediate board or utility value, delayed setup value, payoff readiness and board relevance,
+mana efficiency, affinity savings, and the opportunity cost of consuming scarce resources. An
+artifact tag is evidence for evaluation, never an instruction to pursue that line.
+
+Casting a payoff and realizing its artifact value are separate events. Match telemetry records
+legal and rejected lines, chosen reasons, rejected payoff lines, resource-preservation holds, and
+realized payoffs. Engine 0.4 retains the Engine 0.3 card-derived roles and affinity rules.
+
+Promotion requires software validation, credible explanatory telemetry, and no unexplained matchup
+movement greater than 15 percentage points from the immediately preceding engine under the same
+seeded smoke protocol. A shift of exactly 15 points does not exceed this gate.
+
+## Engine 0.3 history
 
 Engine `cardcade-0.3.0` replaces profile-wide artifact guesses with versioned facts derived from the
 project card database and frozen decklists. Only cards whose rules text says "Affinity for
@@ -35,7 +51,7 @@ them.
 
 Smoke is 20 games for each of 45 unique pairings: 900 games total. Every pairing splits the
 starting player 10/10. A run is identified by engine version, seed, games per pairing, and roster
-hash. Engine 0.3 match and run records use schema `1.2.0`.
+hash. Engine 0.4 match and run records use schema `1.3.0`.
 
 Calibration is blocked whenever smoke evidence indicates the decision model is responsible for a
 major aggregate or matchup shift. Cardcade reports the block and its hypotheses; it never changes a

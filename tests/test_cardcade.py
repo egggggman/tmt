@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -6,6 +7,7 @@ import pytest
 from tmnt_design_studio.cardcade import (
     CardModel,
     DeckProfile,
+    _choose_cast,
     _pilot,
     _score,
     compare_runs,
@@ -110,6 +112,41 @@ def test_artifact_score_uses_milestones_not_unbounded_piece_counts():
     assert _score(profile, state) == baseline
 
 
+def test_payoff_tag_does_not_force_setup_when_immediate_board_line_is_better():
+    setup = CardModel("Setup", 2, "support", artifact_permanent=True)
+    payoff = CardModel("Payoff", 3, "creature", artifact_payoff=True)
+    profile = DeckProfile(
+        id="test", name="Test", decklist="", mana_curve={0: 20, 2: 20, 3: 20},
+        creature_rate=0, interaction_rate=0, board_value=3, mana_value=1,
+        support_value=0.2, interaction_value=1, synergy="", strategy="",
+        artifact_plan="invention", cards=(setup, payoff),
+    )
+    chosen, decision = _choose_cast(
+        profile, [setup, payoff], [setup, payoff], artifacts=0, board=0, mana=3
+    )
+    assert chosen is payoff
+    assert decision["legal_lines"] == 3
+    assert decision["rejected_lines"] == 1
+    assert "payoff_not_ready" in decision["chosen_reason"]
+
+
+def test_payoff_cast_and_realization_are_distinct_and_rejections_are_reported():
+    import random
+
+    roster = {deck.id: deck for deck in load_roster(ROSTER)}
+    states = [_pilot(random.Random(seed), roster["donatello"], True) for seed in range(100)]
+    assert all(
+        state["artifact_payoffs_realized"] <= state["artifact_payoff_cards_cast"]
+        for state in states
+    )
+    assert any(state["artifact_payoff_lines_rejected"] > 0 for state in states)
+    assert all(
+        state["sequencing_rejected_lines"]
+        <= state["sequencing_legal_lines"] - state["sequencing_decisions"]
+        for state in states
+    )
+
+
 def test_interaction_is_only_valued_when_opposing_board_has_targets():
     result = run_round_robin(load_roster(ROSTER), 20, 19)
     for match in result["matches"]:
@@ -126,3 +163,15 @@ def test_sensitivity_comparison_preserves_protocol_and_reports_diagnostics():
     assert comparison["protocol"]["total_games"] == 900
     assert all(row["shift"] == 0 for row in comparison["matchup_shifts"])
     assert set(comparison["diagnostics"]) == {"donatello", "krang", "shredder"}
+    assert comparison["engine_stability_gate"]["passed"]
+    assert comparison["engine_stability_gate"]["threshold"] == 0.15
+
+
+def test_stability_gate_rejects_matchup_movement_over_fifteen_points():
+    run = run_round_robin(load_roster(ROSTER), 20, 29)
+    candidate = deepcopy(run)
+    pairing = next(iter(candidate["pairings"].values()))
+    pairing["deck_a_win_rate"] = 1.0 if pairing["deck_a_win_rate"] <= 0.8 else 0.0
+    comparison = compare_runs(run, candidate)
+    assert not comparison["engine_stability_gate"]["passed"]
+    assert len(comparison["engine_stability_gate"]["threshold_exceeded"]) == 1
