@@ -2,10 +2,11 @@
 
 ## Vision
 
-TMNT Design Studio will deliver one fully explainable Character Sewer Deck whose lineage can be
-followed from objective Magic Facts through Capabilities, Deck Metrics, Deck Analysis, Design Intent,
-Alignment, Recommendations, Playtesting, iteration, and preserved decisions. The same foundation may support
-future decks, research, education, and community publishing without becoming opaque.
+TMNT Design Studio will deliver a complete ten-deck TMNT battle set whose decks remain individually
+explainable. Each deck's lineage can be followed from objective Magic Facts through Capabilities,
+Deck Metrics, Deck Analysis, Design Intent, Alignment, Recommendations, Playtesting, iteration, and
+preserved decisions. The same foundation may support research, education, physical products, and
+community publishing without becoming opaque.
 
 ## Guiding philosophy
 
@@ -43,9 +44,19 @@ Overrides, Effective Capability resolution, and derivation audit.
 Added objective Deck Metrics and deterministic Findings for an immutable Deck Version, with strict
 source Provenance and transactional current/run history.
 
-## Confirmed future milestones
+## Current product and validation state
 
-### v0.6.0 — Design Intent
+- The Design Intent RFC and Leonardo Prototype 0.1 are accepted on `main`.
+- The ten-deck Prototype 0.1 baseline, bounded Prototype 0.2 candidates, and Cardcade through Engine
+  0.6 are pending in draft PR #15.
+- Cardcade Engine 0.6 fails its stability gate. Its findings are hypotheses, not authority to change
+  decks; Prototype 0.3 remains unauthorized.
+- The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio
+  decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
+
+## Confirmed future software milestones
+
+### v0.6.0 — Design Intent implementation
 
 Create a rigorous, versionable expression of one Character interpretation: source Evidence, themes,
 priorities, desired experiences, accepted weaknesses, and authored rationale. Prove one bounded
@@ -66,14 +77,14 @@ Every Recommendation exposes constraints, Evidence, tradeoffs, and Confidence; n
 Record structured Playtest Sessions and observations, connect learning to immutable Deck Versions,
 and use real play Evidence to challenge assumptions without rewriting history.
 
-### v1.0.0 — First fully explainable Character Sewer Deck
+### v1.0.0 — Explainable ten-deck battle-set foundation
 
-The system can design, analyze, align, recommend, version, and explain one complete Standard-legal
-Leonardo Sewer Deck from end to end.
+The system can design, analyze, align, recommend, version, and explain the ten Standard-legal Sewer
+Decks as one coherent battle set while preserving each deck's distinct identity and history.
 
-That means one complete 60-card Deck has an inspectable path through Magic Facts, Capabilities, Deck
-Metrics, Design Intent, Alignment, Recommendations, decisions, and Playtesting, with its development
-story preserved for the community.
+That means every 60-card Deck has an inspectable path through Magic Facts, Capabilities, Deck Metrics,
+Design Intent, Alignment, Recommendations, decisions, and Playtesting, with battle-set relationships
+and development history preserved for the community.
 
 ## Beyond v1
 
