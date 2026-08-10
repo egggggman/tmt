@@ -7,9 +7,9 @@ Record evidence for every result.
 
 ## Outcomes
 
-- **Healthy** â€” boundaries and documentation agree; validation passes; no material cleanup is known.
-- **Needs Cleanup** â€” localized inconsistencies or debt exist but architecture remains trustworthy.
-- **Architectural Review Required** â€” a conflict crosses layers, changes canonical meaning, weakens
+- **Healthy** — boundaries and documentation agree; validation passes; no material cleanup is known.
+- **Needs Cleanup** — localized inconsistencies or debt exist but architecture remains trustworthy.
+- **Architectural Review Required** — a conflict crosses layers, changes canonical meaning, weakens
   reproducibility, or cannot be corrected safely as routine maintenance.
 
 The highest-severity applicable outcome governs the review.
@@ -53,7 +53,7 @@ The highest-severity applicable outcome governs the review.
 ### Test health
 
 - The full suite passes from a clean environment.
-- Tests cover boundaries, failures, idempotence, and Provenanceâ€”not only happy paths.
+- Tests cover boundaries, failures, idempotence, and Provenance—not only happy paths.
 - Fixtures remain deterministic and offline where practical.
 
 ### CLI consistency
@@ -76,7 +76,7 @@ The highest-severity applicable outcome governs the review.
 
 ### User onboarding
 
-- README â€œStart Hereâ€ guidance is current.
+- README “Start Here” guidance is current.
 - A newcomer can install, initialize, inspect status, and find deeper specifications.
 - Contribution expectations are explicit and welcoming.
 
@@ -99,6 +99,6 @@ The highest-severity applicable outcome governs the review.
 After every major milestone, hold a **Repository Review Day** before starting the next architectural
 layer. Review this checklist, current issues and PR language, release history, canonical docs, links,
 runtime validation, and deferred work. Record the outcome, evidence, cleanup owners, and decisions
-requiring architectural review. A review is complete when findings are visibleâ€”not when every minor
+requiring architectural review. A review is complete when findings are visible—not when every minor
 cleanup item is immediately solved.
 

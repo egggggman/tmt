@@ -1,6 +1,6 @@
 # TMNT Design Studio Manifest
 
-This document preserves the projectâ€™s early foundation principles. The canonical, actionable source
+This document preserves the project’s early foundation principles. The canonical, actionable source
 of truth is now the [Project Constitution](docs/PROJECT_CONSTITUTION.md), supported by the
 [Design Principles](docs/DESIGN_PRINCIPLES.md), [Glossary](docs/GLOSSARY.md), and
 [Architecture](docs/ARCHITECTURE.md).

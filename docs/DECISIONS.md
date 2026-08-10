@@ -41,7 +41,7 @@ the [Glossary](GLOSSARY.md); implementation status lives in [Architecture](ARCHI
    Explicit rules derive Capabilities. Documented Overrides handle evidence-backed edge cases.
 
 10. **Only curate what cannot be derived**
-   Human effort focuses on interpretation, Overrides, decisions, and evidenceâ€”not re-entering Magic
+   Human effort focuses on interpretation, Overrides, decisions, and evidence—not re-entering Magic
    Facts.
 
 11. **Recommendations are computed**
@@ -57,30 +57,30 @@ the [Glossary](GLOSSARY.md); implementation status lives in [Architecture](ARCHI
 
 ## Engineering decisions
 
-14. **Python** â€” use modern Python with type hints.
-15. **SQLite** â€” SewerGraph uses SQLite for Version 1.
-16. **uv project management** â€” dependencies and execution use uv and `pyproject.toml`.
-17. **No ORM initially** â€” use `sqlite3` behind explicit services.
-18. **CLI before GUI** â€” prove boundaries and workflows before graphical presentation.
-19. **Immutable migrations** â€” released migrations are never rewritten.
-20. **GitHub is canonical** â€” preserve durable project history in the repository and releases.
-21. **Golden rule** â€” Store facts. Compute intelligence. Preserve decisions.
+14. **Python** — use modern Python with type hints.
+15. **SQLite** — SewerGraph uses SQLite for Version 1.
+16. **uv project management** — dependencies and execution use uv and `pyproject.toml`.
+17. **No ORM initially** — use `sqlite3` behind explicit services.
+18. **CLI before GUI** — prove boundaries and workflows before graphical presentation.
+19. **Immutable migrations** — released migrations are never rewritten.
+20. **GitHub is canonical** — preserve durable project history in the repository and releases.
+21. **Golden rule** — Store facts. Compute intelligence. Preserve decisions.
 
 ## Capability Engine decisions
 
-22. **Oracle-level derivation** â€” Oracle Cards own Capabilities; Card Faces contribute Evidence.
-23. **Replace derivations, preserve audit** â€” current computed results are atomically replaceable;
+22. **Oracle-level derivation** — Oracle Cards own Capabilities; Card Faces contribute Evidence.
+23. **Replace derivations, preserve audit** — current computed results are atomically replaceable;
     Rule Set identity, source import, Evidence, outcomes, and Overrides remain durable.
-24. **Confidence and Override precedence** â€” Confidence measures Evidence strength; rules combine by
+24. **Confidence and Override precedence** — Confidence measures Evidence strength; rules combine by
     maximum; one active add/remove/adjust Override applies; conflicts are invalid.
 
 ## Deck Analysis Engine decisions
 
-25. **Separate metrics from interpretation** â€” Deck Metrics precede Findings, and every Finding cites
+25. **Separate metrics from interpretation** — Deck Metrics precede Findings, and every Finding cites
     a named metric and exact threshold.
-26. **Strict, source-linked analysis** â€” normal runs require exactly 60 Standard-legal cards,
+26. **Strict, source-linked analysis** — normal runs require exactly 60 Standard-legal cards,
     resolved Printings, and current Capability Provenance; diagnostic mode relaxes only deck size.
-27. **Neutral outputs only** â€” current analysis does not perform Character judgment, Design Intent
+27. **Neutral outputs only** — current analysis does not perform Character judgment, Design Intent
     scoring, Recommendations, tuning, matchup prediction, or qualitative grading.
 
 Future hard-to-reverse decisions should receive an ADR in `docs/adr/` when that directory is
