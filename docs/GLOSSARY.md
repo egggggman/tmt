@@ -55,12 +55,12 @@ Version. It does not judge Character fit or recommend changes. See [Deck Analysi
 ### Deck Metric
 
 One objective, reproducible measurement of a Deck Version. Examples include a count, mana-value
-distribution, color requirement, Capability total, density, ratio, or duplicate count. â€œDeck
-Metricsâ€ refers to the collection.
+distribution, color requirement, Capability total, density, ratio, or duplicate count. “Deck
+Metrics” refers to the collection.
 
 ### Deck Version
 
-An immutable snapshot of a Sewer Deckâ€™s card identities, quantities, sections, status, and notes.
+An immutable snapshot of a Sewer Deck’s card identities, quantities, sections, status, and notes.
 Changes create a new Deck Version rather than rewriting history.
 
 ### Design Intent
@@ -116,7 +116,7 @@ such as name, mana cost, Oracle text, type, keyword, Card Face, Printing, or Sta
 
 ### Oracle Card
 
-The canonical rules identity shared by all Printings of a card. It is the Capability Engineâ€™s unit of
+The canonical rules identity shared by all Printings of a card. It is the Capability Engine’s unit of
 analysis.
 
 ### Override
@@ -141,7 +141,7 @@ decisions behind a result.
 
 ### Puzzle Dojo
 
-The Underground Pressâ€™s community puzzle and learning section. It may use crosswords, Sudoku,
+The Underground Press’s community puzzle and learning section. It may use crosswords, Sudoku,
 ciphers, mazes, logic puzzles, word searches, and recurring hidden elements. It is not an engine.
 
 ### Raw Capability
@@ -172,7 +172,7 @@ remaining coherent and as strong as reasonably possible within that intent.
 
 ### SewerGraph
 
-The projectâ€™s SQLite knowledge database. It stores durable facts, intent, decisions, overrides,
+The project’s SQLite knowledge database. It stores durable facts, intent, decisions, overrides,
 versions, Provenance, and audit history while keeping reproducible computed intelligence distinct.
 See [Database](DATABASE.md).
 
