@@ -1,5 +1,14 @@
 # Changelog
 
+## Prototype 0.2 design cycle
+
+- Preserved all Prototype 0.1 decklists and created surgical Donatello and Krang Prototype 0.2
+  candidates from Calibration 0.1 evidence.
+- Froze roster 0.2 with the other eight decks unchanged and ran the exact balanced 20-game smoke
+  protocol.
+- Recorded a recalibration block: intended engine reliability moved, but aggregate strength and
+  matchup polarity remain unresolved.
+
 ## Unreleased — Repository governance
 
 ### Documentation

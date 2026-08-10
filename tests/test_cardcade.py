@@ -19,11 +19,23 @@ from tmnt_design_studio.cardcade import (
 
 ROOT = Path(__file__).parents[1]
 ROSTER = ROOT / "cardcade" / "roster-0.1.json"
+ROSTER_02 = ROOT / "cardcade" / "roster-0.2.json"
 
 
 def test_beta_roster_has_ten_structurally_valid_decks():
     roster = load_roster(ROSTER)
     assert len(validate_roster(roster, ROOT)) == 10
+
+
+def test_prototype_02_roster_is_structurally_valid_and_preserves_frozen_decks():
+    baseline = {deck.id: deck for deck in load_roster(ROSTER)}
+    candidate = {deck.id: deck for deck in load_roster(ROSTER_02)}
+    assert len(validate_roster(list(candidate.values()), ROOT)) == 10
+    assert {
+        deck_id for deck_id in baseline if baseline[deck_id].decklist != candidate[deck_id].decklist
+    } == {"donatello", "krang"}
+    assert candidate["donatello"].mana_curve == {0: 23, 1: 8, 2: 9, 3: 14, 4: 6}
+    assert candidate["krang"].mana_curve == {0: 22, 1: 8, 2: 15, 3: 8, 4: 3, 5: 2, 8: 2}
 
 
 def test_smoke_round_robin_is_complete_balanced_and_reproducible():
