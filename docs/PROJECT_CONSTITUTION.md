@@ -22,7 +22,7 @@ at hidden reasoning.
 ### Explainability
 
 Results expose the inputs, evidence, rules, thresholds, versions, and human decisions that produced
-them. â€œThe system says soâ€ is never sufficient. A feature that cannot explain its conclusion is not
+them. “The system says so” is never sufficient. A feature that cannot explain its conclusion is not
 ready to influence design.
 
 ### Evidence before opinion
@@ -96,7 +96,7 @@ The [World Guide](WORLD_GUIDE.md) governs in-universe continuity. The
 - Claims of official affiliation, endorsement, or canon authority.
 - Opaque scoring, untraceable automation, or hidden AI judgment.
 - Automated replacement of human creative responsibility.
-- Competitive certainty, matchup guarantees, or a universal â€œbest deck.â€
+- Competitive certainty, matchup guarantees, or a universal “best deck.”
 - Monetization or growth that weakens community trust.
 - Unrelated franchises or additional Magic formats before Standard is proven.
 - Features added only because they are technically possible.

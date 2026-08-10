@@ -14,7 +14,7 @@ holder.
 
 ## Current status
 
-Current release: **v0.5.0 â€” Deck Analysis Engine**.
+Current release: **v0.5.0 — Deck Analysis Engine**.
 
 Implemented layers import Scryfall Magic Facts, derive Effective Capabilities with Evidence, and
 compute deterministic Deck Metrics and Findings. Design Intent behavior begins in v0.6.0; Alignment,
@@ -33,16 +33,16 @@ Completed releases:
 
 ```text
 Character
-â””â”€â”€ Design Intent
-    â””â”€â”€ Sewer Deck
-        â””â”€â”€ Deck Version
+└── Design Intent
+    └── Sewer Deck
+        └── Deck Version
 ```
 
 ## Architecture at a glance
 
 ```text
-Scryfall â†’ Magic Facts â†’ Capability Engine â†’ Deck Metrics â†’ Deck Analysis
-         â†’ Design Intent â†’ Alignment â†’ Recommendations â†’ Playtesting â†’ iteration
+Scryfall → Magic Facts → Capability Engine → Deck Metrics → Deck Analysis
+         → Design Intent → Alignment → Recommendations → Playtesting → iteration
 ```
 
 The first three reasoning stages through Deck Analysis are implemented. Later stages are planned and
@@ -51,15 +51,16 @@ implementation status, and invariants.
 
 ## Start here
 
-1. [Project Constitution](docs/PROJECT_CONSTITUTION.md) â€” why the project exists.
-2. [Design Principles](docs/DESIGN_PRINCIPLES.md) â€” how contributors make decisions.
-3. [Glossary](docs/GLOSSARY.md) â€” canonical shared vocabulary.
-4. [Architecture](docs/ARCHITECTURE.md) â€” technical responsibilities and dependency flow.
-5. [Roadmap](docs/ROADMAP.md) â€” completed and future milestone direction.
-6. [Contributing](CONTRIBUTING.md) â€” how to propose and validate changes.
+1. [Project Constitution](docs/PROJECT_CONSTITUTION.md) — why the project exists.
+2. [Design Principles](docs/DESIGN_PRINCIPLES.md) — how contributors make decisions.
+3. [Glossary](docs/GLOSSARY.md) — canonical shared vocabulary.
+4. [Architecture](docs/ARCHITECTURE.md) — technical responsibilities and dependency flow.
+5. [Roadmap](docs/ROADMAP.md) — completed and future milestone direction.
+6. [Contributing](CONTRIBUTING.md) — how to propose and validate changes.
 
 ## Governance
 
+- [HQ project map and current status](docs/HQ.md)
 - [Project Constitution](docs/PROJECT_CONSTITUTION.md)
 - [Design Principles](docs/DESIGN_PRINCIPLES.md)
 - [Canonical Glossary](docs/GLOSSARY.md)
@@ -127,4 +128,3 @@ source material and one another. Start with [Contributing](CONTRIBUTING.md), use
 [Glossary](docs/GLOSSARY.md), preserve architectural boundaries, and propose hard-to-reverse changes
 through an ADR or RFC before implementation. Community before ego; always leave room for the Rule of
 Joy.
-

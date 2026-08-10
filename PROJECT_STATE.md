@@ -1,6 +1,9 @@
 # Project State
 
-Current release: **v0.5.0 â€” Deck Analysis Engine**.
+For the cross-department Master Project Map, active milestones, blockers, and immediate priorities,
+see [Mutants the Gathering HQ](docs/HQ.md). This file retains the software release-state view.
+
+Current release: **v0.5.0 — Deck Analysis Engine**.
 
 ## Implemented
 
@@ -17,9 +20,8 @@ Current release: **v0.5.0 â€” Deck Analysis Engine**.
 
 ## Next architectural layer
 
-**v0.6.0 â€” Design Intent** will define a rigorous, versionable human interpretation of a Character.
+**v0.6.0 — Design Intent** will define a rigorous, versionable human interpretation of a Character.
 It must not alter imported Magic Facts or current analytical behavior.
 
 See the [Roadmap](docs/ROADMAP.md) for direction and [Architecture](docs/ARCHITECTURE.md) for exact
 implementation status and boundaries.
-

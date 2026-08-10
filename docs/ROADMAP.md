@@ -15,58 +15,58 @@ deterministic first, and community before ego. It is vision-oriented, not schedu
 
 ## Milestone history
 
-Completed status is based on `CHANGELOG.md`, tagged releases, and current implementationâ€”not the
+Completed status is based on `CHANGELOG.md`, tagged releases, and current implementation—not the
 aspirations of older roadmap drafts.
 
-### v0.1.0 â€” Architecture foundation â€” Complete
+### v0.1.0 — Architecture foundation — Complete
 
 Established project identity, Sewer Deck terminology, Standard-only Version 1 scope, domain
 hierarchy, architectural boundaries, and initial database design.
 
-### v0.2.0 â€” Executable foundation â€” Complete
+### v0.2.0 — Executable foundation — Complete
 
 Added the Python package, SQLite migration runner, CLI foundation, immutable Deck Versions,
 foreign-key enforcement, tests, Ruff, and GitHub Actions.
 
-### v0.3.0 â€” Scryfall import pipeline â€” Complete
+### v0.3.0 — Scryfall import pipeline — Complete
 
 Added transactional Magic Fact import, normalized Oracle Cards, Printings, Card Faces, Standard
 legality, and durable source audit metadata.
 
-### v0.4.0 â€” Capability Engine â€” Complete
+### v0.4.0 — Capability Engine — Complete
 
 Added the canonical Capability catalog, versioned deterministic rules, Evidence, Confidence,
 Overrides, Effective Capability resolution, and derivation audit.
 
-### v0.5.0 â€” Deck Analysis Engine â€” Complete
+### v0.5.0 — Deck Analysis Engine — Complete
 
 Added objective Deck Metrics and deterministic Findings for an immutable Deck Version, with strict
 source Provenance and transactional current/run history.
 
 ## Confirmed future milestones
 
-### v0.6.0 â€” Design Intent
+### v0.6.0 — Design Intent
 
 Create a rigorous, versionable expression of one Character interpretation: source Evidence, themes,
 priorities, desired experiences, accepted weaknesses, and authored rationale. Prove one bounded
 reference intent before broad expansion.
 
-### v0.7.0 â€” Alignment
+### v0.7.0 — Alignment
 
 Compute explainable evidence for how cards, Capabilities, Relationships, and Deck Versions support a
 specific Design Intent. Keep objective inputs separate from interpretation.
 
-### v0.8.0 â€” Recommendations
+### v0.8.0 — Recommendations
 
 Produce contextual proposals from a Deck Version, Design Intent, Alignment, and objective deck needs.
 Every Recommendation exposes constraints, Evidence, tradeoffs, and Confidence; none is a command.
 
-### v0.9.0 â€” Playtesting and iteration
+### v0.9.0 — Playtesting and iteration
 
 Record structured Playtest Sessions and observations, connect learning to immutable Deck Versions,
 and use real play Evidence to challenge assumptions without rewriting history.
 
-### v1.0.0 â€” First fully explainable Character Sewer Deck
+### v1.0.0 — First fully explainable Character Sewer Deck
 
 The system can design, analyze, align, recommend, version, and explain one complete Standard-legal
 Leonardo Sewer Deck from end to end.
@@ -77,7 +77,7 @@ story preserved for the community.
 
 ## Beyond v1
 
-Aspirational possibilitiesâ€”not commitmentsâ€”include additional Characters and Design Intents, richer
+Aspirational possibilities—not commitments—include additional Characters and Design Intents, richer
 playtest evidence, interactive explainability tools, Puzzle Dojo learning experiences, durable
 Underground Press archives, visual inspection tools, and carefully bounded assistive AI that never
 hides Evidence or replaces accountable judgment.
@@ -108,4 +108,3 @@ the resulting deck is legal, playable, recognizable, explainable, and joyful.
 Version numbers describe dependency order and a learning path, not delivery dates. This roadmap may
 evolve through explicit review as evidence changes, while preserving completed history and the
 constitutional mission.
-
