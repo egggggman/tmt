@@ -6,8 +6,9 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 ## Accepted state
 
 - The Design Intent RFC and Leonardo Prototype 0.1 are accepted on `main`.
-- Prototype 0.1 is the preserved baseline identity for each deck represented in draft PR #15.
-- Donatello and Krang Prototype 0.2 are bounded candidates preserved in draft PR #15.
+- Prototype 0.1 is the preserved baseline identity for each deck on `main` following merged PR #15.
+- Donatello and Krang Prototype 0.2 are bounded candidates preserved on `main` following merged
+  PR #15.
 - Prototype 0.2 is frozen while the current Cardcade validation gate is unresolved.
 - Prototype 0.3 is not authorized.
 

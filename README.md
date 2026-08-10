@@ -14,12 +14,18 @@ holder.
 
 ## Current status
 
-Current release: **v0.5.0 — Deck Analysis Engine**.
+Current software release: **v0.5.0 — Deck Analysis Engine**.
 
 Implemented layers import Scryfall Magic Facts, derive Effective Capabilities with Evidence, and
-compute deterministic Deck Metrics and Findings. Design Intent behavior begins in v0.6.0; Alignment,
-Recommendations, and expanded Playtesting follow. See the [Roadmap](docs/ROADMAP.md) for confirmed
-milestones and deliberately deferred work.
+compute deterministic Deck Metrics and Findings. The Design Intent RFC and Leonardo Prototype 0.1
+are accepted; Design Intent runtime behavior begins in v0.6.0. Alignment, Recommendations, and
+expanded Playtesting follow.
+
+The product target is a complete ten-deck TMNT battle set. The ten-deck Prototype 0.1 baseline,
+bounded Prototype 0.2 candidates, and Cardcade through Engine 0.6 are preserved on `main` following
+merged PR #15. Engine 0.6 still fails its stability gate, so its findings remain hypotheses and
+Prototype 0.3 is not authorized. See [Project State](PROJECT_STATE.md), [HQ](docs/HQ.md), and the
+[Roadmap](docs/ROADMAP.md) for the distinct software, product, and validation views.
 
 Completed releases:
 
