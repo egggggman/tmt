@@ -67,14 +67,14 @@ into Alignment or recommendations.
 
 ## Reward curiosity
 
-Let people ask â€œwhy?â€, follow evidence, compare versions, and discover more than a final answer.
+Let people ask “why?”, follow evidence, compare versions, and discover more than a final answer.
 
 **Apply it:** connect a Finding to its metric, formula, threshold, cards, and engine version.
 
 ## Leave room to grow
 
 Keep initial definitions narrow and interfaces composable. Avoid speculative machinery while
-refusing to treat todayâ€™s implementation as tomorrowâ€™s permanent limit.
+refusing to treat today’s implementation as tomorrow’s permanent limit.
 
 **Apply it:** prove Standard end to end before generalizing format behavior.
 
@@ -83,7 +83,7 @@ refusing to treat todayâ€™s implementation as tomorrowâ€™s permanent l
 Credit sources and contributors, welcome correction, document context for newcomers, and judge ideas
 by their contribution to the mission.
 
-**Apply it:** preserve a contributorâ€™s rationale and discuss evidence rather than defending ownership
+**Apply it:** preserve a contributor’s rationale and discuss evidence rather than defending ownership
 of an approach.
 
 ## Rule of Joy
@@ -96,7 +96,7 @@ equal, choose the one that invites exploration.
 
 ## Resolving tension
 
-Principles may pull in different directions. Use the Constitutionâ€™s decision framework, state the
+Principles may pull in different directions. Use the Constitution’s decision framework, state the
 tradeoff, and preserve durable choices in [Decisions](DECISIONS.md). Technical boundaries belong in
 [Architecture](ARCHITECTURE.md); canonical terms belong in the [Glossary](GLOSSARY.md).
 
