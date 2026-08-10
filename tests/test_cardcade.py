@@ -52,7 +52,8 @@ def test_smoke_round_robin_is_complete_balanced_and_reproducible():
     assert len(first["pairings"]) == 45
     for pairing in first["pairings"].values():
         rows = [
-            row for row in first["matches"]
+            row
+            for row in first["matches"]
             if {row["deck_a"], row["deck_b"]} == {pairing["deck_a"], pairing["deck_b"]}
         ]
         assert sum(row["starting_player"] == pairing["deck_a"] for row in rows) == 10
@@ -99,8 +100,16 @@ def test_card_derived_model_limits_affinity_to_actual_affinity_cards():
 def test_all_ten_decks_use_actual_card_facts_and_emit_generic_roles():
     roster = load_roster(ROSTER_02)
     assert {deck.id for deck in roster} == {
-        "leonardo", "raphael", "donatello", "michelangelo", "splinter",
-        "april_oneil", "casey_jones", "shredder", "krang", "bebop_rocksteady",
+        "leonardo",
+        "raphael",
+        "donatello",
+        "michelangelo",
+        "splinter",
+        "april_oneil",
+        "casey_jones",
+        "shredder",
+        "krang",
+        "bebop_rocksteady",
     }
     for deck in roster:
         assert len(deck.cards) == 60
@@ -145,10 +154,20 @@ def test_affinity_discount_respects_card_colored_mana_floor():
         CardModel("Payoff", 8, "creature", affinity=True, affinity_floor=2),
     )
     profile = DeckProfile(
-        id="test", name="Test", decklist="", mana_curve={0: 7, 1: 10, 8: 1},
-        creature_rate=0, interaction_rate=0, board_value=1, mana_value=1,
-        support_value=1, interaction_value=1, synergy="", strategy="",
-        artifact_plan="affinity", cards=cards,
+        id="test",
+        name="Test",
+        decklist="",
+        mana_curve={0: 7, 1: 10, 8: 1},
+        creature_rate=0,
+        interaction_rate=0,
+        board_value=1,
+        mana_value=1,
+        support_value=1,
+        interaction_value=1,
+        synergy="",
+        strategy="",
+        artifact_plan="affinity",
+        cards=cards,
     )
     states = [_pilot(random.Random(seed), profile, True) for seed in range(200)]
     discounted = [state for state in states if state["affinity_discount_events"]]
@@ -160,9 +179,14 @@ def test_affinity_discount_respects_card_colored_mana_floor():
 def test_artifact_score_uses_milestones_not_unbounded_piece_counts():
     profile = load_roster(ROSTER)[2]
     state = {
-        "board_t8": 0, "mana_spent": 0, "support": 0, "interaction_used": 0,
-        "artifact_setup_cast": 2, "artifact_payoffs_cast": 1,
-        "affinity_mana_saved": 0, "mulligans": 0,
+        "board_t8": 0,
+        "mana_spent": 0,
+        "support": 0,
+        "interaction_used": 0,
+        "artifact_setup_cast": 2,
+        "artifact_payoffs_cast": 1,
+        "affinity_mana_saved": 0,
+        "mulligans": 0,
     }
     baseline = _score(profile, state)
     state.update(artifact_setup_cast=20, artifact_payoffs_cast=10)
@@ -173,10 +197,20 @@ def test_payoff_tag_does_not_force_setup_when_immediate_board_line_is_better():
     setup = CardModel("Setup", 2, "support", artifact_permanent=True)
     payoff = CardModel("Payoff", 3, "creature", artifact_payoff=True)
     profile = DeckProfile(
-        id="test", name="Test", decklist="", mana_curve={0: 20, 2: 20, 3: 20},
-        creature_rate=0, interaction_rate=0, board_value=3, mana_value=1,
-        support_value=0.2, interaction_value=1, synergy="", strategy="",
-        artifact_plan="invention", cards=(setup, payoff),
+        id="test",
+        name="Test",
+        decklist="",
+        mana_curve={0: 20, 2: 20, 3: 20},
+        creature_rate=0,
+        interaction_rate=0,
+        board_value=3,
+        mana_value=1,
+        support_value=0.2,
+        interaction_value=1,
+        synergy="",
+        strategy="",
+        artifact_plan="invention",
+        cards=(setup, payoff),
     )
     chosen, decision = _choose_cast(
         profile, [setup, payoff], [setup, payoff], artifacts=0, board=0, mana=3
@@ -238,8 +272,12 @@ def test_profile_prior_inventory_is_complete_and_neutralization_uses_means():
     roster = load_roster(ROSTER_02)
     inventory = profile_prior_inventory(roster)
     assert set(inventory["fields"]) == {
-        "creature_rate", "interaction_rate", "board_value", "mana_value",
-        "support_value", "interaction_value",
+        "creature_rate",
+        "interaction_rate",
+        "board_value",
+        "mana_value",
+        "support_value",
+        "interaction_value",
     }
     neutral = apply_profile_prior_condition(roster)
     for field, details in inventory["fields"].items():
@@ -254,9 +292,7 @@ def test_profile_audit_preserves_protocol_and_attributes_each_prior():
     assert audit["protocol"]["games_per_condition"] == 90
     assert audit["protocol"]["starts_per_deck_per_pairing"] == 1
     conditions = audit["conditions"]
-    assert {"baseline", "neutralized", "contracted_50pct", "amplified_150pct"} <= set(
-        conditions
-    )
+    assert {"baseline", "neutralized", "contracted_50pct", "amplified_150pct"} <= set(conditions)
     for field in audit["inventory"]["fields"]:
         assert f"neutralize_{field}" in conditions
     for run in conditions.values():
@@ -282,8 +318,7 @@ def test_calibration_artifacts_preserve_the_frozen_protocol():
         rows = [
             row
             for row in run["matches"]
-            if {row["deck_a"], row["deck_b"]}
-            == {pairing["deck_a"], pairing["deck_b"]}
+            if {row["deck_a"], row["deck_b"]} == {pairing["deck_a"], pairing["deck_b"]}
         ]
         assert len(rows) == 100
         assert sum(row["starting_player"] == pairing["deck_a"] for row in rows) == 50

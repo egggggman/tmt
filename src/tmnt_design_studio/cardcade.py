@@ -130,9 +130,11 @@ def derive_card_model(name: str, facts: dict[str, Any]) -> CardModel:
         for role, value in {"removal": 1.0, "board_wipe": 1.5, "counterspell": 1.0}.items()
         if role in roles
     )
-    card_units = (1.0 if "card_advantage" in roles else 0.0) + (
-        0.35 if "selection" in roles else 0.0
-    ) + (0.7 if "recursion" in roles else 0.0)
+    card_units = (
+        (1.0 if "card_advantage" in roles else 0.0)
+        + (0.35 if "selection" in roles else 0.0)
+        + (0.7 if "recursion" in roles else 0.0)
+    )
     support_units = sum(
         value
         for role, value in {
@@ -186,9 +188,12 @@ def load_roster(path: Path) -> list[DeckProfile]:
     for row in data["decks"]:
         deck_cards = []
         in_deck = False
-        for line in (path.parents[0] / ".." / row["decklist"]).resolve().read_text(
-            encoding="utf-8"
-        ).splitlines():
+        for line in (
+            (path.parents[0] / ".." / row["decklist"])
+            .resolve()
+            .read_text(encoding="utf-8")
+            .splitlines()
+        ):
             if line.strip() == "Deck":
                 in_deck = True
                 continue
@@ -274,9 +279,7 @@ def apply_profile_prior_condition(
         raise ValueError(f"unknown profile-prior fields: {sorted(unknown)}")
     if scale < 0:
         raise ValueError("profile-prior scale must be non-negative")
-    means = {
-        field: sum(getattr(deck, field) for deck in roster) / len(roster) for field in fields
-    }
+    means = {field: sum(getattr(deck, field) for deck in roster) / len(roster) for field in fields}
     adjusted = []
     for deck in roster:
         values = asdict(deck)
@@ -323,9 +326,7 @@ def _classify_spell(rng: random.Random, profile: DeckProfile, card: CardModel) -
 
 
 def _casting_cost(card: CardModel, artifacts: int) -> int:
-    discount = (
-        min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
-    )
+    discount = min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
     return card.mana_value - discount
 
 
@@ -465,10 +466,7 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
         while choices := [
             card
             for card in hand
-            if card.mana_value > 0
-            and (
-                _casting_cost(card, artifacts) <= mana
-            )
+            if card.mana_value > 0 and (_casting_cost(card, artifacts) <= mana)
         ]:
             if any(
                 choice.artifact_permanent or choice.artifact_tokens or choice.artifact_payoff
@@ -494,9 +492,7 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
             if card is None:
                 break
             hand.remove(card)
-            discount = (
-                min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
-            )
+            discount = min(artifacts, card.mana_value - card.affinity_floor) if card.affinity else 0
             affinity_saved += discount
             affinity_spells += int(card.affinity)
             affinity_discount_events += int(discount > 0)
@@ -603,9 +599,7 @@ def simulate_match(
         state["interaction_dead"] = state["interaction"] - state["interaction_used"]
     a_components = _score_components(a, a_state)
     b_components = _score_components(b, b_state)
-    component_delta = {
-        name: a_components[name] - b_components[name] for name in a_components
-    }
+    component_delta = {name: a_components[name] - b_components[name] for name in a_components}
     component_delta["interaction_resolution"] = 0.3 * (
         a_state["interaction_used"] - b_state["interaction_used"]
     )
@@ -660,13 +654,15 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
             matches.append(row)
         a_wins = sum(row["winner"] == a.id for row in rows)
         p = a_wins / games
-        se = math.sqrt(p * (1-p) / games)
+        se = math.sqrt(p * (1 - p) / games)
         pairings[f"{a.id}_vs_{b.id}"] = {
-            "deck_a": a.id, "deck_b": b.id, "games": games,
+            "deck_a": a.id,
+            "deck_b": b.id,
+            "games": games,
             "deck_a_win_rate": p,
-            "sampling_95_ci": [max(0, p-1.96*se), min(1, p+1.96*se)],
+            "sampling_95_ci": [max(0, p - 1.96 * se), min(1, p + 1.96 * se)],
             "first_player_win_rate": _rate(rows, lambda r: r["winner"] == r["starting_player"]),
-            "average_turns": sum(r["turns"] for r in rows)/games,
+            "average_turns": sum(r["turns"] for r in rows) / games,
             "deck_a_interaction_used_rate": _rate(
                 rows, lambda r, deck_id=a.id: r["players"][deck_id]["interaction_used"] > 0
             ),
@@ -682,50 +678,45 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
         decks[deck.id] = {
             "games": len(rows),
             "win_rate": _rate(rows, lambda r, deck_id=deck.id: r["winner"] == deck_id),
-            "mulligan_rate": sum(s["mulligans"] > 0 for s in states)/len(states),
-            "mana_screw_rate": sum(s["mana_screw"] for s in states)/len(states),
-            "mana_flood_rate": sum(s["mana_flood"] for s in states)/len(states),
-            "strategy_execution_rate": sum(s["strategy_executed"] for s in states)/len(states),
-            "average_board_t3": sum(s["board_t3"] for s in states)/len(states),
-            "average_board_t8": sum(s["board_t8"] for s in states)/len(states),
-            "average_interaction_seen": sum(s["interaction"] for s in states)/len(states),
-            "average_interaction_used": sum(s["interaction_used"] for s in states)/len(states),
-            "average_interaction_dead": sum(s["interaction_dead"] for s in states)/len(states),
-            "artifact_setup_rate": sum(s["artifact_setup_cast"] >= 2 for s in states)/len(states),
-            "artifact_payoff_rate": sum(s["artifact_payoffs_cast"] > 0 for s in states)/len(states),
-            "artifact_payoff_cast_rate": sum(
-                s["artifact_payoff_cards_cast"] > 0 for s in states
-            )/len(states),
-            "average_artifact_payoffs_realized": sum(
-                s["artifact_payoffs_realized"] for s in states
-            )/len(states),
+            "mulligan_rate": sum(s["mulligans"] > 0 for s in states) / len(states),
+            "mana_screw_rate": sum(s["mana_screw"] for s in states) / len(states),
+            "mana_flood_rate": sum(s["mana_flood"] for s in states) / len(states),
+            "strategy_execution_rate": sum(s["strategy_executed"] for s in states) / len(states),
+            "average_board_t3": sum(s["board_t3"] for s in states) / len(states),
+            "average_board_t8": sum(s["board_t8"] for s in states) / len(states),
+            "average_interaction_seen": sum(s["interaction"] for s in states) / len(states),
+            "average_interaction_used": sum(s["interaction_used"] for s in states) / len(states),
+            "average_interaction_dead": sum(s["interaction_dead"] for s in states) / len(states),
+            "artifact_setup_rate": sum(s["artifact_setup_cast"] >= 2 for s in states) / len(states),
+            "artifact_payoff_rate": sum(s["artifact_payoffs_cast"] > 0 for s in states)
+            / len(states),
+            "artifact_payoff_cast_rate": sum(s["artifact_payoff_cards_cast"] > 0 for s in states)
+            / len(states),
+            "average_artifact_payoffs_realized": sum(s["artifact_payoffs_realized"] for s in states)
+            / len(states),
             "average_artifact_payoff_lines_rejected": sum(
                 s["artifact_payoff_lines_rejected"] for s in states
-            )/len(states),
-            "average_artifacts_cast": sum(s["artifacts_cast"] for s in states)/len(states),
-            "average_artifact_sequencing_holds": sum(
-                s["artifact_sequencing_holds"] for s in states
-            )/len(states),
-            "average_sequencing_decisions": sum(
-                s["sequencing_decisions"] for s in states
-            )/len(states),
-            "average_sequencing_rejected_lines": sum(
-                s["sequencing_rejected_lines"] for s in states
-            )/len(states),
+            )
+            / len(states),
+            "average_artifacts_cast": sum(s["artifacts_cast"] for s in states) / len(states),
+            "average_artifact_sequencing_holds": sum(s["artifact_sequencing_holds"] for s in states)
+            / len(states),
+            "average_sequencing_decisions": sum(s["sequencing_decisions"] for s in states)
+            / len(states),
+            "average_sequencing_rejected_lines": sum(s["sequencing_rejected_lines"] for s in states)
+            / len(states),
             "resource_preservation_hold_rate": sum(
                 s["resource_preservation_holds"] > 0 for s in states
-            )/len(states),
-            "average_affinity_mana_saved": sum(
-                s["affinity_mana_saved"] for s in states
-            )/len(states),
-            "average_affinity_spells_cast": sum(
-                s["affinity_spells_cast"] for s in states
-            )/len(states),
-            "affinity_discount_event_rate": sum(
-                s["affinity_discount_events"] > 0 for s in states
-            )/len(states),
-            "average_mana_value_cast": sum(s["mana_value_cast"] for s in states)/len(states),
-            "average_mana_paid": sum(s["mana_spent"] for s in states)/len(states),
+            )
+            / len(states),
+            "average_affinity_mana_saved": sum(s["affinity_mana_saved"] for s in states)
+            / len(states),
+            "average_affinity_spells_cast": sum(s["affinity_spells_cast"] for s in states)
+            / len(states),
+            "affinity_discount_event_rate": sum(s["affinity_discount_events"] > 0 for s in states)
+            / len(states),
+            "average_mana_value_cast": sum(s["mana_value_cast"] for s in states) / len(states),
+            "average_mana_paid": sum(s["mana_spent"] for s in states) / len(states),
             "average_role_usage": {
                 role: sum(s["role_usage"].get(role, 0) for s in states) / len(states)
                 for role in role_names
@@ -735,24 +726,25 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
         "schema_version": MATCH_SCHEMA_VERSION,
         "engine_version": ENGINE_VERSION,
         "model_scope": "heuristic rehearsal; not a Magic rules engine or real balance evidence",
-        "seed": seed, "games_per_pairing": games, "pairing_count": 45,
-        "total_games": len(matches), "roster_hash": roster_hash,
+        "seed": seed,
+        "games_per_pairing": games,
+        "pairing_count": 45,
+        "total_games": len(matches),
+        "roster_hash": roster_hash,
         "first_player_win_rate": _rate(
             matches, lambda match: match["winner"] == match["starting_player"]
         ),
-        "decks": decks, "pairings": pairings, "matches": matches,
+        "decks": decks,
+        "pairings": pairings,
+        "matches": matches,
     }
 
 
-def run_profile_strength_audit(
-    roster: list[DeckProfile], games: int, seed: int
-) -> dict[str, Any]:
+def run_profile_strength_audit(roster: list[DeckProfile], games: int, seed: int) -> dict[str, Any]:
     """Run baseline, neutralization, isolated attribution, and bounded sensitivity."""
     conditions: dict[str, dict[str, Any]] = {
         "baseline": run_round_robin(roster, games, seed),
-        "neutralized": run_round_robin(
-            apply_profile_prior_condition(roster), games, seed
-        ),
+        "neutralized": run_round_robin(apply_profile_prior_condition(roster), games, seed),
         "contracted_50pct": run_round_robin(
             apply_profile_prior_condition(roster, scale=0.5), games, seed
         ),
@@ -766,9 +758,7 @@ def run_profile_strength_audit(
         )
     baseline = conditions["baseline"]
     comparisons = {
-        name: compare_runs(baseline, run)
-        for name, run in conditions.items()
-        if name != "baseline"
+        name: compare_runs(baseline, run) for name, run in conditions.items() if name != "baseline"
     }
     return {
         "schema_version": "1.0.0",
@@ -861,8 +851,7 @@ def compare_runs(baseline: dict[str, Any], candidate: dict[str, Any]) -> dict[st
             "passed": not threshold_exceeded,
         },
         "diagnostics": {
-            deck_id: candidate["decks"][deck_id]
-            for deck_id in ("donatello", "krang", "shredder")
+            deck_id: candidate["decks"][deck_id] for deck_id in ("donatello", "krang", "shredder")
         },
         "governance": "evidence and hypotheses only; no decklist mutations authorized",
     }
@@ -874,7 +863,7 @@ def write_run(result: dict[str, Any], directory: Path) -> None:
     matrix = {deck: {other: None for other in result["decks"]} for deck in result["decks"]}
     for pairing in result["pairings"].values():
         a, b, rate = pairing["deck_a"], pairing["deck_b"], pairing["deck_a_win_rate"]
-        matrix[a][b], matrix[b][a] = rate, 1-rate
+        matrix[a][b], matrix[b][a] = rate, 1 - rate
     (directory / "matchup-matrix.json").write_text(json.dumps(matrix, indent=2), encoding="utf-8")
 
 
