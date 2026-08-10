@@ -10,8 +10,11 @@ from tmnt_design_studio.cardcade import (
     _choose_cast,
     _pilot,
     _score,
+    apply_profile_prior_condition,
     compare_runs,
     load_roster,
+    profile_prior_inventory,
+    run_profile_strength_audit,
     run_round_robin,
     validate_roster,
     write_run,
@@ -187,6 +190,36 @@ def test_stability_gate_rejects_matchup_movement_over_fifteen_points():
     comparison = compare_runs(run, candidate)
     assert not comparison["engine_stability_gate"]["passed"]
     assert len(comparison["engine_stability_gate"]["threshold_exceeded"]) == 1
+
+
+def test_profile_prior_inventory_is_complete_and_neutralization_uses_means():
+    roster = load_roster(ROSTER_02)
+    inventory = profile_prior_inventory(roster)
+    assert set(inventory["fields"]) == {
+        "creature_rate", "interaction_rate", "board_value", "mana_value",
+        "support_value", "interaction_value",
+    }
+    neutral = apply_profile_prior_condition(roster)
+    for field, details in inventory["fields"].items():
+        assert {getattr(deck, field) for deck in neutral} == {details["neutral_value"]}
+    assert [deck.decklist for deck in neutral] == [deck.decklist for deck in roster]
+    assert [deck.cards for deck in neutral] == [deck.cards for deck in roster]
+
+
+def test_profile_audit_preserves_protocol_and_attributes_each_prior():
+    audit = run_profile_strength_audit(load_roster(ROSTER_02), 2, 20260809)
+    assert audit["protocol"]["pairings"] == 45
+    assert audit["protocol"]["games_per_condition"] == 90
+    assert audit["protocol"]["starts_per_deck_per_pairing"] == 1
+    conditions = audit["conditions"]
+    assert {"baseline", "neutralized", "contracted_50pct", "amplified_150pct"} <= set(
+        conditions
+    )
+    for field in audit["inventory"]["fields"]:
+        assert f"neutralize_{field}" in conditions
+    for run in conditions.values():
+        assert run["total_games"] == 90
+        assert all("score_delta_components" in match for match in run["matches"])
 
 
 def test_calibration_artifacts_preserve_the_frozen_protocol():

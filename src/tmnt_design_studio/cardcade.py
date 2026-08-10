@@ -15,9 +15,17 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any
 
-ENGINE_VERSION = "cardcade-0.4.0"
+ENGINE_VERSION = "cardcade-0.5.0"
 MATCH_SCHEMA_VERSION = "1.3.0"
 STAGES = {"smoke": 20, "calibration": 100, "development": 500, "validation": 1000}
+PROFILE_PRIOR_FIELDS = (
+    "creature_rate",
+    "interaction_rate",
+    "board_value",
+    "mana_value",
+    "support_value",
+    "interaction_value",
+)
 
 
 @dataclass(frozen=True)
@@ -115,6 +123,63 @@ def validate_roster(roster: list[DeckProfile], root: Path) -> list[dict[str, Any
             raise ValueError(f"{deck.id}: decklist does not contain 60 cards")
         results.append({"deck_id": deck.id, "cards": 60, "status": "structurally_valid"})
     return results
+
+
+def profile_prior_inventory(roster: list[DeckProfile]) -> dict[str, Any]:
+    """Expose every deck-varying, non-card-derived numeric input used by Cardcade."""
+    means = {
+        field: sum(getattr(deck, field) for deck in roster) / len(roster)
+        for field in PROFILE_PRIOR_FIELDS
+    }
+    return {
+        "fields": {
+            field: {
+                "neutral_value": means[field],
+                "deck_values": {deck.id: getattr(deck, field) for deck in roster},
+                "use": (
+                    "generic spell classification"
+                    if field in {"creature_rate", "interaction_rate"}
+                    else "cast-line valuation and/or final game score"
+                ),
+            }
+            for field in PROFILE_PRIOR_FIELDS
+        },
+        "non_numeric_metadata": {
+            "synergy": "telemetry label only; no outcome effect",
+            "strategy": "telemetry label only; no outcome effect",
+            "artifact_plan": (
+                "selects card-derived artifact sequencing and execution telemetry; preserved"
+            ),
+            "artifact_rate": "legacy roster metadata; no outcome effect in Engine 0.5",
+        },
+    }
+
+
+def apply_profile_prior_condition(
+    roster: list[DeckProfile], *, fields: tuple[str, ...] = PROFILE_PRIOR_FIELDS, scale: float = 0.0
+) -> list[DeckProfile]:
+    """Scale selected deck-specific deviations from the roster mean.
+
+    ``scale=0`` neutralizes a prior, ``scale=1`` is baseline, and bounded sensitivity
+    values such as 0.5 and 1.5 contract or amplify the authored differences without
+    tuning any deck toward a target win rate.
+    """
+    unknown = set(fields) - set(PROFILE_PRIOR_FIELDS)
+    if unknown:
+        raise ValueError(f"unknown profile-prior fields: {sorted(unknown)}")
+    if scale < 0:
+        raise ValueError("profile-prior scale must be non-negative")
+    means = {
+        field: sum(getattr(deck, field) for deck in roster) / len(roster) for field in fields
+    }
+    adjusted = []
+    for deck in roster:
+        values = asdict(deck)
+        values["cards"] = deck.cards
+        for field in fields:
+            values[field] = means[field] + scale * (getattr(deck, field) - means[field])
+        adjusted.append(DeckProfile(**values))
+    return adjusted
 
 
 def _cards(profile: DeckProfile) -> list[CardModel]:
@@ -383,16 +448,21 @@ def _pilot(rng: random.Random, profile: DeckProfile, on_play: bool) -> dict[str,
 
 
 def _score(profile: DeckProfile, state: dict[str, Any]) -> float:
-    return (
-        profile.board_value * state["board_t8"]
-        + profile.mana_value * state["mana_spent"]
-        + profile.support_value * state["support"]
-        + profile.interaction_value * state["interaction_used"]
-        + 0.45 * min(state["artifact_setup_cast"], 2)
-        + 0.85 * min(state["artifact_payoffs_cast"], 1)
-        + 0.12 * state["affinity_mana_saved"]
-        - 0.8 * state["mulligans"]
-    )
+    return sum(_score_components(profile, state).values())
+
+
+def _score_components(profile: DeckProfile, state: dict[str, Any]) -> dict[str, float]:
+    """Return outcome terms separately so injected priors are observable."""
+    return {
+        "board_value": profile.board_value * state["board_t8"],
+        "mana_value": profile.mana_value * state["mana_spent"],
+        "support_value": profile.support_value * state["support"],
+        "interaction_value": profile.interaction_value * state["interaction_used"],
+        "artifact_setup": 0.45 * min(state["artifact_setup_cast"], 2),
+        "artifact_payoff": 0.85 * min(state["artifact_payoffs_cast"], 1),
+        "affinity_savings": 0.12 * state["affinity_mana_saved"],
+        "mulligan_penalty": -0.8 * state["mulligans"],
+    }
 
 
 def simulate_match(
@@ -402,10 +472,17 @@ def simulate_match(
     for state, opponent in ((a_state, b_state), (b_state, a_state)):
         state["interaction_used"] = min(state["interaction"], opponent["board_t8"])
         state["interaction_dead"] = state["interaction"] - state["interaction_used"]
-    delta = _score(a, a_state) - _score(b, b_state)
-    delta += 0.3 * (a_state["interaction_used"] - b_state["interaction_used"])
-    delta += 1.5 if a_starts else -1.5
-    delta += rng.gauss(0, 3.8)
+    a_components = _score_components(a, a_state)
+    b_components = _score_components(b, b_state)
+    component_delta = {
+        name: a_components[name] - b_components[name] for name in a_components
+    }
+    component_delta["interaction_resolution"] = 0.3 * (
+        a_state["interaction_used"] - b_state["interaction_used"]
+    )
+    component_delta["starting_player"] = 1.5 if a_starts else -1.5
+    component_delta["closing_variance"] = rng.gauss(0, 3.8)
+    delta = sum(component_delta.values())
     winner = a.id if delta > 0 else b.id
     loser = b.id if winner == a.id else a.id
     winner_state = a_state if winner == a.id else b_state
@@ -423,6 +500,8 @@ def simulate_match(
         "turns": closing_turn,
         "closing_behavior": "runaway" if abs(delta) >= 8 else "contested",
         "players": {a.id: a_state, b.id: b_state},
+        "score_delta_components": component_delta,
+        "score_delta": delta,
         "winner_strategy_executed": winner_state["strategy_executed"],
         "loser_strategy_executed": loser_state["strategy_executed"],
     }
@@ -531,6 +610,70 @@ def run_round_robin(roster: list[DeckProfile], games: int, seed: int) -> dict[st
     }
 
 
+def run_profile_strength_audit(
+    roster: list[DeckProfile], games: int, seed: int
+) -> dict[str, Any]:
+    """Run baseline, neutralization, isolated attribution, and bounded sensitivity."""
+    conditions: dict[str, dict[str, Any]] = {
+        "baseline": run_round_robin(roster, games, seed),
+        "neutralized": run_round_robin(
+            apply_profile_prior_condition(roster), games, seed
+        ),
+        "contracted_50pct": run_round_robin(
+            apply_profile_prior_condition(roster, scale=0.5), games, seed
+        ),
+        "amplified_150pct": run_round_robin(
+            apply_profile_prior_condition(roster, scale=1.5), games, seed
+        ),
+    }
+    for field in PROFILE_PRIOR_FIELDS:
+        conditions[f"neutralize_{field}"] = run_round_robin(
+            apply_profile_prior_condition(roster, fields=(field,)), games, seed
+        )
+    baseline = conditions["baseline"]
+    comparisons = {
+        name: compare_runs(baseline, run)
+        for name, run in conditions.items()
+        if name != "baseline"
+    }
+    return {
+        "schema_version": "1.0.0",
+        "engine_version": ENGINE_VERSION,
+        "protocol": {
+            "seed": seed,
+            "games_per_pairing": games,
+            "pairings": baseline["pairing_count"],
+            "games_per_condition": baseline["total_games"],
+            "starts_per_deck_per_pairing": games // 2,
+        },
+        "inventory": profile_prior_inventory(roster),
+        "condition_definitions": {
+            "baseline": "authored Engine 0.4 / Smoke 0.5 deck-profile values (scale 1.0)",
+            "neutralized": "all six deck-varying priors set to roster means (scale 0.0)",
+            "contracted_50pct": "all deviations from roster means scaled to 0.5",
+            "amplified_150pct": "all deviations from roster means scaled to 1.5",
+            **{
+                f"neutralize_{field}": f"only {field} set to its roster mean"
+                for field in PROFILE_PRIOR_FIELDS
+            },
+        },
+        "comparisons_to_baseline": comparisons,
+        "condition_summaries": {
+            name: {
+                "run_id": run["matches"][0]["run_id"],
+                "first_player_win_rate": run["first_player_win_rate"],
+                "decks": run["decks"],
+                "pairings": run["pairings"],
+            }
+            for name, run in conditions.items()
+        },
+        "conditions": conditions,
+        "governance": (
+            "profile priors are audited without decklist mutation or outcome-targeted tuning"
+        ),
+    }
+
+
 def compare_runs(baseline: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
     """Compare two same-protocol runs without making deck-change recommendations."""
     if baseline["games_per_pairing"] != candidate["games_per_pairing"]:
@@ -599,3 +742,14 @@ def write_run(result: dict[str, Any], directory: Path) -> None:
         a, b, rate = pairing["deck_a"], pairing["deck_b"], pairing["deck_a_win_rate"]
         matrix[a][b], matrix[b][a] = rate, 1-rate
     (directory / "matchup-matrix.json").write_text(json.dumps(matrix, indent=2), encoding="utf-8")
+
+
+def write_profile_strength_audit(audit: dict[str, Any], directory: Path) -> None:
+    """Preserve every condition as a normal run plus one compact cross-condition audit."""
+    directory.mkdir(parents=True, exist_ok=True)
+    compact = {key: value for key, value in audit.items() if key != "conditions"}
+    (directory / "profile-strength-audit.json").write_text(
+        json.dumps(compact, indent=2), encoding="utf-8"
+    )
+    for name, result in audit["conditions"].items():
+        write_run(result, directory / "conditions" / name)

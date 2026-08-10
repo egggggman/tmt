@@ -1,0 +1,16 @@
+{
+  "run_name": "Cardcade Engine 0.5 Profile Strength Audit",
+  "source_branch": "agent/leonardo-playtest-ready",
+  "engine_version": "cardcade-0.5.0",
+  "seed": 20260809,
+  "games_per_pairing": 20,
+  "pairing_count": 45,
+  "games_per_condition": 900,
+  "starts_per_deck_per_pairing": 10,
+  "roster_version": "0.2",
+  "decklists_frozen": true,
+  "conditions": ["baseline", "neutralized", "contracted_50pct", "amplified_150pct",
+    "neutralize_creature_rate", "neutralize_interaction_rate", "neutralize_board_value",
+    "neutralize_mana_value", "neutralize_support_value", "neutralize_interaction_value"],
+  "governance": "No Prototype 0.3 and no decklist mutation. Neutral values are roster means, not outcome targets."
+}

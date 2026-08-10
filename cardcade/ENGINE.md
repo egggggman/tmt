@@ -4,6 +4,18 @@ Cardcade is a bounded heuristic rehearsal system, not a Magic rules engine. It c
 versioned deck profiles and emits reproducible observations and hypotheses. It does not edit
 decklists or authorize Design Studio revisions.
 
+## Engine 0.5 profile-strength audit
+
+Engine `cardcade-0.5.0` makes all six deck-varying, non-card-derived numeric priors inspectable and
+supports paired baseline, neutralized, isolated-field, and bounded-deviation conditions. Neutralized
+values are roster means and are never fitted to outcomes. Per-match score telemetry separates board,
+mana, support, interaction, artifact, affinity, mulligan, starting-player, and variance terms.
+
+The audited fields are `creature_rate`, `interaction_rate`, `board_value`, `mana_value`,
+`support_value`, and `interaction_value`. Card-derived artifact roles/costs, payoff sequencing,
+affinity floors, and target-limited interaction behavior remain intact. See
+`runs/profile-strength-audit-0.5/REPORT.md` for results and the resulting design freeze.
+
 ## Engine 0.4
 
 Engine `cardcade-0.4.0` replaces forced artifact sequencing with a comparison of every legal cast,

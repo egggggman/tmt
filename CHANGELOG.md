@@ -1,5 +1,13 @@
 # Changelog
 
+## Cardcade Engine 0.5
+
+- Inventoried and exposed all six deck-varying profile-strength priors and every global score term.
+- Added reproducible neutralization, isolated-field attribution, and bounded sensitivity conditions.
+- Preserved roster 0.2 and all historical runs; no Prototype 0.3 or card change was created.
+- Reproduced Smoke 0.5 and found Donatello/Krang strength survives neutralization while Leonardo's
+  weakness is partly prior-driven; deck design remains frozen pending card-derived role modeling.
+
 ## Prototype 0.2 design cycle
 
 - Preserved all Prototype 0.1 decklists and created surgical Donatello and Krang Prototype 0.2
