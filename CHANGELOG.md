@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Added the HQ department authority model, durable source-of-truth policy, Master Project Map, and
+  current milestone/blocker/priority view without changing deck prototypes or Cardcade evidence.
 - Consolidated canonical project philosophy, design principles, terminology, architecture, roadmap,
   onboarding, world governance, and repository-health review practices.
 - Defined the complete reasoning pipeline and kept objective facts, computed intelligence, authored

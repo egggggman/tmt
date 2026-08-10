@@ -1,5 +1,8 @@
 # Project State
 
+For the cross-department Master Project Map, active milestones, blockers, and immediate priorities,
+see [Mutants the Gathering HQ](docs/HQ.md). This file retains the software release-state view.
+
 Current release: **v0.5.0 â€” Deck Analysis Engine**.
 
 ## Implemented

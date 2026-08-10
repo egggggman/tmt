@@ -60,6 +60,7 @@ implementation status, and invariants.
 
 ## Governance
 
+- [HQ project map and current status](docs/HQ.md)
 - [Project Constitution](docs/PROJECT_CONSTITUTION.md)
 - [Design Principles](docs/DESIGN_PRINCIPLES.md)
 - [Canonical Glossary](docs/GLOSSARY.md)
