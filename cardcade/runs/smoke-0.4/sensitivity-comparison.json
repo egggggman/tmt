@@ -1,0 +1,392 @@
+{
+  "schema_version": "1.1.0",
+  "baseline_run_id": "cardcade-0.3.0-20260809-20-a72848da",
+  "candidate_run_id": "cardcade-0.4.0-20260809-20-a72848da",
+  "protocol": {
+    "games_per_pairing": 20,
+    "pairings": 45,
+    "total_games": 900,
+    "seed": 20260809
+  },
+  "first_player_win_rate": {
+    "baseline": 0.5222222222222223,
+    "candidate": 0.5311111111111111
+  },
+  "deck_win_rate_shifts": {
+    "leonardo": 0.005555555555555536,
+    "raphael": -0.011111111111111072,
+    "donatello": 0.02777777777777779,
+    "michelangelo": 0.0,
+    "splinter": 0.005555555555555536,
+    "april_oneil": 0.0,
+    "casey_jones": -0.016666666666666663,
+    "shredder": -0.005555555555555536,
+    "krang": 0.011111111111111072,
+    "bebop_rocksteady": -0.016666666666666663
+  },
+  "matchup_shifts": [
+    {
+      "pairing": "donatello_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.4,
+      "candidate_deck_a_win_rate": 0.55,
+      "shift": 0.15
+    },
+    {
+      "pairing": "casey_jones_vs_krang",
+      "baseline_deck_a_win_rate": 0.25,
+      "candidate_deck_a_win_rate": 0.15,
+      "shift": -0.1
+    },
+    {
+      "pairing": "leonardo_vs_krang",
+      "baseline_deck_a_win_rate": 0.3,
+      "candidate_deck_a_win_rate": 0.35,
+      "shift": 0.05
+    },
+    {
+      "pairing": "raphael_vs_donatello",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": -0.05
+    },
+    {
+      "pairing": "raphael_vs_krang",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": -0.05
+    },
+    {
+      "pairing": "donatello_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.6,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.05
+    },
+    {
+      "pairing": "donatello_vs_shredder",
+      "baseline_deck_a_win_rate": 0.75,
+      "candidate_deck_a_win_rate": 0.8,
+      "shift": 0.05
+    },
+    {
+      "pairing": "donatello_vs_krang",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": -0.05
+    },
+    {
+      "pairing": "splinter_vs_krang",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.05
+    },
+    {
+      "pairing": "leonardo_vs_raphael",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_donatello",
+      "baseline_deck_a_win_rate": 0.25,
+      "candidate_deck_a_win_rate": 0.25,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_michelangelo",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_splinter",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_april_oneil",
+      "baseline_deck_a_win_rate": 0.3,
+      "candidate_deck_a_win_rate": 0.3,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.4,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_shredder",
+      "baseline_deck_a_win_rate": 0.2,
+      "candidate_deck_a_win_rate": 0.2,
+      "shift": 0.0
+    },
+    {
+      "pairing": "leonardo_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.6,
+      "candidate_deck_a_win_rate": 0.6,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_michelangelo",
+      "baseline_deck_a_win_rate": 0.65,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_splinter",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_april_oneil",
+      "baseline_deck_a_win_rate": 0.55,
+      "candidate_deck_a_win_rate": 0.55,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.65,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_shredder",
+      "baseline_deck_a_win_rate": 0.4,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": 0.0
+    },
+    {
+      "pairing": "raphael_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.65,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.0
+    },
+    {
+      "pairing": "donatello_vs_michelangelo",
+      "baseline_deck_a_win_rate": 0.75,
+      "candidate_deck_a_win_rate": 0.75,
+      "shift": 0.0
+    },
+    {
+      "pairing": "donatello_vs_splinter",
+      "baseline_deck_a_win_rate": 0.65,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.0
+    },
+    {
+      "pairing": "donatello_vs_april_oneil",
+      "baseline_deck_a_win_rate": 0.85,
+      "candidate_deck_a_win_rate": 0.85,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_splinter",
+      "baseline_deck_a_win_rate": 0.65,
+      "candidate_deck_a_win_rate": 0.65,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_april_oneil",
+      "baseline_deck_a_win_rate": 0.55,
+      "candidate_deck_a_win_rate": 0.55,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_shredder",
+      "baseline_deck_a_win_rate": 0.35,
+      "candidate_deck_a_win_rate": 0.35,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_krang",
+      "baseline_deck_a_win_rate": 0.35,
+      "candidate_deck_a_win_rate": 0.35,
+      "shift": 0.0
+    },
+    {
+      "pairing": "michelangelo_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "splinter_vs_april_oneil",
+      "baseline_deck_a_win_rate": 0.4,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": 0.0
+    },
+    {
+      "pairing": "splinter_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.3,
+      "candidate_deck_a_win_rate": 0.3,
+      "shift": 0.0
+    },
+    {
+      "pairing": "splinter_vs_shredder",
+      "baseline_deck_a_win_rate": 0.75,
+      "candidate_deck_a_win_rate": 0.75,
+      "shift": 0.0
+    },
+    {
+      "pairing": "splinter_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.55,
+      "candidate_deck_a_win_rate": 0.55,
+      "shift": 0.0
+    },
+    {
+      "pairing": "april_oneil_vs_casey_jones",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "april_oneil_vs_shredder",
+      "baseline_deck_a_win_rate": 0.55,
+      "candidate_deck_a_win_rate": 0.55,
+      "shift": 0.0
+    },
+    {
+      "pairing": "april_oneil_vs_krang",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "april_oneil_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.4,
+      "candidate_deck_a_win_rate": 0.4,
+      "shift": 0.0
+    },
+    {
+      "pairing": "casey_jones_vs_shredder",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.0
+    },
+    {
+      "pairing": "casey_jones_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.5,
+      "candidate_deck_a_win_rate": 0.5,
+      "shift": 0.0
+    },
+    {
+      "pairing": "shredder_vs_krang",
+      "baseline_deck_a_win_rate": 0.3,
+      "candidate_deck_a_win_rate": 0.3,
+      "shift": 0.0
+    },
+    {
+      "pairing": "shredder_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.45,
+      "candidate_deck_a_win_rate": 0.45,
+      "shift": 0.0
+    },
+    {
+      "pairing": "krang_vs_bebop_rocksteady",
+      "baseline_deck_a_win_rate": 0.6,
+      "candidate_deck_a_win_rate": 0.6,
+      "shift": 0.0
+    }
+  ],
+  "engine_stability_gate": {
+    "criterion": "no unexplained matchup movement greater than 15 percentage points between consecutive same-protocol engines",
+    "threshold": 0.15,
+    "threshold_exceeded": [],
+    "passed": true
+  },
+  "diagnostics": {
+    "donatello": {
+      "games": 180,
+      "win_rate": 0.6722222222222223,
+      "mulligan_rate": 0.2,
+      "mana_screw_rate": 0.0,
+      "mana_flood_rate": 0.20555555555555555,
+      "strategy_execution_rate": 0.9222222222222223,
+      "average_board_t3": 1.7166666666666666,
+      "average_board_t8": 4.738888888888889,
+      "average_interaction_seen": 1.038888888888889,
+      "average_interaction_used": 1.038888888888889,
+      "average_interaction_dead": 0.0,
+      "artifact_setup_rate": 0.9833333333333333,
+      "artifact_payoff_rate": 0.9444444444444444,
+      "artifact_payoff_cast_rate": 0.9777777777777777,
+      "average_artifact_payoffs_realized": 2.8555555555555556,
+      "average_artifact_payoff_lines_rejected": 2.477777777777778,
+      "average_artifacts_cast": 4.7555555555555555,
+      "average_artifact_sequencing_holds": 0.20555555555555555,
+      "average_sequencing_decisions": 8.455555555555556,
+      "average_sequencing_rejected_lines": 9.71111111111111,
+      "resource_preservation_hold_rate": 0.15,
+      "average_affinity_mana_saved": 0.0,
+      "average_affinity_spells_cast": 0.0,
+      "affinity_discount_event_rate": 0.0,
+      "average_mana_value_cast": 18.4,
+      "average_mana_paid": 18.4
+    },
+    "krang": {
+      "games": 180,
+      "win_rate": 0.6277777777777778,
+      "mulligan_rate": 0.2722222222222222,
+      "mana_screw_rate": 0.005555555555555556,
+      "mana_flood_rate": 0.22777777777777777,
+      "strategy_execution_rate": 0.8055555555555556,
+      "average_board_t3": 1.788888888888889,
+      "average_board_t8": 4.677777777777778,
+      "average_interaction_seen": 1.5333333333333334,
+      "average_interaction_used": 1.511111111111111,
+      "average_interaction_dead": 0.022222222222222223,
+      "artifact_setup_rate": 1.0,
+      "artifact_payoff_rate": 0.8111111111111111,
+      "artifact_payoff_cast_rate": 0.8388888888888889,
+      "average_artifact_payoffs_realized": 1.45,
+      "average_artifact_payoff_lines_rejected": 0.7111111111111111,
+      "average_artifacts_cast": 5.666666666666667,
+      "average_artifact_sequencing_holds": 0.19444444444444445,
+      "average_sequencing_decisions": 8.227777777777778,
+      "average_sequencing_rejected_lines": 7.627777777777778,
+      "resource_preservation_hold_rate": 0.15,
+      "average_affinity_mana_saved": 2.466666666666667,
+      "average_affinity_spells_cast": 0.6,
+      "affinity_discount_event_rate": 0.48333333333333334,
+      "average_mana_value_cast": 21.283333333333335,
+      "average_mana_paid": 18.816666666666666
+    },
+    "shredder": {
+      "games": 180,
+      "win_rate": 0.4666666666666667,
+      "mulligan_rate": 0.13333333333333333,
+      "mana_screw_rate": 0.011111111111111112,
+      "mana_flood_rate": 0.29444444444444445,
+      "strategy_execution_rate": 0.8611111111111112,
+      "average_board_t3": 1.6166666666666667,
+      "average_board_t8": 4.833333333333333,
+      "average_interaction_seen": 1.6055555555555556,
+      "average_interaction_used": 1.5722222222222222,
+      "average_interaction_dead": 0.03333333333333333,
+      "artifact_setup_rate": 0.0,
+      "artifact_payoff_rate": 0.0,
+      "artifact_payoff_cast_rate": 0.0,
+      "average_artifact_payoffs_realized": 0.0,
+      "average_artifact_payoff_lines_rejected": 0.0,
+      "average_artifacts_cast": 0.0,
+      "average_artifact_sequencing_holds": 0.0,
+      "average_sequencing_decisions": 0.0,
+      "average_sequencing_rejected_lines": 0.0,
+      "resource_preservation_hold_rate": 0.0,
+      "average_affinity_mana_saved": 0.0,
+      "average_affinity_spells_cast": 0.0,
+      "affinity_discount_event_rate": 0.0,
+      "average_mana_value_cast": 18.483333333333334,
+      "average_mana_paid": 18.483333333333334
+    }
+  },
+  "governance": "evidence and hypotheses only; no decklist mutations authorized"
+}
