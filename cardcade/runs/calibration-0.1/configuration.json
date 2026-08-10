@@ -1,0 +1,27 @@
+{
+  "run_name": "Beta 0.1 Calibration 0.1",
+  "source_commit": "0dbb04a4bbeaeded9adab40c7f462fda8948ec3b",
+  "source_branch": "agent/leonardo-playtest-ready",
+  "engine_version": "cardcade-0.4.0",
+  "match_schema_version": "1.3.0",
+  "seed": 20260809,
+  "games_per_pairing": 100,
+  "pairing_count": 45,
+  "total_games": 4500,
+  "starts_per_deck_per_pairing": 50,
+  "roster_version": "0.1",
+  "roster_hash": "a72848dafdc47a9268b89a6d0c75aa37c82d8922bcb447205c705994c5de60fb",
+  "decklists": {
+    "april_oneil": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
+    "bebop_rocksteady": "3875706a76ffab14d2a82ba836da9e59bce49de2f990a348941490e78a61ef9d",
+    "casey_jones": "0fc0adbb370ecfddad03692a4229a04b23268739914a8f2a004b8e042ff3cebb",
+    "donatello": "8fac1790e2c9ba307c073d6a2ec034971ca1959bcde64a178a117d94fb9938fb",
+    "krang": "d9b44af5beb3aba153b792ee5f70eb4c749b38c8ebfaa114da24afb1f0a9862f",
+    "leonardo": "d49d155858938d6fc64127c1678e591ee77abad3b7da8302880f16379476fb08",
+    "michelangelo": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+    "raphael": "07eed928ef6c47aea1f8fb2df2c494d0fae12c10bee8836e7aa9cf2a8784a834",
+    "shredder": "d0c6479ef2df6d3c64911e8f93465310760f6509282b018fb1c8319cc2c3d6a1",
+    "splinter": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a"
+  },
+  "governance": "Evidence and hypotheses only; all Prototype 0.1 decklists frozen."
+}

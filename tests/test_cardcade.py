@@ -175,3 +175,29 @@ def test_stability_gate_rejects_matchup_movement_over_fifteen_points():
     comparison = compare_runs(run, candidate)
     assert not comparison["engine_stability_gate"]["passed"]
     assert len(comparison["engine_stability_gate"]["threshold_exceeded"]) == 1
+
+
+def test_calibration_artifacts_preserve_the_frozen_protocol():
+    directory = ROOT / "cardcade" / "runs" / "calibration-0.1"
+    configuration = json.loads((directory / "configuration.json").read_text())
+    run = json.loads((directory / "run.json").read_text())
+    matrix = json.loads((directory / "matchup-matrix.json").read_text())
+
+    assert configuration["source_commit"].startswith("0dbb04a")
+    assert configuration["engine_version"] == run["engine_version"] == "cardcade-0.4.0"
+    assert configuration["seed"] == run["seed"] == 20260809
+    assert run["games_per_pairing"] == 100
+    assert run["pairing_count"] == 45
+    assert run["total_games"] == 4500
+    assert configuration["roster_hash"] == run["roster_hash"]
+    assert len(configuration["decklists"]) == len(matrix) == 10
+    for pairing in run["pairings"].values():
+        rows = [
+            row
+            for row in run["matches"]
+            if {row["deck_a"], row["deck_b"]}
+            == {pairing["deck_a"], pairing["deck_b"]}
+        ]
+        assert len(rows) == 100
+        assert sum(row["starting_player"] == pairing["deck_a"] for row in rows) == 50
+        assert sum(row["starting_player"] == pairing["deck_b"] for row in rows) == 50
