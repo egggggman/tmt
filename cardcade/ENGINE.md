@@ -4,6 +4,19 @@ Cardcade is a bounded heuristic rehearsal system, not a Magic rules engine. It c
 versioned deck profiles and emits reproducible observations and hypotheses. It does not edit
 decklists or authorize Design Studio revisions.
 
+## Engine 0.7 executable foundation (development)
+
+Engine `cardcade-0.7.0-alpha.1` is an isolated rules-grounded foundation; it does not replace or
+reinterpret the preserved Engine 0.1–0.6 heuristic evidence. It provides deterministic two-player
+state, basic turn/land/mana/casting rules, stateful creatures with actual base power/toughness,
+basic combat, two safely grounded target-aware interactions, actual loss conditions and an
+auditable event log. Acceptance Match #001 loads the frozen Leonardo and Raphael Prototype 0.1
+files directly.
+
+Unsupported card semantics are skipped and recorded rather than assigned invented value. See
+`docs/cardcade/RULES_COVERAGE_0.7.md` for the exact coverage boundary. This is deterministic-test
+and focused-acceptance work only; it does not pass the trust gate for a 900-game smoke.
+
 ## Engine 0.6 generic card-fact modeling
 
 Engine `cardcade-0.6.0` loads the actual 60 frozen cards for every deck and derives generic roles
