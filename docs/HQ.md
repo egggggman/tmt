@@ -82,6 +82,27 @@ accepted history, until merged.
 5. Add Master Project Map rows when a meaningful system, artifact, prototype, or physical product
    gains an owner or accepted repository location; do not create duplicate trackers.
 
+## Sewer Status Board
+
+The **Sewer Status Board** is HQ's visual project-status dashboard. It summarizes current project
+state from durable repository evidence and must not become a competing source of truth.
+
+Every Sewer Status Board view must include:
+
+- the project identity and `Build → Measure → Understand → Refine` development loop;
+- Overall Status and the current Critical Path;
+- one status line for each department;
+- the current state of the ten-deck environment;
+- the current Cardcade engine, validation stage, acceptance/calibration gates, and Prototype revision gate;
+- Mr. Paperback deliverable progress based on explicit completion gates rather than invented percentages;
+- recent milestones when useful for explaining what changed; and
+- a clearly labeled **Next Move** that names the single highest-priority action or immediate project unlock.
+
+**Next Move is mandatory.** A Sewer Status Board update is incomplete if it reports status without
+identifying what the project should do next. The Next Move must follow the current evidence and
+critical path rather than becoming a generic backlog item or an instruction to a department outside
+its authority.
+
 ## Change discipline
 
 Preserve meaningful prototypes, simulation results, and accepted decisions. Distinguish simulator,
