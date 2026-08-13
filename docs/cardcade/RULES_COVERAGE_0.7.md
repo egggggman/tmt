@@ -387,6 +387,104 @@ Full unabridged Oracle fragments and player/turn/phase/reason context remain in 
 The next selected capability is **counter placement/state Action**. This is a telemetry-derived
 ranking only; it is not implemented in 0.7e.
 
+## Engine 0.7f reusable counter placement/state validation
+
+Engine `cardcade-0.7.0-alpha.4` adds reusable typed counter placement without card-name dispatch.
+`CardFact` printed P/T remains immutable, each battlefield `Permanent` owns its counter state, and
+continuous P/T modifiers remain separate. Counter placement validates a positive integer quantity,
+a nonempty counter type, and a battlefield target; repeated placements accumulate. Existing
+derived-characteristic calculation applies +1/+1 and -1/-1 counters independently of continuous
+modifiers. Other counter types persist as state without inventing characteristic changes.
+
+Counters persist through cleanup on the same permanent. When that permanent changes zones, its
+battlefield object leaves the game state; a later permanent representing the same card starts with
+no counters. Invariants reject empty counter types, booleans, nonintegers, zero, and negative
+quantities.
+
+Three reusable Oracle shapes are recognized:
+
+- Alliance placement of a +1/+1 counter on a target creature controlled by the source's controller;
+- whenever-you-gain-life placement of a +1/+1 counter on the source permanent;
+- the +1/+1-counter choice within an Alliance "choose one not chosen this turn" modal ability.
+
+Target and modal decisions use injectable deterministic choosers. Modal choices are tracked per
+source and cleared during cleanup. Unsupported modal branches remain explicit and log
+`alliance_mode_not_executed` if chosen; the engine does not substitute the supported counter mode
+for an unavailable semantic.
+
+Leonardo, Sewer Samurai's composite graveyard-casting/finality line remains unsupported in full.
+Although counter state can represent a finality counter, that Oracle line also requires casting
+from the graveyard, an enters-with path, an exile zone, and a death replacement effect. Treating
+only the noun "counter" as implementation would be a silent approximation.
+
+### Exact 0.7e-to-0.7f replay comparison
+
+| Seed | 0.7e events / pairs | 0.7f events / pairs | 0.7e result | 0.7f result |
+| ---: | ---: | ---: | --- | --- |
+| 7001 | 14 / 13 | 14 / 13 | Raphael / turn 16 | Raphael / turn 16 |
+| 7002 | 14 / 8 | 14 / 8 | Leonardo / turn 17 | Leonardo / turn 17 |
+| 7003 | 19 / 13 | 19 / 13 | Leonardo / turn 17 | Leonardo / turn 17 |
+| 7004 | 25 / 21 | 21 / 18 | Leonardo / turn 21 | Leonardo / turn 21 |
+| 7005 | 13 / 8 | 13 / 8 | Raphael / turn 16 | Raphael / turn 16 |
+| **Aggregate** | **85 / 26** | **81 / 23** | — | — |
+
+The three targeted exact fragment pairs are absent, accounting for four baseline events:
+
+| Removed events | Card | Supported fragment |
+| ---: | --- | --- |
+| 2 | Leonardo, Cutting Edge | Whenever you gain life, put a +1/+1 counter on Leonardo. |
+| 1 | Lita, Little Orphan Amphibian | Alliance modal choice header |
+| 1 | Lita, Little Orphan Amphibian | Put a +1/+1 counter on Lita mode |
+| **4** | **2 cards / 3 exact pairs** | **All regression-executed counter semantics** |
+
+The five acceptance trajectories do not reach an actual counter-placement trigger: Cutting Edge
+cannot gain life while Lifelink is unsupported, and no later creature enters under Lita or Mighty
+Mutanimals in these exact trajectories. The supported semantics execute in deterministic
+regressions, but zero acceptance placements are claimed. Winners and ending turns are unchanged,
+so there is no changed-trajectory evidence in 0.7f.
+
+### Exact post-0.7f unsupported aggregate
+
+| Events | Card | Exact unresolved fragment |
+| ---: | --- | --- |
+| 9 | Leonardo, Big Brother | Sneak `{W}` (full Oracle line) |
+| 8 | April O'Neil, Kunoichi Trainee | ETB scry 2 |
+| 7 | Raphael, Tough Turtle | Alliance deals 1 damage to target opponent |
+| 6 | Prehistoric Pet | Activated self-bounce of another creature |
+| 5 | Mutant Town Musicians | Trample |
+| 5 each | Leonardo, Leader in Blue | Sneak `{3}{W}{W}`; activated first strike until end of turn |
+| 4 each | Null Group Biological Assets | During-your-turn first strike; attack rummage trigger |
+| 3 | Wingnut, Bat on the Belfry | Alliance keyword choice |
+| 3 each | Leonardo, Sewer Samurai | Sneak `{2}{W}{W}`; Double strike; graveyard casting/finality ability |
+| 2 each | Raphael, Most Attitude | Menace; Alliance exile; attack play-from-exile permission |
+| 2 | Casey Jones, Jury-Rig Justiciar | ETB artifact selection |
+| 2 each | Leonardo, Cutting Edge | Sneak `{W}`; Lifelink |
+| 1 each | Lita, Little Orphan Amphibian | Food-token mode; scry mode |
+| 1 each | Raphael, the Nightwatcher | Sneak `{1}{R}{R}`; attacking-team double strike |
+
+Full unabridged Oracle fragments and player/turn/phase/reason context remain in emitted
+`unsupported_semantics` events; descriptions above are abbreviated only for readability.
+
+### Post-0.7f ranking and next unsupported capability
+
+1. **Draw/discard/selection Actions** — 15 current events across April, Casey, Lita, and Null Group;
+   broad reusable card-flow value and moderate implementation complexity, with explicit chooser and
+   ordering dependencies.
+2. **Sneak alternate cost/window** — 20 current events and 18 roster/model cards; high complexity
+   because alternate costs, declare-blockers timing, returning an unblocked attacker, and entering
+   tapped and attacking are all required.
+3. **Combat keyword framework** — 22 direct current events across first strike, double strike,
+   trample, menace, and lifelink, with 3 more Wingnut choice events depending on that framework;
+   high complexity because it spans combat damage steps, multi-block legality, duration, and life
+   gain.
+4. **Token creation** — 1 current Food-mode event in these trajectories and 21 roster/model cards;
+   medium complexity, requiring token characteristics and zone-exit behavior.
+5. **Bounce/zone-change Action** — 6 current events from Prehistoric Pet and broad reusable reach;
+   medium complexity, with target selection and owner-zone identity requirements.
+
+The next selected capability is **draw/discard/selection Actions**. This is a telemetry-derived
+ranking only; it is not implemented in 0.7f.
+
 ## Governance boundary
 
 All Prototype files and Engine 0.1–0.6 code, models, reports, and run artifacts remain preserved.

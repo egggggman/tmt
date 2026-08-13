@@ -331,6 +331,133 @@ def test_printed_pt_counters_and_continuous_modifiers_are_separate():
     assert (permanent.power, permanent.toughness) == (7, 4)
 
 
+def test_counter_placement_accumulates_and_combines_with_continuous_pt():
+    current = game()
+    target = Permanent(BEAR, 0)
+    target.pt_modifiers.append(
+        PowerToughnessModifier(1, 0, "persistent", "Anthem", "Anthem text", 0)
+    )
+    current.players[0].battlefield = [target]
+
+    current.place_counters(
+        target, "+1/+1", 1, source_card="First source", oracle_fragment="First effect"
+    )
+    current.place_counters(
+        target, "+1/+1", 2, source_card="Second source", oracle_fragment="Second effect"
+    )
+    current.place_counters(
+        target, "finality", 1, source_card="Third source", oracle_fragment="Third effect"
+    )
+
+    assert target.printed_power == target.printed_toughness == 2
+    assert target.counters == {"+1/+1": 3, "finality": 1}
+    assert (target.power, target.toughness) == (6, 5)
+    assert [event["total"] for event in current.events if event["event"] == "counters_placed"] == [
+        1,
+        3,
+        1,
+    ]
+
+
+def test_alliance_counter_placement_uses_generic_target_choice_and_persists():
+    ally = CardFact(
+        "Counter Ally",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Alliance — Whenever another creature you control enters, put a +1/+1 counter on "
+        "target creature you control.",
+        power=2,
+        toughness=2,
+    )
+    chosen_targets = []
+    current = Game(
+        (deck(), deck()),
+        counter_target_chooser=lambda _player, _source, candidates: candidates[-1],
+    )
+    current.begin_turn()
+    source = Permanent(ally, 0, summoning_sick=False)
+    current.players[0].battlefield = [current_land(0), current_land(0), source]
+    current.players[0].hand = [BEAR]
+
+    assert current.cast(0, BEAR)
+    target = current.players[0].battlefield[-1]
+    chosen_targets.append(target.card.name)
+    assert chosen_targets == [BEAR.name]
+    assert target.counters == {"+1/+1": 1}
+    assert (target.power, target.toughness) == (3, 3)
+
+    current.end_turn()
+    assert target.counters == {"+1/+1": 1}
+    assert (target.power, target.toughness) == (3, 3)
+
+
+def test_life_gain_counter_trigger_accumulates_without_implementing_lifelink():
+    grower = CardFact(
+        "Growing Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Whenever you gain life, put a +1/+1 counter on Growing Bear.",
+        power=2,
+        toughness=2,
+    )
+    current = game()
+    source = Permanent(grower, 0, summoning_sick=False)
+    current.players[0].battlefield = [source]
+
+    current.gain_life(0, 2, source_card="Test source", oracle_fragment="You gain 2 life.")
+    current.gain_life(0, 1, source_card="Test source", oracle_fragment="You gain 1 life.")
+
+    assert current.players[0].life == 23
+    assert source.counters == {"+1/+1": 2}
+    assert (source.power, source.toughness) == (4, 4)
+
+
+def test_modal_alliance_counter_choice_is_once_per_turn_and_resets_at_cleanup():
+    modal = CardFact(
+        "Modal Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Alliance — Whenever another creature you control enters, choose one that hasn't been "
+        "chosen this turn.\n• Put a +1/+1 counter on Modal Bear.\n• Scry 1.",
+        power=2,
+        toughness=2,
+    )
+    current = game()
+    source = Permanent(modal, 0, summoning_sick=False)
+    entering = Permanent(BEAR, 0)
+    current.players[0].battlefield = [source, entering]
+
+    current.resolve_creature_entered_counter_effects(entering)
+    assert source.counters == {"+1/+1": 1}
+    current.resolve_creature_entered_counter_effects(entering)
+    assert source.counters == {"+1/+1": 1}
+    assert any(event["event"] == "alliance_mode_not_executed" for event in current.events)
+
+    current.end_turn()
+    current.resolve_creature_entered_counter_effects(entering)
+    assert source.counters == {"+1/+1": 2}
+
+
+def test_counters_cease_to_exist_on_zone_change_and_new_object_has_none():
+    current = game()
+    original = Permanent(BEAR, 0)
+    current.players[0].battlefield = [original]
+    current.place_counters(
+        original, "+1/+1", 2, source_card="Test source", oracle_fragment="Test effect"
+    )
+
+    current.put_into_graveyard(original)
+    returned = Permanent(BEAR, 0)
+    current.players[0].battlefield.append(returned)
+
+    assert original.counters == {"+1/+1": 2}
+    assert returned.counters == {}
+    assert (returned.power, returned.toughness) == (2, 2)
+
+
 def test_static_per_other_creature_modifier_recomputes_on_zone_changes():
     captain = CardFact(
         "Captain Bear",
@@ -445,6 +572,17 @@ def test_pt_invariants_reject_invalid_counter_state():
     current = game()
     bad = Permanent(BEAR, 0)
     bad.counters["+1/+1"] = -1
+    current.players[0].battlefield = [bad]
+
+    with pytest.raises(AssertionError, match="counter quantities"):
+        current.check_invariants()
+
+
+@pytest.mark.parametrize("counter_type, quantity", [("", 1), ("+1/+1", 0), ("stun", True)])
+def test_counter_invariants_reject_invalid_counter_state(counter_type, quantity):
+    current = game()
+    bad = Permanent(BEAR, 0)
+    bad.counters[counter_type] = quantity
     current.players[0].battlefield = [bad]
 
     with pytest.raises(AssertionError, match="counter quantities"):

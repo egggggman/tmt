@@ -13,7 +13,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Literal, Protocol
 
-ENGINE_VERSION = "cardcade-0.7.0-alpha.3"
+ENGINE_VERSION = "cardcade-0.7.0-alpha.4"
 
 # Engine 0.6 intentionally omitted combat characteristics. These current Oracle values are
 # versioned here as the minimal 0.7 facts delta for Acceptance Match #001.
@@ -189,6 +189,8 @@ class Game:
         *,
         state_based_actions: tuple[StateBasedAction, ...] = DEFAULT_STATE_BASED_ACTIONS,
         legend_rule_chooser=None,
+        counter_target_chooser=None,
+        alliance_mode_chooser=None,
     ):
         rng = random.Random(seed)
         shuffled = []
@@ -207,6 +209,13 @@ class Game:
         self.legend_rule_chooser = legend_rule_chooser or (
             lambda _player_index, permanents: permanents[0]
         )
+        self.counter_target_chooser = counter_target_chooser or (
+            lambda _player_index, _source, permanents: permanents[0]
+        )
+        self.alliance_mode_chooser = alliance_mode_chooser or (
+            lambda _player_index, _source, modes: modes[0]
+        )
+        self.alliance_modes_chosen: dict[int, set[str]] = {}
         for player in self.players:
             self.draw(player, 7, setup=True)
         self.log("game_started", seed=seed, starting_player=names[0])
@@ -232,6 +241,18 @@ class Game:
     _CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
         r"^This creature can't be blocked by creatures with greater power\.$"
     )
+    _ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
+        r"^Alliance — Whenever another creature you control enters, put "
+        r"(?:a|one|([0-9]+)) \+1/\+1 counters? on target creature you control\.$"
+    )
+    _GAIN_LIFE_SELF_PLUS_COUNTER = re.compile(
+        r"^Whenever you gain life, put a \+1/\+1 counter on .+\.$"
+    )
+    _ALLIANCE_MODAL_HEADER = re.compile(
+        r"^Alliance — Whenever another creature you control enters, choose one that hasn't "
+        r"been chosen this turn\.$"
+    )
+    _SELF_PLUS_COUNTER_MODE = re.compile(r"^• Put a \+1/\+1 counter on .+\.$")
 
     def log(self, event: str, **details: object) -> None:
         self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
@@ -274,6 +295,21 @@ class Game:
             )
         )
 
+    def supports_counter_fragment(self, card: CardFact, fragment: str) -> bool:
+        if self._ALLIANCE_MODAL_HEADER.fullmatch(fragment):
+            return any(
+                self._SELF_PLUS_COUNTER_MODE.fullmatch(candidate)
+                for candidate in self.oracle_fragments(card)
+            )
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self._ALLIANCE_TARGET_PLUS_COUNTER,
+                self._GAIN_LIFE_SELF_PLUS_COUNTER,
+                self._SELF_PLUS_COUNTER_MODE,
+            )
+        )
+
     def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
         """Report each unresolved Oracle line without interpreting or combining its meaning."""
         fragments = self.oracle_fragments(card)
@@ -290,6 +326,7 @@ class Game:
                 fragment.casefold() == "haste"
                 or self.supports_pt_fragment(fragment)
                 or self.supports_blocking_fragment(fragment)
+                or self.supports_counter_fragment(card, fragment)
             ):
                 continue
             self.unsupported(
@@ -298,6 +335,114 @@ class Game:
                 player_index=player_index,
                 oracle_fragment=fragment,
             )
+
+    def place_counters(
+        self,
+        target: Permanent,
+        counter_type: str,
+        quantity: int,
+        *,
+        source_card: str,
+        oracle_fragment: str,
+    ) -> None:
+        if not counter_type or not isinstance(quantity, int) or isinstance(quantity, bool):
+            raise ValueError("counter placement requires a named counter and integer quantity")
+        if quantity <= 0:
+            raise ValueError("counter placement quantity must be positive")
+        if not any(
+            candidate is target for player in self.players for candidate in player.battlefield
+        ):
+            raise ValueError("counter target must be a battlefield permanent")
+        target.counters[counter_type] = target.counters.get(counter_type, 0) + quantity
+        self.log(
+            "counters_placed",
+            target=target.card.name,
+            counter_type=counter_type,
+            quantity=quantity,
+            total=target.counters[counter_type],
+            source=source_card,
+            oracle_fragment=oracle_fragment,
+        )
+        self.check_state_based_actions()
+
+    def resolve_creature_entered_counter_effects(self, entering: Permanent) -> None:
+        controller = entering.controller
+        sources = list(self.players[controller].battlefield)
+        for source in sources:
+            if source is entering:
+                continue
+            fragments = self.oracle_fragments(source.card)
+            for fragment in fragments:
+                match = self._ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
+                if match:
+                    candidates = tuple(
+                        permanent
+                        for permanent in self.players[controller].battlefield
+                        if permanent.card.is_creature
+                    )
+                    target = self.counter_target_chooser(controller, source, candidates)
+                    if not any(candidate is target for candidate in candidates):
+                        raise ValueError("counter target chooser must return a listed creature")
+                    quantity = int(match.group(1) or 1)
+                    self.place_counters(
+                        target,
+                        "+1/+1",
+                        quantity,
+                        source_card=source.card.name,
+                        oracle_fragment=fragment,
+                    )
+            if not any(self._ALLIANCE_MODAL_HEADER.fullmatch(x) for x in fragments):
+                continue
+            modes = tuple(fragment for fragment in fragments if fragment.startswith("• "))
+            chosen = self.alliance_modes_chosen.setdefault(id(source), set())
+            available = tuple(mode for mode in modes if mode not in chosen)
+            if not available:
+                self.log("alliance_no_available_mode", source=source.card.name)
+                continue
+            mode = self.alliance_mode_chooser(controller, source, available)
+            if mode not in available:
+                raise ValueError("Alliance mode chooser must return an available mode")
+            chosen.add(mode)
+            if self._SELF_PLUS_COUNTER_MODE.fullmatch(mode):
+                self.place_counters(
+                    source,
+                    "+1/+1",
+                    1,
+                    source_card=source.card.name,
+                    oracle_fragment=mode,
+                )
+            else:
+                self.log(
+                    "alliance_mode_not_executed",
+                    source=source.card.name,
+                    oracle_fragment=mode,
+                    reason="chosen_mode_semantics_not_implemented",
+                )
+
+    def gain_life(
+        self, player_index: int, amount: int, *, source_card: str, oracle_fragment: str
+    ) -> None:
+        if not isinstance(amount, int) or isinstance(amount, bool) or amount <= 0:
+            raise ValueError("life gain amount must be a positive integer")
+        player = self.players[player_index]
+        player.life += amount
+        self.log(
+            "life_gained",
+            player=player.name,
+            amount=amount,
+            source=source_card,
+            oracle_fragment=oracle_fragment,
+        )
+        for permanent in list(player.battlefield):
+            for fragment in self.oracle_fragments(permanent.card):
+                if self._GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
+                    self.place_counters(
+                        permanent,
+                        "+1/+1",
+                        1,
+                        source_card=permanent.card.name,
+                        oracle_fragment=fragment,
+                    )
 
     def apply_pt_modifier(
         self,
@@ -522,6 +667,7 @@ class Game:
             self.log("creature_resolved", player=player.name, card=card.name)
             self.refresh_static_pt_modifiers()
             self.resolve_creature_entered_pt_effects(permanent)
+            self.resolve_creature_entered_counter_effects(permanent)
             self.report_unsupported_abilities(player_index, card)
             self.check_state_based_actions()
             return True
@@ -658,6 +804,7 @@ class Game:
                 expired += before - len(permanent.pt_modifiers)
                 permanent.damage = 0
         self.refresh_static_pt_modifiers()
+        self.alliance_modes_chosen.clear()
         self.log("cleanup_completed", expired_pt_modifiers=expired)
         self.check_state_based_actions()
         self.phase = "ending"
@@ -668,6 +815,7 @@ class Game:
     ) -> None:
         owner = self.players[permanent.controller]
         owner.battlefield.remove(permanent)
+        self.alliance_modes_chosen.pop(id(permanent), None)
         owner.graveyard.append(permanent.card)
         self.refresh_static_pt_modifiers()
         self.log(
@@ -704,7 +852,12 @@ class Game:
                     if permanent.toughness <= 0:
                         raise AssertionError("nonpositive toughness must be handled by an SBA")
                 invalid_counters = any(
-                    not isinstance(value, int) or value < 0 for value in permanent.counters.values()
+                    not isinstance(counter_type, str)
+                    or not counter_type
+                    or not isinstance(value, int)
+                    or isinstance(value, bool)
+                    or value <= 0
+                    for counter_type, value in permanent.counters.items()
                 )
                 if invalid_counters:
                     raise AssertionError("counter quantities must be nonnegative integers")
