@@ -116,32 +116,88 @@ Across five games: 90 occurrences and 19 distinct card/reason pairs. Legend-rule
 | 1 each | Mighty Mutanimals; Raphael, the Nightwatcher | non-foundation abilities do not resolve |
 | 1 | Leonardo, Cutting Edge | legend rule choice is not implemented; duplicate cast skipped |
 
-## Remaining-gap ranking
+## Engine 0.7c legend-rule and telemetry validation
+
+The follow-on 0.7c implementation adds a reusable state-based-action pass with separate legend-rule
+and lethal-damage checks. A configurable deterministic chooser selects which same-name legendary
+permanent to keep; every other one is put into its controller's graveyard and attributed to the
+`legend_rule` SBA. Duplicate legendary spells now resolve instead of being silently refused.
+
+Unsupported telemetry is emitted once per exact nonempty Oracle-text line (or uncovered keyword),
+with `card`, `oracle_fragment`, `player`, `turn`, `phase`, and categorical `reason`. This changes the
+unit being counted: the pre-change count is one generic event per resolved card plus repeated
+legend-cast skips, while the post-change count is one event per unresolved Oracle fragment. Raw
+totals therefore measure different things and must not be interpreted as a regression.
+
+| Seed | Before: events / unique card-reasons | After: events / unique card-fragments | Legend choices after | Winner / turn before | Winner / turn after |
+| ---: | ---: | ---: | ---: | --- | --- |
+| 7001 | 12 / 10 | 19 / 17 | 1 | Raphael / 18 | Raphael / 16 |
+| 7002 | 17 / 10 | 30 / 19 | 1 | Raphael / 24 | Raphael / 24 |
+| 7003 | 31 / 14 | 34 / 24 | 4 | Leonardo / 23 | Leonardo / 21 |
+| 7004 | 14 / 12 | 31 / 26 | 1 | Leonardo / 23 | Leonardo / 23 |
+| 7005 | 16 / 8 | 20 / 12 | 3 | Raphael / 16 | Raphael / 16 |
+| **Total** | **90 / 19 aggregate pairs** | **134 / 34 aggregate card-fragments** | **10** | — | — |
+
+The 31 pre-change legend-rule limitation events fall to zero. Ten actual legend-rule choices occur
+post-change; the difference exists because the old runner retried a refused duplicate on later
+turns, whereas the corrected spell resolves and the SBA immediately restores a legal battlefield.
+
+### Exact post-change semantic/card aggregate
+
+| Occurrences | Card | Exact unresolved Oracle fragment |
+| ---: | --- | --- |
+| 9 | Leonardo, Big Brother | Sneak `{W}` (full Oracle line) |
+| 9 | Leonardo, Big Brother | Leonardo gets +1/+0 for each other creature you control. |
+| 8 | April O'Neil, Kunoichi Trainee | When April O'Neil enters, scry 2. (full Oracle line) |
+| 8 | April O'Neil, Kunoichi Trainee | April O'Neil can't be blocked by creatures with power 3 or greater. |
+| 7 | Raphael, Tough Turtle | Alliance — Whenever another creature you control enters, Raphael deals 1 damage to target opponent. |
+| 6 | Prehistoric Pet | This creature can't be blocked by creatures with greater power. |
+| 6 | Prehistoric Pet | `{1}{W}, {T}`: Return another target creature you control to its owner's hand. Activate only during your turn. |
+| 5 | Mutant Town Musicians | Trample |
+| 5 | Mutant Town Musicians | Alliance — another creature enters; this creature gets +1/+0 until end of turn. |
+| 5 | Leonardo, Leader in Blue | Sneak `{3}{W}{W}` (full Oracle line) |
+| 5 | Leonardo, Leader in Blue | Sneak-paid ETB: creatures you control get +2/+0 until end of turn. |
+| 5 | Leonardo, Leader in Blue | `{1}{W}`: Leonardo gains first strike until end of turn. |
+| 4 | Wingnut, Bat on the Belfry | Alliance — Wingnut gains flying, menace, or haste until end of turn. |
+| 4 | Wingnut, Bat on the Belfry | Whenever Wingnut attacks, each other attacking creature gets +1/+0 until end of turn. |
+| 4 | Null Group Biological Assets | During your turn, this creature has first strike. |
+| 4 | Null Group Biological Assets | Whenever this creature attacks, you may discard a card; if so, draw a card. |
+| 3 each | Raphael, Most Attitude | Menace; Alliance exile-top-card; attack permission to play a card exiled with Raphael. |
+| 3 each | Leonardo, Sewer Samurai | Sneak `{2}{W}{W}`; Double strike; graveyard-casting/finality-counter ability. |
+| 2 each | Mighty Mutanimals | ETB create a 2/2 Mutant token; Alliance put a +1/+1 counter on a target creature. |
+| 2 | Casey Jones, Jury-Rig Justiciar | ETB look at four/reveal an artifact/reorder the rest. |
+| 2 each | Lita, Little Orphan Amphibian | Alliance choice header; +1/+1-counter mode; Food-token mode; scry mode. |
+| 2 each | Leonardo, Cutting Edge | Sneak `{W}`; Lifelink; life-gain trigger putting a +1/+1 counter on Leonardo. |
+| 1 each | Raphael, the Nightwatcher | Sneak `{1}{R}{R}`; attacking creatures have double strike. |
+
+Where a row says "full Oracle line," telemetry retains the complete unabridged `oracle_fragment`;
+the table abbreviates only repeated reminder text for readability.
+
+## Remaining-gap ranking after semantic telemetry
 
 Counts are distinct card names matched transparently against the frozen ten-deck roster (102 names)
 and the complete versioned `card-model-0.6.json` pool (103 names). A card can appear in multiple
 rows; a primitive alone does not necessarily make the whole card executable. Complexity is a
 relative implementation estimate, not an outcome-derived score.
 
-| Rank | Gap / candidate primitive | Match evidence | Current-roster cards | Full model cards | Complexity | Rationale |
+| Rank | Gap / candidate primitive | Exact post-change match evidence | Current-roster cards | Full model cards | Complexity | Rationale |
 | ---: | --- | --- | ---: | ---: | --- | --- |
-| 1 | Legend-rule state-based Action | 31 exact skips; 3 cards observed, 12 legendary acceptance cards | 35 | 35 | Low–medium | Highest measured current-match disruption and broad applicability; current behavior illegally refuses otherwise castable cards |
-| 2 | Trigger/event framework | Generic events on 16 acceptance cards; semantic occurrences unavailable | 59 | 59 | High | Broadest coverage, prerequisite for ETB, Alliance, attack/block, damage, life-gain, and step triggers |
-| 3 | Counter placement/state | 5 acceptance cards | 25 | 25 | Medium | High roster reach and prerequisite for Leader's Talent, Lita, Mighty Mutanimals, and Leonardo, Cutting Edge; finality needs replacement handling |
-| 4 | Token creation | 4 acceptance cards | 21 | 21 | Medium | Broad, reusable board-state primitive; requires token identity/ownership and zone-exit handling |
-| 5 | P/T modification with duration/layers | 8 acceptance cards | 16 | 16 | Medium–high | Strong match relevance, but correct duration and continuous-effect handling are prerequisites |
-| 6 | Combat keywords/restrictions | 7 acceptance cards | 22 | 22 | Medium–high | Menace, trample, double strike, lifelink, blocking restrictions, and must-block materially affect combat |
-| 7 | Card draw/discard/selection | 8 acceptance cards across draw and selection | 26 raw matches | 26 raw matches | Medium | Reusable zones primitive; modal/conditional clauses and target-player semantics remain separate |
-| 8 | Sneak alternate cost and declare-blockers casting window | 8 acceptance cards | 18 | 18 | High | Central set mechanic, but blocked by the absent step/priority/stack state machine |
-| 9 | Equipment attach/equip | 2 acceptance cards | 6 | 6 | High | Requires attachment legality, continuous effects, activated costs, and state tracking |
+| 1 | P/T modification with duration/continuous-effect support | 19 direct fragments: Big Brother 9, Mutant Town Musicians 5, Leader in Blue 5; plus 4 Wingnut attack fragments that also modify P/T | 16 | 16 | Medium–high | Largest observed cluster addressable by a focused effect family; requires duration expiry and continuous/derived P/T rather than mutating base facts |
+| 2 | Counter placement/state | 6 direct fragments: Mighty Mutanimals 2, Lita 2, Leonardo Cutting Edge 2 | 25 | 25 | Medium | Greatest roster reach among remaining concrete Actions; finality counters additionally require a replacement effect |
+| 3 | Token creation | 4 direct fragments: Mighty Mutanimals 2, Lita 2 | 21 | 21 | Medium | Broad reusable board primitive; needs token identity/ownership and correct disappearance outside the battlefield |
+| 4 | Draw/discard/selection Actions | 16 direct fragments: April scry 8, Casey selection 2, Lita scry 2, Null Group rummage 4 | 26 raw matches | 26 raw matches | Medium | Strong exact match evidence, but triggers and modal/conditional sequencing gate several callers |
+| 5 | Combat keywords/restrictions | 41 direct fragments across blocking restrictions, trample, first/double strike, menace, lifelink, and Wingnut's keyword choice | 22 | 22 | Medium–high | Highest broad semantic count, but it is multiple rules families rather than one Action |
+| 6 | Trigger/event framework | 59 roster cards; many exact fragments above are triggered | 59 | 59 | High | Broadest dependency layer, but not a single card Action and requires event ordering/choice infrastructure |
+| 7 | Sneak alternate cost and declare-blockers casting window | 20 direct fragments | 18 | 18 | High | Central set mechanic, blocked by the absent step/priority/stack state machine |
+| 8 | Equipment attach/equip | No Equipment resolved in these seeds; 2 acceptance cards in decklists | 6 | 6 | High | Requires attachment legality, continuous effects, activated costs, and state tracking |
 
 ### Highest-leverage next target
 
-The reconciliation selects a **legend-rule state-based Action** as the next isolated target: it
-would remove 31 of 90 observed limitation occurrences (34.4%) at relatively low complexity and
-applies to 35 current-roster/full-model cards. This is a selection only; no Action is implemented
-in this reconciliation. Before broader triggered abilities or Sneak, the engine also needs the
-reported-but-absent phase/step and Action architecture established and tested on this branch.
+After implementing the legend rule, the semantic evidence selects **P/T modification with explicit
+duration/continuous-effect support** as the next card Action. It is directly present in 19 observed
+fragments (23 when Wingnut's team modification is included), affects 16 current-roster/full-model
+cards, and forms a reusable prerequisite for several Alliance, ETB, attack, Class, and combat
+effects. This is a ranking decision only; that Action is not implemented in 0.7c.
 
 ## Governance boundary
 

@@ -105,3 +105,107 @@ def test_draw_from_empty_library_is_a_loss():
     current.players[0].library.clear()
     assert not current.draw(current.players[0])
     assert current.winner == 1
+
+
+def test_legend_rule_is_a_state_based_action_after_resolution():
+    legend = CardFact(
+        "Unique Bear",
+        "{1}{W}",
+        2,
+        "Legendary Creature — Bear",
+        power=2,
+        toughness=2,
+    )
+    current = game()
+    current.begin_turn()
+    player = current.players[0]
+    original = current_land(0, legend)
+    player.battlefield = [current_land(0), current_land(0), original]
+    player.hand = [legend]
+
+    assert current.cast(0, legend)
+    assert [permanent for permanent in player.battlefield if permanent.card == legend] == [original]
+    assert player.graveyard == [legend]
+    assert any(event["event"] == "legend_rule_choice" for event in current.events)
+    moved = next(
+        event
+        for event in current.events
+        if event["event"] == "permanent_to_graveyard" and event["card"] == legend.name
+    )
+    assert moved["state_based_action"] == "legend_rule"
+
+
+def test_legend_rule_chooser_can_keep_the_new_permanent():
+    legend = CardFact(
+        "Unique Bear",
+        "{1}{W}",
+        2,
+        "Legendary Creature — Bear",
+        power=2,
+        toughness=2,
+    )
+    current = Game(
+        (deck(), deck()),
+        legend_rule_chooser=lambda _player, permanents: permanents[-1],
+    )
+    current.begin_turn()
+    player = current.players[0]
+    original = current_land(0, legend)
+    player.battlefield = [current_land(0), current_land(0), original]
+    player.hand = [legend]
+
+    assert current.cast(0, legend)
+    kept = [permanent for permanent in player.battlefield if permanent.card == legend]
+    assert len(kept) == 1 and kept[0] is not original
+
+
+def test_unsupported_telemetry_is_per_oracle_fragment_and_contextual():
+    card = CardFact(
+        "Verbose Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Whenever this creature attacks, draw a card.\nThis creature has flying.",
+        power=2,
+        toughness=2,
+        keywords=("Flying",),
+    )
+    current = game()
+    current.begin_turn()
+    player = current.players[0]
+    player.battlefield = [current_land(0), current_land(0)]
+    player.hand = [card]
+
+    assert current.cast(0, card)
+    events = [event for event in current.events if event["event"] == "unsupported_semantics"]
+    assert [event["oracle_fragment"] for event in events] == card.oracle_text.splitlines()
+    assert all(
+        event["card"] == card.name
+        and event["player"] == "A"
+        and event["turn"] == 1
+        and event["phase"] == "precombat_main"
+        and event["reason"] == "oracle_ability_not_implemented"
+        for event in events
+    )
+
+
+def test_unsupported_keyword_without_oracle_line_is_reported():
+    card = CardFact(
+        "Flying Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        power=2,
+        toughness=2,
+        keywords=("Flying",),
+    )
+    current = game()
+    current.begin_turn()
+    player = current.players[0]
+    player.battlefield = [current_land(0), current_land(0)]
+    player.hand = [card]
+
+    assert current.cast(0, card)
+    event = next(event for event in current.events if event["event"] == "unsupported_semantics")
+    assert event["oracle_fragment"] == "Flying"
+    assert event["reason"] == "keyword_not_implemented"

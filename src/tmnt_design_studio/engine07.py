@@ -11,6 +11,7 @@ import random
 import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
+from typing import Protocol
 
 ENGINE_VERSION = "cardcade-0.7.0-alpha.1"
 
@@ -88,10 +89,77 @@ class PlayerState:
     loss_reason: str | None = None
 
 
+class StateBasedAction(Protocol):
+    """One reusable state-based check applied until the game state stabilizes."""
+
+    name: str
+
+    def apply(self, game: Game) -> bool: ...
+
+
+@dataclass(frozen=True)
+class LethalDamageStateBasedAction:
+    name: str = "lethal_damage"
+
+    def apply(self, game: Game) -> bool:
+        changed = False
+        for player in game.players:
+            for permanent in list(player.battlefield):
+                if permanent.card.is_creature and permanent.damage >= permanent.toughness:
+                    game.destroy(permanent, state_based_action=self.name)
+                    changed = True
+        return changed
+
+
+@dataclass(frozen=True)
+class LegendRuleStateBasedAction:
+    name: str = "legend_rule"
+
+    def apply(self, game: Game) -> bool:
+        changed = False
+        for player_index, player in enumerate(game.players):
+            groups: dict[str, list[Permanent]] = {}
+            for permanent in player.battlefield:
+                if "Legendary" in permanent.card.type_line:
+                    groups.setdefault(permanent.card.name, []).append(permanent)
+            for name, permanents in groups.items():
+                if len(permanents) < 2:
+                    continue
+                keep = game.legend_rule_chooser(player_index, tuple(permanents))
+                if keep not in permanents:
+                    raise ValueError("legend-rule chooser must return one of the listed permanents")
+                game.log(
+                    "legend_rule_choice",
+                    player=player.name,
+                    card=name,
+                    kept_battlefield_index=player.battlefield.index(keep),
+                    moved_to_graveyard=len(permanents) - 1,
+                )
+                for permanent in permanents:
+                    if permanent is not keep:
+                        game.put_into_graveyard(permanent, state_based_action=self.name)
+                        changed = True
+        return changed
+
+
+DEFAULT_STATE_BASED_ACTIONS: tuple[StateBasedAction, ...] = (
+    LegendRuleStateBasedAction(),
+    LethalDamageStateBasedAction(),
+)
+
+
 class Game:
     """Two-player deterministic game state and the supported legal transitions."""
 
-    def __init__(self, decks: tuple[list[CardFact], list[CardFact]], names=("A", "B"), seed=1):
+    def __init__(
+        self,
+        decks: tuple[list[CardFact], list[CardFact]],
+        names=("A", "B"),
+        seed=1,
+        *,
+        state_based_actions: tuple[StateBasedAction, ...] = DEFAULT_STATE_BASED_ACTIONS,
+        legend_rule_chooser=None,
+    ):
         rng = random.Random(seed)
         shuffled = []
         for deck in decks:
@@ -105,6 +173,10 @@ class Game:
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.limitations: set[str] = set()
+        self.state_based_actions = state_based_actions
+        self.legend_rule_chooser = legend_rule_chooser or (
+            lambda _player_index, permanents: permanents[0]
+        )
         for player in self.players:
             self.draw(player, 7, setup=True)
         self.log("game_started", seed=seed, starting_player=names[0])
@@ -112,10 +184,40 @@ class Game:
     def log(self, event: str, **details: object) -> None:
         self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
 
-    def unsupported(self, card: CardFact, reason: str) -> None:
-        message = f"{card.name}: {reason}"
+    def unsupported(
+        self, card: CardFact, reason: str, *, player_index: int, oracle_fragment: str
+    ) -> None:
+        player = self.players[player_index]
+        message = f"{card.name}: {oracle_fragment}: {reason}"
         self.limitations.add(message)
-        self.log("unsupported_semantics", card=card.name, reason=reason)
+        self.log(
+            "unsupported_semantics",
+            card=card.name,
+            oracle_fragment=oracle_fragment,
+            player=player.name,
+            reason=reason,
+        )
+
+    def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
+        """Report each unresolved Oracle line without interpreting or combining its meaning."""
+        fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
+        for keyword in sorted(set(card.keywords) - {"Haste"}):
+            if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
+                self.unsupported(
+                    card,
+                    "keyword_not_implemented",
+                    player_index=player_index,
+                    oracle_fragment=keyword,
+                )
+        for fragment in fragments:
+            if fragment.casefold() == "haste":
+                continue
+            self.unsupported(
+                card,
+                "oracle_ability_not_implemented",
+                player_index=player_index,
+                oracle_fragment=fragment,
+            )
 
     def draw(self, player: PlayerState, count: int = 1, *, setup: bool = False) -> bool:
         for _ in range(count):
@@ -211,23 +313,22 @@ class Game:
             self.log("spell_resolved", player=player.name, card=card.name, target=target.card.name)
             return True
         if card.is_creature and card.power is not None and card.toughness is not None:
-            if "Legendary" in card.type_line and any(
-                p.card.name == card.name for p in player.battlefield
-            ):
-                self.unsupported(
-                    card, "legend rule choice is not implemented; duplicate cast skipped"
-                )
-                return False
             self._pay(player_index, card.mana_value)
             player.hand.remove(card)
             haste = "Haste" in card.keywords
             player.battlefield.append(Permanent(card, player_index, summoning_sick=not haste))
             self.log("creature_resolved", player=player.name, card=card.name)
-            unsupported = set(card.keywords) - {"Haste"}
-            if unsupported or card.oracle_text:
-                self.unsupported(card, "non-foundation abilities do not resolve")
+            self.report_unsupported_abilities(player_index, card)
+            self.check_state_based_actions()
             return True
-        self.unsupported(card, "spell/permanent semantics not implemented")
+        fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
+        for fragment in fragments or [card.type_line]:
+            self.unsupported(
+                card,
+                "spell_or_permanent_semantics_not_implemented",
+                player_index=player_index,
+                oracle_fragment=fragment,
+            )
         return False
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
@@ -273,17 +374,25 @@ class Game:
         self.check_life()
         self.phase = "postcombat_main"
 
-    def destroy(self, permanent: Permanent) -> None:
+    def put_into_graveyard(
+        self, permanent: Permanent, *, state_based_action: str | None = None
+    ) -> None:
         owner = self.players[permanent.controller]
         owner.battlefield.remove(permanent)
         owner.graveyard.append(permanent.card)
-        self.log("permanent_to_graveyard", player=owner.name, card=permanent.card.name)
+        self.log(
+            "permanent_to_graveyard",
+            player=owner.name,
+            card=permanent.card.name,
+            state_based_action=state_based_action,
+        )
+
+    def destroy(self, permanent: Permanent, *, state_based_action: str | None = None) -> None:
+        self.put_into_graveyard(permanent, state_based_action=state_based_action)
 
     def check_state_based_actions(self) -> None:
-        for player in self.players:
-            for permanent in list(player.battlefield):
-                if permanent.card.is_creature and permanent.damage >= permanent.toughness:
-                    self.destroy(permanent)
+        while any(action.apply(self) for action in self.state_based_actions):
+            pass
 
     def check_life(self) -> None:
         for index, player in enumerate(self.players):
