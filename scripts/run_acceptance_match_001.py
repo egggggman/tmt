@@ -61,8 +61,7 @@ def run(root: Path, seed: int) -> dict[str, object]:
             id(attacker): blocker for attacker, blocker in zip(attackers, blockers, strict=False)
         }
         game.combat(attackers, blocks)
-        game.phase = "ending"
-        game.log("turn_ended", player=player.name)
+        game.end_turn()
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")
     return game.snapshot()

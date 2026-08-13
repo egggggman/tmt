@@ -1,4 +1,4 @@
-from tmnt_design_studio.engine07 import CardFact, Game
+from tmnt_design_studio.engine07 import CardFact, Game, Permanent, PowerToughnessModifier
 
 PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains")
 MOUNTAIN = CardFact("Mountain", "", 0, "Basic Land — Mountain")
@@ -209,3 +209,145 @@ def test_unsupported_keyword_without_oracle_line_is_reported():
     event = next(event for event in current.events if event["event"] == "unsupported_semantics")
     assert event["oracle_fragment"] == "Flying"
     assert event["reason"] == "keyword_not_implemented"
+
+
+def test_printed_pt_counters_and_continuous_modifiers_are_separate():
+    permanent = Permanent(BEAR, 0)
+    permanent.counters["+1/+1"] = 2
+    permanent.pt_modifiers.append(
+        PowerToughnessModifier(
+            3,
+            0,
+            "until_end_of_turn",
+            "Anthem",
+            "Target creature gets +3/+0 until end of turn.",
+            1,
+        )
+    )
+
+    assert (permanent.printed_power, permanent.printed_toughness) == (2, 2)
+    assert permanent.card == BEAR
+    assert permanent.counters == {"+1/+1": 2}
+    assert (permanent.power, permanent.toughness) == (7, 4)
+
+
+def test_static_per_other_creature_modifier_recomputes_on_zone_changes():
+    captain = CardFact(
+        "Captain Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Captain Bear gets +1/+0 for each other creature you control.",
+        power=1,
+        toughness=3,
+    )
+    current = game()
+    current.begin_turn()
+    source = Permanent(captain, 0, summoning_sick=False)
+    current.players[0].battlefield = [current_land(0), current_land(0), source]
+    current.players[0].hand = [BEAR]
+
+    assert current.cast(0, BEAR)
+    bear = next(permanent for permanent in current.players[0].battlefield if permanent.card == BEAR)
+    assert source.printed_power == 1 and source.power == 2
+    assert source.pt_modifiers[0].duration == "persistent"
+    assert source.pt_modifiers[0].derived_static
+
+    current.put_into_graveyard(bear)
+    assert source.power == source.printed_power == 1
+
+
+def test_alliance_pt_modifier_executes_and_expires_during_cleanup():
+    ally = CardFact(
+        "Alliance Bear",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Alliance — Whenever another creature you control enters, this creature gets +1/+0 "
+        "until end of turn.",
+        power=2,
+        toughness=2,
+    )
+    current = game()
+    current.begin_turn()
+    source = Permanent(ally, 0, summoning_sick=False)
+    current.players[0].battlefield = [current_land(0), current_land(0), source]
+    current.players[0].hand = [BEAR]
+
+    assert current.cast(0, BEAR)
+    assert source.power == 3
+    assert source.pt_modifiers[-1].duration == "until_end_of_turn"
+    assert not any(
+        event["event"] == "unsupported_semantics" and event["card"] == ally.name
+        for event in current.events
+    )
+
+    current.end_turn()
+    assert source.power == source.printed_power == 2
+    assert source.pt_modifiers == []
+    assert current.events[-2]["event"] == "cleanup_completed"
+    assert current.events[-2]["expired_pt_modifiers"] == 1
+
+
+def test_attack_team_modifier_applies_to_other_attackers_only_then_expires():
+    leader = CardFact(
+        "Attack Leader",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Whenever Attack Leader attacks, each other attacking creature gets +1/+0 until end "
+        "of turn.",
+        power=1,
+        toughness=2,
+    )
+    current = game()
+    current.begin_turn()
+    source = Permanent(leader, 0, summoning_sick=False)
+    teammate = Permanent(BEAR, 0, summoning_sick=False)
+    current.players[0].battlefield = [source, teammate]
+
+    current.combat([source, teammate])
+    assert source.power == source.printed_power
+    assert teammate.power == teammate.printed_power + 1
+    applied = [event for event in current.events if event["event"] == "pt_modifier_applied"]
+    assert applied[-1]["source"] == leader.name
+    assert applied[-1]["target"] == BEAR.name
+
+    current.end_turn()
+    assert teammate.power == teammate.printed_power
+
+
+def test_conditional_team_pt_fragment_is_executed_as_condition_not_met():
+    leader = CardFact(
+        "Sneaky Leader",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "When Sneaky Leader enters, if its sneak cost was paid, creatures you control get "
+        "+2/+0 until end of turn.",
+        power=2,
+        toughness=2,
+    )
+    current = game()
+    current.begin_turn()
+    current.players[0].battlefield = [current_land(0), current_land(0)]
+    current.players[0].hand = [leader]
+
+    assert current.cast(0, leader)
+    assert any(event["event"] == "pt_effect_condition_not_met" for event in current.events)
+    assert not any(
+        event["event"] == "unsupported_semantics" and event["card"] == leader.name
+        for event in current.events
+    )
+
+
+def test_pt_invariants_reject_invalid_counter_state():
+    current = game()
+    bad = Permanent(BEAR, 0)
+    bad.counters["+1/+1"] = -1
+    current.players[0].battlefield = [bad]
+
+    import pytest
+
+    with pytest.raises(AssertionError, match="counter quantities"):
+        current.check_invariants()

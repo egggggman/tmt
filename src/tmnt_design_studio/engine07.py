@@ -11,9 +11,9 @@ import random
 import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Protocol
+from typing import Literal, Protocol
 
-ENGINE_VERSION = "cardcade-0.7.0-alpha.1"
+ENGINE_VERSION = "cardcade-0.7.0-alpha.2"
 
 # Engine 0.6 intentionally omitted combat characteristics. These current Oracle values are
 # versioned here as the minimal 0.7 facts delta for Acceptance Match #001.
@@ -58,22 +58,54 @@ class CardFact:
 
 
 @dataclass
+class PowerToughnessModifier:
+    power: int
+    toughness: int
+    duration: Literal["persistent", "until_end_of_turn"]
+    source_card: str
+    oracle_fragment: str
+    created_turn: int
+    derived_static: bool = False
+
+
+@dataclass
 class Permanent:
     card: CardFact
     controller: int
     tapped: bool = False
     summoning_sick: bool = True
     damage: int = 0
+    counters: dict[str, int] = field(default_factory=dict)
+    pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
 
     @property
-    def power(self) -> int:
+    def printed_power(self) -> int:
         assert self.card.power is not None
         return self.card.power
 
     @property
-    def toughness(self) -> int:
+    def printed_toughness(self) -> int:
         assert self.card.toughness is not None
         return self.card.toughness
+
+    def counter_delta(self) -> tuple[int, int]:
+        plus = self.counters.get("+1/+1", 0)
+        minus = self.counters.get("-1/-1", 0)
+        return plus - minus, plus - minus
+
+    @property
+    def power(self) -> int:
+        counter_power, _ = self.counter_delta()
+        return self.printed_power + counter_power + sum(x.power for x in self.pt_modifiers)
+
+    @property
+    def toughness(self) -> int:
+        _, counter_toughness = self.counter_delta()
+        return (
+            self.printed_toughness
+            + counter_toughness
+            + sum(x.toughness for x in self.pt_modifiers)
+        )
 
 
 @dataclass
@@ -181,6 +213,22 @@ class Game:
             self.draw(player, 7, setup=True)
         self.log("game_started", seed=seed, starting_player=names[0])
 
+    _STATIC_OTHER_CREATURES = re.compile(
+        r"^.+ gets \+(\d+)/\+(\d+) for each other creature you control\.$"
+    )
+    _ALLIANCE_THIS_UNTIL_EOT = re.compile(
+        r"^Alliance — Whenever another creature you control enters, this creature gets "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+    _SNEAK_ETB_TEAM_UNTIL_EOT = re.compile(
+        r"^When .+ enters, if (?:his|her|its) sneak cost was paid, creatures you control get "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+    _ATTACK_OTHER_ATTACKERS_UNTIL_EOT = re.compile(
+        r"^Whenever .+ attacks, each other attacking creature gets "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+
     def log(self, event: str, **details: object) -> None:
         self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
 
@@ -198,9 +246,24 @@ class Game:
             reason=reason,
         )
 
+    @staticmethod
+    def oracle_fragments(card: CardFact) -> list[str]:
+        return [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
+
+    def supports_pt_fragment(self, fragment: str) -> bool:
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self._STATIC_OTHER_CREATURES,
+                self._ALLIANCE_THIS_UNTIL_EOT,
+                self._SNEAK_ETB_TEAM_UNTIL_EOT,
+                self._ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
+            )
+        )
+
     def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
         """Report each unresolved Oracle line without interpreting or combining its meaning."""
-        fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
+        fragments = self.oracle_fragments(card)
         for keyword in sorted(set(card.keywords) - {"Haste"}):
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 self.unsupported(
@@ -210,7 +273,7 @@ class Game:
                     oracle_fragment=keyword,
                 )
         for fragment in fragments:
-            if fragment.casefold() == "haste":
+            if fragment.casefold() == "haste" or self.supports_pt_fragment(fragment):
                 continue
             self.unsupported(
                 card,
@@ -218,6 +281,128 @@ class Game:
                 player_index=player_index,
                 oracle_fragment=fragment,
             )
+
+    def apply_pt_modifier(
+        self,
+        target: Permanent,
+        power: int,
+        toughness: int,
+        *,
+        duration: Literal["persistent", "until_end_of_turn"],
+        source_card: str,
+        oracle_fragment: str,
+        derived_static: bool = False,
+        log_event: bool = True,
+    ) -> None:
+        target.pt_modifiers.append(
+            PowerToughnessModifier(
+                power=power,
+                toughness=toughness,
+                duration=duration,
+                source_card=source_card,
+                oracle_fragment=oracle_fragment,
+                created_turn=self.turn,
+                derived_static=derived_static,
+            )
+        )
+        if log_event:
+            self.log(
+                "pt_modifier_applied",
+                target=target.card.name,
+                source=source_card,
+                power=power,
+                toughness=toughness,
+                duration=duration,
+                oracle_fragment=oracle_fragment,
+            )
+
+    def refresh_static_pt_modifiers(self) -> None:
+        previous: dict[int, tuple[int, int]] = {}
+        for player in self.players:
+            for permanent in player.battlefield:
+                previous[id(permanent)] = (
+                    sum(x.power for x in permanent.pt_modifiers if x.derived_static),
+                    sum(x.toughness for x in permanent.pt_modifiers if x.derived_static),
+                )
+                permanent.pt_modifiers = [
+                    modifier
+                    for modifier in permanent.pt_modifiers
+                    if not modifier.derived_static
+                ]
+        for player in self.players:
+            creatures = [
+                permanent for permanent in player.battlefield if permanent.card.is_creature
+            ]
+            for source in creatures:
+                for fragment in self.oracle_fragments(source.card):
+                    match = self._STATIC_OTHER_CREATURES.fullmatch(fragment)
+                    if match:
+                        count = len(creatures) - 1
+                        self.apply_pt_modifier(
+                            source,
+                            int(match.group(1)) * count,
+                            int(match.group(2)) * count,
+                            duration="persistent",
+                            source_card=source.card.name,
+                            oracle_fragment=fragment,
+                            derived_static=True,
+                            log_event=False,
+                        )
+                        current = (
+                            int(match.group(1)) * count,
+                            int(match.group(2)) * count,
+                        )
+                        if previous.get(id(source), (0, 0)) != current:
+                            self.log(
+                                "pt_static_modifier_refreshed",
+                                target=source.card.name,
+                                source=source.card.name,
+                                power=current[0],
+                                toughness=current[1],
+                                oracle_fragment=fragment,
+                            )
+
+    def resolve_creature_entered_pt_effects(self, entering: Permanent) -> None:
+        for fragment in self.oracle_fragments(entering.card):
+            match = self._SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment)
+            if match:
+                self.log(
+                    "pt_effect_condition_not_met",
+                    source=entering.card.name,
+                    condition="sneak_cost_paid",
+                    oracle_fragment=fragment,
+                )
+        for source in list(self.players[entering.controller].battlefield):
+            if source is entering:
+                continue
+            for fragment in self.oracle_fragments(source.card):
+                match = self._ALLIANCE_THIS_UNTIL_EOT.fullmatch(fragment)
+                if match:
+                    self.apply_pt_modifier(
+                        source,
+                        int(match.group(1)),
+                        int(match.group(2)),
+                        duration="until_end_of_turn",
+                        source_card=source.card.name,
+                        oracle_fragment=fragment,
+                    )
+
+    def resolve_attack_pt_effects(self, attackers: list[Permanent]) -> None:
+        for source in attackers:
+            for fragment in self.oracle_fragments(source.card):
+                match = self._ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment)
+                if not match:
+                    continue
+                for target in attackers:
+                    if target is not source:
+                        self.apply_pt_modifier(
+                            target,
+                            int(match.group(1)),
+                            int(match.group(2)),
+                            duration="until_end_of_turn",
+                            source_card=source.card.name,
+                            oracle_fragment=fragment,
+                        )
 
     def draw(self, player: PlayerState, count: int = 1, *, setup: bool = False) -> bool:
         for _ in range(count):
@@ -256,6 +441,7 @@ class Game:
             return False
         player.hand.remove(card)
         player.battlefield.append(Permanent(card, player_index, summoning_sick=False))
+        self.refresh_static_pt_modifiers()
         player.lands_played += 1
         self.log("land_played", player=player.name, card=card.name)
         return True
@@ -316,8 +502,11 @@ class Game:
             self._pay(player_index, card.mana_value)
             player.hand.remove(card)
             haste = "Haste" in card.keywords
-            player.battlefield.append(Permanent(card, player_index, summoning_sick=not haste))
+            permanent = Permanent(card, player_index, summoning_sick=not haste)
+            player.battlefield.append(permanent)
             self.log("creature_resolved", player=player.name, card=card.name)
+            self.refresh_static_pt_modifiers()
+            self.resolve_creature_entered_pt_effects(permanent)
             self.report_unsupported_abilities(player_index, card)
             self.check_state_based_actions()
             return True
@@ -350,6 +539,8 @@ class Game:
         used_blockers: set[int] = set()
         for attacker in attackers:
             attacker.tapped = True
+        self.resolve_attack_pt_effects(attackers)
+        for attacker in attackers:
             blocker = blocks.get(id(attacker))
             if blocker is None:
                 self.players[defender_index].life -= attacker.power
@@ -374,12 +565,33 @@ class Game:
         self.check_life()
         self.phase = "postcombat_main"
 
+    def end_turn(self) -> None:
+        player = self.players[self.active_player]
+        self.phase = "cleanup"
+        expired = 0
+        for current in self.players:
+            for permanent in current.battlefield:
+                before = len(permanent.pt_modifiers)
+                permanent.pt_modifiers = [
+                    modifier
+                    for modifier in permanent.pt_modifiers
+                    if modifier.duration != "until_end_of_turn"
+                ]
+                expired += before - len(permanent.pt_modifiers)
+                permanent.damage = 0
+        self.refresh_static_pt_modifiers()
+        self.log("cleanup_completed", expired_pt_modifiers=expired)
+        self.check_state_based_actions()
+        self.phase = "ending"
+        self.log("turn_ended", player=player.name)
+
     def put_into_graveyard(
         self, permanent: Permanent, *, state_based_action: str | None = None
     ) -> None:
         owner = self.players[permanent.controller]
         owner.battlefield.remove(permanent)
         owner.graveyard.append(permanent.card)
+        self.refresh_static_pt_modifiers()
         self.log(
             "permanent_to_graveyard",
             player=owner.name,
@@ -391,8 +603,43 @@ class Game:
         self.put_into_graveyard(permanent, state_based_action=state_based_action)
 
     def check_state_based_actions(self) -> None:
-        while any(action.apply(self) for action in self.state_based_actions):
-            pass
+        self.refresh_static_pt_modifiers()
+        while True:
+            changed = False
+            for action in self.state_based_actions:
+                if action.apply(self):
+                    changed = True
+                    self.refresh_static_pt_modifiers()
+            if not changed:
+                break
+        self.check_invariants()
+
+    def check_invariants(self) -> None:
+        for player_index, player in enumerate(self.players):
+            legendary_names: set[str] = set()
+            for permanent in player.battlefield:
+                if permanent.controller != player_index:
+                    raise AssertionError("battlefield controller does not match player zone")
+                if permanent.card.is_creature:
+                    if permanent.card.power is None or permanent.card.toughness is None:
+                        raise AssertionError("creature permanent lacks printed power/toughness")
+                    if permanent.toughness <= 0:
+                        raise AssertionError("nonpositive toughness must be handled by an SBA")
+                invalid_counters = any(
+                    not isinstance(value, int) or value < 0
+                    for value in permanent.counters.values()
+                )
+                if invalid_counters:
+                    raise AssertionError("counter quantities must be nonnegative integers")
+                for modifier in permanent.pt_modifiers:
+                    if modifier.duration not in {"persistent", "until_end_of_turn"}:
+                        raise AssertionError("unknown P/T modifier duration")
+                    if modifier.created_turn > self.turn:
+                        raise AssertionError("P/T modifier originates in a future turn")
+                if "Legendary" in permanent.card.type_line:
+                    if permanent.card.name in legendary_names:
+                        raise AssertionError("legend rule left duplicate names on battlefield")
+                    legendary_names.add(permanent.card.name)
 
     def check_life(self) -> None:
         for index, player in enumerate(self.players):

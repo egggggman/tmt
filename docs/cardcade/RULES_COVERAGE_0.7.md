@@ -22,8 +22,8 @@ as implemented until code and deterministic tests exist on this branch.
 | Turn/phase/step structure | CR 500–514 | Partial string state only: `setup`, `beginning`, `precombat_main`, `combat`, `postcombat_main`, `ending`; `begin_turn()` jumps directly to main phase and `combat()` resolves combat monolithically | turn trace only | No step state machine, priority, stack, upkeep, draw step, declare-blockers window, end step, or cleanup sequencing |
 | Land play | CR 305 | Implemented: one basic land during an active-player main phase | land-per-turn test | Nonbasic lands, permissions, additional land plays |
 | Mana and casting | CR 106, 601 | Partial: untapped Plains/Mountain count, mono-color symbols, tap-to-pay | casting test | Stack, timing, generic mana choice, multiple colors, mana abilities, alternate/additional costs, cost changes |
-| Creature permanents | CR 110, 302 | Partial: base P/T, tapped state, marked damage, summoning sickness, Haste | casting/combat tests | No counters, tokens, continuous effects, characteristic changes, control changes |
-| Reusable Actions | various | Not implemented | none | No Action abstraction; token creation, counters, and P/T modification are absent |
+| Creature permanents | CR 110, 302 | Partial: printed P/T, counters stored separately, additive continuous modifiers, tapped state, marked damage, summoning sickness, Haste | casting/combat/P/T tests | Tokens, non-additive/layer interactions, characteristic changes, control changes |
+| Reusable P/T effects | CR 613, 611.3, 514.2 | Implemented for additive persistent derived modifiers and `until end of turn` modifiers; supports self-scaling static effects, Alliance creature-entry effects, conditional ETB team effects, and attack-triggered other-attacker team effects through generic Oracle patterns | deterministic separation, recomputation, team, trigger, cleanup, and invariant tests | No set/switch P/T, dependency/layer ordering beyond additive deltas, counters Action, or general trigger stack |
 | Attack/block declarations | CR 508–509 | Partial: all chosen attackers tap; one blocker per attacker | sickness/combat tests | Restrictions, requirements, evasion, vigilance, menace, multiple blockers, attack costs, declare-blockers priority |
 | Combat damage/state-based deaths | CR 510, 704 | Partial: simultaneous base damage for one-to-one blocks, lethal damage, unblocked player damage | combat/graveyard/win tests | First/double strike, trample, lifelink, deathtouch, damage assignment order, indestructible, regeneration |
 | Targeted damage | CR 115, 120 | Partial named-card special case: Manhole Missile deals 3 to an opposing creature | dead-target test and acceptance trace | Optional hand-bottom/draw clause and general damage Action |
@@ -198,6 +198,103 @@ duration/continuous-effect support** as the next card Action. It is directly pre
 fragments (23 when Wingnut's team modification is included), affects 16 current-roster/full-model
 cards, and forms a reusable prerequisite for several Alliance, ETB, attack, Class, and combat
 effects. This is a ranking decision only; that Action is not implemented in 0.7c.
+
+## Engine 0.7d P/T modification validation
+
+Engine `cardcade-0.7.0-alpha.2` keeps printed P/T immutable on `CardFact`, counter state separate on
+each permanent, and continuous P/T modifiers as auditable effect records. Persistent derived
+modifiers are recomputed after battlefield changes. `Until end of turn` modifiers expire during an
+explicit cleanup transition, when marked damage is also removed. Invariants reject invalid counter
+quantities, unknown durations, future-dated effects, illegal legend states, controller/zone
+mismatches, and surviving creatures with nonpositive toughness.
+
+No card name selects behavior. Four reusable Oracle shapes are recognized: self gets +P/+T per
+other creature, Alliance gives this creature +P/+T until end of turn, a sneak-paid ETB gives the
+team +P/+T until end of turn, and an attack trigger gives other attackers +P/+T until end of turn.
+The sneak-paid condition is evaluated as false while Sneak remains unsupported and is logged as
+`pt_effect_condition_not_met`; no bonus is invented.
+
+### Exact 0.7c-to-0.7d replay comparison
+
+| Seed | 0.7c events / pairs | 0.7d events / pairs | 0.7c result | 0.7d result |
+| ---: | ---: | ---: | --- | --- |
+| 7001 | 19 / 17 | 16 / 14 | Raphael / turn 16 | Raphael / turn 16 |
+| 7002 | 30 / 19 | 19 / 11 | Raphael / turn 24 | Leonardo / turn 19 |
+| 7003 | 34 / 24 | 22 / 14 | Leonardo / turn 21 | Leonardo / turn 17 |
+| 7004 | 31 / 26 | 28 / 23 | Leonardo / turn 23 | Leonardo / turn 21 |
+| 7005 | 20 / 12 | 16 / 10 | Raphael / turn 16 | Raphael / turn 16 |
+| **Aggregate** | **134 / 34** | **101 / 30** | — | — |
+
+Exactly four baseline fragment pairs leave unsupported telemetry. Three pairs representing 19
+baseline events are exercised directly by the five new trajectories. Wingnut's handler is covered
+by a deterministic attack regression, but Wingnut does not attack in these changed acceptance
+trajectories, so its four baseline events are not claimed as acceptance-executed.
+
+| Baseline events removed | Card | Validation status |
+| ---: | --- | --- |
+| 9 | Leonardo, Big Brother | Persistent +1/+0 per other creature executed in acceptance |
+| 5 | Mutant Town Musicians | Alliance +1/+0 until end of turn executed in acceptance |
+| 5 | Leonardo, Leader in Blue | Sneak-paid condition evaluated in acceptance; false because Sneak was not paid |
+| **19** | **3 direct pairs** | **Expected direct P/T fragments actually exercised by seeds 7001–7005** |
+| 4 | Wingnut, Bat on the Belfry | Generic other-attacker team modifier regression-tested; trigger not encountered post-change |
+| **23** | **4 supported pairs** | **All scoped P/T fragments removed from unsupported telemetry** |
+
+The aggregate event reduction is 33 rather than 23 because executed P/T changes alter combat,
+deaths, legal power-based targets, game length, and which later cards resolve. Seed 7002 changes
+winner and seeds 7002–7004 finish earlier. These are deterministic execution consequences, not
+balance evidence.
+
+### Exact post-0.7d unsupported aggregate
+
+| Events | Card | Exact unresolved fragment |
+| ---: | --- | --- |
+| 9 | Leonardo, Big Brother | Sneak `{W}` (full Oracle line) |
+| 8 each | April O'Neil, Kunoichi Trainee | ETB scry 2; can't be blocked by creatures with power 3+ |
+| 7 | Raphael, Tough Turtle | Alliance deals 1 damage to target opponent |
+| 6 each | Prehistoric Pet | Can't be blocked by creatures with greater power; activated self-bounce of another creature |
+| 5 | Mutant Town Musicians | Trample |
+| 5 each | Leonardo, Leader in Blue | Sneak `{3}{W}{W}`; activated first strike until end of turn |
+| 4 each | Null Group Biological Assets | During-your-turn first strike; attack rummage trigger |
+| 3 | Wingnut, Bat on the Belfry | Alliance keyword choice |
+| 3 each | Leonardo, Sewer Samurai | Sneak `{2}{W}{W}`; Double strike; graveyard casting/finality counter ability |
+| 2 each | Raphael, Most Attitude | Menace; Alliance exile; attack play-from-exile permission |
+| 2 | Casey Jones, Jury-Rig Justiciar | ETB artifact selection |
+| 2 each | Leonardo, Cutting Edge | Sneak `{W}`; Lifelink; life-gain +1/+1-counter trigger |
+| 1 each | Mighty Mutanimals | ETB Mutant token; Alliance +1/+1 counter |
+| 1 each | Raphael, the Nightwatcher | Sneak `{1}{R}{R}`; attacking-team double strike |
+| 1 each | Lita, Little Orphan Amphibian | Alliance choice header; +1/+1-counter mode; Food-token mode; scry mode |
+
+All table entries retain full unabridged Oracle lines in telemetry; a few repeated reminder clauses
+are abbreviated here only for readability.
+
+### New rules dependencies exposed
+
+- Generic event/trigger ordering is now the principal architectural dependency. The supported
+  creature-entry and attack hooks execute deterministically, but priority, the stack, APNAP order,
+  optional choices, and intervening-if handling remain unsupported.
+- Additive P/T is sufficient for these four shapes; set/base P/T, switching power/toughness,
+  copy effects, dependency ordering, and the full CR 613 layer system remain explicit gaps.
+- Counter storage is separate and invariant-checked, but placing/removing counters is still an
+  unsupported Action; finality also requires a replacement effect and exile zone.
+- Power changes affect restricted targets and combat legality, exposing the need for broader target
+  revalidation and combat keyword/restriction support.
+- Sneak-paid team effects cannot become true until the declare-blockers casting window and alternate
+  cost machinery exist.
+
+### Post-0.7d ranking and next Action
+
+1. **Blocking-restriction/evasion legality** — 14 exact events (April 8, Prehistoric Pet 6), direct
+   combat impact, 12 current-roster/full-model cards, medium complexity, and no trigger prerequisite.
+2. **Counter placement/state Action** — 7 exact events across Cutting Edge, Mighty Mutanimals,
+   Lita, and Sewer Samurai; 25 roster/model cards; medium complexity, with finality deferred.
+3. **Draw/discard/selection Actions** — 15 exact events across April, Casey, Lita, and Null Group;
+   26 raw roster/model matches; medium complexity but several callers require triggers or choices.
+4. **Sneak alternate cost/window** — 20 exact events and 18 roster/model cards, but high complexity
+   because phase steps, priority, stack handling, attacker return, and alternate costs are absent.
+5. **Token creation** — 2 exact events in these replays and 21 roster/model cards; medium complexity.
+
+The next selected Action is **blocking-restriction/evasion legality**. It is ranked only; it is not
+implemented in 0.7d.
 
 ## Governance boundary
 
