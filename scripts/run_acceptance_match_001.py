@@ -6,14 +6,29 @@ import argparse
 import json
 from pathlib import Path
 
+from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.engine07 import Game, load_deck, load_facts
 
 
 def run(root: Path, seed: int) -> dict[str, object]:
-    facts = load_facts(root / "cardcade" / "card-model-0.6.json")
+    catalog = load_card_data(
+        root / "cardcade" / "scryfall-tmt-pza-tmc-2026-08-13.json",
+        root / "cardcade" / "scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+    )
+    deck_paths = (
+        root / "decks" / "leonardo" / "PROTOTYPE_0.1.txt",
+        root / "decks" / "raphael" / "PROTOTYPE_0.1.txt",
+    )
+    names = {
+        line.split(" ", 1)[1]
+        for path in deck_paths
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line and line != "Deck"
+    }
+    facts = load_facts(catalog, names)
     decks = (
-        load_deck(root / "decks" / "leonardo" / "PROTOTYPE_0.1.txt", facts),
-        load_deck(root / "decks" / "raphael" / "PROTOTYPE_0.1.txt", facts),
+        load_deck(deck_paths[0], facts),
+        load_deck(deck_paths[1], facts),
     )
     game = Game(decks, names=("leonardo-p0.1", "raphael-p0.1"), seed=seed)
     while game.winner is None and game.turn < 120:

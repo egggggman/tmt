@@ -6,35 +6,15 @@ separate from the preserved Engine 0.1--0.6 heuristic simulator.
 
 from __future__ import annotations
 
-import json
 import random
 import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Literal, Protocol
 
-ENGINE_VERSION = "cardcade-0.7.0-alpha.4"
+from tmnt_design_studio.card_data import CardDataCatalog
 
-# Engine 0.6 intentionally omitted combat characteristics. These current Oracle values are
-# versioned here as the minimal 0.7 facts delta for Acceptance Match #001.
-ACCEPTANCE_CREATURE_STATS = {
-    "April O'Neil, Kunoichi Trainee": (2, 2),
-    "Casey Jones, Jury-Rig Justiciar": (2, 1),
-    "Leonardo, Big Brother": (1, 3),
-    "Leonardo, Cutting Edge": (1, 1),
-    "Leonardo, Leader in Blue": (2, 1),
-    "Leonardo, Sewer Samurai": (3, 3),
-    "Lita, Little Orphan Amphibian": (2, 1),
-    "Mighty Mutanimals": (2, 1),
-    "Mutant Town Musicians": (2, 4),
-    "Null Group Biological Assets": (3, 1),
-    "Prehistoric Pet": (1, 2),
-    "Raphael, Most Attitude": (4, 3),
-    "Raphael, Ninja Destroyer": (4, 4),
-    "Raphael, Tough Turtle": (1, 3),
-    "Raphael, the Nightwatcher": (2, 3),
-    "Wingnut, Bat on the Belfry": (1, 2),
-}
+ENGINE_VERSION = "cardcade-0.7.0-alpha.4"
 
 
 @dataclass(frozen=True)
@@ -904,20 +884,31 @@ class Game:
         }
 
 
-def load_facts(path: Path) -> dict[str, CardFact]:
-    rows = json.loads(path.read_text(encoding="utf-8"))["cards"]
+def _integer_characteristic(value: str | None) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
+def load_facts(catalog: CardDataCatalog, names: set[str]) -> dict[str, CardFact]:
     facts = {}
-    for name, row in rows.items():
-        power, toughness = ACCEPTANCE_CREATURE_STATS.get(name, (None, None))
+    for name in sorted(names):
+        row = catalog.resolve_name(name)
+        mana_value = int(row.mana_value)
+        if mana_value != row.mana_value:
+            raise ValueError(f"Engine 0.7 cannot represent nonintegral mana value for {name}")
         facts[name] = CardFact(
-            name=name,
-            mana_cost=row["mana_cost"],
-            mana_value=int(row["mana_value"]),
-            type_line=row["type_line"],
-            oracle_text=row.get("oracle_text", ""),
-            power=power,
-            toughness=toughness,
-            keywords=tuple(row.get("keywords", [])),
+            name=row.name,
+            mana_cost=row.mana_cost,
+            mana_value=mana_value,
+            type_line=row.type_line,
+            oracle_text=row.oracle_text,
+            power=_integer_characteristic(row.power),
+            toughness=_integer_characteristic(row.toughness),
+            keywords=row.keywords,
         )
     return facts
 

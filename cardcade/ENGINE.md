@@ -16,6 +16,11 @@ combat, reusable state-based actions including the legend rule, two safely groun
 interactions, actual loss conditions and an auditable event log. Acceptance Match #001 loads the
 frozen Leonardo and Raphael Prototype 0.1 files directly.
 
+Engine 0.7 card facts resolve through the checksum-verified authoritative TMT/PZA/TMC Scryfall
+snapshot and normalized `CardDataCatalog`. The historical 103-record Engine 0.6 export remains
+preserved and unchanged. The authoritative interface includes printing and Oracle identity, card
+faces, Oracle text, keywords, type and mana facts, P/T, set/collector identity, and legalities.
+
 Unsupported card semantics are skipped and recorded rather than assigned invented value. See
 `docs/cardcade/RULES_COVERAGE_0.7.md` for the exact coverage boundary. This is deterministic-test
 and focused-acceptance work only; it does not pass the trust gate for a 900-game smoke.
