@@ -102,9 +102,7 @@ class Permanent:
     def toughness(self) -> int:
         _, counter_toughness = self.counter_delta()
         return (
-            self.printed_toughness
-            + counter_toughness
-            + sum(x.toughness for x in self.pt_modifiers)
+            self.printed_toughness + counter_toughness + sum(x.toughness for x in self.pt_modifiers)
         )
 
 
@@ -325,9 +323,7 @@ class Game:
                     sum(x.toughness for x in permanent.pt_modifiers if x.derived_static),
                 )
                 permanent.pt_modifiers = [
-                    modifier
-                    for modifier in permanent.pt_modifiers
-                    if not modifier.derived_static
+                    modifier for modifier in permanent.pt_modifiers if not modifier.derived_static
                 ]
         for player in self.players:
             creatures = [
@@ -626,8 +622,7 @@ class Game:
                     if permanent.toughness <= 0:
                         raise AssertionError("nonpositive toughness must be handled by an SBA")
                 invalid_counters = any(
-                    not isinstance(value, int) or value < 0
-                    for value in permanent.counters.values()
+                    not isinstance(value, int) or value < 0 for value in permanent.counters.values()
                 )
                 if invalid_counters:
                     raise AssertionError("counter quantities must be nonnegative integers")
