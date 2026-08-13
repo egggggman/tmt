@@ -52,15 +52,7 @@ def run(root: Path, seed: int) -> dict[str, object]:
                 break
 
         attackers = game.legal_attackers(active)
-        blockers = [
-            permanent
-            for permanent in game.players[1 - active].battlefield
-            if permanent.card.is_creature and not permanent.tapped
-        ]
-        blocks = {
-            id(attacker): blocker for attacker, blocker in zip(attackers, blockers, strict=False)
-        }
-        game.combat(attackers, blocks)
+        game.combat(attackers, auto_assign_blockers=True)
         game.end_turn()
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")

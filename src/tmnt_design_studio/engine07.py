@@ -13,7 +13,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Literal, Protocol
 
-ENGINE_VERSION = "cardcade-0.7.0-alpha.2"
+ENGINE_VERSION = "cardcade-0.7.0-alpha.3"
 
 # Engine 0.6 intentionally omitted combat characteristics. These current Oracle values are
 # versioned here as the minimal 0.7 facts delta for Acceptance Match #001.
@@ -226,6 +226,12 @@ class Game:
         r"^Whenever .+ attacks, each other attacking creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
     )
+    _CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
+        r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
+    )
+    _CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
+        r"^This creature can't be blocked by creatures with greater power\.$"
+    )
 
     def log(self, event: str, **details: object) -> None:
         self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
@@ -259,6 +265,15 @@ class Game:
             )
         )
 
+    def supports_blocking_fragment(self, fragment: str) -> bool:
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self._CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
+                self._CANT_BE_BLOCKED_BY_GREATER_POWER,
+            )
+        )
+
     def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
         """Report each unresolved Oracle line without interpreting or combining its meaning."""
         fragments = self.oracle_fragments(card)
@@ -271,7 +286,11 @@ class Game:
                     oracle_fragment=keyword,
                 )
         for fragment in fragments:
-            if fragment.casefold() == "haste" or self.supports_pt_fragment(fragment):
+            if (
+                fragment.casefold() == "haste"
+                or self.supports_pt_fragment(fragment)
+                or self.supports_blocking_fragment(fragment)
+            ):
                 continue
             self.unsupported(
                 card,
@@ -523,30 +542,93 @@ class Game:
             if p.card.is_creature and not p.tapped and not p.summoning_sick
         ]
 
+    def blocking_restriction(
+        self, attacker: Permanent, blocker: Permanent
+    ) -> tuple[str, str] | None:
+        """Return the first Oracle-derived restriction that makes this block illegal."""
+        for fragment in self.oracle_fragments(attacker.card):
+            match = self._CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
+            if match and blocker.power >= int(match.group(1)):
+                return fragment, "blocker_power_at_or_above_restriction"
+            if (
+                self._CANT_BE_BLOCKED_BY_GREATER_POWER.fullmatch(fragment)
+                and blocker.power > attacker.power
+            ):
+                return fragment, "blocker_power_greater_than_attacker"
+        return None
+
+    def can_block(self, attacker: Permanent, blocker: Permanent, defender_index: int) -> bool:
+        return (
+            blocker.controller == defender_index
+            and any(candidate is blocker for candidate in self.players[defender_index].battlefield)
+            and blocker.card.is_creature
+            and not blocker.tapped
+            and self.blocking_restriction(attacker, blocker) is None
+        )
+
+    def generate_blocks(
+        self, attackers: list[Permanent], defender_index: int
+    ) -> dict[int, Permanent]:
+        """Generate deterministic one-to-one blocks using the same legality as validation."""
+        available = [
+            permanent
+            for permanent in self.players[defender_index].battlefield
+            if permanent.card.is_creature and not permanent.tapped
+        ]
+        blocks: dict[int, Permanent] = {}
+        for attacker in attackers:
+            for blocker in available:
+                restriction = self.blocking_restriction(attacker, blocker)
+                if restriction is not None:
+                    fragment, reason = restriction
+                    self.log(
+                        "block_candidate_rejected",
+                        attacker=attacker.card.name,
+                        blocker=blocker.card.name,
+                        oracle_fragment=fragment,
+                        reason=reason,
+                        attacker_power=attacker.power,
+                        blocker_power=blocker.power,
+                    )
+                    continue
+                blocks[id(attacker)] = blocker
+                available.remove(blocker)
+                break
+        return blocks
+
     def combat(
-        self, attackers: list[Permanent], blocks: dict[int, Permanent] | None = None
+        self,
+        attackers: list[Permanent],
+        blocks: dict[int, Permanent] | None = None,
+        *,
+        auto_assign_blockers: bool = False,
     ) -> None:
         self.phase = "combat"
         defender_index = 1 - self.active_player
-        blocks = blocks or {}
         legal = self.legal_attackers(self.active_player)
         if any(attacker not in legal for attacker in attackers):
             raise ValueError("illegal attacker")
-        used_blockers: set[int] = set()
         for attacker in attackers:
             attacker.tapped = True
         self.resolve_attack_pt_effects(attackers)
+        if auto_assign_blockers:
+            if blocks is not None:
+                raise ValueError("cannot provide blocks when auto-assigning blockers")
+            blocks = self.generate_blocks(attackers, defender_index)
+        else:
+            blocks = blocks or {}
+        attacker_ids = {id(attacker) for attacker in attackers}
+        if any(attacker_id not in attacker_ids for attacker_id in blocks):
+            raise ValueError("block assigned to a nonattacker")
+        used_blockers: set[int] = set()
         for attacker in attackers:
             blocker = blocks.get(id(attacker))
             if blocker is None:
                 self.players[defender_index].life -= attacker.power
                 self.log("combat_damage_player", source=attacker.card.name, damage=attacker.power)
             else:
-                if (
-                    blocker.controller != defender_index
-                    or blocker.tapped
-                    or id(blocker) in used_blockers
-                    or not blocker.card.is_creature
+                if id(blocker) in used_blockers or not self.can_block(
+                    attacker, blocker, defender_index
                 ):
                     raise ValueError("illegal blocker")
                 used_blockers.add(id(blocker))

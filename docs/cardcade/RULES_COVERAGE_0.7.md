@@ -296,6 +296,97 @@ are abbreviated here only for readability.
 The next selected Action is **blocking-restriction/evasion legality**. It is ranked only; it is not
 implemented in 0.7d.
 
+## Engine 0.7e blocking-restriction/evasion validation
+
+Engine `cardcade-0.7.0-alpha.3` implements a reusable Oracle-derived blocker-legality predicate
+for the two power-based restriction forms exercised by Acceptance Match #001: a blocker-power
+threshold ("power N or greater") and blocker power greater than the attacking creature's current
+power. No card name selects either rule. Printed P/T, counters, persistent modifiers, and
+until-end-of-turn modifiers continue to feed the current power queried by combat legality.
+
+Both deterministic block generation and explicit block validation call the same predicate.
+Automatic block assignment occurs inside combat after attack-triggered P/T effects resolve; the
+acceptance runner no longer zips attackers and blockers itself. Combat validation also rejects a
+blocker used twice and mappings for permanents that were not declared as attackers. The combat
+model remains intentionally one blocker per attacker.
+
+### Exact 0.7d-to-0.7e replay comparison
+
+| Seed | 0.7d events / pairs | 0.7e events / pairs | 0.7d result | 0.7e result |
+| ---: | ---: | ---: | --- | --- |
+| 7001 | 16 / 14 | 14 / 13 | Raphael / turn 16 | Raphael / turn 16 |
+| 7002 | 19 / 11 | 14 / 8 | Leonardo / turn 19 | Leonardo / turn 17 |
+| 7003 | 22 / 14 | 19 / 13 | Leonardo / turn 17 | Leonardo / turn 17 |
+| 7004 | 28 / 23 | 25 / 21 | Leonardo / turn 21 | Leonardo / turn 21 |
+| 7005 | 16 / 10 | 13 / 8 | Raphael / turn 16 | Raphael / turn 16 |
+| **Aggregate** | **101 / 30** | **85 / 26** | — | — |
+
+The two targeted exact fragment pairs are absent from 0.7e unsupported telemetry: April O'Neil's
+power-3 threshold accounts for eight 0.7d events and Prehistoric Pet's greater-power restriction
+accounts for six, so all **14 targeted events** disappear. These semantics are exercised by
+deterministic legality regressions and by six actual rejected block candidates in the acceptance
+replays: Prehistoric Pet rejects five greater-power candidates across seeds 7002 and 7005, and
+April rejects one power-3 candidate in seed 7004.
+
+The aggregate decreases by 16 rather than 14 because legal block changes alter subsequent combat,
+deaths, game length, and cards resolved. Seed 7002 ends two turns earlier; winners are unchanged.
+These are execution consequences only and are not balance evidence.
+
+### Exact post-0.7e unsupported aggregate
+
+| Events | Card | Exact unresolved fragment |
+| ---: | --- | --- |
+| 9 | Leonardo, Big Brother | Sneak `{W}` (full Oracle line) |
+| 8 | April O'Neil, Kunoichi Trainee | ETB scry 2 |
+| 7 | Raphael, Tough Turtle | Alliance deals 1 damage to target opponent |
+| 6 | Prehistoric Pet | Activated self-bounce of another creature |
+| 5 | Mutant Town Musicians | Trample |
+| 5 each | Leonardo, Leader in Blue | Sneak `{3}{W}{W}`; activated first strike until end of turn |
+| 4 each | Null Group Biological Assets | During-your-turn first strike; attack rummage trigger |
+| 3 | Wingnut, Bat on the Belfry | Alliance keyword choice |
+| 3 each | Leonardo, Sewer Samurai | Sneak `{2}{W}{W}`; Double strike; graveyard casting/finality counter ability |
+| 2 each | Raphael, Most Attitude | Menace; Alliance exile; attack play-from-exile permission |
+| 2 | Casey Jones, Jury-Rig Justiciar | ETB artifact selection |
+| 2 each | Leonardo, Cutting Edge | Sneak `{W}`; Lifelink; life-gain +1/+1-counter trigger |
+| 1 each | Mighty Mutanimals | ETB Mutant token; Alliance +1/+1 counter |
+| 1 each | Raphael, the Nightwatcher | Sneak `{1}{R}{R}`; attacking-team double strike |
+| 1 each | Lita, Little Orphan Amphibian | Alliance choice header; +1/+1-counter mode; Food-token mode; scry mode |
+
+Full unabridged Oracle fragments and player/turn/phase/reason context remain in every emitted
+`unsupported_semantics` event; descriptions above are abbreviated only for readability.
+
+### New rules dependencies exposed
+
+- Menace and similar blocking requirements require multi-block assignment and whole-declaration
+  legality, not another per-pair restriction.
+- Flying, reach, shadow, and protection require reusable creature characteristics and keyword
+  interaction predicates; none is silently inferred by the two power patterns.
+- Declare-blockers priority and Sneak remain absent. Automatic blocker selection is deterministic
+  execution scaffolding, not a defending-player strategy or choice model.
+- Full combat still lacks blocking requirements, multiple blockers, damage assignment order,
+  first/double strike, trample, lifelink, and deathtouch.
+
+### Post-0.7e ranking and next Action/rules capability
+
+1. **Counter placement/state Action** — 7 exact current events across Cutting Edge, Mighty
+   Mutanimals, Lita, and Sewer Samurai; 25 roster/model cards; medium complexity. It unlocks a
+   reusable state representation already separated from P/T modifiers, while finality replacement
+   and exile remain deferred.
+2. **Draw/discard/selection Actions** — 15 current events across April, Casey, Lita, and Null Group;
+   26 raw roster/model matches; medium complexity, but several call sites require triggers,
+   optional choices, ordering, or random-bottom semantics.
+3. **Sneak alternate cost/window** — 20 current events and 18 roster/model cards; high complexity
+   due to alternate costs, declare-blockers timing, returning an unblocked attacker, and entering
+   tapped and attacking.
+4. **Combat keyword framework** — 25 current events across first strike, double strike, trample,
+   menace, lifelink, and Wingnut's keyword choice; broad combat impact but high complexity because
+   multiple combat-damage steps, multi-block declarations, life gain, and duration interact.
+5. **Token creation** — 2 current events and 21 roster/model cards; medium complexity, with token
+   characteristics and zone-exit behavior required.
+
+The next selected capability is **counter placement/state Action**. This is a telemetry-derived
+ranking only; it is not implemented in 0.7e.
+
 ## Governance boundary
 
 All Prototype files and Engine 0.1–0.6 code, models, reports, and run artifacts remain preserved.

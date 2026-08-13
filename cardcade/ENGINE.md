@@ -6,13 +6,14 @@ decklists or authorize Design Studio revisions.
 
 ## Engine 0.7 executable foundation (development)
 
-Engine `cardcade-0.7.0-alpha.2` is an isolated rules-grounded foundation; it does not replace or
+Engine `cardcade-0.7.0-alpha.3` is an isolated rules-grounded foundation; it does not replace or
 reinterpret the preserved Engine 0.1–0.6 heuristic evidence. It provides deterministic two-player
 state, basic turn/land/mana/casting rules, stateful creatures with actual base power/toughness,
 separate counter and continuous-modifier state, cleanup-expiring and persistent derived P/T
-effects, basic combat, reusable state-based actions including the legend rule, two safely grounded
-target-aware interactions, actual loss conditions and an auditable event log. Acceptance Match
-#001 loads the frozen Leonardo and Raphael Prototype 0.1 files directly.
+effects, Oracle-derived power-based blocking restrictions shared by block generation and
+validation, basic combat, reusable state-based actions including the legend rule, two safely
+grounded target-aware interactions, actual loss conditions and an auditable event log. Acceptance
+Match #001 loads the frozen Leonardo and Raphael Prototype 0.1 files directly.
 
 Unsupported card semantics are skipped and recorded rather than assigned invented value. See
 `docs/cardcade/RULES_COVERAGE_0.7.md` for the exact coverage boundary. This is deterministic-test

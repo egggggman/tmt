@@ -1,3 +1,5 @@
+import pytest
+
 from tmnt_design_studio.engine07 import CardFact, Game, Permanent, PowerToughnessModifier
 
 PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains")
@@ -74,6 +76,104 @@ def test_attack_block_damage_and_lethal_to_graveyard():
     current.combat([attacker], {id(attacker): blocker})
     assert current.players[0].graveyard == [BEAR]
     assert current.players[1].graveyard == [BEAR]
+
+
+def test_power_threshold_evasion_is_used_by_block_generation_and_validation():
+    evasive = CardFact(
+        "Threshold Rogue",
+        "{1}{W}",
+        2,
+        "Creature — Rogue",
+        "Threshold Rogue can't be blocked by creatures with power 3 or greater.",
+        power=2,
+        toughness=4,
+    )
+    current = game()
+    current.begin_turn()
+    attacker = Permanent(evasive, 0, summoning_sick=False)
+    illegal = Permanent(OGRE, 1, summoning_sick=False)
+    legal = Permanent(BEAR, 1, summoning_sick=False)
+    current.players[0].battlefield = [attacker]
+    current.players[1].battlefield = [illegal, legal]
+
+    assert current.generate_blocks([attacker], 1) == {id(attacker): legal}
+    rejected = next(
+        event for event in current.events if event["event"] == "block_candidate_rejected"
+    )
+    assert rejected["oracle_fragment"] == evasive.oracle_text
+    assert rejected["attacker_power"] == 2
+    assert rejected["blocker_power"] == 3
+
+    with pytest.raises(ValueError, match="illegal blocker"):
+        current.combat([attacker], {id(attacker): illegal})
+
+
+def test_greater_power_evasion_uses_current_power_after_attack_modifiers():
+    evasive = CardFact(
+        "Relative Rogue",
+        "{1}{W}",
+        2,
+        "Creature — Rogue",
+        "This creature can't be blocked by creatures with greater power.",
+        power=2,
+        toughness=4,
+    )
+    leader = CardFact(
+        "Attack Leader",
+        "{1}{W}",
+        2,
+        "Creature — Bear",
+        "Whenever Attack Leader attacks, each other attacking creature gets +1/+0 until end "
+        "of turn.",
+        power=1,
+        toughness=4,
+    )
+    current = game()
+    current.begin_turn()
+    source = Permanent(leader, 0, summoning_sick=False)
+    attacker = Permanent(evasive, 0, summoning_sick=False)
+    equal_after_modifier = Permanent(OGRE, 1, summoning_sick=False)
+    current.players[0].battlefield = [source, attacker]
+    current.players[1].battlefield = [equal_after_modifier]
+
+    current.combat([attacker, source], auto_assign_blockers=True)
+
+    assert attacker.power == 3
+    creature_damage = [
+        event for event in current.events if event["event"] == "combat_damage_creatures"
+    ]
+    assert creature_damage == [
+        {
+            "turn": 1,
+            "phase": "combat",
+            "event": "combat_damage_creatures",
+            "attacker": evasive.name,
+            "blocker": OGRE.name,
+        }
+    ]
+
+
+def test_block_invariants_reject_duplicate_blocker_and_nonattacker_assignment():
+    current = game()
+    current.begin_turn()
+    first = Permanent(BEAR, 0, summoning_sick=False)
+    second = Permanent(BEAR, 0, summoning_sick=False)
+    blocker = Permanent(OGRE, 1, summoning_sick=False)
+    current.players[0].battlefield = [first, second]
+    current.players[1].battlefield = [blocker]
+
+    with pytest.raises(ValueError, match="illegal blocker"):
+        current.combat([first, second], {id(first): blocker, id(second): blocker})
+
+    fresh = game()
+    fresh.begin_turn()
+    attacker = Permanent(BEAR, 0, summoning_sick=False)
+    nonattacker = Permanent(BEAR, 0, summoning_sick=False)
+    defending = Permanent(OGRE, 1, summoning_sick=False)
+    fresh.players[0].battlefield = [attacker, nonattacker]
+    fresh.players[1].battlefield = [defending]
+    with pytest.raises(ValueError, match="nonattacker"):
+        fresh.combat([attacker], {id(nonattacker): defending})
 
 
 def test_unblocked_life_loss_and_win():
@@ -346,8 +446,6 @@ def test_pt_invariants_reject_invalid_counter_state():
     bad = Permanent(BEAR, 0)
     bad.counters["+1/+1"] = -1
     current.players[0].battlefield = [bad]
-
-    import pytest
 
     with pytest.raises(AssertionError, match="counter quantities"):
         current.check_invariants()
