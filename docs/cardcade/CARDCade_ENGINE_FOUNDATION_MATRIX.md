@@ -2,9 +2,9 @@
 
 Re-audit date: 2026-08-13 EDT
 
-Committed base: `dc62779` (validated post-0.8d Foundation Matrix)
+Committed base: `3a8de43` (validated post-0.8e Foundation Matrix)
 
-Candidate under review: uncommitted Engine 0.8e Costs Foundation working tree
+Candidate under review: uncommitted Engine 0.8f Triggers Foundation working tree
 
 Rules basis: [Magic Comprehensive Rules, effective June 19, 2026](https://media.wizards.com/2026/downloads/MagicCompRules%2020260619.pdf)
 
@@ -15,14 +15,14 @@ and the committed [authoritative snapshot manifest](../../cardcade/scryfall-tmt-
 
 ## Audit boundary and method
 
-This is an evidence-only post-0.8e re-audit. The candidate implementation and tests were not
+This is an evidence-only post-0.8f re-audit. The candidate implementation and tests were not
 modified or committed. The only audit edit is this document. Assessment uses:
 
-1. current CR 118 and 601.2f–h cost construction/payment, with related CR 400.7/405 stack,
-   603 triggers, 613 layers, and 701.20 randomness requirements;
+1. current CR 603 and 117.5 trigger detection, pending/APNAP ordering, independence, and stack
+   placement, with related CR 405 stack, 613 layers, and 701.20 randomness requirements;
 2. the checksum-verified TMT/PZA/TMC pool: 472 prints, **332 unique Oracle objects**, and
    **102 unique cards / 600 resolved slots** in the ten frozen decks;
-3. committed Engine 0.8d at `dc62779` versus the actual uncommitted 0.8e working tree;
+3. committed Engine 0.8e at `3a8de43` versus the actual uncommitted 0.8f working tree;
 4. static inspection of the rules engine, interpreter, pilot, and Acceptance Match runner;
 5. independent adversarial probes, candidate tests, the full suite, and duplicate Acceptance Match
    #001 seeds 7001–7005.
@@ -48,14 +48,15 @@ Pool pressure is unchanged. Across the 332 Oracle objects / 102 roster cards res
 | **Post-0.8b (`6878369`)** | **4** | **8** | **8** | **0** |
 | **Post-0.8c (`04bb091`)** | **5** | **10** | **5** | **0** |
 | **Post-0.8d (`dc62779`)** | **6** | **10** | **4** | **0** |
-| **Post-0.8e candidate** | **7** | **10** | **3** | **0** |
+| **Post-0.8e (`3a8de43`)** | **7** | **10** | **3** | **0** |
+| **Post-0.8f candidate** | **8** | **10** | **2** | **0** |
 
-Engine 0.8e changes exactly one classification: Costs **RED → GREEN** for represented fixed
-generic/colored mana costs. No dependent row was upgraded automatically.
+Engine 0.8f changes exactly one classification: Triggers **RED → GREEN** for represented trigger
+shapes and events. No dependent row was upgraded automatically.
 
 ## Reconciled 20-row matrix
 
-| Foundation row | Post-0.8d | Post-0.8e candidate | Current CR/pool/code/test evidence | Remaining rework risk |
+| Foundation row | Post-0.8e | Post-0.8f candidate | Current CR/pool/code/test evidence | Remaining rework risk |
 | --- | :---: | :---: | --- | --- |
 | Card Data / Oracle | **GREEN** | **GREEN** | CR 108.1 makes Oracle authoritative; CR 200–208 defines characteristics and faces. `card_data.py` still checksum-verifies 472 prints / 332 Oracle objects, exposes normalized facts and legalities, and resolves all 600 slots. Full data tests pass. | Extend the authoritative interface when more characteristics enter play; never add parallel hard-coded fact tables. |
 | Object Identity | **GREEN** | **GREEN** | CR 109 and 400.7 identity remains registry-backed, non-value, and deterministic. Combat declarations now persist runtime IDs across three steps; stale/fabricated action IDs are revalidated. Identity and transactional-zone regressions pass. | Future tokens, copies, face-down objects, merged permanents, last-known information, and CR 400.7 exceptions must use the same service. |
@@ -64,10 +65,10 @@ generic/colored mana costs. No dependent row was upgraded automatically.
 | Combat State | **YELLOW** | **YELLOW** | Staged CR 506–511 combat state is unchanged and its regressions pass. The spell lifecycle does not fabricate combat timing or add Sneak/enters-attacking behavior. | Defender choice, arbitrary attacker subsets, multiple blockers, blocking order, extra damage steps, trample assignment, planeswalkers/battles, and attack costs remain absent. |
 | Costs | **RED** | **GREEN** | CR 118/601.2f–h is now represented by frozen `ManaRequirement` and `PaymentPlan` values. Fixed generic/colored symbols construct exact totals; plans lock authoritative source IDs; colored sources are selected before deterministic generic sources; the plan is revalidated at commit; and every tap rolls back if Hand→Stack movement fails. Unsupported symbols are explicit and never pay. | Hybrid/phyrexian/snow/X costs, reductions/increases, cost-setting, mana abilities, player-selected payments, additional/alternative costs, activation costs, and nonmana costs remain unsupported extensions over the typed transaction. |
 | Choices vs Targets | **YELLOW** | **YELLOW** | Represented targets are locked as immutable runtime IDs on `StackObject` and revalidated under CR 608.2b at resolution. Fabricated, friendly, stale, and power-ineligible targets are rejected or resolve with no effect as appropriate. | Add typed target/choice requests, modes, divisions, optional choices, multiple targets, partial legality, and resolution-time non-target choices. |
-| Events | **YELLOW** | **YELLOW** | Deterministic `spell_cast`, Hand→Stack, Stack→destination, resolved, and all-targets-illegal telemetry now exposes the represented lifecycle. `Game.log` remains passive telemetry rather than a typed authoritative event stream with simultaneity, replacements, source/cause chains, or LKI. | Project transactions into typed events; do not use audit logs as rules input. |
-| Triggers | **RED** | **RED** | CR 603 and 117.5 still require event detection, pending triggers after SBAs, APNAP ordering, stack placement, and resolution. Alliance/ETB/attack handlers still execute immediately inside mutation paths; adding a spell stack does not cure that conflict. | Replace immediate resolver calls with trigger instances, a pending queue, LKI, APNAP ordering, intervening-if checks, and ability-stack resolution. |
-| Stack | **GREEN** | **GREEN** | Registered `StackObject` lifecycle remains intact. Payment is now committed through the same announcement boundary, and rollback tests prove a failed zone transaction cannot leave partially paid state. | Activated/triggered ability objects, copies, face-down spells, countering, replacement destinations, and complete casting steps remain unsupported extensions. |
-| Priority | **YELLOW** | **YELLOW** | CR 117 priority ownership and all-pass sequencing remain unimplemented. The new `announce_spell()`/`resolve_top_of_stack()` split and unresolved-stack transition gate provide concrete controller seams, but `cast()` deliberately resolves immediately for compatibility. | Add APNAP priority ownership, legal instant/ability options, pass cycles, all-pass top resolution, and empty-stack step advancement. |
+| Events | **YELLOW** | **YELLOW** | Frozen `RulesEvent` values now authoritatively identify creature-entry, life-gain, and attacker-declaration events with deterministic IDs, player, and subject IDs. Logs project their lifecycle but are not rules input. | Add simultaneous event batches, replacements/prevention, richer source/cause chains, LKI snapshots, and broader event kinds. |
+| Triggers | **RED** | **GREEN** | Represented Alliance, life-gain, attack, and conditional ETB shapes are now detected from typed events into frozen `TriggerInstance` values, queued, ordered deterministically by APNAP/controller/source, placed as independent `TriggeredAbilityObject` entries on the shared stack, and resolved top-first. Source departure does not delete the ability. Immediate mutation-path handlers are gone from actual spell resolution. | Optional/mode/target choices should move fully to stack-placement time where required; add intervening-if checks, delayed triggers, leaves/dies/cast triggers, LKI payloads, simultaneous SBA/trigger collection, player ordering choices, and broader interpreter shapes. These extend the represented pipeline rather than replace it. |
+| Stack | **GREEN** | **GREEN** | The shared stack now contains both card-backed spells and independent triggered-ability objects. Unified top resolution preserves an underlying spell while an ability resolves above it; type/registration/zone invariants cover both. | Activated abilities, copies, face-down spells, countering, replacement destinations, and complete casting steps remain unsupported extensions. |
+| Priority | **YELLOW** | **YELLOW** | CR 117 priority ownership and all-pass sequencing remain unimplemented. Trigger batches use deterministic immediate compatibility draining after stack placement; the unified resolver and transition gate remain clean future controller seams. | Add APNAP priority ownership, legal instant/ability options, pass cycles, all-pass top resolution, and empty-stack step advancement. |
 | State-Based Actions | **YELLOW** | **YELLOW** | CR 704/117.5 repeat-until-stable legend/lethal behavior remains. Cleanup and combat damage invoke represented SBA checks at deterministic engine boundaries, but no priority controller supplies every required boundary and checks remain narrow/sequential. | Collect simultaneous SBA batches at every future priority boundary; add zero toughness, counter annihilation, token cleanup, attachment SBAs, and other applicable cases. |
 | Counters | **GREEN** | **GREEN** | CR 122 counter state remains separate from immutable printed P/T and modifiers. Turn-state migration preserves accumulation, persistence, derived P/T, zone reset, and SBA interactions. | Add more counter-type semantics and the +1/+1/−1/−1 SBA; finality depends on replacement/exile support. |
 | Continuous Effects | **YELLOW** | **YELLOW** | CR 611–613 represented additive P/T effects remain sound. Engine-owned step context improves future duration predicates but does not add independent effect instances, affected-set queries, timestamps, dependencies, or non-P/T operations. | Build independent continuous-effect instances over runtime IDs and a characteristic-evaluation pipeline. |
@@ -75,29 +76,28 @@ generic/colored mana costs. No dependent row was upgraded automatically.
 | Durations | **YELLOW** | **YELLOW** | CR 611.2a and 514.2 represented “until end of turn” semantics are now structurally stronger: effects survive through End Step and expire only on entry to engine-owned Cleanup; marked damage clears at the same boundary. Persistent modifiers survive. Independent probes and regressions verify no premature/late expiration. | End-of-combat, next-turn, “for as long as,” source-linked, attachment-linked, delayed, and conditional durations remain absent. Repeated cleanup under CR 514.3 requires the future trigger/priority loop. |
 | Attachments | **YELLOW** | **YELLOW** | CR 301.5, 303.4, 701.3, and 704.5m–n remain unsupported but identity-safe. Main-phase state supplies the correct future sorcery-timing input for Equip; no attachment/equip semantics were added. | Add runtime-ID attachment edges, legality, typed Equip cost/activation, detachment, effects/layers, and attachment SBAs. |
 | Deterministic RNG | **RED** | **RED** | CR 103.3/701.20 random operations still need a retained auditable stream. Turn progression and duplicate acceptance runs are deterministic, but `random.Random(seed)` is still discarded after shuffle. Casey Jones-style later randomness remains structurally unsafe. | Retain a game-owned RNG service, log consumption, and serialize/replay its state or decisions. |
-| Invariants | **YELLOW** | **YELLOW** | Existing identity/stack invariants pass. Cost adversaries prove stale plans and nonauthoritative sources cannot mutate state, and injected movement failure restores every source's prior tapped state. | Add global conservation, checks at every transaction, option/state versioning, encapsulated collections, and subsystem causality. |
-| Rules Engine ↔ Card Interpreter ↔ Pilot separation | **GREEN** | **GREEN** | `Game` owns cost construction, source selection, plan revalidation, payment, rollback, and movement. Pilots still select immutable actions and cannot submit or mutate payment sources; the interpreter remains strategy-free. | Preserve this boundary for player-selected payments, cost modifiers, mana abilities, activations, triggers, and effects. |
+| Invariants | **YELLOW** | **YELLOW** | Stack invariants now distinguish registered spell/ability entries; pending trigger IDs are unique; event players/controllers are validated; fabricated ability objects fail resolution and invariant checks. | Add global conservation, checks at every transaction, option/state versioning, encapsulated collections, and richer event/trigger causality. |
+| Rules Engine ↔ Card Interpreter ↔ Pilot separation | **GREEN** | **GREEN** | `Game` owns event emission, trigger detection, pending/APNAP ordering, stack placement, and resolution. `CardInterpreter` supplies pure Oracle shapes; pilots cannot fabricate events, pending triggers, or ability objects. | Preserve this boundary for player ordering/target choices, delayed triggers, priority, activated abilities, and broader effects. |
 
 No row is UNKNOWN: current rules, authoritative data, committed history, candidate code, and executable
 probes are sufficient for all twenty classifications.
 
 ## Classification changes
 
-### Costs: RED → GREEN
+### Triggers: RED → GREEN
 
-The previous RED condition was structural: affordability collapsed cost construction into mana value
-plus one inferred color, and `_pay()` tapped the first N lands before a separate zone movement. There
-was no typed total cost, authoritative payment proposal, revalidation, or rollback boundary. Engine
-0.8e removes that representation for fixed generic/colored mana costs. `ManaRequirement` constructs
-the exact represented total, `PaymentPlan` freezes payer/card/source identities, deterministic source
-selection satisfies colored requirements before generic mana, and commit revalidates the complete
-plan immediately before mutation. If stack movement raises, all sources return to their exact prior
-tapped state and the card remains in hand.
+The previous RED condition was structural: Alliance, life-gain, ETB, and attack handlers executed
+effects immediately inside mutation paths, with no rules event, pending instance, APNAP batch, source-
+independent ability object, or stack placement. Engine 0.8f removes that representation for the
+supported trigger shapes. Frozen `RulesEvent` values cause frozen `TriggerInstance` records; batches
+are placed in deterministic APNAP/controller/source order as registered `TriggeredAbilityObject`
+entries on the shared stack; and the unified resolver applies the effect top-first. Ability objects
+retain source facts and event subjects independently, so a source leaving does not erase its trigger.
 
-GREEN is scoped to represented fixed mana costs. Hybrid, phyrexian, snow, X, cost modifiers, mana
-abilities, alternative/additional costs, activation costs, and nonmana payments remain explicitly
-unsupported. They extend the typed requirement/plan/commit boundary rather than requiring replacement
-of an ad hoc payment path. Triggers, Layers, and Deterministic RNG remain independently RED.
+GREEN is scoped to represented trigger shapes. Delayed, leaves/dies/cast, intervening-if, optional,
+multi-target, replacement-sensitive, LKI-heavy, and player-ordered triggers remain unsupported.
+Those extend the event/pending/ability-stack pipeline rather than requiring a return to immediate
+mutation handlers. Layers and Deterministic RNG remain independently RED.
 
 ## Independent adversarial evidence
 
@@ -115,6 +115,12 @@ of an ad hoc payment path. Triggers, Layers, and Deterministic RNG remain indepe
 | Stale/fabricated `PaymentPlan` | Rejected before mutation. | Callers cannot substitute sources or reuse obsolete plans. |
 | Injected Hand→Stack failure | Every payment source restored; card remains in hand. | Payment and announcement are one rollback-capable transaction. |
 | Hybrid/unrepresented symbol | Explicit unsupported telemetry; no tap or movement. | Unsupported costs are not approximated. |
+| Creature-entered trigger with drain paused | Frozen event and independent ability object visible before effect. | Detection, placement, and resolution are distinct. |
+| Source leaves before resolution | Ability remains and resolves from retained source facts. | Trigger existence is source-independent. |
+| Three simultaneous triggers across controllers | Deterministic APNAP groups and source order. | Stack order is reproducible and extensible to player choices. |
+| Trigger above existing spell | Ability resolves; underlying spell stays on stack. | Spell and ability objects share one authoritative stack. |
+| Fabricated ability object | Resolution and invariants reject it. | Callers cannot inject triggers. |
+| Duplicate trigger replay | Event/pending/stack/resolved telemetry matches exactly. | Trigger execution is deterministic. |
 | Skip Setup→Draw / out-of-order transitions | `ValueError`; exact expected successor reported. | Runner or caller cannot skip the state graph. |
 | Leave Combat Damage unresolved | Rejected. | Damage cannot be skipped. |
 | Resolve damage before the step / resolve twice | Both rejected. | Damage execution is step-bound and single-use. |
@@ -135,7 +141,7 @@ The compatibility `combat()` and `end_turn()` helpers remain engine-owned adapte
 same validated state/actions. The Acceptance runner no longer uses `combat()` and does not manually
 set phase state.
 
-## Architectural dependency probes after 0.8e
+## Architectural dependency probes after 0.8f
 
 - **Sneak:** Declare Blockers is now an authoritative state, removing the old “no place to act” turn
   conflict. Sneak still cannot work: it needs priority during that step, stack casting, an alternative
@@ -145,9 +151,9 @@ set phase state.
 - **Negate:** represented card spells now have authoritative stack objects, removing the old Stack
   conflict. Negate remains correctly unsupported because countering and priority sequencing are out
   of scope; Priority is YELLOW/unimplemented.
-- **Alliance:** step context can timestamp future events, but current Alliance/ETB matches still
-  execute immediately instead of becoming pending trigger instances after SBA processing. Triggers
-  remains RED; the new state graph does not rationalize the sequencing defect.
+- **Alliance:** represented Alliance matches now become pending trigger instances and ability-stack
+  objects. Unsupported Alliance branches remain explicit; full player ordering/target timing and
+  simultaneous SBA collection remain future extensions.
 - **Equipment:** pre/postcombat main states supply correct future “activate only as a sorcery” timing
   input. Equip still needs activation-cost and target types, attachment edges, layers, and SBAs.
   Layers remains RED; Attachments remains YELLOW.
@@ -155,36 +161,35 @@ set phase state.
   Token lifecycle, activated/additional costs, sacrifice, targeting, and associated SBAs remain
   missing. No Mutagen behavior is credited.
 - **Disappear:** End Step now exists and is logged, so delayed/end-step scheduling has a legitimate
-  future boundary. Typed events, delayed triggers, LKI, and stack placement remain absent; Disappear
-  stays unsupported and Triggers remains RED. The Stack foundation is ready for future ability objects.
+  future boundary. The typed pipeline is ready, but delayed scheduling and LKI payloads are not yet
+  represented, so Disappear stays unsupported without making Triggers structurally RED.
 
-The Costs foundation removes the ad hoc payment conflict for ordinary fixed costs and supplies an
-extension point for Sneak, Equip, and Mutagen, but it does not approximate their missing cost forms.
+The Triggers foundation removes immediate mutation-path execution for represented shapes and supplies
+the shared pipeline required by Alliance and future Disappear work without approximating either.
 
 ## Decision answers
 
-1. **Are Costs still RED?** No. They are **GREEN** for represented fixed generic/colored mana costs.
-2. **Is total-cost construction typed?** Yes. Exact represented symbols become a frozen requirement;
-   unrepresented symbols return no requirement and are explicitly reported on direct announcement.
-3. **Is payment authoritative?** Yes. Plans identify payer, card incarnation, requirement, and exact
-   source runtime IDs, then are recomputed and compared immediately before commit.
-4. **Is payment atomic with Stack announcement?** Yes for represented costs. Injected movement failure
-   restores all prior tapped states and leaves the card in hand.
-5. **Can pilots choose or fabricate payments?** No. The engine constructs and commits plans internally;
-   stale/fabricated plans are rejected by the adversarial engine boundary.
-6. **Were complex costs implemented?** No. Hybrid/X/phyrexian/snow, modifiers, mana abilities,
-   alternative/additional/nonmana costs, and activation costs remain unsupported extensions.
-7. **Were Triggers fixed automatically?** No. Immediate Alliance/ETB/attack execution remains an
-   architectural conflict. Triggers remains **RED**.
-8. **How many REDs remain?** **3**: Triggers, Layers, and Deterministic RNG.
-9. **Next single architectural correction?** Implement typed rules events, pending trigger instances,
-   deterministic APNAP ordering, and ability-stack placement while preserving existing outcomes.
+1. **Are Triggers still RED?** No. They are **GREEN** for represented event/Oracle shapes.
+2. **Are detection and resolution separate?** Yes. Events create pending frozen instances, which then
+   create independent ability-stack objects before effects run.
+3. **Is APNAP represented?** Yes for deterministic two-player batches. Active-player objects are
+   lowest, nonactive objects highest, with deterministic source order within each controller.
+4. **Do abilities survive source departure?** Yes. They retain source facts/event payload and resolve;
+   effects requiring the absent permanent correctly do nothing.
+5. **Do triggers share the spell stack?** Yes. An ability resolves above an existing spell without
+   moving or replacing it.
+6. **Was Priority implemented?** No. Compatibility draining is immediate after placement; future
+   all-pass sequencing can replace the drain without replacing detection or ability objects.
+7. **Were all trigger forms implemented?** No. Delayed, intervening-if, LKI-heavy, player-ordered,
+   optional, and broader event/Oracle forms remain unsupported extensions.
+8. **How many REDs remain?** **2**: Layers and Deterministic RNG.
+9. **Next single architectural correction?** Implement an ordered characteristic evaluation pipeline
+   with typed effect instances, timestamps, sublayers, and dependency-ready evaluation.
 
 ## Remaining RED priority
 
-1. **Triggers** — typed event detection, pending/APNAP queue, and ability-stack placement.
-2. **Layers** — ordered characteristic evaluation for Equipment and wider effects.
-3. **Deterministic RNG** — persistent, logged, replayable randomness service.
+1. **Layers** — ordered characteristic evaluation for Equipment and wider effects.
+2. **Deterministic RNG** — persistent, logged, replayable randomness service.
 
 Priority is deliberately absent from this RED list because the state-machine foundation removes its
 architectural conflict. It remains YELLOW and wholly unsupported until a later priority controller is
@@ -192,7 +197,7 @@ implemented.
 
 ## Acceptance and validation evidence
 
-Acceptance outcomes are unchanged from Engine 0.8d. Unsupported telemetry remains **81 events / 23
+Acceptance outcomes are unchanged from Engine 0.8e. Unsupported telemetry remains **81 events / 23
 exact fragment pairs**, and block-restriction rejections remain **0/2/0/1/3** by seed, six total.
 
 | Seed | Winner / ending turn | Unsupported events / seed pairs | Block rejections | Final stack |
@@ -204,24 +209,23 @@ exact fragment pairs**, and block-restriction rejections remain **0/2/0/1/3** by
 | 7005 | Raphael / 16 | 13 / 8 | 3 | 0 |
 
 Duplicate candidate runs match exactly per seed. Candidate snapshots are intentionally not
-byte-identical to 0.8d because Engine 0.8e adds typed payment telemetry and a new engine version.
-Winners, ending turns, unsupported counts, exact semantic pairs, block rejections, and represented
-gameplay trajectories are unchanged.
+byte-identical to 0.8e because Engine 0.8f adds rules-event/trigger lifecycle telemetry, ability
+runtime IDs, pending-trigger snapshot state, and a new engine version. Winners, ending turns,
+unsupported counts, exact semantic pairs, block rejections, and trajectories are unchanged.
 
 Validation at audit time:
 
-- focused Costs, Stack, and responsibility-boundary suites: **23 passed**;
-- focused `test_engine08e_costs.py`: **6 passed**;
-- full suite: **161 passed, 1 skipped**;
+- focused Trigger, Engine 0.7, Stack, and Costs suites: **56 passed**;
+- focused `test_engine08f_triggers.py`: **6 passed**;
+- full suite: **167 passed, 1 skipped**;
 - Ruff format: clean;
 - Ruff check: clean;
 - `git diff --check`: clean;
 - deterministic duplicate Acceptance Match #001 seeds 7001–7005: exact per-seed matches;
-- authoritative card-data and 0.8a–0.8d boundary tests: included in the passing full suite.
+- authoritative card-data and 0.8a–0.8e boundary tests: included in the passing full suite.
 
 ## Governance boundary
 
-This re-audit changes only this document. Engine 0.8e implementation/tests remain uncommitted and
-unmodified by the audit. No full priority sequencing, generic trigger system, counterspell, new
-Action, complex/alternative/nonmana cost, layer, RNG behavior, deck, prototype, historical evidence,
-calibration, or smoke test was added or changed.
+This re-audit changes only this document. Engine 0.8f implementation/tests remain uncommitted and
+unmodified by the audit. No full priority sequencing, counterspell, new Action, layer, RNG behavior,
+deck, prototype, historical evidence, calibration, or smoke test was added or changed.
