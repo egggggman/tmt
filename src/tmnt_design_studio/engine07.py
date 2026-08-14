@@ -10,13 +10,14 @@ import random
 import re
 from dataclasses import dataclass, field
 from enum import Enum
+from hashlib import sha256
 from pathlib import Path
 from typing import Literal, Protocol
 
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.7"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.8"
 
 Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
@@ -522,6 +523,88 @@ DEFAULT_STATE_BASED_ACTIONS: tuple[StateBasedAction, ...] = (
 )
 
 
+@dataclass(frozen=True)
+class RNGRecord:
+    sequence: int
+    domain: str
+    operation: str
+    result: tuple[int, ...] | int
+    state_before: str
+    state_after: str
+
+
+class DeterministicRNG:
+    """Game-owned, auditable, serializable deterministic randomness service."""
+
+    def __init__(self, seed: int):
+        self.seed = seed
+        self._random = random.Random(seed)
+        self.records: list[RNGRecord] = []
+
+    @staticmethod
+    def _digest(state: object) -> str:
+        return sha256(repr(state).encode("utf-8")).hexdigest()
+
+    @property
+    def state_digest(self) -> str:
+        return self._digest(self._random.getstate())
+
+    def export_state(self) -> tuple:
+        """Return the JSON-serializable Python RNG state accepted by `restore_state`."""
+        return self._random.getstate()
+
+    def restore_state(self, state: tuple | list) -> None:
+        """Restore an exported state without inventing a randomness consumption."""
+        if not isinstance(state, (tuple, list)) or len(state) != 3:
+            raise ValueError("invalid deterministic RNG state")
+
+        def tuples(value):
+            if isinstance(value, list):
+                return tuple(tuples(item) for item in value)
+            if isinstance(value, tuple):
+                return tuple(tuples(item) for item in value)
+            return value
+
+        try:
+            self._random.setstate(tuples(state))
+        except (TypeError, ValueError) as error:
+            raise ValueError("invalid deterministic RNG state") from error
+        self.records.clear()
+
+    def shuffled(self, values: list, *, domain: str) -> list:
+        """Return the exact `random.shuffle` permutation and record its state transition."""
+        if not domain:
+            raise ValueError("RNG consumption requires a domain")
+        indexed = list(enumerate(values))
+        before = self.state_digest
+        self._random.shuffle(indexed)
+        after = self.state_digest
+        permutation = tuple(index for index, _value in indexed)
+        self.records.append(
+            RNGRecord(
+                len(self.records) + 1,
+                domain,
+                "shuffle",
+                permutation,
+                before,
+                after,
+            )
+        )
+        return [value for _index, value in indexed]
+
+    def randrange(self, stop: int, *, domain: str) -> int:
+        """Consume one bounded random integer with auditable state evidence."""
+        if not domain or not isinstance(stop, int) or isinstance(stop, bool) or stop <= 0:
+            raise ValueError("RNG randrange requires a positive bound and domain")
+        before = self.state_digest
+        result = self._random.randrange(stop)
+        after = self.state_digest
+        self.records.append(
+            RNGRecord(len(self.records) + 1, domain, "randrange", result, before, after)
+        )
+        return result
+
+
 class Game:
     """Two-player deterministic game state and the supported legal transitions."""
 
@@ -537,12 +620,10 @@ class Game:
         alliance_mode_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
-        rng = random.Random(seed)
+        self.rng = DeterministicRNG(seed)
         shuffled: list[list[CardFact]] = []
-        for deck in decks:
-            cards = list(deck)
-            rng.shuffle(cards)
-            shuffled.append(cards)
+        for owner, deck in enumerate(decks):
+            shuffled.append(self.rng.shuffled(list(deck), domain=f"opening_library:{owner}"))
         self._next_object_number = 1
         self._objects: dict[str, CardObject | StackObject | TriggeredAbilityObject | Permanent] = {}
         self.stack: list[StackObject | TriggeredAbilityObject] = []
@@ -2044,6 +2125,17 @@ class Game:
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        if [record.sequence for record in self.rng.records] != list(
+            range(1, len(self.rng.records) + 1)
+        ):
+            raise AssertionError("RNG consumption sequence is not contiguous")
+        if any(
+            previous.state_after != current.state_before
+            for previous, current in zip(self.rng.records, self.rng.records[1:], strict=False)
+        ):
+            raise AssertionError("RNG state evidence does not form one chain")
+        if self.rng.records and self.rng.records[-1].state_after != self.rng.state_digest:
+            raise AssertionError("RNG current state does not match its consumption ledger")
         occupied: dict[
             str,
             tuple[
@@ -2161,6 +2253,25 @@ class Game:
             "phase": self.phase,
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
+            "rng": {
+                "seed": self.rng.seed,
+                "state_digest": self.rng.state_digest,
+                "records": [
+                    {
+                        "sequence": record.sequence,
+                        "domain": record.domain,
+                        "operation": record.operation,
+                        "result": (
+                            list(record.result)
+                            if isinstance(record.result, tuple)
+                            else record.result
+                        ),
+                        "state_before": record.state_before,
+                        "state_after": record.state_after,
+                    }
+                    for record in self.rng.records
+                ],
+            },
             "stack": [
                 (
                     {
