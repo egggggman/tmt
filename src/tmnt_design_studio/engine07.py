@@ -16,7 +16,7 @@ from typing import Literal, Protocol
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.6"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.7"
 
 Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
@@ -206,7 +206,77 @@ class PowerToughnessModifier:
     source_card: str
     oracle_fragment: str
     created_turn: int
+    created_order: int = 0
     derived_static: bool = False
+
+
+class CharacteristicLayer(Enum):
+    COPY = 1
+    CONTROL = 2
+    TEXT = 3
+    TYPE = 4
+    COLOR = 5
+    ABILITY = 6
+    POWER_TOUGHNESS = 7
+
+
+class PowerToughnessSubLayer(Enum):
+    CHARACTERISTIC_DEFINING = "7a"
+    SET_BASE = "7b"
+    MODIFY = "7c"
+    SWITCH = "7d"
+
+
+class CharacteristicOperation(Enum):
+    SET = "set"
+    ADD = "add"
+    SWITCH = "switch"
+
+
+@dataclass(frozen=True)
+class CharacteristicEffect:
+    effect_id: str
+    layer: CharacteristicLayer
+    sublayer: PowerToughnessSubLayer | None
+    operation: CharacteristicOperation
+    power: int = 0
+    toughness: int = 0
+    timestamp: tuple[int, int] = (0, 0)
+    depends_on: tuple[str, ...] = ()
+    source_card: str = ""
+
+
+def _ordered_characteristic_effects(
+    effects: list[CharacteristicEffect],
+) -> list[CharacteristicEffect]:
+    """Order by layer/sublayer, then declared dependencies and stable timestamps."""
+    sublayer_order = {value: index for index, value in enumerate(PowerToughnessSubLayer)}
+    groups: dict[tuple[int, int], list[CharacteristicEffect]] = {}
+    for effect in effects:
+        key = (
+            effect.layer.value,
+            -1 if effect.sublayer is None else sublayer_order[effect.sublayer],
+        )
+        groups.setdefault(key, []).append(effect)
+    ordered: list[CharacteristicEffect] = []
+    for key in sorted(groups):
+        remaining = list(groups[key])
+        resolved: set[str] = set()
+        group_ids = {effect.effect_id for effect in remaining}
+        while remaining:
+            ready = [
+                effect
+                for effect in remaining
+                if not (set(effect.depends_on) & group_ids) - resolved
+            ]
+            if not ready:
+                raise ValueError("cyclic characteristic-effect dependency")
+            ready.sort(key=lambda effect: (effect.timestamp, effect.effect_id))
+            effect = ready[0]
+            ordered.append(effect)
+            resolved.add(effect.effect_id)
+            remaining.remove(effect)
+    return ordered
 
 
 @dataclass(eq=False)
@@ -308,6 +378,7 @@ class Permanent:
     damage: int = 0
     counters: dict[str, int] = field(default_factory=dict)
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
+    characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
 
     @property
     def printed_power(self) -> int:
@@ -326,15 +397,53 @@ class Permanent:
 
     @property
     def power(self) -> int:
-        counter_power, _ = self.counter_delta()
-        return self.printed_power + counter_power + sum(x.power for x in self.pt_modifiers)
+        return self.evaluate_power_toughness()[0]
 
     @property
     def toughness(self) -> int:
-        _, counter_toughness = self.counter_delta()
-        return (
-            self.printed_toughness + counter_toughness + sum(x.toughness for x in self.pt_modifiers)
+        return self.evaluate_power_toughness()[1]
+
+    def evaluate_power_toughness(self) -> tuple[int, int]:
+        counter_power, counter_toughness = self.counter_delta()
+        effects = list(self.characteristic_effects)
+        if counter_power or counter_toughness:
+            effects.append(
+                CharacteristicEffect(
+                    f"{self.object_id}:counters",
+                    CharacteristicLayer.POWER_TOUGHNESS,
+                    PowerToughnessSubLayer.MODIFY,
+                    CharacteristicOperation.ADD,
+                    counter_power,
+                    counter_toughness,
+                    (-1, -1),
+                    source_card="counters",
+                )
+            )
+        effects.extend(
+            CharacteristicEffect(
+                f"{self.object_id}:modifier:{index}",
+                CharacteristicLayer.POWER_TOUGHNESS,
+                PowerToughnessSubLayer.MODIFY,
+                CharacteristicOperation.ADD,
+                modifier.power,
+                modifier.toughness,
+                (modifier.created_turn, modifier.created_order),
+                source_card=modifier.source_card,
+            )
+            for index, modifier in enumerate(self.pt_modifiers)
         )
+        power, toughness = self.printed_power, self.printed_toughness
+        for effect in _ordered_characteristic_effects(effects):
+            if effect.layer is not CharacteristicLayer.POWER_TOUGHNESS:
+                continue
+            if effect.operation is CharacteristicOperation.SET:
+                power, toughness = effect.power, effect.toughness
+            elif effect.operation is CharacteristicOperation.ADD:
+                power += effect.power
+                toughness += effect.toughness
+            elif effect.operation is CharacteristicOperation.SWITCH:
+                power, toughness = toughness, power
+        return power, toughness
 
 
 @dataclass
@@ -440,6 +549,7 @@ class Game:
         self.pending_triggers: list[TriggerInstance] = []
         self._next_event_number = 1
         self._next_trigger_number = 1
+        self._next_effect_number = 1
         self.players = [PlayerState(names[i], []) for i in range(2)]
         for owner, cards in enumerate(shuffled):
             self.players[owner].library.extend(
@@ -1027,9 +1137,11 @@ class Game:
                 source_card=source_card,
                 oracle_fragment=oracle_fragment,
                 created_turn=self.turn,
+                created_order=self._next_effect_number,
                 derived_static=derived_static,
             )
         )
+        self._next_effect_number += 1
         if log_event:
             self.log(
                 "pt_modifier_applied",
@@ -1040,6 +1152,44 @@ class Game:
                 duration=duration,
                 oracle_fragment=oracle_fragment,
             )
+
+    def add_characteristic_effect(self, target: Permanent, effect: CharacteristicEffect) -> None:
+        """Register a typed continuous effect for ordered characteristic evaluation."""
+        if not self.is_authoritative(target, "battlefield"):
+            raise ValueError("characteristic effect target must be on the battlefield")
+        if any(
+            existing.effect_id == effect.effect_id for existing in target.characteristic_effects
+        ):
+            raise ValueError("characteristic effect ID must be unique on its target")
+        if effect.layer is not CharacteristicLayer.POWER_TOUGHNESS or effect.sublayer is None:
+            raise ValueError("only typed power/toughness layer effects are represented")
+        valid_operation = {
+            PowerToughnessSubLayer.CHARACTERISTIC_DEFINING: CharacteristicOperation.SET,
+            PowerToughnessSubLayer.SET_BASE: CharacteristicOperation.SET,
+            PowerToughnessSubLayer.MODIFY: CharacteristicOperation.ADD,
+            PowerToughnessSubLayer.SWITCH: CharacteristicOperation.SWITCH,
+        }[effect.sublayer]
+        if effect.operation is not valid_operation:
+            raise ValueError("characteristic operation does not match its sublayer")
+        existing_ids = {existing.effect_id for existing in target.characteristic_effects}
+        if any(dependency not in existing_ids for dependency in effect.depends_on):
+            raise ValueError("characteristic effect dependency must already exist")
+        target.characteristic_effects.append(effect)
+        # Evaluate immediately so cycles and malformed dependencies never enter authoritative state.
+        try:
+            target.evaluate_power_toughness()
+        except Exception:
+            target.characteristic_effects.remove(effect)
+            raise
+        self.log(
+            "characteristic_effect_added",
+            target=target.card.name,
+            effect_id=effect.effect_id,
+            layer=effect.layer.value,
+            sublayer=effect.sublayer.value,
+            operation=effect.operation.value,
+            source=effect.source_card,
+        )
 
     def refresh_static_pt_modifiers(self) -> None:
         previous: dict[str, tuple[int, int]] = {}
@@ -1976,6 +2126,20 @@ class Game:
                         raise AssertionError("unknown P/T modifier duration")
                     if modifier.created_turn > self.turn:
                         raise AssertionError("P/T modifier originates in a future turn")
+                effect_ids = {effect.effect_id for effect in permanent.characteristic_effects}
+                if len(effect_ids) != len(permanent.characteristic_effects):
+                    raise AssertionError("characteristic effect IDs must be unique")
+                if any(
+                    dependency not in effect_ids
+                    for effect in permanent.characteristic_effects
+                    for dependency in effect.depends_on
+                ):
+                    raise AssertionError("characteristic effect dependency is missing")
+                if permanent.card.is_creature:
+                    try:
+                        permanent.evaluate_power_toughness()
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
                 if "Legendary" in permanent.card.type_line:
                     if permanent.card.name in legendary_names:
                         raise AssertionError("legend rule left duplicate names on battlefield")
@@ -2057,9 +2221,26 @@ class Game:
                                     "source_card": modifier.source_card,
                                     "oracle_fragment": modifier.oracle_fragment,
                                     "created_turn": modifier.created_turn,
+                                    "created_order": modifier.created_order,
                                     "derived_static": modifier.derived_static,
                                 }
                                 for modifier in x.pt_modifiers
+                            ],
+                            "characteristic_effects": [
+                                {
+                                    "effect_id": effect.effect_id,
+                                    "layer": effect.layer.value,
+                                    "sublayer": (
+                                        None if effect.sublayer is None else effect.sublayer.value
+                                    ),
+                                    "operation": effect.operation.value,
+                                    "power": effect.power,
+                                    "toughness": effect.toughness,
+                                    "timestamp": list(effect.timestamp),
+                                    "depends_on": list(effect.depends_on),
+                                    "source_card": effect.source_card,
+                                }
+                                for effect in x.characteristic_effects
                             ],
                         }
                         for x in p.battlefield
