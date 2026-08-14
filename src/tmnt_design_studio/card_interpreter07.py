@@ -79,6 +79,31 @@ class InterpretedDamageSemantics:
 
 
 @dataclass(frozen=True)
+class ScryProgram:
+    """One Oracle-derived fixed-number Scry payload."""
+
+    amount: int | None
+    unsupported_reason: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return self.amount is not None and self.amount > 0 and self.unsupported_reason is None
+
+
+@dataclass(frozen=True)
+class InterpretedScrySemantics:
+    """An Action-specific Scry program paired with generic coverage evidence."""
+
+    program: ScryProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class TokenDefinition:
     """Immutable characteristics for one Oracle-derived token kind."""
 
@@ -197,6 +222,7 @@ class CardInterpreter:
         r"each of those creatures)\b",
         re.IGNORECASE,
     )
+    SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
         r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
     )
@@ -517,6 +543,85 @@ class CardInterpreter:
         )
         return InterpretedDamageSemantics(program, coverage, parent_limitation)
 
+    def scry_program(self, fragment: str) -> ScryProgram | None:
+        """Recognize only explicit Oracle Scry instructions, never similar library actions."""
+        match = self.SCRY.search(fragment)
+        if match is None:
+            return None
+        amount_text = match.group("amount").casefold()
+        if not amount_text.isdecimal():
+            return ScryProgram(None, "dynamic_scry_amount_not_implemented")
+        amount = int(amount_text)
+        if amount <= 0:
+            return ScryProgram(amount, "scry_zero_not_represented")
+        return ScryProgram(amount)
+
+    def scry_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedScrySemantics | None:
+        """Keep the Scry payload distinct from delivery and surrounding instructions."""
+        program = self.scry_program(fragment)
+        if program is None:
+            return None
+        match = self.SCRY.search(fragment)
+        assert match is not None
+        fragments = self.fragments(card)
+        alliance_mode = fragment.startswith("• ") and any(
+            self.ALLIANCE_MODAL_HEADER.fullmatch(candidate) for candidate in fragments
+        )
+        direct_creature_etb = "Creature" in card.type_line and bool(
+            re.match(r"^When .+ enters, scry\b", fragment, re.I)
+        )
+        prefix = fragment[: match.start()]
+        if alliance_mode or direct_creature_etb:
+            parent_executable = True
+            parent_limitation = None
+        elif re.search(r"\bif\b", prefix, re.I):
+            parent_executable = False
+            parent_limitation = "scry_condition_context_not_implemented"
+        elif re.search(r"(?:^|\.\s+)(?:When|Whenever|At)\b", prefix, re.I):
+            parent_executable = False
+            parent_limitation = "scry_preceding_or_trigger_context_not_implemented"
+        elif ":" in prefix:
+            parent_executable = False
+            parent_limitation = "scry_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At |Disappear)", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "scry_preceding_or_trigger_context_not_implemented"
+        elif fragment.startswith("• "):
+            parent_executable = False
+            parent_limitation = "scry_choice_context_not_implemented"
+        elif prefix.strip():
+            parent_executable = False
+            parent_limitation = "scry_preceding_effect_not_implemented"
+        else:
+            parent_executable = True
+            parent_limitation = None
+
+        suffix = fragment[match.end() :]
+        suffix_without_reminder = re.sub(
+            r"^\.?(?:\s*\((?:Look at|You may put)[\s\S]*\))?\.?$", "", suffix, flags=re.I
+        )
+        followup_limitation = (
+            "scry_followup_semantics_not_implemented" if suffix_without_reminder.strip() else None
+        )
+        limitations = tuple(
+            reason
+            for reason in (
+                program.unsupported_reason,
+                parent_limitation,
+                followup_limitation,
+            )
+            if reason is not None
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_limitation is None,
+            limitations,
+        )
+        return InterpretedScrySemantics(program, coverage, parent_limitation)
+
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
@@ -615,6 +720,11 @@ class CardInterpreter:
                     continue
                 if not damage_coverage.limitations:
                     unsupported.append((fragment, "damage_semantics_not_implemented"))
+                continue
+            scry_coverage = self.scry_semantic_coverage(card, fragment)
+            if scry_coverage is not None:
+                for reason in scry_coverage.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             if (
                 fragment.casefold() == "haste"

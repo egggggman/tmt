@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from tmnt_design_studio.engine07 import ActionKind, ActionOption, GameView
+from tmnt_design_studio.engine07 import ActionKind, ActionOption, GameView, ScryOption, ScryView
 
 
 class Pilot(Protocol):
@@ -15,6 +15,8 @@ class Pilot(Protocol):
     def choose_attack(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption: ...
 
     def choose_blocks(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption: ...
+
+    def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption: ...
 
 
 class AcceptancePilot:
@@ -77,6 +79,13 @@ class AcceptancePilot:
         del view
         return max(options, key=lambda option: len(option.blocks))
 
+    def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption:
+        """Deterministically keep the inspected cards on top in their current order."""
+        current = tuple(object_id for object_id, _name in view.cards)
+        return next(
+            option for option in options if option.top_ids == current and not option.bottom_ids
+        )
+
 
 class PassingPilot(AcceptancePilot):
     """Deliberately poor but legal strategy used to prove legality is strategy-independent."""
@@ -94,3 +103,10 @@ class PassingPilot(AcceptancePilot):
     def choose_blocks(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
         del view
         return min(options, key=lambda option: len(option.blocks))
+
+    def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption:
+        """A poor but legal choice: put every inspected card on the bottom."""
+        current = tuple(object_id for object_id, _name in view.cards)
+        return next(
+            option for option in options if not option.top_ids and option.bottom_ids == current
+        )
