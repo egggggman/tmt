@@ -16,9 +16,9 @@ from typing import Literal, Protocol
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.3"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.4"
 
-Zone = Literal["library", "hand", "battlefield", "graveyard", "former"]
+Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
 
 class TurnStep(Enum):
@@ -205,6 +205,23 @@ class CardObject:
 
 
 @dataclass(eq=False)
+class StackObject:
+    """One authoritative spell incarnation with announcement-time choices locked in."""
+
+    object_id: str
+    card: CardFact
+    owner: int
+    controller: int
+    cast_kind: CastKind
+    target_id: str | None = None
+    zone: Zone = "stack"
+
+    @property
+    def name(self) -> str:
+        return self.card.name
+
+
+@dataclass(eq=False)
 class Permanent:
     object_id: str
     card: CardFact
@@ -344,7 +361,8 @@ class Game:
             rng.shuffle(cards)
             shuffled.append(cards)
         self._next_object_number = 1
-        self._objects: dict[str, CardObject | Permanent] = {}
+        self._objects: dict[str, CardObject | StackObject | Permanent] = {}
+        self.stack: list[StackObject] = []
         self.players = [PlayerState(names[i], []) for i in range(2)]
         for owner, cards in enumerate(shuffled):
             self.players[owner].library.extend(
@@ -398,7 +416,9 @@ class Game:
         self._next_object_number += 1
         return object_id
 
-    def _register(self, obj: CardObject | Permanent) -> CardObject | Permanent:
+    def _register(
+        self, obj: CardObject | StackObject | Permanent
+    ) -> CardObject | StackObject | Permanent:
         if obj.object_id in self._objects:
             raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
         self._objects[obj.object_id] = obj
@@ -456,32 +476,36 @@ class Game:
         return any(candidate is obj for candidate in zone)
 
     def _all_zone_lists(self) -> list[list]:
-        return [
+        return [self.stack] + [
             zone
             for player in self.players
             for zone in (player.library, player.hand, player.battlefield, player.graveyard)
         ]
 
-    def _authoritative_container(self, obj: CardObject | Permanent) -> list:
+    def _authoritative_container(self, obj: CardObject | StackObject | Permanent) -> list:
+        if obj.zone == "stack":
+            return self.stack
         holder = obj.controller if obj.zone == "battlefield" else obj.owner
         if obj.zone == "former":
             raise ValueError("former object no longer occupies an authoritative zone")
         return getattr(self.players[holder], obj.zone)
 
-    def is_authoritative(self, obj: CardObject | Permanent, zone: Zone) -> bool:
+    def is_authoritative(self, obj: CardObject | StackObject | Permanent, zone: Zone) -> bool:
         if zone == "former" or self._objects.get(obj.object_id) is not obj or obj.zone != zone:
             return False
         return self._identity_contains(self._authoritative_container(obj), obj)
 
     def move_object(
         self,
-        obj: CardObject | Permanent,
-        destination: Literal["library", "hand", "battlefield", "graveyard"],
+        obj: CardObject | StackObject | Permanent,
+        destination: Literal["library", "hand", "stack", "battlefield", "graveyard"],
         *,
         controller: int | None = None,
+        cast_kind: CastKind | None = None,
+        target_id: str | None = None,
         summoning_sick: bool = True,
         reason: str | None = None,
-    ) -> CardObject | Permanent:
+    ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
@@ -494,14 +518,20 @@ class Game:
             raise ValueError("object must occupy exactly one authoritative zone")
         if destination == obj.zone:
             raise ValueError("same-zone movement is not supported")
-        if controller is not None and (destination != "battlefield" or controller not in range(2)):
+        if controller is not None and (
+            destination not in {"battlefield", "stack"} or controller not in range(2)
+        ):
             raise ValueError("destination controller is invalid")
+        if destination == "stack" and (controller is None or cast_kind is None):
+            raise ValueError("stack movement requires controller and cast program")
+        if destination != "stack" and (cast_kind is not None or target_id is not None):
+            raise ValueError("stack metadata is valid only for stack movement")
 
         source_zone = obj.zone
         new_id = self._allocate_object_id()
         destination_controller = obj.owner if controller is None else controller
         if destination == "battlefield":
-            replacement: CardObject | Permanent = Permanent(
+            replacement: CardObject | StackObject | Permanent = Permanent(
                 new_id,
                 obj.card,
                 obj.owner,
@@ -510,6 +540,10 @@ class Game:
                 entered_battlefield_turn=self.turn,
             )
             destination_container = self.players[destination_controller].battlefield
+        elif destination == "stack":
+            assert controller is not None and cast_kind is not None
+            replacement = StackObject(new_id, obj.card, obj.owner, controller, cast_kind, target_id)
+            destination_container = self.stack
         else:
             replacement = CardObject(new_id, obj.card, obj.owner, obj.owner, destination)
             destination_container = getattr(self.players[obj.owner], destination)
@@ -842,6 +876,8 @@ class Game:
 
     def transition_to(self, step: TurnStep) -> None:
         """Perform the one legal deterministic CR 500-series step transition."""
+        if self.stack:
+            raise ValueError("cannot advance the turn with an unresolved stack")
         expected = NEXT_STEP[self._step]
         if step is not expected:
             raise ValueError(
@@ -1191,6 +1227,21 @@ class Game:
             land.tapped = True
 
     def cast(self, player_index: int, card: CardObject, target: Permanent | None = None) -> bool:
+        """Compatibility action: announce a represented spell, then resolve it immediately.
+
+        Immediate resolution is an explicit temporary boundary until a priority controller owns
+        pass sequencing. Every represented spell still traverses the authoritative stack lifecycle.
+        """
+        spell = self.announce_spell(player_index, card, target)
+        if spell is None:
+            return False
+        self.resolve_top_of_stack()
+        return True
+
+    def announce_spell(
+        self, player_index: int, card: CardObject, target: Permanent | None = None
+    ) -> StackObject | None:
+        """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
         if (
             player_index != self.active_player
@@ -1199,8 +1250,9 @@ class Game:
             or card.owner != player_index
             or not self.can_afford(player_index, card)
         ):
-            return False
+            return None
         program = self.interpreter.cast_program(card.card)
+        target_id: str | None = None
         if program.kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
             if (
                 target is None
@@ -1210,14 +1262,9 @@ class Game:
                 self.log(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
                 )
-                return False
-            self._pay(player_index, card.mana_value)
-            self.move_object(card, "graveyard", reason="spell_resolved")
-            target.damage += 3
-            self.log("spell_resolved", player=player.name, card=card.name, target=target.card.name)
-            self.check_state_based_actions()
-            return True
-        if program.kind is CastKind.DESTROY_OPPOSING_POWER_4:
+                return None
+            target_id = target.object_id
+        elif program.kind is CastKind.DESTROY_OPPOSING_POWER_4:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
@@ -1227,39 +1274,92 @@ class Game:
                 self.log(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
                 )
-                return False
-            self._pay(player_index, card.mana_value)
-            self.move_object(card, "graveyard", reason="spell_resolved")
-            self.destroy(target)
-            self.log("spell_resolved", player=player.name, card=card.name, target=target.card.name)
-            return True
-        if program.kind is CastKind.CREATURE:
-            self._pay(player_index, card.mana_value)
-            haste = "Haste" in card.keywords
+                return None
+            target_id = target.object_id
+        elif program.kind is CastKind.UNSUPPORTED:
+            fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
+            for fragment in fragments or [card.type_line]:
+                self.unsupported(
+                    card.card,
+                    "spell_or_permanent_semantics_not_implemented",
+                    player_index=player_index,
+                    oracle_fragment=fragment,
+                )
+            return None
+
+        self._pay(player_index, card.mana_value)
+        spell = self.move_object(
+            card,
+            "stack",
+            controller=player_index,
+            cast_kind=program.kind,
+            target_id=target_id,
+            reason="spell_cast",
+        )
+        assert isinstance(spell, StackObject)
+        self.log(
+            "spell_cast",
+            player=player.name,
+            card=spell.name,
+            stack_object_id=spell.object_id,
+            target_id=target_id,
+        )
+        return spell
+
+    def resolve_top_of_stack(self) -> CardObject | Permanent:
+        """Resolve the authoritative top spell and transactionally leave the stack."""
+        if not self.stack:
+            raise ValueError("cannot resolve an empty stack")
+        spell = self.stack[-1]
+        if not self.is_authoritative(spell, "stack"):
+            raise ValueError("top stack object is not authoritative")
+        player = self.players[spell.controller]
+        target = self._objects.get(spell.target_id or "")
+
+        if spell.cast_kind is CastKind.CREATURE:
             permanent = self.move_object(
-                card,
+                spell,
                 "battlefield",
-                controller=player_index,
-                summoning_sick=not haste,
+                controller=spell.controller,
+                summoning_sick="Haste" not in spell.card.keywords,
                 reason="creature_resolved",
             )
             assert isinstance(permanent, Permanent)
-            self.log("creature_resolved", player=player.name, card=card.name)
+            self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
             self.resolve_creature_entered_pt_effects(permanent)
             self.resolve_creature_entered_counter_effects(permanent)
-            self.report_unsupported_abilities(player_index, card.card)
+            self.report_unsupported_abilities(spell.controller, spell.card)
             self.check_state_based_actions()
-            return True
-        fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
-        for fragment in fragments or [card.type_line]:
-            self.unsupported(
-                card.card,
-                "spell_or_permanent_semantics_not_implemented",
-                player_index=player_index,
-                oracle_fragment=fragment,
+            return permanent
+
+        legal_target = isinstance(target, Permanent) and self.is_authoritative(
+            target, "battlefield"
+        )
+        if spell.cast_kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+            legal_target = legal_target and target.controller != spell.controller
+        elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
+            legal_target = (
+                legal_target and target.controller != spell.controller and target.power >= 4
             )
-        return False
+        resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
+        assert isinstance(resolved_card, CardObject)
+        if not legal_target:
+            self.log(
+                "spell_resolved_no_effect",
+                player=player.name,
+                card=spell.name,
+                reason="all_targets_illegal",
+            )
+            return resolved_card
+        assert isinstance(target, Permanent)
+        if spell.cast_kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+            target.damage += 3
+            self.check_state_based_actions()
+        elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
+            self.destroy(target)
+        self.log("spell_resolved", player=player.name, card=spell.name, target=target.card.name)
+        return resolved_card
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
         return [
@@ -1436,7 +1536,23 @@ class Game:
         self.check_invariants()
 
     def check_invariants(self) -> None:
-        occupied: dict[str, tuple[int, str, CardObject | Permanent]] = {}
+        occupied: dict[str, tuple[int | None, str, CardObject | StackObject | Permanent]] = {}
+        for obj in self.stack:
+            if not isinstance(obj, StackObject):
+                raise AssertionError("stack may contain only stack objects")
+            if obj.object_id in occupied:
+                raise AssertionError("runtime object occupies more than one zone")
+            if self._objects.get(obj.object_id) is not obj:
+                raise AssertionError("stack contains an unregistered or aliased object")
+            if obj.zone != "stack":
+                raise AssertionError("stack object zone does not match its container")
+            if obj.controller not in range(2):
+                raise AssertionError("stack object controller is invalid")
+            if obj.cast_kind is CastKind.UNSUPPORTED:
+                raise AssertionError("unsupported spells cannot become stack objects")
+            if obj.target_id is not None and obj.target_id not in self._objects:
+                raise AssertionError("stack target ID was never registered")
+            occupied[obj.object_id] = (None, "stack", obj)
         for player_index, player in enumerate(self.players):
             for zone_name in ("library", "hand", "battlefield", "graveyard"):
                 for obj in getattr(player, zone_name):
@@ -1509,6 +1625,17 @@ class Game:
             "phase": self.phase,
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
+            "stack": [
+                {
+                    "object_id": spell.object_id,
+                    "card": spell.card.name,
+                    "owner": spell.owner,
+                    "controller": spell.controller,
+                    "cast_kind": spell.cast_kind.value,
+                    "target_id": spell.target_id,
+                }
+                for spell in self.stack
+            ],
             "players": [
                 {
                     "name": p.name,
