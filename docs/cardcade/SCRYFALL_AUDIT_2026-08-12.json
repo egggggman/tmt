@@ -1,0 +1,273 @@
+{
+  "schema_version": "1.0.0",
+  "retrieved_at": "2026-08-13T03:54:23.705578Z",
+  "source": {
+    "provider": "Scryfall",
+    "api": "https://api.scryfall.com",
+    "set_codes": [
+      "tmt",
+      "pza",
+      "tmc"
+    ],
+    "request_user_agent": "TMNTDesignStudio/0.5.0 (+https://github.com/egggggman/tmt)",
+    "identifiers": [
+      "https://api.scryfall.com/sets/tmt",
+      "https://api.scryfall.com/cards/search?q=e%3Atmt&unique=prints&order=set",
+      "https://api.scryfall.com/cards/search?format=json&include_extras=false&include_multilingual=false&include_variations=false&order=set&page=2&q=e%3Atmt&unique=prints",
+      "https://api.scryfall.com/sets/pza",
+      "https://api.scryfall.com/cards/search?q=e%3Apza&unique=prints&order=set",
+      "https://api.scryfall.com/sets/tmc",
+      "https://api.scryfall.com/cards/search?q=e%3Atmc&unique=prints&order=set"
+    ]
+  },
+  "snapshot": {
+    "canonicalization": "UTF-8 JSON, sorted keys, compact separators; records sorted by set/collector_number/id",
+    "sha256": "042c556b3e67af83f69d4e1f96bb7bb026aedccb7f0aa792a53ace225d4de8df",
+    "print_count": 472,
+    "unique_oracle_object_count": 332,
+    "field_coverage": {
+      "records_with_oracle_text_or_complete_face_text": 472,
+      "records_with_keywords_array": 472,
+      "records_with_type_line": 472,
+      "records_with_mana_cost_field": 472,
+      "creature_records": 265,
+      "creature_records_with_power_toughness": 265,
+      "records_with_legalities": 472,
+      "multiface_print_records": 1,
+      "card_face_count": 2,
+      "faces_with_name_type_mana_oracle": 2
+    },
+    "sets": [
+      {
+        "code": "tmt",
+        "id": "03990f52-1d8a-4ce8-828a-c9bf633f0de6",
+        "name": "Teenage Mutant Ninja Turtles",
+        "released_at": "2026-03-06",
+        "advertised_card_count": 320,
+        "retrieved_print_count": 320,
+        "unique_oracle_object_count": 195
+      },
+      {
+        "code": "pza",
+        "id": "59aecbd0-4c5b-4dd7-a0f2-ba16b4403c56",
+        "name": "Teenage Mutant Ninja Turtles Source Material",
+        "released_at": "2026-03-06",
+        "advertised_card_count": 20,
+        "retrieved_print_count": 20,
+        "unique_oracle_object_count": 20
+      },
+      {
+        "code": "tmc",
+        "id": "178a07bb-cd54-4443-8b62-675e0c52cfe3",
+        "name": "Teenage Mutant Ninja Turtles Eternal",
+        "released_at": "2026-03-06",
+        "advertised_card_count": 132,
+        "retrieved_print_count": 132,
+        "unique_oracle_object_count": 117
+      }
+    ]
+  },
+  "committed_cardcade_source": {
+    "path": "cardcade/card-model-0.6.json",
+    "sha256": "8631a98759ffd762931f5305b6c2bca72fdcd26827adbf5cdb5a764edb131b80",
+    "record_count": 103,
+    "declared_source": "tmnt-design-studio.db cards/keywords; frozen for Engine 0.6",
+    "contains_retrieval_timestamp": false,
+    "contains_import_id_or_source_checksum": false,
+    "fields": [
+      "keywords",
+      "mana_cost",
+      "mana_value",
+      "oracle_id",
+      "oracle_text",
+      "type_line"
+    ],
+    "introducing_commit": "ed3ec1e5c01a238c4028c3c61c8a9e1972631ca4",
+    "introducing_commit_author_date": "2026-08-10T17:03:52-04:00",
+    "omitted_fields": [
+      "card_faces",
+      "legalities",
+      "power",
+      "toughness"
+    ]
+  },
+  "other_committed_scryfall_data": {
+    "path": "tests/fixtures/scryfall-default-cards.json",
+    "purpose": "synthetic test fixture, not a TMT/PZA/TMC snapshot",
+    "sha256": "f82fc8e300d5e20232abe6d57040d82a0c154d025eb3f2797ed7fd11e8d018cd",
+    "printing_count": 4,
+    "unique_oracle_object_count": 3
+  },
+  "deck_validation": {
+    "roster": "cardcade/roster-0.2.json",
+    "deck_count": 10,
+    "total_slots": 600,
+    "unique_card_names": 102,
+    "resolved_slots": 600,
+    "decks": [
+      {
+        "id": "leonardo",
+        "decklist": "decks/leonardo/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 15,
+        "unresolved_names": []
+      },
+      {
+        "id": "raphael",
+        "decklist": "decks/raphael/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 14,
+        "unresolved_names": []
+      },
+      {
+        "id": "donatello",
+        "decklist": "decks/donatello/PROTOTYPE_0.2.txt",
+        "slots": 60,
+        "unique_names": 14,
+        "unresolved_names": []
+      },
+      {
+        "id": "michelangelo",
+        "decklist": "decks/michelangelo/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 14,
+        "unresolved_names": []
+      },
+      {
+        "id": "splinter",
+        "decklist": "decks/splinter/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 13,
+        "unresolved_names": []
+      },
+      {
+        "id": "april_oneil",
+        "decklist": "decks/april_oneil/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 14,
+        "unresolved_names": []
+      },
+      {
+        "id": "casey_jones",
+        "decklist": "decks/casey_jones/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 13,
+        "unresolved_names": []
+      },
+      {
+        "id": "shredder",
+        "decklist": "decks/shredder/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 13,
+        "unresolved_names": []
+      },
+      {
+        "id": "krang",
+        "decklist": "decks/krang/PROTOTYPE_0.2.txt",
+        "slots": 60,
+        "unique_names": 14,
+        "unresolved_names": []
+      },
+      {
+        "id": "bebop_rocksteady",
+        "decklist": "decks/bebop_rocksteady/PROTOTYPE_0.1.txt",
+        "slots": 60,
+        "unique_names": 16,
+        "unresolved_names": []
+      }
+    ],
+    "current_scryfall_field_presence_by_slot": {
+      "keywords": 600,
+      "legalities": 600,
+      "mana_cost": 600,
+      "oracle_text": 600,
+      "type_line": 600
+    },
+    "creature_slots": 231,
+    "creature_slots_with_complete_power_toughness": 231,
+    "multiface_slots": 0,
+    "multiface_slots_with_complete_face_facts": 0,
+    "representative_print_set_by_slot": {
+      "tmt": 600
+    },
+    "legality_values_by_format_and_slot": {
+      "alchemy": {
+        "banned": 12,
+        "legal": 588
+      },
+      "brawl": {
+        "legal": 600
+      },
+      "commander": {
+        "legal": 600
+      },
+      "competitivebrawl": {
+        "legal": 600
+      },
+      "duel": {
+        "legal": 600
+      },
+      "future": {
+        "legal": 600
+      },
+      "gladiator": {
+        "legal": 600
+      },
+      "historic": {
+        "legal": 600
+      },
+      "legacy": {
+        "legal": 600
+      },
+      "modern": {
+        "legal": 600
+      },
+      "oathbreaker": {
+        "legal": 600
+      },
+      "oldschool": {
+        "not_legal": 600
+      },
+      "pauper": {
+        "legal": 419,
+        "not_legal": 181
+      },
+      "paupercommander": {
+        "legal": 419,
+        "not_legal": 181
+      },
+      "penny": {
+        "legal": 519,
+        "not_legal": 81
+      },
+      "pioneer": {
+        "legal": 600
+      },
+      "predh": {
+        "legal": 227,
+        "not_legal": 373
+      },
+      "premodern": {
+        "legal": 219,
+        "not_legal": 381
+      },
+      "standard": {
+        "legal": 600
+      },
+      "standardbrawl": {
+        "legal": 600
+      },
+      "timeless": {
+        "legal": 600
+      },
+      "tlr": {
+        "legal": 530,
+        "not_legal": 70
+      },
+      "vintage": {
+        "legal": 600
+      }
+    },
+    "committed_model_discrepancies": []
+  }
+}
