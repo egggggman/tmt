@@ -134,3 +134,25 @@ source material and one another. Start with [Contributing](CONTRIBUTING.md), use
 [Glossary](docs/GLOSSARY.md), preserve architectural boundaries, and propose hard-to-reverse changes
 through an ADR or RFC before implementation. Community before ego; always leave room for the Rule of
 Joy.
+
+## License and third-party material
+
+Original work authored by this project's contributors is made available under the
+[Apache License 2.0](LICENSE). This includes original software and infrastructure, project tooling,
+architecture, schemas, workflows, governance and validation systems, original documentation, and
+original project-created design systems and production materials where the project has the rights to
+license them.
+
+The project-wide original foundation includes work across HQ, Design Studio, TMNT the Cardcade Game,
+Mr. Paperback, Canon/Source Material, and The Underground Press. For The Underground Press this can
+include original editorial systems, newspaper design language, templates, component and layout
+systems, production workflow, original writing, and independently created worldbuilding.
+
+**Third-party intellectual property is not licensed under Apache 2.0.** TMNT and Magic: The
+Gathering names, characters, trademarks, card content, artwork, and other protected materials remain
+the property of their respective rights holders. Scryfall material and other third-party data,
+software, fonts, artwork, and assets remain subject to their applicable rights, licenses, policies,
+and terms. Their presence in this repository does not imply ownership, affiliation, endorsement, or
+an Apache license grant.
+
+See [NOTICE](NOTICE) for the project-wide licensing boundary and third-party exclusions.
