@@ -11,6 +11,7 @@ import re
 from dataclasses import dataclass, field
 from enum import Enum
 from hashlib import sha256
+from itertools import permutations
 from pathlib import Path
 from typing import Literal, Protocol
 
@@ -19,6 +20,7 @@ from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     CastKind,
     DamageTargetKind,
+    ScryProgram,
     TokenCreationProgram,
     TokenDefinition,
 )
@@ -135,6 +137,7 @@ class RulesEventKind(Enum):
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
     DAMAGE_DEALT = "damage_dealt"
+    SCRIED = "scried"
 
 
 class TriggerEffect(Enum):
@@ -146,6 +149,7 @@ class TriggerEffect(Enum):
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
     DEAL_DAMAGE = "deal_damage"
+    SCRY = "scry"
 
 
 @dataclass(frozen=True)
@@ -170,6 +174,37 @@ class DamageTransaction:
     oracle_fragment: str
     target: Permanent | None = None
     target_player: int | None = None
+
+
+@dataclass(frozen=True)
+class ScryOption:
+    """One immutable legal ordering; IDs are top-first and bottom-first respectively."""
+
+    top_ids: tuple[str, ...]
+    bottom_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ScryView:
+    """Private immutable choice view, separate from the public game view and library."""
+
+    player_index: int
+    requested: int
+    cards: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True)
+class ScryEvidence:
+    """Typed committed Scry evidence; ordering uses the same top/bottom convention."""
+
+    event_id: str
+    player_index: int
+    requested: int
+    inspected_ids: tuple[str, ...]
+    top_ids: tuple[str, ...]
+    bottom_ids: tuple[str, ...]
+    source_card: str
+    oracle_fragment: str
 
 
 @dataclass(frozen=True)
@@ -675,6 +710,7 @@ class Game:
         legend_rule_chooser=None,
         counter_target_chooser=None,
         alliance_mode_chooser=None,
+        scry_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -703,6 +739,7 @@ class Game:
         self._combat_damage_resolved = False
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
+        self.scry_evidence: list[ScryEvidence] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
         self.interpreter = interpreter or CardInterpreter()
@@ -714,6 +751,14 @@ class Game:
         )
         self.alliance_mode_chooser = alliance_mode_chooser or (
             lambda _player_index, _source_id, modes: modes[0]
+        )
+        self.scry_chooser = scry_chooser or (
+            lambda view, options: next(
+                option
+                for option in options
+                if option.top_ids == tuple(object_id for object_id, _name in view.cards)
+                and not option.bottom_ids
+            )
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
         for player in self.players:
@@ -1139,6 +1184,106 @@ class Game:
         self.check_life()
         return event
 
+    @staticmethod
+    def legal_scry_options(inspected: tuple[CardObject, ...]) -> tuple[ScryOption, ...]:
+        """Enumerate every partition and ordering without exposing authoritative objects."""
+        object_ids = tuple(card.object_id for card in inspected)
+        options = {
+            ScryOption(order[:top_count], order[top_count:])
+            for order in permutations(object_ids)
+            for top_count in range(len(object_ids) + 1)
+        }
+        if not object_ids:
+            options.add(ScryOption((), ()))
+        return tuple(sorted(options, key=lambda option: (option.top_ids, option.bottom_ids)))
+
+    def scry(
+        self,
+        player_index: int,
+        program: ScryProgram,
+        *,
+        source_card: str,
+        oracle_fragment: str,
+    ) -> ScryOption:
+        """Transactionally perform one fixed-number Scry using authoritative library objects."""
+        if player_index not in range(2):
+            raise ValueError("Scry player is invalid")
+        if not isinstance(program, ScryProgram) or not program.executable:
+            raise ValueError("Scry program is not executable")
+        assert program.amount is not None
+        library = self.players[player_index].library
+        inspected = tuple(reversed(library[-min(program.amount, len(library)) :]))
+        before = tuple(library)
+        view = ScryView(
+            player_index,
+            program.amount,
+            tuple((card.object_id, card.card.name) for card in inspected),
+        )
+        options = self.legal_scry_options(inspected)
+        try:
+            choice = self.scry_chooser(view, options)
+
+            if not isinstance(choice, ScryOption) or choice not in options:
+                raise ValueError("Scry chooser must return one listed option")
+            if tuple(library) != before or any(
+                self._objects.get(card.object_id) is not card
+                or not self.is_authoritative(card, "library")
+                for card in inspected
+            ):
+                raise ValueError("Scry library or inspected identity became stale")
+            selected_ids = choice.top_ids + choice.bottom_ids
+            if len(set(selected_ids)) != len(inspected) or set(selected_ids) != {
+                card.object_id for card in inspected
+            }:
+                raise ValueError("Scry choice must contain each inspected card exactly once")
+        except Exception:
+            library[:] = before
+            raise
+
+        by_id = {card.object_id: card for card in inspected}
+        inspected_identities = {id(card) for card in inspected}
+        uninspected = [card for card in library if id(card) not in inspected_identities]
+        replacement = (
+            [by_id[object_id] for object_id in choice.bottom_ids]
+            + uninspected
+            + [by_id[object_id] for object_id in reversed(choice.top_ids)]
+        )
+        if len(replacement) != len(before) or {id(card) for card in replacement} != {
+            id(card) for card in before
+        }:
+            raise AssertionError("Scry transaction changed library membership")
+        library[:] = replacement
+
+        event = self._new_rules_event(
+            RulesEventKind.SCRIED,
+            player_index,
+            tuple(card.object_id for card in inspected),
+        )
+        evidence = ScryEvidence(
+            event.event_id,
+            player_index,
+            program.amount,
+            tuple(card.object_id for card in inspected),
+            choice.top_ids,
+            choice.bottom_ids,
+            source_card,
+            oracle_fragment,
+        )
+        self.scry_evidence.append(evidence)
+        self.log(
+            "scry_committed",
+            event_id=evidence.event_id,
+            player=self.players[player_index].name,
+            requested=evidence.requested,
+            inspected=len(evidence.inspected_ids),
+            inspected_ids=list(evidence.inspected_ids),
+            top_ids=list(evidence.top_ids),
+            bottom_ids=list(evidence.bottom_ids),
+            source_card=evidence.source_card,
+            oracle_fragment=evidence.oracle_fragment,
+        )
+        return choice
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -1257,6 +1402,22 @@ class Game:
                         target_player=target_player,
                     )
                 )
+        elif ability.effect is TriggerEffect.SCRY:
+            semantics = self.interpreter.scry_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if (
+                semantics is None
+                or not semantics.coverage.payload_executable
+                or not semantics.coverage.parent_executable
+            ):
+                raise AssertionError("stacked Scry trigger no longer has executable semantics")
+            self.scry(
+                ability.controller,
+                semantics.program,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+            )
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             self.log(
                 "pt_effect_condition_not_met",
@@ -1332,6 +1493,22 @@ class Game:
                         source_card=ability.source_card.name,
                         oracle_fragment=mode,
                     )
+                elif (
+                    (
+                        scry_coverage := self.interpreter.scry_semantic_coverage(
+                            ability.source_card, mode
+                        )
+                    )
+                    is not None
+                    and scry_coverage.coverage.payload_executable
+                    and scry_coverage.coverage.parent_executable
+                ):
+                    self.scry(
+                        ability.controller,
+                        scry_coverage.program,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=mode,
+                    )
                 else:
                     self.log(
                         "alliance_mode_not_executed",
@@ -1402,6 +1579,16 @@ class Game:
                     and re.match(r"^(?:When|Whenever) .+ enters(?: or attacks)?,", fragment)
                 ):
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
+        if TriggerEffect.SCRY in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.scry_semantic_coverage(entering.card, fragment)
+                if (
+                    coverage is not None
+                    and coverage.coverage.payload_executable
+                    and coverage.coverage.parent_executable
+                    and re.match(r"^When .+ enters, scry\b", fragment, re.I)
+                ):
+                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.SCRY)
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
@@ -1448,6 +1635,7 @@ class Game:
             TriggerEffect.ALLIANCE_MODAL,
             TriggerEffect.CREATE_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
+            TriggerEffect.SCRY,
         }
         for permanent in entering:
             event = self._new_rules_event(

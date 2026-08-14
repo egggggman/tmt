@@ -457,7 +457,7 @@ def test_modal_alliance_counter_choice_is_once_per_turn_and_resets_at_cleanup():
     assert source.counters == {"+1/+1": 1}
     current.resolve_creature_entered_counter_effects(entering)
     assert source.counters == {"+1/+1": 1}
-    assert any(event["event"] == "alliance_mode_not_executed" for event in current.events)
+    assert any(event.get("rules_event") == "scried" for event in current.events)
 
     current.end_turn()
     current.resolve_creature_entered_counter_effects(entering)
