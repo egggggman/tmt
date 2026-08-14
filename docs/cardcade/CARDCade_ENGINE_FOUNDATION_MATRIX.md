@@ -1,10 +1,10 @@
 # Cardcade Engine Foundation Matrix
 
-Re-audit date: 2026-08-13 EDT
+Re-audit date: 2026-08-14 EDT
 
-Committed base: `c52e31e` (validated post-0.8f Foundation Matrix)
+Committed base: `f196665` (validated post-0.8g Foundation Matrix)
 
-Candidate under review: uncommitted Engine 0.8g Layers Foundation working tree
+Candidate under review: uncommitted Engine 0.8h Deterministic RNG Foundation working tree
 
 Rules basis: [Magic Comprehensive Rules, effective June 19, 2026](https://media.wizards.com/2026/downloads/MagicCompRules%2020260619.pdf)
 
@@ -15,14 +15,14 @@ and the committed [authoritative snapshot manifest](../../cardcade/scryfall-tmt-
 
 ## Audit boundary and method
 
-This is an evidence-only post-0.8g re-audit. The candidate implementation and tests were not
+This is an evidence-only post-0.8h re-audit. The candidate implementation and tests were not
 modified or committed. The only audit edit is this document. Assessment uses:
 
-1. current CR 613 layer/sublayer, timestamp, and dependency ordering, with related CR 122 counters,
-   611 continuous effects, and 701.20 randomness requirements;
+1. current CR 103.3 and 701.20 randomness requirements, with reproducibility, consumption-ledger,
+   state-export, and exact legacy-permutation evidence;
 2. the checksum-verified TMT/PZA/TMC pool: 472 prints, **332 unique Oracle objects**, and
    **102 unique cards / 600 resolved slots** in the ten frozen decks;
-3. committed Engine 0.8f at `c52e31e` versus the actual uncommitted 0.8g working tree;
+3. committed Engine 0.8g at `f196665` versus the actual uncommitted 0.8h working tree;
 4. static inspection of the rules engine, interpreter, pilot, and Acceptance Match runner;
 5. independent adversarial probes, candidate tests, the full suite, and duplicate Acceptance Match
    #001 seeds 7001–7005.
@@ -50,55 +50,54 @@ Pool pressure is unchanged. Across the 332 Oracle objects / 102 roster cards res
 | **Post-0.8d (`dc62779`)** | **6** | **10** | **4** | **0** |
 | **Post-0.8e (`3a8de43`)** | **7** | **10** | **3** | **0** |
 | **Post-0.8f (`c52e31e`)** | **8** | **10** | **2** | **0** |
-| **Post-0.8g candidate** | **9** | **10** | **1** | **0** |
+| **Post-0.8g (`f196665`)** | **9** | **10** | **1** | **0** |
+| **Post-0.8h candidate** | **10** | **10** | **0** | **0** |
 
-Engine 0.8g changes exactly one classification: Layers **RED → GREEN** for represented P/T
-characteristic evaluation. No dependent row was upgraded automatically.
+Engine 0.8h changes exactly one classification: Deterministic RNG **RED → GREEN** for represented
+random operations. No dependent row was upgraded automatically.
 
 ## Reconciled 20-row matrix
 
-| Foundation row | Post-0.8f | Post-0.8g candidate | Current CR/pool/code/test evidence | Remaining rework risk |
+| Foundation row | Post-0.8g | Post-0.8h candidate | Current CR/pool/code/test evidence | Remaining rework risk |
 | --- | :---: | :---: | --- | --- |
 | Card Data / Oracle | **GREEN** | **GREEN** | CR 108.1 makes Oracle authoritative; CR 200–208 defines characteristics and faces. `card_data.py` still checksum-verifies 472 prints / 332 Oracle objects, exposes normalized facts and legalities, and resolves all 600 slots. Full data tests pass. | Extend the authoritative interface when more characteristics enter play; never add parallel hard-coded fact tables. |
 | Object Identity | **GREEN** | **GREEN** | CR 109 and 400.7 identity remains registry-backed, non-value, and deterministic. Combat declarations now persist runtime IDs across three steps; stale/fabricated action IDs are revalidated. Identity and transactional-zone regressions pass. | Future tokens, copies, face-down objects, merged permanents, last-known information, and CR 400.7 exceptions must use the same service. |
 | Zones | **YELLOW** | **YELLOW** | CR 400–408 now includes an authoritative shared Stack alongside library, hand, battlefield, and graveyard. All represented Hand→Stack→destination movement uses `move_object()` and CR 400.7 new identities. | Exile/command, same-zone ordering, CR exceptions, and encapsulated internal collections remain absent. |
 | Turn Structure | **GREEN** | **GREEN** | The exact CR 500-series turn graph remains authoritative. `transition_to()` now also rejects advancement while a represented stack object is unresolved, so callers cannot skip resolution. Existing turn and cleanup regressions pass. | Priority-bearing windows, extra turns/phases, additional combat phases, simultaneous team turns, hand-size cleanup, and repeated cleanup remain future extensions. |
 | Combat State | **YELLOW** | **YELLOW** | Staged CR 506–511 combat state is unchanged and its regressions pass. The spell lifecycle does not fabricate combat timing or add Sneak/enters-attacking behavior. | Defender choice, arbitrary attacker subsets, multiple blockers, blocking order, extra damage steps, trample assignment, planeswalkers/battles, and attack costs remain absent. |
-| Costs | **RED** | **GREEN** | CR 118/601.2f–h is now represented by frozen `ManaRequirement` and `PaymentPlan` values. Fixed generic/colored symbols construct exact totals; plans lock authoritative source IDs; colored sources are selected before deterministic generic sources; the plan is revalidated at commit; and every tap rolls back if Hand→Stack movement fails. Unsupported symbols are explicit and never pay. | Hybrid/phyrexian/snow/X costs, reductions/increases, cost-setting, mana abilities, player-selected payments, additional/alternative costs, activation costs, and nonmana costs remain unsupported extensions over the typed transaction. |
+| Costs | **GREEN** | **GREEN** | CR 118/601.2f–h is now represented by frozen `ManaRequirement` and `PaymentPlan` values. Fixed generic/colored symbols construct exact totals; plans lock authoritative source IDs; colored sources are selected before deterministic generic sources; the plan is revalidated at commit; and every tap rolls back if Hand→Stack movement fails. Unsupported symbols are explicit and never pay. | Hybrid/phyrexian/snow/X costs, reductions/increases, cost-setting, mana abilities, player-selected payments, additional/alternative costs, activation costs, and nonmana costs remain unsupported extensions over the typed transaction. |
 | Choices vs Targets | **YELLOW** | **YELLOW** | Represented targets are locked as immutable runtime IDs on `StackObject` and revalidated under CR 608.2b at resolution. Fabricated, friendly, stale, and power-ineligible targets are rejected or resolve with no effect as appropriate. | Add typed target/choice requests, modes, divisions, optional choices, multiple targets, partial legality, and resolution-time non-target choices. |
 | Events | **YELLOW** | **YELLOW** | Frozen `RulesEvent` values now authoritatively identify creature-entry, life-gain, and attacker-declaration events with deterministic IDs, player, and subject IDs. Logs project their lifecycle but are not rules input. | Add simultaneous event batches, replacements/prevention, richer source/cause chains, LKI snapshots, and broader event kinds. |
-| Triggers | **RED** | **GREEN** | Represented Alliance, life-gain, attack, and conditional ETB shapes are now detected from typed events into frozen `TriggerInstance` values, queued, ordered deterministically by APNAP/controller/source, placed as independent `TriggeredAbilityObject` entries on the shared stack, and resolved top-first. Source departure does not delete the ability. Immediate mutation-path handlers are gone from actual spell resolution. | Optional/mode/target choices should move fully to stack-placement time where required; add intervening-if checks, delayed triggers, leaves/dies/cast triggers, LKI payloads, simultaneous SBA/trigger collection, player ordering choices, and broader interpreter shapes. These extend the represented pipeline rather than replace it. |
+| Triggers | **GREEN** | **GREEN** | Represented Alliance, life-gain, attack, and conditional ETB shapes are now detected from typed events into frozen `TriggerInstance` values, queued, ordered deterministically by APNAP/controller/source, placed as independent `TriggeredAbilityObject` entries on the shared stack, and resolved top-first. Source departure does not delete the ability. Immediate mutation-path handlers are gone from actual spell resolution. | Optional/mode/target choices should move fully to stack-placement time where required; add intervening-if checks, delayed triggers, leaves/dies/cast triggers, LKI payloads, simultaneous SBA/trigger collection, player ordering choices, and broader interpreter shapes. These extend the represented pipeline rather than replace it. |
 | Stack | **GREEN** | **GREEN** | The shared stack now contains both card-backed spells and independent triggered-ability objects. Unified top resolution preserves an underlying spell while an ability resolves above it; type/registration/zone invariants cover both. | Activated abilities, copies, face-down spells, countering, replacement destinations, and complete casting steps remain unsupported extensions. |
 | Priority | **YELLOW** | **YELLOW** | CR 117 priority ownership and all-pass sequencing remain unimplemented. Trigger batches use deterministic immediate compatibility draining after stack placement; the unified resolver and transition gate remain clean future controller seams. | Add APNAP priority ownership, legal instant/ability options, pass cycles, all-pass top resolution, and empty-stack step advancement. |
 | State-Based Actions | **YELLOW** | **YELLOW** | CR 704/117.5 repeat-until-stable legend/lethal behavior remains. Cleanup and combat damage invoke represented SBA checks at deterministic engine boundaries, but no priority controller supplies every required boundary and checks remain narrow/sequential. | Collect simultaneous SBA batches at every future priority boundary; add zero toughness, counter annihilation, token cleanup, attachment SBAs, and other applicable cases. |
 | Counters | **GREEN** | **GREEN** | CR 122 counter state remains separate and is now projected as a typed layer 7c additive effect rather than added by a parallel arithmetic path. Accumulation, persistence, zone reset, and SBA interactions pass. | Add more counter-type semantics and the +1/+1/−1/−1 SBA; finality depends on replacement/exile support. |
 | Continuous Effects | **YELLOW** | **YELLOW** | Represented additive modifiers and new typed set/add/switch test effects are independent inputs to characteristic evaluation with timestamps and dependencies. Affected-set queries, source-linked lifecycle, non-P/T operations, and automatic broader Oracle interpretation remain absent. | Build game-owned effect registries/queries and extend typed operations beyond P/T without bypassing the evaluator. |
-| Layers | **RED** | **GREEN** | CR 613 ordering is now represented by `CharacteristicLayer`, P/T sublayers 7a–7d, typed operations, stable timestamps, and dependency-aware topological ordering. Existing counters and modifiers are projected into 7c; 7b set, 7c modify, and 7d switch execute in order regardless of insertion. Cycles/wrong operations are rejected and zone changes reset effect state. | Copy/control/text/type/color/ability operations, CDAs beyond P/T tests, automatic dependency discovery, multi-object affected sets, and full characteristic coverage remain unsupported extensions. The represented evaluator no longer conflicts with base-setting or Equipment-style additive P/T effects. |
+| Layers | **GREEN** | **GREEN** | CR 613 ordering is now represented by `CharacteristicLayer`, P/T sublayers 7a–7d, typed operations, stable timestamps, and dependency-aware topological ordering. Existing counters and modifiers are projected into 7c; 7b set, 7c modify, and 7d switch execute in order regardless of insertion. Cycles/wrong operations are rejected and zone changes reset effect state. | Copy/control/text/type/color/ability operations, CDAs beyond P/T tests, automatic dependency discovery, multi-object affected sets, and full characteristic coverage remain unsupported extensions. The represented evaluator no longer conflicts with base-setting or Equipment-style additive P/T effects. |
 | Durations | **YELLOW** | **YELLOW** | CR 611.2a and 514.2 represented “until end of turn” semantics are now structurally stronger: effects survive through End Step and expire only on entry to engine-owned Cleanup; marked damage clears at the same boundary. Persistent modifiers survive. Independent probes and regressions verify no premature/late expiration. | End-of-combat, next-turn, “for as long as,” source-linked, attachment-linked, delayed, and conditional durations remain absent. Repeated cleanup under CR 514.3 requires the future trigger/priority loop. |
 | Attachments | **YELLOW** | **YELLOW** | CR 301.5, 303.4, 701.3, and 704.5m–n remain unsupported but identity-safe. Main-phase state supplies the correct future sorcery-timing input for Equip; no attachment/equip semantics were added. | Add runtime-ID attachment edges, legality, typed Equip cost/activation, detachment, effects/layers, and attachment SBAs. |
-| Deterministic RNG | **RED** | **RED** | CR 103.3/701.20 random operations still need a retained auditable stream. Turn progression and duplicate acceptance runs are deterministic, but `random.Random(seed)` is still discarded after shuffle. Casey Jones-style later randomness remains structurally unsafe. | Retain a game-owned RNG service, log consumption, and serialize/replay its state or decisions. |
-| Invariants | **YELLOW** | **YELLOW** | Characteristic-effect IDs, dependencies, operations, cycles, timestamps, and zone reset are now adversarially covered alongside existing stack/trigger invariants. | Add global conservation, checks at every transaction, option/state versioning, encapsulated collections, and cross-object effect causality. |
-| Rules Engine ↔ Card Interpreter ↔ Pilot separation | **GREEN** | **GREEN** | The engine owns effect registration/validation and permanents expose pure ordered evaluation. Existing interpreter-derived modifiers enter the same pipeline; pilots cannot write effects or characteristics. | Preserve this boundary for broader Oracle effect construction, affected-set selection, attachments, copies, and type/ability changes. |
+| Deterministic RNG | **RED** | **GREEN** | CR 103.3/701.20 represented randomness now flows through one game-owned `DeterministicRNG`. Every consumption records a contiguous sequence, semantic domain, operation, result, and before/after state digests. State can be exported and restored for exact continuation. Opening libraries retain the exact legacy `random.shuffle` permutation and stream state, so all five acceptance trajectories remain unchanged. | New random operations must use the same scoped service. Player-verifiable random procedures, multiplayer shared randomness, cryptographic commitments, and Oracle-specific random choices remain unsupported extensions. |
+| Invariants | **YELLOW** | **YELLOW** | RNG records now join characteristic, stack, trigger, zone, and identity invariants: sequences must be contiguous, state transitions must form one chain, and the ledger tail must match the current stream digest. Adversarial tampering is rejected. | Add global conservation, checks at every transaction, option/state versioning, encapsulated collections, and cross-object effect causality. |
+| Rules Engine ↔ Card Interpreter ↔ Pilot separation | **GREEN** | **GREEN** | The engine owns effect registration/validation and the sole retained RNG service; interpreter and pilot code cannot own or consume random state. Existing interpreter-derived modifiers enter the layer pipeline, and pilots cannot write effects, characteristics, or randomness. | Preserve this boundary for broader Oracle effect construction, random choice requests, affected-set selection, attachments, copies, and type/ability changes. |
 
 No row is UNKNOWN: current rules, authoritative data, committed history, candidate code, and executable
 probes are sufficient for all twenty classifications.
 
 ## Classification changes
 
-### Layers: RED → GREEN
+### Deterministic RNG: RED → GREEN
 
-The previous RED condition was structural: `Permanent.power`/`toughness` directly added printed
-values, counters, and a flat modifier list. Base-setting, switches, timestamps, dependencies, copy/
-type effects, and Equipment would have required replacing that evaluator. Engine 0.8g removes the
-direct arithmetic path. Typed `CharacteristicEffect` values identify layer, sublayer, operation,
-timestamp, declared dependencies, and source. The evaluator orders layers/sublayers first, then
-dependency-ready effects and stable timestamps; counters and existing modifiers enter layer 7c;
-and set/add/switch operations execute in 7b/7c/7d order regardless of insertion.
+The previous RED condition was structural: game construction created a local `random.Random(seed)`,
+shuffled two libraries, and discarded the stream. Any later random operation would have required a
+second source or an unreplayable control path. Engine 0.8h replaces that local use with one retained,
+game-owned service. Its typed records capture sequence, domain, operation, result, and state-chain
+digests, while export/restore proves exact continuation from serialized state.
 
-GREEN is scoped to represented P/T characteristic evaluation. Other layer operations, automatic
-dependency discovery, affected-set calculation, copies, type/color/ability changes, and complete
-continuous-effect lifecycle remain unsupported. They extend the typed ordering pipeline rather than
-replace flat arithmetic. Deterministic RNG is the only remaining RED.
+GREEN is scoped to represented random operations. Opening-library shuffles preserve the exact prior
+algorithm, permutations, and continued stream state. Future Oracle-specific random choices remain
+unsupported, but they extend this service instead of introducing a competing randomness path. No
+Foundation Matrix row remains RED.
 
 ## Independent adversarial evidence
 
@@ -128,6 +127,12 @@ replace flat arithmetic. Deterministic RNG is the only remaining RED.
 | Declared dependency with inverse timestamps | Dependency order wins inside the sublayer. | Dependency-ready evaluation is real, not metadata-only. |
 | Cyclic dependency / wrong operation | Rejected without authoritative state corruption. | Invalid layer graphs cannot silently evaluate. |
 | Zone round trip | New object has no prior characteristic effects. | CR 400.7 resets layer state. |
+| Two legacy-compatible shuffles | Exact permutations and subsequent stream state match `random.Random(seed)`. | Centralization does not change represented gameplay randomness. |
+| Consecutive scoped RNG operations | Contiguous records retain domain, operation, result, and matching before/after digests. | Every represented consumption is auditable. |
+| Export, JSON round trip, and restore | Restored service produces the exact next result and state digest. | Replay can resume from retained state. |
+| Empty domain / invalid bound | Rejected with no ledger entry or stream advance. | Unscoped or malformed random requests cannot consume state. |
+| Ledger sequence/state tampering | Invariant failure. | Corrupted randomness evidence cannot pass validation. |
+| Static random-source inspection | Only `DeterministicRNG` constructs `random.Random`. | Engine, interpreter, pilot, and runner cannot create parallel streams. |
 | Skip Setup→Draw / out-of-order transitions | `ValueError`; exact expected successor reported. | Runner or caller cannot skip the state graph. |
 | Leave Combat Damage unresolved | Rejected. | Damage cannot be skipped. |
 | Resolve damage before the step / resolve twice | Both rejected. | Damage execution is step-bound and single-use. |
@@ -148,7 +153,7 @@ The compatibility `combat()` and `end_turn()` helpers remain engine-owned adapte
 same validated state/actions. The Acceptance runner no longer uses `combat()` and does not manually
 set phase state.
 
-## Architectural dependency probes after 0.8g
+## Architectural dependency probes after 0.8h
 
 - **Sneak:** Declare Blockers is now an authoritative state, removing the old “no place to act” turn
   conflict. Sneak still cannot work: it needs priority during that step, stack casting, an alternative
@@ -170,38 +175,39 @@ set phase state.
 - **Disappear:** End Step now exists and is logged, so delayed/end-step scheduling has a legitimate
   future boundary. The typed pipeline is ready, but delayed scheduling and LKI payloads are not yet
   represented, so Disappear stays unsupported without making Triggers structurally RED.
+- **Casey Jones / future random choices:** the game-owned service now supplies a scoped, logged,
+  replayable random operation path. No Casey Jones behavior was implemented; its currently
+  unsupported semantics remain explicit until the interpreter and rules engine represent the actual
+  choice requested by Oracle text.
 
-The Layers foundation removes the flat P/T arithmetic conflict and supplies the evaluator required by
-future Equipment/base-setting work without implementing those Actions or attachments.
+The RNG foundation removes the discarded-stream conflict and supplies the sole path required by
+future random operations without implementing any new card behavior or Action.
 
 ## Decision answers
 
-1. **Are Layers still RED?** No. They are **GREEN** for represented P/T evaluation.
-2. **Did direct P/T arithmetic remain?** No. Printed values are the base and every represented counter,
-   modifier, set, add, and switch is ordered through the typed evaluator.
-3. **Are sublayers correct?** Yes for represented 7a–7d ordering; tests prove set→modify→switch is
-   independent of insertion order.
-4. **Are timestamps represented?** Yes. Independent effects within a sublayer apply in stable order.
-5. **Are dependencies represented?** Yes. Declared dependencies override timestamps within a group;
-   cycles and missing dependencies are rejected.
-6. **Does CR 400.7 reset effects?** Yes. New battlefield objects have empty effect state.
-7. **Were Equipment or broader effects implemented?** No. Attachments, Actions, affected sets, and
-   non-P/T operations remain unsupported extensions.
-8. **How many REDs remain?** **1**: Deterministic RNG.
-9. **Next single architectural correction?** Retain a game-owned deterministic RNG service, log every
-   consumption with sequence/domain/result evidence, and expose serializable replay state.
+1. **Is Deterministic RNG still RED?** No. It is **GREEN** for represented random operations.
+2. **Is the stream retained?** Yes. `Game` owns one `DeterministicRNG` for its lifetime.
+3. **Is every represented consumption auditable?** Yes. Sequence, domain, operation, result, and
+   before/after state digests are recorded.
+4. **Can execution resume exactly?** Yes. Exported state survives a JSON round trip and restoration
+   produces the exact next result and state.
+5. **Did shuffle behavior change?** No. Opening-library permutations and all five gameplay
+   trajectories exactly match the prior implementation.
+6. **Can callers consume malformed or unscoped randomness?** No. Such requests fail without state
+   advancement or a ledger entry.
+7. **Was any card-specific random behavior implemented?** No. Unsupported Oracle semantics remain
+   explicit.
+8. **How many REDs remain?** **0**.
+9. **Next single architectural correction?** None. The authorized cycle stops at zero RED.
 
 ## Remaining RED priority
 
-1. **Deterministic RNG** — persistent, logged, replayable randomness service.
-
-Priority is deliberately absent from this RED list because the state-machine foundation removes its
-architectural conflict. It remains YELLOW and wholly unsupported until a later priority controller is
-implemented.
+None. The Foundation Matrix has reached **zero RED**. Ten YELLOW rows describe explicit unsupported
+extensions, not architectural conflicts, and do not authorize another checkpoint in this cycle.
 
 ## Acceptance and validation evidence
 
-Acceptance outcomes are unchanged from Engine 0.8f. Unsupported telemetry remains **81 events / 23
+Acceptance outcomes are unchanged from Engine 0.8g. Unsupported telemetry remains **81 events / 23
 exact fragment pairs**, and block-restriction rejections remain **0/2/0/1/3** by seed, six total.
 
 | Seed | Winner / ending turn | Unsupported events / seed pairs | Block rejections | Final stack |
@@ -213,23 +219,24 @@ exact fragment pairs**, and block-restriction rejections remain **0/2/0/1/3** by
 | 7005 | Raphael / 16 | 13 / 8 | 3 | 0 |
 
 Duplicate candidate runs match exactly per seed. Candidate snapshots are intentionally not
-byte-identical to 0.8f because Engine 0.8g adds effect timestamps, characteristic-effect snapshot
-state, and a new engine version. Winners, ending turns, unsupported counts, exact semantic pairs,
-block rejections, and trajectories are unchanged.
+byte-identical to 0.8g because Engine 0.8h adds the RNG state digest, consumption ledger, and a new
+engine version. Winners, ending turns, unsupported counts, exact semantic pairs, block rejections,
+and gameplay trajectories are unchanged.
 
 Validation at audit time:
 
-- focused Layers, Engine 0.7, and Trigger suites: **50 passed**;
-- focused `test_engine08g_layers.py`: **6 passed**;
-- full suite: **173 passed, 1 skipped**;
+- focused RNG, Layers, and Trigger suites: **18 passed**;
+- focused `test_engine08h_rng.py`: **6 passed**;
+- full suite: **179 passed, 1 skipped**;
 - Ruff format: clean;
 - Ruff check: clean;
 - `git diff --check`: clean;
 - deterministic duplicate Acceptance Match #001 seeds 7001–7005: exact per-seed matches;
-- authoritative card-data and 0.8a–0.8f boundary tests: included in the passing full suite.
+- authoritative card-data and 0.8a–0.8g boundary tests: included in the passing full suite.
 
 ## Governance boundary
 
-This re-audit changes only this document. Engine 0.8g implementation/tests remain uncommitted and
-unmodified by the audit. No Equipment/attachment, full priority sequencing, counterspell, new Action,
-RNG behavior, deck, prototype, historical evidence, calibration, or smoke test was added or changed.
+This re-audit changes only this document. Engine 0.8h implementation/tests remain uncommitted and
+unmodified by the audit. No card-specific random behavior, Equipment/attachment, full priority
+sequencing, counterspell, new Action, deck, prototype, historical evidence, calibration, or smoke
+test was added or changed.
