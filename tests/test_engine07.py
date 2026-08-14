@@ -6,6 +6,7 @@ from tmnt_design_studio.engine07 import (
     Game,
     Permanent,
     PowerToughnessModifier,
+    TurnStep,
 )
 
 PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains")
@@ -38,6 +39,7 @@ def test_starting_player_skips_first_turn_draw():
     current = game()
     current.begin_turn()
     assert len(current.players[0].hand) == 7
+    current.end_turn()
     current.begin_turn()
     assert len(current.players[1].hand) == 8
 
@@ -59,7 +61,9 @@ def test_summoning_sickness_then_legal_attack():
     player.hand = current.set_hand_for_testing(0, [BEAR])
     assert current.cast(0, player.hand[0])
     assert current.legal_attackers(0) == []
-    current.turn = 2
+    current.end_turn()
+    current.begin_turn()
+    current.end_turn()
     current.begin_turn()
     assert [p.card.name for p in current.legal_attackers(0)] == ["Bear"]
 
@@ -75,6 +79,7 @@ def test_attack_block_damage_and_lethal_to_graveyard():
     blocker = current.create_permanent(BEAR, 1, summoning_sick=False)
     current.players[0].battlefield = [attacker]
     current.players[1].battlefield = [blocker]
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
     current.combat([attacker], {attacker.object_id: blocker})
     assert [obj.card for obj in current.players[0].graveyard] == [BEAR]
     assert [obj.card for obj in current.players[1].graveyard] == [BEAR]
@@ -107,6 +112,7 @@ def test_power_threshold_evasion_is_used_by_block_generation_and_validation():
     assert rejected["blocker_power"] == 3
 
     with pytest.raises(ValueError, match="illegal blocker"):
+        current.advance_to(TurnStep.DECLARE_ATTACKERS)
         current.combat([attacker], {attacker.object_id: illegal})
 
 
@@ -135,9 +141,10 @@ def test_greater_power_evasion_uses_current_power_after_attack_modifiers():
     source = current.create_permanent(leader, 0, summoning_sick=False)
     attacker = current.create_permanent(evasive, 0, summoning_sick=False)
     equal_after_modifier = current.create_permanent(OGRE, 1, summoning_sick=False)
-    current.players[0].battlefield = [source, attacker]
+    current.players[0].battlefield = [attacker, source]
     current.players[1].battlefield = [equal_after_modifier]
 
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
     current.combat([attacker, source], auto_assign_blockers=True)
 
     assert attacker.power == 3
@@ -148,6 +155,7 @@ def test_greater_power_evasion_uses_current_power_after_attack_modifiers():
         {
             "turn": 1,
             "phase": "combat",
+            "step": "combat_damage",
             "event": "combat_damage_creatures",
             "attacker": evasive.name,
             "blocker": OGRE.name,
@@ -165,6 +173,7 @@ def test_block_invariants_reject_duplicate_blocker_and_nonattacker_assignment():
     current.players[1].battlefield = [blocker]
 
     with pytest.raises(ValueError, match="illegal blocker"):
+        current.advance_to(TurnStep.DECLARE_ATTACKERS)
         current.combat(
             [first, second],
             {first.object_id: blocker, second.object_id: blocker},
@@ -175,9 +184,10 @@ def test_block_invariants_reject_duplicate_blocker_and_nonattacker_assignment():
     attacker = fresh.create_permanent(BEAR, 0, summoning_sick=False)
     nonattacker = fresh.create_permanent(BEAR, 0, summoning_sick=False)
     defending = fresh.create_permanent(OGRE, 1, summoning_sick=False)
-    fresh.players[0].battlefield = [attacker, nonattacker]
+    fresh.players[0].battlefield = [attacker]
     fresh.players[1].battlefield = [defending]
     with pytest.raises(ValueError, match="nonattacker"):
+        fresh.advance_to(TurnStep.DECLARE_ATTACKERS)
         fresh.combat([attacker], {nonattacker.object_id: defending})
 
 
@@ -187,6 +197,7 @@ def test_unblocked_life_loss_and_win():
     current.begin_turn()
     attacker = current.create_permanent(giant, 0, summoning_sick=False)
     current.players[0].battlefield = [attacker]
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
     current.combat([attacker])
     assert current.players[1].life == 0
     assert current.winner == 0
@@ -437,6 +448,7 @@ def test_modal_alliance_counter_choice_is_once_per_turn_and_resets_at_cleanup():
         toughness=2,
     )
     current = game()
+    current.begin_turn()
     source = current.create_permanent(modal, 0, summoning_sick=False)
     entering = current.create_permanent(BEAR, 0)
     current.players[0].battlefield = [source, entering]
@@ -552,6 +564,7 @@ def test_attack_team_modifier_applies_to_other_attackers_only_then_expires():
     teammate = current.create_permanent(BEAR, 0, summoning_sick=False)
     current.players[0].battlefield = [source, teammate]
 
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
     current.combat([source, teammate])
     assert source.power == source.printed_power
     assert teammate.power == teammate.printed_power + 1
@@ -645,6 +658,7 @@ def test_fabricated_equal_valued_attacker_is_rejected_without_mutation():
     fabricated = fabricated_copy(real)
 
     with pytest.raises(ValueError, match="illegal attacker"):
+        current.advance_to(TurnStep.DECLARE_ATTACKERS)
         current.combat([fabricated])
 
     assert not real.tapped
@@ -660,6 +674,7 @@ def test_fabricated_equal_valued_blocker_is_rejected():
     fabricated = fabricated_copy(real_blocker)
 
     with pytest.raises(ValueError, match="illegal blocker"):
+        current.advance_to(TurnStep.DECLARE_ATTACKERS)
         current.combat([attacker], {attacker.object_id: fabricated})
     assert not attacker.tapped
 
@@ -733,7 +748,7 @@ def test_owner_is_stable_across_control_and_zone_changes():
 
 def test_new_object_resets_counters_effects_damage_tap_and_stale_references():
     current = game()
-    current.turn = 4
+    current.begin_turn()
     old = current.create_permanent(BEAR, 0, summoning_sick=False)
     old.tapped = True
     old.damage = 1
@@ -768,7 +783,7 @@ def test_new_object_resets_counters_effects_damage_tap_and_stale_references():
     assert returned.damage == 0
     assert not returned.tapped
     assert returned.summoning_sick
-    assert returned.entered_battlefield_turn == 4
+    assert returned.entered_battlefield_turn == 1
 
 
 def test_old_object_reference_cannot_bind_to_equal_new_incarnation():

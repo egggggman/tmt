@@ -43,11 +43,16 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
             chosen = pilot.choose_main_action(game.public_view(), options, stage)
             game.execute_main_action(chosen)
 
+        game.advance_step()
+        game.advance_step()
         attack_options = game.legal_attack_options(active)
         attack = pilot.choose_attack(game.public_view(), attack_options)
+        game.execute_attack_action(attack)
         block_options = game.legal_block_options(attack, 1 - active)
         blocks = pilot.choose_blocks(game.public_view(), block_options)
-        game.execute_combat_actions(attack, blocks)
+        game.execute_block_action(blocks)
+        game.resolve_combat_damage()
+        game.advance_step()
         game.end_turn()
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")

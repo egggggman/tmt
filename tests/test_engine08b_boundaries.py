@@ -8,6 +8,7 @@ from tmnt_design_studio.engine07 import (
     ActionOption,
     CardFact,
     Game,
+    TurnStep,
 )
 from tmnt_design_studio.pilot07 import AcceptancePilot, PassingPilot
 
@@ -145,15 +146,16 @@ def test_combat_options_are_engine_legal_and_pilot_cannot_fabricate_participants
     current.begin_turn()
     attacker = current.create_permanent(BEAR, 0, summoning_sick=False)
     blocker = current.create_permanent(BEAR, 1, summoning_sick=False)
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
     attack = max(current.legal_attack_options(0), key=lambda option: len(option.attacker_ids))
-    blocks = max(current.legal_block_options(attack, 1), key=lambda option: len(option.blocks))
 
     assert attack.attacker_ids == (attacker.object_id,)
+    current.execute_attack_action(attack)
+    blocks = max(current.legal_block_options(attack, 1), key=lambda option: len(option.blocks))
     assert blocks.blocks == ((attacker.object_id, blocker.object_id),)
     fake_attack = ActionOption(ActionKind.DECLARE_ATTACKERS, 0, attacker_ids=("object-999999",))
     with pytest.raises(ValueError, match="attack option is not currently legal"):
-        current.execute_combat_actions(fake_attack, blocks)
-    assert not attacker.tapped
+        current.execute_attack_action(fake_attack)
 
 
 def test_counter_pt_sba_and_identity_mutation_remain_engine_owned():

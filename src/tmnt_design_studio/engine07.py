@@ -16,9 +16,68 @@ from typing import Literal, Protocol
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.2"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.3"
 
 Zone = Literal["library", "hand", "battlefield", "graveyard", "former"]
+
+
+class TurnStep(Enum):
+    SETUP = "setup"
+    UNTAP = "untap"
+    UPKEEP = "upkeep"
+    DRAW = "draw"
+    PRECOMBAT_MAIN = "precombat_main"
+    BEGINNING_OF_COMBAT = "beginning_of_combat"
+    DECLARE_ATTACKERS = "declare_attackers"
+    DECLARE_BLOCKERS = "declare_blockers"
+    COMBAT_DAMAGE = "combat_damage"
+    END_OF_COMBAT = "end_of_combat"
+    POSTCOMBAT_MAIN = "postcombat_main"
+    END_STEP = "end_step"
+    CLEANUP = "cleanup"
+
+
+class TurnPhase(Enum):
+    SETUP = "setup"
+    BEGINNING = "beginning"
+    PRECOMBAT_MAIN = "precombat_main"
+    COMBAT = "combat"
+    POSTCOMBAT_MAIN = "postcombat_main"
+    ENDING = "ending"
+
+
+STEP_PHASE = {
+    TurnStep.SETUP: TurnPhase.SETUP,
+    TurnStep.UNTAP: TurnPhase.BEGINNING,
+    TurnStep.UPKEEP: TurnPhase.BEGINNING,
+    TurnStep.DRAW: TurnPhase.BEGINNING,
+    TurnStep.PRECOMBAT_MAIN: TurnPhase.PRECOMBAT_MAIN,
+    TurnStep.BEGINNING_OF_COMBAT: TurnPhase.COMBAT,
+    TurnStep.DECLARE_ATTACKERS: TurnPhase.COMBAT,
+    TurnStep.DECLARE_BLOCKERS: TurnPhase.COMBAT,
+    TurnStep.COMBAT_DAMAGE: TurnPhase.COMBAT,
+    TurnStep.END_OF_COMBAT: TurnPhase.COMBAT,
+    TurnStep.POSTCOMBAT_MAIN: TurnPhase.POSTCOMBAT_MAIN,
+    TurnStep.END_STEP: TurnPhase.ENDING,
+    TurnStep.CLEANUP: TurnPhase.ENDING,
+}
+
+
+NEXT_STEP = {
+    TurnStep.SETUP: TurnStep.UNTAP,
+    TurnStep.UNTAP: TurnStep.UPKEEP,
+    TurnStep.UPKEEP: TurnStep.DRAW,
+    TurnStep.DRAW: TurnStep.PRECOMBAT_MAIN,
+    TurnStep.PRECOMBAT_MAIN: TurnStep.BEGINNING_OF_COMBAT,
+    TurnStep.BEGINNING_OF_COMBAT: TurnStep.DECLARE_ATTACKERS,
+    TurnStep.DECLARE_ATTACKERS: TurnStep.DECLARE_BLOCKERS,
+    TurnStep.DECLARE_BLOCKERS: TurnStep.COMBAT_DAMAGE,
+    TurnStep.COMBAT_DAMAGE: TurnStep.END_OF_COMBAT,
+    TurnStep.END_OF_COMBAT: TurnStep.POSTCOMBAT_MAIN,
+    TurnStep.POSTCOMBAT_MAIN: TurnStep.END_STEP,
+    TurnStep.END_STEP: TurnStep.CLEANUP,
+    TurnStep.CLEANUP: TurnStep.UNTAP,
+}
 
 
 class ActionKind(Enum):
@@ -57,6 +116,7 @@ class GameView:
     turn: int
     active_player: int
     phase: str
+    step: str
     life: tuple[int, int]
     hands: tuple[tuple[tuple[str, str, int, bool], ...], ...]
     battlefields: tuple[tuple[PublicObjectView, ...], ...]
@@ -290,9 +350,14 @@ class Game:
             self.players[owner].library.extend(
                 self._create_card_object(card, owner, "library") for card in cards
             )
-        self.turn = 0
-        self.active_player = 0
-        self.phase = "setup"
+        self._turn = 0
+        self._active_player = 0
+        self._step = TurnStep.SETUP
+        self._combat_attackers: tuple[str, ...] = ()
+        self._combat_blocks: tuple[tuple[str, str], ...] = ()
+        self._attackers_declared = False
+        self._blockers_declared = False
+        self._combat_damage_resolved = False
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.limitations: set[str] = set()
@@ -311,6 +376,22 @@ class Game:
         for player in self.players:
             self.draw(player, 7, setup=True)
         self.log("game_started", seed=seed, starting_player=names[0])
+
+    @property
+    def turn(self) -> int:
+        return self._turn
+
+    @property
+    def active_player(self) -> int:
+        return self._active_player
+
+    @property
+    def step(self) -> TurnStep:
+        return self._step
+
+    @property
+    def phase(self) -> str:
+        return STEP_PHASE[self._step].value
 
     def _allocate_object_id(self) -> str:
         object_id = f"object-{self._next_object_number:06d}"
@@ -477,7 +558,15 @@ class Game:
         )
 
     def log(self, event: str, **details: object) -> None:
-        self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
+        self.events.append(
+            {
+                "turn": self.turn,
+                "phase": self.phase,
+                "step": self.step.value,
+                "event": event,
+                **details,
+            }
+        )
 
     def unsupported(
         self, card: CardFact, reason: str, *, player_index: int, oracle_fragment: str
@@ -751,22 +840,99 @@ class Game:
             self.log("card_drawn", player=player.name, setup=setup)
         return True
 
-    def begin_turn(self) -> None:
-        self.turn += 1
-        self.active_player = (self.turn - 1) % 2
+    def transition_to(self, step: TurnStep) -> None:
+        """Perform the one legal deterministic CR 500-series step transition."""
+        expected = NEXT_STEP[self._step]
+        if step is not expected:
+            raise ValueError(
+                f"illegal turn transition: {self._step.value} -> {step.value}; "
+                f"expected {expected.value}"
+            )
+        if self._step is TurnStep.COMBAT_DAMAGE and not self._combat_damage_resolved:
+            raise ValueError("combat damage step must be resolved before it can end")
+        if self._step is TurnStep.DECLARE_ATTACKERS and not self._attackers_declared:
+            self._attackers_declared = True
+            self._combat_attackers = ()
+            self.log("attackers_declared", attackers=[])
+        if self._step is TurnStep.DECLARE_BLOCKERS and not self._blockers_declared:
+            self._blockers_declared = True
+            self._combat_blocks = ()
+            self.log("blockers_declared", blocks=[])
+        previous = self._step
+        if previous is TurnStep.CLEANUP:
+            self._turn += 1
+            self._active_player = (self._turn - 1) % len(self.players)
+        elif previous is TurnStep.SETUP:
+            self._turn = 1
+            self._active_player = 0
+        self._step = step
+        self.log("step_started", step=step.value, previous_step=previous.value)
+        self._on_enter_step(step)
+
+    def advance_step(self) -> None:
+        self.transition_to(NEXT_STEP[self._step])
+
+    def advance_to(self, step: TurnStep) -> None:
+        """Advance through, never around, each intermediate rules step."""
+        visited = 0
+        while self._step is not step:
+            self.advance_step()
+            visited += 1
+            if visited > len(TurnStep):
+                raise ValueError(f"cannot reach {step.value} from current turn state")
+
+    def _on_enter_step(self, step: TurnStep) -> None:
         player = self.players[self.active_player]
-        self.phase = "beginning"
-        player.lands_played = 0
-        for permanent in player.battlefield:
-            permanent.tapped = False
-            permanent.summoning_sick = False
-            permanent.damage = 0
-        self.log("turn_started", player=player.name)
-        if not (self.turn == 1 and self.active_player == 0):
-            self.draw(player)
-        else:
-            self.log("draw_skipped", player=player.name, reason="starting_player_first_turn")
-        self.phase = "precombat_main"
+        if step is TurnStep.UNTAP:
+            player.lands_played = 0
+            for permanent in player.battlefield:
+                permanent.tapped = False
+                if permanent.entered_battlefield_turn < self.turn:
+                    permanent.summoning_sick = False
+            self.log("turn_started", player=player.name)
+        elif step is TurnStep.DRAW:
+            if self.turn == 1 and self.active_player == 0:
+                self.log("draw_skipped", player=player.name, reason="starting_player_first_turn")
+            else:
+                self.draw(player)
+        elif step is TurnStep.BEGINNING_OF_COMBAT:
+            self._combat_attackers = ()
+            self._combat_blocks = ()
+            self._attackers_declared = False
+            self._blockers_declared = False
+            self._combat_damage_resolved = False
+            self.log("combat_state_reset")
+        elif step is TurnStep.CLEANUP:
+            self._perform_cleanup()
+
+    def _perform_cleanup(self) -> None:
+        expired = 0
+        for current in self.players:
+            for permanent in current.battlefield:
+                before = len(permanent.pt_modifiers)
+                permanent.pt_modifiers = [
+                    modifier
+                    for modifier in permanent.pt_modifiers
+                    if modifier.duration != "until_end_of_turn"
+                ]
+                expired += before - len(permanent.pt_modifiers)
+                permanent.damage = 0
+        self._combat_attackers = ()
+        self._combat_blocks = ()
+        self._attackers_declared = False
+        self._blockers_declared = False
+        self._combat_damage_resolved = False
+        self.refresh_static_pt_modifiers()
+        self.alliance_modes_chosen.clear()
+        self.log("cleanup_completed", expired_pt_modifiers=expired)
+        self.check_state_based_actions()
+        self.log("turn_ended", player=self.players[self.active_player].name)
+
+    def begin_turn(self) -> None:
+        """Compatibility helper: follow legal transitions to precombat main."""
+        if self.step not in {TurnStep.SETUP, TurnStep.CLEANUP}:
+            raise ValueError("begin_turn is legal only before a turn starts")
+        self.advance_to(TurnStep.PRECOMBAT_MAIN)
 
     def public_view(self) -> GameView:
         """Return immutable pilot-visible state with no mutable authoritative objects."""
@@ -774,6 +940,7 @@ class Game:
             turn=self.turn,
             active_player=self.active_player,
             phase=self.phase,
+            step=self.step.value,
             life=tuple(player.life for player in self.players),  # type: ignore[arg-type]
             hands=tuple(
                 tuple(
@@ -801,7 +968,10 @@ class Game:
 
     def legal_main_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate every currently represented legal main-phase option."""
-        if player_index != self.active_player or "main" not in self.phase:
+        if player_index != self.active_player or self.step not in {
+            TurnStep.PRECOMBAT_MAIN,
+            TurnStep.POSTCOMBAT_MAIN,
+        }:
             return ()
         player = self.players[player_index]
         opponent = self.players[1 - player_index]
@@ -866,7 +1036,7 @@ class Game:
         raise ValueError("unsupported main action kind")
 
     def legal_attack_options(self, player_index: int) -> tuple[ActionOption, ...]:
-        if player_index != self.active_player:
+        if player_index != self.active_player or self.step is not TurnStep.DECLARE_ATTACKERS:
             return ()
         attacker_ids = tuple(obj.object_id for obj in self.legal_attackers(player_index))
         options = [ActionOption(ActionKind.DECLARE_ATTACKERS, player_index)]
@@ -883,7 +1053,9 @@ class Game:
     def legal_block_options(
         self, attack: ActionOption, defender_index: int
     ) -> tuple[ActionOption, ...]:
-        if attack not in self.legal_attack_options(attack.player_index):
+        if self.step is not TurnStep.DECLARE_BLOCKERS:
+            return ()
+        if attack.attacker_ids != self._combat_attackers:
             return ()
         attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
         if not all(isinstance(obj, Permanent) for obj in attackers):
@@ -903,25 +1075,82 @@ class Game:
             )
         return tuple(options)
 
-    def execute_combat_actions(self, attack: ActionOption, blocks: ActionOption) -> None:
-        """Revalidate engine-issued combat choices and perform combat mutation."""
+    def execute_attack_action(self, attack: ActionOption) -> None:
+        """Revalidate and execute the declare-attackers turn-based action."""
         if attack not in self.legal_attack_options(attack.player_index):
             raise ValueError("attack option is not currently legal")
-        defender = 1 - attack.player_index
-        if blocks not in self.legal_block_options(attack, defender):
-            raise ValueError("block option is not currently legal")
         attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
         if not all(isinstance(obj, Permanent) for obj in attackers):
             raise ValueError("combat option references a nonpermanent")
+        for attacker in attackers:
+            attacker.tapped = True  # type: ignore[union-attr]
+        self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
+        self._combat_attackers = attack.attacker_ids
+        self._attackers_declared = True
+        self.log("attackers_declared", attackers=list(attack.attacker_ids))
+        self.transition_to(TurnStep.DECLARE_BLOCKERS)
+
+    def execute_block_action(self, blocks: ActionOption) -> None:
+        """Revalidate and execute the declare-blockers turn-based action."""
+        attack = ActionOption(
+            ActionKind.DECLARE_ATTACKERS,
+            self.active_player,
+            attacker_ids=self._combat_attackers,
+        )
+        defender = 1 - self.active_player
+        if blocks not in self.legal_block_options(attack, defender):
+            raise ValueError("block option is not currently legal")
         if blocks.blocks:
-            # Combat re-generates and validates the declaration after attack modifiers execute.
-            self.combat(attackers, auto_assign_blockers=True)  # type: ignore[arg-type]
-        else:
-            self.combat(attackers, {})  # type: ignore[arg-type]
+            attackers = [self._objects[object_id] for object_id in self._combat_attackers]
+            generated = self.generate_blocks(attackers, defender, log_rejections=True)  # type: ignore[arg-type]
+            resolved = tuple(
+                (attacker_id, blocker.object_id) for attacker_id, blocker in generated.items()
+            )
+            if resolved != blocks.blocks:
+                raise ValueError("block option became stale or illegal")
+        self._combat_blocks = blocks.blocks
+        self._blockers_declared = True
+        self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
+        self.transition_to(TurnStep.COMBAT_DAMAGE)
+
+    def resolve_combat_damage(self) -> None:
+        """Execute combat damage from the authoritative declarations."""
+        if self.step is not TurnStep.COMBAT_DAMAGE or self._combat_damage_resolved:
+            raise ValueError("combat damage is legal only once during combat damage")
+        defender_index = 1 - self.active_player
+        attackers = [self._objects[object_id] for object_id in self._combat_attackers]
+        if not all(isinstance(obj, Permanent) for obj in attackers):
+            raise ValueError("combat state references a nonpermanent attacker")
+        blocks = {
+            attacker_id: self._objects[blocker_id]
+            for attacker_id, blocker_id in self._combat_blocks
+        }
+        if not all(isinstance(obj, Permanent) for obj in blocks.values()):
+            raise ValueError("combat state references a nonpermanent blocker")
+        for attacker in attackers:
+            blocker = blocks.get(attacker.object_id)
+            if blocker is None:
+                self.players[defender_index].life -= attacker.power
+                self.log("combat_damage_player", source=attacker.card.name, damage=attacker.power)
+            else:
+                blocker.damage += attacker.power  # type: ignore[union-attr]
+                attacker.damage += blocker.power  # type: ignore[union-attr]
+                self.log(
+                    "combat_damage_creatures",
+                    attacker=attacker.card.name,
+                    blocker=blocker.card.name,  # type: ignore[union-attr]
+                )
+        self.check_state_based_actions()
+        self.check_life()
+        self._combat_damage_resolved = True
+        self.transition_to(TurnStep.END_OF_COMBAT)
 
     def play_land(self, player_index: int, card: CardObject) -> bool:
         player = self.players[player_index]
-        if player_index != self.active_player or "main" not in self.phase:
+        if player_index != self.active_player or self.step not in {
+            TurnStep.PRECOMBAT_MAIN,
+            TurnStep.POSTCOMBAT_MAIN,
+        }:
             return False
         if (
             not card.is_land
@@ -965,6 +1194,7 @@ class Game:
         player = self.players[player_index]
         if (
             player_index != self.active_player
+            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
             or not self.is_authoritative(card, "hand")
             or card.owner != player_index
             or not self.can_afford(player_index, card)
@@ -1104,72 +1334,69 @@ class Game:
         *,
         auto_assign_blockers: bool = False,
     ) -> None:
-        self.phase = "combat"
-        defender_index = 1 - self.active_player
-        legal = self.legal_attackers(self.active_player)
-        if any(not any(candidate is attacker for candidate in legal) for attacker in attackers):
+        """Compatibility adapter over the three authoritative combat actions."""
+        if self.step is not TurnStep.DECLARE_ATTACKERS:
+            raise ValueError("attackers can be declared only during declare attackers")
+        attacker_ids = tuple(attacker.object_id for attacker in attackers)
+        attack = next(
+            (
+                option
+                for option in self.legal_attack_options(self.active_player)
+                if option.attacker_ids == attacker_ids
+                and all(self._objects.get(attacker.object_id) is attacker for attacker in attackers)
+            ),
+            None,
+        )
+        if attack is None:
             raise ValueError("illegal attacker")
+        defender = 1 - self.active_player
         if not auto_assign_blockers:
             blocks = blocks or {}
+            attacker_id_set = set(attacker_ids)
+            if any(attacker_id not in attacker_id_set for attacker_id in blocks):
+                raise ValueError("block assigned to a nonattacker")
+            if len({blocker.object_id for blocker in blocks.values()}) != len(blocks):
+                raise ValueError("illegal blocker")
             if any(
-                not self.is_authoritative(blocker, "battlefield") for blocker in blocks.values()
+                not self.is_authoritative(blocker, "battlefield")
+                or not self.can_block(
+                    self._objects[attacker_id],
+                    blocker,
+                    defender,  # type: ignore[arg-type]
+                )
+                for attacker_id, blocker in blocks.items()
             ):
                 raise ValueError("illegal blocker")
-        for attacker in attackers:
-            attacker.tapped = True
-        self.resolve_attack_pt_effects(attackers)
+        self.execute_attack_action(attack)
         if auto_assign_blockers:
             if blocks is not None:
                 raise ValueError("cannot provide blocks when auto-assigning blockers")
-            blocks = self.generate_blocks(attackers, defender_index)
+            block_option = max(
+                self.legal_block_options(attack, defender),
+                key=lambda option: len(option.blocks),
+            )
         else:
             assert blocks is not None
-        attacker_ids = {attacker.object_id for attacker in attackers}
-        if any(attacker_id not in attacker_ids for attacker_id in blocks):
-            raise ValueError("block assigned to a nonattacker")
-        used_blockers: set[int] = set()
-        for attacker in attackers:
-            blocker = blocks.get(attacker.object_id)
-            if blocker is None:
-                self.players[defender_index].life -= attacker.power
-                self.log("combat_damage_player", source=attacker.card.name, damage=attacker.power)
-            else:
-                if blocker.object_id in used_blockers or not self.can_block(
-                    attacker, blocker, defender_index
-                ):
-                    raise ValueError("illegal blocker")
-                used_blockers.add(blocker.object_id)
-                blocker.damage += attacker.power
-                attacker.damage += blocker.power
-                self.log(
-                    "combat_damage_creatures",
-                    attacker=attacker.card.name,
-                    blocker=blocker.card.name,
-                )
-        self.check_state_based_actions()
-        self.check_life()
-        self.phase = "postcombat_main"
+            block_option = ActionOption(
+                ActionKind.DECLARE_BLOCKERS,
+                defender,
+                blocks=tuple(
+                    (attacker_id, blocker.object_id) for attacker_id, blocker in blocks.items()
+                ),
+            )
+        self.execute_block_action(block_option)
+        self.resolve_combat_damage()
 
     def end_turn(self) -> None:
-        player = self.players[self.active_player]
-        self.phase = "cleanup"
-        expired = 0
-        for current in self.players:
-            for permanent in current.battlefield:
-                before = len(permanent.pt_modifiers)
-                permanent.pt_modifiers = [
-                    modifier
-                    for modifier in permanent.pt_modifiers
-                    if modifier.duration != "until_end_of_turn"
-                ]
-                expired += before - len(permanent.pt_modifiers)
-                permanent.damage = 0
-        self.refresh_static_pt_modifiers()
-        self.alliance_modes_chosen.clear()
-        self.log("cleanup_completed", expired_pt_modifiers=expired)
-        self.check_state_based_actions()
-        self.phase = "ending"
-        self.log("turn_ended", player=player.name)
+        """Compatibility helper: follow legal transitions through cleanup."""
+        if self.step in {TurnStep.SETUP, TurnStep.CLEANUP}:
+            raise ValueError("end_turn is legal only during an active turn")
+        while self.step is not TurnStep.POSTCOMBAT_MAIN:
+            if self.step is TurnStep.COMBAT_DAMAGE:
+                self.resolve_combat_damage()
+            else:
+                self.advance_step()
+        self.advance_to(TurnStep.CLEANUP)
 
     def put_into_graveyard(
         self, permanent: Permanent, *, state_based_action: str | None = None
@@ -1280,6 +1507,7 @@ class Game:
             "turn": self.turn,
             "active_player": self.players[self.active_player].name,
             "phase": self.phase,
+            "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
             "players": [
                 {
