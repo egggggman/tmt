@@ -16,7 +16,7 @@ from typing import Literal, Protocol
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.5"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.6"
 
 Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
@@ -120,6 +120,40 @@ class PaymentPlan:
     card_object_id: str
     requirement: ManaRequirement
     source_ids: tuple[str, ...]
+
+
+class RulesEventKind(Enum):
+    CREATURE_ENTERED = "creature_entered"
+    LIFE_GAINED = "life_gained"
+    ATTACKERS_DECLARED = "attackers_declared"
+
+
+class TriggerEffect(Enum):
+    ALLIANCE_PT = "alliance_pt"
+    ALLIANCE_COUNTER = "alliance_counter"
+    ALLIANCE_MODAL = "alliance_modal"
+    LIFE_GAIN_COUNTER = "life_gain_counter"
+    ATTACK_PT = "attack_pt"
+    SNEAK_ETB_CONDITION = "sneak_etb_condition"
+
+
+@dataclass(frozen=True)
+class RulesEvent:
+    event_id: str
+    kind: RulesEventKind
+    player_index: int
+    subject_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class TriggerInstance:
+    trigger_id: str
+    controller: int
+    source_id: str
+    source_card: CardFact
+    oracle_fragment: str
+    effect: TriggerEffect
+    event: RulesEvent
 
 
 @dataclass(frozen=True)
@@ -241,6 +275,24 @@ class StackObject:
     @property
     def name(self) -> str:
         return self.card.name
+
+
+@dataclass(eq=False)
+class TriggeredAbilityObject:
+    """One authoritative triggered ability on the stack, independent of its source."""
+
+    object_id: str
+    controller: int
+    source_id: str
+    source_card: CardFact
+    oracle_fragment: str
+    effect: TriggerEffect
+    event: RulesEvent
+    zone: Zone = "stack"
+
+    @property
+    def owner(self) -> int:
+        return self.controller
 
 
 @dataclass(eq=False)
@@ -383,8 +435,11 @@ class Game:
             rng.shuffle(cards)
             shuffled.append(cards)
         self._next_object_number = 1
-        self._objects: dict[str, CardObject | StackObject | Permanent] = {}
-        self.stack: list[StackObject] = []
+        self._objects: dict[str, CardObject | StackObject | TriggeredAbilityObject | Permanent] = {}
+        self.stack: list[StackObject | TriggeredAbilityObject] = []
+        self.pending_triggers: list[TriggerInstance] = []
+        self._next_event_number = 1
+        self._next_trigger_number = 1
         self.players = [PlayerState(names[i], []) for i in range(2)]
         for owner, cards in enumerate(shuffled):
             self.players[owner].library.extend(
@@ -439,8 +494,8 @@ class Game:
         return object_id
 
     def _register(
-        self, obj: CardObject | StackObject | Permanent
-    ) -> CardObject | StackObject | Permanent:
+        self, obj: CardObject | StackObject | TriggeredAbilityObject | Permanent
+    ) -> CardObject | StackObject | TriggeredAbilityObject | Permanent:
         if obj.object_id in self._objects:
             raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
         self._objects[obj.object_id] = obj
@@ -504,7 +559,9 @@ class Game:
             for zone in (player.library, player.hand, player.battlefield, player.graveyard)
         ]
 
-    def _authoritative_container(self, obj: CardObject | StackObject | Permanent) -> list:
+    def _authoritative_container(
+        self, obj: CardObject | StackObject | TriggeredAbilityObject | Permanent
+    ) -> list:
         if obj.zone == "stack":
             return self.stack
         holder = obj.controller if obj.zone == "battlefield" else obj.owner
@@ -512,7 +569,9 @@ class Game:
             raise ValueError("former object no longer occupies an authoritative zone")
         return getattr(self.players[holder], obj.zone)
 
-    def is_authoritative(self, obj: CardObject | StackObject | Permanent, zone: Zone) -> bool:
+    def is_authoritative(
+        self, obj: CardObject | StackObject | TriggeredAbilityObject | Permanent, zone: Zone
+    ) -> bool:
         if zone == "former" or self._objects.get(obj.object_id) is not obj or obj.zone != zone:
             return False
         return self._identity_contains(self._authoritative_container(obj), obj)
@@ -648,6 +707,248 @@ class Game:
                 oracle_fragment=fragment,
             )
 
+    def _new_rules_event(
+        self, kind: RulesEventKind, player_index: int, subject_ids: tuple[str, ...]
+    ) -> RulesEvent:
+        event = RulesEvent(f"event-{self._next_event_number:06d}", kind, player_index, subject_ids)
+        self._next_event_number += 1
+        self.log(
+            "rules_event",
+            event_id=event.event_id,
+            rules_event=event.kind.value,
+            player=self.players[player_index].name,
+            subject_ids=list(subject_ids),
+        )
+        return event
+
+    def _enqueue_trigger(
+        self,
+        event: RulesEvent,
+        source: Permanent,
+        fragment: str,
+        effect: TriggerEffect,
+    ) -> None:
+        trigger = TriggerInstance(
+            f"trigger-{self._next_trigger_number:06d}",
+            source.controller,
+            source.object_id,
+            source.card,
+            fragment,
+            effect,
+            event,
+        )
+        self._next_trigger_number += 1
+        self.pending_triggers.append(trigger)
+        self.log(
+            "trigger_pending",
+            trigger_id=trigger.trigger_id,
+            event_id=event.event_id,
+            source=source.card.name,
+            controller=self.players[source.controller].name,
+            oracle_fragment=fragment,
+        )
+
+    def _put_pending_triggers_on_stack(self) -> None:
+        """Put one detected batch on the stack in deterministic APNAP/source order."""
+        if not self.pending_triggers:
+            return
+        batch = list(self.pending_triggers)
+        self.pending_triggers.clear()
+        for controller in (self.active_player, 1 - self.active_player):
+            controlled = [trigger for trigger in batch if trigger.controller == controller]
+            for trigger in reversed(controlled):
+                ability = TriggeredAbilityObject(
+                    self._allocate_object_id(),
+                    trigger.controller,
+                    trigger.source_id,
+                    trigger.source_card,
+                    trigger.oracle_fragment,
+                    trigger.effect,
+                    trigger.event,
+                )
+                self._register(ability)
+                self.stack.append(ability)
+                self.log(
+                    "trigger_stacked",
+                    trigger_id=trigger.trigger_id,
+                    stack_object_id=ability.object_id,
+                    event_id=trigger.event.event_id,
+                    source=trigger.source_card.name,
+                    controller=self.players[trigger.controller].name,
+                )
+
+    def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
+        if (
+            not self.stack
+            or self.stack[-1] is not ability
+            or not self.is_authoritative(ability, "stack")
+        ):
+            raise ValueError("triggered ability must be the authoritative top stack object")
+        self.stack.pop()
+        ability.zone = "former"
+        source = self._objects.get(ability.source_id)
+        source_permanent = (
+            source
+            if isinstance(source, Permanent) and self.is_authoritative(source, "battlefield")
+            else None
+        )
+        subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
+
+        if ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
+            self.log(
+                "pt_effect_condition_not_met",
+                source=ability.source_card.name,
+                condition="sneak_cost_paid",
+                oracle_fragment=ability.oracle_fragment,
+            )
+        elif ability.effect is TriggerEffect.ALLIANCE_PT and source_permanent is not None:
+            match = self.interpreter.ALLIANCE_THIS_UNTIL_EOT.fullmatch(ability.oracle_fragment)
+            assert match is not None
+            self.apply_pt_modifier(
+                source_permanent,
+                int(match.group(1)),
+                int(match.group(2)),
+                duration="until_end_of_turn",
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+            )
+        elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
+            match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
+            assert match is not None
+            candidates = tuple(
+                permanent
+                for permanent in self.players[ability.controller].battlefield
+                if permanent.card.is_creature
+            )
+            target_id = self.counter_target_chooser(
+                ability.controller,
+                ability.source_id,
+                tuple(candidate.object_id for candidate in candidates),
+            )
+            target = next(
+                (candidate for candidate in candidates if candidate.object_id == target_id), None
+            )
+            if target is None:
+                raise ValueError("counter target chooser must return a listed creature")
+            self.place_counters(
+                target,
+                "+1/+1",
+                int(match.group(1) or 1),
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+            )
+        elif ability.effect is TriggerEffect.ALLIANCE_MODAL and source_permanent is not None:
+            fragments = self.interpreter.fragments(ability.source_card)
+            modes = tuple(fragment for fragment in fragments if fragment.startswith("• "))
+            chosen = self.alliance_modes_chosen.setdefault(ability.source_id, set())
+            available = tuple(mode for mode in modes if mode not in chosen)
+            if not available:
+                self.log("alliance_no_available_mode", source=ability.source_card.name)
+            else:
+                mode = self.alliance_mode_chooser(ability.controller, ability.source_id, available)
+                if mode not in available:
+                    raise ValueError("Alliance mode chooser must return an available mode")
+                chosen.add(mode)
+                if self.interpreter.SELF_PLUS_COUNTER_MODE.fullmatch(mode):
+                    self.place_counters(
+                        source_permanent,
+                        "+1/+1",
+                        1,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=mode,
+                    )
+                else:
+                    self.log(
+                        "alliance_mode_not_executed",
+                        source=ability.source_card.name,
+                        oracle_fragment=mode,
+                        reason="chosen_mode_semantics_not_implemented",
+                    )
+        elif ability.effect is TriggerEffect.LIFE_GAIN_COUNTER and source_permanent is not None:
+            self.place_counters(
+                source_permanent,
+                "+1/+1",
+                1,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+            )
+        elif ability.effect is TriggerEffect.ATTACK_PT and source_permanent is not None:
+            match = self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(
+                ability.oracle_fragment
+            )
+            assert match is not None
+            for subject in subjects:
+                if (
+                    isinstance(subject, Permanent)
+                    and subject is not source_permanent
+                    and self.is_authoritative(subject, "battlefield")
+                ):
+                    self.apply_pt_modifier(
+                        subject,
+                        int(match.group(1)),
+                        int(match.group(2)),
+                        duration="until_end_of_turn",
+                        source_card=ability.source_card.name,
+                        oracle_fragment=ability.oracle_fragment,
+                    )
+        self.log(
+            "trigger_resolved",
+            stack_object_id=ability.object_id,
+            event_id=ability.event.event_id,
+            source=ability.source_card.name,
+            effect=ability.effect.value,
+        )
+
+    def _drain_triggered_abilities(self) -> None:
+        """Immediate compatibility drain until Priority owns all-pass resolution."""
+        while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
+            self._resolve_triggered_ability(self.stack[-1])
+
+    def _process_creature_entered_triggers(
+        self, entering: Permanent, effects: set[TriggerEffect] | None = None
+    ) -> None:
+        event = self._new_rules_event(
+            RulesEventKind.CREATURE_ENTERED, entering.controller, (entering.object_id,)
+        )
+        enabled = effects or {
+            TriggerEffect.SNEAK_ETB_CONDITION,
+            TriggerEffect.ALLIANCE_PT,
+            TriggerEffect.ALLIANCE_COUNTER,
+            TriggerEffect.ALLIANCE_MODAL,
+        }
+        if TriggerEffect.SNEAK_ETB_CONDITION in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                if self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment):
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.SNEAK_ETB_CONDITION
+                    )
+        for source in list(self.players[entering.controller].battlefield):
+            if source is entering:
+                continue
+            fragments = self.interpreter.fragments(source.card)
+            for fragment in fragments:
+                if (
+                    TriggerEffect.ALLIANCE_PT in enabled
+                    and self.interpreter.ALLIANCE_THIS_UNTIL_EOT.fullmatch(fragment)
+                ):
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_PT)
+                if (
+                    TriggerEffect.ALLIANCE_COUNTER in enabled
+                    and self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
+                ):
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_COUNTER)
+            if TriggerEffect.ALLIANCE_MODAL in enabled and any(
+                self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(fragment) for fragment in fragments
+            ):
+                header = next(
+                    fragment
+                    for fragment in fragments
+                    if self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(fragment)
+                )
+                self._enqueue_trigger(event, source, header, TriggerEffect.ALLIANCE_MODAL)
+        self._put_pending_triggers_on_stack()
+        self._drain_triggered_abilities()
+
     def place_counters(
         self,
         target: Permanent,
@@ -676,66 +977,9 @@ class Game:
         self.check_state_based_actions()
 
     def resolve_creature_entered_counter_effects(self, entering: Permanent) -> None:
-        controller = entering.controller
-        sources = list(self.players[controller].battlefield)
-        for source in sources:
-            if source is entering:
-                continue
-            fragments = self.interpreter.fragments(source.card)
-            for fragment in fragments:
-                match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
-                if match:
-                    candidates = tuple(
-                        permanent
-                        for permanent in self.players[controller].battlefield
-                        if permanent.card.is_creature
-                    )
-                    target_id = self.counter_target_chooser(
-                        controller,
-                        source.object_id,
-                        tuple(candidate.object_id for candidate in candidates),
-                    )
-                    target = next(
-                        (candidate for candidate in candidates if candidate.object_id == target_id),
-                        None,
-                    )
-                    if target is None:
-                        raise ValueError("counter target chooser must return a listed creature")
-                    quantity = int(match.group(1) or 1)
-                    self.place_counters(
-                        target,
-                        "+1/+1",
-                        quantity,
-                        source_card=source.card.name,
-                        oracle_fragment=fragment,
-                    )
-            if not any(self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(x) for x in fragments):
-                continue
-            modes = tuple(fragment for fragment in fragments if fragment.startswith("• "))
-            chosen = self.alliance_modes_chosen.setdefault(source.object_id, set())
-            available = tuple(mode for mode in modes if mode not in chosen)
-            if not available:
-                self.log("alliance_no_available_mode", source=source.card.name)
-                continue
-            mode = self.alliance_mode_chooser(controller, source.object_id, available)
-            if mode not in available:
-                raise ValueError("Alliance mode chooser must return an available mode")
-            chosen.add(mode)
-            if self.interpreter.SELF_PLUS_COUNTER_MODE.fullmatch(mode):
-                self.place_counters(
-                    source,
-                    "+1/+1",
-                    1,
-                    source_card=source.card.name,
-                    oracle_fragment=mode,
-                )
-            else:
-                self.log(
-                    "alliance_mode_not_executed",
-                    source=source.card.name,
-                    oracle_fragment=mode,
-                    reason="chosen_mode_semantics_not_implemented",
-                )
+        self._process_creature_entered_triggers(
+            entering, {TriggerEffect.ALLIANCE_COUNTER, TriggerEffect.ALLIANCE_MODAL}
+        )
 
     def gain_life(
         self, player_index: int, amount: int, *, source_card: str, oracle_fragment: str
@@ -751,16 +995,15 @@ class Game:
             source=source_card,
             oracle_fragment=oracle_fragment,
         )
+        event = self._new_rules_event(RulesEventKind.LIFE_GAINED, player_index, ())
         for permanent in list(player.battlefield):
             for fragment in self.interpreter.fragments(permanent.card):
                 if self.interpreter.GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
-                    self.place_counters(
-                        permanent,
-                        "+1/+1",
-                        1,
-                        source_card=permanent.card.name,
-                        oracle_fragment=fragment,
+                    self._enqueue_trigger(
+                        event, permanent, fragment, TriggerEffect.LIFE_GAIN_COUNTER
                     )
+        self._put_pending_triggers_on_stack()
+        self._drain_triggered_abilities()
 
     def apply_pt_modifier(
         self,
@@ -843,46 +1086,22 @@ class Game:
                             )
 
     def resolve_creature_entered_pt_effects(self, entering: Permanent) -> None:
-        for fragment in self.interpreter.fragments(entering.card):
-            match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment)
-            if match:
-                self.log(
-                    "pt_effect_condition_not_met",
-                    source=entering.card.name,
-                    condition="sneak_cost_paid",
-                    oracle_fragment=fragment,
-                )
-        for source in list(self.players[entering.controller].battlefield):
-            if source is entering:
-                continue
-            for fragment in self.interpreter.fragments(source.card):
-                match = self.interpreter.ALLIANCE_THIS_UNTIL_EOT.fullmatch(fragment)
-                if match:
-                    self.apply_pt_modifier(
-                        source,
-                        int(match.group(1)),
-                        int(match.group(2)),
-                        duration="until_end_of_turn",
-                        source_card=source.card.name,
-                        oracle_fragment=fragment,
-                    )
+        self._process_creature_entered_triggers(
+            entering, {TriggerEffect.SNEAK_ETB_CONDITION, TriggerEffect.ALLIANCE_PT}
+        )
 
     def resolve_attack_pt_effects(self, attackers: list[Permanent]) -> None:
+        event = self._new_rules_event(
+            RulesEventKind.ATTACKERS_DECLARED,
+            self.active_player,
+            tuple(attacker.object_id for attacker in attackers),
+        )
         for source in attackers:
             for fragment in self.interpreter.fragments(source.card):
-                match = self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment)
-                if not match:
-                    continue
-                for target in attackers:
-                    if target is not source:
-                        self.apply_pt_modifier(
-                            target,
-                            int(match.group(1)),
-                            int(match.group(2)),
-                            duration="until_end_of_turn",
-                            source_card=source.card.name,
-                            oracle_fragment=fragment,
-                        )
+                if self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment):
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.ATTACK_PT)
+        self._put_pending_triggers_on_stack()
+        self._drain_triggered_abilities()
 
     def draw(self, player: PlayerState, count: int = 1, *, setup: bool = False) -> bool:
         for _ in range(count):
@@ -1443,13 +1662,16 @@ class Game:
         )
         return spell
 
-    def resolve_top_of_stack(self) -> CardObject | Permanent:
-        """Resolve the authoritative top spell and transactionally leave the stack."""
+    def resolve_top_of_stack(self) -> CardObject | Permanent | None:
+        """Resolve the authoritative top spell or triggered ability."""
         if not self.stack:
             raise ValueError("cannot resolve an empty stack")
         spell = self.stack[-1]
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
+        if isinstance(spell, TriggeredAbilityObject):
+            self._resolve_triggered_ability(spell)
+            return None
         player = self.players[spell.controller]
         target = self._objects.get(spell.target_id or "")
 
@@ -1464,8 +1686,7 @@ class Game:
             assert isinstance(permanent, Permanent)
             self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
-            self.resolve_creature_entered_pt_effects(permanent)
-            self.resolve_creature_entered_counter_effects(permanent)
+            self._process_creature_entered_triggers(permanent)
             self.report_unsupported_abilities(spell.controller, spell.card)
             self.check_state_based_actions()
             return permanent
@@ -1673,10 +1894,17 @@ class Game:
         self.check_invariants()
 
     def check_invariants(self) -> None:
-        occupied: dict[str, tuple[int | None, str, CardObject | StackObject | Permanent]] = {}
+        occupied: dict[
+            str,
+            tuple[
+                int | None,
+                str,
+                CardObject | StackObject | TriggeredAbilityObject | Permanent,
+            ],
+        ] = {}
         for obj in self.stack:
-            if not isinstance(obj, StackObject):
-                raise AssertionError("stack may contain only stack objects")
+            if not isinstance(obj, (StackObject, TriggeredAbilityObject)):
+                raise AssertionError("stack may contain only spell or ability objects")
             if obj.object_id in occupied:
                 raise AssertionError("runtime object occupies more than one zone")
             if self._objects.get(obj.object_id) is not obj:
@@ -1685,11 +1913,18 @@ class Game:
                 raise AssertionError("stack object zone does not match its container")
             if obj.controller not in range(2):
                 raise AssertionError("stack object controller is invalid")
-            if obj.cast_kind is CastKind.UNSUPPORTED:
-                raise AssertionError("unsupported spells cannot become stack objects")
-            if obj.target_id is not None and obj.target_id not in self._objects:
-                raise AssertionError("stack target ID was never registered")
+            if isinstance(obj, StackObject):
+                if obj.cast_kind is CastKind.UNSUPPORTED:
+                    raise AssertionError("unsupported spells cannot become stack objects")
+                if obj.target_id is not None and obj.target_id not in self._objects:
+                    raise AssertionError("stack target ID was never registered")
+            elif obj.event.player_index not in range(2):
+                raise AssertionError("trigger event player is invalid")
             occupied[obj.object_id] = (None, "stack", obj)
+        if len({trigger.trigger_id for trigger in self.pending_triggers}) != len(
+            self.pending_triggers
+        ):
+            raise AssertionError("pending trigger IDs must be unique")
         for player_index, player in enumerate(self.players):
             for zone_name in ("library", "hand", "battlefield", "graveyard"):
                 for obj in getattr(player, zone_name):
@@ -1763,16 +1998,30 @@ class Game:
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
             "stack": [
-                {
-                    "object_id": spell.object_id,
-                    "card": spell.card.name,
-                    "owner": spell.owner,
-                    "controller": spell.controller,
-                    "cast_kind": spell.cast_kind.value,
-                    "target_id": spell.target_id,
-                }
-                for spell in self.stack
+                (
+                    {
+                        "object_id": entry.object_id,
+                        "kind": "spell",
+                        "card": entry.card.name,
+                        "owner": entry.owner,
+                        "controller": entry.controller,
+                        "cast_kind": entry.cast_kind.value,
+                        "target_id": entry.target_id,
+                    }
+                    if isinstance(entry, StackObject)
+                    else {
+                        "object_id": entry.object_id,
+                        "kind": "triggered_ability",
+                        "source": entry.source_card.name,
+                        "source_id": entry.source_id,
+                        "controller": entry.controller,
+                        "effect": entry.effect.value,
+                        "event_id": entry.event.event_id,
+                    }
+                )
+                for entry in self.stack
             ],
+            "pending_triggers": [trigger.trigger_id for trigger in self.pending_triggers],
             "players": [
                 {
                     "name": p.name,
