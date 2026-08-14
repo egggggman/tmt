@@ -16,7 +16,7 @@ from typing import Literal, Protocol
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.4"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.5"
 
 Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
@@ -98,6 +98,28 @@ class ActionOption:
     target_id: str | None = None
     attacker_ids: tuple[str, ...] = ()
     blocks: tuple[tuple[str, str], ...] = ()
+
+
+@dataclass(frozen=True)
+class ManaRequirement:
+    """The represented total mana cost after construction, before payment."""
+
+    generic: int
+    colored: tuple[str, ...]
+
+    @property
+    def total(self) -> int:
+        return self.generic + len(self.colored)
+
+
+@dataclass(frozen=True)
+class PaymentPlan:
+    """An immutable proposed payment using authoritative mana-source runtime IDs."""
+
+    player_index: int
+    card_object_id: str
+    requirement: ManaRequirement
+    source_ids: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -1207,24 +1229,135 @@ class Game:
         self.log("land_played", player=player.name, card=card.name)
         return True
 
-    def available_mana(self, player_index: int) -> tuple[int, str]:
-        lands = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+    @staticmethod
+    def _mana_color(source: Permanent) -> str | None:
+        match = re.search(r"Add \{([WUBRG])\}", source.card.oracle_text)
+        if match:
+            return match.group(1)
+        return {
+            "Plains": "W",
+            "Island": "U",
+            "Swamp": "B",
+            "Mountain": "R",
+            "Forest": "G",
+        }.get(source.card.name)
+
+    @staticmethod
+    def mana_requirement(card: CardFact | CardObject) -> ManaRequirement | None:
+        """Construct the currently represented fixed generic/colored total mana cost."""
+        symbols = re.findall(r"\{([^}]+)\}", card.mana_cost)
+        generic = 0
+        colored: list[str] = []
+        for symbol in symbols:
+            if symbol.isdecimal():
+                generic += int(symbol)
+            elif symbol in {"W", "U", "B", "R", "G"}:
+                colored.append(symbol)
+            else:
+                return None
+        requirement = ManaRequirement(generic, tuple(colored))
+        if requirement.total != card.mana_value:
+            return None
+        return requirement
+
+    def payment_plan(self, player_index: int, card: CardObject) -> PaymentPlan | None:
+        """Build one deterministic legal payment without mutating authoritative state."""
+        if not self.is_authoritative(card, "hand") or card.owner != player_index:
+            return None
+        requirement = self.mana_requirement(card)
+        if requirement is None:
+            return None
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped
         ]
-        color = "W" if any(p.card.name == "Plains" for p in lands) else "R"
-        return len(lands), color
+        chosen: list[Permanent] = []
+        for color in requirement.colored:
+            source = next(
+                (permanent for permanent in available if self._mana_color(permanent) == color),
+                None,
+            )
+            if source is None:
+                return None
+            chosen.append(source)
+            available.remove(source)
+        if len(available) < requirement.generic:
+            return None
+        chosen.extend(available[: requirement.generic])
+        return PaymentPlan(
+            player_index,
+            card.object_id,
+            requirement,
+            tuple(source.object_id for source in chosen),
+        )
 
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
-        available, color = self.available_mana(player_index)
-        colored = re.findall(r"\{([WUBRG])\}", card.mana_cost)
-        return available >= card.mana_value and all(symbol == color for symbol in colored)
-
-    def _pay(self, player_index: int, amount: int) -> None:
-        lands = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+        if isinstance(card, CardObject):
+            return self.payment_plan(player_index, card) is not None
+        requirement = self.mana_requirement(card)
+        if requirement is None:
+            return False
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped
         ]
-        for land in lands[:amount]:
-            land.tapped = True
+        for color in requirement.colored:
+            source = next(
+                (permanent for permanent in available if self._mana_color(permanent) == color),
+                None,
+            )
+            if source is None:
+                return False
+            available.remove(source)
+        return len(available) >= requirement.generic
+
+    def _commit_announcement_payment(
+        self,
+        card: CardObject,
+        plan: PaymentPlan,
+        *,
+        cast_kind: CastKind,
+        target_id: str | None,
+    ) -> StackObject:
+        """Atomically pay a revalidated plan and move the represented card Hand -> Stack."""
+        if plan != self.payment_plan(plan.player_index, card):
+            raise ValueError("payment plan is no longer legal")
+        sources: list[Permanent] = []
+        for object_id in plan.source_ids:
+            source = self._objects.get(object_id)
+            if not isinstance(source, Permanent) or not self.is_authoritative(
+                source, "battlefield"
+            ):
+                raise ValueError("payment source is not authoritative")
+            sources.append(source)
+        previous_tapped = tuple(source.tapped for source in sources)
+        try:
+            for source in sources:
+                source.tapped = True
+            spell = self.move_object(
+                card,
+                "stack",
+                controller=plan.player_index,
+                cast_kind=cast_kind,
+                target_id=target_id,
+                reason="spell_cast",
+            )
+        except Exception:
+            for source, tapped in zip(sources, previous_tapped, strict=True):
+                source.tapped = tapped
+            raise
+        assert isinstance(spell, StackObject)
+        self.log(
+            "cost_paid",
+            player=self.players[plan.player_index].name,
+            card=card.name,
+            generic=plan.requirement.generic,
+            colored=list(plan.requirement.colored),
+            source_ids=list(plan.source_ids),
+        )
+        return spell
 
     def cast(self, player_index: int, card: CardObject, target: Permanent | None = None) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
@@ -1248,7 +1381,6 @@ class Game:
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
             or not self.is_authoritative(card, "hand")
             or card.owner != player_index
-            or not self.can_afford(player_index, card)
         ):
             return None
         program = self.interpreter.cast_program(card.card)
@@ -1287,16 +1419,21 @@ class Game:
                 )
             return None
 
-        self._pay(player_index, card.mana_value)
-        spell = self.move_object(
-            card,
-            "stack",
-            controller=player_index,
-            cast_kind=program.kind,
-            target_id=target_id,
-            reason="spell_cast",
+        requirement = self.mana_requirement(card)
+        if requirement is None:
+            self.unsupported(
+                card.card,
+                "mana_cost_not_implemented",
+                player_index=player_index,
+                oracle_fragment=card.mana_cost or "zero mana cost",
+            )
+            return None
+        plan = self.payment_plan(player_index, card)
+        if plan is None:
+            return None
+        spell = self._commit_announcement_payment(
+            card, plan, cast_kind=program.kind, target_id=target_id
         )
-        assert isinstance(spell, StackObject)
         self.log(
             "spell_cast",
             player=player.name,
