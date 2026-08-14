@@ -18,6 +18,7 @@ from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     CastKind,
+    DamageTargetKind,
     TokenCreationProgram,
     TokenDefinition,
 )
@@ -133,6 +134,7 @@ class RulesEventKind(Enum):
     TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
+    DAMAGE_DEALT = "damage_dealt"
 
 
 class TriggerEffect(Enum):
@@ -143,6 +145,7 @@ class TriggerEffect(Enum):
     ATTACK_PT = "attack_pt"
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
+    DEAL_DAMAGE = "deal_damage"
 
 
 @dataclass(frozen=True)
@@ -151,6 +154,22 @@ class RulesEvent:
     kind: RulesEventKind
     player_index: int
     subject_ids: tuple[str, ...]
+    source_id: str | None = None
+    target_player: int | None = None
+    amount: int | None = None
+
+
+@dataclass(frozen=True)
+class DamageTransaction:
+    """A fully specified proposal validated before authoritative damage mutation."""
+
+    controller: int
+    source: CardObject | StackObject | Permanent
+    target_kind: DamageTargetKind
+    amount: int
+    oracle_fragment: str
+    target: Permanent | None = None
+    target_player: int | None = None
 
 
 @dataclass(frozen=True)
@@ -1024,9 +1043,24 @@ class Game:
             )
 
     def _new_rules_event(
-        self, kind: RulesEventKind, player_index: int, subject_ids: tuple[str, ...]
+        self,
+        kind: RulesEventKind,
+        player_index: int,
+        subject_ids: tuple[str, ...],
+        *,
+        source_id: str | None = None,
+        target_player: int | None = None,
+        amount: int | None = None,
     ) -> RulesEvent:
-        event = RulesEvent(f"event-{self._next_event_number:06d}", kind, player_index, subject_ids)
+        event = RulesEvent(
+            f"event-{self._next_event_number:06d}",
+            kind,
+            player_index,
+            subject_ids,
+            source_id,
+            target_player,
+            amount,
+        )
         self._next_event_number += 1
         self.log(
             "rules_event",
@@ -1034,7 +1068,75 @@ class Game:
             rules_event=event.kind.value,
             player=self.players[player_index].name,
             subject_ids=list(subject_ids),
+            source_id=source_id,
+            target_player=target_player,
+            amount=amount,
         )
+        return event
+
+    def deal_damage(self, transaction: DamageTransaction) -> RulesEvent:
+        """Validate and atomically apply one bounded noncombat damage transaction."""
+        if not isinstance(transaction, DamageTransaction):
+            raise ValueError("damage requires a typed transaction")
+        if transaction.controller not in range(2):
+            raise ValueError("damage controller is invalid")
+        if not isinstance(transaction.amount, int) or isinstance(transaction.amount, bool):
+            raise ValueError("damage amount must be an integer")
+        if transaction.amount <= 0:
+            raise ValueError("damage amount must be positive")
+        source = transaction.source
+        source_authoritative = self.is_authoritative(
+            source, "battlefield"
+        ) or self.is_authoritative(source, "stack")
+        if not source_authoritative:
+            raise ValueError("damage source is not authoritative")
+
+        target: Permanent | None = None
+        target_player = transaction.target_player
+        if transaction.target_kind is DamageTargetKind.PLAYER:
+            if target_player not in range(2) or transaction.target is not None:
+                raise ValueError("damage player target is invalid")
+        elif transaction.target_kind is DamageTargetKind.CREATURE:
+            candidate = transaction.target
+            if (
+                not isinstance(candidate, Permanent)
+                or not self.is_authoritative(candidate, "battlefield")
+                or not candidate.card.is_creature
+                or target_player is not None
+            ):
+                raise ValueError("damage creature target is invalid")
+            target = candidate
+        else:
+            raise ValueError("damage target kind is unsupported")
+
+        if target is not None:
+            target.damage += transaction.amount
+            subject_ids = (target.object_id,)
+        else:
+            assert target_player is not None
+            self.players[target_player].life -= transaction.amount
+            subject_ids = ()
+        event = self._new_rules_event(
+            RulesEventKind.DAMAGE_DEALT,
+            transaction.controller,
+            subject_ids,
+            source_id=source.object_id,
+            target_player=target_player,
+            amount=transaction.amount,
+        )
+        self.log(
+            "damage_dealt",
+            event_id=event.event_id,
+            source_id=source.object_id,
+            source_card=source.card.name,
+            target_id=None if target is None else target.object_id,
+            target_player=(None if target_player is None else self.players[target_player].name),
+            amount=transaction.amount,
+            oracle_fragment=transaction.oracle_fragment,
+            combat=False,
+        )
+        self.check_state_based_actions()
+        self.check_life()
         return event
 
     def _enqueue_trigger(
@@ -1126,6 +1228,35 @@ class Game:
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.DEAL_DAMAGE:
+            semantics = self.interpreter.damage_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if (
+                semantics is None
+                or not semantics.coverage.payload_executable
+                or not semantics.coverage.parent_executable
+            ):
+                raise AssertionError("stacked damage trigger no longer has executable semantics")
+            program = semantics.program
+            assert program.amount is not None and program.target_kind is DamageTargetKind.PLAYER
+            if source_permanent is None:
+                raise AssertionError("represented damage source must remain authoritative")
+            if program.target_scope == "you":
+                targets = (ability.controller,)
+            else:
+                targets = tuple(index for index in range(2) if index != ability.controller)
+            for target_player in targets:
+                self.deal_damage(
+                    DamageTransaction(
+                        ability.controller,
+                        source_permanent,
+                        program.target_kind,
+                        program.amount,
+                        ability.oracle_fragment,
+                        target_player=target_player,
+                    )
+                )
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             self.log(
                 "pt_effect_condition_not_met",
@@ -1286,6 +1417,15 @@ class Game:
                     and self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
                 ):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_COUNTER)
+                if TriggerEffect.DEAL_DAMAGE in enabled:
+                    semantics = self.interpreter.damage_semantic_coverage(source.card, fragment)
+                    if (
+                        semantics is not None
+                        and semantics.coverage.payload_executable
+                        and semantics.coverage.parent_executable
+                        and fragment.startswith("Alliance — ")
+                    ):
+                        self._enqueue_trigger(event, source, fragment, TriggerEffect.DEAL_DAMAGE)
             if TriggerEffect.ALLIANCE_MODAL in enabled and any(
                 self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(fragment) for fragment in fragments
             ):
@@ -1307,6 +1447,7 @@ class Game:
             TriggerEffect.ALLIANCE_COUNTER,
             TriggerEffect.ALLIANCE_MODAL,
             TriggerEffect.CREATE_TOKEN,
+            TriggerEffect.DEAL_DAMAGE,
         }
         for permanent in entering:
             event = self._new_rules_event(
@@ -1693,7 +1834,7 @@ class Game:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
                 )
-            elif kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+            elif kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
                 options.extend(
                     ActionOption(
                         ActionKind.CAST,
@@ -2030,7 +2171,7 @@ class Game:
             return None
         program = self.interpreter.cast_program(card.card)
         target_id: str | None = None
-        if program.kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+        if program.kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
@@ -2120,15 +2261,15 @@ class Game:
         legal_target = isinstance(target, Permanent) and self.is_authoritative(
             target, "battlefield"
         )
-        if spell.cast_kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+        if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = legal_target and target.controller != spell.controller
         elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
             legal_target = (
                 legal_target and target.controller != spell.controller and target.power >= 4
             )
-        resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
-        assert isinstance(resolved_card, CardObject)
         if not legal_target:
+            resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
+            assert isinstance(resolved_card, CardObject)
             self.log(
                 "spell_resolved_no_effect",
                 player=player.name,
@@ -2137,11 +2278,28 @@ class Game:
             )
             return resolved_card
         assert isinstance(target, Permanent)
-        if spell.cast_kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
-            target.damage += 3
-            self.check_state_based_actions()
+        if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
+            semantics = self.interpreter.damage_semantic_coverage(
+                spell.card, spell.card.oracle_text
+            )
+            if semantics is None or not semantics.coverage.payload_executable:
+                raise AssertionError("stacked damage spell no longer has executable semantics")
+            assert semantics.program.amount is not None
+            self.deal_damage(
+                DamageTransaction(
+                    spell.controller,
+                    spell,
+                    DamageTargetKind.CREATURE,
+                    semantics.program.amount,
+                    spell.card.oracle_text,
+                    target=target,
+                )
+            )
         elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
             self.destroy(target)
+        resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
+        assert isinstance(resolved_card, CardObject)
+        self.report_unsupported_abilities(spell.controller, spell.card)
         self.log("spell_resolved", player=player.name, card=spell.name, target=target.card.name)
         return resolved_card
 
