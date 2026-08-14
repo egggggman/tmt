@@ -8,9 +8,10 @@ from pathlib import Path
 
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.engine07 import Game, load_deck, load_facts
+from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
 
-def run(root: Path, seed: int) -> dict[str, object]:
+def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
     catalog = load_card_data(
         root / "cardcade" / "scryfall-tmt-pza-tmc-2026-08-13.json",
         root / "cardcade" / "scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
@@ -31,43 +32,22 @@ def run(root: Path, seed: int) -> dict[str, object]:
         load_deck(deck_paths[1], facts),
     )
     game = Game(decks, names=("leonardo-p0.1", "raphael-p0.1"), seed=seed)
+    pilot = pilot or AcceptancePilot()
     while game.winner is None and game.turn < 120:
         game.begin_turn()
         if game.winner is not None:
             break
         active = game.active_player
-        player = game.players[active]
-        land = next((card for card in player.hand if card.is_land), None)
-        if land:
-            game.play_land(active, land)
+        for stage in ("land", "damage", "destroy", "creature"):
+            options = game.legal_main_actions(active)
+            chosen = pilot.choose_main_action(game.public_view(), options, stage)
+            game.execute_main_action(chosen)
 
-        # Resolve only the two safely-grounded target-aware interactions in this slice.
-        opponent_creatures = [
-            permanent
-            for permanent in game.players[1 - active].battlefield
-            if permanent.card.is_creature
-        ]
-        missile = next((card for card in player.hand if card.name == "Manhole Missile"), None)
-        if missile and opponent_creatures:
-            game.cast(
-                active, missile, min(opponent_creatures, key=lambda p: p.toughness - p.damage)
-            )
-        move = next((card for card in player.hand if card.name == "Make Your Move"), None)
-        large_target = next((p for p in opponent_creatures if p.power >= 4), None)
-        if move and large_target:
-            game.cast(active, move, large_target)
-
-        # Cast the cheapest supported creature; unsupported spells stay visible in hand/limitations.
-        creatures = sorted(
-            (card for card in player.hand if card.is_creature),
-            key=lambda card: (card.mana_value, card.name),
-        )
-        for card in creatures:
-            if game.cast(active, card):
-                break
-
-        attackers = game.legal_attackers(active)
-        game.combat(attackers, auto_assign_blockers=True)
+        attack_options = game.legal_attack_options(active)
+        attack = pilot.choose_attack(game.public_view(), attack_options)
+        block_options = game.legal_block_options(attack, 1 - active)
+        blocks = pilot.choose_blocks(game.public_view(), block_options)
+        game.execute_combat_actions(attack, blocks)
         game.end_turn()
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")

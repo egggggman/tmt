@@ -9,14 +9,57 @@ from __future__ import annotations
 import random
 import re
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Literal, Protocol
 
 from tmnt_design_studio.card_data import CardDataCatalog
+from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.1"
+ENGINE_VERSION = "cardcade-0.8.0-alpha.2"
 
 Zone = Literal["library", "hand", "battlefield", "graveyard", "former"]
+
+
+class ActionKind(Enum):
+    PLAY_LAND = "play_land"
+    CAST = "cast"
+    DECLARE_ATTACKERS = "declare_attackers"
+    DECLARE_BLOCKERS = "declare_blockers"
+    PASS = "pass"
+
+
+@dataclass(frozen=True)
+class ActionOption:
+    """Immutable, identity-only input a pilot may select but never execute itself."""
+
+    kind: ActionKind
+    player_index: int
+    object_id: str | None = None
+    target_id: str | None = None
+    attacker_ids: tuple[str, ...] = ()
+    blocks: tuple[tuple[str, str], ...] = ()
+
+
+@dataclass(frozen=True)
+class PublicObjectView:
+    object_id: str
+    name: str
+    controller: int
+    power: int | None
+    toughness: int | None
+    tapped: bool
+    damage: int
+
+
+@dataclass(frozen=True)
+class GameView:
+    turn: int
+    active_player: int
+    phase: str
+    life: tuple[int, int]
+    hands: tuple[tuple[tuple[str, str, int, bool], ...], ...]
+    battlefields: tuple[tuple[PublicObjectView, ...], ...]
 
 
 @dataclass(frozen=True)
@@ -192,8 +235,12 @@ class LegendRuleStateBasedAction:
             for name, permanents in groups.items():
                 if len(permanents) < 2:
                     continue
-                keep = game.legend_rule_chooser(player_index, tuple(permanents))
-                if keep not in permanents:
+                choices = tuple(permanent.object_id for permanent in permanents)
+                keep_id = game.legend_rule_chooser(player_index, choices)
+                keep = next(
+                    (permanent for permanent in permanents if permanent.object_id == keep_id), None
+                )
+                if keep is None:
                     raise ValueError("legend-rule chooser must return one of the listed permanents")
                 game.log(
                     "legend_rule_choice",
@@ -228,6 +275,7 @@ class Game:
         legend_rule_chooser=None,
         counter_target_chooser=None,
         alliance_mode_chooser=None,
+        interpreter: CardInterpreter | None = None,
     ):
         rng = random.Random(seed)
         shuffled: list[list[CardFact]] = []
@@ -249,14 +297,15 @@ class Game:
         self.events: list[dict[str, object]] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
+        self.interpreter = interpreter or CardInterpreter()
         self.legend_rule_chooser = legend_rule_chooser or (
-            lambda _player_index, permanents: permanents[0]
+            lambda _player_index, object_ids: object_ids[0]
         )
         self.counter_target_chooser = counter_target_chooser or (
-            lambda _player_index, _source, permanents: permanents[0]
+            lambda _player_index, _source_id, object_ids: object_ids[0]
         )
         self.alliance_mode_chooser = alliance_mode_chooser or (
-            lambda _player_index, _source, modes: modes[0]
+            lambda _player_index, _source_id, modes: modes[0]
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
         for player in self.players:
@@ -427,40 +476,6 @@ class Game:
             controller=self.players[controller].name,
         )
 
-    _STATIC_OTHER_CREATURES = re.compile(
-        r"^.+ gets \+(\d+)/\+(\d+) for each other creature you control\.$"
-    )
-    _ALLIANCE_THIS_UNTIL_EOT = re.compile(
-        r"^Alliance — Whenever another creature you control enters, this creature gets "
-        r"\+(\d+)/\+(\d+) until end of turn\.$"
-    )
-    _SNEAK_ETB_TEAM_UNTIL_EOT = re.compile(
-        r"^When .+ enters, if (?:his|her|its) sneak cost was paid, creatures you control get "
-        r"\+(\d+)/\+(\d+) until end of turn\.$"
-    )
-    _ATTACK_OTHER_ATTACKERS_UNTIL_EOT = re.compile(
-        r"^Whenever .+ attacks, each other attacking creature gets "
-        r"\+(\d+)/\+(\d+) until end of turn\.$"
-    )
-    _CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
-        r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
-    )
-    _CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
-        r"^This creature can't be blocked by creatures with greater power\.$"
-    )
-    _ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
-        r"^Alliance — Whenever another creature you control enters, put "
-        r"(?:a|one|([0-9]+)) \+1/\+1 counters? on target creature you control\.$"
-    )
-    _GAIN_LIFE_SELF_PLUS_COUNTER = re.compile(
-        r"^Whenever you gain life, put a \+1/\+1 counter on .+\.$"
-    )
-    _ALLIANCE_MODAL_HEADER = re.compile(
-        r"^Alliance — Whenever another creature you control enters, choose one that hasn't "
-        r"been chosen this turn\.$"
-    )
-    _SELF_PLUS_COUNTER_MODE = re.compile(r"^• Put a \+1/\+1 counter on .+\.$")
-
     def log(self, event: str, **details: object) -> None:
         self.events.append({"turn": self.turn, "phase": self.phase, "event": event, **details})
 
@@ -478,67 +493,12 @@ class Game:
             reason=reason,
         )
 
-    @staticmethod
-    def oracle_fragments(card: CardFact) -> list[str]:
-        return [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
-
-    def supports_pt_fragment(self, fragment: str) -> bool:
-        return any(
-            pattern.fullmatch(fragment)
-            for pattern in (
-                self._STATIC_OTHER_CREATURES,
-                self._ALLIANCE_THIS_UNTIL_EOT,
-                self._SNEAK_ETB_TEAM_UNTIL_EOT,
-                self._ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
-            )
-        )
-
-    def supports_blocking_fragment(self, fragment: str) -> bool:
-        return any(
-            pattern.fullmatch(fragment)
-            for pattern in (
-                self._CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
-                self._CANT_BE_BLOCKED_BY_GREATER_POWER,
-            )
-        )
-
-    def supports_counter_fragment(self, card: CardFact, fragment: str) -> bool:
-        if self._ALLIANCE_MODAL_HEADER.fullmatch(fragment):
-            return any(
-                self._SELF_PLUS_COUNTER_MODE.fullmatch(candidate)
-                for candidate in self.oracle_fragments(card)
-            )
-        return any(
-            pattern.fullmatch(fragment)
-            for pattern in (
-                self._ALLIANCE_TARGET_PLUS_COUNTER,
-                self._GAIN_LIFE_SELF_PLUS_COUNTER,
-                self._SELF_PLUS_COUNTER_MODE,
-            )
-        )
-
     def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
         """Report each unresolved Oracle line without interpreting or combining its meaning."""
-        fragments = self.oracle_fragments(card)
-        for keyword in sorted(set(card.keywords) - {"Haste"}):
-            if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
-                self.unsupported(
-                    card,
-                    "keyword_not_implemented",
-                    player_index=player_index,
-                    oracle_fragment=keyword,
-                )
-        for fragment in fragments:
-            if (
-                fragment.casefold() == "haste"
-                or self.supports_pt_fragment(fragment)
-                or self.supports_blocking_fragment(fragment)
-                or self.supports_counter_fragment(card, fragment)
-            ):
-                continue
+        for fragment, reason in self.interpreter.unsupported_fragments(card):
             self.unsupported(
                 card,
-                "oracle_ability_not_implemented",
+                reason,
                 player_index=player_index,
                 oracle_fragment=fragment,
             )
@@ -576,17 +536,25 @@ class Game:
         for source in sources:
             if source is entering:
                 continue
-            fragments = self.oracle_fragments(source.card)
+            fragments = self.interpreter.fragments(source.card)
             for fragment in fragments:
-                match = self._ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
+                match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
                 if match:
                     candidates = tuple(
                         permanent
                         for permanent in self.players[controller].battlefield
                         if permanent.card.is_creature
                     )
-                    target = self.counter_target_chooser(controller, source, candidates)
-                    if not any(candidate is target for candidate in candidates):
+                    target_id = self.counter_target_chooser(
+                        controller,
+                        source.object_id,
+                        tuple(candidate.object_id for candidate in candidates),
+                    )
+                    target = next(
+                        (candidate for candidate in candidates if candidate.object_id == target_id),
+                        None,
+                    )
+                    if target is None:
                         raise ValueError("counter target chooser must return a listed creature")
                     quantity = int(match.group(1) or 1)
                     self.place_counters(
@@ -596,7 +564,7 @@ class Game:
                         source_card=source.card.name,
                         oracle_fragment=fragment,
                     )
-            if not any(self._ALLIANCE_MODAL_HEADER.fullmatch(x) for x in fragments):
+            if not any(self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(x) for x in fragments):
                 continue
             modes = tuple(fragment for fragment in fragments if fragment.startswith("• "))
             chosen = self.alliance_modes_chosen.setdefault(source.object_id, set())
@@ -604,11 +572,11 @@ class Game:
             if not available:
                 self.log("alliance_no_available_mode", source=source.card.name)
                 continue
-            mode = self.alliance_mode_chooser(controller, source, available)
+            mode = self.alliance_mode_chooser(controller, source.object_id, available)
             if mode not in available:
                 raise ValueError("Alliance mode chooser must return an available mode")
             chosen.add(mode)
-            if self._SELF_PLUS_COUNTER_MODE.fullmatch(mode):
+            if self.interpreter.SELF_PLUS_COUNTER_MODE.fullmatch(mode):
                 self.place_counters(
                     source,
                     "+1/+1",
@@ -639,8 +607,8 @@ class Game:
             oracle_fragment=oracle_fragment,
         )
         for permanent in list(player.battlefield):
-            for fragment in self.oracle_fragments(permanent.card):
-                if self._GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
+            for fragment in self.interpreter.fragments(permanent.card):
+                if self.interpreter.GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
                     self.place_counters(
                         permanent,
                         "+1/+1",
@@ -701,8 +669,8 @@ class Game:
                 permanent for permanent in player.battlefield if permanent.card.is_creature
             ]
             for source in creatures:
-                for fragment in self.oracle_fragments(source.card):
-                    match = self._STATIC_OTHER_CREATURES.fullmatch(fragment)
+                for fragment in self.interpreter.fragments(source.card):
+                    match = self.interpreter.STATIC_OTHER_CREATURES.fullmatch(fragment)
                     if match:
                         count = len(creatures) - 1
                         self.apply_pt_modifier(
@@ -730,8 +698,8 @@ class Game:
                             )
 
     def resolve_creature_entered_pt_effects(self, entering: Permanent) -> None:
-        for fragment in self.oracle_fragments(entering.card):
-            match = self._SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment)
+        for fragment in self.interpreter.fragments(entering.card):
+            match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment)
             if match:
                 self.log(
                     "pt_effect_condition_not_met",
@@ -742,8 +710,8 @@ class Game:
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
-            for fragment in self.oracle_fragments(source.card):
-                match = self._ALLIANCE_THIS_UNTIL_EOT.fullmatch(fragment)
+            for fragment in self.interpreter.fragments(source.card):
+                match = self.interpreter.ALLIANCE_THIS_UNTIL_EOT.fullmatch(fragment)
                 if match:
                     self.apply_pt_modifier(
                         source,
@@ -756,8 +724,8 @@ class Game:
 
     def resolve_attack_pt_effects(self, attackers: list[Permanent]) -> None:
         for source in attackers:
-            for fragment in self.oracle_fragments(source.card):
-                match = self._ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment)
+            for fragment in self.interpreter.fragments(source.card):
+                match = self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment)
                 if not match:
                     continue
                 for target in attackers:
@@ -799,6 +767,157 @@ class Game:
         else:
             self.log("draw_skipped", player=player.name, reason="starting_player_first_turn")
         self.phase = "precombat_main"
+
+    def public_view(self) -> GameView:
+        """Return immutable pilot-visible state with no mutable authoritative objects."""
+        return GameView(
+            turn=self.turn,
+            active_player=self.active_player,
+            phase=self.phase,
+            life=tuple(player.life for player in self.players),  # type: ignore[arg-type]
+            hands=tuple(
+                tuple(
+                    (card.object_id, card.name, card.mana_value, card.is_creature)
+                    for card in player.hand
+                )
+                for player in self.players
+            ),  # type: ignore[arg-type]
+            battlefields=tuple(
+                tuple(
+                    PublicObjectView(
+                        permanent.object_id,
+                        permanent.card.name,
+                        permanent.controller,
+                        permanent.power if permanent.card.is_creature else None,
+                        permanent.toughness if permanent.card.is_creature else None,
+                        permanent.tapped,
+                        permanent.damage,
+                    )
+                    for permanent in player.battlefield
+                )
+                for player in self.players
+            ),  # type: ignore[arg-type]
+        )
+
+    def legal_main_actions(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Generate every currently represented legal main-phase option."""
+        if player_index != self.active_player or "main" not in self.phase:
+            return ()
+        player = self.players[player_index]
+        opponent = self.players[1 - player_index]
+        options: list[ActionOption] = []
+        if player.lands_played < 1:
+            options.extend(
+                ActionOption(ActionKind.PLAY_LAND, player_index, object_id=card.object_id)
+                for card in player.hand
+                if card.is_land
+            )
+        for card in player.hand:
+            if not self.can_afford(player_index, card):
+                continue
+            kind = self.interpreter.cast_program(card.card).kind
+            if kind is CastKind.CREATURE:
+                options.append(
+                    ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
+                )
+            elif kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                    )
+                    for target in opponent.battlefield
+                    if target.card.is_creature
+                )
+            elif kind is CastKind.DESTROY_OPPOSING_POWER_4:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                    )
+                    for target in opponent.battlefield
+                    if target.card.is_creature and target.power >= 4
+                )
+        options.append(ActionOption(ActionKind.PASS, player_index))
+        return tuple(options)
+
+    def execute_main_action(self, option: ActionOption) -> bool:
+        """Revalidate and execute one engine-issued main-phase option."""
+        if option not in self.legal_main_actions(option.player_index):
+            raise ValueError("action is not currently legal")
+        if option.kind is ActionKind.PASS:
+            return True
+        obj = self._objects.get(option.object_id or "")
+        if option.kind is ActionKind.PLAY_LAND:
+            if not isinstance(obj, CardObject):
+                raise ValueError("land option does not identify a card object")
+            return self.play_land(option.player_index, obj)
+        if option.kind is ActionKind.CAST:
+            if not isinstance(obj, CardObject):
+                raise ValueError("cast option does not identify a card object")
+            target = self._objects.get(option.target_id or "")
+            if target is not None and not isinstance(target, Permanent):
+                raise ValueError("target option does not identify a permanent")
+            return self.cast(option.player_index, obj, target)
+        raise ValueError("unsupported main action kind")
+
+    def legal_attack_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        if player_index != self.active_player:
+            return ()
+        attacker_ids = tuple(obj.object_id for obj in self.legal_attackers(player_index))
+        options = [ActionOption(ActionKind.DECLARE_ATTACKERS, player_index)]
+        if attacker_ids:
+            options.append(
+                ActionOption(
+                    ActionKind.DECLARE_ATTACKERS,
+                    player_index,
+                    attacker_ids=attacker_ids,
+                )
+            )
+        return tuple(options)
+
+    def legal_block_options(
+        self, attack: ActionOption, defender_index: int
+    ) -> tuple[ActionOption, ...]:
+        if attack not in self.legal_attack_options(attack.player_index):
+            return ()
+        attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
+        if not all(isinstance(obj, Permanent) for obj in attackers):
+            return ()
+        generated = self.generate_blocks(attackers, defender_index, log_rejections=False)  # type: ignore[arg-type]
+        options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
+        if generated:
+            options.append(
+                ActionOption(
+                    ActionKind.DECLARE_BLOCKERS,
+                    defender_index,
+                    blocks=tuple(
+                        (attacker_id, blocker.object_id)
+                        for attacker_id, blocker in generated.items()
+                    ),
+                )
+            )
+        return tuple(options)
+
+    def execute_combat_actions(self, attack: ActionOption, blocks: ActionOption) -> None:
+        """Revalidate engine-issued combat choices and perform combat mutation."""
+        if attack not in self.legal_attack_options(attack.player_index):
+            raise ValueError("attack option is not currently legal")
+        defender = 1 - attack.player_index
+        if blocks not in self.legal_block_options(attack, defender):
+            raise ValueError("block option is not currently legal")
+        attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
+        if not all(isinstance(obj, Permanent) for obj in attackers):
+            raise ValueError("combat option references a nonpermanent")
+        if blocks.blocks:
+            # Combat re-generates and validates the declaration after attack modifiers execute.
+            self.combat(attackers, auto_assign_blockers=True)  # type: ignore[arg-type]
+        else:
+            self.combat(attackers, {})  # type: ignore[arg-type]
 
     def play_land(self, player_index: int, card: CardObject) -> bool:
         player = self.players[player_index]
@@ -851,7 +970,8 @@ class Game:
             or not self.can_afford(player_index, card)
         ):
             return False
-        if card.name == "Manhole Missile":
+        program = self.interpreter.cast_program(card.card)
+        if program.kind is CastKind.DAMAGE_3_OPPOSING_CREATURE:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
@@ -867,7 +987,7 @@ class Game:
             self.log("spell_resolved", player=player.name, card=card.name, target=target.card.name)
             self.check_state_based_actions()
             return True
-        if card.name == "Make Your Move":
+        if program.kind is CastKind.DESTROY_OPPOSING_POWER_4:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
@@ -883,7 +1003,7 @@ class Game:
             self.destroy(target)
             self.log("spell_resolved", player=player.name, card=card.name, target=target.card.name)
             return True
-        if card.is_creature and card.power is not None and card.toughness is not None:
+        if program.kind is CastKind.CREATURE:
             self._pay(player_index, card.mana_value)
             haste = "Haste" in card.keywords
             permanent = self.move_object(
@@ -922,12 +1042,12 @@ class Game:
         self, attacker: Permanent, blocker: Permanent
     ) -> tuple[str, str] | None:
         """Return the first Oracle-derived restriction that makes this block illegal."""
-        for fragment in self.oracle_fragments(attacker.card):
-            match = self._CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
+        for fragment in self.interpreter.fragments(attacker.card):
+            match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
                 return fragment, "blocker_power_at_or_above_restriction"
             if (
-                self._CANT_BE_BLOCKED_BY_GREATER_POWER.fullmatch(fragment)
+                self.interpreter.CANT_BE_BLOCKED_BY_GREATER_POWER.fullmatch(fragment)
                 and blocker.power > attacker.power
             ):
                 return fragment, "blocker_power_greater_than_attacker"
@@ -943,7 +1063,11 @@ class Game:
         )
 
     def generate_blocks(
-        self, attackers: list[Permanent], defender_index: int
+        self,
+        attackers: list[Permanent],
+        defender_index: int,
+        *,
+        log_rejections: bool = True,
     ) -> dict[str, Permanent]:
         """Generate deterministic one-to-one blocks using the same legality as validation."""
         available = [
@@ -957,15 +1081,16 @@ class Game:
                 restriction = self.blocking_restriction(attacker, blocker)
                 if restriction is not None:
                     fragment, reason = restriction
-                    self.log(
-                        "block_candidate_rejected",
-                        attacker=attacker.card.name,
-                        blocker=blocker.card.name,
-                        oracle_fragment=fragment,
-                        reason=reason,
-                        attacker_power=attacker.power,
-                        blocker_power=blocker.power,
-                    )
+                    if log_rejections:
+                        self.log(
+                            "block_candidate_rejected",
+                            attacker=attacker.card.name,
+                            blocker=blocker.card.name,
+                            oracle_fragment=fragment,
+                            reason=reason,
+                            attacker_power=attacker.power,
+                            blocker_power=blocker.power,
+                        )
                     continue
                 blocks[attacker.object_id] = blocker
                 available.remove(blocker)
