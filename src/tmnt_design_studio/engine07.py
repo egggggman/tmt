@@ -15,9 +15,14 @@ from pathlib import Path
 from typing import Literal, Protocol
 
 from tmnt_design_studio.card_data import CardDataCatalog
-from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
+from tmnt_design_studio.card_interpreter07 import (
+    CardInterpreter,
+    CastKind,
+    TokenCreationProgram,
+    TokenDefinition,
+)
 
-ENGINE_VERSION = "cardcade-0.8.0-alpha.8"
+ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
 
 Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
 
@@ -125,6 +130,7 @@ class PaymentPlan:
 
 class RulesEventKind(Enum):
     CREATURE_ENTERED = "creature_entered"
+    TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
 
@@ -136,6 +142,7 @@ class TriggerEffect(Enum):
     LIFE_GAIN_COUNTER = "life_gain_counter"
     ATTACK_PT = "attack_pt"
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
+    CREATE_TOKEN = "create_token"
 
 
 @dataclass(frozen=True)
@@ -166,6 +173,7 @@ class PublicObjectView:
     toughness: int | None
     tapped: bool
     damage: int
+    is_token: bool = False
 
 
 @dataclass(frozen=True)
@@ -285,10 +293,11 @@ class CardObject:
     """One authoritative runtime incarnation of an immutable card definition."""
 
     object_id: str
-    card: CardFact
+    card: CardFact | TokenDefinition
     owner: int
     controller: int
     zone: Zone
+    is_token: bool = False
 
     @property
     def name(self) -> str:
@@ -369,7 +378,7 @@ class TriggeredAbilityObject:
 @dataclass(eq=False)
 class Permanent:
     object_id: str
-    card: CardFact
+    card: CardFact | TokenDefinition
     owner: int
     controller: int
     zone: Zone = "battlefield"
@@ -380,6 +389,7 @@ class Permanent:
     counters: dict[str, int] = field(default_factory=dict)
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
+    is_token: bool = False
 
     @property
     def printed_power(self) -> int:
@@ -517,9 +527,37 @@ class LegendRuleStateBasedAction:
         return changed
 
 
+@dataclass(frozen=True)
+class TokenCeasesStateBasedAction:
+    """CR 704.5d: a token in a zone other than the battlefield ceases to exist."""
+
+    name: str = "token_ceases"
+
+    def apply(self, game: Game) -> bool:
+        changed = False
+        for player in game.players:
+            for zone_name in ("library", "hand", "graveyard"):
+                zone = getattr(player, zone_name)
+                for obj in list(zone):
+                    if isinstance(obj, CardObject) and obj.is_token:
+                        zone.remove(obj)
+                        obj.zone = "former"
+                        game.log(
+                            "token_ceased",
+                            object_id=obj.object_id,
+                            token=obj.card.name,
+                            owner=game.players[obj.owner].name,
+                            previous_zone=zone_name,
+                            state_based_action=self.name,
+                        )
+                        changed = True
+        return changed
+
+
 DEFAULT_STATE_BASED_ACTIONS: tuple[StateBasedAction, ...] = (
     LegendRuleStateBasedAction(),
     LethalDamageStateBasedAction(),
+    TokenCeasesStateBasedAction(),
 )
 
 
@@ -720,6 +758,81 @@ class Game:
         self.players[permanent.controller].battlefield.append(permanent)
         return permanent
 
+    def create_tokens(
+        self,
+        creator_index: int,
+        program: TokenCreationProgram,
+        *,
+        controller: int | None = None,
+        source_card: str,
+        oracle_fragment: str,
+    ) -> tuple[Permanent, ...]:
+        """Atomically create one deterministic batch of Oracle-derived token permanents."""
+        if creator_index not in range(2):
+            raise ValueError("token creator is invalid")
+        destination_controller = creator_index if controller is None else controller
+        if destination_controller not in range(2):
+            raise ValueError("token controller is invalid")
+        if not isinstance(program, TokenCreationProgram) or not program.executable:
+            raise ValueError("token creation program is not executable")
+        assert program.definition is not None and program.quantity is not None
+        definition = program.definition
+        if definition.is_creature and (definition.power is None or definition.toughness is None):
+            raise ValueError("creature token definition requires power and toughness")
+        if not definition.is_creature and (
+            definition.power is not None or definition.toughness is not None
+        ):
+            raise ValueError("noncreature token definition cannot have power or toughness")
+
+        starting_number = self._next_object_number
+        created: list[Permanent] = []
+        try:
+            for _ in range(program.quantity):
+                token = Permanent(
+                    self._allocate_object_id(),
+                    definition,
+                    destination_controller,
+                    destination_controller,
+                    tapped=program.tapped,
+                    summoning_sick=definition.is_creature,
+                    entered_battlefield_turn=self.turn,
+                    is_token=True,
+                )
+                self._register(token)
+                self.players[destination_controller].battlefield.append(token)
+                created.append(token)
+        except Exception:
+            for token in created:
+                if token in self.players[destination_controller].battlefield:
+                    self.players[destination_controller].battlefield.remove(token)
+                self._objects.pop(token.object_id, None)
+            self._next_object_number = starting_number
+            raise
+
+        object_ids = tuple(token.object_id for token in created)
+        event = self._new_rules_event(
+            RulesEventKind.TOKENS_CREATED,
+            destination_controller,
+            object_ids,
+        )
+        self.log(
+            "tokens_created",
+            event_id=event.event_id,
+            creator=self.players[creator_index].name,
+            controller=self.players[destination_controller].name,
+            token=definition.name,
+            quantity=program.quantity,
+            object_ids=list(object_ids),
+            source_card=source_card,
+            oracle_fragment=oracle_fragment,
+        )
+        creatures = tuple(token for token in created if token.card.is_creature)
+        if creatures:
+            self._process_creatures_entered_triggers(creatures)
+        self.refresh_static_pt_modifiers()
+        self.check_state_based_actions()
+        return tuple(created)
+
     def place_on_battlefield(self, permanent: Permanent) -> None:
         """Place a newly registered test/setup object in its authoritative battlefield zone."""
         if self._objects.get(permanent.object_id) is not permanent:
@@ -790,6 +903,10 @@ class Game:
             raise ValueError("object must occupy exactly one authoritative zone")
         if destination == obj.zone:
             raise ValueError("same-zone movement is not supported")
+        if isinstance(obj, CardObject) and obj.is_token and obj.zone != "battlefield":
+            raise ValueError("a nonbattlefield token must cease before it can move again")
+        if destination == "stack" and getattr(obj, "is_token", False):
+            raise ValueError("a token cannot move to the stack")
         if controller is not None and (
             destination not in {"battlefield", "stack"} or controller not in range(2)
         ):
@@ -810,6 +927,7 @@ class Game:
                 destination_controller,
                 summoning_sick=summoning_sick,
                 entered_battlefield_turn=self.turn,
+                is_token=getattr(obj, "is_token", False),
             )
             destination_container = self.players[destination_controller].battlefield
         elif destination == "stack":
@@ -817,7 +935,14 @@ class Game:
             replacement = StackObject(new_id, obj.card, obj.owner, controller, cast_kind, target_id)
             destination_container = self.stack
         else:
-            replacement = CardObject(new_id, obj.card, obj.owner, obj.owner, destination)
+            replacement = CardObject(
+                new_id,
+                obj.card,
+                obj.owner,
+                obj.owner,
+                destination,
+                is_token=getattr(obj, "is_token", False),
+            )
             destination_container = getattr(self.players[obj.owner], destination)
 
         # No mutation occurs before every validation and destination construction succeeds.
@@ -985,7 +1110,23 @@ class Game:
         )
         subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
 
-        if ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
+        if ability.effect is TriggerEffect.CREATE_TOKEN:
+            coverage = self.interpreter.token_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if (
+                coverage is None
+                or not coverage.payload_executable
+                or not coverage.parent_executable
+            ):
+                raise AssertionError("stacked token trigger no longer has executable semantics")
+            self.create_tokens(
+                ability.controller,
+                coverage.program,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+            )
+        elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             self.log(
                 "pt_effect_condition_not_met",
                 source=ability.source_card.name,
@@ -1040,11 +1181,23 @@ class Game:
                 if mode not in available:
                     raise ValueError("Alliance mode chooser must return an available mode")
                 chosen.add(mode)
+                token_coverage = self.interpreter.token_semantic_coverage(ability.source_card, mode)
                 if self.interpreter.SELF_PLUS_COUNTER_MODE.fullmatch(mode):
                     self.place_counters(
                         source_permanent,
                         "+1/+1",
                         1,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=mode,
+                    )
+                elif (
+                    token_coverage is not None
+                    and token_coverage.payload_executable
+                    and token_coverage.parent_executable
+                ):
+                    self.create_tokens(
+                        ability.controller,
+                        token_coverage.program,
                         source_card=ability.source_card.name,
                         oracle_fragment=mode,
                     )
@@ -1095,24 +1248,29 @@ class Game:
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             self._resolve_triggered_ability(self.stack[-1])
 
-    def _process_creature_entered_triggers(
-        self, entering: Permanent, effects: set[TriggerEffect] | None = None
+    def _detect_creature_entered_triggers(
+        self,
+        entering: Permanent,
+        event: RulesEvent,
+        enabled: set[TriggerEffect],
     ) -> None:
-        event = self._new_rules_event(
-            RulesEventKind.CREATURE_ENTERED, entering.controller, (entering.object_id,)
-        )
-        enabled = effects or {
-            TriggerEffect.SNEAK_ETB_CONDITION,
-            TriggerEffect.ALLIANCE_PT,
-            TriggerEffect.ALLIANCE_COUNTER,
-            TriggerEffect.ALLIANCE_MODAL,
-        }
+        """Detect one creature's triggers without prematurely placing or draining the batch."""
         if TriggerEffect.SNEAK_ETB_CONDITION in enabled:
             for fragment in self.interpreter.fragments(entering.card):
                 if self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.SNEAK_ETB_CONDITION
                     )
+        if TriggerEffect.CREATE_TOKEN in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.token_semantic_coverage(entering.card, fragment)
+                if (
+                    coverage is not None
+                    and coverage.payload_executable
+                    and coverage.parent_executable
+                    and re.match(r"^(?:When|Whenever) .+ enters(?: or attacks)?,", fragment)
+                ):
+                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
@@ -1137,8 +1295,33 @@ class Game:
                     if self.interpreter.ALLIANCE_MODAL_HEADER.fullmatch(fragment)
                 )
                 self._enqueue_trigger(event, source, header, TriggerEffect.ALLIANCE_MODAL)
+
+    def _process_creatures_entered_triggers(
+        self,
+        entering: tuple[Permanent, ...],
+        effects: set[TriggerEffect] | None = None,
+    ) -> None:
+        enabled = effects or {
+            TriggerEffect.SNEAK_ETB_CONDITION,
+            TriggerEffect.ALLIANCE_PT,
+            TriggerEffect.ALLIANCE_COUNTER,
+            TriggerEffect.ALLIANCE_MODAL,
+            TriggerEffect.CREATE_TOKEN,
+        }
+        for permanent in entering:
+            event = self._new_rules_event(
+                RulesEventKind.CREATURE_ENTERED,
+                permanent.controller,
+                (permanent.object_id,),
+            )
+            self._detect_creature_entered_triggers(permanent, event, enabled)
         self._put_pending_triggers_on_stack()
         self._drain_triggered_abilities()
+
+    def _process_creature_entered_triggers(
+        self, entering: Permanent, effects: set[TriggerEffect] | None = None
+    ) -> None:
+        self._process_creatures_entered_triggers((entering,), effects)
 
     def place_counters(
         self,
@@ -1331,6 +1514,17 @@ class Game:
             for fragment in self.interpreter.fragments(source.card):
                 if self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ATTACK_PT)
+                token_coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
+                if (
+                    token_coverage is not None
+                    and token_coverage.payload_executable
+                    and token_coverage.parent_executable
+                    and re.match(
+                        r"^Whenever .+ (?:attacks|enters or attacks),",
+                        fragment,
+                    )
+                ):
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.CREATE_TOKEN)
         self._put_pending_triggers_on_stack()
         self._drain_triggered_abilities()
 
@@ -1467,6 +1661,7 @@ class Game:
                         permanent.toughness if permanent.card.is_creature else None,
                         permanent.tapped,
                         permanent.damage,
+                        permanent.is_token,
                     )
                     for permanent in player.battlefield
                 )
@@ -2183,6 +2378,10 @@ class Game:
                         raise AssertionError("runtime object occupies the wrong player's zone")
                     if zone_name != "battlefield" and obj.controller != obj.owner:
                         raise AssertionError("nonbattlefield object controller must reset to owner")
+                    if isinstance(obj, CardObject) and obj.is_token:
+                        raise AssertionError(
+                            "a nonbattlefield token must cease at the SBA boundary"
+                        )
                     occupied[obj.object_id] = (player_index, zone_name, obj)
         for object_id, obj in self._objects.items():
             if obj.zone == "former":
@@ -2198,6 +2397,8 @@ class Game:
                     raise AssertionError("battlefield controller does not match player zone")
                 if permanent.entered_battlefield_turn > self.turn:
                     raise AssertionError("permanent entered the battlefield in a future turn")
+                if permanent.is_token != isinstance(permanent.card, TokenDefinition):
+                    raise AssertionError("token runtime state does not match its token definition")
                 if permanent.card.is_creature:
                     if permanent.card.power is None or permanent.card.toughness is None:
                         raise AssertionError("creature permanent lacks printed power/toughness")
@@ -2319,6 +2520,10 @@ class Game:
                             "owner": x.owner,
                             "controller": x.controller,
                             "zone": x.zone,
+                            "is_token": x.is_token,
+                            "colors": (
+                                list(x.card.colors) if isinstance(x.card, TokenDefinition) else []
+                            ),
                             "tapped": x.tapped,
                             "summoning_sick": x.summoning_sick,
                             "entered_battlefield_turn": x.entered_battlefield_turn,
