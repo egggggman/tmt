@@ -25,6 +25,7 @@ class CardDefinition(Protocol):
 class CastKind(Enum):
     CREATURE = "creature"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
+    DEAL_DAMAGE = "deal_damage"
     DESTROY_OPPOSING_POWER_4 = "destroy_opposing_power_4"
     UNSUPPORTED = "unsupported"
 
@@ -32,6 +33,49 @@ class CastKind(Enum):
 @dataclass(frozen=True)
 class CastProgram:
     kind: CastKind
+
+
+class DamageTargetKind(Enum):
+    """The bounded recipient classes represented by Deal Damage."""
+
+    PLAYER = "player"
+    CREATURE = "creature"
+
+
+@dataclass(frozen=True)
+class DamageProgram:
+    """One Oracle-derived damage payload, independent of delivery and mutation."""
+
+    amount: int | None
+    target_kind: DamageTargetKind | None
+    target_scope: str | None
+    unsupported_reason: str | None = None
+    retained_limitation: str | None = None
+    additional_limitation: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.amount is not None
+            and self.amount > 0
+            and self.target_kind is not None
+            and self.target_scope in {"target_opponent", "each_opponent", "you", "target_creature"}
+            and self.unsupported_reason is None
+            and self.additional_limitation is None
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedDamageSemantics:
+    """An Action-specific damage program paired with generic coverage evidence."""
+
+    program: DamageProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
 
 
 @dataclass(frozen=True)
@@ -143,6 +187,16 @@ class CardInterpreter:
     )
     SELF_PLUS_COUNTER_MODE = re.compile(r"^• Put a \+1/\+1 counter on .+\.$")
     DAMAGE_3_TARGET_CREATURE = re.compile(r"^.+ deals 3 damage to target creature\.")
+    DEAL_DAMAGE = re.compile(
+        r"\bdeals? (?:(?P<amount>[0-9]+|X|that much) damage|damage equal to "
+        r"(?P<dynamic_amount>.+?)) to (?P<target>target opponent, creature an opponent "
+        r"controls, or planeswalker an opponent controls|each of (?:one or two|up to [0-9]+) "
+        r"targets|each opponent|target opponent|you|that player|target player|target attacking "
+        r"or blocking creature|target creature(?: an opponent controls)?|each creature|"
+        r"each non-Wall creature|any target|any other target|one or two targets|"
+        r"each of those creatures)\b",
+        re.IGNORECASE,
+    )
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
         r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
     )
@@ -201,6 +255,14 @@ class CardInterpreter:
     def cast_program(self, card: CardDefinition) -> CastProgram:
         if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
             return CastProgram(CastKind.DAMAGE_3_OPPOSING_CREATURE)
+        damage = self.damage_semantic_coverage(card, card.oracle_text)
+        if (
+            damage is not None
+            and damage.coverage.payload_executable
+            and damage.coverage.parent_executable
+            and damage.program.target_kind is DamageTargetKind.CREATURE
+        ):
+            return CastProgram(CastKind.DEAL_DAMAGE)
         if self.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE.fullmatch(card.oracle_text):
             return CastProgram(CastKind.DESTROY_OPPOSING_POWER_4)
         if card.is_creature and card.power is not None and card.toughness is not None:
@@ -337,6 +399,124 @@ class CardInterpreter:
             retained_limitation=retained_limitation,
         )
 
+    def damage_program(self, fragment: str) -> DamageProgram | None:
+        """Recognize damage payloads without confusing damage with adjacent outcomes."""
+        match = self.DEAL_DAMAGE.search(fragment)
+        if match is None:
+            return None
+        amount_text = (match.group("amount") or match.group("dynamic_amount")).casefold()
+        amount = int(amount_text) if amount_text.isdecimal() else None
+        target_text = match.group("target").casefold()
+        target_kind = None
+        target_scope = None
+        amount_limitation = "dynamic_damage_amount_not_implemented" if amount is None else None
+        targeting_limitation = None
+        if target_text in {"target opponent", "each opponent", "you"}:
+            target_kind = DamageTargetKind.PLAYER
+            target_scope = target_text.replace(" ", "_")
+        elif target_text in {"that player", "target player"}:
+            target_kind = DamageTargetKind.PLAYER
+            target_scope = target_text.replace(" ", "_")
+            targeting_limitation = "damage_referential_player_not_implemented"
+        elif target_text in {
+            "target creature",
+            "target creature an opponent controls",
+            "target attacking or blocking creature",
+        }:
+            target_kind = DamageTargetKind.CREATURE
+            target_scope = "target_creature"
+            if target_text == "target attacking or blocking creature":
+                targeting_limitation = "damage_target_combat_status_not_implemented"
+        elif target_text in {
+            "each creature",
+            "each non-wall creature",
+            "one or two targets",
+            "each of those creatures",
+        }:
+            targeting_limitation = "multiple_damage_targets_not_implemented"
+        elif re.fullmatch(r"each of (?:one or two|up to [0-9]+) targets", target_text):
+            targeting_limitation = "variable_count_multiple_damage_targets_not_implemented"
+        elif target_text.startswith("target opponent,"):
+            targeting_limitation = "damage_multi_kind_target_not_implemented"
+        else:
+            targeting_limitation = "damage_any_target_not_implemented"
+
+        suffix = fragment[match.end() :]
+        retained = None
+        if suffix.strip(" .") or re.search(
+            r"\b(?:if that creature would die|then|and [^.]*(?:draw|create|put|destroy|"
+            r"exile|sacrifice))\b",
+            suffix,
+            re.I,
+        ):
+            retained = "damage_followup_semantics_not_implemented"
+        unsupported_reason = amount_limitation or targeting_limitation
+        additional_limitation = (
+            targeting_limitation if amount_limitation and targeting_limitation else None
+        )
+        return DamageProgram(
+            amount,
+            target_kind,
+            target_scope,
+            unsupported_reason,
+            retained,
+            additional_limitation,
+        )
+
+    def damage_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDamageSemantics | None:
+        """Classify a damage payload separately from its parent and follow-up."""
+        program = self.damage_program(fragment)
+        if program is None:
+            return None
+        match = self.DEAL_DAMAGE.search(fragment)
+        assert match is not None
+        prefix = fragment[: match.start()]
+        alliance = bool(
+            re.match(r"^Alliance — Whenever another creature you control enters,", fragment)
+        )
+        direct_spell = not prefix.strip() or bool(
+            re.match(r"^(?:• )?[^,.]+ deals?\b", fragment, re.I)
+        )
+        if alliance:
+            parent_executable = True
+            parent_limitation = None
+        elif fragment.startswith("• "):
+            parent_executable = False
+            parent_limitation = "damage_choice_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "damage_trigger_context_not_implemented"
+        elif ":" in prefix:
+            parent_executable = False
+            parent_limitation = "damage_activation_context_not_implemented"
+        elif direct_spell:
+            parent_executable = True
+            parent_limitation = None
+        else:
+            parent_executable = False
+            parent_limitation = "damage_preceding_effect_not_implemented"
+        limitations = tuple(
+            dict.fromkeys(
+                reason
+                for reason in (
+                    program.unsupported_reason,
+                    program.additional_limitation,
+                    parent_limitation,
+                    program.retained_limitation,
+                )
+                if reason is not None
+            )
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            program.retained_limitation is None,
+            limitations,
+        )
+        return InterpretedDamageSemantics(program, coverage, parent_limitation)
+
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
@@ -426,6 +606,15 @@ class CardInterpreter:
             if token_coverage is not None:
                 for reason in token_coverage.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            damage_coverage = self.damage_semantic_coverage(card, fragment)
+            if damage_coverage is not None:
+                for reason in damage_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                if damage_coverage.coverage.fully_supported:
+                    continue
+                if not damage_coverage.limitations:
+                    unsupported.append((fragment, "damage_semantics_not_implemented"))
                 continue
             if (
                 fragment.casefold() == "haste"
