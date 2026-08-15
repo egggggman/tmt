@@ -21,6 +21,8 @@ from tmnt_design_studio.card_interpreter07 import (
     CastKind,
     DamageTargetKind,
     ScryProgram,
+    StrikeApplicability,
+    StrikeKeyword,
     TokenCreationProgram,
     TokenDefinition,
 )
@@ -53,6 +55,13 @@ class TurnPhase(Enum):
     COMBAT = "combat"
     POSTCOMBAT_MAIN = "postcombat_main"
     ENDING = "ending"
+
+
+class CombatDamageStepKind(Enum):
+    NONE = "none"
+    FIRST_STRIKE = "first_strike"
+    REGULAR = "regular"
+    COMPLETE = "complete"
 
 
 STEP_PHASE = {
@@ -205,6 +214,33 @@ class ScryEvidence:
     bottom_ids: tuple[str, ...]
     source_card: str
     oracle_fragment: str
+
+
+@dataclass(frozen=True)
+class CombatDamageAssignment:
+    """One immutable combat-damage assignment within an authoritative damage step."""
+
+    source_id: str
+    target_id: str | None
+    target_player: int | None
+    amount: int
+    role: Literal[
+        "first_strike",
+        "double_strike_first",
+        "regular",
+        "double_strike_second",
+    ]
+
+
+@dataclass(frozen=True)
+class CombatDamageStepEvidence:
+    """Typed evidence for one completed first-strike or regular damage step."""
+
+    kind: CombatDamageStepKind
+    sequence: int
+    total_steps: int
+    assignments: tuple[CombatDamageAssignment, ...]
+    removed_before_next_step: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -737,9 +773,16 @@ class Game:
         self._attackers_declared = False
         self._blockers_declared = False
         self._combat_damage_resolved = False
+        self._combat_damage_step_kind = CombatDamageStepKind.NONE
+        self._combat_damage_step_number = 0
+        self._combat_damage_total_steps = 0
+        self._first_damage_qualified_ids: tuple[str, ...] = ()
+        self._first_double_strike_ids: tuple[str, ...] = ()
+        self._regular_damage_initial_ids: tuple[str, ...] = ()
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
+        self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
         self.interpreter = interpreter or CardInterpreter()
@@ -1927,14 +1970,29 @@ class Game:
             else:
                 self.draw(player)
         elif step is TurnStep.BEGINNING_OF_COMBAT:
-            self._combat_attackers = ()
-            self._combat_blocks = ()
-            self._attackers_declared = False
-            self._blockers_declared = False
-            self._combat_damage_resolved = False
+            self._reset_current_combat_state()
             self.log("combat_state_reset")
+        elif step is TurnStep.COMBAT_DAMAGE:
+            self._begin_combat_damage_steps()
+        elif step is TurnStep.POSTCOMBAT_MAIN:
+            # CR 511.3: the combat phase has ended, so no object remains in combat.
+            self._reset_current_combat_state()
         elif step is TurnStep.CLEANUP:
             self._perform_cleanup()
+
+    def _reset_current_combat_state(self) -> None:
+        """End the semantic lifetime of mutable state for the current combat."""
+        self._combat_attackers = ()
+        self._combat_blocks = ()
+        self._attackers_declared = False
+        self._blockers_declared = False
+        self._combat_damage_resolved = False
+        self._combat_damage_step_kind = CombatDamageStepKind.NONE
+        self._combat_damage_step_number = 0
+        self._combat_damage_total_steps = 0
+        self._first_damage_qualified_ids = ()
+        self._first_double_strike_ids = ()
+        self._regular_damage_initial_ids = ()
 
     def _perform_cleanup(self) -> None:
         expired = 0
@@ -1948,11 +2006,7 @@ class Game:
                 ]
                 expired += before - len(permanent.pt_modifiers)
                 permanent.damage = 0
-        self._combat_attackers = ()
-        self._combat_blocks = ()
-        self._attackers_declared = False
-        self._blockers_declared = False
-        self._combat_damage_resolved = False
+        self._reset_current_combat_state()
         self.refresh_static_pt_modifiers()
         self.alliance_modes_chosen.clear()
         self.log("cleanup_completed", expired_pt_modifiers=expired)
@@ -2145,37 +2199,268 @@ class Game:
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
         self.transition_to(TurnStep.COMBAT_DAMAGE)
 
-    def resolve_combat_damage(self) -> None:
-        """Execute combat damage from the authoritative declarations."""
-        if self.step is not TurnStep.COMBAT_DAMAGE or self._combat_damage_resolved:
-            raise ValueError("combat damage is legal only once during combat damage")
+    def evaluated_strike_keywords(self, permanent: Permanent) -> frozenset[StrikeKeyword]:
+        """Evaluate the represented printed and static combat-step keyword characteristics."""
+        if not self.is_authoritative(permanent, "battlefield"):
+            return frozenset()
+        keywords = {
+            keyword
+            for keyword in StrikeKeyword
+            if keyword.value.replace("_", " ").casefold()
+            in {value.casefold() for value in permanent.card.keywords}
+        }
+        for fragment in self.interpreter.fragments(permanent.card):
+            semantics = self.interpreter.strike_semantic_coverage(permanent.card, fragment)
+            if semantics is None or not semantics.coverage.fully_supported:
+                continue
+            if semantics.program.applicability is StrikeApplicability.SELF or (
+                semantics.program.applicability is StrikeApplicability.SELF_DURING_CONTROLLER_TURN
+                and permanent.controller == self.active_player
+            ):
+                keywords.add(semantics.program.keyword)
+        if permanent.object_id in self._combat_attackers:
+            for source in self.players[permanent.controller].battlefield:
+                for fragment in self.interpreter.fragments(source.card):
+                    semantics = self.interpreter.strike_semantic_coverage(source.card, fragment)
+                    if (
+                        semantics is not None
+                        and semantics.coverage.fully_supported
+                        and semantics.program.applicability
+                        is StrikeApplicability.ATTACKING_CREATURES_YOU_CONTROL
+                    ):
+                        keywords.add(semantics.program.keyword)
+        return frozenset(keywords)
+
+    def _combat_permanent(self, object_id: str, role: str) -> Permanent:
+        obj = self._objects.get(object_id)
+        if not isinstance(obj, Permanent):
+            raise ValueError(f"combat state references a fabricated or nonpermanent {role}")
+        return obj
+
+    def _start_combat_damage_step(
+        self, kind: CombatDamageStepKind, sequence: int, total_steps: int
+    ) -> None:
+        self._combat_damage_step_kind = kind
+        self._combat_damage_step_number = sequence
+        self._combat_damage_total_steps = total_steps
+        self._combat_damage_resolved = False
+        self.log(
+            "combat_damage_step_started",
+            damage_step=kind.value,
+            sequence=sequence,
+            total_steps=total_steps,
+        )
+
+    def _begin_combat_damage_steps(self) -> None:
+        """Determine the CR 510.4 one- or two-step combat-damage sequence."""
+        combatant_ids = tuple(
+            dict.fromkeys(
+                self._combat_attackers
+                + tuple(blocker_id for _attacker_id, blocker_id in self._combat_blocks)
+            )
+        )
+        combatants = tuple(
+            self._combat_permanent(object_id, "combatant") for object_id in combatant_ids
+        )
+        remaining = tuple(
+            permanent for permanent in combatants if self.is_authoritative(permanent, "battlefield")
+        )
+        evaluated = {
+            permanent.object_id: self.evaluated_strike_keywords(permanent)
+            for permanent in remaining
+        }
+        self._first_damage_qualified_ids = tuple(
+            permanent.object_id
+            for permanent in remaining
+            if evaluated[permanent.object_id]
+            & {StrikeKeyword.FIRST_STRIKE, StrikeKeyword.DOUBLE_STRIKE}
+        )
+        self._first_double_strike_ids = tuple(
+            permanent.object_id
+            for permanent in remaining
+            if StrikeKeyword.DOUBLE_STRIKE in evaluated[permanent.object_id]
+        )
+        self._regular_damage_initial_ids = tuple(
+            permanent.object_id
+            for permanent in remaining
+            if not evaluated[permanent.object_id]
+            & {StrikeKeyword.FIRST_STRIKE, StrikeKeyword.DOUBLE_STRIKE}
+        )
+        if self._first_damage_qualified_ids:
+            self._start_combat_damage_step(CombatDamageStepKind.FIRST_STRIKE, 1, 2)
+        else:
+            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 1, 1)
+
+    def _damage_step_eligible_ids(self) -> set[str]:
+        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
+            return set(self._first_damage_qualified_ids)
+        if self._combat_damage_step_kind is not CombatDamageStepKind.REGULAR:
+            raise ValueError("combat damage step is not active")
+        current_double = {
+            object_id
+            for object_id in self._combat_attackers
+            + tuple(blocker_id for _attacker_id, blocker_id in self._combat_blocks)
+            if isinstance((obj := self._objects.get(object_id)), Permanent)
+            and self.is_authoritative(obj, "battlefield")
+            and StrikeKeyword.DOUBLE_STRIKE in self.evaluated_strike_keywords(obj)
+        }
+        return set(self._regular_damage_initial_ids) | current_double
+
+    def _combat_assignment(
+        self,
+        source: Permanent,
+        *,
+        target: Permanent | None = None,
+        target_player: int | None = None,
+    ) -> CombatDamageAssignment:
+        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
+            role = (
+                "double_strike_first"
+                if source.object_id in self._first_double_strike_ids
+                else "first_strike"
+            )
+        else:
+            role = (
+                "double_strike_second"
+                if StrikeKeyword.DOUBLE_STRIKE in self.evaluated_strike_keywords(source)
+                else "regular"
+            )
+        return CombatDamageAssignment(
+            source.object_id,
+            None if target is None else target.object_id,
+            target_player,
+            source.power,
+            role,
+        )
+
+    def resolve_combat_damage(self) -> CombatDamageStepEvidence:
+        """Resolve exactly one authoritative CR 510.4 combat-damage step."""
+        if (
+            self.step is not TurnStep.COMBAT_DAMAGE
+            or self._combat_damage_resolved
+            or self._combat_damage_step_kind
+            not in {CombatDamageStepKind.FIRST_STRIKE, CombatDamageStepKind.REGULAR}
+        ):
+            raise ValueError("combat damage step is not ready to resolve")
+        if len(set(self._combat_attackers)) != len(self._combat_attackers):
+            raise ValueError("combat state contains a duplicate attacker")
+        if len({blocker_id for _attacker_id, blocker_id in self._combat_blocks}) != len(
+            self._combat_blocks
+        ):
+            raise ValueError("combat state contains a duplicate blocker")
+
         defender_index = 1 - self.active_player
-        attackers = [self._objects[object_id] for object_id in self._combat_attackers]
-        if not all(isinstance(obj, Permanent) for obj in attackers):
-            raise ValueError("combat state references a nonpermanent attacker")
+        attackers = {
+            object_id: self._combat_permanent(object_id, "attacker")
+            for object_id in self._combat_attackers
+        }
         blocks = {
-            attacker_id: self._objects[blocker_id]
+            attacker_id: self._combat_permanent(blocker_id, "blocker")
             for attacker_id, blocker_id in self._combat_blocks
         }
-        if not all(isinstance(obj, Permanent) for obj in blocks.values()):
-            raise ValueError("combat state references a nonpermanent blocker")
-        for attacker in attackers:
-            blocker = blocks.get(attacker.object_id)
+        if any(attacker_id not in attackers for attacker_id in blocks):
+            raise ValueError("combat state assigns a blocker to a nonattacker")
+        eligible = self._damage_step_eligible_ids()
+        assignments: list[CombatDamageAssignment] = []
+        damaged_pairs: list[tuple[Permanent, Permanent]] = []
+        for attacker_id, attacker in attackers.items():
+            attacker_present = self.is_authoritative(attacker, "battlefield")
+            blocker = blocks.get(attacker_id)
+            blocker_present = blocker is not None and self.is_authoritative(blocker, "battlefield")
             if blocker is None:
-                self.players[defender_index].life -= attacker.power
-                self.log("combat_damage_player", source=attacker.card.name, damage=attacker.power)
-            else:
-                blocker.damage += attacker.power  # type: ignore[union-attr]
-                attacker.damage += blocker.power  # type: ignore[union-attr]
-                self.log(
-                    "combat_damage_creatures",
-                    attacker=attacker.card.name,
-                    blocker=blocker.card.name,  # type: ignore[union-attr]
+                if attacker_present and attacker_id in eligible:
+                    assignments.append(
+                        self._combat_assignment(attacker, target_player=defender_index)
+                    )
+                continue
+            if attacker_present and blocker_present and attacker_id in eligible:
+                assignments.append(self._combat_assignment(attacker, target=blocker))
+            if attacker_present and blocker_present and blocker.object_id in eligible:
+                assignments.append(self._combat_assignment(blocker, target=attacker))
+            if (
+                attacker_present
+                and blocker_present
+                and any(
+                    assignment.source_id in {attacker.object_id, blocker.object_id}
+                    for assignment in assignments
                 )
+            ):
+                damaged_pairs.append((attacker, blocker))
+
+        if len({assignment.source_id for assignment in assignments}) != len(assignments):
+            raise AssertionError("a combatant assigned damage more than once in one damage step")
+        before_remaining = {
+            permanent.object_id
+            for permanent in tuple(attackers.values()) + tuple(blocks.values())
+            if self.is_authoritative(permanent, "battlefield")
+        }
+        for assignment in assignments:
+            source = self._combat_permanent(assignment.source_id, "damage source")
+            if assignment.target_player is not None:
+                self.players[assignment.target_player].life -= assignment.amount
+                self.log(
+                    "combat_damage_player",
+                    source=source.card.name,
+                    damage=assignment.amount,
+                    damage_step=self._combat_damage_step_kind.value,
+                    role=assignment.role,
+                )
+            else:
+                assert assignment.target_id is not None
+                target = self._combat_permanent(assignment.target_id, "damage target")
+                target.damage += assignment.amount
+                self.log(
+                    "combat_damage_assignment",
+                    source=source.card.name,
+                    source_id=source.object_id,
+                    target=target.card.name,
+                    target_id=target.object_id,
+                    damage=assignment.amount,
+                    damage_step=self._combat_damage_step_kind.value,
+                    role=assignment.role,
+                )
+        for attacker, blocker in dict.fromkeys(damaged_pairs):
+            self.log(
+                "combat_damage_creatures",
+                attacker=attacker.card.name,
+                blocker=blocker.card.name,
+            )
+
+        resolved_kind = self._combat_damage_step_kind
+        resolved_sequence = self._combat_damage_step_number
+        resolved_total = self._combat_damage_total_steps
         self.check_state_based_actions()
         self.check_life()
+        after_remaining = {
+            object_id
+            for object_id in before_remaining
+            if isinstance((obj := self._objects.get(object_id)), Permanent)
+            and self.is_authoritative(obj, "battlefield")
+        }
+        removed = tuple(sorted(before_remaining - after_remaining))
+        evidence = CombatDamageStepEvidence(
+            resolved_kind,
+            resolved_sequence,
+            resolved_total,
+            tuple(assignments),
+            removed,
+        )
+        self.combat_damage_evidence.append(evidence)
+        self.log(
+            "combat_damage_step_resolved",
+            damage_step=resolved_kind.value,
+            sequence=resolved_sequence,
+            total_steps=resolved_total,
+            assignments=len(assignments),
+            removed_before_next_step=list(removed),
+        )
         self._combat_damage_resolved = True
-        self.transition_to(TurnStep.END_OF_COMBAT)
+        if resolved_kind is CombatDamageStepKind.FIRST_STRIKE and self.winner is None:
+            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
+        else:
+            self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
+            self.transition_to(TurnStep.END_OF_COMBAT)
+        return evidence
 
     def play_land(self, player_index: int, card: CardObject) -> bool:
         player = self.players[player_index]
@@ -2615,7 +2900,8 @@ class Game:
                 ),
             )
         self.execute_block_action(block_option)
-        self.resolve_combat_damage()
+        while self.step is TurnStep.COMBAT_DAMAGE:
+            self.resolve_combat_damage()
 
     def end_turn(self) -> None:
         """Compatibility helper: follow legal transitions through cleanup."""
@@ -2666,6 +2952,51 @@ class Game:
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        combat_ids = self._combat_attackers + tuple(
+            blocker_id for _attacker_id, blocker_id in self._combat_blocks
+        )
+        if len(set(self._combat_attackers)) != len(self._combat_attackers):
+            raise AssertionError("combat state contains duplicate attackers")
+        if len({blocker_id for _attacker_id, blocker_id in self._combat_blocks}) != len(
+            self._combat_blocks
+        ):
+            raise AssertionError("combat state contains duplicate blockers")
+        if any(object_id not in combat_ids for object_id in self._first_damage_qualified_ids):
+            raise AssertionError("first-strike qualification references a noncombatant")
+        if any(object_id not in combat_ids for object_id in self._regular_damage_initial_ids):
+            raise AssertionError("regular-step qualification references a noncombatant")
+        if any(
+            len({assignment.source_id for assignment in evidence.assignments})
+            != len(evidence.assignments)
+            for evidence in self.combat_damage_evidence
+        ):
+            raise AssertionError("combatant dealt more than once in one damage step")
+        if self.step is TurnStep.COMBAT_DAMAGE and self._combat_damage_step_kind not in {
+            CombatDamageStepKind.FIRST_STRIKE,
+            CombatDamageStepKind.REGULAR,
+        }:
+            raise AssertionError("combat damage turn step lacks an active damage-step kind")
+        if self.step in {
+            TurnStep.POSTCOMBAT_MAIN,
+            TurnStep.END_STEP,
+            TurnStep.CLEANUP,
+            TurnStep.UNTAP,
+            TurnStep.UPKEEP,
+            TurnStep.DRAW,
+            TurnStep.PRECOMBAT_MAIN,
+        } and (
+            combat_ids
+            or self._attackers_declared
+            or self._blockers_declared
+            or self._combat_damage_resolved
+            or self._combat_damage_step_kind is not CombatDamageStepKind.NONE
+            or self._combat_damage_step_number
+            or self._combat_damage_total_steps
+            or self._first_damage_qualified_ids
+            or self._first_double_strike_ids
+            or self._regular_damage_initial_ids
+        ):
+            raise AssertionError("completed combat state leaked outside the combat phase")
         if [record.sequence for record in self.rng.records] != list(
             range(1, len(self.rng.records) + 1)
         ):
@@ -2844,6 +3175,32 @@ class Game:
                 for entry in self.stack
             ],
             "pending_triggers": [trigger.trigger_id for trigger in self.pending_triggers],
+            "combat_damage": {
+                "step_kind": self._combat_damage_step_kind.value,
+                "sequence": self._combat_damage_step_number,
+                "total_steps": self._combat_damage_total_steps,
+                "first_qualified_ids": list(self._first_damage_qualified_ids),
+                "regular_initial_ids": list(self._regular_damage_initial_ids),
+                "evidence": [
+                    {
+                        "kind": item.kind.value,
+                        "sequence": item.sequence,
+                        "total_steps": item.total_steps,
+                        "assignments": [
+                            {
+                                "source_id": assignment.source_id,
+                                "target_id": assignment.target_id,
+                                "target_player": assignment.target_player,
+                                "amount": assignment.amount,
+                                "role": assignment.role,
+                            }
+                            for assignment in item.assignments
+                        ],
+                        "removed_before_next_step": list(item.removed_before_next_step),
+                    }
+                    for item in self.combat_damage_evidence
+                ],
+            },
             "players": [
                 {
                     "name": p.name,

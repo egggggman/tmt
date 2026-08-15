@@ -52,8 +52,10 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
         block_options = game.legal_block_options(attack, 1 - active)
         blocks = pilot.choose_blocks(game.public_view(), block_options)
         game.execute_block_action(blocks)
-        game.resolve_combat_damage()
+        while game.step.value == "combat_damage":
+            game.resolve_combat_damage()
         game.advance_step()
+        game.check_invariants()
         game.end_turn()
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")
