@@ -103,6 +103,42 @@ class InterpretedScrySemantics:
         return self.coverage.limitations
 
 
+class StrikeKeyword(Enum):
+    FIRST_STRIKE = "first_strike"
+    DOUBLE_STRIKE = "double_strike"
+
+
+class StrikeApplicability(Enum):
+    SELF = "self"
+    SELF_DURING_CONTROLLER_TURN = "self_during_controller_turn"
+    ATTACKING_CREATURES_YOU_CONTROL = "attacking_creatures_you_control"
+
+
+@dataclass(frozen=True)
+class StrikeProgram:
+    """One Oracle-derived First/Double Strike payload, separate from delivery."""
+
+    keyword: StrikeKeyword
+    applicability: StrikeApplicability | None
+
+    @property
+    def executable(self) -> bool:
+        return True
+
+
+@dataclass(frozen=True)
+class InterpretedStrikeSemantics:
+    """An Action-specific strike program paired with generic coverage evidence."""
+
+    program: StrikeProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
 @dataclass(frozen=True)
 class TokenDefinition:
     """Immutable characteristics for one Oracle-derived token kind."""
@@ -223,6 +259,7 @@ class CardInterpreter:
         re.IGNORECASE,
     )
     SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
+    STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
         r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
     )
@@ -622,6 +659,79 @@ class CardInterpreter:
         )
         return InterpretedScrySemantics(program, coverage, parent_limitation)
 
+    def strike_program(self, fragment: str) -> StrikeProgram | None:
+        """Recognize First/Double Strike without treating its parent as executable."""
+        match = self.STRIKE_KEYWORD.search(fragment)
+        if match is None:
+            return None
+        keyword = (
+            StrikeKeyword.FIRST_STRIKE
+            if match.group("keyword").casefold() == "first strike"
+            else StrikeKeyword.DOUBLE_STRIKE
+        )
+        reminder = r"(?:\s*\([^)]*\))?\.?"
+        if re.fullmatch(rf"{match.group('keyword')}{reminder}", fragment, re.I):
+            applicability = StrikeApplicability.SELF
+        elif re.fullmatch(
+            rf"During your turn, this creature has {match.group('keyword')}\.", fragment, re.I
+        ):
+            applicability = StrikeApplicability.SELF_DURING_CONTROLLER_TURN
+        elif re.fullmatch(
+            rf"Attacking creatures you control have {match.group('keyword')}\.", fragment, re.I
+        ):
+            applicability = StrikeApplicability.ATTACKING_CREATURES_YOU_CONTROL
+        else:
+            applicability = None
+        return StrikeProgram(keyword, applicability)
+
+    def strike_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStrikeSemantics | None:
+        """Keep combat-step mechanics separate from grants and surrounding semantics."""
+        program = self.strike_program(fragment)
+        if program is None:
+            return None
+        match = self.STRIKE_KEYWORD.search(fragment)
+        assert match is not None
+        if program.applicability is not None:
+            parent_executable = True
+            parent_limitation = None
+        elif re.search(r"\bEquipped creature\b", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_attachment_context_not_implemented"
+        elif ":" in fragment[: match.start()]:
+            parent_executable = False
+            parent_limitation = "strike_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_trigger_context_not_implemented"
+        elif re.match(r"^(?:Choose one|•|Target )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_temporary_grant_context_not_implemented"
+        else:
+            parent_executable = False
+            parent_limitation = "strike_parent_context_not_implemented"
+
+        suffix = fragment[match.end() :]
+        suffix_without_reminder_or_duration = re.sub(
+            r"^(?: until end of turn)?\.?(?:\s*\([^)]*\))?\.?$", "", suffix, flags=re.I
+        )
+        followup_limitation = (
+            "strike_followup_semantics_not_implemented"
+            if suffix_without_reminder_or_duration.strip()
+            else None
+        )
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_limitation is None,
+            limitations,
+        )
+        return InterpretedStrikeSemantics(program, coverage, parent_limitation)
+
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
@@ -724,6 +834,11 @@ class CardInterpreter:
             scry_coverage = self.scry_semantic_coverage(card, fragment)
             if scry_coverage is not None:
                 for reason in scry_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            strike_coverage = self.strike_semantic_coverage(card, fragment)
+            if strike_coverage is not None:
+                for reason in strike_coverage.limitations:
                     unsupported.append((fragment, reason))
                 continue
             if (
