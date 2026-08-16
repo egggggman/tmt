@@ -1,111 +1,152 @@
 # Mutants the Gathering HQ
 
-HQ coordinates the Mutants the Gathering project without taking work away from its specialist
-departments. This page is the project-level map and current-status view. It points to canonical
-artifacts; it does not replace their specifications or histories.
+HQ coordinates the Mutants the Gathering project without taking work away from its specialist departments. This page is the project-level map and current-status view. It points to canonical artifacts; it does not replace their specifications or histories.
+
+For a newcomer-oriented overview, start with [Outsider Continuity](OUTSIDER_CONTINUITY.md).
 
 ## Department authority
 
 | Department | Authority and boundary |
 | --- | --- |
 | HQ | Coordinates roadmap, project status, governance, major milestones, and decisions that cross department boundaries. HQ does not duplicate specialist work. |
-| Design Studio | Owns deck construction, Design Intent, character and deck identity, prototypes, and deck revisions. It decides whether playtest evidence warrants a deck change and preserves earlier prototypes when creating a new one. |
+| Design Studio | Owns deck construction, Design Intent, character/deck identity, prototypes, and deck revisions. It decides whether playtest evidence warrants a deck change and preserves earlier prototypes when creating a new one. |
 | TMNT the Cardcade Game | Owns automated simulation, reproducible playtesting, telemetry, matchup evidence, engine validation, and calibration reports. Cardcade reports observations and hypotheses; it does not redesign decks or authorize revisions. |
-| Mr. Paperback | Owns physical products and print deliverables, including boxes, dividers, tokens, counters, manuals, reference cards, trackers, templates, dielines, and print testing. A deliverable is not complete until it prints, cuts, folds, fits, or plays correctly. |
-| Canon / Source Material | Owns thematic and source research, relationships, flavor, setting, and canon consistency. It supports Design Studio and Mr. Paperback but does not override gameplay quality when literal interpretation would make the game worse. |
+| Mr. Paperback | Owns physical products and print deliverables, including boxes, dividers, tokens, counters, manuals, reference cards, trackers, templates, dielines, stickers/stamps, and print testing. A deliverable is not complete until it prints, cuts, folds, fits, or plays correctly. |
+| Canon / Source Material | Owns thematic/source research, relationships, flavor, setting, and canon consistency. It supports Design Studio and Mr. Paperback but does not override gameplay quality when literal interpretation would make the game worse. |
 | The Underground Press | Operates as a distinct associated creative publication. Its editorial and production workflow remains separate from deck design and Cardcade unless work genuinely overlaps. |
 
-When ownership is unclear or multiple departments would otherwise solve the same problem, HQ assigns
-the owner before work proceeds.
+When ownership is unclear or multiple departments would otherwise solve the same problem, HQ assigns the owner before work proceeds.
 
 ## Source of truth
 
-GitHub is the durable project record. Accepted specifications, deck and prototype history, engine
-code, schemas, simulation artifacts, calibration reports, production specifications, governance,
-and durable decisions belong in this repository.
+GitHub is the durable project record. Accepted specifications, deck/prototype history, engine code, schemas, simulation artifacts, calibration reports, production specifications, governance, and durable decisions belong in this repository.
 
-Project chats are working rooms for discussion, exploration, analysis, review, coordination, and
-creative development. A decision that becomes durable policy must be recorded in GitHub rather than
-left only in chat history. Existing canonical documents retain their authority:
+Project chats are working rooms for discussion, exploration, analysis, review, coordination, and creative development. A decision that becomes durable policy must be recorded in GitHub rather than left only in chat history.
 
-- [Project Constitution](PROJECT_CONSTITUTION.md) governs mission and judgment.
-- [Design Principles](DESIGN_PRINCIPLES.md) governs how contributors make decisions.
-- [Architecture](ARCHITECTURE.md) governs technical layers and implementation boundaries.
-- [Accepted Decisions](DECISIONS.md) records durable product and architecture decisions.
-- [Roadmap](ROADMAP.md) records milestone direction and history.
-- [The Underground Press](UNDERGROUND_PRESS.md) governs that publication.
+Primary orientation and governance records:
+
+- [Outsider Continuity](OUTSIDER_CONTINUITY.md)
+- [Project Constitution](PROJECT_CONSTITUTION.md)
+- [Design Principles](DESIGN_PRINCIPLES.md)
+- [Architecture](ARCHITECTURE.md)
+- [Accepted Decisions](DECISIONS.md)
+- [Roadmap](ROADMAP.md)
+- [The Sewer Status Board](SEWER_STATUS_BOARD.md)
+- [THERECORD](THERECORD.md)
+- [The Underground Press](UNDERGROUND_PRESS.md)
 
 ## Master Project Map
 
-Status describes the repository's current durable record. A pull request is pending evidence, not
-accepted history, until merged.
-
-| System, artifact, or product | Owner | Status | Dependencies | Repository location |
+| System, artifact, or product | Owner | Current durable state | Dependencies / Gate | Repository location |
 | --- | --- | --- | --- | --- |
-| Project governance and cross-department roadmap | HQ | Active; department model established here | Canonical governance documents and department evidence | `docs/HQ.md`, `docs/PROJECT_CONSTITUTION.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md` |
-| SewerGraph and analytical foundation through Deck Analysis v0.5.0 | Design Studio | Implemented on `main` | Scryfall facts, capabilities, database migrations | `src/tmnt_design_studio/`, `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/DECK_ANALYSIS.md` |
-| Design Intent contract | Design Studio | Accepted RFC; implementation remains a Design Studio concern | Canon/source research and existing analysis layers | `docs/rfcs/006-design-intent.md` |
-| Leonardo Prototype 0.1 | Design Studio | Preserved on `main` | Design Intent, Standard legality, deck analysis | `decks/leonardo/PROTOTYPE_0.1.md` |
-| Ten-deck Prototype 0.1 baseline and Prototype 0.2 candidates | Design Studio | Preserved on `main` following merged PR #15; do not revise from HQ | Design Intent and Cardcade evidence | `decks/` |
-| Cardcade engine, rosters, smoke runs, calibration, and audit evidence | TMNT the Cardcade Game | Preserved on `main` following merged PR #15; Engine 0.6 stability gate is not satisfied | Frozen deck versions and reproducible card facts | `cardcade/`, `src/tmnt_design_studio/cardcade.py`, and `tests/test_cardcade.py` |
-| Physical battle-set products and print specifications | Mr. Paperback | Planned; no accepted production package yet | Stable deck dimensions/content, token needs, brand and print tests | Repository location to be assigned when the first specification is accepted |
-| Canon and source research | Canon / Source Material | Foundation present; expand only as deck or product work requires | Attributed TMNT sources and project interpretation | `docs/Knowledge-Architecture.md`, `docs/WORLD_GUIDE.md`, `encyclopedia/` |
-| Underground Press publication system | The Underground Press | Governed; production remains distinct | World continuity and bounded project milestones | `docs/UNDERGROUND_PRESS.md`, `docs/Editorial-Bible.md` |
-| Ten-deck starter/battle set | HQ coordinating all departments | Target product; not yet production-ready | Credible balanced deck baseline, human fun testing, and validated print deliverables | Component locations above; consolidated product specification not yet accepted |
+| Project governance and cross-department roadmap | HQ | Active; department authority model established | Accepted department evidence | `docs/HQ.md`, `docs/OUTSIDER_CONTINUITY.md` |
+| SewerGraph / Design Studio analytical foundation through Deck Analysis v0.5.0 | Design Studio | Implemented | Scryfall facts, capabilities, database migrations | `src/tmnt_design_studio/`, `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/DECK_ANALYSIS.md` |
+| Design Intent contract | Design Studio | Accepted RFC | Canon/source support and analysis layers | `docs/rfcs/006-design-intent.md` |
+| Ten-deck Prototype 0.1 history | Design Studio | Preserved | Design Intent and Standard legality | `decks/` |
+| Ten-deck Prototype 0.2 environment | Design Studio | **Frozen** | Await credible Cardcade evidence before revision review | `decks/` |
+| Cardcade Engine 0.8 architectural foundation | Cardcade | **Accepted**; Foundation Matrix 10 GREEN / 10 YELLOW / 0 RED | Continue mechanical coverage | `src/tmnt_design_studio/engine07.py`, `docs/cardcade/`, `tests/` |
+| Create Token / Deal Damage / Scry / First+Double Strike coverage | Cardcade | Merged through PR #33 | Continue smallest evidence-backed mechanics coverage | Cardcade code, tests, acceptance evidence |
+| Broad calibration / large smoke | Cardcade | **Blocked by Gate** | Simulator mechanical credibility | Cardcade testing protocol/evidence |
+| Prototype 0.3 | Design Studio | **NOT AUTHORIZED** | Cardcade evidence + explicit Design Studio decision | Future preserved prototype when authorized |
+| Deck-box structural prototype | Mr. Paperback | p0.2 geometry physically validated; artwork/productization continues | Print/cut/fold/fit and final production stock | Physical-product records/specs |
+| Sewer Stamps | Mr. Paperback | Prototype needed | Standardized stamp frame + print/cut/apply test | Physical-product records/specs |
+| Canon/source research | Canon / Source Material | Active support function | Department requests | `docs/Knowledge-Architecture.md`, `docs/WORLD_GUIDE.md`, `encyclopedia/` |
+| Underground Press Issue #1 | The Underground Press | In production | Reusable component/template workflow | `docs/UNDERGROUND_PRESS.md`, editorial assets |
+| Sewer Status Board | HQ | Operating standard documented | Durable GitHub evidence | `docs/SEWER_STATUS_BOARD.md` |
+| THERECORD | HQ / instrumentation | Specification established; weekly archive to be appended over time | Observable usage/output evidence | `docs/THERECORD.md` and future weekly records |
+| Ten-deck starter/battle set | HQ coordinating all departments | Target product; not production-ready | Credible deck baseline, human fun testing, validated physical deliverables | Component locations above |
 
 ## Current Status
 
-### Active milestones
+### Overall Status
 
-- Preserve the implemented v0.1.0-v0.5.0 analytical foundation and Leonardo Prototype 0.1.
-- Preserve merged PR #15 as a separate evidence package. It retains Prototype 0.1, introduces
-  bounded Prototype 0.2 candidates, and records Cardcade through Engine 0.6 without authorizing
-  Prototype 0.3.
-- Establish this HQ map as the coordination surface for later Design Studio, Cardcade, Canon,
-  Paperback, and Underground Press work.
+**ACTIVE DEVELOPMENT**
 
-### Blockers
+### Critical Path
 
-- Cardcade's Engine 0.6 stability gate remains failed after merged PR #15, so larger calibration and
-  Design Studio deck revisions remain blocked pending credible engine behavior.
-- Physical-product specifications depend on sufficiently stable deck contents and identified token,
-  reference, and packaging requirements.
+**Cardcade mechanical coverage and validation.**
 
-### Immediate priorities
+Engine 0.8's architectural foundation is accepted. The remaining problem is no longer a zero-RED architecture gate; it is whether the simulator executes enough of the mechanics encountered by the ten-deck environment to justify broad calibration and downstream Design Studio review.
 
-1. Treat merged PR #15 as preserved evidence, not proof that Cardcade is validated.
-2. Keep Prototype 0.3 frozen until Cardcade evidence is credible and Design Studio explicitly
-   authorizes a revision hypothesis.
-3. Improve and validate Cardcade behavior before larger calibration or further deck revisions.
-4. After Cardcade evidence is accepted, route findings to Design Studio for the smallest
-   evidence-backed deck decision.
-5. Add Master Project Map rows when a meaningful system, artifact, prototype, or physical product
-   gains an owner or accepted repository location; do not create duplicate trackers.
+### What changed recently
+
+- Engine 0.8 foundation accepted after Foundation Matrix reached 10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN.
+- Create Token merged in PR #30.
+- Deal Damage merged in PR #31.
+- Scry merged in PR #32.
+- First Strike / Double Strike combat damage steps merged in PR #33.
+- At PR #33 the full suite reported 314 passed / 1 skipped, deterministic Acceptance Match #001, zero invariant violations, and 61 unsupported events / 18 exact pairs.
+- Sewer Status Board and THERECORD operating specifications are being made durable through the outsider-continuity audit.
+
+These are simulator-credibility milestones, not deck-balance conclusions.
+
+### Gate — What's required?
+
+Cardcade must reach sufficient mechanical credibility for the current ten-deck environment before broad calibration can be trusted.
+
+The Gate is not "make every deck 50%." It is trustworthy rules execution, explicit unsupported behavior, reproducibility, and evidence strong enough that downstream balance conclusions mean something.
+
+### Blockers — What must be fixed?
+
+The current blocker is incomplete mechanical coverage encountered by real games. Missing mechanics should be handled as reusable, rules-grounded Actions/systems rather than card-name shortcuts or pilot assumptions.
+
+### Holds — Intentionally waiting
+
+- Prototype 0.3 authorization.
+- Broad calibration runs.
+- Large smoke batches.
+- Design Studio deck revisions based on Cardcade balance results.
+- Human fun testing as the primary authority, until the mechanical baseline is credible.
+
+### Actionable now
+
+- Continue Cardcade mechanical coverage and validation.
+- Continue Mr. Paperback physical prototyping that does not depend on deck revisions.
+- Prototype Sewer Stamps as a modular print/sticker system.
+- Continue Underground Press Issue #1 production and reusable component-library work.
+- Provide targeted Canon/source support when another department requests it.
+- Improve durable project documentation and archive evidence when working-room decisions become policy.
+
+### Risks / watch list
+
+- Treating architectural acceptance as if all Magic mechanics are already supported.
+- Starting large simulations before represented mechanics are trustworthy.
+- Using Cardcade results as automatic deck-edit instructions.
+- Allowing physical/design assets or dashboard conventions to live only in conversation history.
+- Inventing usage metrics or Plus-plan percentages that the underlying product does not expose.
 
 ## Sewer Status Board
 
-The **Sewer Status Board** is HQ's visual project-status dashboard. It summarizes current project
-state from durable repository evidence and must not become a competing source of truth.
+The **Sewer Status Board** is HQ's visual operational dashboard. It summarizes current project state from durable repository evidence and must not become a competing source of truth.
 
-Every Sewer Status Board view must include:
+`PIZZAGRIND` is the working-room invocation codeword. The word itself does **not** appear inside the board.
 
-- the project identity and `Build → Measure → Understand → Refine` development loop;
-- Overall Status and the current Critical Path;
-- one status line for each department;
-- the current state of the ten-deck environment;
-- the current Cardcade engine, validation stage, acceptance/calibration gates, and Prototype revision gate;
-- Mr. Paperback deliverable progress based on explicit completion gates rather than invented percentages;
-- recent milestones when useful for explaining what changed; and
-- a clearly labeled **Next Move** that names the single highest-priority action or immediate project unlock.
+The board must emphasize clear operational language, including:
 
-**Next Move is mandatory.** A Sewer Status Board update is incomplete if it reports status without
-identifying what the project should do next. The Next Move must follow the current evidence and
-critical path rather than becoming a generic backlog item or an instruction to a department outside
-its authority.
+- **What Changed Since Last Board?**
+- **Gate — What's Required?**
+- **Blocker — What Must Be Fixed?**
+- **Hold — Intentionally Waiting**
+- **Actionable — What Can We Work On Now?**
+- **Critical Path — What Controls the Next Unlock?**
+- **Evidence — What Supports This Status?**
+- **Next Move — What Should We Do Next?**
+- **Milestone — What Meaningful Checkpoint Is Complete?**
+
+Detailed usage analytics belong in THERECORD, not on the Sewer Status Board. A small plan-pressure health signal may appear only when operationally relevant.
+
+See [The Sewer Status Board specification](SEWER_STATUS_BOARD.md).
+
+## THERECORD
+
+THERECORD is the append-only weekly instrumentation archive for message/activity usage, efficiency, durable output, plan pressure, and trend analysis. It exists to identify process efficiencies over time and must distinguish measured values from metrics that are not exposed.
+
+See [THERECORD](THERECORD.md).
+
+## Next Move
+
+**Continue Cardcade mechanical-coverage validation while preserving productive parallel work in Mr. Paperback, The Underground Press, and Canon. Do not authorize Prototype 0.3 or broad calibration until the Gate is credibly met.**
 
 ## Change discipline
 
-Preserve meaningful prototypes, simulation results, and accepted decisions. Distinguish simulator,
-deck construction, balance, theme, physical-product, and subjective-fun problems. Change the
-smallest relevant layer, and never tune decklists to compensate for a simulator defect or tune the
-simulator merely to force balanced win rates.
+Preserve meaningful prototypes, simulation results, physical prototypes, and accepted decisions. Distinguish simulator, deck construction, balance, theme, physical-product, and subjective-fun problems. Change the smallest relevant layer, and never tune decklists to compensate for a simulator defect or tune the simulator merely to force balanced win rates.
