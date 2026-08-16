@@ -1,11 +1,29 @@
 Mutants the Gathering
 Copyright 2026 Mutants the Gathering contributors
 
+COMMUNITY FAN-PROJECT STATUS
+
+Mutants the Gathering is an independent, community-driven fan project created by fans to celebrate tabletop play, Teenage Mutant Ninja Turtles, and Magic: The Gathering. It is not affiliated with, endorsed by, sponsored by, or presented as authorized by the owners of Teenage Mutant Ninja Turtles, Magic: The Gathering, Wizards of the Coast, Scryfall, or any other referenced third-party property.
+
+Teenage Mutant Ninja Turtles and Magic: The Gathering are third-party properties. Their names, characters, likenesses, logos, trademarks, artwork, stories, card content, game materials, and other protected intellectual property are owned solely by their respective rights holders. Nothing in this repository claims ownership of those properties or grants rights to use them beyond whatever rights are independently provided by their owners or applicable law.
+
 PROJECT LICENSING BOUNDARY
 
-The Apache License, Version 2.0 applies only to original work authored by this project's contributors and made available under that license. This includes, where original to this project, software, source code, architecture, schemas, tooling, simulation and telemetry infrastructure, validation systems, tests, workflows, governance systems, documentation, templates, layouts, production systems, editorial systems, original writing, and original visual/design components.
+The Apache License, Version 2.0 applies only to original work authored by this project's contributors and made available under that license. The licensed project foundation consists of the independently created systems, software, designs, documentation, processes, templates, tooling, infrastructure, and other original pieces surrounding the fan project where the contributors have the rights to license that work.
 
-The project's original foundation spans its working departments, including HQ and the Sewer Status Board system; Design Studio tooling and processes; TMNT the Cardcade Game software and validation infrastructure; Mr. Paperback production templates and systems; Canon/Source Material research organization and documentation; and The Underground Press editorial system, newspaper design language, templates, component library, layout and production workflow, original writing, and independently created worldbuilding.
+This can include, where original to this project:
+
+- software, source code, architecture, schemas, tooling, tests, and automation;
+- simulation, telemetry, validation, and reproducibility infrastructure;
+- project governance, workflows, documentation, and organizational systems;
+- original design systems, templates, layouts, production systems, and physical-product infrastructure;
+- original editorial systems, writing, visual/design components, and independently created worldbuilding;
+- HQ and the Sewer Status Board system;
+- Design Studio tooling and processes;
+- TMNT the Cardcade Game software and validation infrastructure;
+- Mr. Paperback production templates and systems;
+- Canon/Source Material research organization and documentation; and
+- The Underground Press editorial system, newspaper design language, templates, component library, layout and production workflow, original writing, and independently created worldbuilding.
 
 THIRD-PARTY INTELLECTUAL PROPERTY IS EXCLUDED
 
@@ -13,17 +31,15 @@ No rights are granted under the Apache License to intellectual property owned by
 
 This exclusion includes, without limitation:
 
-- Teenage Mutant Ninja Turtles names, characters, likenesses, logos, artwork, trademarks, story elements, and other protected material belonging to their respective rights holders.
-- Magic: The Gathering names, trademarks, card names, card text, card artwork, game materials, and other protected material belonging to Wizards of the Coast and/or its respective rights holders.
+- Teenage Mutant Ninja Turtles names, characters, likenesses, logos, artwork, trademarks, story elements, and other protected material belonging solely to their respective rights holders.
+- Magic: The Gathering names, trademarks, card names, card text, card artwork, game materials, rules materials, and other protected material belonging solely to Wizards of the Coast and/or its respective rights holders.
 - Scryfall data, images, metadata, and other materials subject to Scryfall's or other third parties' applicable rights, licenses, policies, or terms.
 - Third-party fonts, artwork, photographs, logos, data, source material, software, libraries, and assets subject to their own licenses or rights.
 
 The presence of third-party material in or alongside this repository does not relicense that material under Apache License 2.0 and does not imply ownership, sponsorship, endorsement, affiliation, or authorization.
 
-FAN-PROJECT STATUS
-
-Mutants the Gathering is an independent fan project. It is not affiliated with, endorsed by, sponsored by, or presented as authorized by the owners of Teenage Mutant Ninja Turtles, Magic: The Gathering, Wizards of the Coast, Scryfall, or other referenced third-party properties.
-
 PORTABILITY OF ORIGINAL WORK
 
-The purpose of this licensing boundary is to keep independently created project infrastructure distinguishable from the third-party fictional, game, data, and visual material with which the project currently interoperates. Nothing in this notice asserts ownership of third-party intellectual property or expands the permissions granted by its rights holders.
+The purpose of this licensing boundary is to keep the community's independently created project foundation distinguishable and portable from the third-party fictional, game, data, and visual material with which the project currently interoperates. The original systems, designs, workflows, tooling, templates, and other licensable project pieces may therefore remain useful as a foundation independent of the third-party properties, subject to the Apache License 2.0 and any other applicable rights.
+
+Nothing in this notice asserts ownership of third-party intellectual property or expands the permissions granted by its rights holders.
