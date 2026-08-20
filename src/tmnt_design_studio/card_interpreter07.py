@@ -79,6 +79,46 @@ class InterpretedDamageSemantics:
 
 
 @dataclass(frozen=True)
+class ReturnToHandProgram:
+    """One Oracle-derived return payload, independent of delivery and mutation."""
+
+    another_target_creature_you_control: bool
+    destination_owners_hand: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.another_target_creature_you_control and self.destination_owners_hand
+
+
+@dataclass(frozen=True)
+class ReturnClause:
+    """The authoritative textual boundary of one recognized Return instruction."""
+
+    text: str
+    start: int
+    end: int
+    preceding_text: str
+    following_text: str
+
+
+@dataclass(frozen=True)
+class InterpretedReturnToHandSemantics:
+    """Return payload facts paired with Action-generic semantic coverage."""
+
+    program: ReturnToHandProgram
+    coverage: SemanticCoverage
+    clause: ReturnClause
+    preceding_semantics: str
+    following_semantics: str
+    preceding_executable: bool
+    followup_executable: bool
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ScryProgram:
     """One Oracle-derived fixed-number Scry payload."""
 
@@ -151,6 +191,9 @@ class ActivationCostProgram:
 
 class ActivatedEffectKind(Enum):
     GRANT_SELF_FIRST_STRIKE_UNTIL_EOT = "grant_self_first_strike_until_eot"
+    RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND = (
+        "return_another_creature_you_control_to_owners_hand"
+    )
     UNSUPPORTED = "unsupported"
 
 
@@ -870,23 +913,50 @@ class CardInterpreter:
             semantic_effect,
             re.I,
         )
-        effect_kind = (
-            ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
-            if first_strike
-            else ActivatedEffectKind.UNSUPPORTED
+        return_semantics = self.return_to_hand_semantics(card, fragment)
+        targeted_return = bool(
+            return_semantics is not None and return_semantics.coverage.payload_executable
         )
+        if first_strike:
+            effect_kind = ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
+            action_match = first_strike
+        elif targeted_return:
+            effect_kind = ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+            action_match = targeted_return
+        else:
+            effect_kind = ActivatedEffectKind.UNSUPPORTED
+            action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
-        activation_parent_executable = instructions is None
-        followup_executable = bool(first_strike) and not first_strike.group("followup").strip()
+        supported_turn_instruction = bool(
+            targeted_return
+            and instructions
+            and return_semantics is not None
+            and return_semantics.coverage.parent_executable
+        )
+        activation_parent_executable = (
+            return_semantics.coverage.parent_executable
+            if targeted_return and return_semantics is not None
+            else instructions is None
+        )
+        targets_choices_executable = not choices_required and (
+            target_count == 0 or bool(targeted_return) and target_count == 1
+        )
+        followup_executable = (
+            return_semantics.coverage.followup_executable
+            if targeted_return and return_semantics is not None
+            else bool(action_match) and not action_match.group("followup").strip()
+        )
 
         limitations = list(cost_limitations)
-        if target_count or choices_required:
+        if targeted_return and return_semantics is not None:
+            limitations.extend(return_semantics.limitations)
+        if not targets_choices_executable:
             limitations.append("activation_targets_choices_not_implemented")
         if not child_payload_executable:
             limitations.append("activation_child_semantics_not_implemented")
-        elif not followup_executable:
+        elif not followup_executable and not targeted_return:
             limitations.append("activation_followup_semantics_not_implemented")
-        if instructions is not None:
+        if instructions is not None and not supported_turn_instruction and not targeted_return:
             limitations.append("activation_timing_restriction_not_implemented")
         limitations = list(dict.fromkeys(limitations))
         parent_executable = (
@@ -917,6 +987,121 @@ class CardInterpreter:
             child_payload_executable,
             followup_executable,
         )
+
+    def return_to_hand_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedReturnToHandSemantics | None:
+        """Recognize return-to-hand text broadly while bounding executable targets."""
+        del card
+        payload_pattern = re.compile(
+            r"Return another target creature you control to (?:its|their) owner's hand",
+            re.I,
+        )
+        colon = self._top_level_colon(fragment)
+        if colon is None:
+            effect_text = fragment
+            effect_offset = 0
+        else:
+            raw_effect = fragment[colon + 1 :]
+            leading_space = len(raw_effect) - len(raw_effect.lstrip())
+            effect_text = raw_effect.strip()
+            effect_offset = colon + 1 + leading_space
+        instruction_match = re.search(r"\bActivate only\b.+$", effect_text, re.I)
+        semantic_effect = effect_text
+        instructions = None
+        if instruction_match:
+            instructions = instruction_match.group(0)
+            semantic_effect = effect_text[: instruction_match.start()].rstrip()
+        semantic_clause = self._return_clause(semantic_effect)
+        if semantic_clause is None:
+            return None
+        absolute_start = semantic_clause.start + effect_offset
+        absolute_end = semantic_clause.end + effect_offset
+        clause = ReturnClause(
+            fragment[absolute_start:absolute_end],
+            absolute_start,
+            absolute_end,
+            fragment[:absolute_start],
+            fragment[absolute_end:],
+        )
+        payload = payload_pattern.fullmatch(clause.text)
+        program = ReturnToHandProgram(bool(payload), bool(payload))
+        preceding_semantics = semantic_clause.preceding_text
+        following_semantics = semantic_clause.following_text
+        preceding_executable = not self._meaningful_semantic_text(preceding_semantics)
+        followup_executable = not self._meaningful_semantic_text(following_semantics)
+        cost_executable = False
+        if colon is not None:
+            cost_parts = tuple(part.strip() for part in fragment[:colon].split(",") if part.strip())
+            cost_executable = all(
+                part.upper() == "{T}" or "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) == part
+                for part in cost_parts
+            )
+        activation_context_executable = bool(
+            payload
+            and colon is not None
+            and cost_executable
+            and (
+                instructions is None
+                or re.fullmatch(r"Activate only during your turn\.", instructions, re.I)
+            )
+        )
+        limitations: list[str] = []
+        if not program.executable:
+            limitations.append("return_target_shape_not_implemented")
+        if not activation_context_executable:
+            limitations.append("return_parent_context_not_implemented")
+        if not preceding_executable:
+            limitations.append("return_preceding_semantics_not_implemented")
+        if not followup_executable:
+            limitations.append("return_followup_semantics_not_implemented")
+        parent_executable = activation_context_executable and preceding_executable
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_executable,
+            tuple(limitations),
+        )
+        return InterpretedReturnToHandSemantics(
+            program,
+            coverage,
+            clause,
+            preceding_semantics,
+            following_semantics,
+            preceding_executable,
+            followup_executable,
+        )
+
+    @staticmethod
+    def _meaningful_semantic_text(text: str) -> bool:
+        """Distinguish punctuation surrounding a clause from unclassified instructions."""
+        return bool(re.sub(r"[\s.;,:—–-]+", "", text))
+
+    @staticmethod
+    def _return_clause(text: str) -> ReturnClause | None:
+        """Locate a Return-to-hand clause without claiming that its payload is executable."""
+        returns = tuple(re.finditer(r"\breturn\b", text, re.I))
+        for match in returns:
+            sentence_end = text.find(".", match.end())
+            if sentence_end < 0:
+                sentence_end = len(text)
+            next_return = next(
+                (candidate.start() for candidate in returns if candidate.start() > match.start()),
+                len(text),
+            )
+            search_end = min(sentence_end, next_return)
+            destination = re.search(r"\b(?:hand|hands)\b", text[match.end() : search_end], re.I)
+            if destination is None:
+                continue
+            end = match.end() + destination.end()
+            return ReturnClause(
+                text[match.start() : end],
+                match.start(),
+                end,
+                text[: match.start()],
+                text[end:],
+            )
+        return None
 
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str

@@ -2255,6 +2255,7 @@ class Game:
             raise ValueError("priority state cannot resolve an empty stack")
         self.resolve_top_of_stack()
         self.priority_state = None
+        self.check_state_based_actions()
         if self.winner is None and self.stack:
             self._begin_priority_window()
         return True
@@ -2313,7 +2314,10 @@ class Game:
                 raise ValueError("activation option does not identify a permanent")
             if option.oracle_fragment is None:
                 raise ValueError("activation option lacks an Oracle fragment")
-            return self.activate_ability(option.player_index, obj, option.oracle_fragment)
+            target_ids = () if option.target_id is None else (option.target_id,)
+            return self.activate_ability(
+                option.player_index, obj, option.oracle_fragment, target_ids=target_ids
+            )
         raise ValueError("unsupported main action kind")
 
     def legal_attack_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -2798,7 +2802,29 @@ class Game:
         options: list[ActionOption] = []
         for source in self.players[player_index].battlefield:
             for fragment in self.interpreter.fragments(source.card):
-                if self.activation_payment_plan(player_index, source, fragment) is not None:
+                plan = self.activation_payment_plan(player_index, source, fragment)
+                if plan is None:
+                    continue
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if semantics is None or not semantics.coverage.fully_supported:
+                    continue
+                if (
+                    semantics.program.effect_kind
+                    is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+                ):
+                    for target in self.players[player_index].battlefield:
+                        if target is source or not target.card.is_creature:
+                            continue
+                        options.append(
+                            ActionOption(
+                                ActionKind.ACTIVATE_ABILITY,
+                                player_index,
+                                object_id=source.object_id,
+                                target_id=target.object_id,
+                                oracle_fragment=fragment,
+                            )
+                        )
+                else:
                     options.append(
                         ActionOption(
                             ActionKind.ACTIVATE_ABILITY,
@@ -2830,12 +2856,25 @@ class Game:
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
-        if (
-            target_ids
-            or choice_ids
-            or semantics.program.target_count
-            or semantics.program.choices_required
-        ):
+        targeted_return = (
+            semantics.program.effect_kind
+            is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+        )
+        if choice_ids or semantics.program.choices_required:
+            return None
+        if targeted_return:
+            if len(target_ids) != 1:
+                return None
+            target = self._objects.get(target_ids[0])
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or target is source
+                or target.controller != player_index
+                or not target.card.is_creature
+            ):
+                return None
+        elif target_ids or semantics.program.target_count:
             return None
         plan = self.activation_payment_plan(player_index, source, oracle_fragment)
         if plan is None:
@@ -2917,9 +2956,18 @@ class Game:
         self._begin_priority_window()
         return ability
 
-    def activate_ability(self, player_index: int, source: Permanent, oracle_fragment: str) -> bool:
+    def activate_ability(
+        self,
+        player_index: int,
+        source: Permanent,
+        oracle_fragment: str,
+        *,
+        target_ids: tuple[str, ...] = (),
+    ) -> bool:
         """Announce one ability and open the bounded engine-owned priority window."""
-        ability = self.announce_activated_ability(player_index, source, oracle_fragment)
+        ability = self.announce_activated_ability(
+            player_index, source, oracle_fragment, target_ids=target_ids
+        )
         return ability is not None
 
     def _resolve_activated_ability(self, ability: ActivatedAbilityObject) -> None:
@@ -2968,6 +3016,37 @@ class Game:
                 duration="until_end_of_turn",
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif (
+            ability.program.effect_kind
+            is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+        ):
+            target = self._objects.get(ability.target_ids[0])
+            if (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.object_id != ability.source_id
+                and target.controller == ability.controller
+                and target.card.is_creature
+            ):
+                replacement = self.move_object(
+                    target, "hand", reason="activated_return_to_owners_hand"
+                )
+                delivered = True
+                self.log(
+                    "target_returned_to_hand",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    destination_object_id=replacement.object_id,
+                    owner=self.players[target.owner].name,
+                )
+            else:
+                self.log(
+                    "activated_ability_resolved_no_effect",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    reason="target_illegal_at_resolution",
+                )
         else:
             self.log(
                 "activated_ability_resolved_no_effect",
