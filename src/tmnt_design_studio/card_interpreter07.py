@@ -140,6 +140,52 @@ class InterpretedStrikeSemantics:
 
 
 @dataclass(frozen=True)
+class ActivationCostProgram:
+    """Oracle-derived activation costs, before authoritative payment."""
+
+    mana_cost: str
+    tap_source: bool
+    executable: bool
+    limitations: tuple[str, ...] = ()
+
+
+class ActivatedEffectKind(Enum):
+    GRANT_SELF_FIRST_STRIKE_UNTIL_EOT = "grant_self_first_strike_until_eot"
+    UNSUPPORTED = "unsupported"
+
+
+@dataclass(frozen=True)
+class ActivatedAbilityProgram:
+    """One activated ability, separate from engine legality and mutation."""
+
+    cost_text: str
+    effect_text: str
+    cost: ActivationCostProgram
+    effect_kind: ActivatedEffectKind
+    target_count: int
+    choices_required: bool
+    activation_instructions: str | None = None
+
+
+@dataclass(frozen=True)
+class InterpretedActivatedAbilitySemantics:
+    """Action-specific activation facts paired with generic coverage evidence."""
+
+    program: ActivatedAbilityProgram
+    coverage: SemanticCoverage
+    activation_recognized: bool
+    activation_parent_executable: bool
+    costs_executable: bool
+    targets_choices_executable: bool
+    child_payload_executable: bool
+    followup_executable: bool
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class TokenDefinition:
     """Immutable characteristics for one Oracle-derived token kind."""
 
@@ -260,6 +306,7 @@ class CardInterpreter:
     )
     SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
     STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
+    ACTIVATION_MANA_SYMBOL = re.compile(r"\{(?:[0-9]+|[WUBRG])\}", re.IGNORECASE)
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
         r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
     )
@@ -732,6 +779,145 @@ class CardInterpreter:
         )
         return InterpretedStrikeSemantics(program, coverage, parent_limitation)
 
+    @staticmethod
+    def _top_level_colon(fragment: str) -> int | None:
+        depth = 0
+        quoted = False
+        for index, character in enumerate(fragment):
+            if character == '"':
+                quoted = not quoted
+            elif not quoted and character == "(":
+                depth += 1
+            elif not quoted and character == ")":
+                depth = max(0, depth - 1)
+            elif character == ":" and not quoted and depth == 0:
+                return index
+        return None
+
+    def activated_ability_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedActivatedAbilitySemantics | None:
+        """Recognize activated syntax without upgrading unsupported costs or children."""
+        if ":" not in fragment:
+            return None
+        colon = self._top_level_colon(fragment)
+        if colon is None:
+            program = ActivatedAbilityProgram(
+                "",
+                fragment,
+                ActivationCostProgram(
+                    "", False, False, ("activation_nested_context_not_implemented",)
+                ),
+                ActivatedEffectKind.UNSUPPORTED,
+                0,
+                False,
+            )
+            coverage = SemanticCoverage(
+                False,
+                False,
+                False,
+                ("activation_nested_context_not_implemented",),
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program, coverage, True, False, False, False, False, False
+            )
+
+        cost_text = fragment[:colon].strip()
+        effect_text = fragment[colon + 1 :].strip()
+        cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
+        tap_source = "{T}" in {part.upper() for part in cost_parts}
+        mana_parts = tuple(part for part in cost_parts if part.upper() != "{T}")
+        mana_cost = "".join(mana_parts)
+        fixed_mana = all(
+            "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) == part for part in mana_parts
+        )
+        unsupported_cost_parts = tuple(
+            part
+            for part in cost_parts
+            if part.upper() != "{T}" and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
+        )
+        cost_limitations: list[str] = []
+        if unsupported_cost_parts:
+            cost_limitations.append("activation_nonmana_cost_not_implemented")
+        if re.search(r"\{X\}|\{[^}]+/[^}]+\}|\{[CP]\}", cost_text, re.I):
+            cost_limitations.append("activation_complex_mana_cost_not_implemented")
+        costs_executable = fixed_mana and not cost_limitations
+
+        target_count = len(re.findall(r"\btarget\b", effect_text, re.I))
+        choices_required = bool(re.search(r"\bchoose\b|\byour choice\b", effect_text, re.I))
+        targets_choices_executable = target_count == 0 and not choices_required
+
+        instructions = None
+        instruction_match = re.search(r"\bActivate only\b.+$", effect_text, re.I)
+        semantic_effect = effect_text
+        if instruction_match:
+            instructions = instruction_match.group(0)
+            semantic_effect = effect_text[: instruction_match.start()].rstrip()
+
+        source_names = {card.name, card.name.split(",", 1)[0]}
+        self_reference = (
+            "(?:"
+            + "|".join(
+                [
+                    *(re.escape(name) for name in sorted(source_names, key=len, reverse=True)),
+                    "this creature",
+                ]
+            )
+            + ")"
+        )
+        first_strike = re.match(
+            rf"^{self_reference} gains first strike until end of turn\.(?P<followup>.*)$",
+            semantic_effect,
+            re.I,
+        )
+        effect_kind = (
+            ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
+            if first_strike
+            else ActivatedEffectKind.UNSUPPORTED
+        )
+        child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
+        activation_parent_executable = instructions is None
+        followup_executable = bool(first_strike) and not first_strike.group("followup").strip()
+
+        limitations = list(cost_limitations)
+        if target_count or choices_required:
+            limitations.append("activation_targets_choices_not_implemented")
+        if not child_payload_executable:
+            limitations.append("activation_child_semantics_not_implemented")
+        elif not followup_executable:
+            limitations.append("activation_followup_semantics_not_implemented")
+        if instructions is not None:
+            limitations.append("activation_timing_restriction_not_implemented")
+        limitations = list(dict.fromkeys(limitations))
+        parent_executable = (
+            activation_parent_executable and costs_executable and targets_choices_executable
+        )
+        coverage = SemanticCoverage(
+            child_payload_executable,
+            parent_executable,
+            followup_executable,
+            tuple(limitations),
+        )
+        program = ActivatedAbilityProgram(
+            cost_text,
+            effect_text,
+            ActivationCostProgram(mana_cost, tap_source, costs_executable, tuple(cost_limitations)),
+            effect_kind,
+            target_count,
+            choices_required,
+            instructions,
+        )
+        return InterpretedActivatedAbilitySemantics(
+            program,
+            coverage,
+            True,
+            activation_parent_executable,
+            costs_executable,
+            targets_choices_executable,
+            child_payload_executable,
+            followup_executable,
+        )
+
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
@@ -834,6 +1020,11 @@ class CardInterpreter:
             scry_coverage = self.scry_semantic_coverage(card, fragment)
             if scry_coverage is not None:
                 for reason in scry_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            activation_coverage = self.activated_ability_semantics(card, fragment)
+            if activation_coverage is not None:
+                for reason in activation_coverage.limitations:
                     unsupported.append((fragment, reason))
                 continue
             strike_coverage = self.strike_semantic_coverage(card, fragment)
