@@ -39,10 +39,17 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
         if game.winner is not None:
             break
         active = game.active_player
-        for stage in ("land", "damage", "destroy", "creature"):
+        for stage in ("land", "activate", "damage", "destroy", "creature"):
             options = game.legal_main_actions(active)
             chosen = pilot.choose_main_action(game.public_view(), options, stage)
             game.execute_main_action(chosen)
+            while game.priority_state is not None:
+                if game.priority_state.resolution_pending:
+                    game.process_priority_resolution()
+                    continue
+                priority_options = game.legal_priority_actions(game.priority_state.player_index)
+                priority_choice = pilot.choose_priority(game.public_view(), priority_options)
+                game.execute_priority_action(priority_choice)
 
         game.advance_step()
         game.advance_step()

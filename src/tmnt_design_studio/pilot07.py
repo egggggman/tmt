@@ -18,6 +18,10 @@ class Pilot(Protocol):
 
     def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption: ...
 
+    def choose_priority(
+        self, view: GameView, options: tuple[ActionOption, ...]
+    ) -> ActionOption: ...
+
 
 class AcceptancePilot:
     """Preserved Acceptance Match strategy; it never owns legality or state mutation."""
@@ -33,6 +37,11 @@ class AcceptancePilot:
         if stage == "land":
             return next(
                 (option for option in options if option.kind is ActionKind.PLAY_LAND), fallback
+            )
+        if stage == "activate":
+            return next(
+                (option for option in options if option.kind is ActionKind.ACTIVATE_ABILITY),
+                fallback,
             )
         casts = [option for option in options if option.kind is ActionKind.CAST]
         if stage == "damage":
@@ -85,6 +94,11 @@ class AcceptancePilot:
         return next(
             option for option in options if option.top_ids == current and not option.bottom_ids
         )
+
+    def choose_priority(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
+        """Deliberately pass; passing is a legal strategy, not an engine shortcut."""
+        del view
+        return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 
 
 class PassingPilot(AcceptancePilot):
