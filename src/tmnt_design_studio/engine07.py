@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import random
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
 from itertools import permutations
@@ -197,7 +197,7 @@ class SneakEvidence:
 
 @dataclass(frozen=True)
 class ActivationPaymentPlan:
-    """A proposed fixed-mana/tap activation payment using authoritative IDs."""
+    """A proposed bounded activation payment using authoritative IDs."""
 
     player_index: int
     source_id: str
@@ -205,6 +205,7 @@ class ActivationPaymentPlan:
     requirement: ManaRequirement
     mana_source_ids: tuple[str, ...]
     tap_source: bool
+    sacrifice_source: bool
 
 
 @dataclass(frozen=True)
@@ -218,6 +219,38 @@ class ActivationEvidence:
     mana_source_ids: tuple[str, ...]
     tap_source: bool
     resolved: bool
+
+
+@dataclass(frozen=True)
+class FoodActivationEvidence:
+    """Immutable announcement-through-resolution evidence for canonical Food use."""
+
+    source_id: str
+    source_name: str
+    source_type_line: str
+    source_owner: int
+    controller: int
+    source_was_token: bool
+    oracle_fragment: str
+    turn: int
+    step: str
+    source_zone_before: str
+    mana_requirement: ManaRequirement
+    mana_source_ids: tuple[str, ...]
+    source_tapped_before: bool
+    tap_paid: bool
+    sacrifice_paid: bool
+    sacrificed_destination_id: str
+    sacrificed_destination_zone: str
+    stack_object_id: str
+    priority_epoch: int
+    resolved: bool
+    priority_passes: tuple[int, ...] = ()
+    resolution_permitted: bool = False
+    life_before: int | None = None
+    life_after: int | None = None
+    amount_gained: int | None = None
+    final_source_disposition: str = "graveyard"
 
 
 class RulesEventKind(Enum):
@@ -724,11 +757,13 @@ class ActivatedAbilityObject:
     object_id: str
     controller: int
     source_id: str
-    source_card: CardFact
+    source_card: CardFact | TokenDefinition
     oracle_fragment: str
     program: ActivatedAbilityProgram
     mana_source_ids: tuple[str, ...]
     tap_source: bool
+    sacrifice_source: bool = False
+    sacrificed_destination_id: str | None = None
     target_ids: tuple[str, ...] = ()
     choice_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
@@ -1064,6 +1099,7 @@ class Game:
         ] = {}
         self.stack: list[StackObject | TriggeredAbilityObject | ActivatedAbilityObject] = []
         self.priority_state: PriorityState | None = None
+        self._priority_resolution_in_progress = False
         self._next_priority_epoch = 1
         self.pending_triggers: list[TriggerInstance] = []
         self._next_event_number = 1
@@ -1096,6 +1132,7 @@ class Game:
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
+        self.food_activation_evidence: list[FoodActivationEvidence] = []
         self.sneak_evidence: list[SneakEvidence] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
@@ -2897,6 +2934,16 @@ class Game:
         pending = len(passes) == 2
         next_player = option.player_index if pending else 1 - option.player_index
         self.priority_state = PriorityState(state.epoch, next_player, passes, pending)
+        if self.stack and isinstance(self.stack[-1], ActivatedAbilityObject):
+            stack_object_id = self.stack[-1].object_id
+            for index, evidence in enumerate(self.food_activation_evidence):
+                if evidence.stack_object_id == stack_object_id:
+                    self.food_activation_evidence[index] = replace(
+                        evidence,
+                        priority_passes=passes,
+                        resolution_permitted=pending,
+                    )
+                    break
         self.log(
             "priority_passed",
             player=self.players[option.player_index].name,
@@ -2927,8 +2974,12 @@ class Game:
             raise ValueError("stack resolution is not permitted")
         if not self.stack:
             raise ValueError("priority state cannot resolve an empty stack")
-        self.resolve_top_of_stack()
         self.priority_state = None
+        self._priority_resolution_in_progress = True
+        try:
+            self.resolve_top_of_stack()
+        finally:
+            self._priority_resolution_in_progress = False
         self.check_state_based_actions()
         if self.winner is None and self.stack:
             self._begin_priority_window()
@@ -3839,6 +3890,7 @@ class Game:
             requirement,
             tuple(permanent.object_id for permanent in chosen),
             cost.tap_source,
+            cost.sacrifice_source,
         )
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -3937,33 +3989,63 @@ class Game:
             ):
                 raise ValueError("activation mana source is not authoritative")
             mana_sources.append(candidate)
+        if len({candidate.object_id for candidate in mana_sources}) != len(mana_sources):
+            raise ValueError("activation payment cannot reuse a mana source")
         prior_mana_taps = tuple(candidate.tapped for candidate in mana_sources)
         prior_source_tapped = source.tapped
         starting_object_number = self._next_object_number
+        source_index = self.players[source.controller].battlefield.index(source)
+        sacrificed: CardObject | None = None
         ability: ActivatedAbilityObject | None = None
         try:
+            if plan.sacrifice_source:
+                sacrificed = CardObject(
+                    self._allocate_object_id(),
+                    source.card,
+                    source.owner,
+                    source.owner,
+                    "graveyard",
+                    is_token=source.is_token,
+                )
+            ability = ActivatedAbilityObject(
+                object_id=self._allocate_object_id(),
+                controller=player_index,
+                source_id=source.object_id,
+                source_card=source.card,
+                oracle_fragment=oracle_fragment,
+                program=semantics.program,
+                mana_source_ids=plan.mana_source_ids,
+                tap_source=plan.tap_source,
+                sacrifice_source=plan.sacrifice_source,
+                sacrificed_destination_id=(
+                    sacrificed.object_id if sacrificed is not None else None
+                ),
+                target_ids=target_ids,
+                choice_ids=choice_ids,
+            )
             for mana_source in mana_sources:
                 mana_source.tapped = True
             if plan.tap_source:
                 source.tapped = True
-            ability = ActivatedAbilityObject(
-                self._allocate_object_id(),
-                player_index,
-                source.object_id,
-                source.card,
-                oracle_fragment,
-                semantics.program,
-                plan.mana_source_ids,
-                plan.tap_source,
-                target_ids,
-                choice_ids,
-            )
+            if sacrificed is not None:
+                self.players[source.controller].battlefield.pop(source_index)
+                self.players[source.owner].graveyard.append(sacrificed)
+                source.zone = "former"
+                self._register(sacrificed)
             self._register(ability)
             self.stack.append(ability)
         except Exception:
             for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
                 mana_source.tapped = tapped
             source.tapped = prior_source_tapped
+            if sacrificed is not None:
+                self.players[source.owner].graveyard[:] = [
+                    item for item in self.players[source.owner].graveyard if item is not sacrificed
+                ]
+                self._objects.pop(sacrificed.object_id, None)
+                if source not in self.players[source.controller].battlefield:
+                    self.players[source.controller].battlefield.insert(source_index, source)
+                source.zone = "battlefield"
             if ability is not None:
                 self.stack[:] = [entry for entry in self.stack if entry is not ability]
                 self._objects.pop(ability.object_id, None)
@@ -3979,6 +4061,17 @@ class Game:
             False,
         )
         self.activation_evidence.append(evidence)
+        if sacrificed is not None:
+            self.log(
+                "zone_changed",
+                card=source.card.name,
+                owner=self.players[source.owner].name,
+                source_object_id=source.object_id,
+                destination_object_id=sacrificed.object_id,
+                source_zone="battlefield",
+                destination_zone="graveyard",
+                reason="activation_sacrifice_cost",
+            )
         self.log(
             "activation_announced",
             player=self.players[player_index].name,
@@ -3996,6 +4089,8 @@ class Game:
             colored=list(plan.requirement.colored),
             mana_source_ids=list(plan.mana_source_ids),
             tap_source=plan.tap_source,
+            sacrifice_source=plan.sacrifice_source,
+            sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
         )
         self.log(
             "activated_ability_stacked",
@@ -4003,7 +4098,36 @@ class Game:
             source_id=source.object_id,
             controller=self.players[player_index].name,
         )
+        if sacrificed is not None:
+            self.check_state_based_actions()
         self._begin_priority_window()
+        if sacrificed is not None:
+            assert self.priority_state is not None
+            self.food_activation_evidence.append(
+                FoodActivationEvidence(
+                    source_id=source.object_id,
+                    source_name=source.card.name,
+                    source_type_line=source.card.type_line,
+                    source_owner=source.owner,
+                    controller=player_index,
+                    source_was_token=source.is_token,
+                    oracle_fragment=oracle_fragment,
+                    turn=self.turn,
+                    step=self.step.value,
+                    source_zone_before="battlefield",
+                    mana_requirement=plan.requirement,
+                    mana_source_ids=plan.mana_source_ids,
+                    source_tapped_before=prior_source_tapped,
+                    tap_paid=plan.tap_source,
+                    sacrifice_paid=True,
+                    sacrificed_destination_id=sacrificed.object_id,
+                    sacrificed_destination_zone="graveyard",
+                    stack_object_id=ability.object_id,
+                    priority_epoch=self.priority_state.epoch,
+                    resolved=False,
+                    final_source_disposition=sacrificed.zone,
+                )
+            )
         return ability
 
     def activate_ability(
@@ -4027,6 +4151,8 @@ class Game:
             or not self.is_authoritative(ability, "stack")
         ):
             raise ValueError("activated ability must be the authoritative top stack object")
+        if any(item.stack_object_id == ability.object_id for item in self.food_activation_evidence):
+            self._validate_food_activation_linkage(ability)
         semantics = self.interpreter.activated_ability_semantics(
             ability.source_card, ability.oracle_fragment
         )
@@ -4045,6 +4171,8 @@ class Game:
             else None
         )
         delivered = False
+        food_life_before: int | None = None
+        food_life_after: int | None = None
         if (
             ability.program.effect_kind is ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
             and source_permanent is not None
@@ -4097,6 +4225,17 @@ class Game:
                     source_id=ability.source_id,
                     reason="target_illegal_at_resolution",
                 )
+        elif ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
+            food_life_before = self.players[ability.controller].life
+            self.gain_life(
+                ability.controller,
+                3,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+                defer_trigger_delivery=True,
+            )
+            food_life_after = self.players[ability.controller].life
+            delivered = True
         else:
             self.log(
                 "activated_ability_resolved_no_effect",
@@ -4116,6 +4255,21 @@ class Game:
                     True,
                 )
                 break
+        if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
+            for index, evidence in enumerate(self.food_activation_evidence):
+                if evidence.stack_object_id == ability.object_id:
+                    self.food_activation_evidence[index] = replace(
+                        evidence,
+                        resolved=True,
+                        life_before=food_life_before,
+                        life_after=food_life_after,
+                        amount_gained=(
+                            food_life_after - food_life_before
+                            if food_life_before is not None and food_life_after is not None
+                            else None
+                        ),
+                    )
+                    break
         self.log(
             "activated_ability_resolved",
             stack_object_id=ability.object_id,
@@ -4123,6 +4277,48 @@ class Game:
             controller=self.players[ability.controller].name,
             delivered=delivered,
         )
+        if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
+            self._put_pending_triggers_on_stack()
+
+    def _validate_food_activation_linkage(self, ability: ActivatedAbilityObject) -> None:
+        """Authenticate one canonical Food stack object from immutable payment evidence."""
+        activations = [
+            item for item in self.activation_evidence if item.stack_object_id == ability.object_id
+        ]
+        foods = [
+            item
+            for item in self.food_activation_evidence
+            if item.stack_object_id == ability.object_id
+        ]
+        if len(activations) != 1 or len(foods) != 1:
+            raise AssertionError("Food stack object lacks unique activation provenance")
+        activation = activations[0]
+        food = foods[0]
+        sacrificed = self._objects.get(food.sacrificed_destination_id)
+        if (
+            activation.resolved != food.resolved
+            or ability.source_id != activation.source_id
+            or ability.source_id != food.source_id
+            or ability.controller != activation.controller
+            or ability.controller != food.controller
+            or ability.oracle_fragment != activation.oracle_fragment
+            or ability.oracle_fragment != food.oracle_fragment
+            or ability.mana_source_ids != activation.mana_source_ids
+            or ability.mana_source_ids != food.mana_source_ids
+            or ability.tap_source != activation.tap_source
+            or ability.tap_source != food.tap_paid
+            or not ability.sacrifice_source
+            or not food.sacrifice_paid
+            or ability.sacrificed_destination_id != food.sacrificed_destination_id
+            or ability.source_card.name != food.source_name
+            or ability.source_card.type_line != food.source_type_line
+            or not isinstance(sacrificed, CardObject)
+            or sacrificed.card != ability.source_card
+            or sacrificed.owner != food.source_owner
+            or sacrificed.is_token != food.source_was_token
+            or ability.program.effect_kind is not ActivatedEffectKind.GAIN_THREE_LIFE
+        ):
+            raise AssertionError("Food stack object disagrees with activation provenance")
 
     def payment_plan(self, player_index: int, card: CardObject) -> PaymentPlan | None:
         """Build one deterministic legal payment without mutating authoritative state."""
@@ -4442,7 +4638,8 @@ class Game:
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {TriggerEffect.DISCARD_DRAW, TriggerEffect.SNEAK_ETB_CONDITION} and (
-                self.priority_state is None or not self.priority_state.resolution_pending
+                not self._priority_resolution_in_progress
+                and (self.priority_state is None or not self.priority_state.resolution_pending)
             ):
                 raise ValueError(
                     "represented triggered ability cannot resolve before all players pass"
@@ -4450,7 +4647,9 @@ class Game:
             self._resolve_triggered_ability(spell)
             return None
         if isinstance(spell, ActivatedAbilityObject):
-            if self.priority_state is None or not self.priority_state.resolution_pending:
+            if not self._priority_resolution_in_progress and (
+                self.priority_state is None or not self.priority_state.resolution_pending
+            ):
                 raise ValueError("activated ability cannot resolve before all players pass")
             self._resolve_activated_ability(spell)
             return None
@@ -4458,7 +4657,8 @@ class Game:
         target = self._objects.get(spell.target_id or "")
         sneak_cast = spell.sneak_returned_attacker_id is not None
         if sneak_cast and (
-            self.priority_state is None or not self.priority_state.resolution_pending
+            not self._priority_resolution_in_progress
+            and (self.priority_state is None or not self.priority_state.resolution_pending)
         ):
             raise ValueError("Sneak spell cannot resolve before all players pass")
 
@@ -4835,6 +5035,33 @@ class Game:
                 raise AssertionError("activation evidence lacks its runtime stack object")
             if item.resolved != (ability.zone == "former"):
                 raise AssertionError("activation resolution evidence disagrees with stack state")
+        if len({item.stack_object_id for item in self.food_activation_evidence}) != len(
+            self.food_activation_evidence
+        ):
+            raise AssertionError("Food activation evidence stack IDs must be unique")
+        for item in self.food_activation_evidence:
+            ability = self._objects.get(item.stack_object_id)
+            sacrificed = self._objects.get(item.sacrificed_destination_id)
+            if not isinstance(ability, ActivatedAbilityObject):
+                raise AssertionError("Food activation evidence lacks its stack object")
+            self._validate_food_activation_linkage(ability)
+            if item.source_id not in self._objects or not isinstance(sacrificed, CardObject):
+                raise AssertionError("Food activation evidence lacks immutable cost identities")
+            if not item.tap_paid or not item.sacrifice_paid:
+                raise AssertionError("Food activation evidence lacks complete canonical costs")
+            if item.source_was_token and item.final_source_disposition != "former":
+                raise AssertionError("sacrificed Food token must cease at the SBA boundary")
+            if item.resolved != (ability.zone == "former"):
+                raise AssertionError("Food activation resolution evidence disagrees with stack")
+            if item.resolved and (
+                item.life_before is None
+                or item.life_after is None
+                or item.amount_gained != 3
+                or item.life_after - item.life_before != 3
+                or item.priority_passes != (item.controller, 1 - item.controller)
+                or not item.resolution_permitted
+            ):
+                raise AssertionError("Food activation life evidence is inconsistent")
         if len({item.stack_object_id for item in self.sneak_evidence}) != len(self.sneak_evidence):
             raise AssertionError("Sneak evidence stack IDs must be unique")
         for item in self.sneak_evidence:
@@ -5248,6 +5475,40 @@ class Game:
                     "resolved": item.resolved,
                 }
                 for item in self.activation_evidence
+            ],
+            "food_activations": [
+                {
+                    "source_id": item.source_id,
+                    "source_name": item.source_name,
+                    "source_type_line": item.source_type_line,
+                    "source_owner": item.source_owner,
+                    "controller": item.controller,
+                    "source_was_token": item.source_was_token,
+                    "oracle_fragment": item.oracle_fragment,
+                    "turn": item.turn,
+                    "step": item.step,
+                    "source_zone_before": item.source_zone_before,
+                    "mana_requirement": {
+                        "generic": item.mana_requirement.generic,
+                        "colored": list(item.mana_requirement.colored),
+                    },
+                    "mana_source_ids": list(item.mana_source_ids),
+                    "source_tapped_before": item.source_tapped_before,
+                    "tap_paid": item.tap_paid,
+                    "sacrifice_paid": item.sacrifice_paid,
+                    "sacrificed_destination_id": item.sacrificed_destination_id,
+                    "sacrificed_destination_zone": item.sacrificed_destination_zone,
+                    "stack_object_id": item.stack_object_id,
+                    "priority_epoch": item.priority_epoch,
+                    "priority_passes": list(item.priority_passes),
+                    "resolution_permitted": item.resolution_permitted,
+                    "resolved": item.resolved,
+                    "life_before": item.life_before,
+                    "life_after": item.life_after,
+                    "amount_gained": item.amount_gained,
+                    "final_source_disposition": item.final_source_disposition,
+                }
+                for item in self.food_activation_evidence
             ],
             "sneak": [
                 {

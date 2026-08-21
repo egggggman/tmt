@@ -336,6 +336,7 @@ class ActivationCostProgram:
 
     mana_cost: str
     tap_source: bool
+    sacrifice_source: bool
     executable: bool
     limitations: tuple[str, ...] = ()
 
@@ -345,6 +346,7 @@ class ActivatedEffectKind(Enum):
     RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND = (
         "return_another_creature_you_control_to_owners_hand"
     )
+    GAIN_THREE_LIFE = "gain_three_life"
     UNSUPPORTED = "unsupported"
 
 
@@ -373,6 +375,19 @@ class InterpretedActivatedAbilitySemantics:
     targets_choices_executable: bool
     child_payload_executable: bool
     followup_executable: bool
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class InterpretedFoodActivationSemantics:
+    """Canonical Food activation paired with Action-generic coverage."""
+
+    program: ActivatedAbilityProgram
+    coverage: SemanticCoverage
+    clause_text: str
 
     @property
     def limitations(self) -> tuple[str, ...]:
@@ -582,6 +597,16 @@ class CardInterpreter:
             oracle_text="{2}, Sacrifice this token: Draw a card.",
         ),
     }
+    CANONICAL_FOOD_ACTIVATION = "{2}, {T}, Sacrifice this token: You gain 3 life."
+    FOOD_ACTIVATION = re.compile(r"\{2\}, \{T\}, Sacrifice this token: You gain 3 life\.", re.I)
+
+    @classmethod
+    def _is_canonical_food_source(cls, card: CardDefinition) -> bool:
+        """Identify the canonical Food subtype and ability without source-card dispatch."""
+        return bool(
+            "Food" in card.type_line.split(" — ")[-1].split()
+            and cls.FOOD_ACTIVATION.fullmatch(card.oracle_text.strip())
+        )
 
     SNEAK_ABILITY = re.compile(r"^Sneak (?P<cost>(?:\{[^}]+\})+)(?:\s|$)", re.I)
     FIXED_SNEAK_COST = re.compile(r"^(?:\{(?:\d+|[WUBRG])\})+$")
@@ -743,7 +768,11 @@ class CardInterpreter:
 
         tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
         retained_limitation = None
-        if definition is not None and definition.oracle_text:
+        if (
+            definition is not None
+            and definition.oracle_text
+            and not self._is_canonical_food_source(definition)
+        ):
             retained_limitation = "token_activated_ability_not_implemented"
         elif re.search(
             r"\b(?:attach (?:this|that)|destroy it|sacrifice it|gains? haste until end of turn|"
@@ -1245,7 +1274,7 @@ class CardInterpreter:
                 "",
                 fragment,
                 ActivationCostProgram(
-                    "", False, False, ("activation_nested_context_not_implemented",)
+                    "", False, False, False, ("activation_nested_context_not_implemented",)
                 ),
                 ActivatedEffectKind.UNSUPPORTED,
                 0,
@@ -1265,7 +1294,19 @@ class CardInterpreter:
         effect_text = fragment[colon + 1 :].strip()
         cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
         tap_source = "{T}" in {part.upper() for part in cost_parts}
-        mana_parts = tuple(part for part in cost_parts if part.upper() != "{T}")
+        canonical_food = bool(
+            self._is_canonical_food_source(card)
+            and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
+        )
+        sacrifice_source = canonical_food and any(
+            part.casefold() == "sacrifice this token" for part in cost_parts
+        )
+        mana_parts = tuple(
+            part
+            for part in cost_parts
+            if part.upper() != "{T}"
+            and not (sacrifice_source and part.casefold() == "sacrifice this token")
+        )
         mana_cost = "".join(mana_parts)
         fixed_mana = all(
             "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) == part for part in mana_parts
@@ -1273,7 +1314,9 @@ class CardInterpreter:
         unsupported_cost_parts = tuple(
             part
             for part in cost_parts
-            if part.upper() != "{T}" and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
+            if part.upper() != "{T}"
+            and not (sacrifice_source and part.casefold() == "sacrifice this token")
+            and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
         )
         cost_limitations: list[str] = []
         if unsupported_cost_parts:
@@ -1319,6 +1362,9 @@ class CardInterpreter:
         elif targeted_return:
             effect_kind = ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
             action_match = targeted_return
+        elif canonical_food and effect_text.casefold() == "you gain 3 life.":
+            effect_kind = ActivatedEffectKind.GAIN_THREE_LIFE
+            action_match = True
         else:
             effect_kind = ActivatedEffectKind.UNSUPPORTED
             action_match = None
@@ -1337,11 +1383,12 @@ class CardInterpreter:
         targets_choices_executable = not choices_required and (
             target_count == 0 or bool(targeted_return) and target_count == 1
         )
-        followup_executable = (
-            return_semantics.coverage.followup_executable
-            if targeted_return and return_semantics is not None
-            else bool(action_match) and not action_match.group("followup").strip()
-        )
+        if targeted_return and return_semantics is not None:
+            followup_executable = return_semantics.coverage.followup_executable
+        elif canonical_food:
+            followup_executable = bool(action_match)
+        else:
+            followup_executable = bool(action_match) and not action_match.group("followup").strip()
 
         limitations = list(cost_limitations)
         if targeted_return and return_semantics is not None:
@@ -1367,7 +1414,13 @@ class CardInterpreter:
         program = ActivatedAbilityProgram(
             cost_text,
             effect_text,
-            ActivationCostProgram(mana_cost, tap_source, costs_executable, tuple(cost_limitations)),
+            ActivationCostProgram(
+                mana_cost,
+                tap_source,
+                sacrifice_source,
+                costs_executable,
+                tuple(cost_limitations),
+            ),
             effect_kind,
             target_count,
             choices_required,
@@ -1382,6 +1435,41 @@ class CardInterpreter:
             targets_choices_executable,
             child_payload_executable,
             followup_executable,
+        )
+
+    def food_activation_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedFoodActivationSemantics | None:
+        """Recognize canonical Food use without upgrading its surrounding context."""
+        match = self.FOOD_ACTIVATION.search(fragment)
+        if match is None:
+            return None
+        token = self.PREDEFINED_TOKENS["food"]
+        activation = self.activated_ability_semantics(token, match.group(0))
+        assert activation is not None
+        token_context = self.token_semantic_coverage(card, fragment)
+        if token_context is None and not self._is_canonical_food_source(card):
+            return None
+        if token_context is None:
+            parent_executable = fragment.strip() == match.group(0)
+            followup_executable = parent_executable
+            limitations: tuple[str, ...] = (
+                () if parent_executable else ("food_activation_context_not_implemented",)
+            )
+        else:
+            parent_executable = token_context.coverage.parent_executable
+            followup_executable = token_context.coverage.followup_executable
+            limitations = token_context.limitations
+        coverage = SemanticCoverage(
+            activation.coverage.payload_executable,
+            parent_executable,
+            followup_executable,
+            limitations,
+        )
+        return InterpretedFoodActivationSemantics(
+            activation.program,
+            coverage,
+            match.group(0),
         )
 
     def return_to_hand_semantics(
