@@ -68,6 +68,17 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
         block_options = game.legal_block_options(attack, 1 - active)
         blocks = pilot.choose_blocks(game.public_view(), block_options)
         game.execute_block_action(blocks)
+        while game.step.value == "declare_blockers":
+            sneak_options = game.legal_sneak_actions(active)
+            sneak_choice = pilot.choose_sneak(game.public_view(), sneak_options)
+            game.execute_sneak_action(sneak_choice)
+            while game.priority_state is not None:
+                if game.priority_state.resolution_pending:
+                    game.process_priority_resolution()
+                    continue
+                priority_options = game.legal_priority_actions(game.priority_state.player_index)
+                priority_choice = pilot.choose_priority(game.public_view(), priority_options)
+                game.execute_priority_action(priority_choice)
         while game.step.value == "combat_damage":
             game.resolve_combat_damage()
         game.advance_step()

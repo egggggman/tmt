@@ -35,6 +35,37 @@ class CastProgram:
     kind: CastKind
 
 
+@dataclass(frozen=True)
+class SneakProgram:
+    """One Oracle-derived bounded Sneak alternative-cost instruction."""
+
+    mana_cost: str | None
+    creature_spell: bool
+    direct_keyword_ability: bool
+    fixed_supported_cost: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.mana_cost is not None
+            and self.creature_spell
+            and self.direct_keyword_ability
+            and self.fixed_supported_cost
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedSneakSemantics:
+    """Sneak-specific facts paired with Action-generic coverage evidence."""
+
+    program: SneakProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
 class DamageTargetKind(Enum):
     """The bounded recipient classes represented by Deal Damage."""
 
@@ -551,6 +582,36 @@ class CardInterpreter:
             oracle_text="{2}, Sacrifice this token: Draw a card.",
         ),
     }
+
+    SNEAK_ABILITY = re.compile(r"^Sneak (?P<cost>(?:\{[^}]+\})+)(?:\s|$)", re.I)
+    FIXED_SNEAK_COST = re.compile(r"^(?:\{(?:\d+|[WUBRG])\})+$")
+
+    def sneak_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedSneakSemantics | None:
+        """Recognize Sneak references while bounding execution to fixed-cost creatures."""
+        if not re.search(r"\bsneak\b", fragment, re.I):
+            return None
+        match = self.SNEAK_ABILITY.match(fragment)
+        mana_cost = None if match is None else match.group("cost")
+        direct = match is not None
+        creature = "Creature" in card.type_line
+        fixed = mana_cost is not None and self.FIXED_SNEAK_COST.fullmatch(mana_cost) is not None
+        program = SneakProgram(mana_cost, creature, direct, fixed)
+        limitations: list[str] = []
+        if not direct:
+            limitations.append("sneak_reference_or_granted_ability_not_implemented")
+        elif not fixed:
+            limitations.append("sneak_cost_shape_not_implemented")
+        elif not creature:
+            limitations.append("sneak_noncreature_spell_not_implemented")
+        coverage = SemanticCoverage(
+            payload_executable=program.executable,
+            parent_executable=program.executable,
+            followup_executable=program.executable,
+            limitations=tuple(limitations),
+        )
+        return InterpretedSneakSemantics(program, coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
         if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
@@ -1523,6 +1584,13 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            sneak_coverage = self.sneak_semantic_coverage(card, fragment)
+            if sneak_coverage is not None and sneak_coverage.program.direct_keyword_ability:
+                if self.supports_pt_fragment(fragment):
+                    continue
+                for reason in sneak_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             token_coverage = self.token_semantic_coverage(card, fragment)
             if token_coverage is not None:
                 for reason in token_coverage.limitations:
@@ -1570,6 +1638,12 @@ class CardInterpreter:
             lifelink_coverage = self.lifelink_semantic_coverage(card, fragment)
             if lifelink_coverage is not None:
                 for reason in lifelink_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            if sneak_coverage is not None:
+                if self.supports_pt_fragment(fragment):
+                    continue
+                for reason in sneak_coverage.limitations:
                     unsupported.append((fragment, reason))
                 continue
             if (

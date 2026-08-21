@@ -25,6 +25,7 @@ from tmnt_design_studio.card_interpreter07 import (
     DiscardDrawProgram,
     HandBottomDrawProgram,
     ScryProgram,
+    SneakProgram,
     StrikeApplicability,
     StrikeKeyword,
     TokenCreationProgram,
@@ -120,6 +121,7 @@ class ActionOption:
     player_index: int
     object_id: str | None = None
     target_id: str | None = None
+    cost_object_id: str | None = None
     oracle_fragment: str | None = None
     attacker_ids: tuple[str, ...] = ()
     blocks: tuple[tuple[str, str], ...] = ()
@@ -156,6 +158,41 @@ class PaymentPlan:
     card_object_id: str
     requirement: ManaRequirement
     source_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SneakPaymentPlan:
+    """A proposed fixed Sneak payment using only authoritative runtime IDs."""
+
+    player_index: int
+    card_object_id: str
+    returned_attacker_id: str
+    requirement: ManaRequirement
+    mana_source_ids: tuple[str, ...]
+    defending_player: int
+    oracle_fragment: str
+
+
+@dataclass(frozen=True)
+class SneakEvidence:
+    """Immutable announcement-through-resolution evidence for one Sneak spell."""
+
+    card_name: str
+    hand_object_id: str
+    controller: int
+    turn: int
+    step: str
+    oracle_fragment: str
+    mana_requirement: ManaRequirement
+    mana_source_ids: tuple[str, ...]
+    returned_attacker_id: str
+    returned_hand_id: str
+    defending_player: int
+    stack_object_id: str
+    priority_epoch: int
+    resolved_object_id: str | None = None
+    entered_tapped: bool | None = None
+    entered_attacking: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -650,6 +687,11 @@ class StackObject:
     controller: int
     cast_kind: CastKind
     target_id: str | None = None
+    sneak_returned_attacker_id: str | None = None
+    sneak_returned_hand_id: str | None = None
+    sneak_defending_player: int | None = None
+    sneak_oracle_fragment: str | None = None
+    sneak_mana_source_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
 
     @property
@@ -1054,6 +1096,7 @@ class Game:
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
+        self.sneak_evidence: list[SneakEvidence] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
         self.interpreter = interpreter or CardInterpreter()
@@ -2116,12 +2159,26 @@ class Game:
                 trigger=ability,
             )
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
-            self.log(
-                "pt_effect_condition_not_met",
-                source=ability.source_card.name,
-                condition="sneak_cost_paid",
-                oracle_fragment=ability.oracle_fragment,
-            )
+            match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(ability.oracle_fragment)
+            assert match is not None
+            if ability.event.source_id is None:
+                self.log(
+                    "pt_effect_condition_not_met",
+                    source=ability.source_card.name,
+                    condition="sneak_cost_paid",
+                    oracle_fragment=ability.oracle_fragment,
+                )
+            else:
+                for permanent in tuple(self.players[ability.controller].battlefield):
+                    if permanent.card.is_creature:
+                        self.apply_pt_modifier(
+                            permanent,
+                            int(match.group(1)),
+                            int(match.group(2)),
+                            duration="until_end_of_turn",
+                            source_card=ability.source_card.name,
+                            oracle_fragment=ability.oracle_fragment,
+                        )
         elif ability.effect is TriggerEffect.ALLIANCE_PT and source_permanent is not None:
             match = self.interpreter.ALLIANCE_THIS_UNTIL_EOT.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -2327,6 +2384,9 @@ class Game:
         self,
         entering: tuple[Permanent, ...],
         effects: set[TriggerEffect] | None = None,
+        *,
+        source_id: str | None = None,
+        defer_triggers: bool = False,
     ) -> None:
         enabled = effects or {
             TriggerEffect.SNEAK_ETB_CONDITION,
@@ -2342,15 +2402,27 @@ class Game:
                 RulesEventKind.CREATURE_ENTERED,
                 permanent.controller,
                 (permanent.object_id,),
+                source_id=source_id,
             )
             self._detect_creature_entered_triggers(permanent, event, enabled)
         self._put_pending_triggers_on_stack()
-        self._drain_triggered_abilities()
+        if not defer_triggers:
+            self._drain_triggered_abilities()
 
     def _process_creature_entered_triggers(
-        self, entering: Permanent, effects: set[TriggerEffect] | None = None
+        self,
+        entering: Permanent,
+        effects: set[TriggerEffect] | None = None,
+        *,
+        source_id: str | None = None,
+        defer_triggers: bool = False,
     ) -> None:
-        self._process_creatures_entered_triggers((entering,), effects)
+        self._process_creatures_entered_triggers(
+            (entering,),
+            effects,
+            source_id=source_id,
+            defer_triggers=defer_triggers,
+        )
 
     def place_counters(
         self,
@@ -2968,6 +3040,109 @@ class Game:
             )
         return tuple(options)
 
+    def _sneak_semantics(self, card: CardObject):
+        for fragment in self.interpreter.fragments(card.card):
+            semantics = self.interpreter.sneak_semantic_coverage(card.card, fragment)
+            if semantics is not None and semantics.coverage.fully_supported:
+                return fragment, semantics
+        return None
+
+    def _unblocked_attackers(self, player_index: int) -> tuple[Permanent, ...]:
+        blocked = {attacker_id for attacker_id, _blocker_id in self._combat_blocks}
+        result: list[Permanent] = []
+        for object_id in self._combat_attackers:
+            attacker = self._objects.get(object_id)
+            if (
+                object_id not in blocked
+                and isinstance(attacker, Permanent)
+                and self.is_authoritative(attacker, "battlefield")
+                and attacker.controller == player_index
+            ):
+                result.append(attacker)
+        return tuple(result)
+
+    def sneak_payment_plan(
+        self, player_index: int, card: CardObject, attacker: Permanent
+    ) -> SneakPaymentPlan | None:
+        """Build one immutable fixed-cost Sneak plan without mutating game state."""
+        if (
+            player_index != self.active_player
+            or self.step is not TurnStep.DECLARE_BLOCKERS
+            or not self._blockers_declared
+            or self.priority_state is not None
+            or self.stack
+            or not self.is_authoritative(card, "hand")
+            or card.owner != player_index
+            or attacker not in self._unblocked_attackers(player_index)
+        ):
+            return None
+        interpreted = self._sneak_semantics(card)
+        if interpreted is None:
+            return None
+        fragment, semantics = interpreted
+        program: SneakProgram = semantics.program
+        assert program.mana_cost is not None
+        requirement = self.activation_mana_requirement(program.mana_cost)
+        if requirement is None:
+            return None
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped and permanent is not attacker
+        ]
+        chosen: list[Permanent] = []
+        for color in requirement.colored:
+            source = next(
+                (permanent for permanent in available if self._mana_color(permanent) == color),
+                None,
+            )
+            if source is None:
+                return None
+            chosen.append(source)
+            available.remove(source)
+        if len(available) < requirement.generic:
+            return None
+        chosen.extend(available[: requirement.generic])
+        return SneakPaymentPlan(
+            player_index,
+            card.object_id,
+            attacker.object_id,
+            requirement,
+            tuple(source.object_id for source in chosen),
+            1 - player_index,
+            fragment,
+        )
+
+    def legal_sneak_actions(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Generate represented Sneak announcements after blockers are declared."""
+        if (
+            player_index != self.active_player
+            or self.step is not TurnStep.DECLARE_BLOCKERS
+            or not self._blockers_declared
+            or self.priority_state is not None
+            or self.stack
+        ):
+            return ()
+        options: list[ActionOption] = []
+        for card in self.players[player_index].hand:
+            interpreted = self._sneak_semantics(card)
+            if interpreted is None:
+                continue
+            fragment, _semantics = interpreted
+            for attacker in self._unblocked_attackers(player_index):
+                if self.sneak_payment_plan(player_index, card, attacker) is not None:
+                    options.append(
+                        ActionOption(
+                            ActionKind.CAST,
+                            player_index,
+                            object_id=card.object_id,
+                            cost_object_id=attacker.object_id,
+                            oracle_fragment=fragment,
+                        )
+                    )
+        options.append(ActionOption(ActionKind.PASS, player_index))
+        return tuple(options)
+
     def execute_attack_action(self, attack: ActionOption) -> None:
         """Revalidate and execute the declare-attackers turn-based action."""
         if attack not in self.legal_attack_options(attack.player_index):
@@ -3005,7 +3180,28 @@ class Game:
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
-        self.transition_to(TurnStep.COMBAT_DAMAGE)
+        if not any(
+            option.kind is ActionKind.CAST
+            for option in self.legal_sneak_actions(self.active_player)
+        ):
+            self.transition_to(TurnStep.COMBAT_DAMAGE)
+
+    def execute_sneak_action(self, option: ActionOption) -> bool:
+        """Revalidate and execute one engine-generated Sneak action or decline."""
+        if option not in self.legal_sneak_actions(option.player_index):
+            raise ValueError("Sneak action is not currently legal")
+        if option.kind is ActionKind.PASS:
+            self.transition_to(TurnStep.COMBAT_DAMAGE)
+            return True
+        card = self._objects.get(option.object_id or "")
+        attacker = self._objects.get(option.cost_object_id or "")
+        if not isinstance(card, CardObject) or not isinstance(attacker, Permanent):
+            raise ValueError("Sneak option references an invalid runtime object")
+        plan = self.sneak_payment_plan(option.player_index, card, attacker)
+        if plan is None or plan.oracle_fragment != option.oracle_fragment:
+            raise ValueError("Sneak option became stale or illegal")
+        self._commit_sneak_announcement(card, attacker, plan)
+        return True
 
     def evaluated_strike_keywords(self, permanent: Permanent) -> frozenset[StrikeKeyword]:
         """Evaluate the represented printed and static combat-step keyword characteristics."""
@@ -4027,6 +4223,132 @@ class Game:
         )
         return spell
 
+    def _commit_sneak_announcement(
+        self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan
+    ) -> StackObject:
+        """Atomically pay fixed Sneak mana plus the authoritative return cost."""
+        if plan != self.sneak_payment_plan(plan.player_index, card, attacker):
+            raise ValueError("Sneak payment plan is no longer legal")
+        sources: list[Permanent] = []
+        for object_id in plan.mana_source_ids:
+            source = self._objects.get(object_id)
+            if (
+                not isinstance(source, Permanent)
+                or not self.is_authoritative(source, "battlefield")
+                or source.tapped
+                or not source.card.is_land
+            ):
+                raise ValueError("Sneak mana source is not authoritative")
+            sources.append(source)
+        if len({source.object_id for source in sources}) != len(sources):
+            raise ValueError("Sneak payment cannot reuse a mana source")
+
+        # Construct both new zone incarnations before mutating any authoritative container.
+        returned = CardObject(
+            self._allocate_object_id(),
+            attacker.card,
+            attacker.owner,
+            attacker.owner,
+            "hand",
+            is_token=attacker.is_token,
+        )
+        spell = StackObject(
+            self._allocate_object_id(),
+            card.card,
+            card.owner,
+            plan.player_index,
+            CastKind.CREATURE,
+            sneak_returned_attacker_id=attacker.object_id,
+            sneak_returned_hand_id=returned.object_id,
+            sneak_defending_player=plan.defending_player,
+            sneak_oracle_fragment=plan.oracle_fragment,
+            sneak_mana_source_ids=plan.mana_source_ids,
+        )
+
+        battlefield = self.players[attacker.controller].battlefield
+        hand = self.players[card.owner].hand
+        if not self._identity_contains(battlefield, attacker) or not self._identity_contains(
+            hand, card
+        ):
+            raise ValueError("Sneak source zones changed before commitment")
+        attacker_index = next(i for i, value in enumerate(battlefield) if value is attacker)
+        card_index = next(i for i, value in enumerate(hand) if value is card)
+        for source in sources:
+            source.tapped = True
+        battlefield.pop(attacker_index)
+        hand.pop(card_index)
+        self.players[attacker.owner].hand.append(returned)
+        self.stack.append(spell)
+        attacker.zone = "former"
+        card.zone = "former"
+        self._register(returned)
+        self._register(spell)
+        self._combat_attackers = tuple(
+            object_id for object_id in self._combat_attackers if object_id != attacker.object_id
+        )
+        self._combat_blocks = tuple(
+            pair for pair in self._combat_blocks if pair[0] != attacker.object_id
+        )
+        self.refresh_static_pt_modifiers()
+
+        self.log(
+            "zone_changed",
+            card=attacker.card.name,
+            owner=self.players[attacker.owner].name,
+            source_object_id=attacker.object_id,
+            destination_object_id=returned.object_id,
+            source_zone="battlefield",
+            destination_zone="hand",
+            reason="sneak_return_cost",
+        )
+        self.log(
+            "zone_changed",
+            card=card.card.name,
+            owner=self.players[card.owner].name,
+            source_object_id=card.object_id,
+            destination_object_id=spell.object_id,
+            source_zone="hand",
+            destination_zone="stack",
+            reason="sneak_spell_cast",
+        )
+        self.log(
+            "sneak_cost_paid",
+            player=self.players[plan.player_index].name,
+            card=card.card.name,
+            mana_source_ids=list(plan.mana_source_ids),
+            returned_attacker_id=attacker.object_id,
+            returned_hand_id=returned.object_id,
+        )
+        self.log(
+            "sneak_announced",
+            player=self.players[plan.player_index].name,
+            card=spell.name,
+            hand_object_id=card.object_id,
+            stack_object_id=spell.object_id,
+            oracle_fragment=plan.oracle_fragment,
+        )
+        self.check_state_based_actions()
+        self._begin_priority_window()
+        assert self.priority_state is not None
+        self.sneak_evidence.append(
+            SneakEvidence(
+                card.card.name,
+                card.object_id,
+                plan.player_index,
+                self.turn,
+                self.step.value,
+                plan.oracle_fragment,
+                plan.requirement,
+                plan.mana_source_ids,
+                attacker.object_id,
+                returned.object_id,
+                plan.defending_player,
+                spell.object_id,
+                self.priority_state.epoch,
+            )
+        )
+        return spell
+
     def cast(self, player_index: int, card: CardObject, target: Permanent | None = None) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -4119,7 +4441,7 @@ class Game:
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
-            if spell.effect is TriggerEffect.DISCARD_DRAW and (
+            if spell.effect in {TriggerEffect.DISCARD_DRAW, TriggerEffect.SNEAK_ETB_CONDITION} and (
                 self.priority_state is None or not self.priority_state.resolution_pending
             ):
                 raise ValueError(
@@ -4134,21 +4456,67 @@ class Game:
             return None
         player = self.players[spell.controller]
         target = self._objects.get(spell.target_id or "")
+        sneak_cast = spell.sneak_returned_attacker_id is not None
+        if sneak_cast and (
+            self.priority_state is None or not self.priority_state.resolution_pending
+        ):
+            raise ValueError("Sneak spell cannot resolve before all players pass")
 
         if spell.cast_kind is CastKind.CREATURE:
+            stack_object_id = spell.object_id
             permanent = self.move_object(
                 spell,
                 "battlefield",
                 controller=spell.controller,
-                summoning_sick="Haste" not in spell.card.keywords,
-                reason="creature_resolved",
+                summoning_sick=True if sneak_cast else "Haste" not in spell.card.keywords,
+                reason="sneak_creature_resolved" if sneak_cast else "creature_resolved",
             )
             assert isinstance(permanent, Permanent)
-            self.log("creature_resolved", player=player.name, card=spell.name)
+            if sneak_cast:
+                permanent.tapped = True
+                self._combat_attackers = self._combat_attackers + (permanent.object_id,)
+                self.log(
+                    "sneak_creature_resolved",
+                    player=player.name,
+                    card=spell.name,
+                    stack_object_id=stack_object_id,
+                    permanent_object_id=permanent.object_id,
+                    defending_player=spell.sneak_defending_player,
+                    tapped=True,
+                    attacking=True,
+                )
+                for index, evidence in enumerate(self.sneak_evidence):
+                    if evidence.stack_object_id == stack_object_id:
+                        self.sneak_evidence[index] = SneakEvidence(
+                            evidence.card_name,
+                            evidence.hand_object_id,
+                            evidence.controller,
+                            evidence.turn,
+                            evidence.step,
+                            evidence.oracle_fragment,
+                            evidence.mana_requirement,
+                            evidence.mana_source_ids,
+                            evidence.returned_attacker_id,
+                            evidence.returned_hand_id,
+                            evidence.defending_player,
+                            evidence.stack_object_id,
+                            evidence.priority_epoch,
+                            permanent.object_id,
+                            True,
+                            True,
+                        )
+                        break
+            else:
+                self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
-            self._process_creature_entered_triggers(permanent)
+            self._process_creature_entered_triggers(
+                permanent,
+                source_id=stack_object_id if sneak_cast else None,
+                defer_triggers=sneak_cast,
+            )
             self.report_unsupported_abilities(spell.controller, spell.card)
-            self.check_state_based_actions()
+            if not sneak_cast:
+                self.check_state_based_actions()
             return permanent
 
         legal_target = isinstance(target, Permanent) and self.is_authoritative(
@@ -4346,6 +4714,8 @@ class Game:
                 ),
             )
         self.execute_block_action(block_option)
+        if self.step is TurnStep.DECLARE_BLOCKERS:
+            self.execute_sneak_action(ActionOption(ActionKind.PASS, self.active_player))
         while self.step is TurnStep.COMBAT_DAMAGE:
             self.resolve_combat_damage()
 
@@ -4465,6 +4835,30 @@ class Game:
                 raise AssertionError("activation evidence lacks its runtime stack object")
             if item.resolved != (ability.zone == "former"):
                 raise AssertionError("activation resolution evidence disagrees with stack state")
+        if len({item.stack_object_id for item in self.sneak_evidence}) != len(self.sneak_evidence):
+            raise AssertionError("Sneak evidence stack IDs must be unique")
+        for item in self.sneak_evidence:
+            spell = self._objects.get(item.stack_object_id)
+            if not isinstance(spell, StackObject):
+                raise AssertionError("Sneak evidence lacks its runtime stack object")
+            if item.controller not in range(2) or item.defending_player != 1 - item.controller:
+                raise AssertionError("Sneak evidence has invalid player authority")
+            if (
+                item.hand_object_id not in self._objects
+                or item.returned_attacker_id not in self._objects
+            ):
+                raise AssertionError("Sneak evidence lacks immutable source identities")
+            if item.returned_hand_id not in self._objects:
+                raise AssertionError("Sneak evidence lacks returned-object identity")
+            resolved = item.resolved_object_id is not None
+            if resolved != (spell.zone == "former"):
+                raise AssertionError("Sneak evidence resolution disagrees with stack state")
+            if resolved and (
+                item.resolved_object_id not in self._objects
+                or item.entered_tapped is not True
+                or item.entered_attacking is not True
+            ):
+                raise AssertionError("resolved Sneak evidence lacks battlefield result")
         if self.priority_state is not None:
             state = self.priority_state
             if not self.stack:
@@ -4682,6 +5076,11 @@ class Game:
                         "controller": entry.controller,
                         "cast_kind": entry.cast_kind.value,
                         "target_id": entry.target_id,
+                        "sneak_returned_attacker_id": entry.sneak_returned_attacker_id,
+                        "sneak_returned_hand_id": entry.sneak_returned_hand_id,
+                        "sneak_defending_player": entry.sneak_defending_player,
+                        "sneak_oracle_fragment": entry.sneak_oracle_fragment,
+                        "sneak_mana_source_ids": list(entry.sneak_mana_source_ids),
                     }
                     if isinstance(entry, StackObject)
                     else {
@@ -4849,6 +5248,30 @@ class Game:
                     "resolved": item.resolved,
                 }
                 for item in self.activation_evidence
+            ],
+            "sneak": [
+                {
+                    "card": item.card_name,
+                    "hand_object_id": item.hand_object_id,
+                    "controller": item.controller,
+                    "turn": item.turn,
+                    "step": item.step,
+                    "oracle_fragment": item.oracle_fragment,
+                    "mana_requirement": {
+                        "generic": item.mana_requirement.generic,
+                        "colored": list(item.mana_requirement.colored),
+                    },
+                    "mana_source_ids": list(item.mana_source_ids),
+                    "returned_attacker_id": item.returned_attacker_id,
+                    "returned_hand_id": item.returned_hand_id,
+                    "defending_player": item.defending_player,
+                    "stack_object_id": item.stack_object_id,
+                    "priority_epoch": item.priority_epoch,
+                    "resolved_object_id": item.resolved_object_id,
+                    "entered_tapped": item.entered_tapped,
+                    "entered_attacking": item.entered_attacking,
+                }
+                for item in self.sneak_evidence
             ],
             "players": [
                 {
