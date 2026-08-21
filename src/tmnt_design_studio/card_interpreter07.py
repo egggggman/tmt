@@ -229,6 +229,43 @@ class InterpretedLifelinkSemantics:
 
 
 @dataclass(frozen=True)
+class HandBottomDrawProgram:
+    """One bounded optional Hand -> Library-bottom move followed by fixed Draw."""
+
+    hand_quantity: int | None
+    draw_quantity: int | None
+    optional: bool
+    draw_conditional_on_move: bool
+    unsupported_reason: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.hand_quantity == 1
+            and self.draw_quantity == 1
+            and self.optional
+            and self.draw_conditional_on_move
+            and self.unsupported_reason is None
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedHandBottomDrawSemantics:
+    """Action-specific filter/Draw facts paired with generic semantic coverage."""
+
+    program: HandBottomDrawProgram
+    coverage: SemanticCoverage
+    clause_text: str
+    clause_start: int
+    clause_end: int
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -400,6 +437,11 @@ class CardInterpreter:
     STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
     TRAMPLE_KEYWORD = re.compile(r"\btrample\b", re.IGNORECASE)
     LIFELINK_KEYWORD = re.compile(r"\blifelink\b", re.IGNORECASE)
+    HAND_BOTTOM_DRAW = re.compile(
+        r"(?P<clause>You may put a card from your hand on the bottom of your library\. "
+        r"If you do, draw a card\.)",
+        re.IGNORECASE,
+    )
     STATIC_KEYWORD_NAMES = frozenset(
         {
             "deathtouch",
@@ -663,11 +705,15 @@ class CardInterpreter:
 
         suffix = fragment[match.end() :]
         retained = None
-        if suffix.strip(" .") or re.search(
-            r"\b(?:if that creature would die|then|and [^.]*(?:draw|create|put|destroy|"
-            r"exile|sacrifice))\b",
-            suffix,
-            re.I,
+        hand_bottom_draw = self.HAND_BOTTOM_DRAW.fullmatch(suffix.strip().lstrip(". "))
+        if hand_bottom_draw is None and (
+            suffix.strip(" .")
+            or re.search(
+                r"\b(?:if that creature would die|then|and [^.]*(?:draw|create|put|destroy|"
+                r"exile|sacrifice))\b",
+                suffix,
+                re.I,
+            )
         ):
             retained = "damage_followup_semantics_not_implemented"
         unsupported_reason = amount_limitation or targeting_limitation
@@ -736,6 +782,47 @@ class CardInterpreter:
             limitations,
         )
         return InterpretedDamageSemantics(program, coverage, parent_limitation)
+
+    def hand_bottom_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedHandBottomDrawSemantics | None:
+        """Recognize one optional Hand-bottom move with its dependent fixed Draw."""
+        del card
+        match = self.HAND_BOTTOM_DRAW.search(fragment)
+        if match is None:
+            return None
+        prefix = fragment[: match.start()].strip()
+        suffix = fragment[match.end() :].strip()
+        parent_executable = False
+        parent_limitation = None
+        if prefix:
+            damage = self.damage_program(prefix)
+            if damage is not None and damage.executable:
+                parent_executable = True
+            else:
+                parent_limitation = "hand_bottom_draw_parent_context_not_implemented"
+        else:
+            parent_executable = True
+        followup_limitation = (
+            "hand_bottom_draw_followup_semantics_not_implemented" if suffix else None
+        )
+        program = HandBottomDrawProgram(1, 1, True, True)
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        return InterpretedHandBottomDrawSemantics(
+            program,
+            SemanticCoverage(
+                payload_executable=program.executable,
+                parent_executable=parent_executable,
+                followup_executable=followup_limitation is None,
+                limitations=limitations,
+            ),
+            match.group("clause"),
+            match.start(),
+            match.end(),
+            parent_limitation,
+        )
 
     def scry_program(self, fragment: str) -> ScryProgram | None:
         """Recognize only explicit Oracle Scry instructions, never similar library actions."""
@@ -1364,6 +1451,11 @@ class CardInterpreter:
                     continue
                 if not damage_coverage.limitations:
                     unsupported.append((fragment, "damage_semantics_not_implemented"))
+                continue
+            hand_bottom_draw = self.hand_bottom_draw_semantic_coverage(card, fragment)
+            if hand_bottom_draw is not None:
+                for reason in hand_bottom_draw.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             scry_coverage = self.scry_semantic_coverage(card, fragment)
             if scry_coverage is not None:

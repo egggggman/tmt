@@ -4,7 +4,15 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from tmnt_design_studio.engine07 import ActionKind, ActionOption, GameView, ScryOption, ScryView
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    GameView,
+    HandBottomDrawOption,
+    HandBottomDrawView,
+    ScryOption,
+    ScryView,
+)
 
 
 class Pilot(Protocol):
@@ -17,6 +25,10 @@ class Pilot(Protocol):
     def choose_blocks(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption: ...
 
     def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption: ...
+
+    def choose_hand_bottom_draw(
+        self, view: HandBottomDrawView, options: tuple[HandBottomDrawOption, ...]
+    ) -> HandBottomDrawOption: ...
 
     def choose_priority(
         self, view: GameView, options: tuple[ActionOption, ...]
@@ -95,6 +107,15 @@ class AcceptancePilot:
             option for option in options if option.top_ids == current and not option.bottom_ids
         )
 
+    def choose_hand_bottom_draw(
+        self, view: HandBottomDrawView, options: tuple[HandBottomDrawOption, ...]
+    ) -> HandBottomDrawOption:
+        """Deterministically take the optional filter when a hand card is available."""
+        return next(
+            (option for option in options if option.card_id is not None),
+            next(option for option in options if option.card_id is None),
+        )
+
     def choose_priority(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
         """Deliberately pass; passing is a legal strategy, not an engine shortcut."""
         del view
@@ -124,3 +145,9 @@ class PassingPilot(AcceptancePilot):
         return next(
             option for option in options if not option.top_ids and option.bottom_ids == current
         )
+
+    def choose_hand_bottom_draw(
+        self, view: HandBottomDrawView, options: tuple[HandBottomDrawOption, ...]
+    ) -> HandBottomDrawOption:
+        del view
+        return next(option for option in options if option.card_id is None)

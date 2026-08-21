@@ -22,6 +22,7 @@ from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     CastKind,
     DamageTargetKind,
+    HandBottomDrawProgram,
     ScryProgram,
     StrikeApplicability,
     StrikeKeyword,
@@ -188,6 +189,7 @@ class RulesEventKind(Enum):
     ATTACKERS_DECLARED = "attackers_declared"
     DAMAGE_DEALT = "damage_dealt"
     SCRIED = "scried"
+    HAND_BOTTOM_DRAW = "hand_bottom_draw"
 
 
 class TriggerEffect(Enum):
@@ -255,6 +257,54 @@ class ScryEvidence:
     bottom_ids: tuple[str, ...]
     source_card: str
     oracle_fragment: str
+
+
+@dataclass(frozen=True)
+class HandBottomDrawOption:
+    """One immutable optional hand-card selection; ``None`` declines the action."""
+
+    card_id: str | None
+
+
+@dataclass(frozen=True)
+class HandBottomDrawView:
+    """Private immutable hand view for the bounded filtering choice."""
+
+    player_index: int
+    cards: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True)
+class HandBottomDrawPlan:
+    """Validated instruction-point choice plus immutable authoritative pre-state."""
+
+    choice: HandBottomDrawOption
+    selected: CardObject | None
+    offered_choice_ids: tuple[str | None, ...]
+    pre_hand_ids: tuple[str, ...]
+    pre_library_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class HandBottomDrawEvidence:
+    """Immutable before/after facts for one resolved optional filter instruction."""
+
+    event_id: str
+    player_index: int
+    source_id: str
+    oracle_fragment: str
+    offered_choice_ids: tuple[str | None, ...]
+    pre_hand_ids: tuple[str, ...]
+    pre_library_ids: tuple[str, ...]
+    selected_hand_id: str | None
+    library_bottom_id: str | None
+    movement_succeeded: bool
+    conditional_draw_performed: bool
+    drawn_library_id: str | None
+    drawn_hand_id: str | None
+    post_hand_ids: tuple[str, ...]
+    post_library_ids: tuple[str, ...]
+    declined: bool
 
 
 @dataclass(frozen=True)
@@ -857,6 +907,7 @@ class Game:
         counter_target_chooser=None,
         alliance_mode_chooser=None,
         scry_chooser=None,
+        hand_bottom_draw_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -897,6 +948,7 @@ class Game:
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
+        self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
@@ -919,6 +971,9 @@ class Game:
                 if option.top_ids == tuple(object_id for object_id, _name in view.cards)
                 and not option.bottom_ids
             )
+        )
+        self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
+            lambda _view, options: next(option for option in options if option.card_id is None)
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
         for player in self.players:
@@ -1118,6 +1173,7 @@ class Game:
         target_id: str | None = None,
         summoning_sick: bool = True,
         reason: str | None = None,
+        library_position: Literal["top", "bottom"] | None = None,
     ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
         if self._objects.get(obj.object_id) is not obj:
@@ -1143,6 +1199,8 @@ class Game:
             raise ValueError("stack movement requires controller and cast program")
         if destination != "stack" and (cast_kind is not None or target_id is not None):
             raise ValueError("stack metadata is valid only for stack movement")
+        if library_position is not None and destination != "library":
+            raise ValueError("library position is valid only for library movement")
 
         source_zone = obj.zone
         new_id = self._allocate_object_id()
@@ -1176,7 +1234,10 @@ class Game:
         # No mutation occurs before every validation and destination construction succeeds.
         source_index = next(index for index, candidate in enumerate(source) if candidate is obj)
         source.pop(source_index)
-        destination_container.append(replacement)
+        if destination == "library" and library_position == "bottom":
+            destination_container.insert(0, replacement)
+        else:
+            destination_container.append(replacement)
         obj.zone = "former"
         self._register(replacement)
         self.log(
@@ -1188,6 +1249,7 @@ class Game:
             source_zone=source_zone,
             destination_zone=destination,
             reason=reason,
+            library_position=library_position,
         )
         return replacement
 
@@ -1283,7 +1345,9 @@ class Game:
         )
         return event
 
-    def deal_damage(self, transaction: DamageTransaction) -> RulesEvent:
+    def deal_damage(
+        self, transaction: DamageTransaction, *, defer_post_damage: bool = False
+    ) -> RulesEvent:
         """Validate and atomically apply one bounded noncombat damage transaction."""
         if not isinstance(transaction, DamageTransaction):
             raise ValueError("damage requires a typed transaction")
@@ -1356,12 +1420,162 @@ class Game:
                 target_ids=subject_ids,
                 target_players=(() if target_player is None else (target_player,)),
             )
-        self.check_state_based_actions()
-        self.check_life()
-        if lifelink_applied:
-            self._put_pending_triggers_on_stack()
-            self._drain_triggered_abilities()
+        if not defer_post_damage:
+            self.check_state_based_actions()
+            self.check_life()
+            if lifelink_applied:
+                self._put_pending_triggers_on_stack()
+                self._drain_triggered_abilities()
         return event
+
+    def choose_hand_bottom_draw(
+        self, player_index: int, program: HandBottomDrawProgram
+    ) -> HandBottomDrawPlan:
+        """Validate a private optional choice without mutating authoritative state."""
+        if player_index not in range(2) or not isinstance(program, HandBottomDrawProgram):
+            raise ValueError("hand-bottom Draw program is invalid")
+        if not program.executable:
+            raise ValueError("hand-bottom Draw program is not executable")
+        player = self.players[player_index]
+        hand_objects_before = tuple(player.hand)
+        library_objects_before = tuple(player.library)
+        hand_before = tuple(card.object_id for card in player.hand)
+        library_before = tuple(card.object_id for card in player.library)
+        view = HandBottomDrawView(
+            player_index,
+            tuple((card.object_id, card.card.name) for card in player.hand),
+        )
+        options = (HandBottomDrawOption(None),) + tuple(
+            HandBottomDrawOption(card.object_id) for card in player.hand
+        )
+        try:
+            choice = self.hand_bottom_draw_chooser(view, options)
+            if not isinstance(choice, HandBottomDrawOption) or choice not in options:
+                raise ValueError("hand-bottom Draw chooser must return one listed option")
+            if (
+                tuple(card.object_id for card in player.hand) != hand_before
+                or tuple(card.object_id for card in player.library) != library_before
+            ):
+                raise ValueError("hand-bottom Draw choice mutated authoritative zones")
+        except Exception:
+            player.hand[:] = hand_objects_before
+            player.library[:] = library_objects_before
+            raise
+        selected = None
+        if choice.card_id is not None:
+            selected = next(
+                (card for card in player.hand if card.object_id == choice.card_id), None
+            )
+            if selected is None or not self.is_authoritative(selected, "hand"):
+                raise ValueError("hand-bottom Draw selection is stale")
+        return HandBottomDrawPlan(
+            choice,
+            selected,
+            tuple(option.card_id for option in options),
+            hand_before,
+            library_before,
+        )
+
+    def commit_hand_bottom_draw(
+        self,
+        player_index: int,
+        program: HandBottomDrawProgram,
+        plan: HandBottomDrawPlan,
+        *,
+        source_id: str,
+        oracle_fragment: str,
+    ) -> HandBottomDrawEvidence:
+        """Commit the selected move, then its conditional draw, in Oracle order."""
+        if not isinstance(plan, HandBottomDrawPlan):
+            raise ValueError("hand-bottom Draw plan is invalid")
+        choice = plan.choice
+        selected = plan.selected
+        player = self.players[player_index]
+        if (
+            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids
+            or tuple(card.object_id for card in player.library) != plan.pre_library_ids
+        ):
+            raise ValueError("hand-bottom Draw plan became stale")
+        if choice.card_id is None:
+            event = self._new_rules_event(RulesEventKind.HAND_BOTTOM_DRAW, player_index, ())
+            evidence = HandBottomDrawEvidence(
+                event.event_id,
+                player_index,
+                source_id,
+                oracle_fragment,
+                plan.offered_choice_ids,
+                plan.pre_hand_ids,
+                plan.pre_library_ids,
+                None,
+                None,
+                False,
+                False,
+                None,
+                None,
+                plan.pre_hand_ids,
+                plan.pre_library_ids,
+                True,
+            )
+        else:
+            if selected is None or not self.is_authoritative(selected, "hand"):
+                raise ValueError("hand-bottom Draw selected card became stale")
+            bottom = self.move_object(
+                selected,
+                "library",
+                reason="optional_hand_bottom_filter",
+                library_position="bottom",
+            )
+            assert isinstance(bottom, CardObject)
+            draw_source_id = player.library[-1].object_id
+            assert program.draw_quantity is not None
+            if not self.draw(player, program.draw_quantity):
+                raise AssertionError("selected card guarantees a nonempty library")
+            drawn = player.hand[-1]
+            event = self._new_rules_event(
+                RulesEventKind.HAND_BOTTOM_DRAW,
+                player_index,
+                (bottom.object_id, drawn.object_id),
+                source_id=source_id,
+            )
+            evidence = HandBottomDrawEvidence(
+                event.event_id,
+                player_index,
+                source_id,
+                oracle_fragment,
+                plan.offered_choice_ids,
+                plan.pre_hand_ids,
+                plan.pre_library_ids,
+                choice.card_id,
+                bottom.object_id,
+                True,
+                True,
+                draw_source_id,
+                drawn.object_id,
+                tuple(card.object_id for card in player.hand),
+                tuple(card.object_id for card in player.library),
+                False,
+            )
+        self.hand_bottom_draw_evidence.append(evidence)
+        self.log(
+            "hand_bottom_draw_committed",
+            event_id=evidence.event_id,
+            player=player.name,
+            source_id=source_id,
+            oracle_fragment=oracle_fragment,
+            offered_choice_ids=list(evidence.offered_choice_ids),
+            pre_hand_ids=list(evidence.pre_hand_ids),
+            pre_library_ids=list(evidence.pre_library_ids),
+            selected_hand_id=evidence.selected_hand_id,
+            library_bottom_id=evidence.library_bottom_id,
+            movement_succeeded=evidence.movement_succeeded,
+            conditional_draw_performed=evidence.conditional_draw_performed,
+            drawn_library_id=evidence.drawn_library_id,
+            drawn_hand_id=evidence.drawn_hand_id,
+            post_hand_ids=list(evidence.post_hand_ids),
+            post_library_ids=list(evidence.post_library_ids),
+            declined=evidence.declined,
+        )
+        return evidence
 
     @staticmethod
     def legal_scry_options(inspected: tuple[CardObject, ...]) -> tuple[ScryOption, ...]:
@@ -3619,6 +3833,8 @@ class Game:
             )
             return resolved_card
         assert isinstance(target, Permanent)
+        filter_plan = None
+        filter_semantics = None
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             semantics = self.interpreter.damage_semantic_coverage(
                 spell.card, spell.card.oracle_text
@@ -3626,6 +3842,12 @@ class Game:
             if semantics is None or not semantics.coverage.payload_executable:
                 raise AssertionError("stacked damage spell no longer has executable semantics")
             assert semantics.program.amount is not None
+            filter_semantics = self.interpreter.hand_bottom_draw_semantic_coverage(
+                spell.card, spell.card.oracle_text
+            )
+            filter_executable = (
+                filter_semantics is not None and filter_semantics.coverage.fully_supported
+            )
             self.deal_damage(
                 DamageTransaction(
                     spell.controller,
@@ -3634,14 +3856,32 @@ class Game:
                     semantics.program.amount,
                     spell.card.oracle_text,
                     target=target,
-                )
+                ),
+                defer_post_damage=filter_executable,
             )
+            if filter_executable:
+                assert filter_semantics is not None
+                filter_plan = self.choose_hand_bottom_draw(
+                    spell.controller, filter_semantics.program
+                )
+                self.commit_hand_bottom_draw(
+                    spell.controller,
+                    filter_semantics.program,
+                    filter_plan,
+                    source_id=spell.object_id,
+                    oracle_fragment=spell.card.oracle_text,
+                )
         elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
             self.destroy(target)
         resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
         assert isinstance(resolved_card, CardObject)
         self.report_unsupported_abilities(spell.controller, spell.card)
         self.log("spell_resolved", player=player.name, card=spell.name, target=target.card.name)
+        if filter_plan is not None:
+            self.check_state_based_actions()
+            self.check_life()
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         return resolved_card
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
@@ -4203,6 +4443,27 @@ class Game:
                     "life_after": item.life_after,
                 }
                 for item in self.lifelink_evidence
+            ],
+            "hand_bottom_draw": [
+                {
+                    "event_id": item.event_id,
+                    "player_index": item.player_index,
+                    "source_id": item.source_id,
+                    "oracle_fragment": item.oracle_fragment,
+                    "offered_choice_ids": list(item.offered_choice_ids),
+                    "pre_hand_ids": list(item.pre_hand_ids),
+                    "pre_library_ids": list(item.pre_library_ids),
+                    "selected_hand_id": item.selected_hand_id,
+                    "library_bottom_id": item.library_bottom_id,
+                    "movement_succeeded": item.movement_succeeded,
+                    "conditional_draw_performed": item.conditional_draw_performed,
+                    "drawn_library_id": item.drawn_library_id,
+                    "drawn_hand_id": item.drawn_hand_id,
+                    "post_hand_ids": list(item.post_hand_ids),
+                    "post_library_ids": list(item.post_library_ids),
+                    "declined": item.declined,
+                }
+                for item in self.hand_bottom_draw_evidence
             ],
             "activated_abilities": [
                 {
