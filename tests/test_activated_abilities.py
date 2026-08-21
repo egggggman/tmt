@@ -618,5 +618,12 @@ def test_no_card_name_acceptance_seed_or_special_case_dispatch():
         inspect.getsource(Game.announce_activated_ability),
         inspect.getsource(Game._resolve_activated_ability),
     )
-    prohibited = {"Leonardo, Leader in Blue", "Food", "Mutagen", "Treasure", "Clue", "7001"}
+    prohibited = {
+        "Leonardo, Leader in Blue",
+        "Lita, Little Orphan Amphibian",
+        "Mutagen",
+        "Treasure",
+        "Clue",
+        "7001",
+    }
     assert all(name not in source for name in prohibited for source in sources)

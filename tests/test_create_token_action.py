@@ -159,21 +159,21 @@ def authoritative_catalog():
     )
 
 
-def test_predefined_tokens_are_oracle_derived_without_enabling_their_activations():
+def test_predefined_tokens_keep_only_canonical_food_activation_enabled():
     food = program("Create a Food token.")
     mutagen = program("Create a Mutagen token.")
 
     assert food.executable and food.definition == CardInterpreter.PREDEFINED_TOKENS["food"]
     assert food.definition.type_line == "Artifact — Food"
     assert "gain 3 life" in food.definition.oracle_text
-    assert food.retained_limitation == "token_activated_ability_not_implemented"
+    assert food.retained_limitation is None
     assert mutagen.executable and mutagen.definition.type_line == "Artifact — Mutagen"
     assert "Activate only as a sorcery" in mutagen.definition.oracle_text
     assert mutagen.retained_limitation == "token_activated_ability_not_implemented"
 
 
-@pytest.mark.parametrize("token_name", ["Food", "Mutagen", "Treasure", "Clue"])
-def test_predefined_token_creation_never_claims_its_activation(token_name):
+@pytest.mark.parametrize("token_name", ["Mutagen", "Treasure", "Clue"])
+def test_other_predefined_token_creation_never_claims_its_activation(token_name):
     fragment = f"Create a {token_name} token."
     source = CardFact("Renamed Token Source", "{1}", 1, "Sorcery", fragment)
     coverage = CardInterpreter().token_semantic_coverage(source, fragment)
@@ -183,6 +183,19 @@ def test_predefined_token_creation_never_claims_its_activation(token_name):
     assert not coverage.fully_supported
     assert coverage.program.retained_limitation == "token_activated_ability_not_implemented"
     assert (fragment, "token_activated_ability_not_implemented") in (
+        CardInterpreter().unsupported_fragments(source)
+    )
+
+
+def test_food_creation_no_longer_reports_its_canonical_activation_as_unsupported():
+    fragment = "Create a Food token."
+    source = CardFact("Renamed Token Source", "{1}", 1, "Sorcery", fragment)
+    coverage = CardInterpreter().token_semantic_coverage(source, fragment)
+
+    assert coverage is not None and coverage.payload_executable
+    assert coverage.followup_executable
+    assert coverage.program.retained_limitation is None
+    assert (fragment, "token_activated_ability_not_implemented") not in (
         CardInterpreter().unsupported_fragments(source)
     )
 
@@ -435,12 +448,9 @@ def test_create_token_converts_program_state_into_generic_coverage_without_losin
     assert result.program.executable
     assert result.coverage.payload_executable
     assert not result.coverage.parent_executable
-    assert not result.coverage.followup_executable
+    assert result.coverage.followup_executable
     assert not result.coverage.fully_supported
-    assert result.coverage.limitations == (
-        "token_condition_context_not_implemented",
-        "token_activated_ability_not_implemented",
-    )
+    assert result.coverage.limitations == ("token_condition_context_not_implemented",)
     assert result.limitations == result.coverage.limitations
 
 
@@ -784,9 +794,11 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Jennika, Bad Apple Big Sister",
         "Mechanized Ninja Cavalry",
         "Mighty Mutanimals",
+        "Lita, Little Orphan Amphibian",
+        "Pizza Face, Gastromancer",
         "Slash, Reptile Rampager",
     }
-    assert len(fully_supported) == 6
+    assert len(fully_supported) == 8
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason
