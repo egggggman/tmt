@@ -205,6 +205,30 @@ class InterpretedTrampleSemantics:
 
 
 @dataclass(frozen=True)
+class LifelinkProgram:
+    """One Oracle-derived intrinsic Lifelink characteristic."""
+
+    self_static: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.self_static
+
+
+@dataclass(frozen=True)
+class InterpretedLifelinkSemantics:
+    """A Lifelink program paired with Action-generic semantic coverage."""
+
+    program: LifelinkProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -375,6 +399,7 @@ class CardInterpreter:
     SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
     STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
     TRAMPLE_KEYWORD = re.compile(r"\btrample\b", re.IGNORECASE)
+    LIFELINK_KEYWORD = re.compile(r"\blifelink\b", re.IGNORECASE)
     STATIC_KEYWORD_NAMES = frozenset(
         {
             "deathtouch",
@@ -919,6 +944,47 @@ class CardInterpreter:
             parent_limitation,
         )
 
+    def lifelink_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedLifelinkSemantics | None:
+        """Recognize intrinsic Lifelink without upgrading grants or attachments."""
+        del card
+        match = self.LIFELINK_KEYWORD.search(fragment)
+        if match is None:
+            return None
+        reminder = re.sub(r"\s*\([^)]*\)\.?$", "", fragment).strip().rstrip(".")
+        keyword_parts = tuple(
+            part.strip().casefold() for part in re.split(r",\s*(?:and\s+)?|\s+and\s+", reminder)
+        )
+        self_static = keyword_parts == ("lifelink",)
+        if self_static:
+            parent_limitation = None
+        elif re.search(r"\bEquipped creature\b|\benchanted creature\b", fragment, re.I):
+            parent_limitation = "lifelink_attachment_context_not_implemented"
+        elif ":" in fragment[: match.start()]:
+            parent_limitation = "lifelink_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At |Alliance|[IVX]+\s+[—-])", fragment, re.I):
+            parent_limitation = "lifelink_trigger_context_not_implemented"
+        elif re.search(r"\b(?:gains?|has)\b", fragment[: match.start()], re.I):
+            parent_limitation = "lifelink_grant_context_not_implemented"
+        else:
+            parent_limitation = "lifelink_parent_context_not_implemented"
+        followup_limitation = None if self_static else "lifelink_compound_semantics_not_implemented"
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        program = LifelinkProgram(self_static)
+        return InterpretedLifelinkSemantics(
+            program,
+            SemanticCoverage(
+                payload_executable=program.executable,
+                parent_executable=self_static,
+                followup_executable=followup_limitation is None,
+                limitations=limitations,
+            ),
+            parent_limitation,
+        )
+
     @staticmethod
     def _top_level_colon(fragment: str) -> int | None:
         depth = 0
@@ -1317,6 +1383,11 @@ class CardInterpreter:
             trample_coverage = self.trample_semantic_coverage(card, fragment)
             if trample_coverage is not None:
                 for reason in trample_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            lifelink_coverage = self.lifelink_semantic_coverage(card, fragment)
+            if lifelink_coverage is not None:
+                for reason in lifelink_coverage.limitations:
                     unsupported.append((fragment, reason))
                 continue
             if (

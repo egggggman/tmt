@@ -296,6 +296,22 @@ class TrampleDamageEvidence:
 
 
 @dataclass(frozen=True)
+class LifelinkEvidence:
+    """Immutable damage-result facts for one source's Lifelink life gain."""
+
+    event_id: str
+    source_id: str
+    controller: int
+    amount: int
+    combat: bool
+    damage_step: CombatDamageStepKind | None
+    target_ids: tuple[str, ...]
+    target_players: tuple[int, ...]
+    life_before: int
+    life_after: int
+
+
+@dataclass(frozen=True)
 class CombatDamageStepEvidence:
     """Typed evidence for one completed first-strike or regular damage step."""
 
@@ -882,6 +898,7 @@ class Game:
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
+        self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
         self.limitations: set[str] = set()
         self.state_based_actions = state_based_actions
@@ -1282,6 +1299,8 @@ class Game:
         ) or self.is_authoritative(source, "stack")
         if not source_authoritative:
             raise ValueError("damage source is not authoritative")
+        if transaction.controller != source.controller:
+            raise ValueError("damage controller does not control its source")
 
         target: Permanent | None = None
         target_player = transaction.target_player
@@ -1327,8 +1346,21 @@ class Game:
             oracle_fragment=transaction.oracle_fragment,
             combat=False,
         )
+        lifelink_applied = self.evaluated_lifelink(source)
+        if lifelink_applied:
+            self._apply_lifelink_result(
+                source,
+                transaction.amount,
+                combat=False,
+                damage_step=None,
+                target_ids=subject_ids,
+                target_players=(() if target_player is None else (target_player,)),
+            )
         self.check_state_based_actions()
         self.check_life()
+        if lifelink_applied:
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         return event
 
     @staticmethod
@@ -1832,8 +1864,14 @@ class Game:
         )
 
     def gain_life(
-        self, player_index: int, amount: int, *, source_card: str, oracle_fragment: str
-    ) -> None:
+        self,
+        player_index: int,
+        amount: int,
+        *,
+        source_card: str,
+        oracle_fragment: str,
+        defer_trigger_delivery: bool = False,
+    ) -> RulesEvent:
         if not isinstance(amount, int) or isinstance(amount, bool) or amount <= 0:
             raise ValueError("life gain amount must be a positive integer")
         player = self.players[player_index]
@@ -1852,8 +1890,10 @@ class Game:
                     self._enqueue_trigger(
                         event, permanent, fragment, TriggerEffect.LIFE_GAIN_COUNTER
                     )
-        self._put_pending_triggers_on_stack()
-        self._drain_triggered_abilities()
+        if not defer_trigger_delivery:
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
+        return event
 
     def apply_pt_modifier(
         self,
@@ -2578,6 +2618,76 @@ class Game:
             is not None
         )
 
+    def evaluated_lifelink(self, source: CardObject | StackObject | Permanent) -> bool:
+        """Evaluate only authoritative intrinsic Lifelink on the damage source."""
+        if not (
+            self.is_authoritative(source, "battlefield") or self.is_authoritative(source, "stack")
+        ):
+            return False
+        if isinstance(source.card, TokenDefinition) and "lifelink" in {
+            keyword.casefold() for keyword in source.card.keywords
+        }:
+            return True
+        return any(
+            semantics.coverage.fully_supported
+            for fragment in self.interpreter.fragments(source.card)
+            if (semantics := self.interpreter.lifelink_semantic_coverage(source.card, fragment))
+            is not None
+        )
+
+    def _apply_lifelink_result(
+        self,
+        source: CardObject | StackObject | Permanent,
+        amount: int,
+        *,
+        combat: bool,
+        damage_step: CombatDamageStepKind | None,
+        target_ids: tuple[str, ...],
+        target_players: tuple[int, ...],
+    ) -> LifelinkEvidence:
+        """Apply CR 120.3f once for one authoritative source's damage event."""
+        if not self.evaluated_lifelink(source):
+            raise ValueError("Lifelink result requires an authoritative source with lifelink")
+        if amount <= 0:
+            raise ValueError("Lifelink result requires positive damage")
+        controller = source.controller
+        life_before = self.players[controller].life
+        event = self.gain_life(
+            controller,
+            amount,
+            source_card=source.card.name,
+            oracle_fragment="Lifelink",
+            defer_trigger_delivery=True,
+        )
+        evidence = LifelinkEvidence(
+            event.event_id,
+            source.object_id,
+            controller,
+            amount,
+            combat,
+            damage_step,
+            target_ids,
+            target_players,
+            life_before,
+            self.players[controller].life,
+        )
+        self.lifelink_evidence.append(evidence)
+        self.log(
+            "lifelink_result",
+            event_id=event.event_id,
+            source_id=source.object_id,
+            source_card=source.card.name,
+            controller=self.players[controller].name,
+            amount=amount,
+            combat=combat,
+            damage_step=None if damage_step is None else damage_step.value,
+            target_ids=list(target_ids),
+            target_players=[self.players[index].name for index in target_players],
+            life_before=evidence.life_before,
+            life_after=evidence.life_after,
+        )
+        return evidence
+
     def resolve_combat_damage(self) -> CombatDamageStepEvidence:
         """Resolve exactly one authoritative CR 510.4 combat-damage step."""
         if (
@@ -2729,8 +2839,11 @@ class Game:
         }
         trample_life_before: dict[str, int] = {}
         trample_life_after: dict[str, int] = {}
+        lifelink_assignments: dict[str, list[CombatDamageAssignment]] = {}
         for assignment in assignments:
             source = self._combat_permanent(assignment.source_id, "damage source")
+            if self.evaluated_lifelink(source):
+                lifelink_assignments.setdefault(source.object_id, []).append(assignment)
             if assignment.source_id in trample_inputs:
                 trample_life_before.setdefault(
                     assignment.source_id, self.players[defender_index].life
@@ -2760,6 +2873,24 @@ class Game:
                 )
             if assignment.source_id in trample_inputs:
                 trample_life_after[assignment.source_id] = self.players[defender_index].life
+        for source_id, source_assignments in lifelink_assignments.items():
+            source = self._combat_permanent(source_id, "Lifelink damage source")
+            self._apply_lifelink_result(
+                source,
+                sum(assignment.amount for assignment in source_assignments),
+                combat=True,
+                damage_step=self._combat_damage_step_kind,
+                target_ids=tuple(
+                    assignment.target_id
+                    for assignment in source_assignments
+                    if assignment.target_id is not None
+                ),
+                target_players=tuple(
+                    assignment.target_player
+                    for assignment in source_assignments
+                    if assignment.target_player is not None
+                ),
+            )
         for attacker, blocker in dict.fromkeys(damaged_pairs):
             self.log(
                 "combat_damage_creatures",
@@ -2772,6 +2903,9 @@ class Game:
         resolved_total = self._combat_damage_total_steps
         self.check_state_based_actions()
         self.check_life()
+        if lifelink_assignments:
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         after_remaining = {
             object_id
             for object_id in before_remaining
@@ -4055,6 +4189,21 @@ class Game:
                     for item in self.combat_damage_evidence
                 ],
             },
+            "lifelink": [
+                {
+                    "event_id": item.event_id,
+                    "source_id": item.source_id,
+                    "controller": item.controller,
+                    "amount": item.amount,
+                    "combat": item.combat,
+                    "damage_step": (None if item.damage_step is None else item.damage_step.value),
+                    "target_ids": list(item.target_ids),
+                    "target_players": list(item.target_players),
+                    "life_before": item.life_before,
+                    "life_after": item.life_after,
+                }
+                for item in self.lifelink_evidence
+            ],
             "activated_abilities": [
                 {
                     "stack_object_id": item.stack_object_id,
