@@ -26,6 +26,8 @@ class Pilot(Protocol):
 
     def choose_blocks(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption: ...
 
+    def choose_sneak(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption: ...
+
     def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption: ...
 
     def choose_hand_bottom_draw(
@@ -106,6 +108,14 @@ class AcceptancePilot:
         del view
         return max(options, key=lambda option: len(option.blocks))
 
+    def choose_sneak(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
+        """Choose the first engine-generated Sneak cast; legality remains engine-owned."""
+        del view
+        return next(
+            (option for option in options if option.kind is ActionKind.CAST),
+            next(option for option in options if option.kind is ActionKind.PASS),
+        )
+
     def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption:
         """Deterministically keep the inspected cards on top in their current order."""
         current = tuple(object_id for object_id, _name in view.cards)
@@ -154,6 +164,10 @@ class PassingPilot(AcceptancePilot):
     def choose_blocks(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
         del view
         return min(options, key=lambda option: len(option.blocks))
+
+    def choose_sneak(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
+        del view
+        return next(option for option in options if option.kind is ActionKind.PASS)
 
     def choose_scry(self, view: ScryView, options: tuple[ScryOption, ...]) -> ScryOption:
         """A poor but legal choice: put every inspected card on the bottom."""
