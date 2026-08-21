@@ -31,6 +31,12 @@ from tmnt_design_studio.card_interpreter07 import (
     TokenCreationProgram,
     TokenDefinition,
 )
+from tmnt_design_studio.conformance07 import (
+    OpportunityWitness,
+    SemanticOccurrence,
+    fragment_digest,
+    semantic_key,
+)
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
 
@@ -289,6 +295,7 @@ class RulesEvent:
     turn: int = 0
     step: str = "setup"
     active_player: int = 0
+    battlefield_authority: tuple[tuple[str, int], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -567,6 +574,7 @@ class CardFact:
     power: int | None = None
     toughness: int | None = None
     keywords: tuple[str, ...] = ()
+    oracle_id: str = ""
 
     @property
     def is_land(self) -> bool:
@@ -1103,6 +1111,11 @@ class Game:
         self._next_priority_epoch = 1
         self.pending_triggers: list[TriggerInstance] = []
         self._next_event_number = 1
+        self._rules_events: dict[str, RulesEvent] = {}
+        self._next_semantic_occurrence_number = 1
+        self._next_opportunity_witness_number = 1
+        self.semantic_occurrences: list[SemanticOccurrence] = []
+        self.opportunity_witnesses: list[OpportunityWitness] = []
         self._next_trigger_number = 1
         self._next_effect_number = 1
         self.players = [PlayerState(names[i], []) for i in range(2)]
@@ -1488,15 +1501,336 @@ class Game:
             reason=reason,
         )
 
-    def report_unsupported_abilities(self, player_index: int, card: CardFact) -> None:
+    def report_unsupported_abilities(
+        self,
+        player_index: int,
+        card: CardFact,
+        *,
+        source: CardObject | Permanent,
+    ) -> None:
         """Report each unresolved Oracle line without interpreting or combining its meaning."""
+        grouped: dict[str, list[str]] = {}
         for fragment, reason in self.interpreter.unsupported_fragments(card):
+            grouped.setdefault(fragment, []).append(reason)
             self.unsupported(
                 card,
                 reason,
                 player_index=player_index,
                 oracle_fragment=fragment,
             )
+        for fragment, reasons in grouped.items():
+            occurrence = self._register_semantic_occurrence(
+                source, player_index, fragment, tuple(sorted(set(reasons)))
+            )
+            self._witness_from_existing_events(occurrence)
+
+    def _register_semantic_occurrence(
+        self,
+        source: CardObject | Permanent,
+        controller: int,
+        fragment: str,
+        limitations: tuple[str, ...],
+    ) -> SemanticOccurrence:
+        if not self.is_authoritative(source, source.zone):
+            raise ValueError("semantic presence requires an authoritative runtime object")
+        fragments = self._semantic_fragments(source.card)
+        try:
+            fragment_index = fragments.index(fragment)
+        except ValueError as error:
+            raise ValueError("semantic presence fragment is not authoritative") from error
+        key = semantic_key(source.card.oracle_id, 0, fragment_index, fragment)
+        prior = next(
+            (
+                item
+                for item in self.semantic_occurrences
+                if item.object_id == source.object_id and item.semantic_key == key
+            ),
+            None,
+        )
+        if prior is not None:
+            return prior
+        occurrence = SemanticOccurrence(
+            f"semantic-{self._next_semantic_occurrence_number:06d}",
+            key,
+            source.card.oracle_id,
+            0,
+            fragment_index,
+            fragment_digest(fragment),
+            source.object_id,
+            controller,
+            source.zone,
+            fragment,
+            limitations,
+            self.turn,
+            self.phase,
+            self.step.value,
+            self._next_event_number - 1,
+        )
+        self._next_semantic_occurrence_number += 1
+        self.semantic_occurrences.append(occurrence)
+        self.log(
+            "semantic_present",
+            occurrence_id=occurrence.occurrence_id,
+            semantic_key=key,
+            object_id=source.object_id,
+            oracle_fragment=fragment,
+            limitations=list(limitations),
+        )
+        return occurrence
+
+    def _semantic_fragments(self, card: CardFact) -> tuple[str, ...]:
+        """Authoritative Oracle lines plus normalized keyword facts absent from the text."""
+        fragments = self.interpreter.fragments(card)
+        return fragments + tuple(keyword for keyword in card.keywords if keyword not in fragments)
+
+    def _record_opportunity(
+        self,
+        occurrence: SemanticOccurrence,
+        *,
+        cause_kind: str,
+        cause_id: str,
+        cause_subject_ids: tuple[str, ...],
+    ) -> OpportunityWitness:
+        facts = self._validate_opportunity_applicability(
+            occurrence,
+            cause_kind=cause_kind,
+            cause_id=cause_id,
+            cause_subject_ids=cause_subject_ids,
+        )
+        opportunity_key = fragment_digest(
+            "|".join((occurrence.occurrence_id, cause_kind, cause_id))
+        )
+        prior = next(
+            (
+                item
+                for item in self.opportunity_witnesses
+                if item.opportunity_key == opportunity_key
+            ),
+            None,
+        )
+        if prior is not None:
+            return prior
+        witness = OpportunityWitness(
+            f"opportunity-{self._next_opportunity_witness_number:06d}",
+            opportunity_key,
+            occurrence.occurrence_id,
+            occurrence.semantic_key,
+            occurrence.object_id,
+            facts[1],
+            occurrence.oracle_fragment,
+            self.turn,
+            self.phase,
+            self.step.value,
+            cause_kind,
+            cause_id,
+            cause_subject_ids,
+            facts[0],
+            facts[1],
+            facts[2],
+            facts[3],
+        )
+        self._next_opportunity_witness_number += 1
+        self.opportunity_witnesses.append(witness)
+        self.log(
+            "unsupported_opportunity_witnessed",
+            witness_id=witness.witness_id,
+            opportunity_key=opportunity_key,
+            occurrence_id=occurrence.occurrence_id,
+            semantic_key=occurrence.semantic_key,
+            object_id=occurrence.object_id,
+            oracle_fragment=occurrence.oracle_fragment,
+            cause_kind=cause_kind,
+            cause_id=cause_id,
+            cause_subject_ids=list(cause_subject_ids),
+        )
+        return witness
+
+    @staticmethod
+    def _event_number(event_id: str) -> int:
+        try:
+            prefix, number = event_id.split("-", 1)
+            if prefix != "event":
+                raise ValueError
+            return int(number)
+        except (TypeError, ValueError) as error:
+            raise ValueError("opportunity event identity is malformed") from error
+
+    def _validate_opportunity_applicability(
+        self,
+        occurrence: SemanticOccurrence,
+        *,
+        cause_kind: str,
+        cause_id: str,
+        cause_subject_ids: tuple[str, ...],
+        historical: OpportunityWitness | None = None,
+    ) -> tuple[str, int, tuple[str, ...], str | None]:
+        """Validate source and cause applicability for one supported witness shape."""
+        source = self._objects.get(occurrence.object_id)
+        if not isinstance(source, (CardObject, Permanent)):
+            raise ValueError("opportunity source identity is not registered")
+        fragments = self._semantic_fragments(source.card)
+        if (
+            occurrence.fragment_index >= len(fragments)
+            or fragments[occurrence.fragment_index] != occurrence.oracle_fragment
+            or fragment_digest(occurrence.oracle_fragment) != occurrence.fragment_hash
+        ):
+            raise ValueError("opportunity fragment does not match authoritative card data")
+
+        live = historical is None
+        source_zone = source.zone if live else historical.source_zone
+        source_controller = source.controller if live else historical.source_controller
+        subject_zones = (
+            tuple(self._objects[subject_id].zone for subject_id in cause_subject_ids)
+            if live and all(subject_id in self._objects for subject_id in cause_subject_ids)
+            else (() if live else historical.cause_subject_zones)
+        )
+        if len(subject_zones) != len(cause_subject_ids):
+            raise ValueError("opportunity references a nonexistent subject")
+
+        fragment = occurrence.oracle_fragment
+        event_kind: str | None = None
+        if cause_kind == "rules_event":
+            event = self._rules_events.get(cause_id)
+            if event is None or event.subject_ids != cause_subject_ids:
+                raise ValueError("opportunity references a fabricated or mismatched event")
+            event_kind = event.kind.value
+            if historical is not None and (
+                historical.turn != event.turn
+                or historical.step != event.step
+                or historical.cause_event_kind != event_kind
+            ):
+                raise ValueError("opportunity event provenance is inconsistent")
+            battlefield_authority = dict(event.battlefield_authority)
+            if battlefield_authority.get(occurrence.object_id) != source_controller:
+                raise ValueError("event does not prove authoritative source presence")
+            self_etb = (
+                event.kind is RulesEventKind.CREATURE_ENTERED
+                and bool(re.match(r"^When .+ enters,", fragment))
+                and occurrence.object_id in event.subject_ids
+                and self._event_number(event.event_id) == occurrence.registration_event_cursor
+            )
+            alliance = (
+                event.kind is RulesEventKind.CREATURE_ENTERED
+                and fragment.startswith("Alliance — Whenever another creature you control enters,")
+                and occurrence.object_id not in event.subject_ids
+                and event.player_index == source_controller
+                and self._event_number(event.event_id) > occurrence.registration_event_cursor
+            )
+            attacks = (
+                event.kind is RulesEventKind.ATTACKERS_DECLARED
+                and bool(re.match(r"^Whenever .+ attacks,", fragment))
+                and occurrence.object_id in event.subject_ids
+                and event.player_index == source_controller
+                and event.step == TurnStep.DECLARE_ATTACKERS.value
+                and self._event_number(event.event_id) > occurrence.registration_event_cursor
+            )
+            if not (self_etb or alliance or attacks):
+                raise ValueError("event does not establish semantic applicability")
+            if source_zone != "battlefield":
+                raise ValueError("event opportunity source was not on the battlefield")
+        elif cause_kind == "legal_action_context":
+            match = re.match(
+                r"^During your turn, you may cast creature spells with power or toughness "
+                r"(?P<limit>\d+) or less from your graveyard\.",
+                fragment,
+            )
+            step = self.step.value if live else historical.step
+            turn = self.turn if live else historical.turn
+            expected_id = f"legal-main:{turn}:{step}:{source_controller}:" + ",".join(
+                cause_subject_ids
+            )
+            if (
+                match is None
+                or source_zone != "battlefield"
+                or step not in {TurnStep.PRECOMBAT_MAIN.value, TurnStep.POSTCOMBAT_MAIN.value}
+                or cause_id != expected_id
+                or any(zone != "graveyard" for zone in subject_zones)
+            ):
+                raise ValueError("legal-action context does not establish applicability")
+            if live:
+                limit = int(match.group("limit"))
+                if source_controller != self.active_player or any(
+                    not isinstance(self._objects.get(subject_id), CardObject)
+                    or not self._objects[subject_id].card.is_creature
+                    or self._objects[subject_id].card.power is None
+                    or self._objects[subject_id].card.toughness is None
+                    or (
+                        self._objects[subject_id].card.power > limit
+                        and self._objects[subject_id].card.toughness > limit
+                    )
+                    for subject_id in cause_subject_ids
+                ):
+                    raise ValueError("graveyard subject does not satisfy the permission")
+        elif cause_kind == "legal_block_context":
+            step = self.step.value if live else historical.step
+            expected_id = (
+                f"block:{historical.turn if historical else self.turn}:{step}:"
+                + ":".join(cause_subject_ids)
+            )
+            if (
+                not fragment.startswith("Menace ")
+                or len(cause_subject_ids) != 2
+                or cause_subject_ids[0] != occurrence.object_id
+                or source_zone != "battlefield"
+                or any(zone != "battlefield" for zone in subject_zones)
+                or step != TurnStep.DECLARE_BLOCKERS.value
+                or cause_id != expected_id
+            ):
+                raise ValueError("block context does not establish applicability")
+            if live and occurrence.object_id not in self._combat_attackers:
+                raise ValueError("block context attacker is not in authoritative combat")
+        else:
+            raise ValueError("opportunity cause kind is unsupported")
+        return source_zone, source_controller, subject_zones, event_kind
+
+    def _witness_from_event(self, occurrence: SemanticOccurrence, event: RulesEvent) -> None:
+        fragment = occurrence.oracle_fragment
+        source_id = occurrence.object_id
+        source = self._objects.get(source_id)
+        source_is_live = isinstance(source, Permanent) and self.is_authoritative(
+            source, "battlefield"
+        )
+        if event.kind is RulesEventKind.CREATURE_ENTERED:
+            self_enters = (
+                bool(re.match(r"^When .+ enters,", fragment)) and source_id in event.subject_ids
+            )
+            alliance = fragment.startswith(
+                "Alliance — Whenever another creature you control enters,"
+            )
+            if self_enters or (
+                alliance
+                and source_is_live
+                and event.player_index == source.controller
+                and source_id not in event.subject_ids
+            ):
+                self._record_opportunity(
+                    occurrence,
+                    cause_kind="rules_event",
+                    cause_id=event.event_id,
+                    cause_subject_ids=event.subject_ids,
+                )
+        elif (
+            event.kind is RulesEventKind.ATTACKERS_DECLARED
+            and bool(re.match(r"^Whenever .+ attacks,", fragment))
+            and source_is_live
+            and source_id in event.subject_ids
+        ):
+            self._record_opportunity(
+                occurrence,
+                cause_kind="rules_event",
+                cause_id=event.event_id,
+                cause_subject_ids=event.subject_ids,
+            )
+
+    def _witness_from_existing_events(self, occurrence: SemanticOccurrence) -> None:
+        """Join only the source's own just-completed ETB; never retroactively infer reach."""
+        for event in self._rules_events.values():
+            if (
+                event.kind is RulesEventKind.CREATURE_ENTERED
+                and occurrence.object_id in event.subject_ids
+                and bool(re.match(r"^When .+ enters,", occurrence.oracle_fragment))
+            ):
+                self._witness_from_event(occurrence, event)
 
     def _new_rules_event(
         self,
@@ -1519,8 +1853,14 @@ class Game:
             self.turn,
             self.step.value,
             self.active_player,
+            tuple(
+                (permanent.object_id, permanent.controller)
+                for player in self.players
+                for permanent in player.battlefield
+            ),
         )
         self._next_event_number += 1
+        self._rules_events[event.event_id] = event
         self.log(
             "rules_event",
             event_id=event.event_id,
@@ -1533,7 +1873,13 @@ class Game:
             event_turn=event.turn,
             event_step=event.step,
             event_active_player=event.active_player,
+            battlefield_authority=[
+                {"object_id": object_id, "controller": controller}
+                for object_id, controller in event.battlefield_authority
+            ],
         )
+        for occurrence in tuple(self.semantic_occurrences):
+            self._witness_from_event(occurrence, event)
         return event
 
     def deal_damage(
@@ -2863,6 +3209,7 @@ class Game:
             return ()
         player = self.players[player_index]
         opponent = self.players[1 - player_index]
+        self._witness_graveyard_cast_permissions(player_index)
         options: list[ActionOption] = []
         if player.lands_played < 1:
             options.extend(
@@ -2903,6 +3250,42 @@ class Game:
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
+
+    def _witness_graveyard_cast_permissions(self, player_index: int) -> None:
+        """Witness only permissions whose represented P/T and timing predicates are true."""
+        pattern = re.compile(
+            r"^During your turn, you may cast creature spells with power or toughness "
+            r"(?P<limit>\d+) or less from your graveyard\."
+        )
+        for occurrence in tuple(self.semantic_occurrences):
+            source = self._objects.get(occurrence.object_id)
+            match = pattern.match(occurrence.oracle_fragment)
+            if (
+                match is None
+                or not isinstance(source, Permanent)
+                or not self.is_authoritative(source, "battlefield")
+                or source.controller != player_index
+            ):
+                continue
+            limit = int(match.group("limit"))
+            candidates = tuple(
+                card.object_id
+                for card in self.players[player_index].graveyard
+                if card.card.is_creature
+                and card.card.power is not None
+                and card.card.toughness is not None
+                and (card.card.power <= limit or card.card.toughness <= limit)
+            )
+            if candidates:
+                self._record_opportunity(
+                    occurrence,
+                    cause_kind="legal_action_context",
+                    cause_id=(
+                        f"legal-main:{self.turn}:{self.step.value}:{player_index}:"
+                        + ",".join(candidates)
+                    ),
+                    cause_subject_ids=candidates,
+                )
 
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
@@ -4714,7 +5097,7 @@ class Game:
                 source_id=stack_object_id if sneak_cast else None,
                 defer_triggers=sneak_cast,
             )
-            self.report_unsupported_abilities(spell.controller, spell.card)
+            self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
             if not sneak_cast:
                 self.check_state_based_actions()
             return permanent
@@ -4781,7 +5164,7 @@ class Game:
             self.destroy(target)
         resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
         assert isinstance(resolved_card, CardObject)
-        self.report_unsupported_abilities(spell.controller, spell.card)
+        self.report_unsupported_abilities(spell.controller, spell.card, source=resolved_card)
         self.log("spell_resolved", player=player.name, card=spell.name, target=target.card.name)
         if filter_plan is not None:
             self.check_state_based_actions()
@@ -4812,6 +5195,29 @@ class Game:
                 return fragment, "blocker_power_greater_than_attacker"
         return None
 
+    def _witness_unsupported_block_context(self, attacker: Permanent, blocker: Permanent) -> None:
+        """Record a Menace opportunity only for an authoritative blocker candidate."""
+        if not (
+            self.step is TurnStep.DECLARE_BLOCKERS
+            and self.is_authoritative(attacker, "battlefield")
+            and self.is_authoritative(blocker, "battlefield")
+            and attacker.object_id in self._combat_attackers
+        ):
+            return
+        for occurrence in self.semantic_occurrences:
+            if occurrence.object_id == attacker.object_id and occurrence.oracle_fragment.startswith(
+                "Menace "
+            ):
+                self._record_opportunity(
+                    occurrence,
+                    cause_kind="legal_block_context",
+                    cause_id=(
+                        f"block:{self.turn}:{self.step.value}:"
+                        f"{attacker.object_id}:{blocker.object_id}"
+                    ),
+                    cause_subject_ids=(attacker.object_id, blocker.object_id),
+                )
+
     def can_block(self, attacker: Permanent, blocker: Permanent, defender_index: int) -> bool:
         return (
             blocker.controller == defender_index
@@ -4837,6 +5243,7 @@ class Game:
         blocks: dict[str, Permanent] = {}
         for attacker in attackers:
             for blocker in available:
+                self._witness_unsupported_block_context(attacker, blocker)
                 restriction = self.blocking_restriction(attacker, blocker)
                 if restriction is not None:
                     fragment, reason = restriction
@@ -4971,6 +5378,56 @@ class Game:
         combat_ids = self._combat_attackers + tuple(
             blocker_id for _attacker_id, blocker_id in self._combat_blocks
         )
+        occurrence_by_id = {item.occurrence_id: item for item in self.semantic_occurrences}
+        if len(occurrence_by_id) != len(self.semantic_occurrences):
+            raise AssertionError("semantic occurrence IDs must be unique")
+        if len({item.opportunity_key for item in self.opportunity_witnesses}) != len(
+            self.opportunity_witnesses
+        ):
+            raise AssertionError("opportunity witnesses must be deterministically deduplicated")
+        for occurrence in self.semantic_occurrences:
+            source = self._objects.get(occurrence.object_id)
+            if not isinstance(source, (CardObject, Permanent)):
+                raise AssertionError("semantic occurrence references a nonexistent object")
+            fragments = self._semantic_fragments(source.card)
+            if (
+                occurrence.fragment_index >= len(fragments)
+                or fragments[occurrence.fragment_index] != occurrence.oracle_fragment
+                or fragment_digest(occurrence.oracle_fragment) != occurrence.fragment_hash
+                or semantic_key(
+                    getattr(source.card, "oracle_id", ""),
+                    occurrence.face_index,
+                    occurrence.fragment_index,
+                    occurrence.oracle_fragment,
+                )
+                != occurrence.semantic_key
+            ):
+                raise AssertionError("semantic occurrence mismatches authoritative Oracle data")
+        for witness in self.opportunity_witnesses:
+            occurrence = occurrence_by_id.get(witness.occurrence_id)
+            if occurrence is None or (
+                witness.semantic_key != occurrence.semantic_key
+                or witness.object_id != occurrence.object_id
+                or witness.oracle_fragment != occurrence.oracle_fragment
+            ):
+                raise AssertionError("opportunity witness mismatches semantic presence")
+            try:
+                facts = self._validate_opportunity_applicability(
+                    occurrence,
+                    cause_kind=witness.cause_kind,
+                    cause_id=witness.cause_id,
+                    cause_subject_ids=witness.cause_subject_ids,
+                    historical=witness,
+                )
+            except ValueError as error:
+                raise AssertionError(str(error)) from error
+            if facts != (
+                witness.source_zone,
+                witness.source_controller,
+                witness.cause_subject_zones,
+                witness.cause_event_kind,
+            ):
+                raise AssertionError("opportunity witness applicability facts are inconsistent")
         if len(set(self._combat_attackers)) != len(self._combat_attackers):
             raise AssertionError("combat state contains duplicate attackers")
         if len({blocker_id for _attacker_id, blocker_id in self._combat_blocks}) != len(
@@ -5266,6 +5723,72 @@ class Game:
                 self.winner = 1 - index
                 self.log("player_lost", player=player.name, reason=player.loss_reason)
 
+    def authoritative_state_fingerprint(self) -> str:
+        """Stable mutation-boundary digest excluding diagnostics and evidence ledgers."""
+        zones = tuple(
+            (
+                tuple(card.object_id for card in player.library),
+                tuple(card.object_id for card in player.hand),
+                tuple(permanent.object_id for permanent in player.battlefield),
+                tuple(card.object_id for card in player.graveyard),
+                player.life,
+                player.lost,
+                player.failed_draw_pending,
+            )
+            for player in self.players
+        )
+        authority = (
+            self.turn,
+            self.active_player,
+            self.step.value,
+            tuple(item.object_id for item in self.stack),
+            self._combat_attackers,
+            self._combat_blocks,
+            zones,
+            self.rng.state_digest,
+            self.winner,
+        )
+        return sha256(repr(authority).encode("utf-8")).hexdigest()
+
+    def _executed_conformance_references(self) -> list[dict[str, object]]:
+        """Index mature Action evidence without replacing or weakening that evidence."""
+        references: list[dict[str, object]] = []
+
+        def add(kind: str, evidence_id: str, source_id: str, fragment: str) -> None:
+            source = self._objects.get(source_id)
+            if not isinstance(source, (CardObject, StackObject, Permanent)):
+                return
+            fragments = self._semantic_fragments(source.card)
+            if fragment not in fragments:
+                return
+            index = fragments.index(fragment)
+            references.append(
+                {
+                    "evidence_kind": kind,
+                    "evidence_id": evidence_id,
+                    "source_id": source_id,
+                    "semantic_key": semantic_key(
+                        getattr(source.card, "oracle_id", ""), 0, index, fragment
+                    ),
+                    "oracle_fragment": fragment,
+                }
+            )
+
+        for item in self.activation_evidence:
+            if item.resolved:
+                add("activated_ability", item.stack_object_id, item.source_id, item.oracle_fragment)
+        for item in self.sneak_evidence:
+            if item.resolved_object_id is not None:
+                add("sneak", item.stack_object_id, item.hand_object_id, item.oracle_fragment)
+        for item in self.hand_bottom_draw_evidence:
+            add("hand_bottom_draw", item.event_id, item.source_id, item.oracle_fragment)
+        for item in self.discard_draw_evidence:
+            add("discard_draw", item.event_id, item.source_id, item.oracle_fragment)
+        return sorted(
+            references,
+            key=lambda item: (str(item["evidence_kind"]), str(item["evidence_id"])),
+        )
+
     def snapshot(self) -> dict[str, object]:
         return {
             "engine_version": ENGINE_VERSION,
@@ -5274,6 +5797,61 @@ class Game:
             "phase": self.phase,
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
+            "authoritative_state_fingerprint": self.authoritative_state_fingerprint(),
+            "conformance": {
+                "semantic_occurrences": [
+                    {
+                        "occurrence_id": item.occurrence_id,
+                        "semantic_key": item.semantic_key,
+                        "oracle_id": item.oracle_id,
+                        "face_index": item.face_index,
+                        "fragment_index": item.fragment_index,
+                        "fragment_hash": item.fragment_hash,
+                        "object_id": item.object_id,
+                        "controller": item.controller,
+                        "zone": item.zone,
+                        "oracle_fragment": item.oracle_fragment,
+                        "limitations": list(item.limitations),
+                        "turn": item.turn,
+                        "phase": item.phase,
+                        "step": item.step,
+                        "registration_event_cursor": item.registration_event_cursor,
+                        "classification": (
+                            "reached_unsupported"
+                            if any(
+                                witness.occurrence_id == item.occurrence_id
+                                for witness in self.opportunity_witnesses
+                            )
+                            else "present_unreached"
+                        ),
+                    }
+                    for item in self.semantic_occurrences
+                ],
+                "opportunity_witnesses": [
+                    {
+                        "witness_id": item.witness_id,
+                        "opportunity_key": item.opportunity_key,
+                        "occurrence_id": item.occurrence_id,
+                        "semantic_key": item.semantic_key,
+                        "object_id": item.object_id,
+                        "controller": item.controller,
+                        "oracle_fragment": item.oracle_fragment,
+                        "turn": item.turn,
+                        "phase": item.phase,
+                        "step": item.step,
+                        "cause_kind": item.cause_kind,
+                        "cause_id": item.cause_id,
+                        "cause_subject_ids": list(item.cause_subject_ids),
+                        "source_zone": item.source_zone,
+                        "source_controller": item.source_controller,
+                        "cause_subject_zones": list(item.cause_subject_zones),
+                        "cause_event_kind": item.cause_event_kind,
+                        "classification": item.classification.value,
+                    }
+                    for item in self.opportunity_witnesses
+                ],
+                "executed_references": self._executed_conformance_references(),
+            },
             "rng": {
                 "seed": self.rng.seed,
                 "state_digest": self.rng.state_digest,
@@ -5643,6 +6221,7 @@ def load_facts(catalog: CardDataCatalog, names: set[str]) -> dict[str, CardFact]
             power=_integer_characteristic(row.power),
             toughness=_integer_characteristic(row.toughness),
             keywords=row.keywords,
+            oracle_id=row.oracle_id,
         )
     return facts
 
