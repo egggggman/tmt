@@ -35,6 +35,7 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
     pilot = pilot or AcceptancePilot()
     game.scry_chooser = pilot.choose_scry
     game.hand_bottom_draw_chooser = pilot.choose_hand_bottom_draw
+    game.discard_draw_chooser = pilot.choose_discard_draw
     while game.winner is None and game.turn < 120:
         game.begin_turn()
         if game.winner is not None:
@@ -57,6 +58,13 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
         attack_options = game.legal_attack_options(active)
         attack = pilot.choose_attack(game.public_view(), attack_options)
         game.execute_attack_action(attack)
+        while game.priority_state is not None:
+            if game.priority_state.resolution_pending:
+                game.process_priority_resolution()
+                continue
+            priority_options = game.legal_priority_actions(game.priority_state.player_index)
+            priority_choice = pilot.choose_priority(game.public_view(), priority_options)
+            game.execute_priority_action(priority_choice)
         block_options = game.legal_block_options(attack, 1 - active)
         blocks = pilot.choose_blocks(game.public_view(), block_options)
         game.execute_block_action(blocks)

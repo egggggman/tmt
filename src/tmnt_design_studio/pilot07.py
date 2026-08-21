@@ -7,6 +7,8 @@ from typing import Protocol
 from tmnt_design_studio.engine07 import (
     ActionKind,
     ActionOption,
+    DiscardDrawOption,
+    DiscardDrawView,
     GameView,
     HandBottomDrawOption,
     HandBottomDrawView,
@@ -29,6 +31,10 @@ class Pilot(Protocol):
     def choose_hand_bottom_draw(
         self, view: HandBottomDrawView, options: tuple[HandBottomDrawOption, ...]
     ) -> HandBottomDrawOption: ...
+
+    def choose_discard_draw(
+        self, view: DiscardDrawView, options: tuple[DiscardDrawOption, ...]
+    ) -> DiscardDrawOption: ...
 
     def choose_priority(
         self, view: GameView, options: tuple[ActionOption, ...]
@@ -116,6 +122,16 @@ class AcceptancePilot:
             next(option for option in options if option.card_id is None),
         )
 
+    def choose_discard_draw(
+        self, view: DiscardDrawView, options: tuple[DiscardDrawOption, ...]
+    ) -> DiscardDrawOption:
+        """Deterministically take the optional one-card filter when available."""
+        del view
+        return next(
+            (option for option in options if option.card_id is not None),
+            next(option for option in options if option.card_id is None),
+        )
+
     def choose_priority(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
         """Deliberately pass; passing is a legal strategy, not an engine shortcut."""
         del view
@@ -149,5 +165,11 @@ class PassingPilot(AcceptancePilot):
     def choose_hand_bottom_draw(
         self, view: HandBottomDrawView, options: tuple[HandBottomDrawOption, ...]
     ) -> HandBottomDrawOption:
+        del view
+        return next(option for option in options if option.card_id is None)
+
+    def choose_discard_draw(
+        self, view: DiscardDrawView, options: tuple[DiscardDrawOption, ...]
+    ) -> DiscardDrawOption:
         del view
         return next(option for option in options if option.card_id is None)

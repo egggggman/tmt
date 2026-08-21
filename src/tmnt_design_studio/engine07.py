@@ -22,6 +22,7 @@ from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     CastKind,
     DamageTargetKind,
+    DiscardDrawProgram,
     HandBottomDrawProgram,
     ScryProgram,
     StrikeApplicability,
@@ -190,6 +191,7 @@ class RulesEventKind(Enum):
     DAMAGE_DEALT = "damage_dealt"
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
+    DISCARD_DRAW = "discard_draw"
 
 
 class TriggerEffect(Enum):
@@ -202,6 +204,7 @@ class TriggerEffect(Enum):
     CREATE_TOKEN = "create_token"
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
+    DISCARD_DRAW = "discard_draw"
 
 
 @dataclass(frozen=True)
@@ -213,6 +216,9 @@ class RulesEvent:
     source_id: str | None = None
     target_player: int | None = None
     amount: int | None = None
+    turn: int = 0
+    step: str = "setup"
+    active_player: int = 0
 
 
 @dataclass(frozen=True)
@@ -305,6 +311,72 @@ class HandBottomDrawEvidence:
     post_hand_ids: tuple[str, ...]
     post_library_ids: tuple[str, ...]
     declined: bool
+
+
+@dataclass(frozen=True)
+class DiscardDrawOption:
+    """One immutable optional discard selection; ``None`` declines."""
+
+    card_id: str | None
+
+
+@dataclass(frozen=True)
+class DiscardDrawView:
+    """Private immutable hand view at triggered-ability resolution."""
+
+    player_index: int
+    cards: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True)
+class DiscardDrawPlan:
+    choice: DiscardDrawOption
+    selected: CardObject | None
+    offered_choice_ids: tuple[str | None, ...]
+    pre_hand_ids: tuple[str, ...]
+    pre_library_ids: tuple[str, ...]
+    pre_graveyard_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class DiscardDrawEvidence:
+    """Immutable evidence for optional Discard followed by conditional Draw."""
+
+    event_id: str
+    player_index: int
+    attack_provenance: AttackTriggerProvenance
+    stack_object_id: str
+    source_id: str
+    oracle_fragment: str
+    offered_choice_ids: tuple[str | None, ...]
+    pre_hand_ids: tuple[str, ...]
+    pre_library_ids: tuple[str, ...]
+    pre_graveyard_ids: tuple[str, ...]
+    selected_hand_id: str | None
+    discarded_graveyard_id: str | None
+    movement_succeeded: bool
+    conditional_draw_performed: bool
+    pre_draw_top_id: str | None
+    drawn_hand_id: str | None
+    post_hand_ids: tuple[str, ...]
+    post_library_ids: tuple[str, ...]
+    post_graveyard_ids: tuple[str, ...]
+    declined: bool
+
+
+@dataclass(frozen=True)
+class AttackTriggerProvenance:
+    """Immutable attack-event facts carried by one Action #10 transaction."""
+
+    event_id: str
+    event_kind: RulesEventKind
+    event_player_index: int
+    subject_ids: tuple[str, ...]
+    attacker_id: str
+    controller: int
+    turn: int
+    step: str
+    active_player: int
 
 
 @dataclass(frozen=True)
@@ -718,6 +790,7 @@ class PlayerState:
     lands_played: int = 0
     lost: bool = False
     loss_reason: str | None = None
+    failed_draw_pending: bool = False
 
 
 class StateBasedAction(Protocol):
@@ -739,6 +812,32 @@ class LethalDamageStateBasedAction:
                 if permanent.card.is_creature and permanent.damage >= permanent.toughness:
                     game.destroy(permanent, state_based_action=self.name)
                     changed = True
+        return changed
+
+
+@dataclass(frozen=True)
+class FailedDrawStateBasedAction:
+    """CR 704.5b: lose after failing to draw since the previous SBA check."""
+
+    name: str = "failed_draw"
+
+    def apply(self, game: Game) -> bool:
+        changed = False
+        for index, player in enumerate(game.players):
+            if not player.failed_draw_pending:
+                continue
+            player.failed_draw_pending = False
+            if not player.lost:
+                player.lost = True
+                player.loss_reason = "draw_from_empty_library"
+                game.winner = 1 - index
+                game.log(
+                    "player_lost",
+                    player=player.name,
+                    reason=player.loss_reason,
+                    state_based_action=self.name,
+                )
+            changed = True
         return changed
 
 
@@ -805,6 +904,7 @@ class TokenCeasesStateBasedAction:
 
 
 DEFAULT_STATE_BASED_ACTIONS: tuple[StateBasedAction, ...] = (
+    FailedDrawStateBasedAction(),
     LegendRuleStateBasedAction(),
     LethalDamageStateBasedAction(),
     TokenCeasesStateBasedAction(),
@@ -908,6 +1008,7 @@ class Game:
         alliance_mode_chooser=None,
         scry_chooser=None,
         hand_bottom_draw_chooser=None,
+        discard_draw_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -949,6 +1050,7 @@ class Game:
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
+        self.discard_draw_evidence: list[DiscardDrawEvidence] = []
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
@@ -973,6 +1075,9 @@ class Game:
             )
         )
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
+            lambda _view, options: next(option for option in options if option.card_id is None)
+        )
+        self.discard_draw_chooser = discard_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
@@ -1331,6 +1436,9 @@ class Game:
             source_id,
             target_player,
             amount,
+            self.turn,
+            self.step.value,
+            self.active_player,
         )
         self._next_event_number += 1
         self.log(
@@ -1342,6 +1450,9 @@ class Game:
             source_id=source_id,
             target_player=target_player,
             amount=amount,
+            event_turn=event.turn,
+            event_step=event.step,
+            event_active_player=event.active_player,
         )
         return event
 
@@ -1577,6 +1688,186 @@ class Game:
         )
         return evidence
 
+    def choose_discard_draw(
+        self, player_index: int, program: DiscardDrawProgram
+    ) -> DiscardDrawPlan:
+        """Obtain and validate the optional discard at resolution time."""
+        if player_index not in range(2) or not isinstance(program, DiscardDrawProgram):
+            raise ValueError("discard/Draw program is invalid")
+        if not program.executable:
+            raise ValueError("discard/Draw program is not executable")
+        player = self.players[player_index]
+        hand_objects = tuple(player.hand)
+        library_objects = tuple(player.library)
+        graveyard_objects = tuple(player.graveyard)
+        hand_ids = tuple(card.object_id for card in hand_objects)
+        library_ids = tuple(card.object_id for card in library_objects)
+        graveyard_ids = tuple(card.object_id for card in graveyard_objects)
+        view = DiscardDrawView(
+            player_index, tuple((card.object_id, card.card.name) for card in player.hand)
+        )
+        options = (DiscardDrawOption(None),) + tuple(
+            DiscardDrawOption(card.object_id) for card in player.hand
+        )
+        try:
+            choice = self.discard_draw_chooser(view, options)
+            if not isinstance(choice, DiscardDrawOption) or choice not in options:
+                raise ValueError("discard/Draw chooser must return one listed option")
+            if (
+                tuple(player.hand) != hand_objects
+                or tuple(player.library) != library_objects
+                or tuple(player.graveyard) != graveyard_objects
+            ):
+                raise ValueError("discard/Draw choice mutated authoritative zones")
+        except Exception:
+            player.hand[:] = hand_objects
+            player.library[:] = library_objects
+            player.graveyard[:] = graveyard_objects
+            raise
+        selected = (
+            None
+            if choice.card_id is None
+            else next((card for card in player.hand if card.object_id == choice.card_id), None)
+        )
+        if choice.card_id is not None and (
+            selected is None or not self.is_authoritative(selected, "hand")
+        ):
+            raise ValueError("discard/Draw selection is stale")
+        return DiscardDrawPlan(
+            choice,
+            selected,
+            tuple(option.card_id for option in options),
+            hand_ids,
+            library_ids,
+            graveyard_ids,
+        )
+
+    def commit_discard_draw(
+        self,
+        player_index: int,
+        program: DiscardDrawProgram,
+        plan: DiscardDrawPlan,
+        *,
+        trigger: TriggeredAbilityObject,
+    ) -> DiscardDrawEvidence:
+        """Commit Discard then its dependent Draw in authoritative instruction order."""
+        if not isinstance(plan, DiscardDrawPlan) or not program.executable:
+            raise ValueError("discard/Draw plan is invalid")
+        provenance = self._discard_draw_attack_provenance(trigger)
+        if trigger.controller != player_index:
+            raise ValueError("discard/Draw trigger controller is mismatched")
+        player = self.players[player_index]
+        if (
+            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids
+            or tuple(card.object_id for card in player.library) != plan.pre_library_ids
+            or tuple(card.object_id for card in player.graveyard) != plan.pre_graveyard_ids
+        ):
+            raise ValueError("discard/Draw plan became stale")
+        selected = plan.selected
+        discarded_id = None
+        pre_draw_top = None
+        drawn_id = None
+        movement_succeeded = False
+        draw_performed = False
+        if plan.choice.card_id is not None:
+            if selected is None or not self.is_authoritative(selected, "hand"):
+                raise ValueError("discard/Draw selected card became stale")
+            discarded = self.move_object(selected, "graveyard", reason="optional_discard")
+            assert isinstance(discarded, CardObject)
+            discarded_id = discarded.object_id
+            movement_succeeded = True
+            pre_draw_top = player.library[-1].object_id if player.library else None
+            assert program.draw_quantity is not None
+            draw_performed = self.draw(player, program.draw_quantity)
+            if draw_performed:
+                drawn_id = player.hand[-1].object_id
+        event = self._new_rules_event(
+            RulesEventKind.DISCARD_DRAW,
+            player_index,
+            tuple(object_id for object_id in (discarded_id, drawn_id) if object_id is not None),
+            source_id=trigger.source_id,
+        )
+        evidence = DiscardDrawEvidence(
+            event.event_id,
+            player_index,
+            provenance,
+            trigger.object_id,
+            trigger.source_id,
+            trigger.oracle_fragment,
+            plan.offered_choice_ids,
+            plan.pre_hand_ids,
+            plan.pre_library_ids,
+            plan.pre_graveyard_ids,
+            plan.choice.card_id,
+            discarded_id,
+            movement_succeeded,
+            draw_performed,
+            pre_draw_top,
+            drawn_id,
+            tuple(card.object_id for card in player.hand),
+            tuple(card.object_id for card in player.library),
+            tuple(card.object_id for card in player.graveyard),
+            plan.choice.card_id is None,
+        )
+        self.discard_draw_evidence.append(evidence)
+        self.log(
+            "discard_draw_committed",
+            event_id=evidence.event_id,
+            attack_event_id=provenance.event_id,
+            attack_event_kind=provenance.event_kind.value,
+            attack_subject_ids=list(provenance.subject_ids),
+            attack_turn=provenance.turn,
+            attack_step=provenance.step,
+            stack_object_id=trigger.object_id,
+            source_id=trigger.source_id,
+            player=player.name,
+            oracle_fragment=trigger.oracle_fragment,
+            selected_hand_id=evidence.selected_hand_id,
+            discarded_graveyard_id=evidence.discarded_graveyard_id,
+            movement_succeeded=evidence.movement_succeeded,
+            conditional_draw_performed=evidence.conditional_draw_performed,
+            pre_draw_top_id=evidence.pre_draw_top_id,
+            drawn_hand_id=evidence.drawn_hand_id,
+            declined=evidence.declined,
+        )
+        return evidence
+
+    def _discard_draw_attack_provenance(
+        self, trigger: TriggeredAbilityObject
+    ) -> AttackTriggerProvenance:
+        """Validate and freeze the attack event carried by one authoritative trigger."""
+        if (
+            not isinstance(trigger, TriggeredAbilityObject)
+            or self._objects.get(trigger.object_id) is not trigger
+            or trigger.zone != "former"
+            or trigger.effect is not TriggerEffect.DISCARD_DRAW
+            or any(
+                evidence.stack_object_id == trigger.object_id
+                for evidence in self.discard_draw_evidence
+            )
+        ):
+            raise ValueError("discard/Draw provenance requires its resolving trigger object")
+        event = trigger.event
+        if (
+            event.kind is not RulesEventKind.ATTACKERS_DECLARED
+            or event.step != TurnStep.DECLARE_ATTACKERS.value
+            or event.player_index != trigger.controller
+            or event.active_player != trigger.controller
+            or event.subject_ids.count(trigger.source_id) != 1
+        ):
+            raise ValueError("discard/Draw trigger has mismatched attack provenance")
+        return AttackTriggerProvenance(
+            event.event_id,
+            event.kind,
+            event.player_index,
+            event.subject_ids,
+            trigger.source_id,
+            trigger.controller,
+            event.turn,
+            event.step,
+            event.active_player,
+        )
+
     @staticmethod
     def legal_scry_options(inspected: tuple[CardObject, ...]) -> tuple[ScryOption, ...]:
         """Enumerate every partition and ordering without exposing authoritative objects."""
@@ -1811,6 +2102,19 @@ class Game:
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.DISCARD_DRAW:
+            semantics = self.interpreter.discard_draw_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if semantics is None or not semantics.coverage.fully_supported:
+                raise AssertionError("stacked discard/Draw trigger is no longer executable")
+            plan = self.choose_discard_draw(ability.controller, semantics.program)
+            self.commit_discard_draw(
+                ability.controller,
+                semantics.program,
+                plan,
+                trigger=ability,
+            )
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             self.log(
                 "pt_effect_condition_not_met",
@@ -1947,6 +2251,9 @@ class Game:
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
+            if self.stack[-1].effect is TriggerEffect.DISCARD_DRAW:
+                self._begin_priority_window()
+                return
             self._resolve_triggered_ability(self.stack[-1])
 
     def _detect_creature_entered_triggers(
@@ -2235,6 +2542,15 @@ class Game:
         )
 
     def resolve_attack_pt_effects(self, attackers: list[Permanent]) -> None:
+        if any(
+            not isinstance(attacker, Permanent)
+            or not self.is_authoritative(attacker, "battlefield")
+            or attacker.controller != self.active_player
+            for attacker in attackers
+        ):
+            raise ValueError(
+                "attack trigger delivery requires authoritative active-player attackers"
+            )
         event = self._new_rules_event(
             RulesEventKind.ATTACKERS_DECLARED,
             self.active_player,
@@ -2255,16 +2571,24 @@ class Game:
                     )
                 ):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.CREATE_TOKEN)
+                discard_draw = self.interpreter.discard_draw_semantic_coverage(
+                    source.card, fragment
+                )
+                if discard_draw is not None and discard_draw.coverage.fully_supported:
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.DISCARD_DRAW)
         self._put_pending_triggers_on_stack()
         self._drain_triggered_abilities()
 
     def draw(self, player: PlayerState, count: int = 1, *, setup: bool = False) -> bool:
         for _ in range(count):
             if not player.library:
-                player.lost = True
-                player.loss_reason = "draw_from_empty_library"
-                self.winner = 1 - self.players.index(player)
-                self.log("player_lost", player=player.name, reason=player.loss_reason)
+                player.failed_draw_pending = True
+                self.log(
+                    "draw_failed",
+                    player=player.name,
+                    reason="empty_library",
+                    state_based_action_pending=True,
+                )
                 return False
             self.move_object(player.library[-1], "hand", reason="draw")
             self.log("card_drawn", player=player.name, setup=setup)
@@ -2327,6 +2651,7 @@ class Game:
                 self.log("draw_skipped", player=player.name, reason="starting_player_first_turn")
             else:
                 self.draw(player)
+                self.check_state_based_actions()
         elif step is TurnStep.BEGINNING_OF_COMBAT:
             self._reset_current_combat_state()
             self.log("combat_state_reset")
@@ -2535,6 +2860,12 @@ class Game:
         self.check_state_based_actions()
         if self.winner is None and self.stack:
             self._begin_priority_window()
+        elif (
+            self.winner is None
+            and self.step is TurnStep.DECLARE_ATTACKERS
+            and self._attackers_declared
+        ):
+            self.transition_to(TurnStep.DECLARE_BLOCKERS)
         return True
 
     def _record_represented_priority_action(self, player_index: int) -> None:
@@ -2646,11 +2977,12 @@ class Game:
             raise ValueError("combat option references a nonpermanent")
         for attacker in attackers:
             attacker.tapped = True  # type: ignore[union-attr]
-        self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
         self._combat_attackers = attack.attacker_ids
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
-        self.transition_to(TurnStep.DECLARE_BLOCKERS)
+        self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
+        if self.priority_state is None:
+            self.transition_to(TurnStep.DECLARE_BLOCKERS)
 
     def execute_block_action(self, blocks: ActionOption) -> None:
         """Revalidate and execute the declare-blockers turn-based action."""
@@ -3787,6 +4119,12 @@ class Game:
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
+            if spell.effect is TriggerEffect.DISCARD_DRAW and (
+                self.priority_state is None or not self.priority_state.resolution_pending
+            ):
+                raise ValueError(
+                    "represented triggered ability cannot resolve before all players pass"
+                )
             self._resolve_triggered_ability(spell)
             return None
         if isinstance(spell, ActivatedAbilityObject):
@@ -4465,6 +4803,41 @@ class Game:
                 }
                 for item in self.hand_bottom_draw_evidence
             ],
+            "discard_draw": [
+                {
+                    "event_id": item.event_id,
+                    "player_index": item.player_index,
+                    "attack_provenance": {
+                        "event_id": item.attack_provenance.event_id,
+                        "event_kind": item.attack_provenance.event_kind.value,
+                        "event_player_index": item.attack_provenance.event_player_index,
+                        "subject_ids": list(item.attack_provenance.subject_ids),
+                        "attacker_id": item.attack_provenance.attacker_id,
+                        "controller": item.attack_provenance.controller,
+                        "turn": item.attack_provenance.turn,
+                        "step": item.attack_provenance.step,
+                        "active_player": item.attack_provenance.active_player,
+                    },
+                    "stack_object_id": item.stack_object_id,
+                    "source_id": item.source_id,
+                    "oracle_fragment": item.oracle_fragment,
+                    "offered_choice_ids": list(item.offered_choice_ids),
+                    "pre_hand_ids": list(item.pre_hand_ids),
+                    "pre_library_ids": list(item.pre_library_ids),
+                    "pre_graveyard_ids": list(item.pre_graveyard_ids),
+                    "selected_hand_id": item.selected_hand_id,
+                    "discarded_graveyard_id": item.discarded_graveyard_id,
+                    "movement_succeeded": item.movement_succeeded,
+                    "conditional_draw_performed": item.conditional_draw_performed,
+                    "pre_draw_top_id": item.pre_draw_top_id,
+                    "drawn_hand_id": item.drawn_hand_id,
+                    "post_hand_ids": list(item.post_hand_ids),
+                    "post_library_ids": list(item.post_library_ids),
+                    "post_graveyard_ids": list(item.post_graveyard_ids),
+                    "declined": item.declined,
+                }
+                for item in self.discard_draw_evidence
+            ],
             "activated_abilities": [
                 {
                     "stack_object_id": item.stack_object_id,
@@ -4552,6 +4925,7 @@ class Game:
                     "graveyard": [c.name for c in p.graveyard],
                     "lost": p.lost,
                     "loss_reason": p.loss_reason,
+                    "failed_draw_pending": p.failed_draw_pending,
                 }
                 for p in self.players
             ],
