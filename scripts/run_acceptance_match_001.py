@@ -34,6 +34,7 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
     game = Game(decks, names=("leonardo-p0.1", "raphael-p0.1"), seed=seed)
     pilot = pilot or AcceptancePilot()
     game.scry_chooser = pilot.choose_scry
+    game.hand_bottom_draw_chooser = pilot.choose_hand_bottom_draw
     while game.winner is None and game.turn < 120:
         game.begin_turn()
         if game.winner is not None:

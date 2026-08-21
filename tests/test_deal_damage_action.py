@@ -64,7 +64,7 @@ EXECUTABLE_NAMES = {
     "Slash, Reptile Rampager",
     "Swift Demise",
 }
-FULL_NAMES = {"Raphael, Tough Turtle", "Slash, Reptile Rampager"}
+FULL_NAMES = {"Manhole Missile", "Raphael, Tough Turtle", "Slash, Reptile Rampager"}
 ROSTER_RECOGNIZED = {
     "Cool but Rude",
     "Manhole Missile",
@@ -431,7 +431,7 @@ def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, fully_supported = coverage_sets()
     assert len({member[0] for member in recognized}) == 28 and len(recognized) == 29
     assert len({member[0] for member in executable}) == 12 and len(executable) == 12
-    assert len({member[0] for member in fully_supported}) == 2 and len(fully_supported) == 2
+    assert len({member[0] for member in fully_supported}) == 3 and len(fully_supported) == 3
     assert {member[1] for member in recognized} == RECOGNIZED_NAMES
     assert {member[1] for member in executable} == EXECUTABLE_NAMES
     assert {member[1] for member in fully_supported} == FULL_NAMES
@@ -439,7 +439,7 @@ def test_authoritative_memberships_and_digests_are_locked():
     assert digest(executable) == "5c977d6a1386af69dc65c694dcb146d1e5b52a7278a085df61ae667b852a89f1"
     assert (
         digest(fully_supported)
-        == "f0f5e98cedf31748f558a83a20b69834ce31fec43667aa4045de30958769a740"
+        == "94f348e8fc17c6cd1fe7f4da62a45735c0641df27b7ea44582c3f007b4765e9c"
     )
 
 
@@ -456,7 +456,10 @@ def test_frozen_roster_memberships_are_locked():
     all_names = set().union(*decks.values())
     assert {member[1] for member in recognized} & all_names == ROSTER_RECOGNIZED
     assert {member[1] for member in executable} & all_names == ROSTER_EXECUTABLE
-    assert {member[1] for member in fully_supported} & all_names == {"Raphael, Tough Turtle"}
+    assert {member[1] for member in fully_supported} & all_names == {
+        "Manhole Missile",
+        "Raphael, Tough Turtle",
+    }
     assert {name for name, cards in decks.items() if cards & ROSTER_RECOGNIZED} == {
         "casey_jones",
         "michelangelo",
