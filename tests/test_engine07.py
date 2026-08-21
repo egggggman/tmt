@@ -219,8 +219,13 @@ def test_dead_interaction_with_no_target_is_not_spent():
 
 def test_draw_from_empty_library_is_a_loss():
     current = game()
-    current.players[0].library.clear()
+    while current.players[0].library:
+        current.move_object(current.players[0].library[-1], "graveyard", reason="test_empty")
     assert not current.draw(current.players[0])
+    assert current.players[0].failed_draw_pending
+    assert not current.players[0].lost and current.winner is None
+    current.check_state_based_actions()
+    assert not current.players[0].failed_draw_pending
     assert current.winner == 1
 
 

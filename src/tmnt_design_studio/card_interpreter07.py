@@ -266,6 +266,40 @@ class InterpretedHandBottomDrawSemantics:
 
 
 @dataclass(frozen=True)
+class DiscardDrawProgram:
+    """One bounded optional Hand -> Graveyard move followed by fixed Draw."""
+
+    discard_quantity: int | None
+    draw_quantity: int | None
+    optional: bool
+    draw_conditional_on_discard: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.discard_quantity == 1
+            and self.draw_quantity == 1
+            and self.optional
+            and self.draw_conditional_on_discard
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedDiscardDrawSemantics:
+    """Discard/Draw facts paired with Action-generic semantic coverage."""
+
+    program: DiscardDrawProgram
+    coverage: SemanticCoverage
+    clause_text: str
+    clause_start: int
+    clause_end: int
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -440,6 +474,10 @@ class CardInterpreter:
     HAND_BOTTOM_DRAW = re.compile(
         r"(?P<clause>You may put a card from your hand on the bottom of your library\. "
         r"If you do, draw a card\.)",
+        re.IGNORECASE,
+    )
+    DISCARD_DRAW = re.compile(
+        r"(?P<clause>you may discard a card\. If you do, draw a card\.)",
         re.IGNORECASE,
     )
     STATIC_KEYWORD_NAMES = frozenset(
@@ -822,6 +860,53 @@ class CardInterpreter:
             match.start(),
             match.end(),
             parent_limitation,
+        )
+
+    def discard_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Recognize the bounded optional discard/conditional Draw instruction."""
+        match = self.DISCARD_DRAW.search(fragment)
+        if match is None:
+            return None
+        prefix = fragment[: match.start()]
+        suffix = fragment[match.end() :]
+        source_names = {card.name, card.name.split(",", 1)[0]}
+        self_reference = (
+            "(?:"
+            + "|".join(
+                [
+                    "this creature",
+                    *(re.escape(name) for name in sorted(source_names, key=len, reverse=True)),
+                ]
+            )
+            + ")"
+        )
+        parent_executable = bool(
+            re.fullmatch(rf"Whenever {self_reference} attacks,\s*", prefix, re.IGNORECASE)
+        )
+        parent_limitation = (
+            None if parent_executable else "discard_draw_attack_trigger_context_not_implemented"
+        )
+        followup_executable = not suffix.strip()
+        followup_limitation = (
+            None if followup_executable else "discard_draw_followup_semantics_not_implemented"
+        )
+        program = DiscardDrawProgram(1, 1, True, True)
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        return InterpretedDiscardDrawSemantics(
+            program,
+            SemanticCoverage(
+                payload_executable=program.executable,
+                parent_executable=parent_executable,
+                followup_executable=followup_executable,
+                limitations=limitations,
+            ),
+            match.group("clause"),
+            match.start(),
+            match.end(),
         )
 
     def scry_program(self, fragment: str) -> ScryProgram | None:
@@ -1455,6 +1540,11 @@ class CardInterpreter:
             hand_bottom_draw = self.hand_bottom_draw_semantic_coverage(card, fragment)
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            discard_draw = self.discard_draw_semantic_coverage(card, fragment)
+            if discard_draw is not None:
+                for reason in discard_draw.limitations:
                     unsupported.append((fragment, reason))
                 continue
             scry_coverage = self.scry_semantic_coverage(card, fragment)
