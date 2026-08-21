@@ -271,6 +271,28 @@ class CombatDamageAssignment:
         "regular",
         "double_strike_second",
     ]
+    trample: bool = False
+    lethal_required: int | None = None
+
+
+@dataclass(frozen=True)
+class TrampleDamageEvidence:
+    """Immutable before/after facts for one bounded Trample assignment result."""
+
+    attacker_id: str
+    blocker_id: str | None
+    damage_step: CombatDamageStepKind
+    attacker_power: int
+    blocker_toughness: int | None
+    blocker_marked_damage_before: int | None
+    lethal_required: int
+    blocker_damage_assigned: int
+    player_damage_assigned: int
+    defending_player: int
+    defending_life_before: int
+    defending_life_after: int
+    blocker_marked_damage_after: int | None
+    blocker_survived: bool
 
 
 @dataclass(frozen=True)
@@ -282,6 +304,7 @@ class CombatDamageStepEvidence:
     total_steps: int
     assignments: tuple[CombatDamageAssignment, ...]
     removed_before_next_step: tuple[str, ...]
+    trample_results: tuple[TrampleDamageEvidence, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -2512,6 +2535,9 @@ class Game:
         *,
         target: Permanent | None = None,
         target_player: int | None = None,
+        amount: int | None = None,
+        trample: bool = False,
+        lethal_required: int | None = None,
     ) -> CombatDamageAssignment:
         if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
             role = (
@@ -2529,8 +2555,27 @@ class Game:
             source.object_id,
             None if target is None else target.object_id,
             target_player,
-            source.power,
+            max(0, source.power) if amount is None else amount,
             role,
+            trample,
+            lethal_required,
+        )
+
+    def evaluated_trample(self, permanent: Permanent) -> bool:
+        """Evaluate only authoritative, fully supported Trample characteristics."""
+        if not self.is_authoritative(permanent, "battlefield"):
+            return False
+        if isinstance(permanent.card, TokenDefinition) and "trample" in {
+            keyword.casefold() for keyword in permanent.card.keywords
+        }:
+            return True
+        return any(
+            semantics is not None
+            and semantics.coverage.payload_executable
+            and semantics.coverage.parent_executable
+            for fragment in self.interpreter.fragments(permanent.card)
+            if (semantics := self.interpreter.trample_semantic_coverage(permanent.card, fragment))
+            is not None
         )
 
     def resolve_combat_damage(self) -> CombatDamageStepEvidence:
@@ -2563,19 +2608,88 @@ class Game:
         eligible = self._damage_step_eligible_ids()
         assignments: list[CombatDamageAssignment] = []
         damaged_pairs: list[tuple[Permanent, Permanent]] = []
+        trample_inputs: dict[
+            str, tuple[str | None, int, int | None, int | None, int, int, int]
+        ] = {}
         for attacker_id, attacker in attackers.items():
             attacker_present = self.is_authoritative(attacker, "battlefield")
             blocker = blocks.get(attacker_id)
             blocker_present = blocker is not None and self.is_authoritative(blocker, "battlefield")
             if blocker is None:
-                if attacker_present and attacker_id in eligible:
+                if attacker_present and attacker_id in eligible and attacker.power > 0:
                     assignments.append(
                         self._combat_assignment(attacker, target_player=defender_index)
                     )
                 continue
             if attacker_present and blocker_present and attacker_id in eligible:
-                assignments.append(self._combat_assignment(attacker, target=blocker))
-            if attacker_present and blocker_present and blocker.object_id in eligible:
+                power = max(0, attacker.power)
+                if self.evaluated_trample(attacker) and power > 0:
+                    lethal = max(0, blocker.toughness - blocker.damage)
+                    blocker_damage = min(power, lethal)
+                    excess = power - blocker_damage
+                    trample_inputs[attacker_id] = (
+                        blocker.object_id,
+                        power,
+                        blocker.toughness,
+                        blocker.damage,
+                        lethal,
+                        blocker_damage,
+                        excess,
+                    )
+                    if blocker_damage:
+                        assignments.append(
+                            self._combat_assignment(
+                                attacker,
+                                target=blocker,
+                                amount=blocker_damage,
+                                trample=True,
+                                lethal_required=lethal,
+                            )
+                        )
+                    if excess:
+                        assignments.append(
+                            self._combat_assignment(
+                                attacker,
+                                target_player=defender_index,
+                                amount=excess,
+                                trample=True,
+                                lethal_required=lethal,
+                            )
+                        )
+                elif power > 0:
+                    assignments.append(self._combat_assignment(attacker, target=blocker))
+            elif (
+                attacker_present
+                and blocker is not None
+                and not blocker_present
+                and attacker_id in eligible
+                and self.evaluated_trample(attacker)
+                and attacker.power > 0
+            ):
+                power = attacker.power
+                trample_inputs[attacker_id] = (
+                    blocker.object_id,
+                    power,
+                    None,
+                    None,
+                    0,
+                    0,
+                    power,
+                )
+                assignments.append(
+                    self._combat_assignment(
+                        attacker,
+                        target_player=defender_index,
+                        trample=True,
+                        lethal_required=0,
+                    )
+                )
+            if (
+                attacker_present
+                and blocker_present
+                and blocker.object_id in eligible
+                and blocker.power > 0
+            ):
                 assignments.append(self._combat_assignment(blocker, target=attacker))
             if (
                 attacker_present
@@ -2587,15 +2701,40 @@ class Game:
             ):
                 damaged_pairs.append((attacker, blocker))
 
-        if len({assignment.source_id for assignment in assignments}) != len(assignments):
-            raise AssertionError("a combatant assigned damage more than once in one damage step")
+        if len(
+            {
+                (assignment.source_id, assignment.target_id, assignment.target_player)
+                for assignment in assignments
+            }
+        ) != len(assignments):
+            raise AssertionError("a combatant repeated one assignment in a damage step")
+        for source_id in {assignment.source_id for assignment in assignments}:
+            source_assignments = [
+                assignment for assignment in assignments if assignment.source_id == source_id
+            ]
+            if len(source_assignments) <= 1:
+                continue
+            source = self._combat_permanent(source_id, "damage source")
+            if (
+                len(source_assignments) != 2
+                or not self.evaluated_trample(source)
+                or sum(item.target_id is not None for item in source_assignments) != 1
+                or sum(item.target_player is not None for item in source_assignments) != 1
+            ):
+                raise AssertionError("split assignments require bounded authoritative Trample")
         before_remaining = {
             permanent.object_id
             for permanent in tuple(attackers.values()) + tuple(blocks.values())
             if self.is_authoritative(permanent, "battlefield")
         }
+        trample_life_before: dict[str, int] = {}
+        trample_life_after: dict[str, int] = {}
         for assignment in assignments:
             source = self._combat_permanent(assignment.source_id, "damage source")
+            if assignment.source_id in trample_inputs:
+                trample_life_before.setdefault(
+                    assignment.source_id, self.players[defender_index].life
+                )
             if assignment.target_player is not None:
                 self.players[assignment.target_player].life -= assignment.amount
                 self.log(
@@ -2619,6 +2758,8 @@ class Game:
                     damage_step=self._combat_damage_step_kind.value,
                     role=assignment.role,
                 )
+            if assignment.source_id in trample_inputs:
+                trample_life_after[assignment.source_id] = self.players[defender_index].life
         for attacker, blocker in dict.fromkeys(damaged_pairs):
             self.log(
                 "combat_damage_creatures",
@@ -2638,12 +2779,45 @@ class Game:
             and self.is_authoritative(obj, "battlefield")
         }
         removed = tuple(sorted(before_remaining - after_remaining))
+        trample_results: list[TrampleDamageEvidence] = []
+        for source_id, (
+            blocker_id,
+            attacker_power,
+            blocker_toughness,
+            blocker_damage_before,
+            lethal,
+            blocker_assigned,
+            player_assigned,
+        ) in trample_inputs.items():
+            blocker_after = self._objects.get(blocker_id) if blocker_id is not None else None
+            blocker_survived = isinstance(blocker_after, Permanent) and self.is_authoritative(
+                blocker_after, "battlefield"
+            )
+            trample_results.append(
+                TrampleDamageEvidence(
+                    source_id,
+                    blocker_id,
+                    resolved_kind,
+                    attacker_power,
+                    blocker_toughness,
+                    blocker_damage_before,
+                    lethal,
+                    blocker_assigned,
+                    player_assigned,
+                    defender_index,
+                    trample_life_before[source_id],
+                    trample_life_after[source_id],
+                    blocker_after.damage if blocker_survived else None,
+                    blocker_survived,
+                )
+            )
         evidence = CombatDamageStepEvidence(
             resolved_kind,
             resolved_sequence,
             resolved_total,
             tuple(assignments),
             removed,
+            tuple(trample_results),
         )
         self.combat_damage_evidence.append(evidence)
         self.log(
@@ -3526,11 +3700,47 @@ class Game:
         if any(object_id not in combat_ids for object_id in self._regular_damage_initial_ids):
             raise AssertionError("regular-step qualification references a noncombatant")
         if any(
-            len({assignment.source_id for assignment in evidence.assignments})
+            len(
+                {
+                    (assignment.source_id, assignment.target_id, assignment.target_player)
+                    for assignment in evidence.assignments
+                }
+            )
             != len(evidence.assignments)
             for evidence in self.combat_damage_evidence
         ):
-            raise AssertionError("combatant dealt more than once in one damage step")
+            raise AssertionError("combatant repeated one assignment in a damage step")
+        if any(
+            assignment.amount <= 0
+            for evidence in self.combat_damage_evidence
+            for assignment in evidence.assignments
+        ):
+            raise AssertionError("combat evidence contains a nonpositive damage assignment")
+        for evidence in self.combat_damage_evidence:
+            for result in evidence.trample_results:
+                if result.damage_step is not evidence.kind or result.attacker_power <= 0:
+                    raise AssertionError("Trample evidence has invalid step or power")
+                if (
+                    result.blocker_damage_assigned + result.player_damage_assigned
+                    != result.attacker_power
+                ):
+                    raise AssertionError("Trample evidence does not conserve assigned damage")
+                if (
+                    result.defending_life_before - result.player_damage_assigned
+                    != result.defending_life_after
+                ):
+                    raise AssertionError("Trample evidence life result is inconsistent")
+                if result.blocker_toughness is not None and (
+                    result.blocker_marked_damage_before is None
+                    or result.lethal_required
+                    != max(
+                        0,
+                        result.blocker_toughness - result.blocker_marked_damage_before,
+                    )
+                ):
+                    raise AssertionError("Trample evidence lethal calculation is inconsistent")
+                if result.blocker_survived != (result.blocker_marked_damage_after is not None):
+                    raise AssertionError("Trample evidence blocker result is inconsistent")
         if len({item.stack_object_id for item in self.activation_evidence}) != len(
             self.activation_evidence
         ):
@@ -3814,10 +4024,33 @@ class Game:
                                 "target_player": assignment.target_player,
                                 "amount": assignment.amount,
                                 "role": assignment.role,
+                                "trample": assignment.trample,
+                                "lethal_required": assignment.lethal_required,
                             }
                             for assignment in item.assignments
                         ],
                         "removed_before_next_step": list(item.removed_before_next_step),
+                        "trample_results": [
+                            {
+                                "attacker_id": result.attacker_id,
+                                "blocker_id": result.blocker_id,
+                                "damage_step": result.damage_step.value,
+                                "attacker_power": result.attacker_power,
+                                "blocker_toughness": result.blocker_toughness,
+                                "blocker_marked_damage_before": (
+                                    result.blocker_marked_damage_before
+                                ),
+                                "lethal_required": result.lethal_required,
+                                "blocker_damage_assigned": result.blocker_damage_assigned,
+                                "player_damage_assigned": result.player_damage_assigned,
+                                "defending_player": result.defending_player,
+                                "defending_life_before": result.defending_life_before,
+                                "defending_life_after": result.defending_life_after,
+                                "blocker_marked_damage_after": (result.blocker_marked_damage_after),
+                                "blocker_survived": result.blocker_survived,
+                            }
+                            for result in item.trample_results
+                        ],
                     }
                     for item in self.combat_damage_evidence
                 ],

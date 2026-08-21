@@ -180,6 +180,31 @@ class InterpretedStrikeSemantics:
 
 
 @dataclass(frozen=True)
+class TrampleProgram:
+    """One Oracle-derived Trample characteristic, separate from combat mutation."""
+
+    self_static: bool
+    deathtouch_modified: bool = False
+
+    @property
+    def executable(self) -> bool:
+        return self.self_static and not self.deathtouch_modified
+
+
+@dataclass(frozen=True)
+class InterpretedTrampleSemantics:
+    """A Trample program paired with Action-generic semantic coverage."""
+
+    program: TrampleProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -349,6 +374,23 @@ class CardInterpreter:
     )
     SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
     STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
+    TRAMPLE_KEYWORD = re.compile(r"\btrample\b", re.IGNORECASE)
+    STATIC_KEYWORD_NAMES = frozenset(
+        {
+            "deathtouch",
+            "double strike",
+            "first strike",
+            "flying",
+            "haste",
+            "hexproof",
+            "indestructible",
+            "lifelink",
+            "menace",
+            "reach",
+            "trample",
+            "vigilance",
+        }
+    )
     ACTIVATION_MANA_SYMBOL = re.compile(r"\{(?:[0-9]+|[WUBRG])\}", re.IGNORECASE)
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
         r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
@@ -822,6 +864,61 @@ class CardInterpreter:
         )
         return InterpretedStrikeSemantics(program, coverage, parent_limitation)
 
+    def trample_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTrampleSemantics | None:
+        """Recognize Trample while keeping grants and parent delivery unsupported."""
+        del card
+        match = self.TRAMPLE_KEYWORD.search(fragment)
+        if match is None:
+            return None
+        reminder = re.sub(r"\s*\([^)]*\)\.?$", "", fragment).strip().rstrip(".")
+        keyword_parts = tuple(
+            part.strip().casefold() for part in re.split(r",\s*(?:and\s+)?|\s+and\s+", reminder)
+        )
+        self_static = "trample" in keyword_parts and all(
+            part in self.STATIC_KEYWORD_NAMES for part in keyword_parts
+        )
+        deathtouch_modified = self_static and "deathtouch" in keyword_parts
+        if self_static:
+            parent_limitation = None
+        elif re.search(r"\bEquipped creature\b|\benchanted creature\b", fragment, re.I):
+            parent_limitation = "trample_attachment_context_not_implemented"
+        elif ":" in fragment[: match.start()]:
+            parent_limitation = "trample_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At |Alliance)", fragment, re.I):
+            parent_limitation = "trample_trigger_context_not_implemented"
+        elif re.match(r"^(?:Choose one|•|Target )", fragment, re.I):
+            parent_limitation = "trample_choice_or_grant_context_not_implemented"
+        else:
+            parent_limitation = "trample_parent_context_not_implemented"
+        unsupported_companions = tuple(
+            part for part in keyword_parts if part not in {"trample", "haste"}
+        )
+        followup_limitation = (
+            "trample_followup_semantics_not_implemented" if unsupported_companions else None
+        )
+        limitations = tuple(
+            reason
+            for reason in (
+                "trample_deathtouch_lethal_not_implemented" if deathtouch_modified else None,
+                parent_limitation,
+                followup_limitation,
+            )
+            if reason is not None
+        )
+        program = TrampleProgram(self_static, deathtouch_modified)
+        return InterpretedTrampleSemantics(
+            program,
+            SemanticCoverage(
+                program.executable,
+                self_static,
+                followup_limitation is None,
+                limitations,
+            ),
+            parent_limitation,
+        )
+
     @staticmethod
     def _top_level_colon(fragment: str) -> int | None:
         depth = 0
@@ -1184,7 +1281,7 @@ class CardInterpreter:
     def unsupported_fragments(self, card: CardDefinition) -> tuple[tuple[str, str], ...]:
         fragments = self.fragments(card)
         unsupported: list[tuple[str, str]] = []
-        for keyword in sorted(set(card.keywords) - {"Haste"}):
+        for keyword in sorted(set(card.keywords) - {"Haste", "Trample"}):
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
@@ -1215,6 +1312,11 @@ class CardInterpreter:
             strike_coverage = self.strike_semantic_coverage(card, fragment)
             if strike_coverage is not None:
                 for reason in strike_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            trample_coverage = self.trample_semantic_coverage(card, fragment)
+            if trample_coverage is not None:
+                for reason in trample_coverage.limitations:
                     unsupported.append((fragment, reason))
                 continue
             if (
