@@ -530,6 +530,98 @@ def _manifest_index(manifest: dict[str, object]) -> dict[str, dict[str, object]]
     return result
 
 
+def _authoritative_execution_index(
+    snapshot: dict[str, object],
+) -> dict[tuple[str, str], list[dict[str, str]]]:
+    """Index only mature serialized evidence capable of authenticating EXECUTED."""
+    result: dict[tuple[str, str], list[dict[str, str]]] = {}
+
+    def add(kind: str, evidence_id: object, source_id: object, fragment: object) -> None:
+        if not all(
+            isinstance(value, str) and value for value in (evidence_id, source_id, fragment)
+        ):
+            return
+        result.setdefault((kind, str(evidence_id)), []).append(
+            {"source_id": str(source_id), "oracle_fragment": str(fragment)}
+        )
+
+    for item in snapshot.get("activated_abilities", []):
+        if item.get("resolved"):
+            add(
+                "activated_ability",
+                item.get("stack_object_id"),
+                item.get("source_id"),
+                item.get("oracle_fragment"),
+            )
+    for item in snapshot.get("food_activations", []):
+        if item.get("resolved"):
+            add(
+                "food_activation",
+                item.get("stack_object_id"),
+                item.get("source_id"),
+                item.get("oracle_fragment"),
+            )
+    for item in snapshot.get("sneak", []):
+        if item.get("resolved_object_id") is not None:
+            add(
+                "sneak",
+                item.get("stack_object_id"),
+                item.get("hand_object_id"),
+                item.get("oracle_fragment"),
+            )
+    for collection, kind in (
+        ("hand_bottom_draw", "hand_bottom_draw"),
+        ("discard_draw", "discard_draw"),
+    ):
+        for item in snapshot.get(collection, []):
+            add(kind, item.get("event_id"), item.get("source_id"), item.get("oracle_fragment"))
+    for item in snapshot.get("lifelink", []):
+        add("lifelink", item.get("event_id"), item.get("source_id"), "Lifelink")
+    for step in snapshot.get("combat_damage", {}).get("evidence", []):
+        sequence = step.get("sequence")
+        for assignment in step.get("assignments", []):
+            source_id = assignment.get("source_id")
+            if assignment.get("trample"):
+                add(
+                    "trample",
+                    f"combat:{sequence}:{source_id}:trample",
+                    source_id,
+                    "Trample",
+                )
+            role = assignment.get("role")
+            keyword = (
+                "First strike"
+                if role == "first_strike"
+                else "Double strike"
+                if role in {"double_strike_first", "double_strike_second"}
+                else None
+            )
+            if keyword is not None:
+                add(
+                    "strike_damage_step",
+                    f"combat:{sequence}:{source_id}:{keyword}",
+                    source_id,
+                    keyword,
+                )
+    for event in snapshot.get("events", []):
+        event_kind = event.get("event")
+        if event_kind not in {
+            "damage_dealt",
+            "scry_committed",
+            "tokens_created",
+            "trigger_resolved",
+        }:
+            continue
+        evidence_id = event.get("event_id") or event.get("stack_object_id")
+        add(
+            str(event_kind),
+            evidence_id,
+            event.get("source_id"),
+            event.get("oracle_fragment"),
+        )
+    return result
+
+
 def reconcile_snapshot(
     spec: GameSpec, snapshot: dict[str, object], manifest: dict[str, object]
 ) -> dict[str, object]:
@@ -555,6 +647,7 @@ def reconcile_snapshot(
         if item.get("is_token") is True
     }
     combined_index = {**runtime_dynamic_index, **index}
+    execution_index = _authoritative_execution_index(snapshot)
     unknown_keys = sorted(
         {
             item["semantic_key"]
@@ -587,22 +680,41 @@ def reconcile_snapshot(
     def same_lineage(first: str, second: str) -> bool:
         return first == second or second in lineage_by_object.get(first, frozenset())
 
+    def execution_is_authenticated(reference: dict[str, object]) -> bool:
+        return (
+            reference.get("semantic_key") in combined_index
+            and isinstance(reference.get("oracle_fragment"), str)
+            and combined_index.get(reference.get("semantic_key"), {}).get("oracle_fragment")
+            == reference.get("oracle_fragment")
+            and any(
+                record["source_id"] == reference.get("source_id")
+                and record["oracle_fragment"] == reference.get("oracle_fragment")
+                for record in execution_index.get(
+                    (str(reference.get("evidence_kind")), str(reference.get("evidence_id"))), []
+                )
+            )
+            and any(
+                reference.get("semantic_key") == item.get("semantic_key")
+                and str(reference.get("source_id")) in item.get("object_ids", [])
+                for item in presence
+            )
+        )
+
+    authenticated_executed = [
+        reference for reference in executed if execution_is_authenticated(reference)
+    ]
+
     def occurrence_executed(item: dict[str, object]) -> bool:
         return any(
             reference["semantic_key"] == item["semantic_key"]
             and same_lineage(str(item["object_id"]), str(reference["source_id"]))
-            for reference in executed
+            for reference in authenticated_executed
         )
 
     invalid_executed = sorted(
         str(reference.get("evidence_id"))
         for reference in executed
-        if reference.get("semantic_key") not in combined_index
-        or not any(
-            reference.get("semantic_key") == item.get("semantic_key")
-            and str(reference.get("source_id")) in item.get("object_ids", [])
-            for item in presence
-        )
+        if not execution_is_authenticated(reference)
     )
     if invalid_executed:
         stops.append({"kind": "silent_approximation", "detail": invalid_executed})
@@ -641,7 +753,7 @@ def reconcile_snapshot(
         item_executed = any(
             reference["semantic_key"] == item["semantic_key"]
             and str(reference["source_id"]) in lineage
-            for reference in executed
+            for reference in authenticated_executed
         )
         item_reached = any(
             occurrence["semantic_key"] == item["semantic_key"]
@@ -678,6 +790,7 @@ def reconcile_snapshot(
             for classification in ("executed", "reached_unsupported", "present_unreached")
         },
         "executed_references": executed,
+        "authenticated_executed_references": authenticated_executed,
         "opportunity_witnesses": witnesses,
         "authoritative_evidence": {
             key: snapshot.get(key)
@@ -703,7 +816,7 @@ def reconcile_snapshot(
             item for item in snapshot["events"] if item.get("event") == "invariant_violation"
         ],
         "transaction_counts": dict(
-            sorted(Counter(item["evidence_kind"] for item in executed).items())
+            sorted(Counter(item["evidence_kind"] for item in authenticated_executed).items())
         ),
         "engine_boundary_counts": dict(
             sorted(
