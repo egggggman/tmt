@@ -301,6 +301,7 @@ class RulesEvent:
     step: str = "setup"
     active_player: int = 0
     battlefield_authority: tuple[tuple[str, int], ...] = ()
+    last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -803,6 +804,16 @@ class Permanent:
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
     temporary_keyword_effects: list[TemporaryKeywordEffect] = field(default_factory=list)
     is_token: bool = False
+    type_line_override: str | None = None
+
+    @property
+    def type_line(self) -> str:
+        """The permanent's current authoritative type line on the battlefield."""
+        return self.card.type_line if self.type_line_override is None else self.type_line_override
+
+    @property
+    def is_creature(self) -> bool:
+        return "Creature" in self.type_line
 
     @property
     def printed_power(self) -> int:
@@ -2288,6 +2299,7 @@ class Game:
         target_player: int | None = None,
         amount: int | None = None,
         battlefield_authority: tuple[tuple[str, int], ...] | None = None,
+        last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = (),
     ) -> RulesEvent:
         event = RulesEvent(
             f"event-{self._next_event_number:06d}",
@@ -2309,6 +2321,7 @@ class Game:
                 if battlefield_authority is None
                 else battlefield_authority
             ),
+            last_known_battlefield,
         )
         self._next_event_number += 1
         self._rules_events[event.event_id] = event
@@ -2327,6 +2340,15 @@ class Game:
             battlefield_authority=[
                 {"object_id": object_id, "controller": controller}
                 for object_id, controller in event.battlefield_authority
+            ],
+            last_known_battlefield=[
+                {
+                    "object_id": object_id,
+                    "controller": controller,
+                    "type_line": type_line,
+                    "is_creature": is_creature,
+                }
+                for object_id, controller, type_line, is_creature in event.last_known_battlefield
             ],
         )
         for occurrence in tuple(self.semantic_occurrences):
@@ -3230,6 +3252,7 @@ class Game:
         """Authenticate one self-death trigger from frozen event and zone-change provenance."""
         event = ability.event
         source = self._objects.get(ability.source_id)
+        last_known = event.last_known_battlefield
         departures = [
             item
             for item in self.events
@@ -3245,12 +3268,17 @@ class Game:
             or event.subject_ids != (ability.source_id,)
             or event.player_index != ability.controller
             or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or len(last_known) != 1
+            or last_known[0][0] != ability.source_id
+            or last_known[0][1] != ability.controller
+            or not last_known[0][2]
+            or last_known[0][3] is not True
+            or ("Creature" in last_known[0][2]) is not last_known[0][3]
             or len(departures) != 1
             or not isinstance(source, Permanent)
             or source.zone != "former"
             or source.controller != ability.controller
             or source.card is not ability.source_card
-            or ability.source_card.is_creature is not True
         ):
             raise ValueError("dies/Draw trigger has mismatched death provenance")
 
@@ -6022,6 +6050,8 @@ class Game:
             is not None
             and coverage.fully_supported
         )
+        last_known_type_line = permanent.type_line
+        last_known_is_creature = permanent.is_creature
         self.alliance_modes_chosen.pop(permanent.object_id, None)
         replacement = self.move_object(
             permanent,
@@ -6036,13 +6066,21 @@ class Game:
             card=permanent.card.name,
             state_based_action=state_based_action,
         )
-        if dies_draw_fragments:
+        if dies_draw_fragments and last_known_is_creature:
             event = self._new_rules_event(
                 RulesEventKind.CREATURE_DIED,
                 controller,
                 (permanent.object_id,),
                 source_id=permanent.object_id,
                 battlefield_authority=battlefield_authority,
+                last_known_battlefield=(
+                    (
+                        permanent.object_id,
+                        controller,
+                        last_known_type_line,
+                        last_known_is_creature,
+                    ),
+                ),
             )
             for fragment in dies_draw_fragments:
                 self._enqueue_trigger(event, permanent, fragment, TriggerEffect.DIES_DRAW)
@@ -6405,6 +6443,8 @@ class Game:
                     raise AssertionError("permanent entered the battlefield in a future turn")
                 if permanent.is_token != isinstance(permanent.card, TokenDefinition):
                     raise AssertionError("token runtime state does not match its token definition")
+                if not permanent.type_line:
+                    raise AssertionError("permanent type line must remain nonempty")
                 if permanent.card.is_creature:
                     if permanent.card.power is None or permanent.card.toughness is None:
                         raise AssertionError("creature permanent lacks printed power/toughness")
@@ -6990,6 +7030,7 @@ class Game:
                             "controller": x.controller,
                             "zone": x.zone,
                             "is_token": x.is_token,
+                            "evaluated_type_line": x.type_line,
                             "colors": (
                                 list(x.card.colors) if isinstance(x.card, TokenDefinition) else []
                             ),

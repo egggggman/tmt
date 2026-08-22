@@ -98,6 +98,7 @@ def test_death_enqueues_authoritative_trigger_then_priority_delivers_draw():
     assert ability.effect is TriggerEffect.DIES_DRAW
     assert ability.source_id == source.object_id
     assert ability.event.kind is RulesEventKind.CREATURE_DIED
+    assert ability.event.last_known_battlefield == ((source.object_id, 0, BUZZ.type_line, True),)
     assert current.priority_state is not None
     assert len(current.players[0].hand) == hand_before
 
@@ -133,6 +134,41 @@ def test_non_graveyard_departure_does_not_trigger_dies():
     assert current.stack == []
     assert current.pending_triggers == []
     assert not any(item["event"] == "trigger_pending" for item in current.events)
+
+
+def test_printed_creature_that_is_authoritatively_noncreature_does_not_die():
+    current, source = game()
+    source.type_line_override = "Artifact — Robot"
+    current.put_into_graveyard(source, state_based_action="destroyed_noncreature")
+    current.check_state_based_actions()
+
+    assert current.stack == []
+    assert current.pending_triggers == []
+    assert not any(
+        item.get("rules_event") == RulesEventKind.CREATURE_DIED.value for item in current.events
+    )
+    assert not any(item["event"] == "trigger_pending" for item in current.events)
+
+
+def test_fabricated_last_known_creature_characteristics_fail_closed():
+    current, source = game()
+    hand_before = len(current.players[0].hand)
+    current.put_into_graveyard(source)
+    current.check_state_based_actions()
+    ability = current.stack[-1]
+    assert isinstance(ability, TriggeredAbilityObject)
+    malformed = replace(
+        ability.event,
+        last_known_battlefield=((source.object_id, 0, "Artifact — Robot", False),),
+    )
+    current._rules_events[malformed.event_id] = malformed
+    ability.event = malformed
+
+    with pytest.raises(AssertionError, match="death provenance"):
+        current.check_invariants()
+    with pytest.raises(ValueError, match="death provenance"):
+        current._resolve_triggered_ability(ability)
+    assert len(current.players[0].hand) == hand_before
 
 
 def test_fabricated_or_relinked_death_provenance_fails_invariant_and_resolution():
