@@ -1,0 +1,43 @@
+Acceptance Stage #002 execution failure
+Execution checkpoint: 58bacdd819192195cccc89826a3b5717fa787641
+Merged runner baseline: 15b779fe865770d63df2e6aabd2a839aa9b54c65
+Command: uv run python scripts/run_acceptance_stage_002.py --execute --output docs/cardcade/ACCEPTANCE_STAGE_002_RESULTS.json
+Exit code: 1
+Result artifact written: no
+
+Traceback (most recent call last):
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\scripts\run_acceptance_stage_002.py", line 27, in <module>
+    main()
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\scripts\run_acceptance_stage_002.py", line 18, in main
+    result = execute_stage(root) if args.execute else plan(root)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\stage002.py", line 888, in execute_stage
+    first = runner(root, spec, None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\stage002.py", line 482, in run_game
+    _checked_action(
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\stage002.py", line 326, in _checked_action
+    result = operation()
+             ^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\stage002.py", line 483, in <lambda>
+    game, lambda choice=choice: game.execute_main_action(choice), "main action"
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 4035, in execute_main_action
+    return self.cast(option.player_index, obj, target)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 5550, in cast
+    self.resolve_top_of_stack()
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 5710, in resolve_top_of_stack
+    self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 1573, in report_unsupported_abilities
+    self._witness_from_existing_events(occurrence)
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 2276, in _witness_from_existing_events
+    self._witness_from_event(occurrence, event)
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 2249, in _witness_from_event
+    self._record_opportunity(
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 1897, in _record_opportunity
+    facts = self._validate_opportunity_applicability(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ckytr\OneDrive\Documents\GitHub\tmt\src\tmnt_design_studio\engine07.py", line 2031, in _validate_opportunity_applicability
+    raise ValueError("event does not establish semantic applicability")
+ValueError: event does not establish semantic applicability
