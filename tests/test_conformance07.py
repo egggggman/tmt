@@ -2,6 +2,7 @@ from dataclasses import replace
 
 import pytest
 
+from tmnt_design_studio.card_interpreter07 import CastKind
 from tmnt_design_studio.engine07 import CardFact, Game, RulesEventKind, TurnStep
 
 LAND = CardFact("Plains", "", 0, "Basic Land — Plains", oracle_id="land")
@@ -302,3 +303,223 @@ def test_conformance_snapshot_is_deterministic_and_keeps_action_evidence_separat
     assert len(first.semantic_occurrences) == 1
     assert first.snapshot()["conformance"] == second.snapshot()["conformance"]
     assert first.snapshot()["conformance"]["executed_references"] == []
+
+
+def test_fixed_cost_activation_context_requires_authoritative_source_and_resources():
+    card = CardFact(
+        "Device",
+        "{2}",
+        2,
+        "Artifact",
+        "{2}, {T}, Sacrifice this artifact: Draw two cards.",
+        oracle_id="device",
+    )
+    current = game()
+    current.begin_turn()
+    source = permanent(current, card)
+    register(current, source)
+    current.legal_main_actions(0)
+    assert current.opportunity_witnesses == []
+    permanent(current, LAND)
+    permanent(current, LAND)
+    current.legal_main_actions(0)
+    witness = current.opportunity_witnesses[-1]
+    assert witness.cause_kind == "authoritative_context"
+    assert witness.cause_subject_ids[0] == source.object_id
+    current.legal_main_actions(0)
+    assert len(current.opportunity_contexts) == 1
+
+
+def test_departure_context_is_historical_and_distinguishes_separate_objects():
+    card = CardFact(
+        "Fugitive",
+        "{1}{G}",
+        2,
+        "Creature — Mutant",
+        "When this creature leaves the battlefield, create a Mutagen token.",
+        2,
+        2,
+        oracle_id="fugitive",
+    )
+    current = game()
+    first = permanent(current, card)
+    second = permanent(current, card)
+    register(current, first)
+    register(current, second)
+    current.put_into_graveyard(first)
+    current.put_into_graveyard(second)
+    contexts = [
+        item for item in current.opportunity_contexts if item.context_kind == "permanent_departed"
+    ]
+    assert [item.subject_ids for item in contexts] == [(first.object_id,), (second.object_id,)]
+    assert all(item.subject_zones == ("former",) for item in contexts)
+    current.check_invariants()
+
+
+def test_artifact_and_replacement_contexts_require_their_authoritative_predicates():
+    artifact_watcher = CardFact(
+        "Watcher",
+        "{1}{U}",
+        2,
+        "Creature — Turtle",
+        "Whenever an artifact you control enters, put a +1/+1 counter on Watcher.",
+        1,
+        3,
+        oracle_id="watcher",
+    )
+    replacement = CardFact(
+        "Mentor",
+        "{2}{G}",
+        3,
+        "Creature — Turtle",
+        "If one or more +1/+1 counters would be put on a creature you control, that many plus "
+        "one +1/+1 counters are put on it instead.",
+        2,
+        3,
+        oracle_id="mentor",
+    )
+    artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)
+    current = game()
+    watcher = permanent(current, artifact_watcher)
+    mentor = permanent(current, replacement)
+    register(current, watcher)
+    register(current, mentor)
+    entering = permanent(current, artifact)
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (entering.object_id,))
+    current.place_counters(watcher, "+1/+1", 1, source_card="test", oracle_fragment="test")
+    assert {item.context_kind for item in current.opportunity_contexts} >= {
+        "artifact_dependency",
+        "replacement_evaluation",
+    }
+
+
+def test_fabricated_context_and_mismatched_fragment_fail_invariants():
+    card = CardFact(
+        "Device",
+        "{2}",
+        2,
+        "Artifact",
+        "{2}: Draw a card.",
+        oracle_id="device",
+    )
+    current = game()
+    current.begin_turn()
+    source = permanent(current, card)
+    mana = (permanent(current, LAND), permanent(current, LAND))
+    occurrence = register(current, source)
+    with pytest.raises(ValueError, match="fabricated"):
+        current._new_opportunity_context(
+            "activation_available",
+            controller=0,
+            source_id=source.object_id,
+            subject_ids=("object-fabricated",),
+            facts=(
+                ("mana_required", "2"),
+                ("source_tap_required", "false"),
+                ("source_tapped", "false"),
+                ("timing", "precombat_main"),
+            ),
+        )
+    context = current._new_opportunity_context(
+        "activation_available",
+        controller=0,
+        source_id=source.object_id,
+        subject_ids=(source.object_id, *(item.object_id for item in mana)),
+        facts=(
+            ("mana_required", "2"),
+            ("source_tap_required", "false"),
+            ("source_tapped", "false"),
+            ("timing", "precombat_main"),
+        ),
+    )
+    current.opportunity_witnesses[0] = replace(
+        current.opportunity_witnesses[0], cause_id="context-fabricated"
+    )
+    with pytest.raises(AssertionError, match="context"):
+        current.check_invariants()
+    assert context.context_id != "context-fabricated"
+    assert occurrence.oracle_fragment == "{2}: Draw a card."
+
+    clean = game()
+    clean.begin_turn()
+    clean_source = permanent(clean, card)
+    clean_mana = (permanent(clean, LAND), permanent(clean, LAND))
+    register(clean, clean_source)
+    clean._new_opportunity_context(
+        "activation_available",
+        controller=0,
+        source_id=clean_source.object_id,
+        subject_ids=(clean_source.object_id, *(item.object_id for item in clean_mana)),
+        facts=(
+            ("mana_required", "2"),
+            ("source_tap_required", "false"),
+            ("source_tapped", "false"),
+            ("timing", "precombat_main"),
+        ),
+    )
+    clean.opportunity_contexts[0] = replace(clean.opportunity_contexts[0], subject_zones=("hand",))
+    with pytest.raises(AssertionError, match="context provenance"):
+        clean.check_invariants()
+
+
+def test_canonical_illegal_mutation_stop_requires_a_real_state_change():
+    current = game()
+    before = current.authoritative_state_fingerprint()
+    with pytest.raises(ValueError, match="observed state change"):
+        current.record_conformance_stop("illegal_mutation", before, detail="rejected option")
+    current.players[0].life -= 1
+    record = current.record_conformance_stop("illegal_mutation", before, detail="probe")
+    assert record.before_fingerprint != record.after_fingerprint
+    assert current.snapshot()["conformance"]["stop_records"][0]["kind"] == "illegal_mutation"
+
+
+def test_stack_response_requires_card_mana_and_authoritative_stack_target():
+    negate = CardFact(
+        "Generic Denial",
+        "{1}{U}",
+        2,
+        "Instant",
+        "Counter target noncreature spell.",
+        oracle_id="denial",
+    )
+    spell_card = CardFact("Effect", "{1}", 1, "Sorcery", "Draw a card.", oracle_id="effect")
+    current = game()
+    response = current.set_hand_for_testing(1, [negate])[0]
+    spell = current.set_hand_for_testing(0, [spell_card])[0]
+    permanent(current, CardFact("Island", "", 0, "Basic Land — Island"), 1)
+    permanent(current, LAND, 1)
+    stack_object = current.move_object(spell, "stack", controller=0, cast_kind=CastKind.DEAL_DAMAGE)
+    current._begin_priority_window()
+    witness = current.opportunity_witnesses[-1]
+    assert witness.object_id == response.object_id
+    assert witness.cause_subject_ids == (stack_object.object_id,)
+    assert current.opportunity_contexts[-1].stack_object_id == stack_object.object_id
+
+
+def test_resolution_instruction_context_preserves_present_but_unreached_until_resolution():
+    card = CardFact(
+        "Instruction",
+        "{1}",
+        1,
+        "Sorcery",
+        "Choose target creature. Draw a card, then discard a card.",
+        oracle_id="instruction",
+    )
+    current = game()
+    permanent(current, BEAR, 1)
+    source = current.set_hand_for_testing(0, [card])[0]
+    occurrence = register(current, source)
+    assert current.opportunity_witnesses == []
+    graveyard = current.move_object(source, "graveyard", reason="test_resolution")
+    current._witness_resolved_unsupported_instructions(graveyard)
+    assert occurrence.object_id != graveyard.object_id
+    reached = current.semantic_occurrences[-1]
+    assert reached.object_id == source.object_id
+    # Zone movement creates a new object, so the old occurrence cannot be promoted by inference.
+    assert current.opportunity_witnesses == []
+    current.report_unsupported_abilities(0, graveyard.card, source=graveyard)
+    current._witness_resolved_unsupported_instructions(graveyard)
+    assert {item.context_kind for item in current.opportunity_contexts} == {
+        "instruction_reached",
+        "target_choice_available",
+    }
