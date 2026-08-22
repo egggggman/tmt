@@ -6,8 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.card_interpreter07 import TokenCreationProgram, TokenDefinition
-from tmnt_design_studio.engine07 import CardFact, Game
+from tmnt_design_studio.card_interpreter07 import (
+    CardInterpreter,
+    TokenCreationProgram,
+    TokenDefinition,
+)
+from tmnt_design_studio.engine07 import ActionKind, CardFact, Game
 from tmnt_design_studio.stage002 import (
     PAIRINGS,
     DeckSpec,
@@ -47,6 +51,34 @@ def _created_token_presence(definition: TokenDefinition) -> tuple[Game, list[dic
     presence: list[dict[str, object]] = []
     _add_created_token_presence(current, presence, current.events)
     return current, presence
+
+
+def _resolved_food_token_snapshot() -> tuple[dict[str, object], dict[str, object]]:
+    current = Game(([LAND] * 40, [LAND] * 40), seed=1201)
+    current.begin_turn()
+    for _ in range(2):
+        current.create_permanent(LAND, 0, summoning_sick=False)
+    current.create_tokens(
+        0,
+        TokenCreationProgram(CardInterpreter.PREDEFINED_TOKENS["food"], 1),
+        source_card="Anonymous creator",
+        oracle_fragment="Create a Food token.",
+    )
+    option = next(
+        item for item in current.legal_main_actions(0) if item.kind is ActionKind.ACTIVATE_ABILITY
+    )
+    assert current.execute_main_action(option)
+    while current.priority_state is not None:
+        if current.priority_state.resolution_pending:
+            current.process_priority_resolution()
+        else:
+            priority = current.legal_priority_actions(current.priority_state.player_index)[0]
+            current.execute_priority_action(priority)
+    snapshot = current.snapshot()
+    presence: list[dict[str, object]] = []
+    _add_created_token_presence(current, presence, snapshot["events"])
+    snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
+    return snapshot, snapshot["stage002_presence"][0]
 
 
 def _snapshot(*, context: bool = False, witness: bool = False) -> dict[str, object]:
@@ -434,6 +466,7 @@ def test_created_token_presence_uses_authoritative_runtime_namespace():
     record = presence[0]
     assert record["initial_object_id"] == token.object_id
     assert record["owner"] == token.owner
+    assert record["creation_controller"] == token.controller
     assert record["creation_event_id"] == event["event_id"]
     assert record["token_definition_identity"] == _token_definition_identity(definition)
     assert record["oracle_fragment"] == definition.oracle_text
@@ -521,6 +554,62 @@ def test_runtime_token_namespace_reconciles_without_frozen_oracle_identity():
 
     assert report["stop_records"] == []
     assert report["presence"][0]["classification"] == "present_unreached"
+
+
+def test_food_token_execution_authenticates_against_exact_runtime_presence():
+    snapshot, presence = _resolved_food_token_snapshot()
+
+    report = reconcile_snapshot(stage_games()[0], snapshot, {"decks": []})
+
+    authenticated = report["authenticated_executed_references"]
+    assert {item["evidence_kind"] for item in authenticated} == {
+        "activated_ability",
+        "food_activation",
+    }
+    assert {item["semantic_key"] for item in authenticated} == {presence["semantic_key"]}
+    assert not any(item["kind"] == "silent_approximation" for item in report["stop_records"])
+
+
+@pytest.mark.parametrize(
+    ("field", "replacement"),
+    [
+        ("owner", 1),
+        ("creation_controller", 1),
+        ("creation_event_id", "event-fabricated"),
+        ("creation_source_id", "object-fabricated"),
+        ("oracle_fragment", "{2}, {T}: Draw a card."),
+    ],
+)
+def test_food_token_execution_rejects_mismatched_runtime_provenance(field, replacement):
+    snapshot, _presence = _resolved_food_token_snapshot()
+    snapshot["stage002_presence"][0][field] = replacement
+
+    report = reconcile_snapshot(stage_games()[0], snapshot, {"decks": []})
+
+    assert report["authenticated_executed_references"] == []
+    assert any(item["kind"] == "silent_approximation" for item in report["stop_records"])
+
+
+def test_food_token_execution_cannot_borrow_another_runtime_token():
+    snapshot, presence = _resolved_food_token_snapshot()
+    borrowed = copy.deepcopy(presence)
+    borrowed["initial_object_id"] = "object-fabricated"
+    borrowed["object_ids"] = ["object-fabricated"]
+    snapshot["stage002_presence"] = [borrowed]
+
+    report = reconcile_snapshot(stage_games()[0], snapshot, {"decks": []})
+
+    assert report["authenticated_executed_references"] == []
+    assert any(item["kind"] == "silent_approximation" for item in report["stop_records"])
+
+
+def test_ordinary_card_execution_key_is_not_normalized():
+    snapshot = _snapshot()
+    _add_valid_execution(snapshot)
+
+    report = reconcile_snapshot(stage_games()[0], snapshot, _manifest())
+
+    assert report["authenticated_executed_references"][0]["semantic_key"] == "known-key"
 
 
 def test_parameterized_runner_preserves_acceptance_001_gameplay():
