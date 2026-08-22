@@ -102,6 +102,37 @@ That means every 60-card Deck has an inspectable path through Magic Facts, Capab
 Design Intent, Alignment, Recommendations, decisions, and Playtesting, with battle-set relationships
 and development history preserved for the community.
 
+## Cardcade GUI — future product goal
+
+Build a dedicated graphical interface for **TMNT the Cardcade Game** once the simulator's rules,
+acceptance, and evidence boundaries are stable enough that a GUI will expose trustworthy behavior
+rather than hide incomplete mechanics.
+
+The Cardcade GUI should make the simulator easier to operate and inspect without becoming a second
+rules engine. Its long-term goals include:
+
+- load and inspect the frozen ten-deck environment and later accepted prototype versions;
+- launch deterministic acceptance matches, small validation runs, and authorized calibration runs;
+- show the battlefield, hand/library/graveyard state, life totals, turn/phase/step, Stack, Priority,
+  combat, and supported Actions from authoritative engine state;
+- provide play-by-play event and decision logs with pause, step, replay, and deterministic seed
+  controls;
+- surface unsupported semantics, coverage status, invariant failures, and evidence provenance instead
+  of silently approximating them;
+- visualize matchup, telemetry, and Action-coverage results without changing Cardcade's underlying
+  evidence or Design Studio's authority over deck revisions; and
+- support both developer inspection and an approachable spectator/debug view for humans following a
+  simulated game.
+
+**Ownership:** Cardcade owns the GUI because it is an interface to Cardcade simulation and evidence.
+HQ tracks it as a project goal. Design Studio consumes its evidence but does not use the GUI to bypass
+Cardcade validation or autonomously revise decks.
+
+**Gate:** do not let GUI work displace the current simulator credibility path. The interface becomes
+an implementation priority only when the underlying engine, acceptance tooling, and evidence model
+are stable enough that the GUI is presenting authoritative state rather than compensating for engine
+gaps.
+
 ## Beyond v1
 
 Aspirational possibilities—not commitments—include additional Characters and Design Intents, richer
