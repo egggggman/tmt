@@ -12,7 +12,7 @@ from pathlib import Path
 
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
-from tmnt_design_studio.conformance07 import semantic_key
+from tmnt_design_studio.conformance07 import opportunity_context_key, semantic_key
 from tmnt_design_studio.engine07 import Game, load_deck, load_facts
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
@@ -770,6 +770,76 @@ def _normalize_token_execution_reference(
     return {**reference, "semantic_key": candidates[0]["semantic_key"]}
 
 
+def _context_evidence_stops(
+    contexts: list[dict[str, object]], witnesses: list[dict[str, object]]
+) -> list[dict[str, object]]:
+    """Fail closed unless every context witness resolves to reconstructive evidence."""
+    stops: list[dict[str, object]] = []
+    context_ids = [item.get("context_id") for item in contexts]
+    duplicate_ids = sorted(
+        str(context_id) for context_id, count in Counter(context_ids).items() if count != 1
+    )
+    if duplicate_ids:
+        stops.append({"kind": "silent_approximation", "detail": duplicate_ids})
+    contexts_by_id = {
+        str(item["context_id"]): item
+        for item in contexts
+        if isinstance(item.get("context_id"), str) and context_ids.count(item["context_id"]) == 1
+    }
+    malformed = []
+    for context_id, context in contexts_by_id.items():
+        facts = context.get("facts")
+        try:
+            reconstructed = opportunity_context_key(
+                context["context_id"],
+                context["context_kind"],
+                context["turn"],
+                context["phase"],
+                context["step"],
+                context["active_player"],
+                context["controller"],
+                context["source_id"],
+                tuple(context["subject_ids"]),
+                tuple(context["subject_zones"]),
+                tuple(facts.items()) if isinstance(facts, dict) else (),
+                context.get("event_id"),
+                context.get("stack_object_id"),
+                context["state_fingerprint"],
+            )
+        except (KeyError, TypeError):
+            reconstructed = None
+        if (
+            reconstructed != context.get("context_key")
+            or not isinstance(context.get("state_fingerprint"), str)
+            or not re.fullmatch(r"[0-9a-f]{64}", str(context.get("state_fingerprint")))
+            or not isinstance(facts, dict)
+            or len(context.get("subject_ids", [])) != len(context.get("subject_zones", []))
+        ):
+            malformed.append(context_id)
+    if malformed:
+        stops.append({"kind": "silent_approximation", "detail": sorted(malformed)})
+    mismatched = []
+    for witness in witnesses:
+        if witness.get("cause_kind") != "authoritative_context":
+            continue
+        context = contexts_by_id.get(str(witness.get("cause_id")))
+        if context is None or not (
+            context.get("source_id") == witness.get("object_id")
+            and context.get("controller") == witness.get("controller")
+            and context.get("controller") == witness.get("source_controller")
+            and context.get("turn") == witness.get("turn")
+            and context.get("phase") == witness.get("phase")
+            and context.get("step") == witness.get("step")
+            and context.get("subject_ids") == witness.get("cause_subject_ids")
+            and context.get("subject_zones") == witness.get("cause_subject_zones")
+            and witness.get("cause_event_kind") is None
+        ):
+            mismatched.append(str(witness.get("witness_id")))
+    if mismatched:
+        stops.append({"kind": "silent_approximation", "detail": sorted(mismatched)})
+    return stops
+
+
 def reconcile_snapshot(
     spec: GameSpec, snapshot: dict[str, object], manifest: dict[str, object]
 ) -> dict[str, object]:
@@ -778,9 +848,11 @@ def reconcile_snapshot(
     conformance = snapshot["conformance"]
     occurrences = conformance["semantic_occurrences"]
     witnesses = conformance["opportunity_witnesses"]
+    contexts = conformance["opportunity_contexts"]
     executed = conformance["executed_references"]
     witness_occurrences = {item["occurrence_id"] for item in witnesses}
     stops = list(conformance["stop_records"])
+    stops.extend(_context_evidence_stops(contexts, witnesses))
     presence = snapshot.get("stage002_presence")
     if not isinstance(presence, list):
         stops.append({"kind": "silent_approximation", "detail": ["presence_evidence_missing"]})
@@ -944,6 +1016,7 @@ def reconcile_snapshot(
         "executed_references": executed,
         "authenticated_executed_references": authenticated_executed,
         "opportunity_witnesses": witnesses,
+        "opportunity_contexts": contexts,
         "authoritative_evidence": {
             key: snapshot.get(key)
             for key in (
@@ -1041,6 +1114,10 @@ def execute_stage(
         second = runner(root, spec, None)
         first_bytes = canonical_json(first)
         second_bytes = canonical_json(second)
+        duplicate_digests = {
+            "first": hashlib.sha256(first_bytes.encode()).hexdigest(),
+            "second": hashlib.sha256(second_bytes.encode()).hexdigest(),
+        }
         if first_bytes != second_bytes:
             raise RuntimeError(f"nondeterministic duplicate: {spec.game_id}")
         report = reconcile_snapshot(spec, first, manifest)
@@ -1053,7 +1130,10 @@ def execute_stage(
             {
                 **report,
                 "pairing_id": spec.pairing_id,
-                "duplicate_sha256": hashlib.sha256(first_bytes.encode()).hexdigest(),
+                "duplicate_sha256": duplicate_digests["first"],
+                "duplicate_execution_digests": duplicate_digests,
+                "duplicate_byte_equivalent": duplicate_digests["first"]
+                == duplicate_digests["second"],
             }
         )
     aggregate_body = {
@@ -1068,6 +1148,49 @@ def execute_stage(
         "manifest": manifest,
         "aggregate": {**aggregate_body, "aggregate_digest": stable_digest(aggregate_body)},
     }
+
+
+def validate_stage_result_evidence(result: dict[str, object]) -> None:
+    """Independently fail closed on malformed serialized Stage evidence."""
+    aggregate = result.get("aggregate")
+    if not isinstance(aggregate, dict):
+        raise ValueError("Stage result lacks aggregate evidence")
+    for game in aggregate.get("games", []):
+        digests = game.get("duplicate_execution_digests")
+        if not (
+            isinstance(digests, dict)
+            and set(digests) == {"first", "second"}
+            and all(
+                isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value)
+                for value in digests.values()
+            )
+            and digests["first"] == digests["second"]
+            and game.get("duplicate_sha256") == digests["first"]
+            and game.get("duplicate_byte_equivalent") is True
+        ):
+            raise ValueError("Stage result duplicate evidence is malformed")
+        context_stops = _context_evidence_stops(
+            game.get("opportunity_contexts", []), game.get("opportunity_witnesses", [])
+        )
+        if context_stops:
+            raise ValueError("Stage result opportunity-context evidence is malformed")
+        report_body = {
+            key: value
+            for key, value in game.items()
+            if key
+            not in {
+                "report_digest",
+                "pairing_id",
+                "duplicate_sha256",
+                "duplicate_execution_digests",
+                "duplicate_byte_equivalent",
+            }
+        }
+        if stable_digest(report_body) != game.get("report_digest"):
+            raise ValueError("Stage result game digest is malformed")
+    aggregate_body = {key: value for key, value in aggregate.items() if key != "aggregate_digest"}
+    if stable_digest(aggregate_body) != aggregate.get("aggregate_digest"):
+        raise ValueError("Stage result aggregate digest is malformed")
 
 
 def plan(root: Path) -> dict[str, object]:
