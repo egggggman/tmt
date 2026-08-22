@@ -1579,7 +1579,13 @@ class Game:
                 controller=source.controller,
                 source_id=source.object_id,
                 subject_ids=(source.object_id,),
-                facts=(("instruction_source_zone", "graveyard"),),
+                facts=(
+                    ("fragment_hash", occurrence.fragment_hash),
+                    ("fragment_index", str(occurrence.fragment_index)),
+                    ("instruction_source_zone", "graveyard"),
+                    ("occurrence_id", occurrence.occurrence_id),
+                    ("semantic_key", occurrence.semantic_key),
+                ),
             )
             if self._unconstrained_creature_target_shape(occurrence.oracle_fragment):
                 candidates = tuple(
@@ -1597,6 +1603,7 @@ class Game:
                         facts=(
                             ("candidate_kind", "battlefield_creature"),
                             ("instruction_context_id", instruction_context.context_id),
+                            ("instruction_occurrence_id", occurrence.occurrence_id),
                         ),
                     )
 
@@ -1685,11 +1692,27 @@ class Game:
                 "timing",
             },
             "permanent_departed": {"destination_zone", "source_zone"},
-            "artifact_dependency": {"predicate"},
+            "artifact_dependency": {
+                "affected_object_id",
+                "artifact_count",
+                "counted_artifact_ids",
+                "excluded_source_id",
+                "predicate",
+            },
             "stack_response": {"response_cost", "target_is_creature"},
-            "target_choice_available": {"candidate_kind", "instruction_context_id"},
+            "target_choice_available": {
+                "candidate_kind",
+                "instruction_context_id",
+                "instruction_occurrence_id",
+            },
             "replacement_evaluation": {"counter_type", "quantity"},
-            "instruction_reached": {"instruction_source_zone"},
+            "instruction_reached": {
+                "fragment_hash",
+                "fragment_index",
+                "instruction_source_zone",
+                "occurrence_id",
+                "semantic_key",
+            },
         }
         if (
             context_kind not in required_facts
@@ -1768,8 +1791,13 @@ class Game:
         )
         self._next_opportunity_context_number += 1
         self.opportunity_contexts.append(context)
+        bound_occurrence_id = dict(facts).get("instruction_occurrence_id") or dict(facts).get(
+            "occurrence_id"
+        )
         for occurrence in tuple(self.semantic_occurrences):
-            if occurrence.object_id == source_id:
+            if occurrence.object_id == source_id and (
+                bound_occurrence_id is None or occurrence.occurrence_id == bound_occurrence_id
+            ):
                 self._witness_from_context(occurrence, context)
         return context
 
@@ -1803,16 +1831,18 @@ class Game:
     @staticmethod
     def _artifact_entry_dependency_shape(fragment: str, source_name: str) -> bool:
         """Return only artifact predicates reconstructed by one controlled artifact entry."""
-        return bool(
-            re.match(r"^Whenever an artifact you control enters,", fragment)
-            or re.fullmatch(
-                r"Equipped creature gets [^.]+ for each artifact you control\.", fragment
-            )
-            or re.fullmatch(
-                re.escape(source_name) + r" gets [^.]+ for each other artifact you control\.",
-                fragment,
-            )
-        )
+        return Game._artifact_dependency_mode(fragment, source_name) is not None
+
+    @staticmethod
+    def _artifact_dependency_mode(fragment: str, source_name: str) -> str | None:
+        if re.match(r"^Whenever an artifact you control enters,", fragment):
+            return "artifact_entry_trigger"
+        if re.fullmatch(
+            re.escape(source_name) + r" gets [^.]+ for each other artifact you control\.",
+            fragment,
+        ):
+            return "self_other_artifact_count"
+        return None
 
     @staticmethod
     def _unconstrained_creature_target_shape(fragment: str) -> bool:
@@ -2109,8 +2139,27 @@ class Game:
                 raise ValueError("departure context facts do not prove zone movement")
             if context.context_kind == "artifact_dependency":
                 event = self._rules_events.get(context.event_id or "")
+                mode = self._artifact_dependency_mode(fragment, source.card.name)
+                event_artifacts = (
+                    ()
+                    if event is None
+                    else tuple(
+                        sorted(
+                            object_id
+                            for object_id, controller in event.battlefield_authority
+                            if controller == context.controller
+                            and "Artifact" in self._objects[object_id].card.type_line
+                            and not (
+                                mode == "self_other_artifact_count"
+                                and object_id == context.source_id
+                            )
+                        )
+                    )
+                )
                 if not (
-                    context_facts.get("predicate") == "artifact_entered_under_control"
+                    mode in {"artifact_entry_trigger", "self_other_artifact_count"}
+                    and context_facts.get("predicate") == mode
+                    and (mode != "self_other_artifact_count" or "Artifact" in source.card.type_line)
                     and event is not None
                     and event.kind is RulesEventKind.CREATURE_ENTERED
                     and set(context.subject_ids).issubset(event.subject_ids)
@@ -2118,6 +2167,11 @@ class Game:
                         "Artifact" in self._objects[subject_id].card.type_line
                         for subject_id in context.subject_ids
                     )
+                    and context_facts.get("affected_object_id") == context.source_id
+                    and context_facts.get("artifact_count") == str(len(event_artifacts))
+                    and context_facts.get("counted_artifact_ids") == ",".join(event_artifacts)
+                    and context_facts.get("excluded_source_id")
+                    == (context.source_id if mode == "self_other_artifact_count" else "")
                 ):
                     raise ValueError("artifact context facts do not prove its predicate")
             if context.context_kind == "stack_response" and not (
@@ -2139,6 +2193,9 @@ class Game:
                     and prior.source_id == context.source_id
                     and prior.turn == context.turn
                     and prior.step == context.step
+                    and dict(prior.facts).get("occurrence_id")
+                    == context_facts.get("instruction_occurrence_id")
+                    == occurrence.occurrence_id
                     for prior in self.opportunity_contexts
                 )
             ):
@@ -2154,6 +2211,10 @@ class Game:
                 context_facts.get("instruction_source_zone") == "graveyard"
                 and context.subject_ids == (context.source_id,)
                 and context.subject_zones == ("graveyard",)
+                and context_facts.get("occurrence_id") == occurrence.occurrence_id
+                and context_facts.get("semantic_key") == occurrence.semantic_key
+                and context_facts.get("fragment_hash") == occurrence.fragment_hash
+                and context_facts.get("fragment_index") == str(occurrence.fragment_index)
             ):
                 raise ValueError("instruction context facts do not prove resolution reach")
         else:
@@ -2266,20 +2327,50 @@ class Game:
             if artifact_ids:
                 for occurrence in tuple(self.semantic_occurrences):
                     source = self._objects.get(occurrence.object_id)
-                    if (
-                        self._artifact_entry_dependency_shape(
+                    mode = (
+                        None
+                        if source is None
+                        else self._artifact_dependency_mode(
                             occurrence.oracle_fragment, source.card.name
                         )
+                    )
+                    if (
+                        mode is not None
                         and isinstance(source, Permanent)
                         and self.is_authoritative(source, "battlefield")
                         and source.controller == player_index
+                        and (
+                            mode != "self_other_artifact_count"
+                            or "Artifact" in source.card.type_line
+                        )
                     ):
+                        counted_ids = tuple(
+                            sorted(
+                                object_id
+                                for object_id, controller in event.battlefield_authority
+                                if controller == player_index
+                                and "Artifact" in self._objects[object_id].card.type_line
+                                and not (
+                                    mode == "self_other_artifact_count"
+                                    and object_id == source.object_id
+                                )
+                            )
+                        )
                         self._new_opportunity_context(
                             "artifact_dependency",
                             controller=source.controller,
                             source_id=source.object_id,
                             subject_ids=artifact_ids,
-                            facts=(("predicate", "artifact_entered_under_control"),),
+                            facts=(
+                                ("affected_object_id", source.object_id),
+                                ("artifact_count", str(len(counted_ids))),
+                                ("counted_artifact_ids", ",".join(counted_ids)),
+                                (
+                                    "excluded_source_id",
+                                    source.object_id if mode == "self_other_artifact_count" else "",
+                                ),
+                                ("predicate", mode),
+                            ),
                             event_id=event.event_id,
                         )
         return event

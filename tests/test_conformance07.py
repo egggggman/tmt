@@ -24,6 +24,16 @@ def register(current: Game, source):
     return current.semantic_occurrences[-1]
 
 
+def instruction_facts(occurrence):
+    return (
+        ("fragment_hash", occurrence.fragment_hash),
+        ("fragment_index", str(occurrence.fragment_index)),
+        ("instruction_source_zone", "graveyard"),
+        ("occurrence_id", occurrence.occurrence_id),
+        ("semantic_key", occurrence.semantic_key),
+    )
+
+
 def test_present_text_is_not_promoted_without_positive_opportunity_evidence():
     card = CardFact(
         "Dormant",
@@ -459,7 +469,7 @@ def test_creature_candidate_context_rejects_incompatible_target_and_choice_gramm
         controller=0,
         source_id=source.object_id,
         subject_ids=(source.object_id,),
-        facts=(("instruction_source_zone", "graveyard"),),
+        facts=instruction_facts(occurrence),
     )
     witnesses_before_target = len(current.opportunity_witnesses)
     context = current._new_opportunity_context(
@@ -470,6 +480,7 @@ def test_creature_candidate_context_rejects_incompatible_target_and_choice_gramm
         facts=(
             ("candidate_kind", "battlefield_creature"),
             ("instruction_context_id", instruction.context_id),
+            ("instruction_occurrence_id", occurrence.occurrence_id),
         ),
     )
     assert len(current.opportunity_witnesses) == witnesses_before_target
@@ -501,7 +512,7 @@ def test_exact_bounded_creature_target_context_still_promotes():
         controller=0,
         source_id=source.object_id,
         subject_ids=(source.object_id,),
-        facts=(("instruction_source_zone", "graveyard"),),
+        facts=instruction_facts(occurrence),
     )
     current._new_opportunity_context(
         "target_choice_available",
@@ -511,10 +522,113 @@ def test_exact_bounded_creature_target_context_still_promotes():
         facts=(
             ("candidate_kind", "battlefield_creature"),
             ("instruction_context_id", instruction.context_id),
+            ("instruction_occurrence_id", occurrence.occurrence_id),
         ),
     )
     assert current.opportunity_witnesses[-1].occurrence_id == occurrence.occurrence_id
     assert current.opportunity_witnesses[-1].cause_id != instruction.context_id
+
+
+def test_two_instructions_on_one_resolution_keep_exact_occurrence_provenance():
+    card = CardFact(
+        "Two Instructions",
+        "{2}",
+        2,
+        "Sorcery",
+        "Choose target creature. Draw a card.\nDestroy target creature.",
+        oracle_id="two-instructions",
+    )
+    current = game()
+    hand_source = current.set_hand_for_testing(0, [card])[0]
+    source = current.move_object(hand_source, "graveyard", reason="test_resolution")
+    current.report_unsupported_abilities(0, source.card, source=source)
+    occurrences = [
+        item for item in current.semantic_occurrences if item.object_id == source.object_id
+    ]
+    assert len(occurrences) == 2
+    permanent(current, BEAR, 1)
+    current._witness_resolved_unsupported_instructions(source)
+
+    instruction_contexts = {
+        dict(item.facts)["occurrence_id"]: item
+        for item in current.opportunity_contexts
+        if item.context_kind == "instruction_reached"
+    }
+    target_contexts = {
+        dict(item.facts)["instruction_occurrence_id"]: item
+        for item in current.opportunity_contexts
+        if item.context_kind == "target_choice_available"
+    }
+    assert set(instruction_contexts) == {item.occurrence_id for item in occurrences}
+    assert set(target_contexts) == set(instruction_contexts)
+    assert all(
+        dict(target_contexts[item.occurrence_id].facts)["instruction_context_id"]
+        == instruction_contexts[item.occurrence_id].context_id
+        for item in occurrences
+    )
+
+    second = occurrences[1]
+    wrong = instruction_contexts[occurrences[0].occurrence_id]
+    with pytest.raises(ValueError, match="applicability|candidates|resolution reach"):
+        current._record_opportunity(
+            second,
+            cause_kind="authoritative_context",
+            cause_id=wrong.context_id,
+            cause_subject_ids=wrong.subject_ids,
+        )
+
+
+def test_source_specific_artifact_count_freezes_count_and_excludes_source():
+    source_card = CardFact(
+        "Adaptive Machine",
+        "{2}",
+        2,
+        "Artifact Creature — Robot",
+        "Adaptive Machine gets +1/+0 for each other artifact you control.",
+        1,
+        2,
+        oracle_id="adaptive-machine",
+    )
+    artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)
+    current = game()
+    source = permanent(current, source_card)
+    register(current, source)
+    first = permanent(current, artifact)
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (first.object_id,))
+    context = current.opportunity_contexts[-1]
+    facts = dict(context.facts)
+    assert facts == {
+        "affected_object_id": source.object_id,
+        "artifact_count": "1",
+        "counted_artifact_ids": first.object_id,
+        "excluded_source_id": source.object_id,
+        "predicate": "self_other_artifact_count",
+    }
+    assert source.object_id not in facts["counted_artifact_ids"].split(",")
+    current.check_invariants()
+
+
+def test_unequipped_equipment_characteristic_remains_present_unreached():
+    equipment = CardFact(
+        "Counterweight",
+        "{2}",
+        2,
+        "Artifact — Equipment",
+        "Equipped creature gets +1/+0 for each artifact you control.",
+        oracle_id="counterweight",
+    )
+    artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)
+    current = game()
+    source = permanent(current, equipment)
+    occurrence = register(current, source)
+    entering = permanent(current, artifact)
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (entering.object_id,))
+    assert not any(
+        item.occurrence_id == occurrence.occurrence_id for item in current.opportunity_witnesses
+    )
+    assert current.snapshot()["conformance"]["semantic_occurrences"][-1]["classification"] == (
+        "present_unreached"
+    )
 
 
 def test_fabricated_context_and_mismatched_fragment_fail_invariants():
