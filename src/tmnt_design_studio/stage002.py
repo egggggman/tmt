@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
-from tmnt_design_studio.card_interpreter07 import CardInterpreter
+from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import semantic_key
 from tmnt_design_studio.engine07 import Game, load_deck, load_facts
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
@@ -74,6 +74,43 @@ def canonical_json(value: object) -> str:
 
 def stable_digest(value: object) -> str:
     return hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
+
+
+def _token_definition_identity(definition: TokenDefinition) -> str:
+    """Identify authoritative token characteristics without inventing an Oracle identity."""
+    return "token-definition:" + stable_digest(
+        {
+            "name": definition.name,
+            "type_line": definition.type_line,
+            "colors": list(definition.colors),
+            "power": definition.power,
+            "toughness": definition.toughness,
+            "oracle_text": definition.oracle_text,
+            "keywords": list(definition.keywords),
+            "mana_cost": definition.mana_cost,
+            "mana_value": definition.mana_value,
+        }
+    )
+
+
+def _runtime_token_semantic_key(
+    definition: TokenDefinition,
+    *,
+    object_id: str,
+    owner: int,
+    creation_event_id: str,
+    fragment_index: int,
+    fragment: str,
+) -> str:
+    runtime_identity = "runtime-token:" + stable_digest(
+        {
+            "token_definition_identity": _token_definition_identity(definition),
+            "object_id": object_id,
+            "owner": owner,
+            "creation_event_id": creation_event_id,
+        }
+    )
+    return semantic_key(runtime_identity, 0, fragment_index, fragment)
 
 
 def stage_games() -> tuple[GameSpec, ...]:
@@ -391,8 +428,12 @@ def _add_created_token_presence(
             if not isinstance(object_id, str) or object_id in tracked:
                 continue
             obj = game._objects.get(object_id)
-            if obj is None or not obj.is_token:
+            if obj is None or not obj.is_token or not isinstance(obj.card, TokenDefinition):
                 raise RuntimeError("token creation evidence lacks its authoritative runtime object")
+            event_id = event.get("event_id")
+            if not isinstance(event_id, str):
+                raise RuntimeError("token creation evidence lacks its authoritative event identity")
+            definition_identity = _token_definition_identity(obj.card)
             fragments = game._semantic_fragments(obj.card)
             for index, fragment in enumerate(fragments):
                 initial.append(
@@ -402,7 +443,17 @@ def _add_created_token_presence(
                         "owner": obj.owner,
                         "card": obj.card.name,
                         "is_token": True,
-                        "semantic_key": semantic_key(obj.card.oracle_id, 0, index, fragment),
+                        "token_definition_identity": definition_identity,
+                        "creation_event_id": event_id,
+                        "creation_source_id": event.get("source_id"),
+                        "semantic_key": _runtime_token_semantic_key(
+                            obj.card,
+                            object_id=object_id,
+                            owner=obj.owner,
+                            creation_event_id=event_id,
+                            fragment_index=index,
+                            fragment=fragment,
+                        ),
                         "oracle_fragment": fragment,
                         "zone_history": [
                             {

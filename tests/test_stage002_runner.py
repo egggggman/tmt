@@ -6,12 +6,16 @@ from pathlib import Path
 
 import pytest
 
+from tmnt_design_studio.card_interpreter07 import TokenCreationProgram, TokenDefinition
+from tmnt_design_studio.engine07 import CardFact, Game
 from tmnt_design_studio.stage002 import (
     PAIRINGS,
     DeckSpec,
     GameSpec,
+    _add_created_token_presence,
     _checked_action,
     _finish_presence,
+    _token_definition_identity,
     build_deck_manifest,
     build_stage_manifest,
     canonical_json,
@@ -25,6 +29,24 @@ from tmnt_design_studio.stage002 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+LAND = CardFact("Plains", "", 0, "Basic Land — Plains", oracle_id="stage002-land")
+
+
+def _token_game() -> Game:
+    return Game(([LAND] * 60, [LAND] * 60), seed=83)
+
+
+def _created_token_presence(definition: TokenDefinition) -> tuple[Game, list[dict[str, object]]]:
+    current = _token_game()
+    current.create_tokens(
+        0,
+        TokenCreationProgram(definition, 1),
+        source_card="Stage 002 fixture",
+        oracle_fragment="Create a fixture token.",
+    )
+    presence: list[dict[str, object]] = []
+    _add_created_token_presence(current, presence, current.events)
+    return current, presence
 
 
 def _snapshot(*, context: bool = False, witness: bool = False) -> dict[str, object]:
@@ -396,6 +418,109 @@ def test_zone_history_follows_new_object_identity_deterministically():
         "stack",
         "graveyard",
     ]
+
+
+def test_created_token_presence_uses_authoritative_runtime_namespace():
+    definition = TokenDefinition(
+        "Provision",
+        "Artifact — Food",
+        oracle_text="{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+    )
+    current, presence = _created_token_presence(definition)
+    token = next(obj for obj in current._objects.values() if getattr(obj, "is_token", False))
+    event = next(item for item in current.events if item["event"] == "tokens_created")
+
+    assert len(presence) == 1
+    record = presence[0]
+    assert record["initial_object_id"] == token.object_id
+    assert record["owner"] == token.owner
+    assert record["creation_event_id"] == event["event_id"]
+    assert record["token_definition_identity"] == _token_definition_identity(definition)
+    assert record["oracle_fragment"] == definition.oracle_text
+    assert str(record["semantic_key"]).startswith("runtime-token:")
+    assert "oracle" not in record["token_definition_identity"]
+
+
+def test_created_token_presence_is_deterministic_and_definition_distinct():
+    first = TokenDefinition(
+        "Drone",
+        "Artifact Creature — Robot",
+        power=1,
+        toughness=1,
+        oracle_text="Vigilance",
+        keywords=("Vigilance",),
+    )
+    distinguishable = TokenDefinition(
+        "Drone",
+        "Artifact Creature — Robot",
+        power=1,
+        toughness=1,
+        oracle_text="Vigilance",
+        keywords=("Vigilance", "Trample"),
+    )
+
+    _game_a, presence_a = _created_token_presence(first)
+    _game_b, presence_b = _created_token_presence(first)
+    _game_c, presence_c = _created_token_presence(distinguishable)
+
+    assert canonical_json(presence_a) == canonical_json(presence_b)
+    assert presence_a[0]["semantic_key"] != presence_c[0]["semantic_key"]
+    assert presence_a[0]["token_definition_identity"] != presence_c[0]["token_definition_identity"]
+
+
+def test_created_token_presence_preserves_zone_lineage_after_token_ceases():
+    definition = TokenDefinition(
+        "Drone",
+        "Artifact Creature — Robot",
+        power=1,
+        toughness=1,
+        oracle_text="Vigilance",
+        keywords=("Vigilance",),
+    )
+    current = _token_game()
+    token = current.create_tokens(
+        0,
+        TokenCreationProgram(definition, 1),
+        source_card="Stage 002 fixture",
+        oracle_fragment="Create a fixture token.",
+    )[0]
+    graveyard_object = current.put_into_graveyard(token)
+    current.check_state_based_actions()
+    presence: list[dict[str, object]] = []
+
+    _add_created_token_presence(current, presence, current.events)
+    finished = _finish_presence(presence, current.events)
+
+    assert finished[0]["object_ids"] == [token.object_id, graveyard_object.object_id]
+    assert [item["zone"] for item in finished[0]["zone_history"]] == [
+        "battlefield",
+        "graveyard",
+    ]
+    assert any(item["event"] == "token_ceased" for item in current.events)
+
+
+def test_runtime_token_namespace_reconciles_without_frozen_oracle_identity():
+    definition = TokenDefinition(
+        "Provision",
+        "Artifact — Food",
+        oracle_text="{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+    )
+    current, presence = _created_token_presence(definition)
+    snapshot = _snapshot()
+    snapshot["events"] = current.snapshot()["events"]
+    snapshot["stage002_presence"] = presence
+    snapshot["conformance"] = {
+        "semantic_occurrences": [],
+        "opportunity_witnesses": [],
+        "opportunity_contexts": [],
+        "executed_references": [],
+        "stop_records": [],
+    }
+
+    report = reconcile_snapshot(stage_games()[0], snapshot, {"decks": []})
+
+    assert report["stop_records"] == []
+    assert report["presence"][0]["classification"] == "present_unreached"
 
 
 def test_parameterized_runner_preserves_acceptance_001_gameplay():
