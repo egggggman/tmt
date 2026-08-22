@@ -343,6 +343,7 @@ class ScryEvidence:
     bottom_ids: tuple[str, ...]
     source_card: str
     oracle_fragment: str
+    source_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -1250,6 +1251,7 @@ class Game:
         controller: int | None = None,
         source_card: str,
         oracle_fragment: str,
+        source_id: str | None = None,
     ) -> tuple[Permanent, ...]:
         """Atomically create one deterministic batch of Oracle-derived token permanents."""
         if creator_index not in range(2):
@@ -1257,6 +1259,8 @@ class Game:
         destination_controller = creator_index if controller is None else controller
         if destination_controller not in range(2):
             raise ValueError("token controller is invalid")
+        if source_id is not None and source_id not in self._objects:
+            raise ValueError("token source identity is not authoritative")
         if not isinstance(program, TokenCreationProgram) or not program.executable:
             raise ValueError("token creation program is not executable")
         assert program.definition is not None and program.quantity is not None
@@ -1308,6 +1312,7 @@ class Game:
             quantity=program.quantity,
             object_ids=list(object_ids),
             source_card=source_card,
+            source_id=source_id,
             oracle_fragment=oracle_fragment,
         )
         creatures = tuple(token for token in created if token.card.is_creature)
@@ -2807,6 +2812,7 @@ class Game:
         *,
         source_card: str,
         oracle_fragment: str,
+        source_id: str | None = None,
     ) -> ScryOption:
         """Transactionally perform one fixed-number Scry using authoritative library objects."""
         if player_index not in range(2):
@@ -2871,6 +2877,7 @@ class Game:
             choice.bottom_ids,
             source_card,
             oracle_fragment,
+            source_id,
         )
         self.scry_evidence.append(evidence)
         self.log(
@@ -2883,6 +2890,7 @@ class Game:
             top_ids=list(evidence.top_ids),
             bottom_ids=list(evidence.bottom_ids),
             source_card=evidence.source_card,
+            source_id=evidence.source_id,
             oracle_fragment=evidence.oracle_fragment,
         )
         return choice
@@ -2975,6 +2983,7 @@ class Game:
                 coverage.program,
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
+                source_id=ability.source_id,
             )
         elif ability.effect is TriggerEffect.DEAL_DAMAGE:
             semantics = self.interpreter.damage_semantic_coverage(
@@ -3020,6 +3029,7 @@ class Game:
                 semantics.program,
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
+                source_id=ability.source_id,
             )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
@@ -3122,6 +3132,7 @@ class Game:
                         token_coverage.program,
                         source_card=ability.source_card.name,
                         oracle_fragment=mode,
+                        source_id=ability.source_id,
                     )
                 elif (
                     (
@@ -3138,6 +3149,7 @@ class Game:
                         scry_coverage.program,
                         source_card=ability.source_card.name,
                         oracle_fragment=mode,
+                        source_id=ability.source_id,
                     )
                 else:
                     self.log(
@@ -3178,6 +3190,8 @@ class Game:
             stack_object_id=ability.object_id,
             event_id=ability.event.event_id,
             source=ability.source_card.name,
+            source_id=ability.source_id,
+            oracle_fragment=ability.oracle_fragment,
             effect=ability.effect.value,
         )
 
@@ -6434,6 +6448,9 @@ class Game:
         for item in self.activation_evidence:
             if item.resolved:
                 add("activated_ability", item.stack_object_id, item.source_id, item.oracle_fragment)
+        for item in self.food_activation_evidence:
+            if item.resolved:
+                add("food_activation", item.stack_object_id, item.source_id, item.oracle_fragment)
         for item in self.sneak_evidence:
             if item.resolved_object_id is not None:
                 add("sneak", item.stack_object_id, item.hand_object_id, item.oracle_fragment)
@@ -6441,8 +6458,56 @@ class Game:
             add("hand_bottom_draw", item.event_id, item.source_id, item.oracle_fragment)
         for item in self.discard_draw_evidence:
             add("discard_draw", item.event_id, item.source_id, item.oracle_fragment)
+        for item in self.lifelink_evidence:
+            add("lifelink", item.event_id, item.source_id, "Lifelink")
+        for evidence in self.combat_damage_evidence:
+            for assignment in evidence.assignments:
+                source = self._objects.get(assignment.source_id)
+                if not isinstance(source, Permanent):
+                    continue
+                if assignment.trample:
+                    add(
+                        "trample",
+                        f"combat:{evidence.sequence}:{assignment.source_id}:trample",
+                        assignment.source_id,
+                        "Trample",
+                    )
+                for keyword in ("First strike", "Double strike"):
+                    if keyword in self._semantic_fragments(source.card):
+                        add(
+                            "strike_damage_step",
+                            f"combat:{evidence.sequence}:{assignment.source_id}:{keyword}",
+                            assignment.source_id,
+                            keyword,
+                        )
+        for event in self.events:
+            if event.get("event") in {
+                "damage_dealt",
+                "scry_committed",
+                "tokens_created",
+                "trigger_resolved",
+            }:
+                source_id = event.get("source_id")
+                fragment = event.get("oracle_fragment")
+                evidence_id = event.get("event_id") or event.get("stack_object_id")
+                if all(isinstance(value, str) for value in (source_id, fragment, evidence_id)):
+                    add(
+                        str(event["event"]),
+                        str(evidence_id),
+                        str(source_id),
+                        str(fragment),
+                    )
+        unique = {
+            (
+                str(item["evidence_kind"]),
+                str(item["evidence_id"]),
+                str(item["source_id"]),
+                str(item["semantic_key"]),
+            ): item
+            for item in references
+        }
         return sorted(
-            references,
+            unique.values(),
             key=lambda item: (str(item["evidence_kind"]), str(item["evidence_id"])),
         )
 
@@ -6612,6 +6677,20 @@ class Game:
                 }
             ),
             "pending_triggers": [trigger.trigger_id for trigger in self.pending_triggers],
+            "scry": [
+                {
+                    "event_id": item.event_id,
+                    "player_index": item.player_index,
+                    "requested": item.requested,
+                    "inspected_ids": list(item.inspected_ids),
+                    "top_ids": list(item.top_ids),
+                    "bottom_ids": list(item.bottom_ids),
+                    "source_card": item.source_card,
+                    "source_id": item.source_id,
+                    "oracle_fragment": item.oracle_fragment,
+                }
+                for item in self.scry_evidence
+            ],
             "combat_damage": {
                 "step_kind": self._combat_damage_step_kind.value,
                 "sequence": self._combat_damage_step_number,
