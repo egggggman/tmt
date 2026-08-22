@@ -1574,14 +1574,14 @@ class Game:
         for occurrence in tuple(self.semantic_occurrences):
             if occurrence.object_id != source.object_id:
                 continue
-            self._new_opportunity_context(
+            instruction_context = self._new_opportunity_context(
                 "instruction_reached",
                 controller=source.controller,
                 source_id=source.object_id,
                 subject_ids=(source.object_id,),
                 facts=(("instruction_source_zone", "graveyard"),),
             )
-            if re.search(r"\btarget\b|\bchoose\b|\bup to\b", occurrence.oracle_fragment, re.I):
+            if self._unconstrained_creature_target_shape(occurrence.oracle_fragment):
                 candidates = tuple(
                     permanent.object_id
                     for player in self.players
@@ -1594,7 +1594,10 @@ class Game:
                         controller=source.controller,
                         source_id=source.object_id,
                         subject_ids=candidates,
-                        facts=(("candidate_kind", "battlefield_creature"),),
+                        facts=(
+                            ("candidate_kind", "battlefield_creature"),
+                            ("instruction_context_id", instruction_context.context_id),
+                        ),
                     )
 
     def _register_semantic_occurrence(
@@ -1684,7 +1687,7 @@ class Game:
             "permanent_departed": {"destination_zone", "source_zone"},
             "artifact_dependency": {"predicate"},
             "stack_response": {"response_cost", "target_is_creature"},
-            "target_choice_available": {"candidate_kind"},
+            "target_choice_available": {"candidate_kind", "instruction_context_id"},
             "replacement_evaluation": {"counter_type", "quantity"},
             "instruction_reached": {"instruction_source_zone"},
         }
@@ -1779,11 +1782,11 @@ class Game:
             "permanent_departed": bool(
                 re.search(r"leaves the battlefield|\bdies\b|put into a graveyard", fragment)
             ),
-            "artifact_dependency": "artifact" in fragment.lower(),
-            "stack_response": bool(re.match(r"^Counter target (?:noncreature )?spell", fragment)),
-            "target_choice_available": bool(
-                re.search(r"\btarget\b|\bchoose\b|\bup to\b", fragment, re.IGNORECASE)
+            "artifact_dependency": self._artifact_entry_dependency_shape(
+                fragment, self._objects[occurrence.object_id].card.name
             ),
+            "stack_response": bool(re.match(r"^Counter target (?:noncreature )?spell", fragment)),
+            "target_choice_available": self._unconstrained_creature_target_shape(fragment),
             "replacement_evaluation": bool(
                 re.search(r"\bwould\b|\binstead\b", fragment, re.IGNORECASE)
             ),
@@ -1796,6 +1799,57 @@ class Game:
                 cause_id=context.context_id,
                 cause_subject_ids=context.subject_ids,
             )
+
+    @staticmethod
+    def _artifact_entry_dependency_shape(fragment: str, source_name: str) -> bool:
+        """Return only artifact predicates reconstructed by one controlled artifact entry."""
+        return bool(
+            re.match(r"^Whenever an artifact you control enters,", fragment)
+            or re.fullmatch(
+                r"Equipped creature gets [^.]+ for each artifact you control\.", fragment
+            )
+            or re.fullmatch(
+                re.escape(source_name) + r" gets [^.]+ for each other artifact you control\.",
+                fragment,
+            )
+        )
+
+    @staticmethod
+    def _unconstrained_creature_target_shape(fragment: str) -> bool:
+        """Return only one unconstrained battlefield-creature target instruction."""
+        lowered = fragment.lower()
+        if len(re.findall(r"\btarget\b", lowered)) != 1 or "target creature" not in lowered:
+            return False
+        incompatible = (
+            "when ",
+            "whenever ",
+            "at the beginning",
+            "if ",
+            "artifact",
+            "enchantment",
+            "player",
+            "spell",
+            "target card",
+            "creature card",
+            "graveyard",
+            "you control",
+            "opponent controls",
+            "with flying",
+            "mana value",
+            "power ",
+            "toughness",
+            "another target",
+            "other target",
+            "up to",
+            "one or more",
+            "and/or",
+            "two target",
+            "target permanent",
+            "any target",
+            "choose a ",
+            ":",
+        )
+        return not any(marker in lowered for marker in incompatible)
 
     def _record_opportunity(
         self,
@@ -2015,13 +2069,13 @@ class Game:
                 "permanent_departed": bool(
                     re.search(r"leaves the battlefield|\bdies\b|put into a graveyard", fragment)
                 ),
-                "artifact_dependency": "artifact" in fragment.lower(),
+                "artifact_dependency": self._artifact_entry_dependency_shape(
+                    fragment, source.card.name
+                ),
                 "stack_response": bool(
                     re.match(r"^Counter target (?:noncreature )?spell", fragment)
                 ),
-                "target_choice_available": bool(
-                    re.search(r"\btarget\b|\bchoose\b|\bup to\b", fragment, re.IGNORECASE)
-                ),
+                "target_choice_available": self._unconstrained_creature_target_shape(fragment),
                 "replacement_evaluation": bool(
                     re.search(r"\bwould\b|\binstead\b", fragment, re.IGNORECASE)
                 ),
@@ -2076,8 +2130,17 @@ class Game:
                 raise ValueError("response context facts do not prove Stack availability")
             if context.context_kind == "target_choice_available" and not (
                 context_facts.get("candidate_kind") == "battlefield_creature"
+                and source_zone == "graveyard"
                 and context.subject_ids
                 and all(zone == "battlefield" for zone in context.subject_zones)
+                and any(
+                    prior.context_id == context_facts.get("instruction_context_id")
+                    and prior.context_kind == "instruction_reached"
+                    and prior.source_id == context.source_id
+                    and prior.turn == context.turn
+                    and prior.step == context.step
+                    for prior in self.opportunity_contexts
+                )
             ):
                 raise ValueError("target/choice context facts do not prove candidates")
             if context.context_kind == "replacement_evaluation" and not (
@@ -2204,7 +2267,9 @@ class Game:
                 for occurrence in tuple(self.semantic_occurrences):
                     source = self._objects.get(occurrence.object_id)
                     if (
-                        "artifact" in occurrence.oracle_fragment.lower()
+                        self._artifact_entry_dependency_shape(
+                            occurrence.oracle_fragment, source.card.name
+                        )
                         and isinstance(source, Permanent)
                         and self.is_authoritative(source, "battlefield")
                         and source.controller == player_index

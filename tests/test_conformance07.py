@@ -393,6 +393,130 @@ def test_artifact_and_replacement_contexts_require_their_authoritative_predicate
     }
 
 
+@pytest.mark.parametrize(
+    "fragment",
+    [
+        "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)",
+        "Destroy target artifact.",
+        "{2}, Sacrifice this artifact: Draw a card.",
+        "Create a token that's a copy of target artifact you control.",
+        "Equip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)",
+    ],
+)
+def test_artifact_entry_does_not_promote_unrelated_artifact_semantics(fragment):
+    source_card = CardFact(
+        "Artifact Text",
+        "{1}{U}",
+        2,
+        "Creature — Turtle",
+        fragment,
+        1,
+        3,
+        oracle_id=f"artifact-text-{fragment}",
+    )
+    artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)
+    current = game()
+    source = permanent(current, source_card)
+    occurrence = register(current, source)
+    entering = permanent(current, artifact)
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (entering.object_id,))
+    assert not any(
+        item.occurrence_id == occurrence.occurrence_id for item in current.opportunity_witnesses
+    )
+    assert not any(item.source_id == source.object_id for item in current.opportunity_contexts)
+
+
+@pytest.mark.parametrize(
+    "fragment",
+    [
+        "Target player draws a card.",
+        "Destroy target artifact.",
+        "Counter target spell.",
+        "Return target creature card from your graveyard to your hand.",
+        "Choose a color.",
+        "Put a counter on target creature you control.",
+        "Destroy target creature with flying.",
+        "Destroy up to one target creature.",
+        "Two target creatures get +1/+1 until end of turn.",
+    ],
+)
+def test_creature_candidate_context_rejects_incompatible_target_and_choice_grammar(fragment):
+    source_card = CardFact(
+        "Choice Text",
+        "{1}",
+        1,
+        "Sorcery",
+        fragment,
+        oracle_id=f"choice-text-{fragment}",
+    )
+    current = game()
+    hand_source = current.set_hand_for_testing(0, [source_card])[0]
+    source = current.move_object(hand_source, "graveyard", reason="test_resolution")
+    occurrence = register(current, source)
+    candidate = permanent(current, BEAR, 1)
+    instruction = current._new_opportunity_context(
+        "instruction_reached",
+        controller=0,
+        source_id=source.object_id,
+        subject_ids=(source.object_id,),
+        facts=(("instruction_source_zone", "graveyard"),),
+    )
+    witnesses_before_target = len(current.opportunity_witnesses)
+    context = current._new_opportunity_context(
+        "target_choice_available",
+        controller=0,
+        source_id=source.object_id,
+        subject_ids=(candidate.object_id,),
+        facts=(
+            ("candidate_kind", "battlefield_creature"),
+            ("instruction_context_id", instruction.context_id),
+        ),
+    )
+    assert len(current.opportunity_witnesses) == witnesses_before_target
+    with pytest.raises(ValueError, match="applicability"):
+        current._record_opportunity(
+            occurrence,
+            cause_kind="authoritative_context",
+            cause_id=context.context_id,
+            cause_subject_ids=context.subject_ids,
+        )
+
+
+def test_exact_bounded_creature_target_context_still_promotes():
+    card = CardFact(
+        "Choice Text",
+        "{1}",
+        1,
+        "Sorcery",
+        "Choose target creature. Draw a card.",
+        oracle_id="bounded-creature-choice",
+    )
+    current = game()
+    hand_source = current.set_hand_for_testing(0, [card])[0]
+    source = current.move_object(hand_source, "graveyard", reason="test_resolution")
+    occurrence = register(current, source)
+    candidate = permanent(current, BEAR, 1)
+    instruction = current._new_opportunity_context(
+        "instruction_reached",
+        controller=0,
+        source_id=source.object_id,
+        subject_ids=(source.object_id,),
+        facts=(("instruction_source_zone", "graveyard"),),
+    )
+    current._new_opportunity_context(
+        "target_choice_available",
+        controller=0,
+        source_id=source.object_id,
+        subject_ids=(candidate.object_id,),
+        facts=(
+            ("candidate_kind", "battlefield_creature"),
+            ("instruction_context_id", instruction.context_id),
+        ),
+    )
+    assert current.opportunity_witnesses[-1].occurrence_id == occurrence.occurrence_id
+    assert current.opportunity_witnesses[-1].cause_id != instruction.context_id
+
+
 def test_fabricated_context_and_mismatched_fragment_fail_invariants():
     card = CardFact(
         "Device",
