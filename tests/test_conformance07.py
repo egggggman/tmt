@@ -89,6 +89,58 @@ def test_etb_and_attack_witnesses_join_authoritative_events_to_exact_fragments()
     assert current.opportunity_witnesses[-1].cause_id == attack.event_id
 
 
+def test_existing_event_join_skips_stale_matching_self_etb_candidate():
+    card = CardFact(
+        "Visitor",
+        "{1}{W}",
+        2,
+        "Creature — Turtle",
+        "When Visitor enters, draw a card.",
+        2,
+        2,
+        oracle_id="stale-etb-visitor",
+    )
+    current = game()
+    source = permanent(current, card)
+    stale = current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (source.object_id,))
+    other = permanent(current, BEAR)
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (other.object_id,))
+
+    occurrence = register(current, source)
+
+    assert current._event_number(stale.event_id) < occurrence.registration_event_cursor
+    assert not any(
+        item.occurrence_id == occurrence.occurrence_id for item in current.opportunity_witnesses
+    )
+
+
+def test_existing_event_join_preserves_exact_just_completed_self_etb():
+    card = CardFact(
+        "Visitor",
+        "{1}{W}",
+        2,
+        "Creature — Turtle",
+        "When Visitor enters, draw a card.",
+        2,
+        2,
+        oracle_id="current-etb-visitor",
+    )
+    current = game()
+    source = permanent(current, card)
+    event = current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (source.object_id,))
+
+    occurrence = register(current, source)
+
+    assert current._event_number(event.event_id) == occurrence.registration_event_cursor
+    witnesses = [
+        item
+        for item in current.opportunity_witnesses
+        if item.occurrence_id == occurrence.occurrence_id
+    ]
+    assert len(witnesses) == 1
+    assert witnesses[0].cause_id == event.event_id
+
+
 def test_alliance_requires_another_controlled_creature_and_deduplicates_one_event():
     card = CardFact(
         "Ally",

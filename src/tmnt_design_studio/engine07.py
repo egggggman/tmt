@@ -2272,6 +2272,7 @@ class Game:
                 event.kind is RulesEventKind.CREATURE_ENTERED
                 and occurrence.object_id in event.subject_ids
                 and bool(re.match(r"^When .+ enters,", occurrence.oracle_fragment))
+                and self._event_number(event.event_id) == occurrence.registration_event_cursor
             ):
                 self._witness_from_event(occurrence, event)
 
