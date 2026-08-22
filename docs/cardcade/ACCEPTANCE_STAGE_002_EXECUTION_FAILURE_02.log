@@ -1,0 +1,22 @@
+Acceptance Stage #002 fresh execution failure #2
+Execution baseline: 41cde4871b8346b72104b11606f46b89c542e1d7
+Execution branch: agent/cardcade-stage-002-execution-02
+Command: bundled Python scripts/run_acceptance_stage_002.py --execute --output docs/cardcade/ACCEPTANCE_STAGE_002_RESULTS.json
+Exit code: 1
+Result artifact written: no
+
+Traceback (most recent call last):
+  File "C:\projects\tmt\scripts\run_acceptance_stage_002.py", line 27, in <module>
+    main()
+  File "C:\projects\tmt\scripts\run_acceptance_stage_002.py", line 18, in main
+    result = execute_stage(root) if args.execute else plan(root)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 888, in execute_stage
+    first = runner(root, spec, None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 516, in run_game
+    _add_created_token_presence(game, presence, snapshot["events"])
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 405, in _add_created_token_presence
+    "semantic_key": semantic_key(obj.card.oracle_id, 0, index, fragment),
+                                 ^^^^^^^^^^^^^^^^^^
+AttributeError: 'TokenDefinition' object has no attribute 'oracle_id'

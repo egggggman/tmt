@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
-from tmnt_design_studio.card_interpreter07 import CardInterpreter
+from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import semantic_key
 from tmnt_design_studio.engine07 import Game, load_deck, load_facts
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
@@ -74,6 +74,73 @@ def canonical_json(value: object) -> str:
 
 def stable_digest(value: object) -> str:
     return hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
+
+
+def _token_definition_identity(definition: TokenDefinition) -> str:
+    """Identify authoritative token characteristics without inventing an Oracle identity."""
+    return "token-definition:" + stable_digest(
+        {
+            "name": definition.name,
+            "type_line": definition.type_line,
+            "colors": list(definition.colors),
+            "power": definition.power,
+            "toughness": definition.toughness,
+            "oracle_text": definition.oracle_text,
+            "keywords": list(definition.keywords),
+            "mana_cost": definition.mana_cost,
+            "mana_value": definition.mana_value,
+        }
+    )
+
+
+def _runtime_token_semantic_key(
+    definition: TokenDefinition,
+    *,
+    object_id: str,
+    owner: int,
+    creation_event_id: str,
+    fragment_index: int,
+    fragment: str,
+) -> str:
+    runtime_identity = "runtime-token:" + stable_digest(
+        {
+            "token_definition_identity": _token_definition_identity(definition),
+            "object_id": object_id,
+            "owner": owner,
+            "creation_event_id": creation_event_id,
+        }
+    )
+    return semantic_key(runtime_identity, 0, fragment_index, fragment)
+
+
+def _runtime_token_key_from_presence(record: dict[str, object]) -> str | None:
+    """Reconstruct one runtime-token key solely from its immutable presence facts."""
+    definition_identity = record.get("token_definition_identity")
+    object_id = record.get("initial_object_id")
+    owner = record.get("owner")
+    event_id = record.get("creation_event_id")
+    fragment_index = record.get("fragment_index")
+    fragment = record.get("oracle_fragment")
+    if not (
+        isinstance(definition_identity, str)
+        and definition_identity.startswith("token-definition:")
+        and isinstance(object_id, str)
+        and isinstance(owner, int)
+        and isinstance(event_id, str)
+        and isinstance(fragment_index, int)
+        and fragment_index >= 0
+        and isinstance(fragment, str)
+    ):
+        return None
+    runtime_identity = "runtime-token:" + stable_digest(
+        {
+            "token_definition_identity": definition_identity,
+            "object_id": object_id,
+            "owner": owner,
+            "creation_event_id": event_id,
+        }
+    )
+    return semantic_key(runtime_identity, 0, fragment_index, fragment)
 
 
 def stage_games() -> tuple[GameSpec, ...]:
@@ -391,8 +458,12 @@ def _add_created_token_presence(
             if not isinstance(object_id, str) or object_id in tracked:
                 continue
             obj = game._objects.get(object_id)
-            if obj is None or not obj.is_token:
+            if obj is None or not obj.is_token or not isinstance(obj.card, TokenDefinition):
                 raise RuntimeError("token creation evidence lacks its authoritative runtime object")
+            event_id = event.get("event_id")
+            if not isinstance(event_id, str):
+                raise RuntimeError("token creation evidence lacks its authoritative event identity")
+            definition_identity = _token_definition_identity(obj.card)
             fragments = game._semantic_fragments(obj.card)
             for index, fragment in enumerate(fragments):
                 initial.append(
@@ -400,9 +471,21 @@ def _add_created_token_presence(
                         "initial_object_id": object_id,
                         "object_ids": [object_id],
                         "owner": obj.owner,
+                        "creation_controller": obj.controller,
                         "card": obj.card.name,
                         "is_token": True,
-                        "semantic_key": semantic_key(obj.card.oracle_id, 0, index, fragment),
+                        "token_definition_identity": definition_identity,
+                        "creation_event_id": event_id,
+                        "creation_source_id": event.get("source_id"),
+                        "fragment_index": index,
+                        "semantic_key": _runtime_token_semantic_key(
+                            obj.card,
+                            object_id=object_id,
+                            owner=obj.owner,
+                            creation_event_id=event_id,
+                            fragment_index=index,
+                            fragment=fragment,
+                        ),
                         "oracle_fragment": fragment,
                         "zone_history": [
                             {
@@ -622,6 +705,71 @@ def _authoritative_execution_index(
     return result
 
 
+def _runtime_token_presence_is_authoritative(
+    record: dict[str, object], snapshot: dict[str, object]
+) -> bool:
+    """Authenticate token presence from its immutable creation event and key."""
+    if record.get("is_token") is not True:
+        return False
+    if record.get("semantic_key") != _runtime_token_key_from_presence(record):
+        return False
+    owner = record.get("owner")
+    controller = record.get("creation_controller")
+    players = snapshot.get("players", [])
+    if (
+        not isinstance(owner, int)
+        or not 0 <= owner < len(players)
+        or not isinstance(controller, int)
+        or not 0 <= controller < len(players)
+    ):
+        return False
+    player = players[owner]
+    controlling_player = players[controller]
+    if (
+        not isinstance(player, dict)
+        or not isinstance(player.get("name"), str)
+        or not isinstance(controlling_player, dict)
+        or not isinstance(controlling_player.get("name"), str)
+    ):
+        return False
+    matching_events = [
+        event
+        for event in snapshot.get("events", [])
+        if event.get("event") == "tokens_created"
+        and event.get("event_id") == record.get("creation_event_id")
+        and record.get("initial_object_id") in event.get("object_ids", [])
+        and event.get("creator") == player["name"]
+        and event.get("controller") == controlling_player["name"]
+        and event.get("source_id") == record.get("creation_source_id")
+    ]
+    return len(matching_events) == 1
+
+
+def _normalize_token_execution_reference(
+    reference: dict[str, object],
+    presence: list[dict[str, object]],
+    snapshot: dict[str, object],
+) -> dict[str, object]:
+    """Bridge an authenticated mature token reference to its runtime presence key."""
+    candidates = []
+    for record in presence:
+        fragment = record.get("oracle_fragment")
+        fragment_index = record.get("fragment_index")
+        if not (
+            _runtime_token_presence_is_authoritative(record, snapshot)
+            and isinstance(fragment, str)
+            and isinstance(fragment_index, int)
+            and reference.get("source_id") in record.get("object_ids", [])
+            and reference.get("oracle_fragment") == fragment
+            and reference.get("semantic_key") == semantic_key("", 0, fragment_index, fragment)
+        ):
+            continue
+        candidates.append(record)
+    if len(candidates) != 1:
+        return reference
+    return {**reference, "semantic_key": candidates[0]["semantic_key"]}
+
+
 def reconcile_snapshot(
     spec: GameSpec, snapshot: dict[str, object], manifest: dict[str, object]
 ) -> dict[str, object]:
@@ -648,10 +796,14 @@ def reconcile_snapshot(
     }
     combined_index = {**runtime_dynamic_index, **index}
     execution_index = _authoritative_execution_index(snapshot)
+    normalized_executed = [
+        _normalize_token_execution_reference(reference, presence, snapshot)
+        for reference in executed
+    ]
     unknown_keys = sorted(
         {
             item["semantic_key"]
-            for item in [*occurrences, *executed]
+            for item in [*occurrences, *normalized_executed]
             if item["semantic_key"] not in combined_index
         }
     )
@@ -701,7 +853,7 @@ def reconcile_snapshot(
         )
 
     authenticated_executed = [
-        reference for reference in executed if execution_is_authenticated(reference)
+        reference for reference in normalized_executed if execution_is_authenticated(reference)
     ]
 
     def occurrence_executed(item: dict[str, object]) -> bool:
@@ -713,7 +865,7 @@ def reconcile_snapshot(
 
     invalid_executed = sorted(
         str(reference.get("evidence_id"))
-        for reference in executed
+        for reference in normalized_executed
         if not execution_is_authenticated(reference)
     )
     if invalid_executed:
