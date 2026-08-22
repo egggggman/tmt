@@ -264,6 +264,7 @@ class FoodActivationEvidence:
 
 class RulesEventKind(Enum):
     CREATURE_ENTERED = "creature_entered"
+    CREATURE_DIED = "creature_died"
     TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
@@ -284,6 +285,7 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    DIES_DRAW = "dies_draw"
 
 
 @dataclass(frozen=True)
@@ -299,6 +301,7 @@ class RulesEvent:
     step: str = "setup"
     active_player: int = 0
     battlefield_authority: tuple[tuple[str, int], ...] = ()
+    last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -801,6 +804,16 @@ class Permanent:
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
     temporary_keyword_effects: list[TemporaryKeywordEffect] = field(default_factory=list)
     is_token: bool = False
+    type_line_override: str | None = None
+
+    @property
+    def type_line(self) -> str:
+        """The permanent's current authoritative type line on the battlefield."""
+        return self.card.type_line if self.type_line_override is None else self.type_line_override
+
+    @property
+    def is_creature(self) -> bool:
+        return "Creature" in self.type_line
 
     @property
     def printed_power(self) -> int:
@@ -2285,6 +2298,8 @@ class Game:
         source_id: str | None = None,
         target_player: int | None = None,
         amount: int | None = None,
+        battlefield_authority: tuple[tuple[str, int], ...] | None = None,
+        last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = (),
     ) -> RulesEvent:
         event = RulesEvent(
             f"event-{self._next_event_number:06d}",
@@ -2297,11 +2312,16 @@ class Game:
             self.turn,
             self.step.value,
             self.active_player,
-            tuple(
-                (permanent.object_id, permanent.controller)
-                for player in self.players
-                for permanent in player.battlefield
+            (
+                tuple(
+                    (permanent.object_id, permanent.controller)
+                    for player in self.players
+                    for permanent in player.battlefield
+                )
+                if battlefield_authority is None
+                else battlefield_authority
             ),
+            last_known_battlefield,
         )
         self._next_event_number += 1
         self._rules_events[event.event_id] = event
@@ -2320,6 +2340,15 @@ class Game:
             battlefield_authority=[
                 {"object_id": object_id, "controller": controller}
                 for object_id, controller in event.battlefield_authority
+            ],
+            last_known_battlefield=[
+                {
+                    "object_id": object_id,
+                    "controller": controller,
+                    "type_line": type_line,
+                    "is_creature": is_creature,
+                }
+                for object_id, controller, type_line, is_creature in event.last_known_battlefield
             ],
         )
         for occurrence in tuple(self.semantic_occurrences):
@@ -2923,12 +2952,18 @@ class Game:
             oracle_fragment=fragment,
         )
 
-    def _put_pending_triggers_on_stack(self) -> None:
+    def _put_pending_triggers_on_stack(self, effects: set[TriggerEffect] | None = None) -> bool:
         """Put one detected batch on the stack in deterministic APNAP/source order."""
-        if not self.pending_triggers:
-            return
-        batch = list(self.pending_triggers)
-        self.pending_triggers.clear()
+        batch = [
+            trigger
+            for trigger in self.pending_triggers
+            if effects is None or trigger.effect in effects
+        ]
+        if not batch:
+            return False
+        self.pending_triggers[:] = [
+            trigger for trigger in self.pending_triggers if trigger not in batch
+        ]
         for controller in (self.active_player, 1 - self.active_player):
             controlled = [trigger for trigger in batch if trigger.controller == controller]
             for trigger in reversed(controlled):
@@ -2951,6 +2986,7 @@ class Game:
                     source=trigger.source_card.name,
                     controller=self.players[trigger.controller].name,
                 )
+        return True
 
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
@@ -3045,6 +3081,14 @@ class Game:
                 plan,
                 trigger=ability,
             )
+        elif ability.effect is TriggerEffect.DIES_DRAW:
+            coverage = self.interpreter.dies_draw_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if coverage is None or not coverage.fully_supported:
+                raise AssertionError("stacked dies/Draw trigger is no longer executable")
+            self._validate_dies_draw_trigger(ability)
+            self.draw(self.players[ability.controller], 1)
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -3199,10 +3243,44 @@ class Game:
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
-            if self.stack[-1].effect is TriggerEffect.DISCARD_DRAW:
+            if self.stack[-1].effect in {TriggerEffect.DISCARD_DRAW, TriggerEffect.DIES_DRAW}:
                 self._begin_priority_window()
                 return
             self._resolve_triggered_ability(self.stack[-1])
+
+    def _validate_dies_draw_trigger(self, ability: TriggeredAbilityObject) -> None:
+        """Authenticate one self-death trigger from frozen event and zone-change provenance."""
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        last_known = event.last_known_battlefield
+        departures = [
+            item
+            for item in self.events
+            if item.get("event") == "zone_changed"
+            and item.get("source_object_id") == ability.source_id
+            and item.get("source_zone") == "battlefield"
+            and item.get("destination_zone") == "graveyard"
+        ]
+        if (
+            event.kind is not RulesEventKind.CREATURE_DIED
+            or self._rules_events.get(event.event_id) is not event
+            or event.source_id != ability.source_id
+            or event.subject_ids != (ability.source_id,)
+            or event.player_index != ability.controller
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or len(last_known) != 1
+            or last_known[0][0] != ability.source_id
+            or last_known[0][1] != ability.controller
+            or not last_known[0][2]
+            or last_known[0][3] is not True
+            or ("Creature" in last_known[0][2]) is not last_known[0][3]
+            or len(departures) != 1
+            or not isinstance(source, Permanent)
+            or source.zone != "former"
+            or source.controller != ability.controller
+            or source.card is not ability.source_card
+        ):
+            raise ValueError("dies/Draw trigger has mismatched death provenance")
 
     def _detect_creature_entered_triggers(
         self,
@@ -3937,7 +4015,7 @@ class Game:
         finally:
             self._priority_resolution_in_progress = False
         self.check_state_based_actions()
-        if self.winner is None and self.stack:
+        if self.winner is None and self.stack and self.priority_state is None:
             self._begin_priority_window()
         elif (
             self.winner is None
@@ -5631,7 +5709,11 @@ class Game:
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
-            if spell.effect in {TriggerEffect.DISCARD_DRAW, TriggerEffect.SNEAK_ETB_CONDITION} and (
+            if spell.effect in {
+                TriggerEffect.DISCARD_DRAW,
+                TriggerEffect.DIES_DRAW,
+                TriggerEffect.SNEAK_ETB_CONDITION,
+            } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
             ):
@@ -5955,6 +6037,21 @@ class Game:
         if not self.is_authoritative(permanent, "battlefield"):
             raise ValueError("permanent is not on the battlefield")
         owner = self.players[permanent.owner]
+        controller = permanent.controller
+        battlefield_authority = tuple(
+            (candidate.object_id, candidate.controller)
+            for player in self.players
+            for candidate in player.battlefield
+        )
+        dies_draw_fragments = tuple(
+            fragment
+            for fragment in self.interpreter.fragments(permanent.card)
+            if (coverage := self.interpreter.dies_draw_semantic_coverage(permanent.card, fragment))
+            is not None
+            and coverage.fully_supported
+        )
+        last_known_type_line = permanent.type_line
+        last_known_is_creature = permanent.is_creature
         self.alliance_modes_chosen.pop(permanent.object_id, None)
         replacement = self.move_object(
             permanent,
@@ -5969,6 +6066,24 @@ class Game:
             card=permanent.card.name,
             state_based_action=state_based_action,
         )
+        if dies_draw_fragments and last_known_is_creature:
+            event = self._new_rules_event(
+                RulesEventKind.CREATURE_DIED,
+                controller,
+                (permanent.object_id,),
+                source_id=permanent.object_id,
+                battlefield_authority=battlefield_authority,
+                last_known_battlefield=(
+                    (
+                        permanent.object_id,
+                        controller,
+                        last_known_type_line,
+                        last_known_is_creature,
+                    ),
+                ),
+            )
+            for fragment in dies_draw_fragments:
+                self._enqueue_trigger(event, permanent, fragment, TriggerEffect.DIES_DRAW)
         return replacement
 
     def destroy(self, permanent: Permanent, *, state_based_action: str | None = None) -> None:
@@ -5984,6 +6099,8 @@ class Game:
                     self.refresh_static_pt_modifiers()
             if not changed:
                 break
+        if self._put_pending_triggers_on_stack({TriggerEffect.DIES_DRAW}):
+            self._drain_triggered_abilities()
         self.check_invariants()
 
     def check_invariants(self) -> None:
@@ -6271,8 +6388,14 @@ class Game:
                     raise AssertionError("unsupported spells cannot become stack objects")
                 if obj.target_id is not None and obj.target_id not in self._objects:
                     raise AssertionError("stack target ID was never registered")
-            elif isinstance(obj, TriggeredAbilityObject) and obj.event.player_index not in range(2):
-                raise AssertionError("trigger event player is invalid")
+            elif isinstance(obj, TriggeredAbilityObject):
+                if obj.event.player_index not in range(2):
+                    raise AssertionError("trigger event player is invalid")
+                if obj.effect is TriggerEffect.DIES_DRAW:
+                    try:
+                        self._validate_dies_draw_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
                 if obj.source_id not in self._objects:
                     raise AssertionError("activated ability source ID was never registered")
@@ -6320,6 +6443,8 @@ class Game:
                     raise AssertionError("permanent entered the battlefield in a future turn")
                 if permanent.is_token != isinstance(permanent.card, TokenDefinition):
                     raise AssertionError("token runtime state does not match its token definition")
+                if not permanent.type_line:
+                    raise AssertionError("permanent type line must remain nonempty")
                 if permanent.card.is_creature:
                     if permanent.card.power is None or permanent.card.toughness is None:
                         raise AssertionError("creature permanent lacks printed power/toughness")
@@ -6905,6 +7030,7 @@ class Game:
                             "controller": x.controller,
                             "zone": x.zone,
                             "is_token": x.is_token,
+                            "evaluated_type_line": x.type_line,
                             "colors": (
                                 list(x.card.colors) if isinstance(x.card, TokenDefinition) else []
                             ),

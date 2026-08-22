@@ -526,6 +526,10 @@ class CardInterpreter:
         r"(?P<clause>you may discard a card\. If you do, draw a card\.)",
         re.IGNORECASE,
     )
+    DIES_DRAW_ONE = re.compile(
+        r"^When this creature dies, draw a card\.$",
+        re.IGNORECASE,
+    )
     STATIC_KEYWORD_NAMES = frozenset(
         {
             "deathtouch",
@@ -677,6 +681,20 @@ class CardInterpreter:
                 self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
                 self.CANT_BE_BLOCKED_BY_GREATER_POWER,
             )
+        )
+
+    def dies_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the bounded self-death trigger whose complete effect is Draw one."""
+        if self.DIES_DRAW_ONE.fullmatch(fragment) is None:
+            return None
+        creature_source = "Creature" in card.type_line
+        return SemanticCoverage(
+            payload_executable=creature_source,
+            parent_executable=creature_source,
+            followup_executable=creature_source,
+            limitations=(() if creature_source else ("dies_draw_source_is_not_a_creature",)),
         )
 
     def supports_counter_fragment(self, card: CardDefinition, fragment: str) -> bool:
@@ -1672,6 +1690,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            dies_draw = self.dies_draw_semantic_coverage(card, fragment)
+            if dies_draw is not None:
+                for reason in dies_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             sneak_coverage = self.sneak_semantic_coverage(card, fragment)
             if sneak_coverage is not None and sneak_coverage.program.direct_keyword_ability:
                 if self.supports_pt_fragment(fragment):
