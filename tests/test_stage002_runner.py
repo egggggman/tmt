@@ -11,6 +11,7 @@ from tmnt_design_studio.card_interpreter07 import (
     TokenCreationProgram,
     TokenDefinition,
 )
+from tmnt_design_studio.conformance07 import opportunity_context_key
 from tmnt_design_studio.engine07 import ActionKind, CardFact, Game
 from tmnt_design_studio.stage002 import (
     PAIRINGS,
@@ -30,6 +31,7 @@ from tmnt_design_studio.stage002 import (
     run_game,
     stable_digest,
     stage_games,
+    validate_stage_result_evidence,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +84,38 @@ def _resolved_food_token_snapshot() -> tuple[dict[str, object], dict[str, object
 
 
 def _snapshot(*, context: bool = False, witness: bool = False) -> dict[str, object]:
+    context_row = {
+        "context_id": "context-1",
+        "context_kind": "activation_available",
+        "turn": 3,
+        "phase": "precombat_main",
+        "step": "precombat_main",
+        "active_player": 0,
+        "controller": 0,
+        "source_id": "object-1",
+        "subject_ids": ["object-1"],
+        "subject_zones": ["battlefield"],
+        "facts": {"timing": "precombat_main"},
+        "event_id": None,
+        "stack_object_id": None,
+        "state_fingerprint": "a" * 64,
+    }
+    context_row["context_key"] = opportunity_context_key(
+        context_row["context_id"],
+        context_row["context_kind"],
+        context_row["turn"],
+        context_row["phase"],
+        context_row["step"],
+        context_row["active_player"],
+        context_row["controller"],
+        context_row["source_id"],
+        tuple(context_row["subject_ids"]),
+        tuple(context_row["subject_zones"]),
+        tuple(context_row["facts"].items()),
+        context_row["event_id"],
+        context_row["stack_object_id"],
+        context_row["state_fingerprint"],
+    )
     occurrence = {
         "occurrence_id": "semantic-1",
         "semantic_key": "known-key",
@@ -121,12 +155,21 @@ def _snapshot(*, context: bool = False, witness: bool = False) -> dict[str, obje
                         "semantic_key": "known-key",
                         "cause_kind": "authoritative_context",
                         "cause_id": "context-1",
+                        "object_id": "object-1",
+                        "controller": 0,
+                        "source_controller": 0,
+                        "turn": 3,
+                        "phase": "precombat_main",
+                        "step": "precombat_main",
+                        "cause_subject_ids": ["object-1"],
+                        "cause_subject_zones": ["battlefield"],
+                        "cause_event_kind": None,
                     }
                 ]
                 if witness
                 else []
             ),
-            "opportunity_contexts": ([{"context_id": "context-1"}] if context else []),
+            "opportunity_contexts": ([context_row] if context else []),
             "executed_references": [],
             "stop_records": [],
         },
@@ -338,6 +381,48 @@ def test_execute_stage_runs_each_distinct_game_exactly_twice(monkeypatch):
     assert calls == [games[0].game_id, games[0].game_id, games[1].game_id, games[1].game_id]
     assert result["aggregate"]["distinct_game_count"] == 2
     assert result["aggregate"]["execution_count"] == 4
+    validate_stage_result_evidence(result)
+    for report in result["aggregate"]["games"]:
+        assert report["duplicate_byte_equivalent"]
+        assert (
+            report["duplicate_execution_digests"]["first"]
+            == report["duplicate_execution_digests"]["second"]
+        )
+
+
+def test_serialized_duplicate_tampering_fails_independent_validation(monkeypatch):
+    monkeypatch.setattr(
+        "tmnt_design_studio.stage002.build_stage_manifest", lambda _root: _manifest()
+    )
+    result = execute_stage(
+        ROOT, runner=lambda *_args: copy.deepcopy(_snapshot()), games=stage_games()[:1]
+    )
+    result["aggregate"]["games"][0]["duplicate_execution_digests"]["second"] = "f" * 64
+
+    with pytest.raises(ValueError, match="duplicate evidence"):
+        validate_stage_result_evidence(result)
+
+
+@pytest.mark.parametrize("mutation", ("missing", "duplicate", "mismatch"))
+def test_serialized_context_tampering_fails_closed(monkeypatch, mutation):
+    monkeypatch.setattr(
+        "tmnt_design_studio.stage002.build_stage_manifest", lambda _root: _manifest()
+    )
+    result = execute_stage(
+        ROOT,
+        runner=lambda *_args: copy.deepcopy(_snapshot(context=True, witness=True)),
+        games=stage_games()[:1],
+    )
+    report = result["aggregate"]["games"][0]
+    if mutation == "missing":
+        report["opportunity_contexts"] = []
+    elif mutation == "duplicate":
+        report["opportunity_contexts"].append(copy.deepcopy(report["opportunity_contexts"][0]))
+    else:
+        report["opportunity_contexts"][0]["source_id"] = "object-fabricated"
+
+    with pytest.raises(ValueError, match="opportunity-context evidence"):
+        validate_stage_result_evidence(result)
 
 
 def test_execute_stage_fails_on_duplicate_mismatch(monkeypatch):
