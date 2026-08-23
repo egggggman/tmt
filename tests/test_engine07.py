@@ -281,7 +281,7 @@ def test_legend_rule_chooser_can_keep_the_new_permanent():
     assert len(kept) == 1 and kept[0] is not original
 
 
-def test_semantic_presence_precedes_synchronous_etb_sba_departure():
+def test_semantic_presence_follows_exact_etb_and_precedes_synchronous_departure():
     legend = CardFact(
         "Unique Tinkerer",
         "{1}{W}",
@@ -335,7 +335,11 @@ def test_semantic_presence_precedes_synchronous_etb_sba_departure():
         and source.object_id in event["subject_ids"]
         and event["rules_event"] == "creature_entered"
     )
-    assert semantic_index < entered_index
+    entered = current.events[entered_index]
+    assert entered_index < semantic_index
+    assert occurrence.registration_event_cursor == current._event_number(entered["event_id"])
+    departed_index = current.events.index(departed)
+    assert semantic_index < departed_index
     current.check_invariants()
 
 
