@@ -1,0 +1,30 @@
+{
+  "accepted_aggregate": false,
+  "active_execution": {
+    "completed_distinct_game_count": 0,
+    "duplicate_member": "first",
+    "execution_ordinal": 1,
+    "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+    "orientation": "canonical",
+    "pairing_id": "april_oneil--bebop_rocksteady",
+    "seed": 8001,
+    "stage": "game_execution"
+  },
+  "available_duplicate_digests": {},
+  "completed_game_digests": [],
+  "failure": {
+    "kind": "SmokeGameFailure",
+    "message": "event does not establish semantic applicability",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 271, in run_smoke_game\n    _checked_action(\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 393, in _checked_action\n    result = operation()\n             ^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 272, in <lambda>\n    game, lambda choice=choice: game.execute_main_action(choice), \"main action\"\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 4135, in execute_main_action\n    return self.cast(option.player_index, obj, target)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 5646, in cast\n    self.resolve_top_of_stack()\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 5806, in resolve_top_of_stack\n    self._process_creature_entered_triggers(\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 3389, in _process_creature_entered_triggers\n    self._process_creatures_entered_triggers(\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 3370, in _process_creatures_entered_triggers\n    event = self._new_rules_event(\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 2355, in _new_rules_event\n    self._witness_from_event(occurrence, event)\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 2262, in _witness_from_event\n    self._record_opportunity(\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 1910, in _record_opportunity\n    facts = self._validate_opportunity_applicability(\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 2044, in _validate_opportunity_applicability\n    raise ValueError(\"event does not establish semantic applicability\")\nValueError: event does not establish semantic applicability\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 422, in execute_smoke\n    snapshots[member] = runner(root, spec, None)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 310, in run_smoke_game\n    raise SmokeGameFailure(str(error), snapshot) from error\ntmnt_design_studio.smoke01.SmokeGameFailure: event does not establish semantic applicability\n"
+  },
+  "last_authoritative_state": {
+    "phase": "precombat_main",
+    "priority": null,
+    "stack": [],
+    "state_fingerprint": "d2e1a4f41195f2250f65ca61a637814fdeb2bc0d7d8439ec3a489074499f31a9",
+    "step": "precombat_main",
+    "turn": 16
+  },
+  "manifest_digest": "247169fa22f946682ef82408a9b18876637798504d624c63857a7026c735fcb0",
+  "stage": "coverage-aware-engine-smoke-0.1"
+}
