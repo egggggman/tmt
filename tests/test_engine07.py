@@ -281,6 +281,64 @@ def test_legend_rule_chooser_can_keep_the_new_permanent():
     assert len(kept) == 1 and kept[0] is not original
 
 
+def test_semantic_presence_precedes_synchronous_etb_sba_departure():
+    legend = CardFact(
+        "Unique Tinkerer",
+        "{1}{W}",
+        2,
+        "Legendary Creature — Bear",
+        (
+            "When Unique Tinkerer enters, create a 1/1 colorless Robot artifact creature "
+            "token.\nFlying"
+        ),
+        power=2,
+        toughness=2,
+        keywords=("Flying",),
+    )
+    current = game()
+    current.begin_turn()
+    player = current.players[0]
+    original = current_land(current, 0, legend)
+    player.battlefield = [current_land(current, 0), current_land(current, 0), original]
+    player.hand = current.set_hand_for_testing(0, [legend])
+
+    assert current.cast(0, player.hand[0])
+
+    departed = next(
+        event
+        for event in current.events
+        if event["event"] == "zone_changed"
+        and event["reason"] == "legend_rule"
+        and event["source_object_id"] != original.object_id
+    )
+    occurrence = next(
+        item
+        for item in current.semantic_occurrences
+        if item.object_id == departed["source_object_id"] and item.oracle_fragment == "Flying"
+    )
+    source = current._objects[occurrence.object_id]
+    assert source.zone == "former"
+    assert source is not original
+    assert any(
+        event["event"] == "tokens_created" and event["source_card"] == legend.name
+        for event in current.events
+    )
+    semantic_index = next(
+        index
+        for index, event in enumerate(current.events)
+        if event["event"] == "semantic_present" and event["object_id"] == source.object_id
+    )
+    entered_index = next(
+        index
+        for index, event in enumerate(current.events)
+        if event["event"] == "rules_event"
+        and source.object_id in event["subject_ids"]
+        and event["rules_event"] == "creature_entered"
+    )
+    assert semantic_index < entered_index
+    current.check_invariants()
+
+
 def test_unsupported_telemetry_is_per_oracle_fragment_and_contextual():
     card = CardFact(
         "Verbose Bear",
