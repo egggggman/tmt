@@ -12,7 +12,14 @@ from tmnt_design_studio.card_interpreter07 import (
     TokenDefinition,
 )
 from tmnt_design_studio.conformance07 import opportunity_context_key
-from tmnt_design_studio.engine07 import ActionKind, CardFact, Game
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    CardFact,
+    Game,
+    TurnStep,
+)
+from tmnt_design_studio.pilot07 import AcceptancePilot
 from tmnt_design_studio.stage002 import (
     PAIRINGS,
     DeckSpec,
@@ -20,6 +27,7 @@ from tmnt_design_studio.stage002 import (
     _add_created_token_presence,
     _checked_action,
     _finish_presence,
+    _resolve_combat_damage_steps,
     _token_definition_identity,
     build_deck_manifest,
     build_stage_manifest,
@@ -36,10 +44,52 @@ from tmnt_design_studio.stage002 import (
 
 ROOT = Path(__file__).resolve().parents[1]
 LAND = CardFact("Plains", "", 0, "Basic Land — Plains", oracle_id="stage002-land")
+BEAR = CardFact("Bear", "{1}{G}", 2, "Creature — Bear", power=2, toughness=2)
+DIES_DRAW = CardFact(
+    "Anonymous dies fixture",
+    "{2}",
+    2,
+    "Artifact Creature — Robot",
+    "When this creature dies, draw a card.",
+    power=2,
+    toughness=2,
+)
+FIRST_STRIKE = CardFact(
+    "First strike fixture",
+    "{1}{W}",
+    2,
+    "Creature — Soldier",
+    "First strike",
+    power=2,
+    toughness=2,
+    keywords=("First strike",),
+)
 
 
 def _token_game() -> Game:
     return Game(([LAND] * 60, [LAND] * 60), seed=83)
+
+
+def _combat_game(attacker_card: CardFact, blocker_card: CardFact) -> Game:
+    current = Game(([LAND] * 60, [LAND] * 60), seed=84)
+    current.begin_turn()
+    attacker = current.create_permanent(attacker_card, 0, summoning_sick=False)
+    blocker = current.create_permanent(blocker_card, 1, summoning_sick=False)
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(
+        option
+        for option in current.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+    current.execute_attack_action(attack)
+    current.execute_block_action(
+        ActionOption(
+            ActionKind.DECLARE_BLOCKERS,
+            1,
+            blocks=((attacker.object_id, blocker.object_id),),
+        )
+    )
+    return current
 
 
 def _created_token_presence(definition: TokenDefinition) -> tuple[Game, list[dict[str, object]]]:
@@ -81,6 +131,61 @@ def _resolved_food_token_snapshot() -> tuple[dict[str, object], dict[str, object
     _add_created_token_presence(current, presence, snapshot["events"])
     snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
     return snapshot, snapshot["stage002_presence"][0]
+
+
+def test_runner_combat_without_stack_work_keeps_existing_progression():
+    current = _combat_game(BEAR, BEAR)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert len(current.combat_damage_evidence) == 1
+    assert current.stack == []
+    assert current.priority_state is None
+
+
+def test_runner_drains_damage_created_trigger_without_repeating_damage():
+    current = _combat_game(BEAR, DIES_DRAW)
+    hand_before = len(current.players[1].hand)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert len(current.combat_damage_evidence) == 1
+    assert len(current.players[1].hand) == hand_before + 1
+    assert current.stack == []
+    assert current.priority_state is None
+    assert sum(event["event"] == "trigger_resolved" for event in current.events) == 1
+
+
+def test_runner_completely_drains_simultaneous_damage_created_triggers():
+    current = _combat_game(DIES_DRAW, DIES_DRAW)
+    hands_before = tuple(len(player.hand) for player in current.players)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert len(current.combat_damage_evidence) == 1
+    assert tuple(len(player.hand) for player in current.players) == tuple(
+        size + 1 for size in hands_before
+    )
+    assert current.stack == []
+    assert current.priority_state is None
+    assert sum(event["event"] == "trigger_resolved" for event in current.events) == 2
+
+
+def test_runner_drains_trigger_before_next_distinct_strike_damage_step():
+    current = _combat_game(FIRST_STRIKE, DIES_DRAW)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert len(current.combat_damage_evidence) == 2
+    names = [event["event"] for event in current.events]
+    first_damage = names.index("combat_damage_step_resolved")
+    trigger = names.index("trigger_resolved")
+    second_damage = names.index("combat_damage_step_resolved", first_damage + 1)
+    assert first_damage < trigger < second_damage
 
 
 def _snapshot(*, context: bool = False, witness: bool = False) -> dict[str, object]:
