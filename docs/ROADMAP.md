@@ -127,10 +127,11 @@ rules engine. Its long-term goals include:
 **Dashboard invocation convention:** in project conversations, `DECKDAEMON` or the short form `DD.0`
 invokes the Cardcade-specific dashboard view. These are command words only and do not appear in the
 rendered dashboard title. The visible title should remain Cardcade-focused (for example, `CARDCade`
-or `TMNT the Cardcade Game`). When producing the dashboard, prefer the latest durable GitHub evidence
-and include relevant local Cardcade state when that state is actually available to the current tool
-session; local-only facts must be clearly distinguished from merged repository evidence and must
-never be invented or inferred merely because earlier chat text mentioned them.
+or `TMNT the Cardcade Game`). `PIZZAGRIND` remains reserved for the project-wide Sewer Status Board.
+When producing the Cardcade dashboard, prefer the latest durable GitHub evidence and include relevant
+local Cardcade state when that state is actually available to the current tool session; local-only
+facts must be clearly distinguished from merged repository evidence and must never be invented or
+inferred merely because earlier chat text mentioned them.
 
 **Ownership:** Cardcade owns the GUI because it is an interface to Cardcade simulation and evidence.
 HQ tracks it as a project goal. Design Studio consumes its evidence but does not use the GUI to bypass
