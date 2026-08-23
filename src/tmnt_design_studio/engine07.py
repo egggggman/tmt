@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import random
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
@@ -1993,6 +1994,8 @@ class Game:
             raise ValueError("opportunity fragment does not match authoritative card data")
 
         live = historical is None
+        if live and occurrence.controller != source.controller:
+            raise ValueError("opportunity source controller is not authoritative")
         source_zone = source.zone if live else historical.source_zone
         source_controller = source.controller if live else historical.source_controller
         subject_zones = (
@@ -3356,6 +3359,7 @@ class Game:
         *,
         source_id: str | None = None,
         defer_triggers: bool = False,
+        after_event: Callable[[Permanent, RulesEvent], None] | None = None,
     ) -> None:
         enabled = effects or {
             TriggerEffect.SNEAK_ETB_CONDITION,
@@ -3373,6 +3377,8 @@ class Game:
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if after_event is not None:
+                after_event(permanent, event)
             self._detect_creature_entered_triggers(permanent, event, enabled)
         self._put_pending_triggers_on_stack()
         if not defer_triggers:
@@ -3385,12 +3391,14 @@ class Game:
         *,
         source_id: str | None = None,
         defer_triggers: bool = False,
+        after_event: Callable[[Permanent, RulesEvent], None] | None = None,
     ) -> None:
         self._process_creatures_entered_triggers(
             (entering,),
             effects,
             source_id=source_id,
             defer_triggers=defer_triggers,
+            after_event=after_event,
         )
 
     def place_counters(
@@ -5802,11 +5810,13 @@ class Game:
             else:
                 self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
-            self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
             self._process_creature_entered_triggers(
                 permanent,
                 source_id=stack_object_id if sneak_cast else None,
                 defer_triggers=sneak_cast,
+                after_event=lambda source, _event: self.report_unsupported_abilities(
+                    spell.controller, spell.card, source=source
+                ),
             )
             if not sneak_cast:
                 self.check_state_based_actions()

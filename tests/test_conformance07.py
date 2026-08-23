@@ -141,6 +141,61 @@ def test_existing_event_join_preserves_exact_just_completed_self_etb():
     assert witnesses[0].cause_id == event.event_id
 
 
+def test_self_etb_applicability_rejects_adjacent_cursors_and_mismatched_provenance():
+    card = CardFact(
+        "Visitor",
+        "{1}{W}",
+        2,
+        "Creature — Turtle",
+        "When Visitor enters, draw a card.",
+        2,
+        2,
+        oracle_id="exact-etb-visitor",
+    )
+    current = game()
+    source = permanent(current, card)
+    event = current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (source.object_id,))
+    occurrence = register(current, source)
+
+    for cursor in (
+        occurrence.registration_event_cursor - 1,
+        occurrence.registration_event_cursor + 1,
+    ):
+        with pytest.raises(ValueError, match="event does not establish semantic applicability"):
+            current._validate_opportunity_applicability(
+                replace(occurrence, registration_event_cursor=cursor),
+                cause_kind="rules_event",
+                cause_id=event.event_id,
+                cause_subject_ids=event.subject_ids,
+            )
+
+    adjacent = permanent(current, card)
+    adjacent_event = current._new_rules_event(
+        RulesEventKind.CREATURE_ENTERED, 0, (adjacent.object_id,)
+    )
+    with pytest.raises(ValueError, match="event does not establish semantic applicability"):
+        current._validate_opportunity_applicability(
+            occurrence,
+            cause_kind="rules_event",
+            cause_id=adjacent_event.event_id,
+            cause_subject_ids=adjacent_event.subject_ids,
+        )
+    with pytest.raises(ValueError, match="source controller is not authoritative"):
+        current._validate_opportunity_applicability(
+            replace(occurrence, controller=1),
+            cause_kind="rules_event",
+            cause_id=event.event_id,
+            cause_subject_ids=event.subject_ids,
+        )
+    with pytest.raises(ValueError, match="authoritative card data"):
+        current._validate_opportunity_applicability(
+            replace(occurrence, oracle_fragment="When Visitor enters, scry 1."),
+            cause_kind="rules_event",
+            cause_id=event.event_id,
+            cause_subject_ids=event.subject_ids,
+        )
+
+
 def test_alliance_requires_another_controlled_creature_and_deduplicates_one_event():
     card = CardFact(
         "Ally",
