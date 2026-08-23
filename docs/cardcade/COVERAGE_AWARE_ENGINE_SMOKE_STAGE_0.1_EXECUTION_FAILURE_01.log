@@ -1,0 +1,56 @@
+Coverage-Aware Engine Smoke Stage 0.1 — First Execution Failure #1
+
+Frozen merged-main baseline: 5b5cdf02452ebd77c2c1bcc9f885d85290d53cdd
+Frozen plan digest: 3fe9093e11c3057e7aeaf459e6ae7f9b1154ffe35adc73aec3273331c2658cf8
+Frozen matrix: 45 pairings / 180 distinct games / 360 executions
+Invocation:
+python scripts/run_coverage_aware_smoke_01.py --execute --output docs/cardcade/COVERAGE_AWARE_ENGINE_SMOKE_STAGE_0.1_RESULTS.json --failure-output docs/cardcade/COVERAGE_AWARE_ENGINE_SMOKE_STAGE_0.1_FAILURE.json
+
+Traceback (most recent call last):
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 271, in run_smoke_game
+    _checked_action(
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 393, in _checked_action
+    result = operation()
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 272, in <lambda>
+    game, lambda choice=choice: game.execute_main_action(choice), "main action"
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 4135, in execute_main_action
+    return self.cast(option.player_index, obj, target)
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 5646, in cast
+    self.resolve_top_of_stack()
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 5810, in resolve_top_of_stack
+    self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 1583, in report_unsupported_abilities
+    occurrence = self._register_semantic_occurrence(
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 1636, in _register_semantic_occurrence
+    raise ValueError("semantic presence requires an authoritative runtime object")
+ValueError: semantic presence requires an authoritative runtime object
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 422, in execute_smoke
+    snapshots[member] = runner(root, spec, None)
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 310, in run_smoke_game
+    raise SmokeGameFailure(str(error), snapshot) from error
+tmnt_design_studio.smoke01.SmokeGameFailure: semantic presence requires an authoritative runtime object
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\tmt\scripts\run_coverage_aware_smoke_01.py", line 32, in <module>
+    main()
+  File "C:\projects\tmt\scripts\run_coverage_aware_smoke_01.py", line 22, in main
+    execute_smoke(root, output=args.output, failure_output=args.failure_output)
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 463, in execute_smoke
+    _atomic_write(failure_output, artifact)
+  File "C:\projects\tmt\src\tmnt_design_studio\smoke01.py", line 336, in _atomic_write
+    temporary.write_text(rendered, encoding="utf-8", newline="\n")
+PermissionError: [Errno 13] Permission denied: 'docs\\cardcade\\.COVERAGE_AWARE_ENGINE_SMOKE_STAGE_0.1_FAILURE.json.tmp'
+
+Post-stop observations:
+- success artifact absent
+- failure artifact absent
+- failure sidecar absent
+- local main equals origin/main at the frozen baseline
+- worktree was clean before execution
+- no rerun attempted
