@@ -288,25 +288,36 @@ def _atomic_write(path: Path, payload: dict[str, object]) -> str:
     return digest
 
 
+def _balance_record(label: str) -> dict[str, object]:
+    return {
+        "eligible_by_coverage": label == "mechanically_clean_coverage_complete",
+        "balance_valid": False,
+        "reason": "Pilot and statistical-design gates are not authorized",
+    }
+
+
 def _failure_artifact(
-    manifest: dict[str, object],
-    spec: GameSpec,
+    manifest: dict[str, object] | None,
+    spec: GameSpec | None,
     duplicate_member: str,
     ordinal: int,
     completed: int,
     completed_game_digests: list[dict[str, str]],
     error: BaseException,
+    available_snapshot: dict[str, object] | None = None,
+    available_duplicate_digests: dict[str, str] | None = None,
 ) -> dict[str, object]:
-    snapshot = error.snapshot if isinstance(error, SmokeGameFailure) else None
+    snapshot = error.snapshot if isinstance(error, SmokeGameFailure) else available_snapshot
     return {
         "stage": STAGE_ID,
         "accepted_aggregate": False,
-        "manifest_digest": manifest["manifest_digest"],
+        "manifest_digest": None if manifest is None else manifest["manifest_digest"],
         "active_execution": {
-            "game_id": spec.game_id,
-            "pairing_id": spec.pairing_id,
-            "seed": spec.seed,
-            "orientation": spec.orientation,
+            "stage": "manifest_preflight" if spec is None else "game_execution",
+            "game_id": None if spec is None else spec.game_id,
+            "pairing_id": None if spec is None else spec.pairing_id,
+            "seed": None if spec is None else spec.seed,
+            "orientation": None if spec is None else spec.orientation,
             "duplicate_member": duplicate_member,
             "execution_ordinal": ordinal,
             "completed_distinct_game_count": completed,
@@ -317,6 +328,7 @@ def _failure_artifact(
             "traceback": traceback.format_exc(),
         },
         "completed_game_digests": completed_game_digests,
+        "available_duplicate_digests": available_duplicate_digests or {},
         "last_authoritative_state": None
         if snapshot is None
         else {
@@ -338,7 +350,12 @@ def execute_smoke(
     runner: Runner = run_smoke_game,
 ) -> dict[str, object]:
     """Execute atomically or preserve the first fail-closed checkpoint."""
-    manifest = build_smoke_manifest(root)
+    try:
+        manifest = build_smoke_manifest(root)
+    except Exception as error:
+        artifact = _failure_artifact(None, None, "preflight", 0, 0, [], error)
+        _atomic_write(failure_output, artifact)
+        raise
     selected = smoke_games()
     if len(selected) != REQUIRED_GAME_COUNT:
         raise RuntimeError("Smoke 0.1 execution requires the complete 180-game matrix")
@@ -362,11 +379,7 @@ def execute_smoke(
                     **report,
                     "pairing_id": spec.pairing_id,
                     "mechanical_label": label,
-                    "future_balance_candidate": {
-                        "eligible_by_coverage": label == "mechanically_clean_coverage_complete",
-                        "balance_valid": False,
-                        "reason": "Pilot and statistical-design gates are not authorized",
-                    },
+                    "future_balance_candidate": _balance_record(label),
                     "duplicate_execution_digests": digests,
                     "duplicate_byte_equivalent": True,
                     "duplicate_snapshots": snapshots,
@@ -374,6 +387,10 @@ def execute_smoke(
             )
         except Exception as error:
             member = "second" if "first" in snapshots else "first"
+            available_digests = {
+                key: hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
+                for key, value in snapshots.items()
+            }
             artifact = _failure_artifact(
                 manifest,
                 spec,
@@ -385,6 +402,8 @@ def execute_smoke(
                     for report in reports
                 ],
                 error,
+                snapshots.get("second") or snapshots.get("first"),
+                available_digests,
             )
             _atomic_write(failure_output, artifact)
             raise
@@ -411,8 +430,7 @@ def execute_smoke(
         "future_balance_candidate_games": [
             {
                 "game_id": game_id,
-                "balance_valid": False,
-                "reason": "Pilot and statistical-design gates are not authorized",
+                **_balance_record("mechanically_clean_coverage_complete"),
             }
             for game_id in coverage_complete
         ],
@@ -453,17 +471,15 @@ def validate_smoke_result(result: dict[str, object]) -> None:
     labels = aggregate.get("mechanical_labels")
     if not isinstance(labels, dict):
         raise ValueError("Smoke mechanical labels are missing")
+    reconstructed_labels = {
+        "mechanically_clean_coverage_complete": [],
+        "mechanically_clean_coverage_limited": [],
+        "mechanically_invalid": [],
+    }
     memberships = [game_id for values in labels.values() for game_id in values]
     game_ids = [report.get("game_id") for report in reports]
     if sorted(memberships) != sorted(game_ids) or len(memberships) != len(set(memberships)):
         raise ValueError("Smoke games do not have exactly one mechanical label")
-    limited = set(labels.get("mechanically_clean_coverage_limited", []))
-    candidates = aggregate.get("future_balance_candidate_games", [])
-    if any(
-        candidate.get("game_id") in limited or candidate.get("balance_valid") is not False
-        for candidate in candidates
-    ):
-        raise ValueError("coverage-limited or balance-valid game leaked into projection")
     for report in reports:
         snapshots = report.get("duplicate_snapshots")
         digests = report.get("duplicate_execution_digests")
@@ -493,5 +509,20 @@ def validate_smoke_result(result: dict[str, object]) -> None:
         reconstructed = reconcile_snapshot(spec, snapshots["first"], manifest)
         if any(report.get(key) != value for key, value in reconstructed.items()):
             raise ValueError("Smoke conformance report is not reconstructive")
-        if report.get("mechanical_label") != _mechanical_label(reconstructed, snapshots["first"]):
+        reconstructed_label = _mechanical_label(reconstructed, snapshots["first"])
+        if report.get("mechanical_label") != reconstructed_label:
             raise ValueError("Smoke mechanical label is not reconstructive")
+        reconstructed_labels[reconstructed_label].append(report["game_id"])
+        if report.get("future_balance_candidate") != _balance_record(reconstructed_label):
+            raise ValueError("Smoke per-game balance boundary is not reconstructive")
+    if labels != reconstructed_labels:
+        raise ValueError("Smoke aggregate mechanical labels are not reconstructive")
+    expected_candidates = [
+        {
+            "game_id": game_id,
+            **_balance_record("mechanically_clean_coverage_complete"),
+        }
+        for game_id in reconstructed_labels["mechanically_clean_coverage_complete"]
+    ]
+    if aggregate.get("future_balance_candidate_games") != expected_candidates:
+        raise ValueError("Smoke balance projection is not reconstructive")

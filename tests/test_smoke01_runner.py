@@ -150,6 +150,31 @@ def test_frozen_input_tampering_fails_manifest(monkeypatch):
         build_smoke_manifest(ROOT)
 
 
+def test_frozen_input_drift_writes_atomic_preflight_failure(monkeypatch, tmp_path):
+    from tmnt_design_studio.smoke01 import FROZEN_HASHES
+
+    monkeypatch.setitem(FROZEN_HASHES, "cardcade/roster-0.2.json", "0" * 64)
+    output = tmp_path / "result.json"
+    failure = tmp_path / "failure.json"
+    with pytest.raises(ValueError, match="input mismatch"):
+        execute_smoke(ROOT, output=output, failure_output=failure)
+    artifact = json.loads(failure.read_text(encoding="utf-8"))
+    assert artifact["accepted_aggregate"] is False
+    assert artifact["manifest_digest"] is None
+    assert artifact["active_execution"] == {
+        "stage": "manifest_preflight",
+        "game_id": None,
+        "pairing_id": None,
+        "seed": None,
+        "orientation": None,
+        "duplicate_member": "preflight",
+        "execution_ordinal": 0,
+        "completed_distinct_game_count": 0,
+    }
+    assert not output.exists()
+    assert failure.with_suffix(".json.sha256").exists()
+
+
 @pytest.mark.parametrize(
     ("reached", "expected"),
     [
@@ -241,6 +266,34 @@ def test_failure_is_atomic_and_preserves_active_execution(monkeypatch, tmp_path)
     assert not output.exists()
 
 
+def test_post_duplicate_failure_preserves_available_authoritative_evidence(monkeypatch, tmp_path):
+    snapshot = _snapshot()
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    calls = 0
+
+    def mismatch(*_args):
+        nonlocal calls
+        calls += 1
+        result = copy.deepcopy(snapshot)
+        result["turn"] = calls
+        return result
+
+    failure = tmp_path / "failure.json"
+    with pytest.raises(RuntimeError, match="nondeterministic duplicate"):
+        execute_smoke(
+            ROOT,
+            output=tmp_path / "result.json",
+            failure_output=failure,
+            runner=mismatch,
+        )
+    artifact = json.loads(failure.read_text(encoding="utf-8"))
+    assert set(artifact["available_duplicate_digests"]) == {"first", "second"}
+    assert artifact["last_authoritative_state"]["state_fingerprint"] == "a" * 64
+
+
 def test_balance_projection_tampering_fails_validation(monkeypatch, tmp_path):
     snapshot = _snapshot(reached=True)
     monkeypatch.setattr(
@@ -257,7 +310,50 @@ def test_balance_projection_tampering_fails_validation(monkeypatch, tmp_path):
         {"game_id": smoke_games()[0].game_id, "balance_valid": True}
     ]
     _resign_outer_digests(result)
-    with pytest.raises(ValueError, match="leaked"):
+    with pytest.raises(ValueError, match="balance projection"):
+        validate_smoke_result(result)
+
+
+def test_per_game_balance_valid_tampering_fails_after_outer_digests_are_resigned(
+    monkeypatch, tmp_path
+):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    result["aggregate"]["games"][0]["future_balance_candidate"]["balance_valid"] = True
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="per-game balance boundary"):
+        validate_smoke_result(result)
+
+
+def test_aggregate_label_substitution_fails_after_outer_digests_are_resigned(monkeypatch, tmp_path):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    game_id = result["aggregate"]["games"][0]["game_id"]
+    result["aggregate"]["mechanical_labels"] = {
+        "mechanically_clean_coverage_complete": [game_id],
+        "mechanically_clean_coverage_limited": [],
+        "mechanically_invalid": [],
+    }
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="aggregate mechanical labels"):
         validate_smoke_result(result)
 
 
