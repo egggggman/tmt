@@ -1,0 +1,111 @@
+{
+  "accepted_aggregate": false,
+  "active_execution": {
+    "completed_distinct_game_count": 20,
+    "duplicate_member": "first",
+    "execution_ordinal": 41,
+    "game_id": "april_oneil--michelangelo:canonical:8011",
+    "orientation": "canonical",
+    "pairing_id": "april_oneil--michelangelo",
+    "seed": 8011,
+    "stage": "game_execution"
+  },
+  "available_duplicate_digests": {},
+  "completed_game_digests": [
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+      "report_digest": "a7fdf5361a6d228de2f0edb8ba71a295fdda8799b18ade16c9cd086422d70d19"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+      "report_digest": "88c4a9543b06511f71fade16177da19100b66171a1162e7ac1fb876de4f9bdf7"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+      "report_digest": "a690297e7442f9c0d261dde323ac078ff2041eaf342ff545d615d9e0c2f7a49d"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8002",
+      "report_digest": "0138b12efd87b85448ccc783e7cf544269cf88c62a3aef421e9ee880217f3628"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:canonical:8003",
+      "report_digest": "41449ea7022bc1a97a243a46cf3f598e49d9a3e5bad57b9c191d5ba82fa2afb1"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:reversed:8003",
+      "report_digest": "fe2e92ca26e7bb5188229bd3d37d2d12e72d1436a2195c6defd172a3860818f7"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:canonical:8004",
+      "report_digest": "35af0037473900ee2392074d6e030d2df083587f36e3ff0cb527a3d80c5b0395"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:reversed:8004",
+      "report_digest": "08a207e2a870e033b8393c2107375abbe3fe2fe3710cc994a2d825d144462c86"
+    },
+    {
+      "game_id": "april_oneil--donatello:canonical:8005",
+      "report_digest": "588e8016c0adff99081e4452315cb6256151f0abfa67d9a2ef7332d75b8b1de1"
+    },
+    {
+      "game_id": "april_oneil--donatello:reversed:8005",
+      "report_digest": "3fbed0e98d9ad5371b12b25edc7b693585478c719b8fafe491fd83c30277df9d"
+    },
+    {
+      "game_id": "april_oneil--donatello:canonical:8006",
+      "report_digest": "25e9e64a1f34f04b648f4249e66ed9f75169038e11e70f823d578bb60083138a"
+    },
+    {
+      "game_id": "april_oneil--donatello:reversed:8006",
+      "report_digest": "6511c7f582895cac295104b774dc25f958b03fc10017a252975dc08c73863996"
+    },
+    {
+      "game_id": "april_oneil--krang:canonical:8007",
+      "report_digest": "f62670cd23a0158c7098d4b4b0933f35df20f658ef484465e88927d834d852cf"
+    },
+    {
+      "game_id": "april_oneil--krang:reversed:8007",
+      "report_digest": "3850a8051ced7d8a0d3d9fa0d1846fd7e2a1325bb8cdf9a47f405b5a55b53644"
+    },
+    {
+      "game_id": "april_oneil--krang:canonical:8008",
+      "report_digest": "05aef5ec4aedf211ca0824deb87579cc904f59b6cd27bf87d85e7e2ced9c0435"
+    },
+    {
+      "game_id": "april_oneil--krang:reversed:8008",
+      "report_digest": "3bce371f533622882da2fb72ea3c90f65ebd55dd0ce3fc3e6cf7a3b2e7674367"
+    },
+    {
+      "game_id": "april_oneil--leonardo:canonical:8009",
+      "report_digest": "3bac5d89009fff6d6bdd8c6a6d4465d23299ffceba7583e0500978407b424121"
+    },
+    {
+      "game_id": "april_oneil--leonardo:reversed:8009",
+      "report_digest": "e3efc04d9f0ccc1f7ad5d7a10f99ebfffe9490939a144a3c22f6ebf84921ea04"
+    },
+    {
+      "game_id": "april_oneil--leonardo:canonical:8010",
+      "report_digest": "d83d0916ee615faab71a2b381e3505a3eea8695cabc551d8f5709a8cd3af5375"
+    },
+    {
+      "game_id": "april_oneil--leonardo:reversed:8010",
+      "report_digest": "7fbb456c7e376844e2f7412fb16fff81af29265c1bda6021d5dbeb0d8ce5a006"
+    }
+  ],
+  "failure": {
+    "kind": "SmokeGameFailure",
+    "message": "combat damage step is not ready to resolve",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 297, in run_smoke_game\n    _resolve_combat_damage_steps(game, chosen_pilot)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 421, in _resolve_combat_damage_steps\n    _checked_action(game, game.resolve_combat_damage, \"combat damage\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 393, in _checked_action\n    result = operation()\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\engine07.py\", line 4593, in resolve_combat_damage\n    raise ValueError(\"combat damage step is not ready to resolve\")\nValueError: combat damage step is not ready to resolve\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 422, in execute_smoke\n    snapshots[member] = runner(root, spec, None)\n                        ~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 310, in run_smoke_game\n    raise SmokeGameFailure(str(error), snapshot) from error\ntmnt_design_studio.smoke01.SmokeGameFailure: combat damage step is not ready to resolve\n"
+  },
+  "last_authoritative_state": {
+    "phase": "combat",
+    "priority": null,
+    "stack": [],
+    "state_fingerprint": "f5c66d213baa1d50c4e25b273816ff91a35e6ffbeac1e87b4d3f9ac7f77b3e48",
+    "step": "combat_damage",
+    "turn": 16
+  },
+  "manifest_digest": "d3c6ff163c41017a21d5b6c566217119ce1eea5adb3396986cf515b1724c967b",
+  "stage": "coverage-aware-engine-smoke-0.1"
+}
