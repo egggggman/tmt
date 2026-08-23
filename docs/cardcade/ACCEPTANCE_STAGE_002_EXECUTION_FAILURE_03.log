@@ -1,0 +1,24 @@
+Acceptance Stage #002 fresh execution failure #3
+Execution baseline: 5fb4b28280429f88712b360ddde867ba85fa0ef1
+Execution branch: main
+Command: bundled Python scripts/run_acceptance_stage_002.py --execute --output docs/cardcade/ACCEPTANCE_STAGE_002_RESULTS_03.json
+Exit code: 1
+Result artifact written: no
+
+Traceback (most recent call last):
+  File "C:\projects\tmt\scripts\run_acceptance_stage_002.py", line 27, in <module>
+    main()
+  File "C:\projects\tmt\scripts\run_acceptance_stage_002.py", line 18, in main
+    result = execute_stage(root) if args.execute else plan(root)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 1113, in execute_stage
+    first = runner(root, spec, None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 592, in run_game
+    _checked_action(game, game.resolve_combat_damage, "combat damage")
+  File "C:\projects\tmt\src\tmnt_design_studio\stage002.py", line 393, in _checked_action
+    result = operation()
+             ^^^^^^^^^^^
+  File "C:\projects\tmt\src\tmnt_design_studio\engine07.py", line 4585, in resolve_combat_damage
+    raise ValueError("combat damage step is not ready to resolve")
+ValueError: combat damage step is not ready to resolve
