@@ -1,0 +1,424 @@
+from __future__ import annotations
+
+import copy
+import json
+import subprocess
+from pathlib import Path
+
+import pytest
+
+from tmnt_design_studio.smoke01 import (
+    GIT_TEXT_HASH_SCHEME,
+    RAW_BINARY_HASH_SCHEME,
+    _git_text_identity,
+    _input_identity,
+    _mechanical_label,
+    build_smoke_manifest,
+    execute_smoke,
+    plan,
+    smoke_games,
+    validate_smoke_result,
+)
+from tmnt_design_studio.stage002 import stable_digest
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _snapshot(*, winner: int | None = 0, reached: bool = False) -> dict[str, object]:
+    semantic_key = "oracle:0:0:fragment"
+    occurrence = {
+        "occurrence_id": "occurrence-1",
+        "semantic_key": semantic_key,
+        "object_id": "object-1",
+        "limitations": ["unsupported"],
+    }
+    witness = {
+        "witness_id": "witness-1",
+        "occurrence_id": "occurrence-1",
+        "cause_kind": "typed_event",
+    }
+    return {
+        "winner": winner,
+        "turn": 4,
+        "phase": "combat",
+        "step": "end_of_combat",
+        "authoritative_state_fingerprint": "a" * 64,
+        "rng": {"state_digest": "b" * 64},
+        "stack": [],
+        "priority": None,
+        "pending_triggers": [],
+        "players": [{"name": "a"}, {"name": "b"}],
+        "events": [],
+        "scry": [],
+        "combat_damage": {"evidence": []},
+        "lifelink": [],
+        "hand_bottom_draw": [],
+        "discard_draw": [],
+        "activated_abilities": [],
+        "food_activations": [],
+        "sneak": [],
+        "stage002_presence": [
+            {
+                "initial_object_id": "object-1",
+                "object_ids": ["object-1"],
+                "owner": 0,
+                "card": "fixture",
+                "is_token": False,
+                "semantic_key": semantic_key,
+                "oracle_fragment": "fragment",
+                "zone_history": [],
+            }
+        ],
+        "conformance": {
+            "semantic_occurrences": [occurrence] if reached else [],
+            "opportunity_witnesses": [witness] if reached else [],
+            "opportunity_contexts": [],
+            "executed_references": [],
+            "stop_records": [],
+        },
+    }
+
+
+def _manifest_for(snapshot: dict[str, object]) -> dict[str, object]:
+    presence = snapshot["stage002_presence"][0]
+    body = {
+        "stage": "coverage-aware-engine-smoke-0.1",
+        "decks": [
+            {
+                "cards": [
+                    {
+                        "fragments": [
+                            {
+                                "semantic_key": presence["semantic_key"],
+                                "oracle_fragment": presence["oracle_fragment"],
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "distinct_game_count": 1,
+        "execution_count": 2,
+    }
+    return {**body, "manifest_digest": stable_digest(body)}
+
+
+def _resign_outer_digests(result: dict[str, object]) -> None:
+    aggregate = result["aggregate"]
+    aggregate["aggregate_digest"] = stable_digest(
+        {key: value for key, value in aggregate.items() if key != "aggregate_digest"}
+    )
+    result["raw_artifact_body_digest"] = stable_digest(
+        {key: value for key, value in result.items() if key != "raw_artifact_body_digest"}
+    )
+
+
+def _use_one_game(monkeypatch) -> None:
+    one_game = smoke_games()[:1]
+    monkeypatch.setattr("tmnt_design_studio.smoke01.smoke_games", lambda: one_game)
+    monkeypatch.setattr("tmnt_design_studio.smoke01.REQUIRED_GAME_COUNT", 1)
+
+
+def test_matrix_is_exact_and_collision_free():
+    games = smoke_games()
+    assert len(games) == 180
+    assert len({game.game_id for game in games}) == 180
+    assert len({game.pairing_id for game in games}) == 45
+    assert {game.seed for game in games} == set(range(8001, 8091))
+    assert games[0].game_id == "april_oneil--bebop_rocksteady:canonical:8001"
+    assert games[-1].game_id == "shredder--splinter:reversed:8090"
+
+
+def test_plan_reconstructs_frozen_inputs_without_creating_game(monkeypatch):
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError("plan instantiated Game")
+
+    monkeypatch.setattr("tmnt_design_studio.engine07.Game.__init__", forbidden)
+    result = plan(ROOT)
+    manifest = result["manifest"]
+    assert result["authorized"] is False
+    assert manifest["pairing_count"] == 45
+    assert manifest["distinct_game_count"] == 180
+    assert manifest["execution_count"] == 360
+    assert manifest["manifest_digest"] == stable_digest(
+        {key: value for key, value in manifest.items() if key != "manifest_digest"}
+    )
+
+
+def test_frozen_input_tampering_fails_manifest(monkeypatch):
+    monkeypatch.setitem(
+        __import__("tmnt_design_studio.smoke01", fromlist=["FROZEN_INPUTS"]).FROZEN_INPUTS,
+        "cardcade/roster-0.2.json",
+        {"scheme": GIT_TEXT_HASH_SCHEME, "digest": "0" * 40},
+    )
+    with pytest.raises(ValueError, match="input mismatch"):
+        build_smoke_manifest(ROOT)
+
+
+def test_frozen_input_drift_writes_atomic_preflight_failure(monkeypatch, tmp_path):
+    from tmnt_design_studio.smoke01 import FROZEN_INPUTS
+
+    monkeypatch.setitem(
+        FROZEN_INPUTS,
+        "cardcade/roster-0.2.json",
+        {"scheme": GIT_TEXT_HASH_SCHEME, "digest": "0" * 40},
+    )
+    output = tmp_path / "result.json"
+    failure = tmp_path / "failure.json"
+    with pytest.raises(ValueError, match="input mismatch"):
+        execute_smoke(ROOT, output=output, failure_output=failure)
+    artifact = json.loads(failure.read_text(encoding="utf-8"))
+    assert artifact["accepted_aggregate"] is False
+    assert artifact["manifest_digest"] is None
+    assert artifact["active_execution"] == {
+        "stage": "manifest_preflight",
+        "game_id": None,
+        "pairing_id": None,
+        "seed": None,
+        "orientation": None,
+        "duplicate_member": "preflight",
+        "execution_ordinal": 0,
+        "completed_distinct_game_count": 0,
+    }
+    assert not output.exists()
+    assert failure.with_suffix(".json.sha256").exists()
+
+
+def test_git_text_identity_is_checkout_line_ending_independent(tmp_path):
+    relative = "decks/leonardo/PROTOTYPE_0.1.txt"
+    lf = tmp_path / "lf.txt"
+    crlf = tmp_path / "crlf.txt"
+    lf.write_bytes(b"Deck\n4 Example\n")
+    crlf.write_bytes(b"Deck\r\n4 Example\r\n")
+    assert _git_text_identity(ROOT, relative, lf) == _git_text_identity(ROOT, relative, crlf)
+
+
+def test_git_text_identity_changes_for_textual_change(tmp_path):
+    relative = "decks/leonardo/PROTOTYPE_0.1.txt"
+    first = tmp_path / "first.txt"
+    second = tmp_path / "second.txt"
+    first.write_bytes(b"Deck\n4 Example\n")
+    second.write_bytes(b"Deck\n3 Example\n")
+    assert _git_text_identity(ROOT, relative, first) != _git_text_identity(ROOT, relative, second)
+
+
+def test_raw_binary_identity_changes_for_any_byte_change(tmp_path):
+    first = tmp_path / "first.bin"
+    second = tmp_path / "second.bin"
+    first.write_bytes(b"\x00\r\n\xff")
+    second.write_bytes(b"\x00\n\xff")
+    contract = {"scheme": RAW_BINARY_HASH_SCHEME, "digest": "unused"}
+    assert _input_identity(tmp_path, "first.bin", contract) != _input_identity(
+        tmp_path, "second.bin", contract
+    )
+
+
+def test_git_identity_rejects_untracked_wrong_or_missing_inputs(tmp_path):
+    source = tmp_path / "source.txt"
+    source.write_text("content", encoding="utf-8")
+    with pytest.raises(subprocess.CalledProcessError):
+        _git_text_identity(ROOT, "not-tracked.txt", source)
+    with pytest.raises(ValueError, match="missing"):
+        _git_text_identity(ROOT, "decks/leonardo/PROTOTYPE_0.1.txt", tmp_path / "missing")
+
+
+@pytest.mark.parametrize(
+    ("reached", "expected"),
+    [
+        (False, "mechanically_clean_coverage_complete"),
+        (True, "mechanically_clean_coverage_limited"),
+    ],
+)
+def test_mechanical_label_is_computed(reached, expected):
+    snapshot = _snapshot(reached=reached)
+    from tmnt_design_studio.stage002 import reconcile_snapshot
+
+    report = reconcile_snapshot(smoke_games()[0], snapshot, _manifest_for(snapshot))
+    assert _mechanical_label(report, snapshot) == expected
+
+
+def test_incomplete_game_is_mechanically_invalid():
+    snapshot = _snapshot(winner=None)
+    from tmnt_design_studio.stage002 import reconcile_snapshot
+
+    report = reconcile_snapshot(smoke_games()[0], snapshot, _manifest_for(snapshot))
+    with pytest.raises(RuntimeError, match="invalid or incomplete"):
+        _mechanical_label(report, snapshot)
+
+
+def test_execute_serializes_both_duplicates_and_balance_boundary(monkeypatch, tmp_path):
+    snapshot = _snapshot(reached=True)
+    manifest = _manifest_for(snapshot)
+    monkeypatch.setattr("tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: manifest)
+    _use_one_game(monkeypatch)
+    output = tmp_path / "result.json"
+    failure = tmp_path / "failure.json"
+    result = execute_smoke(
+        ROOT,
+        output=output,
+        failure_output=failure,
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    report = result["aggregate"]["games"][0]
+    assert report["duplicate_snapshots"]["first"] == report["duplicate_snapshots"]["second"]
+    assert report["mechanical_label"] == "mechanically_clean_coverage_limited"
+    assert result["aggregate"]["future_balance_candidate_games"] == []
+    assert not failure.exists()
+    assert output.exists() and output.with_suffix(".json.sha256").exists()
+    validate_smoke_result(result)
+
+
+def test_duplicate_tampering_fails_independent_validation(monkeypatch, tmp_path):
+    snapshot = _snapshot()
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    result["aggregate"]["games"][0]["duplicate_snapshots"]["second"]["turn"] = 99
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="duplicate evidence"):
+        validate_smoke_result(result)
+
+
+def test_failure_is_atomic_and_preserves_active_execution(monkeypatch, tmp_path):
+    snapshot = _snapshot()
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    output = tmp_path / "result.json"
+    failure = tmp_path / "failure.json"
+
+    def fail(*_args):
+        raise RuntimeError("probe stop")
+
+    with pytest.raises(RuntimeError, match="probe stop"):
+        execute_smoke(
+            ROOT,
+            output=output,
+            failure_output=failure,
+            runner=fail,
+        )
+    artifact = json.loads(failure.read_text(encoding="utf-8"))
+    assert artifact["accepted_aggregate"] is False
+    assert artifact["active_execution"]["game_id"] == smoke_games()[0].game_id
+    assert artifact["active_execution"]["duplicate_member"] == "first"
+    assert artifact["active_execution"]["completed_distinct_game_count"] == 0
+    assert not output.exists()
+
+
+def test_post_duplicate_failure_preserves_available_authoritative_evidence(monkeypatch, tmp_path):
+    snapshot = _snapshot()
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    calls = 0
+
+    def mismatch(*_args):
+        nonlocal calls
+        calls += 1
+        result = copy.deepcopy(snapshot)
+        result["turn"] = calls
+        return result
+
+    failure = tmp_path / "failure.json"
+    with pytest.raises(RuntimeError, match="nondeterministic duplicate"):
+        execute_smoke(
+            ROOT,
+            output=tmp_path / "result.json",
+            failure_output=failure,
+            runner=mismatch,
+        )
+    artifact = json.loads(failure.read_text(encoding="utf-8"))
+    assert set(artifact["available_duplicate_digests"]) == {"first", "second"}
+    assert artifact["last_authoritative_state"]["state_fingerprint"] == "a" * 64
+
+
+def test_balance_projection_tampering_fails_validation(monkeypatch, tmp_path):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    result["aggregate"]["future_balance_candidate_games"] = [
+        {"game_id": smoke_games()[0].game_id, "balance_valid": True}
+    ]
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="balance projection"):
+        validate_smoke_result(result)
+
+
+def test_per_game_balance_valid_tampering_fails_after_outer_digests_are_resigned(
+    monkeypatch, tmp_path
+):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    result["aggregate"]["games"][0]["future_balance_candidate"]["balance_valid"] = True
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="per-game balance boundary"):
+        validate_smoke_result(result)
+
+
+def test_aggregate_label_substitution_fails_after_outer_digests_are_resigned(monkeypatch, tmp_path):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    game_id = result["aggregate"]["games"][0]["game_id"]
+    result["aggregate"]["mechanical_labels"] = {
+        "mechanically_clean_coverage_complete": [game_id],
+        "mechanically_clean_coverage_limited": [],
+        "mechanically_invalid": [],
+    }
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="aggregate mechanical labels"):
+        validate_smoke_result(result)
+
+
+def test_reconciled_classification_tampering_fails_even_with_resigned_outer_digests(
+    monkeypatch, tmp_path
+):
+    snapshot = _snapshot(reached=True)
+    monkeypatch.setattr(
+        "tmnt_design_studio.smoke01.build_smoke_manifest", lambda _root: _manifest_for(snapshot)
+    )
+    _use_one_game(monkeypatch)
+    result = execute_smoke(
+        ROOT,
+        output=tmp_path / "result.json",
+        failure_output=tmp_path / "failure.json",
+        runner=lambda *_args: copy.deepcopy(snapshot),
+    )
+    result["aggregate"]["games"][0]["occurrences"][0]["classification"] = "executed"
+    _resign_outer_digests(result)
+    with pytest.raises(ValueError, match="not reconstructive"):
+        validate_smoke_result(result)
