@@ -415,6 +415,13 @@ def _drain_priority(game: Game, pilot: Pilot) -> None:
         )
 
 
+def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
+    """Resolve each distinct damage step around existing Stack/Priority work."""
+    while game.step.value == "combat_damage":
+        _checked_action(game, game.resolve_combat_damage, "combat damage")
+        _drain_priority(game, pilot)
+
+
 def _initial_presence(game: Game) -> list[dict[str, object]]:
     records = []
     for owner, player in enumerate(game.players):
@@ -588,8 +595,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             choice = chosen_pilot.choose_sneak(game.public_view(), options)
             _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
             _drain_priority(game, chosen_pilot)
-        while game.step.value == "combat_damage":
-            _checked_action(game, game.resolve_combat_damage, "combat damage")
+        _resolve_combat_damage_steps(game, chosen_pilot)
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
         _checked_action(game, game.end_turn, "end turn")
