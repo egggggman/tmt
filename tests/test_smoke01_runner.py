@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
 
 from tmnt_design_studio.smoke01 import (
+    GIT_TEXT_HASH_SCHEME,
+    RAW_BINARY_HASH_SCHEME,
+    _git_text_identity,
+    _input_identity,
     _mechanical_label,
     build_smoke_manifest,
     execute_smoke,
@@ -142,18 +147,22 @@ def test_plan_reconstructs_frozen_inputs_without_creating_game(monkeypatch):
 
 def test_frozen_input_tampering_fails_manifest(monkeypatch):
     monkeypatch.setitem(
-        __import__("tmnt_design_studio.smoke01", fromlist=["FROZEN_HASHES"]).FROZEN_HASHES,
+        __import__("tmnt_design_studio.smoke01", fromlist=["FROZEN_INPUTS"]).FROZEN_INPUTS,
         "cardcade/roster-0.2.json",
-        "0" * 64,
+        {"scheme": GIT_TEXT_HASH_SCHEME, "digest": "0" * 40},
     )
     with pytest.raises(ValueError, match="input mismatch"):
         build_smoke_manifest(ROOT)
 
 
 def test_frozen_input_drift_writes_atomic_preflight_failure(monkeypatch, tmp_path):
-    from tmnt_design_studio.smoke01 import FROZEN_HASHES
+    from tmnt_design_studio.smoke01 import FROZEN_INPUTS
 
-    monkeypatch.setitem(FROZEN_HASHES, "cardcade/roster-0.2.json", "0" * 64)
+    monkeypatch.setitem(
+        FROZEN_INPUTS,
+        "cardcade/roster-0.2.json",
+        {"scheme": GIT_TEXT_HASH_SCHEME, "digest": "0" * 40},
+    )
     output = tmp_path / "result.json"
     failure = tmp_path / "failure.json"
     with pytest.raises(ValueError, match="input mismatch"):
@@ -173,6 +182,44 @@ def test_frozen_input_drift_writes_atomic_preflight_failure(monkeypatch, tmp_pat
     }
     assert not output.exists()
     assert failure.with_suffix(".json.sha256").exists()
+
+
+def test_git_text_identity_is_checkout_line_ending_independent(tmp_path):
+    relative = "decks/leonardo/PROTOTYPE_0.1.txt"
+    lf = tmp_path / "lf.txt"
+    crlf = tmp_path / "crlf.txt"
+    lf.write_bytes(b"Deck\n4 Example\n")
+    crlf.write_bytes(b"Deck\r\n4 Example\r\n")
+    assert _git_text_identity(ROOT, relative, lf) == _git_text_identity(ROOT, relative, crlf)
+
+
+def test_git_text_identity_changes_for_textual_change(tmp_path):
+    relative = "decks/leonardo/PROTOTYPE_0.1.txt"
+    first = tmp_path / "first.txt"
+    second = tmp_path / "second.txt"
+    first.write_bytes(b"Deck\n4 Example\n")
+    second.write_bytes(b"Deck\n3 Example\n")
+    assert _git_text_identity(ROOT, relative, first) != _git_text_identity(ROOT, relative, second)
+
+
+def test_raw_binary_identity_changes_for_any_byte_change(tmp_path):
+    first = tmp_path / "first.bin"
+    second = tmp_path / "second.bin"
+    first.write_bytes(b"\x00\r\n\xff")
+    second.write_bytes(b"\x00\n\xff")
+    contract = {"scheme": RAW_BINARY_HASH_SCHEME, "digest": "unused"}
+    assert _input_identity(tmp_path, "first.bin", contract) != _input_identity(
+        tmp_path, "second.bin", contract
+    )
+
+
+def test_git_identity_rejects_untracked_wrong_or_missing_inputs(tmp_path):
+    source = tmp_path / "source.txt"
+    source.write_text("content", encoding="utf-8")
+    with pytest.raises(subprocess.CalledProcessError):
+        _git_text_identity(ROOT, "not-tracked.txt", source)
+    with pytest.raises(ValueError, match="missing"):
+        _git_text_identity(ROOT, "decks/leonardo/PROTOTYPE_0.1.txt", tmp_path / "missing")
 
 
 @pytest.mark.parametrize(

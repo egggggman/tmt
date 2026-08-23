@@ -70,27 +70,32 @@ FROZEN_PATHS = (
     "src/tmnt_design_studio/stage002.py",
     "src/tmnt_design_studio/conformance07.py",
 )
-FROZEN_DIGESTS = (
-    "fdbc141b1119227d71dbf0a41a7f3970c1548f6fff1884f1173f9d018b5eb4ed",
-    "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
-    "6b5271af75150a361f77e7b89306c709959dfdf497c448dfdc978e5dc9a17950",
-    "d49d155858938d6fc64127c1678e591ee77abad3b7da8302880f16379476fb08",
-    "07eed928ef6c47aea1f8fb2df2c494d0fae12c10bee8836e7aa9cf2a8784a834",
-    "8c7ac3bf72e9c8f44e89906567b5fca2c59200f695ba43608c5a91842beb9ce2",
-    "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
-    "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
-    "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
-    "0fc0adbb370ecfddad03692a4229a04b23268739914a8f2a004b8e042ff3cebb",
-    "d0c6479ef2df6d3c64911e8f93465310760f6509282b018fb1c8319cc2c3d6a1",
-    "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
-    "3875706a76ffab14d2a82ba836da9e59bce49de2f990a348941490e78a61ef9d",
-    "501c3af019c0ac123a2589e6652f49931dfff23d86670d7451dcb25369bc4be9",
-    "2407cb6bf72c638036c8d2b7ffbb720f2abe2921fe82696827c88b01449109ab",
-    "8b1365cf58794c9df0045d6aaf8024c5f67dd41dea5bdd80b4f07569adbbc883",
-    "c2b17ad738d3dc9fa29fc0c080f86af00e5329d31cad63ac32847be792b75250",
-    "cd3f4ef06c7c423e317978e52abad1ace988f26dcfe2df682c8f1d342727ad29",
+FROZEN_IDENTITIES = (
+    "bad8104fcef826ef5cfd7fec1bdfe921cdd4c306",
+    "761376d5f932fe6cfbbe140d5c76793c9dd5b169",
+    "768d25bbed8392a2f92b7b7f06ae8a34e2602423",
+    "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+    "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+    "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317",
+    "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+    "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+    "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+    "ebcddef99784da507055ff1bac84134e5d355ac6",
+    "306fd267482b72f188c69222d57fcc547d654091",
+    "ecdffa18463076503f5d338687041f42a3a599d9",
+    "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+    "6e09f224fc75b8afe6cb6945a403ab43ab64f70e",
+    "2c316320c927d137dbfb9c91bf33291972573755",
+    "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
+    "b384f4e06021b902431d8224ac0ae40664b77a6d",
+    "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
 )
-FROZEN_HASHES = dict(zip(FROZEN_PATHS, FROZEN_DIGESTS, strict=True))
+GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"
+RAW_BINARY_HASH_SCHEME = "raw-bytes-sha256-v1"
+FROZEN_INPUTS = {
+    path: {"scheme": GIT_TEXT_HASH_SCHEME, "digest": digest}
+    for path, digest in zip(FROZEN_PATHS, FROZEN_IDENTITIES, strict=True)
+}
 
 
 @dataclass(frozen=True)
@@ -127,6 +132,45 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _git_text_identity(root: Path, relative: str, source: Path | None = None) -> str:
+    """Hash tracked text through explicit Git clean-filter semantics."""
+    subprocess.run(
+        ["git", "ls-files", "--error-unmatch", "--", relative],
+        cwd=root,
+        check=True,
+        capture_output=True,
+    )
+    candidate = root / relative if source is None else source
+    if not candidate.is_file():
+        raise ValueError(f"frozen input is missing: {candidate}")
+    return subprocess.run(
+        [
+            "git",
+            "-c",
+            "core.autocrlf=true",
+            "hash-object",
+            f"--path={relative}",
+            "--",
+            str(candidate),
+        ],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
+def _input_identity(root: Path, relative: str, contract: dict[str, str]) -> dict[str, str]:
+    scheme = contract["scheme"]
+    if scheme == GIT_TEXT_HASH_SCHEME:
+        digest = _git_text_identity(root, relative)
+    elif scheme == RAW_BINARY_HASH_SCHEME:
+        digest = _sha256(root / relative)
+    else:
+        raise ValueError(f"unknown frozen-input hashing scheme: {scheme}")
+    return {"scheme": scheme, "digest": digest}
+
+
 def _execution_commit(root: Path) -> str:
     return subprocess.run(
         ["git", "rev-parse", "HEAD"],
@@ -139,11 +183,14 @@ def _execution_commit(root: Path) -> str:
 
 def build_smoke_manifest(root: Path) -> dict[str, object]:
     """Reconstruct the complete frozen plan without creating a Game or consuming RNG."""
-    actual_hashes = {relative: _sha256(root / relative) for relative in FROZEN_HASHES}
+    actual_hashes = {
+        relative: _input_identity(root, relative, contract)
+        for relative, contract in FROZEN_INPUTS.items()
+    }
     mismatches = {
-        relative: {"expected": FROZEN_HASHES[relative], "actual": actual}
+        relative: {"expected": FROZEN_INPUTS[relative], "actual": actual}
         for relative, actual in actual_hashes.items()
-        if actual != FROZEN_HASHES[relative]
+        if actual != FROZEN_INPUTS[relative]
     }
     if mismatches:
         raise ValueError(f"frozen Smoke 0.1 input mismatch: {mismatches}")
@@ -166,7 +213,15 @@ def build_smoke_manifest(root: Path) -> dict[str, object]:
     body = {
         "stage": STAGE_ID,
         "execution_commit": _execution_commit(root),
-        "runner_sha256": _sha256(Path(__file__)),
+        "hashing_contract": {
+            "version": "smoke-frozen-input-hashing-v2",
+            "tracked_text": GIT_TEXT_HASH_SCHEME,
+            "binary_or_non_git": RAW_BINARY_HASH_SCHEME,
+        },
+        "runner_identity": {
+            "scheme": GIT_TEXT_HASH_SCHEME,
+            "digest": _git_text_identity(root, "src/tmnt_design_studio/smoke01.py"),
+        },
         "pilot": "tmnt_design_studio.pilot07.AcceptancePilot",
         "frozen_hashes": actual_hashes,
         "catalog": {
