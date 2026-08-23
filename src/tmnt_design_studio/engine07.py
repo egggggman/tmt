@@ -5802,12 +5802,12 @@ class Game:
             else:
                 self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
+            self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
             self._process_creature_entered_triggers(
                 permanent,
                 source_id=stack_object_id if sneak_cast else None,
                 defer_triggers=sneak_cast,
             )
-            self.report_unsupported_abilities(spell.controller, spell.card, source=permanent)
             if not sneak_cast:
                 self.check_state_based_actions()
             return permanent
