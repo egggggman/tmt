@@ -8,11 +8,15 @@ import pytest
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
 from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
     CardFact,
+    CombatDamageStepKind,
     Game,
     RulesEventKind,
     TriggeredAbilityObject,
     TriggerEffect,
+    TurnStep,
 )
 from tmnt_design_studio.semantic_coverage import SemanticCoverage
 
@@ -45,6 +49,23 @@ def pass_priority(current):
         else:
             option = current.legal_priority_actions(current.priority_state.player_index)[0]
             current.execute_priority_action(option)
+
+
+def declare_combat(current, attacker, blocker):
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(
+        option
+        for option in current.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+    current.execute_attack_action(attack)
+    current.execute_block_action(
+        ActionOption(
+            ActionKind.DECLARE_BLOCKERS,
+            1,
+            blocks=((attacker.object_id, blocker.object_id),),
+        )
+    )
 
 
 def catalog():
@@ -228,6 +249,68 @@ def test_simultaneous_deaths_create_distinct_events_stack_objects_and_draws():
     assert len({item.event.event_id for item in abilities}) == 2
     pass_priority(current)
     assert len(current.players[0].hand) == hand_before + 2
+
+
+def test_ordinary_combat_without_stack_work_advances_normally():
+    current, unused_source = game()
+    current.move_object(unused_source, "hand", reason="test_setup")
+    attacker = current.create_permanent(BEAR, 0, summoning_sick=False)
+    blocker = current.create_permanent(BEAR, 1, summoning_sick=False)
+    declare_combat(current, attacker, blocker)
+
+    current.resolve_combat_damage()
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert current.stack == []
+    assert current.priority_state is None
+
+
+def test_combat_created_trigger_pauses_then_priority_resolution_advances_combat():
+    current, source = game()
+    current.change_controller(source, 1)
+    attacker = current.create_permanent(BEAR, 0, summoning_sick=False)
+    hand_before = len(current.players[1].hand)
+    declare_combat(current, attacker, source)
+
+    evidence = current.resolve_combat_damage()
+
+    assert evidence.kind is CombatDamageStepKind.REGULAR
+    assert current.step is TurnStep.COMBAT_DAMAGE
+    assert current._combat_damage_resolved
+    assert len(current.stack) == 1
+    assert current.priority_state is not None
+    assert len(current.players[1].hand) == hand_before
+    assert not any(item["event"] == "trigger_resolved" for item in current.events)
+
+    pass_priority(current)
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert current.stack == []
+    assert current.priority_state is None
+    assert len(current.players[1].hand) == hand_before + 1
+
+
+def test_simultaneous_combat_triggers_all_resolve_before_combat_advances():
+    current, attacker = game()
+    blocker = current.create_permanent(BUZZ, 1, summoning_sick=False)
+    hand_before = tuple(len(player.hand) for player in current.players)
+    declare_combat(current, attacker, blocker)
+
+    current.resolve_combat_damage()
+
+    assert current.step is TurnStep.COMBAT_DAMAGE
+    assert len(current.stack) == 2
+    assert current.priority_state is not None
+    assert not any(item["event"] == "trigger_resolved" for item in current.events)
+
+    pass_priority(current)
+
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert current.stack == []
+    assert current.priority_state is None
+    assert tuple(len(player.hand) for player in current.players) == tuple(
+        size + 1 for size in hand_before
+    )
 
 
 def test_exact_supported_fragment_is_not_registered_as_unsupported():

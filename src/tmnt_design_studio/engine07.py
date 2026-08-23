@@ -4019,11 +4019,32 @@ class Game:
             self._begin_priority_window()
         elif (
             self.winner is None
+            and self.step is TurnStep.COMBAT_DAMAGE
+            and self._combat_damage_resolved
+        ):
+            self._advance_after_combat_damage()
+        elif (
+            self.winner is None
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
         ):
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
         return True
+
+    def _advance_after_combat_damage(self) -> None:
+        """Advance only after damage-created Stack and Priority work is complete."""
+        if self.step is not TurnStep.COMBAT_DAMAGE or not self._combat_damage_resolved:
+            raise ValueError("combat damage is not ready to advance")
+        if self.stack or self.priority_state is not None:
+            return
+        if (
+            self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
+            and self.winner is None
+        ):
+            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
+        else:
+            self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
+            self.transition_to(TurnStep.END_OF_COMBAT)
 
     def _record_represented_priority_action(self, player_index: int) -> None:
         """Reset passes after an engine-validated response; no such response exists yet."""
@@ -4828,11 +4849,7 @@ class Game:
             removed_before_next_step=list(removed),
         )
         self._combat_damage_resolved = True
-        if resolved_kind is CombatDamageStepKind.FIRST_STRIKE and self.winner is None:
-            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
-        else:
-            self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
-            self.transition_to(TurnStep.END_OF_COMBAT)
+        self._advance_after_combat_damage()
         return evidence
 
     def play_land(self, player_index: int, card: CardObject) -> bool:
