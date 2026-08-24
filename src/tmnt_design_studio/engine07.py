@@ -6126,7 +6126,8 @@ class Game:
                     self.refresh_static_pt_modifiers()
             if not changed:
                 break
-        if self._put_pending_triggers_on_stack({TriggerEffect.DIES_DRAW}):
+        self.check_life()
+        if self.winner is None and self._put_pending_triggers_on_stack({TriggerEffect.DIES_DRAW}):
             self._drain_triggered_abilities()
         self.check_invariants()
 
@@ -6519,7 +6520,7 @@ class Game:
 
     def check_life(self) -> None:
         for index, player in enumerate(self.players):
-            if player.life <= 0:
+            if player.life <= 0 and not player.lost:
                 player.lost = True
                 player.loss_reason = "life_zero_or_less"
                 self.winner = 1 - index
