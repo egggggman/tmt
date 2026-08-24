@@ -222,6 +222,10 @@ def _semantic_coverage(
             "limitations": [],
         }
     candidates = (
+        (
+            "etb_drain_gain_scry",
+            interpreter.etb_drain_gain_scry_semantic_coverage(card, fragment),
+        ),
         ("create_token", interpreter.token_semantic_coverage(card, fragment)),
         ("deal_damage", interpreter.damage_semantic_coverage(card, fragment)),
         ("hand_bottom_draw", interpreter.hand_bottom_draw_semantic_coverage(card, fragment)),
@@ -236,7 +240,7 @@ def _semantic_coverage(
     for family, interpreted in candidates:
         if interpreted is None:
             continue
-        coverage = interpreted.coverage
+        coverage = getattr(interpreted, "coverage", interpreted)
         return {
             "family": family,
             "payload_executable": coverage.payload_executable,
@@ -669,6 +673,13 @@ def _authoritative_execution_index(
             add(kind, item.get("event_id"), item.get("source_id"), item.get("oracle_fragment"))
     for item in snapshot.get("lifelink", []):
         add("lifelink", item.get("event_id"), item.get("source_id"), "Lifelink")
+    for item in snapshot.get("etb_drain_gain_scry", []):
+        add(
+            "etb_drain_gain_scry",
+            item.get("stack_object_id"),
+            item.get("source_id"),
+            item.get("oracle_fragment"),
+        )
     for step in snapshot.get("combat_damage", {}).get("evidence", []):
         sequence = step.get("sequence")
         for assignment in step.get("assignments", []):
@@ -1034,6 +1045,7 @@ def reconcile_snapshot(
                 "priority",
                 "pending_triggers",
                 "scry",
+                "etb_drain_gain_scry",
                 "combat_damage",
                 "lifelink",
                 "hand_bottom_draw",
