@@ -273,6 +273,7 @@ class RulesEventKind(Enum):
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
     DISCARD_DRAW = "discard_draw"
+    PERMANENT_LEFT = "permanent_left"
 
 
 class TriggerEffect(Enum):
@@ -288,6 +289,7 @@ class TriggerEffect(Enum):
     DISCARD_DRAW = "discard_draw"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
+    PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
 
 
 @dataclass(frozen=True)
@@ -781,6 +783,7 @@ class TriggeredAbilityObject:
     oracle_fragment: str
     effect: TriggerEffect
     event: RulesEvent
+    trigger_id: str | None = None
     zone: Zone = "stack"
 
     @property
@@ -931,13 +934,15 @@ class LethalDamageStateBasedAction:
     name: str = "lethal_damage"
 
     def apply(self, game: Game) -> bool:
-        changed = False
-        for player in game.players:
-            for permanent in list(player.battlefield):
-                if permanent.card.is_creature and permanent.damage >= permanent.toughness:
-                    game.destroy(permanent, state_based_action=self.name)
-                    changed = True
-        return changed
+        lethal = tuple(
+            permanent
+            for player in game.players
+            for permanent in player.battlefield
+            if permanent.card.is_creature and permanent.damage >= permanent.toughness
+        )
+        if lethal:
+            game.put_permanents_into_graveyard(lethal, state_based_action=self.name)
+        return bool(lethal)
 
 
 @dataclass(frozen=True)
@@ -994,10 +999,9 @@ class LegendRuleStateBasedAction:
                     kept_battlefield_index=player.battlefield.index(keep),
                     moved_to_graveyard=len(permanents) - 1,
                 )
-                for permanent in permanents:
-                    if permanent is not keep:
-                        game.put_into_graveyard(permanent, state_based_action=self.name)
-                        changed = True
+                leaving = tuple(permanent for permanent in permanents if permanent is not keep)
+                game.put_permanents_into_graveyard(leaving, state_based_action=self.name)
+                changed = True
         return changed
 
 
@@ -1150,6 +1154,7 @@ class Game:
         self._priority_resolution_in_progress = False
         self._next_priority_epoch = 1
         self.pending_triggers: list[TriggerInstance] = []
+        self._triggers: dict[str, TriggerInstance] = {}
         self._next_event_number = 1
         self._rules_events: dict[str, RulesEvent] = {}
         self._next_semantic_occurrence_number = 1
@@ -1409,6 +1414,27 @@ class Game:
             return False
         return self._identity_contains(self._authoritative_container(obj), obj)
 
+    def _battlefield_authority_snapshot(self) -> tuple[tuple[str, int], ...]:
+        return tuple(
+            (permanent.object_id, permanent.controller)
+            for player in self.players
+            for permanent in player.battlefield
+        )
+
+    def _permanent_left_trigger_sources(
+        self,
+    ) -> tuple[tuple[Permanent, str], ...]:
+        sources: list[tuple[Permanent, str]] = []
+        for player in self.players:
+            for permanent in player.battlefield:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    coverage = self.interpreter.permanent_left_self_counter_semantic_coverage(
+                        permanent.card, fragment
+                    )
+                    if coverage is not None and coverage.fully_supported:
+                        sources.append((permanent, fragment))
+        return tuple(sources)
+
     def move_object(
         self,
         obj: CardObject | StackObject | Permanent,
@@ -1420,6 +1446,8 @@ class Game:
         summoning_sick: bool = True,
         reason: str | None = None,
         library_position: Literal["top", "bottom"] | None = None,
+        _departure_authority: tuple[tuple[str, int], ...] | None = None,
+        _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
     ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
         if self._objects.get(obj.object_id) is not obj:
@@ -1449,6 +1477,27 @@ class Game:
             raise ValueError("library position is valid only for library movement")
 
         source_zone = obj.zone
+        departure_authority = None
+        departure_sources = None
+        departure_last_known = None
+        if source_zone == "battlefield" and destination != "battlefield":
+            assert isinstance(obj, Permanent)
+            departure_authority = (
+                self._battlefield_authority_snapshot()
+                if _departure_authority is None
+                else _departure_authority
+            )
+            departure_sources = (
+                self._permanent_left_trigger_sources()
+                if _departure_sources is None
+                else _departure_sources
+            )
+            departure_last_known = (
+                obj.object_id,
+                obj.controller,
+                obj.type_line,
+                obj.is_creature,
+            )
         new_id = self._allocate_object_id()
         destination_controller = obj.owner if controller is None else controller
         if destination == "battlefield":
@@ -1497,6 +1546,38 @@ class Game:
             reason=reason,
             library_position=library_position,
         )
+        if departure_authority is not None:
+            assert departure_sources is not None and departure_last_known is not None
+            qualifying_sources = tuple(
+                (watcher, fragment)
+                for watcher, fragment in departure_sources
+                if watcher.object_id != obj.object_id
+            )
+            if qualifying_sources:
+                event = self._new_rules_event(
+                    RulesEventKind.PERMANENT_LEFT,
+                    departure_last_known[1],
+                    (obj.object_id,),
+                    source_id=obj.object_id,
+                    battlefield_authority=departure_authority,
+                    last_known_battlefield=(departure_last_known,)
+                    + tuple(
+                        (
+                            watcher.object_id,
+                            watcher.controller,
+                            watcher.type_line,
+                            watcher.is_creature,
+                        )
+                        for watcher, _fragment in qualifying_sources
+                    ),
+                )
+                for watcher, fragment in qualifying_sources:
+                    self._enqueue_trigger(
+                        event,
+                        watcher,
+                        fragment,
+                        TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
+                    )
         if source_zone == "battlefield" and destination != "battlefield":
             for occurrence in tuple(self.semantic_occurrences):
                 watcher = self._objects.get(occurrence.object_id)
@@ -2951,6 +3032,69 @@ class Game:
         )
         return choice
 
+    def _validate_permanent_left_counter_provenance(
+        self,
+        *,
+        controller: int,
+        source_id: str,
+        source_card: CardFact,
+        oracle_fragment: str,
+        event: RulesEvent,
+        trigger_id: str | None = None,
+    ) -> Permanent | None:
+        """Authenticate the exact source and departed permanent from frozen leave evidence."""
+        source = self._objects.get(source_id)
+        coverage = self.interpreter.permanent_left_self_counter_semantic_coverage(
+            source_card, oracle_fragment
+        )
+        last_known = {item[0]: item for item in event.last_known_battlefield}
+        departed_id = event.subject_ids[0] if len(event.subject_ids) == 1 else None
+        departure_records = [
+            item
+            for item in self.events
+            if item.get("event") == "zone_changed"
+            and item.get("source_object_id") == departed_id
+            and item.get("source_zone") == "battlefield"
+            and item.get("destination_zone") != "battlefield"
+        ]
+        source_lki = last_known.get(source_id)
+        departed_lki = last_known.get(departed_id or "")
+        trigger = None if trigger_id is None else self._triggers.get(trigger_id)
+        if (
+            coverage is None
+            or not coverage.fully_supported
+            or event.kind is not RulesEventKind.PERMANENT_LEFT
+            or self._rules_events.get(event.event_id) is not event
+            or event.source_id != departed_id
+            or departed_id is None
+            or departed_id == source_id
+            or len(departure_records) != 1
+            or source_lki is None
+            or departed_lki is None
+            or source_lki[1] != controller
+            or not source_lki[2]
+            or not departed_lki[2]
+            or (source_id, controller) not in event.battlefield_authority
+            or (departed_id, departed_lki[1]) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.zone not in {"battlefield", "former"}
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.controller != controller
+                    or trigger.source_id != source_id
+                    or trigger.source_card is not source_card
+                    or trigger.oracle_fragment != oracle_fragment
+                    or trigger.effect is not TriggerEffect.PERMANENT_LEFT_SELF_COUNTER
+                    or trigger.event is not event
+                )
+            )
+        ):
+            raise ValueError("permanent-left counter trigger has mismatched provenance")
+        return source if self.is_authoritative(source, "battlefield") else None
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -2958,6 +3102,14 @@ class Game:
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
+            self._validate_permanent_left_counter_provenance(
+                controller=source.controller,
+                source_id=source.object_id,
+                source_card=source.card,
+                oracle_fragment=fragment,
+                event=event,
+            )
         trigger = TriggerInstance(
             f"trigger-{self._next_trigger_number:06d}",
             source.controller,
@@ -2968,6 +3120,7 @@ class Game:
             event,
         )
         self._next_trigger_number += 1
+        self._triggers[trigger.trigger_id] = trigger
         self.pending_triggers.append(trigger)
         self.log(
             "trigger_pending",
@@ -3001,6 +3154,7 @@ class Game:
                     trigger.oracle_fragment,
                     trigger.effect,
                     trigger.event,
+                    trigger.trigger_id,
                 )
                 self._register(ability)
                 self.stack.append(ability)
@@ -3023,6 +3177,15 @@ class Game:
             raise ValueError("triggered ability must be the authoritative top stack object")
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
+        if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
+            self._validate_permanent_left_counter_provenance(
+                controller=ability.controller,
+                source_id=ability.source_id,
+                source_card=ability.source_card,
+                oracle_fragment=ability.oracle_fragment,
+                event=ability.event,
+                trigger_id=ability.trigger_id,
+            )
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -3182,6 +3345,41 @@ class Game:
                     scry_event_id,
                     False,
                 )
+            )
+        elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
+            source_before = self._validate_permanent_left_counter_provenance(
+                controller=ability.controller,
+                source_id=ability.source_id,
+                source_card=ability.source_card,
+                oracle_fragment=ability.oracle_fragment,
+                event=ability.event,
+                trigger_id=ability.trigger_id,
+            )
+            counters_before = (
+                None if source_before is None else source_before.counters.get("+1/+1", 0)
+            )
+            if source_before is not None:
+                self.place_counters(
+                    source_before,
+                    "+1/+1",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                )
+            self.log(
+                "permanent_left_self_counter_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                source=ability.source_card.name,
+                source_id=ability.source_id,
+                departed_object_id=ability.event.subject_ids[0],
+                controller=ability.controller,
+                counter_applied=source_before is not None,
+                counters_before=counters_before,
+                counters_after=(
+                    None if source_before is None else source_before.counters.get("+1/+1", 0)
+                ),
+                oracle_fragment=ability.oracle_fragment,
             )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
@@ -3353,6 +3551,7 @@ class Game:
             source_id=ability.source_id,
             oracle_fragment=ability.oracle_fragment,
             effect=ability.effect.value,
+            trigger_id=ability.trigger_id,
         )
 
     def _drain_triggered_abilities(self) -> None:
@@ -3362,6 +3561,7 @@ class Game:
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
             }:
                 self._begin_priority_window()
                 return
@@ -5889,6 +6089,7 @@ class Game:
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -6209,17 +6410,45 @@ class Game:
                 self.advance_step()
         self.advance_to(TurnStep.CLEANUP)
 
+    def put_permanents_into_graveyard(
+        self,
+        permanents: tuple[Permanent, ...],
+        *,
+        state_based_action: str | None = None,
+    ) -> tuple[CardObject, ...]:
+        """Move one simultaneous battlefield batch with a shared last-known trigger snapshot."""
+        if len({permanent.object_id for permanent in permanents}) != len(permanents):
+            raise ValueError("simultaneous departure batch contains duplicate objects")
+        if any(not self.is_authoritative(permanent, "battlefield") for permanent in permanents):
+            raise ValueError("simultaneous departure requires authoritative permanents")
+        authority = self._battlefield_authority_snapshot()
+        sources = self._permanent_left_trigger_sources()
+        return tuple(
+            self.put_into_graveyard(
+                permanent,
+                state_based_action=state_based_action,
+                _departure_authority=authority,
+                _departure_sources=sources,
+            )
+            for permanent in permanents
+        )
+
     def put_into_graveyard(
-        self, permanent: Permanent, *, state_based_action: str | None = None
+        self,
+        permanent: Permanent,
+        *,
+        state_based_action: str | None = None,
+        _departure_authority: tuple[tuple[str, int], ...] | None = None,
+        _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
     ) -> CardObject:
         if not self.is_authoritative(permanent, "battlefield"):
             raise ValueError("permanent is not on the battlefield")
         owner = self.players[permanent.owner]
         controller = permanent.controller
-        battlefield_authority = tuple(
-            (candidate.object_id, candidate.controller)
-            for player in self.players
-            for candidate in player.battlefield
+        battlefield_authority = (
+            self._battlefield_authority_snapshot()
+            if _departure_authority is None
+            else _departure_authority
         )
         dies_draw_fragments = tuple(
             fragment
@@ -6235,6 +6464,8 @@ class Game:
             permanent,
             "graveyard",
             reason=state_based_action or "put_into_graveyard",
+            _departure_authority=battlefield_authority,
+            _departure_sources=_departure_sources,
         )
         assert isinstance(replacement, CardObject)
         self.refresh_static_pt_modifiers()
@@ -6278,7 +6509,9 @@ class Game:
             if not changed:
                 break
         self.check_life()
-        if self.winner is None and self._put_pending_triggers_on_stack({TriggerEffect.DIES_DRAW}):
+        if self.winner is None and self._put_pending_triggers_on_stack(
+            {TriggerEffect.DIES_DRAW, TriggerEffect.PERMANENT_LEFT_SELF_COUNTER}
+        ):
             self._drain_triggered_abilities()
         self.check_invariants()
 
@@ -6627,6 +6860,18 @@ class Game:
                         self._validate_etb_drain_gain_scry_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
+                    try:
+                        self._validate_permanent_left_counter_provenance(
+                            controller=obj.controller,
+                            source_id=obj.source_id,
+                            source_card=obj.source_card,
+                            oracle_fragment=obj.oracle_fragment,
+                            event=obj.event,
+                            trigger_id=obj.trigger_id,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
                 if obj.source_id not in self._objects:
                     raise AssertionError("activated ability source ID was never registered")
@@ -6637,6 +6882,19 @@ class Game:
             self.pending_triggers
         ):
             raise AssertionError("pending trigger IDs must be unique")
+        for trigger in self.pending_triggers:
+            if trigger.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
+                try:
+                    self._validate_permanent_left_counter_provenance(
+                        controller=trigger.controller,
+                        source_id=trigger.source_id,
+                        source_card=trigger.source_card,
+                        oracle_fragment=trigger.oracle_fragment,
+                        event=trigger.event,
+                        trigger_id=trigger.trigger_id,
+                    )
+                except ValueError as error:
+                    raise AssertionError(str(error)) from error
         for player_index, player in enumerate(self.players):
             for zone_name in ("library", "hand", "battlefield", "graveyard"):
                 for obj in getattr(player, zone_name):
@@ -7026,6 +7284,7 @@ class Game:
                         "controller": entry.controller,
                         "effect": entry.effect.value,
                         "event_id": entry.event.event_id,
+                        "trigger_id": entry.trigger_id,
                     }
                 )
                 for entry in self.stack
