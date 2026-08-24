@@ -536,6 +536,11 @@ class CardInterpreter:
         r"(?: \(Look at the top card of your library\. You may put that card on the bottom\.\))?$",
         re.IGNORECASE,
     )
+    ANOTHER_PERMANENT_LEFT_SELF_COUNTER = re.compile(
+        r"^Whenever another permanent leaves the battlefield, put a \+1/\+1 counter on "
+        r"(?P<source>[^.]+)\.$",
+        re.IGNORECASE,
+    )
     STATIC_KEYWORD_NAMES = frozenset(
         {
             "deathtouch",
@@ -551,6 +556,9 @@ class CardInterpreter:
             "trample",
             "vigilance",
         }
+    )
+    PERMANENT_CARD_TYPES = frozenset(
+        {"Artifact", "Battle", "Creature", "Enchantment", "Land", "Planeswalker"}
     )
     ACTIVATION_MANA_SYMBOL = re.compile(r"\{(?:[0-9]+|[WUBRG])\}", re.IGNORECASE)
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
@@ -725,6 +733,39 @@ class CardInterpreter:
             if not condition
         )
         return SemanticCoverage(executable, executable, executable, limitations)
+
+    def permanent_left_self_counter_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only another-permanent departure followed by one self +1/+1 counter."""
+        match = self.ANOTHER_PERMANENT_LEFT_SELF_COUNTER.fullmatch(fragment)
+        if match is None:
+            return None
+        source_text = match.group("source")
+        if source_text.casefold() == "this permanent":
+            return None
+        self_reference = source_text.casefold() == "this source" or (
+            source_text.casefold() == card.name.casefold()
+        )
+        permanent_source = any(
+            re.search(rf"\b{card_type}\b", card.type_line)
+            for card_type in self.PERMANENT_CARD_TYPES
+        )
+        executable = self_reference and permanent_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "permanent_left_counter_source_mismatch"),
+                (permanent_source, "permanent_left_counter_source_is_not_a_permanent"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(
+            executable,
+            executable,
+            executable,
+            limitations,
+        )
 
     def supports_counter_fragment(self, card: CardDefinition, fragment: str) -> bool:
         if self.ALLIANCE_MODAL_HEADER.fullmatch(fragment):
@@ -1719,6 +1760,13 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            permanent_left_counter = self.permanent_left_self_counter_semantic_coverage(
+                card, fragment
+            )
+            if permanent_left_counter is not None:
+                for reason in permanent_left_counter.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             etb_drain_gain_scry = self.etb_drain_gain_scry_semantic_coverage(card, fragment)
             if etb_drain_gain_scry is not None:
                 for reason in etb_drain_gain_scry.limitations:
