@@ -287,6 +287,7 @@ class TriggerEffect(Enum):
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
     DIES_DRAW = "dies_draw"
+    ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
 
 
 @dataclass(frozen=True)
@@ -348,6 +349,27 @@ class ScryEvidence:
     source_card: str
     oracle_fragment: str
     source_id: str | None = None
+
+
+@dataclass(frozen=True)
+class EtbDrainGainScryEvidence:
+    """Immutable facts for the bounded ETB drain/gain followed by Scry transaction."""
+
+    event_id: str
+    stack_object_id: str
+    source_id: str
+    source_card: str
+    controller: int
+    opponent: int
+    oracle_fragment: str
+    turn: int
+    step: str
+    opponent_life_before: int
+    opponent_life_after: int
+    controller_life_before: int
+    controller_life_after: int
+    scry_event_id: str | None
+    terminal_after_life_loss: bool
 
 
 @dataclass(frozen=True)
@@ -1161,6 +1183,7 @@ class Game:
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
+        self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
@@ -2998,6 +3021,8 @@ class Game:
             or not self.is_authoritative(ability, "stack")
         ):
             raise ValueError("triggered ability must be the authoritative top stack object")
+        if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
+            self._validate_etb_drain_gain_scry_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -3070,6 +3095,93 @@ class Game:
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
                 source_id=ability.source_id,
+            )
+        elif ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
+            coverage = self.interpreter.etb_drain_gain_scry_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if coverage is None or not coverage.fully_supported:
+                raise AssertionError("stacked ETB drain/gain/Scry trigger is no longer executable")
+            self._validate_etb_drain_gain_scry_trigger(ability)
+            opponent = 1 - ability.controller
+            opponent_life_before = self.players[opponent].life
+            controller_life_before = self.players[ability.controller].life
+            self.players[opponent].life -= 1
+            self.log(
+                "life_lost",
+                player=self.players[opponent].name,
+                amount=1,
+                source=ability.source_card.name,
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+                oracle_fragment=ability.oracle_fragment,
+            )
+            self.check_life()
+            if self.winner is not None:
+                evidence = EtbDrainGainScryEvidence(
+                    ability.event.event_id,
+                    ability.object_id,
+                    ability.source_id,
+                    ability.source_card.name,
+                    ability.controller,
+                    opponent,
+                    ability.oracle_fragment,
+                    ability.event.turn,
+                    ability.event.step,
+                    opponent_life_before,
+                    self.players[opponent].life,
+                    controller_life_before,
+                    self.players[ability.controller].life,
+                    None,
+                    True,
+                )
+                self.etb_drain_gain_scry_evidence.append(evidence)
+                self.log(
+                    "etb_drain_gain_scry_terminal",
+                    event_id=evidence.event_id,
+                    stack_object_id=evidence.stack_object_id,
+                    source_id=evidence.source_id,
+                    oracle_fragment=evidence.oracle_fragment,
+                )
+                return
+            self.gain_life(
+                ability.controller,
+                1,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+                defer_trigger_delivery=True,
+            )
+            scry_count_before = len(self.scry_evidence)
+            self.scry(
+                ability.controller,
+                ScryProgram(1),
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+                source_id=ability.source_id,
+            )
+            if len(self.scry_evidence) != scry_count_before + 1:
+                raise AssertionError(
+                    "ETB drain/gain/Scry transaction lacks committed Scry evidence"
+                )
+            scry_event_id = self.scry_evidence[-1].event_id
+            self.etb_drain_gain_scry_evidence.append(
+                EtbDrainGainScryEvidence(
+                    ability.event.event_id,
+                    ability.object_id,
+                    ability.source_id,
+                    ability.source_card.name,
+                    ability.controller,
+                    opponent,
+                    ability.oracle_fragment,
+                    ability.event.turn,
+                    ability.event.step,
+                    opponent_life_before,
+                    self.players[opponent].life,
+                    controller_life_before,
+                    self.players[ability.controller].life,
+                    scry_event_id,
+                    False,
+                )
             )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
@@ -3246,7 +3358,11 @@ class Game:
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
-            if self.stack[-1].effect in {TriggerEffect.DISCARD_DRAW, TriggerEffect.DIES_DRAW}:
+            if self.stack[-1].effect in {
+                TriggerEffect.DISCARD_DRAW,
+                TriggerEffect.DIES_DRAW,
+                TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+            }:
                 self._begin_priority_window()
                 return
             self._resolve_triggered_ability(self.stack[-1])
@@ -3285,6 +3401,28 @@ class Game:
         ):
             raise ValueError("dies/Draw trigger has mismatched death provenance")
 
+    def _validate_etb_drain_gain_scry_trigger(self, ability: TriggeredAbilityObject) -> None:
+        """Authenticate the bounded compound trigger against its exact self-ETB event."""
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        coverage = self.interpreter.etb_drain_gain_scry_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        if (
+            ability.effect is not TriggerEffect.ETB_DRAIN_GAIN_SCRY
+            or coverage is None
+            or not coverage.fully_supported
+            or event.kind is not RulesEventKind.CREATURE_ENTERED
+            or self._rules_events.get(event.event_id) is not event
+            or event.subject_ids != (ability.source_id,)
+            or event.player_index != ability.controller
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+        ):
+            raise ValueError("ETB drain/gain/Scry trigger has mismatched entry provenance")
+
     def _detect_creature_entered_triggers(
         self,
         entering: Permanent,
@@ -3318,6 +3456,15 @@ class Game:
                     and re.match(r"^When .+ enters, scry\b", fragment, re.I)
                 ):
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.SCRY)
+        if TriggerEffect.ETB_DRAIN_GAIN_SCRY in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.etb_drain_gain_scry_semantic_coverage(
+                    entering.card, fragment
+                )
+                if coverage is not None and coverage.fully_supported:
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
+                    )
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
@@ -3369,6 +3516,7 @@ class Game:
             TriggerEffect.CREATE_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.SCRY,
+            TriggerEffect.ETB_DRAIN_GAIN_SCRY,
         }
         for permanent in entering:
             event = self._new_rules_event(
@@ -4023,6 +4171,8 @@ class Game:
         finally:
             self._priority_resolution_in_progress = False
         self.check_state_based_actions()
+        if self.winner is None:
+            self._put_pending_triggers_on_stack()
         if self.winner is None and self.stack and self.priority_state is None:
             self._begin_priority_window()
         elif (
@@ -5738,6 +5888,7 @@ class Game:
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
+                TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -6275,6 +6426,53 @@ class Game:
                     raise AssertionError("Trample evidence lethal calculation is inconsistent")
                 if result.blocker_survived != (result.blocker_marked_damage_after is not None):
                     raise AssertionError("Trample evidence blocker result is inconsistent")
+        if len({item.stack_object_id for item in self.etb_drain_gain_scry_evidence}) != len(
+            self.etb_drain_gain_scry_evidence
+        ):
+            raise AssertionError("ETB drain/gain/Scry evidence stack IDs must be unique")
+        for item in self.etb_drain_gain_scry_evidence:
+            ability = self._objects.get(item.stack_object_id)
+            if not isinstance(ability, TriggeredAbilityObject) or ability.zone != "former":
+                raise AssertionError("ETB drain/gain/Scry evidence lacks resolved Stack authority")
+            try:
+                self._validate_etb_drain_gain_scry_trigger(ability)
+            except ValueError as error:
+                raise AssertionError(str(error)) from error
+            if (
+                item.event_id != ability.event.event_id
+                or item.source_id != ability.source_id
+                or item.source_card != ability.source_card.name
+                or item.controller != ability.controller
+                or item.opponent != 1 - item.controller
+                or item.oracle_fragment != ability.oracle_fragment
+                or item.turn != ability.event.turn
+                or item.step != ability.event.step
+                or item.opponent_life_after != item.opponent_life_before - 1
+            ):
+                raise AssertionError("ETB drain/gain/Scry evidence provenance is inconsistent")
+            if item.terminal_after_life_loss:
+                if (
+                    item.opponent_life_after > 0
+                    or item.controller_life_after != item.controller_life_before
+                    or item.scry_event_id is not None
+                ):
+                    raise AssertionError("terminal ETB drain/gain/Scry evidence is inconsistent")
+            else:
+                matching_scry = [
+                    evidence
+                    for evidence in self.scry_evidence
+                    if evidence.event_id == item.scry_event_id
+                ]
+                if (
+                    item.opponent_life_after <= 0
+                    or item.controller_life_after != item.controller_life_before + 1
+                    or len(matching_scry) != 1
+                    or matching_scry[0].player_index != item.controller
+                    or matching_scry[0].requested != 1
+                    or matching_scry[0].source_id != item.source_id
+                    or matching_scry[0].oracle_fragment != item.oracle_fragment
+                ):
+                    raise AssertionError("completed ETB drain/gain/Scry evidence is inconsistent")
         if len({item.stack_object_id for item in self.activation_evidence}) != len(
             self.activation_evidence
         ):
@@ -6422,6 +6620,11 @@ class Game:
                 if obj.effect is TriggerEffect.DIES_DRAW:
                     try:
                         self._validate_dies_draw_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
+                    try:
+                        self._validate_etb_drain_gain_scry_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
@@ -6614,6 +6817,13 @@ class Game:
             add("discard_draw", item.event_id, item.source_id, item.oracle_fragment)
         for item in self.lifelink_evidence:
             add("lifelink", item.event_id, item.source_id, "Lifelink")
+        for item in self.etb_drain_gain_scry_evidence:
+            add(
+                "etb_drain_gain_scry",
+                item.stack_object_id,
+                item.source_id,
+                item.oracle_fragment,
+            )
         for evidence in self.combat_damage_evidence:
             for assignment in evidence.assignments:
                 source = self._objects.get(assignment.source_id)
@@ -6844,6 +7054,26 @@ class Game:
                     "oracle_fragment": item.oracle_fragment,
                 }
                 for item in self.scry_evidence
+            ],
+            "etb_drain_gain_scry": [
+                {
+                    "event_id": item.event_id,
+                    "stack_object_id": item.stack_object_id,
+                    "source_id": item.source_id,
+                    "source_card": item.source_card,
+                    "controller": item.controller,
+                    "opponent": item.opponent,
+                    "oracle_fragment": item.oracle_fragment,
+                    "turn": item.turn,
+                    "step": item.step,
+                    "opponent_life_before": item.opponent_life_before,
+                    "opponent_life_after": item.opponent_life_after,
+                    "controller_life_before": item.controller_life_before,
+                    "controller_life_after": item.controller_life_after,
+                    "scry_event_id": item.scry_event_id,
+                    "terminal_after_life_loss": item.terminal_after_life_loss,
+                }
+                for item in self.etb_drain_gain_scry_evidence
             ],
             "combat_damage": {
                 "step_kind": self._combat_damage_step_kind.value,

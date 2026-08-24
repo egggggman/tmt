@@ -530,6 +530,12 @@ class CardInterpreter:
         r"^When this creature dies, draw a card\.$",
         re.IGNORECASE,
     )
+    ETB_DRAIN_GAIN_SCRY_ONE = re.compile(
+        r"^When (?P<source>this creature|[^,]+) enters, each opponent loses 1 life "
+        r"and you gain 1 life\. Scry 1\."
+        r"(?: \(Look at the top card of your library\. You may put that card on the bottom\.\))?$",
+        re.IGNORECASE,
+    )
     STATIC_KEYWORD_NAMES = frozenset(
         {
             "deathtouch",
@@ -696,6 +702,29 @@ class CardInterpreter:
             followup_executable=creature_source,
             limitations=(() if creature_source else ("dies_draw_source_is_not_a_creature",)),
         )
+
+    def etb_drain_gain_scry_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the bounded self-ETB drain/gain followed by Scry one."""
+        match = self.ETB_DRAIN_GAIN_SCRY_ONE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_text = match.group("source")
+        self_reference = source_text.casefold() == "this creature" or (
+            source_text.casefold() == card.name.casefold()
+        )
+        creature_source = "Creature" in card.type_line
+        executable = self_reference and creature_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "etb_drain_gain_scry_source_mismatch"),
+                (creature_source, "etb_drain_gain_scry_source_is_not_a_creature"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(executable, executable, executable, limitations)
 
     def supports_counter_fragment(self, card: CardDefinition, fragment: str) -> bool:
         if self.ALLIANCE_MODAL_HEADER.fullmatch(fragment):
@@ -1690,6 +1719,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            etb_drain_gain_scry = self.etb_drain_gain_scry_semantic_coverage(card, fragment)
+            if etb_drain_gain_scry is not None:
+                for reason in etb_drain_gain_scry.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             dies_draw = self.dies_draw_semantic_coverage(card, fragment)
             if dies_draw is not None:
                 for reason in dies_draw.limitations:
