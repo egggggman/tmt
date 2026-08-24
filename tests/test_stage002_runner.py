@@ -26,6 +26,7 @@ from tmnt_design_studio.stage002 import (
     GameSpec,
     _add_created_token_presence,
     _checked_action,
+    _drain_priority,
     _finish_presence,
     _resolve_combat_damage_steps,
     _token_definition_identity,
@@ -87,6 +88,30 @@ def _combat_game(attacker_card: CardFact, blocker_card: CardFact) -> Game:
             ActionKind.DECLARE_BLOCKERS,
             1,
             blocks=((attacker.object_id, blocker.object_id),),
+        )
+    )
+    return current
+
+
+def _combat_game_with_player_damage(defending_life: int) -> Game:
+    current = Game(([LAND] * 60, [LAND] * 60), seed=85)
+    current.begin_turn()
+    blocked = current.create_permanent(BEAR, 0, summoning_sick=False)
+    unblocked = current.create_permanent(BEAR, 0, summoning_sick=False)
+    blocker = current.create_permanent(DIES_DRAW, 1, summoning_sick=False)
+    current.players[1].life = defending_life
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(
+        option
+        for option in current.legal_attack_options(0)
+        if option.attacker_ids == (blocked.object_id, unblocked.object_id)
+    )
+    current.execute_attack_action(attack)
+    current.execute_block_action(
+        ActionOption(
+            ActionKind.DECLARE_BLOCKERS,
+            1,
+            blocks=((blocked.object_id, blocker.object_id),),
         )
     )
     return current
@@ -156,6 +181,63 @@ def test_runner_drains_damage_created_trigger_without_repeating_damage():
     assert current.stack == []
     assert current.priority_state is None
     assert sum(event["event"] == "trigger_resolved" for event in current.events) == 1
+
+
+def test_terminal_combat_stops_before_new_trigger_priority_or_resolution():
+    current = _combat_game_with_player_damage(2)
+    hand_before = len(current.players[1].hand)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.winner == 0
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert current._combat_damage_resolved is True
+    assert len(current.combat_damage_evidence) == 1
+    assert len(current.players[1].hand) == hand_before
+    assert current.stack == []
+    assert current.priority_state is None
+    names = [event["event"] for event in current.events]
+    assert names.count("combat_damage_step_resolved") == 1
+    assert "player_lost" in names
+    assert "trigger_stacked" not in names
+    assert "priority_granted" not in names
+    assert "trigger_resolved" not in names
+
+
+def test_shared_driver_does_not_drain_priority_after_terminal_state():
+    current = _combat_game(BEAR, DIES_DRAW)
+    hand_before = len(current.players[1].hand)
+    current.resolve_combat_damage()
+    assert current.priority_state is not None
+    assert current.stack
+    current.players[1].lost = True
+    current.players[1].loss_reason = "audit_terminal_state"
+    current.winner = 0
+
+    _drain_priority(current, AcceptancePilot())
+
+    assert len(current.players[1].hand) == hand_before
+    assert current.priority_state is not None
+    assert current.stack
+    assert not any(event["event"] == "trigger_resolved" for event in current.events)
+
+
+def test_nonterminal_combat_with_same_trigger_pattern_drains_normally():
+    current = _combat_game_with_player_damage(20)
+    hand_before = len(current.players[1].hand)
+
+    _resolve_combat_damage_steps(current, AcceptancePilot())
+
+    assert current.winner is None
+    assert current.step is TurnStep.END_OF_COMBAT
+    assert len(current.combat_damage_evidence) == 1
+    assert len(current.players[1].hand) == hand_before + 1
+    assert current.stack == []
+    assert current.priority_state is None
+    names = [event["event"] for event in current.events]
+    assert names.count("combat_damage_step_resolved") == 1
+    assert names.count("trigger_stacked") == 1
+    assert names.count("trigger_resolved") == 1
 
 
 def test_runner_completely_drains_simultaneous_damage_created_triggers():

@@ -45,20 +45,25 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
             options = game.legal_main_actions(active)
             chosen = pilot.choose_main_action(game.public_view(), options, stage)
             game.execute_main_action(chosen)
-            while game.priority_state is not None:
+            while game.winner is None and game.priority_state is not None:
                 if game.priority_state.resolution_pending:
                     game.process_priority_resolution()
                     continue
                 priority_options = game.legal_priority_actions(game.priority_state.player_index)
                 priority_choice = pilot.choose_priority(game.public_view(), priority_options)
                 game.execute_priority_action(priority_choice)
+            if game.winner is not None:
+                break
+
+        if game.winner is not None:
+            break
 
         game.advance_step()
         game.advance_step()
         attack_options = game.legal_attack_options(active)
         attack = pilot.choose_attack(game.public_view(), attack_options)
         game.execute_attack_action(attack)
-        while game.priority_state is not None:
+        while game.winner is None and game.priority_state is not None:
             if game.priority_state.resolution_pending:
                 game.process_priority_resolution()
                 continue
@@ -72,15 +77,17 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
             sneak_options = game.legal_sneak_actions(active)
             sneak_choice = pilot.choose_sneak(game.public_view(), sneak_options)
             game.execute_sneak_action(sneak_choice)
-            while game.priority_state is not None:
+            while game.winner is None and game.priority_state is not None:
                 if game.priority_state.resolution_pending:
                     game.process_priority_resolution()
                     continue
                 priority_options = game.legal_priority_actions(game.priority_state.player_index)
                 priority_choice = pilot.choose_priority(game.public_view(), priority_options)
                 game.execute_priority_action(priority_choice)
-        while game.step.value == "combat_damage":
+        while game.winner is None and game.step.value == "combat_damage":
             game.resolve_combat_damage()
+        if game.winner is not None:
+            break
         game.advance_step()
         game.check_invariants()
         game.end_turn()

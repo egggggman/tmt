@@ -402,7 +402,7 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
 
 
 def _drain_priority(game: Game, pilot: Pilot) -> None:
-    while game.priority_state is not None:
+    while game.winner is None and game.priority_state is not None:
         if game.priority_state.resolution_pending:
             _checked_action(game, game.process_priority_resolution, "priority resolution")
             continue
@@ -417,9 +417,10 @@ def _drain_priority(game: Game, pilot: Pilot) -> None:
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
-    while game.step.value == "combat_damage":
+    while game.winner is None and game.step.value == "combat_damage":
         _checked_action(game, game.resolve_combat_damage, "combat damage")
-        _drain_priority(game, pilot)
+        if game.winner is None:
+            _drain_priority(game, pilot)
 
 
 def _initial_presence(game: Game) -> list[dict[str, object]]:
@@ -596,6 +597,8 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
             _drain_priority(game, chosen_pilot)
         _resolve_combat_damage_steps(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
         _checked_action(game, game.end_turn, "end turn")

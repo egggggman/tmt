@@ -84,10 +84,10 @@ FROZEN_IDENTITIES = (
     "306fd267482b72f188c69222d57fcc547d654091",
     "ecdffa18463076503f5d338687041f42a3a599d9",
     "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
-    "f581d2dbf5e70606525de7d50e664e9b1721c0e2",
+    "fa29895b7f114ae98696c4ea77cf50dac46745c2",
     "2c316320c927d137dbfb9c91bf33291972573755",
     "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
-    "b384f4e06021b902431d8224ac0ae40664b77a6d",
+    "c7babc6dc4bb988c9f065d359ecbdcb8f9356891",
     "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
 )
 GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"
@@ -295,6 +295,8 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                 )
                 _drain_priority(game, chosen_pilot)
             _resolve_combat_damage_steps(game, chosen_pilot)
+            if game.winner is not None:
+                break
             _checked_action(game, game.advance_step, "advance after combat")
             game.check_invariants()
             _checked_action(game, game.end_turn, "end turn")
