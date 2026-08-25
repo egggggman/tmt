@@ -290,6 +290,7 @@ class TriggerEffect(Enum):
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
+    ETB_ARTIFACT_DRAW = "etb_artifact_draw"
 
 
 @dataclass(frozen=True)
@@ -305,7 +306,28 @@ class RulesEvent:
     step: str = "setup"
     active_player: int = 0
     battlefield_authority: tuple[tuple[str, int], ...] = ()
+    battlefield_characteristics: tuple[tuple[str, int, str], ...] = ()
     last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = ()
+
+
+@dataclass(frozen=True)
+class RulesEventEvidence:
+    """Independent immutable trust anchor for one original authoritative rules event."""
+
+    event_id: str
+    event_cursor: int
+    kind: RulesEventKind
+    player_index: int
+    subject_ids: tuple[str, ...]
+    source_id: str | None
+    target_player: int | None
+    amount: int | None
+    turn: int
+    step: str
+    active_player: int
+    battlefield_authority: tuple[tuple[str, int], ...]
+    battlefield_characteristics: tuple[tuple[str, int, str], ...]
+    last_known_battlefield: tuple[tuple[str, int, str, bool], ...]
 
 
 @dataclass(frozen=True)
@@ -1157,6 +1179,7 @@ class Game:
         self._triggers: dict[str, TriggerInstance] = {}
         self._next_event_number = 1
         self._rules_events: dict[str, RulesEvent] = {}
+        self._rules_event_evidence: list[RulesEventEvidence] = []
         self._next_semantic_occurrence_number = 1
         self._next_opportunity_witness_number = 1
         self._next_opportunity_context_number = 1
@@ -1417,6 +1440,14 @@ class Game:
     def _battlefield_authority_snapshot(self) -> tuple[tuple[str, int], ...]:
         return tuple(
             (permanent.object_id, permanent.controller)
+            for player in self.players
+            for permanent in player.battlefield
+        )
+
+    def _battlefield_characteristics_snapshot(self) -> tuple[tuple[str, int, str], ...]:
+        """Freeze evaluated type/controller facts for authoritative battlefield permanents."""
+        return tuple(
+            (permanent.object_id, permanent.controller, permanent.type_line)
             for player in self.players
             for permanent in player.battlefield
         )
@@ -2406,6 +2437,7 @@ class Game:
         target_player: int | None = None,
         amount: int | None = None,
         battlefield_authority: tuple[tuple[str, int], ...] | None = None,
+        battlefield_characteristics: tuple[tuple[str, int, str], ...] | None = None,
         last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = (),
     ) -> RulesEvent:
         event = RulesEvent(
@@ -2428,10 +2460,33 @@ class Game:
                 if battlefield_authority is None
                 else battlefield_authority
             ),
+            (
+                self._battlefield_characteristics_snapshot()
+                if battlefield_characteristics is None
+                else battlefield_characteristics
+            ),
             last_known_battlefield,
         )
         self._next_event_number += 1
         self._rules_events[event.event_id] = event
+        self._rules_event_evidence.append(
+            RulesEventEvidence(
+                event.event_id,
+                self._event_number(event.event_id),
+                event.kind,
+                event.player_index,
+                event.subject_ids,
+                event.source_id,
+                event.target_player,
+                event.amount,
+                event.turn,
+                event.step,
+                event.active_player,
+                event.battlefield_authority,
+                event.battlefield_characteristics,
+                event.last_known_battlefield,
+            )
+        )
         self.log(
             "rules_event",
             event_id=event.event_id,
@@ -2448,6 +2503,14 @@ class Game:
                 {"object_id": object_id, "controller": controller}
                 for object_id, controller in event.battlefield_authority
             ],
+            battlefield_characteristics=[
+                {
+                    "object_id": object_id,
+                    "controller": controller,
+                    "type_line": type_line,
+                }
+                for object_id, controller, type_line in event.battlefield_characteristics
+            ],
             last_known_battlefield=[
                 {
                     "object_id": object_id,
@@ -2461,10 +2524,15 @@ class Game:
         for occurrence in tuple(self.semantic_occurrences):
             self._witness_from_event(occurrence, event)
         if kind is RulesEventKind.CREATURE_ENTERED:
+            event_characteristics = {
+                object_id: (controller, type_line)
+                for object_id, controller, type_line in event.battlefield_characteristics
+            }
             artifact_ids = tuple(
                 subject_id
                 for subject_id in subject_ids
-                if "Artifact" in self._objects[subject_id].card.type_line
+                if subject_id in event_characteristics
+                and "Artifact" in event_characteristics[subject_id][1]
             )
             if artifact_ids:
                 for occurrence in tuple(self.semantic_occurrences):
@@ -2483,7 +2551,7 @@ class Game:
                         and source.controller == player_index
                         and (
                             mode != "self_other_artifact_count"
-                            or "Artifact" in source.card.type_line
+                            or "Artifact" in event_characteristics[source.object_id][1]
                         )
                     ):
                         counted_ids = tuple(
@@ -2491,7 +2559,8 @@ class Game:
                                 object_id
                                 for object_id, controller in event.battlefield_authority
                                 if controller == player_index
-                                and "Artifact" in self._objects[object_id].card.type_line
+                                and object_id in event_characteristics
+                                and "Artifact" in event_characteristics[object_id][1]
                                 and not (
                                     mode == "self_other_artifact_count"
                                     and object_id == source.object_id
@@ -2516,6 +2585,87 @@ class Game:
                             event_id=event.event_id,
                         )
         return event
+
+    def _authenticate_original_rules_event(self, event: RulesEvent) -> RulesEventEvidence:
+        """Join one derived typed event back to its independent creation-time evidence."""
+        records = [item for item in self._rules_event_evidence if item.event_id == event.event_id]
+        ledger = [
+            item
+            for item in self.events
+            if item.get("event") == "rules_event" and item.get("event_id") == event.event_id
+        ]
+        if len(records) != 1 or len(ledger) != 1:
+            raise ValueError("rules event lacks unique original evidence")
+        evidence = records[0]
+        expected = (
+            evidence.event_id,
+            evidence.kind,
+            evidence.player_index,
+            evidence.subject_ids,
+            evidence.source_id,
+            evidence.target_player,
+            evidence.amount,
+            evidence.turn,
+            evidence.step,
+            evidence.active_player,
+            evidence.battlefield_authority,
+            evidence.battlefield_characteristics,
+            evidence.last_known_battlefield,
+        )
+        actual = (
+            event.event_id,
+            event.kind,
+            event.player_index,
+            event.subject_ids,
+            event.source_id,
+            event.target_player,
+            event.amount,
+            event.turn,
+            event.step,
+            event.active_player,
+            event.battlefield_authority,
+            event.battlefield_characteristics,
+            event.last_known_battlefield,
+        )
+        log = ledger[0]
+        serialized_authority = tuple(
+            (item.get("object_id"), item.get("controller"))
+            for item in log.get("battlefield_authority", [])
+        )
+        serialized_characteristics = tuple(
+            (
+                item.get("object_id"),
+                item.get("controller"),
+                item.get("type_line"),
+            )
+            for item in log.get("battlefield_characteristics", [])
+        )
+        serialized_last_known = tuple(
+            (
+                item.get("object_id"),
+                item.get("controller"),
+                item.get("type_line"),
+                item.get("is_creature"),
+            )
+            for item in log.get("last_known_battlefield", [])
+        )
+        if (
+            expected != actual
+            or evidence.event_cursor != self._event_number(event.event_id)
+            or log.get("rules_event") != evidence.kind.value
+            or log.get("subject_ids") != list(evidence.subject_ids)
+            or log.get("source_id") != evidence.source_id
+            or log.get("target_player") != evidence.target_player
+            or log.get("amount") != evidence.amount
+            or log.get("event_turn") != evidence.turn
+            or log.get("event_step") != evidence.step
+            or log.get("event_active_player") != evidence.active_player
+            or serialized_authority != evidence.battlefield_authority
+            or serialized_characteristics != evidence.battlefield_characteristics
+            or serialized_last_known != evidence.last_known_battlefield
+        ):
+            raise ValueError("rules event disagrees with immutable original evidence")
+        return evidence
 
     def deal_damage(
         self, transaction: DamageTransaction, *, defer_post_damage: bool = False
@@ -3110,6 +3260,15 @@ class Game:
                 oracle_fragment=fragment,
                 event=event,
             )
+        if effect is TriggerEffect.ETB_ARTIFACT_DRAW:
+            self._validate_etb_artifact_draw_provenance(
+                controller=source.controller,
+                source_id=source.object_id,
+                source_card=source.card,
+                oracle_fragment=fragment,
+                event=event,
+                require_current_condition=False,
+            )
         trigger = TriggerInstance(
             f"trigger-{self._next_trigger_number:06d}",
             source.controller,
@@ -3185,6 +3344,16 @@ class Game:
                 oracle_fragment=ability.oracle_fragment,
                 event=ability.event,
                 trigger_id=ability.trigger_id,
+            )
+        if ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
+            self._validate_etb_artifact_draw_provenance(
+                controller=ability.controller,
+                source_id=ability.source_id,
+                source_card=ability.source_card,
+                oracle_fragment=ability.oracle_fragment,
+                event=ability.event,
+                trigger_id=ability.trigger_id,
+                require_current_condition=False,
             )
         self.stack.pop()
         ability.zone = "former"
@@ -3381,6 +3550,44 @@ class Game:
                 ),
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
+            condition_met = self._validate_etb_artifact_draw_provenance(
+                controller=ability.controller,
+                source_id=ability.source_id,
+                source_card=ability.source_card,
+                oracle_fragment=ability.oracle_fragment,
+                event=ability.event,
+                trigger_id=ability.trigger_id,
+                require_current_condition=True,
+                allow_condition_failure=True,
+            )
+            hand_before = tuple(card.object_id for card in self.players[ability.controller].hand)
+            library_before = tuple(
+                card.object_id for card in self.players[ability.controller].library
+            )
+            draw_succeeded = False
+            if condition_met:
+                draw_succeeded = self.draw(self.players[ability.controller], 1)
+            hand_after = tuple(card.object_id for card in self.players[ability.controller].hand)
+            library_after = tuple(
+                card.object_id for card in self.players[ability.controller].library
+            )
+            self.log(
+                "etb_artifact_draw_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                source=ability.source_card.name,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                oracle_fragment=ability.oracle_fragment,
+                condition_met=condition_met,
+                draw_succeeded=draw_succeeded,
+                hand_before=list(hand_before),
+                hand_after=list(hand_after),
+                library_before=list(library_before),
+                library_after=list(library_after),
+            )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -3562,6 +3769,7 @@ class Game:
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
+                TriggerEffect.ETB_ARTIFACT_DRAW,
             }:
                 self._begin_priority_window()
                 return
@@ -3600,6 +3808,79 @@ class Game:
             or source.card is not ability.source_card
         ):
             raise ValueError("dies/Draw trigger has mismatched death provenance")
+
+    def _controlled_artifact_ids(self, controller: int) -> tuple[str, ...]:
+        """Return authoritative battlefield artifacts controlled by one player."""
+        return tuple(
+            sorted(
+                permanent.object_id
+                for permanent in self.players[controller].battlefield
+                if self.is_authoritative(permanent, "battlefield")
+                and "Artifact" in permanent.type_line
+            )
+        )
+
+    def _validate_etb_artifact_draw_provenance(
+        self,
+        *,
+        controller: int,
+        source_id: str,
+        source_card: CardFact,
+        oracle_fragment: str,
+        event: RulesEvent,
+        trigger_id: str | None = None,
+        require_current_condition: bool,
+        allow_condition_failure: bool = False,
+    ) -> bool:
+        """Authenticate the self-ETB event and both intervening-if artifact checks."""
+        self._authenticate_original_rules_event(event)
+        coverage = self.interpreter.etb_artifact_draw_semantic_coverage(
+            source_card, oracle_fragment
+        )
+        source = self._objects.get(source_id)
+        trigger = None if trigger_id is None else self._triggers.get(trigger_id)
+        event_characteristics = {
+            object_id: (event_controller, type_line)
+            for object_id, event_controller, type_line in event.battlefield_characteristics
+        }
+        event_artifact_ids = tuple(
+            sorted(
+                object_id
+                for object_id, (event_controller, type_line) in event_characteristics.items()
+                if event_controller == controller and "Artifact" in type_line
+            )
+        )
+        if (
+            coverage is None
+            or not coverage.fully_supported
+            or event.kind is not RulesEventKind.CREATURE_ENTERED
+            or self._rules_events.get(event.event_id) is not event
+            or event.subject_ids != (source_id,)
+            or event.player_index != controller
+            or (source_id, controller) not in event.battlefield_authority
+            or event_characteristics.get(source_id, (None, ""))[0] != controller
+            or not event_artifact_ids
+            or not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.zone not in {"battlefield", "former"}
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.controller != controller
+                    or trigger.source_id != source_id
+                    or trigger.source_card is not source_card
+                    or trigger.oracle_fragment != oracle_fragment
+                    or trigger.effect is not TriggerEffect.ETB_ARTIFACT_DRAW
+                    or trigger.event is not event
+                )
+            )
+        ):
+            raise ValueError("ETB artifact/Draw trigger has mismatched entry provenance")
+        current_condition = bool(self._controlled_artifact_ids(controller))
+        if require_current_condition and not current_condition and not allow_condition_failure:
+            raise ValueError("ETB artifact/Draw resolution condition is false")
+        return current_condition if require_current_condition else True
 
     def _validate_etb_drain_gain_scry_trigger(self, ability: TriggeredAbilityObject) -> None:
         """Authenticate the bounded compound trigger against its exact self-ETB event."""
@@ -3665,6 +3946,19 @@ class Game:
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
                     )
+        if TriggerEffect.ETB_ARTIFACT_DRAW in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.etb_artifact_draw_semantic_coverage(
+                    entering.card, fragment
+                )
+                if (
+                    coverage is not None
+                    and coverage.fully_supported
+                    and self._controlled_artifact_ids(entering.controller)
+                ):
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ETB_ARTIFACT_DRAW
+                    )
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
@@ -3717,6 +4011,7 @@ class Game:
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+            TriggerEffect.ETB_ARTIFACT_DRAW,
         }
         for permanent in entering:
             event = self._new_rules_event(
@@ -6090,6 +6385,7 @@ class Game:
                 TriggerEffect.SNEAK_ETB_CONDITION,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
+                TriggerEffect.ETB_ARTIFACT_DRAW,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -6519,6 +6815,19 @@ class Game:
         combat_ids = self._combat_attackers + tuple(
             blocker_id for _attacker_id, blocker_id in self._combat_blocks
         )
+        evidence_ids = [item.event_id for item in self._rules_event_evidence]
+        if (
+            len(evidence_ids) != len(set(evidence_ids))
+            or set(evidence_ids) != set(self._rules_events)
+            or [item.event_cursor for item in self._rules_event_evidence]
+            != list(range(1, len(self._rules_event_evidence) + 1))
+        ):
+            raise AssertionError("rules-event evidence ledger is incomplete or duplicated")
+        for event in self._rules_events.values():
+            try:
+                self._authenticate_original_rules_event(event)
+            except ValueError as error:
+                raise AssertionError(str(error)) from error
         occurrence_by_id = {item.occurrence_id: item for item in self.semantic_occurrences}
         if len(occurrence_by_id) != len(self.semantic_occurrences):
             raise AssertionError("semantic occurrence IDs must be unique")
@@ -6872,6 +7181,19 @@ class Game:
                         )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
+                    try:
+                        self._validate_etb_artifact_draw_provenance(
+                            controller=obj.controller,
+                            source_id=obj.source_id,
+                            source_card=obj.source_card,
+                            oracle_fragment=obj.oracle_fragment,
+                            event=obj.event,
+                            trigger_id=obj.trigger_id,
+                            require_current_condition=False,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
                 if obj.source_id not in self._objects:
                     raise AssertionError("activated ability source ID was never registered")
@@ -6892,6 +7214,19 @@ class Game:
                         oracle_fragment=trigger.oracle_fragment,
                         event=trigger.event,
                         trigger_id=trigger.trigger_id,
+                    )
+                except ValueError as error:
+                    raise AssertionError(str(error)) from error
+            if trigger.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
+                try:
+                    self._validate_etb_artifact_draw_provenance(
+                        controller=trigger.controller,
+                        source_id=trigger.source_id,
+                        source_card=trigger.source_card,
+                        oracle_fragment=trigger.oracle_fragment,
+                        event=trigger.event,
+                        trigger_id=trigger.trigger_id,
+                        require_current_condition=False,
                     )
                 except ValueError as error:
                     raise AssertionError(str(error)) from error
@@ -7142,6 +7477,45 @@ class Game:
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
             "authoritative_state_fingerprint": self.authoritative_state_fingerprint(),
+            "rules_event_evidence": [
+                {
+                    "event_id": item.event_id,
+                    "event_cursor": item.event_cursor,
+                    "kind": item.kind.value,
+                    "player_index": item.player_index,
+                    "subject_ids": list(item.subject_ids),
+                    "source_id": item.source_id,
+                    "target_player": item.target_player,
+                    "amount": item.amount,
+                    "turn": item.turn,
+                    "step": item.step,
+                    "active_player": item.active_player,
+                    "battlefield_authority": [
+                        {"object_id": object_id, "controller": controller}
+                        for object_id, controller in item.battlefield_authority
+                    ],
+                    "battlefield_characteristics": [
+                        {
+                            "object_id": object_id,
+                            "controller": controller,
+                            "type_line": type_line,
+                        }
+                        for object_id, controller, type_line in item.battlefield_characteristics
+                    ],
+                    "last_known_battlefield": [
+                        {
+                            "object_id": object_id,
+                            "controller": controller,
+                            "type_line": type_line,
+                            "is_creature": is_creature,
+                        }
+                        for object_id, controller, type_line, is_creature in (
+                            item.last_known_battlefield
+                        )
+                    ],
+                }
+                for item in self._rules_event_evidence
+            ],
             "conformance": {
                 "semantic_occurrences": [
                     {

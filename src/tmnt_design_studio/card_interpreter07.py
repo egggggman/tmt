@@ -536,6 +536,11 @@ class CardInterpreter:
         r"(?: \(Look at the top card of your library\. You may put that card on the bottom\.\))?$",
         re.IGNORECASE,
     )
+    ETB_ARTIFACT_DRAW_ONE = re.compile(
+        r"^When (?P<source>this source|[^,]+) enters, if "
+        r"(?P<condition>its controller controls|you control) an artifact, draw a card\.$",
+        re.IGNORECASE,
+    )
     ANOTHER_PERMANENT_LEFT_SELF_COUNTER = re.compile(
         r"^Whenever another permanent leaves the battlefield, put a \+1/\+1 counter on "
         r"(?P<source>[^.]+)\.$",
@@ -766,6 +771,33 @@ class CardInterpreter:
             executable,
             limitations,
         )
+
+    def etb_artifact_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize one self-ETB intervening-if artifact condition followed by Draw one."""
+        match = self.ETB_ARTIFACT_DRAW_ONE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_text = match.group("source")
+        condition_text = match.group("condition").casefold()
+        generic_form = (
+            source_text.casefold() == "this source" and condition_text == "its controller controls"
+        )
+        source_names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        printed_form = source_text.casefold() in source_names and condition_text == "you control"
+        self_reference = generic_form or printed_form
+        creature_source = "Creature" in card.type_line
+        executable = self_reference and creature_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "etb_artifact_draw_source_or_condition_mismatch"),
+                (creature_source, "etb_artifact_draw_source_is_not_a_creature"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(executable, executable, executable, limitations)
 
     def supports_counter_fragment(self, card: CardDefinition, fragment: str) -> bool:
         if self.ALLIANCE_MODAL_HEADER.fullmatch(fragment):
@@ -1760,6 +1792,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            etb_artifact_draw = self.etb_artifact_draw_semantic_coverage(card, fragment)
+            if etb_artifact_draw is not None:
+                for reason in etb_artifact_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             permanent_left_counter = self.permanent_left_self_counter_semantic_coverage(
                 card, fragment
             )
