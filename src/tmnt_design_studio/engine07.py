@@ -96,6 +96,12 @@ STEP_PHASE = {
 }
 
 
+def phase_for_step(step: TurnStep | str) -> str:
+    """Return the engine's canonical phase for one authenticated turn step."""
+    resolved = step if isinstance(step, TurnStep) else TurnStep(step)
+    return STEP_PHASE[resolved].value
+
+
 NEXT_STEP = {
     TurnStep.SETUP: TurnStep.UNTAP,
     TurnStep.UNTAP: TurnStep.UPKEEP,
@@ -1264,7 +1270,7 @@ class Game:
 
     @property
     def phase(self) -> str:
-        return STEP_PHASE[self._step].value
+        return phase_for_step(self._step)
 
     def _allocate_object_id(self) -> str:
         object_id = f"object-{self._next_object_number:06d}"
@@ -7346,6 +7352,12 @@ class Game:
 
     def authoritative_state_fingerprint(self) -> str:
         """Stable mutation-boundary digest excluding diagnostics and evidence ledgers."""
+        return sha256(
+            repr(self._authoritative_state_fingerprint_preimage()).encode("utf-8")
+        ).hexdigest()
+
+    def _authoritative_state_fingerprint_preimage(self) -> tuple[object, ...]:
+        """Return the complete canonical preimage used by the existing state fingerprint."""
         zones = tuple(
             (
                 tuple(card.object_id for card in player.library),
@@ -7358,7 +7370,7 @@ class Game:
             )
             for player in self.players
         )
-        authority = (
+        return (
             self.turn,
             self.active_player,
             self.step.value,
@@ -7369,7 +7381,34 @@ class Game:
             self.rng.state_digest,
             self.winner,
         )
-        return sha256(repr(authority).encode("utf-8")).hexdigest()
+
+    def authoritative_state_fingerprint_evidence(self) -> dict[str, object]:
+        """Serialize the existing fingerprint preimage without defining a second state model."""
+        authority = self._authoritative_state_fingerprint_preimage()
+        zones = authority[6]
+        return {
+            "scheme": "engine07-authoritative-state-fingerprint-preimage-v1",
+            "turn": authority[0],
+            "active_player_index": authority[1],
+            "step": authority[2],
+            "stack_object_ids": list(authority[3]),
+            "combat_attacker_ids": list(authority[4]),
+            "combat_blocks": [list(item) for item in authority[5]],
+            "players": [
+                {
+                    "library_object_ids": list(player[0]),
+                    "hand_object_ids": list(player[1]),
+                    "battlefield_object_ids": list(player[2]),
+                    "graveyard_object_ids": list(player[3]),
+                    "life": player[4],
+                    "lost": player[5],
+                    "failed_draw_pending": player[6],
+                }
+                for player in zones
+            ],
+            "rng_state_digest": authority[7],
+            "winner_index": authority[8],
+        }
 
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
@@ -7477,6 +7516,9 @@ class Game:
             "step": self.step.value,
             "winner": None if self.winner is None else self.players[self.winner].name,
             "authoritative_state_fingerprint": self.authoritative_state_fingerprint(),
+            "authoritative_state_fingerprint_preimage": (
+                self.authoritative_state_fingerprint_evidence()
+            ),
             "rules_event_evidence": [
                 {
                     "event_id": item.event_id,
@@ -7903,7 +7945,9 @@ class Game:
                     "name": p.name,
                     "life": p.life,
                     "library": len(p.library),
+                    "library_object_ids": [card.object_id for card in p.library],
                     "hand": [c.name for c in p.hand],
+                    "hand_object_ids": [card.object_id for card in p.hand],
                     "battlefield": [
                         {
                             "object_id": x.object_id,
@@ -7972,6 +8016,7 @@ class Game:
                         for x in p.battlefield
                     ],
                     "graveyard": [c.name for c in p.graveyard],
+                    "graveyard_object_ids": [card.object_id for card in p.graveyard],
                     "lost": p.lost,
                     "loss_reason": p.loss_reason,
                     "failed_draw_pending": p.failed_draw_pending,
