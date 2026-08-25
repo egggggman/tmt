@@ -84,10 +84,10 @@ FROZEN_IDENTITIES = (
     "306fd267482b72f188c69222d57fcc547d654091",
     "ecdffa18463076503f5d338687041f42a3a599d9",
     "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
-    "bb2ecc54bb815839a5ec400e53fd1b9feaec9d67",
-    "5dc2e210bafcc77520b7c378c3eef384b9ccac9a",
+    "1f0bceb95680b37eb4ef9dd6f9eea09ec5aac97e",
+    "ba2f2809bdd64e63c25088635141140c17af8ca6",
     "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
-    "4ff875194dfeef298b02f93d5c808f408197b435",
+    "98248213ab696ef6da2e33ef61f593c1ff9a323a",
     "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
 )
 GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"

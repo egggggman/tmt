@@ -223,6 +223,10 @@ def _semantic_coverage(
         }
     candidates = (
         (
+            "etb_artifact_draw",
+            interpreter.etb_artifact_draw_semantic_coverage(card, fragment),
+        ),
+        (
             "etb_drain_gain_scry",
             interpreter.etb_drain_gain_scry_semantic_coverage(card, fragment),
         ),
@@ -1044,6 +1048,7 @@ def reconcile_snapshot(
                 "stack",
                 "priority",
                 "pending_triggers",
+                "rules_event_evidence",
                 "scry",
                 "etb_drain_gain_scry",
                 "combat_damage",

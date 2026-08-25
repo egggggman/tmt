@@ -185,7 +185,7 @@ def test_fabricated_last_known_creature_characteristics_fail_closed():
     current._rules_events[malformed.event_id] = malformed
     ability.event = malformed
 
-    with pytest.raises(AssertionError, match="death provenance"):
+    with pytest.raises(AssertionError, match="death provenance|immutable original evidence"):
         current.check_invariants()
     with pytest.raises(ValueError, match="death provenance"):
         current._resolve_triggered_ability(ability)
