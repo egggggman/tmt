@@ -29,35 +29,28 @@ That release number is not the Cardcade engine version and should not be read as
 
 ## Cardcade validation state
 
-The earlier Engine 0.6 stability failure is historical evidence, not the current Cardcade state.
+The earlier Engine 0.6 stability failure and the PR #33 telemetry checkpoint remain preserved historical evidence, not the current Cardcade state.
 
-PR #27 established and accepted Cardcade's Engine 0.8 architectural foundation. The final Foundation Matrix reached:
+Cardcade Engine 0.8's architectural foundation remains accepted at **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**. Post-foundation work has continued through bounded Actions and generic engine corrections, including activated abilities/Priority, targeted Return, Trample, Lifelink, hand/library operations, attack/death/ETB triggers, Sneak, Food, and Actions #13–#16.
 
-- **10 GREEN**
-- **10 YELLOW**
-- **0 RED**
-- **0 UNKNOWN**
+Recent accepted milestones include:
 
-The accepted foundation includes authoritative runtime identity and zone movement, Engine/Interpreter/Pilot responsibility boundaries, explicit turn/phase/step state, Stack, fixed mana Costs, represented Triggers, P/T Layers, and deterministic RNG foundations. Unsupported mechanics remain explicit rather than silently approximated.
+- PR #58 — Action #14, bounded ETB drain/gain/Scry;
+- PR #59 — Action #15, bounded permanent-leaves +1/+1 counter trigger;
+- PR #60 — Action #16, bounded ETB artifact-condition Draw;
+- PR #61 — accepted Coverage-Aware Engine Validation Stage 0.2 evidence runner and plan-only launcher.
 
-Post-foundation mechanical coverage has been merged incrementally:
+PR #61's accepted contract covers **45 pairings / 225 distinct planned games / 450 executions / 900 per-execution commitment artifacts**. It preserves explicit `balance_valid: false` engine-validation evidence, reported **784 passed / 1 skipped** locally, and passed exact-head CI before merge.
 
-- PR #30 — Create Token;
-- PR #31 — Deal Damage;
-- PR #32 — Scry;
-- PR #33 — First Strike / Double Strike combat damage steps.
+**PR #61 did not authorize or execute Stage 0.2 gameplay.** Final execution authorization remained subject to a merged-main readiness audit.
 
-At PR #33 the full validation suite reported **314 passed / 1 skipped**, Acceptance Match #001 remained deterministic, invariant violations remained zero, and unsupported telemetry was **61 events / 18 exact pairs**.
-
-Those results establish engine evidence, not competitive balance conclusions.
+These results establish engine-validation evidence, not competitive balance conclusions.
 
 ## Current Gate
 
-The current critical path is **Cardcade mechanical coverage and validation**.
+The current critical path is **Cardcade engine validation toward a credible controlled calibration gate**.
 
-The architectural foundation is accepted, but broad calibration, large smoke batches, and Prototype 0.3 review remain gated until the represented mechanics used by the ten-deck environment are sufficiently trustworthy.
-
-The next Cardcade work should continue to use the smallest reusable, rules-grounded correction or Action supported by current evidence. Do not change decks to hide unsupported engine behavior.
+The architectural foundation and many bounded mechanics are accepted, but calibration and Prototype 0.3 review remain gated. The immediate Cardcade decision is whether merged-main evidence now authorizes Engine Validation Stage 0.2 execution. Do not skip readiness gates, and do not change decks to hide unsupported engine behavior.
 
 ## Cross-project operating views
 
@@ -65,9 +58,13 @@ The next Cardcade work should continue to use the smallest reusable, rules-groun
 - [The Sewer Status Board](docs/SEWER_STATUS_BOARD.md) — operational visual-dashboard standard.
 - **The Sewer Board Text** — detailed text counterpart used in working conversations.
 - [THERECORD](docs/THERECORD.md) — append-only weekly usage/efficiency instrumentation archive.
+- [HQ Current State](docs/hq/CURRENT_STATE.md) — compact dispatch view.
+- [Tool Resilience](docs/hq/TOOL_RESILIENCE.md) — GitHub-centered continuity policy.
+- [Recovery Guide](docs/hq/RECOVERY.md) — fresh-clone restart procedure.
+- [Work Packet Specification](docs/hq/WORK_PACKET_SPEC.md) — portable task/handoff contract.
 
 ## Next Move
 
-**Continue Cardcade mechanical-coverage validation until the simulator can support a credible calibration gate.** Other departments may continue actionable work that does not pretend to unblock that critical path.
+**Complete the merged-main readiness decision for Cardcade Engine Validation Stage 0.2 while HQ completes Resilience 0.1 — GitHub Can Run the Project.** Other departments may continue actionable work that does not pretend to unblock Cardcade's gate.
 
 See the [Roadmap](docs/ROADMAP.md) for long-term direction and [Architecture](docs/ARCHITECTURE.md) for Design Studio software-layer boundaries.
