@@ -18,13 +18,15 @@ If you are new to the project, read these in order:
 
 1. [Outsider Continuity Guide](docs/OUTSIDER_CONTINUITY.md) — the ten-minute orientation to the complete project.
 2. [HQ project map and current status](docs/HQ.md) — department ownership, dependencies, blockers, and immediate priorities.
-3. [Project State](PROJECT_STATE.md) — durable software/product/validation state.
-4. [Roadmap](docs/ROADMAP.md) — major development direction.
-5. [Accepted Decisions](docs/DECISIONS.md) — durable decisions and historical reasoning.
-6. [Project Constitution](docs/PROJECT_CONSTITUTION.md) and [Design Principles](docs/DESIGN_PRINCIPLES.md) — how the project makes decisions.
-7. [Contributing](CONTRIBUTING.md) — how to propose and validate changes.
+3. [HQ Current State](docs/hq/CURRENT_STATE.md) — compact dispatch view synchronized to recent merged evidence.
+4. [Project State](PROJECT_STATE.md) — durable software/product/validation state.
+5. [Tool Resilience](docs/hq/TOOL_RESILIENCE.md) and [Recovery](docs/hq/RECOVERY.md) — how the project continues across tools and fresh machines.
+6. [Roadmap](docs/ROADMAP.md) — major development direction.
+7. [Accepted Decisions](docs/DECISIONS.md) — durable decisions and historical reasoning.
+8. [Project Constitution](docs/PROJECT_CONSTITUTION.md) and [Design Principles](docs/DESIGN_PRINCIPLES.md) — how the project makes decisions.
+9. [Contributing](CONTRIBUTING.md) — how to propose and validate changes.
 
-GitHub is the durable source of truth. ChatGPT Project conversations are working rooms; durable decisions should be promoted into the repository rather than surviving only in conversation history.
+GitHub is the durable source of truth and project bus. ChatGPT Project conversations and coding agents are working tools; durable decisions, task contracts, evidence, and handoffs should be promoted into the repository rather than surviving only in conversation history. Codex is an accelerator, not required infrastructure.
 
 ## Target product
 
@@ -69,16 +71,11 @@ The ten-deck **Prototype 0.2 environment is frozen** while Cardcade establishes 
 
 Cardcade's Engine 0.8 architectural foundation has been accepted. Its Foundation Matrix reached **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**, establishing the architectural baseline while preserving explicit unsupported mechanics rather than silently approximating them.
 
-Post-foundation coverage work has been merged incrementally:
+Post-foundation coverage has continued through accepted bounded Actions and engine corrections, including activated abilities/Priority, targeted Return, Trample, Lifelink, hand-bottom/Draw, Discard/Draw triggers, Sneak, Food, and Actions #13–#16. The latest accepted Action is **Action #16 — ETB artifact-condition Draw (PR #60)**.
 
-- Create Token — PR #30
-- Deal Damage — PR #31
-- Scry — PR #32
-- First Strike / Double Strike combat damage steps — PR #33
+Cardcade has also moved into coverage-aware engine validation. **PR #61** merged the accepted Stage 0.2 evidence runner and plan-only launcher with a 45-pairing / 225-distinct-game contract, independent duplicate commitments, explicit `balance_valid: false` evidence, **784 passed / 1 skipped** local validation, and passing exact-head CI. PR #61 integrated tooling only; Stage 0.2 gameplay execution remained subject to a merged-main readiness decision.
 
-At PR #33, the full suite reported **314 passed / 1 skipped**, Acceptance Match #001 remained deterministic, invariant violations remained zero, and unsupported telemetry had fallen to **61 events / 18 exact pairs**. Those numbers are engine-validation evidence, not balance evidence.
-
-The current critical path remains **Cardcade mechanical coverage and validation**. Broad calibration, large smoke runs, and Prototype 0.3 deck revision remain gated until simulator credibility is sufficient.
+These are simulator-credibility milestones, not balance conclusions. The current critical path remains **Cardcade engine validation toward a credible controlled calibration gate**. Prototype 0.3 remains unauthorized until Cardcade evidence is sufficient and Design Studio explicitly decides what, if anything, should change.
 
 ## Development discipline
 
