@@ -34,6 +34,10 @@ Primary orientation and governance records:
 - [The Sewer Status Board](SEWER_STATUS_BOARD.md)
 - [THERECORD](THERECORD.md)
 - [The Underground Press](UNDERGROUND_PRESS.md)
+- [HQ Current State](hq/CURRENT_STATE.md)
+- [Tool Resilience](hq/TOOL_RESILIENCE.md)
+- [Recovery Guide](hq/RECOVERY.md)
+- [Work Packet Specification](hq/WORK_PACKET_SPEC.md)
 
 ## Master Project Map
 
@@ -45,15 +49,18 @@ Primary orientation and governance records:
 | Ten-deck Prototype 0.1 history | Design Studio | Preserved | Design Intent and Standard legality | `decks/` |
 | Ten-deck Prototype 0.2 environment | Design Studio | **Frozen** | Await credible Cardcade evidence before revision review | `decks/` |
 | Cardcade Engine 0.8 architectural foundation | Cardcade | **Accepted**; Foundation Matrix 10 GREEN / 10 YELLOW / 0 RED | Continue mechanical coverage | `src/tmnt_design_studio/engine07.py`, `docs/cardcade/`, `tests/` |
-| Create Token / Deal Damage / Scry / First+Double Strike coverage | Cardcade | Merged through PR #33 | Continue smallest evidence-backed mechanics coverage | Cardcade code, tests, acceptance evidence |
-| Broad calibration / large smoke | Cardcade | **Blocked by Gate** | Simulator mechanical credibility | Cardcade testing protocol/evidence |
+| Post-foundation Actions and engine corrections | Cardcade | Accepted through Action #16 / PR #60 | Continue evidence-backed validation; preserve unsupported boundaries | Cardcade code, tests, acceptance evidence |
+| Engine Validation Stage 0.2 tooling | Cardcade | Runner + plan-only launcher accepted in PR #61; gameplay execution not authorized by that merge | Merged-main readiness decision | Cardcade Stage/Smoke specs, runners, evidence |
+| Broad calibration | Cardcade | **Blocked by Gate** | Successful engine-validation evidence + explicit authorization | Cardcade testing protocol/evidence |
 | Prototype 0.3 | Design Studio | **NOT AUTHORIZED** | Cardcade evidence + explicit Design Studio decision | Future preserved prototype when authorized |
 | Deck-box structural prototype | Mr. Paperback | p0.2 geometry physically validated; artwork/productization continues | Print/cut/fold/fit and final production stock | Physical-product records/specs |
-| Sewer Stamps | Mr. Paperback | Prototype needed | Standardized stamp frame + print/cut/apply test | Physical-product records/specs |
+| Sewer Stamps | Mr. Paperback | Prototype registered; physical iteration remains actionable | Print/cut/apply testing | Physical-product records/specs |
 | Canon/source research | Canon / Source Material | Active support function | Department requests | `docs/Knowledge-Architecture.md`, `docs/WORLD_GUIDE.md`, `encyclopedia/` |
 | Underground Press Issue #1 | The Underground Press | In production | Reusable component/template workflow | `docs/UNDERGROUND_PRESS.md`, editorial assets |
 | Sewer Status Board | HQ | Operating standard documented | Durable GitHub evidence | `docs/SEWER_STATUS_BOARD.md` |
 | THERECORD | HQ / instrumentation | Specification established; weekly archive to be appended over time | Observable usage/output evidence | `docs/THERECORD.md` and future weekly records |
+| HQ Resilience 0.1 | HQ | **Active** — GitHub Can Run the Project | Portable Work Packets, recovery docs, synchronized state, tool-independent validation | `docs/hq/` |
+| Cardcade GUI / DECKDAEMON (DD.0) | Cardcade / HQ tracking | Future product goal; subordinate to engine credibility | Authoritative engine/evidence state stable enough to present | Roadmap / future GUI specs |
 | Ten-deck starter/battle set | HQ coordinating all departments | Target product; not production-ready | Credible deck baseline, human fun testing, validated physical deliverables | Component locations above |
 
 ## Current Status
@@ -64,56 +71,56 @@ Primary orientation and governance records:
 
 ### Critical Path
 
-**Cardcade mechanical coverage and validation.**
+**Cardcade engine validation toward a credible controlled calibration gate.**
 
-Engine 0.8's architectural foundation is accepted. The remaining problem is no longer a zero-RED architecture gate; it is whether the simulator executes enough of the mechanics encountered by the ten-deck environment to justify broad calibration and downstream Design Studio review.
+Engine 0.8's architecture remains accepted. Cardcade has advanced through Action #16 and now has accepted coverage-aware Stage 0.2 evidence tooling. The immediate question is no longer whether the foundation exists; it is whether merged-main readiness evidence authorizes the next bounded engine-validation execution.
 
 ### What changed recently
 
-- Engine 0.8 foundation accepted after Foundation Matrix reached 10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN.
-- Create Token merged in PR #30.
-- Deal Damage merged in PR #31.
-- Scry merged in PR #32.
-- First Strike / Double Strike combat damage steps merged in PR #33.
-- At PR #33 the full suite reported 314 passed / 1 skipped, deterministic Acceptance Match #001, zero invariant violations, and 61 unsupported events / 18 exact pairs.
-- Sewer Status Board and THERECORD operating specifications are being made durable through the outsider-continuity audit.
+- Actions #13–#16 were accepted through PRs #50, #58, #59, and #60.
+- Generic engine corrections preserved Stack/Priority ordering, ETB provenance, terminal combat SBA handling, and fail-closed evidence.
+- PR #61 merged the accepted Engine Validation Stage 0.2 evidence runner and plan-only launcher.
+- PR #61's accepted Stage 0.2 contract records 45 pairings / 225 distinct planned games / 450 executions / 900 per-execution commitment artifacts.
+- PR #61 reported 784 passed / 1 skipped locally and passing exact-head CI.
+- Stage 0.2 gameplay was **not** authorized or executed by PR #61; a merged-main readiness decision remains required.
+- HQ Resilience 0.1 has started so GitHub, rather than any one AI tool or chat, can run the project.
 
 These are simulator-credibility milestones, not deck-balance conclusions.
 
 ### Gate — What's required?
 
-Cardcade must reach sufficient mechanical credibility for the current ten-deck environment before broad calibration can be trusted.
+Cardcade must produce trustworthy engine-validation evidence before controlled calibration can be treated as meaningful.
 
-The Gate is not "make every deck 50%." It is trustworthy rules execution, explicit unsupported behavior, reproducibility, and evidence strong enough that downstream balance conclusions mean something.
+The Gate is not "make every deck 50%." It is reproducible rules execution, explicit unsupported behavior, authenticated evidence, deterministic replays, and enough mechanical credibility that downstream balance conclusions mean something.
 
 ### Blockers — What must be fixed?
 
-The current blocker is incomplete mechanical coverage encountered by real games. Missing mechanics should be handled as reusable, rules-grounded Actions/systems rather than card-name shortcuts or pilot assumptions.
+The immediate blocker is **authorization/readiness for the next Stage 0.2 execution**, not a lack of a runner. Any failure exposed by readiness or execution must be corrected at the smallest appropriate engine/evidence layer before increasing test volume.
 
 ### Holds — Intentionally waiting
 
 - Prototype 0.3 authorization.
-- Broad calibration runs.
-- Large smoke batches.
-- Design Studio deck revisions based on Cardcade balance results.
-- Human fun testing as the primary authority, until the mechanical baseline is credible.
+- Calibration as balance evidence.
+- Design Studio deck revisions based on Cardcade results.
+- Human fun testing as the primary authority, until a credible automated baseline exists.
 
 ### Actionable now
 
-- Continue Cardcade mechanical coverage and validation.
+- Complete the merged-main Stage 0.2 readiness decision.
+- Continue HQ Resilience 0.1 and portable Work Packet adoption.
 - Continue Mr. Paperback physical prototyping that does not depend on deck revisions.
-- Prototype Sewer Stamps as a modular print/sticker system.
-- Continue Underground Press Issue #1 production and reusable component-library work.
-- Provide targeted Canon/source support when another department requests it.
-- Improve durable project documentation and archive evidence when working-room decisions become policy.
+- Continue Underground Press Issue #1/component work.
+- Provide targeted Canon/source support when requested.
+- Keep dashboards and front-door documents synchronized to merged GitHub evidence.
 
 ### Risks / watch list
 
-- Treating architectural acceptance as if all Magic mechanics are already supported.
-- Starting large simulations before represented mechanics are trustworthy.
+- Treating accepted tooling as authorization to run the next stage.
+- Treating engine-validation evidence as balance-valid evidence.
+- Letting current state drift behind merged PRs.
+- Depending on Codex or another single tool for project continuity.
+- Allowing task intent, acceptance criteria, or local evidence to live only in chat.
 - Using Cardcade results as automatic deck-edit instructions.
-- Allowing physical/design assets or dashboard conventions to live only in conversation history.
-- Inventing usage metrics or Plus-plan percentages that the underlying product does not expose.
 
 ## Sewer Status Board
 
@@ -145,7 +152,7 @@ See [THERECORD](THERECORD.md).
 
 ## Next Move
 
-**Continue Cardcade mechanical-coverage validation while preserving productive parallel work in Mr. Paperback, The Underground Press, and Canon. Do not authorize Prototype 0.3 or broad calibration until the Gate is credibly met.**
+**Complete the merged-main readiness decision for Cardcade Engine Validation Stage 0.2. In parallel, complete HQ Resilience 0.1 so the next authorized task can move between Codex, another tool, or a human through GitHub without reconstructing chat history.**
 
 ## Change discipline
 
