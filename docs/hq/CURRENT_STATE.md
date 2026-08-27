@@ -47,7 +47,7 @@ PR #61 merged the accepted **Engine Validation Stage 0.2 evidence runner and pla
 
 - 45 pairings;
 - 225 distinct planned games;
-- 450? No: the accepted contract records 45 / 225 / 450 / 900 evidence counts across plan/execution/duplicate artifact structure;
+- accepted Stage 0.2 contract: **45 pairings / 225 distinct games / 450 executions / 900 per-execution commitment artifacts**;
 - exact independent execution commitments and directory inventory validation;
 - `balance_valid: false` during engine validation;
 - local validation reported **784 passed / 1 skipped**;
