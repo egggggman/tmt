@@ -62,13 +62,17 @@ source Provenance and transactional current/run history.
 
 ## Current product and validation state
 
-- The Design Intent RFC and Leonardo Prototype 0.1 are accepted on `main`.
-- The ten-deck Prototype 0.1 baseline, bounded Prototype 0.2 candidates, and Cardcade through Engine
-  0.6 are preserved on `main` following merged PR #15.
-- Cardcade Engine 0.6 fails its stability gate. Its findings are hypotheses, not authority to change
-  decks; Prototype 0.3 remains unauthorized.
-- The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio
-  decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
+- The Design Intent RFC and ten-deck prototype history are preserved on `main`.
+- The ten-deck Prototype 0.2 environment is **frozen**.
+- **Prototype 0.3 is not authorized**; Design Studio owns any future deck revision decision.
+- Cardcade Engine 0.8's architectural foundation is accepted at 10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN.
+- Bounded post-foundation Actions and corrections have progressed through **Action #16 / PR #60**.
+- PR #61 merged the accepted Coverage-Aware Engine Validation Stage 0.2 evidence runner and plan-only launcher.
+- PR #61 did not itself authorize or execute Stage 0.2 gameplay; a merged-main readiness decision remains the next Cardcade gate.
+- Broad calibration is not yet balance-valid evidence.
+- HQ Resilience 0.1 is active so GitHub can carry project state, task contracts, validation, evidence, and handoffs across tools.
+
+The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
 
 ## Confirmed future software milestones
 
@@ -102,6 +106,38 @@ That means every 60-card Deck has an inspectable path through Magic Facts, Capab
 Design Intent, Alignment, Recommendations, decisions, and Playtesting, with battle-set relationships
 and development history preserved for the community.
 
+## HQ resilience milestones
+
+### Resilience 0.1 — GitHub Can Run the Project — Active
+
+Make project continuation independent of a single AI tool, quota, machine, or conversation history.
+
+Acceptance targets:
+
+- synchronized durable current state;
+- portable HQ Work Packets;
+- fresh-clone recovery instructions;
+- repository-visible validation contracts;
+- explicit tool-independent handoffs;
+- dashboards that prefer merged repository evidence;
+- a Fresh Clone Test that can recover the next authorized task without old chat context.
+
+See [Tool Resilience](hq/TOOL_RESILIENCE.md), [Recovery](hq/RECOVERY.md), and [Work Packet Specification](hq/WORK_PACKET_SPEC.md).
+
+### Resilience 0.2 — Repository-generated status — Future
+
+Reduce status drift by generating or validating high-value project/Cardcade state directly from repository evidence.
+
+### Cardcade GUI / DECKDAEMON — Future product goal
+
+Build a dedicated graphical interface for **TMNT the Cardcade Game** once the simulator's rules, acceptance, and evidence boundaries are stable enough that the GUI presents trustworthy state rather than masking missing mechanics.
+
+Long-term goals include deterministic match launching, battlefield and zone inspection, Stack/Priority/combat visibility, replay and seed controls, unsupported-semantics/invariant reporting, matchup and coverage visualization, and developer/spectator views.
+
+**Ownership:** Cardcade owns the interface; HQ tracks the project goal. The GUI is not a second rules engine and must not bypass Cardcade or Design Studio gates.
+
+**Invocation convention in project working rooms:** `DECKDAEMON` or `DD.0` may request the Cardcade dashboard. These invocation words are interface conventions, not engine semantics.
+
 ## Beyond v1
 
 Aspirational possibilities—not commitments—include additional Characters and Design Intents, richer
@@ -120,7 +156,7 @@ need and the architecture can preserve explainability.
 - Unrelated franchises.
 - Additional Magic formats until Standard is proven.
 - Matchup guarantees and universal deck-quality grades.
-- A graphical interface before underlying responsibilities and inspection paths are stable.
+- A graphical interface that precedes or compensates for unstable underlying responsibilities and inspection paths.
 - Speculative features without evidence of a real contributor or user need.
 
 ## Success criteria
