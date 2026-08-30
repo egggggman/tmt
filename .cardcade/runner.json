@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "workPacketId": "WP-LOCAL-RUNNER-MANIFEST-01",
   "baselineRef": "main",
   "scopeSummary": "Commission the Cardcade Local Runner against the exact clean candidate without changing gameplay, decks, Pilot, Stage execution, calibration, or prototype gates.",
