@@ -297,6 +297,7 @@ class TriggerEffect(Enum):
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
+    ETB_TAP_STUN = "etb_tap_stun"
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
 
 
@@ -820,10 +821,25 @@ class TriggeredAbilityObject:
     event: RulesEvent
     trigger_id: str | None = None
     zone: Zone = "stack"
+    target_id: str | None = None
 
     @property
     def owner(self) -> int:
         return self.controller
+
+
+@dataclass(frozen=True)
+class StunTargetSelection:
+    """Frozen trigger, source, and target incarnation anchors at stack placement."""
+
+    ability: TriggeredAbilityObject
+    trigger: TriggerInstance
+    source: Permanent
+    target: Permanent | None
+    target_id: str | None
+    offered_ids: tuple[str, ...]
+    target_card: CardFact | TokenDefinition | None
+    event_cursor: int
 
 
 @dataclass(eq=False)
@@ -1171,6 +1187,7 @@ class Game:
         counter_target_chooser=None,
         alliance_mode_chooser=None,
         temporary_keyword_chooser=None,
+        stun_target_chooser=None,
         scry_chooser=None,
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
@@ -1226,6 +1243,8 @@ class Game:
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
+        self._stun_selections: dict[str, StunTargetSelection] = {}
+        self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
@@ -1247,6 +1266,9 @@ class Game:
         )
         self.temporary_keyword_chooser = temporary_keyword_chooser or (
             lambda _player_index, _source_id, choices: choices[0]
+        )
+        self.stun_target_chooser = stun_target_chooser or (
+            lambda _controller, _source_id, options: options[0]
         )
         self.scry_chooser = scry_chooser or (
             lambda view, options: next(
@@ -3269,6 +3291,10 @@ class Game:
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.ETB_TAP_STUN and not self.is_authoritative(
+            source, "battlefield"
+        ):
+            raise ValueError("stun source must be an authoritative battlefield incarnation")
         if effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             self._validate_permanent_left_counter_provenance(
                 controller=source.controller,
@@ -3332,6 +3358,8 @@ class Game:
                     trigger.event,
                     trigger.trigger_id,
                 )
+                if ability.effect is TriggerEffect.ETB_TAP_STUN:
+                    self._select_stun_target(ability, trigger)
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3351,6 +3379,20 @@ class Game:
             or not self.is_authoritative(ability, "stack")
         ):
             raise ValueError("triggered ability must be the authoritative top stack object")
+        if (
+            ability.effect is TriggerEffect.ETB_TAP_STUN
+            or ability.object_id in self._stun_selections
+        ):
+            self._validate_stun_trigger(ability)
+            if any(
+                dict(record).get("event") == "stun_etb_resolved"
+                and dict(record).get("stack_object_id") == ability.object_id
+                for _cursor, record in self._stun_history
+            ):
+                raise ValueError("stun trigger has already resolved")
+            selected = self._stun_selections[ability.object_id].target
+            if selected is not None and self.is_authoritative(selected, "battlefield"):
+                self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
@@ -3384,7 +3426,57 @@ class Game:
         )
         subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
 
-        if ability.effect is TriggerEffect.CREATE_TOKEN:
+        if ability.effect is TriggerEffect.ETB_TAP_STUN:
+            selection = self._stun_selections[ability.object_id]
+            target = selection.target
+            legal = target is not None and self.is_authoritative(target, "battlefield")
+            legal = legal and "Creature" in target.type_line
+            before = target.counters.get("stun", 0) if legal else None
+            tapped_before = target.tapped if legal else None
+            placement_cursor = None
+            if legal:
+                target.tapped = True
+                self._record_stun_event(
+                    "stun_target_tapped",
+                    target_id=target.object_id,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                    tapped_before=tapped_before,
+                    tapped_after=True,
+                )
+                placement_cursor = len(self.events)
+                self.place_counters(
+                    target,
+                    "stun",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                )
+                # Counter replacement opportunity records may precede placement.
+                placement_cursor = next(
+                    index
+                    for index in range(placement_cursor, len(self.events))
+                    if self.events[index]["event"] == "counters_placed"
+                )
+            self._record_stun_event(
+                "stun_etb_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                target_id=selection.target_id,
+                controller=ability.controller,
+                oracle_fragment=ability.oracle_fragment,
+                applied=bool(legal),
+                tapped_before=tapped_before,
+                tapped_after=True if legal else None,
+                counters_before=before,
+                counters_after=before + 1 if legal else None,
+                placement_cursor=placement_cursor,
+            )
+        elif ability.effect is TriggerEffect.CREATE_TOKEN:
             coverage = self.interpreter.token_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
             )
@@ -3806,7 +3898,10 @@ class Game:
                         source_card=ability.source_card.name,
                         oracle_fragment=ability.oracle_fragment,
                     )
-        self.log(
+        record_resolution = (
+            self._record_stun_event if ability.effect is TriggerEffect.ETB_TAP_STUN else self.log
+        )
+        record_resolution(
             "trigger_resolved",
             stack_object_id=ability.object_id,
             event_id=ability.event.event_id,
@@ -3826,6 +3921,7 @@ class Game:
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
+                TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             }:
                 self._begin_priority_window()
@@ -3876,6 +3972,295 @@ class Game:
                 and "Artifact" in permanent.type_line
             )
         )
+
+    def _record_stun_event(self, kind: str, **details: object) -> None:
+        cursor = len(self.events)
+        self.log(kind, **details)
+        self._stun_history.append((cursor, tuple(self.events[cursor].items())))
+
+    @staticmethod
+    def _validate_stun_targeting_dependencies(target: Permanent) -> None:
+        # These keyword/cost systems are absent. Do not silently target through them.
+        text = " ".join((*target.card.keywords, target.card.oracle_text))
+        if re.search(
+            r"\b(?:hexproof|shroud|ward|protection)\b|can't be (?:the )?target", text, re.I
+        ):
+            raise ValueError("stun targeting dependency is not implemented")
+
+    def _select_stun_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        self._authenticate_original_rules_event(trigger.event)
+        source = self._objects.get(trigger.source_id)
+        if (
+            not isinstance(source, Permanent)
+            or source.card is not trigger.source_card
+            or trigger.event.kind is not RulesEventKind.CREATURE_ENTERED
+            or trigger.event.subject_ids != (trigger.source_id,)
+            or trigger.event.player_index != trigger.controller
+            or (trigger.source_id, trigger.controller) not in trigger.event.battlefield_authority
+            or trigger.oracle_fragment not in self.interpreter.fragments(trigger.source_card)
+            or not self.interpreter.etb_tap_stun_semantic_coverage(
+                trigger.source_card, trigger.oracle_fragment
+            ).fully_supported
+        ):
+            raise ValueError("stun trigger has invalid entry provenance")
+        targets = tuple(
+            permanent
+            for player in self.players
+            for permanent in player.battlefield
+            if self.is_authoritative(permanent, "battlefield") and "Creature" in permanent.type_line
+        )
+        offered = tuple(sorted(target.object_id for target in targets))
+        choice = self.stun_target_chooser(trigger.controller, trigger.source_id, (*offered, None))
+        if choice is not None and (not isinstance(choice, str) or choice not in offered):
+            raise ValueError("stun target chooser must return a listed creature or None")
+        target = next((target for target in targets if target.object_id == choice), None)
+        if target is not None and (
+            not self.is_authoritative(target, "battlefield") or "Creature" not in target.type_line
+        ):
+            raise ValueError("stun target became stale during selection")
+        if target is not None:
+            self._validate_stun_targeting_dependencies(target)
+        ability.target_id = choice
+        cursor = len(self.events)
+        self._record_stun_event(
+            "stun_target_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            event_id=trigger.event.event_id,
+            source_id=trigger.source_id,
+            target_id=choice,
+            offered_ids=offered,
+            controller=trigger.controller,
+            oracle_fragment=trigger.oracle_fragment,
+        )
+        self._stun_selections[ability.object_id] = StunTargetSelection(
+            ability,
+            trigger,
+            source,
+            target,
+            choice,
+            offered,
+            None if target is None else target.card,
+            cursor,
+        )
+
+    def _validate_stun_trigger(self, ability: TriggeredAbilityObject) -> None:
+        selection = self._stun_selections.get(ability.object_id)
+        if selection is None or selection.ability is not ability:
+            raise ValueError("stun trigger lacks authoritative selection provenance")
+        trigger = selection.trigger
+        self._authenticate_original_rules_event(trigger.event)
+        if (
+            self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(trigger.trigger_id) is not trigger
+            or ability.trigger_id != trigger.trigger_id
+            or ability.effect is not TriggerEffect.ETB_TAP_STUN
+            or ability.source_id != trigger.source_id
+            or ability.controller != trigger.controller
+            or ability.source_card is not trigger.source_card
+            or ability.oracle_fragment != trigger.oracle_fragment
+            or ability.event is not trigger.event
+            or ability.target_id != selection.target_id
+            or self._objects.get(trigger.source_id) is not selection.source
+            or selection.source.object_id != trigger.source_id
+            or selection.source.card is not trigger.source_card
+            or selection.source.zone not in {"battlefield", "former"}
+            or (
+                selection.source.zone == "battlefield"
+                and not self.is_authoritative(selection.source, "battlefield")
+            )
+            or (
+                selection.target is not None
+                and (
+                    self._objects.get(selection.target_id) is not selection.target
+                    or selection.target.object_id != selection.target_id
+                    or selection.target.card is not selection.target_card
+                )
+            )
+        ):
+            raise ValueError("stun trigger has mismatched source/target incarnation provenance")
+
+    @staticmethod
+    def validate_stun_snapshot_evidence(snapshot: dict[str, object]) -> None:
+        """Cross-check the bounded serialized ledger against tap/counter/trigger history."""
+        events = snapshot.get("events", [])
+        history = snapshot.get("stun_history") or []
+        indexed = {}
+        selections = {}
+        resolutions = {}
+        counts = {}
+        for item in history:
+            cursor, record = item["event_cursor"], item["record"]
+            if (
+                not isinstance(cursor, int)
+                or isinstance(cursor, bool)
+                or cursor < 0
+                or cursor >= len(events)
+                or cursor in indexed
+                or events[cursor] != record
+            ):
+                raise ValueError("stun authoritative history was modified")
+            indexed[cursor] = record
+            kind = record.get("event")
+            stack_id = record.get("stack_object_id")
+            target_id = record.get("target_id")
+            if kind == "stun_target_selected":
+                if stack_id in selections or (
+                    target_id is not None and target_id not in record["offered_ids"]
+                ):
+                    raise ValueError("stun target selection history is invalid")
+                selections[stack_id] = record
+            elif kind == "counters_placed":
+                before = counts.get(target_id, 0)
+                quantity = record.get("quantity")
+                if (
+                    record.get("counter_type") != "stun"
+                    or not isinstance(quantity, int)
+                    or isinstance(quantity, bool)
+                    or quantity <= 0
+                    or record.get("total") != before + quantity
+                ):
+                    raise ValueError("stun counter placement history is invalid")
+                counts[target_id] = before + quantity
+            elif kind == "stun_untap_replaced":
+                before = counts.get(target_id, 0)
+                if (
+                    before < 1
+                    or record.get("counters_before") != before
+                    or record.get("counters_after") != before - 1
+                    or record.get("quantity_removed") != 1
+                    or record.get("tapped_before") is not True
+                    or record.get("tapped_after") is not True
+                ):
+                    raise ValueError("stun untap replacement history is invalid")
+                counts[target_id] = before - 1
+            elif kind == "stun_etb_resolved":
+                selection = selections.get(stack_id)
+                if (
+                    selection is None
+                    or stack_id in resolutions
+                    or any(
+                        record.get(key) != selection.get(key)
+                        for key in (
+                            "source_id",
+                            "target_id",
+                            "trigger_id",
+                            "event_id",
+                            "controller",
+                            "oracle_fragment",
+                        )
+                    )
+                ):
+                    raise ValueError("stun resolution has invalid target/source history")
+                if record.get("applied") is True:
+                    placement = indexed.get(record.get("placement_cursor"), {})
+                    taps = [
+                        event
+                        for event in indexed.values()
+                        if event.get("event") == "stun_target_tapped"
+                        and event.get("stack_object_id") == stack_id
+                    ]
+                    if (
+                        target_id is None
+                        or len(taps) != 1
+                        or taps[0].get("target_id") != target_id
+                        or taps[0].get("source_id") != record.get("source_id")
+                        or taps[0].get("tapped_before") != record.get("tapped_before")
+                        or taps[0].get("tapped_after") is not True
+                        or record.get("tapped_after") is not True
+                        or placement.get("event") != "counters_placed"
+                        or placement.get("quantity") != 1
+                        or placement.get("total") != record.get("counters_after")
+                        or record.get("counters_after") != record.get("counters_before") + 1
+                        or any(
+                            placement.get(key) != record.get(key)
+                            for key in (
+                                "target_id",
+                                "source_id",
+                                "stack_object_id",
+                                "oracle_fragment",
+                            )
+                        )
+                    ):
+                        raise ValueError("stun resolution lacks authoritative tap/counter history")
+                elif (
+                    record.get("applied") is not False or record.get("placement_cursor") is not None
+                ):
+                    raise ValueError("stun no-effect history is invalid")
+                resolutions[stack_id] = record
+            elif kind == "trigger_resolved":
+                resolved = resolutions.get(stack_id)
+                if resolved is None or any(
+                    resolved.get(key) != record.get(key)
+                    for key in ("source_id", "trigger_id", "event_id", "oracle_fragment")
+                ):
+                    raise ValueError("stun execution lacks authoritative resolution history")
+        for cursor, event in enumerate(events):
+            if (
+                event.get("event") == "trigger_resolved"
+                and event.get("oracle_fragment") == CardInterpreter.ETB_TAP_STUN
+                and cursor not in indexed
+            ):
+                raise ValueError("stun execution lacks authoritative resolution history")
+
+    def _validate_stun_history(self) -> None:
+        for selection in self._stun_selections.values():
+            self._validate_stun_trigger(selection.ability)
+        self.validate_stun_snapshot_evidence(
+            {
+                "events": self.events,
+                "stun_history": [
+                    {"event_cursor": cursor, "record": dict(record)}
+                    for cursor, record in self._stun_history
+                ],
+            }
+        )
+        counts = {}
+        for _cursor, record in self._stun_history:
+            event = dict(record)
+            if event["event"] == "counters_placed":
+                counts[event["target_id"]] = event["total"]
+            elif event["event"] == "stun_untap_replaced":
+                counts[event["target_id"]] = event["counters_after"]
+        for player in self.players:
+            for permanent in player.battlefield:
+                count = permanent.counters.get("stun", 0)
+                if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+                    raise ValueError("counter quantities must be nonnegative integers")
+                if count != counts.get(permanent.object_id, 0):
+                    raise ValueError("stun counter state disagrees with authoritative history")
+
+    def untap_permanent(self, permanent: Permanent) -> None:
+        """Apply the single stun replacement to an authoritative untap attempt."""
+        if not isinstance(permanent, Permanent) or not self.is_authoritative(
+            permanent, "battlefield"
+        ):
+            raise ValueError("untap requires an authoritative battlefield permanent")
+        if not permanent.tapped:
+            return
+        count = permanent.counters.get("stun", 0)
+        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+            raise ValueError("invalid stun counter state")
+        if count:
+            if count == 1:
+                del permanent.counters["stun"]
+            else:
+                permanent.counters["stun"] = count - 1
+            self._record_stun_event(
+                "stun_untap_replaced",
+                target_id=permanent.object_id,
+                controller=permanent.controller,
+                counters_before=count,
+                counters_after=count - 1,
+                quantity_removed=1,
+                tapped_before=True,
+                tapped_after=True,
+            )
+        else:
+            permanent.tapped = False
+            self.log("permanent_untapped", target_id=permanent.object_id)
 
     def _validate_etb_artifact_draw_provenance(
         self,
@@ -4036,6 +4421,11 @@ class Game:
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
                     )
+        if TriggerEffect.ETB_TAP_STUN in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.etb_tap_stun_semantic_coverage(entering.card, fragment)
+                if coverage is not None and coverage.fully_supported:
+                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.ETB_TAP_STUN)
         if TriggerEffect.ETB_ARTIFACT_DRAW in enabled:
             for fragment in self.interpreter.fragments(entering.card):
                 coverage = self.interpreter.etb_artifact_draw_semantic_coverage(
@@ -4114,6 +4504,7 @@ class Game:
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_ARTIFACT_DRAW,
+            TriggerEffect.ETB_TAP_STUN,
         }
         for permanent in entering:
             event = self._new_rules_event(
@@ -4154,6 +4545,8 @@ class Game:
         *,
         source_card: str,
         oracle_fragment: str,
+        source_id: str | None = None,
+        stack_object_id: str | None = None,
     ) -> None:
         if not counter_type or not isinstance(quantity, int) or isinstance(quantity, bool):
             raise ValueError("counter placement requires a named counter and integer quantity")
@@ -4183,7 +4576,8 @@ class Game:
                     ),
                 )
         target.counters[counter_type] = target.counters.get(counter_type, 0) + quantity
-        self.log(
+        record_placement = self._record_stun_event if counter_type == "stun" else self.log
+        record_placement(
             "counters_placed",
             target=target.card.name,
             counter_type=counter_type,
@@ -4191,6 +4585,15 @@ class Game:
             total=target.counters[counter_type],
             source=source_card,
             oracle_fragment=oracle_fragment,
+            **(
+                {
+                    "target_id": target.object_id,
+                    "source_id": source_id,
+                    "stack_object_id": stack_object_id,
+                }
+                if counter_type == "stun"
+                else {}
+            ),
         )
         self.check_state_based_actions()
 
@@ -4457,7 +4860,7 @@ class Game:
         if step is TurnStep.UNTAP:
             player.lands_played = 0
             for permanent in player.battlefield:
-                permanent.tapped = False
+                self.untap_permanent(permanent)
                 if permanent.entered_battlefield_turn < self.turn:
                     permanent.summoning_sick = False
             self.log("turn_started", player=player.name)
@@ -6493,6 +6896,7 @@ class Game:
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
+                TriggerEffect.ETB_TAP_STUN,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -6953,6 +7357,10 @@ class Game:
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        try:
+            self._validate_stun_history()
+        except ValueError as error:
+            raise AssertionError(str(error)) from error
         combat_ids = self._combat_attackers + tuple(
             blocker_id for _attacker_id, blocker_id in self._combat_blocks
         )
@@ -7552,6 +7960,7 @@ class Game:
 
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
+        self._validate_stun_history()
         references: list[dict[str, object]] = []
 
         def add(kind: str, evidence_id: str, source_id: str, fragment: str) -> None:
@@ -7837,6 +8246,11 @@ class Game:
                     else {
                         "object_id": entry.object_id,
                         "kind": "triggered_ability",
+                        **(
+                            {"target_id": entry.target_id}
+                            if entry.effect is TriggerEffect.ETB_TAP_STUN
+                            else {}
+                        ),
                         "source": entry.source_card.name,
                         "source_id": entry.source_id,
                         "controller": entry.controller,
@@ -7858,6 +8272,10 @@ class Game:
                 }
             ),
             "pending_triggers": [trigger.trigger_id for trigger in self.pending_triggers],
+            "stun_history": [
+                {"event_cursor": cursor, "record": dict(record)}
+                for cursor, record in self._stun_history
+            ],
             "scry": [
                 {
                     "event_id": item.event_id,
