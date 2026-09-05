@@ -717,6 +717,8 @@ def _authoritative_execution_index(
             "scry_committed",
             "tokens_created",
             "trigger_resolved",
+            "spell_resolved",
+            "spell_resolved_no_effect",
         }:
             continue
         evidence_id = event.get("event_id") or event.get("stack_object_id")

@@ -26,13 +26,40 @@ class CastKind(Enum):
     CREATURE = "creature"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
-    DESTROY_OPPOSING_POWER_4 = "destroy_opposing_power_4"
+    DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
+        "destroy_artifact_enchantment_or_power_4_creature"
+    )
     UNSUPPORTED = "unsupported"
 
 
 @dataclass(frozen=True)
 class CastProgram:
     kind: CastKind
+
+
+@dataclass(frozen=True)
+class DestroyPermanentProgram:
+    """The bounded target classes represented by Gameplay Packet 1."""
+
+    artifact: bool
+    enchantment: bool
+    creature_minimum_power: int | None
+
+    @property
+    def executable(self) -> bool:
+        return self.artifact and self.enchantment and self.creature_minimum_power == 4
+
+
+@dataclass(frozen=True)
+class InterpretedDestroyPermanentSemantics:
+    """Destroy-permanent facts paired with generic coverage evidence."""
+
+    program: DestroyPermanentProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
 
 
 @dataclass(frozen=True)
@@ -672,11 +699,36 @@ class CardInterpreter:
             and damage.program.target_kind is DamageTargetKind.CREATURE
         ):
             return CastProgram(CastKind.DEAL_DAMAGE)
-        if self.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE.fullmatch(card.oracle_text):
-            return CastProgram(CastKind.DESTROY_OPPOSING_POWER_4)
+        destroy = self.destroy_permanent_semantic_coverage(card, card.oracle_text)
+        if destroy is not None and destroy.coverage.fully_supported:
+            return CastProgram(CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE)
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    def destroy_permanent_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDestroyPermanentSemantics | None:
+        """Recognize only the exact bounded artifact/enchantment/large-creature spell."""
+        match = self.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE.fullmatch(fragment)
+        if match is None:
+            return None
+        program = DestroyPermanentProgram(True, True, 4)
+        direct_spell = fragment == card.oracle_text.strip()
+        spell_source = any(
+            card_type in card.type_line.split(" — ", 1)[0].split()
+            for card_type in ("Instant", "Sorcery")
+        )
+        limitations: list[str] = []
+        if not direct_spell:
+            limitations.append("destroy_parent_context_not_implemented")
+        if not spell_source:
+            limitations.append("destroy_nonspell_source_not_implemented")
+        executable = program.executable and direct_spell and spell_source
+        return InterpretedDestroyPermanentSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, tuple(limitations)),
+        )
 
     @staticmethod
     def fragments(card: CardDefinition) -> tuple[str, ...]:
@@ -1792,6 +1844,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            destroy_permanent = self.destroy_permanent_semantic_coverage(card, fragment)
+            if destroy_permanent is not None:
+                for reason in destroy_permanent.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             etb_artifact_draw = self.etb_artifact_draw_semantic_coverage(card, fragment)
             if etb_artifact_draw is not None:
                 for reason in etb_artifact_draw.limitations:

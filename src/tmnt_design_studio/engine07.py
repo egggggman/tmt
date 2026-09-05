@@ -4501,7 +4501,7 @@ class Game:
                     for target in opponent.battlefield
                     if target.card.is_creature
                 )
-            elif kind is CastKind.DESTROY_OPPOSING_POWER_4:
+            elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 options.extend(
                     ActionOption(
                         ActionKind.CAST,
@@ -4509,8 +4509,9 @@ class Game:
                         object_id=card.object_id,
                         target_id=target.object_id,
                     )
-                    for target in opponent.battlefield
-                    if target.card.is_creature and target.power >= 4
+                    for target_player in self.players
+                    for target in target_player.battlefield
+                    if self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
                 )
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
@@ -6330,12 +6331,11 @@ class Game:
                 )
                 return None
             target_id = target.object_id
-        elif program.kind is CastKind.DESTROY_OPPOSING_POWER_4:
+        elif program.kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
-                or target.controller == player_index
-                or target.power < 4
+                or not self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
             ):
                 self.log(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
@@ -6382,6 +6382,7 @@ class Game:
         if not self.stack:
             raise ValueError("cannot resolve an empty stack")
         spell = self.stack[-1]
+        stack_object_id = spell.object_id
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
@@ -6418,7 +6419,6 @@ class Game:
             raise ValueError("Sneak spell cannot resolve before all players pass")
 
         if spell.cast_kind is CastKind.CREATURE:
-            stack_object_id = spell.object_id
             permanent = self.move_object(
                 spell,
                 "battlefield",
@@ -6481,17 +6481,23 @@ class Game:
         )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = legal_target and target.controller != spell.controller
-        elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
+        elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             legal_target = (
-                legal_target and target.controller != spell.controller and target.power >= 4
+                legal_target
+                and isinstance(target, Permanent)
+                and self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
             )
         if not legal_target:
             resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
             assert isinstance(resolved_card, CardObject)
             self.log(
                 "spell_resolved_no_effect",
+                event_id=f"spell:{stack_object_id}:resolved",
                 player=player.name,
                 card=spell.name,
+                source_id=resolved_card.object_id,
+                oracle_fragment=spell.card.oracle_text,
+                target_source_id=spell.target_id,
                 reason="all_targets_illegal",
             )
             return resolved_card
@@ -6534,19 +6540,40 @@ class Game:
                     source_id=spell.object_id,
                     oracle_fragment=spell.card.oracle_text,
                 )
-        elif spell.cast_kind is CastKind.DESTROY_OPPOSING_POWER_4:
+        elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             self.destroy(target)
         resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
         assert isinstance(resolved_card, CardObject)
         self.report_unsupported_abilities(spell.controller, spell.card, source=resolved_card)
         self._witness_resolved_unsupported_instructions(resolved_card)
-        self.log("spell_resolved", player=player.name, card=spell.name, target=target.card.name)
+        self.log(
+            "spell_resolved",
+            event_id=f"spell:{stack_object_id}:resolved",
+            player=player.name,
+            card=spell.name,
+            source_id=resolved_card.object_id,
+            oracle_fragment=spell.card.oracle_text,
+            target=target.card.name,
+            target_source_id=target.object_id,
+        )
         if filter_plan is not None:
             self.check_state_based_actions()
             self.check_life()
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
         return resolved_card
+
+    @staticmethod
+    def _is_destroy_artifact_enchantment_or_power_4_creature_target(
+        target: Permanent,
+    ) -> bool:
+        """Evaluate the bounded target predicate from current battlefield characteristics."""
+        card_types = set(target.type_line.split(" — ", 1)[0].split())
+        return (
+            "Artifact" in card_types
+            or "Enchantment" in card_types
+            or ("Creature" in card_types and target.power >= 4)
+        )
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
         return [
@@ -7482,6 +7509,8 @@ class Game:
                 "scry_committed",
                 "tokens_created",
                 "trigger_resolved",
+                "spell_resolved",
+                "spell_resolved_no_effect",
             }:
                 source_id = event.get("source_id")
                 fragment = event.get("oracle_fragment")
