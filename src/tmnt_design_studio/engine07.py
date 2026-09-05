@@ -297,6 +297,13 @@ class TriggerEffect(Enum):
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
+    ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
+
+
+class TemporaryKeyword(Enum):
+    FLYING = "flying"
+    MENACE = "menace"
+    HASTE = "haste"
 
 
 @dataclass(frozen=True)
@@ -584,7 +591,7 @@ class CombatDamageStepEvidence:
 
 @dataclass(frozen=True)
 class TemporaryKeywordEffect:
-    keyword: StrikeKeyword
+    keyword: StrikeKeyword | TemporaryKeyword
     duration: Literal["until_end_of_turn"]
     source_id: str
     oracle_fragment: str
@@ -1163,6 +1170,7 @@ class Game:
         legend_rule_chooser=None,
         counter_target_chooser=None,
         alliance_mode_chooser=None,
+        temporary_keyword_chooser=None,
         scry_chooser=None,
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
@@ -1236,6 +1244,9 @@ class Game:
         )
         self.alliance_mode_chooser = alliance_mode_chooser or (
             lambda _player_index, _source_id, modes: modes[0]
+        )
+        self.temporary_keyword_chooser = temporary_keyword_chooser or (
+            lambda _player_index, _source_id, choices: choices[0]
         )
         self.scry_chooser = scry_chooser or (
             lambda view, options: next(
@@ -3361,6 +3372,8 @@ class Game:
                 trigger_id=ability.trigger_id,
                 require_current_condition=False,
             )
+        if ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
+            self._validate_alliance_temporary_keyword_choice_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -3647,6 +3660,43 @@ class Game:
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
+            semantics = self.interpreter.temporary_keyword_choice_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
+            )
+            if semantics is None or not semantics.coverage.fully_supported:
+                raise AssertionError("stacked temporary-keyword choice is no longer executable")
+            self._validate_alliance_temporary_keyword_choice_trigger(ability)
+            choices = semantics.program.choices
+            selected = self.temporary_keyword_chooser(
+                ability.controller, ability.source_id, choices
+            )
+            if selected not in choices:
+                raise ValueError("temporary keyword chooser must return an available keyword")
+            applied = source_permanent is not None
+            if source_permanent is not None:
+                source_permanent.temporary_keyword_effects.append(
+                    TemporaryKeywordEffect(
+                        TemporaryKeyword(selected),
+                        "until_end_of_turn",
+                        ability.source_id,
+                        ability.oracle_fragment,
+                    )
+                )
+            self.log(
+                "temporary_keyword_choice_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                target_id=ability.source_id,
+                controller=ability.controller,
+                choices=list(choices),
+                selected_keyword=selected,
+                duration="until_end_of_turn",
+                oracle_fragment=ability.oracle_fragment,
+                applied=applied,
+            )
         elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
             match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -3776,6 +3826,7 @@ class Game:
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
+                TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             }:
                 self._begin_priority_window()
                 return
@@ -3910,6 +3961,39 @@ class Game:
         ):
             raise ValueError("ETB drain/gain/Scry trigger has mismatched entry provenance")
 
+    def _validate_alliance_temporary_keyword_choice_trigger(
+        self, ability: TriggeredAbilityObject
+    ) -> None:
+        """Authenticate Action #18 against its exact Alliance entry event and trigger."""
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        trigger = self._triggers.get(ability.trigger_id)
+        semantics = self.interpreter.temporary_keyword_choice_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        if (
+            ability.effect is not TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE
+            or semantics is None
+            or not semantics.coverage.fully_supported
+            or event.kind is not RulesEventKind.CREATURE_ENTERED
+            or self._rules_events.get(event.event_id) is not event
+            or len(event.subject_ids) != 1
+            or event.subject_ids[0] == ability.source_id
+            or event.player_index != ability.controller
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or trigger is None
+            or trigger.controller != ability.controller
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.effect is not ability.effect
+            or trigger.event is not event
+        ):
+            raise ValueError("temporary-keyword trigger has mismatched Alliance provenance")
+
     def _detect_creature_entered_triggers(
         self,
         entering: Permanent,
@@ -3980,6 +4064,17 @@ class Game:
                     and self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
                 ):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_COUNTER)
+                if TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE in enabled:
+                    semantics = self.interpreter.temporary_keyword_choice_semantic_coverage(
+                        source.card, fragment
+                    )
+                    if semantics is not None and semantics.coverage.fully_supported:
+                        self._enqueue_trigger(
+                            event,
+                            source,
+                            fragment,
+                            TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
+                        )
                 if TriggerEffect.DEAL_DAMAGE in enabled:
                     semantics = self.interpreter.damage_semantic_coverage(source.card, fragment)
                     if (
@@ -4013,6 +4108,7 @@ class Game:
             TriggerEffect.ALLIANCE_PT,
             TriggerEffect.ALLIANCE_COUNTER,
             TriggerEffect.ALLIANCE_MODAL,
+            TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             TriggerEffect.CREATE_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.SCRY,
@@ -5017,7 +5113,11 @@ class Game:
             if keyword.value.replace("_", " ").casefold()
             in {value.casefold() for value in permanent.card.keywords}
         }
-        keywords.update(effect.keyword for effect in permanent.temporary_keyword_effects)
+        keywords.update(
+            effect.keyword
+            for effect in permanent.temporary_keyword_effects
+            if isinstance(effect.keyword, StrikeKeyword)
+        )
         for fragment in self.interpreter.fragments(permanent.card):
             semantics = self.interpreter.strike_semantic_coverage(permanent.card, fragment)
             if semantics is None or not semantics.coverage.fully_supported:
@@ -6579,8 +6679,16 @@ class Game:
         return [
             p
             for p in self.players[player_index].battlefield
-            if p.card.is_creature and not p.tapped and not p.summoning_sick
+            if p.card.is_creature
+            and not p.tapped
+            and (not p.summoning_sick or self.has_temporary_keyword(p, TemporaryKeyword.HASTE))
         ]
+
+    def has_temporary_keyword(self, permanent: Permanent, keyword: TemporaryKeyword) -> bool:
+        """Read a current bounded temporary keyword from authoritative incarnation state."""
+        return self.is_authoritative(permanent, "battlefield") and any(
+            effect.keyword is keyword for effect in permanent.temporary_keyword_effects
+        )
 
     def blocking_restriction(
         self, attacker: Permanent, blocker: Permanent
@@ -7227,6 +7335,11 @@ class Game:
                         )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
+                    try:
+                        self._validate_alliance_temporary_keyword_choice_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
                 if obj.source_id not in self._objects:
                     raise AssertionError("activated ability source ID was never registered")
@@ -7324,7 +7437,7 @@ class Game:
                         raise AssertionError("P/T modifier originates in a future turn")
                 if any(
                     effect.duration != "until_end_of_turn"
-                    or not isinstance(effect.keyword, StrikeKeyword)
+                    or not isinstance(effect.keyword, (StrikeKeyword, TemporaryKeyword))
                     for effect in permanent.temporary_keyword_effects
                 ):
                     raise AssertionError("temporary keyword effect is malformed")

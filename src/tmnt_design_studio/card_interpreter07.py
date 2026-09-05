@@ -63,6 +63,33 @@ class InterpretedDestroyPermanentSemantics:
 
 
 @dataclass(frozen=True)
+class TemporaryKeywordChoiceProgram:
+    """One bounded Alliance choice among temporary creature keywords."""
+
+    choices: tuple[str, ...]
+    duration: str
+    self_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.choices == ("flying", "menace", "haste")
+            and self.duration == "until_end_of_turn"
+            and self.self_reference
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedTemporaryKeywordChoiceSemantics:
+    program: TemporaryKeywordChoiceProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class SneakProgram:
     """One Oracle-derived bounded Sneak alternative-cost instruction."""
 
@@ -528,6 +555,10 @@ class CardInterpreter:
         r"^Alliance — Whenever another creature you control enters, choose one that hasn't "
         r"been chosen this turn\.$"
     )
+    ALLIANCE_TEMPORARY_KEYWORD_CHOICE = re.compile(
+        r"^Alliance — Whenever another creature you control enters, (?P<source>.+) gains "
+        r"your choice of flying, menace, or haste until end of turn\.$"
+    )
     SELF_PLUS_COUNTER_MODE = re.compile(r"^• Put a \+1/\+1 counter on .+\.$")
     DAMAGE_3_TARGET_CREATURE = re.compile(r"^.+ deals 3 damage to target creature\.")
     DEAL_DAMAGE = re.compile(
@@ -728,6 +759,25 @@ class CardInterpreter:
         return InterpretedDestroyPermanentSemantics(
             program,
             SemanticCoverage(executable, executable, executable, tuple(limitations)),
+        )
+
+    def temporary_keyword_choice_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTemporaryKeywordChoiceSemantics | None:
+        """Recognize only the frozen Alliance flying/menace/haste choice grammar."""
+        match = self.ALLIANCE_TEMPORARY_KEYWORD_CHOICE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        self_reference = match.group("source").casefold() in source_names
+        program = TemporaryKeywordChoiceProgram(
+            ("flying", "menace", "haste"), "until_end_of_turn", self_reference
+        )
+        limitations = () if self_reference else ("temporary_keyword_choice_source_mismatch",)
+        executable = program.executable
+        return InterpretedTemporaryKeywordChoiceSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
         )
 
     @staticmethod
@@ -1844,6 +1894,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            keyword_choice = self.temporary_keyword_choice_semantic_coverage(card, fragment)
+            if keyword_choice is not None:
+                for reason in keyword_choice.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             destroy_permanent = self.destroy_permanent_semantic_coverage(card, fragment)
             if destroy_permanent is not None:
                 for reason in destroy_permanent.limitations:
