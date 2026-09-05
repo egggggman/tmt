@@ -1261,6 +1261,9 @@ class Game:
         self.counter_target_chooser = counter_target_chooser or (
             lambda _player_index, _source_id, object_ids: object_ids[0]
         )
+        self.counter_spell_target_chooser = lambda _player_index, _source_id, object_ids: (
+            object_ids[0]
+        )
         self.alliance_mode_chooser = alliance_mode_chooser or (
             lambda _player_index, _source_id, modes: modes[0]
         )
@@ -5095,6 +5098,70 @@ class Game:
                     cause_subject_ids=candidates,
                 )
 
+    def _is_legal_counter_target(self, target: object, controller: int) -> bool:
+        if not isinstance(target, StackObject) or not self.is_authoritative(target, "stack"):
+            return False
+        if target.target_id is None:
+            return False
+        protected = self._objects.get(target.target_id)
+        return (
+            isinstance(protected, Permanent)
+            and self.is_authoritative(protected, "battlefield")
+            and protected.controller == controller
+            and protected.card.is_creature
+            or (
+                isinstance(protected, Permanent)
+                and self.is_authoritative(protected, "battlefield")
+                and protected.controller == controller
+                and "Artifact" in protected.type_line
+            )
+        )
+
+    def _legal_counter_target_ids(self, controller: int) -> tuple[str, ...]:
+        return tuple(
+            spell.object_id
+            for spell in self.stack
+            if isinstance(spell, StackObject)
+            and spell.controller != controller
+            and self._is_legal_counter_target(spell, controller)
+        )
+
+    def _counter_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or not self.stack
+        ):
+            return ()
+        target_ids = self._legal_counter_target_ids(player_index)
+        if not target_ids:
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+            for fragment in self.interpreter.fragments(source.card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind is not ActivatedEffectKind.COUNTER_TARGET_SPELL
+                    or self.activation_payment_plan(player_index, source, fragment) is None
+                ):
+                    continue
+                for target_id in target_ids:
+                    options.append(
+                        ActionOption(
+                            ActionKind.ACTIVATE_ABILITY,
+                            player_index,
+                            object_id=source.object_id,
+                            target_id=target_id,
+                            oracle_fragment=fragment,
+                            priority_epoch=state.epoch,
+                        )
+                    )
+        return tuple(options)
+
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
@@ -5111,12 +5178,24 @@ class Game:
                 player_index,
                 priority_epoch=state.epoch,
             ),
+            *self._counter_activation_options(player_index),
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
         """Revalidate and apply one pilot-selected bounded priority decision."""
         if option not in self.legal_priority_actions(option.player_index):
             raise ValueError("priority action is not currently legal")
+        if option.kind is ActionKind.ACTIVATE_ABILITY:
+            source = self._objects.get(option.object_id or "")
+            if not isinstance(source, Permanent) or option.oracle_fragment is None:
+                raise ValueError("counter activation option is malformed")
+            target_ids = () if option.target_id is None else (option.target_id,)
+            ability = self.announce_activated_ability(
+                option.player_index, source, option.oracle_fragment, target_ids=target_ids
+            )
+            if ability is None:
+                raise ValueError("counter activation option became illegal")
+            return True
         if option.kind is not ActionKind.PASS_PRIORITY:
             raise ValueError("unsupported priority action kind")
         state = self.priority_state
@@ -6200,23 +6279,41 @@ class Game:
     ) -> ActivatedAbilityObject | None:
         """Revalidate, transactionally pay, and put one activated ability on the stack."""
         if (
-            player_index != self.active_player
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-            or self.stack
-            or not self.is_authoritative(source, "battlefield")
+            not self.is_authoritative(source, "battlefield")
+            or (
+                player_index != self.active_player
+                and not (
+                    self.priority_state is not None
+                    and self.priority_state.player_index == player_index
+                    and self.stack
+                )
+            )
+            or (
+                self.stack
+                and not (
+                    self.priority_state is not None
+                    and self.priority_state.player_index == player_index
+                )
+            )
             or source.controller != player_index
         ):
             return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
+        counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
         targeted_return = (
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
         )
         if choice_ids or semantics.program.choices_required:
             return None
-        if targeted_return:
+        if counter_target:
+            if len(target_ids) != 1 or not self._is_legal_counter_target(
+                self._objects.get(target_ids[0]), player_index
+            ):
+                return None
+        elif targeted_return:
             if len(target_ids) != 1:
                 return None
             target = self._objects.get(target_ids[0])
@@ -6353,7 +6450,10 @@ class Game:
         if sacrificed is not None:
             self.check_state_based_actions()
         self._begin_priority_window()
-        if sacrificed is not None:
+        if (
+            sacrificed is not None
+            and semantics.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE
+        ):
             assert self.priority_state is not None
             self.food_activation_evidence.append(
                 FoodActivationEvidence(
@@ -6396,6 +6496,45 @@ class Game:
         )
         return ability is not None
 
+    def _validate_counterspell_provenance(self, ability: ActivatedAbilityObject) -> None:
+        if ability.program.effect_kind is not ActivatedEffectKind.COUNTER_TARGET_SPELL:
+            return
+        semantics = self.interpreter.activated_ability_semantics(
+            ability.source_card, ability.oracle_fragment
+        )
+        source = self._objects.get(ability.source_id)
+        activation = next(
+            (
+                item
+                for item in self.activation_evidence
+                if item.stack_object_id == ability.object_id
+            ),
+            None,
+        )
+        sacrificed = self._objects.get(ability.sacrificed_destination_id or "")
+        if (
+            semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program != ability.program
+            or activation is None
+            or activation.resolved is not False
+            or activation.source_id != ability.source_id
+            or activation.controller != ability.controller
+            or activation.oracle_fragment != ability.oracle_fragment
+            or activation.mana_source_ids != ability.mana_source_ids
+            or not ability.sacrifice_source
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone != "former"
+            or not isinstance(sacrificed, CardObject)
+            or sacrificed.card is not ability.source_card
+            or sacrificed.zone != "graveyard"
+            or len(ability.target_ids) != 1
+            or not isinstance(self._objects.get(ability.target_ids[0]), StackObject)
+            or self._objects.get(ability.target_ids[0]).object_id != ability.target_ids[0]
+        ):
+            raise ValueError("counter activation provenance is invalid")
+
     def _resolve_activated_ability(self, ability: ActivatedAbilityObject) -> None:
         if (
             not self.stack
@@ -6405,6 +6544,7 @@ class Game:
             raise ValueError("activated ability must be the authoritative top stack object")
         if any(item.stack_object_id == ability.object_id for item in self.food_activation_evidence):
             self._validate_food_activation_linkage(ability)
+        self._validate_counterspell_provenance(ability)
         semantics = self.interpreter.activated_ability_semantics(
             ability.source_card, ability.oracle_fragment
         )
@@ -6425,7 +6565,36 @@ class Game:
         delivered = False
         food_life_before: int | None = None
         food_life_after: int | None = None
-        if (
+        if ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
+            target = (
+                self._objects.get(ability.target_ids[0]) if len(ability.target_ids) == 1 else None
+            )
+            legal = self._is_legal_counter_target(target, ability.controller)
+            if legal:
+                assert isinstance(target, StackObject)
+                target_card = self.move_object(target, "graveyard", reason="spell_countered")
+                self.log(
+                    "spell_countered",
+                    stack_object_id=ability.object_id,
+                    ability_source_id=ability.source_id,
+                    target_spell_id=target.object_id,
+                    target_object_id=target.target_id,
+                    target_card=target.card.name,
+                    controller=ability.controller,
+                    oracle_fragment=ability.oracle_fragment,
+                    target_relationship="targets_artifact_or_creature_you_control",
+                    countered_object_id=target_card.object_id,
+                )
+                delivered = True
+            else:
+                self.log(
+                    "activated_ability_resolved_no_effect",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_spell_id=(ability.target_ids[0] if ability.target_ids else None),
+                    reason="counter_target_illegal_at_resolution",
+                )
+        elif (
             ability.program.effect_kind is ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
             and source_permanent is not None
         ):
