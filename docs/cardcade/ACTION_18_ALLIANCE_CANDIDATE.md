@@ -1,6 +1,6 @@
-# Action #18 — Temporary Keyword Choice candidate
+# Action #18 — Alliance candidate
 
-Status: frozen implementation candidate for independent review only. Not accepted; merge and Action #19 are unauthorized.
+Status: naming-corrected candidate for independent review. The owner identifies the Action #18 semantics as already accepted; this correction does not self-accept or authorize merging the corrected candidate. Merge and Action #19 remain unauthorized.
 
 ## Baseline and scope
 
@@ -13,7 +13,7 @@ Changed paths:
 - `src/tmnt_design_studio/engine07.py`
 - `src/tmnt_design_studio/smoke01.py`
 - `tests/test_temporary_keyword_choice_action.py`
-- `docs/cardcade/ACTION_18_TEMPORARY_KEYWORD_CHOICE_CANDIDATE.md`
+- `docs/cardcade/ACTION_18_ALLIANCE_CANDIDATE.md`
 
 ## Frozen corpus and grammar
 
@@ -35,7 +35,7 @@ No gameplay code was changed during checkpoint completion. The only test edit wa
 
 Historical evidence and Action #17 remain intact.
 
-## Local Windows validation (2026-09-05)
+## Preserved implementation validation (2026-09-05)
 
 - `uv run pytest tests/test_temporary_keyword_choice_action.py tests/test_smoke01_runner.py tests/test_stage02_runner.py tests/test_stage002_runner.py -q`: **140 passed**.
 - `uv run pytest -q`: **817 passed, 1 skipped**.
@@ -52,3 +52,17 @@ Flying and Menace are authoritatively granted, but their broader combat restrict
 The historical prioritization figures (15 reached occurrences, 14 games, 7 matchups, 2 solo-clearance opportunities) were supplied in the work order. They were not independently recovered from current GitHub-resident artifacts in this completion pass and are not new durable measurements.
 
 Independent review must assess the exact frozen commit and its bounded semantics, provenance, deterministic choice, temporary lifetime, dependency reporting, and regression evidence. Stop after pushing this candidate: no self-acceptance, merge, Action #19, deck revision, or scope expansion.
+
+## Alliance naming correction
+
+The project-facing Action name is **Action #18 — Alliance**. This correction renames the candidate document and its title from Temporary Keyword Choice to Alliance. It starts from candidate `ecf91ac489b8b5a8edfc2b40ce8789f3602949a3` and changes documentation only. The existing branch name, internal capability terminology, test paths, gameplay behavior, provenance rules, deterministic behavior, exclusions, and historical evidence are preserved. Alliance here denotes only the frozen semantic above; the name does not expand the supported grammar or capability scope.
+
+Correction validation on the local Windows checkout:
+
+- `uv run pytest tests/test_temporary_keyword_choice_action.py -q`: **16 passed**.
+- `uv run pytest -q`: **817 passed, 1 skipped**.
+- `uv run ruff check`: **passed**.
+- `uv run ruff format --check`: **271 files already formatted**.
+- `git diff --check`: **passed**.
+
+Both pytest runs reported the existing cache-write permission warning; test execution completed successfully. No gameplay, tests, or canonical identities changed in this correction.
