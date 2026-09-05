@@ -401,6 +401,7 @@ class ActivatedEffectKind(Enum):
         "return_another_creature_you_control_to_owners_hand"
     )
     GAIN_THREE_LIFE = "gain_three_life"
+    COUNTER_TARGET_SPELL = "counter_target_spell"
     UNSUPPORTED = "unsupported"
 
 
@@ -521,6 +522,11 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    FUGITIVE_COUNTER = re.compile(
+        r"^\{U\}, Sacrifice this creature: Counter target spell that targets an artifact "
+        r"or creature you control\.$"
+    )
+
     """Derive reusable executable constructs without legality, mutation, or strategy."""
 
     STATIC_OTHER_CREATURES = re.compile(
@@ -1539,14 +1545,18 @@ class CardInterpreter:
             self._is_canonical_food_source(card)
             and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
         )
-        sacrifice_source = canonical_food and any(
-            part.casefold() == "sacrifice this token" for part in cost_parts
-        )
+        sacrifice_source = any(
+            part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            for part in cost_parts
+        ) and (canonical_food or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None)
         mana_parts = tuple(
             part
             for part in cost_parts
             if part.upper() != "{T}"
-            and not (sacrifice_source and part.casefold() == "sacrifice this token")
+            and not (
+                sacrifice_source
+                and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            )
         )
         mana_cost = "".join(mana_parts)
         fixed_mana = all(
@@ -1556,7 +1566,10 @@ class CardInterpreter:
             part
             for part in cost_parts
             if part.upper() != "{T}"
-            and not (sacrifice_source and part.casefold() == "sacrifice this token")
+            and not (
+                sacrifice_source
+                and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            )
             and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
         )
         cost_limitations: list[str] = []
@@ -1588,16 +1601,26 @@ class CardInterpreter:
             )
             + ")"
         )
-        first_strike = re.match(
-            rf"^{self_reference} gains first strike until end of turn\.(?P<followup>.*)$",
-            semantic_effect,
-            re.I,
-        )
+        counter_target = self.FUGITIVE_COUNTER.fullmatch(fragment.strip())
+        first_strike = None
+        if counter_target:
+            self_reference = "sacrifice this creature" in cost_text.casefold()
+            effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        else:
+            first_strike = re.match(
+                rf"^{self_reference} gains first strike until end of turn\.(?P<followup>.*)$",
+                semantic_effect,
+                re.I,
+            )
         return_semantics = self.return_to_hand_semantics(card, fragment)
         targeted_return = bool(
             return_semantics is not None and return_semantics.coverage.payload_executable
         )
-        if first_strike:
+        if counter_target:
+            effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        elif first_strike:
             effect_kind = ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
             action_match = first_strike
         elif targeted_return:
@@ -1622,11 +1645,11 @@ class CardInterpreter:
             else instructions is None
         )
         targets_choices_executable = not choices_required and (
-            target_count == 0 or bool(targeted_return) and target_count == 1
+            target_count == 0 or bool(targeted_return or counter_target) and target_count == 1
         )
         if targeted_return and return_semantics is not None:
             followup_executable = return_semantics.coverage.followup_executable
-        elif canonical_food:
+        elif canonical_food or counter_target:
             followup_executable = bool(action_match)
         else:
             followup_executable = bool(action_match) and not action_match.group("followup").strip()

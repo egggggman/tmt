@@ -23,12 +23,12 @@ from tmnt_design_studio.engine07 import (
 from tmnt_design_studio.pilot07 import AcceptancePilot
 
 ROOT = Path(__file__).resolve().parents[1]
-LAND = CardFact("Plains", "", 0, "Basic Land — Plains", "({T}: Add {W}.)")
+LAND = CardFact("Plains", "", 0, "Basic Land â€” Plains", "({T}: Add {W}.)")
 LEONARDO = CardFact(
     "Leonardo, Leader in Blue",
     "{2}{W}{W}",
     4,
-    "Legendary Creature — Mutant Ninja Turtle",
+    "Legendary Creature â€” Mutant Ninja Turtle",
     "{1}{W}: Leonardo gains first strike until end of turn.",
     3,
     4,
@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "35ccf2712e06f6cd0b93d03dbb867e909a6c8350e3e84616d0cee9b14f067190"
-EXECUTABLE_DIGEST = "c75e8cff62f3f9cc3e74243970f76fb80267d40422f9e748be5ba9bae5d886b1"
+EXECUTABLE_DIGEST = "b6647903e1e858d58df517ca96706d155d761682061f2145a668b002893ed118"
 
 
 def game(seed=51):
@@ -560,9 +560,10 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 131 and len(recognized) == 156
-    assert len({item[0] for item in executable}) == 2 and len(executable) == 2
+    assert len({item[0] for item in executable}) == 3 and len(executable) == 3
     assert full == executable
     assert {item[1] for item in executable} == {
+        "Fugitive Droid",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
     }
@@ -597,8 +598,13 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     executable_names = {item[1] for item in executable} & roster
     assert len(recognized_names) == 45
     assert {name for name, cards in decks.items() if cards & recognized_names} == set(decks)
-    assert executable_names == {"Leonardo, Leader in Blue", "Prehistoric Pet"}
-    assert {name for name, cards in decks.items() if cards & executable_names} == {"leonardo"}
+    assert executable_names == {"Fugitive Droid", "Leonardo, Leader in Blue", "Prehistoric Pet"}
+    assert {name for name, cards in decks.items() if cards & executable_names} == {
+        "april_oneil",
+        "donatello",
+        "krang",
+        "leonardo",
+    }
     assert full == executable
     assert {
         "Arcane Signet",
