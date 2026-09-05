@@ -818,6 +818,25 @@ class CardInterpreter:
             limitations=(() if creature_source else ("dies_draw_source_is_not_a_creature",)),
         )
 
+    ETB_TAP_STUN = (
+        "When this creature enters, tap up to one target creature and put a stun counter on it. "
+        "(If a permanent with a stun counter would become untapped, remove one from it instead.)"
+    )
+
+    def etb_tap_stun_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Only the frozen optional self-ETB tap-and-one-stun grammar is executable."""
+        if fragment != self.ETB_TAP_STUN:
+            return None
+        creature = card.is_creature
+        return SemanticCoverage(
+            creature,
+            creature,
+            creature,
+            () if creature else ("etb_tap_stun_source_is_not_a_creature",),
+        )
+
     def etb_drain_gain_scry_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
@@ -1894,6 +1913,10 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            stun = self.etb_tap_stun_semantic_coverage(card, fragment)
+            if stun is not None:
+                unsupported.extend((fragment, reason) for reason in stun.limitations)
+                continue
             keyword_choice = self.temporary_keyword_choice_semantic_coverage(card, fragment)
             if keyword_choice is not None:
                 for reason in keyword_choice.limitations:
