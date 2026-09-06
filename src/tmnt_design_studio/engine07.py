@@ -3367,15 +3367,7 @@ class Game:
                 if ability.effect is TriggerEffect.ETB_TAP_STUN:
                     self._select_stun_target(ability, trigger)
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
-                    candidates = [
-                        p
-                        for player in self.players
-                        for p in player.battlefield
-                        if "Artifact" in p.type_line and "Creature" not in p.type_line
-                    ]
-                    self._rock_soldiers_targets[ability.object_id] = (
-                        candidates[0].object_id if candidates else None
-                    )
+                    self._select_rock_soldiers_target(ability, trigger)
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3387,6 +3379,66 @@ class Game:
                     controller=self.players[trigger.controller].name,
                 )
         return True
+
+    def _select_rock_soldiers_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        self._authenticate_original_rules_event(trigger.event)
+        source = self._objects.get(trigger.source_id)
+        if (
+            not isinstance(source, Permanent)
+            or source.card is not trigger.source_card
+            or trigger.event.kind is not RulesEventKind.CREATURE_ENTERED
+            or trigger.event.subject_ids != (trigger.source_id,)
+            or trigger.event.player_index != trigger.controller
+            or (trigger.source_id, trigger.controller) not in trigger.event.battlefield_authority
+            or trigger.oracle_fragment not in self.interpreter.fragments(trigger.source_card)
+            or not self.interpreter.rock_soldiers_etb_semantic_coverage(
+                trigger.source_card, trigger.oracle_fragment
+            ).fully_supported
+        ):
+            raise ValueError("Rock Soldiers trigger has invalid entry provenance")
+        candidates = tuple(
+            permanent
+            for player in self.players
+            for permanent in player.battlefield
+            if self.is_authoritative(permanent, "battlefield")
+            and "Artifact" in permanent.type_line
+            and "Creature" not in permanent.type_line
+        )
+        offered = tuple(sorted(target.object_id for target in candidates))
+        choice = self.stun_target_chooser(trigger.controller, trigger.source_id, (*offered, None))
+        if choice is not None and (not isinstance(choice, str) or choice not in offered):
+            raise ValueError("Rock Soldiers target chooser must return a listed artifact or None")
+        self._rock_soldiers_targets[ability.object_id] = choice
+        self.log(
+            "rock_soldiers_target_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            event_id=trigger.event.event_id,
+            source_id=trigger.source_id,
+            target_id=choice,
+            offered_ids=offered,
+            controller=trigger.controller,
+            oracle_fragment=trigger.oracle_fragment,
+        )
+
+    def _validate_rock_soldiers_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id)
+        source = self._objects.get(ability.source_id)
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            trigger is None
+            or trigger.event is not ability.event
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+        ):
+            raise ValueError("Rock Soldiers trigger has invalid source provenance")
 
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
@@ -3409,6 +3461,8 @@ class Game:
             selected = self._stun_selections[ability.object_id].target
             if selected is not None and self.is_authoritative(selected, "battlefield"):
                 self._validate_stun_targeting_dependencies(selected)
+        if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
+            self._validate_rock_soldiers_trigger(ability)
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
