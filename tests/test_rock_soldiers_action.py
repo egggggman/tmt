@@ -128,3 +128,60 @@ def test_relinked_source_identity_fails_closed():
     with pytest.raises(ValueError, match="Rock Soldiers trigger"):
         resolve_priority(game)
     assert target.zone == "battlefield"
+
+
+def test_legal_targets_include_both_controllers_and_record_stack_evidence():
+    offered = []
+
+    def choose(_controller, _source_id, options):
+        offered.append(options)
+        return next(option for option in reversed(options) if option is not None)
+
+    game = Game(([SOURCE, ART], [ART]), seed=2305, stun_target_chooser=choose)
+    game.begin_turn()
+    source = game.create_permanent(SOURCE, 0)
+    own_artifact = game.create_permanent(ART, 0)
+    opposing_artifact = game.create_permanent(ART, 1)
+
+    game._process_creature_entered_triggers(source)
+    resolve_priority(game)
+
+    assert len(offered) == 1
+    assert set(offered[0][:-1]) == {own_artifact.object_id, opposing_artifact.object_id}
+    assert offered[0][-1] is None
+    assert opposing_artifact.zone == "former"
+    assert own_artifact.zone == "battlefield"
+    event_names = [event["event"] for event in game.events]
+    assert event_names.count("trigger_stacked") == 1
+    assert "rock_soldiers_target_selected" in event_names
+    assert event_names.count("priority_passed") == 2
+    assert "rock_soldiers_destroyed" in event_names
+
+
+def test_target_becoming_creature_before_resolution_fails_closed():
+    game = Game(([SOURCE], [ART]), seed=2306)
+    game.begin_turn()
+    source = game.create_permanent(SOURCE, 0)
+    target = game.create_permanent(ART, 0)
+
+    game._process_creature_entered_triggers(source)
+    target.type_line_override = "Artifact Creature"
+    resolve_priority(game)
+
+    assert target.zone == "battlefield"
+    assert not any(event["event"] == "rock_soldiers_destroyed" for event in game.events)
+
+
+def test_fabricated_locked_target_fails_closed():
+    game = Game(([SOURCE], [ART]), seed=2307)
+    game.begin_turn()
+    source = game.create_permanent(SOURCE, 0)
+    target = game.create_permanent(ART, 0)
+
+    game._process_creature_entered_triggers(source)
+    ability = game.stack[-1]
+    game._rock_soldiers_targets[ability.object_id] = "fabricated-object-id"
+    resolve_priority(game)
+
+    assert target.zone == "battlefield"
+    assert not any(event["event"] == "rock_soldiers_destroyed" for event in game.events)
