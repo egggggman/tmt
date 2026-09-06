@@ -1,4 +1,4 @@
-# Action #21 — Artifact Entry Counter
+# Action #21 â€” Artifact Entry Counter
 
 Bounded candidate for Donatello, Way with Machines: whenever an artifact you control enters, put one +1/+1 counter on the authoritative source.
 
