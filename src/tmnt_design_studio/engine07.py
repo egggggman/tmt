@@ -299,6 +299,7 @@ class TriggerEffect(Enum):
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
+    ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
     ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
 
 
@@ -3430,6 +3431,33 @@ class Game:
         )
         subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
 
+        if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
+            candidates = [
+                p
+                for player in self.players
+                for p in player.battlefield
+                if "Artifact" in p.type_line and "Creature" not in p.type_line
+            ]
+            target = candidates[0] if candidates else None
+            if (
+                target is not None
+                and self.is_authoritative(target, "battlefield")
+                and "Artifact" in target.type_line
+                and "Creature" not in target.type_line
+            ):
+                self.move_object(target, "graveyard", reason="rock_soldiers_destroy")
+                self.log(
+                    "rock_soldiers_destroyed",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                )
+            else:
+                self.log(
+                    "rock_soldiers_no_target",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                )
         if ability.effect is TriggerEffect.ETB_TAP_STUN:
             selection = self._stun_selections[ability.object_id]
             target = selection.target
@@ -4464,6 +4492,15 @@ class Game:
                 if coverage is not None and coverage.fully_supported:
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
+                    )
+        if TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY in enabled:
+            for fragment in self.interpreter.fragments(entering.card):
+                coverage = self.interpreter.rock_soldiers_etb_semantic_coverage(
+                    entering.card, fragment
+                )
+                if coverage is not None and coverage.fully_supported:
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY
                     )
         if TriggerEffect.ETB_TAP_STUN in enabled:
             for fragment in self.interpreter.fragments(entering.card):

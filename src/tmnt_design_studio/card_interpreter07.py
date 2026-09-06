@@ -526,6 +526,7 @@ class CardInterpreter:
     TOKEN_HASTE = re.compile(
         r"^\{R\}, \{T\}: Creature tokens you control gain haste until end of turn\.$"
     )
+    ROCK_SOLDIERS_ETB = "When this creature enters, destroy up to one target noncreature artifact."
     ARTIFACT_ENTRY_SELF_COUNTER = re.compile(
         r"^Whenever an artifact you control enters, put a \+1/\+1 counter on (?P<source>.+)\.$"
     )
@@ -835,6 +836,19 @@ class CardInterpreter:
         "When this creature enters, tap up to one target creature and put a stun counter on it. "
         "(If a permanent with a stun counter would become untapped, remove one from it instead.)"
     )
+
+    def rock_soldiers_etb_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        if fragment != self.ROCK_SOLDIERS_ETB:
+            return None
+        supported = "Creature" in card.type_line
+        return SemanticCoverage(
+            supported,
+            supported,
+            supported,
+            () if supported else ("rock_soldiers_source_not_creature",),
+        )
 
     def etb_tap_stun_semantic_coverage(
         self, card: CardDefinition, fragment: str
