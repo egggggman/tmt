@@ -6623,7 +6623,7 @@ class Game:
         food_life_before: int | None = None
         food_life_after: int | None = None
         if ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
-            if source_permanent is not None:
+            if True:
                 recipients = [
                     p
                     for player in self.players
