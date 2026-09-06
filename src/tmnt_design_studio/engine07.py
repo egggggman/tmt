@@ -1245,7 +1245,8 @@ class Game:
         self.events: list[dict[str, object]] = []
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
-        self._stun_selections: dict[str, StunTargetSelection] = {}\n        self._rock_soldiers_targets: dict[str, str | None] = {}
+        self._stun_selections: dict[str, StunTargetSelection] = {}
+        self._rock_soldiers_targets: dict[str, str | None] = {}
         self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
