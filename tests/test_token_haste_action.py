@@ -90,3 +90,36 @@ def test_insufficient_mana_or_tapped_source_fails_without_mutation():
     g.begin_turn()
     source = g.create_permanent(SOURCE, 0, summoning_sick=False)
     assert g.announce_activated_ability(0, source, FRAGMENT) is None and not source.tapped
+
+
+def test_exclusions_and_cleanup():
+    g, land, source, token = setup()
+    nontoken = g.create_permanent(SOURCE, 0, summoning_sick=False)
+    noncreature = g.create_tokens(
+        0,
+        TokenCreationProgram(TokenDefinition("Relic", "Artifact"), 1),
+        source_card="test",
+        oracle_fragment="test",
+    )[0]
+    opponent = g.create_tokens(
+        1,
+        TokenCreationProgram(
+            TokenDefinition("Robot token", "Creature - Robot", power=1, toughness=1), 1
+        ),
+        source_card="test",
+        oracle_fragment="test",
+    )[0]
+    g.announce_activated_ability(0, source, FRAGMENT)
+    resolve(g)
+    assert g.has_temporary_keyword(token, TemporaryKeyword.HASTE)
+    assert not g.has_temporary_keyword(nontoken, TemporaryKeyword.HASTE)
+    assert not g.has_temporary_keyword(noncreature, TemporaryKeyword.HASTE)
+    assert not g.has_temporary_keyword(opponent, TemporaryKeyword.HASTE)
+    g._perform_cleanup()
+    assert not g.has_temporary_keyword(token, TemporaryKeyword.HASTE)
+
+
+def test_tapped_source_cannot_activate():
+    g, land, source, token = setup()
+    source.tapped = True
+    assert g.announce_activated_ability(0, source, FRAGMENT) is None
