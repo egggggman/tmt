@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "35ccf2712e06f6cd0b93d03dbb867e909a6c8350e3e84616d0cee9b14f067190"
-EXECUTABLE_DIGEST = "b6647903e1e858d58df517ca96706d155d761682061f2145a668b002893ed118"
+EXECUTABLE_DIGEST = "f842ee9aad9a174a64ef78f06e798965575a8609bc70341c110aaabf0a4567e7"
 
 
 def game(seed=51):
@@ -560,12 +560,13 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 131 and len(recognized) == 156
-    assert len({item[0] for item in executable}) == 3 and len(executable) == 3
+    assert len({item[0] for item in executable}) == 4 and len(executable) == 4
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
+        "Ravenous Robots",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert digest(executable) == EXECUTABLE_DIGEST
@@ -598,9 +599,15 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     executable_names = {item[1] for item in executable} & roster
     assert len(recognized_names) == 45
     assert {name for name, cards in decks.items() if cards & recognized_names} == set(decks)
-    assert executable_names == {"Fugitive Droid", "Leonardo, Leader in Blue", "Prehistoric Pet"}
+    assert executable_names == {
+        "Fugitive Droid",
+        "Leonardo, Leader in Blue",
+        "Prehistoric Pet",
+        "Ravenous Robots",
+    }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",
+        "casey_jones",
         "donatello",
         "krang",
         "leonardo",

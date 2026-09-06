@@ -402,6 +402,7 @@ class ActivatedEffectKind(Enum):
     )
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
+    GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     UNSUPPORTED = "unsupported"
 
 
@@ -522,6 +523,9 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    TOKEN_HASTE = re.compile(
+        r"^\{R\}, \{T\}: Creature tokens you control gain haste until end of turn\.$"
+    )
     ARTIFACT_ENTRY_SELF_COUNTER = re.compile(
         r"^Whenever an artifact you control enters, put a \+1/\+1 counter on (?P<source>.+)\.$"
     )
@@ -1624,6 +1628,7 @@ class CardInterpreter:
             + ")"
         )
         counter_target = self.FUGITIVE_COUNTER.fullmatch(fragment.strip())
+        token_haste = self.TOKEN_HASTE.fullmatch(fragment.strip())
         first_strike = None
         if counter_target:
             self_reference = "sacrifice this creature" in cost_text.casefold()
@@ -1641,6 +1646,9 @@ class CardInterpreter:
         )
         if counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        elif token_haste:
+            effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
             action_match = True
         elif first_strike:
             effect_kind = ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
@@ -1671,7 +1679,7 @@ class CardInterpreter:
         )
         if targeted_return and return_semantics is not None:
             followup_executable = return_semantics.coverage.followup_executable
-        elif canonical_food or counter_target:
+        elif canonical_food or counter_target or token_haste:
             followup_executable = bool(action_match)
         else:
             followup_executable = bool(action_match) and not action_match.group("followup").strip()

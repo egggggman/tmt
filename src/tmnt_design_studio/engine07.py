@@ -6622,7 +6622,37 @@ class Game:
         delivered = False
         food_life_before: int | None = None
         food_life_after: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
+        if ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
+            if source_permanent is not None:
+                recipients = [
+                    p
+                    for player in self.players
+                    for p in player.battlefield
+                    if p.controller == ability.controller and p.is_token and p.card.is_creature
+                ]
+                for recipient in recipients:
+                    if not any(
+                        e.keyword is TemporaryKeyword.HASTE
+                        and e.source_id == ability.source_id
+                        and e.oracle_fragment == ability.oracle_fragment
+                        for e in recipient.temporary_keyword_effects
+                    ):
+                        recipient.temporary_keyword_effects.append(
+                            TemporaryKeywordEffect(
+                                TemporaryKeyword.HASTE,
+                                "until_end_of_turn",
+                                ability.source_id,
+                                ability.oracle_fragment,
+                            )
+                        )
+                self.log(
+                    "token_haste_resolved",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    recipient_ids=[p.object_id for p in recipients],
+                    quantity=len(recipients),
+                )
+        elif ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
             target = (
                 self._objects.get(ability.target_ids[0]) if len(ability.target_ids) == 1 else None
             )
