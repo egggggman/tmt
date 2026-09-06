@@ -3366,6 +3366,16 @@ class Game:
                 )
                 if ability.effect is TriggerEffect.ETB_TAP_STUN:
                     self._select_stun_target(ability, trigger)
+                if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
+                    candidates = [
+                        p
+                        for player in self.players
+                        for p in player.battlefield
+                        if "Artifact" in p.type_line and "Creature" not in p.type_line
+                    ]
+                    self._rock_soldiers_targets[ability.object_id] = (
+                        candidates[0].object_id if candidates else None
+                    )
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3433,19 +3443,15 @@ class Game:
         subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
 
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
-            candidates = [
-                p
-                for player in self.players
-                for p in player.battlefield
-                if "Artifact" in p.type_line and "Creature" not in p.type_line
-            ]
-            target = candidates[0] if candidates else None
-            if (
-                target is not None
+            target_id = self._rock_soldiers_targets.get(ability.object_id)
+            target = self._objects.get(target_id) if target_id else None
+            legal = (
+                isinstance(target, Permanent)
                 and self.is_authoritative(target, "battlefield")
                 and "Artifact" in target.type_line
                 and "Creature" not in target.type_line
-            ):
+            )
+            if legal:
                 self.destroy(target)
                 self.log(
                     "rock_soldiers_destroyed",
@@ -3995,6 +4001,7 @@ class Game:
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             }:
                 self._begin_priority_window()
@@ -4602,6 +4609,7 @@ class Game:
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_ARTIFACT_DRAW,
             TriggerEffect.ETB_TAP_STUN,
+            TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
