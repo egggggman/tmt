@@ -1,0 +1,317 @@
+{
+  "baseline_commit": "8abb1a97ec08128938c511e74edfa28fc734820f",
+  "inventory": {
+    "executed_unique_semantics": 17,
+    "games_with_reached_unsupported": 11,
+    "games_without_reached_unsupported": 5,
+    "present_unreached_unique_semantics": 211,
+    "reached_unsupported_occurrences": 15,
+    "reached_unsupported_unique_semantics": 8
+  },
+  "matrix": {
+    "distinct_games": 16,
+    "duplicates_per_game": 2,
+    "executions": 32,
+    "pairings": [
+      "donatello-krang",
+      "michelangelo-bebop-rocksteady",
+      "splinter-shredder",
+      "april-casey"
+    ],
+    "seeds": [
+      7201,
+      7202,
+      7211,
+      7212,
+      7221,
+      7222,
+      7231,
+      7232
+    ]
+  },
+  "ranking": [
+    {
+      "card": "Ray Fillet, Man Ray",
+      "game_count": 4,
+      "games": [
+        "april-casey:reversed:7231",
+        "donatello-krang:canonical:7202",
+        "donatello-krang:reversed:7201",
+        "donatello-krang:reversed:7202"
+      ],
+      "limitations": [
+        "activation_child_semantics_not_implemented",
+        "activation_nonmana_cost_not_implemented"
+      ],
+      "matchup_count": 2,
+      "matchups": [
+        "april-casey",
+        "donatello-krang"
+      ],
+      "occurrence_count": 4,
+      "occurrences": [
+        {
+          "game_id": "donatello-krang:canonical:7202",
+          "object_id": "object-000173",
+          "occurrence_id": "semantic-000008"
+        },
+        {
+          "game_id": "donatello-krang:reversed:7201",
+          "object_id": "object-000161",
+          "occurrence_id": "semantic-000007"
+        },
+        {
+          "game_id": "donatello-krang:reversed:7202",
+          "object_id": "object-000177",
+          "occurrence_id": "semantic-000011"
+        },
+        {
+          "game_id": "april-casey:reversed:7231",
+          "object_id": "object-000202",
+          "occurrence_id": "semantic-000010"
+        }
+      ],
+      "oracle_fragment": "{2}, Remove a +1/+1 counter from a creature you control: Draw a card.",
+      "rank": 1,
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:2:c3d749f2944441da05d1bfdf5ec98a4f4712e5d98b049f111d930d89bd2f354b",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "donatello-krang:reversed:7201"
+      ]
+    },
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "game_count": 3,
+      "games": [
+        "april-casey:canonical:7232",
+        "april-casey:reversed:7231",
+        "april-casey:reversed:7232"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "april-casey"
+      ],
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "game_id": "april-casey:canonical:7232",
+          "object_id": "object-000211",
+          "occurrence_id": "semantic-000013"
+        },
+        {
+          "game_id": "april-casey:reversed:7231",
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000007"
+        },
+        {
+          "game_id": "april-casey:reversed:7232",
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000004"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "rank": 2,
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "april-casey:reversed:7232"
+      ]
+    },
+    {
+      "card": "Donatello, Way with Machines",
+      "game_count": 2,
+      "games": [
+        "donatello-krang:canonical:7201",
+        "donatello-krang:reversed:7202"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "donatello-krang"
+      ],
+      "occurrence_count": 2,
+      "occurrences": [
+        {
+          "game_id": "donatello-krang:canonical:7201",
+          "object_id": "object-000153",
+          "occurrence_id": "semantic-000005"
+        },
+        {
+          "game_id": "donatello-krang:reversed:7202",
+          "object_id": "object-000158",
+          "occurrence_id": "semantic-000005"
+        }
+      ],
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "rank": 3,
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "donatello-krang:canonical:7201"
+      ]
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "game_count": 2,
+      "games": [
+        "april-casey:canonical:7231",
+        "april-casey:canonical:7232"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "april-casey"
+      ],
+      "occurrence_count": 2,
+      "occurrences": [
+        {
+          "game_id": "april-casey:canonical:7231",
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000003"
+        },
+        {
+          "game_id": "april-casey:canonical:7232",
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000011"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "rank": 4,
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "april-casey:canonical:7231"
+      ]
+    },
+    {
+      "card": "Courier of Comestibles",
+      "game_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7211"
+      ],
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+          "object_id": "object-000149",
+          "occurrence_id": "semantic-000001"
+        }
+      ],
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "rank": 5,
+      "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "michelangelo-bebop-rocksteady:canonical:7211"
+      ]
+    },
+    {
+      "card": "Zoo Escapees",
+      "game_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7212"
+      ],
+      "limitations": [
+        "token_activated_ability_not_implemented",
+        "token_trigger_context_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000001"
+        }
+      ],
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "rank": 6,
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "michelangelo-bebop-rocksteady:canonical:7212"
+      ]
+    },
+    {
+      "card": "Shredder, Unrelenting",
+      "game_count": 1,
+      "games": [
+        "splinter-shredder:reversed:7222"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "splinter-shredder"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "game_id": "splinter-shredder:reversed:7222",
+          "object_id": "object-000184",
+          "occurrence_id": "semantic-000010"
+        }
+      ],
+      "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "rank": 7,
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+      "solo_clearance_count": 1,
+      "solo_clearance_games": [
+        "splinter-shredder:reversed:7222"
+      ]
+    },
+    {
+      "card": "Stockman, Mad Fly-entist",
+      "game_count": 1,
+      "games": [
+        "donatello-krang:canonical:7202"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "donatello-krang"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "game_id": "donatello-krang:canonical:7202",
+          "object_id": "object-000204",
+          "occurrence_id": "semantic-000016"
+        }
+      ],
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "rank": 8,
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+      "solo_clearance_count": 0,
+      "solo_clearance_games": []
+    }
+  ],
+  "runner": "tmnt_design_studio.stage002.execute_stage",
+  "validation": {
+    "balance_valid": false,
+    "duplicate_determinism": true,
+    "invariant_violations": 0,
+    "reconstructive_validation": true,
+    "runner_stops": 0
+  }
+}
