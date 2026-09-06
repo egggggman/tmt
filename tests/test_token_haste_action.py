@@ -48,7 +48,8 @@ def test_exact_recognizer_and_neighbor():
     )
     neighbor = i.activated_ability_semantics(
         SOURCE,
-        "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+        "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact "
+        "creature token.",
     )
     assert neighbor is None or not neighbor.coverage.fully_supported
 
