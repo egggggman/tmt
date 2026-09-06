@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "35ccf2712e06f6cd0b93d03dbb867e909a6c8350e3e84616d0cee9b14f067190"
-EXECUTABLE_DIGEST = "f842ee9aad9a174a64ef78f06e798965575a8609bc70341c110aaabf0a4567e7"
+EXECUTABLE_DIGEST = "414694f1c1aab889615e755caf06c004587dcd46cfd1a7b85bae99a6f8ef4d67"
 
 
 def game(seed=51):
@@ -560,13 +560,14 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 131 and len(recognized) == 156
-    assert len({item[0] for item in executable}) == 4 and len(executable) == 4
+    assert len({item[0] for item in executable}) == 5 and len(executable) == 5
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",
+        "Ray Fillet, Man Ray",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert digest(executable) == EXECUTABLE_DIGEST
@@ -604,6 +605,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",
+        "Ray Fillet, Man Ray",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",

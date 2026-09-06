@@ -222,6 +222,7 @@ class ActivationPaymentPlan:
     mana_source_ids: tuple[str, ...]
     tap_source: bool
     sacrifice_source: bool
+    counter_target_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -235,6 +236,7 @@ class ActivationEvidence:
     mana_source_ids: tuple[str, ...]
     tap_source: bool
     resolved: bool
+    cost_target_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -860,6 +862,8 @@ class ActivatedAbilityObject:
     sacrificed_destination_id: str | None = None
     target_ids: tuple[str, ...] = ()
     choice_ids: tuple[str, ...] = ()
+    cost_target_id: str | None = None
+    cost_target_card: CardFact | TokenDefinition | None = None
     zone: Zone = "stack"
 
     @property
@@ -6371,6 +6375,21 @@ class Game:
         if len(available) < requirement.generic:
             return None
         chosen.extend(available[: requirement.generic])
+        counter_target_id = None
+        if cost.remove_counter_target:
+            eligible = tuple(
+                permanent
+                for permanent in self.players[player_index].battlefield
+                if self.is_authoritative(permanent, "battlefield")
+                and permanent.card.is_creature
+                and permanent.counters.get("+1/+1", 0) > 0
+            )
+            offered = tuple(sorted(permanent.object_id for permanent in eligible))
+            if not offered:
+                return None
+            counter_target_id = self.counter_target_chooser(player_index, source.object_id, offered)
+            if counter_target_id not in offered:
+                raise ValueError("counter-cost target chooser must return an eligible creature")
         return ActivationPaymentPlan(
             player_index,
             source.object_id,
@@ -6379,6 +6398,7 @@ class Game:
             tuple(permanent.object_id for permanent in chosen),
             cost.tap_source,
             cost.sacrifice_source,
+            counter_target_id,
         )
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -6499,6 +6519,14 @@ class Game:
             raise ValueError("activation payment cannot reuse a mana source")
         prior_mana_taps = tuple(candidate.tapped for candidate in mana_sources)
         prior_source_tapped = source.tapped
+        counter_target = (
+            self._objects.get(plan.counter_target_id) if plan.counter_target_id else None
+        )
+        prior_counter_count = (
+            counter_target.counters.get("+1/+1", 0)
+            if isinstance(counter_target, Permanent)
+            else None
+        )
         starting_object_number = self._next_object_number
         source_index = self.players[source.controller].battlefield.index(source)
         sacrificed: CardObject | None = None
@@ -6528,11 +6556,35 @@ class Game:
                 ),
                 target_ids=target_ids,
                 choice_ids=choice_ids,
+                cost_target_id=plan.counter_target_id,
+                cost_target_card=(
+                    counter_target.card if isinstance(counter_target, Permanent) else None
+                ),
             )
             for mana_source in mana_sources:
                 mana_source.tapped = True
             if plan.tap_source:
                 source.tapped = True
+            if plan.counter_target_id is not None:
+                if (
+                    not isinstance(counter_target, Permanent)
+                    or not self.is_authoritative(counter_target, "battlefield")
+                    or counter_target.controller != player_index
+                    or not counter_target.card.is_creature
+                    or counter_target.counters.get("+1/+1", 0) <= 0
+                ):
+                    raise ValueError("counter-cost target became illegal")
+                counter_target.counters["+1/+1"] -= 1
+                if counter_target.counters["+1/+1"] == 0:
+                    del counter_target.counters["+1/+1"]
+                self.log(
+                    "counter_removed_as_activation_cost",
+                    source_id=source.object_id,
+                    cost_target_id=counter_target.object_id,
+                    counter_type="+1/+1",
+                    counters_before=prior_counter_count,
+                    counters_after=counter_target.counters.get("+1/+1", 0),
+                )
             if sacrificed is not None:
                 self.players[source.controller].battlefield.pop(source_index)
                 self.players[source.owner].graveyard.append(sacrificed)
@@ -6544,6 +6596,8 @@ class Game:
             for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
                 mana_source.tapped = tapped
             source.tapped = prior_source_tapped
+            if isinstance(counter_target, Permanent) and prior_counter_count is not None:
+                counter_target.counters["+1/+1"] = prior_counter_count
             if sacrificed is not None:
                 self.players[source.owner].graveyard[:] = [
                     item for item in self.players[source.owner].graveyard if item is not sacrificed
@@ -6565,6 +6619,7 @@ class Game:
             plan.mana_source_ids,
             plan.tap_source,
             False,
+            plan.counter_target_id,
         )
         self.activation_evidence.append(evidence)
         if sacrificed is not None:
@@ -6692,6 +6747,20 @@ class Game:
         ):
             raise ValueError("counter activation provenance is invalid")
 
+    def _validate_counter_cost_provenance(self, ability: ActivatedAbilityObject) -> None:
+        if not ability.program.cost.remove_counter_target:
+            return
+        target = self._objects.get(ability.cost_target_id or "")
+        if (
+            ability.cost_target_id is None
+            or not isinstance(target, Permanent)
+            or not self.is_authoritative(target, "battlefield")
+            or target.controller != ability.controller
+            or not target.card.is_creature
+            or target.card is not ability.cost_target_card
+        ):
+            raise ValueError("counter-cost target provenance is invalid")
+
     def _resolve_activated_ability(self, ability: ActivatedAbilityObject) -> None:
         if (
             not self.stack
@@ -6702,6 +6771,7 @@ class Game:
         if any(item.stack_object_id == ability.object_id for item in self.food_activation_evidence):
             self._validate_food_activation_linkage(ability)
         self._validate_counterspell_provenance(ability)
+        self._validate_counter_cost_provenance(ability)
         semantics = self.interpreter.activated_ability_semantics(
             ability.source_card, ability.oracle_fragment
         )
@@ -6722,7 +6792,20 @@ class Game:
         delivered = False
         food_life_before: int | None = None
         food_life_after: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
+        if ability.program.effect_kind is ActivatedEffectKind.DRAW_CARD:
+            before = len(self.players[ability.controller].hand)
+            drew = self.draw(self.players[ability.controller], 1)
+            self.log(
+                "ray_fillets_draw_resolved",
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                cost_target_id=ability.cost_target_id,
+                cards_drawn=1 if drew else 0,
+                hand_size_before=before,
+                hand_size_after=len(self.players[ability.controller].hand),
+            )
+            delivered = drew
+        elif ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
             recipients = [
                 p
                 for player in self.players
@@ -6860,6 +6943,7 @@ class Game:
                     evidence.mana_source_ids,
                     evidence.tap_source,
                     True,
+                    evidence.cost_target_id,
                 )
                 break
         if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
@@ -8794,6 +8878,7 @@ class Game:
                     "mana_source_ids": list(item.mana_source_ids),
                     "tap_source": item.tap_source,
                     "resolved": item.resolved,
+                    "cost_target_id": item.cost_target_id,
                 }
                 for item in self.activation_evidence
             ],

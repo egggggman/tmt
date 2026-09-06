@@ -391,6 +391,7 @@ class ActivationCostProgram:
     mana_cost: str
     tap_source: bool
     sacrifice_source: bool
+    remove_counter_target: bool
     executable: bool
     limitations: tuple[str, ...] = ()
 
@@ -403,6 +404,7 @@ class ActivatedEffectKind(Enum):
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
+    DRAW_CARD = "draw_card"
     UNSUPPORTED = "unsupported"
 
 
@@ -523,6 +525,9 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    RAY_FILLET_DRAW = re.compile(
+        r"^\{2\}, Remove a \+1/\+1 counter from a creature you control: Draw a card\.$"
+    )
     TOKEN_HASTE = re.compile(
         r"^\{R\}, \{T\}: Creature tokens you control gain haste until end of turn\.$"
     )
@@ -1561,7 +1566,7 @@ class CardInterpreter:
                 "",
                 fragment,
                 ActivationCostProgram(
-                    "", False, False, False, ("activation_nested_context_not_implemented",)
+                    "", False, False, False, False, ("activation_nested_context_not_implemented",)
                 ),
                 ActivatedEffectKind.UNSUPPORTED,
                 0,
@@ -1585,6 +1590,10 @@ class CardInterpreter:
             self._is_canonical_food_source(card)
             and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
         )
+        remove_counter_target = any(
+            part.casefold() == "remove a +1/+1 counter from a creature you control"
+            for part in cost_parts
+        )
         sacrifice_source = any(
             part.casefold() in {"sacrifice this token", "sacrifice this creature"}
             for part in cost_parts
@@ -1596,6 +1605,10 @@ class CardInterpreter:
             and not (
                 sacrifice_source
                 and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            )
+            and not (
+                remove_counter_target
+                and part.casefold() == "remove a +1/+1 counter from a creature you control"
             )
         )
         mana_cost = "".join(mana_parts)
@@ -1609,6 +1622,10 @@ class CardInterpreter:
             and not (
                 sacrifice_source
                 and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            )
+            and not (
+                remove_counter_target
+                and part.casefold() == "remove a +1/+1 counter from a creature you control"
             )
             and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
         )
@@ -1642,6 +1659,7 @@ class CardInterpreter:
             + ")"
         )
         counter_target = self.FUGITIVE_COUNTER.fullmatch(fragment.strip())
+        ray_fillets = self.RAY_FILLET_DRAW.fullmatch(fragment.strip())
         token_haste = self.TOKEN_HASTE.fullmatch(fragment.strip())
         first_strike = None
         if counter_target:
@@ -1660,6 +1678,9 @@ class CardInterpreter:
         )
         if counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        elif ray_fillets:
+            effect_kind = ActivatedEffectKind.DRAW_CARD
             action_match = True
         elif token_haste:
             effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
@@ -1693,7 +1714,7 @@ class CardInterpreter:
         )
         if targeted_return and return_semantics is not None:
             followup_executable = return_semantics.coverage.followup_executable
-        elif canonical_food or counter_target or token_haste:
+        elif canonical_food or counter_target or ray_fillets or token_haste:
             followup_executable = bool(action_match)
         else:
             followup_executable = bool(action_match) and not action_match.group("followup").strip()
@@ -1726,6 +1747,7 @@ class CardInterpreter:
                 mana_cost,
                 tap_source,
                 sacrifice_source,
+                remove_counter_target,
                 costs_executable,
                 tuple(cost_limitations),
             ),
