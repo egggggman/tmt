@@ -6623,8 +6623,7 @@ class Game:
         food_life_before: int | None = None
         food_life_after: int | None = None
         if ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
-            if True:
-                recipients = [
+            recipients = [
                     p
                     for player in self.players
                     for p in player.battlefield
