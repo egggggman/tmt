@@ -299,6 +299,7 @@ class TriggerEffect(Enum):
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
+    ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
 
 
 class TemporaryKeyword(Enum):
@@ -3792,6 +3793,46 @@ class Game:
                 oracle_fragment=ability.oracle_fragment,
                 applied=applied,
             )
+        elif (
+            ability.effect is TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER
+            and source_permanent is not None
+        ):
+            entering = (
+                self._objects.get(ability.event.subject_ids[0])
+                if ability.event.subject_ids
+                else None
+            )
+            valid = (
+                isinstance(entering, Permanent)
+                and self.is_authoritative(entering, "battlefield")
+                and entering.controller == ability.controller
+                and "Artifact" in entering.type_line
+                and self.is_authoritative(source_permanent, "battlefield")
+            )
+            if valid:
+                self.place_counters(
+                    source_permanent,
+                    "+1/+1",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                )
+                self.log(
+                    "artifact_entry_counter_resolved",
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                    event_id=ability.event.event_id,
+                    source_id=ability.source_id,
+                    entered_id=entering.object_id,
+                    quantity=1,
+                    counter_type="+1/+1",
+                )
+            else:
+                self.log(
+                    "artifact_entry_counter_failed_closed",
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                )
         elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
             match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -4429,6 +4470,21 @@ class Game:
                 coverage = self.interpreter.etb_tap_stun_semantic_coverage(entering.card, fragment)
                 if coverage is not None and coverage.fully_supported:
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.ETB_TAP_STUN)
+        if (
+            TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER in enabled
+            and "Artifact" in entering.type_line
+        ):
+            for source in list(self.players[entering.controller].battlefield):
+                if source is entering:
+                    continue
+                for fragment in self.interpreter.fragments(source.card):
+                    coverage = self.interpreter.artifact_entry_self_counter_semantic_coverage(
+                        source.card, fragment
+                    )
+                    if coverage is not None and coverage.fully_supported:
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER
+                        )
         if TriggerEffect.ETB_ARTIFACT_DRAW in enabled:
             for fragment in self.interpreter.fragments(entering.card):
                 coverage = self.interpreter.etb_artifact_draw_semantic_coverage(
@@ -4508,6 +4564,7 @@ class Game:
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_ARTIFACT_DRAW,
             TriggerEffect.ETB_TAP_STUN,
+            TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
             event = self._new_rules_event(
@@ -7137,8 +7194,8 @@ class Game:
             else:
                 self.log("creature_resolved", player=player.name, card=spell.name)
             self.refresh_static_pt_modifiers()
-            self._process_creature_entered_triggers(
-                permanent,
+            self._process_creatures_entered_triggers(
+                (permanent,),
                 source_id=stack_object_id if sneak_cast else None,
                 defer_triggers=sneak_cast,
                 after_event=lambda source, _event: self.report_unsupported_abilities(

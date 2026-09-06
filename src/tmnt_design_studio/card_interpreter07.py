@@ -522,6 +522,9 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    ARTIFACT_ENTRY_SELF_COUNTER = re.compile(
+        r"^Whenever an artifact you control enters, put a \+1/\+1 counter on (?P<source>.+)\.$"
+    )
     FUGITIVE_COUNTER = re.compile(
         r"^\{U\}, Sacrifice this creature: Counter target spell that targets an artifact "
         r"or creature you control\.$"
@@ -865,6 +868,25 @@ class CardInterpreter:
             if not condition
         )
         return SemanticCoverage(executable, executable, executable, limitations)
+
+    def artifact_entry_self_counter_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        match = self.ARTIFACT_ENTRY_SELF_COUNTER.fullmatch(fragment)
+        if match is None:
+            return None
+        source_reference = match.group("source").casefold() in {
+            "this creature",
+            "this permanent",
+            card.name.casefold(),
+        }
+        executable = source_reference and "Creature" in card.type_line
+        return SemanticCoverage(
+            executable,
+            executable,
+            executable,
+            () if executable else ("artifact_entry_counter_unsupported",),
+        )
 
     def permanent_left_self_counter_semantic_coverage(
         self, card: CardDefinition, fragment: str
