@@ -352,20 +352,23 @@ class InterpretedHandBottomDrawSemantics:
 
 @dataclass(frozen=True)
 class DiscardDrawProgram:
-    """One bounded optional Hand -> Graveyard move followed by fixed Draw."""
+    """Either optional discard then conditional Draw, or mandatory Draw then discard."""
 
     discard_quantity: int | None
     draw_quantity: int | None
     optional: bool
     draw_conditional_on_discard: bool
+    draw_first: bool = False
 
     @property
     def executable(self) -> bool:
         return (
             self.discard_quantity == 1
             and self.draw_quantity == 1
-            and self.optional
-            and self.draw_conditional_on_discard
+            and (
+                (self.optional and self.draw_conditional_on_discard and not self.draw_first)
+                or (self.draw_first and not self.optional and not self.draw_conditional_on_discard)
+            )
         )
 
 
@@ -1267,6 +1270,29 @@ class CardInterpreter:
             parent_limitation,
         )
 
+    def etb_draw_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Only self-ETB, mandatory Draw one then discard one; no arbitrary sequence."""
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = "(?:" + "|".join(re.escape(name) for name in sorted(names)) + ")"
+        if (
+            not re.fullmatch(
+                rf"When {reference} enters, draw a card, then discard a card\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            or "Creature" not in card.type_line
+        ):
+            return None
+        return InterpretedDiscardDrawSemantics(
+            DiscardDrawProgram(1, 1, False, False, draw_first=True),
+            SemanticCoverage(True, True, True, ()),
+            fragment,
+            0,
+            len(fragment),
+        )
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -2086,6 +2112,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
             if discard_draw is not None:

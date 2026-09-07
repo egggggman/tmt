@@ -635,6 +635,7 @@ def _authoritative_execution_index(
 ) -> dict[tuple[str, str], list[dict[str, str]]]:
     """Index only mature serialized evidence capable of authenticating EXECUTED."""
     Game.validate_stun_snapshot_evidence(snapshot)
+    Game.validate_draw_discard_snapshot_evidence(snapshot)
     result: dict[tuple[str, str], list[dict[str, str]]] = {}
 
     def add(kind: str, evidence_id: object, source_id: object, fragment: object) -> None:
@@ -1187,6 +1188,7 @@ def validate_stage_result_evidence(result: dict[str, object]) -> None:
         raise ValueError("Stage result lacks aggregate evidence")
     for game in aggregate.get("games", []):
         Game.validate_stun_snapshot_evidence(game.get("authoritative_evidence", {}))
+        Game.validate_draw_discard_snapshot_evidence(game.get("authoritative_evidence", {}))
         digests = game.get("duplicate_execution_digests")
         if not (
             isinstance(digests, dict)
