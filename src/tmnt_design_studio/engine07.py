@@ -303,12 +303,14 @@ class TriggerEffect(Enum):
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
     ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
     ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
+    SHREDDER_DEATHTOUCH = "shredder_deathtouch"
 
 
 class TemporaryKeyword(Enum):
     FLYING = "flying"
     MENACE = "menace"
     HASTE = "haste"
+    DEATHTOUCH = "deathtouch"
 
 
 @dataclass(frozen=True)
@@ -1252,6 +1254,9 @@ class Game:
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self._stun_selections: dict[str, StunTargetSelection] = {}
         self._rock_soldiers_targets: dict[str, str | None] = {}
+        self._shredder_targets: dict[
+            str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
+        ] = {}
         self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
@@ -3373,6 +3378,11 @@ class Game:
                     self._select_stun_target(ability, trigger)
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
+                if (
+                    ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH
+                    and not self._select_shredder_target(ability, trigger)
+                ):
+                    continue
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3428,6 +3438,93 @@ class Game:
             oracle_fragment=trigger.oracle_fragment,
         )
 
+    def _select_shredder_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> bool:
+        self._authenticate_original_rules_event(trigger.event)
+        source = self._objects.get(trigger.source_id)
+        coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
+            trigger.source_card, trigger.oracle_fragment
+        )
+        if (
+            not isinstance(source, Permanent)
+            or source.card is not trigger.source_card
+            or not self.is_authoritative(source, "battlefield")
+            or trigger.event.kind
+            not in {
+                RulesEventKind.CREATURE_ENTERED,
+                RulesEventKind.ATTACKERS_DECLARED,
+            }
+            or trigger.oracle_fragment not in self.interpreter.fragments(trigger.source_card)
+            or coverage is None
+            or not coverage.fully_supported
+        ):
+            raise ValueError("Shredder trigger has invalid source provenance")
+        candidates = tuple(
+            permanent
+            for permanent in self.players[trigger.controller].battlefield
+            if self.is_authoritative(permanent, "battlefield")
+            and permanent is not source
+            and permanent.card.is_creature
+        )
+        offered = tuple(sorted(permanent.object_id for permanent in candidates))
+        if not offered:
+            return False
+        choice = self.counter_target_chooser(trigger.controller, trigger.source_id, offered)
+        if not isinstance(choice, str) or choice not in offered:
+            raise ValueError("Shredder target chooser must return a listed creature")
+        target = next(permanent for permanent in candidates if permanent.object_id == choice)
+        ability.target_id = choice
+        self._shredder_targets[ability.object_id] = (target, target.card, offered)
+        self.log(
+            "shredder_target_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            event_id=trigger.event.event_id,
+            source_id=trigger.source_id,
+            target_id=choice,
+            offered_ids=offered,
+            controller=trigger.controller,
+            oracle_fragment=trigger.oracle_fragment,
+        )
+        return True
+
+    def _validate_shredder_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id)
+        source = self._objects.get(ability.source_id)
+        target, target_card, offered = self._shredder_targets.get(
+            ability.object_id, (None, None, ())
+        )
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            trigger is None
+            or trigger.event is not ability.event
+            or trigger.effect is not TriggerEffect.SHREDDER_DEATHTOUCH
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or (
+                source is not None
+                and (
+                    not isinstance(source, Permanent)
+                    or source.card is not ability.source_card
+                    or source.zone not in {"battlefield", "former"}
+                )
+            )
+            or (
+                offered
+                and (
+                    ability.target_id not in offered
+                    or target is None
+                    or target.object_id != ability.target_id
+                    or self._objects.get(target.object_id) is not target
+                    or target.card is not target_card
+                )
+            )
+        ):
+            raise ValueError("Shredder trigger has invalid target provenance")
+
     def _validate_rock_soldiers_trigger(self, ability: TriggeredAbilityObject) -> None:
         trigger = self._triggers.get(ability.trigger_id)
         source = self._objects.get(ability.source_id)
@@ -3468,6 +3565,8 @@ class Game:
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
+            self._validate_shredder_trigger(ability)
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
@@ -3501,7 +3600,46 @@ class Game:
         )
         subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
 
-        if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
+        if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
+            target, target_card, _offered = self._shredder_targets.get(
+                ability.object_id, (None, None, ())
+            )
+            legal = (
+                target is not None
+                and self._objects.get(target.object_id) is target
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and target.card is target_card
+                and target.card.is_creature
+                and target.object_id != ability.source_id
+            )
+            if legal:
+                target.temporary_keyword_effects.append(
+                    TemporaryKeywordEffect(
+                        TemporaryKeyword.DEATHTOUCH,
+                        "until_end_of_turn",
+                        ability.source_id,
+                        ability.oracle_fragment,
+                    )
+                )
+                self.log(
+                    "shredder_deathtouch_granted",
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                    event_id=ability.event.event_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    duration="until_end_of_turn",
+                )
+            else:
+                self.log(
+                    "shredder_deathtouch_failed_closed",
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id if target is not None else None,
+                )
+        elif ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             target_id = self._rock_soldiers_targets.get(ability.object_id)
             target = self._objects.get(target_id) if target_id else None
             legal = (
@@ -4061,6 +4199,7 @@ class Game:
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
+                TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             }:
                 self._begin_priority_window()
@@ -4669,6 +4808,7 @@ class Game:
             TriggerEffect.ETB_ARTIFACT_DRAW,
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
+            TriggerEffect.SHREDDER_DEATHTOUCH,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
@@ -4678,6 +4818,15 @@ class Game:
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.SHREDDER_DEATHTOUCH in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
+                        permanent.card, fragment
+                    )
+                    if coverage is not None and coverage.fully_supported:
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.SHREDDER_DEATHTOUCH
+                        )
             if after_event is not None:
                 after_event(permanent, event)
             self._detect_creature_entered_triggers(permanent, event, enabled)
@@ -4941,6 +5090,13 @@ class Game:
         )
         for source in attackers:
             for fragment in self.interpreter.fragments(source.card):
+                coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
+                    source.card, fragment
+                )
+                if coverage is not None and coverage.fully_supported:
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.SHREDDER_DEATHTOUCH
+                    )
                 if self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ATTACK_PT)
                 token_coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
