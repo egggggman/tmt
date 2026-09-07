@@ -1,0 +1,239 @@
+{
+  "action27_authorized": false,
+  "aggregate_digest": "2ad5bc321843786e48398c9912a6cc2ebd399067261ac57c06652fd2d4c181e6",
+  "base_commit": "2373f1d0790b52dc62b485e986851e30a2056957",
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "3b9c3cb52ddcaa03250f7c34f96bbaf33fff6234",
+    "src/tmnt_design_studio/engine07.py": "b92b1f97b96d1442cc714e7c4898875fd96d4e26",
+    "src/tmnt_design_studio/smoke01.py": "233368248be08b2816e8296878a6f76d7b2b1eb3",
+    "src/tmnt_design_studio/stage002.py": "1e8f84eb37a79e873f2df8582e5b097bd0a76342",
+    "tests/test_stockman_draw_discard_action.py": "911ec234173421a62ffb2b616d1c0357eca66075"
+  },
+  "comparison_note": "The first final recheck used direct in-memory/JSON equality and failed on tuple/list representation. Canonical serialization equality passes; runner duplicate checks passed in all runs.",
+  "continuity": [
+    {
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000005",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000005",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "card": "Shredder, Unrelenting",
+      "classification": "executed",
+      "fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000010",
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad"
+    }
+  ],
+  "development_executions_total": 128,
+  "development_matrix_runs": 4,
+  "distinct_games": 16,
+  "duplicates_byte_equivalent": true,
+  "executions": 32,
+  "final_priority_gate_rerun_identical": true,
+  "invariant_violations": 0,
+  "issue": 88,
+  "manifest_digest": "fc54dfe8cf7bf241f57d255e11af0ec1ae66406c3ea3baa3f04ada11d0bccbe3",
+  "occurrence_counts": {
+    "executed": 23,
+    "present_unreached": 134,
+    "reached_unsupported": 7
+  },
+  "result_sha256": "4d1ad9215620a1ab4eae28c240191de916871ca9cc9166b2c2363f919828a49d",
+  "runner_stops": 0,
+  "serialized_reconstruction": "16 of 16 reports identical",
+  "stockman_witness": [
+    {
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+          "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+          "source_id": "object-000204"
+        }
+      ],
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+      "transactions": [
+        {
+          "controller": 1,
+          "discarded_graveyard_id": "object-000207",
+          "draw_succeeded": true,
+          "drawn_hand_id": "object-000206",
+          "drawn_library_id": "object-000104",
+          "event": "etb_draw_discard_committed",
+          "event_id": "event-000029",
+          "failed_draw_pending": false,
+          "offered_choice_ids": [
+            "object-000131",
+            "object-000146",
+            "object-000158",
+            "object-000202",
+            "object-000206"
+          ],
+          "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+          "phase": "precombat_main",
+          "post_draw_hand_ids": [
+            "object-000131",
+            "object-000146",
+            "object-000158",
+            "object-000202",
+            "object-000206"
+          ],
+          "post_graveyard_ids": [
+            "object-000155",
+            "object-000176",
+            "object-000191",
+            "object-000201",
+            "object-000207"
+          ],
+          "post_hand_ids": [
+            "object-000146",
+            "object-000158",
+            "object-000202",
+            "object-000206"
+          ],
+          "post_library_ids": [
+            "object-000061",
+            "object-000062",
+            "object-000063",
+            "object-000064",
+            "object-000065",
+            "object-000066",
+            "object-000067",
+            "object-000068",
+            "object-000069",
+            "object-000070",
+            "object-000071",
+            "object-000072",
+            "object-000073",
+            "object-000074",
+            "object-000075",
+            "object-000076",
+            "object-000077",
+            "object-000078",
+            "object-000079",
+            "object-000080",
+            "object-000081",
+            "object-000082",
+            "object-000083",
+            "object-000084",
+            "object-000085",
+            "object-000086",
+            "object-000087",
+            "object-000088",
+            "object-000089",
+            "object-000090",
+            "object-000091",
+            "object-000092",
+            "object-000093",
+            "object-000094",
+            "object-000095",
+            "object-000096",
+            "object-000097",
+            "object-000098",
+            "object-000099",
+            "object-000100",
+            "object-000101",
+            "object-000102",
+            "object-000103"
+          ],
+          "pre_graveyard_ids": [
+            "object-000155",
+            "object-000176",
+            "object-000191",
+            "object-000201"
+          ],
+          "pre_hand_ids": [
+            "object-000131",
+            "object-000146",
+            "object-000158",
+            "object-000202"
+          ],
+          "pre_library_ids": [
+            "object-000061",
+            "object-000062",
+            "object-000063",
+            "object-000064",
+            "object-000065",
+            "object-000066",
+            "object-000067",
+            "object-000068",
+            "object-000069",
+            "object-000070",
+            "object-000071",
+            "object-000072",
+            "object-000073",
+            "object-000074",
+            "object-000075",
+            "object-000076",
+            "object-000077",
+            "object-000078",
+            "object-000079",
+            "object-000080",
+            "object-000081",
+            "object-000082",
+            "object-000083",
+            "object-000084",
+            "object-000085",
+            "object-000086",
+            "object-000087",
+            "object-000088",
+            "object-000089",
+            "object-000090",
+            "object-000091",
+            "object-000092",
+            "object-000093",
+            "object-000094",
+            "object-000095",
+            "object-000096",
+            "object-000097",
+            "object-000098",
+            "object-000099",
+            "object-000100",
+            "object-000101",
+            "object-000102",
+            "object-000103",
+            "object-000104"
+          ],
+          "selected_hand_id": "object-000131",
+          "source_id": "object-000204",
+          "stack_object_id": "object-000205",
+          "start_event_cursor": 608,
+          "step": "precombat_main",
+          "trigger_id": "trigger-000008",
+          "turn": 14
+        }
+      ]
+    }
+  ]
+}

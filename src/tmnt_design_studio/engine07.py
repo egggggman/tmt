@@ -295,6 +295,7 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    ETB_DRAW_DISCARD = "etb_draw_discard"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
@@ -1200,6 +1201,7 @@ class Game:
         scry_chooser=None,
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
+        draw_discard_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1260,6 +1262,11 @@ class Game:
         self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
+        self._draw_discard_anchors = {}
+        self._draw_discard_sources = {}
+        self._draw_discard_consumed: set[str] = set()
+        self._mandatory_discard_choice_active = False
+        self.draw_discard_chooser = draw_discard_chooser or (lambda _view, options: options[0])
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
@@ -1536,6 +1543,8 @@ class Game:
         _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
     ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
+        if self._mandatory_discard_choice_active:
+            raise ValueError("discard/Draw chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
         if obj.zone == "former":
@@ -2972,11 +2981,18 @@ class Game:
         view = DiscardDrawView(
             player_index, tuple((card.object_id, card.card.name) for card in player.hand)
         )
-        options = (DiscardDrawOption(None),) + tuple(
-            DiscardDrawOption(card.object_id) for card in player.hand
-        )
+        options = tuple(DiscardDrawOption(card.object_id) for card in player.hand)
+        if program.optional or not options:
+            options = (DiscardDrawOption(None),) + options
+        chooser = self.draw_discard_chooser if program.draw_first else self.discard_draw_chooser
+        anchors = [
+            (obj, dict(vars(obj))) for obj in (*hand_objects, *library_objects, *graveyard_objects)
+        ]
+        registry = dict(self._objects)
+
+        self._mandatory_discard_choice_active = program.draw_first
         try:
-            choice = self.discard_draw_chooser(view, options)
+            choice = chooser(view, options)
             if not isinstance(choice, DiscardDrawOption) or choice not in options:
                 raise ValueError("discard/Draw chooser must return one listed option")
             if (
@@ -2985,11 +3001,27 @@ class Game:
                 or tuple(player.graveyard) != graveyard_objects
             ):
                 raise ValueError("discard/Draw choice mutated authoritative zones")
+            if program.draw_first and (
+                self._objects != registry
+                or any(
+                    vars(obj) != state or obj.card is not state["card"] for obj, state in anchors
+                )
+                or any(not self.is_authoritative(obj, "hand") for obj in hand_objects)
+            ):
+                raise ValueError("discard/Draw choice changed authoritative identity")
         except Exception:
             player.hand[:] = hand_objects
             player.library[:] = library_objects
             player.graveyard[:] = graveyard_objects
+            if program.draw_first:
+                self._objects.clear()
+                self._objects.update(registry)
+                for obj, state in anchors:
+                    vars(obj).clear()
+                    vars(obj).update(state)
             raise
+        finally:
+            self._mandatory_discard_choice_active = False
         selected = (
             None
             if choice.card_id is None
@@ -3017,7 +3049,7 @@ class Game:
         trigger: TriggeredAbilityObject,
     ) -> DiscardDrawEvidence:
         """Commit Discard then its dependent Draw in authoritative instruction order."""
-        if not isinstance(plan, DiscardDrawPlan) or not program.executable:
+        if not isinstance(plan, DiscardDrawPlan) or not program.executable or program.draw_first:
             raise ValueError("discard/Draw plan is invalid")
         provenance = self._discard_draw_attack_provenance(trigger)
         if trigger.controller != player_index:
@@ -3097,6 +3129,243 @@ class Game:
             declined=evidence.declined,
         )
         return evidence
+
+    def _validate_etb_draw_discard_trigger(self, ability: TriggeredAbilityObject) -> None:
+        if not self._priority_resolution_in_progress and (
+            self.priority_state is None or not self.priority_state.resolution_pending
+        ):
+            raise ValueError("ETB Draw/discard requires Priority resolution")
+        anchor = self._draw_discard_anchors.get(ability.object_id)
+        if anchor is None:
+            raise ValueError("ETB Draw/discard lacks Stack provenance")
+        original, trigger, source, card = anchor
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            ability is not original
+            or self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(ability.trigger_id) is not trigger
+            or self._objects.get(trigger.source_id) is not source
+            or source.card is not card
+            or source.object_id != trigger.source_id
+            or source.zone not in {"battlefield", "former"}
+            or ability.source_card is not card
+            or ability.source_id != trigger.source_id
+            or ability.controller != trigger.controller
+            or ability.oracle_fragment != trigger.oracle_fragment
+            or ability.effect is not TriggerEffect.ETB_DRAW_DISCARD
+            or ability.event is not trigger.event
+            or self._rules_events.get(trigger.event.event_id) is not trigger.event
+            or ability.trigger_id in self._draw_discard_consumed
+            or self.interpreter.etb_draw_discard_semantic_coverage(card, ability.oracle_fragment)
+            is None
+        ):
+            raise ValueError("ETB Draw/discard trigger provenance is invalid or consumed")
+
+    def _resolve_etb_draw_discard(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_etb_draw_discard_trigger(ability)
+        if ability.zone != "former":
+            raise ValueError("ETB Draw/discard requires Priority resolution")
+        self._draw_discard_consumed.add(ability.trigger_id)
+        semantics = self.interpreter.etb_draw_discard_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        assert semantics is not None
+        player = self.players[ability.controller]
+        hand_before = tuple(obj.object_id for obj in player.hand)
+        library_before = tuple(obj.object_id for obj in player.library)
+        graveyard_before = tuple(obj.object_id for obj in player.graveyard)
+        start_cursor = len(self.events)
+        draw_succeeded = self.draw(player, 1)
+        drawn_id = player.hand[-1].object_id if draw_succeeded else None
+        plan = self.choose_discard_draw(ability.controller, semantics.program)
+        discarded_id = None
+        if plan.selected is not None:
+            discarded = self.move_object(plan.selected, "graveyard", reason="mandatory_discard")
+            discarded_id = discarded.object_id
+        self.log(
+            "etb_draw_discard_committed",
+            event_id=ability.event.event_id,
+            trigger_id=ability.trigger_id,
+            stack_object_id=ability.object_id,
+            source_id=ability.source_id,
+            controller=ability.controller,
+            oracle_fragment=ability.oracle_fragment,
+            start_event_cursor=start_cursor,
+            pre_hand_ids=list(hand_before),
+            pre_library_ids=list(library_before),
+            pre_graveyard_ids=list(graveyard_before),
+            draw_succeeded=draw_succeeded,
+            drawn_library_id=library_before[-1] if library_before else None,
+            drawn_hand_id=drawn_id,
+            post_draw_hand_ids=list(plan.pre_hand_ids),
+            offered_choice_ids=list(plan.offered_choice_ids),
+            selected_hand_id=plan.choice.card_id,
+            discarded_graveyard_id=discarded_id,
+            post_hand_ids=[obj.object_id for obj in player.hand],
+            post_library_ids=[obj.object_id for obj in player.library],
+            post_graveyard_ids=[obj.object_id for obj in player.graveyard],
+            failed_draw_pending=player.failed_draw_pending,
+        )
+
+    @staticmethod
+    def validate_draw_discard_snapshot_evidence(snapshot: dict[str, object]) -> None:
+        """Reconstruct the bounded ETB transaction from independent event records."""
+        events = snapshot.get("events", [])
+        committed = [
+            (i, e) for i, e in enumerate(events) if e.get("event") == "etb_draw_discard_committed"
+        ]
+        resolutions = [
+            e
+            for e in events
+            if e.get("event") == "trigger_resolved" and e.get("effect") == "etb_draw_discard"
+        ]
+        if len(committed) != len(resolutions):
+            raise ValueError("ETB Draw/discard evidence lacks a unique resolution")
+        seen = set()
+        for cursor, item in committed:
+            try:
+                stack_id = item["stack_object_id"]
+                assert stack_id not in seen
+                seen.add(stack_id)
+                source_id, event_id = item["source_id"], item["event_id"]
+                controller = item["controller"]
+                assert controller in (0, 1)
+                entry = [
+                    (i, e)
+                    for i, e in enumerate(events[:cursor])
+                    if e.get("event") == "rules_event" and e.get("event_id") == event_id
+                ]
+                assert len(entry) == 1
+                entry_cursor, entry_event = entry[0]
+                assert entry_event["rules_event"] == "creature_entered"
+                assert entry_event["subject_ids"] == [source_id]
+                assert {"object_id": source_id, "controller": controller} in entry_event[
+                    "battlefield_authority"
+                ]
+                pending = [
+                    (i, e)
+                    for i, e in enumerate(events[:cursor])
+                    if e.get("event") == "trigger_pending"
+                    and e.get("trigger_id") == item["trigger_id"]
+                ]
+                stacked = [
+                    (i, e)
+                    for i, e in enumerate(events[:cursor])
+                    if e.get("event") == "trigger_stacked" and e.get("stack_object_id") == stack_id
+                ]
+                permitted = [
+                    (i, e)
+                    for i, e in enumerate(events[:cursor])
+                    if e.get("event") == "stack_resolution_permitted"
+                    and e.get("stack_object_id") == stack_id
+                ]
+                resolved = [
+                    (i, e)
+                    for i, e in enumerate(events)
+                    if e.get("event") == "trigger_resolved" and e.get("stack_object_id") == stack_id
+                ]
+                assert len(pending) == len(stacked) == len(permitted) == len(resolved) == 1
+                pending_cursor, pending_event = pending[0]
+                stacked_cursor, stacked_event = stacked[0]
+                permitted_cursor, permission = permitted[0]
+                resolved_cursor, resolution = resolved[0]
+                assert pending_event["event_id"] == stacked_event["event_id"] == event_id
+                assert stacked_event["trigger_id"] == item["trigger_id"]
+                assert pending_event["oracle_fragment"] == item["oracle_fragment"]
+                assert (
+                    pending_event["controller"]
+                    == stacked_event["controller"]
+                    == entry_event["player"]
+                )
+                assert resolution["event_id"] == event_id and resolution["source_id"] == source_id
+                assert resolution["trigger_id"] == item["trigger_id"]
+                assert resolution["oracle_fragment"] == item["oracle_fragment"]
+                assert resolution["effect"] == "etb_draw_discard"
+                start = item["start_event_cursor"]
+                assert (
+                    entry_cursor
+                    < pending_cursor
+                    < stacked_cursor
+                    < permitted_cursor
+                    < start
+                    <= cursor
+                    < resolved_cursor
+                )
+                passes = [
+                    e
+                    for e in events[stacked_cursor:permitted_cursor]
+                    if e.get("event") == "priority_passed"
+                    and e.get("priority_epoch") == permission["priority_epoch"]
+                ]
+                assert len(passes) >= 2 and passes[-1]["resolution_pending"] is True
+                assert {passes[-1]["player_index"], passes[-2]["player_index"]} == {0, 1}
+                steps = events[start:cursor]
+                before_hand = item["pre_hand_ids"]
+                before_library = item["pre_library_ids"]
+                before_graveyard = item["pre_graveyard_ids"]
+                assert len(set(before_hand + before_library + before_graveyard)) == len(
+                    before_hand + before_library + before_graveyard
+                )
+                if before_library:
+                    assert item["draw_succeeded"] is True
+                    assert item["drawn_library_id"] == before_library[-1]
+                    drawn = item["drawn_hand_id"]
+                    assert drawn and drawn not in before_hand + before_library + before_graveyard
+                    assert steps[0]["event"] == "zone_changed" and steps[0]["reason"] == "draw"
+                    assert steps[0]["source_object_id"] == before_library[-1]
+                    assert steps[0]["destination_object_id"] == drawn
+                    assert (
+                        steps[0]["source_zone"] == "library"
+                        and steps[0]["destination_zone"] == "hand"
+                    )
+                    assert steps[1]["event"] == "card_drawn"
+                    assert steps[1]["player"] == entry_event["player"]
+                    post_draw = before_hand + [drawn]
+                    assert item["post_library_ids"] == before_library[:-1]
+                    draw_end = 2
+                else:
+                    assert item["draw_succeeded"] is False
+                    assert item["drawn_library_id"] is None and item["drawn_hand_id"] is None
+                    assert steps[0]["event"] == "draw_failed"
+                    assert steps[0]["player"] == entry_event["player"]
+                    assert steps[0]["state_based_action_pending"] is True
+                    assert item["failed_draw_pending"] is True
+                    assert item["post_library_ids"] == []
+                    post_draw = before_hand
+                    draw_end = 1
+                assert item["post_draw_hand_ids"] == post_draw
+                selected, discarded = item["selected_hand_id"], item["discarded_graveyard_id"]
+                if post_draw:
+                    assert item["offered_choice_ids"] == post_draw and selected in post_draw
+                    assert (
+                        discarded
+                        and discarded
+                        not in before_hand + before_library + before_graveyard + post_draw
+                    )
+                    movement = steps[draw_end]
+                    assert (
+                        movement["event"] == "zone_changed"
+                        and movement["reason"] == "mandatory_discard"
+                    )
+                    assert (
+                        movement["source_zone"] == "hand"
+                        and movement["destination_zone"] == "graveyard"
+                    )
+                    assert (
+                        movement["source_object_id"] == selected
+                        and movement["destination_object_id"] == discarded
+                    )
+                    assert item["post_hand_ids"] == [x for x in post_draw if x != selected]
+                    assert item["post_graveyard_ids"] == before_graveyard + [discarded]
+                    assert len(steps) == draw_end + 1
+                else:
+                    assert selected is None and discarded is None
+                    assert item["offered_choice_ids"] == [None]
+                    assert item["post_hand_ids"] == []
+                    assert item["post_graveyard_ids"] == before_graveyard
+                    assert len(steps) == draw_end
+            except (AssertionError, KeyError, IndexError, TypeError) as error:
+                raise ValueError("ETB Draw/discard evidence does not reconstruct") from error
 
     def _discard_draw_attack_provenance(
         self, trigger: TriggeredAbilityObject
@@ -3328,6 +3597,29 @@ class Game:
                 event=event,
                 require_current_condition=False,
             )
+        if effect is TriggerEffect.ETB_DRAW_DISCARD:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.CREATURE_ENTERED
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.card)
+                or self.interpreter.etb_draw_discard_semantic_coverage(source.card, fragment)
+                is None
+            ):
+                raise ValueError("ETB Draw/discard entry provenance is invalid")
+            key = (source.object_id, fragment)
+            if key in self._draw_discard_sources:
+                original_source, original_card = self._draw_discard_sources[key]
+                if original_source is not source or original_card is not source.card:
+                    raise ValueError("ETB Draw/discard source was relinked")
+                return
+            occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
+            self._witness_from_existing_events(occurrence)
+            self._draw_discard_sources[key] = (source, source.card)
         trigger = TriggerInstance(
             f"trigger-{self._next_trigger_number:06d}",
             source.controller,
@@ -3383,6 +3675,11 @@ class Game:
                     and not self._select_shredder_target(ability, trigger)
                 ):
                     continue
+                if ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
+                    source, card = self._draw_discard_sources[
+                        (trigger.source_id, trigger.oracle_fragment)
+                    ]
+                    self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3590,6 +3887,11 @@ class Game:
             )
         if ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
             self._validate_alliance_temporary_keyword_choice_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.ETB_DRAW_DISCARD
+            or ability.object_id in self._draw_discard_anchors
+        ):
+            self._validate_etb_draw_discard_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -3935,6 +4237,8 @@ class Game:
                 library_before=list(library_before),
                 library_after=list(library_after),
             )
+        elif ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
+            self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4192,6 +4496,7 @@ class Game:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             if self.stack[-1].effect in {
+                TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
@@ -4809,6 +5114,7 @@ class Game:
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_DRAW_DISCARD,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
@@ -4818,6 +5124,17 @@ class Game:
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_DRAW_DISCARD in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.etb_draw_discard_semantic_coverage(
+                            permanent.card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_DRAW_DISCARD
+                        )
             if TriggerEffect.SHREDDER_DEATHTOUCH in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
@@ -7488,6 +7805,7 @@ class Game:
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {
+                TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
@@ -8559,6 +8877,7 @@ class Game:
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
         self._validate_stun_history()
+        self.validate_draw_discard_snapshot_evidence({"events": self.events})
         references: list[dict[str, object]] = []
 
         def add(kind: str, evidence_id: str, source_id: str, fragment: str) -> None:
