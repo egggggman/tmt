@@ -898,10 +898,13 @@ class CardInterpreter:
         match = self.ARTIFACT_ENTRY_SELF_COUNTER.fullmatch(fragment)
         if match is None:
             return None
-        source_reference = match.group("source").casefold() in {
+        source_text = match.group("source").casefold()
+        short_name = card.name.split(",", 1)[0].casefold()
+        source_reference = source_text in {
             "this creature",
             "this permanent",
             card.name.casefold(),
+            short_name,
         }
         executable = source_reference and "Creature" in card.type_line
         return SemanticCoverage(

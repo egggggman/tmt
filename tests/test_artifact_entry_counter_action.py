@@ -20,6 +20,8 @@ ARTIFACT = CardFact("Relic", "{1}", 1, "Artifact", oracle_id="relic")
 def test_exact_recognizer_and_neighbors_fail_closed():
     i = CardInterpreter()
     assert i.artifact_entry_self_counter_semantic_coverage(SOURCE, FRAGMENT).fully_supported
+    short_fragment = FRAGMENT.replace("Donatello, Way with Machines", "Donatello")
+    assert i.artifact_entry_self_counter_semantic_coverage(SOURCE, short_fragment).fully_supported
     assert (
         i.artifact_entry_self_counter_semantic_coverage(
             SOURCE, FRAGMENT.replace("artifact", "creature")
