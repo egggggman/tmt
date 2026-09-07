@@ -1,0 +1,260 @@
+{
+  "baseline_commit": "ba9eddaa5dabdfdabdd4a76aea10190527387bca",
+  "runner": "scripts/run_acceptance_stage_002.py --execute",
+  "matrix": {
+    "distinct_games": 16,
+    "executions": 32,
+    "duplicates_per_game": 2,
+    "seeds": [
+      7201,
+      7202,
+      7211,
+      7212,
+      7221,
+      7222,
+      7231,
+      7232
+    ],
+    "pairings": [
+      "donatello-krang",
+      "michelangelo-bebop-rocksteady",
+      "splinter-shredder",
+      "april-casey"
+    ]
+  },
+  "inventory": {
+    "executed_occurrences": 19,
+    "present_unreached_occurrences": 133,
+    "reached_unsupported_occurrences": 11,
+    "reached_unsupported_unique_semantics": 7,
+    "games_with_reached_unsupported": 10,
+    "games_without_reached_unsupported": 6,
+    "solo_clearance_opportunities": "not emitted by the existing Stage #002 runner"
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "occurrence_count": 3,
+      "game_count": 3,
+      "matchup_count": 1,
+      "games": [
+        "april-casey:canonical:7232",
+        "april-casey:reversed:7231",
+        "april-casey:reversed:7232"
+      ],
+      "matchups": [
+        "april-casey"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "april-casey:canonical:7232",
+          "object_id": "object-000211",
+          "occurrence_id": "semantic-000013"
+        },
+        {
+          "game_id": "april-casey:reversed:7231",
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000007"
+        },
+        {
+          "game_id": "april-casey:reversed:7232",
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000004"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "card": "Casey Jones, Vigilante",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "occurrence_count": 2,
+      "game_count": 2,
+      "matchup_count": 1,
+      "games": [
+        "april-casey:canonical:7231",
+        "april-casey:canonical:7232"
+      ],
+      "matchups": [
+        "april-casey"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "april-casey:canonical:7231",
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000003"
+        },
+        {
+          "game_id": "april-casey:canonical:7232",
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000011"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "card": "Donatello, Way with Machines",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "occurrence_count": 2,
+      "game_count": 2,
+      "matchup_count": 1,
+      "games": [
+        "donatello-krang:canonical:7201",
+        "donatello-krang:reversed:7202"
+      ],
+      "matchups": [
+        "donatello-krang"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "donatello-krang:canonical:7201",
+          "object_id": "object-000153",
+          "occurrence_id": "semantic-000005"
+        },
+        {
+          "game_id": "donatello-krang:reversed:7202",
+          "object_id": "object-000158",
+          "occurrence_id": "semantic-000005"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "card": "Courier of Comestibles",
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "occurrence_count": 1,
+      "game_count": 1,
+      "matchup_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7211"
+      ],
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+          "object_id": "object-000149",
+          "occurrence_id": "semantic-000001"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "card": "Shredder, Unrelenting",
+      "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "occurrence_count": 1,
+      "game_count": 1,
+      "matchup_count": 1,
+      "games": [
+        "splinter-shredder:reversed:7222"
+      ],
+      "matchups": [
+        "splinter-shredder"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "splinter-shredder:reversed:7222",
+          "object_id": "object-000184",
+          "occurrence_id": "semantic-000010"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "card": "Stockman, Mad Fly-entist",
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "occurrence_count": 1,
+      "game_count": 1,
+      "matchup_count": 1,
+      "games": [
+        "donatello-krang:canonical:7202"
+      ],
+      "matchups": [
+        "donatello-krang"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "donatello-krang:canonical:7202",
+          "object_id": "object-000204",
+          "occurrence_id": "semantic-000015"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "card": "Zoo Escapees",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "occurrence_count": 1,
+      "game_count": 1,
+      "matchup_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7212"
+      ],
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "limitations": [
+        "token_activated_ability_not_implemented",
+        "token_trigger_context_not_implemented"
+      ],
+      "occurrences": [
+        {
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000001"
+        }
+      ]
+    }
+  ],
+  "comparison_post_action_23": {
+    "baseline": "8abb1a97ec08128938c511e74edfa28fc734820f",
+    "reached_unsupported_occurrences_before": 15,
+    "reached_unsupported_unique_semantics_before": 8,
+    "ray_fillet_before": {
+      "occurrences": 4,
+      "games": 4,
+      "matchups": 2,
+      "solo_clearance_opportunities": 1
+    },
+    "ray_fillet_after": {
+      "reached_unsupported_occurrences": 0,
+      "executed_occurrences": 4,
+      "executed_games": 4,
+      "executed_matchups": 2
+    },
+    "ray_fillet_status": "cleared from REACHED/UNSUPPORTED in this measurement"
+  },
+  "validation": {
+    "duplicate_byte_equivalent": true,
+    "invariant_violations": 0,
+    "runner_stop_records": 0,
+    "reconstructive_raw_artifact_sha256": "3c4ed1b42d139464c7af7b896e6f1380efcfc87287136f235cbf56752ffc8c21",
+    "raw_artifact_size_bytes": 12115798
+  },
+  "artifact_paths": {
+    "raw_results": "docs/cardcade/POST_ACTION_24_ACCEPTANCE_STAGE_002_RESULTS.json",
+    "raw_sha256": "docs\\cardcade\\POST_ACTION_24_ACCEPTANCE_STAGE_002_RESULTS.json.sha256",
+    "ranking": "docs/cardcade/POST_ACTION_24_UNSUPPORTED_RANKING.json",
+    "report": "docs/cardcade/POST_ACTION_24_MEASUREMENT_ACTION_25_REASSESSMENT.md"
+  }
+}
