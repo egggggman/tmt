@@ -3378,8 +3378,11 @@ class Game:
                     self._select_stun_target(ability, trigger)
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
-                if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
-                    self._select_shredder_target(ability, trigger)
+                if (
+                    ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH
+                    and not self._select_shredder_target(ability, trigger)
+                ):
+                    continue
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3437,7 +3440,7 @@ class Game:
 
     def _select_shredder_target(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
-    ) -> None:
+    ) -> bool:
         self._authenticate_original_rules_event(trigger.event)
         source = self._objects.get(trigger.source_id)
         coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
@@ -3466,9 +3469,7 @@ class Game:
         )
         offered = tuple(sorted(permanent.object_id for permanent in candidates))
         if not offered:
-            self._shredder_targets[ability.object_id] = (None, None, offered)
-            ability.target_id = None
-            return
+            return False
         choice = self.counter_target_chooser(trigger.controller, trigger.source_id, offered)
         if not isinstance(choice, str) or choice not in offered:
             raise ValueError("Shredder target chooser must return a listed creature")
@@ -3486,6 +3487,7 @@ class Game:
             controller=trigger.controller,
             oracle_fragment=trigger.oracle_fragment,
         )
+        return True
 
     def _validate_shredder_trigger(self, ability: TriggeredAbilityObject) -> None:
         trigger = self._triggers.get(ability.trigger_id)

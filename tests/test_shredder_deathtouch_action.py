@@ -74,12 +74,32 @@ def test_etb_stack_priority_and_resolution_grant_cleanup():
     assert not g.has_temporary_keyword(t, TemporaryKeyword.DEATHTOUCH)
 
 
-def test_opponent_and_source_are_not_legal_targets():
-    g, s, t = setup(target_controller=1)
-    a = etb(g, s)
-    assert a.target_id is None
-    pass_priority(g)
-    assert not g.has_temporary_keyword(t, TemporaryKeyword.DEATHTOUCH)
+@pytest.mark.parametrize("event", ["etb", "attack"])
+@pytest.mark.parametrize("opponent_creature", [False, True])
+def test_no_legal_target_does_not_stack_shredder_trigger(event, opponent_creature):
+    g = game()
+    s = g.create_permanent(SHREDDER, 0, summoning_sick=False)
+    if opponent_creature:
+        g.create_permanent(BEAR, 1, summoning_sick=False)
+
+    def unexpected_target_choice(*_args):
+        pytest.fail("No target chooser call is legal without candidates")
+
+    g.counter_target_chooser = unexpected_target_choice
+    if event == "etb":
+        g._process_creature_entered_triggers(s)
+    else:
+        g.resolve_attack_pt_effects([s])
+
+    assert not any(
+        isinstance(ability, TriggeredAbilityObject)
+        and ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH
+        for ability in g.stack
+    )
+    assert not g.pending_triggers
+
+
+def test_source_is_not_a_legal_target():
     g, s, t = setup()
     g.counter_target_chooser = lambda _p, _s, ids: s.object_id
     with pytest.raises(ValueError, match="target chooser"):
