@@ -101,6 +101,7 @@ def test_draw_occurs_only_on_resolution_and_source_can_leave():
     assert ability is not None
     assert len(current.players[0].hand) == 7
     current.put_into_graveyard(source)
+    current.put_into_graveyard(target)
     pass_priority_and_resolve(current)
     assert len(current.players[0].hand) == 8
     assert target.counters.get("+1/+1", 0) == 0

@@ -864,6 +864,7 @@ class ActivatedAbilityObject:
     choice_ids: tuple[str, ...] = ()
     cost_target_id: str | None = None
     cost_target_card: CardFact | TokenDefinition | None = None
+    cost_target_object: Permanent | None = None
     zone: Zone = "stack"
 
     @property
@@ -6560,6 +6561,9 @@ class Game:
                 cost_target_card=(
                     counter_target.card if isinstance(counter_target, Permanent) else None
                 ),
+                cost_target_object=counter_target
+                if isinstance(counter_target, Permanent)
+                else None,
             )
             for mana_source in mana_sources:
                 mana_source.tapped = True
@@ -6753,11 +6757,10 @@ class Game:
         target = self._objects.get(ability.cost_target_id or "")
         if (
             ability.cost_target_id is None
-            or not isinstance(target, Permanent)
-            or not self.is_authoritative(target, "battlefield")
-            or target.controller != ability.controller
-            or not target.card.is_creature
-            or target.card is not ability.cost_target_card
+            or ability.cost_target_object is None
+            or ability.cost_target_object.object_id != ability.cost_target_id
+            or ability.cost_target_object.card is not ability.cost_target_card
+            or (target is not None and target is not ability.cost_target_object)
         ):
             raise ValueError("counter-cost target provenance is invalid")
 
