@@ -574,6 +574,10 @@ class CardInterpreter:
         r"^Alliance — Whenever another creature you control enters, choose one that hasn't "
         r"been chosen this turn\.$"
     )
+    SHREDDER_DEATHTOUCH = re.compile(
+        r"^Whenever (?P<source>.+) enters or attacks, another target creature "
+        r"you control gains deathtouch until end of turn\.$"
+    )
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = re.compile(
         r"^Alliance — Whenever another creature you control enters, (?P<source>.+) gains "
         r"your choice of flying, menace, or haste until end of turn\.$"
@@ -778,6 +782,22 @@ class CardInterpreter:
         return InterpretedDestroyPermanentSemantics(
             program,
             SemanticCoverage(executable, executable, executable, tuple(limitations)),
+        )
+
+    def shredder_deathtouch_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        match = self.SHREDDER_DEATHTOUCH.fullmatch(fragment)
+        if match is None:
+            return None
+        source_names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = match.group("source").casefold() in source_names
+        executable = source_reference and "Creature" in card.type_line
+        return SemanticCoverage(
+            executable,
+            executable,
+            executable,
+            () if executable else ("shredder_deathtouch_source_mismatch",),
         )
 
     def temporary_keyword_choice_semantic_coverage(
