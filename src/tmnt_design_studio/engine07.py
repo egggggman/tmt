@@ -296,6 +296,7 @@ class TriggerEffect(Enum):
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
     ETB_DRAW_DISCARD = "etb_draw_discard"
+    LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
@@ -1262,6 +1263,10 @@ class Game:
         self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
         self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
         self.discard_draw_evidence: list[DiscardDrawEvidence] = []
+        self._ltb_mutagen_departures = {}
+        self._ltb_mutagen_enqueued: set[tuple[str, str, str]] = set()
+        self._ltb_mutagen_anchors = {}
+        self._ltb_mutagen_consumed: set[str] = set()
         self._draw_discard_anchors = {}
         self._draw_discard_sources = {}
         self._draw_discard_consumed: set[str] = set()
@@ -1575,6 +1580,7 @@ class Game:
         departure_authority = None
         departure_sources = None
         departure_last_known = None
+        ltb_mutagen_fragments = ()
         if source_zone == "battlefield" and destination != "battlefield":
             assert isinstance(obj, Permanent)
             departure_authority = (
@@ -1593,6 +1599,17 @@ class Game:
                 obj.type_line,
                 obj.is_creature,
             )
+            ltb_mutagen_fragments = tuple(
+                fragment
+                for fragment in self.interpreter.fragments(obj.card)
+                if self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment) is not None
+            )
+            for fragment in ltb_mutagen_fragments:
+                coverage = self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment)
+                assert coverage is not None
+                self._register_semantic_occurrence(
+                    obj, obj.controller, fragment, coverage.limitations
+                )
         new_id = self._allocate_object_id()
         destination_controller = obj.owner if controller is None else controller
         if destination == "battlefield":
@@ -1648,7 +1665,8 @@ class Game:
                 for watcher, fragment in departure_sources
                 if watcher.object_id != obj.object_id
             )
-            if qualifying_sources:
+            if qualifying_sources or ltb_mutagen_fragments:
+                departure_record = tuple(self.events[-1].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
                     departure_last_known[1],
@@ -1666,6 +1684,16 @@ class Game:
                         for watcher, _fragment in qualifying_sources
                     ),
                 )
+                for fragment in ltb_mutagen_fragments:
+                    key = (obj.object_id, event.event_id, fragment)
+                    self._ltb_mutagen_departures[key] = (
+                        obj,
+                        obj.card,
+                        event,
+                        replacement,
+                        departure_record,
+                    )
+                    self._enqueue_trigger(event, obj, fragment, TriggerEffect.LTB_MUTAGEN)
                 for watcher, fragment in qualifying_sources:
                     self._enqueue_trigger(
                         event,
@@ -3620,6 +3648,12 @@ class Game:
             occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
             self._witness_from_existing_events(occurrence)
             self._draw_discard_sources[key] = (source, source.card)
+        if effect is TriggerEffect.LTB_MUTAGEN:
+            self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
+            key = (source.object_id, event.event_id, fragment)
+            if key in self._ltb_mutagen_enqueued:
+                return
+            self._ltb_mutagen_enqueued.add(key)
         trigger = TriggerInstance(
             f"trigger-{self._next_trigger_number:06d}",
             source.controller,
@@ -3680,6 +3714,8 @@ class Game:
                         (trigger.source_id, trigger.oracle_fragment)
                     ]
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
+                if ability.effect is TriggerEffect.LTB_MUTAGEN:
+                    self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3892,6 +3928,11 @@ class Game:
             or ability.object_id in self._draw_discard_anchors
         ):
             self._validate_etb_draw_discard_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.LTB_MUTAGEN
+            or ability.object_id in self._ltb_mutagen_anchors
+        ):
+            self._validate_ltb_mutagen_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -4014,6 +4055,8 @@ class Game:
                 counters_after=before + 1 if legal else None,
                 placement_cursor=placement_cursor,
             )
+        elif ability.effect is TriggerEffect.LTB_MUTAGEN:
+            self._resolve_ltb_mutagen(ability)
         elif ability.effect is TriggerEffect.CREATE_TOKEN:
             coverage = self.interpreter.token_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4496,6 +4539,7 @@ class Game:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             if self.stack[-1].effect in {
+                TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
@@ -4510,6 +4554,275 @@ class Game:
                 self._begin_priority_window()
                 return
             self._resolve_triggered_ability(self.stack[-1])
+
+    def _validate_ltb_mutagen_departure(
+        self, source: Permanent, fragment: str, event: RulesEvent, controller: int
+    ) -> None:
+        key = (source.object_id, event.event_id, fragment)
+        anchor = self._ltb_mutagen_departures.get(key)
+        self._authenticate_original_rules_event(event)
+        if anchor is None:
+            raise ValueError("LTB Mutagen lacks original departure provenance")
+        original, card, original_event, replacement, departure = anchor
+        records = [
+            item
+            for item in self.events
+            if item.get("event") == "zone_changed"
+            and item.get("source_object_id") == source.object_id
+        ]
+        if (
+            source is not original
+            or self._objects.get(source.object_id) is not source
+            or source.card is not card
+            or source.zone != "former"
+            or source.controller != controller
+            or self._objects.get(replacement.object_id) is not replacement
+            or replacement.card is not card
+            or event is not original_event
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind is not RulesEventKind.PERMANENT_LEFT
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != controller
+            or (source.object_id, controller) not in event.battlefield_authority
+            or (source.object_id, controller, source.type_line, True)
+            not in event.last_known_battlefield
+            or len(records) != 1
+            or tuple(records[0].items()) != departure
+            or records[0]["source_zone"] != "battlefield"
+            or records[0]["destination_zone"] == "battlefield"
+            or records[0]["destination_object_id"] != replacement.object_id
+            or fragment not in self.interpreter.fragments(card)
+            or self.interpreter.ltb_mutagen_semantic_coverage(card, fragment) is None
+        ):
+            raise ValueError("LTB Mutagen departure provenance is stale or relinked")
+
+    def _validate_ltb_mutagen_trigger(self, ability: TriggeredAbilityObject) -> None:
+        if not self._priority_resolution_in_progress and (
+            self.priority_state is None or not self.priority_state.resolution_pending
+        ):
+            raise ValueError("LTB Mutagen requires Priority resolution")
+        anchor = self._ltb_mutagen_anchors.get(ability.object_id)
+        if anchor is None:
+            raise ValueError("LTB Mutagen lacks original Stack provenance")
+        original, trigger = anchor
+        source = self._objects.get(trigger.source_id)
+        if (
+            ability is not original
+            or self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(ability.trigger_id) is not trigger
+            or ability.event is not trigger.event
+            or ability.controller != trigger.controller
+            or ability.source_id != trigger.source_id
+            or ability.source_card is not trigger.source_card
+            or ability.oracle_fragment != trigger.oracle_fragment
+            or ability.effect is not TriggerEffect.LTB_MUTAGEN
+            or ability.trigger_id in self._ltb_mutagen_consumed
+            or not isinstance(source, Permanent)
+        ):
+            raise ValueError("LTB Mutagen trigger provenance is stale, relinked or consumed")
+        self._validate_ltb_mutagen_departure(
+            source, ability.oracle_fragment, ability.event, ability.controller
+        )
+
+    def _resolve_ltb_mutagen(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_ltb_mutagen_trigger(ability)
+        if ability.zone != "former":
+            raise ValueError("LTB Mutagen requires its resolving Stack object")
+        self._ltb_mutagen_consumed.add(ability.trigger_id)
+        coverage = self.interpreter.ltb_mutagen_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        assert coverage is not None
+        tokens = self.create_tokens(
+            ability.controller,
+            coverage.program,
+            source_card=ability.source_card.name,
+            source_id=ability.source_id,
+            oracle_fragment=ability.oracle_fragment,
+        )
+        if len(tokens) != 1 or any(
+            not self.is_authoritative(token, "battlefield")
+            or not token.is_token
+            or token.card is not coverage.program.definition
+            or token.owner != ability.controller
+            or token.controller != ability.controller
+            for token in tokens
+        ):
+            raise ValueError("LTB Mutagen token creation is not authoritative")
+        creation = [
+            e
+            for e in self.events
+            if e.get("event") == "tokens_created" and e.get("object_ids") == [tokens[0].object_id]
+        ]
+        if len(creation) != 1:
+            raise ValueError("LTB Mutagen lacks unique token creation evidence")
+        self.log(
+            "ltb_mutagen_resolved",
+            event_id=ability.event.event_id,
+            trigger_id=ability.trigger_id,
+            stack_object_id=ability.object_id,
+            source_id=ability.source_id,
+            controller=ability.controller,
+            oracle_fragment=ability.oracle_fragment,
+            creation_event_id=creation[0]["event_id"],
+            token_id=tokens[0].object_id,
+            token_owner=tokens[0].owner,
+            token_controller=tokens[0].controller,
+            token_type_line=tokens[0].type_line,
+            token_oracle_text=tokens[0].card.oracle_text,
+            activation_supported=False,
+        )
+
+    @staticmethod
+    def validate_ltb_mutagen_snapshot_evidence(snapshot: dict[str, object]) -> None:
+        """Reconstruct only the bounded leave/Mutagen creation chain, not activation."""
+        events = snapshot.get("events", [])
+        deliveries = [
+            (i, e) for i, e in enumerate(events) if e.get("event") == "ltb_mutagen_resolved"
+        ]
+        resolutions = [
+            e
+            for e in events
+            if e.get("event") == "trigger_resolved" and e.get("effect") == "ltb_mutagen"
+        ]
+        if len(deliveries) != len(resolutions):
+            raise ValueError("LTB Mutagen evidence lacks unique resolution")
+        seen_leaves, seen_tokens = set(), set()
+        definition = CardInterpreter.PREDEFINED_TOKENS["mutagen"]
+        for delivery_cursor, item in deliveries:
+            try:
+                source, leave_id, token = item["source_id"], item["event_id"], item["token_id"]
+                controller = item["controller"]
+                assert controller in (0, 1)
+                assert (source, leave_id) not in seen_leaves and token not in seen_tokens
+                seen_leaves.add((source, leave_id))
+                seen_tokens.add(token)
+                assert item["oracle_fragment"] == CardInterpreter.LTB_MUTAGEN_FRAGMENT
+                assert item["token_owner"] == item["token_controller"] == controller
+                assert item["token_type_line"] == definition.type_line
+                assert item["token_oracle_text"] == definition.oracle_text
+                assert item["activation_supported"] is False
+
+                def unique(kind, key, value):
+                    matches = [
+                        (i, e)
+                        for i, e in enumerate(events)
+                        if e.get("event") == kind and e.get(key) == value
+                    ]
+                    assert len(matches) == 1
+                    return matches[0]
+
+                departure_cursor, departure = unique("zone_changed", "source_object_id", source)
+                leave_cursor, leave = unique("rules_event", "event_id", leave_id)
+                pending_cursor, pending = unique(
+                    "trigger_pending", "trigger_id", item["trigger_id"]
+                )
+                stack_cursor, stacked = unique(
+                    "trigger_stacked", "stack_object_id", item["stack_object_id"]
+                )
+                permit_cursor, permit = unique(
+                    "stack_resolution_permitted", "stack_object_id", item["stack_object_id"]
+                )
+                creation_cursor, creation = unique(
+                    "rules_event", "event_id", item["creation_event_id"]
+                )
+                payload_cursor, payload = unique(
+                    "tokens_created", "event_id", item["creation_event_id"]
+                )
+                resolved_cursor, resolved = unique(
+                    "trigger_resolved", "stack_object_id", item["stack_object_id"]
+                )
+                assert (
+                    departure_cursor
+                    < leave_cursor
+                    < pending_cursor
+                    < stack_cursor
+                    < permit_cursor
+                    < creation_cursor
+                    < payload_cursor
+                    < delivery_cursor
+                    < resolved_cursor
+                )
+                assert (
+                    departure["source_zone"] == "battlefield"
+                    and departure["destination_zone"] != "battlefield"
+                )
+                assert departure["destination_object_id"] != source
+                assert leave["rules_event"] == "permanent_left"
+                assert leave["source_id"] == source and leave["subject_ids"] == [source]
+                assert {"object_id": source, "controller": controller} in leave[
+                    "battlefield_authority"
+                ]
+                assert any(
+                    x["object_id"] == source
+                    and x["controller"] == controller
+                    and x["is_creature"] is True
+                    for x in leave["last_known_battlefield"]
+                )
+                assert (
+                    pending["event_id"] == stacked["event_id"] == resolved["event_id"] == leave_id
+                )
+                assert stacked["trigger_id"] == resolved["trigger_id"] == item["trigger_id"]
+                assert (
+                    pending["oracle_fragment"]
+                    == resolved["oracle_fragment"]
+                    == item["oracle_fragment"]
+                )
+                assert resolved["source_id"] == source and resolved["effect"] == "ltb_mutagen"
+                passes = [
+                    e
+                    for e in events[stack_cursor:permit_cursor]
+                    if e.get("event") == "priority_passed"
+                    and e.get("priority_epoch") == permit["priority_epoch"]
+                ]
+                assert len(passes) >= 2 and passes[-1]["resolution_pending"] is True
+                assert {passes[-1]["player_index"], passes[-2]["player_index"]} == {0, 1}
+                assert creation["rules_event"] == "tokens_created" and creation["subject_ids"] == [
+                    token
+                ]
+                assert {"object_id": token, "controller": controller} in creation[
+                    "battlefield_authority"
+                ]
+                assert {
+                    "object_id": token,
+                    "controller": controller,
+                    "type_line": definition.type_line,
+                } in creation["battlefield_characteristics"]
+                assert (
+                    payload["source_id"] == source
+                    and payload["oracle_fragment"] == item["oracle_fragment"]
+                )
+                assert (
+                    payload["quantity"] == 1
+                    and payload["object_ids"] == [token]
+                    and payload["token"] == definition.name
+                )
+                assert (
+                    pending["controller"]
+                    == stacked["controller"]
+                    == leave["player"]
+                    == creation["player"]
+                    == payload["creator"]
+                    == payload["controller"]
+                )
+                originals = snapshot.get("rules_event_evidence", [])
+                for event_id, ledger in ((leave_id, leave), (item["creation_event_id"], creation)):
+                    matches = [e for e in originals if e["event_id"] == event_id]
+                    assert len(matches) == 1
+                    original = matches[0]
+                    assert original["kind"] == ledger["rules_event"]
+                    assert original["player_index"] == controller
+                    for key in (
+                        "source_id",
+                        "subject_ids",
+                        "battlefield_authority",
+                        "battlefield_characteristics",
+                        "last_known_battlefield",
+                    ):
+                        assert original[key] == ledger[key]
+            except (AssertionError, KeyError, IndexError, TypeError) as error:
+                raise ValueError("LTB Mutagen evidence does not reconstruct") from error
 
     def _validate_dies_draw_trigger(self, ability: TriggeredAbilityObject) -> None:
         """Authenticate one self-death trigger from frozen event and zone-change provenance."""
@@ -7805,6 +8118,7 @@ class Game:
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {
+                TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
@@ -8267,7 +8581,11 @@ class Game:
                 break
         self.check_life()
         if self.winner is None and self._put_pending_triggers_on_stack(
-            {TriggerEffect.DIES_DRAW, TriggerEffect.PERMANENT_LEFT_SELF_COUNTER}
+            {
+                TriggerEffect.DIES_DRAW,
+                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
+                TriggerEffect.LTB_MUTAGEN,
+            }
         ):
             self._drain_triggered_abilities()
         self.check_invariants()

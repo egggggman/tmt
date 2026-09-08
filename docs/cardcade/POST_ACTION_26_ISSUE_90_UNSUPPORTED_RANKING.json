@@ -1,0 +1,378 @@
+{
+  "action27_authorized": false,
+  "aggregate_digest": "2ad5bc321843786e48398c9912a6cc2ebd399067261ac57c06652fd2d4c181e6",
+  "baseline_commit": "9febd70c9b6c2512823ca97062c48d18ec489fd3",
+  "branch_before_execution": "main",
+  "clean_worktree_before_execution": true,
+  "issue": 90,
+  "manifest_digest": "fc54dfe8cf7bf241f57d255e11af0ec1ae66406c3ea3baa3f04ada11d0bccbe3",
+  "occurrence_count": 7,
+  "ranking": [
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "game_count": 3,
+      "games": [
+        "april-casey:canonical:7232",
+        "april-casey:reversed:7231",
+        "april-casey:reversed:7232"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "april-casey"
+      ],
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000211",
+          "occurrence_id": "semantic-000013",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000037",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000211"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 1,
+              "object_id": "object-000211",
+              "occurrence_id": "semantic-000013",
+              "opportunity_key": "a3d5e2001aa1ff97ef3f666739c05803a4cdc9f5b435cba7f7da3f6b73f85a99",
+              "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+              "phase": "precombat_main",
+              "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526",
+              "source_controller": 1,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 20,
+              "witness_id": "opportunity-000005"
+            }
+          ],
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7231",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000007",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000026",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000196"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 0,
+              "object_id": "object-000196",
+              "occurrence_id": "semantic-000007",
+              "opportunity_key": "d10b38bd68dfbf6e28fc7523ee4d8c775bda36ec8e60ea98909b012e9bd73a9e",
+              "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+              "phase": "precombat_main",
+              "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526",
+              "source_controller": 0,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 13,
+              "witness_id": "opportunity-000003"
+            }
+          ],
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000004",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000014",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000163"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 0,
+              "object_id": "object-000163",
+              "occurrence_id": "semantic-000004",
+              "opportunity_key": "9bf85651207c09ecac6f478a49193cec014c04b864de204ff7888504d857a9e0",
+              "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+              "phase": "precombat_main",
+              "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526",
+              "source_controller": 0,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 7,
+              "witness_id": "opportunity-000002"
+            }
+          ],
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "rank": 1
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "game_count": 2,
+      "games": [
+        "april-casey:canonical:7231",
+        "april-casey:canonical:7232"
+      ],
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "april-casey"
+      ],
+      "occurrence_count": 2,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7231",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000003",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000009",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000155"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 1,
+              "object_id": "object-000155",
+              "occurrence_id": "semantic-000003",
+              "opportunity_key": "796bd54773f98df4081f37dfa93ee3a9ec260af5e7bdadebf73579536d20097b",
+              "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+              "phase": "precombat_main",
+              "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+              "source_controller": 1,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 6,
+              "witness_id": "opportunity-000001"
+            }
+          ],
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "pairing_id": "april-casey",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000011",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000030",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000196"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 1,
+              "object_id": "object-000196",
+              "occurrence_id": "semantic-000011",
+              "opportunity_key": "060a8b77a354ba44ba143ac9ff1355bc744c1bce969b337b892849a8c467eade",
+              "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+              "phase": "precombat_main",
+              "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+              "source_controller": 1,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 16,
+              "witness_id": "opportunity-000004"
+            }
+          ],
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "pairing_id": "april-casey",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "rank": 2
+    },
+    {
+      "card": "Courier of Comestibles",
+      "game_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7211"
+      ],
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Courier of Comestibles",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+          "limitations": [
+            "token_condition_context_not_implemented"
+          ],
+          "object_id": "object-000149",
+          "occurrence_id": "semantic-000001",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": "creature_entered",
+              "cause_id": "event-000007",
+              "cause_kind": "rules_event",
+              "cause_subject_ids": [
+                "object-000149"
+              ],
+              "cause_subject_zones": [
+                "battlefield"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 0,
+              "object_id": "object-000149",
+              "occurrence_id": "semantic-000001",
+              "opportunity_key": "bdb59093c6216cceb4ee3d77f81884ee984be68525bfaf2d821a3093ce0b6ab4",
+              "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+              "phase": "precombat_main",
+              "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003",
+              "source_controller": 0,
+              "source_zone": "battlefield",
+              "step": "precombat_main",
+              "turn": 7,
+              "witness_id": "opportunity-000001"
+            }
+          ],
+          "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+          "pairing_id": "michelangelo-bebop-rocksteady",
+          "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003"
+        }
+      ],
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "rank": 3
+    },
+    {
+      "card": "Zoo Escapees",
+      "game_count": 1,
+      "games": [
+        "michelangelo-bebop-rocksteady:canonical:7212"
+      ],
+      "limitations": [
+        "token_activated_ability_not_implemented",
+        "token_trigger_context_not_implemented"
+      ],
+      "matchup_count": 1,
+      "matchups": [
+        "michelangelo-bebop-rocksteady"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+          "limitations": [
+            "token_activated_ability_not_implemented",
+            "token_trigger_context_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000001",
+          "opportunity_witnesses": [
+            {
+              "cause_event_kind": null,
+              "cause_id": "context-000001",
+              "cause_kind": "authoritative_context",
+              "cause_subject_ids": [
+                "object-000143"
+              ],
+              "cause_subject_zones": [
+                "former"
+              ],
+              "classification": "reached_unsupported",
+              "controller": 1,
+              "object_id": "object-000143",
+              "occurrence_id": "semantic-000001",
+              "opportunity_key": "9bab8fc2d76198d31b1da6fb0225d7ed1c5d60875e4ef21662f9e679d8fdd339",
+              "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+              "phase": "combat",
+              "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+              "source_controller": 1,
+              "source_zone": "battlefield",
+              "step": "combat_damage",
+              "turn": 6,
+              "witness_id": "opportunity-000001"
+            }
+          ],
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "pairing_id": "michelangelo-bebop-rocksteady",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        }
+      ],
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "rank": 4
+    }
+  ],
+  "ranking_basis": "Descending reached-unsupported occurrence count, distinct game count, then matchup count; alphabetical card/fragment tie-break. Evidence counts only; no next-action selection.",
+  "result_artifact": "POST_ACTION_26_ISSUE_90_STAGE_002_RESULTS.json",
+  "result_sha256": "4d1ad9215620a1ab4eae28c240191de916871ca9cc9166b2c2363f919828a49d",
+  "runner": "scripts/run_acceptance_stage_002.py --execute",
+  "unique_semantic_count": 4
+}

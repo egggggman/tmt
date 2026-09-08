@@ -1,0 +1,307 @@
+{
+  "action28_authorized": false,
+  "aggregate_digest": "7761dca7fb3dbaf66ae82b4c14eb9770b5ad73959361751992a3e721c942591e",
+  "base_commit": "a0636651ed0cbd7e35993b2738683a99caf16273",
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "4ddfa533cd237516543fd77215b7fe98a7b9c8bb",
+    "src/tmnt_design_studio/engine07.py": "3bcfef53816c46b757446446ad374ce9e11bde66",
+    "src/tmnt_design_studio/smoke01.py": "ee7efa444543ec89017064e757513e31af689b1e",
+    "src/tmnt_design_studio/stage002.py": "00a27346dcf10cb05c130d8b613164b2e7eec084",
+    "tests/test_zoo_escapees_ltb_mutagen_action.py": "3de1f116b4c27b0e01e4e8cd719cf0acac2c7da5"
+  },
+  "comparison_to_issue90": [
+    {
+      "candidate_count": 1,
+      "card": "Zoo Escapees",
+      "classification": "executed",
+      "fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "prior_count": 0,
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "candidate_count": 0,
+      "card": "Zoo Escapees",
+      "classification": "reached_unsupported",
+      "fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "prior_count": 1,
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    }
+  ],
+  "continuity": [
+    {
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "references": [
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000153"
+        }
+      ],
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+          "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+          "source_id": "object-000204"
+        }
+      ],
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31"
+    },
+    {
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "references": [
+        {
+          "evidence_id": "event-000018",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000158"
+        }
+      ],
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "card": "Shredder, Unrelenting",
+      "classification": "executed",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "references": [
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        },
+        {
+          "evidence_id": "event-000038",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        }
+      ],
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad"
+    }
+  ],
+  "created_mutagen_presence": [
+    {
+      "card": "Mutagen",
+      "classification": "present_unreached",
+      "creation_controller": 1,
+      "creation_event_id": "event-000010",
+      "creation_source_id": "object-000143",
+      "fragment_index": 0,
+      "initial_object_id": "object-000152",
+      "is_token": true,
+      "object_ids": [
+        "object-000152"
+      ],
+      "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+      "owner": 1,
+      "semantic_key": "runtime-token:3acba4de85ceaed270f6f431e7e78715fa8d26f60bb5e707f6c93a0983a181af:0:0:86efa9bc74a2a92eb46755d2ee885f3d36d468be6478ccacaacb66f346d3fddc",
+      "token_definition_identity": "token-definition:39b9884fd714ec09f484f9979fbc1fdac2f42cd15ff9b1a6add6866589b7634e",
+      "zone_history": [
+        {
+          "object_id": "object-000152",
+          "phase": "combat",
+          "step": "combat_damage",
+          "turn": 6,
+          "zone": "battlefield"
+        }
+      ]
+    }
+  ],
+  "distinct_games": 16,
+  "duplicates_byte_equivalent": true,
+  "executions": 32,
+  "invariant_violations": 0,
+  "issue": 91,
+  "manifest_digest": "8e999157f598cff8d2fcc23cd9f58b379e2affa49ad14b2bd9f2f6c18b31cdb4",
+  "matrix_runs": 1,
+  "mutagen_activation": {
+    "classification": "present_unreached",
+    "executed_references": [],
+    "limitations": [
+      "activation_nonmana_cost_not_implemented",
+      "activation_targets_choices_not_implemented",
+      "activation_child_semantics_not_implemented",
+      "activation_timing_restriction_not_implemented"
+    ],
+    "supported": false
+  },
+  "occurrence_counts": {
+    "executed": 24,
+    "present_unreached": 134,
+    "reached_unsupported": 6
+  },
+  "other_banked_executed_counts_decreased": false,
+  "result_sha256": "a199f67e2710d18d4208c51e5d1ea6b08e6f88196faacac5c57d4e42199bf2de",
+  "runner_stops": 0,
+  "serialized_reconstruction": "16 of 16 reports exactly reconstructed; original leave/creation and Priority evidence validated",
+  "token_creation": {
+    "activation_supported": false,
+    "controller": 1,
+    "creation_event_id": "event-000010",
+    "event": "ltb_mutagen_resolved",
+    "event_id": "event-000009",
+    "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+    "phase": "combat",
+    "source_id": "object-000143",
+    "stack_object_id": "object-000151",
+    "step": "combat_damage",
+    "token_controller": 1,
+    "token_id": "object-000152",
+    "token_oracle_text": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+    "token_owner": 1,
+    "token_type_line": "Artifact — Mutagen",
+    "trigger_id": "trigger-000001",
+    "turn": 6
+  },
+  "unsupported_inventory": [
+    {
+      "card": "Courier of Comestibles",
+      "classification": "reached_unsupported",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "references": [],
+      "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003"
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000155",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "references": [],
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "references": [],
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000211",
+      "occurrence_id": "semantic-000013",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "references": [],
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "references": [],
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000163",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "references": [],
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    }
+  ],
+  "zoo_escapees_witness": [
+    {
+      "card": "Zoo Escapees",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "references": [
+        {
+          "evidence_id": "event-000010",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000009",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        }
+      ],
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    }
+  ]
+}
