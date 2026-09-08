@@ -1,0 +1,3599 @@
+{
+  "accepted_matrix_runs": 1,
+  "action30_authorized": false,
+  "aggregate_digest": "04c179730c00b29d4c80bd7b96b40c45e45872de6a10f90b0d1d3d27a6472a28",
+  "base_commit": "cd41d6c661cde66e3eb440002f5f87a711aaa425",
+  "classification_deltas_from_issue96": [
+    {
+      "classification": "executed",
+      "fresh": 1,
+      "game_id": "april-casey:canonical:7231",
+      "prior": 0,
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "classification": "executed",
+      "fresh": 1,
+      "game_id": "april-casey:canonical:7232",
+      "prior": 0,
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "classification": "reached_unsupported",
+      "fresh": 0,
+      "game_id": "april-casey:canonical:7232",
+      "prior": 1,
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    }
+  ],
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "c6506998631c8f7beb7d70816f9c46485e360827",
+    "src/tmnt_design_studio/engine07.py": "b6b8417d0e007e0e0236747e8b31c522dc1665f5",
+    "src/tmnt_design_studio/smoke01.py": "fe8bb2382fdead8561844698aac6cff3435dd3fe",
+    "src/tmnt_design_studio/stage002.py": "f31a9b3989ea169c50fa4e8107bd2d89c091e875",
+    "src/tmnt_design_studio/vigilante07.py": "62cabf10f57ded4d08800a44ecea725a4449ec17",
+    "tests/test_vigilante_upkeep_action.py": "5783445de6153240972665152163eb2fbeb685fd"
+  },
+  "continuity_witnesses": [
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000153"
+        }
+      ],
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000173"
+        },
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000173"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+          "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+          "source_id": "object-000204"
+        }
+      ],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000213"
+        },
+        {
+          "evidence_id": "event-000032",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000213"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000213",
+      "occurrence_id": "semantic-000017",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000013",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000161"
+        },
+        {
+          "evidence_id": "event-000012",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000161"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000018",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000158"
+        }
+      ],
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000178"
+        },
+        {
+          "evidence_id": "event-000020",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000178"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000007",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+          "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003",
+          "source_id": "object-000149"
+        }
+      ],
+      "card": "Courier of Comestibles",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000010",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000009",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Zoo Escapees",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        },
+        {
+          "evidence_id": "event-000038",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        }
+      ],
+      "card": "Shredder, Unrelenting",
+      "classification": "executed",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000013",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+          "source_id": "object-000155"
+        }
+      ],
+      "card": "Casey Jones, Vigilante",
+      "classification": "executed",
+      "delayed_records": [
+        {
+          "consumed": true,
+          "controller": 1,
+          "created_cursor": 221,
+          "event_id": "event-000009",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "schedule_id": "object-000156",
+          "source_id": "object-000155",
+          "stack_object_id": "object-000156",
+          "state": "resolved",
+          "terminal_without_resolution": false,
+          "trigger_id": "trigger-000002"
+        }
+      ],
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [],
+      "object_id": "object-000155",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+          "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b",
+          "source_id": "object-000188"
+        }
+      ],
+      "card": "Rock Soldiers",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000188",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+      "pairing_id": "april-casey",
+      "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000008",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000149"
+        },
+        {
+          "evidence_id": "event-000007",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000149"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000018",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000169"
+        },
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000169"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000169",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000025",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000183"
+        },
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000183"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000183",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000034",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+          "source_id": "object-000196"
+        }
+      ],
+      "card": "Casey Jones, Vigilante",
+      "classification": "executed",
+      "delayed_records": [
+        {
+          "consumed": true,
+          "controller": 1,
+          "created_cursor": 636,
+          "event_id": "event-000030",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "schedule_id": "object-000197",
+          "source_id": "object-000196",
+          "stack_object_id": "object-000197",
+          "state": "resolved",
+          "terminal_without_resolution": false,
+          "trigger_id": "trigger-000005"
+        }
+      ],
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000044",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000232"
+        },
+        {
+          "evidence_id": "event-000043",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000232"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000232",
+      "occurrence_id": "semantic-000014",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+          "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b",
+          "source_id": "object-000182"
+        }
+      ],
+      "card": "Rock Soldiers",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000182",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+      "pairing_id": "april-casey",
+      "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000189"
+        },
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000189"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000189",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000202"
+        },
+        {
+          "evidence_id": "event-000028",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000202"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000202",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000012",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000158"
+        },
+        {
+          "evidence_id": "event-000011",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000158"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000166"
+        },
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000166"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000166",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000022",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000174"
+        },
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000174"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000174",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    }
+  ],
+  "development_attempts": 2,
+  "distinct_games": 16,
+  "duplicate_determinism": true,
+  "executions": 32,
+  "initial_attempt": {
+    "accepted_aggregate": false,
+    "failure": "Live RNG tuple versus JSON list equality in Vigilante segment reconstruction; stopped before accepted result; fixed by canonical JSON comparison and live-snapshot regression."
+  },
+  "invariant_violations": 0,
+  "inventory": [
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000153"
+        }
+      ],
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000156",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000165",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000168",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Gadget Master",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "token_copy_not_implemented",
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000180",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Whenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "bb6aef0d-052b-44e6-b4cd-2d2eafd84969:0:1:20fd79202a36e7d309559f84efd337c9baffec7d1fd8e18d9d9c1b6e3027eb37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000203",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000203",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000173"
+        },
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000173"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000188",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000197",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000200",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+          "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31",
+          "source_id": "object-000204"
+        }
+      ],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Stockman enters, draw a card, then discard a card.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:1:80c534db71c996b429b08e64b997f14ac0b547d0c015ad4204f2a12ae7beca31"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "Cycling",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:3:5343ac1023785c197e9572ec0010e2cb961b4263590ac974939daf9b34ce7d65"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000013",
+      "oracle_fragment": "Landcycling",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:5:6e951254802242ad79a93d6e2c677ef0622dadc720523872fc353176825f9857"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000014",
+      "oracle_fragment": "Typecycling",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:6:941554e71f37686dadce4bde5314f1d399f9b6d0bc994c049465fba952dd2200"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000015",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Stockman, Mad Fly-entist",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "activation_nested_context_not_implemented"
+      ],
+      "object_id": "object-000204",
+      "occurrence_id": "semantic-000016",
+      "oracle_fragment": "Islandcycling {2} ({2}, Discard this card: Search your library for an Island card, reveal it, put it into your hand, then shuffle.)",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "baa4cb1b-6fb5-46df-9cdd-54421ee0fc88:0:2:5826f9fe4465de34242288623a3b4ec5fa88fd939f3d145f3ddbb3a7fbac7d01"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000213"
+        },
+        {
+          "evidence_id": "event-000032",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000213"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000213",
+      "occurrence_id": "semantic-000017",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000221",
+      "occurrence_id": "semantic-000018",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:canonical:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000224",
+      "occurrence_id": "semantic-000019",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000157",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000013",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000161"
+        },
+        {
+          "evidence_id": "event-000012",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000161"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000167",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000171",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000186",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000186",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000194",
+      "occurrence_id": "semantic-000013",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7201",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000194",
+      "occurrence_id": "semantic-000014",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Way with Machines",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000018",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000158"
+        }
+      ],
+      "card": "Donatello, Way with Machines",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Mutant Mechanic",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "activation_child_semantics_not_implemented",
+        "activation_targets_choices_not_implemented",
+        "activation_timing_restriction_not_implemented"
+      ],
+      "object_id": "object-000167",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "f6a7838d-380f-4752-a647-c55c2a0eb6e2:0:0:be80111f0510f083d359cea80c1ffa8e28e5ac81802387119444356b4d592efc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Donatello, Mutant Mechanic",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000167",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Whenever an artifact you control is put into a graveyard from the battlefield, if it had counters on it, put those counters on up to one target artifact or creature you control.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "f6a7838d-380f-4752-a647-c55c2a0eb6e2:0:1:54635319c67e54c282ea0e90462263f6a515790bf762dae6c558549c4bf56cd0"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000174",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Flying",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000178"
+        },
+        {
+          "evidence_id": "event-000020",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000178"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000188",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "donatello-krang:reversed:7202",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000193",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "donatello-krang",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000007",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+          "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003",
+          "source_id": "object-000149"
+        }
+      ],
+      "card": "Courier of Comestibles",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature enters, you may search your library for a Food card, reveal it, put it into your hand, then shuffle. If you don't put a card into your hand this way, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "049d8b06-db90-4b9c-8195-d987b3ef1005:0:0:c038838a15cd2f48c196ee63c451e981f95ccfbabed4dff825563eac88c3e003"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Game Master",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000157",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "594c6b1f-ff0e-4122-8b29-852632a22a79:0:0:7435d8ff4788ba9a4e739b0f922860ec68efb134ecd4f6ca5531fd87f28a1bdc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Improviser",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000163",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "1939679b-ea2e-4a75-b3ce-d7af68437484:0:1:a2616f0812bf528a7bea2adb57bedb53e3cd27b70095fff094ad8a63d0e78370"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Improviser",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000168",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "1939679b-ea2e-4a75-b3ce-d7af68437484:0:1:a2616f0812bf528a7bea2adb57bedb53e3cd27b70095fff094ad8a63d0e78370"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000010",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000009",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Zoo Escapees",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Game Master",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000147",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "594c6b1f-ff0e-4122-8b29-852632a22a79:0:0:7435d8ff4788ba9a4e739b0f922860ec68efb134ecd4f6ca5531fd87f28a1bdc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Improviser",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000168",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "1939679b-ea2e-4a75-b3ce-d7af68437484:0:1:a2616f0812bf528a7bea2adb57bedb53e3cd27b70095fff094ad8a63d0e78370"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "If one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:1:e71c8d987cb2378aed5e55b0fed33ad7aaeb3e45d58f598ff7120bdccc8b9c40"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Zoo Escapees",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000151",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Game Master",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000157",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "594c6b1f-ff0e-4122-8b29-852632a22a79:0:0:7435d8ff4788ba9a4e739b0f922860ec68efb134ecd4f6ca5531fd87f28a1bdc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Cycling",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:3:5343ac1023785c197e9572ec0010e2cb961b4263590ac974939daf9b34ce7d65"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "Landcycling",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:4:6e951254802242ad79a93d6e2c677ef0622dadc720523872fc353176825f9857"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "keyword_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Typecycling",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:7:941554e71f37686dadce4bde5314f1d399f9b6d0bc994c049465fba952dd2200"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Rhinos you control have menace.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:1:acec3851d5d108845e6d6bcc19ddad24692a8ccc1ef7868248faa1445d53af3d"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Bebop, Warthog Warrior",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "limitations": [
+        "activation_nested_context_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Swampcycling {2} ({2}, Discard this card: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.)",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:2:4fa0bcb693933fb2f08d8c8b713ebf71fe4d2b9a46e7fe1070d8c4b37f91966a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000005",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000004",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd",
+          "source_id": "object-000143"
+        }
+      ],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When Michelangelo enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:0:526279fb5176f48dfbc1c89f67af70f28f3ac31d96bae11f8936cc221db5b4fd"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Weirdness to 11",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "If one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:1:e71c8d987cb2378aed5e55b0fed33ad7aaeb3e45d58f598ff7120bdccc8b9c40"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Michelangelo, Game Master",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000151",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo.",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "594c6b1f-ff0e-4122-8b29-852632a22a79:0:0:7435d8ff4788ba9a4e739b0f922860ec68efb134ecd4f6ca5531fd87f28a1bdc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Zoo Escapees",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000159",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Zoo Escapees",
+      "classification": "present_unreached",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000164",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000146",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000152",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000152",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Other Ninjas you control get +1/+1.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:2:d3df35095661ea96cca27b92fe7615facdeb38b8d2073df8dc75ca921aefeb34"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Tunnel Rats",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000156",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Foot Mystic",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "object_id": "object-000167",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Disappear — When this creature enters, if a permanent left the battlefield under your control this turn, create a 1/1 black Ninja creature token.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "2043fbde-48c4-4a77-8911-8991d77de1eb:0:1:f1665c8aa0b2fe2a9b2b748fd13cded20938f62db59290ae07a00f8800d810b9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Super Shredder",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000170",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Menace",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "b7ee76bf-d15a-489e-8f05-414788f8f649:0:0:ec6cf5ad71d5e4275d8c1382f472389e719500dc8cf695d499326db100051b07"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Other Ninjas you control get +1/+1.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:2:d3df35095661ea96cca27b92fe7615facdeb38b8d2073df8dc75ca921aefeb34"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Oroku Saki, Shredder Rising",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000181",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "Whenever Oroku Saki deals combat damage to a player, you draw a card and lose 1 life.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "d14f620c-0fbd-485c-9fe4-34949e742147:0:1:4e78180f71184ab03c1f2da0a984b1e80540bbe96500359913083a8ab5e07ec0"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000013",
+      "oracle_fragment": "Other Ninjas you control get +1/+1.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:2:d3df35095661ea96cca27b92fe7615facdeb38b8d2073df8dc75ca921aefeb34"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000144",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Other Ninjas you control get +1/+1.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:2:d3df35095661ea96cca27b92fe7615facdeb38b8d2073df8dc75ca921aefeb34"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Insectoid Exterminator",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000165",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "3d081701-514b-4611-b5a1-239b8f335fb6:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Insectoid Exterminator",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "scry_condition_context_not_implemented"
+      ],
+      "object_id": "object-000165",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "3d081701-514b-4611-b5a1-239b8f335fb6:0:1:b5e29f41ad0200c61bfb591e38118c4891895a1c6f065a1639d47ff79c3e3369"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000168",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Foot Mystic",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:canonical:7222",
+      "limitations": [
+        "token_condition_context_not_implemented"
+      ],
+      "object_id": "object-000172",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Disappear — When this creature enters, if a permanent left the battlefield under your control this turn, create a 1/1 black Ninja creature token.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "2043fbde-48c4-4a77-8911-8991d77de1eb:0:1:f1665c8aa0b2fe2a9b2b748fd13cded20938f62db59290ae07a00f8800d810b9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000146",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Super Shredder",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000152",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Menace",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "b7ee76bf-d15a-489e-8f05-414788f8f649:0:0:ec6cf5ad71d5e4275d8c1382f472389e719500dc8cf695d499326db100051b07"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Oroku Saki, Shredder Rising",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000157",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Whenever Oroku Saki deals combat damage to a player, you draw a card and lose 1 life.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "d14f620c-0fbd-485c-9fe4-34949e742147:0:1:4e78180f71184ab03c1f2da0a984b1e80540bbe96500359913083a8ab5e07ec0"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Tunnel Rats",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000161",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000165",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Shark Shredder, Killer Clone",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000174",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Whenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "dabd0867-ee3f-40cb-8314-b4a3966f8b24:0:2:0f8970f6b83838fe76ea52ad9908de474584f5ac99a346a5ae2efc977b04e21a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000177",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Splinter, Hamato Yoshi",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000177",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Other Ninjas you control get +1/+1.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:2:d3df35095661ea96cca27b92fe7615facdeb38b8d2073df8dc75ca921aefeb34"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Super Shredder",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000181",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "Menace",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "b7ee76bf-d15a-489e-8f05-414788f8f649:0:0:ec6cf5ad71d5e4275d8c1382f472389e719500dc8cf695d499326db100051b07"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Super Shredder",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7221",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000189",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "Menace",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "b7ee76bf-d15a-489e-8f05-414788f8f649:0:0:ec6cf5ad71d5e4275d8c1382f472389e719500dc8cf695d499326db100051b07"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000137",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Squirrelanoids",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000144",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "315ddc7a-c39c-43d9-b134-23acbd865e3e:0:0:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Super Shredder",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000153",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Menace",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "b7ee76bf-d15a-489e-8f05-414788f8f649:0:0:ec6cf5ad71d5e4275d8c1382f472389e719500dc8cf695d499326db100051b07"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Tunnel Rats",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000156",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000160",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Tunnel Rats",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000170",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Shark Shredder, Killer Clone",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "Whenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "dabd0867-ee3f-40cb-8314-b4a3966f8b24:0:2:0f8970f6b83838fe76ea52ad9908de474584f5ac99a346a5ae2efc977b04e21a"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Dream Beavers",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000178",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "a1cec8e8-cf3c-42a4-b625-ca0cd148664e:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Shredder, Unrelenting",
+      "classification": "present_unreached",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "Deathtouch",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:1:344d4bec5f4050f7acd8e796cc64a31760610909ba3070b1b70f36a77aeb7afc"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        },
+        {
+          "evidence_id": "event-000038",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+          "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad",
+          "source_id": "object-000184"
+        }
+      ],
+      "card": "Shredder, Unrelenting",
+      "classification": "executed",
+      "game_id": "splinter-shredder:reversed:7222",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Whenever Shredder enters or attacks, another target creature you control gains deathtouch until end of turn.",
+      "pairing_id": "splinter-shredder",
+      "semantic_key": "59d96fc0-6580-43c2-8c6a-dcf983644561:0:2:a3dba7b962f1000f873f91c782ddd88cc2ffd1f4791a70743be63d6dcb7e38ad"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ravenous Robots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000145",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+      "pairing_id": "april-casey",
+      "semantic_key": "45873747-f2a4-4d83-9492-bfc97df7b605:0:0:f17bfda0c63a648132dbb39b724195c592c624657f994730c9f67c413d9bf567"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000013",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+          "source_id": "object-000155"
+        }
+      ],
+      "card": "Casey Jones, Vigilante",
+      "classification": "executed",
+      "delayed_records": [
+        {
+          "consumed": true,
+          "controller": 1,
+          "created_cursor": 221,
+          "event_id": "event-000009",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "schedule_id": "object-000156",
+          "source_id": "object-000155",
+          "stack_object_id": "object-000156",
+          "state": "resolved",
+          "terminal_without_resolution": false,
+          "trigger_id": "trigger-000002"
+        }
+      ],
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [],
+      "object_id": "object-000155",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April O'Neil, Hacktivist",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000163",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d379a919-02cd-46fd-a6ce-b66a77745ae7:0:0:5f39f95175d9b71ed8d44bc08cc57773c3504d3c7b733892b39e47e8bd1838ea"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Purple Dragon Punks",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000170",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d1edb950-a118-4b4d-a0ef-9a6683d74c9f:0:0:f7366631fcc730231daac33d0520dac13aa930144ca8ca33c4a3d4d56f41fa8e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000173",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000184",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+          "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b",
+          "source_id": "object-000188"
+        }
+      ],
+      "card": "Rock Soldiers",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000188",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+      "pairing_id": "april-casey",
+      "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Casey Jones, Vigilante",
+      "classification": "reached_unsupported",
+      "delayed_records": [
+        {
+          "consumed": false,
+          "controller": 1,
+          "created_cursor": 587,
+          "event_id": "event-000026",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "schedule_id": "object-000198",
+          "source_id": "object-000196",
+          "stack_object_id": "object-000198",
+          "state": "pending",
+          "terminal_without_resolution": true,
+          "trigger_id": "trigger-000007"
+        }
+      ],
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ravenous Robots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000145",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+      "pairing_id": "april-casey",
+      "semantic_key": "45873747-f2a4-4d83-9492-bfc97df7b605:0:0:f17bfda0c63a648132dbb39b724195c592c624657f994730c9f67c413d9bf567"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000008",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000149"
+        },
+        {
+          "evidence_id": "event-000007",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000149"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000149",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ravenous Robots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000159",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+      "pairing_id": "april-casey",
+      "semantic_key": "45873747-f2a4-4d83-9492-bfc97df7b605:0:0:f17bfda0c63a648132dbb39b724195c592c624657f994730c9f67c413d9bf567"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Fugitive Droid",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000162",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "This creature can't be blocked if an artifact entered the battlefield under your control this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "c04d4fd4-e5aa-431d-824b-8bc94245f103:0:0:34deda6c0b7cc153282effbfbf64943e4bb8b06ee8d022b58fdfdf8276a29d85"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Purple Dragon Punks",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000166",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d1edb950-a118-4b4d-a0ef-9a6683d74c9f:0:0:f7366631fcc730231daac33d0520dac13aa930144ca8ca33c4a3d4d56f41fa8e"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000018",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000169"
+        },
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000169"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000169",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April, Reporter of the Weird",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000176",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.",
+      "pairing_id": "april-casey",
+      "semantic_key": "1c371003-e4f0-4d7c-b021-273176772f97:0:0:7e8139497895ccbbab3f14911b571b4a1d9aee4390883ae4a65756187733d67a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000025",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000183"
+        },
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000183"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000183",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April, Reporter of the Weird",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000191",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.",
+      "pairing_id": "april-casey",
+      "semantic_key": "1c371003-e4f0-4d7c-b021-273176772f97:0:0:7e8139497895ccbbab3f14911b571b4a1d9aee4390883ae4a65756187733d67a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000034",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+          "source_id": "object-000196"
+        }
+      ],
+      "card": "Casey Jones, Vigilante",
+      "classification": "executed",
+      "delayed_records": [
+        {
+          "consumed": true,
+          "controller": 1,
+          "created_cursor": 636,
+          "event_id": "event-000030",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "schedule_id": "object-000197",
+          "source_id": "object-000196",
+          "stack_object_id": "object-000197",
+          "state": "resolved",
+          "terminal_without_resolution": false,
+          "trigger_id": "trigger-000005"
+        }
+      ],
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000011",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April O'Neil, Hacktivist",
+      "classification": "present_unreached",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000203",
+      "occurrence_id": "semantic-000012",
+      "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d379a919-02cd-46fd-a6ce-b66a77745ae7:0:0:5f39f95175d9b71ed8d44bc08cc57773c3504d3c7b733892b39e47e8bd1838ea"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000213",
+      "occurrence_id": "semantic-000013",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "pairing_id": "april-casey",
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000044",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000232"
+        },
+        {
+          "evidence_id": "event-000043",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000232"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:canonical:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000232",
+      "occurrence_id": "semantic-000014",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ravenous Robots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+      "pairing_id": "april-casey",
+      "semantic_key": "45873747-f2a4-4d83-9492-bfc97df7b605:0:0:f17bfda0c63a648132dbb39b724195c592c624657f994730c9f67c413d9bf567"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000145",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000159",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April, Reporter of the Weird",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000174",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.",
+      "pairing_id": "april-casey",
+      "semantic_key": "1c371003-e4f0-4d7c-b021-273176772f97:0:0:7e8139497895ccbbab3f14911b571b4a1d9aee4390883ae4a65756187733d67a"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+          "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b",
+          "source_id": "object-000182"
+        }
+      ],
+      "card": "Rock Soldiers",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000182",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "When this creature enters, destroy up to one target noncreature artifact.",
+      "pairing_id": "april-casey",
+      "semantic_key": "0217da8e-e74f-4f5c-ab75-f17600f94405:0:0:edb6c7a32990c8d16dec8c331e2bc43c8b09663b4fed3f9c76f734eb164eab6b"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000189"
+        },
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000189"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000189",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "pairing_id": "april-casey",
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000202",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Flying",
+      "pairing_id": "april-casey",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:0:75a4c2fe3b9e4d3cd2bd3d7787c7c138adf405fad5c27011227787947baf9b14"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000029",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000202"
+        },
+        {
+          "evidence_id": "event-000028",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9",
+          "source_id": "object-000202"
+        }
+      ],
+      "card": "Ray Fillet, Man Ray",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000202",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When Ray Fillet enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "698098b8-b8e4-4e88-b13a-6b039579d192:0:1:0ae50de2782e9dc9088315f7c5cc3b5d562b338b324c96d4fde8afe8a6936ff9"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7231",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000210",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Purple Dragon Punks",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000141",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d1edb950-a118-4b4d-a0ef-9a6683d74c9f:0:0:f7366631fcc730231daac33d0520dac13aa930144ca8ca33c4a3d4d56f41fa8e"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Buzz Bots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000145",
+      "occurrence_id": "semantic-000002",
+      "oracle_fragment": "Flying, vigilance",
+      "pairing_id": "april-casey",
+      "semantic_key": "434e720f-2bfa-49b6-a5ac-fe0c0b24764d:0:0:771dc95bfdda131d16a82140c13461c4c334ac5742ce78e278c4943d23b5db37"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000012",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000158"
+        },
+        {
+          "evidence_id": "event-000011",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000158"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000158",
+      "occurrence_id": "semantic-000003",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000163",
+      "occurrence_id": "semantic-000004",
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "pairing_id": "april-casey",
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000017",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000166"
+        },
+        {
+          "evidence_id": "event-000016",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000166"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000166",
+      "occurrence_id": "semantic-000005",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Purple Dragon Punks",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "activation_child_semantics_not_implemented"
+      ],
+      "object_id": "object-000171",
+      "occurrence_id": "semantic-000006",
+      "oracle_fragment": "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d1edb950-a118-4b4d-a0ef-9a6683d74c9f:0:0:f7366631fcc730231daac33d0520dac13aa930144ca8ca33c4a3d4d56f41fa8e"
+    },
+    {
+      "authenticated_executed_references": [
+        {
+          "evidence_id": "event-000022",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000174"
+        },
+        {
+          "evidence_id": "event-000021",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729",
+          "source_id": "object-000174"
+        }
+      ],
+      "card": "Crustacean Commando",
+      "classification": "executed",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000174",
+      "occurrence_id": "semantic-000007",
+      "oracle_fragment": "When this creature enters, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "pairing_id": "april-casey",
+      "semantic_key": "b24a87af-407f-4c58-80b4-caab9c65a233:0:0:6efec702aeb7968404b505f0fd41dfe2a4523e35fbf36f5ef26bbfeb532ee729"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "Ravenous Robots",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "token_trigger_context_not_implemented"
+      ],
+      "object_id": "object-000179",
+      "occurrence_id": "semantic-000008",
+      "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+      "pairing_id": "april-casey",
+      "semantic_key": "45873747-f2a4-4d83-9492-bfc97df7b605:0:0:f17bfda0c63a648132dbb39b724195c592c624657f994730c9f67c413d9bf567"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April O'Neil, Hacktivist",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000191",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d379a919-02cd-46fd-a6ce-b66a77745ae7:0:0:5f39f95175d9b71ed8d44bc08cc57773c3504d3c7b733892b39e47e8bd1838ea"
+    },
+    {
+      "authenticated_executed_references": [],
+      "card": "April O'Neil, Hacktivist",
+      "classification": "present_unreached",
+      "game_id": "april-casey:reversed:7232",
+      "limitations": [
+        "oracle_ability_not_implemented"
+      ],
+      "object_id": "object-000199",
+      "occurrence_id": "semantic-000010",
+      "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+      "pairing_id": "april-casey",
+      "semantic_key": "d379a919-02cd-46fd-a6ce-b66a77745ae7:0:0:5f39f95175d9b71ed8d44bc08cc57773c3504d3c7b733892b39e47e8bd1838ea"
+    }
+  ],
+  "issue": 97,
+  "lost_previously_executed_occurrences": [],
+  "occurrence_counts": {
+    "executed": 27,
+    "present_unreached": 134,
+    "reached_unsupported": 4
+  },
+  "prior_committed_sidecar_verified": true,
+  "reconstructed_reports": 16,
+  "runner_stops": 0,
+  "unsupported_ranking": [
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "game_count": 3,
+      "matchup_count": 1,
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000213",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7231",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526",
+      "terminal_pending_count": 0
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "game_count": 1,
+      "matchup_count": 1,
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "delayed_records": [
+            {
+              "consumed": false,
+              "controller": 1,
+              "created_cursor": 587,
+              "event_id": "event-000026",
+              "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+              "schedule_id": "object-000198",
+              "source_id": "object-000196",
+              "stack_object_id": "object-000198",
+              "state": "pending",
+              "terminal_without_resolution": true,
+              "trigger_id": "trigger-000007"
+            }
+          ],
+          "game_id": "april-casey:canonical:7231",
+          "limitations": [],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "pairing_id": "april-casey",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79",
+      "terminal_pending_count": 1
+    }
+  ]
+}

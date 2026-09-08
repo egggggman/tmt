@@ -22,6 +22,7 @@ from tmnt_design_studio.stage002 import (
     DeckSpec,
     GameSpec,
     _add_created_token_presence,
+    _begin_turn_with_priority,
     _checked_action,
     _deck_rows,
     _drain_priority,
@@ -70,6 +71,7 @@ FROZEN_PATHS = (
     "src/tmnt_design_studio/stage002.py",
     "src/tmnt_design_studio/conformance07.py",
     "src/tmnt_design_studio/food_search07.py",
+    "src/tmnt_design_studio/vigilante07.py",
 )
 FROZEN_IDENTITIES = (
     "bad8104fcef826ef5cfd7fec1bdfe921cdd4c306",
@@ -85,12 +87,13 @@ FROZEN_IDENTITIES = (
     "306fd267482b72f188c69222d57fcc547d654091",
     "ecdffa18463076503f5d338687041f42a3a599d9",
     "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
-    "ee52a995872e5f75a8c4832dd0bf56b8e9d865fa",
-    "463450a1b2e4f11cfee56810d7ee1426170b4a13",
+    "b6b8417d0e007e0e0236747e8b31c522dc1665f5",
+    "c6506998631c8f7beb7d70816f9c46485e360827",
     "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
-    "2882a20bc8d9320c9c9096db3f3151a84804f17c",
+    "f31a9b3989ea169c50fa4e8107bd2d89c091e875",
     "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
     "3e4c91aca241b7adb2a290f34c376d5cdadbcece",
+    "62cabf10f57ded4d08800a44ecea725a4449ec17",
 )
 GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"
 RAW_BINARY_HASH_SCHEME = "raw-bytes-sha256-v1"
@@ -263,7 +266,7 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
     try:
         while game.winner is None and game.turn < 120:
-            _checked_action(game, game.begin_turn, "begin turn")
+            _begin_turn_with_priority(game, chosen_pilot)
             if game.winner is not None:
                 break
             active = game.active_player

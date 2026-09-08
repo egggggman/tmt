@@ -42,6 +42,7 @@ from tmnt_design_studio.conformance07 import (
     semantic_key,
 )
 from tmnt_design_studio.food_search07 import FoodSearchMixin
+from tmnt_design_studio.vigilante07 import VigilanteMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
 
@@ -282,6 +283,7 @@ class RulesEventKind(Enum):
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
     DISCARD_DRAW = "discard_draw"
+    VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
 
 
@@ -296,6 +298,8 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    ETB_VIGILANTE = "etb_vigilante"
+    VIGILANTE_DISCARD = "vigilante_discard"
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     LTB_MUTAGEN = "ltb_mutagen"
@@ -1186,7 +1190,7 @@ class DeterministicRNG:
         return result
 
 
-class Game(FoodSearchMixin):
+class Game(FoodSearchMixin, VigilanteMixin):
     """Two-player deterministic game state and the supported legal transitions."""
 
     def __init__(
@@ -1270,6 +1274,7 @@ class Game(FoodSearchMixin):
         self._ltb_mutagen_enqueued: set[tuple[str, str, str]] = set()
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
+        self._init_vigilante()
         self._food_search_history = []
         self._food_search_anchors = {}
         self._food_search_sources = {}
@@ -3617,6 +3622,11 @@ class Game(FoodSearchMixin):
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.ETB_VIGILANTE:
+            self._enqueue_vigilante(event, source, fragment)
+            return
+        if effect is TriggerEffect.VIGILANTE_DISCARD:
+            raise ValueError("Vigilante delayed delivery requires a scheduling record")
         if effect is TriggerEffect.ETB_TAP_STUN and not self.is_authoritative(
             source, "battlefield"
         ):
@@ -3756,6 +3766,7 @@ class Game(FoodSearchMixin):
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
+                self._anchor_vigilante(ability, trigger)
                 self._register(ability)
                 self.stack.append(ability)
                 self.log(
@@ -3978,6 +3989,11 @@ class Game(FoodSearchMixin):
             or ability.object_id in self._ltb_mutagen_anchors
         ):
             self._validate_ltb_mutagen_trigger(ability)
+        if (
+            ability.effect in {TriggerEffect.ETB_VIGILANTE, TriggerEffect.VIGILANTE_DISCARD}
+            or ability.object_id in self._vigilante_stack
+        ):
+            self._validate_vigilante_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -4325,6 +4341,8 @@ class Game(FoodSearchMixin):
                 library_before=list(library_before),
                 library_after=list(library_after),
             )
+        elif ability.effect in {TriggerEffect.ETB_VIGILANTE, TriggerEffect.VIGILANTE_DISCARD}:
+            self._resolve_vigilante(ability)
         elif ability.effect is TriggerEffect.ETB_FOOD_SEARCH:
             self._resolve_etb_food_search(ability)
         elif ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
@@ -4587,6 +4605,8 @@ class Game(FoodSearchMixin):
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.ETB_VIGILANTE,
+                TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
@@ -5475,6 +5495,7 @@ class Game(FoodSearchMixin):
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_VIGILANTE,
             TriggerEffect.ETB_FOOD_SEARCH,
             TriggerEffect.ETB_DRAW_DISCARD,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
@@ -5486,6 +5507,15 @@ class Game(FoodSearchMixin):
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_VIGILANTE in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.vigilante_semantic_coverage(permanent.card, fragment)
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_VIGILANTE
+                        )
             if TriggerEffect.ETB_FOOD_SEARCH in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     if (
@@ -5873,6 +5903,8 @@ class Game(FoodSearchMixin):
                 if permanent.entered_battlefield_turn < self.turn:
                     permanent.summoning_sick = False
             self.log("turn_started", player=player.name)
+        elif step is TurnStep.UPKEEP:
+            self._vigilante_upkeep()
         elif step is TurnStep.DRAW:
             if self.turn == 1 and self.active_player == 0:
                 self.log("draw_skipped", player=player.name, reason="starting_player_first_turn")
@@ -8177,6 +8209,8 @@ class Game(FoodSearchMixin):
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.ETB_VIGILANTE,
+                TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
@@ -9254,6 +9288,7 @@ class Game(FoodSearchMixin):
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
         self._validate_stun_history()
+        self._check_vigilante_live()
         self.validate_food_search_snapshot_evidence(
             {"events": self.events, "food_search_evidence": self.food_search_snapshot_evidence()}
         )
@@ -9323,6 +9358,8 @@ class Game(FoodSearchMixin):
                             keyword,
                         )
         for event in self.events:
+            if event.get("effect") == "etb_vigilante":
+                continue
             if event.get("event") in {
                 "damage_dealt",
                 "scry_committed",
@@ -9493,6 +9530,7 @@ class Game(FoodSearchMixin):
                 ],
                 "executed_references": self._executed_conformance_references(),
             },
+            "vigilante_evidence": self.vigilante_snapshot_evidence(),
             "food_search_evidence": self.food_search_snapshot_evidence(),
             "rng": {
                 "seed": self.rng.seed,

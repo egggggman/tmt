@@ -1966,6 +1966,16 @@ class CardInterpreter:
             )
         return None
 
+    VIGILANTE_FRAGMENT = (
+        "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, "
+        "discard three cards at random."
+    )
+
+    def vigilante_semantic_coverage(self, card, fragment):
+        if fragment != self.VIGILANTE_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
     ETB_FOOD_SEARCH_FRAGMENT = (
         "When this creature enters, you may search your library for a Food card, reveal it, "
         "put it into your hand, then shuffle. If you don't put a card into your hand this way, "
@@ -2144,6 +2154,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.vigilante_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_food_search_semantic_coverage(card, fragment) is not None:
                 continue
