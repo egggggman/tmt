@@ -1,0 +1,16 @@
+{
+  "action29_authorized": false,
+  "base_commit": "40135ed92f1f6049e3f14d90c7d64e9077566a40",
+  "branch_evidence_reconstructed": true,
+  "canonical_terminology_scan": "passed",
+  "focused_courier_passed": 53,
+  "full_pytest_passed": 1043,
+  "full_pytest_skipped": 1,
+  "git_diff_check": "passed",
+  "pytest_warning": "Optional pytest cache write denied; tests passed.",
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "smoke_evidence_reconstructed": true,
+  "stage_evidence_reconstructed": true,
+  "stage_identical_to_preserved_result": true
+}
