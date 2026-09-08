@@ -1966,6 +1966,19 @@ class CardInterpreter:
             )
         return None
 
+    ETB_FOOD_SEARCH_FRAGMENT = (
+        "When this creature enters, you may search your library for a Food card, reveal it, "
+        "put it into your hand, then shuffle. If you don't put a card into your hand this way, "
+        "create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: "
+        'You gain 3 life.")'
+    )
+
+    def etb_food_search_semantic_coverage(self, card, fragment):
+        """Only the frozen self-ETB Food search/fallback instruction."""
+        if fragment != self.ETB_FOOD_SEARCH_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
     LTB_MUTAGEN_FRAGMENT = (
         "When this creature leaves the battlefield, create a Mutagen token. "
         "(It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter "
@@ -2131,6 +2144,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.etb_food_search_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue

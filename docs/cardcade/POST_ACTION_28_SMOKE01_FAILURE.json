@@ -1,0 +1,23 @@
+{
+  "accepted_aggregate": false,
+  "active_execution": {
+    "completed_distinct_game_count": 0,
+    "duplicate_member": "preflight",
+    "execution_ordinal": 0,
+    "game_id": null,
+    "orientation": null,
+    "pairing_id": null,
+    "seed": null,
+    "stage": "manifest_preflight"
+  },
+  "available_duplicate_digests": {},
+  "completed_game_digests": [],
+  "failure": {
+    "kind": "ValueError",
+    "message": "frozen Smoke 0.1 input mismatch: {'src/tmnt_design_studio/engine07.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '3bcfef53816c46b757446446ad374ce9e11bde66'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': 'ee52a995872e5f75a8c4832dd0bf56b8e9d865fa'}}, 'src/tmnt_design_studio/card_interpreter07.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '4ddfa533cd237516543fd77215b7fe98a7b9c8bb'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '463450a1b2e4f11cfee56810d7ee1426170b4a13'}}, 'src/tmnt_design_studio/stage002.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '00a27346dcf10cb05c130d8b613164b2e7eec084'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '2882a20bc8d9320c9c9096db3f3151a84804f17c'}}}",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 411, in execute_smoke\n    manifest = build_smoke_manifest(root)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 196, in build_smoke_manifest\n    raise ValueError(f\"frozen Smoke 0.1 input mismatch: {mismatches}\")\nValueError: frozen Smoke 0.1 input mismatch: {'src/tmnt_design_studio/engine07.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '3bcfef53816c46b757446446ad374ce9e11bde66'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': 'ee52a995872e5f75a8c4832dd0bf56b8e9d865fa'}}, 'src/tmnt_design_studio/card_interpreter07.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '4ddfa533cd237516543fd77215b7fe98a7b9c8bb'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '463450a1b2e4f11cfee56810d7ee1426170b4a13'}}, 'src/tmnt_design_studio/stage002.py': {'expected': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '00a27346dcf10cb05c130d8b613164b2e7eec084'}, 'actual': {'scheme': 'git-clean-blob-oid-sha1-v1', 'digest': '2882a20bc8d9320c9c9096db3f3151a84804f17c'}}}\n"
+  },
+  "last_authoritative_state": null,
+  "manifest_digest": null,
+  "stage": "coverage-aware-engine-smoke-0.1"
+}

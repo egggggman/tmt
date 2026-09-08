@@ -69,6 +69,7 @@ FROZEN_PATHS = (
     "src/tmnt_design_studio/pilot07.py",
     "src/tmnt_design_studio/stage002.py",
     "src/tmnt_design_studio/conformance07.py",
+    "src/tmnt_design_studio/food_search07.py",
 )
 FROZEN_IDENTITIES = (
     "bad8104fcef826ef5cfd7fec1bdfe921cdd4c306",
@@ -84,11 +85,12 @@ FROZEN_IDENTITIES = (
     "306fd267482b72f188c69222d57fcc547d654091",
     "ecdffa18463076503f5d338687041f42a3a599d9",
     "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
-    "3bcfef53816c46b757446446ad374ce9e11bde66",
-    "4ddfa533cd237516543fd77215b7fe98a7b9c8bb",
+    "ee52a995872e5f75a8c4832dd0bf56b8e9d865fa",
+    "463450a1b2e4f11cfee56810d7ee1426170b4a13",
     "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
-    "00a27346dcf10cb05c130d8b613164b2e7eec084",
+    "2882a20bc8d9320c9c9096db3f3151a84804f17c",
     "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
+    "3e4c91aca241b7adb2a290f34c376d5cdadbcece",
 )
 GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"
 RAW_BINARY_HASH_SCHEME = "raw-bytes-sha256-v1"

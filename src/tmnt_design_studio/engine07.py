@@ -41,6 +41,7 @@ from tmnt_design_studio.conformance07 import (
     opportunity_context_key,
     semantic_key,
 )
+from tmnt_design_studio.food_search07 import FoodSearchMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
 
@@ -295,6 +296,7 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
@@ -1184,7 +1186,7 @@ class DeterministicRNG:
         return result
 
 
-class Game:
+class Game(FoodSearchMixin):
     """Two-player deterministic game state and the supported legal transitions."""
 
     def __init__(
@@ -1203,6 +1205,7 @@ class Game:
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
         draw_discard_chooser=None,
+        food_search_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1267,6 +1270,12 @@ class Game:
         self._ltb_mutagen_enqueued: set[tuple[str, str, str]] = set()
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
+        self._food_search_history = []
+        self._food_search_anchors = {}
+        self._food_search_sources = {}
+        self._food_search_consumed = set()
+        self._food_search_choice_active = False
+        self.food_search_chooser = food_search_chooser or (lambda _view, options: options[0])
         self._draw_discard_anchors = {}
         self._draw_discard_sources = {}
         self._draw_discard_consumed: set[str] = set()
@@ -1342,6 +1351,8 @@ class Game:
         self,
         obj: CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
     ) -> CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent:
+        if getattr(self, "_food_search_choice_active", False):
+            raise ValueError("Food search chooser cannot register authoritative objects")
         if obj.object_id in self._objects:
             raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
         self._objects[obj.object_id] = obj
@@ -1548,6 +1559,8 @@ class Game:
         _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
     ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
+        if self._food_search_choice_active:
+            raise ValueError("Food search chooser cannot move authoritative objects")
         if self._mandatory_discard_choice_active:
             raise ValueError("discard/Draw chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
@@ -3625,6 +3638,28 @@ class Game:
                 event=event,
                 require_current_condition=False,
             )
+        if effect is TriggerEffect.ETB_FOOD_SEARCH:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.CREATURE_ENTERED
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.card)
+                or self.interpreter.etb_food_search_semantic_coverage(source.card, fragment) is None
+            ):
+                raise ValueError("ETB Food search entry provenance is invalid")
+            key = (source.object_id, fragment)
+            if key in self._food_search_sources:
+                original_source, original_card = self._food_search_sources[key]
+                if original_source is not source or original_card is not source.card:
+                    raise ValueError("ETB Food search source was relinked")
+                return
+            occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
+            self._witness_from_existing_events(occurrence)
+            self._food_search_sources[key] = (source, source.card)
         if effect is TriggerEffect.ETB_DRAW_DISCARD:
             self._authenticate_original_rules_event(event)
             if (
@@ -3709,6 +3744,11 @@ class Game:
                     and not self._select_shredder_target(ability, trigger)
                 ):
                     continue
+                if ability.effect is TriggerEffect.ETB_FOOD_SEARCH:
+                    source, card = self._food_search_sources[
+                        (trigger.source_id, trigger.oracle_fragment)
+                    ]
+                    self._food_search_anchors[ability.object_id] = (ability, trigger, source, card)
                 if ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
                     source, card = self._draw_discard_sources[
                         (trigger.source_id, trigger.oracle_fragment)
@@ -3923,6 +3963,11 @@ class Game:
             )
         if ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
             self._validate_alliance_temporary_keyword_choice_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.ETB_FOOD_SEARCH
+            or ability.object_id in self._food_search_anchors
+        ):
+            self._validate_etb_food_search_trigger(ability)
         if (
             ability.effect is TriggerEffect.ETB_DRAW_DISCARD
             or ability.object_id in self._draw_discard_anchors
@@ -4280,6 +4325,8 @@ class Game:
                 library_before=list(library_before),
                 library_after=list(library_after),
             )
+        elif ability.effect is TriggerEffect.ETB_FOOD_SEARCH:
+            self._resolve_etb_food_search(ability)
         elif ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
             self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
@@ -4540,6 +4587,7 @@ class Game:
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
@@ -5427,6 +5475,7 @@ class Game:
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_FOOD_SEARCH,
             TriggerEffect.ETB_DRAW_DISCARD,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
@@ -5437,6 +5486,15 @@ class Game:
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_FOOD_SEARCH in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.etb_food_search_semantic_coverage(permanent.card, fragment)
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_FOOD_SEARCH
+                        )
             if TriggerEffect.ETB_DRAW_DISCARD in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     if (
@@ -8119,6 +8177,7 @@ class Game:
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
@@ -9195,6 +9254,9 @@ class Game:
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
         self._validate_stun_history()
+        self.validate_food_search_snapshot_evidence(
+            {"events": self.events, "food_search_evidence": self.food_search_snapshot_evidence()}
+        )
         self.validate_draw_discard_snapshot_evidence({"events": self.events})
         references: list[dict[str, object]] = []
 
@@ -9431,6 +9493,7 @@ class Game:
                 ],
                 "executed_references": self._executed_conformance_references(),
             },
+            "food_search_evidence": self.food_search_snapshot_evidence(),
             "rng": {
                 "seed": self.rng.seed,
                 "state_digest": self.rng.state_digest,
