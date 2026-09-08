@@ -1966,10 +1966,29 @@ class CardInterpreter:
             )
         return None
 
+    LTB_MUTAGEN_FRAGMENT = (
+        "When this creature leaves the battlefield, create a Mutagen token. "
+        "(It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter "
+        'on target creature. Activate only as a sorcery.")'
+    )
+
+    def ltb_mutagen_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTokenSemantics | None:
+        """Deliver only the exact self-leave payload; retain unsupported token activation."""
+        if fragment != self.LTB_MUTAGEN_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        program = self.token_creation_program(fragment)
+        assert program is not None
+        return self._token_semantics(program, True)
+
     def token_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
+        if ltb is not None:
+            return ltb
         program = self.token_creation_program(fragment)
         if program is None:
             return None

@@ -1,0 +1,78 @@
+{
+  "action28_authorized": false,
+  "base_commit": "a0636651ed0cbd7e35993b2738683a99caf16273",
+  "candidate_executions_total": 64,
+  "candidate_matrix_runs_total": 2,
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "4ddfa533cd237516543fd77215b7fe98a7b9c8bb",
+    "src/tmnt_design_studio/engine07.py": "3bcfef53816c46b757446446ad374ce9e11bde66",
+    "src/tmnt_design_studio/smoke01.py": "ee7efa444543ec89017064e757513e31af689b1e",
+    "src/tmnt_design_studio/stage002.py": "00a27346dcf10cb05c130d8b613164b2e7eec084",
+    "tests/test_zoo_escapees_ltb_mutagen_action.py": "3de1f116b4c27b0e01e4e8cd719cf0acac2c7da5"
+  },
+  "duplicates_byte_equivalent": true,
+  "focused_tests_passed": 146,
+  "fresh_result_identical_to_preserved_result": true,
+  "fresh_resumed_distinct_games": 16,
+  "fresh_resumed_executions": 32,
+  "full_tests_passed": 990,
+  "full_tests_skipped": 1,
+  "git_diff_check": "passed",
+  "invariant_violations": 0,
+  "issue": 91,
+  "mutagen_activation": {
+    "classification": "present_unreached",
+    "executed_references": [],
+    "limitations": [
+      "activation_nonmana_cost_not_implemented",
+      "activation_targets_choices_not_implemented",
+      "activation_child_semantics_not_implemented",
+      "activation_timing_restriction_not_implemented"
+    ],
+    "supported": false
+  },
+  "occurrence_counts": {
+    "executed": 24,
+    "present_unreached": 134,
+    "reached_unsupported": 6
+  },
+  "preserved_implementation_unchanged": true,
+  "reconstructed_reports": 16,
+  "result_artifact": "POST_ACTION_27_STAGE_002_RESULTS.json",
+  "result_sha256": "a199f67e2710d18d4208c51e5d1ea6b08e6f88196faacac5c57d4e42199bf2de",
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "runner_stops": 0,
+  "stage_smoke_tests": "included in passing full suite",
+  "terminology_scan": "passed",
+  "zoo_escapees_witness": [
+    {
+      "card": "Zoo Escapees",
+      "classification": "executed",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "limitations": [
+        "token_activated_ability_not_implemented"
+      ],
+      "object_id": "object-000143",
+      "occurrence_id": "semantic-000001",
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "references": [
+        {
+          "evidence_id": "event-000010",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "event-000009",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000143"
+        }
+      ],
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    }
+  ]
+}
