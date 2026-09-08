@@ -6,3 +6,6 @@ ACTION_27_* text eol=lf
 POST_ACTION_28_* text eol=lf
 ACTION_28_* text eol=lf
 POST_ACTION_28_*.gz binary
+POST_ACTION_29_* text eol=lf
+ACTION_29_* text eol=lf
+POST_ACTION_29_*.gz binary

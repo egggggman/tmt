@@ -1,0 +1,47 @@
+{
+  "action30_authorized": false,
+  "base_commit": "cd41d6c661cde66e3eb440002f5f87a711aaa425",
+  "calibration_authorized": false,
+  "canonical_terminology_scan": "passed",
+  "combined_focused_passed": 194,
+  "focused_vigilante_passed": 52,
+  "full_pytest_passed": 1095,
+  "full_pytest_skipped": 1,
+  "git_diff_check": "passed",
+  "lifecycle_fixtures_reconstructed": [
+    "pending",
+    "delivered",
+    "resolved_consumed",
+    "terminal_pending"
+  ],
+  "prototype03_authorized": false,
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "smoke": {
+    "completed": true,
+    "distinct_games": 180,
+    "executions": 360,
+    "gzip_lossless_verified": true,
+    "independent_validation": "passed",
+    "json_sha256": "a836a459062324ab16dc122e57eaa6228a363e5bfe85fa6b4afb3b942956f233"
+  },
+  "stage": {
+    "accepted_explicit_runs": 1,
+    "counts": {
+      "executed": 27,
+      "present_unreached": 134,
+      "reached_unsupported": 4
+    },
+    "distinct_games": 16,
+    "duplicates_byte_equivalent": true,
+    "executions": 32,
+    "explicit_development_attempts": 2,
+    "initial_failure": "Live tuple versus JSON list comparison at the evidence gate; fixed and regression-tested before final run.",
+    "invariant_violations": 0,
+    "lost_prior_executed_occurrences": 0,
+    "natural_vigilante_resolved": 2,
+    "natural_vigilante_terminal_pending": 1,
+    "reconstructed_reports": 16,
+    "runner_stops": 0
+  }
+}

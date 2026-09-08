@@ -423,6 +423,17 @@ def _drain_priority(game: Game, pilot: Pilot) -> None:
         )
 
 
+def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
+    """Expose the existing beginning steps and service upkeep Stack/Priority."""
+    from tmnt_design_studio.engine07 import TurnStep
+
+    if game.step not in {TurnStep.SETUP, TurnStep.CLEANUP}:
+        raise ValueError("begin turn requires setup or cleanup")
+    while game.winner is None and game.step is not TurnStep.PRECOMBAT_MAIN:
+        _checked_action(game, game.advance_step, "beginning step")
+        _drain_priority(game, pilot)
+
+
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
     while game.winner is None and game.step.value == "combat_damage":
@@ -571,7 +582,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
     while game.winner is None and game.turn < 120:
-        _checked_action(game, game.begin_turn, "begin turn")
+        _begin_turn_with_priority(game, chosen_pilot)
         if game.winner is not None:
             break
         active = game.active_player
@@ -635,6 +646,7 @@ def _authoritative_execution_index(
 ) -> dict[tuple[str, str], list[dict[str, str]]]:
     """Index only mature serialized evidence capable of authenticating EXECUTED."""
     Game.validate_stun_snapshot_evidence(snapshot)
+    Game.validate_vigilante_snapshot_evidence(snapshot)
     Game.validate_food_search_snapshot_evidence(snapshot)
     Game.validate_draw_discard_snapshot_evidence(snapshot)
     Game.validate_ltb_mutagen_snapshot_evidence(snapshot)
@@ -715,6 +727,8 @@ def _authoritative_execution_index(
                     keyword,
                 )
     for event in snapshot.get("events", []):
+        if event.get("effect") == "etb_vigilante":
+            continue
         event_kind = event.get("event")
         if event_kind not in {
             "damage_dealt",
@@ -1050,6 +1064,8 @@ def reconcile_snapshot(
         "authoritative_evidence": {
             key: snapshot.get(key)
             for key in (
+                "vigilante_evidence",
+                "winner",
                 "food_search_evidence",
                 "rng",
                 "stack",
@@ -1191,6 +1207,7 @@ def validate_stage_result_evidence(result: dict[str, object]) -> None:
         raise ValueError("Stage result lacks aggregate evidence")
     for game in aggregate.get("games", []):
         Game.validate_stun_snapshot_evidence(game.get("authoritative_evidence", {}))
+        Game.validate_vigilante_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_food_search_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_draw_discard_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_ltb_mutagen_snapshot_evidence(game.get("authoritative_evidence", {}))
