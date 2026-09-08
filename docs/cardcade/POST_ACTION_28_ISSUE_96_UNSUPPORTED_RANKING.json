@@ -1,0 +1,96 @@
+{
+  "action29_authorized": false,
+  "baseline_commit": "e63c6aad53464aae37f8a3b7326f2478c5ad1094",
+  "ranking": [
+    {
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "game_count": 3,
+      "matchup_count": 1,
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000211",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7231",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:reversed:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+          "pairing_id": "april-casey",
+          "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_key": "b4c4fdb9-e034-49c0-9f7f-07e8cae19eb2:0:1:07ec8ec16239068dc5d083fa3ddc78c542eee5ff4b90ca04eee1ec256a57c526"
+    },
+    {
+      "card": "Casey Jones, Vigilante",
+      "game_count": 2,
+      "matchup_count": 1,
+      "occurrence_count": 2,
+      "occurrences": [
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7231",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "pairing_id": "april-casey",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        },
+        {
+          "authenticated_executed_references": [],
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "april-casey:canonical:7232",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "pairing_id": "april-casey",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    }
+  ]
+}
