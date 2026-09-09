@@ -1,0 +1,17 @@
+{
+  "interpretation": "One terminal-pending Vigilante obligation. No remaining reached-unsupported Jury-Rig occurrence. Further engine-validation decisions are reserved for HQ.",
+  "remaining": [
+    {
+      "card": "Casey Jones, Vigilante",
+      "classification": "reached_unsupported",
+      "game_id": "april-casey:canonical:7231",
+      "limitations": [],
+      "object_id": "object-000196",
+      "occurrence_id": "semantic-000009",
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+      "pairing_id": "april-casey",
+      "references": [],
+      "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+    }
+  ]
+}
