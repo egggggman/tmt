@@ -1,0 +1,88 @@
+{
+  "authorized_base": "90b3c9535bed7a9d1878eef762d41b42616f8912",
+  "checks": {
+    "diff_check": "passed",
+    "ruff": "passed",
+    "ruff_format": "passed",
+    "sidecars": "verified before staging; staged bytes checked before commit",
+    "terminology_scan": "no matches"
+  },
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "244255f4b109bf0b7bbde8fe5f3d456f77858311",
+    "src/tmnt_design_studio/engine07.py": "d275bdd57f0b7a9f7a0ce6a99f3477953e028c23",
+    "src/tmnt_design_studio/mill_three07.py": "3e98653b00524eaeae7c0532f8aa05c3ea5f92f7",
+    "src/tmnt_design_studio/smoke01.py": "ca709182d3cf9b52c2ed040ee9373b67d87d017a",
+    "src/tmnt_design_studio/stage002.py": "6b78d83e148b360a91df7e04ef09ad971ebe6f8c",
+    "tests/test_mill_three_action.py": "02d69b87a17d0661826a4728c89be44a13e2a68f"
+  },
+  "continuity": {
+    "banked_smoke_references_reauthenticated": 2829,
+    "runtime_decreases": "Four occurrence decreases in three changed trajectories; full details in POST_ACTION_31_CONTINUITY.json.",
+    "stage_prior_execution_losses": 0
+  },
+  "development_failures_resolved": [
+    "Registration hook initially assumed spell Stack objects carry a token field; narrowed to card/permanent identity.",
+    "Failed-draw test initially confused normal subsequent SBA consumption with mill behavior; commit preserves original state.",
+    "Temporary unused-variable lint edit corrected before final validation."
+  ],
+  "exclusions": [
+    "dies/exile/reflexive sibling",
+    "generic mill grammar",
+    "new zones",
+    "chooser or RNG",
+    "turn/scheduler/Pilot/deck changes",
+    "calibration",
+    "Prototype 0.3",
+    "Action 32"
+  ],
+  "focused_and_regressions_passed": 273,
+  "focused_passed": 61,
+  "full_pytest": {
+    "passed": 1216,
+    "skipped": 1
+  },
+  "smoke": {
+    "accepted_distinct_games": 180,
+    "accepted_executions": 360,
+    "decompressed_sha256": "36a0feff1f9b8ec8f8b2c4f89ec2300e79db0a15b660c2783353b1b9f14e4a41",
+    "duplicates_equal": true,
+    "failed_attempt": {
+      "accepted_aggregate": false,
+      "artifact": "POST_ACTION_31_SMOKE01_FAILURE.json",
+      "completed_distinct_reports": 49,
+      "execution_ordinal": 100,
+      "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+      "reason": "Mill validator did not remove previously ceased tokens when reconstructing the graveyard prefix. Corrected only that evidence join.",
+      "validator_git_blob": "1e274d6caa81c87717d8ddf49bfabfa87c71771e"
+    },
+    "invocations": 2,
+    "labels": {
+      "complete": 108,
+      "invalid": 0,
+      "limited": 72
+    },
+    "mill_games": 17,
+    "mill_reached_unsupported": 0,
+    "mill_transactions": 21,
+    "reconstructed_reports": 180,
+    "restart_policy": "Restarted at game 1, unchanged matrix; no partial-run aggregation.",
+    "stops": 0,
+    "violations": 0
+  },
+  "stage": {
+    "counts": {
+      "executed": 30,
+      "present_unreached": 133,
+      "reached_unsupported": 1
+    },
+    "distinct_games": 16,
+    "duplicates_equal": true,
+    "executions": 32,
+    "invocations": 1,
+    "mill_transactions": 0,
+    "note": "Run preceded validator-only token-cessation reconstruction fix. All saved Stage reports independently reconstruct under final code; gameplay unchanged.",
+    "reconstructed_reports": 16,
+    "stops": 0,
+    "violations": 0
+  }
+}

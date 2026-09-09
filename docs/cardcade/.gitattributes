@@ -13,3 +13,7 @@ POST_ACTION_29_*.gz binary
 POST_ACTION_30_* text eol=lf
 ACTION_30_* text eol=lf
 POST_ACTION_30_*.gz binary
+
+POST_ACTION_31_* text eol=lf
+ACTION_31_* text eol=lf
+POST_ACTION_31_*.gz binary

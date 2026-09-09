@@ -43,6 +43,7 @@ from tmnt_design_studio.conformance07 import (
 )
 from tmnt_design_studio.food_search07 import FoodSearchMixin
 from tmnt_design_studio.jury_rig07 import JuryRigMixin
+from tmnt_design_studio.mill_three07 import MillThreeMixin
 from tmnt_design_studio.vigilante07 import VigilanteMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
@@ -299,6 +300,7 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    ETB_MILL_THREE = "etb_mill_three"
     ETB_JURY_RIG = "etb_jury_rig"
     ETB_VIGILANTE = "etb_vigilante"
     VIGILANTE_DISCARD = "vigilante_discard"
@@ -1192,7 +1194,7 @@ class DeterministicRNG:
         return result
 
 
-class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
+class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin):
     """Two-player deterministic game state and the supported legal transitions."""
 
     def __init__(
@@ -1242,7 +1244,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
         self.conformance_stop_records: list[ConformanceStopRecord] = []
         self._next_trigger_number = 1
         self._next_effect_number = 1
+        self._init_mill_three()
         self.players = [PlayerState(names[i], []) for i in range(2)]
+        self._mill_three_zones = tuple((p, p.library, p.graveyard) for p in self.players)
         for owner, cards in enumerate(shuffled):
             self.players[owner].library.extend(
                 self._create_card_object(card, owner, "library") for card in cards
@@ -1367,6 +1371,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
         if obj.object_id in self._objects:
             raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
         self._objects[obj.object_id] = obj
+        self._mill_three_register(obj)
         return obj
 
     def _create_card_object(self, card: CardFact, owner: int, zone: Zone) -> CardObject:
@@ -3630,6 +3635,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.ETB_MILL_THREE:
+            self._enqueue_mill_three(event, source, fragment)
+            return
         if effect is TriggerEffect.ETB_JURY_RIG:
             self._enqueue_jury_rig(event, source, fragment)
             return
@@ -3777,6 +3785,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
+                self._anchor_mill_three(ability, trigger)
                 self._anchor_jury_rig(ability, trigger)
                 self._anchor_vigilante(ability, trigger)
                 self._register(ability)
@@ -4011,6 +4020,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
             or ability.object_id in self._jury_rig_anchors
         ):
             self._validate_jury_rig_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.ETB_MILL_THREE
+            or ability.object_id in self._mill_three_anchors
+        ):
+            self._preflight_mill_three(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -4358,6 +4372,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                 library_before=list(library_before),
                 library_after=list(library_after),
             )
+        elif ability.effect is TriggerEffect.ETB_MILL_THREE:
+            self._resolve_mill_three(ability)
         elif ability.effect is TriggerEffect.ETB_JURY_RIG:
             self._resolve_jury_rig(ability)
         elif ability.effect in {TriggerEffect.ETB_VIGILANTE, TriggerEffect.VIGILANTE_DISCARD}:
@@ -4626,6 +4642,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
+                TriggerEffect.ETB_MILL_THREE,
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
@@ -5515,6 +5532,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_MILL_THREE,
             TriggerEffect.ETB_JURY_RIG,
             TriggerEffect.ETB_VIGILANTE,
             TriggerEffect.ETB_FOOD_SEARCH,
@@ -5528,6 +5546,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_MILL_THREE in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.mill_three_semantic_coverage(permanent.card, fragment)
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_MILL_THREE
+                        )
             if TriggerEffect.ETB_JURY_RIG in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     if (
@@ -8241,6 +8268,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
+                TriggerEffect.ETB_MILL_THREE,
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
@@ -9319,6 +9347,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
         self._validate_stun_history()
+        self._check_mill_three_history()
         self._check_jury_rig_history()
         self._check_vigilante_live()
         self.validate_food_search_snapshot_evidence(
@@ -9390,6 +9419,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                             keyword,
                         )
         for event in self.events:
+            if event.get("oracle_fragment") == CardInterpreter.MILL_THREE_FRAGMENT:
+                if event.get("event") == "mill_three_committed":
+                    add(
+                        "mill_three",
+                        event["stack_object_id"],
+                        event["source_id"],
+                        event["oracle_fragment"],
+                    )
+                continue
             if event.get("oracle_fragment") == CardInterpreter.JURY_RIG_FRAGMENT:
                 if event.get("event") == "jury_rig_committed":
                     add(
@@ -9571,6 +9609,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
                 ],
                 "executed_references": self._executed_conformance_references(),
             },
+            "mill_three_evidence": self.mill_three_snapshot_evidence(),
             "jury_rig_evidence": self.jury_rig_snapshot_evidence(),
             "vigilante_evidence": self.vigilante_snapshot_evidence(),
             "food_search_evidence": self.food_search_snapshot_evidence(),
