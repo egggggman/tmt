@@ -24,6 +24,50 @@ Intended repository asset path:
 
 The exact reference PNG has precedence over generative interpretation. If a renderer cannot directly inspect the reference asset, this specification is the fallback contract; it must not invent a new art direction.
 
+## Local repository boundaries
+
+Mutants the Gathering uses two intentionally different local locations.
+
+### Development checkout
+
+`C:\Projects\tmt`
+
+This is the normal authoritative local Git working checkout for implementation and deterministic execution:
+
+- active branches and commits;
+- Cardcade source and tests;
+- pytest / Ruff / validation;
+- deterministic replays and authorized simulations;
+- evidence generation intended for repository review.
+
+### Chat artifact archive
+
+`C:\Users\ckytr\OneDrive\Desktop\tmnt`
+
+This is the local/OneDrive archive for material saved from ChatGPT or other working-room output before intentional promotion into the Git repository, including:
+
+- generated images and visual references;
+- PDFs and printable exports;
+- local presentation/production artifacts;
+- temporary deliverables and prototypes;
+- other chat-generated files worth retaining outside the executable checkout.
+
+The archive is **not** a second authoritative Git checkout and must not silently override GitHub or `C:\Projects\tmt`.
+
+### Promotion rule
+
+**Working code/state → `C:\Projects\tmt`**  
+**Chat-generated/local artifacts → `C:\Users\ckytr\OneDrive\Desktop\tmnt`**  
+**Durable/accepted project material → GitHub**
+
+When an archived artifact becomes canonical, copy the exact approved file into the appropriate path under `C:\Projects\tmt`, verify identity where required, then commit it through the normal GitHub review/acceptance workflow. Preserve the archive copy rather than treating promotion as permission to erase history.
+
+For the PIZZAGRIND Visual Standard 1.0 reference specifically, the owner-selected PNG should be retained in the OneDrive artifact archive and promoted unchanged to:
+
+`docs/hq/assets/sewer_status_board/PIZZAGRIND_CANONICAL_REFERENCE.png`
+
+Its promoted bytes must match the locked SHA-256 above before the repository copy is accepted.
+
 ## Locked art direction
 
 Preserve these characteristics:
