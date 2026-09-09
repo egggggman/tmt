@@ -1966,6 +1966,19 @@ class CardInterpreter:
             )
         return None
 
+    MILL_THREE_FRAGMENT = (
+        "When this creature enters, mill three cards. "
+        "(Put the top three cards of your library into your graveyard.)"
+    )
+
+    def mill_three_semantic_coverage(self, card, fragment):
+        if (
+            fragment != self.MILL_THREE_FRAGMENT
+            or "Creature" not in card.type_line.split("\u2014", 1)[0].split()
+        ):
+            return None
+        return SemanticCoverage(True, True, True, ())
+
     JURY_RIG_FRAGMENT = (
         "When Casey Jones enters, look at the top four cards of your library. "
         "You may reveal an artifact card from among them and put it into your hand. "
@@ -2165,6 +2178,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.mill_three_semantic_coverage(card, fragment) is not None:
                 continue
             if self.jury_rig_semantic_coverage(card, fragment) is not None:
                 continue

@@ -1,0 +1,867 @@
+{
+  "all_prior_smoke_references_authenticated_under_final_validators": 2829,
+  "base": "90b3c9535bed7a9d1878eef762d41b42616f8912",
+  "explanations": {
+    "bebop_rocksteady--donatello:reversed:8022": "Initial object-000048 reaches battlefield then dies on turn 14; its prior counter-trigger executions were turns 19 and 23. Changed trajectory, not lost semantic support.",
+    "bebop_rocksteady--leonardo:reversed:8025": "Zoo Escapees initial objects object-000092 and object-000091 are milled on turn 34, instead of later entering/leaving battlefield.",
+    "bebop_rocksteady--splinter:canonical:8034": "Zoo Escapees initial object-000051 is milled on turn 3 rather than later entering/leaving battlefield."
+  },
+  "scope": "Historical witnesses remain authenticated; runtime occurrence counts are not forced to remain identical after actual milling.",
+  "smoke_runtime_occurrence_decreases": [
+    {
+      "candidate_references": [],
+      "candidate_turn": 28,
+      "game_id": "bebop_rocksteady--donatello:reversed:8022",
+      "lineages": [
+        {
+          "candidate": {
+            "card": "Donatello, Way with Machines",
+            "classification": "present_unreached",
+            "initial_object_id": "object-000048",
+            "is_token": false,
+            "object_ids": [
+              "object-000048",
+              "object-000177",
+              "object-000178",
+              "object-000179",
+              "object-000184"
+            ],
+            "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+            "owner": 0,
+            "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+            "zone_history": [
+              {
+                "object_id": "object-000048",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000177",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 13,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000178",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 13,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000179",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 13,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000184",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 14,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Donatello, Way with Machines",
+            "classification": "executed",
+            "initial_object_id": "object-000048",
+            "is_token": false,
+            "object_ids": [
+              "object-000048",
+              "object-000168",
+              "object-000169",
+              "object-000170"
+            ],
+            "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+            "owner": 0,
+            "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+            "zone_history": [
+              {
+                "object_id": "object-000048",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000168",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 13,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000169",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 13,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000170",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 13,
+                "zone": "battlefield"
+              }
+            ]
+          }
+        }
+      ],
+      "occurrence_decrease": 1,
+      "prior_references": [
+        {
+          "evidence_id": "event-000028",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000170"
+        },
+        {
+          "evidence_id": "event-000033",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a",
+          "source_id": "object-000170"
+        }
+      ],
+      "prior_turn": 23,
+      "semantic_key": "194af2be-50c7-484b-bdd3-402bad70335b:0:1:c0a2c27a75ab4696bfe690ea52e8591e793a4dfe7bc043acea3ce08eb2e4664a"
+    },
+    {
+      "candidate_references": [
+        {
+          "evidence_id": "event-000026",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000175"
+        },
+        {
+          "evidence_id": "event-000025",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000175"
+        }
+      ],
+      "candidate_turn": 41,
+      "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+      "lineages": [
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "present_unreached",
+            "initial_object_id": "object-000091",
+            "is_token": false,
+            "object_ids": [
+              "object-000091",
+              "object-000277"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000091",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000277",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 34,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000091",
+            "is_token": false,
+            "object_ids": [
+              "object-000091",
+              "object-000335",
+              "object-000336",
+              "object-000337",
+              "object-000348"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000091",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000335",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 46,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000336",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 46,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000337",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 46,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000348",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 47,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "present_unreached",
+            "initial_object_id": "object-000092",
+            "is_token": false,
+            "object_ids": [
+              "object-000092",
+              "object-000276"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000092",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000276",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 34,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000092",
+            "is_token": false,
+            "object_ids": [
+              "object-000092",
+              "object-000308",
+              "object-000309",
+              "object-000310",
+              "object-000339"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000092",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000308",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 44,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000309",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 44,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000310",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 44,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000339",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 46,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000113",
+            "is_token": false,
+            "object_ids": [
+              "object-000113",
+              "object-000136",
+              "object-000174",
+              "object-000175",
+              "object-000183"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000113",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000136",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 2,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000174",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 12,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000175",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 12,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000183",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 13,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000113",
+            "is_token": false,
+            "object_ids": [
+              "object-000113",
+              "object-000136",
+              "object-000174",
+              "object-000175",
+              "object-000183"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 1,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000113",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000136",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 2,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000174",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 12,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000175",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 12,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000183",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 13,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        }
+      ],
+      "occurrence_decrease": 2,
+      "prior_references": [
+        {
+          "evidence_id": "event-000026",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000175"
+        },
+        {
+          "evidence_id": "event-000093",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000310"
+        },
+        {
+          "evidence_id": "event-000097",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000337"
+        },
+        {
+          "evidence_id": "event-000025",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000175"
+        },
+        {
+          "evidence_id": "event-000092",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000310"
+        },
+        {
+          "evidence_id": "event-000096",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000337"
+        }
+      ],
+      "prior_turn": 61,
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    },
+    {
+      "candidate_references": [
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000158"
+        },
+        {
+          "evidence_id": "event-000049",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000197"
+        },
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000158"
+        },
+        {
+          "evidence_id": "event-000048",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000197"
+        }
+      ],
+      "candidate_turn": 30,
+      "game_id": "bebop_rocksteady--splinter:canonical:8034",
+      "lineages": [
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000042",
+            "is_token": false,
+            "object_ids": [
+              "object-000042",
+              "object-000195",
+              "object-000196",
+              "object-000197",
+              "object-000213"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000042",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000195",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 19,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000196",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 19,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000197",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 19,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000213",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 27,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000042",
+            "is_token": false,
+            "object_ids": [
+              "object-000042",
+              "object-000207",
+              "object-000208",
+              "object-000209",
+              "object-000215"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000042",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000207",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 25,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000208",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 25,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000209",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 25,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000215",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 27,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000049",
+            "is_token": false,
+            "object_ids": [
+              "object-000049",
+              "object-000155",
+              "object-000157",
+              "object-000158",
+              "object-000176"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000049",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000155",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 5,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000157",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 5,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000158",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 5,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000176",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 11,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000049",
+            "is_token": false,
+            "object_ids": [
+              "object-000049",
+              "object-000169",
+              "object-000170",
+              "object-000171",
+              "object-000192"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000049",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000169",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 11,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000170",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 11,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000171",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 11,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000192",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 19,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "card": "Zoo Escapees",
+            "classification": "present_unreached",
+            "initial_object_id": "object-000051",
+            "is_token": false,
+            "object_ids": [
+              "object-000051",
+              "object-000147"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000051",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000147",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 3,
+                "zone": "graveyard"
+              }
+            ]
+          },
+          "prior": {
+            "card": "Zoo Escapees",
+            "classification": "executed",
+            "initial_object_id": "object-000051",
+            "is_token": false,
+            "object_ids": [
+              "object-000051",
+              "object-000158",
+              "object-000159",
+              "object-000160",
+              "object-000172"
+            ],
+            "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+            "owner": 0,
+            "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+            "zone_history": [
+              {
+                "object_id": "object-000051",
+                "phase": "setup",
+                "step": "setup",
+                "turn": 0,
+                "zone": "library"
+              },
+              {
+                "object_id": "object-000158",
+                "phase": "beginning",
+                "step": "draw",
+                "turn": 7,
+                "zone": "hand"
+              },
+              {
+                "object_id": "object-000159",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 7,
+                "zone": "stack"
+              },
+              {
+                "object_id": "object-000160",
+                "phase": "precombat_main",
+                "step": "precombat_main",
+                "turn": 7,
+                "zone": "battlefield"
+              },
+              {
+                "object_id": "object-000172",
+                "phase": "combat",
+                "step": "combat_damage",
+                "turn": 11,
+                "zone": "graveyard"
+              }
+            ]
+          }
+        }
+      ],
+      "occurrence_decrease": 1,
+      "prior_references": [
+        {
+          "evidence_id": "event-000024",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000160"
+        },
+        {
+          "evidence_id": "event-000037",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000171"
+        },
+        {
+          "evidence_id": "event-000052",
+          "evidence_kind": "tokens_created",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000209"
+        },
+        {
+          "evidence_id": "event-000023",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000160"
+        },
+        {
+          "evidence_id": "event-000036",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000171"
+        },
+        {
+          "evidence_id": "event-000051",
+          "evidence_kind": "trigger_resolved",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e",
+          "source_id": "object-000209"
+        }
+      ],
+      "prior_turn": 32,
+      "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+    }
+  ],
+  "stage_prior_executed_decreases": []
+}

@@ -1,0 +1,230 @@
+{
+  "accepted_aggregate": false,
+  "active_execution": {
+    "completed_distinct_game_count": 49,
+    "duplicate_member": "second",
+    "execution_ordinal": 100,
+    "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+    "orientation": "reversed",
+    "pairing_id": "bebop_rocksteady--leonardo",
+    "seed": 8025,
+    "stage": "game_execution"
+  },
+  "available_duplicate_digests": {
+    "first": "9170550bf0b05327405ae1c4aade787e528eb663101d04b9505363a51f87bd0e",
+    "second": "9170550bf0b05327405ae1c4aade787e528eb663101d04b9505363a51f87bd0e"
+  },
+  "completed_game_digests": [
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+      "report_digest": "019f29f13e51a5c2a6ffc8fa816affc8be4ecabe5ccebb1def1e1eaf7128944e"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+      "report_digest": "8e66b8c0981579ff454131f29d4e2bb21f8f42b533d05d7317ae7a48b1ee4bb1"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+      "report_digest": "9cf7d153ba97250e8c8af97c997b9346c50ad5f29514e07379e8e1cfc55ba040"
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8002",
+      "report_digest": "f549dd32d78ffe0fc2e87ac1c196403dcaf2b5ddda5aac077890ea329c585105"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:canonical:8003",
+      "report_digest": "ca3b61bf38b1ed5e66a139bf1bf1088dfcdc190bf371508e4e592e9a849b28f8"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:reversed:8003",
+      "report_digest": "a2a0ae8aa397fb9b628ed991824801c7ab3de17228f591a861871ad483060cd2"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:canonical:8004",
+      "report_digest": "808e4ff79e3308a5e803e8f800714f3fbdefd19523a361dbaee1b87f8645046f"
+    },
+    {
+      "game_id": "april_oneil--casey_jones:reversed:8004",
+      "report_digest": "815a5601e73ebdb20a574c95998f175a006cc16322cef7db385db927929e1833"
+    },
+    {
+      "game_id": "april_oneil--donatello:canonical:8005",
+      "report_digest": "d10c941f4890995d77decbfcc4acc15b12eafd333c0a0fbf82177b3fef333b94"
+    },
+    {
+      "game_id": "april_oneil--donatello:reversed:8005",
+      "report_digest": "91300d1a97faf90e374398a76a4c618ebece6cff7748554cd266651d324a1a66"
+    },
+    {
+      "game_id": "april_oneil--donatello:canonical:8006",
+      "report_digest": "79f574c965e8c79415b9454c0e1d5c3acaf827aafcf162fbb7334e8362eae56c"
+    },
+    {
+      "game_id": "april_oneil--donatello:reversed:8006",
+      "report_digest": "6237a8b9c61ee9e020eddd8c5c86212a81a982f4bb65a7dff9bc60ef97f30cef"
+    },
+    {
+      "game_id": "april_oneil--krang:canonical:8007",
+      "report_digest": "0c0837149c1e7fb67b18dd7a62bbd75f7517e32d438f8f6291be225f216b7d48"
+    },
+    {
+      "game_id": "april_oneil--krang:reversed:8007",
+      "report_digest": "036967affeeac16444f04ab457ec0bbd753a9a4f149f93ddb9ae6a19bba93fb2"
+    },
+    {
+      "game_id": "april_oneil--krang:canonical:8008",
+      "report_digest": "0c9283eeffda42c97c6ae634872cd557a337a24387fb6b807cc0ba1f758aca1b"
+    },
+    {
+      "game_id": "april_oneil--krang:reversed:8008",
+      "report_digest": "56497d9e0f3f2f44c633834dd55d025a72367d9bbc23158d6fef2948427d1f71"
+    },
+    {
+      "game_id": "april_oneil--leonardo:canonical:8009",
+      "report_digest": "d1973a2d7ffb260d8164ccbae6a4d8147b585b6e745bd5d9b612e2722e19d2f9"
+    },
+    {
+      "game_id": "april_oneil--leonardo:reversed:8009",
+      "report_digest": "a22fca50c4b679b1173913ab86ce632895a32182022d73f9dd406226e973a21d"
+    },
+    {
+      "game_id": "april_oneil--leonardo:canonical:8010",
+      "report_digest": "d360f17fa9abca1bb2c114bdc469dbf7a3729d904e25146025b183d621d1a191"
+    },
+    {
+      "game_id": "april_oneil--leonardo:reversed:8010",
+      "report_digest": "be3905590c1fac0387a4a7011170313312e4a4927ee28c6adf0556be0598b700"
+    },
+    {
+      "game_id": "april_oneil--michelangelo:canonical:8011",
+      "report_digest": "dce9a7a7c4a69df6e1b8a7bdee278236fd2276e3f7de1d852190f0bfd185f43e"
+    },
+    {
+      "game_id": "april_oneil--michelangelo:reversed:8011",
+      "report_digest": "78d3a895c5f4c6e06965a786fca4d0cee49618c3fe815155f5f50d5de7cc183b"
+    },
+    {
+      "game_id": "april_oneil--michelangelo:canonical:8012",
+      "report_digest": "daacb9a0ff2cb62ccc41951a3f768b9351d68a31b14321eab7e799f98ab2fc73"
+    },
+    {
+      "game_id": "april_oneil--michelangelo:reversed:8012",
+      "report_digest": "150a686b983670ff0416a601b46e1f6947190bae1b30c7a842e5e41f959fc506"
+    },
+    {
+      "game_id": "april_oneil--raphael:canonical:8013",
+      "report_digest": "370189f4bc3522a993c2eeb29b12b6035509f1fb3b777602561d74901067a09b"
+    },
+    {
+      "game_id": "april_oneil--raphael:reversed:8013",
+      "report_digest": "e2b903c8a258753008f47ae87d245bc573db78695b3694271990b4944b814ed9"
+    },
+    {
+      "game_id": "april_oneil--raphael:canonical:8014",
+      "report_digest": "e4ebb147bee51a8adcf041eb24a9f778f957afeb4cc4ecd324acd15d3440aa7a"
+    },
+    {
+      "game_id": "april_oneil--raphael:reversed:8014",
+      "report_digest": "c0dd233eed81f407b9cf1475c840959517ceeea731b4eaa9f25fdf087790300b"
+    },
+    {
+      "game_id": "april_oneil--shredder:canonical:8015",
+      "report_digest": "8e954725919187a90f1b45fdd14b4ea1b160a0fe0b3ebbbe7c189f72bf766d61"
+    },
+    {
+      "game_id": "april_oneil--shredder:reversed:8015",
+      "report_digest": "278b79884631784bf5913d61711f2b2ac4a6288a9e4cc610fe3e18fa0bb3b4e3"
+    },
+    {
+      "game_id": "april_oneil--shredder:canonical:8016",
+      "report_digest": "56ac82ce46e74c03ff2fbc1c66a848b059636c885d9e491ef0632e1c043afd87"
+    },
+    {
+      "game_id": "april_oneil--shredder:reversed:8016",
+      "report_digest": "9ec7136fccf86c3b4cb806c298a696598ee20b174ee12695978694c4ed6d140f"
+    },
+    {
+      "game_id": "april_oneil--splinter:canonical:8017",
+      "report_digest": "5e56469b61a0ddcb6df1bb075b3574cff7620295ae4be8d81826785686318d59"
+    },
+    {
+      "game_id": "april_oneil--splinter:reversed:8017",
+      "report_digest": "5ae789d59df6f7b12d8371e3bf3748c50aea72f69d21c5d499f5eb5baa484d4a"
+    },
+    {
+      "game_id": "april_oneil--splinter:canonical:8018",
+      "report_digest": "9e417a386ccb59e2a0e059f378f8a5bbc6b4ebf06398b85f08d4e0c1fed594a2"
+    },
+    {
+      "game_id": "april_oneil--splinter:reversed:8018",
+      "report_digest": "4b80ad33637bfe73eac4aa65d0afa44f49a6313768d4e433a1ce5f7859a9d7da"
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:canonical:8019",
+      "report_digest": "4fc4b4d72c817983252dcfe97f82370efda38905137a992e043e8d80e5110fda"
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:reversed:8019",
+      "report_digest": "858b1e8670f63579aa002f3d14f65b7807ae7c6d0a24ef30ef08dafec98921d6"
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:canonical:8020",
+      "report_digest": "8e222fddb030fe167998698eae8893f80b2ee8e7e3e1c4fe0fffc48ef735a362"
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:reversed:8020",
+      "report_digest": "89f9212a32268d1935b3d6c5fab5c747468daa7f5f9281eb24c6cb286829648f"
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:canonical:8021",
+      "report_digest": "4f689651ed166160a02d54c803c8f3c3b5bd27a00d589ffc2bb52872e22f2e59"
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:reversed:8021",
+      "report_digest": "f6e1af297dc846d4c797c57b53f0a0830bd2c4c0270723055bf2f219b4d8f5be"
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:canonical:8022",
+      "report_digest": "0e4bbd8efa660f0ae51ae28886a1004290af38f7d9efa2f8b2208ca1760d1d92"
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:reversed:8022",
+      "report_digest": "e2b8437cff6d08eb6086f6a270857408c62faedf15e9f9a1d6ca0ff8999c7499"
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:canonical:8023",
+      "report_digest": "11af83f0dd0f01a1223434becf1fffd42634122d87a04c32bf91801883c63a27"
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:reversed:8023",
+      "report_digest": "6be8e3bc67ddcfd68a48c641dc84b31f2009505f0277469a4ac62646a2f283db"
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:canonical:8024",
+      "report_digest": "4982dbc409b3bd25ef01ff0b4702315cb8aae61f598240726dfb7f543997523b"
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:reversed:8024",
+      "report_digest": "4097b35411eb722f1398f41b99aeb59bf9db9594a66f247b35cfb79d935a840f"
+    },
+    {
+      "game_id": "bebop_rocksteady--leonardo:canonical:8025",
+      "report_digest": "05b21229bb154191836def1be01014e5471ef82067cab47396b0b9e391d17526"
+    }
+  ],
+  "failure": {
+    "kind": "ValueError",
+    "message": "Mill-three transaction evidence does not reconstruct",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\mill_three07.py\", line 469, in validate_mill_three_snapshot_evidence\n    assert yard == graveyard\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\smoke01.py\", line 441, in execute_smoke\n    report = reconcile_snapshot(spec, snapshots[\"first\"], manifest)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 934, in reconcile_snapshot\n    execution_index = _authoritative_execution_index(snapshot)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 649, in _authoritative_execution_index\n    Game.validate_mill_three_snapshot_evidence(snapshot)\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\mill_three07.py\", line 489, in validate_mill_three_snapshot_evidence\n    raise ValueError(\"Mill-three transaction evidence does not reconstruct\") from error\nValueError: Mill-three transaction evidence does not reconstruct\n"
+  },
+  "last_authoritative_state": {
+    "phase": "combat",
+    "priority": null,
+    "stack": [],
+    "state_fingerprint": "201f717a7f99d096606fa76713ab4214fb7945198b948c61172f6cb1317b68d5",
+    "step": "end_of_combat",
+    "turn": 41
+  },
+  "manifest_digest": "a10bdbbb4470ad3e77ab6a0a6ef9b49c014f5e111428a088f65f4b72ba662b17",
+  "stage": "coverage-aware-engine-smoke-0.1"
+}
