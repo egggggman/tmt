@@ -26,7 +26,7 @@ The exact reference PNG has precedence over generative interpretation. If a rend
 
 ## Local repository boundaries
 
-Mutants the Gathering uses two intentionally different local locations.
+Mutants the Gathering uses two intentionally different local locations under `C:\Projects`.
 
 ### Development checkout
 
@@ -42,9 +42,9 @@ This is the normal authoritative local Git working checkout for implementation a
 
 ### Chat artifact archive
 
-`C:\Users\ckytr\OneDrive\Desktop\tmnt`
+`C:\Projects\downloads`
 
-This is the local/OneDrive archive for material saved from ChatGPT or other working-room output before intentional promotion into the Git repository, including:
+This is the local archive for material saved from ChatGPT or other working-room output before intentional promotion into the Git repository, including:
 
 - generated images and visual references;
 - PDFs and printable exports;
@@ -57,12 +57,12 @@ The archive is **not** a second authoritative Git checkout and must not silently
 ### Promotion rule
 
 **Working code/state → `C:\Projects\tmt`**  
-**Chat-generated/local artifacts → `C:\Users\ckytr\OneDrive\Desktop\tmnt`**  
+**Chat-generated/local artifacts → `C:\Projects\downloads`**  
 **Durable/accepted project material → GitHub**
 
 When an archived artifact becomes canonical, copy the exact approved file into the appropriate path under `C:\Projects\tmt`, verify identity where required, then commit it through the normal GitHub review/acceptance workflow. Preserve the archive copy rather than treating promotion as permission to erase history.
 
-For the PIZZAGRIND Visual Standard 1.0 reference specifically, the owner-selected PNG should be retained in the OneDrive artifact archive and promoted unchanged to:
+For the PIZZAGRIND Visual Standard 1.0 reference specifically, the owner-selected PNG should be retained in `C:\Projects\downloads` and promoted unchanged to:
 
 `docs/hq/assets/sewer_status_board/PIZZAGRIND_CANONICAL_REFERENCE.png`
 
