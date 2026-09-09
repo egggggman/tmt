@@ -1966,6 +1966,17 @@ class CardInterpreter:
             )
         return None
 
+    JURY_RIG_FRAGMENT = (
+        "When Casey Jones enters, look at the top four cards of your library. "
+        "You may reveal an artifact card from among them and put it into your hand. "
+        "Put the rest on the bottom of your library in a random order."
+    )
+
+    def jury_rig_semantic_coverage(self, card, fragment):
+        if fragment != self.JURY_RIG_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
     VIGILANTE_FRAGMENT = (
         "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, "
         "discard three cards at random."
@@ -2154,6 +2165,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.jury_rig_semantic_coverage(card, fragment) is not None:
                 continue
             if self.vigilante_semantic_coverage(card, fragment) is not None:
                 continue
