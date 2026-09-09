@@ -72,6 +72,7 @@ FROZEN_PATHS = (
     "src/tmnt_design_studio/conformance07.py",
     "src/tmnt_design_studio/food_search07.py",
     "src/tmnt_design_studio/vigilante07.py",
+    "src/tmnt_design_studio/jury_rig07.py",
 )
 FROZEN_IDENTITIES = (
     "bad8104fcef826ef5cfd7fec1bdfe921cdd4c306",
@@ -87,13 +88,14 @@ FROZEN_IDENTITIES = (
     "306fd267482b72f188c69222d57fcc547d654091",
     "ecdffa18463076503f5d338687041f42a3a599d9",
     "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
-    "b6b8417d0e007e0e0236747e8b31c522dc1665f5",
-    "c6506998631c8f7beb7d70816f9c46485e360827",
+    "b3dc92dbefe4aaaabda61398d0839d300c01f64f",
+    "fa122270a886ba94942a370149805a162ee1a2b9",
     "3eb8bfd8654294e1ef7e6137882651801bf1e2d6",
-    "f31a9b3989ea169c50fa4e8107bd2d89c091e875",
+    "236312280adb987a0783049ea964a4945fa8ecc2",
     "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
     "3e4c91aca241b7adb2a290f34c376d5cdadbcece",
     "62cabf10f57ded4d08800a44ecea725a4449ec17",
+    "0e200a979b33baa80036509f06ff3df2bc73d54d",
 )
 GIT_TEXT_HASH_SCHEME = "git-clean-blob-oid-sha1-v1"
 RAW_BINARY_HASH_SCHEME = "raw-bytes-sha256-v1"

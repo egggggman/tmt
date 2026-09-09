@@ -1,0 +1,62 @@
+{
+  "authorized_base": "40149d0ca6d231af7dd46aae30ce67446e8670b4",
+  "checks": {
+    "canonical_terminology_scan": "no matches",
+    "git_diff_check": "passed",
+    "prior_executed_continuity": "no losses",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "stage_game_matrix_unchanged": true
+  },
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "fa122270a886ba94942a370149805a162ee1a2b9",
+    "src/tmnt_design_studio/engine07.py": "b3dc92dbefe4aaaabda61398d0839d300c01f64f",
+    "src/tmnt_design_studio/jury_rig07.py": "0e200a979b33baa80036509f06ff3df2bc73d54d",
+    "src/tmnt_design_studio/smoke01.py": "5f0d764d3ad96c28dbfd077496fad124859d2f96",
+    "src/tmnt_design_studio/stage002.py": "236312280adb987a0783049ea964a4945fa8ecc2",
+    "tests/test_jury_rig_action.py": "a87fc81f07ef56893088f0a92bcdf081c649fcb9"
+  },
+  "development_failures_resolved": [
+    "Legacy synthetic Stage null ledger compatibility: 2 failures, 780 passed, 1 skipped before maxfail stop.",
+    "Frozen Jury-Rig hash refresh after compatibility fix: 2 failures, 804 passed, 1 skipped before maxfail stop."
+  ],
+  "focused": {
+    "passed": 60
+  },
+  "focused_and_relevant": {
+    "passed": 218
+  },
+  "full_pytest": {
+    "passed": 1155,
+    "skipped": 1
+  },
+  "smoke": {
+    "compressed_artifact": "POST_ACTION_30_SMOKE01_RESULTS.json.gz",
+    "decompressed_sha256": "ccbaa5dea3a76368be97782ded82c5610e3411f8e2b4877e3f4eb539e9ee4f38",
+    "distinct_games": 180,
+    "duplicates_equal": true,
+    "executions": 360,
+    "jury_rig_transactions": 68,
+    "mechanical_labels": {
+      "clean_coverage_complete": 105,
+      "clean_coverage_limited": 75,
+      "invalid": 0
+    },
+    "reconstructed_reports": 180,
+    "runner_invocations": 1,
+    "stops": 0,
+    "violations": 0
+  },
+  "stage": {
+    "distinct_games": 16,
+    "duplicates_equal": true,
+    "executions": 32,
+    "jury_rig_transactions": 3,
+    "note": "Run preceded validator-only null-ledger compatibility fix; saved reports independently reconstructed with final code. No gameplay code changed after this run.",
+    "reconstructed_reports": 16,
+    "runner_invocations": 1,
+    "stops": 0,
+    "violations": 0
+  },
+  "trivial_shuffle_policy": "Exactly one shuffle record for remainder sizes zero and one; RNG state unchanged, explicitly tested."
+}

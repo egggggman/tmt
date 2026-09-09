@@ -42,6 +42,7 @@ from tmnt_design_studio.conformance07 import (
     semantic_key,
 )
 from tmnt_design_studio.food_search07 import FoodSearchMixin
+from tmnt_design_studio.jury_rig07 import JuryRigMixin
 from tmnt_design_studio.vigilante07 import VigilanteMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
@@ -298,6 +299,7 @@ class TriggerEffect(Enum):
     DEAL_DAMAGE = "deal_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
+    ETB_JURY_RIG = "etb_jury_rig"
     ETB_VIGILANTE = "etb_vigilante"
     VIGILANTE_DISCARD = "vigilante_discard"
     ETB_FOOD_SEARCH = "etb_food_search"
@@ -1190,7 +1192,7 @@ class DeterministicRNG:
         return result
 
 
-class Game(FoodSearchMixin, VigilanteMixin):
+class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin):
     """Two-player deterministic game state and the supported legal transitions."""
 
     def __init__(
@@ -1210,6 +1212,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
         discard_draw_chooser=None,
         draw_discard_chooser=None,
         food_search_chooser=None,
+        jury_rig_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1275,6 +1278,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
         self._init_vigilante()
+        self._init_jury_rig(jury_rig_chooser)
         self._food_search_history = []
         self._food_search_anchors = {}
         self._food_search_sources = {}
@@ -1356,6 +1360,8 @@ class Game(FoodSearchMixin, VigilanteMixin):
         self,
         obj: CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
     ) -> CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent:
+        if getattr(self, "_jury_rig_choice_active", False):
+            raise ValueError("Jury-Rig chooser cannot register authoritative objects")
         if getattr(self, "_food_search_choice_active", False):
             raise ValueError("Food search chooser cannot register authoritative objects")
         if obj.object_id in self._objects:
@@ -1564,6 +1570,8 @@ class Game(FoodSearchMixin, VigilanteMixin):
         _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
     ) -> CardObject | StackObject | Permanent:
         """Validate then atomically create the destination-zone incarnation of ``obj``."""
+        if self._jury_rig_choice_active:
+            raise ValueError("Jury-Rig chooser cannot move authoritative objects")
         if self._food_search_choice_active:
             raise ValueError("Food search chooser cannot move authoritative objects")
         if self._mandatory_discard_choice_active:
@@ -3622,6 +3630,9 @@ class Game(FoodSearchMixin, VigilanteMixin):
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.ETB_JURY_RIG:
+            self._enqueue_jury_rig(event, source, fragment)
+            return
         if effect is TriggerEffect.ETB_VIGILANTE:
             self._enqueue_vigilante(event, source, fragment)
             return
@@ -3766,6 +3777,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
+                self._anchor_jury_rig(ability, trigger)
                 self._anchor_vigilante(ability, trigger)
                 self._register(ability)
                 self.stack.append(ability)
@@ -3994,6 +4006,11 @@ class Game(FoodSearchMixin, VigilanteMixin):
             or ability.object_id in self._vigilante_stack
         ):
             self._validate_vigilante_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.ETB_JURY_RIG
+            or ability.object_id in self._jury_rig_anchors
+        ):
+            self._validate_jury_rig_trigger(ability)
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -4341,6 +4358,8 @@ class Game(FoodSearchMixin, VigilanteMixin):
                 library_before=list(library_before),
                 library_after=list(library_after),
             )
+        elif ability.effect is TriggerEffect.ETB_JURY_RIG:
+            self._resolve_jury_rig(ability)
         elif ability.effect in {TriggerEffect.ETB_VIGILANTE, TriggerEffect.VIGILANTE_DISCARD}:
             self._resolve_vigilante(ability)
         elif ability.effect is TriggerEffect.ETB_FOOD_SEARCH:
@@ -4607,6 +4626,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
+                TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
@@ -5495,6 +5515,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
             TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_JURY_RIG,
             TriggerEffect.ETB_VIGILANTE,
             TriggerEffect.ETB_FOOD_SEARCH,
             TriggerEffect.ETB_DRAW_DISCARD,
@@ -5507,6 +5528,15 @@ class Game(FoodSearchMixin, VigilanteMixin):
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_JURY_RIG in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.jury_rig_semantic_coverage(permanent.card, fragment)
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_JURY_RIG
+                        )
             if TriggerEffect.ETB_VIGILANTE in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     if (
@@ -8211,6 +8241,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
+                TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
@@ -9288,6 +9319,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
         self._validate_stun_history()
+        self._check_jury_rig_history()
         self._check_vigilante_live()
         self.validate_food_search_snapshot_evidence(
             {"events": self.events, "food_search_evidence": self.food_search_snapshot_evidence()}
@@ -9358,6 +9390,15 @@ class Game(FoodSearchMixin, VigilanteMixin):
                             keyword,
                         )
         for event in self.events:
+            if event.get("oracle_fragment") == CardInterpreter.JURY_RIG_FRAGMENT:
+                if event.get("event") == "jury_rig_committed":
+                    add(
+                        "jury_rig",
+                        event["stack_object_id"],
+                        event["source_id"],
+                        event["oracle_fragment"],
+                    )
+                continue
             if event.get("effect") == "etb_vigilante":
                 continue
             if event.get("event") in {
@@ -9530,6 +9571,7 @@ class Game(FoodSearchMixin, VigilanteMixin):
                 ],
                 "executed_references": self._executed_conformance_references(),
             },
+            "jury_rig_evidence": self.jury_rig_snapshot_evidence(),
             "vigilante_evidence": self.vigilante_snapshot_evidence(),
             "food_search_evidence": self.food_search_snapshot_evidence(),
             "rng": {

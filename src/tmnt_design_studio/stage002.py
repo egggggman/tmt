@@ -646,6 +646,7 @@ def _authoritative_execution_index(
 ) -> dict[tuple[str, str], list[dict[str, str]]]:
     """Index only mature serialized evidence capable of authenticating EXECUTED."""
     Game.validate_stun_snapshot_evidence(snapshot)
+    Game.validate_jury_rig_snapshot_evidence(snapshot)
     Game.validate_vigilante_snapshot_evidence(snapshot)
     Game.validate_food_search_snapshot_evidence(snapshot)
     Game.validate_draw_discard_snapshot_evidence(snapshot)
@@ -727,6 +728,15 @@ def _authoritative_execution_index(
                     keyword,
                 )
     for event in snapshot.get("events", []):
+        if event.get("oracle_fragment") == CardInterpreter.JURY_RIG_FRAGMENT:
+            if event.get("event") == "jury_rig_committed":
+                add(
+                    "jury_rig",
+                    event.get("stack_object_id"),
+                    event.get("source_id"),
+                    event.get("oracle_fragment"),
+                )
+            continue
         if event.get("effect") == "etb_vigilante":
             continue
         event_kind = event.get("event")
@@ -1064,6 +1074,7 @@ def reconcile_snapshot(
         "authoritative_evidence": {
             key: snapshot.get(key)
             for key in (
+                "jury_rig_evidence",
                 "vigilante_evidence",
                 "winner",
                 "food_search_evidence",
@@ -1207,6 +1218,7 @@ def validate_stage_result_evidence(result: dict[str, object]) -> None:
         raise ValueError("Stage result lacks aggregate evidence")
     for game in aggregate.get("games", []):
         Game.validate_stun_snapshot_evidence(game.get("authoritative_evidence", {}))
+        Game.validate_jury_rig_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_vigilante_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_food_search_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_draw_discard_snapshot_evidence(game.get("authoritative_evidence", {}))
