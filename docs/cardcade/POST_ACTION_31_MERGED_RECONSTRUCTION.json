@@ -1,0 +1,1534 @@
+{
+  "mill_transactions": [
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+      "references": [
+        {
+          "evidence_id": "object-000187",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000186"
+        }
+      ]
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+      "references": [
+        {
+          "evidence_id": "object-000144",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000143"
+        },
+        {
+          "evidence_id": "object-000172",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000171"
+        }
+      ]
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+      "references": [
+        {
+          "evidence_id": "object-000148",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000147"
+        },
+        {
+          "evidence_id": "object-000160",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000159"
+        }
+      ]
+    },
+    {
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8002",
+      "references": [
+        {
+          "evidence_id": "object-000199",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000198"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:reversed:8019",
+      "references": [
+        {
+          "evidence_id": "object-000146",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000145"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--casey_jones:canonical:8020",
+      "references": [
+        {
+          "evidence_id": "object-000142",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000141"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:reversed:8021",
+      "references": [
+        {
+          "evidence_id": "object-000194",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000193"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:canonical:8022",
+      "references": [
+        {
+          "evidence_id": "object-000164",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000163"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--donatello:reversed:8022",
+      "references": [
+        {
+          "evidence_id": "object-000146",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000145"
+        },
+        {
+          "evidence_id": "object-000158",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000157"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:reversed:8023",
+      "references": [
+        {
+          "evidence_id": "object-000176",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000175"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--krang:canonical:8024",
+      "references": [
+        {
+          "evidence_id": "object-000191",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000190"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+      "references": [
+        {
+          "evidence_id": "object-000206",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000205"
+        },
+        {
+          "evidence_id": "object-000274",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000273"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--michelangelo:reversed:8027",
+      "references": [
+        {
+          "evidence_id": "object-000146",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000145"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--michelangelo:reversed:8028",
+      "references": [
+        {
+          "evidence_id": "object-000191",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000190"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--raphael:canonical:8029",
+      "references": [
+        {
+          "evidence_id": "object-000156",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000155"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--shredder:reversed:8031",
+      "references": [
+        {
+          "evidence_id": "object-000217",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000216"
+        }
+      ]
+    },
+    {
+      "game_id": "bebop_rocksteady--splinter:canonical:8034",
+      "references": [
+        {
+          "evidence_id": "object-000145",
+          "evidence_kind": "mill_three",
+          "oracle_fragment": "When this creature enters, mill three cards. (Put the top three cards of your library into your graveyard.)",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:0:d20d649ede450a9f433b5590a79fddeb3ff4d63bad802c736515879cb92719e9",
+          "source_id": "object-000144"
+        }
+      ]
+    }
+  ],
+  "per_game_continuity": [
+    {
+      "authenticated_references": 5,
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "april_oneil--bebop_rocksteady:reversed:8002",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "april_oneil--casey_jones:canonical:8003",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "april_oneil--casey_jones:reversed:8003",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "april_oneil--casey_jones:canonical:8004",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "april_oneil--casey_jones:reversed:8004",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "april_oneil--donatello:canonical:8005",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "april_oneil--donatello:reversed:8005",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "april_oneil--donatello:canonical:8006",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "april_oneil--donatello:reversed:8006",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "april_oneil--krang:canonical:8007",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "april_oneil--krang:reversed:8007",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "april_oneil--krang:canonical:8008",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "april_oneil--krang:reversed:8008",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "april_oneil--leonardo:canonical:8009",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "april_oneil--leonardo:reversed:8009",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 58,
+      "game_id": "april_oneil--leonardo:canonical:8010",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "april_oneil--leonardo:reversed:8010",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "april_oneil--michelangelo:canonical:8011",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "april_oneil--michelangelo:reversed:8011",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "april_oneil--michelangelo:canonical:8012",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "april_oneil--michelangelo:reversed:8012",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 22,
+      "game_id": "april_oneil--raphael:canonical:8013",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "april_oneil--raphael:reversed:8013",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "april_oneil--raphael:canonical:8014",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 22,
+      "game_id": "april_oneil--raphael:reversed:8014",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "april_oneil--shredder:canonical:8015",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "april_oneil--shredder:reversed:8015",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "april_oneil--shredder:canonical:8016",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "april_oneil--shredder:reversed:8016",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "april_oneil--splinter:canonical:8017",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "april_oneil--splinter:reversed:8017",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "april_oneil--splinter:canonical:8018",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "april_oneil--splinter:reversed:8018",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "bebop_rocksteady--casey_jones:canonical:8019",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "bebop_rocksteady--casey_jones:reversed:8019",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "bebop_rocksteady--casey_jones:canonical:8020",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "bebop_rocksteady--casey_jones:reversed:8020",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "bebop_rocksteady--donatello:canonical:8021",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "bebop_rocksteady--donatello:reversed:8021",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 3,
+      "game_id": "bebop_rocksteady--donatello:canonical:8022",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "bebop_rocksteady--donatello:reversed:8022",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "bebop_rocksteady--krang:canonical:8023",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "bebop_rocksteady--krang:reversed:8023",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "bebop_rocksteady--krang:canonical:8024",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "bebop_rocksteady--krang:reversed:8024",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "bebop_rocksteady--leonardo:canonical:8025",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 47,
+      "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "bebop_rocksteady--leonardo:canonical:8026",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 33,
+      "game_id": "bebop_rocksteady--leonardo:reversed:8026",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "bebop_rocksteady--michelangelo:canonical:8027",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "bebop_rocksteady--michelangelo:reversed:8027",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 3,
+      "game_id": "bebop_rocksteady--michelangelo:canonical:8028",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "bebop_rocksteady--michelangelo:reversed:8028",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "bebop_rocksteady--raphael:canonical:8029",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "bebop_rocksteady--raphael:reversed:8029",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "bebop_rocksteady--raphael:canonical:8030",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "bebop_rocksteady--raphael:reversed:8030",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "bebop_rocksteady--shredder:canonical:8031",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "bebop_rocksteady--shredder:reversed:8031",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "bebop_rocksteady--shredder:canonical:8032",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "bebop_rocksteady--shredder:reversed:8032",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "bebop_rocksteady--splinter:canonical:8033",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "bebop_rocksteady--splinter:reversed:8033",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "bebop_rocksteady--splinter:canonical:8034",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 0,
+      "game_id": "bebop_rocksteady--splinter:reversed:8034",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "casey_jones--donatello:canonical:8035",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "casey_jones--donatello:reversed:8035",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "casey_jones--donatello:canonical:8036",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "casey_jones--donatello:reversed:8036",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "casey_jones--krang:canonical:8037",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "casey_jones--krang:reversed:8037",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "casey_jones--krang:canonical:8038",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 24,
+      "game_id": "casey_jones--krang:reversed:8038",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "casey_jones--leonardo:canonical:8039",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "casey_jones--leonardo:reversed:8039",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 39,
+      "game_id": "casey_jones--leonardo:canonical:8040",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "casey_jones--leonardo:reversed:8040",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 42,
+      "game_id": "casey_jones--michelangelo:canonical:8041",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "casey_jones--michelangelo:reversed:8041",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "casey_jones--michelangelo:canonical:8042",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "casey_jones--michelangelo:reversed:8042",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "casey_jones--raphael:canonical:8043",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "casey_jones--raphael:reversed:8043",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 27,
+      "game_id": "casey_jones--raphael:canonical:8044",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "casey_jones--raphael:reversed:8044",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "casey_jones--shredder:canonical:8045",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "casey_jones--shredder:reversed:8045",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "casey_jones--shredder:canonical:8046",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "casey_jones--shredder:reversed:8046",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "casey_jones--splinter:canonical:8047",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "casey_jones--splinter:reversed:8047",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "casey_jones--splinter:canonical:8048",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "casey_jones--splinter:reversed:8048",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "donatello--krang:canonical:8049",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "donatello--krang:reversed:8049",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "donatello--krang:canonical:8050",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "donatello--krang:reversed:8050",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 55,
+      "game_id": "donatello--leonardo:canonical:8051",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "donatello--leonardo:reversed:8051",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "donatello--leonardo:canonical:8052",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 22,
+      "game_id": "donatello--leonardo:reversed:8052",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "donatello--michelangelo:canonical:8053",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "donatello--michelangelo:reversed:8053",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "donatello--michelangelo:canonical:8054",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "donatello--michelangelo:reversed:8054",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 24,
+      "game_id": "donatello--raphael:canonical:8055",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "donatello--raphael:reversed:8055",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 33,
+      "game_id": "donatello--raphael:canonical:8056",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 31,
+      "game_id": "donatello--raphael:reversed:8056",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "donatello--shredder:canonical:8057",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "donatello--shredder:reversed:8057",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "donatello--shredder:canonical:8058",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "donatello--shredder:reversed:8058",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "donatello--splinter:canonical:8059",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "donatello--splinter:reversed:8059",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "donatello--splinter:canonical:8060",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "donatello--splinter:reversed:8060",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 37,
+      "game_id": "krang--leonardo:canonical:8061",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "krang--leonardo:reversed:8061",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 37,
+      "game_id": "krang--leonardo:canonical:8062",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 21,
+      "game_id": "krang--leonardo:reversed:8062",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "krang--michelangelo:canonical:8063",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "krang--michelangelo:reversed:8063",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 5,
+      "game_id": "krang--michelangelo:canonical:8064",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "krang--michelangelo:reversed:8064",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "krang--raphael:canonical:8065",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "krang--raphael:reversed:8065",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 28,
+      "game_id": "krang--raphael:canonical:8066",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 24,
+      "game_id": "krang--raphael:reversed:8066",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 25,
+      "game_id": "krang--shredder:canonical:8067",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "krang--shredder:reversed:8067",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "krang--shredder:canonical:8068",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "krang--shredder:reversed:8068",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 11,
+      "game_id": "krang--splinter:canonical:8069",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "krang--splinter:reversed:8069",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 13,
+      "game_id": "krang--splinter:canonical:8070",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 25,
+      "game_id": "krang--splinter:reversed:8070",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 38,
+      "game_id": "leonardo--michelangelo:canonical:8071",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 21,
+      "game_id": "leonardo--michelangelo:reversed:8071",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 29,
+      "game_id": "leonardo--michelangelo:canonical:8072",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "leonardo--michelangelo:reversed:8072",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 21,
+      "game_id": "leonardo--raphael:canonical:8073",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 14,
+      "game_id": "leonardo--raphael:reversed:8073",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 23,
+      "game_id": "leonardo--raphael:canonical:8074",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 32,
+      "game_id": "leonardo--raphael:reversed:8074",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 30,
+      "game_id": "leonardo--shredder:canonical:8075",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "leonardo--shredder:reversed:8075",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 28,
+      "game_id": "leonardo--shredder:canonical:8076",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 52,
+      "game_id": "leonardo--shredder:reversed:8076",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 16,
+      "game_id": "leonardo--splinter:canonical:8077",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 48,
+      "game_id": "leonardo--splinter:reversed:8077",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "leonardo--splinter:canonical:8078",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 4,
+      "game_id": "leonardo--splinter:reversed:8078",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "michelangelo--raphael:canonical:8079",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "michelangelo--raphael:reversed:8079",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 18,
+      "game_id": "michelangelo--raphael:canonical:8080",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 27,
+      "game_id": "michelangelo--raphael:reversed:8080",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "michelangelo--shredder:canonical:8081",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 9,
+      "game_id": "michelangelo--shredder:reversed:8081",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 15,
+      "game_id": "michelangelo--shredder:canonical:8082",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 21,
+      "game_id": "michelangelo--shredder:reversed:8082",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "michelangelo--splinter:canonical:8083",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "michelangelo--splinter:reversed:8083",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 6,
+      "game_id": "michelangelo--splinter:canonical:8084",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "michelangelo--splinter:reversed:8084",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "raphael--shredder:canonical:8085",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 7,
+      "game_id": "raphael--shredder:reversed:8085",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 8,
+      "game_id": "raphael--shredder:canonical:8086",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 35,
+      "game_id": "raphael--shredder:reversed:8086",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 25,
+      "game_id": "raphael--splinter:canonical:8087",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 19,
+      "game_id": "raphael--splinter:reversed:8087",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 12,
+      "game_id": "raphael--splinter:canonical:8088",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 10,
+      "game_id": "raphael--splinter:reversed:8088",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 17,
+      "game_id": "shredder--splinter:canonical:8089",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "shredder--splinter:reversed:8089",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 20,
+      "game_id": "shredder--splinter:canonical:8090",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    },
+    {
+      "authenticated_references": 22,
+      "game_id": "shredder--splinter:reversed:8090",
+      "occurrences_identical_to_candidate": true,
+      "references_identical_to_candidate": true,
+      "snapshots_identical_to_candidate": true
+    }
+  ],
+  "summary": {
+    "aggregate_digest": "b7a600440a2200dcfe006811434d84e5df4b9f7119796d72831c9f511d46ab94",
+    "authenticated_references": 2828,
+    "candidate_continuity_all_identical": true,
+    "comparison_candidate": "494872c5849616daaf126885a864483662e9be21",
+    "counts": {
+      "executed": 490,
+      "present_unreached": 1530,
+      "reached_unsupported": 118
+    },
+    "distinct_games": 180,
+    "duplicate_mismatches": 0,
+    "evidence_base": "f00233033b305fd182a32105396622a79dd9c202",
+    "exclusions": [
+      "production changes",
+      "deck changes",
+      "matrix expansion",
+      "Action 32",
+      "calibration",
+      "Prototype 0.3"
+    ],
+    "executions": 360,
+    "manifest_digest": "bceef32eba613e06241e879d1c5103d873b6a48dab2abdf37e42c515172d5d21",
+    "mechanical_labels": {
+      "mechanically_clean_coverage_complete": 108,
+      "mechanically_clean_coverage_limited": 72,
+      "mechanically_invalid": 0
+    },
+    "mill_games": 17,
+    "mill_transactions": 21,
+    "reconstructed_reports": 180,
+    "smoke_invocations": 1,
+    "stops": 0,
+    "violations": 0
+  },
+  "validator": "validate_smoke_result; current frozen manifest equality; authoritative execution index for every reference"
+}

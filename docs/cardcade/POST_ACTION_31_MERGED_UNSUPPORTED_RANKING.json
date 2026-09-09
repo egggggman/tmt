@@ -1,0 +1,1805 @@
+{
+  "clusters": [
+    {
+      "cards": [
+        "Bebop, Warthog Warrior",
+        "Raphael, Most Attitude",
+        "Splinter, Hamato Yoshi"
+      ],
+      "distinct_games": 24,
+      "games": [
+        "april_oneil--bebop_rocksteady:canonical:8001",
+        "april_oneil--splinter:canonical:8017",
+        "april_oneil--splinter:reversed:8017",
+        "bebop_rocksteady--krang:reversed:8023",
+        "bebop_rocksteady--krang:reversed:8024",
+        "bebop_rocksteady--leonardo:canonical:8025",
+        "bebop_rocksteady--leonardo:reversed:8026",
+        "bebop_rocksteady--shredder:reversed:8031",
+        "bebop_rocksteady--splinter:canonical:8034",
+        "casey_jones--raphael:canonical:8044",
+        "casey_jones--splinter:reversed:8048",
+        "donatello--splinter:canonical:8059",
+        "krang--splinter:reversed:8069",
+        "leonardo--splinter:canonical:8077",
+        "leonardo--splinter:reversed:8077",
+        "leonardo--splinter:reversed:8078",
+        "michelangelo--splinter:canonical:8083",
+        "raphael--splinter:canonical:8087",
+        "raphael--splinter:reversed:8087",
+        "raphael--splinter:reversed:8088",
+        "shredder--splinter:canonical:8089",
+        "shredder--splinter:canonical:8090",
+        "shredder--splinter:reversed:8089",
+        "shredder--splinter:reversed:8090"
+      ],
+      "occurrence_count": 24,
+      "occurrences": [
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+          "initial_object_id": "object-000111",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000171",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:canonical:8017",
+          "initial_object_id": "object-000131",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000145",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:reversed:8017",
+          "initial_object_id": "object-000052",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000152",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--krang:reversed:8023",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000212",
+          "occurrence_id": "semantic-000020",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--krang:reversed:8024",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000165",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:canonical:8025",
+          "initial_object_id": "object-000050",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000189",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:reversed:8026",
+          "initial_object_id": "object-000134",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000199",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Bebop, Warthog Warrior",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:reversed:8031",
+          "initial_object_id": "object-000132",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000161",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "39c813e1-0e26-440a-b9bd-e781f7576b8b:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:canonical:8034",
+          "initial_object_id": "object-000107",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000184",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--raphael:canonical:8044",
+          "initial_object_id": "object-000132",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:0:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--splinter:reversed:8048",
+          "initial_object_id": "object-000127",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000156",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--splinter:canonical:8059",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000147",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "krang--splinter:reversed:8069",
+          "initial_object_id": "object-000051",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000157",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:canonical:8077",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000148",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:reversed:8077",
+          "initial_object_id": "object-000123",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000154",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:reversed:8078",
+          "initial_object_id": "object-000121",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--splinter:canonical:8083",
+          "initial_object_id": "object-000113",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000001",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "raphael--splinter:canonical:8087",
+          "initial_object_id": "object-000130",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000180",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "raphael--splinter:reversed:8087",
+          "initial_object_id": "object-000121",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000141",
+          "occurrence_id": "semantic-000001",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "raphael--splinter:reversed:8088",
+          "initial_object_id": "object-000053",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:canonical:8089",
+          "initial_object_id": "object-000134",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000153",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:reversed:8089",
+          "initial_object_id": "object-000123",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000166",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:canonical:8090",
+          "initial_object_id": "object-000129",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000148",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        },
+        {
+          "card": "Splinter, Hamato Yoshi",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:reversed:8090",
+          "initial_object_id": "object-000053",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000147",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)",
+          "semantic_key": "41fbdaa2-7a7a-44d5-a8f4-77624350eedd:0:1:1a3c963b3c089d7d6a6ec3848e8caff20dfc0c3706e3406f422d1ab4c9d5cfae"
+        }
+      ],
+      "oracle_fragment": "Menace (This creature can't be blocked except by two or more creatures.)"
+    },
+    {
+      "cards": [
+        "Tunnel Rats"
+      ],
+      "distinct_games": 16,
+      "games": [
+        "april_oneil--splinter:canonical:8017",
+        "april_oneil--splinter:canonical:8018",
+        "bebop_rocksteady--splinter:canonical:8034",
+        "bebop_rocksteady--splinter:reversed:8034",
+        "casey_jones--splinter:reversed:8047",
+        "donatello--splinter:canonical:8059",
+        "leonardo--splinter:canonical:8077",
+        "leonardo--splinter:canonical:8078",
+        "leonardo--splinter:reversed:8077",
+        "leonardo--splinter:reversed:8078",
+        "michelangelo--splinter:canonical:8083",
+        "michelangelo--splinter:canonical:8084",
+        "michelangelo--splinter:reversed:8083",
+        "shredder--splinter:canonical:8089",
+        "shredder--splinter:canonical:8090",
+        "shredder--splinter:reversed:8089"
+      ],
+      "occurrence_count": 19,
+      "occurrences": [
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:canonical:8017",
+          "initial_object_id": "object-000132",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000156",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:canonical:8017",
+          "initial_object_id": "object-000109",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000171",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:canonical:8018",
+          "initial_object_id": "object-000110",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000167",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--splinter:canonical:8018",
+          "initial_object_id": "object-000109",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000175",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:canonical:8034",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000194",
+          "occurrence_id": "semantic-000018",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:reversed:8034",
+          "initial_object_id": "object-000127",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000141",
+          "occurrence_id": "semantic-000001",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--splinter:reversed:8047",
+          "initial_object_id": "object-000038",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000271",
+          "occurrence_id": "semantic-000018",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--splinter:canonical:8059",
+          "initial_object_id": "object-000133",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000159",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:canonical:8077",
+          "initial_object_id": "object-000134",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:canonical:8077",
+          "initial_object_id": "object-000109",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000199",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:reversed:8077",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000162",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:canonical:8078",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000195",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--splinter:reversed:8078",
+          "initial_object_id": "object-000127",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000156",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--splinter:canonical:8083",
+          "initial_object_id": "object-000102",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000223",
+          "occurrence_id": "semantic-000022",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--splinter:reversed:8083",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000151",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--splinter:canonical:8084",
+          "initial_object_id": "object-000109",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000173",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:canonical:8089",
+          "initial_object_id": "object-000106",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000193",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:reversed:8089",
+          "initial_object_id": "object-000047",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000192",
+          "occurrence_id": "semantic-000012",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        },
+        {
+          "card": "Tunnel Rats",
+          "classification": "reached_unsupported",
+          "game_id": "shredder--splinter:canonical:8090",
+          "initial_object_id": "object-000128",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000177",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+          "semantic_key": "0a8e5c48-885d-4ea8-9c68-a3e9213d4289:0:0:119faece046749ac50ae25d3763c88f1098535d3ab17773f746ceaca13ee2974"
+        }
+      ],
+      "oracle_fragment": "{4}{B}: Return this card from your graveyard to the battlefield tapped."
+    },
+    {
+      "cards": [
+        "Leonardo, Sewer Samurai"
+      ],
+      "distinct_games": 13,
+      "games": [
+        "april_oneil--leonardo:canonical:8009",
+        "bebop_rocksteady--leonardo:canonical:8026",
+        "bebop_rocksteady--leonardo:reversed:8025",
+        "casey_jones--leonardo:reversed:8039",
+        "casey_jones--leonardo:reversed:8040",
+        "donatello--leonardo:reversed:8051",
+        "donatello--leonardo:reversed:8052",
+        "krang--leonardo:canonical:8062",
+        "krang--leonardo:reversed:8062",
+        "leonardo--michelangelo:canonical:8071",
+        "leonardo--michelangelo:reversed:8071",
+        "leonardo--shredder:canonical:8076",
+        "leonardo--shredder:reversed:8076"
+      ],
+      "occurrence_count": 15,
+      "occurrences": [
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--leonardo:canonical:8009",
+          "initial_object_id": "object-000106",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000197",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+          "initial_object_id": "object-000046",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000237",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:canonical:8026",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000201",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--leonardo:reversed:8039",
+          "initial_object_id": "object-000052",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000166",
+          "occurrence_id": "semantic-000001",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--leonardo:reversed:8040",
+          "initial_object_id": "object-000125",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000160",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--leonardo:reversed:8051",
+          "initial_object_id": "object-000121",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000179",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--leonardo:reversed:8052",
+          "initial_object_id": "object-000127",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000189",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "krang--leonardo:canonical:8062",
+          "initial_object_id": "object-000131",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000221",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "krang--leonardo:reversed:8062",
+          "initial_object_id": "object-000045",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000219",
+          "occurrence_id": "semantic-000014",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--michelangelo:canonical:8071",
+          "initial_object_id": "object-000125",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000192",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--michelangelo:canonical:8071",
+          "initial_object_id": "object-000125",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000203",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--michelangelo:canonical:8071",
+          "initial_object_id": "object-000125",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000211",
+          "occurrence_id": "semantic-000007",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--michelangelo:reversed:8071",
+          "initial_object_id": "object-000102",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000238",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--shredder:canonical:8076",
+          "initial_object_id": "object-000125",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000182",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        },
+        {
+          "card": "Leonardo, Sewer Samurai",
+          "classification": "reached_unsupported",
+          "game_id": "leonardo--shredder:reversed:8076",
+          "initial_object_id": "object-000102",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000246",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)",
+          "semantic_key": "74e3243b-6707-4769-8767-7cf2ef71009a:0:2:0bde4fbf387f3bba774dd961c9183b170f9b08fdb63dfbe0d900d1281c14bf56"
+        }
+      ],
+      "oracle_fragment": "During your turn, you may cast creature spells with power or toughness 1 or less from your graveyard. If you cast a spell this way, that creature enters with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)"
+    },
+    {
+      "cards": [
+        "Paramecia Coloniex"
+      ],
+      "distinct_games": 12,
+      "games": [
+        "april_oneil--bebop_rocksteady:canonical:8002",
+        "april_oneil--bebop_rocksteady:reversed:8001",
+        "bebop_rocksteady--casey_jones:canonical:8020",
+        "bebop_rocksteady--casey_jones:reversed:8019",
+        "bebop_rocksteady--donatello:canonical:8022",
+        "bebop_rocksteady--donatello:reversed:8022",
+        "bebop_rocksteady--krang:reversed:8023",
+        "bebop_rocksteady--leonardo:reversed:8025",
+        "bebop_rocksteady--michelangelo:reversed:8027",
+        "bebop_rocksteady--raphael:canonical:8029",
+        "bebop_rocksteady--shredder:reversed:8031",
+        "bebop_rocksteady--splinter:canonical:8034"
+      ],
+      "occurrence_count": 13,
+      "occurrences": [
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+          "initial_object_id": "object-000047",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000171",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+          "initial_object_id": "object-000131",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000147",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--casey_jones:reversed:8019",
+          "initial_object_id": "object-000133",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000145",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--casey_jones:canonical:8020",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000141",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--donatello:canonical:8022",
+          "initial_object_id": "object-000049",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000163",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--donatello:reversed:8022",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000145",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--krang:reversed:8023",
+          "initial_object_id": "object-000109",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000175",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:reversed:8025",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000205",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--michelangelo:reversed:8027",
+          "initial_object_id": "object-000134",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000145",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--raphael:canonical:8029",
+          "initial_object_id": "object-000052",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:reversed:8031",
+          "initial_object_id": "object-000101",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000216",
+          "occurrence_id": "semantic-000022",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        },
+        {
+          "card": "Paramecia Coloniex",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:canonical:8034",
+          "initial_object_id": "object-000123",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000144",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library.",
+          "semantic_key": "9076a886-efe0-4c99-8661-f0fd7a7b3129:0:1:0fc47c6978849fd493c612d88c5ff7bf2973eb63b59f0b61b26f40d7f07f07a9"
+        }
+      ],
+      "oracle_fragment": "When this creature dies, you may exile it. When you do, put target creature card from your graveyard on top of your library."
+    },
+    {
+      "cards": [
+        "Frog Butler"
+      ],
+      "distinct_games": 8,
+      "games": [
+        "april_oneil--bebop_rocksteady:canonical:8001",
+        "april_oneil--bebop_rocksteady:canonical:8002",
+        "april_oneil--bebop_rocksteady:reversed:8001",
+        "bebop_rocksteady--donatello:canonical:8022",
+        "bebop_rocksteady--leonardo:canonical:8026",
+        "bebop_rocksteady--shredder:canonical:8032",
+        "bebop_rocksteady--shredder:reversed:8031",
+        "bebop_rocksteady--splinter:canonical:8034"
+      ],
+      "occurrence_count": 8,
+      "occurrences": [
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+          "initial_object_id": "object-000130",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+          "initial_object_id": "object-000043",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000186",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+          "initial_object_id": "object-000101",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--donatello:canonical:8022",
+          "initial_object_id": "object-000045",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000172",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:canonical:8026",
+          "initial_object_id": "object-000124",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000141",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:reversed:8031",
+          "initial_object_id": "object-000133",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000003",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:canonical:8032",
+          "initial_object_id": "object-000050",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000158",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:canonical:8034",
+          "initial_object_id": "object-000046",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000175",
+          "occurrence_id": "semantic-000012",
+          "oracle_fragment": "{2}: This creature gains reach until end of turn.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:2:8f1f042dbf68fe3a20d495b9153fa0cd7ef21efdca3293511f3e741040cf363e"
+        }
+      ],
+      "oracle_fragment": "{2}: This creature gains reach until end of turn."
+    },
+    {
+      "cards": [
+        "Frog Butler"
+      ],
+      "distinct_games": 8,
+      "games": [
+        "april_oneil--bebop_rocksteady:canonical:8001",
+        "april_oneil--bebop_rocksteady:canonical:8002",
+        "april_oneil--bebop_rocksteady:reversed:8001",
+        "bebop_rocksteady--donatello:canonical:8022",
+        "bebop_rocksteady--leonardo:canonical:8026",
+        "bebop_rocksteady--shredder:canonical:8032",
+        "bebop_rocksteady--shredder:reversed:8031",
+        "bebop_rocksteady--splinter:canonical:8034"
+      ],
+      "occurrence_count": 8,
+      "occurrences": [
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8001",
+          "initial_object_id": "object-000130",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:reversed:8001",
+          "initial_object_id": "object-000043",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000186",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:canonical:8002",
+          "initial_object_id": "object-000101",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--donatello:canonical:8022",
+          "initial_object_id": "object-000045",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000172",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--leonardo:canonical:8026",
+          "initial_object_id": "object-000124",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000141",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:reversed:8031",
+          "initial_object_id": "object-000133",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000143",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--shredder:canonical:8032",
+          "initial_object_id": "object-000050",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000158",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        },
+        {
+          "card": "Frog Butler",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--splinter:canonical:8034",
+          "initial_object_id": "object-000046",
+          "limitations": [
+            "activation_child_semantics_not_implemented"
+          ],
+          "object_id": "object-000175",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "{T}: Add one mana of any color.",
+          "semantic_key": "5b865275-4114-44d0-9832-ae5d3b4efba4:0:1:8f936f93056579215d4375dd86511c58e9c0a1a079579b6cea430d5f87bfcec0"
+        }
+      ],
+      "oracle_fragment": "{T}: Add one mana of any color."
+    },
+    {
+      "cards": [
+        "Krang, Master Mind"
+      ],
+      "distinct_games": 6,
+      "games": [
+        "donatello--krang:canonical:8049",
+        "donatello--krang:canonical:8050",
+        "donatello--krang:reversed:8049",
+        "donatello--krang:reversed:8050",
+        "krang--leonardo:canonical:8061",
+        "krang--michelangelo:reversed:8063"
+      ],
+      "occurrence_count": 7,
+      "occurrences": [
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--krang:canonical:8049",
+          "initial_object_id": "object-000107",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000246",
+          "occurrence_id": "semantic-000023",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--krang:reversed:8049",
+          "initial_object_id": "object-000043",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000240",
+          "occurrence_id": "semantic-000026",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--krang:canonical:8050",
+          "initial_object_id": "object-000105",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000207",
+          "occurrence_id": "semantic-000012",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--krang:reversed:8050",
+          "initial_object_id": "object-000052",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000208",
+          "occurrence_id": "semantic-000018",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--krang:reversed:8050",
+          "initial_object_id": "object-000044",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000215",
+          "occurrence_id": "semantic-000021",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "krang--leonardo:canonical:8061",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000269",
+          "occurrence_id": "semantic-000011",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        },
+        {
+          "card": "Krang, Master Mind",
+          "classification": "reached_unsupported",
+          "game_id": "krang--michelangelo:reversed:8063",
+          "initial_object_id": "object-000113",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000200",
+          "occurrence_id": "semantic-000018",
+          "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference.",
+          "semantic_key": "52562194-4a97-40d2-aa73-7827f7834f2f:0:1:eff5c32f1e4995d032967913c4e94837b49b761266c5338db5a0a424b69b5c81"
+        }
+      ],
+      "oracle_fragment": "When Krang enters, if you have fewer than four cards in hand, draw cards equal to the difference."
+    },
+    {
+      "cards": [
+        "Raphael, Most Attitude"
+      ],
+      "distinct_games": 6,
+      "games": [
+        "april_oneil--raphael:canonical:8014",
+        "bebop_rocksteady--raphael:canonical:8029",
+        "donatello--raphael:canonical:8056",
+        "donatello--raphael:reversed:8056",
+        "krang--raphael:canonical:8065",
+        "michelangelo--raphael:reversed:8080"
+      ],
+      "occurrence_count": 6,
+      "occurrences": [
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--raphael:canonical:8014",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000174",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--raphael:canonical:8029",
+          "initial_object_id": "object-000110",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000008",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--raphael:canonical:8056",
+          "initial_object_id": "object-000104",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000233",
+          "occurrence_id": "semantic-000015",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--raphael:reversed:8056",
+          "initial_object_id": "object-000042",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000240",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "krang--raphael:canonical:8065",
+          "initial_object_id": "object-000102",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000185",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--raphael:reversed:8080",
+          "initial_object_id": "object-000053",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000186",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:1:be0317c8ea407a40fd269be93968065369a71fb4439d48a3c150ff46316cb488"
+        }
+      ],
+      "oracle_fragment": "Alliance — Whenever another creature you control enters, you may exile the top card of your library."
+    },
+    {
+      "cards": [
+        "Raphael, Most Attitude"
+      ],
+      "distinct_games": 6,
+      "games": [
+        "april_oneil--raphael:canonical:8014",
+        "bebop_rocksteady--raphael:canonical:8029",
+        "casey_jones--raphael:canonical:8044",
+        "donatello--raphael:reversed:8056",
+        "krang--raphael:canonical:8065",
+        "michelangelo--raphael:reversed:8080"
+      ],
+      "occurrence_count": 6,
+      "occurrences": [
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--raphael:canonical:8014",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000174",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "bebop_rocksteady--raphael:canonical:8029",
+          "initial_object_id": "object-000110",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000009",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--raphael:canonical:8044",
+          "initial_object_id": "object-000132",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000181",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--raphael:reversed:8056",
+          "initial_object_id": "object-000042",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000240",
+          "occurrence_id": "semantic-000014",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "krang--raphael:canonical:8065",
+          "initial_object_id": "object-000102",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000185",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        },
+        {
+          "card": "Raphael, Most Attitude",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--raphael:reversed:8080",
+          "initial_object_id": "object-000053",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000186",
+          "occurrence_id": "semantic-000010",
+          "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael.",
+          "semantic_key": "eaf194a7-d95f-4738-9052-92ad00443a76:0:2:f5677dceb4732f49ce04cc645dd14bf7a14f092827e2be0b2c9f7b13b602d634"
+        }
+      ],
+      "oracle_fragment": "Whenever Raphael attacks, until end of turn, you may play a card exiled with Raphael."
+    },
+    {
+      "cards": [
+        "Zoo Escapees"
+      ],
+      "distinct_games": 5,
+      "games": [
+        "april_oneil--bebop_rocksteady:reversed:8002",
+        "krang--michelangelo:canonical:8064",
+        "michelangelo--shredder:reversed:8081",
+        "michelangelo--shredder:reversed:8082",
+        "michelangelo--splinter:canonical:8084"
+      ],
+      "occurrence_count": 5,
+      "occurrences": [
+        {
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--bebop_rocksteady:reversed:8002",
+          "initial_object_id": "object-000053",
+          "limitations": [
+            "token_activated_ability_not_implemented"
+          ],
+          "object_id": "object-000157",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        },
+        {
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "krang--michelangelo:canonical:8064",
+          "initial_object_id": "object-000112",
+          "limitations": [
+            "token_activated_ability_not_implemented"
+          ],
+          "object_id": "object-000155",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        },
+        {
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--shredder:reversed:8081",
+          "initial_object_id": "object-000128",
+          "limitations": [
+            "token_activated_ability_not_implemented"
+          ],
+          "object_id": "object-000146",
+          "occurrence_id": "semantic-000002",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        },
+        {
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--shredder:reversed:8082",
+          "initial_object_id": "object-000061",
+          "limitations": [
+            "token_activated_ability_not_implemented"
+          ],
+          "object_id": "object-000196",
+          "occurrence_id": "semantic-000014",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        },
+        {
+          "card": "Zoo Escapees",
+          "classification": "reached_unsupported",
+          "game_id": "michelangelo--splinter:canonical:8084",
+          "initial_object_id": "object-000122",
+          "limitations": [
+            "token_activated_ability_not_implemented"
+          ],
+          "object_id": "object-000154",
+          "occurrence_id": "semantic-000004",
+          "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "107e9ada-4e2e-4032-addd-274bca956621:0:0:c34b0291b7b6b26a718ba7762560229497d1d607ff6957bff6ec9a35a1feeb5e"
+        }
+      ],
+      "oracle_fragment": "When this creature leaves the battlefield, create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")"
+    },
+    {
+      "cards": [
+        "Casey Jones, Vigilante"
+      ],
+      "distinct_games": 3,
+      "games": [
+        "april_oneil--casey_jones:canonical:8004",
+        "casey_jones--michelangelo:canonical:8041",
+        "casey_jones--raphael:canonical:8043"
+      ],
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--casey_jones:canonical:8004",
+          "initial_object_id": "object-000090",
+          "limitations": [],
+          "object_id": "object-000220",
+          "occurrence_id": "semantic-000013",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        },
+        {
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--michelangelo:canonical:8041",
+          "initial_object_id": "object-000032",
+          "limitations": [],
+          "object_id": "object-000286",
+          "occurrence_id": "semantic-000022",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        },
+        {
+          "card": "Casey Jones, Vigilante",
+          "classification": "reached_unsupported",
+          "game_id": "casey_jones--raphael:canonical:8043",
+          "initial_object_id": "object-000042",
+          "limitations": [],
+          "object_id": "object-000221",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+          "semantic_key": "bc163b5a-0b1a-4257-8c07-5c7d5284015f:0:0:7205e4e46cce5b88d12207eff8a2435295a2a546050ce011603d754b1ee66e79"
+        }
+      ],
+      "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random."
+    },
+    {
+      "cards": [
+        "Ooze Spill"
+      ],
+      "distinct_games": 2,
+      "games": [
+        "donatello--leonardo:canonical:8051",
+        "krang--leonardo:canonical:8062"
+      ],
+      "occurrence_count": 3,
+      "occurrences": [
+        {
+          "card": "Ooze Spill",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--leonardo:canonical:8051",
+          "initial_object_id": "object-000123",
+          "limitations": [
+            "token_activated_ability_not_implemented",
+            "token_preceding_effect_not_implemented"
+          ],
+          "object_id": "object-000123",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "Counter target spell. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "c1c5f9da-1396-4406-b803-b64f66b8e49d:0:0:b80ed889218e4ffa8edf887159be544a0a83d961f6c00b26fb4e3471d9bc98bc"
+        },
+        {
+          "card": "Ooze Spill",
+          "classification": "reached_unsupported",
+          "game_id": "donatello--leonardo:canonical:8051",
+          "initial_object_id": "object-000126",
+          "limitations": [
+            "token_activated_ability_not_implemented",
+            "token_preceding_effect_not_implemented"
+          ],
+          "object_id": "object-000126",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "Counter target spell. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "c1c5f9da-1396-4406-b803-b64f66b8e49d:0:0:b80ed889218e4ffa8edf887159be544a0a83d961f6c00b26fb4e3471d9bc98bc"
+        },
+        {
+          "card": "Ooze Spill",
+          "classification": "reached_unsupported",
+          "game_id": "krang--leonardo:canonical:8062",
+          "initial_object_id": "object-000121",
+          "limitations": [
+            "token_activated_ability_not_implemented",
+            "token_preceding_effect_not_implemented"
+          ],
+          "object_id": "object-000121",
+          "occurrence_id": "semantic-000006",
+          "oracle_fragment": "Counter target spell. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "semantic_key": "c1c5f9da-1396-4406-b803-b64f66b8e49d:0:0:b80ed889218e4ffa8edf887159be544a0a83d961f6c00b26fb4e3471d9bc98bc"
+        }
+      ],
+      "oracle_fragment": "Counter target spell. Create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")"
+    },
+    {
+      "cards": [
+        "Michelangelo, Weirdness to 11"
+      ],
+      "distinct_games": 1,
+      "games": [
+        "april_oneil--michelangelo:canonical:8012"
+      ],
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "card": "Michelangelo, Weirdness to 11",
+          "classification": "reached_unsupported",
+          "game_id": "april_oneil--michelangelo:canonical:8012",
+          "initial_object_id": "object-000134",
+          "limitations": [
+            "oracle_ability_not_implemented"
+          ],
+          "object_id": "object-000156",
+          "occurrence_id": "semantic-000005",
+          "oracle_fragment": "If one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead.",
+          "semantic_key": "170ab932-9d50-4ce7-9a42-08e1edce7e7c:0:1:e71c8d987cb2378aed5e55b0fed33ad7aaeb3e45d58f598ff7120bdccc8b9c40"
+        }
+      ],
+      "oracle_fragment": "If one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead."
+    }
+  ],
+  "evidence_base": "f00233033b305fd182a32105396622a79dd9c202",
+  "ranking_basis": "Observed distinct games, then occurrence count; no implementation authorization inferred. Terminal-pending obligations remain conservatively unsupported."
+}
