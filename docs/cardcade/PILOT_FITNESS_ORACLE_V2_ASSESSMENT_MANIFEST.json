@@ -1,0 +1,135 @@
+{
+  "accepted_interface_baseline": {
+    "commit": "fa3f4944a7209f22e70d783d9a7f9abca3b37534",
+    "name": "pilot-input-v2"
+  },
+  "artifact_kind": "evidence_only_methodology_assessment",
+  "assessment_date": "2026-09-10",
+  "assessment_document": {
+    "lf_sha256": "a14cb6622a91dc4c10d947c14fe649549de4e77f8937a1cbd08cdf476783ac72",
+    "path": "docs/cardcade/PILOT_FITNESS_ORACLE_V2_ASSESSMENT.md"
+  },
+  "assessment_name": "Pilot Fitness Oracle V2 Assessment",
+  "candidate_base": "fa3f4944a7209f22e70d783d9a7f9abca3b37534",
+  "canonical_fixtures_sealed": 0,
+  "external_primary_sources": [
+    {
+      "title": "MIT 6.041SC Recitation: Hypergeometric Probabilities",
+      "url": "https://ocw.mit.edu/courses/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/3c60959194374eab8b4f75da74d5cacf_MIT6_041SCF13_Edit2_Take2_No13_Ch1_HypergeometicProbabilities.pdf",
+      "use": "Sampling-without-replacement counting; not evidence of Cardcade model applicability.",
+      "year": 2013
+    },
+    {
+      "authors": [
+        "Jeffrey Long",
+        "Nathan R. Sturtevant",
+        "Michael Buro",
+        "Timothy Furtak"
+      ],
+      "title": "Understanding the Success of Perfect Information Monte Carlo Sampling in Game Tree Search",
+      "url": "https://webdocs.cs.ualberta.ca/~nathanst/papers/pimc.pdf",
+      "use": "Strategy-fusion caution; no search or simulation algorithm implemented.",
+      "year": 2010
+    }
+  ],
+  "failed_readiness_preserved_at": "a19c1a06596862ea3cf947700c57149978e7f77e",
+  "final_invocation_count": null,
+  "fitness_specification_rewritten": false,
+  "frozen_gameplay_reference": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+  "game_constructions": 0,
+  "gameplay_simulations": 0,
+  "gates": {
+    "action_33": "NOT_AUTHORIZED",
+    "calibration": "BLOCKED",
+    "pilot_scoring": "NOT_AUTHORIZED",
+    "prototype_0_3": "NOT_AUTHORIZED"
+  },
+  "local_primary_sources": [
+    {
+      "git_blob": "efcd3fe4824bfc369bbfda72c4d94803e8ab9943",
+      "git_bytes_sha256": "cce2ebe9ef032717ba40c064a03c9d04d40f54886e0e000c8f6dd75f048c42c8",
+      "path": "src/tmnt_design_studio/pilot_input_v2.py",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "523685e146f5942bb2d0bf24049959caec87a22d",
+      "git_bytes_sha256": "25709fe82373c6baf8de0b7d689f2403daef0711881a934d49172366306785f2",
+      "path": "src/tmnt_design_studio/engine07.py",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "97cccb8663fd568b0ddcaeceedd9f65a1e8d2ce4",
+      "git_bytes_sha256": "dd09e60fa5af4812897c20cae68b692d36d0a73fe6c5a755c2351e79cf989670",
+      "path": "src/tmnt_design_studio/pilot07.py",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "ef7fab14ec9be76b6654fd335e7468f172972bb3",
+      "git_bytes_sha256": "71210017b8b6283c637c464a186f96b2a9dca718925728663efb24108e4ba5c5",
+      "path": "src/tmnt_design_studio/stage002.py",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "87948c4e6bc43cfc83a822b2cb0d46499ceec2f3",
+      "git_bytes_sha256": "995d2f67bbd9615213d5a18c73383ecc0d43e44ab1d188a3ed7c8ede98239db3",
+      "path": "src/tmnt_design_studio/smoke01.py",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "d08e61f63ed23a84e27ce88bc596d5fb3ad18f05",
+      "git_bytes_sha256": "672648d03cda4fb7671386647011aaa92a5643cde120f2ccc0a6df8612aeb9c0",
+      "path": "docs/cardcade/POST_ACTION_32_PILOT_FITNESS_ASSESSMENT_SPEC.md",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "a7519ac8e56ad03bb4e198f538eba49ffdc61eac",
+      "git_bytes_sha256": "7e112783352110f47beb949913a95c5c78e6e2a03ca23c1eea0c6729d2313326",
+      "path": "docs/cardcade/POST_ACTION_32_PILOT_INPUT_CONTRACT_ASSESSMENT.md",
+      "revision": "fa3f4944a7209f22e70d783d9a7f9abca3b37534"
+    },
+    {
+      "git_blob": "ed7356d5fc0c427a5b61a27b4f48e7225e36addc",
+      "git_bytes_sha256": "4f574ae0365771c6590389b9933f59cad81b5d5a3fdb21dd3f79c1f1c1e05559",
+      "path": "docs/cardcade/PILOT_FITNESS_V2_PREPARATION_RETURN_TO_HQ.md",
+      "revision": "a19c1a06596862ea3cf947700c57149978e7f77e"
+    },
+    {
+      "git_blob": "98bb31a66d216273e27bc31f2956d6004ec6a859",
+      "git_bytes_sha256": "f8992ffb6330cc486651f026bb873b8333a730a207cea6e54bd29fe5c13d6b5e",
+      "path": "docs/cardcade/PILOT_FITNESS_V2_PREPARATION_DIAGNOSTIC.json",
+      "revision": "a19c1a06596862ea3cf947700c57149978e7f77e"
+    },
+    {
+      "git_blob": "e44de01c64735f7392dca5567fcf2cd1a6446384",
+      "git_bytes_sha256": "5d969bb61569e6afbb152790e691dec83f7744bbd1876b4d2fdabd7fb1eb2f03",
+      "path": "scripts/check_pilot_fitness_v2_readiness.py",
+      "revision": "a19c1a06596862ea3cf947700c57149978e7f77e"
+    }
+  ],
+  "methodology_selected_by_HQ": false,
+  "oracle_implemented": false,
+  "pilot_invocations": 0,
+  "privacy_K": null,
+  "proposed_scope_not_authorized": {
+    "exact_arithmetic": true,
+    "max_action_outcome_rows": 1000,
+    "max_distinct_card_definitions": 60,
+    "proposed_exact_regret_epsilon": 0,
+    "unknown_replacement_draws": 1
+  },
+  "recommendation": "Separate deterministic tactical and uncertainty-sensitive resource claims; exact finite expectations only after legitimate information availability is approved.",
+  "requires_HQ_decision": [
+    "knowledge_source_and_delivery",
+    "expectation_or_robust_only_claim",
+    "horizon_and_scope_bounds",
+    "risk_tradeoff_treatment"
+  ],
+  "scored_decisions": 0,
+  "source_and_deck_verification": {
+    "all_files_equal_accepted_baseline_after_LF_normalization": true,
+    "decks_git_tree": "1d595597e32de87146d9fa53349a6673b4daa51e",
+    "src_git_tree": "4d1682b26f86fdf8618dcb9f8f40a7fe66a3f9c0",
+    "verified_file_count": 80
+  },
+  "status": "PROPOSED_FOR_HQ_REVIEW_NOT_ACCEPTED"
+}
