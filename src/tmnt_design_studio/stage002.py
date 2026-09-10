@@ -647,6 +647,7 @@ def _authoritative_execution_index(
     """Index only mature serialized evidence capable of authenticating EXECUTED."""
     Game.validate_stun_snapshot_evidence(snapshot)
     Game.validate_mill_three_snapshot_evidence(snapshot)
+    Game.validate_krang_refill_snapshot_evidence(snapshot)
     Game.validate_jury_rig_snapshot_evidence(snapshot)
     Game.validate_vigilante_snapshot_evidence(snapshot)
     Game.validate_food_search_snapshot_evidence(snapshot)
@@ -729,6 +730,15 @@ def _authoritative_execution_index(
                     keyword,
                 )
     for event in snapshot.get("events", []):
+        if CardInterpreter.is_krang_refill_fragment(event.get("oracle_fragment")):
+            if event.get("event") == "krang_refill_committed" and event["requested"] > 0:
+                add(
+                    "krang_refill",
+                    event["stack_object_id"],
+                    event["source_id"],
+                    event["oracle_fragment"],
+                )
+            continue
         if event.get("oracle_fragment") == CardInterpreter.MILL_THREE_FRAGMENT:
             if event.get("event") == "mill_three_committed":
                 add(
@@ -1085,6 +1095,7 @@ def reconcile_snapshot(
             key: snapshot.get(key)
             for key in (
                 "mill_three_evidence",
+                "krang_refill_evidence",
                 "jury_rig_evidence",
                 "vigilante_evidence",
                 "winner",
@@ -1230,6 +1241,7 @@ def validate_stage_result_evidence(result: dict[str, object]) -> None:
     for game in aggregate.get("games", []):
         Game.validate_stun_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_mill_three_snapshot_evidence(game.get("authoritative_evidence", {}))
+        Game.validate_krang_refill_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_jury_rig_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_vigilante_snapshot_evidence(game.get("authoritative_evidence", {}))
         Game.validate_food_search_snapshot_evidence(game.get("authoritative_evidence", {}))

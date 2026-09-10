@@ -1,0 +1,34 @@
+{
+  "policy": "Historical references reauthenticate independently. Runtime occurrence counts are not forced after actual draws change trajectories.",
+  "runtime_decreases": [],
+  "summary": {
+    "authenticated_banked_references": 2828,
+    "authenticated_current_references": 2834,
+    "base": "8923eb8e574b2b3a6be4b8ac4b318bc41dd17151",
+    "counts": {
+      "executed": 495,
+      "present_unreached": 1530,
+      "reached_unsupported": 111
+    },
+    "duplicate_mismatches": 0,
+    "executions": 360,
+    "games": 180,
+    "krang_creation_false": 3,
+    "krang_creation_true": 4,
+    "krang_entries": 7,
+    "krang_executed_games": 3,
+    "krang_executed_transactions": 4,
+    "krang_failed_draws": 0,
+    "krang_resolution_false": 0,
+    "krang_transactions": 4,
+    "labels": {
+      "mechanically_clean_coverage_complete": 114,
+      "mechanically_clean_coverage_limited": 66,
+      "mechanically_invalid": 0
+    },
+    "reconstructed_reports": 180,
+    "runtime_decreases": 0,
+    "stops": 0,
+    "violations": 0
+  }
+}
