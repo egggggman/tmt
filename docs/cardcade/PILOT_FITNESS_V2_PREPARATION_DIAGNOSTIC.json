@@ -1,0 +1,596 @@
+{
+  "accepted_interface_baseline": {
+    "commit": "fa3f4944a7209f22e70d783d9a7f9abca3b37534",
+    "name": "pilot-input-v2"
+  },
+  "accepted_specification_commit": "ca9757b956eafc4b8d03c495dabb03eaab6fe931",
+  "action_33_authorized": false,
+  "actual_game_instantiations_this_preparation": 0,
+  "actual_pilot_invocations_this_preparation": 0,
+  "artifact_kind": "source_based_preparation_diagnostic_not_sealed_fixture_packet",
+  "blocking_hooks": [
+    "choose_hand_bottom_draw",
+    "choose_discard_draw"
+  ],
+  "calibration": "BLOCKED",
+  "canonical_fixtures_required": 96,
+  "canonical_fixtures_sealed": 0,
+  "claim_limit": "Not a universal impossibility proof and not a measured Pilot failure.",
+  "conclusion_method": "manual oracle-feasibility review; script authenticates sources only",
+  "design_paths_reviewed": [
+    {
+      "countercase": "An unseen duplicate of the selected card supplies no new card facts.",
+      "finding": "A needed card on the hidden top cannot establish guaranteed improvement.",
+      "path": "nonempty_library_filter_for_needed_resource"
+    },
+    {
+      "finding": "Visible redundancy does not establish a strictly better hidden replacement.",
+      "path": "filter_redundant_land_or_unpayable_card"
+    },
+    {
+      "finding": "The selected card is bottomed then drawn; no required resource gain proven.",
+      "path": "hand_bottom_empty_library"
+    },
+    {
+      "finding": "Taking the option causes failed Draw; supports restraint, not useful action.",
+      "path": "discard_empty_library"
+    },
+    {
+      "finding": "Boundary/legality checks cannot substitute for tactical/useful-action quota.",
+      "path": "empty_hand_or_singleton_option"
+    },
+    {
+      "finding": "No concrete eligible oracle established; cannot add missing rules, graveyard/history observations or a Pilot memory/knowledge policy.",
+      "path": "discard_synergy_recursion_or_prior_inspection"
+    }
+  ],
+  "diagnostic_source_lf_sha256": "5d969bb61569e6afbb152790e691dec83f7744bbd1876b4d2fdabd7fb1eb2f03",
+  "final_planned_pilot_invocations": null,
+  "fitness_scoring_authorized": false,
+  "frozen_gameplay_reference": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+  "main_fast_forward_commit": "fa3f4944a7209f22e70d783d9a7f9abca3b37534",
+  "oracle_continuations_executed_this_preparation": 0,
+  "privacy_K": null,
+  "prototype_0_3_authorized": false,
+  "quota_accounting": {
+    "choose_attack": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    },
+    "choose_blocks": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    },
+    "choose_discard_draw": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "unresolved"
+    },
+    "choose_hand_bottom_draw": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "unresolved"
+    },
+    "choose_main_action": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    },
+    "choose_priority": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    },
+    "choose_scry": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    },
+    "choose_sneak": {
+      "required": {
+        "boundary": 4,
+        "forced": 4,
+        "resource": 4
+      },
+      "sealed": 0,
+      "status": "not_certified_after_controlling_stop"
+    }
+  },
+  "seeds_transformations_reconstruction": "unsealed; no partial suite promoted",
+  "source_identities": {
+    "decks/BATTLE_001_LEONARDO_VS_RAPHAEL.md": {
+      "accepted_git_blob": "d86a4a1353417645237878f33b840d5af412ed25",
+      "lf_sha256": "62397e87765778a05d7b5437cb3e760050d1753f2218b831c7c53720086b3ac5"
+    },
+    "decks/BATTLE_002_THREE_BROTHER_POD.md": {
+      "accepted_git_blob": "a4329190385538e6bd8737db3a18212e244cdf34",
+      "lf_sha256": "4913654b34050844e28340538dcb700529d55ecc08b77e44c641d4d299f11e64"
+    },
+    "decks/BATTLE_003_FOUR_TURTLE_BASELINE.md": {
+      "accepted_git_blob": "a9e253c4e33efe8780baf3b17256db30724dbac8",
+      "lf_sha256": "f210ebb440c38cc1776a2a2e3b17d8ef454c7ad55e3e141a3a675accc9c526a6"
+    },
+    "decks/BATTLE_004_FIVE_DECK_BETA.md": {
+      "accepted_git_blob": "56626a5aa47a89c996925b59c9fc22591cefe4ff",
+      "lf_sha256": "a40ba1ef081244af69e1565fffcb9c825277d66fe1165f425c0ebf0e46e648a6"
+    },
+    "decks/BATTLE_005_SIX_DECK_BETA.md": {
+      "accepted_git_blob": "77222ffa7e0b4d28882487c38f6f9875ae0b5204",
+      "lf_sha256": "3c62c42e990611c7fe600bf5a57728cb3061e43e6509e725f335b00fa162a219"
+    },
+    "decks/BATTLE_006_SEVEN_DECK_BETA.md": {
+      "accepted_git_blob": "837a87869f634b726c47755d640573f092b0a26e",
+      "lf_sha256": "db556f0fad4d37af3f84b58fb8d9b7167eb3b86a7091a473eae24f558d4b41a6"
+    },
+    "decks/BATTLE_007_EIGHT_DECK_BETA.md": {
+      "accepted_git_blob": "063507a82d256493df40e1cdc5b4254da9a91a42",
+      "lf_sha256": "06f8aa85af97c737e2551093e4d74df257e7ad44747ecc7af4fbf93a7734e264"
+    },
+    "decks/BATTLE_008_NINE_DECK_BETA.md": {
+      "accepted_git_blob": "7492ce6ccad80ddf428721c64c7df944b8f51f69",
+      "lf_sha256": "b84a914b4cbd80d7e1b405d66323e424c95c88cebaa9acfc73a9f95ae09f596f"
+    },
+    "decks/BETA_BASELINE_0.1.md": {
+      "accepted_git_blob": "99b754ddbe7e36fd445bc5395dd0fa1d5960acb9",
+      "lf_sha256": "504fad865367b04a7ee9295990d32aa1cd71e4bbc7974f7d09af15e11ee10e0d"
+    },
+    "decks/PROTOTYPE_0.2_DESIGN_HANDOFF.md": {
+      "accepted_git_blob": "4906cade9b7ab6a4c8f0fbc7b216eeb91b736483",
+      "lf_sha256": "6651ba8edb5a188a92262ea99b9b39124329f9e7440248eaca586a518c3ca459"
+    },
+    "decks/april_oneil/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "987337c62c553d279c482c10153ef77126fccd55",
+      "lf_sha256": "b57622063740ca38495bd87d4fe508926f5afd552f78d993cb4cc3631ceb80cb"
+    },
+    "decks/april_oneil/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "68afbfdc1cb05f943c1e26b6f2086062c47cf899",
+      "lf_sha256": "8dcd84cbe659c8645df447f74c8b68c8c2d2a849ad374328a34dbb61880a1f2d"
+    },
+    "decks/april_oneil/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+      "lf_sha256": "ef43b0dc98524ec84642e4d19364d29251aba2ae8614976348949ff4dca436ef"
+    },
+    "decks/bebop_rocksteady/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "c0b7a694cdd83c19a3dd63c0db254b5349184461",
+      "lf_sha256": "ed6138231d6e0ca41d02eca211447ca7966e20a36bc0ef2340381885ef65320b"
+    },
+    "decks/bebop_rocksteady/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "f24f639b4b61d898ca86003aace8bd6cc2eec8fb",
+      "lf_sha256": "f8716bd8b6a006d09bd6749688f8004801428fe3b8a4a6e9fb22ae9614364db9"
+    },
+    "decks/bebop_rocksteady/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+      "lf_sha256": "9756db19c204ce38d5544e6c4ddc4daf3e4907fcdd147922fcca840d606677b8"
+    },
+    "decks/casey_jones/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "ecb19efe862a94975206b22cafc34d75d1564701",
+      "lf_sha256": "4ead28885f535707f7f0b1483aec2e4e0884c61f5aec21477a0fa0ab9213312c"
+    },
+    "decks/casey_jones/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "bbe978a575e9b45163fb81cbabbf1ad5aec7fb44",
+      "lf_sha256": "49989347cf1a98c72bdef829b535104b097a3f3c7f0a6ad9e576915fc1585722"
+    },
+    "decks/casey_jones/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6",
+      "lf_sha256": "5c6a9068bab15a2c9f0098778290adbcaa29b96bf699e7e595edb0966e375748"
+    },
+    "decks/donatello/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "10f042b3345155b0c6c3c4ed56c86c902b05ed5a",
+      "lf_sha256": "00ce14ef1df6d1cccc27748d870c3730b69c2dfa85eb49d8eb2868e67d1a51a2"
+    },
+    "decks/donatello/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "3b4a0af1085a10efc17e77c9514e1bc397c76deb",
+      "lf_sha256": "8f722594eff3d2355dfd1b4824ecdad289c8ad584635fbf514c975652ea76a81"
+    },
+    "decks/donatello/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "9fae8db9fa819935bd612ac13add867c5a76432e",
+      "lf_sha256": "25812e2d7f0ac64ae2476c0d62298db35196d1719c9376b5369d5080faa6aad1"
+    },
+    "decks/donatello/PROTOTYPE_0.2.md": {
+      "accepted_git_blob": "aa736ec1148bf807f20e25857b4435911ad943f9",
+      "lf_sha256": "c99bdefa405efb8b2611022037b11e2b369565868d96b1aeedc197fb9f346ee1"
+    },
+    "decks/donatello/PROTOTYPE_0.2.txt": {
+      "accepted_git_blob": "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317",
+      "lf_sha256": "28916123b7080eb412d9648740d2bc10d10c20c41d3138e1421ffcb38fa2f169"
+    },
+    "decks/krang/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "85e8b181df2603c12113b65496be838f110c7cb8",
+      "lf_sha256": "50209a477f8d5e76ba7e7a88e84d164e8965f1c476e257dd42b822c3c5f91c34"
+    },
+    "decks/krang/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "7626db9e23a0dc1650a4a29d7a4c068a43942c8f",
+      "lf_sha256": "5878d612b868571d438a294c42c49b9edec3d26242f71753ac2370f9efa272e7"
+    },
+    "decks/krang/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "1840c1883db414a0ea96bd926b23ed8928c9ee28",
+      "lf_sha256": "817d3ac97507fd1d492c3495cf81670289765f2c3fb6571ae43cbb8dbeaa1997"
+    },
+    "decks/krang/PROTOTYPE_0.2.md": {
+      "accepted_git_blob": "9849188130c063b7b44a5c07806fd31d815bedba",
+      "lf_sha256": "b1ec60dfd3a473ab294fd0ad7c319452dfea54f344d4a5d19399e2cfec58f7de"
+    },
+    "decks/krang/PROTOTYPE_0.2.txt": {
+      "accepted_git_blob": "ecdffa18463076503f5d338687041f42a3a599d9",
+      "lf_sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525"
+    },
+    "decks/leonardo/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "2abb3839637b3a70bf0bf0f35e024ba376c6bca6",
+      "lf_sha256": "b555c3b37ee720679bfc891bff243927174f356cf001112d26fd67e9506f7e21"
+    },
+    "decks/leonardo/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "962354b936e1507a1da18ed1222fa94e844f3793",
+      "lf_sha256": "f80cf5e13c786a24b3116621fb4d31d4edf3f34410a084212400ad912d76c782"
+    },
+    "decks/leonardo/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+      "lf_sha256": "d1bc2928b6ab17d3467e96dd3ca03c7d8bb7a52245ce77a1ba5b219f588f450a"
+    },
+    "decks/michelangelo/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "60c70dd8ca2263362e3d63845f0a8e151d7f7647",
+      "lf_sha256": "1a1af340c79654c5e057d2f00b9f4017f83129d8c50c3e8922f807a6e635fffb"
+    },
+    "decks/michelangelo/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "98e76ce79c81c0070c7e657cefd3c59e516cd489",
+      "lf_sha256": "c9a370f1159766e6334095c8edd80a8feeb053d6bee7ec9f0ac045024c4d7245"
+    },
+    "decks/michelangelo/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+      "lf_sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f"
+    },
+    "decks/raphael/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "15dc7f81bdec6e1eb464e489eeb679e716703ee7",
+      "lf_sha256": "ec6ff0f6f9ae71c2f2d9ad5daa8849c23940e2be603b72427d57c7be7a7f6f8f"
+    },
+    "decks/raphael/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "13bcaaa0b0279b009d0c5ce05fdbd762cdb350e9",
+      "lf_sha256": "94436c222edbd851dc3f0da3e5480885fbe7cb8c030ad17e9054559ba86c1cc4"
+    },
+    "decks/raphael/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+      "lf_sha256": "7768d150bd57f7f949bd4d72adcb0712d4d8cbdabe3a70c63bac6ad0e00af576"
+    },
+    "decks/shredder/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "7abc9208e0f1b82d44a1007bc666d0b51a9e482e",
+      "lf_sha256": "370a851f1c2e50ce189082bcc2e6d96972bdf062681cfb8213c49a7f3dfed9c0"
+    },
+    "decks/shredder/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "adcb3417807c79f338ff600f50371bcdc6ead51f",
+      "lf_sha256": "2571e8b871f92509b65e7e2fdce07f7062549dee119d90051ed92abff80396db"
+    },
+    "decks/shredder/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "306fd267482b72f188c69222d57fcc547d654091",
+      "lf_sha256": "6f646efb8f4ad4cabe7046fb97762821e10298aa02608ebc5693d28e8a8dd094"
+    },
+    "decks/splinter/PLAYTEST_LOG.md": {
+      "accepted_git_blob": "cc6271089e83fce794af3c7881e84f45840ee9a8",
+      "lf_sha256": "ce3afc04ac347d0bd5791d9d6c603d1cf771a90ad86e894302f8e0ef4d8eb002"
+    },
+    "decks/splinter/PROTOTYPE_0.1.md": {
+      "accepted_git_blob": "b5f4d1ac7d91c30a408467c191377a4cf5dc6a77",
+      "lf_sha256": "f02d714645f4c9a46284c6a5ba0a3441e5a3f5d2af597699f6c023ca62cfa10b"
+    },
+    "decks/splinter/PROTOTYPE_0.1.txt": {
+      "accepted_git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+      "lf_sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42"
+    },
+    "src/tmnt_design_studio/__init__.py": {
+      "accepted_git_blob": "389d9f7c28f34163e5640edff8de9220ab4ec99b",
+      "lf_sha256": "d5724478ec710bae63fdd5364cf0ca7ed8eed80fa9a937d396b97fb4ccedcae0"
+    },
+    "src/tmnt_design_studio/__main__.py": {
+      "accepted_git_blob": "19c2b0fe14e5b92dbc9567a38795c166e7a68f40",
+      "lf_sha256": "27c2970a7e84f63cac07027565488c5b1b3ed7f66cfa03b7ed627f341a363758"
+    },
+    "src/tmnt_design_studio/capabilities.py": {
+      "accepted_git_blob": "d464234d9bd68fa4e3292a1e82bd22749db7064c",
+      "lf_sha256": "33974cb9775aa32a0adf8116725897c3f6e5d8ab54528a21e840a3a3ca48ffdb"
+    },
+    "src/tmnt_design_studio/card_data.py": {
+      "accepted_git_blob": "ccbb3faacdce3d9a80809072049b37c6c62c0a0e",
+      "lf_sha256": "a352e57fef93992b34390b8d964f51005faf93da4f1c832c794efc9f060d3a08"
+    },
+    "src/tmnt_design_studio/card_interpreter07.py": {
+      "accepted_git_blob": "f468f4bbbab90a99c76f3c0708bd7036fbd24725",
+      "lf_sha256": "46fa854f3bce8ade39fe01f739e151c586397a18d69c68ef332e866952b70d56"
+    },
+    "src/tmnt_design_studio/cardcade.py": {
+      "accepted_git_blob": "e7441b14967ea7fcae6234c3fc7503940008f031",
+      "lf_sha256": "81c277a3c767da5cbb364293fdb9c96d9f7fa02e6ff15937e32fe0a131f5ddb9"
+    },
+    "src/tmnt_design_studio/cli.py": {
+      "accepted_git_blob": "80dbeff36c85b665bc9c27ae25b98221b597d35f",
+      "lf_sha256": "55d5f90e7bab694a1eccee689f6bf732f9a14c66a5c267491fa5eb8dcea41417"
+    },
+    "src/tmnt_design_studio/conformance07.py": {
+      "accepted_git_blob": "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
+      "lf_sha256": "093336ed744bbb7e84aaefb521eaf14ec343afc60d5b9b9e95cc5042f62510b2"
+    },
+    "src/tmnt_design_studio/database.py": {
+      "accepted_git_blob": "c8d9c1158ccf1e314fde5ff6f328880af72f2bb3",
+      "lf_sha256": "6d92fdb46f9ffd47767e8436958fde9f1e39a530fba242772b02765c3019f263"
+    },
+    "src/tmnt_design_studio/deck_analysis.py": {
+      "accepted_git_blob": "4e2b834a003f86ce4b2b509d7039401389463cc0",
+      "lf_sha256": "7b430d6c9870cce0dde0e6a5f1170f28817b472bcb2d7863ed22601ffe6495fe"
+    },
+    "src/tmnt_design_studio/engine07.py": {
+      "accepted_git_blob": "523685e146f5942bb2d0bf24049959caec87a22d",
+      "lf_sha256": "25709fe82373c6baf8de0b7d689f2403daef0711881a934d49172366306785f2"
+    },
+    "src/tmnt_design_studio/food_search07.py": {
+      "accepted_git_blob": "3e4c91aca241b7adb2a290f34c376d5cdadbcece",
+      "lf_sha256": "eb09134ab8e99e8718cfbaa5417866a39b96ae7c08644f73935058c3a8e6b5f9"
+    },
+    "src/tmnt_design_studio/jury_rig07.py": {
+      "accepted_git_blob": "0e200a979b33baa80036509f06ff3df2bc73d54d",
+      "lf_sha256": "b9253e2dcaf735412918e152e937f6680fd3e77f92e6ddcc15f1b27865f00448"
+    },
+    "src/tmnt_design_studio/krang_refill07.py": {
+      "accepted_git_blob": "23bd027297867617d52666dffd5c2694260e1dc5",
+      "lf_sha256": "01e51f3e0bae1bb12d6fe23d82c3045d13d7377ef695fec06d6780fc3657f374"
+    },
+    "src/tmnt_design_studio/migrations/001_initialize.sql": {
+      "accepted_git_blob": "53a9839506eab3eaf190d577eeaa7d89587aaa3c",
+      "lf_sha256": "99745b4acabdbe2d82a270794f708adc9056ffda74a6a3821b7b7b778401a4e2"
+    },
+    "src/tmnt_design_studio/migrations/002_mtg_core.sql": {
+      "accepted_git_blob": "26e47dce91eb019a7a7c484853715396ff6c132e",
+      "lf_sha256": "1d7a48f0c84de06c7d4cadbebe5cc1586d73be527157b20415219989ae0dc48a"
+    },
+    "src/tmnt_design_studio/migrations/003_capabilities.sql": {
+      "accepted_git_blob": "df3d02f73d39c3dd7ca3c17a8d7b1e69d6285d5a",
+      "lf_sha256": "b14feffc37b25adcc29de7695252462a80a08aa0d09ebb96dea18abc550959e5"
+    },
+    "src/tmnt_design_studio/migrations/004_tmnt_knowledge.sql": {
+      "accepted_git_blob": "ecd4e58e8ab51f6e29bbb5c3793146e7140f93ce",
+      "lf_sha256": "2776ffbff8f4f170ef0ea9ba17e0eb26b935cfe9a77c5b85fa53e5fd447b840c"
+    },
+    "src/tmnt_design_studio/migrations/005_decks.sql": {
+      "accepted_git_blob": "908d60205ea69d88abddd25fad446c7b3a4b3462",
+      "lf_sha256": "92b8fb41a41b0d227698f31633d515cff9fcc0362733984d73794969c35a2816"
+    },
+    "src/tmnt_design_studio/migrations/006_design_history.sql": {
+      "accepted_git_blob": "4f68d72da320b7d7d002995a37d33df5da98e759",
+      "lf_sha256": "d94aa802978918516e4cd84eec553e8106fa2680ca9266fc633939818f6f0865"
+    },
+    "src/tmnt_design_studio/migrations/007_playtesting.sql": {
+      "accepted_git_blob": "6116d0b77bb7528620c0b11aff3e12c39425226c",
+      "lf_sha256": "130a35aabfb5f692a5812fda9e19bf5fa652343ce2653dce597ca9e18f2d5cc3"
+    },
+    "src/tmnt_design_studio/migrations/008_indexes.sql": {
+      "accepted_git_blob": "ee1f66fefa698950f7bd8413deb95cf1b17e507f",
+      "lf_sha256": "8ceb6be22d3cf20079ee211ffbaf5d365319ad6f4fdfffb076f51bd357d02418"
+    },
+    "src/tmnt_design_studio/migrations/009_seed_foundation.sql": {
+      "accepted_git_blob": "c50fa40ce8d2ce395d8500c4c5120e824a5eca32",
+      "lf_sha256": "b535d1a759f411d1badff51bec8a259f9934cd64ffd300b195e2cad678660577"
+    },
+    "src/tmnt_design_studio/migrations/010_import_audit.sql": {
+      "accepted_git_blob": "e60c92d2121e47d5e7b2308ee56b3abad2c38cfc",
+      "lf_sha256": "ecb00981ebcafb5b0e2306a1da00dca9d9d628f35d2bbfff60b8c732e8ddfb26"
+    },
+    "src/tmnt_design_studio/migrations/011_capability_engine.sql": {
+      "accepted_git_blob": "e7fdd35e097d1237f9eb2a0cd974a2146720f5cc",
+      "lf_sha256": "ea2af4dce52896e81652d8752d457a94064b0c4f573fa48269f1b7eab66ff25e"
+    },
+    "src/tmnt_design_studio/migrations/012_deck_analysis_engine.sql": {
+      "accepted_git_blob": "e6446c28c4139d511b761e104d6af8c20abb5b1b",
+      "lf_sha256": "d55e56820fdbc48dd968e507a805777e3bc6583912c593a59a1e457d9c4ce092"
+    },
+    "src/tmnt_design_studio/migrations/__init__.py": {
+      "accepted_git_blob": "c0d1df56f9727ebbb512f68063a6d77f89cc878f",
+      "lf_sha256": "16dff6048695448b678c61ed0c02ddf131271707add0cbfccd758aa9b6aef6f8"
+    },
+    "src/tmnt_design_studio/mill_three07.py": {
+      "accepted_git_blob": "3e98653b00524eaeae7c0532f8aa05c3ea5f92f7",
+      "lf_sha256": "093d430b6cb01f6c4c6d0aa8f15cfead5e8a04e9763937f24e6760e589d43ab1"
+    },
+    "src/tmnt_design_studio/pilot07.py": {
+      "accepted_git_blob": "97cccb8663fd568b0ddcaeceedd9f65a1e8d2ce4",
+      "lf_sha256": "dd09e60fa5af4812897c20cae68b692d36d0a73fe6c5a755c2351e79cf989670"
+    },
+    "src/tmnt_design_studio/pilot_input_v2.py": {
+      "accepted_git_blob": "efcd3fe4824bfc369bbfda72c4d94803e8ab9943",
+      "lf_sha256": "cce2ebe9ef032717ba40c064a03c9d04d40f54886e0e000c8f6dd75f048c42c8"
+    },
+    "src/tmnt_design_studio/scryfall.py": {
+      "accepted_git_blob": "b845a4d5380de6bca4b0f73342e71352d113a194",
+      "lf_sha256": "5340a4829f4a96bf131d349382ae11ffbfe8ad5f22d9a312e42f9d8c6d65c8dd"
+    },
+    "src/tmnt_design_studio/semantic_coverage.py": {
+      "accepted_git_blob": "b5d1a0a75c13562dca6345947651785f478fda9c",
+      "lf_sha256": "bd107fac20d17f701125f2d9b9f8c9f265efd3cdba7c01129cd88e6ccaebb9bb"
+    },
+    "src/tmnt_design_studio/smoke01.py": {
+      "accepted_git_blob": "87948c4e6bc43cfc83a822b2cb0d46499ceec2f3",
+      "lf_sha256": "995d2f67bbd9615213d5a18c73383ecc0d43e44ab1d188a3ed7c8ede98239db3"
+    },
+    "src/tmnt_design_studio/stage002.py": {
+      "accepted_git_blob": "ef7fab14ec9be76b6654fd335e7468f172972bb3",
+      "lf_sha256": "71210017b8b6283c637c464a186f96b2a9dca718925728663efb24108e4ba5c5"
+    },
+    "src/tmnt_design_studio/stage02.py": {
+      "accepted_git_blob": "f1be36c12c02bdb154aa7c90ee95c7fe185bad49",
+      "lf_sha256": "0bd3f8272a3408b0330d6bb18b3a3c9a78db31d0afdf466dacd435bb9aa0e9ce"
+    },
+    "src/tmnt_design_studio/vigilante07.py": {
+      "accepted_git_blob": "62cabf10f57ded4d08800a44ecea725a4449ec17",
+      "lf_sha256": "647690c6404b31730539f63919b5c48a8168f20d7325e34c5bc420dd55c12013"
+    }
+  },
+  "specification_lf_sha256": "672648d03cda4fb7671386647011aaa92a5643cde120f2ccc0a6df8612aeb9c0",
+  "status": "INCONCLUSIVE_SUITE_READINESS",
+  "transaction_source_anchors": {
+    "choose_discard_draw": {
+      "body_ast_sha256": "21c2bfa22bd4ed6297b835861ea6415632cb666346be8e52ea682294706abac5",
+      "end_line": 3119,
+      "source": "src/tmnt_design_studio/engine07.py",
+      "source_excerpt": "def choose_discard_draw(\n        self, player_index: int, program: DiscardDrawProgram\n    ) -> DiscardDrawPlan:\n        \"\"\"Obtain and validate the optional discard at resolution time.\"\"\"\n        if player_index not in range(2) or not isinstance(program, DiscardDrawProgram):\n            raise ValueError(\"discard/Draw program is invalid\")\n        if not program.executable:\n            raise ValueError(\"discard/Draw program is not executable\")\n        player = self.players[player_index]\n        hand_objects = tuple(player.hand)\n        library_objects = tuple(player.library)\n        graveyard_objects = tuple(player.graveyard)\n        hand_ids = tuple(card.object_id for card in hand_objects)\n        library_ids = tuple(card.object_id for card in library_objects)\n        graveyard_ids = tuple(card.object_id for card in graveyard_objects)\n        view = DiscardDrawViewV2(\n            player_index,\n            tuple((card.object_id, card.card.name) for card in player.hand),\n            decision_context(self, player_index),\n        )\n        options = tuple(DiscardDrawOption(card.object_id) for card in player.hand)\n        if program.optional or not options:\n            options = (DiscardDrawOption(None),) + options\n        chooser = self.draw_discard_chooser if program.draw_first else self.discard_draw_chooser\n        anchors = [\n            (obj, dict(vars(obj))) for obj in (*hand_objects, *library_objects, *graveyard_objects)\n        ]\n        registry = dict(self._objects)\n\n        self._mandatory_discard_choice_active = program.draw_first\n        try:\n            choice = chooser(view, options)\n            if not isinstance(choice, DiscardDrawOption) or choice not in options:\n                raise ValueError(\"discard/Draw chooser must return one listed option\")\n            if (\n                tuple(player.hand) != hand_objects\n                or tuple(player.library) != library_objects\n                or tuple(player.graveyard) != graveyard_objects\n            ):\n                raise ValueError(\"discard/Draw choice mutated authoritative zones\")\n            if program.draw_first and (\n                self._objects != registry\n                or any(\n                    vars(obj) != state or obj.card is not state[\"card\"] for obj, state in anchors\n                )\n                or any(not self.is_authoritative(obj, \"hand\") for obj in hand_objects)\n            ):\n                raise ValueError(\"discard/Draw choice changed authoritative identity\")\n        except Exception:\n            player.hand[:] = hand_objects\n            player.library[:] = library_objects\n            player.graveyard[:] = graveyard_objects\n            if program.draw_first:\n                self._objects.clear()\n                self._objects.update(registry)\n                for obj, state in anchors:\n                    vars(obj).clear()\n                    vars(obj).update(state)\n            raise\n        finally:\n            self._mandatory_discard_choice_active = False\n        selected = (\n            None\n            if choice.card_id is None\n            else next((card for card in player.hand if card.object_id == choice.card_id), None)\n        )\n        if choice.card_id is not None and (\n            selected is None or not self.is_authoritative(selected, \"hand\")\n        ):\n            raise ValueError(\"discard/Draw selection is stale\")\n        return DiscardDrawPlan(\n            choice,\n            selected,\n            tuple(option.card_id for option in options),\n            hand_ids,\n            library_ids,\n            graveyard_ids,\n        )",
+      "start_line": 3042
+    },
+    "choose_hand_bottom_draw": {
+      "body_ast_sha256": "9edf06852a3e9fb6349f1b2dafc6326136e960c8c32789aa8f5204ef54d2c1a8",
+      "end_line": 2939,
+      "source": "src/tmnt_design_studio/engine07.py",
+      "source_excerpt": "def choose_hand_bottom_draw(\n        self, player_index: int, program: HandBottomDrawProgram\n    ) -> HandBottomDrawPlan:\n        \"\"\"Validate a private optional choice without mutating authoritative state.\"\"\"\n        if player_index not in range(2) or not isinstance(program, HandBottomDrawProgram):\n            raise ValueError(\"hand-bottom Draw program is invalid\")\n        if not program.executable:\n            raise ValueError(\"hand-bottom Draw program is not executable\")\n        player = self.players[player_index]\n        hand_objects_before = tuple(player.hand)\n        library_objects_before = tuple(player.library)\n        hand_before = tuple(card.object_id for card in player.hand)\n        library_before = tuple(card.object_id for card in player.library)\n        view = HandBottomDrawViewV2(\n            player_index,\n            tuple((card.object_id, card.card.name) for card in player.hand),\n            decision_context(self, player_index),\n        )\n        options = (HandBottomDrawOption(None),) + tuple(\n            HandBottomDrawOption(card.object_id) for card in player.hand\n        )\n        try:\n            choice = self.hand_bottom_draw_chooser(view, options)\n            if not isinstance(choice, HandBottomDrawOption) or choice not in options:\n                raise ValueError(\"hand-bottom Draw chooser must return one listed option\")\n            if (\n                tuple(card.object_id for card in player.hand) != hand_before\n                or tuple(card.object_id for card in player.library) != library_before\n            ):\n                raise ValueError(\"hand-bottom Draw choice mutated authoritative zones\")\n        except Exception:\n            player.hand[:] = hand_objects_before\n            player.library[:] = library_objects_before\n            raise\n        selected = None\n        if choice.card_id is not None:\n            selected = next(\n                (card for card in player.hand if card.object_id == choice.card_id), None\n            )\n            if selected is None or not self.is_authoritative(selected, \"hand\"):\n                raise ValueError(\"hand-bottom Draw selection is stale\")\n        return HandBottomDrawPlan(\n            choice,\n            selected,\n            tuple(option.card_id for option in options),\n            hand_before,\n            library_before,\n        )",
+      "start_line": 2892
+    },
+    "commit_discard_draw": {
+      "body_ast_sha256": "2e081642bbb40d9d206cd1415ec44f79057674d3149219e789c62114e0015305",
+      "end_line": 3209,
+      "source": "src/tmnt_design_studio/engine07.py",
+      "source_excerpt": "def commit_discard_draw(\n        self,\n        player_index: int,\n        program: DiscardDrawProgram,\n        plan: DiscardDrawPlan,\n        *,\n        trigger: TriggeredAbilityObject,\n    ) -> DiscardDrawEvidence:\n        \"\"\"Commit Discard then its dependent Draw in authoritative instruction order.\"\"\"\n        if not isinstance(plan, DiscardDrawPlan) or not program.executable or program.draw_first:\n            raise ValueError(\"discard/Draw plan is invalid\")\n        provenance = self._discard_draw_attack_provenance(trigger)\n        if trigger.controller != player_index:\n            raise ValueError(\"discard/Draw trigger controller is mismatched\")\n        player = self.players[player_index]\n        if (\n            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids\n            or tuple(card.object_id for card in player.library) != plan.pre_library_ids\n            or tuple(card.object_id for card in player.graveyard) != plan.pre_graveyard_ids\n        ):\n            raise ValueError(\"discard/Draw plan became stale\")\n        selected = plan.selected\n        discarded_id = None\n        pre_draw_top = None\n        drawn_id = None\n        movement_succeeded = False\n        draw_performed = False\n        if plan.choice.card_id is not None:\n            if selected is None or not self.is_authoritative(selected, \"hand\"):\n                raise ValueError(\"discard/Draw selected card became stale\")\n            discarded = self.move_object(selected, \"graveyard\", reason=\"optional_discard\")\n            assert isinstance(discarded, CardObject)\n            discarded_id = discarded.object_id\n            movement_succeeded = True\n            pre_draw_top = player.library[-1].object_id if player.library else None\n            assert program.draw_quantity is not None\n            draw_performed = self.draw(player, program.draw_quantity)\n            if draw_performed:\n                drawn_id = player.hand[-1].object_id\n        event = self._new_rules_event(\n            RulesEventKind.DISCARD_DRAW,\n            player_index,\n            tuple(object_id for object_id in (discarded_id, drawn_id) if object_id is not None),\n            source_id=trigger.source_id,\n        )\n        evidence = DiscardDrawEvidence(\n            event.event_id,\n            player_index,\n            provenance,\n            trigger.object_id,\n            trigger.source_id,\n            trigger.oracle_fragment,\n            plan.offered_choice_ids,\n            plan.pre_hand_ids,\n            plan.pre_library_ids,\n            plan.pre_graveyard_ids,\n            plan.choice.card_id,\n            discarded_id,\n            movement_succeeded,\n            draw_performed,\n            pre_draw_top,\n            drawn_id,\n            tuple(card.object_id for card in player.hand),\n            tuple(card.object_id for card in player.library),\n            tuple(card.object_id for card in player.graveyard),\n            plan.choice.card_id is None,\n        )\n        self.discard_draw_evidence.append(evidence)\n        self.log(\n            \"discard_draw_committed\",\n            event_id=evidence.event_id,\n            attack_event_id=provenance.event_id,\n            attack_event_kind=provenance.event_kind.value,\n            attack_subject_ids=list(provenance.subject_ids),\n            attack_turn=provenance.turn,\n            attack_step=provenance.step,\n            stack_object_id=trigger.object_id,\n            source_id=trigger.source_id,\n            player=player.name,\n            oracle_fragment=trigger.oracle_fragment,\n            selected_hand_id=evidence.selected_hand_id,\n            discarded_graveyard_id=evidence.discarded_graveyard_id,\n            movement_succeeded=evidence.movement_succeeded,\n            conditional_draw_performed=evidence.conditional_draw_performed,\n            pre_draw_top_id=evidence.pre_draw_top_id,\n            drawn_hand_id=evidence.drawn_hand_id,\n            declined=evidence.declined,\n        )\n        return evidence",
+      "start_line": 3121
+    },
+    "commit_hand_bottom_draw": {
+      "body_ast_sha256": "8e11967c9ba9b07525f58f4fade2ab05b96569b648bafa51d1f7ae9c9f675311",
+      "end_line": 3040,
+      "source": "src/tmnt_design_studio/engine07.py",
+      "source_excerpt": "def commit_hand_bottom_draw(\n        self,\n        player_index: int,\n        program: HandBottomDrawProgram,\n        plan: HandBottomDrawPlan,\n        *,\n        source_id: str,\n        oracle_fragment: str,\n    ) -> HandBottomDrawEvidence:\n        \"\"\"Commit the selected move, then its conditional draw, in Oracle order.\"\"\"\n        if not isinstance(plan, HandBottomDrawPlan):\n            raise ValueError(\"hand-bottom Draw plan is invalid\")\n        choice = plan.choice\n        selected = plan.selected\n        player = self.players[player_index]\n        if (\n            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids\n            or tuple(card.object_id for card in player.library) != plan.pre_library_ids\n        ):\n            raise ValueError(\"hand-bottom Draw plan became stale\")\n        if choice.card_id is None:\n            event = self._new_rules_event(RulesEventKind.HAND_BOTTOM_DRAW, player_index, ())\n            evidence = HandBottomDrawEvidence(\n                event.event_id,\n                player_index,\n                source_id,\n                oracle_fragment,\n                plan.offered_choice_ids,\n                plan.pre_hand_ids,\n                plan.pre_library_ids,\n                None,\n                None,\n                False,\n                False,\n                None,\n                None,\n                plan.pre_hand_ids,\n                plan.pre_library_ids,\n                True,\n            )\n        else:\n            if selected is None or not self.is_authoritative(selected, \"hand\"):\n                raise ValueError(\"hand-bottom Draw selected card became stale\")\n            bottom = self.move_object(\n                selected,\n                \"library\",\n                reason=\"optional_hand_bottom_filter\",\n                library_position=\"bottom\",\n            )\n            assert isinstance(bottom, CardObject)\n            draw_source_id = player.library[-1].object_id\n            assert program.draw_quantity is not None\n            if not self.draw(player, program.draw_quantity):\n                raise AssertionError(\"selected card guarantees a nonempty library\")\n            drawn = player.hand[-1]\n            event = self._new_rules_event(\n                RulesEventKind.HAND_BOTTOM_DRAW,\n                player_index,\n                (bottom.object_id, drawn.object_id),\n                source_id=source_id,\n            )\n            evidence = HandBottomDrawEvidence(\n                event.event_id,\n                player_index,\n                source_id,\n                oracle_fragment,\n                plan.offered_choice_ids,\n                plan.pre_hand_ids,\n                plan.pre_library_ids,\n                choice.card_id,\n                bottom.object_id,\n                True,\n                True,\n                draw_source_id,\n                drawn.object_id,\n                tuple(card.object_id for card in player.hand),\n                tuple(card.object_id for card in player.library),\n                False,\n            )\n        self.hand_bottom_draw_evidence.append(evidence)\n        self.log(\n            \"hand_bottom_draw_committed\",\n            event_id=evidence.event_id,\n            player=player.name,\n            source_id=source_id,\n            oracle_fragment=oracle_fragment,\n            offered_choice_ids=list(evidence.offered_choice_ids),\n            pre_hand_ids=list(evidence.pre_hand_ids),\n            pre_library_ids=list(evidence.pre_library_ids),\n            selected_hand_id=evidence.selected_hand_id,\n            library_bottom_id=evidence.library_bottom_id,\n            movement_succeeded=evidence.movement_succeeded,\n            conditional_draw_performed=evidence.conditional_draw_performed,\n            drawn_library_id=evidence.drawn_library_id,\n            drawn_hand_id=evidence.drawn_hand_id,\n            post_hand_ids=list(evidence.post_hand_ids),\n            post_library_ids=list(evidence.post_library_ids),\n            declined=evidence.declined,\n        )\n        return evidence",
+      "start_line": 2941
+    },
+    "draw": {
+      "body_ast_sha256": "6d59c3d43d887d356bb154c8399a23428ea8fa6cf6ca1a606e78d277fbb4e529",
+      "end_line": 5949,
+      "source": "src/tmnt_design_studio/engine07.py",
+      "source_excerpt": "def draw(self, player: PlayerState, count: int = 1, *, setup: bool = False) -> bool:\n        for _ in range(count):\n            if not player.library:\n                player.failed_draw_pending = True\n                self.log(\n                    \"draw_failed\",\n                    player=player.name,\n                    reason=\"empty_library\",\n                    state_based_action_pending=True,\n                )\n                return False\n            self.move_object(player.library[-1], \"hand\", reason=\"draw\")\n            self.log(\"card_drawn\", player=player.name, setup=setup)\n        return True",
+      "start_line": 5936
+    }
+  },
+  "unresolved_obligation": "At least two input-grounded action-required cases per hook, alongside four forced, four resource and four boundary cases; no hidden-Draw or belief-model oracle.",
+  "unsealed_count_formula": "2304 + 4*K",
+  "v2_dataclass_fields": {
+    "BattlefieldViewV2": [
+      "object_id",
+      "name",
+      "owner",
+      "controller",
+      "card",
+      "type_line",
+      "power",
+      "toughness",
+      "tapped",
+      "damage",
+      "is_token",
+      "counters",
+      "summoning_sick",
+      "represented_keyword_status",
+      "represented_land_payment_color",
+      "land_payment_untapped"
+    ],
+    "CardDescription": [
+      "object_id",
+      "name",
+      "mana_cost",
+      "mana_value",
+      "type_line",
+      "oracle_text",
+      "power",
+      "toughness",
+      "keywords"
+    ],
+    "DecisionContextV2": [
+      "observer_index",
+      "turn",
+      "active_player",
+      "phase",
+      "step",
+      "life",
+      "hand_sizes",
+      "library_sizes",
+      "own_hand",
+      "battlefields",
+      "own_lands_played",
+      "schema_version"
+    ],
+    "DiscardDrawViewV2": [
+      "player_index",
+      "cards",
+      "context",
+      "schema_version"
+    ],
+    "GameViewV2": [
+      "observer_index",
+      "turn",
+      "active_player",
+      "phase",
+      "step",
+      "life",
+      "hands",
+      "battlefields",
+      "hand_sizes",
+      "schema_version"
+    ],
+    "HandBottomDrawViewV2": [
+      "player_index",
+      "cards",
+      "context",
+      "schema_version"
+    ],
+    "PriorityViewV2": [
+      "context",
+      "priority_player",
+      "priority_epoch",
+      "consecutive_passes",
+      "stack_bottom_to_top",
+      "schema_version"
+    ],
+    "PublicStackItemV2": [
+      "object_id",
+      "kind",
+      "controller",
+      "spell_card",
+      "source_card",
+      "source_id",
+      "public_effect_text",
+      "represented_effect_tag",
+      "targets"
+    ],
+    "PublicTargetV2": [
+      "object_id",
+      "announcement_zone",
+      "current_public_zone",
+      "status",
+      "description"
+    ],
+    "ScryViewV2": [
+      "player_index",
+      "requested",
+      "cards",
+      "context",
+      "inspected_cards",
+      "schema_version"
+    ]
+  }
+}
