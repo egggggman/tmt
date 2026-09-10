@@ -1966,6 +1966,31 @@ class CardInterpreter:
             )
         return None
 
+    KRANG_REFILL_FRAGMENT = (
+        "When Krang enters, if you have fewer than four cards in hand, "
+        "draw cards equal to the difference."
+    )
+
+    @staticmethod
+    def is_krang_refill_fragment(fragment):
+        return (
+            isinstance(fragment, str)
+            and re.fullmatch(
+                r"When .+ enters, if you have fewer than four cards in hand, "
+                r"draw cards equal to the difference\.",
+                fragment,
+            )
+            is not None
+        )
+
+    def krang_refill_semantic_coverage(self, card, fragment):
+        if not self.is_krang_refill_fragment(fragment) or not card.is_creature:
+            return None
+        source = fragment.removeprefix("When ").split(" enters,", 1)[0]
+        if source not in {card.name, card.name.split(",", 1)[0]}:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
     MILL_THREE_FRAGMENT = (
         "When this creature enters, mill three cards. "
         "(Put the top three cards of your library into your graveyard.)"
@@ -2178,6 +2203,8 @@ class CardInterpreter:
             if hand_bottom_draw is not None:
                 for reason in hand_bottom_draw.limitations:
                     unsupported.append((fragment, reason))
+                continue
+            if self.krang_refill_semantic_coverage(card, fragment) is not None:
                 continue
             if self.mill_three_semantic_coverage(card, fragment) is not None:
                 continue

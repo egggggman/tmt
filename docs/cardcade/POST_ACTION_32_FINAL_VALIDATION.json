@@ -1,0 +1,88 @@
+{
+  "authorized_base": "8923eb8e574b2b3a6be4b8ac4b318bc41dd17151",
+  "checks": {
+    "diff_check": "passed",
+    "ruff": "passed",
+    "ruff_format": "passed",
+    "sidecars": "verified; staged bytes checked before commit",
+    "terminology_scan": "no matches"
+  },
+  "code_git_clean_blob_ids": {
+    "src/tmnt_design_studio/card_interpreter07.py": "f468f4bbbab90a99c76f3c0708bd7036fbd24725",
+    "src/tmnt_design_studio/engine07.py": "db98e76c3c86303d9d7d5d3cbdc3619bb1a6950b",
+    "src/tmnt_design_studio/krang_refill07.py": "23bd027297867617d52666dffd5c2694260e1dc5",
+    "src/tmnt_design_studio/smoke01.py": "85ef928e36ccc7cb4621d446ff89050de53c0d76",
+    "src/tmnt_design_studio/stage002.py": "b32bb5db6e682d7e16f4bf36d06281df97b985ad",
+    "tests/test_krang_refill_action.py": "b304d7c9d304285057294b08f2d6a4656f07c98d"
+  },
+  "controlled_snapshots_reconstructed_under_final_validator": 9,
+  "exclusions": [
+    "Tunnel Rats",
+    "Action 33",
+    "calibration",
+    "Prototype 0.3",
+    "generic variable-draw grammar",
+    "broad conditional-trigger architecture",
+    "new Priority windows",
+    "scheduler/turn/Pilot/deck changes",
+    "Krang affinity/power-bonus changes"
+  ],
+  "final_smoke_aggregate_digest": "a9891a91cdaf010519946d8c0852cd6b483239c39f51316ee6ce712900178934",
+  "final_smoke_manifest_digest": "2ed1da203398d82a8cb099e503b7573e188c8c5ce18734c165ffbc2af566397a",
+  "final_vs_predecessor_game_reports": "All 180 identical; validator tightening changes only frozen manifest identity and aggregate provenance. No gameplay changed.",
+  "focused_and_relevant_regressions_passed": 333,
+  "focused_passed": 95,
+  "full_pytest": {
+    "passed": 1311,
+    "skipped": 1
+  },
+  "smoke": {
+    "authenticated_banked_references": 2828,
+    "authenticated_current_references": 2834,
+    "base": "8923eb8e574b2b3a6be4b8ac4b318bc41dd17151",
+    "counts": {
+      "executed": 495,
+      "present_unreached": 1530,
+      "reached_unsupported": 111
+    },
+    "duplicate_mismatches": 0,
+    "executions": 360,
+    "games": 180,
+    "krang_creation_false": 3,
+    "krang_creation_true": 4,
+    "krang_entries": 7,
+    "krang_executed_games": 3,
+    "krang_executed_transactions": 4,
+    "krang_failed_draws": 0,
+    "krang_resolution_false": 0,
+    "krang_transactions": 4,
+    "labels": {
+      "mechanically_clean_coverage_complete": 114,
+      "mechanically_clean_coverage_limited": 66,
+      "mechanically_invalid": 0
+    },
+    "reconstructed_reports": 180,
+    "runtime_decreases": 0,
+    "stops": 0,
+    "violations": 0
+  },
+  "stage": {
+    "banked_references_authenticated": 147,
+    "counts": {
+      "executed": 30,
+      "present_unreached": 133,
+      "reached_unsupported": 1
+    },
+    "executions": 32,
+    "games": 16,
+    "reconstructed_reports": 16,
+    "runtime_execution_losses": 0
+  },
+  "validation_history": [
+    "Initial focused run: 82 passed, one test fixture failed because simulated control change had not transferred battlefield container membership; corrected fixture only.",
+    "Initial full run: 1305 passed, 1 skipped, five frozen-input failures because new module was not staged; tracked module and reran.",
+    "First complete packet: 1310 passed, 1 skipped; Stage/Smoke passed and are preserved.",
+    "Final review tightened failed-draw evidence to require subsequent SBA loss rather than merely a pending flag; added negative proof.",
+    "Final complete packet: 1311 passed, 1 skipped; Stage and Smoke restarted unchanged from game 1 against final code, both pass. No failed Stage/Smoke attempts."
+  ]
+}
