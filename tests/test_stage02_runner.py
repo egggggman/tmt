@@ -315,7 +315,7 @@ def test_matrix_is_exact_collision_free_and_uses_five_seed_allocations():
     )
 
 
-def test_plan_reconstructs_45_225_450_900_without_game_or_rng(monkeypatch):
+def test_plan_reconstructs_45_225_450_900_without_game_or_rng(monkeypatch, frozen_v1_source_files):
     def forbidden(*_args, **_kwargs):
         raise AssertionError("plan instantiated Game or gameplay RNG")
 
@@ -331,7 +331,7 @@ def test_plan_reconstructs_45_225_450_900_without_game_or_rng(monkeypatch):
     assert manifest["balance_policy"]["balance_valid"] is False
 
 
-def test_plan_manifest_is_deterministic_and_frozen_inputs_reconstruct():
+def test_plan_manifest_is_deterministic_and_frozen_inputs_reconstruct(frozen_v1_source_files):
     first = build_stage02_manifest(ROOT)
     second = build_stage02_manifest(ROOT)
     assert first == second

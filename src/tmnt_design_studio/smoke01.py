@@ -278,7 +278,7 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
             active = game.active_player
             for stage in ("land", "activate", "damage", "destroy", "creature"):
                 options = game.legal_main_actions(active)
-                choice = chosen_pilot.choose_main_action(game.public_view(), options, stage)
+                choice = chosen_pilot.choose_main_action(game.pilot_view(active), options, stage)
                 _checked_action(
                     game, lambda choice=choice: game.execute_main_action(choice), "main action"
                 )
@@ -286,21 +286,21 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
             _checked_action(game, game.advance_step, "advance to combat")
             _checked_action(game, game.advance_step, "advance to attackers")
             attack = chosen_pilot.choose_attack(
-                game.public_view(), game.legal_attack_options(active)
+                game.pilot_view(active), game.legal_attack_options(active)
             )
             _checked_action(
                 game, lambda attack=attack: game.execute_attack_action(attack), "attack action"
             )
             _drain_priority(game, chosen_pilot)
             blocks = chosen_pilot.choose_blocks(
-                game.public_view(), game.legal_block_options(attack, 1 - active)
+                game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
             )
             _checked_action(
                 game, lambda blocks=blocks: game.execute_block_action(blocks), "block action"
             )
             while game.step.value == "declare_blockers":
                 options = game.legal_sneak_actions(active)
-                choice = chosen_pilot.choose_sneak(game.public_view(), options)
+                choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
                 _checked_action(
                     game, lambda choice=choice: game.execute_sneak_action(choice), "sneak"
                 )

@@ -45,6 +45,17 @@ from tmnt_design_studio.food_search07 import FoodSearchMixin
 from tmnt_design_studio.jury_rig07 import JuryRigMixin
 from tmnt_design_studio.krang_refill07 import KrangRefillMixin
 from tmnt_design_studio.mill_three07 import MillThreeMixin
+from tmnt_design_studio.pilot_input_v2 import (
+    DiscardDrawViewV2,
+    GameViewV2,
+    HandBottomDrawViewV2,
+    PriorityViewV2,
+    ScryViewV2,
+    decision_context,
+    describe_card,
+    pilot_view,
+    priority_view,
+)
 from tmnt_design_studio.vigilante07 import VigilanteMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
@@ -2891,9 +2902,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         library_objects_before = tuple(player.library)
         hand_before = tuple(card.object_id for card in player.hand)
         library_before = tuple(card.object_id for card in player.library)
-        view = HandBottomDrawView(
+        view = HandBottomDrawViewV2(
             player_index,
             tuple((card.object_id, card.card.name) for card in player.hand),
+            decision_context(self, player_index),
         )
         options = (HandBottomDrawOption(None),) + tuple(
             HandBottomDrawOption(card.object_id) for card in player.hand
@@ -3042,8 +3054,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         hand_ids = tuple(card.object_id for card in hand_objects)
         library_ids = tuple(card.object_id for card in library_objects)
         graveyard_ids = tuple(card.object_id for card in graveyard_objects)
-        view = DiscardDrawView(
-            player_index, tuple((card.object_id, card.card.name) for card in player.hand)
+        view = DiscardDrawViewV2(
+            player_index,
+            tuple((card.object_id, card.card.name) for card in player.hand),
+            decision_context(self, player_index),
         )
         options = tuple(DiscardDrawOption(card.object_id) for card in player.hand)
         if program.optional or not options:
@@ -3498,10 +3512,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         library = self.players[player_index].library
         inspected = tuple(reversed(library[-min(program.amount, len(library)) :]))
         before = tuple(library)
-        view = ScryView(
+        view = ScryViewV2(
             player_index,
             program.amount,
             tuple((card.object_id, card.card.name) for card in inspected),
+            decision_context(self, player_index),
+            tuple(describe_card(card.object_id, card.card) for card in inspected),
         )
         options = self.legal_scry_options(inspected)
         try:
@@ -6047,8 +6063,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             raise ValueError("begin_turn is legal only before a turn starts")
         self.advance_to(TurnStep.PRECOMBAT_MAIN)
 
+    def pilot_view(self, observer_index: int) -> GameViewV2:
+        """Copy the V2 recipient projection at the existing decision point."""
+        return pilot_view(self, observer_index)
+
+    def priority_view(self, observer_index: int) -> PriorityViewV2:
+        """Copy the bounded public Stack for its exact Priority decision owner."""
+        return priority_view(self, observer_index)
+
     def public_view(self) -> GameView:
-        """Return immutable pilot-visible state with no mutable authoritative objects."""
+        """Legacy V1 diagnostic view; forbidden for Pilot dispatch (contains both hands)."""
         return GameView(
             turn=self.turn,
             active_player=self.active_player,

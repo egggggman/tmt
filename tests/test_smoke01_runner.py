@@ -129,7 +129,7 @@ def test_matrix_is_exact_and_collision_free():
     assert games[-1].game_id == "shredder--splinter:reversed:8090"
 
 
-def test_plan_reconstructs_frozen_inputs_without_creating_game(monkeypatch):
+def test_plan_reconstructs_frozen_inputs_without_creating_game(monkeypatch, frozen_v1_source_files):
     def forbidden(*_args, **_kwargs):
         raise AssertionError("plan instantiated Game")
 

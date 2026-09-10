@@ -8,12 +8,23 @@ from tmnt_design_studio.engine07 import (
     ActionKind,
     ActionOption,
     DiscardDrawOption,
-    DiscardDrawView,
-    GameView,
     HandBottomDrawOption,
-    HandBottomDrawView,
     ScryOption,
-    ScryView,
+)
+from tmnt_design_studio.pilot_input_v2 import (
+    DiscardDrawViewV2 as DiscardDrawView,
+)
+from tmnt_design_studio.pilot_input_v2 import (
+    GameViewV2 as GameView,
+)
+from tmnt_design_studio.pilot_input_v2 import (
+    HandBottomDrawViewV2 as HandBottomDrawView,
+)
+from tmnt_design_studio.pilot_input_v2 import (
+    PriorityViewV2,
+)
+from tmnt_design_studio.pilot_input_v2 import (
+    ScryViewV2 as ScryView,
 )
 
 
@@ -39,7 +50,7 @@ class Pilot(Protocol):
     ) -> DiscardDrawOption: ...
 
     def choose_priority(
-        self, view: GameView, options: tuple[ActionOption, ...]
+        self, view: PriorityViewV2, options: tuple[ActionOption, ...]
     ) -> ActionOption: ...
 
 
@@ -142,7 +153,9 @@ class AcceptancePilot:
             next(option for option in options if option.card_id is None),
         )
 
-    def choose_priority(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
+    def choose_priority(
+        self, view: PriorityViewV2, options: tuple[ActionOption, ...]
+    ) -> ActionOption:
         """Deliberately pass; passing is a legal strategy, not an engine shortcut."""
         del view
         return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)

@@ -1,0 +1,510 @@
+{
+  "assessment_baseline_accepted": false,
+  "decision_owner_bindings": {
+    "choose_attack:0": 258,
+    "choose_attack:1": 252,
+    "choose_blocks:0": 252,
+    "choose_blocks:1": 258,
+    "choose_discard_draw:0": 2,
+    "choose_discard_draw:1": 2,
+    "choose_hand_bottom_draw:0": 2,
+    "choose_hand_bottom_draw:1": 2,
+    "choose_main_action:0": 1290,
+    "choose_main_action:1": 1260,
+    "choose_priority:0": 21,
+    "choose_priority:1": 21,
+    "choose_scry:0": 2,
+    "choose_scry:1": 2,
+    "choose_sneak:0": 3,
+    "choose_sneak:1": 3,
+    "nonactive_priority:0": 9,
+    "nonactive_priority:1": 12
+  },
+  "fitness_scoring": false,
+  "frozen_gameplay_commit": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+  "paired_runs": [
+    {
+      "case": "AcceptancePilot:stage:donatello-krang:canonical:7201",
+      "complete_options_and_choices_sha256": "fbb93029b51e5b88bc356029491bb832a5d32e07bbb0424f9b559e8052913c8b",
+      "consequent_snapshot_sha256": "25c7d6274279e861be421f75bb99613b7a934880fc4bf1325cec665e87a34584",
+      "decision_count": 129,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:stage:donatello-krang:reversed:7201",
+      "complete_options_and_choices_sha256": "5097978196b0a2f22729a5853a3e32195cf8a2db8aefcbeb37a63af36e9cd70b",
+      "consequent_snapshot_sha256": "4e900ab0e91a655b1cc870f158da89afd20409e3534a7a08994d854b4c19817f",
+      "decision_count": 125,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:smoke:april_oneil--bebop_rocksteady:canonical:8001",
+      "complete_options_and_choices_sha256": "81b34970625afcbf15647aa5dd20a1ed53da539b1505f6c417d39cecddebb607",
+      "consequent_snapshot_sha256": "1c7f430383b74575efc1b39884f6f9db7030882610bb23b0746db64ea7f7e314",
+      "decision_count": 186,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:smoke:april_oneil--bebop_rocksteady:reversed:8001",
+      "complete_options_and_choices_sha256": "bbae484aae9e7fdaa7d6a581f4544e6f47983d46e3e6f93a360d36aaecf0dc74",
+      "consequent_snapshot_sha256": "ab88d0ab19c19ec98f8ac1d42e3ca193b01602f7456da7e5d302710f9f3c4368",
+      "decision_count": 164,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:private-transactions:0",
+      "complete_options_and_choices_sha256": "dbf9e93efbe7e6480dd17b84e00044203c09b5212c3d28d1d163bf31c6c3660b",
+      "consequent_snapshot_sha256": "0cef9ed6e78fe0ce0b3f323aacbec5264b2af25cc56661a436dd731b16ea48a6",
+      "decision_count": 5,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:sneak-transaction:0",
+      "complete_options_and_choices_sha256": "5cb4bb861638275d22435a4adf2da96db55c2c04a74258d6781aadbd016c08f9",
+      "consequent_snapshot_sha256": "9c37a962324e23c1814197a87979a73cdd6a7f1265cc59c160219c66d59fb54e",
+      "decision_count": 4,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:private-transactions:1",
+      "complete_options_and_choices_sha256": "c321e95931a3d4f198d6df6da6c3d318e7190a564317a6a1e62d68351eb2f808",
+      "consequent_snapshot_sha256": "ddecfefc67684e61028e8d9a96f1598f487a8260091ec57e492ac4355af852db",
+      "decision_count": 5,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "AcceptancePilot:sneak-transaction:1",
+      "complete_options_and_choices_sha256": "bd7e55a8a50fb038776639c5d133a4595c9838b12aa12062a9e8a33f65dd40e7",
+      "consequent_snapshot_sha256": "d614a78ab0b807948085e57ca6b634c425f5f1a355a0ec2eb541c8e6d48c3bd5",
+      "decision_count": 4,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:stage:donatello-krang:canonical:7201",
+      "complete_options_and_choices_sha256": "e0962ee83f2f3e60d682b288ce06e40004df4ef10a4609ca0c98508949332107",
+      "consequent_snapshot_sha256": "ec9e4be3722075b6c9a4fa5d96558707df58e7aa4b1227b1bf985cac57ae0a10",
+      "decision_count": 749,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:stage:donatello-krang:reversed:7201",
+      "complete_options_and_choices_sha256": "e512c0ef884984b375d3bde48ed2e3bc1b3e1c65d5452ec92c46dfcee481d17d",
+      "consequent_snapshot_sha256": "06cca33d5008890f8c341589d2d6e2d5c36ec409956f809a3d6f2c31a5632ae1",
+      "decision_count": 749,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:smoke:april_oneil--bebop_rocksteady:canonical:8001",
+      "complete_options_and_choices_sha256": "3da63b49c3af26e8b74c04a4e5845a7cb8b7762a2489851f848ba9437bd3f474",
+      "consequent_snapshot_sha256": "cc4db172f3e6564d796b75ccfac6408b281e725d2433909ff3429717af6c2e40",
+      "decision_count": 749,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:smoke:april_oneil--bebop_rocksteady:reversed:8001",
+      "complete_options_and_choices_sha256": "233b24e7588812da71b6df6bcecbaf2fc14b190918520822649d7cbf0d8f210f",
+      "consequent_snapshot_sha256": "df0c128b741d1f86a61c8d890b362e1db1f4b854a2d09aaa9556e25e1043c0b5",
+      "decision_count": 749,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:private-transactions:0",
+      "complete_options_and_choices_sha256": "c1f7a308f56aaf7ea21abf6a5067c1f78358615ab40b9c60cfbd7d6f373ff49a",
+      "consequent_snapshot_sha256": "70152342733897d9e81fb8f2a742647c861f20610b9e841e35fc714e30a7873f",
+      "decision_count": 5,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:sneak-transaction:0",
+      "complete_options_and_choices_sha256": "43a797eb4afdf114fad734f55132c89dca35b7bad9ed5193586a3480befd2b28",
+      "consequent_snapshot_sha256": "909fc540373b0af6bce08b6691e4c348fd2d7a5171b108ba1ab3b4c17f48457d",
+      "decision_count": 1,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:private-transactions:1",
+      "complete_options_and_choices_sha256": "0093af2ba3c63bb69d19e191784f34627d45c2d618647fd345deda81dd698f28",
+      "consequent_snapshot_sha256": "c50229b894bb8ba418bf16669ddaf56e3c39a792e0e7f308ff792221aa050297",
+      "decision_count": 5,
+      "v1_v2_equal": true
+    },
+    {
+      "case": "PassingPilot:sneak-transaction:1",
+      "complete_options_and_choices_sha256": "2dd86f5e48943f766fa62cd7454e20e521a6b40bb2191eb02fb189d8a434f675",
+      "consequent_snapshot_sha256": "e7329505bf6d9ecc8a5ab8ec0db5450a249f3c7f621c1b2f41e57d0ecba83f33",
+      "decision_count": 1,
+      "v1_v2_equal": true
+    }
+  ],
+  "paired_trace_artifact": {
+    "path": "docs\\cardcade\\PILOT_INPUT_V2_CANDIDATE_VALIDATION.traces.json.gz",
+    "sha256": "b7902eecec18de46c112ff7247f1a3a856b3135177e8824f31e8562cd52f99a3"
+  },
+  "source_audit": {
+    "policy_body_ast_sha256": {
+      "AcceptancePilot._card": "d39cd0b1da78b0c315e9ffe5923f7ab6e367d7ea33603977ef83369089c65791",
+      "AcceptancePilot.choose_attack": "9840db873f2c666a1a263ba58197bfe56e8ac90496966f7cb5cc54d9a0bc54ea",
+      "AcceptancePilot.choose_blocks": "a894ae238ad7e3a0033f87d2ee08b278f15f1785aa28f26b1ab25707058f01f8",
+      "AcceptancePilot.choose_discard_draw": "fa4fb1b88a0d2610683c41d3bf8ddf31a4375346ccc1385188c55af05e7e1ac0",
+      "AcceptancePilot.choose_hand_bottom_draw": "8ae0a3f863aad8551d9e618543b49d046718d034d20bf1d7f3d8a47c2324e326",
+      "AcceptancePilot.choose_main_action": "5d16655af2077eb8409a855f8dd2f6d27ec412e1e0b6a587623c9c31f14d0430",
+      "AcceptancePilot.choose_priority": "75b4df38281918389157fc9c9dc5987832102642c2c73cf031e09721548aefa2",
+      "AcceptancePilot.choose_scry": "4b9f78bbb68fdb45a0e5e9494b838eb67e5ee1fa285bdc033aac0b438e278328",
+      "AcceptancePilot.choose_sneak": "2a588f67ebdf80f4d2ff43167e3b3face0ef65d0c22605bc712a535b7b4d6d69",
+      "PassingPilot.choose_attack": "605d42e52fe9a7144707b3a6f028e5d6aa00e7eeb6bfb5f12ed54a380805bfe7",
+      "PassingPilot.choose_blocks": "37c3fe7f3d47cb64c8450b99b85011bd886b208a3e98d54b61458bab7ba8fa6d",
+      "PassingPilot.choose_discard_draw": "f7def26e85827af89791c0582bd08faff2bee720d57117918cec807df8c7c62d",
+      "PassingPilot.choose_hand_bottom_draw": "f7def26e85827af89791c0582bd08faff2bee720d57117918cec807df8c7c62d",
+      "PassingPilot.choose_main_action": "15077e54e67ca809002fa76c8d07e1177516c6939f0fed9244493e8518cdb932",
+      "PassingPilot.choose_scry": "7104e5caf823e092c4dc497516a24f4941a041c5159f1a1ada4c5a085e5cb009",
+      "PassingPilot.choose_sneak": "f6d29a637be9fef21c5c8340b4d7299151e11d0f0110c698a1c95bf45c05d365",
+      "Pilot.choose_attack": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_blocks": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_discard_draw": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_hand_bottom_draw": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_main_action": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_priority": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_scry": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae",
+      "Pilot.choose_sneak": "d50a84beffbcb98d9a5cae6a0c0d7d4506c5f9a9f2dc77e5f10229caaade80ae"
+    },
+    "source_identities": {
+      "decks/BATTLE_001_LEONARDO_VS_RAPHAEL.md": {
+        "candidate_lf_sha256": "62397e87765778a05d7b5437cb3e760050d1753f2218b831c7c53720086b3ac5",
+        "frozen_git_blob": "d86a4a1353417645237878f33b840d5af412ed25"
+      },
+      "decks/BATTLE_002_THREE_BROTHER_POD.md": {
+        "candidate_lf_sha256": "4913654b34050844e28340538dcb700529d55ecc08b77e44c641d4d299f11e64",
+        "frozen_git_blob": "a4329190385538e6bd8737db3a18212e244cdf34"
+      },
+      "decks/BATTLE_003_FOUR_TURTLE_BASELINE.md": {
+        "candidate_lf_sha256": "f210ebb440c38cc1776a2a2e3b17d8ef454c7ad55e3e141a3a675accc9c526a6",
+        "frozen_git_blob": "a9e253c4e33efe8780baf3b17256db30724dbac8"
+      },
+      "decks/BATTLE_004_FIVE_DECK_BETA.md": {
+        "candidate_lf_sha256": "a40ba1ef081244af69e1565fffcb9c825277d66fe1165f425c0ebf0e46e648a6",
+        "frozen_git_blob": "56626a5aa47a89c996925b59c9fc22591cefe4ff"
+      },
+      "decks/BATTLE_005_SIX_DECK_BETA.md": {
+        "candidate_lf_sha256": "3c62c42e990611c7fe600bf5a57728cb3061e43e6509e725f335b00fa162a219",
+        "frozen_git_blob": "77222ffa7e0b4d28882487c38f6f9875ae0b5204"
+      },
+      "decks/BATTLE_006_SEVEN_DECK_BETA.md": {
+        "candidate_lf_sha256": "db556f0fad4d37af3f84b58fb8d9b7167eb3b86a7091a473eae24f558d4b41a6",
+        "frozen_git_blob": "837a87869f634b726c47755d640573f092b0a26e"
+      },
+      "decks/BATTLE_007_EIGHT_DECK_BETA.md": {
+        "candidate_lf_sha256": "06f8aa85af97c737e2551093e4d74df257e7ad44747ecc7af4fbf93a7734e264",
+        "frozen_git_blob": "063507a82d256493df40e1cdc5b4254da9a91a42"
+      },
+      "decks/BATTLE_008_NINE_DECK_BETA.md": {
+        "candidate_lf_sha256": "b84a914b4cbd80d7e1b405d66323e424c95c88cebaa9acfc73a9f95ae09f596f",
+        "frozen_git_blob": "7492ce6ccad80ddf428721c64c7df944b8f51f69"
+      },
+      "decks/BETA_BASELINE_0.1.md": {
+        "candidate_lf_sha256": "504fad865367b04a7ee9295990d32aa1cd71e4bbc7974f7d09af15e11ee10e0d",
+        "frozen_git_blob": "99b754ddbe7e36fd445bc5395dd0fa1d5960acb9"
+      },
+      "decks/PROTOTYPE_0.2_DESIGN_HANDOFF.md": {
+        "candidate_lf_sha256": "6651ba8edb5a188a92262ea99b9b39124329f9e7440248eaca586a518c3ca459",
+        "frozen_git_blob": "4906cade9b7ab6a4c8f0fbc7b216eeb91b736483"
+      },
+      "decks/april_oneil/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "b57622063740ca38495bd87d4fe508926f5afd552f78d993cb4cc3631ceb80cb",
+        "frozen_git_blob": "987337c62c553d279c482c10153ef77126fccd55"
+      },
+      "decks/april_oneil/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "8dcd84cbe659c8645df447f74c8b68c8c2d2a849ad374328a34dbb61880a1f2d",
+        "frozen_git_blob": "68afbfdc1cb05f943c1e26b6f2086062c47cf899"
+      },
+      "decks/april_oneil/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "ef43b0dc98524ec84642e4d19364d29251aba2ae8614976348949ff4dca436ef",
+        "frozen_git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033"
+      },
+      "decks/bebop_rocksteady/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "ed6138231d6e0ca41d02eca211447ca7966e20a36bc0ef2340381885ef65320b",
+        "frozen_git_blob": "c0b7a694cdd83c19a3dd63c0db254b5349184461"
+      },
+      "decks/bebop_rocksteady/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "f8716bd8b6a006d09bd6749688f8004801428fe3b8a4a6e9fb22ae9614364db9",
+        "frozen_git_blob": "f24f639b4b61d898ca86003aace8bd6cc2eec8fb"
+      },
+      "decks/bebop_rocksteady/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "9756db19c204ce38d5544e6c4ddc4daf3e4907fcdd147922fcca840d606677b8",
+        "frozen_git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1"
+      },
+      "decks/casey_jones/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "4ead28885f535707f7f0b1483aec2e4e0884c61f5aec21477a0fa0ab9213312c",
+        "frozen_git_blob": "ecb19efe862a94975206b22cafc34d75d1564701"
+      },
+      "decks/casey_jones/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "49989347cf1a98c72bdef829b535104b097a3f3c7f0a6ad9e576915fc1585722",
+        "frozen_git_blob": "bbe978a575e9b45163fb81cbabbf1ad5aec7fb44"
+      },
+      "decks/casey_jones/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "5c6a9068bab15a2c9f0098778290adbcaa29b96bf699e7e595edb0966e375748",
+        "frozen_git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6"
+      },
+      "decks/donatello/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "00ce14ef1df6d1cccc27748d870c3730b69c2dfa85eb49d8eb2868e67d1a51a2",
+        "frozen_git_blob": "10f042b3345155b0c6c3c4ed56c86c902b05ed5a"
+      },
+      "decks/donatello/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "8f722594eff3d2355dfd1b4824ecdad289c8ad584635fbf514c975652ea76a81",
+        "frozen_git_blob": "3b4a0af1085a10efc17e77c9514e1bc397c76deb"
+      },
+      "decks/donatello/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "25812e2d7f0ac64ae2476c0d62298db35196d1719c9376b5369d5080faa6aad1",
+        "frozen_git_blob": "9fae8db9fa819935bd612ac13add867c5a76432e"
+      },
+      "decks/donatello/PROTOTYPE_0.2.md": {
+        "candidate_lf_sha256": "c99bdefa405efb8b2611022037b11e2b369565868d96b1aeedc197fb9f346ee1",
+        "frozen_git_blob": "aa736ec1148bf807f20e25857b4435911ad943f9"
+      },
+      "decks/donatello/PROTOTYPE_0.2.txt": {
+        "candidate_lf_sha256": "28916123b7080eb412d9648740d2bc10d10c20c41d3138e1421ffcb38fa2f169",
+        "frozen_git_blob": "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317"
+      },
+      "decks/krang/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "50209a477f8d5e76ba7e7a88e84d164e8965f1c476e257dd42b822c3c5f91c34",
+        "frozen_git_blob": "85e8b181df2603c12113b65496be838f110c7cb8"
+      },
+      "decks/krang/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "5878d612b868571d438a294c42c49b9edec3d26242f71753ac2370f9efa272e7",
+        "frozen_git_blob": "7626db9e23a0dc1650a4a29d7a4c068a43942c8f"
+      },
+      "decks/krang/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "817d3ac97507fd1d492c3495cf81670289765f2c3fb6571ae43cbb8dbeaa1997",
+        "frozen_git_blob": "1840c1883db414a0ea96bd926b23ed8928c9ee28"
+      },
+      "decks/krang/PROTOTYPE_0.2.md": {
+        "candidate_lf_sha256": "b1ec60dfd3a473ab294fd0ad7c319452dfea54f344d4a5d19399e2cfec58f7de",
+        "frozen_git_blob": "9849188130c063b7b44a5c07806fd31d815bedba"
+      },
+      "decks/krang/PROTOTYPE_0.2.txt": {
+        "candidate_lf_sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525",
+        "frozen_git_blob": "ecdffa18463076503f5d338687041f42a3a599d9"
+      },
+      "decks/leonardo/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "b555c3b37ee720679bfc891bff243927174f356cf001112d26fd67e9506f7e21",
+        "frozen_git_blob": "2abb3839637b3a70bf0bf0f35e024ba376c6bca6"
+      },
+      "decks/leonardo/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "f80cf5e13c786a24b3116621fb4d31d4edf3f34410a084212400ad912d76c782",
+        "frozen_git_blob": "962354b936e1507a1da18ed1222fa94e844f3793"
+      },
+      "decks/leonardo/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "d1bc2928b6ab17d3467e96dd3ca03c7d8bb7a52245ce77a1ba5b219f588f450a",
+        "frozen_git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e"
+      },
+      "decks/michelangelo/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "1a1af340c79654c5e057d2f00b9f4017f83129d8c50c3e8922f807a6e635fffb",
+        "frozen_git_blob": "60c70dd8ca2263362e3d63845f0a8e151d7f7647"
+      },
+      "decks/michelangelo/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "c9a370f1159766e6334095c8edd80a8feeb053d6bee7ec9f0ac045024c4d7245",
+        "frozen_git_blob": "98e76ce79c81c0070c7e657cefd3c59e516cd489"
+      },
+      "decks/michelangelo/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f",
+        "frozen_git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9"
+      },
+      "decks/raphael/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "ec6ff0f6f9ae71c2f2d9ad5daa8849c23940e2be603b72427d57c7be7a7f6f8f",
+        "frozen_git_blob": "15dc7f81bdec6e1eb464e489eeb679e716703ee7"
+      },
+      "decks/raphael/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "94436c222edbd851dc3f0da3e5480885fbe7cb8c030ad17e9054559ba86c1cc4",
+        "frozen_git_blob": "13bcaaa0b0279b009d0c5ce05fdbd762cdb350e9"
+      },
+      "decks/raphael/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "7768d150bd57f7f949bd4d72adcb0712d4d8cbdabe3a70c63bac6ad0e00af576",
+        "frozen_git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30"
+      },
+      "decks/shredder/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "370a851f1c2e50ce189082bcc2e6d96972bdf062681cfb8213c49a7f3dfed9c0",
+        "frozen_git_blob": "7abc9208e0f1b82d44a1007bc666d0b51a9e482e"
+      },
+      "decks/shredder/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "2571e8b871f92509b65e7e2fdce07f7062549dee119d90051ed92abff80396db",
+        "frozen_git_blob": "adcb3417807c79f338ff600f50371bcdc6ead51f"
+      },
+      "decks/shredder/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "6f646efb8f4ad4cabe7046fb97762821e10298aa02608ebc5693d28e8a8dd094",
+        "frozen_git_blob": "306fd267482b72f188c69222d57fcc547d654091"
+      },
+      "decks/splinter/PLAYTEST_LOG.md": {
+        "candidate_lf_sha256": "ce3afc04ac347d0bd5791d9d6c603d1cf771a90ad86e894302f8e0ef4d8eb002",
+        "frozen_git_blob": "cc6271089e83fce794af3c7881e84f45840ee9a8"
+      },
+      "decks/splinter/PROTOTYPE_0.1.md": {
+        "candidate_lf_sha256": "f02d714645f4c9a46284c6a5ba0a3441e5a3f5d2af597699f6c023ca62cfa10b",
+        "frozen_git_blob": "b5f4d1ac7d91c30a408467c191377a4cf5dc6a77"
+      },
+      "decks/splinter/PROTOTYPE_0.1.txt": {
+        "candidate_lf_sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42",
+        "frozen_git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37"
+      },
+      "scripts/validate_pilot_input_v2.py": {
+        "candidate_lf_sha256": "ae5efa310c4d7b31068a17de354830ca5c0256bce32843b782fc7b3d6eb3fb2a"
+      },
+      "src/tmnt_design_studio/__init__.py": {
+        "candidate_lf_sha256": "d5724478ec710bae63fdd5364cf0ca7ed8eed80fa9a937d396b97fb4ccedcae0",
+        "frozen_git_blob": "389d9f7c28f34163e5640edff8de9220ab4ec99b"
+      },
+      "src/tmnt_design_studio/__main__.py": {
+        "candidate_lf_sha256": "27c2970a7e84f63cac07027565488c5b1b3ed7f66cfa03b7ed627f341a363758",
+        "frozen_git_blob": "19c2b0fe14e5b92dbc9567a38795c166e7a68f40"
+      },
+      "src/tmnt_design_studio/capabilities.py": {
+        "candidate_lf_sha256": "33974cb9775aa32a0adf8116725897c3f6e5d8ab54528a21e840a3a3ca48ffdb",
+        "frozen_git_blob": "d464234d9bd68fa4e3292a1e82bd22749db7064c"
+      },
+      "src/tmnt_design_studio/card_data.py": {
+        "candidate_lf_sha256": "a352e57fef93992b34390b8d964f51005faf93da4f1c832c794efc9f060d3a08",
+        "frozen_git_blob": "ccbb3faacdce3d9a80809072049b37c6c62c0a0e"
+      },
+      "src/tmnt_design_studio/card_interpreter07.py": {
+        "candidate_lf_sha256": "46fa854f3bce8ade39fe01f739e151c586397a18d69c68ef332e866952b70d56",
+        "frozen_git_blob": "f468f4bbbab90a99c76f3c0708bd7036fbd24725"
+      },
+      "src/tmnt_design_studio/cardcade.py": {
+        "candidate_lf_sha256": "81c277a3c767da5cbb364293fdb9c96d9f7fa02e6ff15937e32fe0a131f5ddb9",
+        "frozen_git_blob": "e7441b14967ea7fcae6234c3fc7503940008f031"
+      },
+      "src/tmnt_design_studio/cli.py": {
+        "candidate_lf_sha256": "55d5f90e7bab694a1eccee689f6bf732f9a14c66a5c267491fa5eb8dcea41417",
+        "frozen_git_blob": "80dbeff36c85b665bc9c27ae25b98221b597d35f"
+      },
+      "src/tmnt_design_studio/conformance07.py": {
+        "candidate_lf_sha256": "093336ed744bbb7e84aaefb521eaf14ec343afc60d5b9b9e95cc5042f62510b2",
+        "frozen_git_blob": "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6"
+      },
+      "src/tmnt_design_studio/database.py": {
+        "candidate_lf_sha256": "6d92fdb46f9ffd47767e8436958fde9f1e39a530fba242772b02765c3019f263",
+        "frozen_git_blob": "c8d9c1158ccf1e314fde5ff6f328880af72f2bb3"
+      },
+      "src/tmnt_design_studio/deck_analysis.py": {
+        "candidate_lf_sha256": "7b430d6c9870cce0dde0e6a5f1170f28817b472bcb2d7863ed22601ffe6495fe",
+        "frozen_git_blob": "4e2b834a003f86ce4b2b509d7039401389463cc0"
+      },
+      "src/tmnt_design_studio/engine07.py": {
+        "candidate_lf_sha256": "25709fe82373c6baf8de0b7d689f2403daef0711881a934d49172366306785f2",
+        "frozen_git_blob": "db98e76c3c86303d9d7d5d3cbdc3619bb1a6950b"
+      },
+      "src/tmnt_design_studio/food_search07.py": {
+        "candidate_lf_sha256": "eb09134ab8e99e8718cfbaa5417866a39b96ae7c08644f73935058c3a8e6b5f9",
+        "frozen_git_blob": "3e4c91aca241b7adb2a290f34c376d5cdadbcece"
+      },
+      "src/tmnt_design_studio/jury_rig07.py": {
+        "candidate_lf_sha256": "b9253e2dcaf735412918e152e937f6680fd3e77f92e6ddcc15f1b27865f00448",
+        "frozen_git_blob": "0e200a979b33baa80036509f06ff3df2bc73d54d"
+      },
+      "src/tmnt_design_studio/krang_refill07.py": {
+        "candidate_lf_sha256": "01e51f3e0bae1bb12d6fe23d82c3045d13d7377ef695fec06d6780fc3657f374",
+        "frozen_git_blob": "23bd027297867617d52666dffd5c2694260e1dc5"
+      },
+      "src/tmnt_design_studio/migrations/001_initialize.sql": {
+        "candidate_lf_sha256": "99745b4acabdbe2d82a270794f708adc9056ffda74a6a3821b7b7b778401a4e2",
+        "frozen_git_blob": "53a9839506eab3eaf190d577eeaa7d89587aaa3c"
+      },
+      "src/tmnt_design_studio/migrations/002_mtg_core.sql": {
+        "candidate_lf_sha256": "1d7a48f0c84de06c7d4cadbebe5cc1586d73be527157b20415219989ae0dc48a",
+        "frozen_git_blob": "26e47dce91eb019a7a7c484853715396ff6c132e"
+      },
+      "src/tmnt_design_studio/migrations/003_capabilities.sql": {
+        "candidate_lf_sha256": "b14feffc37b25adcc29de7695252462a80a08aa0d09ebb96dea18abc550959e5",
+        "frozen_git_blob": "df3d02f73d39c3dd7ca3c17a8d7b1e69d6285d5a"
+      },
+      "src/tmnt_design_studio/migrations/004_tmnt_knowledge.sql": {
+        "candidate_lf_sha256": "2776ffbff8f4f170ef0ea9ba17e0eb26b935cfe9a77c5b85fa53e5fd447b840c",
+        "frozen_git_blob": "ecd4e58e8ab51f6e29bbb5c3793146e7140f93ce"
+      },
+      "src/tmnt_design_studio/migrations/005_decks.sql": {
+        "candidate_lf_sha256": "92b8fb41a41b0d227698f31633d515cff9fcc0362733984d73794969c35a2816",
+        "frozen_git_blob": "908d60205ea69d88abddd25fad446c7b3a4b3462"
+      },
+      "src/tmnt_design_studio/migrations/006_design_history.sql": {
+        "candidate_lf_sha256": "d94aa802978918516e4cd84eec553e8106fa2680ca9266fc633939818f6f0865",
+        "frozen_git_blob": "4f68d72da320b7d7d002995a37d33df5da98e759"
+      },
+      "src/tmnt_design_studio/migrations/007_playtesting.sql": {
+        "candidate_lf_sha256": "130a35aabfb5f692a5812fda9e19bf5fa652343ce2653dce597ca9e18f2d5cc3",
+        "frozen_git_blob": "6116d0b77bb7528620c0b11aff3e12c39425226c"
+      },
+      "src/tmnt_design_studio/migrations/008_indexes.sql": {
+        "candidate_lf_sha256": "8ceb6be22d3cf20079ee211ffbaf5d365319ad6f4fdfffb076f51bd357d02418",
+        "frozen_git_blob": "ee1f66fefa698950f7bd8413deb95cf1b17e507f"
+      },
+      "src/tmnt_design_studio/migrations/009_seed_foundation.sql": {
+        "candidate_lf_sha256": "b535d1a759f411d1badff51bec8a259f9934cd64ffd300b195e2cad678660577",
+        "frozen_git_blob": "c50fa40ce8d2ce395d8500c4c5120e824a5eca32"
+      },
+      "src/tmnt_design_studio/migrations/010_import_audit.sql": {
+        "candidate_lf_sha256": "ecb00981ebcafb5b0e2306a1da00dca9d9d628f35d2bbfff60b8c732e8ddfb26",
+        "frozen_git_blob": "e60c92d2121e47d5e7b2308ee56b3abad2c38cfc"
+      },
+      "src/tmnt_design_studio/migrations/011_capability_engine.sql": {
+        "candidate_lf_sha256": "ea2af4dce52896e81652d8752d457a94064b0c4f573fa48269f1b7eab66ff25e",
+        "frozen_git_blob": "e7fdd35e097d1237f9eb2a0cd974a2146720f5cc"
+      },
+      "src/tmnt_design_studio/migrations/012_deck_analysis_engine.sql": {
+        "candidate_lf_sha256": "d55e56820fdbc48dd968e507a805777e3bc6583912c593a59a1e457d9c4ce092",
+        "frozen_git_blob": "e6446c28c4139d511b761e104d6af8c20abb5b1b"
+      },
+      "src/tmnt_design_studio/migrations/__init__.py": {
+        "candidate_lf_sha256": "16dff6048695448b678c61ed0c02ddf131271707add0cbfccd758aa9b6aef6f8",
+        "frozen_git_blob": "c0d1df56f9727ebbb512f68063a6d77f89cc878f"
+      },
+      "src/tmnt_design_studio/mill_three07.py": {
+        "candidate_lf_sha256": "093d430b6cb01f6c4c6d0aa8f15cfead5e8a04e9763937f24e6760e589d43ab1",
+        "frozen_git_blob": "3e98653b00524eaeae7c0532f8aa05c3ea5f92f7"
+      },
+      "src/tmnt_design_studio/pilot07.py": {
+        "candidate_lf_sha256": "dd09e60fa5af4812897c20cae68b692d36d0a73fe6c5a755c2351e79cf989670",
+        "frozen_git_blob": "3eb8bfd8654294e1ef7e6137882651801bf1e2d6"
+      },
+      "src/tmnt_design_studio/pilot_input_v2.py": {
+        "candidate_lf_sha256": "cce2ebe9ef032717ba40c064a03c9d04d40f54886e0e000c8f6dd75f048c42c8"
+      },
+      "src/tmnt_design_studio/scryfall.py": {
+        "candidate_lf_sha256": "5340a4829f4a96bf131d349382ae11ffbfe8ad5f22d9a312e42f9d8c6d65c8dd",
+        "frozen_git_blob": "b845a4d5380de6bca4b0f73342e71352d113a194"
+      },
+      "src/tmnt_design_studio/semantic_coverage.py": {
+        "candidate_lf_sha256": "bd107fac20d17f701125f2d9b9f8c9f265efd3cdba7c01129cd88e6ccaebb9bb",
+        "frozen_git_blob": "b5d1a0a75c13562dca6345947651785f478fda9c"
+      },
+      "src/tmnt_design_studio/smoke01.py": {
+        "candidate_lf_sha256": "995d2f67bbd9615213d5a18c73383ecc0d43e44ab1d188a3ed7c8ede98239db3",
+        "frozen_git_blob": "85ef928e36ccc7cb4621d446ff89050de53c0d76"
+      },
+      "src/tmnt_design_studio/stage002.py": {
+        "candidate_lf_sha256": "71210017b8b6283c637c464a186f96b2a9dca718925728663efb24108e4ba5c5",
+        "frozen_git_blob": "b32bb5db6e682d7e16f4bf36d06281df97b985ad"
+      },
+      "src/tmnt_design_studio/stage02.py": {
+        "candidate_lf_sha256": "0bd3f8272a3408b0330d6bb18b3a3c9a78db31d0afdf466dacd435bb9aa0e9ce",
+        "frozen_git_blob": "f1be36c12c02bdb154aa7c90ee95c7fe185bad49"
+      },
+      "src/tmnt_design_studio/vigilante07.py": {
+        "candidate_lf_sha256": "647690c6404b31730539f63919b5c48a8168f20d7325e34c5bc420dd55c12013",
+        "frozen_git_blob": "62cabf10f57ded4d08800a44ecea725a4449ec17"
+      },
+      "tests/conftest.py": {
+        "candidate_lf_sha256": "84f1b8b30d0e3bc7f9e52daad0e97568276166c5372afb9abfaba5a1de853311"
+      },
+      "tests/test_pilot_input_v2.py": {
+        "candidate_lf_sha256": "f5561458d92d83e994316c341bdd31e46405d34e8bf3970aa3f62774362ef3a1"
+      },
+      "tests/test_smoke01_runner.py": {
+        "candidate_lf_sha256": "08cda7c2008e897d346f7568296bba1d8622e1b96ee8545c4aaab869bce69767"
+      },
+      "tests/test_stage02_runner.py": {
+        "candidate_lf_sha256": "bfa9c6fce770172d5a8d1ea2bb2603481c7cc961a761ba5914d8241536dfffd2"
+      }
+    },
+    "whole_source_after_interface_reversal_equal": true
+  },
+  "status": "CANDIDATE_VALIDATION_ONLY",
+  "v1_commit": "f3814ae2fc1c9b344960167fcaff5c9630a0a075"
+}
