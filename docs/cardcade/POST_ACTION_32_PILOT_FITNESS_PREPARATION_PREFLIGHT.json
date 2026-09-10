@@ -1,0 +1,171 @@
+{
+  "K": null,
+  "blockers": [
+    {
+      "consequence": "Context-dependent tactical obligations cannot be judged against omitted facts; required forced-action quotas are not established.",
+      "finding": "Only card identities/names and player index (plus Scry requested count) are supplied.",
+      "hooks": [
+        "choose_scry",
+        "choose_hand_bottom_draw",
+        "choose_discard_draw"
+      ],
+      "id": "PRIVATE_CHOICE_CONTEXT",
+      "missing_oracle_inputs": [
+        "life",
+        "battlefield",
+        "mana",
+        "library size",
+        "turn context"
+      ]
+    },
+    {
+      "consequence": "Legality of countering is observable; tactical necessity and target comparison are not established by legality alone.",
+      "finding": "GameView has no Stack description; ActionOption target_id identifies the counter target but does not describe that spell or its target/effect.",
+      "hooks": [
+        "choose_priority"
+      ],
+      "id": "PRIORITY_STACK_CONTEXT"
+    }
+  ],
+  "engine_reference": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+  "final_invocation_count": null,
+  "game_simulations_performed": 0,
+  "gate_audit_commit": "e28cd6dcd5532b84d38c45d3a710077e5cb589b4",
+  "hook_assignment": [
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_main_action",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_attack",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_blocks",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_sneak",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_scry",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_hand_bottom_draw",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_discard_draw",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    },
+    {
+      "boundary": 4,
+      "forced": 4,
+      "hook": "choose_priority",
+      "required_canonical_fixtures": 12,
+      "resource": 4
+    }
+  ],
+  "invocation_formula": "2304 + 4*K; K counts eligible seat versions",
+  "is_sealed_assessment_packet": false,
+  "observed_view_fields": {
+    "ActionOption": [
+      "kind",
+      "player_index",
+      "object_id",
+      "target_id",
+      "cost_object_id",
+      "oracle_fragment",
+      "attacker_ids",
+      "blocks",
+      "priority_epoch"
+    ],
+    "DiscardDrawView": [
+      "player_index",
+      "cards"
+    ],
+    "GameView": [
+      "turn",
+      "active_player",
+      "phase",
+      "step",
+      "life",
+      "hands",
+      "battlefields"
+    ],
+    "HandBottomDrawView": [
+      "player_index",
+      "cards"
+    ],
+    "ScryView": [
+      "player_index",
+      "requested",
+      "cards"
+    ]
+  },
+  "pilot_invocations_performed": 0,
+  "planned_pilots": [
+    "AcceptancePilot",
+    "PassingPilot"
+  ],
+  "preflight_source_sha256": "0fb9ac60d8170b8d804ae5293e81c0f28875dac6a01ba716f0ec0d46412708d3",
+  "privacy_eligible_fixture_list": null,
+  "required_canonical_fixtures": 96,
+  "required_replays": 2,
+  "required_seats": [
+    0,
+    1
+  ],
+  "required_variants": [
+    "canonical",
+    "option_permutation",
+    "identity_renaming"
+  ],
+  "resolution_required": "HQ must revise fixture/claim requirements or separately authorize an input-contract change; neither is performed here.",
+  "schema": "pilot-fitness-preparation-preflight-v1",
+  "scoring_authorized": false,
+  "sealed_canonical_fixtures": 0,
+  "source_identities": {
+    "src/tmnt_design_studio/engine07.py": {
+      "checkout_sha256": "47a00d63cc0f647ec20e44ef2a741630f03820ed5936b30ca3f2b757afaae811",
+      "frozen_sha256": "d65264c5c5ce10c13da848cec7168f8bcb6407c04c5d0909e0ca785ffcc2b06f",
+      "git_blob": "db98e76c3c86303d9d7d5d3cbdc3619bb1a6950b"
+    },
+    "src/tmnt_design_studio/pilot07.py": {
+      "checkout_sha256": "8b1365cf58794c9df0045d6aaf8024c5f67dd41dea5bdd80b4f07569adbbc883",
+      "frozen_sha256": "b3a68dfc57ae03422b5036324e29671bead733f62c9a2c28101018d245bd5f42",
+      "git_blob": "3eb8bfd8654294e1ef7e6137882651801bf1e2d6"
+    },
+    "src/tmnt_design_studio/stage002.py": {
+      "checkout_sha256": "6db61e5ac713debe32c8dc754c8a88e4afd949c97160f6939b5254e9c1bdc009",
+      "frozen_sha256": "6921a9c3c0202ef4621aaa5d82bff01d7f05804fc813aef83133518ecad2c8d6",
+      "git_blob": "b32bb5db6e682d7e16f4bf36d06281df97b985ad"
+    }
+  },
+  "specification_commit": "ca9757b956eafc4b8d03c495dabb03eaab6fe931",
+  "specification_sha256": "672648d03cda4fb7671386647011aaa92a5643cde120f2ccc0a6df8612aeb9c0",
+  "status": "INCONCLUSIVE_SUITE_READINESS"
+}
