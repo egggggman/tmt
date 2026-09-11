@@ -1,0 +1,34 @@
+{
+  "status": "EVIDENCE_ONLY_V3_DESIGN_ASSESSMENT",
+  "specification_v2": "PRESERVED_HISTORICAL_METHODOLOGY",
+  "authorization": "METHODOLOGY_REVIEW_ONLY",
+  "fixtures": 0,
+  "pilot_invocations": 0,
+  "quota_total_target": null,
+  "principle": "Counts follow naturally represented competencies and complete witnesses; no symmetric or predetermined total.",
+  "hand_bottom_draw": {
+    "retain_hook": true,
+    "strict_directions": "Require both only when both are genuinely constructible; otherwise mark unsupported direction NOT REQUIRED FOR THIS HOOK.",
+    "competing_identity": "NOT REQUIRED FOR THIS HOOK unless stable and naturally represented.",
+    "exact_tie": "NOT REQUIRED FOR THIS HOOK unless stable across materially plausible objectives.",
+    "boundary": "Require reachable empty-hand/empty-library/decline integrity cases where represented.",
+    "u_invariants": ["one unknown Draw at most", "all positive prior weights", "exact rational Q", "zero regret", "equal safety", "objective sensitivity screening"]
+  },
+  "evidence_linkage": {
+    "v2_spec": "19b9bde",
+    "feasibility_audit": "a577c0c",
+    "replacement_stop": "1673eab",
+    "original_diagnostic": "3f60166"
+  },
+  "hook_recommendations": {
+    "main_action": ["T where guaranteed tactical obligations exist", "R where explicit equal-safety resource comparisons exist", "B for boundaries", "U not required absent real one-Draw dependency"],
+    "attack": ["T", "R where concrete public comparison exists", "B", "U not required absent supported one-Draw dependency"],
+    "blocks": ["T", "R where concrete equal-safety comparison exists", "B", "U not required absent supported one-Draw dependency"],
+    "sneak": ["T", "R", "B", "U not required absent supported one-Draw dependency"],
+    "scry": ["R over inspected cards", "B", "T/U not required for current surface"],
+    "hand_bottom_draw": ["U strict directions conditionally", "B", "equivalent/tie only if stable", "competing identity not required by default"],
+    "discard_draw": ["U direction(s) naturally supported", "T for represented deterministic failed-draw loss", "B", "competing identity not required by default"],
+    "priority": ["T for action-required/pass-correct", "R where concrete equal-safety resource response exists", "B", "U not required absent supported one-Draw dependency"]
+  },
+  "controls": ["both seats", "isomorphic transformation proof", "option permutation", "runtime object-ID renaming", "privacy pair where eligible", "per-category visibility", "no pooled tactical masking"]
+}
