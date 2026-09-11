@@ -51,12 +51,12 @@ def main():
                 "duplicate_reconstruction": {"executed": True, "digests": [replay, replay]},
                 "seat_counterparts": {
                     "versions": [0, 1],
-                    "isomorphism": "same option relations, timing, objective and acceptable membership",
+                    "isomorphism": (\n                        "same option relations, timing, objective and acceptable membership"\n                    ),
                 },
                 "privacy": {
                     "eligible_seat_versions": 2,
                     "paired": True,
-                    "reason": "opponent-private library identities can vary while public view and options remain fixed",
+                    "reason": (\n                        "opponent-private library identities can vary while public view "\n                        "and options remain fixed"\n                    ),
                 },
                 "status": "SEALED_CANDIDATE",
             }
