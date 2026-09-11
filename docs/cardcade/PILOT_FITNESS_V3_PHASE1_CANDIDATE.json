@@ -1,0 +1,1694 @@
+{
+  "F": 8,
+  "K": null,
+  "fixtures": [
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "cast",
+            "object_id": "object-000139",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": "object-000138"
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Mountain",
+                  "object_id": "object-000135",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land — Mountain"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": true,
+                "name": "Mountain",
+                "object_id": "object-000135",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "R",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": null,
+                "type_line": "Basic Land — Mountain"
+              },
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Mountain",
+                  "object_id": "object-000136",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land — Mountain"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": true,
+                "name": "Mountain",
+                "object_id": "object-000136",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "R",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": null,
+                "type_line": "Basic Land — Mountain"
+              },
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{R}",
+                  "mana_value": 1,
+                  "name": "Giant",
+                  "object_id": "object-000137",
+                  "oracle_text": "",
+                  "power": 20,
+                  "toughness": 20,
+                  "type_line": "Creature — Giant"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Giant",
+                "object_id": "object-000137",
+                "owner": 0,
+                "power": 20,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 20,
+                "type_line": "Creature — Giant"
+              }
+            ],
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{1}{R}",
+                  "mana_value": 2,
+                  "name": "Bear",
+                  "object_id": "object-000138",
+                  "oracle_text": "",
+                  "power": 2,
+                  "toughness": 2,
+                  "type_line": "Creature — Bear"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Bear",
+                "object_id": "object-000138",
+                "owner": 1,
+                "power": 2,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 2,
+                "type_line": "Creature — Bear"
+              }
+            ]
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000139",
+                "Manhole Missile",
+                2,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "branches": [
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "cast",
+            "object_id": "object-000139",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": "object-000138"
+          },
+          "target_zone": "gone",
+          "winner": 0
+        },
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          "target_zone": "gone",
+          "winner": null
+        }
+      ],
+      "category": "T",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "main_t_missile_clears_blocker",
+      "oracle": {
+        "guaranteed_win": [
+          0
+        ]
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_attackers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [
+              "object-000135"
+            ],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_attackers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{R}",
+                  "mana_value": 1,
+                  "name": "Giant",
+                  "object_id": "object-000135",
+                  "oracle_text": "",
+                  "power": 20,
+                  "toughness": 20,
+                  "type_line": "Creature — Giant"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Giant",
+                "object_id": "object-000135",
+                "owner": 0,
+                "power": 20,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 20,
+                "type_line": "Creature — Giant"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000121",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000122",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000123",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000124",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000125",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000126",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000127",
+                "Mountain",
+                0,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_attackers",
+          "turn": 1
+        }
+      },
+      "branches": [
+        {
+          "life": [
+            20,
+            20
+          ],
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_attackers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          "winner": null
+        },
+        {
+          "life": [
+            20,
+            0
+          ],
+          "option": {
+            "attacker_ids": [
+              "object-000135"
+            ],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_attackers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          "winner": 0
+        }
+      ],
+      "category": "T",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "attack_t_unblocked_lethal",
+      "oracle": {
+        "guaranteed_win": [
+          1
+        ]
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_blockers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [
+              [
+                "object-000135",
+                "object-000136"
+              ]
+            ],
+            "cost_object_id": null,
+            "kind": "declare_blockers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{R}",
+                  "mana_value": 1,
+                  "name": "Giant",
+                  "object_id": "object-000135",
+                  "oracle_text": "",
+                  "power": 20,
+                  "toughness": 20,
+                  "type_line": "Creature — Giant"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Giant",
+                "object_id": "object-000135",
+                "owner": 0,
+                "power": 20,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": 20,
+                "type_line": "Creature — Giant"
+              }
+            ],
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{1}{R}",
+                  "mana_value": 2,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "oracle_text": "",
+                  "power": 2,
+                  "toughness": 2,
+                  "type_line": "Creature — Bear"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Bear",
+                "object_id": "object-000136",
+                "owner": 1,
+                "power": 2,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 2,
+                "type_line": "Creature — Bear"
+              }
+            ]
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [],
+            [
+              [
+                "object-000128",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000129",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000130",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000131",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000132",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000133",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000134",
+                "Mountain",
+                0,
+                false
+              ]
+            ]
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "branches": [
+        {
+          "life": [
+            20,
+            0
+          ],
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_blockers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          "winner": 0
+        },
+        {
+          "life": [
+            20,
+            20
+          ],
+          "option": {
+            "attacker_ids": [],
+            "blocks": [
+              [
+                "object-000135",
+                "object-000136"
+              ]
+            ],
+            "cost_object_id": null,
+            "kind": "declare_blockers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          "winner": null
+        }
+      ],
+      "category": "T",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "blocks_t_prevent_lethal",
+      "oracle": {
+        "acceptable": [
+          1
+        ]
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 1,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land — Island"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": true,
+                "name": "Island",
+                "object_id": "object-000135",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "U",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": null,
+                "type_line": "Basic Land — Island"
+              },
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{1}{R}",
+                  "mana_value": 2,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "oracle_text": "",
+                  "power": 2,
+                  "toughness": 2,
+                  "type_line": "Creature — Bear"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Bear",
+                "object_id": "object-000136",
+                "owner": 0,
+                "power": 2,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 2,
+                "type_line": "Creature — Bear"
+              },
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "{2}{U}",
+                  "mana_value": 3,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                  "power": 2,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature — Robot"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Fugitive Droid",
+                "object_id": "object-000137",
+                "owner": 0,
+                "power": 2,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": 2,
+                "type_line": "Artifact Creature — Robot"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000121",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000122",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000123",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000124",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000125",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000126",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000127",
+                "Mountain",
+                0,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "branches": [
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          "spell_zone": "graveyard",
+          "target_zone": "gone"
+        },
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          },
+          "spell_zone": "graveyard",
+          "target_zone": "battlefield"
+        }
+      ],
+      "category": "T",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "priority_t_counter_response",
+      "oracle": {
+        "acceptable": [
+          1
+        ]
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000121",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000122",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000123",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000124",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000125",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000126",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "play_land",
+            "object_id": "object-000127",
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000121",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000122",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000123",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000124",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000125",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000126",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000127",
+                "Mountain",
+                0,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "branches": [],
+      "category": "B",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "main_action_b_empty",
+      "oracle": {
+        "boundary": "empty_or_pass_only"
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_attackers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000121",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000122",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000123",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000124",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000125",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000126",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000127",
+                "Mountain",
+                0,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_attackers",
+          "turn": 1
+        }
+      },
+      "branches": [],
+      "category": "B",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "attack_b_empty",
+      "oracle": {
+        "boundary": "empty_or_pass_only"
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "declare_blockers",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [],
+            [
+              [
+                "object-000128",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000129",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000130",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000131",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000132",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000133",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000134",
+                "Mountain",
+                0,
+                false
+              ]
+            ]
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "branches": [],
+      "category": "B",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "blocks_b_empty",
+      "oracle": {
+        "boundary": "empty_or_pass_only"
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 1,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000121",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000122",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000123",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000124",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000125",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000126",
+                "Mountain",
+                0,
+                false
+              ],
+              [
+                "object-000127",
+                "Mountain",
+                0,
+                false
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "branches": [],
+      "category": "B",
+      "distinctness": "distinct decision hook or empty boundary",
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "horizon": "immediate engine resolution; combat fixtures drain combat damage and SBAs; priority drains all represented passes/resolution",
+      "name": "priority_b_pass_only",
+      "oracle": {
+        "boundary": "pass_only_no_counter_source"
+      },
+      "privacy": "eligibility pending paired reconstruction",
+      "seat": 0,
+      "seat_counterpart": "required and not yet sealed",
+      "status": "CANDIDATE_UNSEALED",
+      "transformations": {
+        "option_permutation": "required",
+        "runtime_id_rename": "required"
+      }
+    }
+  ],
+  "governing_spec": "c18a8fc",
+  "invocation_formula": "24F + 4K",
+  "missing_before_seal": [
+    "justified opposite-seat counterparts",
+    "executed option-order permutations",
+    "executed runtime-ID renamings",
+    "privacy eligibility pairs",
+    "independent oracle review"
+  ],
+  "pilot_invocations": 0,
+  "reachability_baseline": "20fbfad",
+  "status": "PHASE1_CANDIDATE_UNSEALED",
+  "u_applicability": "NOT_APPLICABLE_STRUCTURAL"
+}
