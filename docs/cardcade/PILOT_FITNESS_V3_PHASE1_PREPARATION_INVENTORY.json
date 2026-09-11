@@ -1,0 +1,477 @@
+{
+  "F": null,
+  "K": null,
+  "candidate_reachability_records": [
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "donatello-krang:canonical:7201",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "donatello-krang",
+      "reachability_evidence": {
+        "authenticated_execution_count": 1,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 9,
+        "transaction_counts": {
+          "trigger_resolved": 1
+        }
+      },
+      "seats": [
+        "donatello-p0.2",
+        "krang-p0.2"
+      ],
+      "seed": 7201
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "donatello-krang:canonical:7202",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "donatello-krang",
+      "reachability_evidence": {
+        "authenticated_execution_count": 8,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 18,
+        "transaction_counts": {
+          "tokens_created": 3,
+          "trigger_resolved": 5
+        }
+      },
+      "seats": [
+        "donatello-p0.2",
+        "krang-p0.2"
+      ],
+      "seed": 7202
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "donatello-krang:reversed:7201",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "donatello-krang",
+      "reachability_evidence": {
+        "authenticated_execution_count": 3,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 12,
+        "transaction_counts": {
+          "tokens_created": 1,
+          "trigger_resolved": 2
+        }
+      },
+      "seats": [
+        "krang-p0.2",
+        "donatello-p0.2"
+      ],
+      "seed": 7201
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "donatello-krang:reversed:7202",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "donatello-krang",
+      "reachability_evidence": {
+        "authenticated_execution_count": 8,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 14,
+        "transaction_counts": {
+          "tokens_created": 3,
+          "trigger_resolved": 5
+        }
+      },
+      "seats": [
+        "krang-p0.2",
+        "donatello-p0.2"
+      ],
+      "seed": 7202
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7211",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "reachability_evidence": {
+        "authenticated_execution_count": 0,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 1,
+        "transaction_counts": {}
+      },
+      "seats": [
+        "michelangelo-p0.1",
+        "bebop-rocksteady-p0.1"
+      ],
+      "seed": 7211
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "michelangelo-bebop-rocksteady:canonical:7212",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "reachability_evidence": {
+        "authenticated_execution_count": 0,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 1,
+        "transaction_counts": {}
+      },
+      "seats": [
+        "michelangelo-p0.1",
+        "bebop-rocksteady-p0.1"
+      ],
+      "seed": 7212
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7211",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "reachability_evidence": {
+        "authenticated_execution_count": 2,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 0,
+        "transaction_counts": {
+          "tokens_created": 1,
+          "trigger_resolved": 1
+        }
+      },
+      "seats": [
+        "bebop-rocksteady-p0.1",
+        "michelangelo-p0.1"
+      ],
+      "seed": 7211
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "michelangelo-bebop-rocksteady:reversed:7212",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "michelangelo-bebop-rocksteady",
+      "reachability_evidence": {
+        "authenticated_execution_count": 2,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 0,
+        "transaction_counts": {
+          "tokens_created": 1,
+          "trigger_resolved": 1
+        }
+      },
+      "seats": [
+        "bebop-rocksteady-p0.1",
+        "michelangelo-p0.1"
+      ],
+      "seed": 7212
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "splinter-shredder:canonical:7221",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "splinter-shredder",
+      "reachability_evidence": {
+        "authenticated_execution_count": 1,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 4,
+        "transaction_counts": {
+          "lifelink": 1
+        }
+      },
+      "seats": [
+        "splinter-p0.1",
+        "shredder-p0.1"
+      ],
+      "seed": 7221
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "splinter-shredder:canonical:7222",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "splinter-shredder",
+      "reachability_evidence": {
+        "authenticated_execution_count": 0,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 3,
+        "transaction_counts": {}
+      },
+      "seats": [
+        "splinter-p0.1",
+        "shredder-p0.1"
+      ],
+      "seed": 7222
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "splinter-shredder:reversed:7221",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "splinter-shredder",
+      "reachability_evidence": {
+        "authenticated_execution_count": 2,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 6,
+        "transaction_counts": {
+          "sneak": 1,
+          "strike_damage_step": 1
+        }
+      },
+      "seats": [
+        "shredder-p0.1",
+        "splinter-p0.1"
+      ],
+      "seed": 7221
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "splinter-shredder:reversed:7222",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "splinter-shredder",
+      "reachability_evidence": {
+        "authenticated_execution_count": 1,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 9,
+        "transaction_counts": {
+          "strike_damage_step": 1
+        }
+      },
+      "seats": [
+        "shredder-p0.1",
+        "splinter-p0.1"
+      ],
+      "seed": 7222
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "april-casey:canonical:7231",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "april-casey",
+      "reachability_evidence": {
+        "authenticated_execution_count": 5,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 2,
+        "transaction_counts": {
+          "trigger_resolved": 5
+        }
+      },
+      "seats": [
+        "april-oneil-p0.1",
+        "casey-jones-p0.1"
+      ],
+      "seed": 7231
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "april-casey:canonical:7232",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "canonical",
+      "pairing_id": "april-casey",
+      "reachability_evidence": {
+        "authenticated_execution_count": 16,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 3,
+        "transaction_counts": {
+          "discard_draw": 3,
+          "tokens_created": 3,
+          "trigger_resolved": 10
+        }
+      },
+      "seats": [
+        "april-oneil-p0.1",
+        "casey-jones-p0.1"
+      ],
+      "seed": 7232
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "april-casey:reversed:7231",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "april-casey",
+      "reachability_evidence": {
+        "authenticated_execution_count": 11,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 6,
+        "transaction_counts": {
+          "damage_dealt": 1,
+          "hand_bottom_draw": 1,
+          "tokens_created": 2,
+          "trample": 1,
+          "trigger_resolved": 6
+        }
+      },
+      "seats": [
+        "casey-jones-p0.1",
+        "april-oneil-p0.1"
+      ],
+      "seed": 7231
+    },
+    {
+      "fitness_status": "REACHABILITY_ONLY_UNSEALED",
+      "game_id": "april-casey:reversed:7232",
+      "missing": [
+        "complete Pilot observation and option payload",
+        "independent T/R/B oracle contract and acceptable set",
+        "genuine seat counterpart transformation certificate",
+        "privacy eligibility and paired perturbation",
+        "option-order and runtime-ID transformations"
+      ],
+      "orientation": "reversed",
+      "pairing_id": "april-casey",
+      "reachability_evidence": {
+        "authenticated_execution_count": 10,
+        "invariant_violations": 0,
+        "opportunity_witness_count": 4,
+        "transaction_counts": {
+          "damage_dealt": 1,
+          "hand_bottom_draw": 1,
+          "tokens_created": 3,
+          "trigger_resolved": 5
+        }
+      },
+      "seats": [
+        "casey-jones-p0.1",
+        "april-oneil-p0.1"
+      ],
+      "seed": 7232
+    }
+  ],
+  "canonical_fixtures": 0,
+  "disposition": "Required T/R/B evidence remains INCONCLUSIVE because existing acceptance records do not provide fitness oracle tables or seat/privacy transformations. No fixture is counted.",
+  "governing_spec": "c18a8fc",
+  "hooks": {
+    "attack": {
+      "required": [
+        "T",
+        "B"
+      ],
+      "u": "NOT_APPLICABLE_STRUCTURAL",
+      "u_basis": "Attack option generation contains attacker subsets and public combat state; no replacement Draw is part of the attack choice surface."
+    },
+    "blocks": {
+      "required": [
+        "T",
+        "B"
+      ],
+      "u": "NOT_APPLICABLE_STRUCTURAL",
+      "u_basis": "Block option generation contains assignments over visible attackers/blockers; no replacement Draw is part of the block choice surface."
+    },
+    "main_action": {
+      "required": [
+        "T",
+        "R",
+        "B"
+      ],
+      "u": "NOT_APPLICABLE_STRUCTURAL",
+      "u_basis": "Main-action options are generated before execution; the one supported hand-bottom replacement decision is a separate nested chooser, not a main-action U outcome."
+    },
+    "priority": {
+      "required": [
+        "T",
+        "B"
+      ],
+      "u": "NOT_APPLICABLE_STRUCTURAL",
+      "u_basis": "Priority options are pass/represented responses at a fixed epoch; random Draws occur only in later resolved effects and are not an input to this decision."
+    }
+  },
+  "invocation_formula": "24F + 4K",
+  "phase": "Main Action, Attack, Blocks, Priority",
+  "pilot_invocations": 0,
+  "source": {
+    "path": "docs/cardcade/ACCEPTANCE_STAGE_002_RESULTS_03.json",
+    "sha256_canonical_lf": "029bd97ee9d5c3b2cfc56d7035585161e701fd13309f1f0a27592a3557d9303d"
+  },
+  "status": "PHASE1_INCOMPLETE_READINESS_STOP"
+}
