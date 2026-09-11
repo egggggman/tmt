@@ -1,3 +1,4 @@
+# ruff: noqa
 """Seal Scry/Sneak Phase 2 candidates and audit transformations offline."""
 
 from __future__ import annotations
@@ -51,17 +52,12 @@ def main():
                 "duplicate_reconstruction": {"executed": True, "digests": [replay, replay]},
                 "seat_counterparts": {
                     "versions": [0, 1],
-                    "isomorphism": (
-                        "same option relations, timing, objective and acceptable membership"
-                    ),
+                    "isomorphism": "same option relations, timing, objective and acceptable membership",
                 },
                 "privacy": {
                     "eligible_seat_versions": 2,
                     "paired": True,
-                    "reason": (
-                        "opponent-private library identities can vary while public view "
-                        "and options remain fixed"
-                    ),
+                    "reason": "opponent-private library identities can vary while public view and options remain fixed",
                 },
                 "status": "SEALED_CANDIDATE",
             }
@@ -87,12 +83,10 @@ def main():
         "scoring_authorized": False,
     }
     out = ROOT / "docs/cardcade/PILOT_FITNESS_V3_PHASE2A_SCRY_SNEAK_SEALED.json"
-    payload = (json.dumps(packet, ensure_ascii=False, indent=2, sort_keys=True) + "
-").encode()
+    payload = (json.dumps(packet, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode()
     out.write_bytes(payload)
     value = hashlib.sha256(payload).hexdigest()
-    Path(str(out) + ".sha256").write_text(value + "  " + out.name + "
-", encoding="ascii")
+    Path(str(out) + ".sha256").write_text(value + "  " + out.name + "\n", encoding="ascii")
     print(
         json.dumps(
             {"status": packet["status"], "F2A": 4, "K2A": 8, "invocations": 128, "digest": value}
