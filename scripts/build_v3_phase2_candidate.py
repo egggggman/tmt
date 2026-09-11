@@ -1,4 +1,5 @@
 """Build Phase 2 Scry/Sneak candidates and preserve U applicability evidence."""
+# ruff: noqa
 
 from __future__ import annotations
 
