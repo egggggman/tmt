@@ -1,4 +1,6 @@
-"""Produce the bounded Hand-bottom/Draw U-quota feasibility audit."""`r`n`r`n# ruff: noqa: E501
+"""Produce the bounded Hand-bottom/Draw U-quota feasibility audit."""
+
+# ruff: noqa: E501
 
 from __future__ import annotations
 
