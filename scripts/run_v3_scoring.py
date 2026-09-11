@@ -7,6 +7,36 @@ import hashlib
 import json
 from pathlib import Path
 
+from tmnt_design_studio.engine07 import Game, TurnStep
+from tmnt_design_studio.pilot07 import AcceptancePilot, PassingPilot
+from build_v3_phase1_fitness_packet import BEAR, GIANT, LAND, MISSILE
+
+def actual_decision(hook, pilot):
+    game = Game(([LAND] * 30, [LAND] * 30), seed=9911)
+    game.begin_turn()
+    if hook == 'main':
+        game.create_permanent(LAND, 0, summoning_sick=False)
+        game.create_permanent(LAND, 0, summoning_sick=False)
+        game.set_hand_for_testing(0, [MISSILE])
+        options = tuple(game.legal_main_actions(0))
+        chosen = pilot.choose_main_action(game.pilot_view(0), options, 'damage')
+    elif hook == 'attack':
+        game.create_permanent(GIANT, 0, summoning_sick=False)
+        game.advance_to(TurnStep.DECLARE_ATTACKERS)
+        options = tuple(game.legal_attack_options(0))
+        chosen = pilot.choose_attack(game.pilot_view(0), options)
+    elif hook == 'blocks':
+        game.create_permanent(GIANT, 0, summoning_sick=False)
+        game.create_permanent(BEAR, 1, summoning_sick=False)
+        game.advance_to(TurnStep.DECLARE_ATTACKERS)
+        attack = next(o for o in game.legal_attack_options(0) if o.attacker_ids)
+        game.execute_attack_action(attack)
+        options = tuple(game.legal_block_options(attack, 1))
+        chosen = pilot.choose_blocks(game.pilot_view(1), options)
+    else:
+        options = tuple(game.legal_main_actions(0))
+        chosen = pilot.choose_main_action(game.pilot_view(0), options, 'damage')
+    return {'returned': repr(chosen), 'option_count': len(options), 'belongs_to_options': chosen in options}
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -55,9 +85,7 @@ def main() -> None:
                                 "variant": variant,
                                 "replay": replay,
                                 "pilot": pilot,
-                                "result": "ACCEPTABLE_SET_MEMBER"
-                                if category in ("T", "R")
-                                else "BOUNDARY_REPLAY",
+                                "result": actual_decision(hook, AcceptancePilot() if pilot == "AcceptancePilot" else PassingPilot()),
                                 "source_replay_digest": fixture.get(
                                     "duplicate_reconstruction", {}
                                 ).get("digests", [None])[0],
@@ -75,7 +103,7 @@ def main() -> None:
                         "variant": variant,
                         "replay": 1,
                         "pilot": pilot,
-                        "result": "PRIVACY_PAIR_STABLE",
+                        "result": actual_decision("main", AcceptancePilot() if pilot == "AcceptancePilot" else PassingPilot()),
                     }
                 )
     if len(calls) != 384:
