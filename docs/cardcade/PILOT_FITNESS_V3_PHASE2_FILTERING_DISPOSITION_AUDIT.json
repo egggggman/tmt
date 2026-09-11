@@ -1,0 +1,34 @@
+{
+  "status": "FILTERING_DIRECTIONS_INCONCLUSIVE",
+  "governing_spec": "c18a8fc",
+  "prior_feasibility": "a577c0c",
+  "pilot_invocations": 0,
+  "directions": {
+    "discard_draw_strict_discard_preferred": {
+      "disposition": "INCONCLUSIVE_WITH_SPECIFIC_UNRESOLVED_DOMAIN",
+      "domain_completed": "frozen optional discard/Draw semantics and transaction acceptance evidence",
+      "unresolved_domain": "No bounded all-positive-weight V3 objective audit across reachable discard contexts, both seats, and stable equal-safety continuations.",
+      "not_required_evidence": false
+    },
+    "discard_draw_strict_retention_preferred": {
+      "disposition": "INCONCLUSIVE_WITH_SPECIFIC_UNRESOLVED_DOMAIN",
+      "domain_completed": "frozen optional discard/Draw semantics and empty-library transaction evidence",
+      "unresolved_domain": "No complete reference-prior Q table and no objective-stability certificate for retention versus discard.",
+      "not_required_evidence": false
+    },
+    "hand_bottom_draw_strict_filter_preferred": {
+      "disposition": "INCONCLUSIVE_WITH_SPECIFIC_UNRESOLVED_DOMAIN",
+      "domain_completed": "76-probe bounded family, 1,612 complete-prior rows, both frozen decks named in scope, and preserved objective-reversal evidence",
+      "unresolved_domain": "Raphael and additional materially distinct reachable contexts were structurally screened but not fully reconstructed; closure of the authorized domain is not justified.",
+      "not_required_evidence": false
+    },
+    "hand_bottom_draw_strict_retention_preferred": {
+      "disposition": "INCONCLUSIVE_WITH_SPECIFIC_UNRESOLVED_DOMAIN",
+      "domain_completed": "one optimistic two-seat singleton-Mountain candidate and exact rational screened values",
+      "unresolved_domain": "The candidate lacks a complete V3 objective, transformation/privacy and canonical witness certificate; the second disjoint role is absent.",
+      "not_required_evidence": false
+    }
+  },
+  "controls": ["all positive prior weights retained", "no second hidden Draw", "no realized hidden-state oracle", "no Pilot output", "no unrestricted search restart"],
+  "decision": "No filtering direction is declared NOT REQUIRED. All four remain INCONCLUSIVE until their listed bounded domains are closed or a structural proof is preserved."
+}

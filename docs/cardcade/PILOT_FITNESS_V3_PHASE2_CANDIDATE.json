@@ -1,20 +1,5 @@
 {
-  "boundary_candidates": [
-    {
-      "basis": "empty library positive Scry produces sole empty choice",
-      "category": "B",
-      "fixture_id": "V3-P2-003",
-      "hook": "scry",
-      "status": "CANDIDATE_UNSEALED"
-    },
-    {
-      "basis": "no unblocked attacker produces pass-only Sneak options",
-      "category": "B",
-      "fixture_id": "V3-P2-004",
-      "hook": "sneak",
-      "status": "CANDIDATE_UNSEALED"
-    }
-  ],
+  "boundary_candidates": [],
   "discard_draw": {
     "basis": "No complete V3 discard/Draw oracle and objective-stable direction has been sealed; no witness manufactured.",
     "status": "INCONCLUSIVE"
@@ -434,6 +419,241 @@
         ],
         "objective": "Sneak cast produces lethal 4 combat damage within horizon",
         "winner": null
+      },
+      "status": "CANDIDATE_UNSEALED"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [],
+            "top_ids": []
+          }
+        ],
+        "view": {
+          "cards": [],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              0,
+              3
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000021",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000022",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000023",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000024",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000025",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000026",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000027",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [],
+          "player_index": 0,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "B",
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "horizon": "empty-library Scry transaction",
+      "oracle": {
+        "boundary": "empty_library_sole_choice"
+      },
+      "status": "CANDIDATE_UNSEALED"
+    },
+    {
+      "base": {
+        "options": [],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land — Plains"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": true,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": null,
+                "type_line": "Basic Land — Plains"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000035",
+                "Anonymous Sneak",
+                4,
+                true
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "combat_damage",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "horizon": "empty Sneak decision",
+      "oracle": {
+        "boundary": "no_unblocked_attacker_pass_only"
       },
       "status": "CANDIDATE_UNSEALED"
     }

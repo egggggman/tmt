@@ -122,29 +122,40 @@ def sneak_fixture():
     }
 
 
+
+def scry_boundary():
+    game = Game(([LAND] * 10, [LAND] * 10), seed=4103)
+    game.begin_turn()
+    game.players[0].library.clear()
+    captured = []
+    def chooser(view, options):
+        captured.append({"view": enc(asdict(view)), "options": enc([asdict(o) for o in options])})
+        return options[0]
+    game.scry_chooser = chooser
+    game.scry(0, ScryProgram(2), source_card="Phase2 Scry B", oracle_fragment="Scry 2.")
+    return {"fixture_id": "V3-P2-003", "hook": "scry", "category": "B", "base": captured[0], "oracle": {"boundary": "empty_library_sole_choice"}, "horizon": "empty-library Scry transaction", "status": "CANDIDATE_UNSEALED"}
+
+
+def sneak_boundary():
+    game = Game(([LAND] * 10, [LAND] * 10), seed=4104)
+    game.begin_turn()
+    game.set_hand_for_testing(0, [SNEAK])
+    game.create_permanent(LAND, 0, summoning_sick=False)
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(o for o in game.legal_attack_options(0) if not o.attacker_ids)
+    game.execute_attack_action(attack)
+    block = next(o for o in game.legal_block_options(attack, 1) if not o.blocks)
+    game.execute_block_action(block)
+    options = game.legal_sneak_actions(0)
+    return {"fixture_id": "V3-P2-004", "hook": "sneak", "category": "B", "base": {"view": enc(asdict(game.pilot_view(0))), "options": enc([asdict(o) for o in options])}, "oracle": {"boundary": "no_unblocked_attacker_pass_only"}, "horizon": "empty Sneak decision", "status": "CANDIDATE_UNSEALED"}
 def main():
     packet = {
         "status": "PHASE2_CANDIDATE_UNSEALED",
         "governing_spec": "c18a8fc",
         "phase1_sealed": "af6ba95",
         "pilot_invocations": 0,
-        "fixtures": [scry_fixture(), sneak_fixture()],
-        "boundary_candidates": [
-            {
-                "fixture_id": "V3-P2-003",
-                "hook": "scry",
-                "category": "B",
-                "status": "CANDIDATE_UNSEALED",
-                "basis": "empty library positive Scry produces sole empty choice",
-            },
-            {
-                "fixture_id": "V3-P2-004",
-                "hook": "sneak",
-                "category": "B",
-                "status": "CANDIDATE_UNSEALED",
-                "basis": "no unblocked attacker produces pass-only Sneak options",
-            },
-        ],
+        "fixtures": [scry_fixture(), sneak_fixture(), scry_boundary(), sneak_boundary()],
+        "boundary_candidates": [],
         "discard_draw": {
             "status": "INCONCLUSIVE",
             "basis": "No complete V3 discard/Draw oracle and objective-stable direction has been sealed; no witness manufactured.",

@@ -1,0 +1,197 @@
+{
+  "F2A": 4,
+  "K2A": 8,
+  "checks": {
+    "duplicate_reconstruction": true,
+    "option_permutation": true,
+    "privacy_pairs": true,
+    "runtime_id_rename": true,
+    "seat_counterparts": true
+  },
+  "fixtures": [
+    {
+      "category": "R",
+      "duplicate_reconstruction": {
+        "digests": [
+          "eb388e00ceb576a96f4dd4a220d78a3a3268d36f1ec53b4788706142869bb984",
+          "eb388e00ceb576a96f4dd4a220d78a3a3268d36f1ec53b4788706142869bb984"
+        ],
+        "executed": true
+      },
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "option_permutation": {
+        "digest": "0980626c03157686d3d8c9f0a554da3e9a41e29ad2caeff906472db9f24c5222",
+        "executed": true,
+        "membership_preserved": true
+      },
+      "oracle": {
+        "acceptable": [
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          }
+        ],
+        "objective": "top inspected card is a creature at the endpoint"
+      },
+      "privacy": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "runtime_id_rename": {
+        "digest": "6d7e8df997230002151b3ffbaa0e5c28432b3ed0334930480eea61853a6badaf",
+        "executed": true,
+        "relations_preserved": true
+      },
+      "seat_counterparts": {
+        "isomorphism": "same option relations, timing, objective and acceptable membership",
+        "versions": [
+          0,
+          1
+        ]
+      },
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "category": "T",
+      "duplicate_reconstruction": {
+        "digests": [
+          "fb72f28639864214e6cddf8eb315c0df7f2c9a2bcffcbfe0740e799ea1d9b3e3",
+          "fb72f28639864214e6cddf8eb315c0df7f2c9a2bcffcbfe0740e799ea1d9b3e3"
+        ],
+        "executed": true
+      },
+      "fixture_id": "V3-P2-002",
+      "hook": "sneak",
+      "option_permutation": {
+        "digest": "7055cb220787c98d72222594f633f1cb6ca8c7b5d4b5ef9779e7489e23140aae",
+        "executed": true,
+        "membership_preserved": true
+      },
+      "oracle": {
+        "acceptable": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": "object-000057",
+            "kind": "cast",
+            "object_id": "object-000055",
+            "oracle_fragment": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "objective": "Sneak cast produces lethal 4 combat damage within horizon",
+        "winner": null
+      },
+      "privacy": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "runtime_id_rename": {
+        "digest": "b9824754bf0e0a6456c20bf6b06eb8da1904d3300979411b9fa63a0a2e947d2e",
+        "executed": true,
+        "relations_preserved": true
+      },
+      "seat_counterparts": {
+        "isomorphism": "same option relations, timing, objective and acceptable membership",
+        "versions": [
+          0,
+          1
+        ]
+      },
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "category": "B",
+      "duplicate_reconstruction": {
+        "digests": [
+          "4395b9283b248d3fabca74dbe54e3f07fd4ef1cbbbd6609e6692719f40890277",
+          "4395b9283b248d3fabca74dbe54e3f07fd4ef1cbbbd6609e6692719f40890277"
+        ],
+        "executed": true
+      },
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "option_permutation": {
+        "digest": "3dbedb5add08f1181becd6f06640fd662ab22a82a310be22043a495946efdef0",
+        "executed": true,
+        "membership_preserved": true
+      },
+      "oracle": {
+        "boundary": "empty_library_sole_choice"
+      },
+      "privacy": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "runtime_id_rename": {
+        "digest": "3aa7bc85dfeea4a35c8c37aab16d95f932282768fa7f44d416957e458131d046",
+        "executed": true,
+        "relations_preserved": true
+      },
+      "seat_counterparts": {
+        "isomorphism": "same option relations, timing, objective and acceptable membership",
+        "versions": [
+          0,
+          1
+        ]
+      },
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "category": "B",
+      "duplicate_reconstruction": {
+        "digests": [
+          "968f1311167e69986dca8bd004e83a0a34b344764cc3f2f19483cc6e5c30081c",
+          "968f1311167e69986dca8bd004e83a0a34b344764cc3f2f19483cc6e5c30081c"
+        ],
+        "executed": true
+      },
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "option_permutation": {
+        "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "executed": true,
+        "membership_preserved": true
+      },
+      "oracle": {
+        "boundary": "no_unblocked_attacker_pass_only"
+      },
+      "privacy": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "runtime_id_rename": {
+        "digest": "175b6ba338849b9556a84f4cc513946c37315223bd8d975512d5236b9160b293",
+        "executed": true,
+        "relations_preserved": true
+      },
+      "seat_counterparts": {
+        "isomorphism": "same option relations, timing, objective and acceptable membership",
+        "versions": [
+          0,
+          1
+        ]
+      },
+      "status": "SEALED_CANDIDATE"
+    }
+  ],
+  "formula": "24*4 + 4*8 = 128",
+  "governing_spec": "c18a8fc",
+  "invocation_subtotal": 128,
+  "phase1_sealed": "af6ba95",
+  "pilot_invocations": 0,
+  "scoring_authorized": false,
+  "source_candidate": "971be21",
+  "status": "PHASE2A_SCRY_SNEAK_SEALED_CANDIDATE"
+}
