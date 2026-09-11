@@ -1,0 +1,54 @@
+{
+  "global_counts": {
+    "F": 12,
+    "K": 24,
+    "actual_pilot_invocations": 0,
+    "formula": "24*12 + 4*24 = 384",
+    "planned_invocations": 384
+  },
+  "governing_spec": "c18a8fc",
+  "integrity": {
+    "cross_packet_fixture_id_disjoint": true,
+    "engine_frozen": true,
+    "filtering_audit_preserved": true,
+    "phase1_checks_preserved": true,
+    "phase2a_checks_preserved": true,
+    "pilot_policies_frozen": true,
+    "scoring_authorized": false,
+    "transformations_and_privacy_sealed": true
+  },
+  "scope": {
+    "demonstrated_hooks": [
+      "main_action",
+      "attack",
+      "blocks",
+      "priority",
+      "scry",
+      "sneak"
+    ],
+    "outside_claim_inconclusive": [
+      "discard_draw",
+      "hand_bottom_draw"
+    ],
+    "outside_claim_reason": "conditional competencies remain INCONCLUSIVE; they are not passes or NOT REQUIRED classifications"
+  },
+  "sources": {
+    "filtering_audit": {
+      "commit": "c4c0d2b",
+      "path": "PILOT_FITNESS_V3_PHASE2_FILTERING_DISPOSITION_AUDIT.json",
+      "sha256": "ebac657fd567f7b6ef9277fa25c7b05d827c095683f6e60067aab0713705096e"
+    },
+    "phase1": {
+      "commit": "af6ba95",
+      "path": "PILOT_FITNESS_V3_PHASE1_SEALED_CANDIDATE.json",
+      "sha256": "4edd7a5c442da906edf3f7fa2ee9a4feb4007b4e2e586de894902093df06bba2"
+    },
+    "phase2a": {
+      "commit": "c4c0d2b",
+      "path": "PILOT_FITNESS_V3_PHASE2A_SCRY_SNEAK_SEALED.json",
+      "sha256": "e3380eb54f47bcbd518d0d136eec52d0db88d0d88c29b031b848c4692d4152b2"
+    },
+    "specification_v3": "c18a8fc"
+  },
+  "status": "GLOBAL_V3_PRERUN_INTEGRATION_SEALED_CANDIDATE"
+}
