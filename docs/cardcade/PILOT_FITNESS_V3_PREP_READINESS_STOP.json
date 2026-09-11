@@ -1,0 +1,41 @@
+{
+  "status": "INCONCLUSIVE_PRE_RUN_NOT_SEALED",
+  "governing_spec": "c18a8fc",
+  "design_assessment": "27a5dd8",
+  "prior_feasibility_audit": "a577c0c",
+  "canonical_fixture_count_F": null,
+  "privacy_K": null,
+  "final_invocation_count": null,
+  "invocation_formula": "24F + 4K",
+  "pilot_invocations": 0,
+  "pilot_outputs": [],
+  "engine_changed": false,
+  "policies_changed": false,
+  "hooks": {
+    "main_action": {"T": "INCONCLUSIVE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_PENDING_STRUCTURAL_RECORD", "B": "INCONCLUSIVE"},
+    "attack": {"T": "INCONCLUSIVE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_PENDING_STRUCTURAL_RECORD", "B": "INCONCLUSIVE"},
+    "blocks": {"T": "INCONCLUSIVE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_PENDING_STRUCTURAL_RECORD", "B": "INCONCLUSIVE"},
+    "sneak": {"T": "INCONCLUSIVE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_PENDING_STRUCTURAL_RECORD", "B": "INCONCLUSIVE"},
+    "scry": {"T": "NOT_APPLICABLE_CANDIDATE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_CANDIDATE", "B": "INCONCLUSIVE"},
+    "hand_bottom_draw": {"T": "NOT_APPLICABLE", "R": "NOT_APPLICABLE", "U": "INCONCLUSIVE", "B": "INCONCLUSIVE"},
+    "discard_draw": {"T": "INCONCLUSIVE", "R": "NOT_APPLICABLE_CANDIDATE", "U": "INCONCLUSIVE", "B": "INCONCLUSIVE"},
+    "priority": {"T": "INCONCLUSIVE", "R": "INCONCLUSIVE", "U": "NOT_APPLICABLE_PENDING_STRUCTURAL_RECORD", "B": "INCONCLUSIVE"}
+  },
+  "hand_bottom_draw": {
+    "strict_filter_preferred": "INCONCLUSIVE_NO_COMPLETE_WITNESS",
+    "strict_retention_preferred": "INCONCLUSIVE_OPTIMISTIC_ONLY",
+    "competing_identity": "OPTIONAL_NOT_REQUIRED_BY_V3",
+    "exact_ev_tie": "OPTIONAL_NOT_REQUIRED_BY_V3",
+    "boundary_integrity": "REQUIRED_WHEN_REACHABLE_BUT_NO_V3_WITNESS"
+  },
+  "missing_seal_fields": ["canonical fixture IDs", "complete reachability", "oracle tables", "seat transformations", "privacy pairs and K", "option permutations", "object-ID mappings", "per-call records"],
+  "evidence": {
+    "prior_search_probes": 76,
+    "prior_complete_rows": 1612,
+    "prior_strict_reversals": 9,
+    "prior_support_failures": 18,
+    "prior_setup_failures": 2,
+    "prior_unresolved": 47
+  },
+  "disposition": "Preparation stops because absent V3 witnesses remain INCONCLUSIVE; no quota reduction or specification rewrite is proposed."
+}
