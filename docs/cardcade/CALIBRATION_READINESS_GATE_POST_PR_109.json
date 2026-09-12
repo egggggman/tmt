@@ -1,0 +1,320 @@
+{
+  "accepted_pr_head": "a6c96370dfa812faf5606d8a1a101d544718c17d",
+  "action_33": "NOT AUTHORIZED",
+  "baseline_commit": "803570a6ebf8e43b143abf43ac2a046455cf7a96",
+  "calibration": "BLOCKED",
+  "decks": "FROZEN",
+  "filtering": "INCONCLUSIVE",
+  "hashing_contract": "SHA-256 of committed git show baseline:path bytes; not checkout bytes",
+  "hq_authority": "Current thread: bounded Pilot PASS, normal merge authorization, readiness-packet-only scope",
+  "merge_pr": 109,
+  "pilot_fitness": "PASS_DEMONSTRATED_SURFACE_ONLY",
+  "preparation_games": 0,
+  "preparation_pilot_calls": 0,
+  "preparation_test_executions": 0,
+  "privacy": "INCONCLUSIVE_UNEXECUTED",
+  "prototype_0_3": "NOT AUTHORIZED",
+  "source_records": [
+    {
+      "git_blob": "d86a4a1353417645237878f33b840d5af412ed25",
+      "path": "decks/BATTLE_001_LEONARDO_VS_RAPHAEL.md",
+      "sha256": "62397e87765778a05d7b5437cb3e760050d1753f2218b831c7c53720086b3ac5"
+    },
+    {
+      "git_blob": "a4329190385538e6bd8737db3a18212e244cdf34",
+      "path": "decks/BATTLE_002_THREE_BROTHER_POD.md",
+      "sha256": "4913654b34050844e28340538dcb700529d55ecc08b77e44c641d4d299f11e64"
+    },
+    {
+      "git_blob": "a9e253c4e33efe8780baf3b17256db30724dbac8",
+      "path": "decks/BATTLE_003_FOUR_TURTLE_BASELINE.md",
+      "sha256": "f210ebb440c38cc1776a2a2e3b17d8ef454c7ad55e3e141a3a675accc9c526a6"
+    },
+    {
+      "git_blob": "56626a5aa47a89c996925b59c9fc22591cefe4ff",
+      "path": "decks/BATTLE_004_FIVE_DECK_BETA.md",
+      "sha256": "a40ba1ef081244af69e1565fffcb9c825277d66fe1165f425c0ebf0e46e648a6"
+    },
+    {
+      "git_blob": "77222ffa7e0b4d28882487c38f6f9875ae0b5204",
+      "path": "decks/BATTLE_005_SIX_DECK_BETA.md",
+      "sha256": "3c62c42e990611c7fe600bf5a57728cb3061e43e6509e725f335b00fa162a219"
+    },
+    {
+      "git_blob": "837a87869f634b726c47755d640573f092b0a26e",
+      "path": "decks/BATTLE_006_SEVEN_DECK_BETA.md",
+      "sha256": "db556f0fad4d37af3f84b58fb8d9b7167eb3b86a7091a473eae24f558d4b41a6"
+    },
+    {
+      "git_blob": "063507a82d256493df40e1cdc5b4254da9a91a42",
+      "path": "decks/BATTLE_007_EIGHT_DECK_BETA.md",
+      "sha256": "06f8aa85af97c737e2551093e4d74df257e7ad44747ecc7af4fbf93a7734e264"
+    },
+    {
+      "git_blob": "7492ce6ccad80ddf428721c64c7df944b8f51f69",
+      "path": "decks/BATTLE_008_NINE_DECK_BETA.md",
+      "sha256": "b84a914b4cbd80d7e1b405d66323e424c95c88cebaa9acfc73a9f95ae09f596f"
+    },
+    {
+      "git_blob": "99b754ddbe7e36fd445bc5395dd0fa1d5960acb9",
+      "path": "decks/BETA_BASELINE_0.1.md",
+      "sha256": "504fad865367b04a7ee9295990d32aa1cd71e4bbc7974f7d09af15e11ee10e0d"
+    },
+    {
+      "git_blob": "4906cade9b7ab6a4c8f0fbc7b216eeb91b736483",
+      "path": "decks/PROTOTYPE_0.2_DESIGN_HANDOFF.md",
+      "sha256": "6651ba8edb5a188a92262ea99b9b39124329f9e7440248eaca586a518c3ca459"
+    },
+    {
+      "git_blob": "987337c62c553d279c482c10153ef77126fccd55",
+      "path": "decks/april_oneil/PLAYTEST_LOG.md",
+      "sha256": "b57622063740ca38495bd87d4fe508926f5afd552f78d993cb4cc3631ceb80cb"
+    },
+    {
+      "git_blob": "68afbfdc1cb05f943c1e26b6f2086062c47cf899",
+      "path": "decks/april_oneil/PROTOTYPE_0.1.md",
+      "sha256": "8dcd84cbe659c8645df447f74c8b68c8c2d2a849ad374328a34dbb61880a1f2d"
+    },
+    {
+      "git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+      "path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+      "sha256": "ef43b0dc98524ec84642e4d19364d29251aba2ae8614976348949ff4dca436ef"
+    },
+    {
+      "git_blob": "c0b7a694cdd83c19a3dd63c0db254b5349184461",
+      "path": "decks/bebop_rocksteady/PLAYTEST_LOG.md",
+      "sha256": "ed6138231d6e0ca41d02eca211447ca7966e20a36bc0ef2340381885ef65320b"
+    },
+    {
+      "git_blob": "f24f639b4b61d898ca86003aace8bd6cc2eec8fb",
+      "path": "decks/bebop_rocksteady/PROTOTYPE_0.1.md",
+      "sha256": "f8716bd8b6a006d09bd6749688f8004801428fe3b8a4a6e9fb22ae9614364db9"
+    },
+    {
+      "git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+      "path": "decks/bebop_rocksteady/PROTOTYPE_0.1.txt",
+      "sha256": "9756db19c204ce38d5544e6c4ddc4daf3e4907fcdd147922fcca840d606677b8"
+    },
+    {
+      "git_blob": "ecb19efe862a94975206b22cafc34d75d1564701",
+      "path": "decks/casey_jones/PLAYTEST_LOG.md",
+      "sha256": "4ead28885f535707f7f0b1483aec2e4e0884c61f5aec21477a0fa0ab9213312c"
+    },
+    {
+      "git_blob": "bbe978a575e9b45163fb81cbabbf1ad5aec7fb44",
+      "path": "decks/casey_jones/PROTOTYPE_0.1.md",
+      "sha256": "49989347cf1a98c72bdef829b535104b097a3f3c7f0a6ad9e576915fc1585722"
+    },
+    {
+      "git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6",
+      "path": "decks/casey_jones/PROTOTYPE_0.1.txt",
+      "sha256": "5c6a9068bab15a2c9f0098778290adbcaa29b96bf699e7e595edb0966e375748"
+    },
+    {
+      "git_blob": "10f042b3345155b0c6c3c4ed56c86c902b05ed5a",
+      "path": "decks/donatello/PLAYTEST_LOG.md",
+      "sha256": "00ce14ef1df6d1cccc27748d870c3730b69c2dfa85eb49d8eb2868e67d1a51a2"
+    },
+    {
+      "git_blob": "3b4a0af1085a10efc17e77c9514e1bc397c76deb",
+      "path": "decks/donatello/PROTOTYPE_0.1.md",
+      "sha256": "8f722594eff3d2355dfd1b4824ecdad289c8ad584635fbf514c975652ea76a81"
+    },
+    {
+      "git_blob": "9fae8db9fa819935bd612ac13add867c5a76432e",
+      "path": "decks/donatello/PROTOTYPE_0.1.txt",
+      "sha256": "25812e2d7f0ac64ae2476c0d62298db35196d1719c9376b5369d5080faa6aad1"
+    },
+    {
+      "git_blob": "aa736ec1148bf807f20e25857b4435911ad943f9",
+      "path": "decks/donatello/PROTOTYPE_0.2.md",
+      "sha256": "c99bdefa405efb8b2611022037b11e2b369565868d96b1aeedc197fb9f346ee1"
+    },
+    {
+      "git_blob": "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317",
+      "path": "decks/donatello/PROTOTYPE_0.2.txt",
+      "sha256": "28916123b7080eb412d9648740d2bc10d10c20c41d3138e1421ffcb38fa2f169"
+    },
+    {
+      "git_blob": "85e8b181df2603c12113b65496be838f110c7cb8",
+      "path": "decks/krang/PLAYTEST_LOG.md",
+      "sha256": "50209a477f8d5e76ba7e7a88e84d164e8965f1c476e257dd42b822c3c5f91c34"
+    },
+    {
+      "git_blob": "7626db9e23a0dc1650a4a29d7a4c068a43942c8f",
+      "path": "decks/krang/PROTOTYPE_0.1.md",
+      "sha256": "5878d612b868571d438a294c42c49b9edec3d26242f71753ac2370f9efa272e7"
+    },
+    {
+      "git_blob": "1840c1883db414a0ea96bd926b23ed8928c9ee28",
+      "path": "decks/krang/PROTOTYPE_0.1.txt",
+      "sha256": "817d3ac97507fd1d492c3495cf81670289765f2c3fb6571ae43cbb8dbeaa1997"
+    },
+    {
+      "git_blob": "9849188130c063b7b44a5c07806fd31d815bedba",
+      "path": "decks/krang/PROTOTYPE_0.2.md",
+      "sha256": "b1ec60dfd3a473ab294fd0ad7c319452dfea54f344d4a5d19399e2cfec58f7de"
+    },
+    {
+      "git_blob": "ecdffa18463076503f5d338687041f42a3a599d9",
+      "path": "decks/krang/PROTOTYPE_0.2.txt",
+      "sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525"
+    },
+    {
+      "git_blob": "2abb3839637b3a70bf0bf0f35e024ba376c6bca6",
+      "path": "decks/leonardo/PLAYTEST_LOG.md",
+      "sha256": "b555c3b37ee720679bfc891bff243927174f356cf001112d26fd67e9506f7e21"
+    },
+    {
+      "git_blob": "962354b936e1507a1da18ed1222fa94e844f3793",
+      "path": "decks/leonardo/PROTOTYPE_0.1.md",
+      "sha256": "f80cf5e13c786a24b3116621fb4d31d4edf3f34410a084212400ad912d76c782"
+    },
+    {
+      "git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+      "path": "decks/leonardo/PROTOTYPE_0.1.txt",
+      "sha256": "d1bc2928b6ab17d3467e96dd3ca03c7d8bb7a52245ce77a1ba5b219f588f450a"
+    },
+    {
+      "git_blob": "60c70dd8ca2263362e3d63845f0a8e151d7f7647",
+      "path": "decks/michelangelo/PLAYTEST_LOG.md",
+      "sha256": "1a1af340c79654c5e057d2f00b9f4017f83129d8c50c3e8922f807a6e635fffb"
+    },
+    {
+      "git_blob": "98e76ce79c81c0070c7e657cefd3c59e516cd489",
+      "path": "decks/michelangelo/PROTOTYPE_0.1.md",
+      "sha256": "c9a370f1159766e6334095c8edd80a8feeb053d6bee7ec9f0ac045024c4d7245"
+    },
+    {
+      "git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+      "path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f"
+    },
+    {
+      "git_blob": "15dc7f81bdec6e1eb464e489eeb679e716703ee7",
+      "path": "decks/raphael/PLAYTEST_LOG.md",
+      "sha256": "ec6ff0f6f9ae71c2f2d9ad5daa8849c23940e2be603b72427d57c7be7a7f6f8f"
+    },
+    {
+      "git_blob": "13bcaaa0b0279b009d0c5ce05fdbd762cdb350e9",
+      "path": "decks/raphael/PROTOTYPE_0.1.md",
+      "sha256": "94436c222edbd851dc3f0da3e5480885fbe7cb8c030ad17e9054559ba86c1cc4"
+    },
+    {
+      "git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+      "path": "decks/raphael/PROTOTYPE_0.1.txt",
+      "sha256": "7768d150bd57f7f949bd4d72adcb0712d4d8cbdabe3a70c63bac6ad0e00af576"
+    },
+    {
+      "git_blob": "7abc9208e0f1b82d44a1007bc666d0b51a9e482e",
+      "path": "decks/shredder/PLAYTEST_LOG.md",
+      "sha256": "370a851f1c2e50ce189082bcc2e6d96972bdf062681cfb8213c49a7f3dfed9c0"
+    },
+    {
+      "git_blob": "adcb3417807c79f338ff600f50371bcdc6ead51f",
+      "path": "decks/shredder/PROTOTYPE_0.1.md",
+      "sha256": "2571e8b871f92509b65e7e2fdce07f7062549dee119d90051ed92abff80396db"
+    },
+    {
+      "git_blob": "306fd267482b72f188c69222d57fcc547d654091",
+      "path": "decks/shredder/PROTOTYPE_0.1.txt",
+      "sha256": "6f646efb8f4ad4cabe7046fb97762821e10298aa02608ebc5693d28e8a8dd094"
+    },
+    {
+      "git_blob": "cc6271089e83fce794af3c7881e84f45840ee9a8",
+      "path": "decks/splinter/PLAYTEST_LOG.md",
+      "sha256": "ce3afc04ac347d0bd5791d9d6c603d1cf771a90ad86e894302f8e0ef4d8eb002"
+    },
+    {
+      "git_blob": "b5f4d1ac7d91c30a408467c191377a4cf5dc6a77",
+      "path": "decks/splinter/PROTOTYPE_0.1.md",
+      "sha256": "f02d714645f4c9a46284c6a5ba0a3441e5a3f5d2af597699f6c023ca62cfa10b"
+    },
+    {
+      "git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+      "path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42"
+    },
+    {
+      "git_blob": "446d600d705324782391bb534b41c89ecf418407",
+      "path": "docs/cardcade/COVERAGE_AWARE_ENGINE_SMOKE_STAGE_0.1_SPEC.md",
+      "sha256": "cdf17e0a13c9aaa57e04df84460fa557c144203db0012d7bf964709e0cb66c90"
+    },
+    {
+      "git_blob": "b11ffdac992f4905c438b6ea6e1c01845fa5ba3f",
+      "path": "docs/cardcade/COVERAGE_AWARE_ENGINE_VALIDATION_STAGE_0.2_SPEC.md",
+      "sha256": "a623eb13defa0f52a1ecf0e9ca670ae772381a2b27e929e4e57c8b023e866c60"
+    },
+    {
+      "git_blob": "7e1eb1e4fe7d83ce51cc8aa2a8862e2cebb088f4",
+      "path": "docs/cardcade/PILOT_FITNESS_ASSESSMENT_SPEC_V3.md",
+      "sha256": "4e0baef0dd52d6ec8dc4b9ac70aad0b76f714543d17bad0d2a83b9ca070bece2"
+    },
+    {
+      "git_blob": "d6e26d9a1e31fc52fa7c6e5e3c2ebe19fd70a126",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_FAILURE_DIAGNOSIS.md",
+      "sha256": "2e1aacb9e75db789591b26c0d9bf358a6fd3ad542764b3d6356df3b021b9cb3e"
+    },
+    {
+      "git_blob": "978c14909e1c68627a5567e4037a1f59ac591ccf",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_PATH_A_288_RAW.jsonl",
+      "sha256": "aed644c665a0415b70207649fad227b92b1d203e2ad2eed4944a2f6d75d704b0"
+    },
+    {
+      "git_blob": "29c70763a4e75ee8a23e9dbe72e6d0b515ef9868",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_PATH_A_288_REPORT.md",
+      "sha256": "26e03be3e5552f903dd1b2b76102980238fb0dd5eefea3b8c856c0f547f7bbd7"
+    },
+    {
+      "git_blob": "8a119fa189ae5fc1eda66e052a9e36d3d74ac5c4",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_REMEDIATION_96_EXECUTION_PLAN.json",
+      "sha256": "e1c67bcbc13d14f8b442146c837dc8b0e050fcd87746d47d3907955f43838ae7"
+    },
+    {
+      "git_blob": "225a202b2528a4e6b24e7f97be6e0a6fcef9c7db",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_REMEDIATION_96_RAW.jsonl",
+      "sha256": "62b2ea9b86b96ab77c05d3eb74b3d72fa0fa72e8d740136ac3db4bd1da38d125"
+    },
+    {
+      "git_blob": "17f175effa6ccf789d2aaf0d4beb5ae1fb6df826",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_REMEDIATION_96_REPORT.md",
+      "sha256": "920ea008d3ae5fabcf05c8a7ca1e912bfa3b41160a0bdca6d02c266230d2c937"
+    },
+    {
+      "git_blob": "a587638f96fef1dbb2efd416466f29b51611fdf7",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_REMEDIATION_96_RESULTS.json",
+      "sha256": "855e2748f631cc18824693f1d691b6da717dd6c0d201649d9009421348a591b8"
+    },
+    {
+      "git_blob": "9be11050d09b394c914f7df31de3a4f74f1ceee3",
+      "path": "docs/cardcade/POST_ACTION_30_ENGINE_VALIDATION_CHECKPOINT_AUDIT.md",
+      "sha256": "1cdcfc7397745d128200c3d3b3cb557babaa9a601b6468e302814fc7e551f008"
+    },
+    {
+      "git_blob": "6bc5bb35398443112dd0cc26cc9f0113365d41fd",
+      "path": "docs/cardcade/POST_ACTION_32_ENGINE_VALIDATION_GATE_AUDIT.md",
+      "sha256": "71877e4f0dffabade9e0193763020f26870da27c6397f6cb032bd2108ca4956c"
+    },
+    {
+      "git_blob": "156b590e902e66c89cc00ff548fc7706c3abe0fb",
+      "path": "scripts/run_acceptance_match_001.py",
+      "sha256": "a892fdaf24e62ad094a68fda3f5d91137a9f21b2ed3a679344d7979d9e652f5c"
+    },
+    {
+      "git_blob": "523685e146f5942bb2d0bf24049959caec87a22d",
+      "path": "src/tmnt_design_studio/engine07.py",
+      "sha256": "25709fe82373c6baf8de0b7d689f2403daef0711881a934d49172366306785f2"
+    },
+    {
+      "git_blob": "31bc847ee7f46869686aba36ee0f44c2d047a34a",
+      "path": "src/tmnt_design_studio/pilot07.py",
+      "sha256": "6471c277a3338c3b3e3d54ae8951dc2c09708829899dd636a4cd5f1c516e5f7d"
+    },
+    {
+      "git_blob": "efcd3fe4824bfc369bbfda72c4d94803e8ab9943",
+      "path": "src/tmnt_design_studio/pilot_input_v2.py",
+      "sha256": "cce2ebe9ef032717ba40c064a03c9d04d40f54886e0e000c8f6dd75f048c42c8"
+    }
+  ],
+  "status": "READINESS_PACKET_FOR_HQ_REVIEW"
+}
