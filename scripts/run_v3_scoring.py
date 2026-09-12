@@ -120,7 +120,9 @@ def proof():
         "actual_pilot_invocations": len(calls),
         "calls": calls,
         "full_schedule_executed": False,
-        "limitation": "Sealed privacy metadata lacks authoritative paired hidden-state observations.",
+        "limitation": (
+            "Sealed privacy metadata lacks authoritative paired hidden-state observations."
+        ),
     }
     out = ROOT / directory / "PILOT_FITNESS_V3_EXECUTION_PROOF.json"
     payload = (json.dumps(report, indent=2, sort_keys=True) + "\n").encode()
