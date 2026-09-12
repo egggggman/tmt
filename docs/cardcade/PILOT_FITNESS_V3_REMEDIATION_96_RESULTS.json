@@ -1,0 +1,95 @@
+{
+  "action_33": "NOT AUTHORIZED",
+  "actual_hook_invocations": 96,
+  "calibration": "BLOCKED",
+  "execution_plan_sha256": "e1c67bcbc13d14f8b442146c837dc8b0e050fcd87746d47d3907955f43838ae7",
+  "filtering": "UNCHANGED",
+  "hq_decision": "PENDING",
+  "privacy_calls": 0,
+  "prototype_0_2": "FROZEN",
+  "prototype_0_3": "NOT AUTHORIZED",
+  "raw_sha256": "62b2ea9b86b96ab77c05d3eb74b3d72fa0fa72e8d740136ac3db4bd1da38d125",
+  "runner_commit": "533bdd1d3211e7d8129a3a6da270dbbd5ccfc06f",
+  "summaries": [
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P1-004",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "AcceptancePilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P1-004",
+      "legal_returns": 12,
+      "matches": 0,
+      "pilot": "PassingPilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P1-005",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "AcceptancePilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P1-005",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "PassingPilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P2-001",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "AcceptancePilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P2-001",
+      "legal_returns": 12,
+      "matches": 0,
+      "pilot": "PassingPilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P2-004",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "AcceptancePilot",
+      "returns": 12,
+      "stable": true
+    },
+    {
+      "calls": 12,
+      "exceptions": 0,
+      "fixture_id": "V3-P2-004",
+      "legal_returns": 12,
+      "matches": 12,
+      "pilot": "PassingPilot",
+      "returns": 12,
+      "stable": true
+    }
+  ]
+}

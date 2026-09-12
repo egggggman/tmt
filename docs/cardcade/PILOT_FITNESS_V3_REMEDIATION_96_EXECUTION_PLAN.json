@@ -1,0 +1,6271 @@
+{
+  "action_33": "NOT AUTHORIZED",
+  "calibration": "BLOCKED",
+  "fixtures": [
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-000135",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "owner": 0,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-000137",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000121",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000122",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000123",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000124",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000125",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000126",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000127",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 0,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 1,
+              "kind": "spell",
+              "object_id": "object-000138",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-000138",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-000136",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "branches": [
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          "spell_zone": "graveyard",
+          "target_zone": "gone"
+        },
+        {
+          "option": {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          },
+          "spell_zone": "graveyard",
+          "target_zone": "battlefield"
+        }
+      ],
+      "category": "T",
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "horizon": "immediate engine resolution; Priority fully drained",
+      "name": "priority_t_counter_response",
+      "oracle": {
+        "acceptable": [
+          1
+        ]
+      },
+      "seat": 0
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            0,
+            7
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "branches": [],
+      "category": "B",
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "horizon": "immediate engine resolution; Priority fully drained",
+      "name": "main_action_b_empty",
+      "oracle": {
+        "boundary": "empty_or_pass_only"
+      },
+      "seat": 0
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [
+              "object-000012",
+              "object-000013"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013",
+              "object-000012"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-000013",
+              "Bear"
+            ],
+            [
+              "object-000012",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000041",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000042",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000043",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000044",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000045",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000046",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000047",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000013",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000012",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 0,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "branch_digest": "9261fc57f47ebf2bdf87eae91ce5a9d7365ada380364334d9ae1cb0a7388f5ea",
+      "category": "R",
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "horizon": "Scry 2 transaction completion and library mutation",
+      "oracle": {
+        "acceptable": [
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          }
+        ],
+        "objective": "top inspected card is a creature at the endpoint"
+      },
+      "status": "CANDIDATE_UNSEALED"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-000040",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-000040",
+                "owner": 0,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000038",
+                "Bear",
+                2,
+                true
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "horizon": "after sole Sneak resolves; engine-generated pass advances to combat damage",
+      "oracle": {
+        "boundary": "empty_or_pass_only"
+      },
+      "status": "CANDIDATE_UNSEALED"
+    }
+  ],
+  "hq_decision": "PENDING",
+  "observations": [
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-000135",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "owner": 0,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-000137",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000121",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000122",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000123",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000124",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000125",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000126",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000127",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 0,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 1,
+              "kind": "spell",
+              "object_id": "object-000138",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-000138",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-000136",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-000137",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 0,
+          "priority_epoch": 1,
+          "target_id": "object-000138"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "643760208a4c458fa903afe00d6dbe4e6380a43d5cec75de1336bb880c5615d7",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-000135",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "owner": 0,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-000137",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000121",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000122",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000123",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000124",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000125",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000126",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000127",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 0,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 1,
+              "kind": "spell",
+              "object_id": "object-000138",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-000138",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-000136",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-000137",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 0,
+          "priority_epoch": 1,
+          "target_id": "object-000138"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "2ca548ba3ee3c038a8fe1503782af2aa188f93b267796103f9aba3625bf88c49",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-900009",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 0,
+            "priority_epoch": 1,
+            "target_id": "object-900010"
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-900007",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-900007",
+                  "owner": 0,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-900008",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-900008",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-900009",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 0,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-900009",
+                  "owner": 0,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900000",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900001",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900002",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900003",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900004",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900005",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900006",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 0,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 1,
+              "kind": "spell",
+              "object_id": "object-900010",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-900010",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-900008",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-900008",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-900009",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 0,
+          "priority_epoch": 1,
+          "target_id": "object-900010"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {
+        "object-000121": "object-900000",
+        "object-000122": "object-900001",
+        "object-000123": "object-900002",
+        "object-000124": "object-900003",
+        "object-000125": "object-900004",
+        "object-000126": "object-900005",
+        "object-000127": "object-900006",
+        "object-000135": "object-900007",
+        "object-000136": "object-900008",
+        "object-000137": "object-900009",
+        "object-000138": "object-900010"
+      },
+      "mirrored": false,
+      "observation_id": "6563b1ec035f04dfb15224ec8416a6a9366e33d239601450784fffd67233c23d",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-000135",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "owner": 1,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-000137",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ]
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000121",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000122",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000123",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000124",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000125",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000126",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000127",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 1,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 0,
+              "kind": "spell",
+              "object_id": "object-000138",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-000138",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-000136",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-000137",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 1,
+          "priority_epoch": 1,
+          "target_id": "object-000138"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "0ea5d0d226bada6a72b361aaae14ccf8502e9e086c920dc522dbd53d1123edc9",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-000137",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": "object-000138"
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-000135",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-000135",
+                  "owner": 1,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-000136",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-000137",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-000137",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ]
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000121",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000122",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000123",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000124",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000125",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000126",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-000127",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 1,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 0,
+              "kind": "spell",
+              "object_id": "object-000138",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-000138",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-000136",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-000136",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-000137",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 1,
+          "priority_epoch": 1,
+          "target_id": "object-000138"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "6ce65e801b37144c419a3f0f0bb72cc13347f0eeb24ff6847fbb799f133df17a",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass_priority",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": null
+          },
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "activate_ability",
+            "object_id": "object-900009",
+            "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+            "player_index": 1,
+            "priority_epoch": 1,
+            "target_id": "object-900010"
+          }
+        ],
+        "view": {
+          "consecutive_passes": [],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              [
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "",
+                    "mana_value": 0,
+                    "name": "Island",
+                    "object_id": "object-900007",
+                    "oracle_text": "",
+                    "power": null,
+                    "toughness": null,
+                    "type_line": "Basic Land \u2014 Island"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": true,
+                  "name": "Island",
+                  "object_id": "object-900007",
+                  "owner": 1,
+                  "power": null,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": "U",
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Island"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-900008",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Bear",
+                  "object_id": "object-900008",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Creature \u2014 Bear"
+                },
+                {
+                  "card": {
+                    "keywords": [],
+                    "mana_cost": "{2}{U}",
+                    "mana_value": 3,
+                    "name": "Fugitive Droid",
+                    "object_id": "object-900009",
+                    "oracle_text": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Artifact Creature \u2014 Robot"
+                  },
+                  "controller": 1,
+                  "counters": [],
+                  "damage": 0,
+                  "is_token": false,
+                  "land_payment_untapped": null,
+                  "name": "Fugitive Droid",
+                  "object_id": "object-900009",
+                  "owner": 1,
+                  "power": 2,
+                  "represented_keyword_status": [
+                    [
+                      "first_strike",
+                      false
+                    ],
+                    [
+                      "double_strike",
+                      false
+                    ],
+                    [
+                      "trample",
+                      false
+                    ],
+                    [
+                      "lifelink",
+                      false
+                    ],
+                    [
+                      "temporary_flying",
+                      false
+                    ],
+                    [
+                      "temporary_menace",
+                      false
+                    ],
+                    [
+                      "temporary_haste",
+                      false
+                    ],
+                    [
+                      "temporary_deathtouch",
+                      false
+                    ]
+                  ],
+                  "represented_land_payment_color": null,
+                  "summoning_sick": false,
+                  "tapped": false,
+                  "toughness": 2,
+                  "type_line": "Artifact Creature \u2014 Robot"
+                }
+              ]
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              53,
+              53
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900000",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900001",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900002",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900003",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900004",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900005",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Mountain",
+                "object_id": "object-900006",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Mountain"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "priority_epoch": 1,
+          "priority_player": 1,
+          "schema_version": 2,
+          "stack_bottom_to_top": [
+            {
+              "controller": 0,
+              "kind": "spell",
+              "object_id": "object-900010",
+              "public_effect_text": "Bolt deals 3 damage to target creature.",
+              "represented_effect_tag": null,
+              "source_card": null,
+              "source_id": null,
+              "spell_card": {
+                "keywords": [],
+                "mana_cost": "{R}",
+                "mana_value": 1,
+                "name": "Bolt",
+                "object_id": "object-900010",
+                "oracle_text": "Bolt deals 3 damage to target creature.",
+                "power": null,
+                "toughness": null,
+                "type_line": "Instant"
+              },
+              "targets": [
+                {
+                  "announcement_zone": null,
+                  "current_public_zone": "battlefield",
+                  "description": {
+                    "keywords": [],
+                    "mana_cost": "{1}{R}",
+                    "mana_value": 2,
+                    "name": "Bear",
+                    "object_id": "object-900008",
+                    "oracle_text": "",
+                    "power": 2,
+                    "toughness": 2,
+                    "type_line": "Creature \u2014 Bear"
+                  },
+                  "object_id": "object-900008",
+                  "status": "resolved"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "category": "T",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "activate_ability",
+          "object_id": "object-900009",
+          "oracle_fragment": "{U}, Sacrifice this creature: Counter target spell that targets an artifact or creature you control.",
+          "player_index": 1,
+          "priority_epoch": 1,
+          "target_id": "object-900010"
+        }
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_kwargs": {},
+      "hook_method": "choose_priority",
+      "id_mapping": {
+        "object-000121": "object-900000",
+        "object-000122": "object-900001",
+        "object-000123": "object-900002",
+        "object-000124": "object-900003",
+        "object-000125": "object-900004",
+        "object-000126": "object-900005",
+        "object-000127": "object-900006",
+        "object-000135": "object-900007",
+        "object-000136": "object-900008",
+        "object-000137": "object-900009",
+        "object-000138": "object-900010"
+      },
+      "mirrored": true,
+      "observation_id": "8fa7a640083b09bdd523913a52abc39d818374de3cdd1dd78aceba1b6d93ce28",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            0,
+            7
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "5659e3131f56534559195f68e80e896b614f64929063312192894617e748e988",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            0,
+            7
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "7ccfaa31bd1c1f95d431d986e6d5fb8671d4895a486e1fcc35b4caf8742dda55",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            0,
+            7
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "3247002b3960d0cab370c3e8aafb2d4e2b842edad922e0439048bff80a5ddf2f",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            0
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "dd87d2de03c06892d1043ef145a23e639be8b48c96e127241e0fc4593d19abe7",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            0
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "a3af55077b3d8e50b59fcd6bba5550049aa4665704bdb53a4f2e3d7b3d6586e5",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            []
+          ],
+          "hand_sizes": [
+            7,
+            0
+          ],
+          "hands": [
+            [],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "precombat_main",
+          "schema_version": 2,
+          "step": "precombat_main",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_kwargs": {
+        "stage": "damage"
+      },
+      "hook_method": "choose_main_action",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "1306b4df527ed7dc5fd7bd506a6ee6cb32f78a857ec881e327571bc0d08662dd",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [
+              "object-000012",
+              "object-000013"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013",
+              "object-000012"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-000013",
+              "Bear"
+            ],
+            [
+              "object-000012",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000041",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000042",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000043",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000044",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000045",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000046",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000047",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000013",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000012",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 0,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-000013"
+          ],
+          "top_ids": [
+            "object-000012"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000012",
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-000012"
+          ],
+          "top_ids": [
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000013",
+            "object-000012"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "74bd33eef18e61c045afac8fa0ca6205f0ce9ee1a0989a704b2cef1d88c36f26",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000013",
+              "object-000012"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000012",
+              "object-000013"
+            ],
+            "top_ids": []
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-000013",
+              "Bear"
+            ],
+            [
+              "object-000012",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000041",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000042",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000043",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000044",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000045",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000046",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000047",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000013",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000012",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 0,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-000013"
+          ],
+          "top_ids": [
+            "object-000012"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000012",
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-000012"
+          ],
+          "top_ids": [
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000013",
+            "object-000012"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "c18fbbeb9a696228fc381e16e77bc787d8aa9324b90b3de5ca5e8f9ab8b2b48c",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [
+              "object-900000",
+              "object-900001"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-900001",
+              "object-900000"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-900001"
+            ],
+            "top_ids": [
+              "object-900000"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-900000",
+              "object-900001"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-900000"
+            ],
+            "top_ids": [
+              "object-900001"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-900001",
+              "object-900000"
+            ]
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-900001",
+              "Bear"
+            ],
+            [
+              "object-900000",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 0,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 0,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900002",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900003",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900004",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900005",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900006",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900007",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900008",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-900001",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-900000",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 0,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-900001"
+          ],
+          "top_ids": [
+            "object-900000"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-900000",
+            "object-900001"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-900000"
+          ],
+          "top_ids": [
+            "object-900001"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-900001",
+            "object-900000"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {
+        "object-000012": "object-900000",
+        "object-000013": "object-900001",
+        "object-000041": "object-900002",
+        "object-000042": "object-900003",
+        "object-000043": "object-900004",
+        "object-000044": "object-900005",
+        "object-000045": "object-900006",
+        "object-000046": "object-900007",
+        "object-000047": "object-900008"
+      },
+      "mirrored": false,
+      "observation_id": "44638b475759e59319fdd2417dda52b2298c8718a4fb261ee196cd9a804ba603",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [
+              "object-000012",
+              "object-000013"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013",
+              "object-000012"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-000013",
+              "Bear"
+            ],
+            [
+              "object-000012",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000041",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000042",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000043",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000044",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000045",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000046",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000047",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000013",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000012",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 1,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-000013"
+          ],
+          "top_ids": [
+            "object-000012"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000012",
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-000012"
+          ],
+          "top_ids": [
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000013",
+            "object-000012"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "1ff7c76c97057a87aba2484438c2632a9670eb05975bfe794dad22b7b052ee53",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000013",
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000012"
+            ],
+            "top_ids": [
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-000012",
+              "object-000013"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000013"
+            ],
+            "top_ids": [
+              "object-000012"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-000013",
+              "object-000012"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-000012",
+              "object-000013"
+            ],
+            "top_ids": []
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-000013",
+              "Bear"
+            ],
+            [
+              "object-000012",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000041",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000042",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000043",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000044",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000045",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000046",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-000047",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000013",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-000012",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 1,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-000013"
+          ],
+          "top_ids": [
+            "object-000012"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000012",
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-000012"
+          ],
+          "top_ids": [
+            "object-000013"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-000013",
+            "object-000012"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "aeb17b45fd8aaf4f905ad25907c289feeeef52f0fae4cc85fb8c1324b685fc12",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "bottom_ids": [
+              "object-900000",
+              "object-900001"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-900001",
+              "object-900000"
+            ],
+            "top_ids": []
+          },
+          {
+            "bottom_ids": [
+              "object-900001"
+            ],
+            "top_ids": [
+              "object-900000"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-900000",
+              "object-900001"
+            ]
+          },
+          {
+            "bottom_ids": [
+              "object-900000"
+            ],
+            "top_ids": [
+              "object-900001"
+            ]
+          },
+          {
+            "bottom_ids": [],
+            "top_ids": [
+              "object-900001",
+              "object-900000"
+            ]
+          }
+        ],
+        "view": {
+          "cards": [
+            [
+              "object-900001",
+              "Bear"
+            ],
+            [
+              "object-900000",
+              "Bear"
+            ]
+          ],
+          "context": {
+            "active_player": 1,
+            "battlefields": [
+              [],
+              []
+            ],
+            "hand_sizes": [
+              7,
+              7
+            ],
+            "library_sizes": [
+              13,
+              13
+            ],
+            "life": [
+              20,
+              20
+            ],
+            "observer_index": 1,
+            "own_hand": [
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900002",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900003",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900004",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900005",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900006",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900007",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "keywords": [],
+                "mana_cost": "",
+                "mana_value": 0,
+                "name": "Plains",
+                "object_id": "object-900008",
+                "oracle_text": "",
+                "power": null,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              }
+            ],
+            "own_lands_played": 0,
+            "phase": "precombat_main",
+            "schema_version": 2,
+            "step": "precombat_main",
+            "turn": 1
+          },
+          "inspected_cards": [
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-900001",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            },
+            {
+              "keywords": [],
+              "mana_cost": "{1}{W}",
+              "mana_value": 2,
+              "name": "Bear",
+              "object_id": "object-900000",
+              "oracle_text": "",
+              "power": 2,
+              "toughness": 2,
+              "type_line": "Creature \u2014 Bear"
+            }
+          ],
+          "player_index": 1,
+          "requested": 2,
+          "schema_version": 2
+        }
+      },
+      "category": "R",
+      "expected_actions": [
+        {
+          "bottom_ids": [
+            "object-900001"
+          ],
+          "top_ids": [
+            "object-900000"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-900000",
+            "object-900001"
+          ]
+        },
+        {
+          "bottom_ids": [
+            "object-900000"
+          ],
+          "top_ids": [
+            "object-900001"
+          ]
+        },
+        {
+          "bottom_ids": [],
+          "top_ids": [
+            "object-900001",
+            "object-900000"
+          ]
+        }
+      ],
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_kwargs": {},
+      "hook_method": "choose_scry",
+      "id_mapping": {
+        "object-000012": "object-900000",
+        "object-000013": "object-900001",
+        "object-000041": "object-900002",
+        "object-000042": "object-900003",
+        "object-000043": "object-900004",
+        "object-000044": "object-900005",
+        "object-000045": "object-900006",
+        "object-000046": "object-900007",
+        "object-000047": "object-900008"
+      },
+      "mirrored": true,
+      "observation_id": "cf52bf60cd3bc7b214dbd8c69d8aee34084f71f1de379534d0172573a15fe0e2",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-000040",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-000040",
+                "owner": 0,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000038",
+                "Bear",
+                2,
+                true
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "a3e0f4c4c235885e47b811ef00feaec649834852ffab6bc43855f74bc94fd81e",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-000040",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-000040",
+                "owner": 0,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-000038",
+                "Bear",
+                2,
+                true
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {},
+      "mirrored": false,
+      "observation_id": "a7511b4c3b05cc4c6b9ed46fb0d3101050e0d0f6f74e85249753ad71162b5bc6",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 0,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 0,
+          "battlefields": [
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-900000",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-900000",
+                "owner": 0,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-900002",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 0,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-900002",
+                "owner": 0,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ],
+            []
+          ],
+          "hand_sizes": [
+            1,
+            7
+          ],
+          "hands": [
+            [
+              [
+                "object-900001",
+                "Bear",
+                2,
+                true
+              ]
+            ],
+            []
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 0,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {
+        "object-000036": "object-900000",
+        "object-000038": "object-900001",
+        "object-000040": "object-900002"
+      },
+      "mirrored": false,
+      "observation_id": "bfe60b7ebfdcea734000e1bbdd80987a9a0d0a6892e8d3dac86367f9a4d6ad3c",
+      "seat": 0,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 1,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-000040",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-000040",
+                "owner": 1,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ]
+          ],
+          "hand_sizes": [
+            7,
+            1
+          ],
+          "hands": [
+            [],
+            [
+              [
+                "object-000038",
+                "Bear",
+                2,
+                true
+              ]
+            ]
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "f3cf09688e3dfec1d79b73c1d813b723b4f84095584d6e507237a5583bd33712",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "canonical"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-000036",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-000036",
+                "owner": 1,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-000040",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-000040",
+                "owner": 1,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ]
+          ],
+          "hand_sizes": [
+            7,
+            1
+          ],
+          "hands": [
+            [],
+            [
+              [
+                "object-000038",
+                "Bear",
+                2,
+                true
+              ]
+            ]
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {},
+      "mirrored": true,
+      "observation_id": "ee77f5bfc2023f272ac299d9b2babeae1b5cabb125b4e8208c88ae867e609a3d",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "option_permutation"
+    },
+    {
+      "base": {
+        "options": [
+          {
+            "attacker_ids": [],
+            "blocks": [],
+            "cost_object_id": null,
+            "kind": "pass",
+            "object_id": null,
+            "oracle_fragment": null,
+            "player_index": 1,
+            "priority_epoch": null,
+            "target_id": null
+          }
+        ],
+        "view": {
+          "active_player": 1,
+          "battlefields": [
+            [],
+            [
+              {
+                "card": {
+                  "keywords": [],
+                  "mana_cost": "",
+                  "mana_value": 0,
+                  "name": "Plains",
+                  "object_id": "object-900000",
+                  "oracle_text": "",
+                  "power": null,
+                  "toughness": null,
+                  "type_line": "Basic Land \u2014 Plains"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": false,
+                "name": "Plains",
+                "object_id": "object-900000",
+                "owner": 1,
+                "power": null,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": "W",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": null,
+                "type_line": "Basic Land \u2014 Plains"
+              },
+              {
+                "card": {
+                  "keywords": [
+                    "Sneak"
+                  ],
+                  "mana_cost": "{3}{W}",
+                  "mana_value": 4,
+                  "name": "Anonymous Sneak",
+                  "object_id": "object-900002",
+                  "oracle_text": "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker you control to hand during the declare blockers step. It enters tapped and attacking.)",
+                  "power": 4,
+                  "toughness": 4,
+                  "type_line": "Creature \u2014 Ninja"
+                },
+                "controller": 1,
+                "counters": [],
+                "damage": 0,
+                "is_token": false,
+                "land_payment_untapped": null,
+                "name": "Anonymous Sneak",
+                "object_id": "object-900002",
+                "owner": 1,
+                "power": 4,
+                "represented_keyword_status": [
+                  [
+                    "first_strike",
+                    false
+                  ],
+                  [
+                    "double_strike",
+                    false
+                  ],
+                  [
+                    "trample",
+                    false
+                  ],
+                  [
+                    "lifelink",
+                    false
+                  ],
+                  [
+                    "temporary_flying",
+                    false
+                  ],
+                  [
+                    "temporary_menace",
+                    false
+                  ],
+                  [
+                    "temporary_haste",
+                    false
+                  ],
+                  [
+                    "temporary_deathtouch",
+                    false
+                  ]
+                ],
+                "represented_land_payment_color": null,
+                "summoning_sick": true,
+                "tapped": true,
+                "toughness": 4,
+                "type_line": "Creature \u2014 Ninja"
+              }
+            ]
+          ],
+          "hand_sizes": [
+            7,
+            1
+          ],
+          "hands": [
+            [],
+            [
+              [
+                "object-900001",
+                "Bear",
+                2,
+                true
+              ]
+            ]
+          ],
+          "life": [
+            20,
+            20
+          ],
+          "observer_index": 1,
+          "phase": "combat",
+          "schema_version": 2,
+          "step": "declare_blockers",
+          "turn": 1
+        }
+      },
+      "category": "B",
+      "expected_actions": [
+        {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "pass",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 1,
+          "priority_epoch": null,
+          "target_id": null
+        }
+      ],
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_kwargs": {},
+      "hook_method": "choose_sneak",
+      "id_mapping": {
+        "object-000036": "object-900000",
+        "object-000038": "object-900001",
+        "object-000040": "object-900002"
+      },
+      "mirrored": true,
+      "observation_id": "644daf0c03df23f44453f6cfd6e5cdc9f3228e622cf8f09a8326be2d310a8882",
+      "seat": 1,
+      "source_seat": 0,
+      "variant": "runtime_id_rename"
+    }
+  ],
+  "planned_hook_invocations": 96,
+  "preflight_hook_invocations": 0,
+  "preserved_commits": [
+    "d880c36",
+    "decb9eb2"
+  ],
+  "source_sha256": {
+    "scripts/build_v3_phase1_fitness_packet.py": "e648ba07fa4b75e0696527ca1ad9862ee8ee4ba2b94ce3084ab7094869d9b1d7",
+    "scripts/build_v3_phase2_candidate.py": "04427dbd98ca074e741aff949aad8a9420356f8346fb8164b287e12afb808cb0",
+    "scripts/run_v3_path_a_scoring.py": "28797e808c482fc10df0f8753c8b33dddda74edcf8e09077bab495c818d6849e",
+    "scripts/run_v3_remediation.py": "9abfe633f01f1e89530639e45145c01f61697cd0f365e0fe512e63dee8ac9b72",
+    "scripts/run_v3_scoring.py": "a22e678707994c45a44b6ed9a4fafdea4b5857ebf81b2e501f5c417afebcca6e",
+    "src/tmnt_design_studio/engine07.py": "aee2919f9011110bb7ea360e891f0c230b5cc5830dfbaa3791e650007e2b972d",
+    "src/tmnt_design_studio/pilot07.py": "cf24950340f6bd54d77302d89a2fbdb99dae64bdea3948117108b32f18392563",
+    "src/tmnt_design_studio/pilot_input_v2.py": "b242b5e5643df858d61ea1366041606715d48f880bcc3003408da56ec742b11e"
+  }
+}

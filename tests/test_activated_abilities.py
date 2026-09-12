@@ -473,7 +473,7 @@ def test_priority_option_is_immutable_and_pilot_cannot_name_stack_resolution():
     source = add_leonardo(current)
     assert current.activate_ability(0, source, LEONARDO.oracle_text)
     option = current.legal_priority_actions(0)[0]
-    assert AcceptancePilot().choose_priority(current.public_view(), (option,)) == option
+    assert AcceptancePilot().choose_priority(current.priority_view(0), (option,)) == option
     assert option.object_id is None and option.target_id is None
     with pytest.raises(FrozenInstanceError):
         option.priority_epoch = 10
