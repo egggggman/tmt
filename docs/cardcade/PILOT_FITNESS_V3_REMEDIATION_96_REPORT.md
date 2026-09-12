@@ -18,3 +18,5 @@ Priority uses PriorityViewV2; AcceptancePilot takes a supplied opposing-spell co
 | V3-P2-004 | PassingPilot | 12 | 12 | 0 | 12 | 12 | True |
 
 HQ decision pending; calibration BLOCKED; decks / Prototype 0.2 FROZEN; Action #33 / Prototype 0.3 NOT AUTHORIZED. Privacy and filtering unchanged. This affected-fixture result does not replace the original run or establish broader Pilot competence.
+
+Validation: 62 focused regression, replay-harness, Priority engine and V2 input-contract tests passed; targeted Ruff and git diff --check passed. Regression policy calls are separate from the 96 recorded scoring calls. Offline audit verified all 96 membership comparisons and artifact hashes. All pre-existing docs/cardcade artifacts and decks are unchanged against decb9eb2. The initial preservation check also counted the newly added execution plan and failed; the corrected check excludes additions. No scoring calls were repeated.
