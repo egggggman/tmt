@@ -1,0 +1,224 @@
+{
+  "acceptable_set": [
+    {
+      "attacker_ids": [
+        "object-000135"
+      ],
+      "blocks": [],
+      "cost_object_id": null,
+      "kind": "declare_attackers",
+      "object_id": null,
+      "oracle_fragment": null,
+      "player_index": 0,
+      "priority_epoch": null,
+      "target_id": null
+    }
+  ],
+  "actual_pilot_invocations": 2,
+  "calls": [
+    {
+      "acceptable_set_member": true,
+      "hook": "choose_attack",
+      "legal_option_member": true,
+      "pilot": "AcceptancePilot",
+      "returned_action": {
+        "attacker_ids": [
+          "object-000135"
+        ],
+        "blocks": [],
+        "cost_object_id": null,
+        "kind": "declare_attackers",
+        "object_id": null,
+        "oracle_fragment": null,
+        "player_index": 0,
+        "priority_epoch": null,
+        "target_id": null
+      },
+      "returned_repr": "ActionOption(kind=<ActionKind.DECLARE_ATTACKERS: 'declare_attackers'>, player_index=0, object_id=None, target_id=None, cost_object_id=None, oracle_fragment=None, attacker_ids=('object-000135',), blocks=(), priority_epoch=None)"
+    },
+    {
+      "acceptable_set_member": false,
+      "hook": "choose_attack",
+      "legal_option_member": true,
+      "pilot": "PassingPilot",
+      "returned_action": {
+        "attacker_ids": [],
+        "blocks": [],
+        "cost_object_id": null,
+        "kind": "declare_attackers",
+        "object_id": null,
+        "oracle_fragment": null,
+        "player_index": 0,
+        "priority_epoch": null,
+        "target_id": null
+      },
+      "returned_repr": "ActionOption(kind=<ActionKind.DECLARE_ATTACKERS: 'declare_attackers'>, player_index=0, object_id=None, target_id=None, cost_object_id=None, oracle_fragment=None, attacker_ids=(), blocks=(), priority_epoch=None)"
+    }
+  ],
+  "failed_execution_attempt": "32e692b",
+  "fixture_id": "V3-P1-002",
+  "full_schedule_executed": false,
+  "governing_spec": "c18a8fc",
+  "limitation": "Sealed privacy metadata lacks authoritative paired hidden-state observations.",
+  "observation": {
+    "options": [
+      {
+        "attacker_ids": [],
+        "blocks": [],
+        "cost_object_id": null,
+        "kind": "declare_attackers",
+        "object_id": null,
+        "oracle_fragment": null,
+        "player_index": 0,
+        "priority_epoch": null,
+        "target_id": null
+      },
+      {
+        "attacker_ids": [
+          "object-000135"
+        ],
+        "blocks": [],
+        "cost_object_id": null,
+        "kind": "declare_attackers",
+        "object_id": null,
+        "oracle_fragment": null,
+        "player_index": 0,
+        "priority_epoch": null,
+        "target_id": null
+      }
+    ],
+    "view": {
+      "active_player": 0,
+      "battlefields": [
+        [
+          {
+            "card": {
+              "keywords": [],
+              "mana_cost": "{R}",
+              "mana_value": 1,
+              "name": "Giant",
+              "object_id": "object-000135",
+              "oracle_text": "",
+              "power": 20,
+              "toughness": 20,
+              "type_line": "Creature \u2014 Giant"
+            },
+            "controller": 0,
+            "counters": [],
+            "damage": 0,
+            "is_token": false,
+            "land_payment_untapped": null,
+            "name": "Giant",
+            "object_id": "object-000135",
+            "owner": 0,
+            "power": 20,
+            "represented_keyword_status": [
+              [
+                "first_strike",
+                false
+              ],
+              [
+                "double_strike",
+                false
+              ],
+              [
+                "trample",
+                false
+              ],
+              [
+                "lifelink",
+                false
+              ],
+              [
+                "temporary_flying",
+                false
+              ],
+              [
+                "temporary_menace",
+                false
+              ],
+              [
+                "temporary_haste",
+                false
+              ],
+              [
+                "temporary_deathtouch",
+                false
+              ]
+            ],
+            "represented_land_payment_color": null,
+            "summoning_sick": false,
+            "tapped": false,
+            "toughness": 20,
+            "type_line": "Creature \u2014 Giant"
+          }
+        ],
+        []
+      ],
+      "hand_sizes": [
+        7,
+        7
+      ],
+      "hands": [
+        [
+          [
+            "object-000121",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000122",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000123",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000124",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000125",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000126",
+            "Mountain",
+            0,
+            false
+          ],
+          [
+            "object-000127",
+            "Mountain",
+            0,
+            false
+          ]
+        ],
+        []
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "observer_index": 0,
+      "phase": "combat",
+      "schema_version": 2,
+      "step": "declare_attackers",
+      "turn": 1
+    }
+  },
+  "pre_run_authority": "9fb8574",
+  "rejected_generic_state_attempt": "b353537",
+  "sealed_replay_digest": "1609d51108017cbb30bb31e03cde0e774a2624be76f29102612ed1b69105f586",
+  "status": "CANONICAL_EXECUTION_PROOF_ONLY"
+}

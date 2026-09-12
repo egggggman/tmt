@@ -1,0 +1,700 @@
+{
+  "assessment_pilot_invocations": 0,
+  "calibration": "BLOCKED",
+  "canonical_digest_checks": [
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-001",
+      "replay_digest": "7d54068ace60e4c9e7d16c6182394bcca5c1aeae2095be6a3f455d15b36c8a25"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-002",
+      "replay_digest": "1609d51108017cbb30bb31e03cde0e774a2624be76f29102612ed1b69105f586"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-003",
+      "replay_digest": "6a0d493caf8957b3b06c0fbb14d2b0ce90151f29b807032e8e22a3198ef7b895"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-004",
+      "replay_digest": "2ca7687366bfa74bd7683ade9f21999d107432a2eb5bd4c36f28279c141760af"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-005",
+      "replay_digest": "16dfb77befa2836b8dc9c8724d2bb8168921b8e37d4c53dc9dd01f40dc4a51b6"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-006",
+      "replay_digest": "fd86bfcc4d9b50b66c425e5942ffefdc45240588e7eabd1398c4a8d5c168b0e8"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-007",
+      "replay_digest": "c7f4b3a9489a31205a6abf2f8f50717b62955c5baf7cad4d577e6ba7a9f55384"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P1-008",
+      "replay_digest": "60fe890377e7697dcfd0d51ecc278f6de86efbbb37af0c6c98438a2273fcfb48"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P2-001",
+      "replay_digest": "eb388e00ceb576a96f4dd4a220d78a3a3268d36f1ec53b4788706142869bb984"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P2-002",
+      "replay_digest": "fb72f28639864214e6cddf8eb315c0df7f2c9a2bcffcbfe0740e799ea1d9b3e3"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P2-003",
+      "replay_digest": "4395b9283b248d3fabca74dbe54e3f07fd4ef1cbbbd6609e6692719f40890277"
+    },
+    {
+      "canonical_inputs_and_oracle_match_seal": true,
+      "fixture_id": "V3-P2-004",
+      "replay_digest": "968f1311167e69986dca8bd004e83a0a34b344764cc3f2f19483cc6e5c30081c"
+    }
+  ],
+  "existing_proof": {
+    "actual_pilot_invocations": 2,
+    "calls": [
+      {
+        "acceptable_set_member": true,
+        "hook": "choose_attack",
+        "legal_option_member": true,
+        "pilot": "AcceptancePilot",
+        "returned_action": {
+          "attacker_ids": [
+            "object-000135"
+          ],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "declare_attackers",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        },
+        "returned_repr": "ActionOption(kind=<ActionKind.DECLARE_ATTACKERS: 'declare_attackers'>, player_index=0, object_id=None, target_id=None, cost_object_id=None, oracle_fragment=None, attacker_ids=('object-000135',), blocks=(), priority_epoch=None)"
+      },
+      {
+        "acceptable_set_member": false,
+        "hook": "choose_attack",
+        "legal_option_member": true,
+        "pilot": "PassingPilot",
+        "returned_action": {
+          "attacker_ids": [],
+          "blocks": [],
+          "cost_object_id": null,
+          "kind": "declare_attackers",
+          "object_id": null,
+          "oracle_fragment": null,
+          "player_index": 0,
+          "priority_epoch": null,
+          "target_id": null
+        },
+        "returned_repr": "ActionOption(kind=<ActionKind.DECLARE_ATTACKERS: 'declare_attackers'>, player_index=0, object_id=None, target_id=None, cost_object_id=None, oracle_fragment=None, attacker_ids=(), blocks=(), priority_epoch=None)"
+      }
+    ],
+    "commit": "37054b7",
+    "fixture_id": "V3-P1-002",
+    "sha256": "a81cc1a7bcba11bac783da0ab98299a6ef4d96ad8ef7082f48b0e131b1061a34",
+    "unchanged": true
+  },
+  "filtering": "INCONCLUSIVE_UNCHANGED",
+  "fitness": "UNKNOWN",
+  "hq_paths": {
+    "A": "Authorize only the original 288 non-privacy calls; report privacy INCONCLUSIVE/unexecuted. No full-384 or privacy-integrity claim.",
+    "B": "Authorize a prospective Privacy Addendum; construct and freeze all 24 real pairs before any more Pilot calls; execute the extra 96 separately."
+  },
+  "missing_pairs": [
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-001-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-001-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-002-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-002-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-003-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-003-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-004-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-004-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-005-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-005-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-006-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-006-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-007-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-007-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-008-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible": true,
+        "pair_id": "V3-P1-008-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "R",
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "R",
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P2-002",
+      "hook": "sneak",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "T",
+      "fixture_id": "V3-P2-002",
+      "hook": "sneak",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 0,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    },
+    {
+      "category": "B",
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "missing": [
+        "paired authoritative hidden states",
+        "pre-run reconstruction recipe",
+        "pair-specific state provenance and observation/option equality evidence"
+      ],
+      "original_privacy_metadata": {
+        "eligible_seat_versions": 2,
+        "paired": true,
+        "reason": "opponent-private library identities can vary while public view and options remain fixed"
+      },
+      "seat": 1,
+      "status": "MISSING_AUTHORITATIVE_PAIR",
+      "unexecutable_calls": 4
+    }
+  ],
+  "new_privacy_states_constructed": 0,
+  "pre_run_authority": "9fb8574",
+  "preserved_commits": [
+    "9fb8574",
+    "32e692b",
+    "37054b7",
+    "efe0968"
+  ],
+  "recommendation": "Path A, consistent with HQ resource preference, subject to explicit HQ authorization. This assessment does not establish privacy as unnecessary for calibration confidence.",
+  "schedule_partition": {
+    "non_privacy": {
+      "formula": "12 fixtures * 2 seats * 3 variants * 2 replays * 2 Pilots",
+      "limitation": "All 12 canonical input/oracle digests verified offline. Full 288-call dispatch and transformation reconstruction are not implemented or validated by this assessment.",
+      "planned_calls": 288,
+      "status": "RECONSTRUCTABLE_IN_PRINCIPLE_UNEXECUTED",
+      "variants": [
+        "canonical",
+        "option_permutation",
+        "runtime_id_rename"
+      ]
+    },
+    "privacy": {
+      "formula": "24 fixture-seat pairs * 2 paired observations * 2 Pilots",
+      "planned_calls": 96,
+      "status": "INCONCLUSIVE_UNEXECUTED_NOT_RECONSTRUCTABLE_FROM_ORIGINAL_SEAL"
+    }
+  },
+  "source_evidence": [
+    {
+      "commit": "9fb8574",
+      "path": "scripts/seal_v3_phase1_packet.py",
+      "privacy_references": [
+        {
+          "line": 79,
+          "text": "\"privacy\": {"
+        },
+        {
+          "line": 82,
+          "text": "\"pair_required\": True,"
+        },
+        {
+          "line": 83,
+          "text": "\"pair_id\": fixture[\"fixture_id\"] + \"-privacy\","
+        },
+        {
+          "line": 95,
+          "text": "\"privacy_K1\": 16,"
+        },
+        {
+          "line": 112,
+          "text": "\"privacy_checks\": {\"eligible_seat_versions\": 16, \"paired_versions\": 16, \"K1\": 16},"
+        }
+      ]
+    },
+    {
+      "commit": "9fb8574",
+      "path": "scripts/seal_v3_phase2_deterministic.py",
+      "privacy_references": [
+        {
+          "line": 57,
+          "text": "\"privacy\": {"
+        },
+        {
+          "line": 58,
+          "text": "\"eligible_seat_versions\": 2,"
+        },
+        {
+          "line": 59,
+          "text": "\"paired\": True,"
+        },
+        {
+          "line": 81,
+          "text": "\"privacy_pairs\": True,"
+        }
+      ]
+    },
+    {
+      "commit": "9fb8574",
+      "path": "scripts/build_v3_global_integration.py",
+      "privacy_references": [
+        {
+          "line": 48,
+          "text": "\"transformations_and_privacy_sealed\": True,"
+        },
+        {
+          "line": 67,
+          "text": "\"- Cross-packet source hashes, transformation/privacy records, frozen references, and zero Pilot invocations are recorded in the JSON packet.\\n\""
+        }
+      ]
+    },
+    {
+      "commit": "9fb8574",
+      "path": "scripts/build_v3_phase1_fitness_packet.py",
+      "privacy_references": [
+        {
+          "line": 296,
+          "text": "\"privacy\": \"eligibility pending paired reconstruction\","
+        },
+        {
+          "line": 314,
+          "text": "\"privacy eligibility pairs\","
+        }
+      ]
+    },
+    {
+      "commit": "9fb8574",
+      "path": "scripts/build_v3_phase2_candidate.py",
+      "privacy_references": [
+        {
+          "line": 170,
+          "text": "\"complete Scry/Sneak seat counterparts and privacy pairs\","
+        }
+      ]
+    }
+  ],
+  "source_git_blob_sha256": {
+    "37054b7:docs/cardcade/PILOT_FITNESS_V3_EXECUTION_PROOF.json": "a81cc1a7bcba11bac783da0ab98299a6ef4d96ad8ef7082f48b0e131b1061a34",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_GLOBAL_PRERUN_INTEGRATION.json": "1ea7b16ccbcba78abc48bc8c1cbeb7ade506c3c64a504e1ec21cbdecec425efb",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_PHASE1_CANDIDATE.json": "8dbac1c18297e21fd0d87a864562e3dde3958013f4f42c551d0e5a1f32175348",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_PHASE1_SEALED_CANDIDATE.json": "4edd7a5c442da906edf3f7fa2ee9a4feb4007b4e2e586de894902093df06bba2",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_PHASE2A_SCRY_SNEAK_SEALED.json": "e3380eb54f47bcbd518d0d136eec52d0db88d0d88c29b031b848c4692d4152b2",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_PHASE2_CANDIDATE.json": "5f80241f7eedb7863b827b897c7f57f8ea84b7dae5cd8c725e6bbe52a8eef299",
+    "9fb8574:docs/cardcade/PILOT_FITNESS_V3_PHASE2_FILTERING_DISPOSITION_AUDIT.json": "ebac657fd567f7b6ef9277fa25c7b05d827c095683f6e60067aab0713705096e",
+    "9fb8574:scripts/build_v3_global_integration.py": "21840fde3f980d5a5ee5fa63cb224efc73486fbf7c1093d284fbaaade631b93d",
+    "9fb8574:scripts/build_v3_phase1_fitness_packet.py": "9616c2f566173a8367852e700729b54a7074291cf5c2b83acf6974f735b14a84",
+    "9fb8574:scripts/build_v3_phase2_candidate.py": "db6d80fafee707bebacc02ee3cf1cf4d69deec26f2391acb391b429ae9530a19",
+    "9fb8574:scripts/seal_v3_phase1_packet.py": "6f244b1155c26ec313f886173232a4962a221702108169aad747a35b0ae945f9",
+    "9fb8574:scripts/seal_v3_phase2_deterministic.py": "988a04936fca8cc3ef1b9acf1adaec5b7a7a4063457946c2026bfd101fa118cb"
+  },
+  "specification": "c18a8fc",
+  "status": "PRIVACY_SEAL_DEFECT_RETURN_TO_HQ"
+}

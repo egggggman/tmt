@@ -1,0 +1,289 @@
+{
+  "canonical_F1": 8,
+  "fixtures": [
+    {
+      "canonical_source": "main_t_missile_clears_blocker",
+      "category": "T",
+      "duplicate_replay_digests": [
+        "7d54068ace60e4c9e7d16c6182394bcca5c1aeae2095be6a3f455d15b36c8a25",
+        "7d54068ace60e4c9e7d16c6182394bcca5c1aeae2095be6a3f455d15b36c8a25"
+      ],
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "option_permutation_digest": "59f77bc747a33a2c58e7505aea9ef5c25d41e60e587a3c814f200e9281d648a4",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-001-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "65ea2ce1266825c68e85271364cf54fc8eda4ae9ed0b09e6ec5fde2958ea85bf",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "65ea2ce1266825c68e85271364cf54fc8eda4ae9ed0b09e6ec5fde2958ea85bf",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "65ea2ce1266825c68e85271364cf54fc8eda4ae9ed0b09e6ec5fde2958ea85bf",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "attack_t_unblocked_lethal",
+      "category": "T",
+      "duplicate_replay_digests": [
+        "1609d51108017cbb30bb31e03cde0e774a2624be76f29102612ed1b69105f586",
+        "1609d51108017cbb30bb31e03cde0e774a2624be76f29102612ed1b69105f586"
+      ],
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "option_permutation_digest": "0f84cbb0c3f971680107d8b140ddea84d2ccfc61550f12164278d098cec9dac3",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-002-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "2254f8e9f30d5f3e8592caa65fd95c2d3b08c66ee81e537f199c16acf78fa689",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "2254f8e9f30d5f3e8592caa65fd95c2d3b08c66ee81e537f199c16acf78fa689",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "2254f8e9f30d5f3e8592caa65fd95c2d3b08c66ee81e537f199c16acf78fa689",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "blocks_t_prevent_lethal",
+      "category": "T",
+      "duplicate_replay_digests": [
+        "6a0d493caf8957b3b06c0fbb14d2b0ce90151f29b807032e8e22a3198ef7b895",
+        "6a0d493caf8957b3b06c0fbb14d2b0ce90151f29b807032e8e22a3198ef7b895"
+      ],
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "option_permutation_digest": "1cea2e0ed39cf97c70b90769322b4ab14de816c811aa5d7c1fb1ae48ddd0abeb",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-003-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "f4670f5a6b23e64d0f181248cf9af1ac910ed0e3395e3a8d0c445a600fa66d69",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "f4670f5a6b23e64d0f181248cf9af1ac910ed0e3395e3a8d0c445a600fa66d69",
+          "seat": 1
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "f4670f5a6b23e64d0f181248cf9af1ac910ed0e3395e3a8d0c445a600fa66d69",
+          "seat": 0
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "priority_t_counter_response",
+      "category": "T",
+      "duplicate_replay_digests": [
+        "2ca7687366bfa74bd7683ade9f21999d107432a2eb5bd4c36f28279c141760af",
+        "2ca7687366bfa74bd7683ade9f21999d107432a2eb5bd4c36f28279c141760af"
+      ],
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "option_permutation_digest": "f22176143771bafdff5c585660ebb4835d96710bf998d4ce9e3f5952ea0bc944",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-004-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "d29559dbba67be88899e0a972ebbb43ed661212cf7cbeaf74a4d820bf78835f1",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "d29559dbba67be88899e0a972ebbb43ed661212cf7cbeaf74a4d820bf78835f1",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "d29559dbba67be88899e0a972ebbb43ed661212cf7cbeaf74a4d820bf78835f1",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "main_action_b_empty",
+      "category": "B",
+      "duplicate_replay_digests": [
+        "16dfb77befa2836b8dc9c8724d2bb8168921b8e37d4c53dc9dd01f40dc4a51b6",
+        "16dfb77befa2836b8dc9c8724d2bb8168921b8e37d4c53dc9dd01f40dc4a51b6"
+      ],
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "option_permutation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-005-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "a22e673a6e10e294e88fcbfbdd52c6c6a31e00bf53b9d82509fa00f27117be2f",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "a22e673a6e10e294e88fcbfbdd52c6c6a31e00bf53b9d82509fa00f27117be2f",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "a22e673a6e10e294e88fcbfbdd52c6c6a31e00bf53b9d82509fa00f27117be2f",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "attack_b_empty",
+      "category": "B",
+      "duplicate_replay_digests": [
+        "fd86bfcc4d9b50b66c425e5942ffefdc45240588e7eabd1398c4a8d5c168b0e8",
+        "fd86bfcc4d9b50b66c425e5942ffefdc45240588e7eabd1398c4a8d5c168b0e8"
+      ],
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "option_permutation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-006-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "5d52ddfd0f4c170dd9414c300a2b00eca6ea2acb76ba8df58ded274fd97ce416",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "5d52ddfd0f4c170dd9414c300a2b00eca6ea2acb76ba8df58ded274fd97ce416",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "5d52ddfd0f4c170dd9414c300a2b00eca6ea2acb76ba8df58ded274fd97ce416",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "blocks_b_empty",
+      "category": "B",
+      "duplicate_replay_digests": [
+        "c7f4b3a9489a31205a6abf2f8f50717b62955c5baf7cad4d577e6ba7a9f55384",
+        "c7f4b3a9489a31205a6abf2f8f50717b62955c5baf7cad4d577e6ba7a9f55384"
+      ],
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "option_permutation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-007-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "dad1ee7bb9278bf0ccf0976b6edf14ecb7eae18c0952ccc634253259d326137b",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "dad1ee7bb9278bf0ccf0976b6edf14ecb7eae18c0952ccc634253259d326137b",
+          "seat": 1
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "dad1ee7bb9278bf0ccf0976b6edf14ecb7eae18c0952ccc634253259d326137b",
+          "seat": 0
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    },
+    {
+      "canonical_source": "priority_b_pass_only",
+      "category": "B",
+      "duplicate_replay_digests": [
+        "60fe890377e7697dcfd0d51ecc278f6de86efbbb37af0c6c98438a2273fcfb48",
+        "60fe890377e7697dcfd0d51ecc278f6de86efbbb37af0c6c98438a2273fcfb48"
+      ],
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "option_permutation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "oracle_membership_preserved_under_option_permutation": true,
+      "privacy": {
+        "eligible": true,
+        "pair_id": "V3-P1-008-privacy",
+        "pair_required": true,
+        "reason": "Opponent-private library identities can be perturbed while preserving public view, hand sizes, legal options and the deciding player's own-deck binding."
+      },
+      "runtime_id_rename_digest": "16c2437869ed03508b72547da0539274418fb90d9e0d07703ba0fb9dd358fb1e",
+      "seat_versions": [
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "16c2437869ed03508b72547da0539274418fb90d9e0d07703ba0fb9dd358fb1e",
+          "seat": 0
+        },
+        {
+          "counterpart": "structural player-index mirror; same cards, relations, options and oracle membership",
+          "counterpart_digest": "16c2437869ed03508b72547da0539274418fb90d9e0d07703ba0fb9dd358fb1e",
+          "seat": 1
+        }
+      ],
+      "status": "SEALED_CANDIDATE"
+    }
+  ],
+  "formula": "24F1 + 4K1 = 24*8 + 4*16 = 256",
+  "governing_spec": "c18a8fc",
+  "phase1_invocation_subtotal": 256,
+  "pilot_invocations": 0,
+  "privacy_K1": 16,
+  "privacy_checks": {
+    "K1": 16,
+    "eligible_seat_versions": 16,
+    "paired_versions": 16
+  },
+  "r_disposition": {
+    "attack": "NO_R_CANDIDATE_IN_PHASE1_SCOPE",
+    "basis": "The eight sealed candidates claim T/B only. No resource fixture is invented; future R coverage requires a separate V3 witness and does not alter F1.",
+    "blocks": "NO_R_CANDIDATE_IN_PHASE1_SCOPE",
+    "main_action": "NO_R_CANDIDATE_IN_PHASE1_SCOPE",
+    "priority": "NO_R_CANDIDATE_IN_PHASE1_SCOPE"
+  },
+  "reachability_baseline": "20fbfad",
+  "scoring_authorized": false,
+  "source_candidate": "e5bc61c",
+  "status": "PHASE1_SEALED_CANDIDATE",
+  "transformation_checks": {
+    "duplicate_replay": true,
+    "option_permutation": true,
+    "runtime_id_rename": true,
+    "seat_counterparts": true
+  },
+  "u_disposition": "NOT_APPLICABLE_STRUCTURAL"
+}

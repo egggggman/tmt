@@ -1,0 +1,765 @@
+{
+  "accepted_fixtures": 0,
+  "checks": [
+    "source hashes",
+    "diagnostic sidecar",
+    "full multiplicity vectors",
+    "exact rational sums",
+    "optimal sets",
+    "equal life, hand size and winner",
+    "visible exhaustion",
+    "two-seat retention capacity"
+  ],
+  "complete_prior_action_outcome_rows_audited": 1612,
+  "dispositions": {
+    "REJECTED_MODEL_SENSITIVE": 9,
+    "REJECTED_SETUP_MULTIPLICITY": 2,
+    "REJECTED_SUPPORT_CONSISTENCY": 18,
+    "UNRESOLVED_NOT_ACCEPTED": 47
+  },
+  "hand_designs": 19,
+  "optimistic_two_seat_strict_retention_capacity": [
+    {
+      "common_objectives": [
+        "land_play"
+      ],
+      "hand": [
+        "Mountain"
+      ],
+      "mode": "land"
+    }
+  ],
+  "probes": 76,
+  "records": [
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Jury-Rig Justiciar"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Jury-Rig Justiciar"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Jury-Rig Justiciar"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Casey Jones, Jury-Rig Justiciar"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Vigilante"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Vigilante"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Vigilante"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Casey Jones, Vigilante"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Hard-Won Jitte"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Hard-Won Jitte"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Hard-Won Jitte"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Hard-Won Jitte"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Improvised Arsenal"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Improvised Arsenal"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Improvised Arsenal"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Improvised Arsenal"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Manhole Missile"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Manhole Missile"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Manhole Missile"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Manhole Missile"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [
+        "land_play"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [
+        "land_play"
+      ],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mouser Foundry"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mouser Foundry"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mouser Foundry"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mouser Foundry"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mutant Town Musicians"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mutant Town Musicians"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mutant Town Musicians"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mutant Town Musicians"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Null Group Biological Assets"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Null Group Biological Assets"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Null Group Biological Assets"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Null Group Biological Assets"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Ravenous Robots"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Ravenous Robots"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Ravenous Robots"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Ravenous Robots"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [
+        "creature_cast"
+      ],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Spicy Oatmeal Pizza"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Spicy Oatmeal Pizza"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Spicy Oatmeal Pizza"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Spicy Oatmeal Pizza"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain",
+        "Mountain"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain",
+        "Mountain"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain",
+        "Mountain"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain",
+        "Mountain"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Mountain",
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Mountain",
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain",
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain",
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Mountain",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Mountain",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SETUP_MULTIPLICITY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SETUP_MULTIPLICITY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Purple Dragon Punks"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Purple Dragon Punks"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Purple Dragon Punks",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "UNRESOLVED_NOT_ACCEPTED",
+      "hand": [
+        "Purple Dragon Punks",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_MODEL_SENSITIVE",
+      "hand": [
+        "Purple Dragon Punks",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Rock Soldiers",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Rock Soldiers",
+        "Rock Soldiers"
+      ],
+      "mode": "land",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Rock Soldiers",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 0
+    },
+    {
+      "disposition": "REJECTED_SUPPORT_CONSISTENCY",
+      "hand": [
+        "Rock Soldiers",
+        "Rock Soldiers"
+      ],
+      "mode": "creature",
+      "optimistic_strict_retention_objectives": [],
+      "seat": 1
+    }
+  ],
+  "required_disjoint_strict_retention_roles": 2,
+  "scope": "Bounded family/objectives only; no global impossibility claim.",
+  "seats": 2,
+  "setup_modes": 2,
+  "source_diagnostic_sha256": "871494c7622f728af2a8bcbda8b557b4c3c36b7ba7cd629d3a44ec33102ff612",
+  "status": "BOUNDED_SEARCH_READINESS_STOP"
+}

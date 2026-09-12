@@ -1,0 +1,26 @@
+{
+  "status": "BLOCKED_FAITHFUL_RECONSTRUCTION",
+  "issue": "106",
+  "pre_run_authority": "9fb8574",
+  "failed_attempt": "32e692b",
+  "rejected_attempt": "b353537",
+  "governing_spec": "c18a8fc",
+  "pilot_invocations": 0,
+  "findings": [
+    {
+      "packet": "PILOT_FITNESS_V3_PHASE1_SEALED_CANDIDATE.json",
+      "fixtures": 8,
+      "missing": ["recipient-specific observation", "complete legal option set", "reconstruction setup", "presealed acceptable option identities"],
+      "evidence_present": ["duplicate digests", "option permutation digest", "runtime-ID digest", "seat metadata", "privacy metadata"]
+    },
+    {
+      "packet": "PILOT_FITNESS_V3_PHASE2A_SCRY_SNEAK_SEALED.json",
+      "fixtures": 4,
+      "missing": ["engine reconstruction state", "executable observation/option objects", "seat/variant-specific replay inputs"],
+      "evidence_present": ["oracle summary", "replay digests", "transformation digests", "privacy metadata"]
+    }
+  ],
+  "required_dispatches": ["main", "attack", "blocks", "priority", "scry", "sneak"],
+  "decision": "STOP: no faithful 384-call reconstruction is possible from accepted packet contents without substituting synthetic states or changing the sealed fixture set.",
+  "forbidden_substitution": true
+}
