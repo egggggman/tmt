@@ -160,12 +160,16 @@ def sneak_boundary():
     block = next(o for o in game.legal_block_options(attack, 1) if not o.blocks)
     game.execute_block_action(block)
     # Spend the sole Sneak in a genuine window, then drain its Priority.
-    game.execute_sneak_action(next(o for o in game.legal_sneak_actions(0) if o.kind is ActionKind.CAST))
+    game.execute_sneak_action(
+        next(o for o in game.legal_sneak_actions(0) if o.kind is ActionKind.CAST)
+    )
     while game.priority_state is not None:
         if game.priority_state.resolution_pending:
             game.process_priority_resolution()
         else:
-            game.execute_priority_action(game.legal_priority_actions(game.priority_state.player_index)[0])
+            game.execute_priority_action(
+                game.legal_priority_actions(game.priority_state.player_index)[0]
+            )
     options = game.legal_sneak_actions(0)
     assert game.step is TurnStep.DECLARE_BLOCKERS
     assert len(options) == 1 and options[0].kind is ActionKind.PASS
