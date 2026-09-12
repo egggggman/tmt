@@ -1,7 +1,6 @@
 """Build a no-Pilot Phase 1 evidence inventory from frozen acceptance records."""
 # ruff: noqa: E501
 
-
 from __future__ import annotations
 
 import hashlib

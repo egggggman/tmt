@@ -86,7 +86,9 @@ def sneak_fixture():
     game.advance_to(TurnStep.DECLARE_ATTACKERS)
     attack_option = next(o for o in game.legal_attack_options(0) if o.attacker_ids)
     game.execute_attack_action(attack_option)
-    game.execute_block_action(next(o for o in game.legal_block_options(attack_option, 1) if not o.blocks))
+    game.execute_block_action(
+        next(o for o in game.legal_block_options(attack_option, 1) if not o.blocks)
+    )
     options = game.legal_sneak_actions(0)
     captured = {
         "view": enc(asdict(game.pilot_view(0))),
@@ -122,18 +124,27 @@ def sneak_fixture():
     }
 
 
-
 def scry_boundary():
     game = Game(([LAND] * 10, [LAND] * 10), seed=4103)
     game.begin_turn()
     game.players[0].library.clear()
     captured = []
+
     def chooser(view, options):
         captured.append({"view": enc(asdict(view)), "options": enc([asdict(o) for o in options])})
         return options[0]
+
     game.scry_chooser = chooser
     game.scry(0, ScryProgram(2), source_card="Phase2 Scry B", oracle_fragment="Scry 2.")
-    return {"fixture_id": "V3-P2-003", "hook": "scry", "category": "B", "base": captured[0], "oracle": {"boundary": "empty_library_sole_choice"}, "horizon": "empty-library Scry transaction", "status": "CANDIDATE_UNSEALED"}
+    return {
+        "fixture_id": "V3-P2-003",
+        "hook": "scry",
+        "category": "B",
+        "base": captured[0],
+        "oracle": {"boundary": "empty_library_sole_choice"},
+        "horizon": "empty-library Scry transaction",
+        "status": "CANDIDATE_UNSEALED",
+    }
 
 
 def sneak_boundary():
@@ -147,7 +158,20 @@ def sneak_boundary():
     block = next(o for o in game.legal_block_options(attack, 1) if not o.blocks)
     game.execute_block_action(block)
     options = game.legal_sneak_actions(0)
-    return {"fixture_id": "V3-P2-004", "hook": "sneak", "category": "B", "base": {"view": enc(asdict(game.pilot_view(0))), "options": enc([asdict(o) for o in options])}, "oracle": {"boundary": "no_unblocked_attacker_pass_only"}, "horizon": "empty Sneak decision", "status": "CANDIDATE_UNSEALED"}
+    return {
+        "fixture_id": "V3-P2-004",
+        "hook": "sneak",
+        "category": "B",
+        "base": {
+            "view": enc(asdict(game.pilot_view(0))),
+            "options": enc([asdict(o) for o in options]),
+        },
+        "oracle": {"boundary": "no_unblocked_attacker_pass_only"},
+        "horizon": "empty Sneak decision",
+        "status": "CANDIDATE_UNSEALED",
+    }
+
+
 def main():
     packet = {
         "status": "PHASE2_CANDIDATE_UNSEALED",

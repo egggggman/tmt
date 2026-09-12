@@ -56,7 +56,9 @@ def main() -> None:
     payload = (json.dumps(packet, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode()
     out.write_bytes(payload)
     value = hashlib.sha256(payload).hexdigest()
-    (out.with_suffix(out.suffix + ".sha256")).write_text(value + "  " + out.name + "\n", encoding="ascii")
+    (out.with_suffix(out.suffix + ".sha256")).write_text(
+        value + "  " + out.name + "\n", encoding="ascii"
+    )
     report = ROOT / "docs/cardcade/PILOT_FITNESS_V3_GLOBAL_PRERUN_INTEGRATION.md"
     report.write_text(
         "# Pilot Fitness V3 Global Pre-Run Integration\n\n"
@@ -72,7 +74,11 @@ def main() -> None:
     (report.with_suffix(report.suffix + ".sha256")).write_text(
         report_hash + "  " + report.name + "\n", encoding="ascii"
     )
-    print(json.dumps({"status": packet["status"], "F": 12, "K": 24, "invocations": 384, "digest": value}))
+    print(
+        json.dumps(
+            {"status": packet["status"], "F": 12, "K": 24, "invocations": 384, "digest": value}
+        )
+    )
 
 
 if __name__ == "__main__":
