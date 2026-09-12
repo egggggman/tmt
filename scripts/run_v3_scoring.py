@@ -1,147 +1,147 @@
-"""Execute the sealed V3 scoring schedule as a deterministic fixture replay."""
-# ruff: noqa
+"""Execute hash-bound canonical proof; refuse an unreconstructed full schedule."""
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import subprocess
+from dataclasses import asdict, fields, is_dataclass
+from enum import Enum
 from pathlib import Path
+from typing import get_args, get_origin, get_type_hints
 
-from tmnt_design_studio.engine07 import Game, TurnStep
+from tmnt_design_studio.engine07 import ActionOption
 from tmnt_design_studio.pilot07 import AcceptancePilot, PassingPilot
-from build_v3_phase1_fitness_packet import BEAR, GIANT, LAND, MISSILE
+from tmnt_design_studio.pilot_input_v2 import GameViewV2
 
-def actual_decision(hook, pilot):
-    game = Game(([LAND] * 30, [LAND] * 30), seed=9911)
-    game.begin_turn()
-    if hook == 'main':
-        game.create_permanent(LAND, 0, summoning_sick=False)
-        game.create_permanent(LAND, 0, summoning_sick=False)
-        game.set_hand_for_testing(0, [MISSILE])
-        options = tuple(game.legal_main_actions(0))
-        chosen = pilot.choose_main_action(game.pilot_view(0), options, 'damage')
-    elif hook == 'attack':
-        game.create_permanent(GIANT, 0, summoning_sick=False)
-        game.advance_to(TurnStep.DECLARE_ATTACKERS)
-        options = tuple(game.legal_attack_options(0))
-        chosen = pilot.choose_attack(game.pilot_view(0), options)
-    elif hook == 'blocks':
-        game.create_permanent(GIANT, 0, summoning_sick=False)
-        game.create_permanent(BEAR, 1, summoning_sick=False)
-        game.advance_to(TurnStep.DECLARE_ATTACKERS)
-        attack = next(o for o in game.legal_attack_options(0) if o.attacker_ids)
-        game.execute_attack_action(attack)
-        options = tuple(game.legal_block_options(attack, 1))
-        chosen = pilot.choose_blocks(game.pilot_view(1), options)
-    else:
-        options = tuple(game.legal_main_actions(0))
-        chosen = pilot.choose_main_action(game.pilot_view(0), options, 'damage')
-    return {'returned': repr(chosen), 'option_count': len(options), 'belongs_to_options': chosen in options}
 ROOT = Path(__file__).resolve().parents[1]
+AUTHORITY = "9fb8574"
 
 
-def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def frozen(path):
+    payload = subprocess.check_output(["git", "show", f"{AUTHORITY}:{path}"], cwd=ROOT)
+    if (
+        subprocess.check_output(["git", "hash-object", "--path=" + path, path], cwd=ROOT).strip()
+        != subprocess.check_output(["git", "rev-parse", f"{AUTHORITY}:{path}"], cwd=ROOT).strip()
+    ):
+        raise RuntimeError(f"Frozen file changed: {path}")
+    return payload
 
 
-def main() -> None:
-    integration = ROOT / "docs/cardcade/PILOT_FITNESS_V3_GLOBAL_PRERUN_INTEGRATION.json"
-    packet = json.loads(integration.read_text(encoding="utf-8"))
-    if packet["global_counts"] != {
-        "F": 12,
-        "K": 24,
-        "planned_invocations": 384,
-        "formula": "24*12 + 4*24 = 384",
-        "actual_pilot_invocations": 0,
-    }:
-        raise RuntimeError("sealed global count mismatch")
-    sources = packet["sources"]
-    for key in ("phase1", "phase2a", "filtering_audit"):
-        row = sources[key]
-        path = ROOT / "docs/cardcade" / row["path"]
-        if sha(path) != row["sha256"]:
-            raise RuntimeError(f"source hash mismatch: {key}")
-    p1 = json.loads((ROOT / "docs/cardcade" / sources["phase1"]["path"]).read_text())
-    p2 = json.loads((ROOT / "docs/cardcade" / sources["phase2a"]["path"]).read_text())
-    fixtures = p1["fixtures"] + p2["fixtures"]
-    if len(fixtures) != 12:
-        raise RuntimeError("fixture count mismatch")
+def digest(value):
+    return hashlib.sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
+def decode(cls, value):
+    if value is None:
+        return None
+    if get_origin(cls) is tuple:
+        args = get_args(cls)
+        return tuple(
+            decode(args[0] if len(args) == 2 and args[1] is Ellipsis else args[i], x)
+            for i, x in enumerate(value)
+        )
+    if isinstance(cls, type) and issubclass(cls, Enum):
+        return cls(value)
+    if is_dataclass(cls):
+        hints = get_type_hints(cls)
+        result = cls(
+            **{f.name: decode(hints[f.name], value[f.name]) for f in fields(cls) if f.init}
+        )
+        return result
+    return value
+
+
+def encode(value):
+    if isinstance(value, Enum):
+        return value.value
+    if is_dataclass(value):
+        return encode(asdict(value))
+    if isinstance(value, (list, tuple)):
+        return [encode(x) for x in value]
+    if isinstance(value, dict):
+        return {k: encode(v) for k, v in value.items()}
+    return value
+
+
+def proof():
+    for path in (
+        "src/tmnt_design_studio/engine07.py",
+        "src/tmnt_design_studio/pilot07.py",
+        "src/tmnt_design_studio/pilot_input_v2.py",
+    ):
+        frozen(path)
+    directory = "docs/cardcade/"
+    integration = json.loads(frozen(directory + "PILOT_FITNESS_V3_GLOBAL_PRERUN_INTEGRATION.json"))
+    for source in integration["sources"].values():
+        if isinstance(source, dict):
+            payload = frozen(directory + source["path"])
+            if hashlib.sha256(payload).hexdigest() != source["sha256"]:
+                raise RuntimeError("Sealed source hash mismatch")
+    sealed = json.loads(frozen(directory + integration["sources"]["phase1"]["path"]))
+    candidate = json.loads(frozen(directory + "PILOT_FITNESS_V3_PHASE1_CANDIDATE.json"))
+    fixture = next(f for f in candidate["fixtures"] if f["fixture_id"] == "V3-P1-002")
+    seal = next(f for f in sealed["fixtures"] if f["fixture_id"] == fixture["fixture_id"])
+    replay_digest = digest({k: fixture[k] for k in ("base", "branches", "oracle")})
+    if seal["duplicate_replay_digests"] != [replay_digest, replay_digest]:
+        raise RuntimeError("Canonical observation/oracle does not match seal")
+    view = decode(GameViewV2, fixture["base"]["view"])
+    options = tuple(decode(ActionOption, x) for x in fixture["base"]["options"])
+    if encode(view) != fixture["base"]["view"] or encode(options) != fixture["base"]["options"]:
+        raise RuntimeError("Lossy input reconstruction")
+    acceptable = [fixture["branches"][i]["option"] for i in fixture["oracle"]["guaranteed_win"]]
     calls = []
-    pilots = ("AcceptancePilot", "PassingPilot")
-    for fixture in fixtures:
-        fid = fixture["fixture_id"]
-        category = fixture["category"]
-        hook = fixture["hook"]
-        for seat in (0, 1):
-            for variant in ("canonical", "option_permutation", "runtime_id_rename"):
-                for replay in (1, 2):
-                    for pilot in pilots:
-                        calls.append(
-                            {
-                                "fixture_id": fid,
-                                "hook": hook,
-                                "category": category,
-                                "seat": seat,
-                                "variant": variant,
-                                "replay": replay,
-                                "pilot": pilot,
-                                "result": actual_decision(hook, AcceptancePilot() if pilot == "AcceptancePilot" else PassingPilot()),
-                                "source_replay_digest": fixture.get(
-                                    "duplicate_reconstruction", {}
-                                ).get("digests", [None])[0],
-                            }
-                        )
-    for seat in range(24):
-        for variant in ("privacy_a", "privacy_b"):
-            for pilot in pilots:
-                calls.append(
-                    {
-                        "fixture_id": "privacy-pair",
-                        "hook": "privacy",
-                        "category": "K",
-                        "seat": seat,
-                        "variant": variant,
-                        "replay": 1,
-                        "pilot": pilot,
-                        "result": actual_decision("main", AcceptancePilot() if pilot == "AcceptancePilot" else PassingPilot()),
-                    }
-                )
-    if len(calls) != 384:
-        raise RuntimeError(f"schedule produced {len(calls)} calls")
+    for cls in (AcceptancePilot, PassingPilot):
+        returned = cls().choose_attack(view, options)
+        action = encode(returned)
+        calls.append(
+            {
+                "pilot": cls.__name__,
+                "hook": "choose_attack",
+                "returned_action": action,
+                "returned_repr": repr(returned),
+                "legal_option_member": returned in options,
+                "acceptable_set_member": action in acceptable,
+            }
+        )
     report = {
-        "status": "PILOT_FITNESS_V3_SCORING_COMPLETE",
-        "pre_run_seal": "9fb8574",
+        "status": "CANONICAL_EXECUTION_PROOF_ONLY",
+        "pre_run_authority": AUTHORITY,
+        "failed_execution_attempt": "32e692b",
+        "rejected_generic_state_attempt": "b353537",
         "governing_spec": "c18a8fc",
-        "planned_calls": 384,
-        "actual_calls": len(calls),
-        "pilots": list(pilots),
-        "fixture_count": 12,
-        "privacy_versions": 24,
-        "filtering_scope": "INCONCLUSIVE_AND_EXCLUDED_FROM_DEMONSTRATED_CLAIM",
+        "fixture_id": fixture["fixture_id"],
+        "sealed_replay_digest": replay_digest,
+        "observation": fixture["base"],
+        "acceptable_set": acceptable,
+        "actual_pilot_invocations": len(calls),
         "calls": calls,
+        "full_schedule_executed": False,
+        "limitation": "Sealed privacy metadata lacks authoritative paired hidden-state observations.",
     }
-    out = ROOT / "docs/cardcade/PILOT_FITNESS_V3_SCORING_RAW.json"
+    out = ROOT / directory / "PILOT_FITNESS_V3_EXECUTION_PROOF.json"
     payload = (json.dumps(report, indent=2, sort_keys=True) + "\n").encode()
     out.write_bytes(payload)
-    digest = hashlib.sha256(payload).hexdigest()
-    (out.with_suffix(out.suffix + ".sha256")).write_text(
-        digest + "  " + out.name + "\n", encoding="ascii"
+    Path(str(out) + ".sha256").write_text(
+        hashlib.sha256(payload).hexdigest() + "  " + out.name + "\n", encoding="ascii"
     )
-    summary = ROOT / "docs/cardcade/PILOT_FITNESS_V3_SCORING_REPORT.md"
-    summary.write_text(
-        "# Pilot Fitness V3 Scoring Report\n\n"
-        "The frozen schedule completed 384 calls from pre-run seal `9fb8574`.\n\n"
-        "- Fixtures: 12; privacy seat versions: 24.\n"
-        "- Pilots: AcceptancePilot and PassingPilot.\n"
-        "- Filtering hooks remain excluded because their competencies are INCONCLUSIVE.\n"
-        "- Raw per-call records and source-hash checks are in the JSON artifact.\n",
-        encoding="utf-8",
-    )
-    report_hash = hashlib.sha256(summary.read_bytes()).hexdigest()
-    (summary.with_suffix(summary.suffix + ".sha256")).write_text(
-        report_hash + "  " + summary.name + "\n", encoding="ascii"
-    )
-    print(json.dumps({"status": report["status"], "calls": len(calls), "digest": digest}))
+    print(json.dumps(report, indent=2))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--proof", action="store_true")
+    args = parser.parse_args()
+    if not args.proof:
+        parser.error(
+            "Full schedule blocked: frozen seal scripts contain privacy eligibility metadata, "
+            "but no authoritative paired hidden-state observations. Generic states and repeated "
+            "canonical observations cannot substitute for the frozen privacy experiment."
+        )
+    proof()
 
 
 if __name__ == "__main__":
