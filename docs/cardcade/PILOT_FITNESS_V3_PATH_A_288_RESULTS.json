@@ -1,0 +1,326 @@
+{
+  "action_33": "NOT AUTHORIZED",
+  "actual_hook_invocations": 288,
+  "calibration": "BLOCKED",
+  "exceptions": 24,
+  "execution_plan_sha256": "2641d066546b24a49366dc461a57aac707c7503074bac6a9ba83e78765dda75a",
+  "filtering_status": "INCONCLUSIVE / UNCHANGED",
+  "fixture_pilot_scores": [
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P1-001",
+      "hook": "main",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P1-002",
+      "hook": "attack",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P1-003",
+      "hook": "blocks",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed observation is GameViewV2, not annotated PriorityViewV2; preserved verbatim."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P1-004",
+      "hook": "priority",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed observation is GameViewV2, not annotated PriorityViewV2; preserved verbatim."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed boundary label and option domain disagree; no options added or removed."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-005",
+      "hook": "main",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed boundary label and option domain disagree; no options added or removed."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-006",
+      "hook": "attack",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-007",
+      "hook": "blocks",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed observation is GameViewV2, not annotated PriorityViewV2; preserved verbatim."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P1-008",
+      "hook": "priority",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed observation is GameViewV2, not annotated PriorityViewV2; preserved verbatim."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "R",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "R",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P2-001",
+      "hook": "scry",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P2-002",
+      "hook": "sneak",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed lethal objective has winner null; acceptable cast remains frozen."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "T",
+      "exceptions": 0,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P2-002",
+      "hook": "sneak",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed lethal objective has winner null; acceptable cast remains frozen."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 0,
+      "expectation_matches": 12,
+      "fixture_id": "V3-P2-003",
+      "hook": "scry",
+      "hook_invocations": 12,
+      "input_limitations": [],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 12
+    },
+    {
+      "category": "B",
+      "exceptions": 12,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed boundary label and option domain disagree; no options added or removed."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "AcceptancePilot",
+      "returned": 0
+    },
+    {
+      "category": "B",
+      "exceptions": 12,
+      "expectation_matches": 0,
+      "fixture_id": "V3-P2-004",
+      "hook": "sneak",
+      "hook_invocations": 12,
+      "input_limitations": [
+        "Sealed boundary label and option domain disagree; no options added or removed."
+      ],
+      "normalized_outcomes_identical": true,
+      "pilot": "PassingPilot",
+      "returned": 0
+    }
+  ],
+  "pre_run_authority": "9fb8574",
+  "privacy_calls": 0,
+  "privacy_status": "INCONCLUSIVE / UNEXECUTED (96)",
+  "prototype_0_3": "NOT AUTHORIZED",
+  "raw_sha256": "aed644c665a0415b70207649fad227b92b1d203e2ad2eed4944a2f6d75d704b0",
+  "returned_decisions": 264,
+  "runner_commit": "fe5cba6e36390363c1341236d5eb1607d44508b4",
+  "status": "EXECUTION_COMPLETE_HQ_FITNESS_DECISION_PENDING"
+}
