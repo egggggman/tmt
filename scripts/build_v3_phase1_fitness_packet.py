@@ -199,7 +199,10 @@ def priority_t():
     game.stack.append(spell)
     game._begin_priority_window()
     options = game.legal_priority_actions(0)
-    base = capture(game, 0, options)
+    base = {
+        "view": encode(asdict(game.priority_view(0))),
+        "options": encode([asdict(o) for o in options]),
+    }
     outcomes = []
     for option in options:
         branch = copy.deepcopy(game)
@@ -229,6 +232,7 @@ def boundary(hook, seat, seed):
     game = Game((deck(), deck()), seed=seed)
     game.begin_turn()
     if hook == "main_action":
+        game.set_hand_for_testing(0, [])
         options = game.legal_main_actions(0)
         owner = 0
     elif hook == "attack":

@@ -46,11 +46,12 @@ def scry_fixture():
     inspected = tuple(reversed(game.players[0].library[-2:]))
     options = game.legal_scry_options(inspected)
     captured = []
-    best = next(
+    acceptable = [
         option
         for option in options
         if option.top_ids and game._objects[option.top_ids[0]].card.is_creature
-    )
+    ]
+    best = acceptable[0]
 
     def chooser(view, offered):
         captured.append({"view": enc(asdict(view)), "options": enc([asdict(o) for o in offered])})
@@ -67,7 +68,7 @@ def scry_fixture():
         "base": captured[0],
         "oracle": {
             "objective": "top inspected card is a creature at the endpoint",
-            "acceptable": [enc(asdict(best))],
+            "acceptable": [enc(asdict(option)) for option in acceptable],
         },
         "horizon": "Scry 2 transaction completion and library mutation",
         "branch_digest": hashlib.sha256(
@@ -152,12 +153,25 @@ def sneak_boundary():
     game.begin_turn()
     game.set_hand_for_testing(0, [SNEAK])
     game.create_permanent(LAND, 0, summoning_sick=False)
+    game.create_permanent(BEAR, 0, summoning_sick=False)
     game.advance_to(TurnStep.DECLARE_ATTACKERS)
-    attack = next(o for o in game.legal_attack_options(0) if not o.attacker_ids)
+    attack = next(o for o in game.legal_attack_options(0) if o.attacker_ids)
     game.execute_attack_action(attack)
     block = next(o for o in game.legal_block_options(attack, 1) if not o.blocks)
     game.execute_block_action(block)
+    # Spend the sole Sneak in a genuine window, then drain its Priority.
+    game.execute_sneak_action(next(o for o in game.legal_sneak_actions(0) if o.kind is ActionKind.CAST))
+    while game.priority_state is not None:
+        if game.priority_state.resolution_pending:
+            game.process_priority_resolution()
+        else:
+            game.execute_priority_action(game.legal_priority_actions(game.priority_state.player_index)[0])
     options = game.legal_sneak_actions(0)
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+    assert len(options) == 1 and options[0].kind is ActionKind.PASS
+    branch = copy.deepcopy(game)
+    branch.execute_sneak_action(options[0])
+    assert branch.step is TurnStep.COMBAT_DAMAGE
     return {
         "fixture_id": "V3-P2-004",
         "hook": "sneak",
@@ -166,8 +180,8 @@ def sneak_boundary():
             "view": enc(asdict(game.pilot_view(0))),
             "options": enc([asdict(o) for o in options]),
         },
-        "oracle": {"boundary": "no_unblocked_attacker_pass_only"},
-        "horizon": "empty Sneak decision",
+        "oracle": {"boundary": "empty_or_pass_only"},
+        "horizon": "after sole Sneak resolves; engine-generated pass advances to combat damage",
         "status": "CANDIDATE_UNSEALED",
     }
 

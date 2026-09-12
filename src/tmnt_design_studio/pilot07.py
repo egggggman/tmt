@@ -156,13 +156,26 @@ class AcceptancePilot:
     def choose_priority(
         self, view: PriorityViewV2, options: tuple[ActionOption, ...]
     ) -> ActionOption:
-        """Deliberately pass; passing is a legal strategy, not an engine shortcut."""
-        del view
+        """Take a supplied counter to an opposing public spell, otherwise pass."""
+        opposing_spells = {
+            item.object_id
+            for item in view.stack_bottom_to_top
+            if item.kind == "spell" and item.controller != view.priority_player
+        }
+        for option in options:
+            if option.kind is ActionKind.ACTIVATE_ABILITY and option.target_id in opposing_spells:
+                return option
         return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 
 
 class PassingPilot(AcceptancePilot):
     """Deliberately poor but legal strategy used to prove legality is strategy-independent."""
+
+    def choose_priority(
+        self, view: PriorityViewV2, options: tuple[ActionOption, ...]
+    ) -> ActionOption:
+        del view
+        return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 
     def choose_main_action(
         self, view: GameView, options: tuple[ActionOption, ...], stage: str
