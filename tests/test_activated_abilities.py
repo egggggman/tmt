@@ -618,6 +618,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "krang",
         "leonardo",
         "splinter",
+        "bebop_rocksteady",
     }
     assert full == executable
     assert {
