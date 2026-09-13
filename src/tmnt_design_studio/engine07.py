@@ -60,7 +60,7 @@ from tmnt_design_studio.vigilante07 import VigilanteMixin
 
 ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
 
-Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "former"]
+Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "exile", "former"]
 
 
 class TurnStep(Enum):
@@ -831,6 +831,8 @@ class StackObject:
     sneak_returned_hand_id: str | None = None
     sneak_defending_player: int | None = None
     sneak_oracle_fragment: str | None = None
+    cast_from_graveyard: bool = False
+    finality_on_entry: bool = False
     sneak_mana_source_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
 
@@ -999,6 +1001,7 @@ class PlayerState:
     hand: list[CardObject] = field(default_factory=list)
     battlefield: list[Permanent] = field(default_factory=list)
     graveyard: list[CardObject] = field(default_factory=list)
+    exile: list[CardObject] = field(default_factory=list)
     life: int = 20
     lands_played: int = 0
     lost: bool = False
@@ -1099,7 +1102,7 @@ class TokenCeasesStateBasedAction:
     def apply(self, game: Game) -> bool:
         changed = False
         for player in game.players:
-            for zone_name in ("library", "hand", "graveyard"):
+            for zone_name in ("library", "hand", "graveyard", "exile"):
                 zone = getattr(player, zone_name)
                 for obj in list(zone):
                     if isinstance(obj, CardObject) and obj.is_token:
@@ -1391,7 +1394,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         return obj
 
     def _create_card_object(self, card: CardFact, owner: int, zone: Zone) -> CardObject:
-        if zone not in {"library", "hand", "graveyard"}:
+        if zone not in {"library", "hand", "graveyard", "exile"}:
             raise ValueError(f"card object cannot be created in {zone}")
         return self._register(CardObject(self._allocate_object_id(), card, owner, owner, zone))  # type: ignore[return-value]
 
@@ -1524,7 +1527,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         return [self.stack] + [
             zone
             for player in self.players
-            for zone in (player.library, player.hand, player.battlefield, player.graveyard)
+            for zone in (
+                player.library,
+                player.hand,
+                player.battlefield,
+                player.graveyard,
+                player.exile,
+            )
         ]
 
     def _authoritative_container(
@@ -1579,12 +1588,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     def move_object(
         self,
         obj: CardObject | StackObject | Permanent,
-        destination: Literal["library", "hand", "stack", "battlefield", "graveyard"],
+        destination: Literal["library", "hand", "stack", "battlefield", "graveyard", "exile"],
         *,
         controller: int | None = None,
         cast_kind: CastKind | None = None,
         target_id: str | None = None,
         summoning_sick: bool = True,
+        cast_from_graveyard: bool = False,
+        finality_on_entry: bool = False,
         reason: str | None = None,
         library_position: Literal["top", "bottom"] | None = None,
         _departure_authority: tuple[tuple[str, int], ...] | None = None,
@@ -1618,7 +1629,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             raise ValueError("destination controller is invalid")
         if destination == "stack" and (controller is None or cast_kind is None):
             raise ValueError("stack movement requires controller and cast program")
-        if destination != "stack" and (cast_kind is not None or target_id is not None):
+        if destination != "stack" and (
+            cast_kind is not None
+            or target_id is not None
+            or cast_from_graveyard
+            or finality_on_entry
+        ):
             raise ValueError("stack metadata is valid only for stack movement")
         if library_position is not None and destination != "library":
             raise ValueError("library position is valid only for library movement")
@@ -1672,7 +1688,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             destination_container = self.players[destination_controller].battlefield
         elif destination == "stack":
             assert controller is not None and cast_kind is not None
-            replacement = StackObject(new_id, obj.card, obj.owner, controller, cast_kind, target_id)
+            replacement = StackObject(
+                new_id,
+                obj.card,
+                obj.owner,
+                controller,
+                cast_kind,
+                target_id,
+                cast_from_graveyard=cast_from_graveyard,
+                finality_on_entry=finality_on_entry,
+            )
             destination_container = self.stack
         else:
             replacement = CardObject(
@@ -6158,6 +6183,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     for target in target_player.battlefield
                     if self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
                 )
+        for source in player.battlefield:
+            permission = self._graveyard_cast_permission(source)
+            if permission is None:
+                continue
+            for card in player.graveyard:
+                if (
+                    card.card.is_creature
+                    and self._graveyard_card_qualifies(card.card, permission[0])
+                    and self.payment_plan(player_index, card, allow_graveyard=True) is not None
+                ):
+                    options.append(
+                        ActionOption(
+                            ActionKind.CAST,
+                            player_index,
+                            object_id=card.object_id,
+                            oracle_fragment=permission[1],
+                        )
+                    )
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
@@ -6204,6 +6247,28 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     ("timing", self.step.value),
                 ),
             )
+
+    def _graveyard_cast_permission(self, source: Permanent) -> tuple[int, str] | None:
+        if not self.is_authoritative(source, "battlefield"):
+            return None
+        for fragment in self.interpreter.fragments(source.card):
+            match = re.match(
+                r"^During your turn, you may cast creature spells with power or toughness "
+                r"(?P<limit>\d+) or less from your graveyard\.",
+                fragment,
+            )
+            if match is not None:
+                return int(match.group("limit")), fragment
+        return None
+
+    @staticmethod
+    def _graveyard_card_qualifies(card: CardFact, limit: int) -> bool:
+        return (
+            card.is_creature
+            and card.power is not None
+            and card.toughness is not None
+            and (card.power <= limit or card.toughness <= limit)
+        )
 
     def _witness_graveyard_cast_permissions(self, player_index: int) -> None:
         """Witness only permissions whose represented P/T and timing predicates are true."""
@@ -6513,7 +6578,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             target = self._objects.get(option.target_id or "")
             if target is not None and not isinstance(target, Permanent):
                 raise ValueError("target option does not identify a permanent")
-            return self.cast(option.player_index, obj, target)
+            return self.cast(
+                option.player_index,
+                obj,
+                target,
+                cast_from_graveyard=(
+                    isinstance(obj, CardObject)
+                    and option.oracle_fragment is not None
+                    and self.is_authoritative(obj, "graveyard")
+                ),
+            )
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             if not isinstance(obj, Permanent):
                 raise ValueError("activation option does not identify a permanent")
@@ -7979,9 +8053,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ):
             raise AssertionError("Food stack object disagrees with activation provenance")
 
-    def payment_plan(self, player_index: int, card: CardObject) -> PaymentPlan | None:
+    def payment_plan(
+        self, player_index: int, card: CardObject, *, allow_graveyard: bool = False
+    ) -> PaymentPlan | None:
         """Build one deterministic legal payment without mutating authoritative state."""
-        if not self.is_authoritative(card, "hand") or card.owner != player_index:
+        source_zone = "graveyard" if allow_graveyard else "hand"
+        if not self.is_authoritative(card, source_zone) or card.owner != player_index:
             return None
         requirement = self.mana_requirement(card)
         if requirement is None:
@@ -8039,9 +8116,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         *,
         cast_kind: CastKind,
         target_id: str | None,
+        cast_from_graveyard: bool = False,
+        finality_on_entry: bool = False,
     ) -> StackObject:
         """Atomically pay a revalidated plan and move the represented card Hand -> Stack."""
-        if plan != self.payment_plan(plan.player_index, card):
+        if plan != self.payment_plan(plan.player_index, card, allow_graveyard=cast_from_graveyard):
             raise ValueError("payment plan is no longer legal")
         sources: list[Permanent] = []
         for object_id in plan.source_ids:
@@ -8061,7 +8140,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 controller=plan.player_index,
                 cast_kind=cast_kind,
                 target_id=target_id,
-                reason="spell_cast",
+                cast_from_graveyard=cast_from_graveyard,
+                finality_on_entry=finality_on_entry,
+                reason="spell_cast_from_graveyard" if cast_from_graveyard else "spell_cast",
             )
         except Exception:
             for source, tapped in zip(sources, previous_tapped, strict=True):
@@ -8204,30 +8285,64 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         return spell
 
-    def cast(self, player_index: int, card: CardObject, target: Permanent | None = None) -> bool:
+    def cast(
+        self,
+        player_index: int,
+        card: CardObject,
+        target: Permanent | None = None,
+        *,
+        cast_from_graveyard: bool = False,
+    ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
         Immediate resolution is an explicit temporary boundary until a priority controller owns
         pass sequencing. Every represented spell still traverses the authoritative stack lifecycle.
         """
-        spell = self.announce_spell(player_index, card, target)
+        spell = self.announce_spell(
+            player_index, card, target, cast_from_graveyard=cast_from_graveyard
+        )
         if spell is None:
             return False
         self.resolve_top_of_stack()
         return True
 
     def announce_spell(
-        self, player_index: int, card: CardObject, target: Permanent | None = None
+        self,
+        player_index: int,
+        card: CardObject,
+        target: Permanent | None = None,
+        *,
+        cast_from_graveyard: bool = False,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
         if (
             player_index != self.active_player
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-            or not self.is_authoritative(card, "hand")
+            or not (
+                self.is_authoritative(card, "graveyard")
+                if cast_from_graveyard
+                else self.is_authoritative(card, "hand")
+            )
             or card.owner != player_index
         ):
             return None
+        permission = None
+        if cast_from_graveyard:
+            permission = next(
+                (
+                    self._graveyard_cast_permission(source)
+                    for source in player.battlefield
+                    if self._graveyard_cast_permission(source) is not None
+                ),
+                None,
+            )
+            if (
+                permission is None
+                or not card.card.is_creature
+                or not self._graveyard_card_qualifies(card.card, permission[0])
+            ):
+                return None
         program = self.interpreter.cast_program(card.card)
         target_id: str | None = None
         if program.kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
@@ -8272,11 +8387,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 oracle_fragment=card.mana_cost or "zero mana cost",
             )
             return None
-        plan = self.payment_plan(player_index, card)
+        plan = self.payment_plan(player_index, card, allow_graveyard=cast_from_graveyard)
         if plan is None:
             return None
         spell = self._commit_announcement_payment(
-            card, plan, cast_kind=program.kind, target_id=target_id
+            card,
+            plan,
+            cast_kind=program.kind,
+            target_id=target_id,
+            cast_from_graveyard=cast_from_graveyard,
+            finality_on_entry=cast_from_graveyard,
         )
         self.log(
             "spell_cast",
@@ -8346,6 +8466,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 reason="sneak_creature_resolved" if sneak_cast else "creature_resolved",
             )
             assert isinstance(permanent, Permanent)
+            if spell.finality_on_entry:
+                permanent.counters["finality"] = permanent.counters.get("finality", 0) + 1
+                self.log(
+                    "finality_counter_placed",
+                    source_id=spell.object_id,
+                    target_id=permanent.object_id,
+                    card=permanent.card.name,
+                    counter_type="finality",
+                    total=permanent.counters["finality"],
+                )
             if sneak_cast:
                 permanent.tapped = True
                 self._combat_attackers = self._combat_attackers + (permanent.object_id,)
@@ -8764,22 +8894,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         last_known_type_line = permanent.type_line
         last_known_is_creature = permanent.is_creature
         self.alliance_modes_chosen.pop(permanent.object_id, None)
+        finality = permanent.counters.get("finality", 0) > 0
+        destination = "exile" if finality else "graveyard"
         replacement = self.move_object(
             permanent,
-            "graveyard",
-            reason=state_based_action or "put_into_graveyard",
+            destination,
+            reason=("finality_exile" if finality else (state_based_action or "put_into_graveyard")),
             _departure_authority=battlefield_authority,
             _departure_sources=_departure_sources,
         )
         assert isinstance(replacement, CardObject)
         self.refresh_static_pt_modifiers()
         self.log(
-            "permanent_to_graveyard",
+            "permanent_to_exile" if finality else "permanent_to_graveyard",
             player=owner.name,
             card=permanent.card.name,
             state_based_action=state_based_action,
         )
-        if dies_draw_fragments and last_known_is_creature:
+        if dies_draw_fragments and last_known_is_creature and not finality:
             event = self._new_rules_event(
                 RulesEventKind.CREATURE_DIED,
                 controller,
@@ -9252,7 +9384,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 except ValueError as error:
                     raise AssertionError(str(error)) from error
         for player_index, player in enumerate(self.players):
-            for zone_name in ("library", "hand", "battlefield", "graveyard"):
+            for zone_name in ("library", "hand", "battlefield", "graveyard", "exile"):
                 for obj in getattr(player, zone_name):
                     if not isinstance(obj, (CardObject, Permanent)):
                         raise AssertionError("zones may contain only registered runtime objects")
@@ -9379,6 +9511,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 tuple(card.object_id for card in player.hand),
                 tuple(permanent.object_id for permanent in player.battlefield),
                 tuple(card.object_id for card in player.graveyard),
+                tuple(card.object_id for card in player.exile),
                 player.life,
                 player.lost,
                 player.failed_draw_pending,
@@ -9415,9 +9548,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     "hand_object_ids": list(player[1]),
                     "battlefield_object_ids": list(player[2]),
                     "graveyard_object_ids": list(player[3]),
-                    "life": player[4],
-                    "lost": player[5],
-                    "failed_draw_pending": player[6],
+                    "exile_object_ids": list(player[4]),
+                    "life": player[5],
+                    "lost": player[6],
+                    "failed_draw_pending": player[7],
                 }
                 for player in zones
             ],
