@@ -342,6 +342,7 @@ class TemporaryKeyword(Enum):
     MENACE = "menace"
     HASTE = "haste"
     DEATHTOUCH = "deathtouch"
+    REACH = "reach"
 
 
 @dataclass(frozen=True)
@@ -8144,7 +8145,25 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         delivered = False
         food_life_before: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
+        if ability.program.effect_kind is ActivatedEffectKind.GRANT_REACH_UNTIL_EOT:
+            if isinstance(source_permanent, Permanent) and self.is_authoritative(
+                source_permanent, "battlefield"
+            ):
+                source_permanent.temporary_keyword_effects.append(
+                    TemporaryKeywordEffect(
+                        TemporaryKeyword.REACH,
+                        "until_end_of_turn",
+                        source_permanent.object_id,
+                        ability.oracle_fragment,
+                    )
+                )
+                self.log(
+                    "frog_butler_reach_granted",
+                    source_id=source_permanent.object_id,
+                    stack_object_id=ability.object_id,
+                )
+                delivered = True
+        elif ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
             self.floating_mana.add(
                 ability.controller, ability.source_id, ability.choice_ids[0], 1, ability.object_id
             )

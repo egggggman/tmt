@@ -410,6 +410,7 @@ class ActivatedEffectKind(Enum):
     MUTAGEN_COUNTER = "mutagen_counter"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
+    GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
     UNSUPPORTED = "unsupported"
@@ -1651,6 +1652,10 @@ class CardInterpreter:
             "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
             "Activate only as a sorcery."
         )
+        frog_reach = (
+            card.name == "Frog Butler"
+            and fragment.strip() == "{2}: This creature gains reach until end of turn."
+        )
         frog_mana = (
             card.name == "Frog Butler" and fragment.strip() == "{T}: Add one mana of any color."
         )
@@ -1752,6 +1757,9 @@ class CardInterpreter:
         if counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
             action_match = True
+        elif frog_reach:
+            effect_kind = ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
+            action_match = True
         elif frog_mana:
             effect_kind = ActivatedEffectKind.ADD_ANY_COLOR_MANA
             action_match = True
@@ -1781,7 +1789,7 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (frog_mana or mutagen_source)
+            (frog_mana or frog_reach or mutagen_source)
             and instructions
             or (
                 targeted_return
@@ -1793,7 +1801,7 @@ class CardInterpreter:
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None or frog_mana or mutagen_source
+            else instructions is None or frog_mana or frog_reach or mutagen_source
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -1806,6 +1814,7 @@ class CardInterpreter:
             canonical_food
             or counter_target
             or frog_mana
+            or frog_reach
             or tunnel_rats_return
             or mutagen_source
             or ray_fillets
