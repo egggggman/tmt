@@ -7714,6 +7714,67 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     )
         return tuple(options)
 
+    def announce_graveyard_activated_ability(
+        self, player_index: int, source: CardObject, oracle_fragment: str
+    ) -> ActivatedAbilityObject | None:
+        if (
+            player_index not in range(2)
+            or not self.is_authoritative(source, "graveyard")
+            or source.owner != player_index
+            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+        ):
+            return None
+        semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
+        if (
+            semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program.effect_kind
+            is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+        ):
+            return None
+        available = [
+            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+        ]
+        black = next((p for p in available if self._mana_color(p) == "B"), None)
+        if black is None or len(available) < 5:
+            return None
+        chosen = [black] + [p for p in available if p is not black][:4]
+        for p in chosen:
+            p.tapped = True
+        ability = ActivatedAbilityObject(
+            self._allocate_object_id(),
+            player_index,
+            source.object_id,
+            source.card,
+            oracle_fragment,
+            semantics.program,
+            tuple(p.object_id for p in chosen),
+            False,
+            False,
+        )
+        self._register(ability)
+        self.stack.append(ability)
+        source.zone = "former"
+        self.players[player_index].graveyard.remove(source)
+        self.activation_evidence.append(
+            ActivationEvidence(
+                ability.object_id,
+                source.object_id,
+                player_index,
+                oracle_fragment,
+                ability.mana_source_ids,
+                False,
+                False,
+            )
+        )
+        self.log(
+            "graveyard_ability_announced",
+            source_id=source.object_id,
+            stack_object_id=ability.object_id,
+            reason="tunnel_rats_return",
+        )
+        return ability
+
     def announce_activated_ability(
         self,
         player_index: int,
@@ -8073,6 +8134,20 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         delivered = False
         food_life_before: int | None = None
+        if (
+            ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+            and isinstance(source, CardObject)
+        ):
+            returned = self.create_permanent(
+                source.card, ability.controller, tapped=True, summoning_sick=False
+            )
+            self.log(
+                "tunnel_rats_returned",
+                source_id=source.object_id,
+                permanent_id=returned.object_id,
+                tapped=True,
+            )
+            delivered = True
         food_life_after: int | None = None
         if ability.program.effect_kind is ActivatedEffectKind.DRAW_CARD:
             before = len(self.players[ability.controller].hand)
