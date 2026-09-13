@@ -63,8 +63,9 @@ def _authority_tuple_from_preimage(preimage: object) -> tuple[object, ...]:
             "hand_object_ids",
             "battlefield_object_ids",
             "graveyard_object_ids",
+            "exile_object_ids",
         ):
-            values = player.get(key)
+            values = player.get(key, []) if key == "exile_object_ids" else player.get(key)
             if not isinstance(values, list) or any(not isinstance(value, str) for value in values):
                 raise ValueError("authoritative-state zone preimage is malformed")
             zone_values.append(tuple(values))
@@ -183,9 +184,11 @@ def _authoritative_state_stops(snapshot: dict[str, object]) -> list[str]:
             ([item.get("object_id") for item in battlefield], list(zone_state[2])),
             (player.get("graveyard_object_ids"), list(zone_state[3])),
             (len(player.get("graveyard", [])), len(zone_state[3])),
-            (player.get("life"), zone_state[4]),
-            (player.get("lost"), zone_state[5]),
-            (player.get("failed_draw_pending"), zone_state[6]),
+            (player.get("exile_object_ids", []), list(zone_state[4])),
+            (len(player.get("exile", [])), len(zone_state[4])),
+            (player.get("life"), zone_state[5]),
+            (player.get("lost"), zone_state[6]),
+            (player.get("failed_draw_pending"), zone_state[7]),
         )
         if any(left != right for left, right in comparisons):
             stops.append(f"authoritative-state player projection disagrees for index {index}")
