@@ -44,6 +44,7 @@ from tmnt_design_studio.conformance07 import (
 from tmnt_design_studio.food_search07 import FoodSearchMixin
 from tmnt_design_studio.jury_rig07 import JuryRigMixin
 from tmnt_design_studio.krang_refill07 import KrangRefillMixin
+from tmnt_design_studio.mana_ledger07 import FloatingManaLedger
 from tmnt_design_studio.mill_three07 import MillThreeMixin
 from tmnt_design_studio.pilot_input_v2 import (
     DiscardDrawViewV2,
@@ -190,6 +191,7 @@ class PaymentPlan:
     card_object_id: str
     requirement: ManaRequirement
     source_ids: tuple[str, ...]
+    floating_colors: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -1294,6 +1296,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._regular_damage_initial_ids: tuple[str, ...] = ()
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
+        self.floating_mana = FloatingManaLedger()
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self._stun_selections: dict[str, StunTargetSelection] = {}
@@ -7814,7 +7817,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
         )
-        if choice_ids or semantics.program.choices_required:
+        if semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA and (
+            choice_ids or semantics.program.choices_required
+        ):
+            return None
+        if (
+            semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+            and choice_ids not in {("W",), ("U",), ("B",), ("R",), ("G",), ("C",)}
+        ):
             return None
         if counter_target:
             if len(target_ids) != 1 or not self._is_legal_counter_target(
@@ -8134,6 +8144,18 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         delivered = False
         food_life_before: int | None = None
+        if ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
+            self.floating_mana.add(
+                ability.controller, ability.source_id, ability.choice_ids[0], 1, ability.object_id
+            )
+            self.log(
+                "floating_mana_produced",
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+                color=ability.choice_ids[0],
+                quantity=1,
+            )
+            delivered = True
         if (
             ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             and isinstance(source, CardObject)
@@ -8405,36 +8427,69 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         allow_graveyard: bool = False,
         allow_exile: bool = False,
     ) -> PaymentPlan | None:
-        """Build one deterministic legal payment without mutating authoritative state."""
         source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
         if not self.is_authoritative(card, source_zone) or card.owner != player_index:
             return None
         requirement = self.mana_requirement(card)
         if requirement is None:
             return None
+        pool = self.floating_mana.snapshot(player_index)
+        floating: list[str] = []
+        for color in requirement.colored:
+            if pool.get(color, 0):
+                pool[color] -= 1
+                floating.append(color)
+            else:
+                break
+        else:
+            remaining_generic = requirement.generic
+            for color, quantity in sorted(pool.items()):
+                take = min(quantity, remaining_generic)
+                floating.extend([color] * take)
+                remaining_generic -= take
+                if remaining_generic == 0:
+                    break
+            available = [
+                p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+            ]
+            chosen: list[Permanent] = []
+            for color in requirement.colored[len(floating) :]:
+                source = next((p for p in available if self._mana_color(p) == color), None)
+                if source is None:
+                    return None
+                chosen.append(source)
+                available.remove(source)
+            need = requirement.generic - max(0, len(floating) - len(requirement.colored))
+            if len(available) < need:
+                return None
+            chosen.extend(available[:need])
+            return PaymentPlan(
+                player_index,
+                card.object_id,
+                requirement,
+                tuple(p.object_id for p in chosen),
+                tuple(floating),
+            )
         available = [
-            permanent
-            for permanent in self.players[player_index].battlefield
-            if permanent.card.is_land and not permanent.tapped
+            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]
         chosen: list[Permanent] = []
-        for color in requirement.colored:
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) == color),
-                None,
-            )
+        for color in requirement.colored[len(floating) :]:
+            source = next((p for p in available if self._mana_color(p) == color), None)
             if source is None:
                 return None
             chosen.append(source)
             available.remove(source)
-        if len(available) < requirement.generic:
+        need = requirement.generic
+        if len(available) < need:
             return None
-        chosen.extend(available[: requirement.generic])
+        chosen.extend(available[:need])
         return PaymentPlan(
             player_index,
             card.object_id,
             requirement,
-            tuple(source.object_id for source in chosen),
+            tuple(p.object_id for p in chosen),
+            tuple(floating),
         )
 
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
@@ -8477,6 +8532,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             allow_exile=cast_from_raphael,
         ):
             raise ValueError("payment plan is no longer legal")
+        for color in plan.floating_colors:
+            self.floating_mana.consume(plan.player_index, color, 1, card.object_id)
         sources: list[Permanent] = []
         for object_id in plan.source_ids:
             source = self._objects.get(object_id)
