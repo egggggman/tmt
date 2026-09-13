@@ -193,14 +193,14 @@ def test_nonbattlefield_zone_movement_and_etb_do_not_trigger():
     assert not g.pending_triggers and not tokens(g)
 
 
-def test_mutagen_activation_remains_unsupported():
+def test_mutagen_activation_is_supported():
     g, source = setup()
     leave(g, source)
     resolve(g)
     token = tokens(g)[0]
     c = g.interpreter.activated_ability_semantics(token.card, token.card.oracle_text)
-    assert c is not None and not c.coverage.fully_supported
-    assert g.interpreter.unsupported_fragments(token.card)
+    assert c is not None and c.coverage.fully_supported
+    assert g.interpreter.unsupported_fragments(token.card) == ()
     snap = g.snapshot()
     assert not any(
         x["source_id"] == token.object_id for x in snap["conformance"]["executed_references"]

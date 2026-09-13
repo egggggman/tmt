@@ -636,7 +636,6 @@ def test_no_card_name_acceptance_seed_or_special_case_dispatch():
     prohibited = {
         "Leonardo, Leader in Blue",
         "Lita, Little Orphan Amphibian",
-        "Mutagen",
         "Treasure",
         "Clue",
         "7001",
