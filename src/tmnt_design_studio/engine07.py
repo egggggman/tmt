@@ -3793,14 +3793,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if key in self._ltb_mutagen_enqueued:
                 return
             self._ltb_mutagen_enqueued.add(key)
-        if (
-            effect is TriggerEffect.PARAMECIA_EXILE_CHOICE
-            and (
-                event.kind is not RulesEventKind.CREATURE_DIED
-                or event.subject_ids != (source.object_id,)
-                or source.zone != "former"
-                or fragment != self._paramecia_fragment(source.card)
-            )
+        if effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
+            event.kind is not RulesEventKind.CREATURE_DIED
+            or event.subject_ids != (source.object_id,)
+            or source.zone != "former"
+            or fragment != self._paramecia_fragment(source.card)
         ):
             raise ValueError("Paramecia death provenance is invalid")
         trigger = TriggerInstance(
@@ -4058,12 +4055,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._validate_rock_soldiers_trigger(ability)
         if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
             self._validate_shredder_trigger(ability)
-        if (
-            ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE
-            and (
-                ability.event.kind is not RulesEventKind.CREATURE_DIED
-                or ability.source_id not in self._paramecia_departures
-            )
+        if ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
+            ability.event.kind is not RulesEventKind.CREATURE_DIED
+            or ability.source_id not in self._paramecia_departures
         ):
             raise ValueError("Paramecia trigger has invalid provenance")
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
