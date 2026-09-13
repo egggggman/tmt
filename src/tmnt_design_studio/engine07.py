@@ -7488,7 +7488,26 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._advance_after_combat_damage()
         return evidence
 
-    def play_land(self, player_index: int, card: CardObject) -> bool:
+    def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
+        for source_id, (expiry_turn, chosen_id) in self._raphael_permissions.items():
+            if expiry_turn != self.turn or chosen_id != card.object_id:
+                continue
+            if any(
+                linked_id == card.object_id and owner_id == source_id
+                for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
+                    source_id, ()
+                )
+            ):
+                source = self._objects.get(source_id)
+                if (
+                    isinstance(source, Permanent)
+                    and source.controller == player_index
+                    and card.owner == player_index
+                ):
+                    return source_id
+        return None
+
+    def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:
         player = self.players[player_index]
         if player_index != self.active_player or self.step not in {
             TurnStep.PRECOMBAT_MAIN,
@@ -7497,9 +7516,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             return False
         if (
             not card.is_land
-            or not self.is_authoritative(card, "hand")
+            or not (
+                self.is_authoritative(card, "exile")
+                if from_raphael
+                else self.is_authoritative(card, "hand")
+            )
             or card.owner != player_index
             or player.lands_played >= 1
+            or (from_raphael and self._raphael_permission_for(player_index, card) is None)
         ):
             return False
         self.move_object(
@@ -7507,7 +7531,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             "battlefield",
             controller=player_index,
             summoning_sick=False,
-            reason="land_played",
+            reason="raphael_land_played" if from_raphael else "land_played",
         )
         self.refresh_static_pt_modifiers()
         player.lands_played += 1
@@ -8538,10 +8562,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ):
             return None
         permission = None
-        if cast_from_exile and not any(
-            chosen == card.object_id and expiry == self.turn
-            for expiry, chosen in self._raphael_permissions.values()
-        ):
+        if cast_from_exile and self._raphael_permission_for(player_index, card) is None:
             return None
         if cast_from_graveyard:
             permission = next(
