@@ -12,7 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
-from itertools import permutations
+from itertools import permutations, product
 from pathlib import Path
 from typing import Literal, Protocol
 
@@ -6550,19 +6550,31 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
         if not all(isinstance(obj, Permanent) for obj in attackers):
             return ()
-        generated = self.generate_blocks(attackers, defender_index, log_rejections=False)  # type: ignore[arg-type]
+        available = [
+            p
+            for p in self.players[defender_index].battlefield
+            if p.card.is_creature and not p.tapped
+        ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
-        if generated:
-            options.append(
-                ActionOption(
-                    ActionKind.DECLARE_BLOCKERS,
-                    defender_index,
-                    blocks=tuple(
-                        (attacker_id, blocker.object_id)
-                        for attacker_id, blocker in generated.items()
-                    ),
-                )
+        choices = []
+        for attacker in attackers:
+            groups = [
+                group
+                for count in range(len(available) + 1)
+                for group in permutations(available, count)
+                if not group or (not self._has_menace(attacker) or count >= 2)
+            ]
+            choices.append((attacker, groups))
+        for selected in product(*(groups for _attacker, groups in choices)):
+            assignment = tuple(
+                (attacker.object_id, blocker.object_id)
+                for (attacker, _groups), group in zip(choices, selected, strict=True)
+                for blocker in group
             )
+            if assignment and self._valid_block_assignment(attackers, assignment, defender_index):
+                options.append(
+                    ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index, blocks=assignment)
+                )
         return tuple(options)
 
     def _sneak_semantics(self, card: CardObject):
@@ -6694,14 +6706,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         defender = 1 - self.active_player
         if blocks not in self.legal_block_options(attack, defender):
             raise ValueError("block option is not currently legal")
-        if blocks.blocks:
-            attackers = [self._objects[object_id] for object_id in self._combat_attackers]
-            generated = self.generate_blocks(attackers, defender, log_rejections=True)  # type: ignore[arg-type]
-            resolved = tuple(
-                (attacker_id, blocker.object_id) for attacker_id, blocker in generated.items()
-            )
-            if resolved != blocks.blocks:
-                raise ValueError("block option became stale or illegal")
+        attackers = [self._objects[object_id] for object_id in self._combat_attackers]
+        if not all(isinstance(obj, Permanent) for obj in attackers):
+            raise ValueError("combat state references a nonpermanent attacker")
+        if blocks.blocks and not self._valid_block_assignment(attackers, blocks.blocks, defender):
+            raise ValueError("block option became stale or illegal")
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
@@ -6980,10 +6989,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             object_id: self._combat_permanent(object_id, "attacker")
             for object_id in self._combat_attackers
         }
-        blocks = {
-            attacker_id: self._combat_permanent(blocker_id, "blocker")
-            for attacker_id, blocker_id in self._combat_blocks
-        }
+        blocks: dict[str, tuple[Permanent, ...]] = {}
+        for attacker_id, blocker_id in self._combat_blocks:
+            blocker = self._combat_permanent(blocker_id, "blocker")
+            blocks[attacker_id] = blocks.get(attacker_id, ()) + (blocker,)
         if any(attacker_id not in attackers for attacker_id in blocks):
             raise ValueError("combat state assigns a blocker to a nonattacker")
         eligible = self._damage_step_eligible_ids()
@@ -6994,93 +7003,65 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ] = {}
         for attacker_id, attacker in attackers.items():
             attacker_present = self.is_authoritative(attacker, "battlefield")
-            blocker = blocks.get(attacker_id)
-            blocker_present = blocker is not None and self.is_authoritative(blocker, "battlefield")
-            if blocker is None:
+            blockers = blocks.get(attacker_id, ())
+            present = tuple(
+                blocker for blocker in blockers if self.is_authoritative(blocker, "battlefield")
+            )
+            if not blockers:
                 if attacker_present and attacker_id in eligible and attacker.power > 0:
                     assignments.append(
                         self._combat_assignment(attacker, target_player=defender_index)
                     )
                 continue
-            if attacker_present and blocker_present and attacker_id in eligible:
+            if attacker_present and attacker_id in eligible and attacker.power > 0:
                 power = max(0, attacker.power)
-                if self.evaluated_trample(attacker) and power > 0:
+                remaining = power
+                first = present[0] if present else None
+                first_any = blockers[0] if blockers else None
+                for index, blocker in enumerate(present):
+                    if remaining <= 0:
+                        break
                     lethal = max(0, blocker.toughness - blocker.damage)
-                    blocker_damage = min(power, lethal)
-                    excess = power - blocker_damage
-                    trample_inputs[attacker_id] = (
-                        blocker.object_id,
-                        power,
-                        blocker.toughness,
-                        blocker.damage,
-                        lethal,
-                        blocker_damage,
-                        excess,
+                    is_last = index == len(present) - 1
+                    amount = (
+                        min(remaining, lethal)
+                        if self.evaluated_trample(attacker) or not is_last
+                        else remaining
                     )
-                    if blocker_damage:
-                        assignments.append(
-                            self._combat_assignment(
-                                attacker,
-                                target=blocker,
-                                amount=blocker_damage,
-                                trample=True,
-                                lethal_required=lethal,
-                            )
+                    assignments.append(
+                        self._combat_assignment(
+                            attacker,
+                            target=blocker,
+                            amount=amount,
+                            trample=self.evaluated_trample(attacker),
+                            lethal_required=lethal if self.evaluated_trample(attacker) else None,
                         )
-                    if excess:
+                    )
+                    remaining -= amount
+                    damaged_pairs.append((attacker, blocker))
+                if self.evaluated_trample(attacker):
+                    trample_inputs[attacker_id] = (
+                        first_any.object_id if first_any else None,
+                        power,
+                        first.toughness if first else None,
+                        first.damage if first else None,
+                        max(0, first.toughness - first.damage) if first else 0,
+                        power - remaining,
+                        remaining,
+                    )
+                    if remaining:
                         assignments.append(
                             self._combat_assignment(
                                 attacker,
                                 target_player=defender_index,
-                                amount=excess,
+                                amount=remaining,
                                 trample=True,
-                                lethal_required=lethal,
+                                lethal_required=0,
                             )
                         )
-                elif power > 0:
-                    assignments.append(self._combat_assignment(attacker, target=blocker))
-            elif (
-                attacker_present
-                and blocker is not None
-                and not blocker_present
-                and attacker_id in eligible
-                and self.evaluated_trample(attacker)
-                and attacker.power > 0
-            ):
-                power = attacker.power
-                trample_inputs[attacker_id] = (
-                    blocker.object_id,
-                    power,
-                    None,
-                    None,
-                    0,
-                    0,
-                    power,
-                )
-                assignments.append(
-                    self._combat_assignment(
-                        attacker,
-                        target_player=defender_index,
-                        trample=True,
-                        lethal_required=0,
-                    )
-                )
-            if (
-                attacker_present
-                and blocker_present
-                and blocker.object_id in eligible
-                and blocker.power > 0
-            ):
-                assignments.append(self._combat_assignment(blocker, target=attacker))
-            if (
-                attacker_present
-                and blocker_present
-                and any(
-                    assignment.source_id in {attacker.object_id, blocker.object_id}
-                    for assignment in assignments
-                )
-            ):
-                damaged_pairs.append((attacker, blocker))
+            for blocker in present:
+                if blocker.object_id in eligible and blocker.power > 0:
+                    assignments.append(self._combat_assignment(blocker, target=attacker))
 
         if len(
             {
@@ -7096,16 +7077,19 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if len(source_assignments) <= 1:
                 continue
             source = self._combat_permanent(source_id, "damage source")
-            if (
-                len(source_assignments) != 2
-                or not self.evaluated_trample(source)
-                or sum(item.target_id is not None for item in source_assignments) != 1
-                or sum(item.target_player is not None for item in source_assignments) != 1
-            ):
-                raise AssertionError("split assignments require bounded authoritative Trample")
+            is_multi_block_attacker = source_id in attackers and len(blocks.get(source_id, ())) > 1
+            if (not self.evaluated_trample(source) and not is_multi_block_attacker) or sum(
+                item.target_player is not None for item in source_assignments
+            ) > 1:
+                raise AssertionError("split assignments require bounded combat assignment")
         before_remaining = {
             permanent.object_id
-            for permanent in tuple(attackers.values()) + tuple(blocks.values())
+            for permanent in tuple(attackers.values())
+            + tuple(
+                blocker
+                for group in blocks.values()
+                for blocker in (group if isinstance(group, tuple) else (group,))
+            )
             if self.is_authoritative(permanent, "battlefield")
         }
         trample_life_before: dict[str, int] = {}
@@ -8540,6 +8524,50 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 return fragment, "blocker_power_greater_than_attacker"
         return None
 
+    def _has_menace(self, attacker: Permanent) -> bool:
+        return (
+            "menace" in {keyword.casefold() for keyword in attacker.card.keywords}
+            or any(
+                effect.keyword is TemporaryKeyword.MENACE
+                for effect in attacker.temporary_keyword_effects
+            )
+            or any(
+                fragment.casefold().startswith("menace")
+                for fragment in self.interpreter.fragments(attacker.card)
+            )
+        )
+
+    def _valid_block_assignment(
+        self,
+        attackers: list[Permanent],
+        assignment: tuple[tuple[str, str], ...],
+        defender_index: int,
+    ) -> bool:
+        by_attacker: dict[str, list[str]] = {}
+        for attacker_id, blocker_id in assignment:
+            by_attacker.setdefault(attacker_id, []).append(blocker_id)
+        if len({blocker_id for _, blocker_id in assignment}) != len(assignment):
+            return False
+        attacker_map = {attacker.object_id: attacker for attacker in attackers}
+        if set(by_attacker) - set(attacker_map):
+            return False
+        for attacker in attackers:
+            blocker_ids = by_attacker.get(attacker.object_id, [])
+            if self._has_menace(attacker) and blocker_ids and len(blocker_ids) < 2:
+                return False
+            if blocker_ids and any(
+                "can't be blocked by more than one creature" in fragment.casefold()
+                for fragment in self.interpreter.fragments(attacker.card)
+            ):
+                return False
+            for blocker_id in blocker_ids:
+                blocker = self._objects.get(blocker_id)
+                if not isinstance(blocker, Permanent) or not self.can_block(
+                    attacker, blocker, defender_index
+                ):
+                    return False
+        return True
+
     def _witness_unsupported_block_context(self, attacker: Permanent, blocker: Permanent) -> None:
         """Record a Menace opportunity only for an authoritative blocker candidate."""
         if not (
@@ -8652,9 +8680,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if auto_assign_blockers:
             if blocks is not None:
                 raise ValueError("cannot provide blocks when auto-assigning blockers")
+            block_options = self.legal_block_options(attack, defender)
+            max_blocks = max(len(option.blocks) for option in block_options)
             block_option = max(
-                self.legal_block_options(attack, defender),
-                key=lambda option: len(option.blocks),
+                (option for option in block_options if len(option.blocks) == max_blocks),
+                key=lambda option: tuple(
+                    -attack.attacker_ids.index(attacker_id) for attacker_id, _ in option.blocks
+                ),
             )
         else:
             assert blocks is not None

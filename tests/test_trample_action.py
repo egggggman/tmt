@@ -531,9 +531,8 @@ def test_multiple_blockers_remain_outside_generated_combat_options():
         1,
         blocks=((attacker.object_id, one.object_id), (attacker.object_id, two.object_id)),
     )
-    assert fabricated not in current.legal_block_options(attack, 1)
-    with pytest.raises(ValueError, match="not currently legal"):
-        current.execute_block_action(fabricated)
+    assert fabricated in current.legal_block_options(attack, 1)
+    current.execute_block_action(fabricated)
 
 
 def test_no_card_name_dispatch_and_existing_unknowns_are_unchanged():
