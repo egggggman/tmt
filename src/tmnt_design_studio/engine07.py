@@ -329,6 +329,8 @@ class TriggerEffect(Enum):
     ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
     ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
     SHREDDER_DEATHTOUCH = "shredder_deathtouch"
+    PARAMECIA_EXILE_CHOICE = "paramecia_exile_choice"
+    PARAMECIA_REFLEXIVE_RETURN = "paramecia_reflexive_return"
 
 
 class TemporaryKeyword(Enum):
@@ -1231,6 +1233,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         draw_discard_chooser=None,
         food_search_chooser=None,
         jury_rig_chooser=None,
+        paramecia_exile_chooser=None,
+        paramecia_target_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1299,6 +1303,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._ltb_mutagen_enqueued: set[tuple[str, str, str]] = set()
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
+        self._paramecia_departures = {}
         self._init_vigilante()
         self._init_jury_rig(jury_rig_chooser)
         self._food_search_history = []
@@ -1351,6 +1356,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         self.discard_draw_chooser = discard_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
+        )
+        self.paramecia_exile_chooser = paramecia_exile_chooser or (
+            lambda _controller, _source_id: True
+        )
+        self.paramecia_target_chooser = paramecia_target_chooser or (
+            lambda _controller, _source_id, options: options[0] if options else None
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
         for player in self.players:
@@ -3680,6 +3691,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             raise ValueError("permanent-left counter trigger has mismatched provenance")
         return source if self.is_authoritative(source, "battlefield") else None
 
+    def _paramecia_fragment(self, card: CardFact) -> str | None:
+        target = (
+            "When this creature dies, you may exile it. When you do, put target creature card "
+            "from your graveyard on top of your library."
+        )
+        return next(
+            (fragment for fragment in self.interpreter.fragments(card) if fragment == target), None
+        )
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -3773,6 +3793,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if key in self._ltb_mutagen_enqueued:
                 return
             self._ltb_mutagen_enqueued.add(key)
+        if (
+            effect is TriggerEffect.PARAMECIA_EXILE_CHOICE
+            and (
+                event.kind is not RulesEventKind.CREATURE_DIED
+                or event.subject_ids != (source.object_id,)
+                or source.zone != "former"
+                or fragment != self._paramecia_fragment(source.card)
+            )
+        ):
+            raise ValueError("Paramecia death provenance is invalid")
         trigger = TriggerInstance(
             f"trigger-{self._next_trigger_number:06d}",
             source.controller,
@@ -4028,6 +4058,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._validate_rock_soldiers_trigger(ability)
         if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
             self._validate_shredder_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE
+            and (
+                ability.event.kind is not RulesEventKind.CREATURE_DIED
+                or ability.source_id not in self._paramecia_departures
+            )
+        ):
+            raise ValueError("Paramecia trigger has invalid provenance")
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
@@ -4208,6 +4246,81 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 counters_after=before + 1 if legal else None,
                 placement_cursor=placement_cursor,
             )
+        elif ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE:
+            departure = self._paramecia_departures.get(ability.source_id)
+            if departure is None:
+                raise ValueError("Paramecia departure is missing")
+            _original, grave, _event, fragment = departure
+            chosen = bool(self.paramecia_exile_chooser(ability.controller, ability.source_id))
+            if (
+                chosen
+                and self.winner is None
+                and self._objects.get(grave.object_id) is grave
+                and self.is_authoritative(grave, "graveyard")
+            ):
+                exiled = self.move_object(grave, "exile", reason="paramecia_optional_exile")
+                options = tuple(
+                    card.object_id
+                    for card in self.players[ability.controller].graveyard
+                    if card.card.is_creature
+                )
+                target_id = self.paramecia_target_chooser(
+                    ability.controller, ability.source_id, options
+                )
+                reflexive = TriggeredAbilityObject(
+                    self._allocate_object_id(),
+                    ability.controller,
+                    ability.source_id,
+                    ability.source_card,
+                    fragment,
+                    TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
+                    ability.event,
+                    ability.trigger_id,
+                    target_id=target_id,
+                )
+                self._register(reflexive)
+                self.stack.append(reflexive)
+                self.log(
+                    "paramecia_reflexive_trigger_created",
+                    stack_object_id=reflexive.object_id,
+                    source_id=ability.source_id,
+                    event_id=ability.event.event_id,
+                    exiled_object_id=exiled.object_id,
+                    target_id=target_id,
+                )
+            else:
+                self.log(
+                    "paramecia_exile_declined" if not chosen else "paramecia_terminal_or_invalid",
+                    source_id=ability.source_id,
+                    event_id=ability.event.event_id,
+                )
+        elif ability.effect is TriggerEffect.PARAMECIA_REFLEXIVE_RETURN:
+            target = self._objects.get(ability.target_id or "")
+            legal = (
+                isinstance(target, CardObject)
+                and target.zone == "graveyard"
+                and target.owner == ability.controller
+                and target.card.is_creature
+                and self.is_authoritative(target, "graveyard")
+            )
+            if legal:
+                moved = self.move_object(
+                    target, "library", library_position="top", reason="paramecia_reflexive_return"
+                )
+                self.log(
+                    "paramecia_reflexive_return",
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    destination_object_id=moved.object_id,
+                    event_id=ability.event.event_id,
+                )
+            else:
+                self.log(
+                    "paramecia_target_invalidated",
+                    source_id=ability.source_id,
+                    target_id=ability.target_id,
+                    event_id=ability.event.event_id,
+                )
         elif ability.effect is TriggerEffect.LTB_MUTAGEN:
             self._resolve_ltb_mutagen(ability)
         elif ability.effect is TriggerEffect.CREATE_TOKEN:
@@ -4703,6 +4816,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.PARAMECIA_EXILE_CHOICE,
+                TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -8424,6 +8539,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if isinstance(spell, TriggeredAbilityObject):
             if spell.effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.PARAMECIA_EXILE_CHOICE,
+                TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -8890,6 +9007,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if _departure_authority is None
             else _departure_authority
         )
+        paramecia_fragment = self._paramecia_fragment(permanent.card)
         dies_draw_fragments = tuple(
             fragment
             for fragment in self.interpreter.fragments(permanent.card)
@@ -8917,7 +9035,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             card=permanent.card.name,
             state_based_action=state_based_action,
         )
-        if dies_draw_fragments and last_known_is_creature and not finality:
+        if (dies_draw_fragments or paramecia_fragment) and last_known_is_creature and not finality:
             event = self._new_rules_event(
                 RulesEventKind.CREATURE_DIED,
                 controller,
@@ -8933,6 +9051,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     ),
                 ),
             )
+            if paramecia_fragment:
+                self._paramecia_departures[permanent.object_id] = (
+                    permanent,
+                    replacement,
+                    event,
+                    paramecia_fragment,
+                )
+                self._enqueue_trigger(
+                    event, permanent, paramecia_fragment, TriggerEffect.PARAMECIA_EXILE_CHOICE
+                )
             for fragment in dies_draw_fragments:
                 self._enqueue_trigger(event, permanent, fragment, TriggerEffect.DIES_DRAW)
         return replacement
@@ -8956,6 +9084,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.PARAMECIA_EXILE_CHOICE,
             }
         ):
             self._drain_triggered_abilities()
