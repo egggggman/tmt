@@ -2453,7 +2453,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 raise ValueError("activation context facts do not prove availability")
             if context.context_kind == "permanent_departed" and not (
                 context_facts.get("source_zone") == "battlefield"
-                and context_facts.get("destination_zone") in {"hand", "library", "graveyard"}
+                and context_facts.get("destination_zone")
+                in {
+                    "hand",
+                    "library",
+                    "graveyard",
+                    "exile",
+                }
                 and context.subject_zones == ("former",)
             ):
                 raise ValueError("departure context facts do not prove zone movement")

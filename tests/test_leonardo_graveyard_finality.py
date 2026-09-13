@@ -18,6 +18,15 @@ QUALIFYING = CardFact(
     "Small Grave Creature", "{1}{W}", 2, "Creature ? Turtle", power=1, toughness=3
 )
 POWER_TWO = CardFact("Power Two", "{1}{W}", 2, "Creature ? Turtle", power=2, toughness=2)
+DIES_SMALL = CardFact(
+    "Dies Small",
+    "{1}{W}",
+    2,
+    "Creature ? Turtle",
+    "When this creature dies, draw a card.",
+    power=1,
+    toughness=3,
+)
 TOUGHNESS_ONE = CardFact(
     "Fragile Grave Creature", "{2}{W}", 3, "Creature ? Turtle", power=3, toughness=1
 )
@@ -114,3 +123,66 @@ def test_graveyard_cast_requires_normal_timing_and_mana_payment():
 
 
 ""
+
+
+def test_nonfinality_creature_still_dies_to_graveyard_with_normal_event():
+    current = game()
+    source = current.create_permanent(DIES_SMALL, 0, summoning_sick=False)
+    source.damage = source.toughness
+    current.check_state_based_actions()
+    assert source.zone == "former"
+    assert current.players[0].graveyard[-1].card is DIES_SMALL
+    assert any(event["event"] == "permanent_to_graveyard" for event in current.events)
+    assert any(event.get("rules_event") == "creature_died" for event in current.events)
+
+
+def test_finality_replacement_suppresses_normal_creature_died_event():
+    current = game()
+    grave, option = grave_cast_option(current, DIES_SMALL)
+    current.execute_main_action(option)
+    incarnation = next(
+        permanent for permanent in current.players[0].battlefield if permanent.card is DIES_SMALL
+    )
+    incarnation.damage = incarnation.toughness
+    current.check_state_based_actions()
+    assert current.players[0].exile[-1].card is DIES_SMALL
+    assert any(event["event"] == "permanent_to_exile" for event in current.events)
+    assert not any(
+        event.get("rules_event") == "creature_died"
+        and event.get("subject_ids") == [incarnation.object_id]
+        for event in current.events
+    )
+    assert grave.zone == "former"
+
+
+def test_graveyard_cast_lineage_preserves_each_authoritative_identity_and_reason():
+    current = game()
+    grave, option = grave_cast_option(current, QUALIFYING)
+    stack = current.announce_spell(0, grave, cast_from_graveyard=True)
+    assert stack is not None
+    assert grave.zone == "former" and stack.zone == "stack"
+    assert any(
+        event["event"] == "zone_changed"
+        and event["source_object_id"] == grave.object_id
+        and event["destination_object_id"] == stack.object_id
+        and event["source_zone"] == "graveyard"
+        and event["destination_zone"] == "stack"
+        and event["reason"] == "spell_cast_from_graveyard"
+        for event in current.events
+    )
+    permanent = current.resolve_top_of_stack()
+    assert permanent is not None and permanent.zone == "battlefield"
+    assert permanent.object_id not in {grave.object_id, stack.object_id}
+    permanent.damage = permanent.toughness
+    current.check_state_based_actions()
+    exile = current.players[0].exile[-1]
+    assert exile.zone == "exile"
+    assert exile.object_id not in {grave.object_id, stack.object_id, permanent.object_id}
+    assert any(
+        event["event"] == "zone_changed"
+        and event["source_object_id"] == permanent.object_id
+        and event["destination_object_id"] == exile.object_id
+        and event["destination_zone"] == "exile"
+        and event["reason"] == "finality_exile"
+        for event in current.events
+    )
