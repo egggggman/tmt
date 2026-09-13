@@ -44,6 +44,7 @@ from tmnt_design_studio.conformance07 import (
 from tmnt_design_studio.food_search07 import FoodSearchMixin
 from tmnt_design_studio.jury_rig07 import JuryRigMixin
 from tmnt_design_studio.krang_refill07 import KrangRefillMixin
+from tmnt_design_studio.mana_ledger07 import FloatingManaLedger
 from tmnt_design_studio.mill_three07 import MillThreeMixin
 from tmnt_design_studio.pilot_input_v2 import (
     DiscardDrawViewV2,
@@ -1294,6 +1295,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._regular_damage_initial_ids: tuple[str, ...] = ()
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
+        self.floating_mana = FloatingManaLedger()
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self._stun_selections: dict[str, StunTargetSelection] = {}
@@ -7814,7 +7816,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
         )
-        if choice_ids or semantics.program.choices_required:
+        if semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA and (
+            choice_ids or semantics.program.choices_required
+        ):
+            return None
+        if (
+            semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+            and choice_ids not in {("W",), ("U",), ("B",), ("R",), ("G",), ("C",)}
+        ):
             return None
         if counter_target:
             if len(target_ids) != 1 or not self._is_legal_counter_target(
@@ -8134,6 +8143,18 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         delivered = False
         food_life_before: int | None = None
+        if ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
+            self.floating_mana.add(
+                ability.controller, ability.source_id, ability.choice_ids[0], 1, ability.object_id
+            )
+            self.log(
+                "floating_mana_produced",
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+                color=ability.choice_ids[0],
+                quantity=1,
+            )
+            delivered = True
         if (
             ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             and isinstance(source, CardObject)
