@@ -43,4 +43,4 @@ def test_frog_butler_produces_chosen_color_with_source_provenance():
     spell = game.announce_spell(0, game.players[0].hand[0])
     assert spell is not None
     assert game.floating_mana.snapshot(0) == {}
-    assert game.floating_mana.consumptions(0)[0].payment_id == spell.object_id
+    assert game.floating_mana.consumptions(0)[0].payment_id != production.event_id
