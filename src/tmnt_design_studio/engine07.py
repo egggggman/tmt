@@ -331,6 +331,8 @@ class TriggerEffect(Enum):
     SHREDDER_DEATHTOUCH = "shredder_deathtouch"
     PARAMECIA_EXILE_CHOICE = "paramecia_exile_choice"
     PARAMECIA_REFLEXIVE_RETURN = "paramecia_reflexive_return"
+    RAPHAEL_ALLIANCE_EXILE = "raphael_alliance_exile"
+    RAPHAEL_ATTACK_PLAY = "raphael_attack_play"
 
 
 class TemporaryKeyword(Enum):
@@ -835,6 +837,7 @@ class StackObject:
     sneak_oracle_fragment: str | None = None
     cast_from_graveyard: bool = False
     finality_on_entry: bool = False
+    cast_from_raphael: bool = False
     sneak_mana_source_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
 
@@ -1235,6 +1238,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         jury_rig_chooser=None,
         paramecia_exile_chooser=None,
         paramecia_target_chooser=None,
+        raphael_exile_chooser=None,
+        raphael_play_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1304,6 +1309,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
         self._paramecia_departures = {}
+        self._raphael_linked_exile = {}
+        self._raphael_permissions = {}
         self._init_vigilante()
         self._init_jury_rig(jury_rig_chooser)
         self._food_search_history = []
@@ -1361,6 +1368,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             lambda _controller, _source_id: True
         )
         self.paramecia_target_chooser = paramecia_target_chooser or (
+            lambda _controller, _source_id, options: options[0] if options else None
+        )
+        self.raphael_exile_chooser = raphael_exile_chooser or (lambda _controller, _source_id: True)
+        self.raphael_play_chooser = raphael_play_chooser or (
             lambda _controller, _source_id, options: options[0] if options else None
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
@@ -1607,6 +1618,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         summoning_sick: bool = True,
         cast_from_graveyard: bool = False,
         finality_on_entry: bool = False,
+        cast_from_raphael: bool = False,
         reason: str | None = None,
         library_position: Literal["top", "bottom"] | None = None,
         _departure_authority: tuple[tuple[str, int], ...] | None = None,
@@ -1708,6 +1720,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 target_id,
                 cast_from_graveyard=cast_from_graveyard,
                 finality_on_entry=finality_on_entry,
+                cast_from_raphael=cast_from_raphael,
             )
             destination_container = self.stack
         else:
@@ -4682,6 +4695,53 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     stack_object_id=ability.object_id,
                     trigger_id=ability.trigger_id,
                 )
+        elif ability.effect is TriggerEffect.RAPHAEL_ALLIANCE_EXILE:
+            source = self._objects.get(ability.source_id)
+            if (
+                not isinstance(source, Permanent)
+                or not self.is_authoritative(source, "battlefield")
+                or not self.raphael_exile_chooser(ability.controller, ability.source_id)
+            ):
+                self.log("raphael_alliance_exile_declined", source_id=ability.source_id)
+            elif self.players[ability.controller].library:
+                top = self.players[ability.controller].library[-1]
+                moved = self.move_object(top, "exile", reason="raphael_alliance_exile")
+                self._raphael_linked_exile.setdefault(ability.source_id, []).append(
+                    (moved.object_id, moved.card, source.object_id)
+                )
+                self.log(
+                    "raphael_linked_exile",
+                    source_id=ability.source_id,
+                    exiled_object_id=moved.object_id,
+                    card=moved.card.name,
+                    event_id=ability.event.event_id,
+                )
+            else:
+                self.log("raphael_alliance_exile_empty", source_id=ability.source_id)
+        elif ability.effect is TriggerEffect.RAPHAEL_ATTACK_PLAY:
+            source = self._objects.get(ability.source_id)
+            links = tuple(self._raphael_linked_exile.get(ability.source_id, ()))
+            if isinstance(source, Permanent) and self.is_authoritative(source, "battlefield"):
+                options = tuple(
+                    item[0]
+                    for item in links
+                    if self._objects.get(item[0]) is not None
+                    and self.is_authoritative(self._objects[item[0]], "exile")
+                )
+                chosen = self.raphael_play_chooser(ability.controller, ability.source_id, options)
+                self._raphael_permissions[ability.source_id] = (
+                    self.turn,
+                    chosen if chosen in options else None,
+                )
+                self.log(
+                    "raphael_play_permission_created",
+                    source_id=ability.source_id,
+                    exiled_object_ids=list(options),
+                    chosen_object_id=chosen if chosen in options else None,
+                    expires_turn=self.turn,
+                )
+            else:
+                self.log("raphael_attack_source_departed", source_id=ability.source_id)
         elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
             match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -4812,6 +4872,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
+                TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
+                TriggerEffect.RAPHAEL_ATTACK_PLAY,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -5652,6 +5714,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     and self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(fragment)
                 ):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_COUNTER)
+                if (
+                    TriggerEffect.RAPHAEL_ALLIANCE_EXILE in enabled
+                    and fragment.startswith("Alliance")
+                    and "may exile the top card of your library" in fragment
+                ):
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.RAPHAEL_ALLIANCE_EXILE
+                    )
                 if TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE in enabled:
                     semantics = self.interpreter.temporary_keyword_choice_semantic_coverage(
                         source.card, fragment
@@ -5695,6 +5765,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             TriggerEffect.SNEAK_ETB_CONDITION,
             TriggerEffect.ALLIANCE_PT,
             TriggerEffect.ALLIANCE_COUNTER,
+            TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
             TriggerEffect.ALLIANCE_MODAL,
             TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             TriggerEffect.CREATE_TOKEN,
@@ -6054,6 +6125,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     )
                 if self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ATTACK_PT)
+                if fragment.startswith("Whenever Raphael attacks") or (
+                    fragment.startswith("Whenever ")
+                    and "until end of turn, you may play a card exiled with Raphael." in fragment
+                ):
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.RAPHAEL_ATTACK_PLAY
+                    )
                 token_coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
                 if (
                     token_coverage is not None
@@ -7410,7 +7488,26 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._advance_after_combat_damage()
         return evidence
 
-    def play_land(self, player_index: int, card: CardObject) -> bool:
+    def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
+        for source_id, (expiry_turn, chosen_id) in self._raphael_permissions.items():
+            if expiry_turn != self.turn or chosen_id != card.object_id:
+                continue
+            if any(
+                linked_id == card.object_id and owner_id == source_id
+                for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
+                    source_id, ()
+                )
+            ):
+                source = self._objects.get(source_id)
+                if (
+                    isinstance(source, Permanent)
+                    and source.controller == player_index
+                    and card.owner == player_index
+                ):
+                    return source_id
+        return None
+
+    def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:
         player = self.players[player_index]
         if player_index != self.active_player or self.step not in {
             TurnStep.PRECOMBAT_MAIN,
@@ -7419,9 +7516,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             return False
         if (
             not card.is_land
-            or not self.is_authoritative(card, "hand")
+            or not (
+                self.is_authoritative(card, "exile")
+                if from_raphael
+                else self.is_authoritative(card, "hand")
+            )
             or card.owner != player_index
             or player.lands_played >= 1
+            or (from_raphael and self._raphael_permission_for(player_index, card) is None)
         ):
             return False
         self.move_object(
@@ -7429,7 +7531,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             "battlefield",
             controller=player_index,
             summoning_sick=False,
-            reason="land_played",
+            reason="raphael_land_played" if from_raphael else "land_played",
         )
         self.refresh_static_pt_modifiers()
         player.lands_played += 1
@@ -8169,10 +8271,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             raise AssertionError("Food stack object disagrees with activation provenance")
 
     def payment_plan(
-        self, player_index: int, card: CardObject, *, allow_graveyard: bool = False
+        self,
+        player_index: int,
+        card: CardObject,
+        *,
+        allow_graveyard: bool = False,
+        allow_exile: bool = False,
     ) -> PaymentPlan | None:
         """Build one deterministic legal payment without mutating authoritative state."""
-        source_zone = "graveyard" if allow_graveyard else "hand"
+        source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
         if not self.is_authoritative(card, source_zone) or card.owner != player_index:
             return None
         requirement = self.mana_requirement(card)
@@ -8233,9 +8340,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         target_id: str | None,
         cast_from_graveyard: bool = False,
         finality_on_entry: bool = False,
+        cast_from_raphael: bool = False,
     ) -> StackObject:
         """Atomically pay a revalidated plan and move the represented card Hand -> Stack."""
-        if plan != self.payment_plan(plan.player_index, card, allow_graveyard=cast_from_graveyard):
+        if plan != self.payment_plan(
+            plan.player_index,
+            card,
+            allow_graveyard=cast_from_graveyard,
+            allow_exile=cast_from_raphael,
+        ):
             raise ValueError("payment plan is no longer legal")
         sources: list[Permanent] = []
         for object_id in plan.source_ids:
@@ -8257,6 +8370,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 target_id=target_id,
                 cast_from_graveyard=cast_from_graveyard,
                 finality_on_entry=finality_on_entry,
+                cast_from_raphael=cast_from_raphael,
                 reason="spell_cast_from_graveyard" if cast_from_graveyard else "spell_cast",
             )
         except Exception:
@@ -8428,6 +8542,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         target: Permanent | None = None,
         *,
         cast_from_graveyard: bool = False,
+        cast_from_exile: bool = False,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -8437,12 +8552,18 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             or not (
                 self.is_authoritative(card, "graveyard")
                 if cast_from_graveyard
-                else self.is_authoritative(card, "hand")
+                else (
+                    self.is_authoritative(card, "exile")
+                    if cast_from_exile
+                    else self.is_authoritative(card, "hand")
+                )
             )
             or card.owner != player_index
         ):
             return None
         permission = None
+        if cast_from_exile and self._raphael_permission_for(player_index, card) is None:
+            return None
         if cast_from_graveyard:
             permission = next(
                 (
@@ -8502,7 +8623,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 oracle_fragment=card.mana_cost or "zero mana cost",
             )
             return None
-        plan = self.payment_plan(player_index, card, allow_graveyard=cast_from_graveyard)
+        plan = self.payment_plan(
+            player_index, card, allow_graveyard=cast_from_graveyard, allow_exile=cast_from_exile
+        )
         if plan is None:
             return None
         spell = self._commit_announcement_payment(
@@ -8512,6 +8635,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             target_id=target_id,
             cast_from_graveyard=cast_from_graveyard,
             finality_on_entry=cast_from_graveyard,
+            cast_from_raphael=cast_from_exile,
         )
         self.log(
             "spell_cast",
@@ -8535,6 +8659,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
+                TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
+                TriggerEffect.RAPHAEL_ATTACK_PLAY,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
