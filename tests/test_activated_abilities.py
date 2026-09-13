@@ -23,12 +23,12 @@ from tmnt_design_studio.engine07 import (
 from tmnt_design_studio.pilot07 import AcceptancePilot
 
 ROOT = Path(__file__).resolve().parents[1]
-LAND = CardFact("Plains", "", 0, "Basic Land â€” Plains", "({T}: Add {W}.)")
+LAND = CardFact("Plains", "", 0, "Basic Land Ã¢â‚¬â€ Plains", "({T}: Add {W}.)")
 LEONARDO = CardFact(
     "Leonardo, Leader in Blue",
     "{2}{W}{W}",
     4,
-    "Legendary Creature â€” Mutant Ninja Turtle",
+    "Legendary Creature Ã¢â‚¬â€ Mutant Ninja Turtle",
     "{1}{W}: Leonardo gains first strike until end of turn.",
     3,
     4,
@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "35ccf2712e06f6cd0b93d03dbb867e909a6c8350e3e84616d0cee9b14f067190"
-EXECUTABLE_DIGEST = "d08c4cf955f2599cbfdf06962313d2d8cfb35507d0d90ff8a4b7fa512edaef91"
+EXECUTABLE_DIGEST = "d3486fc39737e3ab5db521d8486870c35f958ece215802e9fc60bb5c995c6406"
 
 
 def game(seed=51):
@@ -560,7 +560,7 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 131 and len(recognized) == 156
-    assert len({item[0] for item in executable}) == 7 and len(executable) == 7
+    assert len({item[0] for item in executable}) == 7 and len(executable) == 8
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",

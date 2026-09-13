@@ -169,6 +169,7 @@ def decision_context(game: Game, observer_index: int) -> DecisionContextV2:
             status += tuple(
                 ("temporary_" + tag.value, game.has_temporary_keyword(permanent, tag))
                 for tag in TemporaryKeyword
+                if tag is not TemporaryKeyword.REACH
             )
             rows.append(
                 BattlefieldViewV2(
