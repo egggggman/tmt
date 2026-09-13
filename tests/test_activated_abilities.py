@@ -615,7 +615,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "donatello",
         "krang",
         "leonardo",
-           "splinter",
+        "splinter",
     }
     assert full == executable
     assert {
