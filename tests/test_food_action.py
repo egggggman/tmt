@@ -419,7 +419,7 @@ def test_food_stack_rejects_fabricated_evidence_and_duplicate_resolution():
 
 def test_other_token_activations_and_arbitrary_sacrifice_costs_remain_unsupported():
     interpreter = CardInterpreter()
-    for name in ("mutagen", "treasure", "clue"):
+    for name in ("treasure", "clue"):
         token = interpreter.PREDEFINED_TOKENS[name]
         semantics = interpreter.activated_ability_semantics(token, token.oracle_text)
         assert semantics is not None and not semantics.coverage.fully_supported

@@ -26,6 +26,7 @@ class CastKind(Enum):
     CREATURE = "creature"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
+    OOZE_SPILL = "ooze_spill"
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
         "destroy_artifact_enchantment_or_power_4_creature"
     )
@@ -406,6 +407,7 @@ class ActivatedEffectKind(Enum):
     )
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
+    MUTAGEN_COUNTER = "mutagen_counter"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
     UNSUPPORTED = "unsupported"
@@ -746,6 +748,10 @@ class CardInterpreter:
         return InterpretedSneakSemantics(program, coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if card.type_line.startswith("Instant") and card.oracle_text.startswith(
+            "Counter target spell. Create a Mutagen token."
+        ):
+            return CastProgram(CastKind.OOZE_SPILL)
         if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
             return CastProgram(CastKind.DAMAGE_3_OPPOSING_CREATURE)
         damage = self.damage_semantic_coverage(card, card.oracle_text)
@@ -1639,6 +1645,10 @@ class CardInterpreter:
             self._is_canonical_food_source(card)
             and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
         )
+        mutagen_source = "Mutagen" in card.type_line and fragment.strip() == (
+            "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
+            "Activate only as a sorcery."
+        )
         remove_counter_target = any(
             part.casefold() == "remove a +1/+1 counter from a creature you control"
             for part in cost_parts
@@ -1646,7 +1656,11 @@ class CardInterpreter:
         sacrifice_source = any(
             part.casefold() in {"sacrifice this token", "sacrifice this creature"}
             for part in cost_parts
-        ) and (canonical_food or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None)
+        ) and (
+            canonical_food
+            or mutagen_source
+            or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None
+        )
         mana_parts = tuple(
             part
             for part in cost_parts
@@ -1728,6 +1742,9 @@ class CardInterpreter:
         if counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
             action_match = True
+        elif mutagen_source:
+            effect_kind = ActivatedEffectKind.MUTAGEN_COUNTER
+            action_match = True
         elif ray_fillets:
             effect_kind = ActivatedEffectKind.DRAW_CARD
             action_match = True
@@ -1748,22 +1765,27 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            targeted_return
-            and instructions
-            and return_semantics is not None
-            and return_semantics.coverage.parent_executable
+            (mutagen_source and instructions)
+            or (
+                targeted_return
+                and instructions
+                and return_semantics is not None
+                and return_semantics.coverage.parent_executable
+            )
         )
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None
+            else instructions is None or mutagen_source
         )
         targets_choices_executable = not choices_required and (
-            target_count == 0 or bool(targeted_return or counter_target) and target_count == 1
+            target_count == 0
+            or bool(targeted_return or counter_target or mutagen_source)
+            and target_count == 1
         )
         if targeted_return and return_semantics is not None:
             followup_executable = return_semantics.coverage.followup_executable
-        elif canonical_food or counter_target or ray_fillets or token_haste:
+        elif canonical_food or counter_target or mutagen_source or ray_fillets or token_haste:
             followup_executable = bool(action_match)
         else:
             followup_executable = bool(action_match) and not action_match.group("followup").strip()

@@ -4133,6 +4133,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._preflight_mill_three(ability)
         self.stack.pop()
         ability.zone = "former"
+        for index, evidence in enumerate(self.activation_evidence):
+            if evidence.stack_object_id == ability.object_id:
+                self.activation_evidence[index] = replace(evidence, resolved=True)
+                break
         source = self._objects.get(ability.source_id)
         source_permanent = (
             source
@@ -5935,7 +5939,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 else {}
             ),
         )
-        self.check_state_based_actions()
+        if not self._priority_resolution_in_progress:
+            self.check_state_based_actions()
 
     def resolve_creature_entered_counter_effects(self, entering: Permanent) -> None:
         self._process_creature_entered_triggers(
@@ -6516,6 +6521,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 and protected.controller == controller
                 and "Artifact" in protected.type_line
             )
+        )
+
+    def _is_legal_ooze_target(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, StackObject)
+            and self.is_authoritative(target, "stack")
+            and target.controller != controller
         )
 
     def _legal_counter_target_ids(self, controller: int) -> tuple[str, ...]:
@@ -7736,6 +7748,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if semantics is None or not semantics.coverage.fully_supported:
             return None
         counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
+        mutagen_counter = semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER
         targeted_return = (
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
@@ -7745,6 +7758,16 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if counter_target:
             if len(target_ids) != 1 or not self._is_legal_counter_target(
                 self._objects.get(target_ids[0]), player_index
+            ):
+                return None
+        elif mutagen_counter:
+            if len(target_ids) != 1:
+                return None
+            target = self._objects.get(target_ids[0])
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or not target.card.is_creature
             ):
                 return None
         elif targeted_return:
@@ -8093,6 +8116,35 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 recipient_ids=[p.object_id for p in recipients],
                 quantity=len(recipients),
             )
+        elif ability.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
+            target = self._objects.get(ability.target_ids[0]) if ability.target_ids else None
+            if (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.card.is_creature
+            ):
+                self.place_counters(
+                    target,
+                    "+1/+1",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                )
+                self.log(
+                    "mutagen_counter_placed",
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    stack_object_id=ability.object_id,
+                )
+                delivered = True
+            else:
+                self.log(
+                    "mutagen_counter_failed_closed",
+                    source_id=ability.source_id,
+                    target_id=ability.target_ids[0] if ability.target_ids else None,
+                )
         elif ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
             target = (
                 self._objects.get(ability.target_ids[0]) if len(ability.target_ids) == 1 else None
@@ -8592,6 +8644,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 )
                 return None
             target_id = target.object_id
+        elif program.kind is CastKind.OOZE_SPILL:
+            if (
+                target is None
+                or not isinstance(target, StackObject)
+                or not self._is_legal_ooze_target(target, player_index)
+            ):
+                return None
+            target_id = target.object_id
         elif program.kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             if (
                 target is None
@@ -8773,6 +8833,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = legal_target and target.controller != spell.controller
+        elif spell.cast_kind is CastKind.OOZE_SPILL:
+            legal_target = self._is_legal_ooze_target(target, spell.controller)
         elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             legal_target = (
                 legal_target
@@ -8793,10 +8855,30 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 reason="all_targets_illegal",
             )
             return resolved_card
-        assert isinstance(target, Permanent)
+        if spell.cast_kind is not CastKind.OOZE_SPILL:
+            assert isinstance(target, Permanent)
         filter_plan = None
         filter_semantics = None
-        if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
+        if spell.cast_kind is CastKind.OOZE_SPILL:
+            assert isinstance(target, StackObject)
+            countered = self.move_object(target, "graveyard", reason="ooze_spill_countered")
+            mutagen = self.interpreter.PREDEFINED_TOKENS["mutagen"]
+            program = TokenCreationProgram(mutagen, 1)
+            created = self.create_tokens(
+                spell.controller,
+                program,
+                source_card=spell.card.name,
+                oracle_fragment=spell.card.oracle_text,
+                source_id=spell.object_id,
+            )
+            self.log(
+                "ooze_spill_resolved",
+                stack_object_id=spell.object_id,
+                target_spell_id=target.object_id,
+                countered_object_id=countered.object_id,
+                mutagen_token_id=created[0].object_id,
+            )
+        elif spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             semantics = self.interpreter.damage_semantic_coverage(
                 spell.card, spell.card.oracle_text
             )
