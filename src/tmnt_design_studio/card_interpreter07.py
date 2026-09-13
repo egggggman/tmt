@@ -408,6 +408,7 @@ class ActivatedEffectKind(Enum):
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
     MUTAGEN_COUNTER = "mutagen_counter"
+    RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
     UNSUPPORTED = "unsupported"
@@ -1649,6 +1650,11 @@ class CardInterpreter:
             "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
             "Activate only as a sorcery."
         )
+        tunnel_rats_return = (
+            card.name == "Tunnel Rats"
+            and fragment.strip()
+            == "{4}{B}: Return this card from your graveyard to the battlefield tapped."
+        )
         remove_counter_target = any(
             part.casefold() == "remove a +1/+1 counter from a creature you control"
             for part in cost_parts
@@ -1742,6 +1748,9 @@ class CardInterpreter:
         if counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
             action_match = True
+        elif tunnel_rats_return:
+            effect_kind = ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+            action_match = True
         elif mutagen_source:
             effect_kind = ActivatedEffectKind.MUTAGEN_COUNTER
             action_match = True
@@ -1785,7 +1794,14 @@ class CardInterpreter:
         )
         if targeted_return and return_semantics is not None:
             followup_executable = return_semantics.coverage.followup_executable
-        elif canonical_food or counter_target or mutagen_source or ray_fillets or token_haste:
+        elif (
+            canonical_food
+            or counter_target
+            or tunnel_rats_return
+            or mutagen_source
+            or ray_fillets
+            or token_haste
+        ):
             followup_executable = bool(action_match)
         else:
             followup_executable = bool(action_match) and not action_match.group("followup").strip()
