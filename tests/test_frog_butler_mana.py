@@ -34,3 +34,13 @@ def test_frog_butler_produces_chosen_color_with_source_provenance():
     assert game.floating_mana.snapshot(0) == {"U": 1}
     production = game.floating_mana.productions(0)[0]
     assert production.source_id == frog.object_id and production.color == "U"
+    spell_card = CardFact("Off Color Spell", "{U}", 1, "Sorcery", "Draw a card.")
+    game.set_hand_for_testing(0, [spell_card])
+    second = StackObject(game._allocate_object_id(), FROG, 1, 1, CastKind.CREATURE)
+    game._register(second)
+    game.stack.append(second)
+    game._begin_priority_window()
+    spell = game.announce_spell(0, game.players[0].hand[0])
+    assert spell is not None
+    assert game.floating_mana.snapshot(0) == {}
+    assert game.floating_mana.consumptions(0)[0].payment_id == spell.object_id

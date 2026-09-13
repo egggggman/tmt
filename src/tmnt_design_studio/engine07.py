@@ -191,6 +191,7 @@ class PaymentPlan:
     card_object_id: str
     requirement: ManaRequirement
     source_ids: tuple[str, ...]
+    floating_colors: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -8426,36 +8427,69 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         allow_graveyard: bool = False,
         allow_exile: bool = False,
     ) -> PaymentPlan | None:
-        """Build one deterministic legal payment without mutating authoritative state."""
         source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
         if not self.is_authoritative(card, source_zone) or card.owner != player_index:
             return None
         requirement = self.mana_requirement(card)
         if requirement is None:
             return None
+        pool = self.floating_mana.snapshot(player_index)
+        floating: list[str] = []
+        for color in requirement.colored:
+            if pool.get(color, 0):
+                pool[color] -= 1
+                floating.append(color)
+            else:
+                break
+        else:
+            remaining_generic = requirement.generic
+            for color, quantity in sorted(pool.items()):
+                take = min(quantity, remaining_generic)
+                floating.extend([color] * take)
+                remaining_generic -= take
+                if remaining_generic == 0:
+                    break
+            available = [
+                p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+            ]
+            chosen: list[Permanent] = []
+            for color in requirement.colored[len(floating) :]:
+                source = next((p for p in available if self._mana_color(p) == color), None)
+                if source is None:
+                    return None
+                chosen.append(source)
+                available.remove(source)
+            need = requirement.generic - max(0, len(floating) - len(requirement.colored))
+            if len(available) < need:
+                return None
+            chosen.extend(available[:need])
+            return PaymentPlan(
+                player_index,
+                card.object_id,
+                requirement,
+                tuple(p.object_id for p in chosen),
+                tuple(floating),
+            )
         available = [
-            permanent
-            for permanent in self.players[player_index].battlefield
-            if permanent.card.is_land and not permanent.tapped
+            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]
         chosen: list[Permanent] = []
-        for color in requirement.colored:
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) == color),
-                None,
-            )
+        for color in requirement.colored[len(floating) :]:
+            source = next((p for p in available if self._mana_color(p) == color), None)
             if source is None:
                 return None
             chosen.append(source)
             available.remove(source)
-        if len(available) < requirement.generic:
+        need = requirement.generic
+        if len(available) < need:
             return None
-        chosen.extend(available[: requirement.generic])
+        chosen.extend(available[:need])
         return PaymentPlan(
             player_index,
             card.object_id,
             requirement,
-            tuple(source.object_id for source in chosen),
+            tuple(p.object_id for p in chosen),
+            tuple(floating),
         )
 
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
@@ -8498,6 +8532,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             allow_exile=cast_from_raphael,
         ):
             raise ValueError("payment plan is no longer legal")
+        for color in plan.floating_colors:
+            self.floating_mana.consume(plan.player_index, color, 1, card.object_id)
         sources: list[Permanent] = []
         for object_id in plan.source_ids:
             source = self._objects.get(object_id)
