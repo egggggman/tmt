@@ -1,0 +1,706 @@
+{
+  "action_33": "NOT AUTHORIZED",
+  "analysis": {
+    "epsilon": 0.0433976636824832,
+    "epsilon_formula": "sqrt(log(2*56/0.05)/(2*2048))",
+    "familywise_alpha": 0.05,
+    "matchup_band": [
+      0.25,
+      0.75
+    ],
+    "method": "Hoeffding bounded independent block means plus union bound",
+    "otherwise": "INCONCLUSIVE",
+    "primary_band": [
+      0.4,
+      0.6
+    ],
+    "primary_endpoints": 10,
+    "review_flag": "Lower bound strictly above upper tolerance OR upper bound strictly below lower tolerance",
+    "secondary_matchup_endpoints": 45,
+    "secondary_starting_seat_endpoints": 1,
+    "sequential_stopping": false,
+    "starting_seat_band": [
+      0.45,
+      0.55
+    ],
+    "total_simultaneous_endpoints": 56,
+    "within_band": "Entire closed interval inside closed band"
+  },
+  "authorized": false,
+  "calibration": "BLOCKED",
+  "design": {
+    "blocks": 2048,
+    "cap_boundary": "Stop before entering turn 120 without a supported authoritative terminal state",
+    "distinct_games": 184320,
+    "duplicate_members": [
+      "first",
+      "second"
+    ],
+    "execution_order": [
+      "block",
+      "pair",
+      "orientation",
+      "duplicate_member"
+    ],
+    "independent_analysis_unit": "whole_roster_block",
+    "mirror_matches": false,
+    "opponent_weight": "1/9",
+    "orientations": [
+      "canonical",
+      "reversed"
+    ],
+    "pair_count": 45,
+    "pairs": [
+      {
+        "decks": [
+          "april_oneil",
+          "bebop_rocksteady"
+        ],
+        "pair_index": 0
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "casey_jones"
+        ],
+        "pair_index": 1
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "donatello"
+        ],
+        "pair_index": 2
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "krang"
+        ],
+        "pair_index": 3
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "leonardo"
+        ],
+        "pair_index": 4
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "michelangelo"
+        ],
+        "pair_index": 5
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "raphael"
+        ],
+        "pair_index": 6
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "shredder"
+        ],
+        "pair_index": 7
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "splinter"
+        ],
+        "pair_index": 8
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "casey_jones"
+        ],
+        "pair_index": 9
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "donatello"
+        ],
+        "pair_index": 10
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "krang"
+        ],
+        "pair_index": 11
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "leonardo"
+        ],
+        "pair_index": 12
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "michelangelo"
+        ],
+        "pair_index": 13
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "raphael"
+        ],
+        "pair_index": 14
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "shredder"
+        ],
+        "pair_index": 15
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "splinter"
+        ],
+        "pair_index": 16
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "donatello"
+        ],
+        "pair_index": 17
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "krang"
+        ],
+        "pair_index": 18
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "leonardo"
+        ],
+        "pair_index": 19
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "michelangelo"
+        ],
+        "pair_index": 20
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "raphael"
+        ],
+        "pair_index": 21
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "shredder"
+        ],
+        "pair_index": 22
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "splinter"
+        ],
+        "pair_index": 23
+      },
+      {
+        "decks": [
+          "donatello",
+          "krang"
+        ],
+        "pair_index": 24
+      },
+      {
+        "decks": [
+          "donatello",
+          "leonardo"
+        ],
+        "pair_index": 25
+      },
+      {
+        "decks": [
+          "donatello",
+          "michelangelo"
+        ],
+        "pair_index": 26
+      },
+      {
+        "decks": [
+          "donatello",
+          "raphael"
+        ],
+        "pair_index": 27
+      },
+      {
+        "decks": [
+          "donatello",
+          "shredder"
+        ],
+        "pair_index": 28
+      },
+      {
+        "decks": [
+          "donatello",
+          "splinter"
+        ],
+        "pair_index": 29
+      },
+      {
+        "decks": [
+          "krang",
+          "leonardo"
+        ],
+        "pair_index": 30
+      },
+      {
+        "decks": [
+          "krang",
+          "michelangelo"
+        ],
+        "pair_index": 31
+      },
+      {
+        "decks": [
+          "krang",
+          "raphael"
+        ],
+        "pair_index": 32
+      },
+      {
+        "decks": [
+          "krang",
+          "shredder"
+        ],
+        "pair_index": 33
+      },
+      {
+        "decks": [
+          "krang",
+          "splinter"
+        ],
+        "pair_index": 34
+      },
+      {
+        "decks": [
+          "leonardo",
+          "michelangelo"
+        ],
+        "pair_index": 35
+      },
+      {
+        "decks": [
+          "leonardo",
+          "raphael"
+        ],
+        "pair_index": 36
+      },
+      {
+        "decks": [
+          "leonardo",
+          "shredder"
+        ],
+        "pair_index": 37
+      },
+      {
+        "decks": [
+          "leonardo",
+          "splinter"
+        ],
+        "pair_index": 38
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "raphael"
+        ],
+        "pair_index": 39
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "shredder"
+        ],
+        "pair_index": 40
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "splinter"
+        ],
+        "pair_index": 41
+      },
+      {
+        "decks": [
+          "raphael",
+          "shredder"
+        ],
+        "pair_index": 42
+      },
+      {
+        "decks": [
+          "raphael",
+          "splinter"
+        ],
+        "pair_index": 43
+      },
+      {
+        "decks": [
+          "shredder",
+          "splinter"
+        ],
+        "pair_index": 44
+      }
+    ],
+    "seed_design": "Independent uniform 256-bit integers with replacement per block/pair; 32 bytes unsigned big-endian; table sealed before gameplay",
+    "seed_rows": 92160,
+    "seeds_generated": 0,
+    "total_executions": 368640,
+    "turn_cap": 120
+  },
+  "execution_freeze": {
+    "accepted_protocol_commit": null,
+    "analyzer_manifest_sha256": null,
+    "execution_commit": null,
+    "hq_release_authorization": null,
+    "runner_manifest_sha256": null,
+    "seed_manifest_sha256": null,
+    "status": "UNSEALED_BLOCKS_EXECUTION",
+    "toolchain_manifest_sha256": null
+  },
+  "filtering": "INCONCLUSIVE",
+  "hashing_contract": "SHA-256 of committed git show reference_commit:path bytes; not checkout bytes",
+  "pilot_fitness": "PASS_DEMONSTRATED_SURFACE_ONLY",
+  "preparation": {
+    "gameplay_test_executions": 0,
+    "games": 0,
+    "pilot_calls": 0,
+    "scoring_calls": 0,
+    "seed_draws": 0,
+    "static_checks": [
+      "reference/main/origin identity",
+      "accepted register ancestry",
+      "10 deck identities and 45 unique pairs",
+      "184320 games and 368640 executions",
+      "56-endpoint union-bound arithmetic",
+      "committed source hashes",
+      "local links",
+      "documentation-only scope"
+    ]
+  },
+  "privacy": "INCONCLUSIVE",
+  "protocol_id": "CALIBRATION_PROTOCOL_V1_REVIEW_CANDIDATE",
+  "prototype_0_3": "NOT AUTHORIZED",
+  "reduced_scope_authorized": false,
+  "reference_commit": "3025000fd9e9a3ff39d46f937f9634facc7d8ab1",
+  "reference_decks": [
+    {
+      "deck_id": "april_oneil",
+      "git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+      "path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+      "sha256": "ef43b0dc98524ec84642e4d19364d29251aba2ae8614976348949ff4dca436ef"
+    },
+    {
+      "deck_id": "bebop_rocksteady",
+      "git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+      "path": "decks/bebop_rocksteady/PROTOTYPE_0.1.txt",
+      "sha256": "9756db19c204ce38d5544e6c4ddc4daf3e4907fcdd147922fcca840d606677b8"
+    },
+    {
+      "deck_id": "casey_jones",
+      "git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6",
+      "path": "decks/casey_jones/PROTOTYPE_0.1.txt",
+      "sha256": "5c6a9068bab15a2c9f0098778290adbcaa29b96bf699e7e595edb0966e375748"
+    },
+    {
+      "deck_id": "donatello",
+      "git_blob": "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317",
+      "path": "decks/donatello/PROTOTYPE_0.2.txt",
+      "sha256": "28916123b7080eb412d9648740d2bc10d10c20c41d3138e1421ffcb38fa2f169"
+    },
+    {
+      "deck_id": "krang",
+      "git_blob": "ecdffa18463076503f5d338687041f42a3a599d9",
+      "path": "decks/krang/PROTOTYPE_0.2.txt",
+      "sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525"
+    },
+    {
+      "deck_id": "leonardo",
+      "git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+      "path": "decks/leonardo/PROTOTYPE_0.1.txt",
+      "sha256": "d1bc2928b6ab17d3467e96dd3ca03c7d8bb7a52245ce77a1ba5b219f588f450a"
+    },
+    {
+      "deck_id": "michelangelo",
+      "git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+      "path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f"
+    },
+    {
+      "deck_id": "raphael",
+      "git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+      "path": "decks/raphael/PROTOTYPE_0.1.txt",
+      "sha256": "7768d150bd57f7f949bd4d72adcb0712d4d8cbdabe3a70c63bac6ad0e00af576"
+    },
+    {
+      "deck_id": "shredder",
+      "git_blob": "306fd267482b72f188c69222d57fcc547d654091",
+      "path": "decks/shredder/PROTOTYPE_0.1.txt",
+      "sha256": "6f646efb8f4ad4cabe7046fb97762821e10298aa02608ebc5693d28e8a8dd094"
+    },
+    {
+      "deck_id": "splinter",
+      "git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+      "path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42"
+    }
+  ],
+  "reference_source_records": [
+    {
+      "git_blob": "bad8104fcef826ef5cfd7fec1bdfe921cdd4c306",
+      "path": "cardcade/roster-0.2.json",
+      "sha256": "5ca0929cb634a208a093628f991e309f60d0a00aaf2783a494d067da6c7a6164"
+    },
+    {
+      "git_blob": "761376d5f932fe6cfbbe140d5c76793c9dd5b169",
+      "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+      "sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402"
+    },
+    {
+      "git_blob": "768d25bbed8392a2f92b7b7f06ae8a34e2602423",
+      "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+      "sha256": "ddbf57645bd016d16659424f2196cd816edfc7a187c4b653a9e6e8839b3e9a6d"
+    },
+    {
+      "git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+      "path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+      "sha256": "ef43b0dc98524ec84642e4d19364d29251aba2ae8614976348949ff4dca436ef"
+    },
+    {
+      "git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+      "path": "decks/bebop_rocksteady/PROTOTYPE_0.1.txt",
+      "sha256": "9756db19c204ce38d5544e6c4ddc4daf3e4907fcdd147922fcca840d606677b8"
+    },
+    {
+      "git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6",
+      "path": "decks/casey_jones/PROTOTYPE_0.1.txt",
+      "sha256": "5c6a9068bab15a2c9f0098778290adbcaa29b96bf699e7e595edb0966e375748"
+    },
+    {
+      "git_blob": "ec05b95268ba72cd6f0d6b64d9a5dfa1ecd81317",
+      "path": "decks/donatello/PROTOTYPE_0.2.txt",
+      "sha256": "28916123b7080eb412d9648740d2bc10d10c20c41d3138e1421ffcb38fa2f169"
+    },
+    {
+      "git_blob": "ecdffa18463076503f5d338687041f42a3a599d9",
+      "path": "decks/krang/PROTOTYPE_0.2.txt",
+      "sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525"
+    },
+    {
+      "git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+      "path": "decks/leonardo/PROTOTYPE_0.1.txt",
+      "sha256": "d1bc2928b6ab17d3467e96dd3ca03c7d8bb7a52245ce77a1ba5b219f588f450a"
+    },
+    {
+      "git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+      "path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f"
+    },
+    {
+      "git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+      "path": "decks/raphael/PROTOTYPE_0.1.txt",
+      "sha256": "7768d150bd57f7f949bd4d72adcb0712d4d8cbdabe3a70c63bac6ad0e00af576"
+    },
+    {
+      "git_blob": "306fd267482b72f188c69222d57fcc547d654091",
+      "path": "decks/shredder/PROTOTYPE_0.1.txt",
+      "sha256": "6f646efb8f4ad4cabe7046fb97762821e10298aa02608ebc5693d28e8a8dd094"
+    },
+    {
+      "git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+      "path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42"
+    },
+    {
+      "git_blob": "76cc827afa57af70375099c11eee47a43f163b10",
+      "path": "docs/cardcade/CALIBRATION_READINESS_GATE_POST_PR_109.json",
+      "sha256": "a4a94ea889ced13e8711e4f80e8195b1f8cb1be2f5b29ef1a03715bbaddecd5c"
+    },
+    {
+      "git_blob": "168899800a8ed8ca4f4324cc57f8b844e717a3da",
+      "path": "docs/cardcade/CALIBRATION_READINESS_GATE_POST_PR_109.md",
+      "sha256": "d1adf1ea37d767b2c8c93db086636d350dec56700f77fef4c1f59f8adc9b0d1b"
+    },
+    {
+      "git_blob": "7e1eb1e4fe7d83ce51cc8aa2a8862e2cebb088f4",
+      "path": "docs/cardcade/PILOT_FITNESS_ASSESSMENT_SPEC_V3.md",
+      "sha256": "4e0baef0dd52d6ec8dc4b9ac70aad0b76f714543d17bad0d2a83b9ca070bece2"
+    },
+    {
+      "git_blob": "17f175effa6ccf789d2aaf0d4beb5ae1fb6df826",
+      "path": "docs/cardcade/PILOT_FITNESS_V3_REMEDIATION_96_REPORT.md",
+      "sha256": "920ea008d3ae5fabcf05c8a7ca1e912bfa3b41160a0bdca6d02c266230d2c937"
+    },
+    {
+      "git_blob": "6bc5bb35398443112dd0cc26cc9f0113365d41fd",
+      "path": "docs/cardcade/POST_ACTION_32_ENGINE_VALIDATION_GATE_AUDIT.md",
+      "sha256": "71877e4f0dffabade9e0193763020f26870da27c6397f6cb032bd2108ca4956c"
+    },
+    {
+      "git_blob": "b694dd297368ca962ee1eb5668dbe564f0be96a9",
+      "path": "pyproject.toml",
+      "sha256": "594da32efa89b788095488e1b309fdc0678c94b088b70c2239cbfa7e16f93bee"
+    },
+    {
+      "git_blob": "156b590e902e66c89cc00ff548fc7706c3abe0fb",
+      "path": "scripts/run_acceptance_match_001.py",
+      "sha256": "a892fdaf24e62ad094a68fda3f5d91137a9f21b2ed3a679344d7979d9e652f5c"
+    },
+    {
+      "git_blob": "389d9f7c28f34163e5640edff8de9220ab4ec99b",
+      "path": "src/tmnt_design_studio/__init__.py",
+      "sha256": "d5724478ec710bae63fdd5364cf0ca7ed8eed80fa9a937d396b97fb4ccedcae0"
+    },
+    {
+      "git_blob": "19c2b0fe14e5b92dbc9567a38795c166e7a68f40",
+      "path": "src/tmnt_design_studio/__main__.py",
+      "sha256": "27c2970a7e84f63cac07027565488c5b1b3ed7f66cfa03b7ed627f341a363758"
+    },
+    {
+      "git_blob": "d464234d9bd68fa4e3292a1e82bd22749db7064c",
+      "path": "src/tmnt_design_studio/capabilities.py",
+      "sha256": "33974cb9775aa32a0adf8116725897c3f6e5d8ab54528a21e840a3a3ca48ffdb"
+    },
+    {
+      "git_blob": "ccbb3faacdce3d9a80809072049b37c6c62c0a0e",
+      "path": "src/tmnt_design_studio/card_data.py",
+      "sha256": "a352e57fef93992b34390b8d964f51005faf93da4f1c832c794efc9f060d3a08"
+    },
+    {
+      "git_blob": "f468f4bbbab90a99c76f3c0708bd7036fbd24725",
+      "path": "src/tmnt_design_studio/card_interpreter07.py",
+      "sha256": "46fa854f3bce8ade39fe01f739e151c586397a18d69c68ef332e866952b70d56"
+    },
+    {
+      "git_blob": "e7441b14967ea7fcae6234c3fc7503940008f031",
+      "path": "src/tmnt_design_studio/cardcade.py",
+      "sha256": "81c277a3c767da5cbb364293fdb9c96d9f7fa02e6ff15937e32fe0a131f5ddb9"
+    },
+    {
+      "git_blob": "80dbeff36c85b665bc9c27ae25b98221b597d35f",
+      "path": "src/tmnt_design_studio/cli.py",
+      "sha256": "55d5f90e7bab694a1eccee689f6bf732f9a14c66a5c267491fa5eb8dcea41417"
+    },
+    {
+      "git_blob": "f2fa5e1b3433a749b7b6e1a862a242f4940af1e6",
+      "path": "src/tmnt_design_studio/conformance07.py",
+      "sha256": "093336ed744bbb7e84aaefb521eaf14ec343afc60d5b9b9e95cc5042f62510b2"
+    },
+    {
+      "git_blob": "c8d9c1158ccf1e314fde5ff6f328880af72f2bb3",
+      "path": "src/tmnt_design_studio/database.py",
+      "sha256": "6d92fdb46f9ffd47767e8436958fde9f1e39a530fba242772b02765c3019f263"
+    },
+    {
+      "git_blob": "4e2b834a003f86ce4b2b509d7039401389463cc0",
+      "path": "src/tmnt_design_studio/deck_analysis.py",
+      "sha256": "7b430d6c9870cce0dde0e6a5f1170f28817b472bcb2d7863ed22601ffe6495fe"
+    },
+    {
+      "git_blob": "523685e146f5942bb2d0bf24049959caec87a22d",
+      "path": "src/tmnt_design_studio/engine07.py",
+      "sha256": "25709fe82373c6baf8de0b7d689f2403daef0711881a934d49172366306785f2"
+    },
+    {
+      "git_blob": "3e4c91aca241b7adb2a290f34c376d5cdadbcece",
+      "path": "src/tmnt_design_studio/food_search07.py",
+      "sha256": "eb09134ab8e99e8718cfbaa5417866a39b96ae7c08644f73935058c3a8e6b5f9"
+    },
+    {
+      "git_blob": "0e200a979b33baa80036509f06ff3df2bc73d54d",
+      "path": "src/tmnt_design_studio/jury_rig07.py",
+      "sha256": "b9253e2dcaf735412918e152e937f6680fd3e77f92e6ddcc15f1b27865f00448"
+    },
+    {
+      "git_blob": "23bd027297867617d52666dffd5c2694260e1dc5",
+      "path": "src/tmnt_design_studio/krang_refill07.py",
+      "sha256": "01e51f3e0bae1bb12d6fe23d82c3045d13d7377ef695fec06d6780fc3657f374"
+    },
+    {
+      "git_blob": "c0d1df56f9727ebbb512f68063a6d77f89cc878f",
+      "path": "src/tmnt_design_studio/migrations/__init__.py",
+      "sha256": "16dff6048695448b678c61ed0c02ddf131271707add0cbfccd758aa9b6aef6f8"
+    },
+    {
+      "git_blob": "3e98653b00524eaeae7c0532f8aa05c3ea5f92f7",
+      "path": "src/tmnt_design_studio/mill_three07.py",
+      "sha256": "093d430b6cb01f6c4c6d0aa8f15cfead5e8a04e9763937f24e6760e589d43ab1"
+    },
+    {
+      "git_blob": "31bc847ee7f46869686aba36ee0f44c2d047a34a",
+      "path": "src/tmnt_design_studio/pilot07.py",
+      "sha256": "6471c277a3338c3b3e3d54ae8951dc2c09708829899dd636a4cd5f1c516e5f7d"
+    },
+    {
+      "git_blob": "efcd3fe4824bfc369bbfda72c4d94803e8ab9943",
+      "path": "src/tmnt_design_studio/pilot_input_v2.py",
+      "sha256": "cce2ebe9ef032717ba40c064a03c9d04d40f54886e0e000c8f6dd75f048c42c8"
+    },
+    {
+      "git_blob": "b845a4d5380de6bca4b0f73342e71352d113a194",
+      "path": "src/tmnt_design_studio/scryfall.py",
+      "sha256": "5340a4829f4a96bf131d349382ae11ffbfe8ad5f22d9a312e42f9d8c6d65c8dd"
+    },
+    {
+      "git_blob": "b5d1a0a75c13562dca6345947651785f478fda9c",
+      "path": "src/tmnt_design_studio/semantic_coverage.py",
+      "sha256": "bd107fac20d17f701125f2d9b9f8c9f265efd3cdba7c01129cd88e6ccaebb9bb"
+    },
+    {
+      "git_blob": "87948c4e6bc43cfc83a822b2cb0d46499ceec2f3",
+      "path": "src/tmnt_design_studio/smoke01.py",
+      "sha256": "995d2f67bbd9615213d5a18c73383ecc0d43e44ab1d188a3ed7c8ede98239db3"
+    },
+    {
+      "git_blob": "ef7fab14ec9be76b6654fd335e7468f172972bb3",
+      "path": "src/tmnt_design_studio/stage002.py",
+      "sha256": "71210017b8b6283c637c464a186f96b2a9dca718925728663efb24108e4ba5c5"
+    },
+    {
+      "git_blob": "f1be36c12c02bdb154aa7c90ee95c7fe185bad49",
+      "path": "src/tmnt_design_studio/stage02.py",
+      "sha256": "0bd3f8272a3408b0330d6bb18b3a3c9a78db31d0afdf466dacd435bb9aa0e9ce"
+    },
+    {
+      "git_blob": "62cabf10f57ded4d08800a44ecea725a4449ec17",
+      "path": "src/tmnt_design_studio/vigilante07.py",
+      "sha256": "647690c6404b31730539f63919b5c48a8168f20d7325e34c5bc420dd55c12013"
+    },
+    {
+      "git_blob": "c060567446b35c5064a5013f3e39e9ce445b87ea",
+      "path": "uv.lock",
+      "sha256": "0c9863fb82c65e8c457b6903b13ab978e1012dc9252e9cca3e95807ef3ded11a"
+    }
+  ],
+  "scope": "FULL_FROZEN_TEN_DECK_GAMEPLAY_CONDITIONAL_ON_RELEASE_ELIGIBILITY",
+  "statistical_reference": {
+    "title": "Hoeffding (1963), Probability Inequalities for Sums of Bounded Random Variables",
+    "url": "https://www.cs.rpi.edu/academics/courses/spring06/random/hoefding.pdf"
+  },
+  "status": "REVIEW_CANDIDATE"
+}
