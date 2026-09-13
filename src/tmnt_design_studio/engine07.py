@@ -5923,6 +5923,28 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         ("quantity", str(quantity)),
                     ),
                 )
+        if counter_type == "+1/+1":
+            for occurrence in tuple(self.semantic_occurrences):
+                source = self._objects.get(occurrence.object_id)
+                if (
+                    isinstance(source, Permanent)
+                    and self.is_authoritative(source, "battlefield")
+                    and source.controller == target.controller
+                    and occurrence.oracle_fragment.startswith(
+                        "If one or more +1/+1 counters would be put on a creature you control,"
+                    )
+                ):
+                    before_quantity = quantity
+                    quantity += 1
+                    self.log(
+                        "counter_replacement_applied",
+                        source_id=source.object_id,
+                        target_id=target.object_id,
+                        counter_type=counter_type,
+                        quantity_before=before_quantity,
+                        quantity_after=quantity,
+                        oracle_fragment=occurrence.oracle_fragment,
+                    )
         target.counters[counter_type] = target.counters.get(counter_type, 0) + quantity
         record_placement = self._record_stun_event if counter_type == "stun" else self.log
         record_placement(
