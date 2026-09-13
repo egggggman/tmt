@@ -7077,13 +7077,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if len(source_assignments) <= 1:
                 continue
             source = self._combat_permanent(source_id, "damage source")
-            is_multi_block_attacker = (
-                source_id in attackers and len(blocks.get(source_id, ())) > 1
-            )
-            if (
-                not self.evaluated_trample(source)
-                and not is_multi_block_attacker
-            ) or sum(item.target_player is not None for item in source_assignments) > 1:
+            is_multi_block_attacker = source_id in attackers and len(blocks.get(source_id, ())) > 1
+            if (not self.evaluated_trample(source) and not is_multi_block_attacker) or sum(
+                item.target_player is not None for item in source_assignments
+            ) > 1:
                 raise AssertionError("split assignments require bounded combat assignment")
         before_remaining = {
             permanent.object_id

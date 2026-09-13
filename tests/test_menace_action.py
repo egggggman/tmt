@@ -3,7 +3,15 @@ from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, TurnStep
 LAND = CardFact("Plains", "", 0, "Basic Land ? Plains")
 MENACE = CardFact("Menace Beast", "{2}", 2, "Creature ? Beast", "Menace", power=5, toughness=5)
 BEAR = CardFact("Bear", "{1}", 1, "Creature ? Bear", power=2, toughness=2)
-SINGLE_BLOCK = CardFact("Single Block", "{2}", 2, "Creature ? Beast", "This creature can't be blocked by more than one creature.", power=5, toughness=5)
+SINGLE_BLOCK = CardFact(
+    "Single Block",
+    "{2}",
+    2,
+    "Creature ? Beast",
+    "This creature can't be blocked by more than one creature.",
+    power=5,
+    toughness=5,
+)
 
 
 def test_menace_requires_two_blockers_and_preserves_ordered_assignment():
