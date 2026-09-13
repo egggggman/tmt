@@ -1,0 +1,40 @@
+{
+  "status": "REVIEW_CANDIDATE",
+  "authorized": false,
+  "baseline_commit": "d48423789e93f12df433a5a1c4de62b642d07510",
+  "protocol": "CALIBRATION_PROTOCOL_SPEC_V1",
+  "calibration": "BLOCKED",
+  "action_33": "NOT_AUTHORIZED",
+  "prototype_0_3": "NOT_AUTHORIZED",
+  "decks": "FROZEN",
+  "implementation_authorized": false,
+  "seed_generation_authorized": false,
+  "gameplay_execution_authorized": false,
+  "families": [
+    {"id": "menace_multiple_blockers", "status": "MUST_RESOLVE", "sequence": 1, "depends_on": []},
+    {"id": "leonardo_graveyard_finality", "status": "MUST_RESOLVE", "sequence": 2, "depends_on": ["menace_multiple_blockers"]},
+    {"id": "paramecia_death_exile_return", "status": "MUST_RESOLVE", "sequence": 3, "depends_on": ["leonardo_graveyard_finality"]},
+    {"id": "raphael_linked_exile_play", "status": "MUST_RESOLVE", "sequence": 4, "depends_on": ["menace_multiple_blockers", "leonardo_graveyard_finality", "paramecia_death_exile_return"]},
+    {"id": "ooze_spill_counterspell_mutagen", "status": "MUST_RESOLVE", "sequence": 5, "depends_on": ["leonardo_graveyard_finality"]}
+  ],
+  "deferred_risks": [
+    {"id": "tunnel_rats_graveyard_return", "status": "DEFERRED_NOT_WAIVED", "escalate_if_protocol_depends": true},
+    {"id": "frog_butler_any_color_mana", "status": "DEFERRED_APPLICABILITY_REVIEW", "escalate_if_protocol_depends": true},
+    {"id": "frog_butler_reach_timing", "status": "DEFERRED_APPLICABILITY_REVIEW", "escalate_if_protocol_depends": true},
+    {"id": "michelangelo_plus_one_replacement", "status": "DEFERRED_APPLICABILITY_CORRECTION", "escalate_if_protocol_depends": true}
+  ],
+  "terminal_only": ["zoo_escapees", "casey_jones_vigilante"],
+  "pilot_fitness": "PASS_DEMONSTRATED_SURFACE_ONLY",
+  "privacy": "INCONCLUSIVE_UNEXECUTED",
+  "filtering": "INCONCLUSIVE",
+  "preparation": {"games": 0, "pilot_calls": 0, "scoring_calls": 0, "tests": 0},
+  "required_family_packet_evidence": ["exact_oracle_identity", "lifecycle_state_model", "legal_and_illegal_fixtures", "duplicate_replays", "seat_id_option_transforms", "authoritative_action_event_stack_priority_zone_lineage", "invariant_terminal_tests", "applicability_classification", "independent_result_audit"],
+  "sources": [
+    "docs/cardcade/POST_ACTION_32_ENGINE_VALIDATION_GATE_AUDIT.md",
+    "docs/cardcade/CALIBRATION_READINESS_GATE_POST_PR_109.md",
+    "docs/cardcade/CALIBRATION_PROTOCOL_SPEC_V1.md",
+    "cardcade/card-model-0.6.json",
+    "src/tmnt_design_studio/engine07.py",
+    "src/tmnt_design_studio/card_interpreter07.py"
+  ]
+}
