@@ -95,7 +95,7 @@ def test_executor_builds_fresh_spec_and_propagates_result(tmp_path, monkeypatch)
 
     def fake_run(root, spec, pilot):
         seen.append((spec, pilot))
-        return {"terminal": True, "turns_started": 3, "telemetry": []}
+        return {"terminal": True, "turn": 3, "turns_started": 3, "telemetry": []}
 
     monkeypatch.setattr(adapter, "run_game", fake_run)
     monkeypatch.setattr(adapter, "_frozen_deck_path", lambda root, deck: f"decks/{deck}/frozen.txt")

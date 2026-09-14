@@ -29,8 +29,12 @@ def execute_member(
         member.member_id, f"p{member.pair_index:02d}", member.seed, member.orientation, seats
     )
     result = run_game(root, spec, AcceptancePilot())
-    if not result.get("terminal", False):
+    if result.get("terminal") is not True:
         raise RuntimeError("executor returned without terminal state")
-    result["turns_started"] = int(result.get("turns_started", result.get("turns", 0)))
+    turns_started = result.get("turns_started")
+    if type(turns_started) is not int or turns_started != result.get("turn"):
+        raise RuntimeError("executor returned without authoritative turns_started")
+    if not 0 <= turns_started < 120:
+        raise RuntimeError("attempted to begin turn 120")
     result["member_id"] = member.member_id
     return result

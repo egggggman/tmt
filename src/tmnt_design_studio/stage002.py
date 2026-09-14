@@ -584,6 +584,8 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
     while game.winner is None and game.turn < 120:
+        if game.turn >= 119:
+            raise RuntimeError("attempted to begin turn 120")
         _begin_turn_with_priority(game, chosen_pilot)
         if game.winner is not None:
             break

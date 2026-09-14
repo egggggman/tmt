@@ -1,0 +1,26 @@
+{
+  "status": "DIAGNOSTIC_VALIDATION_PASS",
+  "stop_evidence_commit": "23f3bdadf6495b9a79c69ce3020c8381c68e8e6e",
+  "source_hash_method": "SHA-256 of UTF-8 source with LF line endings (Git canonical bytes)",
+  "source_sha256": {
+    "src/tmnt_design_studio/engine07.py": "4caa091f1613fd765cab148db7762b64e3cc4599cec8a229c5ec8038e1ca93e2",
+    "src/tmnt_design_studio/stage002.py": "a036ce6ca29eca17ea7702849bf1a4e5e03b6599ebd9992951fa732591194d2a",
+    "src/tmnt_design_studio/calibration_executor.py": "ff4e8bbaaa415e57c5aee31359aa904e284fc4d374ad02d81c948c6dadc50db1",
+    "src/tmnt_design_studio/calibration_runner.py": "40a38b154adf6d30f33a6525e8869bf63508f702fcdec54623a037465b5a6136",
+    "tests/test_calibration_terminal_contract.py": "17770bfb6e5fca6d670a343343edbe8712dd72fb8c69fef60e80d06cd0278454",
+    "tests/test_calibration_runner.py": "8ea60677566476e6c5da4b6f574b60bd99eeca33462d66dfdb3da5fe5c1f6723"
+  },
+  "focused_tests": {
+    "passed": 20
+  },
+  "full_suite": {
+    "passed": 1416,
+    "skipped": 1,
+    "seconds": 29.6
+  },
+  "ruff_format_check": "PASS: 402 files",
+  "ruff_check": "PASS",
+  "calibration_rerun": false,
+  "new_release_seal": false,
+  "balance_analysis": false
+}

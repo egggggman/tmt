@@ -1,0 +1,18 @@
+{
+  "status": "DIAGNOSTIC_REGRESSION_PASS",
+  "calibration_observations": 0,
+  "member_id": "b0000-p00-canonical",
+  "seed": 1000000,
+  "executions": 2,
+  "duplicate_equal": true,
+  "primary_sha256": "26fb0106bdc6f482a08668d14c5a43ddab0e25bb42b78d33abef81dc31c95c6f",
+  "duplicate_sha256": "26fb0106bdc6f482a08668d14c5a43ddab0e25bb42b78d33abef81dc31c95c6f",
+  "terminal": true,
+  "winner": "april_oneil",
+  "winner_index": 0,
+  "turns_started": 19,
+  "terminal_reason": "life_zero_or_less",
+  "original_raw_result_preserved_except_contract_fields": true,
+  "authoritative_state_fingerprint": "0aa01ccc50c0fba18c11ef51689ae8a2f2f1a73685e21365b3c1fbf94e85fb5b",
+  "seed_table_sha256": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968"
+}
