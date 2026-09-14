@@ -1,0 +1,20 @@
+{
+    "scheme":  "calibration-release-baseline-refresh-v3",
+    "execution_authorized":  false,
+    "main_commit":  "425fd1dff2925454d10c113a32a662e58fda1544",
+    "protocol_identity":  "96fc43ec3203938eb385618f6187f8496b93ecd3",
+    "runner_hash":  "74310BE41E2086AB979C2F18E0A4001D9552AEE5D5B3EED9D1EF5545B571939D",
+    "executor_hash":  "0AEC4045655F9B6520A8633523374B007E04F27B28A46BD6568E2783A68E7F4F",
+    "unchanged_source_hashes":  {
+                                    "engine07":  "3F27A4794E6778855786D56CDB9FF008AD99089CEECF149A9C475EB7B2D8CA73",
+                                    "card_interpreter07":  "428A1088E26B7FB6A209E7A360B0FAD50E1FC675AF815E7D86DEFAB94D7DB426",
+                                    "pilot07":  "CF24950340F6BD54D77302D89A2FBDB99DAE64BDEA3948117108B32F18392563",
+                                    "pilot_input_v2":  "C0B608B77473313CC4D1A8DBE19B091742EAD2111CDFD702B937C509316D6BE5"
+                                },
+    "corpus_sha256":  "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80",
+    "seed_table_sha256":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "deck_identity":  "unchanged per accepted manifest",
+    "capacity_disposition":  "unchanged",
+    "semantic_pilot_dispositions":  "unchanged",
+    "execution_authorization_required":  true
+}
