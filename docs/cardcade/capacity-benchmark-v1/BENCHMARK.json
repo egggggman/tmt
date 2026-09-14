@@ -1,0 +1,15 @@
+{
+  "benchmark_only": true,
+  "calibration_observations": 0,
+  "actual_games": 90,
+  "actual_executions": 90,
+  "duplicate_executions": 90,
+  "pairings": 45,
+  "games_per_pairing": 2,
+  "seed": 20260913,
+  "elapsed_seconds": 0.04137560000526719,
+  "raw_bytes": 310617,
+  "normalized_bytes": 24404,
+  "duplicate_equal": true,
+  "ledger_path": "execution-ledger.json"
+}

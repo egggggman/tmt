@@ -1,0 +1,635 @@
+{
+  "seed": 20260913,
+  "rows": [
+    {
+      "execution_id": "leonardo_vs_raphael:0",
+      "pairing": "leonardo_vs_raphael",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:raphael:0",
+      "duplicate_of": "leonardo_vs_raphael:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_raphael:1",
+      "pairing": "leonardo_vs_raphael",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:raphael:1",
+      "duplicate_of": "leonardo_vs_raphael:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_donatello:0",
+      "pairing": "leonardo_vs_donatello",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:donatello:0",
+      "duplicate_of": "leonardo_vs_donatello:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_donatello:1",
+      "pairing": "leonardo_vs_donatello",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:donatello:1",
+      "duplicate_of": "leonardo_vs_donatello:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_michelangelo:0",
+      "pairing": "leonardo_vs_michelangelo",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:michelangelo:0",
+      "duplicate_of": "leonardo_vs_michelangelo:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_michelangelo:1",
+      "pairing": "leonardo_vs_michelangelo",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:michelangelo:1",
+      "duplicate_of": "leonardo_vs_michelangelo:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_splinter:0",
+      "pairing": "leonardo_vs_splinter",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:splinter:0",
+      "duplicate_of": "leonardo_vs_splinter:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_splinter:1",
+      "pairing": "leonardo_vs_splinter",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:splinter:1",
+      "duplicate_of": "leonardo_vs_splinter:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_april_oneil:0",
+      "pairing": "leonardo_vs_april_oneil",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:april_oneil:0",
+      "duplicate_of": "leonardo_vs_april_oneil:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_april_oneil:1",
+      "pairing": "leonardo_vs_april_oneil",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:april_oneil:1",
+      "duplicate_of": "leonardo_vs_april_oneil:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_casey_jones:0",
+      "pairing": "leonardo_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:casey_jones:0",
+      "duplicate_of": "leonardo_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_casey_jones:1",
+      "pairing": "leonardo_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:casey_jones:1",
+      "duplicate_of": "leonardo_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_shredder:0",
+      "pairing": "leonardo_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:shredder:0",
+      "duplicate_of": "leonardo_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_shredder:1",
+      "pairing": "leonardo_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:shredder:1",
+      "duplicate_of": "leonardo_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_krang:0",
+      "pairing": "leonardo_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:krang:0",
+      "duplicate_of": "leonardo_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_krang:1",
+      "pairing": "leonardo_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:krang:1",
+      "duplicate_of": "leonardo_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_bebop_rocksteady:0",
+      "pairing": "leonardo_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:leonardo:bebop_rocksteady:0",
+      "duplicate_of": "leonardo_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "leonardo_vs_bebop_rocksteady:1",
+      "pairing": "leonardo_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:leonardo:bebop_rocksteady:1",
+      "duplicate_of": "leonardo_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_donatello:0",
+      "pairing": "raphael_vs_donatello",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:donatello:0",
+      "duplicate_of": "raphael_vs_donatello:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_donatello:1",
+      "pairing": "raphael_vs_donatello",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:donatello:1",
+      "duplicate_of": "raphael_vs_donatello:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_michelangelo:0",
+      "pairing": "raphael_vs_michelangelo",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:michelangelo:0",
+      "duplicate_of": "raphael_vs_michelangelo:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_michelangelo:1",
+      "pairing": "raphael_vs_michelangelo",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:michelangelo:1",
+      "duplicate_of": "raphael_vs_michelangelo:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_splinter:0",
+      "pairing": "raphael_vs_splinter",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:splinter:0",
+      "duplicate_of": "raphael_vs_splinter:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_splinter:1",
+      "pairing": "raphael_vs_splinter",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:splinter:1",
+      "duplicate_of": "raphael_vs_splinter:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_april_oneil:0",
+      "pairing": "raphael_vs_april_oneil",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:april_oneil:0",
+      "duplicate_of": "raphael_vs_april_oneil:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_april_oneil:1",
+      "pairing": "raphael_vs_april_oneil",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:april_oneil:1",
+      "duplicate_of": "raphael_vs_april_oneil:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_casey_jones:0",
+      "pairing": "raphael_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:casey_jones:0",
+      "duplicate_of": "raphael_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_casey_jones:1",
+      "pairing": "raphael_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:casey_jones:1",
+      "duplicate_of": "raphael_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_shredder:0",
+      "pairing": "raphael_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:shredder:0",
+      "duplicate_of": "raphael_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_shredder:1",
+      "pairing": "raphael_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:shredder:1",
+      "duplicate_of": "raphael_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_krang:0",
+      "pairing": "raphael_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:krang:0",
+      "duplicate_of": "raphael_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_krang:1",
+      "pairing": "raphael_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:krang:1",
+      "duplicate_of": "raphael_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_bebop_rocksteady:0",
+      "pairing": "raphael_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:raphael:bebop_rocksteady:0",
+      "duplicate_of": "raphael_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "raphael_vs_bebop_rocksteady:1",
+      "pairing": "raphael_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:raphael:bebop_rocksteady:1",
+      "duplicate_of": "raphael_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_michelangelo:0",
+      "pairing": "donatello_vs_michelangelo",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:michelangelo:0",
+      "duplicate_of": "donatello_vs_michelangelo:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_michelangelo:1",
+      "pairing": "donatello_vs_michelangelo",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:michelangelo:1",
+      "duplicate_of": "donatello_vs_michelangelo:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_splinter:0",
+      "pairing": "donatello_vs_splinter",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:splinter:0",
+      "duplicate_of": "donatello_vs_splinter:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_splinter:1",
+      "pairing": "donatello_vs_splinter",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:splinter:1",
+      "duplicate_of": "donatello_vs_splinter:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_april_oneil:0",
+      "pairing": "donatello_vs_april_oneil",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:april_oneil:0",
+      "duplicate_of": "donatello_vs_april_oneil:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_april_oneil:1",
+      "pairing": "donatello_vs_april_oneil",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:april_oneil:1",
+      "duplicate_of": "donatello_vs_april_oneil:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_casey_jones:0",
+      "pairing": "donatello_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:casey_jones:0",
+      "duplicate_of": "donatello_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_casey_jones:1",
+      "pairing": "donatello_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:casey_jones:1",
+      "duplicate_of": "donatello_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_shredder:0",
+      "pairing": "donatello_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:shredder:0",
+      "duplicate_of": "donatello_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_shredder:1",
+      "pairing": "donatello_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:shredder:1",
+      "duplicate_of": "donatello_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_krang:0",
+      "pairing": "donatello_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:krang:0",
+      "duplicate_of": "donatello_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_krang:1",
+      "pairing": "donatello_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:krang:1",
+      "duplicate_of": "donatello_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_bebop_rocksteady:0",
+      "pairing": "donatello_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:donatello:bebop_rocksteady:0",
+      "duplicate_of": "donatello_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "donatello_vs_bebop_rocksteady:1",
+      "pairing": "donatello_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:donatello:bebop_rocksteady:1",
+      "duplicate_of": "donatello_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_splinter:0",
+      "pairing": "michelangelo_vs_splinter",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:splinter:0",
+      "duplicate_of": "michelangelo_vs_splinter:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_splinter:1",
+      "pairing": "michelangelo_vs_splinter",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:splinter:1",
+      "duplicate_of": "michelangelo_vs_splinter:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_april_oneil:0",
+      "pairing": "michelangelo_vs_april_oneil",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:april_oneil:0",
+      "duplicate_of": "michelangelo_vs_april_oneil:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_april_oneil:1",
+      "pairing": "michelangelo_vs_april_oneil",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:april_oneil:1",
+      "duplicate_of": "michelangelo_vs_april_oneil:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_casey_jones:0",
+      "pairing": "michelangelo_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:casey_jones:0",
+      "duplicate_of": "michelangelo_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_casey_jones:1",
+      "pairing": "michelangelo_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:casey_jones:1",
+      "duplicate_of": "michelangelo_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_shredder:0",
+      "pairing": "michelangelo_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:shredder:0",
+      "duplicate_of": "michelangelo_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_shredder:1",
+      "pairing": "michelangelo_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:shredder:1",
+      "duplicate_of": "michelangelo_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_krang:0",
+      "pairing": "michelangelo_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:krang:0",
+      "duplicate_of": "michelangelo_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_krang:1",
+      "pairing": "michelangelo_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:krang:1",
+      "duplicate_of": "michelangelo_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_bebop_rocksteady:0",
+      "pairing": "michelangelo_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:michelangelo:bebop_rocksteady:0",
+      "duplicate_of": "michelangelo_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "michelangelo_vs_bebop_rocksteady:1",
+      "pairing": "michelangelo_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:michelangelo:bebop_rocksteady:1",
+      "duplicate_of": "michelangelo_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_april_oneil:0",
+      "pairing": "splinter_vs_april_oneil",
+      "orientation": "canonical",
+      "seed": "20260913:splinter:april_oneil:0",
+      "duplicate_of": "splinter_vs_april_oneil:0#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_april_oneil:1",
+      "pairing": "splinter_vs_april_oneil",
+      "orientation": "reversed",
+      "seed": "20260913:splinter:april_oneil:1",
+      "duplicate_of": "splinter_vs_april_oneil:1#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_casey_jones:0",
+      "pairing": "splinter_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:splinter:casey_jones:0",
+      "duplicate_of": "splinter_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_casey_jones:1",
+      "pairing": "splinter_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:splinter:casey_jones:1",
+      "duplicate_of": "splinter_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_shredder:0",
+      "pairing": "splinter_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:splinter:shredder:0",
+      "duplicate_of": "splinter_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_shredder:1",
+      "pairing": "splinter_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:splinter:shredder:1",
+      "duplicate_of": "splinter_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_krang:0",
+      "pairing": "splinter_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:splinter:krang:0",
+      "duplicate_of": "splinter_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_krang:1",
+      "pairing": "splinter_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:splinter:krang:1",
+      "duplicate_of": "splinter_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_bebop_rocksteady:0",
+      "pairing": "splinter_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:splinter:bebop_rocksteady:0",
+      "duplicate_of": "splinter_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "splinter_vs_bebop_rocksteady:1",
+      "pairing": "splinter_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:splinter:bebop_rocksteady:1",
+      "duplicate_of": "splinter_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_casey_jones:0",
+      "pairing": "april_oneil_vs_casey_jones",
+      "orientation": "canonical",
+      "seed": "20260913:april_oneil:casey_jones:0",
+      "duplicate_of": "april_oneil_vs_casey_jones:0#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_casey_jones:1",
+      "pairing": "april_oneil_vs_casey_jones",
+      "orientation": "reversed",
+      "seed": "20260913:april_oneil:casey_jones:1",
+      "duplicate_of": "april_oneil_vs_casey_jones:1#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_shredder:0",
+      "pairing": "april_oneil_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:april_oneil:shredder:0",
+      "duplicate_of": "april_oneil_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_shredder:1",
+      "pairing": "april_oneil_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:april_oneil:shredder:1",
+      "duplicate_of": "april_oneil_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_krang:0",
+      "pairing": "april_oneil_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:april_oneil:krang:0",
+      "duplicate_of": "april_oneil_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_krang:1",
+      "pairing": "april_oneil_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:april_oneil:krang:1",
+      "duplicate_of": "april_oneil_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_bebop_rocksteady:0",
+      "pairing": "april_oneil_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:april_oneil:bebop_rocksteady:0",
+      "duplicate_of": "april_oneil_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "april_oneil_vs_bebop_rocksteady:1",
+      "pairing": "april_oneil_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:april_oneil:bebop_rocksteady:1",
+      "duplicate_of": "april_oneil_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_shredder:0",
+      "pairing": "casey_jones_vs_shredder",
+      "orientation": "canonical",
+      "seed": "20260913:casey_jones:shredder:0",
+      "duplicate_of": "casey_jones_vs_shredder:0#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_shredder:1",
+      "pairing": "casey_jones_vs_shredder",
+      "orientation": "reversed",
+      "seed": "20260913:casey_jones:shredder:1",
+      "duplicate_of": "casey_jones_vs_shredder:1#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_krang:0",
+      "pairing": "casey_jones_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:casey_jones:krang:0",
+      "duplicate_of": "casey_jones_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_krang:1",
+      "pairing": "casey_jones_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:casey_jones:krang:1",
+      "duplicate_of": "casey_jones_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_bebop_rocksteady:0",
+      "pairing": "casey_jones_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:casey_jones:bebop_rocksteady:0",
+      "duplicate_of": "casey_jones_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "casey_jones_vs_bebop_rocksteady:1",
+      "pairing": "casey_jones_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:casey_jones:bebop_rocksteady:1",
+      "duplicate_of": "casey_jones_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "shredder_vs_krang:0",
+      "pairing": "shredder_vs_krang",
+      "orientation": "canonical",
+      "seed": "20260913:shredder:krang:0",
+      "duplicate_of": "shredder_vs_krang:0#duplicate"
+    },
+    {
+      "execution_id": "shredder_vs_krang:1",
+      "pairing": "shredder_vs_krang",
+      "orientation": "reversed",
+      "seed": "20260913:shredder:krang:1",
+      "duplicate_of": "shredder_vs_krang:1#duplicate"
+    },
+    {
+      "execution_id": "shredder_vs_bebop_rocksteady:0",
+      "pairing": "shredder_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:shredder:bebop_rocksteady:0",
+      "duplicate_of": "shredder_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "shredder_vs_bebop_rocksteady:1",
+      "pairing": "shredder_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:shredder:bebop_rocksteady:1",
+      "duplicate_of": "shredder_vs_bebop_rocksteady:1#duplicate"
+    },
+    {
+      "execution_id": "krang_vs_bebop_rocksteady:0",
+      "pairing": "krang_vs_bebop_rocksteady",
+      "orientation": "canonical",
+      "seed": "20260913:krang:bebop_rocksteady:0",
+      "duplicate_of": "krang_vs_bebop_rocksteady:0#duplicate"
+    },
+    {
+      "execution_id": "krang_vs_bebop_rocksteady:1",
+      "pairing": "krang_vs_bebop_rocksteady",
+      "orientation": "reversed",
+      "seed": "20260913:krang:bebop_rocksteady:1",
+      "duplicate_of": "krang_vs_bebop_rocksteady:1#duplicate"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "scheme": "calibration-release-manifest-capacity-v1",
+  "execution_authorized": false,
+  "main_commit": "f098b9d4d245e7428f312ef010df59f7af8f1151",
+  "protocol_commit": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "corpus": {
+    "path": "cardcade/card-model-0.6.json",
+    "sha256": "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80"
+  },
+  "seed_table": {
+    "path": "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json",
+    "sha256": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "rows": 184320
+  },
+  "sources": {
+    "src/tmnt_design_studio/engine07.py": "3F27A4794E6778855786D56CDB9FF008AD99089CEECF149A9C475EB7B2D8CA73",
+    "src/tmnt_design_studio/card_interpreter07.py": "428A1088E26B7FB6A209E7A360B0FAD50E1FC675AF815E7D86DEFAB94D7DB426",
+    "src/tmnt_design_studio/pilot07.py": "CF24950340F6BD54D77302D89A2FBDB99DAE64BDEA3948117108B32F18392563",
+    "src/tmnt_design_studio/pilot_input_v2.py": "C0B608B77473313CC4D1A8DBE19B091742EAD2111CDFD702B937C509316D6BE5"
+  },
+  "environment": {
+    "os": "Windows 11 Pro 10.0.26200 64-bit",
+    "uv": "0.12.5",
+    "python": "3.12.14",
+    "physical_ram_bytes": 17005543424,
+    "free_disk_bytes": 102613749760,
+    "runner": "local Windows workstation"
+  },
+  "workload": {
+    "distinct_games": 184320,
+    "executions_with_duplicates": 368640,
+    "raw_seed_rows": 184320,
+    "endpoint_count": 56
+  },
+  "capacity_evidence": {
+    "benchmark_path": "docs/cardcade/capacity-benchmark-v1",
+    "benchmark_seed": 20260913,
+    "benchmark_pairings": 45,
+    "benchmark_games_per_pairing": 2,
+    "benchmark_executions": 90,
+    "elapsed_seconds": 0.0413756,
+    "seconds_per_execution": 0.00045973,
+    "raw_bytes": 310617,
+    "normalized_bytes": 24404,
+    "raw_bytes_per_execution": 3451.3,
+    "normalized_bytes_per_execution": 271.2,
+    "duplicate_authentication_overhead_seconds_estimate": 0.0482645,
+    "extrapolated_distinct_games": 184320,
+    "extrapolated_total_executions": 368640,
+    "extrapolated_runtime_seconds": 169.4,
+    "conservative_runtime_headroom_factor": 2.0,
+    "runtime_with_headroom_seconds": 338.8,
+    "extrapolated_raw_storage_bytes": 1272238080,
+    "extrapolated_normalized_storage_bytes": 99958784,
+    "benchmark_status": "authenticated non-calibration benchmark; zero calibration observations",
+    "actual_games": 90,
+    "actual_executions": 90,
+    "duplicate_executions": 90,
+    "duplicate_equal": true,
+    "benchmark_artifact_hashes": {
+      "BENCHMARK.json": "A793CA92A347B6282DA5C55C9BD4F4D2D7E353DE1E858B294739BFD6E6B1C661",
+      "execution-ledger.json": "6923CA9D1C2BE4E4B87FABE4F4B6F0CFB5F21352C18BFCCDD78863CF19EBB094",
+      "normalized.json": "0A99FFE1CAE9B119151CF58C89B88FC512B1101EAC3BD6C325585CAC02238146",
+      "raw.json": "DC65B029E665EE50AAC5DD331758F91324419E28B123CD294BDA4345A6D68BB3"
+    }
+  },
+  "deck_hashes": {
+    "april_oneil": "684C898760A39C5DFC584206EF4675C49D96CFE6BD419F03F86BD0B8358D09F4",
+    "bebop_rocksteady": "3875706A76FFAB14D2A82BA836DA9E59BCE49DE2F990A348941490E78A61EF9D",
+    "casey_jones": "0FC0ADBB370ECFDDAD03692A4229A04B23268739914A8F2A004B8E042FF3CEBB",
+    "donatello": "8FAC1790E2C9BA307C073D6A2EC034971CA1959BCDE64A178A117D94FB9938FB",
+    "krang": "D9B44AF5BEB3ABA153B792EE5F70EB4C749B38C8EBFAA114DA24AFB1F0A9862F",
+    "leonardo": "D49D155858938D6FC64127C1678E591EE77ABAD3B7DA8302880F16379476FB08",
+    "michelangelo": "F5DD228B6E3636BD0DE367B9D1A2BD836C0388BF37B00F0C0C047A932973EBF9",
+    "raphael": "07EED928EF6C47AEA1F8FB2DF2C494D0FAE12C10BEE8836E7AA9CF2A8784A834",
+    "shredder": "D0C6479EF2DF6D3C64911E8F93465310760F6509282B018FB1C8319CC2C3D6A1",
+    "splinter": "74B6D7F4CAB4BCDA9EEB80FFC7A779529115C98C161345F13AC1251D85163B0A"
+  },
+  "hq_execution_authorization_required": true
+}
