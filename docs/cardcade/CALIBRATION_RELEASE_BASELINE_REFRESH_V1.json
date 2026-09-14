@@ -1,0 +1,35 @@
+{
+    "scheme":  "calibration-release-baseline-refresh-v1",
+    "execution_authorized":  false,
+    "main_commit":  "2e2455f1dcdfc477708a31244c0aea37b1074ad5",
+    "previous_release_manifest":  "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+    "runner_identity":  "src/tmnt_design_studio/calibration_runner.py",
+    "runner_version":  "protocol-runner-v1-strict",
+    "protocol_identity":  "96fc43ec3203938eb385618f6187f8496b93ecd3",
+    "corpus_sha256":  "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80",
+    "seed_table_sha256":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "deck_hashes":  {
+                        "april_oneil":  "684C898760A39C5DFC584206EF4675C49D96CFE6BD419F03F86BD0B8358D09F4",
+                        "bebop_rocksteady":  "3875706A76FFAB14D2A82BA836DA9E59BCE49DE2F990A348941490E78A61EF9D",
+                        "casey_jones":  "0FC0ADBB370ECFDDAD03692A4229A04B23268739914A8F2A004B8E042FF3CEBB",
+                        "donatello":  "8FAC1790E2C9BA307C073D6A2EC034971CA1959BCDE64A178A117D94FB9938FB",
+                        "krang":  "D9B44AF5BEB3ABA153B792EE5F70EB4C749B38C8EBFAA114DA24AFB1F0A9862F",
+                        "leonardo":  "D49D155858938D6FC64127C1678E591EE77ABAD3B7DA8302880F16379476FB08",
+                        "michelangelo":  "F5DD228B6E3636BD0DE367B9D1A2BD836C0388BF37B00F0C0C047A932973EBF9",
+                        "raphael":  "07EED928EF6C47AEA1F8FB2DF2C494D0FAE12C10BEE8836E7AA9CF2A8784A834",
+                        "shredder":  "D0C6479EF2DF6D3C64911E8F93465310760F6509282B018FB1C8319CC2C3D6A1",
+                        "splinter":  "74B6D7F4CAB4BCDA9EEB80FFC7A779529115C98C161345F13AC1251D85163B0A"
+                    },
+    "source_hashes":  {
+                          "cardcade/card-model-0.6.json":  "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80",
+                          "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+                          "src/tmnt_design_studio/calibration_runner.py":  "AF7FCFE8100D32EEC79FE52188E5B8932098D3BED8B5E079EAD8B2CC6403F5CE",
+                          "src/tmnt_design_studio/engine07.py":  "3F27A4794E6778855786D56CDB9FF008AD99089CEECF149A9C475EB7B2D8CA73",
+                          "src/tmnt_design_studio/card_interpreter07.py":  "428A1088E26B7FB6A209E7A360B0FAD50E1FC675AF815E7D86DEFAB94D7DB426",
+                          "src/tmnt_design_studio/pilot07.py":  "CF24950340F6BD54D77302D89A2FBDB99DAE64BDEA3948117108B32F18392563",
+                          "src/tmnt_design_studio/pilot_input_v2.py":  "C0B608B77473313CC4D1A8DBE19B091742EAD2111CDFD702B937C509316D6BE5"
+                      },
+    "capacity_assumption":  "unchanged from accepted authenticated 90-execution benchmark; runner adds ledger/evidence orchestration only",
+    "semantic_and_pilot_dispositions":  "preserved from accepted release addendum and domain disposition",
+    "execution_authorization_required":  true
+}
