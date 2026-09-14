@@ -1,0 +1,13 @@
+{
+  "status": "FAIL_CLOSED_STOP",
+  "completed_members": 0,
+  "failed_member": "b0000-p00-canonical",
+  "ledger": [
+    {
+      "member_id": "b0000-p00-canonical",
+      "status": "failed",
+      "error": "executor returned without terminal state",
+      "completed_before": 0
+    }
+  ]
+}

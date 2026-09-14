@@ -1,0 +1,22 @@
+{
+  "attempted_executions": 1,
+  "error": "fail-closed at b0000-p00-canonical: executor returned without terminal state",
+  "failed_execution": {
+    "block": 0,
+    "decks": [
+      "april_oneil",
+      "bebop_rocksteady"
+    ],
+    "duplicate_index": 0,
+    "member_id": "b0000-p00-canonical",
+    "orientation": "canonical",
+    "pair_index": 0,
+    "seed": 1000000
+  },
+  "frozen_runtime": "425fd1dff2925454d10c113a32a662e58fda1544",
+  "release_baseline": "bf3ace0ebe984dbd24cf825dcc2bd32fb2da39af",
+  "returned_executions": 0,
+  "run_id": "CALIBRATION_V1_20260914T224952Z_c3e745631702",
+  "status": "FAIL_CLOSED_STOP",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\calibration_runner.py\", line 110, in execute_protocol\n    first = executor(member, 0)\n            ^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\scripts\\launch_calibration_v1_authorized.py\", line 43, in executor\n    result = execute_member(ROOT, member, duplicate)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\calibration_executor.py\", line 33, in execute_member\n    raise RuntimeError(\"executor returned without terminal state\")\nRuntimeError: executor returned without terminal state\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\projects\\tmt\\scripts\\launch_calibration_v1_authorized.py\", line 93, in <module>\n    result = execute_protocol(ROOT / manifest['seed_table']['path'], OUT, executor,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\calibration_runner.py\", line 173, in execute_protocol\n    raise ProtocolViolation(f\"fail-closed at {member.member_id}: {exc}\") from exc\ntmnt_design_studio.calibration_runner.ProtocolViolation: fail-closed at b0000-p00-canonical: executor returned without terminal state\n"
+}
