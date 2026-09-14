@@ -1,0 +1,105 @@
+"""Invoke the frozen V1 runner and preserve run identity and failure evidence."""
+import datetime
+import hashlib
+import json
+import platform
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import traceback
+import uuid
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'src'))
+from tmnt_design_studio.calibration_runner import execute_protocol, _atomic_write
+from tmnt_design_studio.calibration_executor import execute_member
+
+BASELINE = 'bf3ace0ebe984dbd24cf825dcc2bd32fb2da39af'
+RUNTIME = '425fd1dff2925454d10c113a32a662e58fda1544'
+RUN_ID = 'CALIBRATION_V1_' + datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '_' + uuid.uuid4().hex[:12]
+OUT = ROOT / 'docs/cardcade' / RUN_ID
+OUT.mkdir(exist_ok=False)
+
+def save(name, value):
+    payload = json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False).encode('utf-8')
+    _atomic_write(OUT / name, payload)
+    _atomic_write(OUT / (name + '.sha256'), (hashlib.sha256(payload).hexdigest() + '\n').encode())
+
+def git(*args):
+    return subprocess.check_output(['git', *args], cwd=ROOT)
+
+attempted = 0
+returned = 0
+current = None
+
+def executor(member, duplicate):
+    global attempted, returned, current
+    current = {'member_id': member.member_id, 'duplicate_index': duplicate,
+               'block': member.block, 'pair_index': member.pair_index,
+               'orientation': member.orientation, 'seed': member.seed, 'decks': member.decks}
+    attempted += 1
+    try:
+        result = execute_member(ROOT, member, duplicate)
+    except Exception as exc:
+        frames = []
+        tb = exc.__traceback__
+        while tb:
+            local = tb.tb_frame.f_locals
+            frame = {'function': tb.tb_frame.f_code.co_name, 'line': tb.tb_lineno}
+            if isinstance(local.get('result'), dict):
+                frame['result'] = local['result']
+            if 'game' in local and hasattr(local['game'], 'snapshot'):
+                try:
+                    frame['authoritative_snapshot'] = local['game'].snapshot()
+                except Exception as snapshot_error:
+                    frame['snapshot_error'] = repr(snapshot_error)
+            frames.append(frame)
+            tb = tb.tb_next
+        save('FAILED_EXECUTION.json', {'identity': current, 'error': str(exc),
+             'exception_type': type(exc).__name__, 'traceback': traceback.format_exc(), 'frames': frames})
+        raise
+    returned += 1
+    save(member.member_id + f'.r{duplicate + 1}.json', result)
+    return result
+
+try:
+    if git('rev-parse', 'HEAD').decode().strip() != BASELINE:
+        raise RuntimeError('release baseline mismatch')
+    if git('diff', '--name-only', RUNTIME, 'HEAD', '--', 'src', 'decks', 'cardcade', 'pyproject.toml', 'uv.lock').strip():
+        raise RuntimeError('frozen runtime differs from release baseline')
+    if git('diff', 'HEAD', '--', 'src', 'decks', 'cardcade', 'docs/cardcade/CALIBRATION_SEED_TABLE_V1.json', 'pyproject.toml', 'uv.lock').strip():
+        raise RuntimeError('working runtime/input drift')
+    manifest = json.loads((ROOT / 'docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json').read_text())
+    refresh = json.loads((ROOT / 'docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V3.json').read_text())
+    hashes = dict(manifest['sources'])
+    hashes.update({'src/tmnt_design_studio/calibration_runner.py': refresh['runner_hash'],
+                   'src/tmnt_design_studio/calibration_executor.py': refresh['executor_hash'],
+                   manifest['corpus']['path']: manifest['corpus']['sha256'],
+                   manifest['seed_table']['path']: manifest['seed_table']['sha256']})
+    for path, expected in hashes.items():
+        if hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected.lower():
+            raise RuntimeError('input hash mismatch: ' + path)
+    if platform.python_version() != manifest['environment']['python']:
+        raise RuntimeError('Python patch version mismatch')
+    save('RUN_MANIFEST.json', {'run_id': RUN_ID, 'release_baseline': BASELINE,
+         'frozen_runtime': RUNTIME, 'authorization': 'Explicit user authorization in current session',
+         'seed_table_sha256': manifest['seed_table']['sha256'], 'input_hashes': hashes,
+         'python': sys.version, 'platform': platform.platform(), 'free_disk_bytes': shutil.disk_usage(OUT).free,
+         'distinct_games': 184320, 'executions': 368640, 'strict': True,
+         'max_members': None, 'balance_analysis': False, 'release_manifest': manifest,
+         'release_refresh': refresh, 'launcher_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
+    print(json.dumps({'run_id': RUN_ID, 'output': str(OUT), 'status': 'STARTING'}), flush=True)
+    result = execute_protocol(ROOT / manifest['seed_table']['path'], OUT, executor,
+                              strict=True, expected_seed_table_sha256=manifest['seed_table']['sha256'])
+    save('RUN_RESULT.json', {'run_id': RUN_ID, 'status': result['status'],
+         'completed_members': result['completed_members'], 'attempted_executions': attempted,
+         'returned_executions': returned})
+except Exception as exc:
+    save('RUN_STOP.json', {'run_id': RUN_ID, 'status': 'FAIL_CLOSED_STOP',
+         'release_baseline': BASELINE, 'frozen_runtime': RUNTIME, 'failed_execution': current,
+         'attempted_executions': attempted, 'returned_executions': returned,
+         'error': str(exc), 'traceback': traceback.format_exc()})
+    print(json.dumps({'run_id': RUN_ID, 'status': 'FAIL_CLOSED_STOP', 'error': str(exc), 'output': str(OUT)}), flush=True)
+    sys.exit(1)
+print(json.dumps({'run_id': RUN_ID, 'status': result['status'], 'output': str(OUT)}), flush=True)
