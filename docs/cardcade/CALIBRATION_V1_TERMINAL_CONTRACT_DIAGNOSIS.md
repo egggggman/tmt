@@ -26,6 +26,8 @@ Both canonical UTF-8 JSON executions are retained independently under `CALIBRATI
 
 `REGRESSION.json` records their byte equality and terminal evidence. `VALIDATION.json` binds the changed and exercised source files with canonical Git/LF source hashes. The raw evidence files and manifests have SHA-256 sidecars and Git attributes preserving exact bytes.
 
+For cross-platform CI, tests reconstruct the frozen Windows deck bytes in an isolated temporary fixture and require exact equality to the accepted deck SHA-256 hashes before execution. The original repository decks and runtime hash checks are unchanged. This is necessary because Linux Git checkouts use LF while the release manifest binds CRLF deck bytes.
+
 Additional regressions verify nonterminal opening state, authoritative wins for either seat, missing/false/nonboolean terminal rejection, missing/inconsistent/invalid turn-count rejection, turn-119 win acceptance, and prevention of every turn-120 event on the bounded nonterminal path. The existing strict runner boundary test remains passing.
 
 Local validation: **20 focused tests passed; 1,416 full-suite tests passed, 1 skipped**. Repository-wide Ruff format and lint checks passed. GitHub CI results are reported on the PR head.

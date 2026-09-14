@@ -33,7 +33,38 @@ def canonical(result):
     return json.dumps(result, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
 
 
-def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path):
+@pytest.fixture(scope="module")
+def frozen_root(tmp_path_factory):
+    """Reconstruct the exact Windows release bytes in an isolated test directory."""
+    root = tmp_path_factory.mktemp("calibration-frozen-inputs")
+    manifest_path = Path("docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json")
+    manifest = json.loads((ROOT / manifest_path).read_bytes())
+    (root / manifest_path).parent.mkdir(parents=True)
+    (root / manifest_path).write_bytes((ROOT / manifest_path).read_bytes())
+    for deck in failed_member().decks:
+        matched = False
+        for candidate in sorted((ROOT / "decks" / deck).glob("PROTOTYPE_*.txt")):
+            raw = candidate.read_bytes()
+            # Git's platform checkout conversion is reversed only inside this fixture.
+            frozen = raw.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+            if hashlib.sha256(frozen).hexdigest() == manifest["deck_hashes"][deck].lower():
+                target = root / candidate.relative_to(ROOT)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(frozen)
+                matched = True
+                break
+        assert matched, f"cannot reconstruct authenticated release bytes: {deck}"
+    for name in (
+        "scryfall-tmt-pza-tmc-2026-08-13.json",
+        "scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+    ):
+        target = root / "cardcade" / name
+        target.parent.mkdir(exist_ok=True)
+        target.write_bytes((ROOT / "cardcade" / name).read_bytes())
+    return root
+
+
+def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path, frozen_root):
     member = failed_member()
     table_path = ROOT / "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json"
     manifest = json.loads((STOP / "RUN_MANIFEST.json").read_bytes())
@@ -48,8 +79,8 @@ def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path):
         int(row["seed"]),
         tuple(row["decks"]),
     ) == (member.block, member.pair_index, member.orientation, member.seed, member.decks)
-    first = adapter.execute_member(ROOT, member, 0)
-    second = adapter.execute_member(ROOT, member, 1)
+    first = adapter.execute_member(frozen_root, member, 0)
+    second = adapter.execute_member(frozen_root, member, 1)
     a, b = canonical(first), canonical(second)
     assert a == b
     authority = first["authoritative_state_fingerprint_preimage"]
@@ -116,25 +147,29 @@ def test_game_snapshot_contract_is_authoritative_for_both_winners():
 
 
 @pytest.mark.parametrize("terminal", [None, False, "true", 1])
-def test_executor_rejects_missing_false_or_nonboolean_terminal(monkeypatch, terminal):
+def test_executor_rejects_missing_false_or_nonboolean_terminal(monkeypatch, terminal, frozen_root):
     result = {"turn": 19, "turns_started": 19}
     if terminal is not None:
         result["terminal"] = terminal
     monkeypatch.setattr(adapter, "run_game", lambda *args: result)
     with pytest.raises(RuntimeError, match="without terminal state"):
-        adapter.execute_member(ROOT, failed_member())
+        adapter.execute_member(frozen_root, failed_member())
 
 
 @pytest.mark.parametrize("turns", [None, "19", True, -1, 18, 120])
-def test_executor_rejects_missing_inconsistent_or_out_of_range_turns(monkeypatch, turns):
+def test_executor_rejects_missing_inconsistent_or_out_of_range_turns(
+    monkeypatch, turns, frozen_root
+):
     result = {"terminal": True, "turn": 19 if turns != 120 else 120, "turns_started": turns}
     monkeypatch.setattr(adapter, "run_game", lambda *args: result)
     with pytest.raises(RuntimeError, match="turns_started|turn 120"):
-        adapter.execute_member(ROOT, failed_member())
+        adapter.execute_member(frozen_root, failed_member())
 
 
 @pytest.mark.parametrize("win_on_119", [False, True])
-def test_stage_prevents_turn_120_and_accepts_authoritative_win_on_119(monkeypatch, win_on_119):
+def test_stage_prevents_turn_120_and_accepts_authoritative_win_on_119(
+    monkeypatch, win_on_119, frozen_root
+):
     instances = []
 
     class BoundaryGame(Game):
@@ -153,13 +188,13 @@ def test_stage_prevents_turn_120_and_accepts_authoritative_win_on_119(monkeypatc
 
     monkeypatch.setattr(stage002, "Game", BoundaryGame)
     if win_on_119:
-        result = adapter.execute_member(ROOT, failed_member())
+        result = adapter.execute_member(frozen_root, failed_member())
         assert result["terminal"] is True
         assert result["turns_started"] == result["turn"] == 119
         assert result["winner"] == instances[0].players[0].name
     else:
         with pytest.raises(RuntimeError, match="attempted to begin turn 120"):
-            adapter.execute_member(ROOT, failed_member())
+            adapter.execute_member(frozen_root, failed_member())
         assert instances[0].winner is None
     assert instances[0].turn == 119
     assert [e["turn"] for e in instances[0].events if e["event"] == "turn_started"] == [119]

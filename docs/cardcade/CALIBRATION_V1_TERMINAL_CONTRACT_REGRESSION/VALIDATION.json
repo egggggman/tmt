@@ -7,7 +7,7 @@
     "src/tmnt_design_studio/stage002.py": "a036ce6ca29eca17ea7702849bf1a4e5e03b6599ebd9992951fa732591194d2a",
     "src/tmnt_design_studio/calibration_executor.py": "ff4e8bbaaa415e57c5aee31359aa904e284fc4d374ad02d81c948c6dadc50db1",
     "src/tmnt_design_studio/calibration_runner.py": "40a38b154adf6d30f33a6525e8869bf63508f702fcdec54623a037465b5a6136",
-    "tests/test_calibration_terminal_contract.py": "17770bfb6e5fca6d670a343343edbe8712dd72fb8c69fef60e80d06cd0278454",
+    "tests/test_calibration_terminal_contract.py": "badda44483560d24c627298639695c1a53355308d322477d485adde808b2fd3f",
     "tests/test_calibration_runner.py": "8ea60677566476e6c5da4b6f574b60bd99eeca33462d66dfdb3da5fe5c1f6723"
   },
   "focused_tests": {
@@ -16,11 +16,12 @@
   "full_suite": {
     "passed": 1416,
     "skipped": 1,
-    "seconds": 29.6
+    "seconds": 63.0
   },
-  "ruff_format_check": "PASS: 402 files",
+  "ruff_format_check": "PASS",
   "ruff_check": "PASS",
   "calibration_rerun": false,
   "new_release_seal": false,
-  "balance_analysis": false
+  "balance_analysis": false,
+  "fixture": "Isolated CRLF release deck bytes authenticated against frozen hashes; repository decks untouched"
 }
