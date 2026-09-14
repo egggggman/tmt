@@ -1,0 +1,20 @@
+{
+    "scheme":  "calibration-protocol-v1-run-stop",
+    "run_id":  "CALIBRATION_V1_ee391dc_20260913T205000Z",
+    "release_record_baseline":  "ee391dc6424dcbe03c4e1a523a8c49d6d6b0626b",
+    "frozen_runtime_commit":  "2e2455f1dcdfc477708a31244c0aea37b1074ad5",
+    "seed_table_sha256":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "status":  "FAIL_CLOSED_STOP",
+    "failed_member_id":  null,
+    "completed_distinct_games":  0,
+    "completed_executions":  0,
+    "duplicate_mismatch_count":  0,
+    "failures":  1,
+    "calibration_observations":  0,
+    "reason_code":  "PRECHECK-RUNNER-002",
+    "reason":  "No conformant Game/Pilot executor adapter is present in the frozen runtime; execute_protocol requires an injected executor and cannot begin protocol members without one.",
+    "seed_consumed":  false,
+    "later_member_attempted":  false,
+    "evidence":  "preflight only; no raw or normalized game evidence",
+    "execution_authorized":  true
+}
