@@ -2,7 +2,11 @@ import json
 
 import pytest
 
-from tmnt_design_studio.calibration_runner import ProtocolViolation, execute_protocol
+from tmnt_design_studio.calibration_runner import (
+    ProtocolMember,
+    ProtocolViolation,
+    execute_protocol,
+)
 
 
 def table(path):
@@ -82,3 +86,34 @@ def test_strict_turn_boundary_fails_closed(tmp_path, monkeypatch):
             lambda member, duplicate: {"terminal": True, "turns_started": 120},
             strict=True,
         )
+
+
+def test_executor_builds_fresh_spec_and_propagates_result(tmp_path, monkeypatch):
+    from tmnt_design_studio import calibration_executor as adapter
+
+    seen = []
+
+    def fake_run(root, spec, pilot):
+        seen.append((spec, pilot))
+        return {"terminal": True, "turns_started": 3, "telemetry": []}
+
+    monkeypatch.setattr(adapter, "run_game", fake_run)
+    monkeypatch.setattr(adapter, "_frozen_deck_path", lambda root, deck: f"decks/{deck}/frozen.txt")
+    member = ProtocolMember("b0000-p00-canonical", 0, 0, "canonical", 7, ("a", "b"))
+    first = adapter.execute_member(tmp_path, member, 0)
+    second = adapter.execute_member(tmp_path, member, 1)
+    assert first["turns_started"] == 3
+    assert first["member_id"] == second["member_id"]
+    assert seen[0][0].orientation == "canonical"
+    assert seen[0][0].seats[0].display_id == "a"
+    assert seen[1][1] is not seen[0][1]
+
+
+def test_executor_rejects_nonterminal_result(tmp_path, monkeypatch):
+    from tmnt_design_studio import calibration_executor as adapter
+
+    monkeypatch.setattr(adapter, "run_game", lambda *args: {"terminal": False})
+    monkeypatch.setattr(adapter, "_frozen_deck_path", lambda root, deck: f"decks/{deck}/frozen.txt")
+    member = ProtocolMember("b0000-p00-canonical", 0, 0, "canonical", 7, ("a", "b"))
+    with pytest.raises(RuntimeError, match="terminal"):
+        adapter.execute_member(tmp_path, member)
