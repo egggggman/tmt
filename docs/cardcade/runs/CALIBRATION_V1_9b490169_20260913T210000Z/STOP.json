@@ -1,0 +1,17 @@
+{
+    "scheme":  "calibration-protocol-v1-run-stop",
+    "run_id":  "CALIBRATION_V1_9b490169_20260913T210000Z",
+    "release_record_baseline":  "9b490169f487305e1bbc57025eb07077127259cc",
+    "frozen_runtime_commit":  "d49537f3e6b1222caa0549196abbf2a77e0df63c",
+    "expected_seed_table_sha256":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "actual_seed_table_sha256":  "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+    "status":  "FAIL_CLOSED_STOP",
+    "reason_code":  "PRECHECK-SEED-001",
+    "reason":  "Frozen seed-table hash does not match the authorized release identity; no protocol member was consumed.",
+    "completed_distinct_games":  0,
+    "completed_executions":  0,
+    "calibration_observations":  0,
+    "seed_consumed":  false,
+    "later_member_attempted":  false,
+    "execution_authorized":  true
+}
