@@ -29,7 +29,7 @@ def load_members(
     seed_table: Path, *, strict: bool = False, expected_sha256: str | None = None
 ) -> tuple[ProtocolMember, ...]:
     digest = hashlib.sha256(seed_table.read_bytes()).hexdigest()
-    if expected_sha256 is not None and digest != expected_sha256:
+    if expected_sha256 is not None and digest != expected_sha256.lower():
         raise ProtocolViolation("seed table hash mismatch")
     data = json.loads(seed_table.read_text(encoding="utf-8"))
     rows = data.get("rows")
