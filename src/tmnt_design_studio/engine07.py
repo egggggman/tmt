@@ -10210,6 +10210,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         return {
             "engine_version": ENGINE_VERSION,
             "turn": self.turn,
+            "turns_started": self.turn,
+            "terminal": self.winner is not None,
             "active_player": self.players[self.active_player].name,
             "phase": self.phase,
             "step": self.step.value,
