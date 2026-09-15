@@ -1,0 +1,22 @@
+{
+  "scheme": "calibration-seed-table-v2-generation",
+  "execution_authorized": false,
+  "started_utc": "2026-09-15T00:31:28.089359+00:00",
+  "source_main_commit": "ab2fd6f8e5e947dbbfef669379803a725d76e905",
+  "generator_path": "scripts/build_calibration_seed_table_v2.py",
+  "generator_git_lf_sha256": "A2B4CCA2AA984DCEF787BFFB311A2D8670DE7CE5BAFCC7DE2CDEE89761BA0174",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "entropy_api": "os.urandom(32)",
+  "draw_order": "block 0..2047, pair_index 0..44; one independent 32-byte draw per pair",
+  "integer_conversion": "unsigned big-endian 256-bit",
+  "sampling": "with replacement",
+  "entropy_file_layout": "92160 consecutive 32-byte draws; offset=32*(45*block+pair_index)",
+  "expansion": "canonical decks[A,B], then reversed decks[B,A], both using the same seed",
+  "v1_sha256_preserved": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+  "previous_outcome_exposure": "V1 first-member diagnostic outcome already inspected; V2 uses no outcomes or V1 seed selection",
+  "candidate_tables_selected_between": false,
+  "adaptive_or_replacement_seeds": false,
+  "game_executions": 0
+}
