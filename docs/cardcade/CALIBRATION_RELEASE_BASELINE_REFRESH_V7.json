@@ -452,7 +452,7 @@
     "calibration_restarted": false,
     "balance_analysis": false
   },
-  "authorization_gate": "Independent HQ audit and explicit Calibration Protocol V1 execution authorization required; this packet grants none",
+  "release_refresh_status": "V7_SCHEMA_PREFLIGHT_BOUND",`r`n  "authorization_gate": "Independent HQ audit and explicit Calibration Protocol V1 execution authorization required; this packet grants none",
   "schema_preflight_identity": {
     "path": "scripts/calibration_v6_preflight.py",
     "git_blob_sha256": "D76CC54E0374F41FA8203F1B52BA5CC5D89ECBA2FAD9D64AE5F112E69BAEC1F0"
