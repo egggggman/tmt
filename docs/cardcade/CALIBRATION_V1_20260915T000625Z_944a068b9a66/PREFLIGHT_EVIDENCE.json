@@ -1,0 +1,55 @@
+{
+  "recorded_after_stop_utc": "2026-09-15T00:07:54.432691+00:00",
+  "scope": "Read-only preservation supplement; original RUN_STOP and launcher remain unchanged",
+  "run_id": "CALIBRATION_V1_20260915T000625Z_944a068b9a66",
+  "release_baseline": "e32382425ccb50a67324aacac247b2f5573e52a8",
+  "frozen_runtime": "ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "seed_table_path": "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json",
+  "seed_table_sha256": "c8d3efbb99b2891808985d66e7ea59ef879d546b7d378f05fa17e63793f9d968",
+  "observed_first_two_rows": [
+    {
+      "block": 0,
+      "pair_index": 0,
+      "orientation": "canonical",
+      "seed": 1000000,
+      "decks": [
+        "april_oneil",
+        "bebop_rocksteady"
+      ]
+    },
+    {
+      "block": 0,
+      "pair_index": 0,
+      "orientation": "reversed",
+      "seed": 1000001,
+      "decks": [
+        "april_oneil",
+        "bebop_rocksteady"
+      ]
+    }
+  ],
+  "first_material_failure": "frozen schedule order/deck membership mismatch: b0000-p00-reversed",
+  "expected_reversed_decks": [
+    "bebop_rocksteady",
+    "april_oneil"
+  ],
+  "observed_reversed_decks": [
+    "april_oneil",
+    "bebop_rocksteady"
+  ],
+  "additional_read_only_observation": "The paired orientation seeds also differ: 1000000 versus 1000001. This does not replace or amend the original stop.",
+  "stop_phase": "schedule preflight before Stage validation manifest construction and before execute_protocol",
+  "attempted_game_executions": 0,
+  "authenticated_games": 0,
+  "duplicate_authentications": 0,
+  "game_state_or_game_execution_ledger": "Not produced: no game or frozen schedule execution began",
+  "original_artifact_checksum_inventory": {
+    "RUN_STOP.json": "7121914f6d42a52c8d4a297ca1a67bd609bdfab3bdc5669d98e7a46a490a2a52",
+    "RUN_STOP.json.sha256": "88ec7d00d827240d2a699fa6f5ac642f67ffe6c3dd17bc4546b41e7ce60f9c81",
+    "launcher.py.txt": "dab6bc7a75ac6dcaba31d415392892fc92db8441fbcc1b261ad870ebc66002d9"
+  },
+  "frozen_executor_seat_contract": "execute_member creates seats directly from member.decks; orientation is passed as metadata, not a seat permutation",
+  "calibration_restarted_after_stop": false,
+  "balance_analysis": false
+}

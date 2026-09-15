@@ -1,0 +1,334 @@
+{
+  "scheme": "calibration-release-baseline-refresh-v4",
+  "execution_authorized": false,
+  "execution_authorization_required": true,
+  "main_commit": "ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d",
+  "previous_release_baseline": "bf3ace0ebe984dbd24cf825dcc2bd32fb2da39af",
+  "previous_frozen_runtime": "425fd1dff2925454d10c113a32a662e58fda1544",
+  "merge_commits": {
+    "136": "7cdd9f7bb1beec690dd3f89e46c8b94fe1e47fbc",
+    "137": "ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d"
+  },
+  "accepted_pr_heads": {
+    "136": "23f3bdadf6495b9a79c69ce3020c8381c68e8e6e",
+    "137": "1010c64c9afebd3b98619dae7b0e9da3449aa943"
+  },
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "hash_methods": {
+    "source_hashes": "SHA-256 of exact Windows checkout bytes, consistent with V3; no normalization at hash time",
+    "git_blob_sha256": "SHA-256 of git show <main_commit>:<path> bytes",
+    "git_blob": "Git object ID at main_commit",
+    "packet_sidecars": "SHA-256 of exact UTF-8 packet bytes; Git attributes disable line-ending conversion"
+  },
+  "updated_source_hashes": {
+    "engine07": "E575DD69C56248779562AEE4BD11E8901B73938B0CB0707927480BDBE3A82638",
+    "stage002": "84A4E14D86101BD102A4B0ACA2418A6CA886A96720C06E1F91A8EB8EB0BEFDB0",
+    "calibration_executor": "D00E5B44B532377BD69E454AD1AB20C1710A435420D51C00DDD7E462A80BDBC2"
+  },
+  "runner_hash": "74310BE41E2086AB979C2F18E0A4001D9552AEE5D5B3EED9D1EF5545B571939D",
+  "executor_hash": "D00E5B44B532377BD69E454AD1AB20C1710A435420D51C00DDD7E462A80BDBC2",
+  "unchanged_source_hashes": {
+    "calibration_runner": "74310BE41E2086AB979C2F18E0A4001D9552AEE5D5B3EED9D1EF5545B571939D",
+    "card_interpreter07": "428A1088E26B7FB6A209E7A360B0FAD50E1FC675AF815E7D86DEFAB94D7DB426",
+    "pilot07": "CF24950340F6BD54D77302D89A2FBDB99DAE64BDEA3948117108B32F18392563",
+    "pilot_input_v2": "C0B608B77473313CC4D1A8DBE19B091742EAD2111CDFD702B937C509316D6BE5"
+  },
+  "source_identities": {
+    "engine07": {
+      "path": "src/tmnt_design_studio/engine07.py",
+      "git_blob": "eb745d48d3c2db65046514006015d7ca595a1376",
+      "git_blob_sha256": "4CAA091F1613FD765CAB148DB7762B64E3CC4599CEC8A229C5EC8038E1CA93E2",
+      "windows_checkout_sha256": "E575DD69C56248779562AEE4BD11E8901B73938B0CB0707927480BDBE3A82638"
+    },
+    "stage002": {
+      "path": "src/tmnt_design_studio/stage002.py",
+      "git_blob": "8e3558afb5e683aa353aad659464309cf3152405",
+      "git_blob_sha256": "A036CE6CA29ECA17EA7702849BF1A4E5E03B6599EBD9992951FA732591194D2A",
+      "windows_checkout_sha256": "84A4E14D86101BD102A4B0ACA2418A6CA886A96720C06E1F91A8EB8EB0BEFDB0"
+    },
+    "calibration_executor": {
+      "path": "src/tmnt_design_studio/calibration_executor.py",
+      "git_blob": "d707272bfbf890546e9ed79414387f53315f07c0",
+      "git_blob_sha256": "FF4E8BBAAA415E57C5AEE31359AA904E284FC4D374AD02D81C948C6DADC50DB1",
+      "windows_checkout_sha256": "D00E5B44B532377BD69E454AD1AB20C1710A435420D51C00DDD7E462A80BDBC2"
+    },
+    "calibration_runner": {
+      "path": "src/tmnt_design_studio/calibration_runner.py",
+      "git_blob": "463588423bcc456c9f200ee65527a110b41b2273",
+      "git_blob_sha256": "40A38B154ADF6D30F33A6525E8869BF63508F702FCDEC54623A037465B5A6136",
+      "windows_checkout_sha256": "74310BE41E2086AB979C2F18E0A4001D9552AEE5D5B3EED9D1EF5545B571939D"
+    },
+    "card_interpreter07": {
+      "path": "src/tmnt_design_studio/card_interpreter07.py",
+      "git_blob": "57ca04f70be5674781436b512b3a7c7262e8e19d",
+      "git_blob_sha256": "2636EF72AD13E546A32C27A498DCB6E759866A3B1E766475FC2FD0969D3D68F6",
+      "windows_checkout_sha256": "428A1088E26B7FB6A209E7A360B0FAD50E1FC675AF815E7D86DEFAB94D7DB426"
+    },
+    "pilot07": {
+      "path": "src/tmnt_design_studio/pilot07.py",
+      "git_blob": "31bc847ee7f46869686aba36ee0f44c2d047a34a",
+      "git_blob_sha256": "6471C277A3338C3B3E3D54AE8951DC2C09708829899DD636A4CD5F1C516E5F7D",
+      "windows_checkout_sha256": "CF24950340F6BD54D77302D89A2FBDB99DAE64BDEA3948117108B32F18392563"
+    },
+    "pilot_input_v2": {
+      "path": "src/tmnt_design_studio/pilot_input_v2.py",
+      "git_blob": "56735c7660d9c1d5db55a4b9317444b3a05d74cf",
+      "git_blob_sha256": "E9F5D1E4F5616C1290392EE1BC5C353763E43D1EDC59DC24407D349C4A865A1A",
+      "windows_checkout_sha256": "C0B608B77473313CC4D1A8DBE19B091742EAD2111CDFD702B937C509316D6BE5"
+    }
+  },
+  "corpus_sha256": "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80",
+  "seed_table_sha256": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+  "deck_identity": "unchanged; exact accepted manifest hashes verified",
+  "frozen_inputs": {
+    "corpus": {
+      "path": "cardcade/card-model-0.6.json",
+      "git_blob": "6394080e24c9277827bf967766b54611ed9baf00",
+      "git_blob_sha256": "A69D5E6DA7EBF4EFF1E84BF93E9A620165253178C8EBB7B9F0B6E7DEAB9EF9A2",
+      "windows_checkout_sha256": "8631A98759FFD762931F5305B6C2BCA72FDCD26827ADBF5CDB5A764EDB131B80"
+    },
+    "seed_table": {
+      "path": "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json",
+      "git_blob": "ebb77bfcd778e772c40509a00ca223b432eff151",
+      "git_blob_sha256": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968",
+      "windows_checkout_sha256": "C8D3EFBB99B2891808985D66E7EA59EF879D546B7D378F05FA17E63793F9D968"
+    },
+    "decks": {
+      "april_oneil": {
+        "path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+        "git_blob": "aa02bd4cd5ce78b182d78d2f4d1b819693e2e033",
+        "git_blob_sha256": "EF43B0DC98524EC84642E4D19364D29251ABA2AE8614976348949FF4DCA436EF",
+        "windows_checkout_sha256": "684C898760A39C5DFC584206EF4675C49D96CFE6BD419F03F86BD0B8358D09F4"
+      },
+      "bebop_rocksteady": {
+        "path": "decks/bebop_rocksteady/PROTOTYPE_0.1.txt",
+        "git_blob": "d12cb8dca2412eb5267496ef3530f9b95e3032a1",
+        "git_blob_sha256": "9756DB19C204CE38D5544E6C4DDC4DAF3E4907FCDD147922FCCA840D606677B8",
+        "windows_checkout_sha256": "3875706A76FFAB14D2A82BA836DA9E59BCE49DE2F990A348941490E78A61EF9D"
+      },
+      "casey_jones": {
+        "path": "decks/casey_jones/PROTOTYPE_0.1.txt",
+        "git_blob": "ebcddef99784da507055ff1bac84134e5d355ac6",
+        "git_blob_sha256": "5C6A9068BAB15A2C9F0098778290ADBCAA29B96BF699E7E595EDB0966E375748",
+        "windows_checkout_sha256": "0FC0ADBB370ECFDDAD03692A4229A04B23268739914A8F2A004B8E042FF3CEBB"
+      },
+      "donatello": {
+        "path": "decks/donatello/PROTOTYPE_0.1.txt",
+        "git_blob": "9fae8db9fa819935bd612ac13add867c5a76432e",
+        "git_blob_sha256": "25812E2D7F0AC64AE2476C0D62298DB35196D1719C9376B5369D5080FAA6AAD1",
+        "windows_checkout_sha256": "8FAC1790E2C9BA307C073D6A2EC034971CA1959BCDE64A178A117D94FB9938FB"
+      },
+      "krang": {
+        "path": "decks/krang/PROTOTYPE_0.1.txt",
+        "git_blob": "1840c1883db414a0ea96bd926b23ed8928c9ee28",
+        "git_blob_sha256": "817D3AC97507FD1D492C3495CF81670289765F2C3FB6571AE43CBB8DBEAA1997",
+        "windows_checkout_sha256": "D9B44AF5BEB3ABA153B792EE5F70EB4C749B38C8EBFAA114DA24AFB1F0A9862F"
+      },
+      "leonardo": {
+        "path": "decks/leonardo/PROTOTYPE_0.1.txt",
+        "git_blob": "99e082b2cbcc2446159b4a01c3ca9f89d59a2a3e",
+        "git_blob_sha256": "D1BC2928B6AB17D3467E96DD3CA03C7D8BB7A52245CE77A1BA5B219F588F450A",
+        "windows_checkout_sha256": "D49D155858938D6FC64127C1678E591EE77ABAD3B7DA8302880F16379476FB08"
+      },
+      "michelangelo": {
+        "path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+        "git_blob": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+        "git_blob_sha256": "A35DFD61A87EC5377D7EDA930AFC22449D86BB2385B6D5E59D40E23211FE514F",
+        "windows_checkout_sha256": "F5DD228B6E3636BD0DE367B9D1A2BD836C0388BF37B00F0C0C047A932973EBF9"
+      },
+      "raphael": {
+        "path": "decks/raphael/PROTOTYPE_0.1.txt",
+        "git_blob": "964ceb42e13fd0d60fd43346c0b2415bbbe19c30",
+        "git_blob_sha256": "7768D150BD57F7F949BD4D72ADCB0712D4D8CBDABE3A70C63BAC6AD0E00AF576",
+        "windows_checkout_sha256": "07EED928EF6C47AEA1F8FB2DF2C494D0FAE12C10BEE8836E7AA9CF2A8784A834"
+      },
+      "shredder": {
+        "path": "decks/shredder/PROTOTYPE_0.1.txt",
+        "git_blob": "306fd267482b72f188c69222d57fcc547d654091",
+        "git_blob_sha256": "6F646EFB8F4AD4CABE7046FB97762821E10298AA02608EBC5693D28E8A8DD094",
+        "windows_checkout_sha256": "D0C6479EF2DF6D3C64911E8F93465310760F6509282B018FB1C8319CC2C3D6A1"
+      },
+      "splinter": {
+        "path": "decks/splinter/PROTOTYPE_0.1.txt",
+        "git_blob": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+        "git_blob_sha256": "A6C61786654F6D37C7B7EE779FDCB4252EE77D9D43A6E0160154831C204D8E42",
+        "windows_checkout_sha256": "74B6D7F4CAB4BCDA9EEB80FFC7A779529115C98C161345F13AC1251D85163B0A"
+      }
+    },
+    "catalog": [
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+        "git_blob": "761376d5f932fe6cfbbe140d5c76793c9dd5b169",
+        "git_blob_sha256": "56A53AF4D0E6F92D8500B7330BBFD37215AB54FBFDED0CA600A5452ADC06D402",
+        "windows_checkout_sha256": "56A53AF4D0E6F92D8500B7330BBFD37215AB54FBFDED0CA600A5452ADC06D402"
+      },
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+        "git_blob": "768d25bbed8392a2f92b7b7f06ae8a34e2602423",
+        "git_blob_sha256": "DDBF57645BD016D16659424F2196CD816EDFC7A187C4B653A9E6E8839B3E9A6D",
+        "windows_checkout_sha256": "6B5271AF75150A361F77E7B89306C709959DFDF497C448DFDC978E5DC9A17950"
+      }
+    ],
+    "protocol": [
+      {
+        "path": "docs/cardcade/CALIBRATION_PROTOCOL_SPEC_V1.json",
+        "git_blob": "5673b8bb41d6e382f4cc922c3adca1b41933dc1b",
+        "git_blob_sha256": "F42A25D057A122A9479BE7DE1DCF6DA916D62C61CE78042A9D9E74E7E04D9449",
+        "windows_checkout_sha256": "9A0A4FA73729B92018B253599A7173F09D2AC81AFFC1DBE4BDB017731AF520F7"
+      },
+      {
+        "path": "docs/cardcade/CALIBRATION_PROTOCOL_SPEC_V1.md",
+        "git_blob": "c50a51629d417a2c3c3934612e71d80c75386dc2",
+        "git_blob_sha256": "DB635F555FCF4A8FDFD26C937FD1B311422F96714B82201886AA365D205E13F1",
+        "windows_checkout_sha256": "03A866F6C2E8C59A69B8AE4C9318B11FB7C510EBE3ED5F25AD12666A4F2E0A7E"
+      }
+    ],
+    "release_manifest": {
+      "path": "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+      "git_blob": "c679a6b455a79918680fc67f766544b39ed4f9a6",
+      "git_blob_sha256": "807F04F4155E6F071BF94ACCB368290CFF9EE0D6D8F2FAD26B25C74B6762E174",
+      "windows_checkout_sha256": "79C0697A5307F65D3A2A5470BA51C31E4B33BF704C2999E12EF8DCF96832B7CD"
+    }
+  },
+  "capacity_disposition": "unchanged from accepted release manifest; no new capacity claim or benchmark",
+  "capacity_evidence": {
+    "benchmark_path": "docs/cardcade/capacity-benchmark-v1",
+    "benchmark_seed": 20260913,
+    "benchmark_pairings": 45,
+    "benchmark_games_per_pairing": 2,
+    "benchmark_executions": 90,
+    "elapsed_seconds": 0.0413756,
+    "seconds_per_execution": 0.00045973,
+    "raw_bytes": 310617,
+    "normalized_bytes": 24404,
+    "raw_bytes_per_execution": 3451.3,
+    "normalized_bytes_per_execution": 271.2,
+    "duplicate_authentication_overhead_seconds_estimate": 0.0482645,
+    "extrapolated_distinct_games": 184320,
+    "extrapolated_total_executions": 368640,
+    "extrapolated_runtime_seconds": 169.4,
+    "conservative_runtime_headroom_factor": 2.0,
+    "runtime_with_headroom_seconds": 338.8,
+    "extrapolated_raw_storage_bytes": 1272238080,
+    "extrapolated_normalized_storage_bytes": 99958784,
+    "benchmark_status": "authenticated non-calibration benchmark; zero calibration observations",
+    "actual_games": 90,
+    "actual_executions": 90,
+    "duplicate_executions": 90,
+    "duplicate_equal": true,
+    "benchmark_artifact_hashes": {
+      "BENCHMARK.json": "A793CA92A347B6282DA5C55C9BD4F4D2D7E353DE1E858B294739BFD6E6B1C661",
+      "execution-ledger.json": "6923CA9D1C2BE4E4B87FABE4F4B6F0CFB5F21352C18BFCCDD78863CF19EBB094",
+      "normalized.json": "0A99FFE1CAE9B119151CF58C89B88FC512B1101EAC3BD6C325585CAC02238146",
+      "raw.json": "DC65B029E665EE50AAC5DD331758F91324419E28B123CD294BDA4345A6D68BB3"
+    }
+  },
+  "semantic_pilot_dispositions": "preserved unchanged; terminal-contract infrastructure correction only",
+  "disposition_artifacts": [
+    {
+      "path": "docs/cardcade/CALIBRATION_PILOT_DOMAIN_DISPOSITION_V1.md",
+      "git_blob": "46218ed519d2e739f8154a1c6c136b8f2436acb6",
+      "git_blob_sha256": "52A3FBB41FB9F6CFBC86C33ABE95E9FAC5619C0D07DB34E8936632AA81EF02D1",
+      "windows_checkout_sha256": "C989F357025CCE6AD3D1DD87D191C7FAF6F888C53268A83D7DE8999C60FA3B14"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_RELEASE_ADDENDUM_V1.md",
+      "git_blob": "511a710ba3463278fb134a82230a7d84948b4148",
+      "git_blob_sha256": "C27ADEA7BE6464C2CAA860AC1C8EFD5C5BDC3DD664A89680C4456ABEA4EF5A1B",
+      "windows_checkout_sha256": "F5E8F6369944EB6A13B0F8E7C3D7E36022F7E8228366A1BB2C41C8B049C2C331"
+    }
+  ],
+  "preserved_prior_failed_runs": [
+    {
+      "path": "docs/cardcade/CALIBRATION_PROTOCOL_V1_STOP_001.md",
+      "git_blob": "269fe404ec8960618c75c2295102dabbfdeb1450",
+      "git_blob_sha256": "3D7C09A18272AC4308CB45310F3BA4DD8A958FB1215C7CBF49A038164DD9DD50",
+      "windows_checkout_sha256": "E5A3B7A3D8814C1DBC77CC9538D0D90448D92A1DA6DA283D1987A127B73E3BB8"
+    },
+    {
+      "path": "docs/cardcade/runs/CALIBRATION_V1_9b490169_20260913T210000Z/STOP.json",
+      "git_blob": "a160ad8b01d8916fb818451fa5bb2fb74f240e41",
+      "git_blob_sha256": "963CA6DE484304A9F2A07A751A284A7FA8F022C1C7CD61ADE6FECEB9E94CFED1",
+      "windows_checkout_sha256": "C19886ADBA5F6B5A09C500BDC9EC045C0CE1C257E3C01D8A55DBC9BC4CB97A11"
+    },
+    {
+      "path": "docs/cardcade/runs/CALIBRATION_V1_ee391dc_20260913T205000Z/STOP.json",
+      "git_blob": "3b2702f4baa76586c149302dfd48ce1ac4491364",
+      "git_blob_sha256": "7327EE520B296CFD3874E4DF294B93EFA30D070B28BCC2FE83100DB4480954DC",
+      "windows_checkout_sha256": "BE6A5741834A3BDE9F57BA7877D7F69C7A5D52B3E4248EAF6283EDF4FF097F75"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/EXECUTION_LEDGER.json",
+      "git_blob": "e747385eed4911a5c63b65b573c6acfa3b854f33",
+      "git_blob_sha256": "EEAF9E856761B0E4902C7539F9676970164CDBD47BE55A0236F7C7EAEF53E3A7",
+      "windows_checkout_sha256": "EEAF9E856761B0E4902C7539F9676970164CDBD47BE55A0236F7C7EAEF53E3A7"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/FAILED_EXECUTION.json",
+      "git_blob": "c5380f46097312a277d120a7e6960832a218e1ea",
+      "git_blob_sha256": "54C653C4D68F228A28D650B18D8380C9CDD7C3DAFD63E7BB88188D705D310E4D",
+      "windows_checkout_sha256": "54C653C4D68F228A28D650B18D8380C9CDD7C3DAFD63E7BB88188D705D310E4D"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/FAILED_EXECUTION.json.sha256",
+      "git_blob": "466567362a09f1dd658f009b5fe73215b95a09c1",
+      "git_blob_sha256": "ADB52093F8D8E638E0CE2EACCB2F2C96EB010576DC954FEFB56E9E0C6E1B9129",
+      "windows_checkout_sha256": "ADB52093F8D8E638E0CE2EACCB2F2C96EB010576DC954FEFB56E9E0C6E1B9129"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/RUN_MANIFEST.json",
+      "git_blob": "3b820816518e1fb0a5e09c1e032d9d1dfb42f32b",
+      "git_blob_sha256": "5BFEE55A837CEA6763B51B599FDA4A2EAC25553A1B2B652FFB5FE61D20A2C3E8",
+      "windows_checkout_sha256": "5BFEE55A837CEA6763B51B599FDA4A2EAC25553A1B2B652FFB5FE61D20A2C3E8"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/RUN_MANIFEST.json.sha256",
+      "git_blob": "1d09b8ccfa1842966bec94c85ff9f1adb3a46289",
+      "git_blob_sha256": "EC949B29BED82111B955F3F665E1D4BD13D6D9F8428C03CF67172CA6C9368EB4",
+      "windows_checkout_sha256": "EC949B29BED82111B955F3F665E1D4BD13D6D9F8428C03CF67172CA6C9368EB4"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/RUN_STOP.json",
+      "git_blob": "d9e24963a95c9cfe2203173536a67c3280ecb932",
+      "git_blob_sha256": "0A7F9CE8D55E6E798D5D330F2BF1AD52A0F3AC4291344F498E00171FDB0170A1",
+      "windows_checkout_sha256": "0A7F9CE8D55E6E798D5D330F2BF1AD52A0F3AC4291344F498E00171FDB0170A1"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/RUN_STOP.json.sha256",
+      "git_blob": "833dbe453a68110a2e95fabc7e0bcf0c78efa80b",
+      "git_blob_sha256": "40EEBE1E52DA9B369EB5ED4E0869BF6B2026AA90D3A2C24DD74F4D71D9F96562",
+      "windows_checkout_sha256": "40EEBE1E52DA9B369EB5ED4E0869BF6B2026AA90D3A2C24DD74F4D71D9F96562"
+    },
+    {
+      "path": "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702/launch_calibration_v1_authorized.py.txt",
+      "git_blob": "42b1a2b422e3b56996a76f82ec86c7c1fdf3ccaf",
+      "git_blob_sha256": "CA2252EBDFD59B013844A803C545791E95A52A6028D28F7A74279C4E6E111B2B",
+      "windows_checkout_sha256": "CA2252EBDFD59B013844A803C545791E95A52A6028D28F7A74279C4E6E111B2B"
+    }
+  ],
+  "validation": {
+    "main_synchronized_and_clean_before_refresh": true,
+    "runtime_source_changes_exactly": [
+      "engine07",
+      "stage002",
+      "calibration_executor"
+    ],
+    "unchanged_input_and_disposition_git_bytes_verified": true,
+    "prior_failure_git_bytes_preserved": true,
+    "preserved_attempt_sidecars_verified": true,
+    "accepted_fix_ci_run": "34910135535",
+    "accepted_stop_ci_run": "34906314314",
+    "new_game_executions_during_refresh": 0,
+    "calibration_restarted": false,
+    "balance_analysis": false
+  },
+  "workload_unchanged": {
+    "distinct_games": 184320,
+    "executions": 368640,
+    "exact_duplicate_replay": true,
+    "truncation": false,
+    "adaptive_or_replacement_seeds": false,
+    "fail_closed_on_first_material_failure": true
+  },
+  "next_gate": "Independent HQ verification of V4, followed by separate explicit calibration authorization; this packet grants none"
+}
