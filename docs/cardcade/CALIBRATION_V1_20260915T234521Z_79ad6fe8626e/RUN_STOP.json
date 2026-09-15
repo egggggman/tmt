@@ -1,0 +1,17 @@
+{
+  "attempted_executions": 0,
+  "authenticated_duplicate_pairs": 0,
+  "balance_analysis": false,
+  "completed_distinct_games": 0,
+  "duplicate_mismatch_count": 0,
+  "error": "preflight launcher construction assertion failed before gameplay",
+  "failure_count": 1,
+  "frozen_runtime": "ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d",
+  "gameplay_started": false,
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "release_baseline": "82d03b7febf9155652b395284f4526ee5721735f",
+  "returned_executions": 0,
+  "run_id": "CALIBRATION_V1_20260915T234521Z_79ad6fe8626e",
+  "seed_table_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "status": "FAIL_CLOSED_STOP"
+}
