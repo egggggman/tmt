@@ -1,0 +1,77 @@
+import datetime, hashlib, json, pathlib, platform, shutil, subprocess, sys, traceback
+from pathlib import Path
+OUT=Path(__file__).resolve().parent; ROOT=OUT.parents[2]
+BASELINE='d004899d1a42b5e451f863cda0b980a02d48d411'; RUNTIME='ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d'; PROTOCOL='96fc43ec3203938eb385618f6187f8496b93ecd3'; SEED_HASH='6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C'; ENTROPY_HASH='E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB'
+sys.path.insert(0,str(ROOT/'src'))
+from tmnt_design_studio.calibration_runner import execute_protocol, load_members, _atomic_write
+from tmnt_design_studio.calibration_executor import execute_member
+from tmnt_design_studio.stage002 import build_stage_manifest, reconcile_snapshot, DeckSpec, GameSpec
+RUN_ID=OUT.name; attempted=returned=0; current=None; stage_manifest=None; started=datetime.datetime.now(datetime.UTC).isoformat()
+def sha(raw): return hashlib.sha256(raw).hexdigest().upper()
+def git(*args): return subprocess.check_output(['git',*args],cwd=ROOT)
+def save(name,value):
+ p=OUT/name
+ if p.exists(): raise RuntimeError('evidence overwrite prohibited: '+name)
+ raw=(json.dumps(value,sort_keys=True,indent=2,ensure_ascii=False)+'\n').encode(); _atomic_write(p,raw); _atomic_write(OUT/(name+'.sha256'),(sha(raw)+'\n').encode()); return sha(raw)
+def capture(exc):
+ frames=[]; tb=exc.__traceback__
+ while tb:
+  local=tb.tb_frame.f_locals; frame={'function':tb.tb_frame.f_code.co_name,'line':tb.tb_lineno}
+  for k in ('result','report'):
+   if isinstance(local.get(k),dict): frame[k]=local[k]
+  if 'game' in local and hasattr(local['game'],'snapshot'):
+   try: frame['authoritative_snapshot']=local['game'].snapshot()
+   except Exception as e: frame['snapshot_error']=repr(e)
+  frames.append(frame); tb=tb.tb_next
+ return {'identity':current,'error':str(exc),'exception_type':type(exc).__name__,'traceback':traceback.format_exc(),'frames':frames}
+def executor(member,duplicate):
+ global attempted,returned,current
+ current={'member_id':member.member_id,'duplicate_index':duplicate,'block':member.block,'pair_index':member.pair_index,'orientation':member.orientation,'seed':member.seed,'decks':member.decks}
+ try:
+  if shutil.disk_usage(OUT).free < 64*1024*1024: raise RuntimeError('storage reserve exhausted')
+  attempted+=1; result=execute_member(ROOT,member,duplicate); returned+=1
+  save(member.member_id+f'.r{duplicate+1}.json',result)
+  spec=GameSpec(member.member_id,f'p{member.pair_index:02d}',member.seed,member.orientation,tuple(DeckSpec(deck,'decks/'+deck+'/PROTOTYPE_0.1.txt') for deck in member.decks))
+  report=reconcile_snapshot(spec,result,stage_manifest); save(member.member_id+f'.r{duplicate+1}.validation.json',report)
+  if report['invariant_violations']: raise RuntimeError('invariant violation: '+member.member_id)
+  if report['stop_records']:
+   kinds=sorted({x['kind'] for x in report['stop_records']}); raise RuntimeError(f'conformance stop {kinds}: {member.member_id}')
+  if attempted%100==0: print(json.dumps({'run_id':RUN_ID,'attempted_executions':attempted,'returned_executions':returned,'free_disk_bytes':shutil.disk_usage(OUT).free}),flush=True)
+  return result
+ except BaseException as exc:
+  save('FAILED_EXECUTION.json',capture(exc)); raise
+try:
+ if git('rev-parse','HEAD').decode().strip()!=BASELINE: raise RuntimeError('release baseline mismatch')
+ if git('rev-parse','HEAD').decode().strip()!=git('rev-parse','origin/main').decode().strip(): raise RuntimeError('main not synchronized')
+ if git('diff','HEAD', '--','src','decks','cardcade','pyproject.toml','uv.lock').strip(): raise RuntimeError('working input drift')
+ v5=json.loads((ROOT/'docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V5.json').read_bytes())
+ if v5['accepted_runtime']!=RUNTIME or v5['protocol_identity']!=PROTOCOL or v5['main_commit']!='a8a970a89f3fe9740a5237077380f14bafeed4e1': raise RuntimeError('V5 identity mismatch')
+ if sha((ROOT/'docs/cardcade/CALIBRATION_SEED_TABLE_V2_ENTROPY.bin').read_bytes())!=ENTROPY_HASH: raise RuntimeError('entropy hash mismatch')
+ table_bytes=git('show','HEAD:docs/cardcade/CALIBRATION_SEED_TABLE_V2.json'); entropy=git('show','HEAD:docs/cardcade/CALIBRATION_SEED_TABLE_V2_ENTROPY.bin')
+ if sha(table_bytes)!=SEED_HASH or sha(entropy)!=ENTROPY_HASH: raise RuntimeError('committed V2 hash mismatch')
+ frozen=OUT/'frozen_inputs'; frozen.mkdir(); table_path=frozen/'CALIBRATION_SEED_TABLE_V2.json'; table_path.write_bytes(table_bytes)
+ entropy_path=frozen/'CALIBRATION_SEED_TABLE_V2_ENTROPY.bin'; entropy_path.write_bytes(entropy)
+ gen_path=ROOT/'scripts/build_calibration_seed_table_v2.py'; import importlib.util
+sp=importlib.util.spec_from_file_location('v2builder',gen_path); builder=importlib.util.module_from_spec(sp); sp.loader.exec_module(builder)
+if builder.sha(table_bytes)!=SEED_HASH or builder.sha(entropy)!=ENTROPY_HASH: raise RuntimeError('builder hash mismatch')
+pairs=builder.load_pairs(); report=builder.validate_table(table_bytes,entropy,pairs)
+if report['status']!='SEED_TABLE_V2_VALIDATION_PASS' or report['rows']!=184320 or report['same_seed_pairs']!=92160 or report['opposite_seat_order_pairs']!=92160: raise RuntimeError('V2 schedule validation failed')
+manifest=json.loads((ROOT/'docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json').read_bytes())
+if platform.python_version()!=manifest['environment']['python']: raise RuntimeError('Python patch mismatch')
+schedule=load_members(table_path,strict=True,expected_sha256=SEED_HASH)
+stage_manifest=build_stage_manifest(ROOT)
+verified={'v5_release_baseline':BASELINE,'v5_packet_git_sha256':sha(git('show','HEAD:docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V5.json')),'v2_table_sha256':sha(table_bytes),'v2_entropy_sha256':sha(entropy),'v2_validation':report,'schedule_members':len(schedule),'execution_authorized':False}
+save('RUN_MANIFEST.json',{'run_id':RUN_ID,'started_utc':started,'release_baseline':BASELINE,'frozen_runtime':RUNTIME,'protocol_identity':PROTOCOL,'authorization':'Explicit HQ Calibration Protocol V1 execution authorization in current session','verified':verified,'python':sys.version,'platform':platform.platform(),'free_disk_bytes':shutil.disk_usage(OUT).free,'blocks':2048,'pairs_per_block':45,'distinct_games':184320,'executions':368640,'strict':True,'max_members':None,'exact_duplicate_replay':True,'truncation':False,'adaptive_or_replacement_seeds':False,'balance_analysis':False,'evidence_directory':str(OUT),'operational_validation':'V2 full-table validator and Stage002 reconcile_snapshot per execution','storage_reserve_bytes':64*1024*1024})
+save('STAGE_VALIDATION_MANIFEST.json',stage_manifest)
+print(json.dumps({'run_id':RUN_ID,'status':'STARTING_FULL_SCHEDULE','output':str(OUT),'members':len(schedule)}),flush=True)
+result=execute_protocol(table_path,OUT,executor,strict=True,expected_seed_table_sha256=SEED_HASH)
+if result['completed_members']!=184320 or attempted!=368640 or returned!=368640: raise RuntimeError('incomplete full schedule')
+save('RUN_RESULT.json',{'run_id':RUN_ID,'status':'COMPLETE_PENDING_AUDIT','release_baseline':BASELINE,'frozen_runtime':RUNTIME,'completed_distinct_games':184320,'completed_executions':368640,'duplicate_mismatch_count':0,'failure_count':0,'v2_table_sha256':SEED_HASH,'v2_entropy_sha256':ENTROPY_HASH})
+except BaseException as exc:
+ ledger_path=OUT/'EXECUTION_LEDGER.json'; ledger=json.loads(ledger_path.read_bytes()) if ledger_path.exists() else {}
+ stop={'run_id':RUN_ID,'status':'FAIL_CLOSED_STOP','started_utc':started,'stopped_utc':datetime.datetime.now(datetime.UTC).isoformat(),'release_baseline':BASELINE,'frozen_runtime':RUNTIME,'protocol_identity':PROTOCOL,'v2_table_sha256':SEED_HASH,'v2_entropy_sha256':ENTROPY_HASH,'failed_execution':current,'attempted_executions':attempted,'returned_executions':returned,'completed_distinct_games':ledger.get('completed_members',0),'authenticated_duplicate_pairs':ledger.get('completed_members',0),'failure_count':1,'duplicate_mismatch_count':int('duplicate mismatch:' in str(exc)),'error':str(exc),'traceback':traceback.format_exc(),'calibration_observations':0}
+ if not (OUT/'RUN_STOP.json').exists(): save('RUN_STOP.json',stop)
+ if not (OUT/'ARTIFACT_CHECKSUMS.json').exists(): save('ARTIFACT_CHECKSUMS.json',{p.name:sha(p.read_bytes()) for p in OUT.iterdir() if p.is_file()})
+ print(json.dumps(stop),flush=True); sys.exit(1)
+if not (OUT/'ARTIFACT_CHECKSUMS.json').exists(): save('ARTIFACT_CHECKSUMS.json',{p.name:sha(p.read_bytes()) for p in OUT.iterdir() if p.is_file()})
+print(json.dumps({'run_id':RUN_ID,'status':'COMPLETE_PENDING_AUDIT','output':str(OUT)}),flush=True)
