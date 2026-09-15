@@ -1,11 +1,19 @@
 """Compile-only guard regressions; no gameplay or calibration execution."""
 
+import importlib.util
 import py_compile
 from pathlib import Path
 
 import pytest
 
-from scripts.calibration_launcher_guard import validate_launcher
+GUARD_SPEC = importlib.util.spec_from_file_location(
+    "calibration_launcher_guard",
+    Path(__file__).resolve().parents[1] / "scripts/calibration_launcher_guard.py",
+)
+assert GUARD_SPEC is not None and GUARD_SPEC.loader is not None
+GUARD_MODULE = importlib.util.module_from_spec(GUARD_SPEC)
+GUARD_SPEC.loader.exec_module(GUARD_MODULE)
+validate_launcher = GUARD_MODULE.validate_launcher
 
 ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL = ROOT / "docs/cardcade/CALIBRATION_V1_20260915T180636Z_77400eb2480d/launcher.py.txt"
