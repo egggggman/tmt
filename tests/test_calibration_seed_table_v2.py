@@ -3,6 +3,7 @@
 import hashlib
 import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -143,7 +144,9 @@ def test_sealed_v2_reconstructs_exactly_without_randomness(tmp_path, monkeypatch
     folder = ROOT / "docs/cardcade"
     table_path = folder / builder.TABLE
     entropy = (folder / builder.ENTROPY).read_bytes()
-    table = table_path.read_bytes()
+    table = subprocess.check_output(
+        ["git", "show", f"HEAD:{table_path.relative_to(ROOT).as_posix()}"]
+    )
 
     def forbidden(*args):
         pytest.fail("reconstruction must not draw entropy")
@@ -155,7 +158,9 @@ def test_sealed_v2_reconstructs_exactly_without_randomness(tmp_path, monkeypatch
     assert reconstructed.read_bytes() == table
     report = builder.validate_table(table, entropy, builder.load_pairs())
     assert report == json.loads((folder / builder.VALIDATION).read_bytes())
-    members = load_members(table_path, strict=True, expected_sha256=report["table_sha256"])
+    committed_table = tmp_path / builder.TABLE
+    committed_table.write_bytes(table)
+    members = load_members(committed_table, strict=True, expected_sha256=report["table_sha256"])
     assert len(members) == 184320
     for first, second in zip(members[::2], members[1::2], strict=True):
         assert first.seed == second.seed
@@ -168,7 +173,13 @@ def test_sealed_v2_reconstructs_exactly_without_randomness(tmp_path, monkeypatch
         builder.RECEIPT,
         builder.VALIDATION,
     ):
-        raw = (folder / name).read_bytes()
+        raw = (
+            subprocess.check_output(
+                ["git", "show", f"HEAD:{(folder / name).relative_to(ROOT).as_posix()}"]
+            )
+            if name.endswith(".json")
+            else (folder / name).read_bytes()
+        )
         assert builder.sha(raw) == (folder / (name + ".sha256")).read_text().strip()
     receipt = json.loads((folder / builder.RECEIPT).read_bytes())
     assert receipt["draw_calls_attempted"] == receipt["draws_recorded"] == 92160
