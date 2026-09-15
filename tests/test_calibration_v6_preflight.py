@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.calibration_v6_preflight import load_v6_seed_identity
+import importlib.util`r`n`r`n_SPEC = importlib.util.spec_from_file_location("calibration_v6_preflight", ROOT / "scripts/calibration_v6_preflight.py")`r`n_MODULE = importlib.util.module_from_spec(_SPEC)`r`n_SPEC.loader.exec_module(_MODULE)`r`nload_v6_seed_identity = _MODULE.load_v6_seed_identity
 
 ROOT = Path(__file__).parents[1]
 V6 = ROOT / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V6.json"
