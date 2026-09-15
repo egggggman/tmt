@@ -21,6 +21,7 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+extend-exclude = ["docs/cardcade/CALIBRATION_V1_*/**"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]

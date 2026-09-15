@@ -1,0 +1,14 @@
+{
+  "run_id": "CALIBRATION_V1_20260915T223437Z_b326482faf13",
+  "failure_class": "launcher/preflight schema mismatch",
+  "first_material_failure": "KeyError: 'seed_table_sha256'",
+  "expected_v6_location": "seed_table_v2.committed_git_sha256 or accepted_sha256",
+  "attempted_executions": 0,
+  "returned_executions": 0,
+  "gameplay_started": false,
+  "retry": false,
+  "balance_analysis": false,
+  "original_run_stop_preserved": true,
+  "v2_table_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB"
+}

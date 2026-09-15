@@ -1,0 +1,11 @@
+{
+  "run_id": "CALIBRATION_V1_20260915T223437Z_b326482faf13",
+  "status": "COMPILE_VALIDATION_PASS",
+  "launcher_path": "docs\\cardcade\\CALIBRATION_V1_20260915T223437Z_b326482faf13\\launcher.py",
+  "launcher_sha256": "49775D64E4ACBF69F6A5B12589E97AF1BBC2CE774A3E8A92E4E66406B15A8516",
+  "launcher_bytes": 10765,
+  "compiled_before_execution": true,
+  "bytes_equal_after_compile": true,
+  "py_compile_equivalent": "py_compile.compile(..., doraise=True)",
+  "compiled_utc": "2026-09-15T22:40:09Z"
+}
