@@ -1,0 +1,4 @@
+  File "C:\projects\tmt\docs\cardcade\CALIBRATION_V1_20260915T180636Z_77400eb2480d\launcher.py.txt", line 55
+    sp=importlib.util.spec_from_file_location('v2builder',gen_path); builder=importlib.util.module_from_spec(sp); sp.loader.exec_module(builder)
+    ^^
+SyntaxError: expected 'except' or 'finally' block
