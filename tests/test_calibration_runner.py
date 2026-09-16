@@ -174,3 +174,51 @@ def test_heartbeat_is_diagnostic_and_final_phase_is_durable(tmp_path):
     assert heartbeat["resumability_authority"] is False
     assert heartbeat["completion_authority"] is False
     assert heartbeat["statistical_evidence"] is False
+
+
+def test_heartbeat_phase_counters_follow_protocol_order(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    seen = []
+    original = runner._write_heartbeat
+
+    def capture(output, run_id, member_id, phase, completed, returned):
+        original(output, run_id, member_id, phase, completed, returned)
+        seen.append((phase, completed, returned))
+
+    monkeypatch.setattr(runner, "_write_heartbeat", capture)
+    execute_protocol(
+        table(tmp_path / "seeds.json"),
+        tmp_path / "out",
+        lambda member, duplicate: {"terminal": True},
+    )
+    assert seen[:4] == [
+        ("member_start", 0, 0),
+        ("duplicate_1_returned", 0, 1),
+        ("duplicate_2_returned", 0, 2),
+        ("member_evidence_written", 1, 2),
+    ]
+
+
+def test_heartbeat_preserves_last_phase_on_interruption(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    for phase in ("member_start", "duplicate_1_returned", "duplicate_2_returned"):
+        out = tmp_path / phase
+        original = runner._write_heartbeat
+
+        def interrupt(output, run_id, member_id, current, completed, returned, target=phase):
+            original(output, run_id, member_id, current, completed, returned)
+            if current == target:
+                raise RuntimeError("injected interruption")
+
+        monkeypatch.setattr(runner, "_write_heartbeat", interrupt)
+        with pytest.raises(ProtocolViolation):
+            execute_protocol(
+                table(tmp_path / (phase + ".json")),
+                out,
+                lambda member, duplicate: {"terminal": True},
+            )
+        heartbeat = json.loads((out / "RUN_HEARTBEAT.json").read_text())
+        assert heartbeat["phase"] == phase
+        monkeypatch.setattr(runner, "_write_heartbeat", original)
