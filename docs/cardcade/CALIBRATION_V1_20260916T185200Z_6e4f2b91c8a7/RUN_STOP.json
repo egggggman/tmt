@@ -1,0 +1,11 @@
+{
+  "run_id": "CALIBRATION_V1_20260916T185200Z_6e4f2b91c8a7",
+  "status": "FAIL_CLOSED_STOP",
+  "phase": "launcher_preflight",
+  "attempted_executions": 0,
+  "returned_executions": 0,
+  "completed_distinct_games": 0,
+  "failure_count": 1,
+  "error": "launcher construction root resolution error before gameplay",
+  "balance_analysis": false
+}
