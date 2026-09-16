@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -108,6 +109,26 @@ def _atomic_write(path: Path, payload: bytes) -> None:
             os.unlink(tmp)
 
 
+def _write_heartbeat(
+    output: Path, run_id: str, member_id: str, phase: str, completed: int, returned: int
+) -> None:
+    payload = {
+        "run_id": run_id,
+        "active_member_id": member_id,
+        "phase": phase,
+        "completed_member_count": completed,
+        "returned_execution_count": returned,
+        "utc_timestamp": datetime.now(UTC).isoformat(),
+        "diagnostic_only": True,
+        "resumability_authority": False,
+        "completion_authority": False,
+        "statistical_evidence": False,
+    }
+    _atomic_write(
+        output / "RUN_HEARTBEAT.json", json.dumps(payload, sort_keys=True, indent=2).encode()
+    )
+
+
 def execute_protocol(
     seed_table: Path,
     output: Path,
@@ -124,10 +145,21 @@ def execute_protocol(
         members = members[:max_members]
     ledger = []
     completed = 0
+    returned = 0
+    run_id = output.name
     for member in members:
         try:
+            _write_heartbeat(output, run_id, member.member_id, "member_start", completed, returned)
             first = executor(member, 0)
+            returned += 1
+            _write_heartbeat(
+                output, run_id, member.member_id, "duplicate_1_returned", completed, returned
+            )
             second = executor(member, 1)
+            returned += 1
+            _write_heartbeat(
+                output, run_id, member.member_id, "duplicate_2_returned", completed, returned
+            )
             if strict:
                 for result in (first, second):
                     if not result.get("terminal", False):
@@ -158,6 +190,9 @@ def execute_protocol(
             _atomic_write(
                 output / f"{member.member_id}.json",
                 json.dumps(record, sort_keys=True, indent=2).encode(),
+            )
+            _write_heartbeat(
+                output, run_id, member.member_id, "member_evidence_written", completed + 1, returned
             )
             ledger.append(
                 {

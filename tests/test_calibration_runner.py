@@ -163,3 +163,14 @@ def test_outside_repository_path_fails_closed(tmp_path):
     path.write_text('{"rows": []}')
     with pytest.raises(ProtocolViolation, match="outside the repository"):
         load_members(path, expected_sha256="0" * 64)
+
+
+def test_heartbeat_is_diagnostic_and_final_phase_is_durable(tmp_path):
+    seed = table(tmp_path / "seeds.json")
+    execute_protocol(seed, tmp_path / "out", lambda member, duplicate: {"terminal": True})
+    heartbeat = json.loads((tmp_path / "out" / "RUN_HEARTBEAT.json").read_text())
+    assert heartbeat["phase"] == "member_evidence_written"
+    assert heartbeat["diagnostic_only"] is True
+    assert heartbeat["resumability_authority"] is False
+    assert heartbeat["completion_authority"] is False
+    assert heartbeat["statistical_evidence"] is False
