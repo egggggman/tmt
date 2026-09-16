@@ -913,3 +913,21 @@ def test_parameterized_runner_preserves_acceptance_001_gameplay():
     assert (
         report["authenticated_executed_references"] == generic["conformance"]["executed_references"]
     )
+
+
+def test_calibration_member_b0011_p06_canonical_terminal_replay_is_identical():
+    spec = GameSpec(
+        "b0011-p06-canonical",
+        "p06",
+        9714163096637643857780518835903413884565983311304958039418796067099141920730,
+        "canonical",
+        (
+            DeckSpec("april_oneil", "decks/april_oneil/PROTOTYPE_0.1.txt"),
+            DeckSpec("raphael", "decks/raphael/PROTOTYPE_0.1.txt"),
+        ),
+    )
+    first = run_game(ROOT, spec)
+    second = run_game(ROOT, spec)
+    assert first["terminal"] is True
+    assert first["winner"] == "raphael"
+    assert canonical_json(first) == canonical_json(second)

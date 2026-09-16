@@ -597,6 +597,10 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
                 game, lambda choice=choice: game.execute_main_action(choice), "main action"
             )
             _drain_priority(game, chosen_pilot)
+            if game.winner is not None:
+                break
+        if game.winner is not None:
+            break
         _checked_action(game, game.advance_step, "advance to combat")
         _checked_action(game, game.advance_step, "advance to attackers")
         attack = chosen_pilot.choose_attack(
