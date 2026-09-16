@@ -1,0 +1,30 @@
+{
+  "run_id": "CALIBRATION_V1_20260916T200000Z_4f7a91c2d6e8",
+  "status": "FAIL_CLOSED_STOP",
+  "release_baseline": "97af04ed24fc1d6a25cc74341c72923a087a1f52",
+  "runtime": "05f6b87c0977ee99d650a016215ea9606eb1fe33",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "seed_table_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "attempted_executions": 2005,
+  "returned_executions": 2004,
+  "completed_member_rows": 1002,
+  "completed_distinct_games": 501,
+  "authenticated_duplicate_pairs": 1002,
+  "duplicate_mismatch_count": 0,
+  "failure_count": 1,
+  "failed_member": "b0011-p06-canonical",
+  "error": "cannot advance the turn with an unresolved stack",
+  "final_heartbeat": {
+    "active_member_id": "b0011-p06-canonical",
+    "completed_member_count": 1002,
+    "completion_authority": false,
+    "diagnostic_only": true,
+    "phase": "member_start",
+    "resumability_authority": false,
+    "returned_execution_count": 2004,
+    "run_id": "CALIBRATION_V1_20260916T200000Z_4f7a91c2d6e8",
+    "statistical_evidence": false,
+    "utc_timestamp": "2026-09-16T22:57:02.990303+00:00"
+  },
+  "balance_analysis": false
+}

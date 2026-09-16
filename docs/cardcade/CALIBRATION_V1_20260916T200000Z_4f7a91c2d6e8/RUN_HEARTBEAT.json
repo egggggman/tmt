@@ -1,0 +1,12 @@
+{
+  "active_member_id": "b0011-p06-canonical",
+  "completed_member_count": 1002,
+  "completion_authority": false,
+  "diagnostic_only": true,
+  "phase": "member_start",
+  "resumability_authority": false,
+  "returned_execution_count": 2004,
+  "run_id": "CALIBRATION_V1_20260916T200000Z_4f7a91c2d6e8",
+  "statistical_evidence": false,
+  "utc_timestamp": "2026-09-16T22:57:02.990303+00:00"
+}
