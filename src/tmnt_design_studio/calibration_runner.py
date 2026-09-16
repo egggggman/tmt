@@ -43,8 +43,8 @@ def load_members(
             committed_bytes = subprocess.check_output(
                 ["git", "show", f"HEAD:{relative}"], cwd=repo_root
             )
-        except ValueError:
-            committed_bytes = checkout_bytes
+        except ValueError as exc:
+            raise ProtocolViolation("seed table is outside the repository") from exc
         except (OSError, subprocess.CalledProcessError) as exc:
             raise ProtocolViolation("unable to read authoritative seed table blob") from exc
         if hashlib.sha256(committed_bytes).hexdigest() != expected_sha256.lower():
