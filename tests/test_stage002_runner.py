@@ -916,16 +916,18 @@ def test_parameterized_runner_preserves_acceptance_001_gameplay():
 
 
 def test_calibration_member_b0011_p06_canonical_terminal_replay_is_identical():
-    from tmnt_design_studio.calibration_executor import execute_member
-    from tmnt_design_studio.calibration_runner import load_members
-
-    member = next(
-        item
-        for item in load_members(ROOT / "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json")
-        if item.member_id == "b0011-p06-canonical"
+    spec = GameSpec(
+        "b0011-p06-canonical",
+        "p06",
+        9714163096637643857780518835903413884565983311304958039418796067099141920730,
+        "canonical",
+        (
+            DeckSpec("april_oneil", "decks/april_oneil/PROTOTYPE_0.1.txt"),
+            DeckSpec("raphael", "decks/raphael/PROTOTYPE_0.1.txt"),
+        ),
     )
-    first = execute_member(ROOT, member, 0)
-    second = execute_member(ROOT, member, 1)
+    first = run_game(ROOT, spec)
+    second = run_game(ROOT, spec)
     assert first["terminal"] is True
     assert first["winner"] == "raphael"
     assert canonical_json(first) == canonical_json(second)
