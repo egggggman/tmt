@@ -4,7 +4,7 @@
   "execution_authorization_required": true,
   "prepared_utc": "2026-09-15T23:30:00+00:00",
   "main_commit": "4870df773c1a15c48566eaab6bf70a7e83ca024d",
-  "accepted_runtime": "ab2f8fb8a71d812e188f7955df9447e9a8fc5c6d",
+  "accepted_runtime": "4870df773c1a15c48566eaab6bf70a7e83ca024d",
   "previous_release_baseline": "d004899d1a42b5e451f863cda0b980a02d48d411",
   "merge_commits": {
     "pr_136": "7cdd9f7bb1beec690dd3f89e46c8b94fe1e47fbc",
@@ -454,7 +454,7 @@
     "calibration_restarted": false,
     "balance_analysis": false
   },
-  "release_refresh_status": "V8_GIT_BYTE_AUTH_BOUND",
+  "release_refresh_status": "V9_STAGE002_REPAIR_BOUND",
   "authorization_gate": "Independent HQ audit and explicit Calibration Protocol V1 execution authorization required; this packet grants none",
   "schema_preflight_identity": {
     "path": "scripts/calibration_v6_preflight.py",
