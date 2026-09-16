@@ -13,7 +13,7 @@ from pathlib import Path
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import opportunity_context_key, semantic_key
-from tmnt_design_studio.engine07 import Game, load_deck, load_facts
+from tmnt_design_studio.engine07 import Game, TurnStep, load_deck, load_facts
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
 
@@ -608,6 +608,14 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             "attack action",
         )
         _drain_priority(game, chosen_pilot)
+        if (
+            game.winner is None
+            and game.step is TurnStep.DECLARE_ATTACKERS
+            and game._attackers_declared
+            and game._combat_attackers
+            and game.priority_state is None
+        ):
+            game.transition_to(TurnStep.DECLARE_BLOCKERS)
         blocks = chosen_pilot.choose_blocks(
             game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
         )
