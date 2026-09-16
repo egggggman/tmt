@@ -608,6 +608,8 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             "attack action",
         )
         _drain_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
         if (
             game.winner is None
             and game.step is TurnStep.DECLARE_ATTACKERS
