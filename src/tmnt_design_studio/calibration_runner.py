@@ -33,9 +33,12 @@ def load_members(
     data = json.loads(checkout_bytes)
     if expected_sha256 is not None:
         try:
-            repo_root = Path(
-                subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
+            repo_root_raw = subprocess.check_output(
+                ["git", "rev-parse", "--show-toplevel"], text=True
             )
+            if isinstance(repo_root_raw, bytes):
+                repo_root_raw = repo_root_raw.decode()
+            repo_root = Path(repo_root_raw.strip())
             relative = seed_table.resolve().relative_to(repo_root).as_posix()
             committed_bytes = subprocess.check_output(
                 ["git", "show", f"HEAD:{relative}"], cwd=repo_root
