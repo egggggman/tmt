@@ -913,3 +913,19 @@ def test_parameterized_runner_preserves_acceptance_001_gameplay():
     assert (
         report["authenticated_executed_references"] == generic["conformance"]["executed_references"]
     )
+
+
+def test_calibration_member_b0011_p06_canonical_terminal_replay_is_identical():
+    from tmnt_design_studio.calibration_executor import execute_member
+    from tmnt_design_studio.calibration_runner import load_members
+
+    member = next(
+        item
+        for item in load_members(ROOT / "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json")
+        if item.member_id == "b0011-p06-canonical"
+    )
+    first = execute_member(ROOT, member, 0)
+    second = execute_member(ROOT, member, 1)
+    assert first["terminal"] is True
+    assert first["winner"] == "raphael"
+    assert canonical_json(first) == canonical_json(second)
