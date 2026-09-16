@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -28,10 +29,28 @@ class ProtocolViolation(RuntimeError):
 def load_members(
     seed_table: Path, *, strict: bool = False, expected_sha256: str | None = None
 ) -> tuple[ProtocolMember, ...]:
-    digest = hashlib.sha256(seed_table.read_bytes()).hexdigest()
-    if expected_sha256 is not None and digest != expected_sha256.lower():
-        raise ProtocolViolation("seed table hash mismatch")
-    data = json.loads(seed_table.read_text(encoding="utf-8"))
+    checkout_bytes = seed_table.read_bytes()
+    data = json.loads(checkout_bytes)
+    if expected_sha256 is not None:
+        try:
+            repo_root_raw = subprocess.check_output(
+                ["git", "rev-parse", "--show-toplevel"], text=True
+            )
+            if isinstance(repo_root_raw, bytes):
+                repo_root_raw = repo_root_raw.decode()
+            repo_root = Path(repo_root_raw.strip())
+            relative = seed_table.resolve().relative_to(repo_root).as_posix()
+            committed_bytes = subprocess.check_output(
+                ["git", "show", f"HEAD:{relative}"], cwd=repo_root
+            )
+        except ValueError as exc:
+            raise ProtocolViolation("seed table is outside the repository") from exc
+        except (OSError, subprocess.CalledProcessError) as exc:
+            raise ProtocolViolation("unable to read authoritative seed table blob") from exc
+        if hashlib.sha256(committed_bytes).hexdigest() != expected_sha256.lower():
+            raise ProtocolViolation("seed table hash mismatch")
+        if data != json.loads(committed_bytes):
+            raise ProtocolViolation("seed table checkout diverges from committed artifact")
     rows = data.get("rows")
     if not isinstance(rows, list):
         raise ProtocolViolation("seed table rows missing")

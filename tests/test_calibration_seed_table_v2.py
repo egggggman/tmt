@@ -160,7 +160,7 @@ def test_sealed_v2_reconstructs_exactly_without_randomness(tmp_path, monkeypatch
     assert report == json.loads((folder / builder.VALIDATION).read_bytes())
     committed_table = tmp_path / builder.TABLE
     committed_table.write_bytes(table)
-    members = load_members(committed_table, strict=True, expected_sha256=report["table_sha256"])
+    members = load_members(table_path, strict=True, expected_sha256=report["table_sha256"])
     assert len(members) == 184320
     for first, second in zip(members[::2], members[1::2], strict=True):
         assert first.seed == second.seed
