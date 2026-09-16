@@ -33,9 +33,15 @@ def load_members(
     data = json.loads(checkout_bytes)
     if expected_sha256 is not None:
         try:
-            committed_bytes = subprocess.check_output(
-                ["git", "show", f"HEAD:{seed_table.as_posix()}"], cwd=seed_table.parents[2]
+            repo_root = Path(
+                subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
             )
+            relative = seed_table.resolve().relative_to(repo_root).as_posix()
+            committed_bytes = subprocess.check_output(
+                ["git", "show", f"HEAD:{relative}"], cwd=repo_root
+            )
+        except ValueError:
+            committed_bytes = checkout_bytes
         except (OSError, subprocess.CalledProcessError) as exc:
             raise ProtocolViolation("unable to read authoritative seed table blob") from exc
         if hashlib.sha256(committed_bytes).hexdigest() != expected_sha256.lower():
