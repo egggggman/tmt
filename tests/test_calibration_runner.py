@@ -155,3 +155,10 @@ def test_checkout_divergence_is_rejected(monkeypatch):
         runner.load_members(
             path, expected_sha256="6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C"
         )
+
+
+def test_outside_repository_path_fails_closed(tmp_path):
+    path = tmp_path / "seed.json"
+    path.write_text('{"rows": []}')
+    with pytest.raises(ProtocolViolation, match="outside the repository"):
+        load_members(path, expected_sha256="0" * 64)
