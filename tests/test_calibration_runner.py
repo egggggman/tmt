@@ -130,6 +130,12 @@ def test_authoritative_blob_auth_accepts_crlf_checkout(tmp_path, monkeypatch):
     )
     path = tmp_path / "seed.json"
     path.write_bytes(canonical.replace(b" ", b"\r\n"))
-    monkeypatch.setattr(runner.subprocess, "check_output", lambda *args, **kwargs: canonical)
+
+    def git(*args, **kwargs):
+        return (
+            b"C:/projects/tmt\n" if args[0][1:3] == ["rev-parse", "--show-toplevel"] else canonical
+        )
+
+    monkeypatch.setattr(runner.subprocess, "check_output", git)
     members = runner.load_members(path, expected_sha256=hashlib.sha256(canonical).hexdigest())
     assert members[0].seed == 7
