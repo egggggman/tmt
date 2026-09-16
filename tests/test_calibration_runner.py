@@ -119,23 +119,38 @@ def test_executor_rejects_nonterminal_result(tmp_path, monkeypatch):
         adapter.execute_member(tmp_path, member)
 
 
-def test_authoritative_blob_auth_accepts_crlf_checkout(tmp_path, monkeypatch):
+def test_authoritative_blob_auth_accepts_crlf_checkout(monkeypatch):
     import hashlib
+    import subprocess
 
     import tmnt_design_studio.calibration_runner as runner
 
-    canonical = (
-        b'{"rows": [{"block": 0, "pair_index": 0, "orientation": "canonical", '
-        b'"seed": 7, "decks": ["a", "b"]}]}'
+    path = Path(__file__).parents[1] / "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json"
+    canonical = subprocess.check_output(
+        ["git", "show", f"HEAD:{path.relative_to(path.parents[2]).as_posix()}"]
     )
-    path = tmp_path / "seed.json"
-    path.write_bytes(canonical.replace(b" ", b"\r\n"))
+    original_read = Path.read_bytes
 
-    def git(*args, **kwargs):
-        return (
-            b"C:/projects/tmt\n" if args[0][1:3] == ["rev-parse", "--show-toplevel"] else canonical
-        )
+    def checkout_bytes(candidate):
+        return canonical.replace(b" ", b"\r\n") if candidate == path else original_read(candidate)
 
-    monkeypatch.setattr(runner.subprocess, "check_output", git)
+    monkeypatch.setattr(Path, "read_bytes", checkout_bytes)
     members = runner.load_members(path, expected_sha256=hashlib.sha256(canonical).hexdigest())
-    assert members[0].seed == 7
+    assert len(members) == 184320
+
+
+def test_checkout_divergence_is_rejected(monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    path = Path(__file__).parents[1] / "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json"
+    original_read = Path.read_bytes
+
+    def altered(candidate):
+        raw = original_read(candidate)
+        return raw.replace(b"184320", b"184321", 1) if candidate == path else raw
+
+    monkeypatch.setattr(Path, "read_bytes", altered)
+    with pytest.raises(ProtocolViolation, match="diverges"):
+        runner.load_members(
+            path, expected_sha256="6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C"
+        )
