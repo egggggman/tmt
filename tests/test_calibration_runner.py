@@ -302,3 +302,17 @@ def test_heartbeat_preserves_last_phase_on_interruption(tmp_path, monkeypatch):
         assert heartbeat["phase"] == phase
 
         monkeypatch.setattr(runner, "_write_heartbeat", original)
+
+
+def test_atomic_heartbeat_replace_denial_fails_closed_and_cleans_temp(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    destination = tmp_path / "RUN_HEARTBEAT.json"
+
+    def deny_replace(source, target):
+        raise PermissionError(5, "Access is denied", str(target))
+
+    monkeypatch.setattr(runner.os, "replace", deny_replace)
+    with pytest.raises(PermissionError):
+        runner._atomic_write(destination, b"{}")
+    assert not list(tmp_path.glob("RUN_HEARTBEAT.json.*"))
