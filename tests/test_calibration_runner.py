@@ -124,7 +124,7 @@ def test_authoritative_blob_auth_accepts_crlf_checkout(tmp_path, monkeypatch):
 
     import tmnt_design_studio.calibration_runner as runner
 
-    canonical = b'{"rows": [{"block": 0, "pair_index": 0, "orientation": "canonical", "seed": 7, "decks": ["a", "b"]}]}'
+    canonical = (\n        b'{"rows": [{"block": 0, "pair_index": 0, "orientation": "canonical", '\n        b'"seed": 7, "decks": ["a", "b"]}]}'\n    )
     path = tmp_path / "seed.json"
     path.write_bytes(canonical.replace(b" ", b"\r\n"))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *args, **kwargs: canonical)
