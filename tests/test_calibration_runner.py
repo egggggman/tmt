@@ -117,3 +117,16 @@ def test_executor_rejects_nonterminal_result(tmp_path, monkeypatch):
     member = ProtocolMember("b0000-p00-canonical", 0, 0, "canonical", 7, ("a", "b"))
     with pytest.raises(RuntimeError, match="terminal"):
         adapter.execute_member(tmp_path, member)
+
+
+def test_authoritative_blob_auth_accepts_crlf_checkout(tmp_path, monkeypatch):
+    import hashlib
+
+    import tmnt_design_studio.calibration_runner as runner
+
+    canonical = b'{"rows": [{"block": 0, "pair_index": 0, "orientation": "canonical", "seed": 7, "decks": ["a", "b"]}]}'
+    path = tmp_path / "seed.json"
+    path.write_bytes(canonical.replace(b" ", b"\r\n"))
+    monkeypatch.setattr(runner.subprocess, "check_output", lambda *args, **kwargs: canonical)
+    members = runner.load_members(path, expected_sha256=hashlib.sha256(canonical).hexdigest())
+    assert members[0].seed == 7
