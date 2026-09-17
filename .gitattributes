@@ -6,3 +6,6 @@ docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V5.* -text
 docs/cardcade/CALIBRATION_V1_20260915T180636Z_77400eb2480d/** -text whitespace=cr-at-eol
 docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V6.* -text
 docs/cardcade/CALIBRATION_V1_20260915T223437Z_b326482faf13/** -text whitespace=cr-at-eol
+
+docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V13.* text eol=lf
+docs/cardcade/CALIBRATION_V1_20260917T*_v13*/** text eol=lf

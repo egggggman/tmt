@@ -1,0 +1,17 @@
+{
+  "scheme": "calibration-release-baseline-refresh-v13",
+  "execution_authorized": false,
+  "execution_authorization_required": true,
+  "canonical_release_authority": "committed Git blob bytes (SHA-256); checkout representation may differ only by LF/CRLF conversion",
+  "accepted_runtime": "ed332cbae15d49b6690bb004cc5f39bbc8cecdb3",
+  "protocol": "V1",
+  "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+  "statistical_design": "unchanged; duplicate authentication and 120-turn cap retained",
+  "preserved_v12_preflight_stop": {
+    "run_id": "CALIBRATION_V1_20260917T185639Z_v12a958a288",
+    "status": "PRESERVED_ZERO_GAME_PREFLIGHT_STOP",
+    "games_started": 0
+  },
+  "fail_closed": true
+}
