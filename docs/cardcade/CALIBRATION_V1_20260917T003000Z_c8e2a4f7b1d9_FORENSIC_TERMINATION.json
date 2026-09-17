@@ -1,0 +1,72 @@
+{
+  "run_id": "CALIBRATION_V1_20260917T003000Z_c8e2a4f7b1d9",
+  "status": "INCOMPLETE_TERMINATION",
+  "classification": "external_host_shutdown",
+  "cause_established": true,
+  "cause_statement": "Windows recorded Explorer.EXE initiating a user-session power-off in the same UTC second as the final durable heartbeat; the normal Windows shutdown sequence followed. This host shutdown terminated the foreground calibration process.",
+  "run_directory_preserved": true,
+  "run_directory_modified_by_forensics": false,
+  "durable_boundary": {
+    "heartbeat_utc": "2026-09-17T00:57:25.937091+00:00",
+    "phase": "member_start",
+    "completed_members": 1547,
+    "returned_executions": 3094,
+    "evidenced_duplicate_mismatches": 0,
+    "last_authenticated_member": "b0017-p08-canonical",
+    "next_scheduled_member": "b0017-p08-reversed",
+    "execution_ledger_present": false,
+    "run_stop_present": false,
+    "completion_artifact_present": false,
+    "heartbeat_sha256": "FFFF900204643484EAE96B2ECB5B8303EF56D0FF258BD4E30564684E65F85082",
+    "last_evidence_sha256": "7A366EFA5047B9DE7A50DC2A0D84A9CCA338628F85508BA9D84BC2B6337628C6"
+  },
+  "host_evidence": {
+    "window_utc": [
+      "2026-09-17T00:47:25Z",
+      "2026-09-17T01:07:26Z"
+    ],
+    "system_events": [
+      {
+        "utc": "2026-09-17T00:57:25Z",
+        "log": "System",
+        "provider": "User32",
+        "event_id": 1074,
+        "finding": "C:\\WINDOWS\\Explorer.EXE initiated a power-off of WIGGLER on behalf of WIGGLER\\ckytr; reason Other (Unplanned), shutdown type power off."
+      },
+      {
+        "utc": "2026-09-17T00:57:44Z",
+        "log": "System",
+        "provider": "Microsoft-Windows-Kernel-Power",
+        "event_id": 109,
+        "finding": "Kernel power manager initiated a shutdown transition (Power Action Shutdown Off)."
+      },
+      {
+        "utc": "2026-09-17T00:57:46.1574393Z",
+        "log": "System",
+        "provider": "Microsoft-Windows-Kernel-General",
+        "event_id": 13,
+        "finding": "Operating system shutdown recorded."
+      }
+    ],
+    "negative_or_unavailable_evidence": {
+      "application_process_crash_or_wer": "No matching Application Error or Windows Error Reporting event in the inspected window.",
+      "resource_exhaustion": "No matching Resource-Exhaustion or System event 2004 in the inspected window.",
+      "defender_security": "No Defender detection/remediation event in the inspected window; the only Defender event was normal configuration cleanup during shutdown.",
+      "sleep_or_unexpected_power_loss": "No wake history was reported; the orderly shutdown events, rather than Kernel-Power 41 or EventLog 6008, identify a requested power-off.",
+      "historical_process_audit": "No Security 4688/4689 event was available in the inspected window, so the original Python parent-process chain cannot be reconstructed."
+    }
+  },
+  "launch_and_lifetime_assessment": {
+    "launcher_sha256": "1850C331505E52BE9B4315F9E3872BB7B93F5E6FB93857CF69C7C22C24DC622C",
+    "launcher_behavior": "launcher.py invokes execute_protocol directly in its own Python interpreter; it does not create a detached calibration worker, service, scheduled task, or independent supervisor.",
+    "conclusion": "The calibration was a foreground interpreter workload and was necessarily terminated by the host power-off. The available evidence cannot establish whether its original direct parent was PowerShell, a Codex wrapper, or another interactive-session launcher; regardless, no ordinary child-wrapper arrangement would survive a host shutdown."
+  },
+  "authorization_and_gate": {
+    "partial_evidence": "forensic_only",
+    "calibration_integrity": "incomplete",
+    "restart_or_resume": "unauthorized",
+    "balance_analysis": "prohibited",
+    "prototype_0_3": "unauthorized"
+  },
+  "infrastructure_recommendation": "No runtime or Cardcade change is proposed from this evidence. Detaching the process from an interactive wrapper would not prevent a host power-off. If a future run is authorized, the smallest evidence-supported operational addition is immutable launch metadata (PID, parent PID, session ID, command line, and start time) written before execution, so a future termination can be attributed without relying on unavailable process-audit history."
+}
