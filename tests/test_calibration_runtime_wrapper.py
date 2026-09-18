@@ -94,3 +94,81 @@ def test_generated_wrapper_preflight_and_fail_closed_cases(tmp_path):
     (repo / "launcher.py").write_bytes(b"x = 2\n")
     with pytest.raises(RuntimeError, match="checkout"):
         wrapper.preflight(repo, **identity)
+
+
+def test_execution_wrapper_handoff_is_after_authenticated_preflight(tmp_path):
+    repo, packet_hash, launcher_hash = make_fixture(tmp_path)
+    package = repo / "tmnt_design_studio"
+    package.mkdir()
+    (package / "__init__.py").write_text("", encoding="utf-8", newline="\n")
+    (package / "calibration_runner.py").write_text(
+        "from pathlib import Path\n"
+        "def execute_protocol(\n"
+        "    seed_path, output_path, executor, *, strict, expected_seed_table_sha256\n"
+        "):\n"
+        "    Path('HANDOFF').write_text(\n"
+        "        f'{seed_path}|{output_path}|{strict}|{expected_seed_table_sha256}'\n"
+        "    )\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    (package / "calibration_executor.py").write_text(
+        "def execute_member(*args): raise AssertionError('member execution is forbidden')\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    identity = dict(
+        packet_rel="packet.json",
+        packet_hash=packet_hash,
+        launcher_rel="launcher.py",
+        launcher_hash=launcher_hash,
+        seed_rel="seed.json",
+        seed_hash="A" * 64,
+        output_rel="output",
+    )
+    output = repo / "docs" / "v14" / "execution" / "launcher.py"
+    output.parent.mkdir(parents=True)
+    first = wrapper.write_execution_wrapper(output, **identity)
+    assert first == wrapper.write_execution_wrapper(output, **identity)
+
+    def invoke(path=output):
+        return subprocess.run([sys.executable, str(path)], cwd=repo, text=True, capture_output=True)
+
+    def assert_blocked(path, contents):
+        marker = repo / "HANDOFF"
+        marker.unlink(missing_ok=True)
+        original = path.read_bytes()
+        path.write_bytes(contents)
+        result = invoke()
+        path.write_bytes(original)
+        assert result.returncode != 0
+        assert not marker.exists()
+
+    result = invoke()
+    assert result.returncode == 0
+    assert (repo / "HANDOFF").read_text(
+        encoding="utf-8"
+    ) == f"{repo / 'seed.json'}|{repo / 'output'}|True|{identity['seed_hash']}"
+
+    (repo / "packet.json").write_bytes(b'{"execution_authorized":false}\r\n')
+    (repo / "launcher.py").write_bytes(b"x = 1\r\n")
+    (repo / "HANDOFF").unlink()
+    assert invoke().returncode == 0
+    assert (repo / "HANDOFF").exists()
+    (repo / "packet.json").write_bytes(b'{"execution_authorized":false}\n')
+    (repo / "launcher.py").write_bytes(b"x = 1\n")
+
+    assert_blocked(repo / "packet.json.sha256", b"0" * 64)
+    assert_blocked(repo / "launcher.py.sha256", b"0" * 64)
+    assert_blocked(repo / "packet.json", b'{"execution_authorized":true}\n')
+    assert_blocked(repo / "launcher.py", b"x = 2\n")
+
+    bad_packet = output.with_name("bad-packet-hash.py")
+    wrapper.write_execution_wrapper(bad_packet, **(identity | {"packet_hash": "0" * 64}))
+    assert (repo / "HANDOFF").unlink(missing_ok=True) is None
+    assert invoke(bad_packet).returncode != 0
+    assert not (repo / "HANDOFF").exists()
+    bad_launcher = output.with_name("bad-launcher-hash.py")
+    wrapper.write_execution_wrapper(bad_launcher, **(identity | {"launcher_hash": "0" * 64}))
+    assert invoke(bad_launcher).returncode != 0
+    assert not (repo / "HANDOFF").exists()
