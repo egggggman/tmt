@@ -1,0 +1,9 @@
+{
+  "accepted_runtime": "ed332cbae15d49b6690bb004cc5f39bbc8cecdb3",
+  "consumed_v13_zero_game_stop": "CALIBRATION_V1_20260917T235000Z_v13b590a28",
+  "execution_authorized": false,
+  "protocol": "V1",
+  "scheme": "calibration-release-baseline-refresh-v14",
+  "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+  "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C"
+}
