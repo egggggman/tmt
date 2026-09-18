@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+from tmnt_design_studio.calibration_executor import _frozen_deck_path
+from tmnt_design_studio.calibration_runner import load_members
 from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     TokenCreationProgram,
@@ -931,3 +933,54 @@ def test_calibration_member_b0011_p06_canonical_terminal_replay_is_identical():
     assert first["terminal"] is True
     assert first["winner"] == "raphael"
     assert canonical_json(first) == canonical_json(second)
+
+
+def test_v15_terminal_sneak_state_does_not_reenter_pilot(monkeypatch):
+    members = load_members(
+        ROOT / "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
+        strict=True,
+        expected_sha256="6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+    )
+    by_id = {member.member_id: member for member in members}
+    canonical = by_id["b0024-p39-canonical"]
+    reversed_member = by_id["b0024-p39-reversed"]
+
+    def spec_for(member):
+        return GameSpec(
+            member.member_id,
+            f"p{member.pair_index:02d}",
+            member.seed,
+            member.orientation,
+            tuple(DeckSpec(deck, _frozen_deck_path(ROOT, deck)) for deck in member.decks),
+        )
+
+    class TerminalAwarePilot(AcceptancePilot):
+        game: Game | None = None
+        called_after_terminal = False
+
+        def choose_sneak(self, view, options):
+            if self.game is not None and self.game.winner is not None:
+                self.called_after_terminal = True
+                raise AssertionError(
+                    "Pilot must not receive Sneak options after terminal resolution"
+                )
+            return super().choose_sneak(view, options)
+
+    pilot = TerminalAwarePilot()
+    original_init = Game.__init__
+
+    def capture_game(game, *args, **kwargs):
+        original_init(game, *args, **kwargs)
+        pilot.game = game
+
+    monkeypatch.setattr(Game, "__init__", capture_game)
+    result = run_game(ROOT, spec_for(canonical), pilot)
+
+    assert result["terminal"] is True
+    assert result["winner"] == "raphael"
+    assert result["stack"]
+    assert pilot.called_after_terminal is False
+    assert any(event["event"] == "player_lost" for event in result["events"])
+
+    reversed_result = run_game(ROOT, spec_for(reversed_member), AcceptancePilot())
+    assert reversed_result["terminal"] is True
