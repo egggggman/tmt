@@ -630,11 +630,15 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             lambda blocks=blocks: game.execute_block_action(blocks),
             "block action",
         )
-        while game.step.value == "declare_blockers":
+        while game.winner is None and game.step.value == "declare_blockers":
             options = game.legal_sneak_actions(active)
+            if not options:
+                raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
             _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
             _drain_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _resolve_combat_damage_steps(game, chosen_pilot)
         if game.winner is not None:
             break
