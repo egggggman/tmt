@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.calibration_executor import _frozen_deck_path
 from tmnt_design_studio.calibration_runner import load_members
 from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
@@ -951,7 +950,7 @@ def test_v15_terminal_sneak_state_does_not_reenter_pilot(monkeypatch):
             f"p{member.pair_index:02d}",
             member.seed,
             member.orientation,
-            tuple(DeckSpec(deck, _frozen_deck_path(ROOT, deck)) for deck in member.decks),
+            tuple(DeckSpec(deck, f"decks/{deck}/PROTOTYPE_0.1.txt") for deck in member.decks),
         )
 
     class TerminalAwarePilot(AcceptancePilot):
