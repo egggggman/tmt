@@ -1,0 +1,42 @@
+{
+  "scheme": "calibration-release-baseline-refresh-v16",
+  "execution_authorized": false,
+  "execution_authorization_required": true,
+  "canonical_release_authority": "committed Git blob bytes (SHA-256); checkout representation may differ only by LF/CRLF conversion",
+  "main_commit": "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e",
+  "accepted_runtime": "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e",
+  "previous_runtime": "ed332cbae15d49b6690bb004cc5f39bbc8cecdb3",
+  "protocol": "V1",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+  "schedule": {
+    "whole_roster_blocks": 2048,
+    "unordered_matchups_per_block": 45,
+    "orientations": 2,
+    "distinct_games": 184320,
+    "executions": 368640,
+    "duplicate_authentication": true,
+    "adaptive_or_replacement_seeds": false,
+    "turn_cap": 120
+  },
+  "fail_closed": true,
+  "consumed_v15_stop": {
+    "run_id": "CALIBRATION_V1_20260918T142356Z_a870c302",
+    "status": "FAIL_CLOSED_STOP -- pilot_legal_option_contract_violation",
+    "stop_sha256": "BFE92E5FF63592DC55F2FAD4F8D8B576C2DA56E02C9262ECE8ABB725D26DFFE6",
+    "calibration_evidence": "invalid; permanently stopped, non-resumable, and non-reusable"
+  },
+  "v15_forensic": {
+    "pr": 169,
+    "merge_commit": "6fc3b7a99c4db2c739f4b44aa6f1bdfdfd7da3bb"
+  },
+  "stage002_remediation": {
+    "pr": 170,
+    "merge_commit": "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e",
+    "scope": "terminal and Sneak decision-surface guard"
+  },
+  "execution_sequencing": "reserve fresh run ID -> render exact run-specific wrapper -> hash and freeze -> HQ authenticates exact bytes -> separate HQ execution authorization -> execute unchanged wrapper",
+  "release_refresh_status": "V16_STAGE002_REPAIR_BOUND_NON_AUTHORIZING",
+  "authorization_gate": "Independent HQ audit and separate Calibration Protocol V1 execution authorization required; this packet grants none"
+}
