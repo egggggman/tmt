@@ -1,0 +1,12 @@
+{
+  "attempted_executions": 179,
+  "authenticated_duplicate_pairs": 89,
+  "balance_analysis": false,
+  "completed_distinct_games": 89,
+  "duplicate_mismatch_count": 0,
+  "failed_member": "b0001-p43-reversed",
+  "failure_count": 1,
+  "returned_executions": 178,
+  "run_id": "CALIBRATION_V1_20260916T012311Z_27ebd45881d4",
+  "status": "FAIL_CLOSED_STOP"
+}
