@@ -31,26 +31,27 @@ That release number is not the Cardcade engine version and should not be read as
 
 The earlier Engine 0.6 stability failure and the PR #33 telemetry checkpoint remain preserved historical evidence, not the current Cardcade state.
 
-Cardcade Engine 0.8's architectural foundation remains accepted at **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**. Post-foundation work has continued through bounded Actions and generic engine corrections, including activated abilities/Priority, targeted Return, Trample, Lifelink, hand/library operations, attack/death/ETB triggers, Sneak, Food, and Actions #13–#16.
+Cardcade Engine 0.8's architectural foundation remains accepted at **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**. Post-foundation work is banked through **Action #32** where repository evidence supports acceptance; Action #33 remains **NOT AUTHORIZED**. The Action #32 packet is validation evidence, not balance evidence.
 
-Recent accepted milestones include:
+The governing preparation state is:
 
-- PR #58 — Action #14, bounded ETB drain/gain/Scry;
-- PR #59 — Action #15, bounded permanent-leaves +1/+1 counter trigger;
-- PR #60 — Action #16, bounded ETB artifact-condition Draw;
-- PR #61 — accepted Coverage-Aware Engine Validation Stage 0.2 evidence runner and plan-only launcher.
+- Pilot Fitness V3 bounded pass completed and recorded in `docs/cardcade/PILOT_FITNESS_V3_*`;
+- Calibration Protocol V1 is the governing calibration design;
+- Seed Table V2 is frozen and immutable;
+- authenticated calibration release and execution preparation progressed through V16;
+- PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed run-ID reservation contract.
 
-PR #61's accepted contract covers **45 pairings / 225 distinct planned games / 450 executions / 900 per-execution commitment artifacts**. It preserves explicit `balance_valid: false` engine-validation evidence, reported **784 passed / 1 skipped** locally, and passed exact-head CI before merge.
+V16 run `CALIBRATION_V1_20260919T012117Z_65775003` reached **121,808 / 184,320 distinct games (66.09%)** before failing closed because local storage was exhausted. V16 is classified as an incomplete storage/evidence failure, not balance evidence and not a demonstrated gameplay-engine failure. It must never be resumed, combined with later calibration results, or used for partial balance conclusions. Historical calibration evidence and its verified archive migration remain preserved.
 
-**PR #61 did not authorize or execute Stage 0.2 gameplay.** Final execution authorization remained subject to a merged-main readiness audit.
+The migrated execution host is qualified for prospective V17 evidence: `C:\Projects\tmt` is code/runtime and `G:\` is the live evidence target. G: is NTFS with **976.56 GiB capacity**, **874.66 GiB free**, and **2,000/2,000** atomic write/replace/read-back cycles successful with zero failures. V17 has not been reserved or executed.
 
-These results establish engine-validation evidence, not competitive balance conclusions.
+These results establish infrastructure and engine-validation evidence, not competitive balance conclusions. Cardcade reports evidence and hypotheses; Design Studio owns deck revisions; HQ owns authorization gates.
 
 ## Current Gate
 
-The current critical path is **Cardcade engine validation toward a credible controlled calibration gate**.
+The current gate is **durable GitHub state synchronization**. After independent review and merge of this documentation synchronization, the critical path is: **reserve a fresh V17 identity → render/authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review**.
 
-The architectural foundation and many bounded mechanics are accepted, but calibration and Prototype 0.3 review remain gated. The immediate Cardcade decision is whether merged-main evidence now authorizes Engine Validation Stage 0.2 execution. Do not skip readiness gates, and do not change decks to hide unsupported engine behavior.
+Prototype 0.2 remains frozen. Prototype 0.3, balance analysis, V17 reservation, wrapper generation, and calibration execution are not authorized by this state document.
 
 ## Cross-project operating views
 
@@ -65,6 +66,6 @@ The architectural foundation and many bounded mechanics are accepted, but calibr
 
 ## Next Move
 
-**Complete the merged-main readiness decision for Cardcade Engine Validation Stage 0.2 while HQ completes Resilience 0.1 — GitHub Can Run the Project.** Other departments may continue actionable work that does not pretend to unblock Cardcade's gate.
+**Independently review and merge the documentation synchronization.** Only then should HQ decide whether to authorize the separate V17 reservation step. Other departments may continue work that does not alter frozen decks, seeds, Protocol V1, or Cardcade authorization state.
 
 See the [Roadmap](docs/ROADMAP.md) for long-term direction and [Architecture](docs/ARCHITECTURE.md) for Design Studio software-layer boundaries.

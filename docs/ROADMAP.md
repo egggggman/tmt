@@ -66,13 +66,22 @@ source Provenance and transactional current/run history.
 - The ten-deck Prototype 0.2 environment is **frozen**.
 - **Prototype 0.3 is not authorized**; Design Studio owns any future deck revision decision.
 - Cardcade Engine 0.8's architectural foundation is accepted at 10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN.
-- Bounded post-foundation Actions and corrections have progressed through **Action #16 / PR #60**.
-- PR #61 merged the accepted Coverage-Aware Engine Validation Stage 0.2 evidence runner and plan-only launcher.
-- PR #61 did not itself authorize or execute Stage 0.2 gameplay; a merged-main readiness decision remains the next Cardcade gate.
-- Broad calibration is not yet balance-valid evidence.
+- Bounded post-foundation Actions and corrections are banked through **Action #32** where repository evidence supports acceptance; Action #33 remains **NOT AUTHORIZED**.
+- Pilot Fitness V3 is a bounded completed pass. Calibration Protocol V1 governs the prospective calibration, and Seed Table V2 is frozen and immutable.
+- Authenticated calibration release/execution preparation progressed through V16. Run `CALIBRATION_V1_20260919T012117Z_65775003` reached **121,808 / 184,320 distinct games (66.09%)** before failing closed because local storage was exhausted.
+- V16 is an incomplete storage/evidence failure, not balance evidence and not a demonstrated gameplay-engine failure. It must never be resumed, combined with later results, or used for partial balance conclusions.
+- PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed run-ID reservation contract.
+- The migrated host is qualified: `C:\Projects\tmt` is code/runtime and `G:\` is prospective live evidence storage (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic cycles, zero failures).
+- V17 has not been reserved or executed. Balance analysis remains unauthorized.
 - HQ Resilience 0.1 is active so GitHub can carry project state, task contracts, validation, evidence, and handoffs across tools.
 
 The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
+
+## Current Cardcade path
+
+Synchronize durable project state → independently review/merge the documentation synchronization → reserve a fresh V17 identity → render/authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Calibration Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review.
+
+Cardcade reports evidence and hypotheses. Design Studio owns deck revisions. HQ owns authorization gates. No calibration result automatically authorizes a deck change or Prototype 0.3.
 
 ## Confirmed future software milestones
 
