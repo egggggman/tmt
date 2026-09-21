@@ -14,8 +14,8 @@ def equivalent(a, b):
     return a.replace(b"\r\n", b"\n") == b.replace(b"\r\n", b"\n")
 
 
-def preflight(root, packet_rel, packet_hash, launcher_rel, launcher_hash):
-    for rel, expected in ((packet_rel, packet_hash), (launcher_rel, launcher_hash)):
+def preflight(root, packet_rel, packet_hash, release_rel, release_hash):
+    for rel, expected in ((packet_rel, packet_hash), (release_rel, release_hash)):
         committed = blob(root, rel)
         path = root / rel
         if hashlib.sha256(committed).hexdigest().upper() != expected.upper():
@@ -31,14 +31,14 @@ def preflight(root, packet_rel, packet_hash, launcher_rel, launcher_hash):
         raise RuntimeError("non-authorizing packet required")
 
 
-def render_wrapper(packet_rel, packet_hash, launcher_rel, launcher_hash):
+def render_wrapper(packet_rel, packet_hash, release_rel, release_hash):
     lines = (
         "from pathlib import Path",
         "import sys",
         "ROOT=Path(__file__).resolve().parents[3]",
         "sys.path.insert(0,str(ROOT))",
         "from scripts.calibration_runtime_wrapper import preflight",
-        f"preflight(ROOT,{packet_rel!r},{packet_hash.upper()!r},{launcher_rel!r},{launcher_hash.upper()!r})",
+        f"preflight(ROOT,{packet_rel!r},{packet_hash.upper()!r},{release_rel!r},{release_hash.upper()!r})",
         "print('PREFLIGHT_AUTHENTICATED_NO_EXECUTION')",
         "",
     )
@@ -60,7 +60,7 @@ def _output_path_expression(output_rel):
 
 
 def render_execution_wrapper(
-    packet_rel, packet_hash, launcher_rel, launcher_hash, seed_rel, seed_hash, output_rel
+    packet_rel, packet_hash, release_rel, release_hash, seed_rel, seed_hash, output_rel
 ):
     lines = (
         "from pathlib import Path",
@@ -68,7 +68,7 @@ def render_execution_wrapper(
         "ROOT=Path(__file__).resolve().parents[3]",
         "sys.path.insert(0,str(ROOT))",
         "from scripts.calibration_runtime_wrapper import preflight",
-        f"preflight(ROOT,{packet_rel!r},{packet_hash.upper()!r},{launcher_rel!r},{launcher_hash.upper()!r})",
+        f"preflight(ROOT,{packet_rel!r},{packet_hash.upper()!r},{release_rel!r},{release_hash.upper()!r})",
         "from tmnt_design_studio.calibration_runner import execute_protocol",
         "from tmnt_design_studio.calibration_executor import execute_member",
         f"seed_path = ROOT / {seed_rel!r}",
