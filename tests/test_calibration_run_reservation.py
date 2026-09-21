@@ -18,10 +18,20 @@ def _fixture(tmp_path):
     target.write_bytes(BASELINE.read_bytes())
     digest = hashlib.sha256(target.read_bytes()).hexdigest().upper()
     target.with_suffix(".json.sha256").write_text(f"{digest}  {target.name}\n", encoding="ascii")
-    for command in (["git", "init", "-q"], ["git", "add", "."], [
-        "git", "-c", "user.name=test", "-c", "user.email=test@example.invalid",
-        "commit", "-qm", "fixture",
-    ]):
+    for command in (
+        ["git", "init", "-q"],
+        ["git", "add", "."],
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "fixture",
+        ],
+    ):
         subprocess.run(command, cwd=repo, check=True)
     return repo
 
