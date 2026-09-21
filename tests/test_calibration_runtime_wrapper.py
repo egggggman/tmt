@@ -50,8 +50,8 @@ def test_generated_wrapper_preflight_and_fail_closed_cases(tmp_path):
     identity = dict(
         packet_rel="packet.json",
         packet_hash=packet_hash,
-        launcher_rel="launcher.py",
-        launcher_hash=launcher_hash,
+        release_rel="launcher.py",
+        release_hash=launcher_hash,
     )
     first = wrapper.render_wrapper(**identity)
     assert first == wrapper.render_wrapper(**identity)
@@ -120,8 +120,8 @@ def test_execution_wrapper_handoff_is_after_authenticated_preflight(tmp_path):
     identity = dict(
         packet_rel="packet.json",
         packet_hash=packet_hash,
-        launcher_rel="launcher.py",
-        launcher_hash=launcher_hash,
+        release_rel="launcher.py",
+        release_hash=launcher_hash,
         seed_rel="seed.json",
         seed_hash="A" * 64,
         output_rel="output",
@@ -169,7 +169,7 @@ def test_execution_wrapper_handoff_is_after_authenticated_preflight(tmp_path):
     assert invoke(bad_packet).returncode != 0
     assert not (repo / "HANDOFF").exists()
     bad_launcher = output.with_name("bad-launcher-hash.py")
-    wrapper.write_execution_wrapper(bad_launcher, **(identity | {"launcher_hash": "0" * 64}))
+    wrapper.write_execution_wrapper(bad_launcher, **(identity | {"release_hash": "0" * 64}))
     assert invoke(bad_launcher).returncode != 0
     assert not (repo / "HANDOFF").exists()
 
@@ -178,8 +178,8 @@ def test_absolute_windows_output_is_rendered_explicitly():
     identity = {
         "packet_rel": "packet.json",
         "packet_hash": "A" * 64,
-        "launcher_rel": "launcher.py",
-        "launcher_hash": "B" * 64,
+        "release_rel": "launcher.py",
+        "release_hash": "B" * 64,
         "seed_rel": "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
         "seed_hash": "C" * 64,
         "output_rel": r"G:\cardcade\calibration-runs\CALIBRATION_V1_20260921T050741Z_98aa7d180751",

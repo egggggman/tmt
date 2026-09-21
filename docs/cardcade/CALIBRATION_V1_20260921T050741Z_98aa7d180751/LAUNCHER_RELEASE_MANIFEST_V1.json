@@ -1,0 +1,44 @@
+{
+  "accepted_runtime": "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e",
+  "execution_authorized": false,
+  "generated_launcher_sha256": null,
+  "launcher_generated": false,
+  "launcher_rel": "docs/cardcade/CALIBRATION_V1_20260921T050741Z_98aa7d180751/launcher.py",
+  "output_rel": "G:\\cardcade\\calibration-runs\\CALIBRATION_V1_20260921T050741Z_98aa7d180751",
+  "protocol": "V1",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "release_baseline": {
+    "rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+    "sha256": "10BDC8CD2C78BBA7C0777E71B10E15592655DFA353859A01D6BE94DAE36A8EC8"
+  },
+  "render_inputs": {
+    "packet_rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+    "packet_sha256": "10BDC8CD2C78BBA7C0777E71B10E15592655DFA353859A01D6BE94DAE36A8EC8",
+    "release_manifest_rel": "docs/cardcade/CALIBRATION_V1_20260921T050741Z_98aa7d180751/LAUNCHER_RELEASE_MANIFEST_V1.json",
+    "release_manifest_sidecar_rel": "docs/cardcade/CALIBRATION_V1_20260921T050741Z_98aa7d180751/LAUNCHER_RELEASE_MANIFEST_V1.json.sha256",
+    "seed_rel": "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
+    "seed_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C"
+  },
+  "renderer": {
+    "rel": "scripts/calibration_runtime_wrapper.py",
+    "sha256": "ACF754DA1BF73593495BA0FB4BC0C317D7B58B0105AC99180B7CC6EBB5C0993B"
+  },
+  "reservation": {
+    "rel": "docs/cardcade/CALIBRATION_V1_20260921T050741Z_98aa7d180751/RESERVATION.json",
+    "sha256": "EAD90AA466DFC8821703CF79B4A5FB7212868957DC5229C1D6CD2203C5ABDF4F"
+  },
+  "run_id": "CALIBRATION_V1_20260921T050741Z_98aa7d180751",
+  "schedule": {
+    "adaptive_or_replacement_seeds": false,
+    "distinct_games": 184320,
+    "duplicate_authentication": true,
+    "executions": 368640,
+    "orientations": 2,
+    "turn_cap": 120,
+    "unordered_matchups_per_block": 45,
+    "whole_roster_blocks": 2048
+  },
+  "scheme": "calibration-launcher-release-manifest-v1",
+  "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+  "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C"
+}
