@@ -172,3 +172,18 @@ def test_execution_wrapper_handoff_is_after_authenticated_preflight(tmp_path):
     wrapper.write_execution_wrapper(bad_launcher, **(identity | {"launcher_hash": "0" * 64}))
     assert invoke(bad_launcher).returncode != 0
     assert not (repo / "HANDOFF").exists()
+
+
+def test_absolute_windows_output_is_rendered_explicitly():
+    identity = {
+        "packet_rel": "packet.json",
+        "packet_hash": "A" * 64,
+        "launcher_rel": "launcher.py",
+        "launcher_hash": "B" * 64,
+        "seed_rel": "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
+        "seed_hash": "C" * 64,
+        "output_rel": r"G:\cardcade\calibration-runs\CALIBRATION_V1_20260921T050741Z_98aa7d180751",
+    }
+    rendered = wrapper.render_execution_wrapper(**identity).decode()
+    assert "output_path = Path('G:\\\\cardcade\\\\calibration-runs" in rendered
+    assert "output_path = ROOT /" not in rendered

@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+from pathlib import PureWindowsPath
 
 
 def blob(root, rel):
@@ -50,6 +51,14 @@ def write_wrapper(path, **identity):
     return hashlib.sha256(payload).hexdigest().upper()
 
 
+def _output_path_expression(output_rel):
+    """Render repository-relative and absolute Windows targets distinctly."""
+    windows = PureWindowsPath(output_rel)
+    if windows.drive or windows.root:
+        return f"Path({output_rel!r})"
+    return f"ROOT / {output_rel!r}"
+
+
 def render_execution_wrapper(
     packet_rel, packet_hash, launcher_rel, launcher_hash, seed_rel, seed_hash, output_rel
 ):
@@ -63,7 +72,7 @@ def render_execution_wrapper(
         "from tmnt_design_studio.calibration_runner import execute_protocol",
         "from tmnt_design_studio.calibration_executor import execute_member",
         f"seed_path = ROOT / {seed_rel!r}",
-        f"output_path = ROOT / {output_rel!r}",
+        f"output_path = {_output_path_expression(output_rel)}",
         "execute_protocol(",
         "    seed_path,",
         "    output_path,",
