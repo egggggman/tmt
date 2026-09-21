@@ -71,11 +71,13 @@ The ten-deck **Prototype 0.2 environment is frozen** while Cardcade establishes 
 
 Cardcade's Engine 0.8 architectural foundation has been accepted. Its Foundation Matrix reached **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**, establishing the architectural baseline while preserving explicit unsupported mechanics rather than silently approximating them.
 
-Post-foundation coverage has continued through accepted bounded Actions and engine corrections, including activated abilities/Priority, targeted Return, Trample, Lifelink, hand-bottom/Draw, Discard/Draw triggers, Sneak, Food, and Actions #13–#16. The latest accepted Action is **Action #16 — ETB artifact-condition Draw (PR #60)**.
+Post-foundation coverage and evidence have continued through **banked Action #32**, including the bounded engine corrections and validation work recorded in `docs/cardcade/POST_ACTION_32_*`. Action #33 remains **NOT AUTHORIZED**. These milestones preserve unsupported boundaries instead of silently approximating them.
 
-Cardcade has also moved into coverage-aware engine validation. **PR #61** merged the accepted Stage 0.2 evidence runner and plan-only launcher with a 45-pairing / 225-distinct-game contract, independent duplicate commitments, explicit `balance_valid: false` evidence, **784 passed / 1 skipped** local validation, and passing exact-head CI. PR #61 integrated tooling only; Stage 0.2 gameplay execution remained subject to a merged-main readiness decision.
+The bounded **Pilot Fitness V3** pass and **Calibration Protocol V1** are now the governing preparation records. Seed Table V2 is frozen and immutable. Authenticated calibration release/execution work progressed through V16, but V16 is permanently incomplete: run `CALIBRATION_V1_20260919T012117Z_65775003` reached **121,808 / 184,320 distinct games (66.09%)** before failing closed because local storage was exhausted. This is an incomplete storage/evidence failure, not balance evidence and not a demonstrated gameplay-engine failure. V16 must never be resumed, combined with later results, or used for partial balance conclusions.
 
-These are simulator-credibility milestones, not balance conclusions. The current critical path remains **Cardcade engine validation toward a credible controlled calibration gate**. Prototype 0.3 remains unauthorized until Cardcade evidence is sufficient and Design Studio explicitly decides what, if anything, should change.
+PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed V16 run-ID reservation contract. The migrated host is qualified: `C:\Projects\tmt` is the code/runtime location and `G:\` is the prospective live evidence target (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic write/replace/read-back cycles successful, zero failures). Historical archived evidence remains preserved separately.
+
+The current critical path is: **synchronize durable project state → independently review/merge documentation synchronization → reserve a fresh V17 identity → render and authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Calibration Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review**. V17 has not been reserved or executed. Balance analysis and Prototype 0.3 remain unauthorized.
 
 ## Development discipline
 
