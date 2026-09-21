@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 from collections.abc import Callable
 from pathlib import Path, PureWindowsPath
 
@@ -18,15 +19,40 @@ class StorageTargetViolation(RuntimeError):
     """Raised when a live calibration target is not contract-safe."""
 
 
+def _git_blob(repository_root: Path, relative: str) -> bytes:
+    try:
+        return subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=repository_root)
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise StorageTargetViolation(
+            f"unable to read authoritative reservation blob: {relative}"
+        ) from exc
+
+
+def _equivalent(checkout: bytes, committed: bytes) -> bool:
+    return checkout.replace(b"\r\n", b"\n") == committed.replace(b"\r\n", b"\n")
+
+
 def _authenticated_reservation(repository_root: Path, run_id: str) -> dict[str, object]:
     reservation_dir = repository_root / "docs" / "cardcade" / run_id
     packet_path = reservation_dir / "RESERVATION.json"
     sidecar_path = reservation_dir / "RESERVATION.json.sha256"
+    packet_rel = f"docs/cardcade/{run_id}/RESERVATION.json"
+    sidecar_rel = f"docs/cardcade/{run_id}/RESERVATION.json.sha256"
     try:
-        payload = packet_path.read_bytes()
-        sidecar = sidecar_path.read_text(encoding="ascii").split()[0].upper()
+        payload = _git_blob(repository_root, packet_rel)
+        committed_sidecar = _git_blob(repository_root, sidecar_rel)
+        checkout_payload = packet_path.read_bytes()
+        checkout_sidecar = sidecar_path.read_bytes()
+    except (OSError, StorageTargetViolation) as exc:
+        raise StorageTargetViolation("banked reservation is missing or malformed") from exc
+    if not _equivalent(checkout_payload, payload):
+        raise StorageTargetViolation("checkout reservation differs from committed Git blob")
+    if not _equivalent(checkout_sidecar, committed_sidecar):
+        raise StorageTargetViolation("checkout reservation sidecar differs from committed Git blob")
+    try:
+        sidecar = committed_sidecar.decode("ascii").split()[0].upper()
         packet = json.loads(payload)
-    except (OSError, IndexError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+    except (IndexError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise StorageTargetViolation("banked reservation is missing or malformed") from exc
     digest = hashlib.sha256(payload).hexdigest().upper()
     if sidecar != digest:
