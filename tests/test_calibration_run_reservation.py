@@ -88,10 +88,10 @@ def test_malformed_timestamp_fails_before_reservation(tmp_path, timestamp):
     repo = _fixture(tmp_path)
     with pytest.raises(ReservationViolation, match="timestamp"):
         reserve_run(repo, timestamp=timestamp)
-    assert list((repo / "docs/cardcade").iterdir()) == [
-        repo / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
-        repo / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
-    ]
+    assert {path.name for path in (repo / "docs/cardcade").iterdir()} == {
+        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
+    }
 
 
 def test_authority_mutation_fails_closed_without_reserving(tmp_path):
