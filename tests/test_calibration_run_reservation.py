@@ -1,14 +1,17 @@
 import hashlib
 import json
+import os
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
-from scripts.calibration_run_reservation import ReservationViolation, reserve_run
-
 ROOT = Path(__file__).parents[1]
 BASELINE = ROOT / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
+sys.path.insert(0, str(ROOT))
+
+from scripts.calibration_run_reservation import ReservationViolation, reserve_run  # noqa: E402
 
 
 def _fixture(tmp_path):
@@ -18,6 +21,11 @@ def _fixture(tmp_path):
     target.write_bytes(BASELINE.read_bytes())
     digest = hashlib.sha256(target.read_bytes()).hexdigest().upper()
     target.with_suffix(".json.sha256").write_text(f"{digest}  {target.name}\n", encoding="ascii")
+    git_env = {
+        **os.environ,
+        "GIT_AUTHOR_DATE": "2026-09-20T12:00:00Z",
+        "GIT_COMMITTER_DATE": "2026-09-20T12:00:00Z",
+    }
     for command in (
         ["git", "init", "-q"],
         ["git", "add", "."],
@@ -32,7 +40,7 @@ def _fixture(tmp_path):
             "fixture",
         ],
     ):
-        subprocess.run(command, cwd=repo, check=True)
+        subprocess.run(command, cwd=repo, check=True, env=git_env)
     return repo
 
 
