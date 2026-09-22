@@ -1,0 +1,23 @@
+{
+  "scheme": "calibration-v1-fail-closed-forensic-v1",
+  "run_id": "CALIBRATION_V1_20260922T003835Z_7b0b688c7051",
+  "status": "FAIL_CLOSED_STOP",
+  "resumable": false,
+  "reusable": false,
+  "launcher_sha256": "06C2F774EF4DB4C6598CE4EA1973C991598DCBBFFF75C08C8519E34AEEC55EB7",
+  "completed_member_count": 779,
+  "returned_execution_count": 1559,
+  "failed_member": "b0008-p29-reversed",
+  "terminal_ledger_status": "FAIL_CLOSED_STOP",
+  "failure": {
+    "type": "PermissionError",
+    "winerror": 5,
+    "message": "[WinError 5] Access is denied",
+    "operation": "atomic replacement of RUN_HEARTBEAT.json",
+    "source": "RUN_HEARTBEAT.json.rff3ii0i",
+    "target": "RUN_HEARTBEAT.json"
+  },
+  "active_member_evidence_present": false,
+  "retry_or_resume_performed": false,
+  "notes": "This run is permanently failed, non-resumable, and non-reusable. No repair, retry, resume, or evidence alteration was performed."
+}

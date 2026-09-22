@@ -231,6 +231,7 @@ def test_heartbeat_is_diagnostic_and_final_phase_is_durable(tmp_path):
     assert heartbeat["completion_authority"] is False
 
     assert heartbeat["statistical_evidence"] is False
+    assert heartbeat["run_start_utc"]
 
 
 def test_heartbeat_phase_counters_follow_protocol_order(tmp_path, monkeypatch):
@@ -241,9 +242,9 @@ def test_heartbeat_phase_counters_follow_protocol_order(tmp_path, monkeypatch):
 
     original = runner._write_heartbeat
 
-    def capture(output, run_id, member_id, phase, completed, returned):
+    def capture(output, run_id, member_id, phase, completed, returned, **kwargs):
 
-        original(output, run_id, member_id, phase, completed, returned)
+        original(output, run_id, member_id, phase, completed, returned, **kwargs)
 
         seen.append((phase, completed, returned))
 
@@ -255,10 +256,9 @@ def test_heartbeat_phase_counters_follow_protocol_order(tmp_path, monkeypatch):
         lambda member, duplicate: {"terminal": True},
     )
 
-    assert seen[:4] == [
+    assert seen[:3] == [
         ("member_start", 0, 0),
         ("duplicate_1_returned", 0, 1),
-        ("duplicate_2_returned", 0, 2),
         ("member_evidence_written", 1, 2),
     ]
 
@@ -267,7 +267,7 @@ def test_heartbeat_preserves_last_phase_on_interruption(tmp_path, monkeypatch):
 
     import tmnt_design_studio.calibration_runner as runner
 
-    for phase in ("member_start", "duplicate_1_returned", "duplicate_2_returned"):
+    for phase in ("member_start", "duplicate_1_returned"):
         out = tmp_path / phase
 
         original = runner._write_heartbeat
@@ -279,11 +279,13 @@ def test_heartbeat_preserves_last_phase_on_interruption(tmp_path, monkeypatch):
             current,
             completed,
             returned,
+            *,
             target=phase,
             base=original,
+            **kwargs,
         ):
 
-            base(output, run_id, member_id, current, completed, returned)
+            base(output, run_id, member_id, current, completed, returned, **kwargs)
 
             if current == target:
                 raise RuntimeError("injected interruption")
@@ -316,3 +318,60 @@ def test_atomic_heartbeat_replace_denial_fails_closed_and_cleans_temp(tmp_path, 
     with pytest.raises(PermissionError):
         runner._atomic_write(destination, b"{}")
     assert not list(tmp_path.glob("RUN_HEARTBEAT.json.*"))
+
+
+def test_heartbeat_replace_denial_retries_then_succeeds(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    destination = tmp_path / "RUN_HEARTBEAT.json"
+    original_replace = runner.os.replace
+    attempts = []
+    sleeps = []
+
+    def flaky_replace(source, target):
+        attempts.append((source, target))
+        if len(attempts) < 3:
+            raise PermissionError(5, "Access is denied", str(target))
+        return original_replace(source, target)
+
+    monkeypatch.setattr(runner.os, "replace", flaky_replace)
+    monkeypatch.setattr(runner.time, "sleep", sleeps.append)
+    runner._write_heartbeat(tmp_path, "run", "member", "member_start", 0, 0)
+
+    assert destination.exists()
+    assert len(attempts) == 3
+    assert sleeps == [0.01, 0.02]
+
+
+def test_heartbeat_replace_denial_exhausts_bounded_retries(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    def deny_replace(source, target):
+        raise PermissionError(5, "Access is denied", str(target))
+
+    monkeypatch.setattr(runner.os, "replace", deny_replace)
+    with pytest.raises(PermissionError):
+        runner._write_heartbeat(tmp_path, "run", "member", "member_start", 0, 0)
+    assert not list(tmp_path.glob("RUN_HEARTBEAT.json.*"))
+
+
+def test_authoritative_member_evidence_replace_failure_still_fails_closed(tmp_path, monkeypatch):
+    import tmnt_design_studio.calibration_runner as runner
+
+    original_replace = runner.os.replace
+
+    def deny_member_evidence(source, target):
+        if target.name == "b0000-p00-canonical.json":
+            raise PermissionError(5, "Access is denied", str(target))
+        return original_replace(source, target)
+
+    monkeypatch.setattr(runner.os, "replace", deny_member_evidence)
+    with pytest.raises(ProtocolViolation, match="fail-closed"):
+        execute_protocol(
+            table(tmp_path / "seeds.json"),
+            tmp_path / "out",
+            lambda member, duplicate: {"terminal": True},
+        )
+    ledger = json.loads((tmp_path / "out" / "EXECUTION_LEDGER.json").read_text())
+    assert ledger["status"] == "FAIL_CLOSED_STOP"
+    assert ledger["failed_member"] == "b0000-p00-canonical"
