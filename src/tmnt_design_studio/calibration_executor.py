@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+from functools import cache
 from pathlib import Path
 
 from tmnt_design_studio.calibration_runner import ProtocolMember
@@ -9,15 +10,26 @@ from tmnt_design_studio.pilot07 import AcceptancePilot
 from tmnt_design_studio.stage002 import DeckSpec, GameSpec, run_game
 
 
-def _frozen_deck_path(root: Path, deck: str) -> str:
-    manifest = json.loads(
+@cache
+def _frozen_release_manifest(root_text: str) -> dict:
+    root = Path(root_text)
+    return json.loads(
         (root / "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json").read_text()
     )
-    expected = manifest["deck_hashes"][deck].lower()
+
+
+@cache
+def _frozen_deck_path_cached(root_text: str, deck: str) -> str:
+    root = Path(root_text)
+    expected = _frozen_release_manifest(root_text)["deck_hashes"][deck].lower()
     for candidate in sorted((root / "decks" / deck).glob("PROTOTYPE_*.txt")):
         if hashlib.sha256(candidate.read_bytes()).hexdigest().lower() == expected:
             return candidate.relative_to(root).as_posix()
     raise RuntimeError(f"frozen deck artifact not found: {deck}")
+
+
+def _frozen_deck_path(root: Path, deck: str) -> str:
+    return _frozen_deck_path_cached(str(root.resolve()), deck)
 
 
 def execute_member(

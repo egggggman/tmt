@@ -7,6 +7,7 @@ import json
 import os
 import subprocess
 import tempfile
+import time
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -95,37 +96,64 @@ def load_members(
     return tuple(members)
 
 
-def _atomic_write(path: Path, payload: bytes) -> None:
+def _atomic_write(
+    path: Path,
+    payload: bytes,
+    *,
+    permission_retries: int = 0,
+    durable: bool = True,
+) -> None:
+    """Atomically publish evidence, optionally retrying diagnostic replacement only."""
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(prefix=path.name + ".", dir=path.parent)
     try:
         with os.fdopen(fd, "wb") as f:
             f.write(payload)
             f.flush()
-            os.fsync(f.fileno())
-        os.replace(tmp, path)
+            if durable:
+                os.fsync(f.fileno())
+        for attempt in range(permission_retries + 1):
+            try:
+                os.replace(tmp, path)
+                break
+            except PermissionError:
+                if attempt >= permission_retries:
+                    raise
+                time.sleep(0.01 * (2**attempt))
     finally:
         if os.path.exists(tmp):
             os.unlink(tmp)
 
 
 def _write_heartbeat(
-    output: Path, run_id: str, member_id: str, phase: str, completed: int, returned: int
+    output: Path,
+    run_id: str,
+    member_id: str,
+    phase: str,
+    completed: int,
+    returned: int,
+    *,
+    run_start_utc: str | None = None,
 ) -> None:
+    timestamp = datetime.now(UTC).isoformat()
     payload = {
         "run_id": run_id,
         "active_member_id": member_id,
         "phase": phase,
         "completed_member_count": completed,
         "returned_execution_count": returned,
-        "utc_timestamp": datetime.now(UTC).isoformat(),
+        "run_start_utc": run_start_utc or timestamp,
+        "utc_timestamp": timestamp,
         "diagnostic_only": True,
         "resumability_authority": False,
         "completion_authority": False,
         "statistical_evidence": False,
     }
     _atomic_write(
-        output / "RUN_HEARTBEAT.json", json.dumps(payload, sort_keys=True, indent=2).encode()
+        output / "RUN_HEARTBEAT.json",
+        json.dumps(payload, sort_keys=True, indent=2).encode(),
+        permission_retries=5,
+        durable=False,
     )
 
 
@@ -146,20 +174,32 @@ def execute_protocol(
     ledger = []
     completed = 0
     returned = 0
+    run_start_utc = datetime.now(UTC).isoformat()
     run_id = output.name
     for member in members:
         try:
-            _write_heartbeat(output, run_id, member.member_id, "member_start", completed, returned)
+            _write_heartbeat(
+                output,
+                run_id,
+                member.member_id,
+                "member_start",
+                completed,
+                returned,
+                run_start_utc=run_start_utc,
+            )
             first = executor(member, 0)
             returned += 1
             _write_heartbeat(
-                output, run_id, member.member_id, "duplicate_1_returned", completed, returned
+                output,
+                run_id,
+                member.member_id,
+                "duplicate_1_returned",
+                completed,
+                returned,
+                run_start_utc=run_start_utc,
             )
             second = executor(member, 1)
             returned += 1
-            _write_heartbeat(
-                output, run_id, member.member_id, "duplicate_2_returned", completed, returned
-            )
             if strict:
                 for result in (first, second):
                     if not result.get("terminal", False):
@@ -192,7 +232,13 @@ def execute_protocol(
                 json.dumps(record, sort_keys=True, indent=2).encode(),
             )
             _write_heartbeat(
-                output, run_id, member.member_id, "member_evidence_written", completed + 1, returned
+                output,
+                run_id,
+                member.member_id,
+                "member_evidence_written",
+                completed + 1,
+                returned,
+                run_start_utc=run_start_utc,
             )
             ledger.append(
                 {
