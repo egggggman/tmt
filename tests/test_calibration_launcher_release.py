@@ -29,6 +29,8 @@ def _fixture(tmp_path):
         "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json.sha256",
         "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V2.json",
         "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V2.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V3.json",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V3.json.sha256",
         "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
         "scripts/calibration_runtime_wrapper.py",
     ):
@@ -56,7 +58,7 @@ def _fixture(tmp_path):
         ],
     ):
         subprocess.run(command, cwd=repo, check=True, env=env)
-    authority_path = repo / "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V2.json"
+    authority_path = repo / "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V3.json"
     authority = json.loads(authority_path.read_bytes())
     renderer_blob = subprocess.check_output(
         ["git", "show", "HEAD:scripts/calibration_runtime_wrapper.py"], cwd=repo
@@ -71,7 +73,7 @@ def _fixture(tmp_path):
     authority_path.write_bytes(authority_payload)
     authority_path.with_suffix(".json.sha256").write_text(
         f"{hashlib.sha256(authority_payload).hexdigest().upper()}  "
-        "CALIBRATION_RELEASE_AUTHORITY_V2.json\n",
+        "CALIBRATION_RELEASE_AUTHORITY_V3.json\n",
         encoding="ascii",
     )
     subprocess.run(["git", "add", "."], cwd=repo, check=True, env=env)
