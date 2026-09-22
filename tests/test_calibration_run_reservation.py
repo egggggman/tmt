@@ -1,4 +1,3 @@
-import hashlib
 import json
 import os
 import subprocess
@@ -16,18 +15,27 @@ from scripts.calibration_run_reservation import ReservationViolation, reserve_ru
 
 def _fixture(tmp_path):
     repo = tmp_path / "repo"
-    (repo / "docs/cardcade").mkdir(parents=True)
-    target = repo / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
-    target.write_bytes(BASELINE.read_bytes())
-    digest = hashlib.sha256(target.read_bytes()).hexdigest().upper()
-    target.with_suffix(".json.sha256").write_text(f"{digest}  {target.name}\n", encoding="ascii")
+    for relative in (
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+        "scripts/calibration_runtime_wrapper.py",
+    ):
+        target = repo / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((ROOT / relative).read_bytes())
     git_env = {
         **os.environ,
         "GIT_AUTHOR_DATE": "2026-09-20T12:00:00Z",
         "GIT_COMMITTER_DATE": "2026-09-20T12:00:00Z",
     }
     for command in (
-        ["git", "init", "-q"],
+        ["git", "-c", "core.autocrlf=false", "init", "-q"],
+        ["git", "config", "core.autocrlf", "false"],
         ["git", "add", "."],
         [
             "git",
@@ -88,10 +96,9 @@ def test_malformed_timestamp_fails_before_reservation(tmp_path, timestamp):
     repo = _fixture(tmp_path)
     with pytest.raises(ReservationViolation, match="timestamp"):
         reserve_run(repo, timestamp=timestamp)
-    assert {path.name for path in (repo / "docs/cardcade").iterdir()} == {
-        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
-        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
-    }
+    assert not any(
+        path.name.startswith("CALIBRATION_V1_") for path in (repo / "docs/cardcade").iterdir()
+    )
 
 
 def test_authority_mutation_fails_closed_without_reserving(tmp_path):

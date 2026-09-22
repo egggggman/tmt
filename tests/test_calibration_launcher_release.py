@@ -1,80 +1,126 @@
 import hashlib
-import importlib.util
+import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-storage_spec = importlib.util.spec_from_file_location(
-    "scripts.calibration_storage_target", ROOT / "scripts/calibration_storage_target.py"
+sys.path.insert(0, str(ROOT))
+from scripts.calibration_launcher_release import (  # noqa: E402
+    LauncherReleaseViolation,
+    build_manifest,
 )
-storage = importlib.util.module_from_spec(storage_spec)
-assert storage_spec.loader is not None
-storage_spec.loader.exec_module(storage)
-sys.modules["scripts.calibration_storage_target"] = storage
-spec = importlib.util.spec_from_file_location(
-    "calibration_launcher_release", ROOT / "scripts/calibration_launcher_release.py"
-)
-release = importlib.util.module_from_spec(spec)
-assert spec.loader is not None
-spec.loader.exec_module(release)
+from scripts.calibration_run_reservation import reserve_run  # noqa: E402
 
-RUN_ID = "CALIBRATION_V1_20260921T050741Z_98aa7d180751"
 RENDERER = ROOT / "scripts" / "calibration_runtime_wrapper.py"
 
 
-def build():
-    return release.build_manifest(
-        ROOT,
-        RUN_ID,
+def _fixture(tmp_path):
+    repo = tmp_path / "repo"
+    for relative in (
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+        "scripts/calibration_runtime_wrapper.py",
+    ):
+        target = repo / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((ROOT / relative).read_bytes())
+    env = {
+        **os.environ,
+        "GIT_AUTHOR_DATE": "2026-09-20T12:00:00Z",
+        "GIT_COMMITTER_DATE": "2026-09-20T12:00:00Z",
+    }
+    for command in (
+        ["git", "-c", "core.autocrlf=false", "init", "-q"],
+        ["git", "config", "core.autocrlf", "false"],
+        ["git", "add", "."],
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "fixture",
+        ],
+    ):
+        subprocess.run(command, cwd=repo, check=True, env=env)
+    reservation = reserve_run(repo, timestamp="20260920T120010Z")
+    subprocess.run(["git", "add", "."], cwd=repo, check=True, env=env)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "reservation",
+        ],
+        cwd=repo,
+        check=True,
+        env=env,
+    )
+    return repo, reservation["run_id"]
+
+
+def _build(tmp_path):
+    repo, run_id = _fixture(tmp_path)
+    return build_manifest(
+        repo,
+        run_id,
         renderer_source_sha256=hashlib.sha256(RENDERER.read_bytes()).hexdigest(),
         target_exists=lambda _: False,
     )
 
 
-def test_pre_generation_manifest_identity_is_deterministic_and_non_authorizing():
-    first, first_bytes = build()
-    second, second_bytes = build()
+def test_pre_generation_manifest_identity_is_deterministic_and_non_authorizing(tmp_path):
+    first, first_bytes = _build(tmp_path / "first")
+    second, second_bytes = _build(tmp_path / "second")
 
     assert first == second
     assert first_bytes == second_bytes
     assert hashlib.sha256(first_bytes).hexdigest().upper() != first["renderer"]["sha256"]
+    assert first["accepted_runtime"] == "60acd013b28dc9d8cb46c5c5520c11e9e3943627"
     assert first["execution_authorized"] is False
     assert first["launcher_generated"] is False
     assert first["generated_launcher_sha256"] is None
-    assert first["run_id"] == RUN_ID
-    assert first["output_rel"] == rf"G:\cardcade\calibration-runs\{RUN_ID}"
-    assert first["schedule"]["distinct_games"] == 184320
-    assert first["schedule"]["executions"] == 368640
+    assert first["output_rel"] == rf"G:\cardcade\calibration-runs\{first['run_id']}"
 
 
-def test_tampered_checkout_release_input_fails_closed(monkeypatch):
-    original = release._checkout_bytes
+def test_tampered_checkout_release_input_fails_closed(tmp_path):
+    repo, run_id = _fixture(tmp_path)
+    import scripts.calibration_launcher_release as release
 
-    def tampered(root, relative):
-        payload = original(root, relative)
-        if relative == release.BASELINE_REL:
-            return payload.replace(
-                b'"execution_authorized": false', b'"execution_authorized": true'
-            )
-        return payload
-
-    monkeypatch.setattr(release, "_checkout_bytes", tampered)
+    selected = repo / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json"
+    data = json.loads(selected.read_bytes())
+    data["accepted_runtime"] = "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e"
+    selected.write_text(json.dumps(data) + "\n", encoding="utf-8")
     with pytest.raises(release.LauncherReleaseViolation, match="checkout differs"):
-        build()
+        build_manifest(
+            repo,
+            run_id,
+            renderer_source_sha256=hashlib.sha256(RENDERER.read_bytes()).hexdigest(),
+            target_exists=lambda _: False,
+        )
 
 
-def test_eventual_launcher_hash_is_separate_from_manifest_identity():
-    manifest, payload = build()
+def test_eventual_launcher_hash_is_separate_from_manifest_identity(tmp_path):
+    manifest, payload = _build(tmp_path)
     manifest_hash = hashlib.sha256(payload).hexdigest().upper()
     inputs = manifest["render_inputs"]
-    from_wrapper = importlib.util.spec_from_file_location(
-        "calibration_runtime_wrapper", ROOT / "scripts/calibration_runtime_wrapper.py"
-    )
-    wrapper = importlib.util.module_from_spec(from_wrapper)
-    assert from_wrapper.loader is not None
-    from_wrapper.loader.exec_module(wrapper)
+    from scripts import calibration_runtime_wrapper as wrapper
+
     launcher_bytes = wrapper.render_execution_wrapper(
         packet_rel=inputs["packet_rel"],
         packet_hash=inputs["packet_sha256"],
@@ -90,3 +136,39 @@ def test_eventual_launcher_hash_is_separate_from_manifest_identity():
     assert manifest["generated_launcher_sha256"] is None
     assert manifest["execution_authorized"] is False
     assert "execute_protocol" in launcher_bytes.decode()
+
+
+def test_reservation_and_release_authority_disagreement_fails_closed(tmp_path):
+    repo, run_id = _fixture(tmp_path)
+    reservation = repo / "docs/cardcade" / run_id / "RESERVATION.json"
+    data = json.loads(reservation.read_bytes())
+    data["reservation_identity"]["accepted_runtime"] = "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e"
+    payload = (json.dumps(data, sort_keys=True, indent=2) + "\n").encode()
+    reservation.write_bytes(payload)
+    sidecar = reservation.with_suffix(".json.sha256")
+    sidecar.write_text(
+        f"{hashlib.sha256(payload).hexdigest().upper()}  RESERVATION.json\n",
+        encoding="ascii",
+    )
+    subprocess.run(["git", "add", "."], cwd=repo, check=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "tampered reservation",
+        ],
+        cwd=repo,
+        check=True,
+    )
+    with pytest.raises(LauncherReleaseViolation, match="disagree"):
+        build_manifest(
+            repo,
+            run_id,
+            renderer_source_sha256=hashlib.sha256(RENDERER.read_bytes()).hexdigest(),
+            target_exists=lambda _: False,
+        )
