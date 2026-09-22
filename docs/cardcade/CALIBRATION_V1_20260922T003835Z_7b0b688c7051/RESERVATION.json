@@ -1,0 +1,22 @@
+{
+  "execution_authorized": false,
+  "execution_wrapper_rel": "docs/cardcade/CALIBRATION_V1_20260922T003835Z_7b0b688c7051/launcher.py",
+  "games_executed": 0,
+  "reservation_identity": {
+    "accepted_runtime": "d0b6b728c3cf0d6d883bb80a398c4b3d99a1259e",
+    "audited_main_commit": "ac672ce485eda84ecb35fcf6ffe1a7b8e9ac37e9",
+    "protocol": "V1",
+    "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+    "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+    "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+    "timestamp_utc": "20260922T003835Z",
+    "v16_baseline_rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+    "v16_baseline_sha256": "10BDC8CD2C78BBA7C0777E71B10E15592655DFA353859A01D6BE94DAE36A8EC8"
+  },
+  "reservation_state": "RESERVED_NOT_EXECUTED",
+  "run_directory_rel": "docs/cardcade/CALIBRATION_V1_20260922T003835Z_7b0b688c7051",
+  "run_id": "CALIBRATION_V1_20260922T003835Z_7b0b688c7051",
+  "scheme": "calibration-run-reservation-v1",
+  "seeds_consumed": 0,
+  "wrapper_generated": false
+}
