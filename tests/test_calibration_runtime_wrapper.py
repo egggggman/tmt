@@ -187,3 +187,49 @@ def test_absolute_windows_output_is_rendered_explicitly():
     rendered = wrapper.render_execution_wrapper(**identity).decode()
     assert "output_path = Path('G:\\\\cardcade\\\\calibration-runs" in rendered
     assert "output_path = ROOT /" not in rendered
+
+
+def test_rendered_launcher_resolves_src_packages_without_protocol_start(tmp_path):
+    repo = tmp_path / "repo"
+    launcher = repo / "docs" / "cardcade" / "run" / "launcher.py"
+    package = repo / "src" / "tmnt_design_studio"
+    package.mkdir(parents=True)
+    launcher.parent.mkdir(parents=True)
+    (package / "__init__.py").write_text("", encoding="utf-8", newline="\n")
+    (package / "calibration_runner.py").write_text(
+        "def execute_protocol(*args, **kwargs):\n"
+        "    raise AssertionError('protocol execution started')\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    (package / "calibration_executor.py").write_text(
+        "def execute_member(*args, **kwargs):\n"
+        "    raise AssertionError('calibration execution started')\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    identity = {
+        "packet_rel": "packet.json",
+        "packet_hash": "A" * 64,
+        "release_rel": "launcher.py",
+        "release_hash": "B" * 64,
+        "seed_rel": "seed.json",
+        "seed_hash": "C" * 64,
+        "output_rel": "output",
+    }
+    rendered = wrapper.render_execution_wrapper(**identity).decode()
+    assert "sys.path.insert(0,str(ROOT/'src'))" in rendered
+    assert "sys.path.insert(1,str(ROOT))" in rendered
+    import_section = rendered.split("from scripts.calibration_runtime_wrapper import", 1)[0]
+    probe = (
+        import_section
+        + "import tmnt_design_studio.calibration_runner\n"
+        + "import tmnt_design_studio.calibration_executor\n"
+        + "print('IMPORTS_RESOLVED')\n"
+    )
+    launcher.write_text(probe, encoding="utf-8", newline="\n")
+    result = subprocess.run(
+        [sys.executable, str(launcher)], cwd=repo, text=True, capture_output=True
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "IMPORTS_RESOLVED"
