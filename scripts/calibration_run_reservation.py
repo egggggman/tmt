@@ -10,7 +10,11 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
-BASELINE_REL = "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
+from scripts.calibration_release_authority import (
+    ReleaseAuthorityViolation,
+    authenticate_release_authority,
+)
+
 RUN_ROOT_REL = "docs/cardcade"
 WRAPPER_NAME = "launcher.py"
 RUN_ID_RE = re.compile(r"^CALIBRATION_V1_(\d{8}T\d{6}Z)_([0-9a-f]{12})$")
@@ -18,7 +22,7 @@ SHA256_RE = re.compile(r"^[0-9A-Fa-f]{64}$")
 
 
 class ReservationViolation(RuntimeError):
-    """Raised when the V16 reservation authority or target is not safe."""
+    """Raised when the promoted reservation authority or target is not safe."""
 
 
 def _git_blob(root: Path, relative: str) -> bytes:
@@ -43,32 +47,6 @@ def _read_sha_sidecar(path: Path) -> str:
 
 
 def _authority(root: Path) -> dict[str, object]:
-    baseline_path = root / BASELINE_REL
-    committed = _git_blob(root, BASELINE_REL)
-    committed_hash = _sha256(committed)
-    sidecar_hash = _read_sha_sidecar(baseline_path.with_suffix(".json.sha256"))
-    if sidecar_hash != committed_hash:
-        raise ReservationViolation("V16 baseline sidecar does not authenticate its Git blob")
-    if baseline_path.read_bytes().replace(b"\r\n", b"\n") != committed.replace(b"\r\n", b"\n"):
-        raise ReservationViolation("V16 baseline checkout differs from its Git blob")
-    try:
-        packet = json.loads(committed)
-    except json.JSONDecodeError as exc:
-        raise ReservationViolation("V16 baseline is not valid JSON") from exc
-    if packet.get("scheme") != "calibration-release-baseline-refresh-v16":
-        raise ReservationViolation("unexpected V16 baseline scheme")
-    if packet.get("protocol") != "V1":
-        raise ReservationViolation("V16 baseline is not Protocol V1")
-    if packet.get("execution_authorized") is not False:
-        raise ReservationViolation("V16 baseline authorizes execution")
-    accepted_runtime = packet.get("accepted_runtime")
-    protocol_identity = packet.get("protocol_identity")
-    if not isinstance(accepted_runtime, str) or not re.fullmatch(r"[0-9a-f]{40}", accepted_runtime):
-        raise ReservationViolation("V16 accepted runtime identity is malformed")
-    if not isinstance(protocol_identity, str) or not re.fullmatch(
-        r"[0-9a-f]{40}", protocol_identity
-    ):
-        raise ReservationViolation("V16 protocol identity is malformed")
     try:
         audited_main = subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=root, text=True
@@ -77,15 +55,13 @@ def _authority(root: Path) -> dict[str, object]:
         raise ReservationViolation("unable to identify audited Git HEAD") from exc
     if not re.fullmatch(r"[0-9a-f]{40}", audited_main):
         raise ReservationViolation("audited Git HEAD is malformed")
+    try:
+        authority = authenticate_release_authority(root)
+    except ReleaseAuthorityViolation as exc:
+        raise ReservationViolation(str(exc)) from exc
     return {
         "audited_main_commit": audited_main,
-        "accepted_runtime": accepted_runtime,
-        "protocol": "V1",
-        "protocol_identity": protocol_identity,
-        "v16_baseline_rel": BASELINE_REL,
-        "v16_baseline_sha256": committed_hash,
-        "seed_table_v2_sha256": packet.get("seed_table_v2_sha256"),
-        "seed_table_v2_entropy_sha256": packet.get("seed_table_v2_entropy_sha256"),
+        **authority,
     }
 
 

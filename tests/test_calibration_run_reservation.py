@@ -16,18 +16,27 @@ from scripts.calibration_run_reservation import ReservationViolation, reserve_ru
 
 def _fixture(tmp_path):
     repo = tmp_path / "repo"
-    (repo / "docs/cardcade").mkdir(parents=True)
-    target = repo / "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
-    target.write_bytes(BASELINE.read_bytes())
-    digest = hashlib.sha256(target.read_bytes()).hexdigest().upper()
-    target.with_suffix(".json.sha256").write_text(f"{digest}  {target.name}\n", encoding="ascii")
+    for relative in (
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json",
+        "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json",
+        "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json.sha256",
+        "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+        "scripts/calibration_runtime_wrapper.py",
+    ):
+        target = repo / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=ROOT))
     git_env = {
         **os.environ,
         "GIT_AUTHOR_DATE": "2026-09-20T12:00:00Z",
         "GIT_COMMITTER_DATE": "2026-09-20T12:00:00Z",
     }
     for command in (
-        ["git", "init", "-q"],
+        ["git", "-c", "core.autocrlf=false", "init", "-q"],
+        ["git", "config", "core.autocrlf", "false"],
         ["git", "add", "."],
         [
             "git",
@@ -41,6 +50,40 @@ def _fixture(tmp_path):
         ],
     ):
         subprocess.run(command, cwd=repo, check=True, env=git_env)
+    authority_path = repo / "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json"
+    authority = json.loads(authority_path.read_bytes())
+    renderer_blob = subprocess.check_output(
+        ["git", "show", "HEAD:scripts/calibration_runtime_wrapper.py"], cwd=repo
+    )
+    authority["renderer"]["sha256"] = hashlib.sha256(renderer_blob).hexdigest().upper()
+    capacity_blob = subprocess.check_output(
+        ["git", "show", "HEAD:docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json"],
+        cwd=repo,
+    )
+    authority["frozen_deck_manifest"]["sha256"] = hashlib.sha256(capacity_blob).hexdigest().upper()
+    authority_payload = (json.dumps(authority, sort_keys=True, indent=2) + "\n").encode()
+    authority_path.write_bytes(authority_payload)
+    authority_path.with_suffix(".json.sha256").write_text(
+        f"{hashlib.sha256(authority_payload).hexdigest().upper()}  "
+        "CALIBRATION_RELEASE_AUTHORITY_V1.json\n",
+        encoding="ascii",
+    )
+    subprocess.run(["git", "add", "."], cwd=repo, check=True, env=git_env)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "fixture authority",
+        ],
+        cwd=repo,
+        check=True,
+        env=git_env,
+    )
     return repo
 
 
@@ -88,10 +131,9 @@ def test_malformed_timestamp_fails_before_reservation(tmp_path, timestamp):
     repo = _fixture(tmp_path)
     with pytest.raises(ReservationViolation, match="timestamp"):
         reserve_run(repo, timestamp=timestamp)
-    assert {path.name for path in (repo / "docs/cardcade").iterdir()} == {
-        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
-        "CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json.sha256",
-    }
+    assert not any(
+        path.name.startswith("CALIBRATION_V1_") for path in (repo / "docs/cardcade").iterdir()
+    )
 
 
 def test_authority_mutation_fails_closed_without_reserving(tmp_path):

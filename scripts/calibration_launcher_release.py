@@ -10,9 +10,12 @@ import subprocess
 from collections.abc import Callable
 from pathlib import Path
 
+from scripts.calibration_release_authority import (
+    ReleaseAuthorityViolation,
+    authenticate_release_authority,
+)
 from scripts.calibration_storage_target import resolve_live_evidence_target
 
-BASELINE_REL = "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
 SEED_REL = "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json"
 MANIFEST_NAME = "LAUNCHER_RELEASE_MANIFEST_V1.json"
 SHA256_RE = re.compile(r"^[0-9A-F]{64}$")
@@ -78,12 +81,18 @@ def build_manifest(
         raise LauncherReleaseViolation("reservation authorizes execution")
     if reservation.get("wrapper_generated") is not False:
         raise LauncherReleaseViolation("reservation already has a generated wrapper")
-    baseline, baseline_hash = _authenticated_json(root, BASELINE_REL, f"{BASELINE_REL}.sha256")
-    if baseline.get("execution_authorized") is not False:
-        raise LauncherReleaseViolation("V16 baseline authorizes execution")
-    if baseline.get("protocol") != "V1":
-        raise LauncherReleaseViolation("V16 baseline is not Protocol V1")
-    schedule = baseline.get("schedule")
+    try:
+        authority = authenticate_release_authority(root)
+    except ReleaseAuthorityViolation as exc:
+        raise LauncherReleaseViolation(str(exc)) from exc
+    if (
+        reservation.get("reservation_identity", {}).get("accepted_runtime")
+        != authority["accepted_runtime"]
+    ):
+        raise LauncherReleaseViolation("reservation and selected runtime authority disagree")
+    baseline_rel = authority["v16_baseline_rel"]
+    baseline, baseline_hash = _authenticated_json(root, baseline_rel, f"{baseline_rel}.sha256")
+    schedule = authority.get("schedule")
     if not isinstance(schedule, dict) or schedule.get("distinct_games") != 184320:
         raise LauncherReleaseViolation("V1 schedule identity is incomplete")
     if schedule.get("executions") != 368640:
@@ -91,6 +100,8 @@ def build_manifest(
     renderer_source_sha256 = renderer_source_sha256.upper()
     if not SHA256_RE.fullmatch(renderer_source_sha256):
         raise LauncherReleaseViolation("renderer source hash is malformed")
+    if renderer_source_sha256 != authority["renderer_sha256"]:
+        raise LauncherReleaseViolation("renderer identity disagrees with selected authority")
     output_rel = resolve_live_evidence_target(root, run_id, target_exists=target_exists)
     manifest_rel = f"docs/cardcade/{run_id}/{MANIFEST_NAME}"
     manifest = {
@@ -100,26 +111,36 @@ def build_manifest(
         "generated_launcher_sha256": None,
         "run_id": run_id,
         "reservation": {"rel": reservation_rel, "sha256": reservation_hash},
-        "release_baseline": {"rel": BASELINE_REL, "sha256": baseline_hash},
+        "release_authority": {
+            "rel": authority["authority_rel"],
+            "sha256": authority["authority_sha256"],
+            "selected_runtime_rel": authority["selected_runtime_rel"],
+            "selected_runtime_sha256": authority["selected_runtime_sha256"],
+        },
+        "release_baseline": {"rel": baseline_rel, "sha256": baseline_hash},
         "renderer": {
-            "rel": "scripts/calibration_runtime_wrapper.py",
-            "sha256": renderer_source_sha256,
+            "rel": authority["renderer_rel"],
+            "sha256": authority["renderer_sha256"],
         },
         "launcher_rel": reservation.get("execution_wrapper_rel"),
         "output_rel": output_rel,
         "render_inputs": {
-            "packet_rel": BASELINE_REL,
+            "packet_rel": baseline_rel,
             "packet_sha256": baseline_hash,
             "release_manifest_rel": manifest_rel,
             "release_manifest_sidecar_rel": f"{manifest_rel}.sha256",
             "seed_rel": SEED_REL,
-            "seed_sha256": baseline.get("seed_table_v2_sha256"),
+            "seed_sha256": authority["seed_table_v2_sha256"],
         },
-        "accepted_runtime": baseline.get("accepted_runtime"),
-        "protocol": baseline.get("protocol"),
-        "protocol_identity": baseline.get("protocol_identity"),
-        "seed_table_v2_sha256": baseline.get("seed_table_v2_sha256"),
-        "seed_table_v2_entropy_sha256": baseline.get("seed_table_v2_entropy_sha256"),
+        "accepted_runtime": authority["accepted_runtime"],
+        "protocol": authority["protocol"],
+        "protocol_identity": authority["protocol_identity"],
+        "seed_table_v2_sha256": authority["seed_table_v2_sha256"],
+        "seed_table_v2_entropy_sha256": authority["seed_table_v2_entropy_sha256"],
+        "frozen_deck_manifest": {
+            "rel": authority["frozen_deck_manifest_rel"],
+            "sha256": authority["frozen_deck_manifest_sha256"],
+        },
         "schedule": schedule,
     }
     payload = (json.dumps(manifest, sort_keys=True, indent=2) + "\n").encode("utf-8")
