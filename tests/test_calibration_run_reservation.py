@@ -27,7 +27,7 @@ def _fixture(tmp_path):
     ):
         target = repo / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes((ROOT / relative).read_bytes())
+        target.write_bytes(subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=ROOT))
     git_env = {
         **os.environ,
         "GIT_AUTHOR_DATE": "2026-09-20T12:00:00Z",
