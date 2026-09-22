@@ -8,7 +8,7 @@ import re
 import subprocess
 from pathlib import Path
 
-AUTHORITY_REL = "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json"
+AUTHORITY_REL = "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V2.json"
 V16_REL = "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json"
 CAPACITY_REL = "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json"
 HEX64 = re.compile(r"^[0-9A-F]{64}$")
@@ -62,6 +62,18 @@ def authenticate_release_authority(repository_root: Path) -> dict[str, object]:
         raise ReleaseAuthorityViolation("unexpected release authority scheme")
     if authority.get("execution_authorized") is not False:
         raise ReleaseAuthorityViolation("release authority authorizes execution")
+    supersedes = authority.get("supersedes")
+    if not isinstance(supersedes, dict):
+        raise ReleaseAuthorityViolation("current authority is missing its historical predecessor")
+    historical_authority, historical_authority_hash = _authenticated_json(
+        root, supersedes["rel"], f"{supersedes['rel']}.sha256"
+    )
+    if historical_authority_hash != supersedes.get("sha256"):
+        raise ReleaseAuthorityViolation(
+            "historical authority hash disagrees with superseding authority"
+        )
+    if historical_authority.get("scheme") != "calibration-release-authority-v1":
+        raise ReleaseAuthorityViolation("historical authority is not V1")
 
     selected = authority.get("selected_runtime_artifact")
     historical = authority.get("historical_v16_baseline")
