@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import subprocess
@@ -49,6 +50,40 @@ def _fixture(tmp_path):
         ],
     ):
         subprocess.run(command, cwd=repo, check=True, env=git_env)
+    authority_path = repo / "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json"
+    authority = json.loads(authority_path.read_bytes())
+    renderer_blob = subprocess.check_output(
+        ["git", "show", "HEAD:scripts/calibration_runtime_wrapper.py"], cwd=repo
+    )
+    authority["renderer"]["sha256"] = hashlib.sha256(renderer_blob).hexdigest().upper()
+    capacity_blob = subprocess.check_output(
+        ["git", "show", "HEAD:docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json"],
+        cwd=repo,
+    )
+    authority["frozen_deck_manifest"]["sha256"] = hashlib.sha256(capacity_blob).hexdigest().upper()
+    authority_payload = (json.dumps(authority, sort_keys=True, indent=2) + "\n").encode()
+    authority_path.write_bytes(authority_payload)
+    authority_path.with_suffix(".json.sha256").write_text(
+        f"{hashlib.sha256(authority_payload).hexdigest().upper()}  "
+        "CALIBRATION_RELEASE_AUTHORITY_V1.json\n",
+        encoding="ascii",
+    )
+    subprocess.run(["git", "add", "."], cwd=repo, check=True, env=git_env)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "fixture authority",
+        ],
+        cwd=repo,
+        check=True,
+        env=git_env,
+    )
     return repo
 
 
