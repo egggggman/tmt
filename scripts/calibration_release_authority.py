@@ -58,7 +58,7 @@ def _authenticated_json(root: Path, relative: str, sidecar_relative: str) -> tup
 def authenticate_release_authority(repository_root: Path) -> dict[str, object]:
     root = repository_root.resolve()
     authority, authority_hash = _authenticated_json(root, AUTHORITY_REL, f"{AUTHORITY_REL}.sha256")
-    if authority.get("scheme") != "calibration-release-authority-v1":
+    if authority.get("scheme") != "calibration-release-authority-v2":
         raise ReleaseAuthorityViolation("unexpected release authority scheme")
     if authority.get("execution_authorized") is not False:
         raise ReleaseAuthorityViolation("release authority authorizes execution")
