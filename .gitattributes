@@ -12,3 +12,4 @@ docs/cardcade/CALIBRATION_V1_20260917T*_v13*/** text eol=lf
 
 docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V14.* text eol=lf
 docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.* text eol=lf
+docs/cardcade/CALIBRATION_V1_*/launcher.py -text
