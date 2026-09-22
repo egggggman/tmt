@@ -1,0 +1,21 @@
+{
+  "scheme": "calibration-v1-fail-closed-forensic-v1",
+  "run_id": "CALIBRATION_V1_20260921T050741Z_98aa7d180751",
+  "status": "FAIL_CLOSED_STOP",
+  "classification": "launcher_import_path_failure",
+  "resumable": false,
+  "reusable": false,
+  "execution_authorized": true,
+  "launcher_rel": "docs/cardcade/CALIBRATION_V1_20260921T050741Z_98aa7d180751/launcher.py",
+  "launcher_sha256": "772BDCF615BC980BEAFAC969832B018178FBCFFBE27C468D6C061D920E30F99E",
+  "release_manifest_sha256": "56C000B80C66B8F10193603BE48AF1BD0039C98ABC76E61D85B2CAA07F4E076E",
+  "failure_phase": "launcher_import_before_protocol_start",
+  "error_type": "ModuleNotFoundError",
+  "error": "No module named 'tmnt_design_studio'",
+  "games_completed": 0,
+  "executions_completed": 0,
+  "seeds_consumed": 0,
+  "duplicate_authentication_started": false,
+  "production_target_created": false,
+  "notes": "The authenticated launcher was not modified or retried. This run must never be resumed or reused."
+}
