@@ -1,0 +1,33 @@
+{
+  "scheme": "calibration-release-authority-v2",
+  "execution_authorized": false,
+  "supersedes": {
+    "rel": "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V1.json",
+    "sha256": "A966FC1536ABA52888D887103E3128FC2EEC30F4488D437D0B1DC73ED9D8498F",
+    "reason": "V1 recorded the Windows checkout CRLF hash instead of the canonical committed Git-blob hash"
+  },
+  "selected_runtime_artifact": {
+    "rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json",
+    "sha256": "BA2588F8E8DA2CB292CE24D2F4F64758710F17110A39158ECD60242CD50819BF"
+  },
+  "historical_v16_baseline": {
+    "rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+    "sha256": "10BDC8CD2C78BBA7C0777E71B10E15592655DFA353859A01D6BE94DAE36A8EC8",
+    "immutable": true
+  },
+  "accepted_runtime": "60acd013b28dc9d8cb46c5c5520c11e9e3943627",
+  "protocol": "V1",
+  "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+  "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+  "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+  "frozen_deck_manifest": {
+    "rel": "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+    "sha256": "79C0697A5307F65D3A2A5470BA51C31E4B33BF704C2999E12EF8DCF96832B7CD"
+  },
+  "renderer": {
+    "rel": "scripts/calibration_runtime_wrapper.py",
+    "sha256": "AC69D8D6CDF233102CBDC58A4A3EE047BE740091522A7B51C80C61AD867B6FDC",
+    "identity_kind": "canonical_committed_git_blob_source_bytes"
+  },
+  "authorization_gate": "Selection authenticates release inputs only; reservation, launcher generation, and execution remain separate non-authorizing gates."
+}
