@@ -1,0 +1,52 @@
+{
+  "execution_authorized": false,
+  "execution_wrapper_rel": "docs/cardcade/CALIBRATION_V1_20260923T141649Z_3f838930291e/launcher.py",
+  "games_executed": 0,
+  "reservation_identity": {
+    "accepted_runtime": "60acd013b28dc9d8cb46c5c5520c11e9e3943627",
+    "audited_main_commit": "e41b2527eeb88c15e6dfe66837c741f3fb99baea",
+    "authority_rel": "docs/cardcade/CALIBRATION_RELEASE_AUTHORITY_V3.json",
+    "authority_sha256": "3D08046134C5875E0535873EAC9919A529CFD1F22F68BD5A9259068FF601F1C3",
+    "deck_hashes": {
+      "april_oneil": "684C898760A39C5DFC584206EF4675C49D96CFE6BD419F03F86BD0B8358D09F4",
+      "bebop_rocksteady": "3875706A76FFAB14D2A82BA836DA9E59BCE49DE2F990A348941490E78A61EF9D",
+      "casey_jones": "0FC0ADBB370ECFDDAD03692A4229A04B23268739914A8F2A004B8E042FF3CEBB",
+      "donatello": "8FAC1790E2C9BA307C073D6A2EC034971CA1959BCDE64A178A117D94FB9938FB",
+      "krang": "D9B44AF5BEB3ABA153B792EE5F70EB4C749B38C8EBFAA114DA24AFB1F0A9862F",
+      "leonardo": "D49D155858938D6FC64127C1678E591EE77ABAD3B7DA8302880F16379476FB08",
+      "michelangelo": "F5DD228B6E3636BD0DE367B9D1A2BD836C0388BF37B00F0C0C047A932973EBF9",
+      "raphael": "07EED928EF6C47AEA1F8FB2DF2C494D0FAE12C10BEE8836E7AA9CF2A8784A834",
+      "shredder": "D0C6479EF2DF6D3C64911E8F93465310760F6509282B018FB1C8319CC2C3D6A1",
+      "splinter": "74B6D7F4CAB4BCDA9EEB80FFC7A779529115C98C161345F13AC1251D85163B0A"
+    },
+    "frozen_deck_manifest_rel": "docs/cardcade/CALIBRATION_RELEASE_MANIFEST_CAPACITY_V1.json",
+    "frozen_deck_manifest_sha256": "807F04F4155E6F071BF94ACCB368290CFF9EE0D6D8F2FAD26B25C74B6762E174",
+    "protocol": "V1",
+    "protocol_identity": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+    "renderer_rel": "scripts/calibration_runtime_wrapper.py",
+    "renderer_sha256": "AC69D8D6CDF233102CBDC58A4A3EE047BE740091522A7B51C80C61AD867B6FDC",
+    "schedule": {
+      "adaptive_or_replacement_seeds": false,
+      "distinct_games": 184320,
+      "duplicate_authentication": true,
+      "executions": 368640,
+      "orientations": 2,
+      "turn_cap": 120,
+      "unordered_matchups_per_block": 45,
+      "whole_roster_blocks": 2048
+    },
+    "seed_table_v2_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+    "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+    "selected_runtime_rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V17.json",
+    "selected_runtime_sha256": "BA2588F8E8DA2CB292CE24D2F4F64758710F17110A39158ECD60242CD50819BF",
+    "timestamp_utc": "20260923T141649Z",
+    "v16_baseline_rel": "docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.json",
+    "v16_baseline_sha256": "10BDC8CD2C78BBA7C0777E71B10E15592655DFA353859A01D6BE94DAE36A8EC8"
+  },
+  "reservation_state": "RESERVED_NOT_EXECUTED",
+  "run_directory_rel": "docs/cardcade/CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "run_id": "CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "scheme": "calibration-run-reservation-v1",
+  "seeds_consumed": 0,
+  "wrapper_generated": false
+}
