@@ -1,0 +1,65 @@
+{
+  "schema": "calibration-completion-audit-v1",
+  "run_id": "CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "production_evidence_path": "G:\\cardcade\\calibration-runs\\CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "production_evidence_location": "external G: production storage; not contained in this repository",
+  "completion": {
+    "status": "COMPLETE_PENDING_AUDIT",
+    "audit_classification": "AUDIT_PASS",
+    "completed_members": 184320,
+    "total_members": 184320,
+    "authenticated_executions": 368640,
+    "total_executions": 368640,
+    "whole_roster_blocks": 2048,
+    "total_whole_roster_blocks": 2048,
+    "canonical_evidence_files": 92160,
+    "reversed_evidence_files": 92160,
+    "failed_or_incomplete_members": 0,
+    "duplicate_sha256_mismatches": 0,
+    "raw_result_sha256_mismatches": 0,
+    "ledger_evidence_integrity_mismatches": 0,
+    "malformed_evidence_files": 0,
+    "missing_integrity_fields": 0,
+    "missing_expected_member_ids": 0,
+    "unexpected_member_ids_or_files": 0,
+    "stale_temporary_or_partial_files": 0
+  },
+  "audit": {
+    "classification": "AUDIT_PASS",
+    "statement": "CALIBRATION V1 AUDIT: PASS — ELIGIBLE FOR EVIDENCE BANKING",
+    "raw_result_hash_method": "json.dumps(raw, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False), UTF-8 encoded, SHA-256",
+    "evidence_files_exhaustively_verified": 184320,
+    "heartbeat_interpretation": "diagnostic_only; not resumability, completion, or statistical authority",
+    "statistical_interpretation_authorized": false,
+    "design_studio_authorization": false,
+    "prototype_0_3_authorized": false
+  },
+  "timing": {
+    "run_start_utc": "2026-09-23T15:16:43.351459+00:00",
+    "final_production_evidence_timestamp_utc": "2026-09-25T07:59:20.801467+00:00",
+    "ledger_timestamp_utc": "2026-09-25T07:59:21.942503+00:00",
+    "elapsed_seconds": 146557.45,
+    "effective_distinct_games_per_second": 1.2577,
+    "effective_executions_per_second": 2.5153
+  },
+  "identities": {
+    "protocol_v1": "96fc43ec3203938eb385618f6187f8496b93ecd3",
+    "seed_table_v2_sha256": "6BE94F69A2E9432E615AEA7A8592D68B6537998B3F7355A60191A29E71DC6E5C",
+    "seed_entropy_sha256": "E5E3824A4B0590F275F643E86BE87D0E5230FDBEABEF5C798A92DFAE8CBC64BB",
+    "frozen_decks_sha256": "807F04F4155E6F071BF94ACCB368290CFF9EE0D6D8F2FAD26B25C74B6762E174",
+    "accepted_runtime": "60acd013b28dc9d8cb46c5c5520c11e9e3943627",
+    "v3_authority_sha256": "3D08046134C5875E0535873EAC9919A529CFD1F22F68BD5A9259068FF601F1C3",
+    "renderer_sha256": "AC69D8D6CDF233102CBDC58A4A3EE047BE740091522A7B51C80C61AD867B6FDC",
+    "reservation_sha256": "1C25C6A79D99E0A3DF0F1609B351F0DCA28548D05F6249410D6C907043ADA92A",
+    "release_manifest_sha256": "6F0C0F9852BCCBA912A168133ECA307F78F98F82AB3B26945A0511DB98B5C7B6",
+    "launcher_sha256": "0CC234343DE7C0221662F38F209F09B40CBB4C34155475B73440932214306720"
+  },
+  "governance": {
+    "repository_record_is_immutable_audit_evidence": true,
+    "production_evidence_modified": false,
+    "production_evidence_remains_external": true,
+    "heartbeat_is_diagnostic_only": true,
+    "statistical_results_are_not_design_studio_authorization": true,
+    "prototype_0_3_not_authorized_by_this_banking_step": true
+  }
+}
