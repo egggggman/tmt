@@ -1,0 +1,4868 @@
+{
+  "audited_completion_audit_sha256": "D202D3B35814E2B67CF2959E73282264CD8AC2B93EA877FB8C8970D1D48616BE",
+  "deck_results": {
+    "april_oneil": {
+      "confidence_interval_95": {
+        "high": 0.2435853576569322,
+        "low": 0.2348761079681548
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 28046,
+      "win_rate": 0.2392035590277778,
+      "wins": 8818
+    },
+    "bebop_rocksteady": {
+      "confidence_interval_95": {
+        "high": 0.3480157706517982,
+        "low": 0.33832333838130485
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 24214,
+      "win_rate": 0.3431532118055556,
+      "wins": 12650
+    },
+    "casey_jones": {
+      "confidence_interval_95": {
+        "high": 0.6866199918068518,
+        "low": 0.6771116363379153
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 11727,
+      "win_rate": 0.681884765625,
+      "wins": 25137
+    },
+    "donatello": {
+      "confidence_interval_95": {
+        "high": 0.37065298298550015,
+        "low": 0.3608203116727254
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 23382,
+      "win_rate": 0.36572265625,
+      "wins": 13482
+    },
+    "krang": {
+      "confidence_interval_95": {
+        "high": 0.303140170484154,
+        "low": 0.29379853240687936
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 25862,
+      "win_rate": 0.2984483506944444,
+      "wins": 11002
+    },
+    "leonardo": {
+      "confidence_interval_95": {
+        "high": 0.449495285642923,
+        "low": 0.43935093269136055
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 20481,
+      "win_rate": 0.4444173177083333,
+      "wins": 16383
+    },
+    "michelangelo": {
+      "confidence_interval_95": {
+        "high": 0.546910985844828,
+        "low": 0.5367391514555793
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 16890,
+      "win_rate": 0.5418294270833334,
+      "wins": 19974
+    },
+    "raphael": {
+      "confidence_interval_95": {
+        "high": 0.7495940874746201,
+        "low": 0.7406977030059774
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 9394,
+      "win_rate": 0.7451714409722222,
+      "wins": 27470
+    },
+    "shredder": {
+      "confidence_interval_95": {
+        "high": 0.759705522471823,
+        "low": 0.7509292002316361
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 9019,
+      "win_rate": 0.7553439670138888,
+      "wins": 27845
+    },
+    "splinter": {
+      "confidence_interval_95": {
+        "high": 0.5898462967446595,
+        "low": 0.5797866340843766
+      },
+      "draws": 0,
+      "games": 36864,
+      "losses": 15305,
+      "win_rate": 0.5848253038194444,
+      "wins": 21559
+    }
+  },
+  "display_names": {
+    "april_oneil": "April O’Neil",
+    "bebop_rocksteady": "Bebop & Rocksteady",
+    "casey_jones": "Casey Jones",
+    "donatello": "Donatello",
+    "krang": "Krang",
+    "leonardo": "Leonardo",
+    "michelangelo": "Michelangelo",
+    "raphael": "Raphael",
+    "shredder": "Shredder",
+    "splinter": "Splinter"
+  },
+  "environment_metrics": {
+    "decks_inside_45_to_55_percent": 1,
+    "decks_outside_45_to_55_percent": 9,
+    "highest_win_rate": 0.7553439670138888,
+    "lowest_win_rate": 0.2392035590277778,
+    "mean_win_rate": 0.5,
+    "median_win_rate": 0.49312337239583337,
+    "range": 0.516140407986111,
+    "standard_deviation_population": 0.1793586584492648
+  },
+  "historical_hypotheses": {
+    "comparability": "No prior numeric sample was silently pooled. Historical claims are compared qualitatively because prior engine versions and smaller samples are not equivalent to this frozen V1 run.",
+    "donatello_previously_overperforming": {
+      "current_win_rate": 0.36572265625,
+      "finding": "weakened",
+      "note": "Donatello is below 45% in this audited V1 environment."
+    },
+    "first_player_advantage_previously_52_to_53_percent": {
+      "current_win_rate": 0.5063856336805556,
+      "finding": "weakened",
+      "note": "The aggregate first-player rate is 50.64%. Canonical/reversed aggregate rates are not a seat-effect estimate because deterministic pair ordering confounds them with deck identity."
+    },
+    "krang_previously_overperforming": {
+      "current_win_rate": 0.2984483506944444,
+      "finding": "weakened",
+      "note": "Krang is substantially below 45% in this audited V1 environment."
+    },
+    "leonardo_previously_underperforming": {
+      "current_win_rate": 0.4444173177083333,
+      "finding": "supported",
+      "note": "Leonardo is below 45%, with its 95% interval below 45%."
+    },
+    "splinter_previously_near_or_below_50_percent": {
+      "current_win_rate": 0.5848253038194444,
+      "finding": "materially_changed",
+      "note": "Splinter is above 55% in this audited V1 environment; this is not a near/sub-50 result."
+    }
+  },
+  "matchup_matrix": {
+    "april_oneil": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.44711107944497624,
+          "low": 0.41678609667643723
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2327,
+        "win_rate": 0.431884765625,
+        "wins": 1769
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.08572183625377569,
+          "low": 0.06936744346768745
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3780,
+        "win_rate": 0.0771484375,
+        "wins": 316
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.3756711272301833,
+          "low": 0.34626934011464
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2618,
+        "win_rate": 0.36083984375,
+        "wins": 1478
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.4201449673395893,
+          "low": 0.3900915972167901
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2437,
+        "win_rate": 0.405029296875,
+        "wins": 1659
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.3243953780735519,
+          "low": 0.29607775103920697
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2826,
+        "win_rate": 0.31005859375,
+        "wins": 1270
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.2224533173091474,
+          "low": 0.19752425404698398
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3237,
+        "win_rate": 0.209716796875,
+        "wins": 859
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.09797108382279862,
+          "low": 0.08053373549067938
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3732,
+        "win_rate": 0.0888671875,
+        "wins": 364
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.09797108382279862,
+          "low": 0.08053373549067938
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3732,
+        "win_rate": 0.0888671875,
+        "wins": 364
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.19249387505003723,
+          "low": 0.16894484732605697
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3357,
+        "win_rate": 0.180419921875,
+        "wins": 739
+      }
+    },
+    "bebop_rocksteady": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.5832139033235627,
+          "low": 0.5528889205550237
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1769,
+        "win_rate": 0.568115234375,
+        "wins": 2327
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.18648878355243664,
+          "low": 0.16324216902765015
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3381,
+        "win_rate": 0.174560546875,
+        "wins": 715
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.5228645595347331,
+          "low": 0.4922579764517766
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2017,
+        "win_rate": 0.507568359375,
+        "wins": 2079
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.5384602115030012,
+          "low": 0.5078830439395282
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1953,
+        "win_rate": 0.523193359375,
+        "wins": 2143
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.4252966014285368,
+          "low": 0.3951842616993491
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2416,
+        "win_rate": 0.41015625,
+        "wins": 1680
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.3520286622927786,
+          "low": 0.32308072586801495
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2714,
+        "win_rate": 0.33740234375,
+        "wins": 1382
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.131693775121564,
+          "low": 0.11169160181145522
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3599,
+        "win_rate": 0.121337890625,
+        "wins": 497
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.19099304150889004,
+          "low": 0.16751873841820233
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3363,
+        "win_rate": 0.178955078125,
+        "wins": 733
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.2808529500335541,
+          "low": 0.25376320057515017
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3002,
+        "win_rate": 0.26708984375,
+        "wins": 1094
+      }
+    },
+    "casey_jones": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.9306325565323126,
+          "low": 0.9142781637462243
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 316,
+        "win_rate": 0.9228515625,
+        "wins": 3780
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.8367578309723498,
+          "low": 0.8135112164475633
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 715,
+        "win_rate": 0.825439453125,
+        "wins": 3381
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.7711655687721825,
+          "low": 0.7449519497351454
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 990,
+        "win_rate": 0.75830078125,
+        "wins": 3106
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.88407165413511,
+          "low": 0.8637621415848652
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 515,
+        "win_rate": 0.874267578125,
+        "wins": 3581
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.6962128356697012,
+          "low": 0.6677036754895301
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1302,
+        "win_rate": 0.68212890625,
+        "wins": 2794
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.6737814322545681,
+          "low": 0.6447674709451343
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1395,
+        "win_rate": 0.659423828125,
+        "wins": 2701
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.4270134370277504,
+          "low": 0.3968821922906377
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2409,
+        "win_rate": 0.411865234375,
+        "wins": 1687
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.387723910582603,
+          "low": 0.35811992009573546
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2569,
+        "win_rate": 0.372802734375,
+        "wins": 1527
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.64454126339609,
+          "low": 0.6149809670820748
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1516,
+        "win_rate": 0.6298828125,
+        "wins": 2580
+      }
+    },
+    "donatello": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.6537306598853599,
+          "low": 0.6243288727698167
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1478,
+        "win_rate": 0.63916015625,
+        "wins": 2618
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.5077420235482234,
+          "low": 0.47713544046526696
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2079,
+        "win_rate": 0.492431640625,
+        "wins": 2017
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.2550480502648545,
+          "low": 0.2288344312278175
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3106,
+        "win_rate": 0.24169921875,
+        "wins": 990
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.6082110362024626,
+          "low": 0.5781376330506558
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1666,
+        "win_rate": 0.59326171875,
+        "wins": 2430
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.4894298904137129,
+          "low": 0.45886079298725424
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2154,
+        "win_rate": 0.47412109375,
+        "wins": 1942
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.3367385702840138,
+          "low": 0.3081257459037606
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2776,
+        "win_rate": 0.322265625,
+        "wins": 1320
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.1922437562169439,
+          "low": 0.16870714241765
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3358,
+        "win_rate": 0.18017578125,
+        "wins": 738
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.13901279536785172,
+          "low": 0.11851947006867647
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3570,
+        "win_rate": 0.12841796875,
+        "wins": 526
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.2329153077876035,
+          "low": 0.20755086071154094
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3195,
+        "win_rate": 0.219970703125,
+        "wins": 901
+      }
+    },
+    "krang": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.6099084027832099,
+          "low": 0.5798550326604107
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1659,
+        "win_rate": 0.594970703125,
+        "wins": 2437
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.49211695606047173,
+          "low": 0.4615397884969988
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2143,
+        "win_rate": 0.476806640625,
+        "wins": 1953
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.1362378584151348,
+          "low": 0.11592834586488998
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3581,
+        "win_rate": 0.125732421875,
+        "wins": 515
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.4218623669493442,
+          "low": 0.39178896379753736
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2430,
+        "win_rate": 0.40673828125,
+        "wins": 1666
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.4422115574879496,
+          "low": 0.4119291438034577
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2347,
+        "win_rate": 0.427001953125,
+        "wins": 1749
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.25231512403086404,
+          "low": 0.22620129630530458
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3117,
+        "win_rate": 0.239013671875,
+        "wins": 979
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.12309878557655218,
+          "low": 0.10370058414545652
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3633,
+        "win_rate": 0.113037109375,
+        "wins": 463
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.11042848390457419,
+          "low": 0.09197969874241901
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3683,
+        "win_rate": 0.100830078125,
+        "wins": 413
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.2144743165643111,
+          "low": 0.1898928950638104
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3269,
+        "win_rate": 0.201904296875,
+        "wins": 827
+      }
+    },
+    "leonardo": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.7039222489607931,
+          "low": 0.6756046219264481
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1270,
+        "win_rate": 0.68994140625,
+        "wins": 2826
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.6048157383006509,
+          "low": 0.5747033985714631
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1680,
+        "win_rate": 0.58984375,
+        "wins": 2416
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.3322963245104699,
+          "low": 0.3037871643302989
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2794,
+        "win_rate": 0.31787109375,
+        "wins": 1302
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.5411392070127458,
+          "low": 0.510570109586287
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1942,
+        "win_rate": 0.52587890625,
+        "wins": 2154
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.5880708561965423,
+          "low": 0.5577884425120504
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1749,
+        "win_rate": 0.572998046875,
+        "wins": 2347
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.4073812061528631,
+          "low": 0.37748852384550025
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2489,
+        "win_rate": 0.392333984375,
+        "wins": 1607
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.21696851434949507,
+          "low": 0.19227693469362953
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 3259,
+        "win_rate": 0.204345703125,
+        "wins": 837
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.3090737843347374,
+          "low": 0.28115427280500227
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2888,
+        "win_rate": 0.294921875,
+        "wins": 1208
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.4267681862739887,
+          "low": 0.39663961930289904
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2410,
+        "win_rate": 0.41162109375,
+        "wins": 1686
+      }
+    },
+    "michelangelo": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.802475745953016,
+          "low": 0.7775466826908525
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 859,
+        "win_rate": 0.790283203125,
+        "wins": 3237
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.676919274131985,
+          "low": 0.6479713377072215
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1382,
+        "win_rate": 0.66259765625,
+        "wins": 2714
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.35523252905486574,
+          "low": 0.32621856774543184
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2701,
+        "win_rate": 0.340576171875,
+        "wins": 1395
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.6918742540962395,
+          "low": 0.6632614297159862
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1320,
+        "win_rate": 0.677734375,
+        "wins": 2776
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.7737987036946954,
+          "low": 0.7476848759691359
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 979,
+        "win_rate": 0.760986328125,
+        "wins": 3117
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.6225114761544998,
+          "low": 0.5926187938471369
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1607,
+        "win_rate": 0.607666015625,
+        "wins": 2489
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.32513629061205945,
+          "low": 0.2968003097252004
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2823,
+        "win_rate": 0.310791015625,
+        "wins": 1273
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.282339905824595,
+          "low": 0.2552031872331112
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2996,
+        "win_rate": 0.2685546875,
+        "wins": 1100
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.47256454072789583,
+          "low": 0.4420663045095499
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2223,
+        "win_rate": 0.457275390625,
+        "wins": 1873
+      }
+    },
+    "raphael": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.9194662645093207,
+          "low": 0.9020289161772014
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 364,
+        "win_rate": 0.9111328125,
+        "wins": 3732
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.8883083981885448,
+          "low": 0.868306224878436
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 497,
+        "win_rate": 0.878662109375,
+        "wins": 3599
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.6031178077093623,
+          "low": 0.5729865629722496
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1687,
+        "win_rate": 0.588134765625,
+        "wins": 2409
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.8312928575823499,
+          "low": 0.8077562437830561
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 738,
+        "win_rate": 0.81982421875,
+        "wins": 3358
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.8962994158545434,
+          "low": 0.8769012144234478
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 463,
+        "win_rate": 0.886962890625,
+        "wins": 3633
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.8077230653063705,
+          "low": 0.783031485650505
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 837,
+        "win_rate": 0.795654296875,
+        "wins": 3259
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.7031996902747997,
+          "low": 0.6748637093879406
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1273,
+        "win_rate": 0.689208984375,
+        "wins": 2823
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.4877197089725041,
+          "low": 0.4571562082379608
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2161,
+        "win_rate": 0.472412109375,
+        "wins": 1935
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.6788498919990972,
+          "low": 0.6499433097721118
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1374,
+        "win_rate": 0.66455078125,
+        "wins": 2722
+      }
+    },
+    "shredder": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.9194662645093207,
+          "low": 0.9020289161772014
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 364,
+        "win_rate": 0.9111328125,
+        "wins": 3732
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.8324812615817976,
+          "low": 0.8090069584911099
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 733,
+        "win_rate": 0.821044921875,
+        "wins": 3363
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.6418800799042645,
+          "low": 0.6122760894173969
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1527,
+        "win_rate": 0.627197265625,
+        "wins": 2569
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.8814805299313235,
+          "low": 0.8609872046321483
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 526,
+        "win_rate": 0.87158203125,
+        "wins": 3570
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.9080203012575809,
+          "low": 0.8895715160954258
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 413,
+        "win_rate": 0.899169921875,
+        "wins": 3683
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.7188457271949977,
+          "low": 0.6909262156652627
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1208,
+        "win_rate": 0.705078125,
+        "wins": 2888
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.7447968127668888,
+          "low": 0.7176600941754051
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1100,
+        "win_rate": 0.7314453125,
+        "wins": 2996
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.5428437917620391,
+          "low": 0.5122802910274958
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1935,
+        "win_rate": 0.527587890625,
+        "wins": 2161
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": 0.7176428948773136,
+          "low": 0.6896899292754451
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1213,
+        "win_rate": 0.703857421875,
+        "wins": 2883
+      }
+    },
+    "splinter": {
+      "april_oneil": {
+        "confidence_interval_95": {
+          "high": 0.831055152673943,
+          "low": 0.8075061249499628
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 739,
+        "win_rate": 0.819580078125,
+        "wins": 3357
+      },
+      "bebop_rocksteady": {
+        "confidence_interval_95": {
+          "high": 0.7462367994248498,
+          "low": 0.7191470499664459
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1094,
+        "win_rate": 0.73291015625,
+        "wins": 3002
+      },
+      "casey_jones": {
+        "confidence_interval_95": {
+          "high": 0.3850190329179251,
+          "low": 0.35545873660391
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2580,
+        "win_rate": 0.3701171875,
+        "wins": 1516
+      },
+      "donatello": {
+        "confidence_interval_95": {
+          "high": 0.7924491392884591,
+          "low": 0.7670846922123965
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 901,
+        "win_rate": 0.780029296875,
+        "wins": 3195
+      },
+      "krang": {
+        "confidence_interval_95": {
+          "high": 0.8101071049361895,
+          "low": 0.7855256834356888
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 827,
+        "win_rate": 0.798095703125,
+        "wins": 3269
+      },
+      "leonardo": {
+        "confidence_interval_95": {
+          "high": 0.603360380697101,
+          "low": 0.5732318137260112
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1686,
+        "win_rate": 0.58837890625,
+        "wins": 2410
+      },
+      "michelangelo": {
+        "confidence_interval_95": {
+          "high": 0.55793369549045,
+          "low": 0.5274354592721041
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1873,
+        "win_rate": 0.542724609375,
+        "wins": 2223
+      },
+      "raphael": {
+        "confidence_interval_95": {
+          "high": 0.35005669022788827,
+          "low": 0.3211501080009029
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2722,
+        "win_rate": 0.33544921875,
+        "wins": 1374
+      },
+      "shredder": {
+        "confidence_interval_95": {
+          "high": 0.3103100707245548,
+          "low": 0.28235710512268636
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2883,
+        "win_rate": 0.296142578125,
+        "wins": 1213
+      },
+      "splinter": {
+        "confidence_interval_95": {
+          "high": null,
+          "low": null
+        },
+        "draws": 0,
+        "games": 0,
+        "losses": 0,
+        "win_rate": null,
+        "wins": 0
+      }
+    }
+  },
+  "matchup_spread": {
+    "april_oneil": {
+      "above_55_percent": 0,
+      "below_45_percent": 9,
+      "best_matchup": [
+        "bebop_rocksteady",
+        0.431884765625
+      ],
+      "within_45_to_55_percent": 0,
+      "worst_matchup": [
+        "casey_jones",
+        0.0771484375
+      ]
+    },
+    "bebop_rocksteady": {
+      "above_55_percent": 1,
+      "below_45_percent": 6,
+      "best_matchup": [
+        "april_oneil",
+        0.568115234375
+      ],
+      "within_45_to_55_percent": 2,
+      "worst_matchup": [
+        "raphael",
+        0.121337890625
+      ]
+    },
+    "casey_jones": {
+      "above_55_percent": 7,
+      "below_45_percent": 2,
+      "best_matchup": [
+        "april_oneil",
+        0.9228515625
+      ],
+      "within_45_to_55_percent": 0,
+      "worst_matchup": [
+        "shredder",
+        0.372802734375
+      ]
+    },
+    "donatello": {
+      "above_55_percent": 2,
+      "below_45_percent": 5,
+      "best_matchup": [
+        "april_oneil",
+        0.63916015625
+      ],
+      "within_45_to_55_percent": 2,
+      "worst_matchup": [
+        "shredder",
+        0.12841796875
+      ]
+    },
+    "krang": {
+      "above_55_percent": 1,
+      "below_45_percent": 7,
+      "best_matchup": [
+        "april_oneil",
+        0.594970703125
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "shredder",
+        0.100830078125
+      ]
+    },
+    "leonardo": {
+      "above_55_percent": 3,
+      "below_45_percent": 5,
+      "best_matchup": [
+        "april_oneil",
+        0.68994140625
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "raphael",
+        0.204345703125
+      ]
+    },
+    "michelangelo": {
+      "above_55_percent": 5,
+      "below_45_percent": 3,
+      "best_matchup": [
+        "april_oneil",
+        0.790283203125
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "shredder",
+        0.2685546875
+      ]
+    },
+    "raphael": {
+      "above_55_percent": 8,
+      "below_45_percent": 0,
+      "best_matchup": [
+        "april_oneil",
+        0.9111328125
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "shredder",
+        0.472412109375
+      ]
+    },
+    "shredder": {
+      "above_55_percent": 8,
+      "below_45_percent": 0,
+      "best_matchup": [
+        "april_oneil",
+        0.9111328125
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "raphael",
+        0.527587890625
+      ]
+    },
+    "splinter": {
+      "above_55_percent": 5,
+      "below_45_percent": 3,
+      "best_matchup": [
+        "april_oneil",
+        0.819580078125
+      ],
+      "within_45_to_55_percent": 1,
+      "worst_matchup": [
+        "shredder",
+        0.296142578125
+      ]
+    }
+  },
+  "methodology": {
+    "confidence_interval": "Wilson score 95% interval for binomial deck win rates",
+    "draw_handling": "draws are excluded from win-rate denominators only where present; none are expected to be silently converted to wins or losses",
+    "field_extraction": "schema-directed extraction of decks, orientation, and raw winner from every audited evidence file; no game was rerun",
+    "first_player": "the first deck in the evidence decks array; aggregate canonical/reversed rates are descriptive only because deterministic pair ordering confounds them with deck identity",
+    "input_integrity": "the banked completion audit independently verified JSON parsing and raw-result SHA-256 integrity for all 184320 files before this analysis",
+    "unit": "one distinct member evidence file equals one game; duplicate execution is authentication, not a second statistical sample"
+  },
+  "orientation": {
+    "canonical": {
+      "confidence_interval_95": {
+        "high": 0.3704464139751038,
+        "low": 0.36422176377304083
+      },
+      "draws": 0,
+      "games": 92160,
+      "losses": 58307,
+      "win_rate": 0.3673285590277778,
+      "wins": 33853
+    },
+    "reversed": {
+      "confidence_interval_95": {
+        "high": 0.6485250970872879,
+        "low": 0.6423481952545679
+      },
+      "draws": 0,
+      "games": 92160,
+      "losses": 32676,
+      "win_rate": 0.6454427083333333,
+      "wins": 59484
+    }
+  },
+  "orientation_interpretation": "DECK-IDENTITY CONFOUNDED — NOT A SEAT-EFFECT ESTIMATE",
+  "overall_first_player": {
+    "confidence_interval_95": {
+      "high": 0.5086679014409534,
+      "low": 0.5041030997565552
+    },
+    "draws": 0,
+    "games": 184320,
+    "losses": 90983,
+    "win_rate": 0.5063856336805556,
+    "wins": 93337
+  },
+  "paired_matchup_seat_effects": {
+    "april_oneil vs bebop_rocksteady": {
+      "a_start_minus_second_win_rate": -0.02490234375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.46594038483787736,
+          "low": 0.42293991874510783
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1138,
+        "win_rate": 0.4443359375,
+        "wins": 910
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.4409367263592114,
+          "low": 0.3982321340898462
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1189,
+        "win_rate": 0.41943359375,
+        "wins": 859
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5028607961170443,
+          "low": 0.47226019306643996
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2099,
+        "win_rate": 0.487548828125,
+        "wins": 1997
+      },
+      "b_start_minus_second_win_rate": -0.02490234375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6017678659101537,
+          "low": 0.5590632736407886
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 859,
+        "win_rate": 0.58056640625,
+        "wins": 1189
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.577060081254892,
+          "low": 0.5340596151621226
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 910,
+        "win_rate": 0.5556640625,
+        "wins": 1138
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "bebop_rocksteady"
+    },
+    "april_oneil vs casey_jones": {
+      "a_start_minus_second_win_rate": 0.0009765625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.08899174801418151,
+          "low": 0.06591371870904915
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1891,
+        "win_rate": 0.07666015625,
+        "wins": 157
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.09003316360022448,
+          "low": 0.06682177148119944
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1889,
+        "win_rate": 0.07763671875,
+        "wins": 159
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.515792859796923,
+          "low": 0.48518278768607764
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2046,
+        "win_rate": 0.50048828125,
+        "wins": 2050
+      },
+      "b_start_minus_second_win_rate": 0.0009765625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.9331782285188006,
+          "low": 0.9099668363997755
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 159,
+        "win_rate": 0.92236328125,
+        "wins": 1889
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.9340862812909507,
+          "low": 0.9110082519858185
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 157,
+        "win_rate": 0.92333984375,
+        "wins": 1891
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "casey_jones"
+    },
+    "april_oneil vs donatello": {
+      "a_start_minus_second_win_rate": 0.0048828125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.37941398821228317,
+          "low": 0.33791309984969703
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1314,
+        "win_rate": 0.3583984375,
+        "wins": 734
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.38434876134949675,
+          "low": 0.3427256685034496
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1304,
+        "win_rate": 0.36328125,
+        "wins": 744
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5177439797736333,
+          "low": 0.48713425764136986
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2038,
+        "win_rate": 0.50244140625,
+        "wins": 2058
+      },
+      "b_start_minus_second_win_rate": 0.0048828125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6572743314965503,
+          "low": 0.6156512386505031
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 744,
+        "win_rate": 0.63671875,
+        "wins": 1304
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.662086900150303,
+          "low": 0.6205860117877168
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 734,
+        "win_rate": 0.6416015625,
+        "wins": 1314
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "donatello"
+    },
+    "april_oneil vs krang": {
+      "a_start_minus_second_win_rate": 0.01318359375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4198119477459114,
+          "low": 0.3774433430019916
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1232,
+        "win_rate": 0.3984375,
+        "wins": 816
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.43308101819908773,
+          "low": 0.390492095384424
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1205,
+        "win_rate": 0.41162109375,
+        "wins": 843
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5218893349824647,
+          "low": 0.49128190603804356
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2021,
+        "win_rate": 0.506591796875,
+        "wins": 2075
+      },
+      "b_start_minus_second_win_rate": 0.01318359375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6095079046155759,
+          "low": 0.5669189818009123
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 843,
+        "win_rate": 0.58837890625,
+        "wins": 1205
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6225566569980083,
+          "low": 0.5801880522540885
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 816,
+        "win_rate": 0.6015625,
+        "wins": 1232
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "krang"
+    },
+    "april_oneil vs leonardo": {
+      "a_start_minus_second_win_rate": 0.0048828125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.327949537090213,
+          "low": 0.28800519634571875
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1418,
+        "win_rate": 0.3076171875,
+        "wins": 630
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.3329097969506989,
+          "low": 0.292792278276199
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1408,
+        "win_rate": 0.3125,
+        "wins": 640
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5177439797736333,
+          "low": 0.48713425764136986
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2038,
+        "win_rate": 0.50244140625,
+        "wins": 2058
+      },
+      "b_start_minus_second_win_rate": 0.0048828125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.707207721723801,
+          "low": 0.667090203049301
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 640,
+        "win_rate": 0.6875,
+        "wins": 1408
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7119948036542812,
+          "low": 0.6720504629097869
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 630,
+        "win_rate": 0.6923828125,
+        "wins": 1418
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "leonardo"
+    },
+    "april_oneil vs michelangelo": {
+      "a_start_minus_second_win_rate": 0.01123046875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.22210360566075052,
+          "low": 0.1872074818066979
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1630,
+        "win_rate": 0.2041015625,
+        "wins": 418
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.23365877281321293,
+          "low": 0.19807120077345772
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1607,
+        "win_rate": 0.21533203125,
+        "wins": 441
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5209140520855423,
+          "low": 0.4903058939689648
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2025,
+        "win_rate": 0.505615234375,
+        "wins": 2071
+      },
+      "b_start_minus_second_win_rate": 0.01123046875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8019287992265423,
+          "low": 0.7663412271867871
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 441,
+        "win_rate": 0.78466796875,
+        "wins": 1607
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8127925181933021,
+          "low": 0.7778963943392495
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 418,
+        "win_rate": 0.7958984375,
+        "wins": 1630
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "michelangelo"
+    },
+    "april_oneil vs raphael": {
+      "a_start_minus_second_win_rate": 0.0068359375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.0983460027903979,
+          "low": 0.07410467915657193
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1873,
+        "win_rate": 0.08544921875,
+        "wins": 175
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.10559496573827248,
+          "low": 0.08050199471605002
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1859,
+        "win_rate": 0.09228515625,
+        "wins": 189
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5187194522653422,
+          "low": 0.4881100801156622
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2034,
+        "win_rate": 0.50341796875,
+        "wins": 2062
+      },
+      "b_start_minus_second_win_rate": 0.0068359375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.91949800528395,
+          "low": 0.8944050342617275
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 189,
+        "win_rate": 0.90771484375,
+        "wins": 1859
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.9258953208434281,
+          "low": 0.9016539972096022
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 175,
+        "win_rate": 0.91455078125,
+        "wins": 1873
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "raphael"
+    },
+    "april_oneil vs shredder": {
+      "a_start_minus_second_win_rate": -0.0166015625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.11075999070768679,
+          "low": 0.08508431153760192
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1849,
+        "win_rate": 0.09716796875,
+        "wins": 199
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.09315424442109443,
+          "low": 0.0695490957349092
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1883,
+        "win_rate": 0.08056640625,
+        "wins": 165
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5070099324463594,
+          "low": 0.47640406034263005
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2082,
+        "win_rate": 0.49169921875,
+        "wins": 2014
+      },
+      "b_start_minus_second_win_rate": -0.0166015625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.9304509042650908,
+          "low": 0.9068457555789056
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 165,
+        "win_rate": 0.91943359375,
+        "wins": 1883
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.9149156884623981,
+          "low": 0.8892400092923132
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 199,
+        "win_rate": 0.90283203125,
+        "wins": 1849
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "shredder"
+    },
+    "april_oneil vs splinter": {
+      "a_start_minus_second_win_rate": 0.01806640625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.18831929886925877,
+          "low": 0.1556845985987161
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1697,
+        "win_rate": 0.17138671875,
+        "wins": 351
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.2070002126772544,
+          "low": 0.17306884941729542
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1660,
+        "win_rate": 0.189453125,
+        "wins": 388
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5243272869561441,
+          "low": 0.49372219147936736
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2011,
+        "win_rate": 0.509033203125,
+        "wins": 2085
+      },
+      "b_start_minus_second_win_rate": 0.01806640625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8269311505827045,
+          "low": 0.7929997873227456
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 388,
+        "win_rate": 0.810546875,
+        "wins": 1660
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8443154014012839,
+          "low": 0.8116807011307412
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 351,
+        "win_rate": 0.82861328125,
+        "wins": 1697
+      },
+      "deck_a": "april_oneil",
+      "deck_b": "splinter"
+    },
+    "bebop_rocksteady vs casey_jones": {
+      "a_start_minus_second_win_rate": -0.01318359375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.19842476403000003,
+          "low": 0.16507381701990725
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1677,
+        "win_rate": 0.18115234375,
+        "wins": 371
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.18477791395742954,
+          "low": 0.152402844256869
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1704,
+        "win_rate": 0.16796875,
+        "wins": 344
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5087180939619564,
+          "low": 0.4781106650175352
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2075,
+        "win_rate": 0.493408203125,
+        "wins": 2021
+      },
+      "b_start_minus_second_win_rate": -0.01318359375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8475971557431309,
+          "low": 0.8152220860425704
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 344,
+        "win_rate": 0.83203125,
+        "wins": 1704
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8349261829800927,
+          "low": 0.8015752359699999
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 371,
+        "win_rate": 0.81884765625,
+        "wins": 1677
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "casey_jones"
+    },
+    "bebop_rocksteady vs donatello": {
+      "a_start_minus_second_win_rate": 0.02587890625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5162721828090939,
+          "low": 0.47300574122084316
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1035,
+        "win_rate": 0.49462890625,
+        "wins": 1013
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5420857133112273,
+          "low": 0.4988531222108308
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 982,
+        "win_rate": 0.5205078125,
+        "wins": 1066
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5282272514117419,
+          "low": 0.49762740688777457
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1995,
+        "win_rate": 0.512939453125,
+        "wins": 2101
+      },
+      "b_start_minus_second_win_rate": 0.02587890625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5011468777891692,
+          "low": 0.45791428668877265
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1066,
+        "win_rate": 0.4794921875,
+        "wins": 982
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5269942587791568,
+          "low": 0.483727817190906
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1013,
+        "win_rate": 0.50537109375,
+        "wins": 1035
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "donatello"
+    },
+    "bebop_rocksteady vs krang": {
+      "a_start_minus_second_win_rate": -0.01904296875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5542417899076026,
+          "low": 0.5110654000918708
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 957,
+        "win_rate": 0.53271484375,
+        "wins": 1091
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5352726710497502,
+          "low": 0.49201988596495516
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 996,
+        "win_rate": 0.513671875,
+        "wins": 1052
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5057897076667768,
+          "low": 0.4751851664147111
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2087,
+        "win_rate": 0.490478515625,
+        "wins": 2009
+      },
+      "b_start_minus_second_win_rate": -0.01904296875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5079801140350448,
+          "low": 0.4647273289502497
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1052,
+        "win_rate": 0.486328125,
+        "wins": 996
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.48893459990812915,
+          "low": 0.44575821009239724
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1091,
+        "win_rate": 0.46728515625,
+        "wins": 957
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "krang"
+    },
+    "bebop_rocksteady vs leonardo": {
+      "a_start_minus_second_win_rate": 0.00390625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4296424100976308,
+          "low": 0.3871075642322046
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1212,
+        "win_rate": 0.408203125,
+        "wins": 836
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.43357216145108457,
+          "low": 0.3909756863115238
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1204,
+        "win_rate": 0.412109375,
+        "wins": 844
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5172562216533515,
+          "low": 0.48664636827865093
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2040,
+        "win_rate": 0.501953125,
+        "wins": 2056
+      },
+      "b_start_minus_second_win_rate": 0.00390625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6090243136884761,
+          "low": 0.5664278385489154
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 844,
+        "win_rate": 0.587890625,
+        "wins": 1204
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6128924357677954,
+          "low": 0.5703575899023692
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 836,
+        "win_rate": 0.591796875,
+        "wins": 1212
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "leonardo"
+    },
+    "bebop_rocksteady vs michelangelo": {
+      "a_start_minus_second_win_rate": 0.0361328125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.33984982701705907,
+          "low": 0.2994985267171915
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1394,
+        "win_rate": 0.3193359375,
+        "wins": 654
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.37645200535419726,
+          "low": 0.3350266776332032
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1320,
+        "win_rate": 0.35546875,
+        "wins": 728
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5333445369061002,
+          "low": 0.5027544199649229
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1974,
+        "win_rate": 0.51806640625,
+        "wins": 2122
+      },
+      "b_start_minus_second_win_rate": 0.0361328125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6649733223667967,
+          "low": 0.6235479946458028
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 728,
+        "win_rate": 0.64453125,
+        "wins": 1320
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7005014732828084,
+          "low": 0.6601501729829408
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 654,
+        "win_rate": 0.6806640625,
+        "wins": 1394
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "michelangelo"
+    },
+    "bebop_rocksteady vs raphael": {
+      "a_start_minus_second_win_rate": 0.00732421875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.1323522119693905,
+          "low": 0.1044309257979562
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1807,
+        "win_rate": 0.11767578125,
+        "wins": 241
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.14002914229600924,
+          "low": 0.11137500815778674
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1792,
+        "win_rate": 0.125,
+        "wins": 256
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5189633112737461,
+          "low": 0.48835404484875855
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2033,
+        "win_rate": 0.503662109375,
+        "wins": 2063
+      },
+      "b_start_minus_second_win_rate": 0.00732421875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8886249918422132,
+          "low": 0.8599708577039907
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 256,
+        "win_rate": 0.875,
+        "wins": 1792
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8955690742020438,
+          "low": 0.8676477880306094
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 241,
+        "win_rate": 0.88232421875,
+        "wins": 1807
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "raphael"
+    },
+    "bebop_rocksteady vs shredder": {
+      "a_start_minus_second_win_rate": 0.02197265625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.18477791395742954,
+          "low": 0.152402844256869
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1704,
+        "win_rate": 0.16796875,
+        "wins": 344
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.20750426028065697,
+          "low": 0.17353953599298946
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1659,
+        "win_rate": 0.18994140625,
+        "wins": 389
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5262773859276496,
+          "low": 0.49567468243986423
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2003,
+        "win_rate": 0.510986328125,
+        "wins": 2093
+      },
+      "b_start_minus_second_win_rate": 0.02197265625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8264604640070105,
+          "low": 0.792495739719343
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 389,
+        "win_rate": 0.81005859375,
+        "wins": 1659
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8475971557431309,
+          "low": 0.8152220860425704
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 344,
+        "win_rate": 0.83203125,
+        "wins": 1704
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "shredder"
+    },
+    "bebop_rocksteady vs splinter": {
+      "a_start_minus_second_win_rate": -0.0078125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.2906615329743089,
+          "low": 0.2521881370293763
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1493,
+        "win_rate": 0.27099609375,
+        "wins": 555
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.2826860788815095,
+          "low": 0.2445678442566299
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1509,
+        "win_rate": 0.26318359375,
+        "wins": 539
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5114019867722641,
+          "low": 0.4807928333637309
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2064,
+        "win_rate": 0.49609375,
+        "wins": 2032
+      },
+      "b_start_minus_second_win_rate": -0.0078125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7554321557433701,
+          "low": 0.7173139211184905
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 539,
+        "win_rate": 0.73681640625,
+        "wins": 1509
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7478118629706236,
+          "low": 0.709338467025691
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 555,
+        "win_rate": 0.72900390625,
+        "wins": 1493
+      },
+      "deck_a": "bebop_rocksteady",
+      "deck_b": "splinter"
+    },
+    "casey_jones vs donatello": {
+      "a_start_minus_second_win_rate": 0.001953125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7753981311340586,
+          "low": 0.73828678124986
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 497,
+        "win_rate": 0.75732421875,
+        "wins": 1551
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7772967234499846,
+          "low": 0.7402871256503205
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 493,
+        "win_rate": 0.75927734375,
+        "wins": 1555
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5162806616648714,
+          "low": 0.48567063330112986
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2044,
+        "win_rate": 0.5009765625,
+        "wins": 2052
+      },
+      "b_start_minus_second_win_rate": 0.001953125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.2597128743496795,
+          "low": 0.22270327655001537
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1555,
+        "win_rate": 0.24072265625,
+        "wins": 493
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.26171321875014,
+          "low": 0.2246018688659414
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1551,
+        "win_rate": 0.24267578125,
+        "wins": 497
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "donatello"
+    },
+    "casey_jones vs krang": {
+      "a_start_minus_second_win_rate": -0.00244140625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8890884407659911,
+          "low": 0.8604821429593095
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 255,
+        "win_rate": 0.87548828125,
+        "wins": 1793
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8867704905701564,
+          "low": 0.8579264222596611
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 260,
+        "win_rate": 0.873046875,
+        "wins": 1788
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5140854384229355,
+          "low": 0.48347544286956295
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2053,
+        "win_rate": 0.498779296875,
+        "wins": 2043
+      },
+      "b_start_minus_second_win_rate": -0.00244140625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.14207357774033894,
+          "low": 0.11322950942984358
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1788,
+        "win_rate": 0.126953125,
+        "wins": 260
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.13951785704069047,
+          "low": 0.1109115592340089
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1793,
+        "win_rate": 0.12451171875,
+        "wins": 255
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "krang"
+    },
+    "casey_jones vs leonardo": {
+      "a_start_minus_second_win_rate": -0.009765625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7067288708713793,
+          "low": 0.6665943197226261
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 641,
+        "win_rate": 0.68701171875,
+        "wins": 1407
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6971464773635683,
+          "low": 0.6566820296485048
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 661,
+        "win_rate": 0.67724609375,
+        "wins": 1387
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5104260767966984,
+          "low": 0.47981744837329543
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2068,
+        "win_rate": 0.4951171875,
+        "wins": 2028
+      },
+      "b_start_minus_second_win_rate": -0.009765625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.34331797035149525,
+          "low": 0.3028535226364317
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1387,
+        "win_rate": 0.32275390625,
+        "wins": 661
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.33340568027737383,
+          "low": 0.29327112912862074
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1407,
+        "win_rate": 0.31298828125,
+        "wins": 641
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "leonardo"
+    },
+    "casey_jones vs michelangelo": {
+      "a_start_minus_second_win_rate": -0.01904296875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6889935133710808,
+          "low": 0.6482645125963497
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 678,
+        "win_rate": 0.6689453125,
+        "wins": 1370
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6702628987893483,
+          "low": 0.628980494193314
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 717,
+        "win_rate": 0.64990234375,
+        "wins": 1331
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5057897076667768,
+          "low": 0.4751851664147111
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2087,
+        "win_rate": 0.490478515625,
+        "wins": 2009
+      },
+      "b_start_minus_second_win_rate": -0.01904296875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.37101950580668597,
+          "low": 0.3297371012106517
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1331,
+        "win_rate": 0.35009765625,
+        "wins": 717
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.3517354874036504,
+          "low": 0.3110064866289191
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1370,
+        "win_rate": 0.3310546875,
+        "wins": 678
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "michelangelo"
+    },
+    "casey_jones vs raphael": {
+      "a_start_minus_second_win_rate": 0.04541015625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4104648825103903,
+          "low": 0.36827045883467685
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1251,
+        "win_rate": 0.38916015625,
+        "wins": 797
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.4561415904722456,
+          "low": 0.4132440295288073
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1158,
+        "win_rate": 0.4345703125,
+        "wins": 890
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5379730738544489,
+          "low": 0.50739453410508
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1955,
+        "win_rate": 0.522705078125,
+        "wins": 2141
+      },
+      "b_start_minus_second_win_rate": 0.04541015625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5867559704711927,
+          "low": 0.5438584095277543
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 890,
+        "win_rate": 0.5654296875,
+        "wins": 1158
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6317295411653231,
+          "low": 0.5895351174896096
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 797,
+        "win_rate": 0.61083984375,
+        "wins": 1251
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "raphael"
+    },
+    "casey_jones vs shredder": {
+      "a_start_minus_second_win_rate": 0.03369140625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.37694572770683893,
+          "low": 0.3355076894596582
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1319,
+        "win_rate": 0.35595703125,
+        "wins": 729
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.41095703229340486,
+          "low": 0.36875304323075897
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1250,
+        "win_rate": 0.3896484375,
+        "wins": 798
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5321262816451545,
+          "low": 0.5015335565183668
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1979,
+        "win_rate": 0.516845703125,
+        "wins": 2117
+      },
+      "b_start_minus_second_win_rate": 0.03369140625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6312469567692409,
+          "low": 0.5890429677065951
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 798,
+        "win_rate": 0.6103515625,
+        "wins": 1250
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6644923105403417,
+          "low": 0.6230542722931611
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 729,
+        "win_rate": 0.64404296875,
+        "wins": 1319
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "shredder"
+    },
+    "casey_jones vs splinter": {
+      "a_start_minus_second_win_rate": 0.017578125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6418586595945523,
+          "low": 0.5998754168214093
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 776,
+        "win_rate": 0.62109375,
+        "wins": 1272
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6591996377058473,
+          "low": 0.6176248691575927
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 740,
+        "win_rate": 0.638671875,
+        "wins": 1308
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5240835081704651,
+          "low": 0.49347814652354605
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2012,
+        "win_rate": 0.5087890625,
+        "wins": 2084
+      },
+      "b_start_minus_second_win_rate": 0.017578125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.3823751308424072,
+          "low": 0.3408003622941527
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1308,
+        "win_rate": 0.361328125,
+        "wins": 740
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.4001245831785906,
+          "low": 0.3581413404054476
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1272,
+        "win_rate": 0.37890625,
+        "wins": 776
+      },
+      "deck_a": "casey_jones",
+      "deck_b": "splinter"
+    },
+    "donatello vs krang": {
+      "a_start_minus_second_win_rate": 0.0048828125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6119255350803978,
+          "low": 0.5693750222315734
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 838,
+        "win_rate": 0.5908203125,
+        "wins": 1210
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.61675917040643,
+          "low": 0.5742887286965074
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 828,
+        "win_rate": 0.595703125,
+        "wins": 1220
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5177439797736333,
+          "low": 0.48713425764136986
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2038,
+        "win_rate": 0.50244140625,
+        "wins": 2058
+      },
+      "b_start_minus_second_win_rate": 0.0048828125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.42571127130349246,
+          "low": 0.3832408295935699
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1220,
+        "win_rate": 0.404296875,
+        "wins": 828
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.43062497776842656,
+          "low": 0.38807446491960207
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1210,
+        "win_rate": 0.4091796875,
+        "wins": 838
+      },
+      "deck_a": "donatello",
+      "deck_b": "krang"
+    },
+    "donatello vs leonardo": {
+      "a_start_minus_second_win_rate": 0.037109375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4771986250636822,
+          "low": 0.43410056463852525
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1115,
+        "win_rate": 0.45556640625,
+        "wins": 933
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5143216434951208,
+          "low": 0.47105734381842973
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1039,
+        "win_rate": 0.49267578125,
+        "wins": 1009
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5338318134426789,
+          "low": 0.5032427909113446
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1972,
+        "win_rate": 0.5185546875,
+        "wins": 2124
+      },
+      "b_start_minus_second_win_rate": 0.037109375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5289426561815701,
+          "low": 0.48567835650487906
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1009,
+        "win_rate": 0.50732421875,
+        "wins": 1039
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5658994353614747,
+          "low": 0.5228013749363177
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 933,
+        "win_rate": 0.54443359375,
+        "wins": 1115
+      },
+      "deck_a": "donatello",
+      "deck_b": "leonardo"
+    },
+    "donatello vs michelangelo": {
+      "a_start_minus_second_win_rate": 0.0302734375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.32745336770226713,
+          "low": 0.287526631554568
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1419,
+        "win_rate": 0.30712890625,
+        "wins": 629
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.3581675896745095,
+          "low": 0.317245928686316
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1357,
+        "win_rate": 0.33740234375,
+        "wins": 691
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5304205709090094,
+          "low": 0.4998245010640097
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1986,
+        "win_rate": 0.51513671875,
+        "wins": 2110
+      },
+      "b_start_minus_second_win_rate": 0.0302734375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6827540713136839,
+          "low": 0.6418324103254904
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 691,
+        "win_rate": 0.66259765625,
+        "wins": 1357
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.712473368445432,
+          "low": 0.6725466322977328
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 629,
+        "win_rate": 0.69287109375,
+        "wins": 1419
+      },
+      "deck_a": "donatello",
+      "deck_b": "michelangelo"
+    },
+    "donatello vs raphael": {
+      "a_start_minus_second_win_rate": 0.0576171875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.16754149151126602,
+          "low": 0.13649830461374746
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1738,
+        "win_rate": 0.1513671875,
+        "wins": 310
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.22713007132052676,
+          "low": 0.19192835793788787
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1620,
+        "win_rate": 0.208984375,
+        "wins": 428
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5440612424344233,
+          "low": 0.5135019590626133
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1930,
+        "win_rate": 0.52880859375,
+        "wins": 2166
+      },
+      "b_start_minus_second_win_rate": 0.0576171875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.808071642062112,
+          "low": 0.7728699286794732
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 428,
+        "win_rate": 0.791015625,
+        "wins": 1620
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8635016953862524,
+          "low": 0.8324585084887339
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 310,
+        "win_rate": 0.8486328125,
+        "wins": 1738
+      },
+      "deck_a": "donatello",
+      "deck_b": "raphael"
+    },
+    "donatello vs shredder": {
+      "a_start_minus_second_win_rate": 0.017578125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.13440102435229268,
+          "low": 0.10628105013144053
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1803,
+        "win_rate": 0.11962890625,
+        "wins": 245
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.15278909821658482,
+          "low": 0.1229834067146267
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1767,
+        "win_rate": 0.13720703125,
+        "wins": 281
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5240835081704651,
+          "low": 0.49347814652354605
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2012,
+        "win_rate": 0.5087890625,
+        "wins": 2084
+      },
+      "b_start_minus_second_win_rate": 0.017578125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8770165932853733,
+          "low": 0.8472109017834151
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 281,
+        "win_rate": 0.86279296875,
+        "wins": 1767
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8937189498685595,
+          "low": 0.8655989756477073
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 245,
+        "win_rate": 0.88037109375,
+        "wins": 1803
+      },
+      "deck_a": "donatello",
+      "deck_b": "shredder"
+    },
+    "donatello vs splinter": {
+      "a_start_minus_second_win_rate": 0.03076171875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.22260642719085197,
+          "low": 0.18767939445569307
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1629,
+        "win_rate": 0.20458984375,
+        "wins": 419
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.25420919886937754,
+          "low": 0.2174848760602545
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1566,
+        "win_rate": 0.2353515625,
+        "wins": 482
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5306642548244495,
+          "low": 0.50006864089007
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1985,
+        "win_rate": 0.515380859375,
+        "wins": 2111
+      },
+      "b_start_minus_second_win_rate": 0.03076171875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7825151239397454,
+          "low": 0.7457908011306225
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 482,
+        "win_rate": 0.7646484375,
+        "wins": 1566
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.812320605544307,
+          "low": 0.777393572809148
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 419,
+        "win_rate": 0.79541015625,
+        "wins": 1629
+      },
+      "deck_a": "donatello",
+      "deck_b": "splinter"
+    },
+    "krang vs leonardo": {
+      "a_start_minus_second_win_rate": -0.00439453125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.45074865430212224,
+          "low": 0.40791488972886775
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1169,
+        "win_rate": 0.42919921875,
+        "wins": 879
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.44633434197664235,
+          "low": 0.40355659444247816
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1178,
+        "win_rate": 0.4248046875,
+        "wins": 870
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5131096888628364,
+          "low": 0.4824998974636609
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2057,
+        "win_rate": 0.497802734375,
+        "wins": 2039
+      },
+      "b_start_minus_second_win_rate": -0.00439453125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5964434055575218,
+          "low": 0.5536656580233577
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 870,
+        "win_rate": 0.5751953125,
+        "wins": 1178
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5920851102711322,
+          "low": 0.5492513456978776
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 879,
+        "win_rate": 0.57080078125,
+        "wins": 1169
+      },
+      "deck_a": "krang",
+      "deck_b": "leonardo"
+    },
+    "krang vs michelangelo": {
+      "a_start_minus_second_win_rate": 0.03662109375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.23917816396587124,
+          "low": 0.20327388559086226
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1596,
+        "win_rate": 0.220703125,
+        "wins": 452
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.276699439321566,
+          "low": 0.2388576736674139
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1521,
+        "win_rate": 0.25732421875,
+        "wins": 527
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.533588177000853,
+          "low": 0.5029986036116703
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1973,
+        "win_rate": 0.518310546875,
+        "wins": 2123
+      },
+      "b_start_minus_second_win_rate": 0.03662109375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.761142326332586,
+          "low": 0.723300560678434
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 527,
+        "win_rate": 0.74267578125,
+        "wins": 1521
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7967261144091378,
+          "low": 0.7608218360341288
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 452,
+        "win_rate": 0.779296875,
+        "wins": 1596
+      },
+      "deck_a": "krang",
+      "deck_b": "michelangelo"
+    },
+    "krang vs raphael": {
+      "a_start_minus_second_win_rate": 0.00830078125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.12311698168231683,
+          "low": 0.09612094086129075
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1825,
+        "win_rate": 0.10888671875,
+        "wins": 223
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.1318398182915588,
+          "low": 0.10396858529669131
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1808,
+        "win_rate": 0.1171875,
+        "wins": 240
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5194510183528708,
+          "low": 0.4888419852526346
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2031,
+        "win_rate": 0.504150390625,
+        "wins": 2065
+      },
+      "b_start_minus_second_win_rate": 0.00830078125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8960314147033086,
+          "low": 0.8681601817084412
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 240,
+        "win_rate": 0.8828125,
+        "wins": 1808
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.9038790591387093,
+          "low": 0.8768830183176831
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 223,
+        "win_rate": 0.89111328125,
+        "wins": 1825
+      },
+      "deck_a": "krang",
+      "deck_b": "raphael"
+    },
+    "krang vs shredder": {
+      "a_start_minus_second_win_rate": -0.01416015625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.12208919973116843,
+          "low": 0.09519925445424592
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1827,
+        "win_rate": 0.10791015625,
+        "wins": 221
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.10714554895939091,
+          "low": 0.08187561403222146
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1856,
+        "win_rate": 0.09375,
+        "wins": 192
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5082300660484584,
+          "low": 0.47762304544803263
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2077,
+        "win_rate": 0.492919921875,
+        "wins": 2019
+      },
+      "b_start_minus_second_win_rate": -0.01416015625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.9181243859677786,
+          "low": 0.8928544510406091
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 192,
+        "win_rate": 0.90625,
+        "wins": 1856
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.9048007455457541,
+          "low": 0.8779108002688316
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 221,
+        "win_rate": 0.89208984375,
+        "wins": 1827
+      },
+      "deck_a": "krang",
+      "deck_b": "shredder"
+    },
+    "krang vs splinter": {
+      "a_start_minus_second_win_rate": 0.00244140625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.21858274980915246,
+          "low": 0.18390519840461964
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1637,
+        "win_rate": 0.20068359375,
+        "wins": 411
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.2210978447212767,
+          "low": 0.18626377438797848
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1632,
+        "win_rate": 0.203125,
+        "wins": 416
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.516524557130437,
+          "low": 0.4859145615770645
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2043,
+        "win_rate": 0.501220703125,
+        "wins": 2053
+      },
+      "b_start_minus_second_win_rate": 0.00244140625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8137362256120215,
+          "low": 0.7789021552787232
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 416,
+        "win_rate": 0.796875,
+        "wins": 1632
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8160948015953803,
+          "low": 0.7814172501908475
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 411,
+        "win_rate": 0.79931640625,
+        "wins": 1637
+      },
+      "deck_a": "krang",
+      "deck_b": "splinter"
+    },
+    "leonardo vs michelangelo": {
+      "a_start_minus_second_win_rate": -0.01025390625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4188284206921438,
+          "low": 0.3764774016975659
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1234,
+        "win_rate": 0.3974609375,
+        "wins": 814
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.4084960611530058,
+          "low": 0.36634034347567496
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1255,
+        "win_rate": 0.38720703125,
+        "wins": 793
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5101820901876584,
+          "low": 0.4795736112408351
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2069,
+        "win_rate": 0.494873046875,
+        "wins": 2027
+      },
+      "b_start_minus_second_win_rate": -0.01025390625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.633659656524325,
+          "low": 0.5915039388469941
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 793,
+        "win_rate": 0.61279296875,
+        "wins": 1255
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6235225983024341,
+          "low": 0.5811715793078561
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 814,
+        "win_rate": 0.6025390625,
+        "wins": 1234
+      },
+      "deck_a": "leonardo",
+      "deck_b": "michelangelo"
+    },
+    "leonardo vs raphael": {
+      "a_start_minus_second_win_rate": 0.01123046875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.21656995442007032,
+          "low": 0.18201905707731525
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1641,
+        "win_rate": 0.19873046875,
+        "wins": 407
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.22813490232077507,
+          "low": 0.19287299529583277
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1618,
+        "win_rate": 0.2099609375,
+        "wins": 430
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5209140520855423,
+          "low": 0.4903058939689648
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2025,
+        "win_rate": 0.505615234375,
+        "wins": 2071
+      },
+      "b_start_minus_second_win_rate": 0.01123046875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.8071270047041672,
+          "low": 0.771865097679225
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 430,
+        "win_rate": 0.7900390625,
+        "wins": 1618
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.8179809429226848,
+          "low": 0.7834300455799297
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 407,
+        "win_rate": 0.80126953125,
+        "wins": 1641
+      },
+      "deck_a": "leonardo",
+      "deck_b": "raphael"
+    },
+    "leonardo vs shredder": {
+      "a_start_minus_second_win_rate": 0.0185546875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.30559544699113783,
+          "low": 0.26649624838544606
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1463,
+        "win_rate": 0.28564453125,
+        "wins": 585
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.32447579973711915,
+          "low": 0.2846557944451362
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1425,
+        "win_rate": 0.30419921875,
+        "wins": 623
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5245710620944513,
+          "low": 0.49396624008256057
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2010,
+        "win_rate": 0.50927734375,
+        "wins": 2086
+      },
+      "b_start_minus_second_win_rate": 0.0185546875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7153442055548638,
+          "low": 0.6755242002628807
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 623,
+        "win_rate": 0.69580078125,
+        "wins": 1425
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.733503751614554,
+          "low": 0.6944045530088621
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 585,
+        "win_rate": 0.71435546875,
+        "wins": 1463
+      },
+      "deck_a": "leonardo",
+      "deck_b": "shredder"
+    },
+    "leonardo vs splinter": {
+      "a_start_minus_second_win_rate": -0.0068359375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.43651856808731576,
+          "low": 0.39387768474987234
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1198,
+        "win_rate": 0.4150390625,
+        "wins": 850
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.4296424100976308,
+          "low": 0.3871075642322046
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1212,
+        "win_rate": 0.408203125,
+        "wins": 836
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5118899198843379,
+          "low": 0.48128054773465784
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2062,
+        "win_rate": 0.49658203125,
+        "wins": 2034
+      },
+      "b_start_minus_second_win_rate": -0.0068359375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6128924357677954,
+          "low": 0.5703575899023692
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 836,
+        "win_rate": 0.591796875,
+        "wins": 1212
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.6061223152501276,
+          "low": 0.5634814319126842
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 850,
+        "win_rate": 0.5849609375,
+        "wins": 1198
+      },
+      "deck_a": "leonardo",
+      "deck_b": "splinter"
+    },
+    "michelangelo vs raphael": {
+      "a_start_minus_second_win_rate": 0.00732421875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.32745336770226713,
+          "low": 0.287526631554568
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1419,
+        "win_rate": 0.30712890625,
+        "wins": 629
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.3348931755573922,
+          "low": 0.29470783638589226
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1404,
+        "win_rate": 0.314453125,
+        "wins": 644
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5189633112737461,
+          "low": 0.48835404484875855
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2033,
+        "win_rate": 0.503662109375,
+        "wins": 2063
+      },
+      "b_start_minus_second_win_rate": 0.00732421875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7052921636141077,
+          "low": 0.6651068244426078
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 644,
+        "win_rate": 0.685546875,
+        "wins": 1404
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.712473368445432,
+          "low": 0.6725466322977328
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 629,
+        "win_rate": 0.69287109375,
+        "wins": 1419
+      },
+      "deck_a": "michelangelo",
+      "deck_b": "raphael"
+    },
+    "michelangelo vs shredder": {
+      "a_start_minus_second_win_rate": 0.0458984375,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.26471275748279066,
+          "low": 0.22745073520787037
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1545,
+        "win_rate": 0.24560546875,
+        "wins": 503
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.31156191145735723,
+          "low": 0.272226594068386
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1451,
+        "win_rate": 0.29150390625,
+        "wins": 597
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5382166445072888,
+          "low": 0.5076387871937403
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1954,
+        "win_rate": 0.52294921875,
+        "wins": 2142
+      },
+      "b_start_minus_second_win_rate": 0.0458984375,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7277734059316139,
+          "low": 0.6884380885426427
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 597,
+        "win_rate": 0.70849609375,
+        "wins": 1451
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7725492647921296,
+          "low": 0.7352872425172093
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 503,
+        "win_rate": 0.75439453125,
+        "wins": 1545
+      },
+      "deck_a": "michelangelo",
+      "deck_b": "shredder"
+    },
+    "michelangelo vs splinter": {
+      "a_start_minus_second_win_rate": 0.05322265625,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.4522197093165814,
+          "low": 0.40936803725169846
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1166,
+        "win_rate": 0.4306640625,
+        "wins": 882
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5055401366613986,
+          "low": 0.4622936354284129
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1057,
+        "win_rate": 0.48388671875,
+        "wins": 991
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5418697653011691,
+          "low": 0.5113030225223646
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1939,
+        "win_rate": 0.526611328125,
+        "wins": 2157
+      },
+      "b_start_minus_second_win_rate": 0.05322265625,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.537706364571587,
+          "low": 0.49445986333860137
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 991,
+        "win_rate": 0.51611328125,
+        "wins": 1057
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5906319627483014,
+          "low": 0.5477802906834186
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 882,
+        "win_rate": 0.5693359375,
+        "wins": 1166
+      },
+      "deck_a": "michelangelo",
+      "deck_b": "splinter"
+    },
+    "raphael vs shredder": {
+      "a_start_minus_second_win_rate": 0.04638671875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.47083663105846074,
+          "low": 0.4277910143154907
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1128,
+        "win_rate": 0.44921875,
+        "wins": 920
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5172473288801428,
+          "low": 0.4739800635079875
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1033,
+        "win_rate": 0.49560546875,
+        "wins": 1015
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5384602115030012,
+          "low": 0.5078830439395282
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1953,
+        "win_rate": 0.523193359375,
+        "wins": 2143
+      },
+      "b_start_minus_second_win_rate": 0.04638671875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.5260199364920124,
+          "low": 0.4827526711198571
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1015,
+        "win_rate": 0.50439453125,
+        "wins": 1033
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.5722089856845093,
+          "low": 0.5291633689415393
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 920,
+        "win_rate": 0.55078125,
+        "wins": 1128
+      },
+      "deck_a": "raphael",
+      "deck_b": "shredder"
+    },
+    "raphael vs splinter": {
+      "a_start_minus_second_win_rate": 0.044921875,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.6625680289915984,
+          "low": 0.6210796171255178
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 733,
+        "win_rate": 0.64208984375,
+        "wins": 1315
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7067288708713793,
+          "low": 0.6665943197226261
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 641,
+        "win_rate": 0.68701171875,
+        "wins": 1407
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5377294995447264,
+          "low": 0.507150284673302
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 1956,
+        "win_rate": 0.5224609375,
+        "wins": 2140
+      },
+      "b_start_minus_second_win_rate": 0.044921875,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.33340568027737383,
+          "low": 0.29327112912862074
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1407,
+        "win_rate": 0.31298828125,
+        "wins": 641
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.37892038287448204,
+          "low": 0.3374319710084015
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1315,
+        "win_rate": 0.35791015625,
+        "wins": 733
+      },
+      "deck_a": "raphael",
+      "deck_b": "splinter"
+    },
+    "shredder vs splinter": {
+      "a_start_minus_second_win_rate": 0.01611328125,
+      "a_when_second": {
+        "confidence_interval_95": {
+          "high": 0.7153442055548638,
+          "low": 0.6755242002628807
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 623,
+        "win_rate": 0.69580078125,
+        "wins": 1425
+      },
+      "a_when_start": {
+        "confidence_interval_95": {
+          "high": 0.7311165918213226,
+          "low": 0.6919180419066103
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 590,
+        "win_rate": 0.7119140625,
+        "wins": 1458
+      },
+      "aggregate_first_player": {
+        "confidence_interval_95": {
+          "high": 0.5233521499301362,
+          "low": 0.492746033539374
+        },
+        "draws": 0,
+        "games": 4096,
+        "losses": 2015,
+        "win_rate": 0.508056640625,
+        "wins": 2081
+      },
+      "b_start_minus_second_win_rate": 0.01611328125,
+      "b_when_second": {
+        "confidence_interval_95": {
+          "high": 0.3080819580933896,
+          "low": 0.26888340817867734
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1458,
+        "win_rate": 0.2880859375,
+        "wins": 590
+      },
+      "b_when_start": {
+        "confidence_interval_95": {
+          "high": 0.32447579973711915,
+          "low": 0.2846557944451362
+        },
+        "draws": 0,
+        "games": 2048,
+        "losses": 1425,
+        "win_rate": 0.30419921875,
+        "wins": 623
+      },
+      "deck_a": "shredder",
+      "deck_b": "splinter"
+    }
+  },
+  "paired_seat_effect": {
+    "deck_a_wins_both": 12759,
+    "deck_b_wins_both": 38390,
+    "first_player_rate_minus_50_percent": 0.006385633680555555,
+    "first_player_rate_minus_50_percent_ci_95": {
+      "high": 0.008538656135778184,
+      "low": 0.004232611225332927
+    },
+    "first_player_wins_both": 21094,
+    "mean_paired_contrast": 0.01277126736111111,
+    "method": "paired block/pair contrast: +1 first player wins both orientations, -1 second player wins both, 0 outcome flips; normal 95% CI over 92160 paired observations",
+    "outcome_flips_when_seats_swap": 41011,
+    "same_deck_winner_both_or_draw": 51149,
+    "second_player_wins_both": 19917,
+    "unordered_matchup_pairs": 92160
+  },
+  "per_deck_first_player": {
+    "april_oneil": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.2464557404368649,
+          "low": 0.23412126379755105
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 14004,
+        "win_rate": 0.240234375,
+        "wins": 4428
+      },
+      "first_minus_second_win_rate": 0.0020616319444444475,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.244376349204447,
+          "low": 0.23207825030167067
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 14042,
+        "win_rate": 0.23817274305555555,
+        "wins": 4390
+      }
+    },
+    "bebop_rocksteady": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.35172863871267795,
+          "low": 0.3380061633153985
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 12076,
+        "win_rate": 0.3448350694444444,
+        "wins": 6356
+      },
+      "first_minus_second_win_rate": 0.0033637152777777346,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.3483495865963074,
+          "low": 0.3346591866645456
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 12138,
+        "win_rate": 0.3414713541666667,
+        "wins": 6294
+      }
+    },
+    "casey_jones": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.6916172304873055,
+          "low": 0.678205867375033
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 5807,
+        "win_rate": 0.6849500868055556,
+        "wins": 12625
+      },
+      "first_minus_second_win_rate": 0.0061306423611111605,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.685522418471789,
+          "low": 0.6720419495406098
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 5920,
+        "win_rate": 0.6788194444444444,
+        "wins": 12512
+      }
+    },
+    "donatello": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.38446430640623414,
+          "low": 0.3704695809299284
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 11475,
+        "win_rate": 0.37744140625,
+        "wins": 6957
+      },
+      "first_minus_second_win_rate": 0.0234375,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.36093735792460835,
+          "low": 0.34713129671089993
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 11907,
+        "win_rate": 0.35400390625,
+        "wins": 6525
+      }
+    },
+    "krang": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.3065148318913561,
+          "low": 0.29328645645884455
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 12905,
+        "win_rate": 0.2998589409722222,
+        "wins": 5527
+      },
+      "first_minus_second_win_rate": 0.0028211805555555247,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.3036763053705463,
+          "low": 0.2904837975619831
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 12957,
+        "win_rate": 0.2970377604166667,
+        "wins": 5475
+      }
+    },
+    "leonardo": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.45407358530565545,
+          "low": 0.4397202507731861
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 10195,
+        "win_rate": 0.4468858506944444,
+        "wins": 8237
+      },
+      "first_minus_second_win_rate": 0.00493706597222221,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.4491295778589585,
+          "low": 0.4347921837389583
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 10286,
+        "win_rate": 0.4419487847222222,
+        "wins": 8146
+      }
+    },
+    "michelangelo": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.5596298407767535,
+          "low": 0.5452745111249422
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 8249,
+        "win_rate": 0.5524631076388888,
+        "wins": 10183
+      },
+      "first_minus_second_win_rate": 0.02126736111111105,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.5383926847814027,
+          "low": 0.5239858078178476
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 8641,
+        "win_rate": 0.5311957465277778,
+        "wins": 9791
+      }
+    },
+    "raphael": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.7643732319121329,
+          "low": 0.752012202474705
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 4456,
+        "win_rate": 0.7582465277777778,
+        "wins": 13976
+      },
+      "first_minus_second_win_rate": 0.02615017361111116,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.7384409595714818,
+          "low": 0.7256550253669409
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 4938,
+        "win_rate": 0.7320963541666666,
+        "wins": 13494
+      }
+    },
+    "shredder": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.7708246376959564,
+          "low": 0.7585789168855077
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 4336,
+        "win_rate": 0.7647569444444444,
+        "wins": 14096
+      },
+      "first_minus_second_win_rate": 0.01882595486111105,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.7521640352203277,
+          "low": 0.7395954551316758
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 4683,
+        "win_rate": 0.7459309895833334,
+        "wins": 13749
+      }
+    },
+    "splinter": {
+      "first": {
+        "confidence_interval_95": {
+          "high": 0.6012527229457213,
+          "low": 0.5870760825365372
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 7480,
+        "win_rate": 0.5941840277777778,
+        "wins": 10952
+      },
+      "first_minus_second_win_rate": 0.01871744791666663,
+      "second": {
+        "confidence_interval_95": {
+          "high": 0.5825856854461494,
+          "low": 0.5683160244765589
+        },
+        "draws": 0,
+        "games": 18432,
+        "losses": 7825,
+        "win_rate": 0.5754665798611112,
+        "wins": 10607
+      }
+    }
+  },
+  "production_evidence_path": "G:\\cardcade\\calibration-runs\\CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "prototype_0_3_authorized": false,
+  "ranked_by_win_rate": [
+    {
+      "confidence_interval_95": {
+        "high": 0.759705522471823,
+        "low": 0.7509292002316361
+      },
+      "deck": "shredder",
+      "display_name": "Shredder",
+      "draws": 0,
+      "games": 36864,
+      "losses": 9019,
+      "win_rate": 0.7553439670138888,
+      "wins": 27845
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.7495940874746201,
+        "low": 0.7406977030059774
+      },
+      "deck": "raphael",
+      "display_name": "Raphael",
+      "draws": 0,
+      "games": 36864,
+      "losses": 9394,
+      "win_rate": 0.7451714409722222,
+      "wins": 27470
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.6866199918068518,
+        "low": 0.6771116363379153
+      },
+      "deck": "casey_jones",
+      "display_name": "Casey Jones",
+      "draws": 0,
+      "games": 36864,
+      "losses": 11727,
+      "win_rate": 0.681884765625,
+      "wins": 25137
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.5898462967446595,
+        "low": 0.5797866340843766
+      },
+      "deck": "splinter",
+      "display_name": "Splinter",
+      "draws": 0,
+      "games": 36864,
+      "losses": 15305,
+      "win_rate": 0.5848253038194444,
+      "wins": 21559
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.546910985844828,
+        "low": 0.5367391514555793
+      },
+      "deck": "michelangelo",
+      "display_name": "Michelangelo",
+      "draws": 0,
+      "games": 36864,
+      "losses": 16890,
+      "win_rate": 0.5418294270833334,
+      "wins": 19974
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.449495285642923,
+        "low": 0.43935093269136055
+      },
+      "deck": "leonardo",
+      "display_name": "Leonardo",
+      "draws": 0,
+      "games": 36864,
+      "losses": 20481,
+      "win_rate": 0.4444173177083333,
+      "wins": 16383
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.37065298298550015,
+        "low": 0.3608203116727254
+      },
+      "deck": "donatello",
+      "display_name": "Donatello",
+      "draws": 0,
+      "games": 36864,
+      "losses": 23382,
+      "win_rate": 0.36572265625,
+      "wins": 13482
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.3480157706517982,
+        "low": 0.33832333838130485
+      },
+      "deck": "bebop_rocksteady",
+      "display_name": "Bebop & Rocksteady",
+      "draws": 0,
+      "games": 36864,
+      "losses": 24214,
+      "win_rate": 0.3431532118055556,
+      "wins": 12650
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.303140170484154,
+        "low": 0.29379853240687936
+      },
+      "deck": "krang",
+      "display_name": "Krang",
+      "draws": 0,
+      "games": 36864,
+      "losses": 25862,
+      "win_rate": 0.2984483506944444,
+      "wins": 11002
+    },
+    {
+      "confidence_interval_95": {
+        "high": 0.2435853576569322,
+        "low": 0.2348761079681548
+      },
+      "deck": "april_oneil",
+      "display_name": "April O’Neil",
+      "draws": 0,
+      "games": 36864,
+      "losses": 28046,
+      "win_rate": 0.2392035590277778,
+      "wins": 8818
+    }
+  ],
+  "red_flags": {
+    "draw_rate_anomalies": [],
+    "engine_artifact_caution": "Winner and seat orientation are descriptive outputs of the frozen engine/runtime. No card-level causal inference or deck change is authorized by this report.",
+    "extreme_deck_rates": [
+      "raphael",
+      "donatello",
+      "shredder",
+      "krang",
+      "bebop_rocksteady",
+      "april_oneil",
+      "casey_jones"
+    ],
+    "orientation_rate_difference": 0.2781141493055555,
+    "polarized_matchups": [
+      [
+        "leonardo",
+        "raphael"
+      ],
+      [
+        "leonardo",
+        "shredder"
+      ],
+      [
+        "leonardo",
+        "april_oneil"
+      ],
+      [
+        "leonardo",
+        "casey_jones"
+      ],
+      [
+        "raphael",
+        "leonardo"
+      ],
+      [
+        "raphael",
+        "donatello"
+      ],
+      [
+        "raphael",
+        "michelangelo"
+      ],
+      [
+        "raphael",
+        "splinter"
+      ],
+      [
+        "raphael",
+        "krang"
+      ],
+      [
+        "raphael",
+        "bebop_rocksteady"
+      ],
+      [
+        "raphael",
+        "april_oneil"
+      ],
+      [
+        "donatello",
+        "raphael"
+      ],
+      [
+        "donatello",
+        "michelangelo"
+      ],
+      [
+        "donatello",
+        "splinter"
+      ],
+      [
+        "donatello",
+        "shredder"
+      ],
+      [
+        "donatello",
+        "casey_jones"
+      ],
+      [
+        "michelangelo",
+        "raphael"
+      ],
+      [
+        "michelangelo",
+        "donatello"
+      ],
+      [
+        "michelangelo",
+        "shredder"
+      ],
+      [
+        "michelangelo",
+        "krang"
+      ],
+      [
+        "michelangelo",
+        "bebop_rocksteady"
+      ],
+      [
+        "michelangelo",
+        "april_oneil"
+      ],
+      [
+        "michelangelo",
+        "casey_jones"
+      ],
+      [
+        "splinter",
+        "raphael"
+      ],
+      [
+        "splinter",
+        "donatello"
+      ],
+      [
+        "splinter",
+        "shredder"
+      ],
+      [
+        "splinter",
+        "krang"
+      ],
+      [
+        "splinter",
+        "bebop_rocksteady"
+      ],
+      [
+        "splinter",
+        "april_oneil"
+      ],
+      [
+        "shredder",
+        "leonardo"
+      ],
+      [
+        "shredder",
+        "donatello"
+      ],
+      [
+        "shredder",
+        "michelangelo"
+      ],
+      [
+        "shredder",
+        "splinter"
+      ],
+      [
+        "shredder",
+        "krang"
+      ],
+      [
+        "shredder",
+        "bebop_rocksteady"
+      ],
+      [
+        "shredder",
+        "april_oneil"
+      ],
+      [
+        "krang",
+        "raphael"
+      ],
+      [
+        "krang",
+        "michelangelo"
+      ],
+      [
+        "krang",
+        "splinter"
+      ],
+      [
+        "krang",
+        "shredder"
+      ],
+      [
+        "krang",
+        "casey_jones"
+      ],
+      [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      [
+        "bebop_rocksteady",
+        "michelangelo"
+      ],
+      [
+        "bebop_rocksteady",
+        "splinter"
+      ],
+      [
+        "bebop_rocksteady",
+        "shredder"
+      ],
+      [
+        "bebop_rocksteady",
+        "casey_jones"
+      ],
+      [
+        "april_oneil",
+        "leonardo"
+      ],
+      [
+        "april_oneil",
+        "raphael"
+      ],
+      [
+        "april_oneil",
+        "michelangelo"
+      ],
+      [
+        "april_oneil",
+        "splinter"
+      ],
+      [
+        "april_oneil",
+        "shredder"
+      ],
+      [
+        "april_oneil",
+        "casey_jones"
+      ],
+      [
+        "casey_jones",
+        "leonardo"
+      ],
+      [
+        "casey_jones",
+        "donatello"
+      ],
+      [
+        "casey_jones",
+        "michelangelo"
+      ],
+      [
+        "casey_jones",
+        "krang"
+      ],
+      [
+        "casey_jones",
+        "bebop_rocksteady"
+      ],
+      [
+        "casey_jones",
+        "april_oneil"
+      ]
+    ]
+  },
+  "run_id": "CALIBRATION_V1_20260923T141649Z_3f838930291e",
+  "sample": {
+    "authenticated_executions": 368640,
+    "blocks": 2048,
+    "distinct_games": 184320,
+    "evidence_files": 184320
+  },
+  "schema": "calibration-analysis-v1"
+}
