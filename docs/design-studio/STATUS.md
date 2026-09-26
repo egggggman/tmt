@@ -19,6 +19,8 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - Prototype 0.3 candidate decklists are now prepared on the focused pre-balance branch; they remain
   provisional pending review and merge. The shared [smoke plan](PROTOTYPE_0_3_PREBALANCE_SMOKE_PLAN.md)
   must not run before those decklists merge.
+- The dedicated [Prototype 0.3 smoke harness](PROTOTYPE_0_3_PREBALANCE_SMOKE_HARNESS.md) is
+  preserved separately from the historical `smoke01.py`; the 240-game smoke remains unrun.
 - Prototype 0.3 remains limited to this pre-balance pass; no broad rebalance is authorized.
 - Leonardo, Michelangelo, Splinter, Krang, Bebop & Rocksteady, and April O’Neil remain frozen.
 - The authorization record is [here](PROTOTYPE_0_3_LIMITED_AUTHORIZATION.md).
