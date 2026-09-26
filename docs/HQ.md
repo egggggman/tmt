@@ -53,7 +53,7 @@ Primary orientation and governance records:
 | Pilot Fitness V3 | Cardcade | Bounded pass completed | Preserve fitness limits; no automatic deck revision | `docs/cardcade/PILOT_FITNESS_V3_*` |
 | Calibration Protocol V1 / Seed Table V2 | Cardcade | Protocol governed; seed table frozen and immutable | Fresh run identity, exact artifacts, separate authorization | `docs/cardcade/` calibration records |
 | V16 calibration run | Cardcade | Incomplete at 121,808 / 184,320; storage/evidence failure | Never resume or use for partial balance conclusions | V16 run and preserved archive |
-| Broad calibration / V17 | Cardcade | **Not authorized; V17 not reserved** | Documentation sync, then independent reservation/authentication gates | Calibration release and reservation records |
+| Calibration Protocol V1 | Cardcade | **Complete and audited; Design Studio review active** | Review artifact and explicit Design Studio decision | `docs/cardcade/` and `docs/design-studio/` |
 | Prototype 0.3 | Design Studio | **NOT AUTHORIZED** | Cardcade evidence + explicit Design Studio decision | Future preserved prototype when authorized |
 | Deck-box structural prototype | Mr. Paperback | p0.2 geometry physically validated; artwork/productization continues | Print/cut/fold/fit and final production stock | Physical-product records/specs |
 | Sewer Stamps | Mr. Paperback | Prototype registered; physical iteration remains actionable | Print/cut/apply testing | Physical-product records/specs |
@@ -73,7 +73,7 @@ Primary orientation and governance records:
 
 ### Critical Path
 
-**Durable GitHub state synchronization, followed by separately gated V17 preparation.**
+**Design Studio review of the completed, audited Calibration V1 evidence.**
 
 Engine 0.8 is accepted, and banked evidence reaches Action #32 where supported. Pilot Fitness V3 and Calibration Protocol V1 are the governing preparation records. V16 is permanently incomplete after local storage exhaustion, not balance evidence.
 
@@ -84,31 +84,32 @@ Engine 0.8 is accepted, and banked evidence reaches Action #32 where supported. 
 - PR #172, merged at `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed run-ID reservation contract.
 - The migrated host is qualified: `C:\Projects\tmt` is code/runtime and `G:\` is prospective evidence storage with NTFS, 976.56 GiB capacity, 874.66 GiB free, and 2,000/2,000 atomic cycles successful.
 - V16 historical evidence remains preserved and must not be resumed, combined, or used for partial balance conclusions.
+- Calibration V1 run `CALIBRATION_V1_20260923T141649Z_3f838930291e` completed 184,320 / 184,320 distinct games and passed the completion audit; its statistical analysis is banked for Design Studio interpretation.
 
 These are simulator-credibility milestones, not deck-balance conclusions.
 
 ### Gate — What's required?
 
-Cardcade must complete durable state synchronization and independently review the next authorization gates before V17 can be prepared.
+Design Studio must independently review the banked Calibration V1 interpretation before any Prototype 0.3 design work can begin.
 
 The Gate is not "make every deck 50%." It is reproducible rules execution, explicit unsupported behavior, authenticated evidence, deterministic replays, and enough mechanical credibility that downstream balance conclusions mean something.
 
 ### Blockers — What must be fixed?
 
-The current blocker is governance sequencing: this documentation synchronization must be independently reviewed and merged before a fresh V17 identity may be reserved. No production identity, wrapper, seed, deck, or gameplay state may be created by this PR.
+The current blocker is governance sequencing: this review must be independently verified and merged before any deck revision begins. No deck file is changed by this review.
 
 ### Holds — Intentionally waiting
 
 - Prototype 0.3 authorization.
-- Balance analysis and calibration execution.
-- V17 reservation until this state synchronization is independently reviewed and merged.
+- Exact deck changes until ownership and tradeoffs are independently reviewed.
+- Prototype 0.3 authorization until this review is independently verified and merged.
 - Design Studio deck revisions based on Cardcade results.
 - Human fun testing as the primary authority, until a credible automated baseline exists.
 
 ### Actionable now
 
-- Complete independent review and merge of this documentation synchronization.
-- After that gate, decide whether to reserve a fresh V17 identity under the banked PR #172 contract.
+- Complete independent review and merge of the Calibration V1 Design Studio review.
+- If authorized afterward, begin only the bounded scope recorded by Design Studio.
 - Continue Mr. Paperback physical prototyping that does not depend on deck revisions.
 - Continue Underground Press Issue #1/component work.
 - Provide targeted Canon/source support when requested.
@@ -153,7 +154,7 @@ See [THERECORD](THERECORD.md).
 
 ## Next Move
 
-**Synchronize durable project state, then independently review and merge this documentation PR.** The subsequent critical path is fresh V17 reservation, exact artifact authentication, separate execution authorization, complete Protocol V1 execution, integrity audit, statistical analysis, and Design Studio review.
+**Independently review and merge the Calibration V1 Design Studio interpretation.** No deck revision or Prototype 0.3 creation begins before that review is verified and merged.
 
 ## Change discipline
 
