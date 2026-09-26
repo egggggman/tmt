@@ -8,7 +8,7 @@ Cardcade is the reproducible evidence system for the ten-deck Mutants the Gather
 - Design Studio owns deck revisions and Prototype decisions.
 - HQ owns authorization gates.
 - Prototype 0.2 is frozen; Prototype 0.3 is **NOT AUTHORIZED**.
-- Balance analysis is **NOT AUTHORIZED** until the complete, separately authorized protocol run and its audits are complete.
+- Calibration V1 balance evidence is complete and audited; interpretation and deck revision remain Design Studio decisions.
 
 Engine 0.8 is the accepted architectural foundation. Banked post-foundation evidence reaches Action #32 where repository evidence supports acceptance; Action #33 remains **NOT AUTHORIZED**. Pilot Fitness V3 is a bounded pass, not a balance conclusion.
 
@@ -42,11 +42,11 @@ V16 must never be resumed, combined with later calibration results, or used for 
 - Qualification completed **2,000 / 2,000** atomic temp-write, `os.replace`, and read-back cycles with zero failures.
 - Historical archived evidence remains preserved separately.
 
-V17 has not been reserved, no production wrapper has been rendered, and no calibration games have executed.
+Calibration V1 run `CALIBRATION_V1_20260923T141649Z_3f838930291e` completed and passed its completion audit. Production evidence remains external on G:; the repository analysis is descriptive evidence only.
 
 ## Current critical path
 
-Synchronize durable project state → independently review/merge the documentation synchronization → reserve a fresh V17 identity → render/authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Calibration Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review.
+Independently review/merge the completed Calibration V1 interpretation → make an explicit Design Studio decision. No result automatically authorizes a deck change or Prototype 0.3.
 
 No step in this path changes simulator semantics, decks, seeds, or Protocol V1. No step authorizes Prototype 0.3 by itself.
 

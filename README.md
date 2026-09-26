@@ -77,7 +77,7 @@ The bounded **Pilot Fitness V3** pass and **Calibration Protocol V1** are now th
 
 PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed V16 run-ID reservation contract. The migrated host is qualified: `C:\Projects\tmt` is the code/runtime location and `G:\` is the prospective live evidence target (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic write/replace/read-back cycles successful, zero failures). Historical archived evidence remains preserved separately.
 
-The current critical path is: **synchronize durable project state → independently review/merge documentation synchronization → reserve a fresh V17 identity → render and authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Calibration Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review**. V17 has not been reserved or executed. Balance analysis and Prototype 0.3 remain unauthorized.
+The current critical path is: **independently review/merge the completed Calibration Protocol V1 audit and statistical interpretation → make an explicit, bounded Design Studio decision**. The audited run is complete; no deck revision or Prototype 0.3 creation begins before that review is verified and merged.
 
 ## Development discipline
 

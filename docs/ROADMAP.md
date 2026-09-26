@@ -72,14 +72,14 @@ source Provenance and transactional current/run history.
 - V16 is an incomplete storage/evidence failure, not balance evidence and not a demonstrated gameplay-engine failure. It must never be resumed, combined with later results, or used for partial balance conclusions.
 - PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed run-ID reservation contract.
 - The migrated host is qualified: `C:\Projects\tmt` is code/runtime and `G:\` is prospective live evidence storage (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic cycles, zero failures).
-- V17 has not been reserved or executed. Balance analysis remains unauthorized.
+- Calibration V1 run `CALIBRATION_V1_20260923T141649Z_3f838930291e` is complete and audited; its analysis and Design Studio interpretation are the current balance-review evidence.
 - HQ Resilience 0.1 is active so GitHub can carry project state, task contracts, validation, evidence, and handoffs across tools.
 
 The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
 
 ## Current Cardcade path
 
-Synchronize durable project state → independently review/merge the documentation synchronization → reserve a fresh V17 identity → render/authenticate exact run-specific artifacts → separately authorize execution → run the complete 184,320-game Calibration Protocol V1 dataset → integrity audit → statistical analysis → Design Studio review.
+Independently review/merge the completed Calibration V1 interpretation → make an explicit Design Studio decision → if authorized, begin only the preserved and bounded prototype-design scope.
 
 Cardcade reports evidence and hypotheses. Design Studio owns deck revisions. HQ owns authorization gates. No calibration result automatically authorizes a deck change or Prototype 0.3.
 

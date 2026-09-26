@@ -9,8 +9,11 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - Prototype 0.1 is the preserved baseline identity for each deck on `main` following merged PR #15.
 - Donatello and Krang Prototype 0.2 are bounded candidates preserved on `main` following merged
   PR #15.
-- Prototype 0.2 is frozen while the current Cardcade validation gate is unresolved.
-- Prototype 0.3 is not authorized.
+- Prototype 0.2 remains frozen pending this review and an explicit Design Studio decision.
+- Calibration V1 is now complete, audited, and statistically interpreted in
+  [the Design Studio review](CALIBRATION_V1_PROTOTYPE_0_3_REVIEW.md).
+- Prototype 0.3 remains not authorized; the review recommends only a limited,
+  hypothesis-first design cycle for selected decks after independent verification and merge.
 
 ## Evidence boundary
 
