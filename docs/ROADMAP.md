@@ -64,7 +64,7 @@ source Provenance and transactional current/run history.
 
 - The Design Intent RFC and ten-deck prototype history are preserved on `main`.
 - The ten-deck Prototype 0.2 environment is **frozen**.
-- **Prototype 0.3 is not authorized**; Design Studio owns any future deck revision decision.
+- Prototype 0.3 design-cycle investigation is **LIMITED AUTHORIZATION** for Shredder, Raphael, Donatello, and Casey Jones; actual deck files remain unauthorized.
 - Cardcade Engine 0.8's architectural foundation is accepted at 10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN.
 - Bounded post-foundation Actions and corrections are banked through **Action #32** where repository evidence supports acceptance; Action #33 remains **NOT AUTHORIZED**.
 - Pilot Fitness V3 is a bounded completed pass. Calibration Protocol V1 governs the prospective calibration, and Seed Table V2 is frozen and immutable.
@@ -79,7 +79,7 @@ The ten-deck battle set is not production-ready until simulator evidence is cred
 
 ## Current Cardcade path
 
-Independently review/merge the completed Calibration V1 interpretation → make an explicit Design Studio decision → if authorized, begin only the preserved and bounded prototype-design scope.
+Prepare and review the four authorized candidate packets → make later explicit card-level decisions → preserve any future Prototype 0.3 as a new version.
 
 Cardcade reports evidence and hypotheses. Design Studio owns deck revisions. HQ owns authorization gates. No calibration result automatically authorizes a deck change or Prototype 0.3.
 
