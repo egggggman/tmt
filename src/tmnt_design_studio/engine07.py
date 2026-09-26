@@ -6395,6 +6395,21 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     for target in opponent.battlefield
                     if target.card.is_creature
                 )
+            elif kind is CastKind.DRAW_CARDS:
+                draw_fragment = next(
+                    fragment
+                    for fragment in self.interpreter.fragments(card.card)
+                    if self.interpreter.draw_cards_semantic_coverage(card.card, fragment)
+                    is not None
+                )
+                options.append(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        oracle_fragment=draw_fragment,
+                    )
+                )
             elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 options.extend(
                     ActionOption(
@@ -8647,7 +8662,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             card.card,
             card.owner,
             plan.player_index,
-            CastKind.CREATURE,
+            self.interpreter.cast_program(card.card).kind,
             sneak_returned_attacker_id=attacker.object_id,
             sneak_returned_hand_id=returned.object_id,
             sneak_defending_player=plan.defending_player,
@@ -9001,8 +9016,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 self.check_state_based_actions()
             return permanent
 
-        legal_target = isinstance(target, Permanent) and self.is_authoritative(
-            target, "battlefield"
+        legal_target = spell.cast_kind is CastKind.DRAW_CARDS or (
+            isinstance(target, Permanent) and self.is_authoritative(target, "battlefield")
         )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = legal_target and target.controller != spell.controller
@@ -9028,7 +9043,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 reason="all_targets_illegal",
             )
             return resolved_card
-        if spell.cast_kind is not CastKind.OOZE_SPILL:
+        if spell.cast_kind not in {CastKind.OOZE_SPILL, CastKind.DRAW_CARDS}:
             assert isinstance(target, Permanent)
         filter_plan = None
         filter_semantics = None
@@ -9050,6 +9065,27 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 target_spell_id=target.object_id,
                 countered_object_id=countered.object_id,
                 mutagen_token_id=created[0].object_id,
+            )
+        elif spell.cast_kind is CastKind.DRAW_CARDS:
+            draw_semantics = next(
+                (
+                    self.interpreter.draw_cards_semantic_coverage(spell.card, fragment)
+                    for fragment in self.interpreter.fragments(spell.card)
+                    if self.interpreter.draw_cards_semantic_coverage(spell.card, fragment)
+                    is not None
+                ),
+                None,
+            )
+            if draw_semantics is None or not draw_semantics.coverage.fully_supported:
+                raise AssertionError("stacked draw spell no longer has executable semantics")
+            draw_succeeded = self.draw(player, draw_semantics.program.quantity)
+            self.log(
+                "draw_spell_resolved",
+                stack_object_id=spell.object_id,
+                player=player.name,
+                card=spell.name,
+                quantity=draw_semantics.program.quantity,
+                draw_succeeded=draw_succeeded,
             )
         elif spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             semantics = self.interpreter.damage_semantic_coverage(
@@ -9100,8 +9136,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             card=spell.name,
             source_id=resolved_card.object_id,
             oracle_fragment=spell.card.oracle_text,
-            target=target.card.name,
-            target_source_id=target.object_id,
+            target=(target.card.name if isinstance(target, Permanent) else None),
+            target_source_id=(target.object_id if isinstance(target, Permanent) else None),
         )
         if filter_plan is not None:
             self.check_state_based_actions()
@@ -9728,14 +9764,17 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if item.returned_hand_id not in self._objects:
                 raise AssertionError("Sneak evidence lacks returned-object identity")
             resolved = item.resolved_object_id is not None
-            if resolved != (spell.zone == "former"):
-                raise AssertionError("Sneak evidence resolution disagrees with stack state")
-            if resolved and (
-                item.resolved_object_id not in self._objects
-                or item.entered_tapped is not True
-                or item.entered_attacking is not True
-            ):
-                raise AssertionError("resolved Sneak evidence lacks battlefield result")
+            if spell.cast_kind is CastKind.CREATURE:
+                if resolved != (spell.zone == "former"):
+                    raise AssertionError("Sneak evidence resolution disagrees with stack state")
+                if resolved and (
+                    item.resolved_object_id not in self._objects
+                    or item.entered_tapped is not True
+                    or item.entered_attacking is not True
+                ):
+                    raise AssertionError("resolved Sneak evidence lacks battlefield result")
+            elif resolved:
+                raise AssertionError("noncreature Sneak evidence has a battlefield result")
         if self.priority_state is not None:
             state = self.priority_state
             if not self.stack:

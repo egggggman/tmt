@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from tmnt_design_studio.card_data import load_card_data
-from tmnt_design_studio.card_interpreter07 import CardInterpreter
+from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 from tmnt_design_studio.engine07 import (
     ActionKind,
     ActionOption,
@@ -25,6 +25,7 @@ SNEAK_FRAGMENT = (
     "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker "
     "you control to hand during the declare blockers step. It enters tapped and attacking.)"
 )
+ISLAND = CardFact("Island", "", 0, "Basic Land")
 SNEAK_CREATURE = CardFact(
     "Anonymous Sneak",
     "{3}{W}",
@@ -34,6 +35,18 @@ SNEAK_CREATURE = CardFact(
     power=4,
     toughness=4,
     keywords=("Sneak",),
+)
+TECHNIQUE_SNEAK_FRAGMENT = (
+    "Sneak {U} (You may cast this spell for {U} if you also return an unblocked attacker "
+    "you control to hand during the declare blockers step.)"
+)
+TECHNIQUE_DRAW_FRAGMENT = "Draw two cards."
+TECHNIQUE = CardFact(
+    "Donatello's Technique",
+    "{2}{U}",
+    3,
+    "Sorcery",
+    TECHNIQUE_SNEAK_FRAGMENT + "\n" + TECHNIQUE_DRAW_FRAGMENT,
 )
 
 
@@ -75,7 +88,9 @@ def setup_sneak(*, card=SNEAK_CREATURE, attacker_owner=0, mana=1):
     current.begin_turn()
     current.set_hand_for_testing(0, [card])
     for _ in range(mana):
-        current.create_permanent(PLAINS, 0, summoning_sick=False)
+        current.create_permanent(
+            ISLAND if not card.is_creature else PLAINS, 0, summoning_sick=False
+        )
     attacker = current.create_permanent(BEAR, attacker_owner, controller=0, summoning_sick=False)
     current.advance_to(TurnStep.DECLARE_ATTACKERS)
     attack = ActionOption(ActionKind.DECLARE_ATTACKERS, 0, attacker_ids=(attacker.object_id,))
@@ -83,6 +98,8 @@ def setup_sneak(*, card=SNEAK_CREATURE, attacker_owner=0, mana=1):
     blocks = ActionOption(ActionKind.DECLARE_BLOCKERS, 1)
     current.execute_block_action(blocks)
     if mana:
+        assert current.step is TurnStep.DECLARE_BLOCKERS
+    if mana and card.is_creature:
         assert current.step is TurnStep.DECLARE_BLOCKERS
     return current, attacker
 
@@ -138,6 +155,57 @@ def test_bounded_sneak_announcement_stack_priority_and_resolution():
     assert evidence.hand_object_id == original_hand_id
     assert evidence.entered_tapped and evidence.entered_attacking
     current.check_invariants()
+
+
+def test_noncreature_sneak_draw_semantics_are_recognized_and_castable():
+    interpreter = CardInterpreter()
+    assert interpreter.draw_cards_semantic_coverage(TECHNIQUE, TECHNIQUE_DRAW_FRAGMENT) is not None
+    semantics = interpreter.sneak_semantic_coverage(TECHNIQUE, TECHNIQUE_SNEAK_FRAGMENT)
+    program = interpreter.cast_program(TECHNIQUE)
+
+    assert semantics is not None and semantics.coverage.fully_supported
+    assert semantics.program.noncreature_draw_quantity == 2
+    assert program.kind is CastKind.DRAW_CARDS
+    assert program.draw_quantity == 2
+
+
+def test_noncreature_sneak_draws_cards_and_records_deterministic_resolution():
+    first, _attacker = setup_sneak(card=TECHNIQUE)
+    drawn_before = sum(event["event"] == "card_drawn" for event in first.events)
+    first.execute_sneak_action(cast_option(first))
+    resolve_priority(first)
+
+    assert len(first.players[0].hand) == 3
+    assert sum(event["event"] == "card_drawn" for event in first.events) - drawn_before == 2
+    assert any(
+        event["event"] == "draw_spell_resolved"
+        and event["card"] == "Donatello's Technique"
+        and event["quantity"] == 2
+        and event["draw_succeeded"] is True
+        for event in first.events
+    )
+
+    second, _attacker = setup_sneak(card=TECHNIQUE)
+    second.execute_sneak_action(cast_option(second))
+    resolve_priority(second)
+    assert first.snapshot() == second.snapshot()
+
+
+def test_noncreature_sneak_without_supported_payload_is_not_executable():
+    unsupported = replace(
+        TECHNIQUE,
+        oracle_text=TECHNIQUE_SNEAK_FRAGMENT + "\nCreate a 1/1 white Soldier creature token.",
+    )
+    semantics = CardInterpreter().sneak_semantic_coverage(unsupported, unsupported.oracle_text)
+
+    assert semantics is not None and not semantics.coverage.payload_executable
+    assert semantics.limitations == ("sneak_noncreature_spell_not_implemented",)
+
+
+def test_technique_without_blue_mana_has_no_legal_sneak_choice():
+    current, _attacker = setup_sneak(card=TECHNIQUE, mana=0)
+
+    assert not any(option.kind is ActionKind.CAST for option in current.legal_sneak_actions(0))
 
 
 def test_return_cost_uses_owner_hand_not_controller_hand():
@@ -378,8 +446,8 @@ def test_corpus_memberships_and_digests_are_exact():
     recognized, executable, full = coverage_sets()
 
     assert (len({row[0] for row in recognized}), len(recognized)) == (27, 32)
-    assert (len({row[0] for row in executable}), len(executable)) == (14, 14)
-    assert (len({row[0] for row in full}), len(full)) == (14, 14)
+    assert (len({row[0] for row in executable}), len(executable)) == (15, 15)
+    assert (len({row[0] for row in full}), len(full)) == (15, 15)
     assert digest(recognized) == "af93d6edb678df9768372cfc215f2e4fabab455d0eeff2422d05f5a87934b320"
-    assert digest(executable) == "8f49420ba3fd4e31bc9746f2e3b50f70fa9ec7add295840925a4610606bba924"
-    assert digest(full) == "8f49420ba3fd4e31bc9746f2e3b50f70fa9ec7add295840925a4610606bba924"
+    assert digest(executable) == "1a0296e6da542f789b298bf0e1c86a2c8c17fc1c08af91bf03c7824e6ecbbdd1"
+    assert digest(full) == "1a0296e6da542f789b298bf0e1c86a2c8c17fc1c08af91bf03c7824e6ecbbdd1"
