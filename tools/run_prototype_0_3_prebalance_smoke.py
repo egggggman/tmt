@@ -7,6 +7,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import traceback
 from collections import Counter
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -16,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
-from tmnt_design_studio.smoke01 import run_smoke_game  # noqa: E402
+from tmnt_design_studio.smoke01 import SmokeGameFailure, run_smoke_game  # noqa: E402
 from tmnt_design_studio.stage002 import (  # noqa: E402
     DeckSpec,
     GameSpec,
@@ -225,6 +226,23 @@ def execute_smoke(root: Path, output: Path, expected_head: str) -> dict[str, Any
         )
         try:
             results.append(_result_record(game, run_smoke_game(root, spec)))
+        except SmokeGameFailure as error:
+            snapshot = error.snapshot
+            results.append(
+                {
+                    **asdict(game),
+                    "winner": None,
+                    "loser": None,
+                    "draw": False,
+                    "terminal_reason": "runtime_error",
+                    "turn": snapshot.get("turn"),
+                    "runtime_error": f"{type(error).__name__}: {error}",
+                    "runtime_diagnostics": {
+                        "traceback": snapshot.get("failure_traceback", traceback.format_exc()),
+                        "context": snapshot.get("failure_context"),
+                    },
+                }
+            )
         except Exception as error:
             results.append(
                 {

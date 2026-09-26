@@ -254,6 +254,44 @@ def plan(root: Path) -> dict[str, object]:
     return {"authorized": False, "manifest": build_smoke_manifest(root)}
 
 
+def _pilot_decision_diagnostic(view, options, decision: str) -> dict[str, object]:
+    """Capture the bounded context needed to diagnose an empty Pilot choice."""
+    return {
+        "decision": decision,
+        "turn": view.turn,
+        "phase": view.phase,
+        "step": view.step,
+        "active_player": view.active_player,
+        "observer_index": view.observer_index,
+        "candidate_count": len(options),
+        "candidates": [
+            {
+                "kind": option.kind.value,
+                "player_index": option.player_index,
+                "object_id": option.object_id,
+                "target_id": option.target_id,
+                "attacker_ids": option.attacker_ids,
+                "blocks": option.blocks,
+            }
+            for option in options
+        ],
+        "battlefields": [
+            [
+                {
+                    "object_id": permanent.object_id,
+                    "name": permanent.name,
+                    "controller": permanent.controller,
+                    "tapped": permanent.tapped,
+                    "damage": permanent.damage,
+                    "summoning_sick": permanent.summoning_sick,
+                }
+                for permanent in battlefield
+            ]
+            for battlefield in view.battlefields
+        ],
+    }
+
+
 def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str, object]:
     """Drive the accepted game lifecycle while retaining failure-state evidence."""
     catalog = load_catalog(root)
@@ -270,6 +308,7 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
+    failure_context = None
     try:
         while game.winner is None and game.turn < 120:
             _begin_turn_with_priority(game, chosen_pilot)
@@ -283,18 +322,30 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                     game, lambda choice=choice: game.execute_main_action(choice), "main action"
                 )
                 _drain_priority(game, chosen_pilot)
+                if game.winner is not None:
+                    # A terminal trigger may end the game without advancing the current step.
+                    break
+            if game.winner is not None:
+                break
             _checked_action(game, game.advance_step, "advance to combat")
             _checked_action(game, game.advance_step, "advance to attackers")
-            attack = chosen_pilot.choose_attack(
-                game.pilot_view(active), game.legal_attack_options(active)
+            attack_options = game.legal_attack_options(active)
+            failure_context = _pilot_decision_diagnostic(
+                game.pilot_view(active), attack_options, "attack"
             )
+            attack = chosen_pilot.choose_attack(game.pilot_view(active), attack_options)
             _checked_action(
                 game, lambda attack=attack: game.execute_attack_action(attack), "attack action"
             )
             _drain_priority(game, chosen_pilot)
-            blocks = chosen_pilot.choose_blocks(
-                game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
+            if game.winner is not None:
+                # Do not request blockers after attack-trigger priority ends the game.
+                break
+            block_options = game.legal_block_options(attack, 1 - active)
+            failure_context = _pilot_decision_diagnostic(
+                game.pilot_view(1 - active), block_options, "blocks"
             )
+            blocks = chosen_pilot.choose_blocks(game.pilot_view(1 - active), block_options)
             _checked_action(
                 game, lambda blocks=blocks: game.execute_block_action(blocks), "block action"
             )
@@ -320,6 +371,8 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
     except Exception as error:
         snapshot = game.snapshot()
         snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
+        snapshot["failure_context"] = failure_context
+        snapshot["failure_traceback"] = traceback.format_exc()
         raise SmokeGameFailure(str(error), snapshot) from error
 
 
