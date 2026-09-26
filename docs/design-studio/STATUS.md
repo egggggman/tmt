@@ -19,6 +19,7 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - The authorization record is [here](PROTOTYPE_0_3_LIMITED_AUTHORIZATION.md).
 - Shredder's first candidate packet is [here](SHREDDER_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
 - Raphael's first candidate packet is [here](RAPHAEL_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
+- Donatello's first candidate packet is [here](DONATELLO_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
 
 ## Evidence boundary
 
