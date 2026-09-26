@@ -65,6 +65,14 @@ Keep secondary packaging information minimal. Do not add information merely to f
 
 Easter eggs may reference TMNT/source-material details, the deck's character or relationships, Magic/deck mechanics, Mutants the Gathering project history, or another established element of the physical set. They should remain subtle enough that discovering them is optional. Record the intended easter egg with the artwork/prototype so it remains reproducible and does not become accidental or undocumented canon.
 
+### Easter-egg creative policy
+
+The easter-egg layer is intentionally **surprise-first** for the project owner. During normal design review, present the finished scene without explaining the hidden reference unless explanation is requested. The design record should still preserve the intended reference so it is not lost.
+
+Across the ten labels, vary the depth and subject of the hidden material rather than repeating one kind of joke. Suitable sources include TMNT/source-material knowledge, character relationships, deck mechanics, Magic visual language, and Mutants the Gathering's own development history (including earlier physical prototypes and project departments). The complete ten-label set may therefore function as a quiet visual history of the project for players who look closely.
+
+The easter egg remains subordinate to usability: one primary hidden reference per scene, naturally embedded in the environment, never another required badge or information block, and never allowed to compromise character readability, deck identification, mana identity, or the simple/functional/collectible principle.
+
 The current Leonardo hand-drawn label iteration is the visual-reference checkpoint for this direction. It is a visual standard, not yet a production-final print artifact. The next gate is to turn the approved direction into a correctly sized 63.5 mm × 101.6 mm print proof and physically test placement, adhesion, readability, and finish on an actual tin.
 
 ## Validation states
