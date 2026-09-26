@@ -101,6 +101,14 @@ class AcceptancePilot:
                 ),
                 fallback,
             )
+        draw_casts = [
+            option
+            for option in casts
+            if option.oracle_fragment is not None
+            and option.oracle_fragment.casefold().startswith("draw ")
+        ]
+        if draw_casts:
+            return draw_casts[0]
         if stage == "creature":
             creatures = [
                 (option, card)

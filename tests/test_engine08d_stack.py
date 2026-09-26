@@ -20,7 +20,9 @@ DESTROY = CardFact(
     "Sorcery",
     "Destroy target artifact, enchantment, or creature with power 4 or greater.",
 )
-UNSUPPORTED = CardFact("Unknown Spell", "{1}{W}", 2, "Sorcery", "Draw two cards.")
+UNSUPPORTED = CardFact(
+    "Unknown Spell", "{1}{W}", 2, "Sorcery", "Create a 1/1 white Soldier creature token."
+)
 
 
 def prepared_game(hand: list[CardFact]) -> Game:

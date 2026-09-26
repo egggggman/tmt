@@ -24,6 +24,7 @@ class CardDefinition(Protocol):
 
 class CastKind(Enum):
     CREATURE = "creature"
+    DRAW_CARDS = "draw_cards"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
     OOZE_SPILL = "ooze_spill"
@@ -36,6 +37,26 @@ class CastKind(Enum):
 @dataclass(frozen=True)
 class CastProgram:
     kind: CastKind
+    draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class DrawCardsProgram:
+    """Oracle-derived draw quantity for a directly executable spell effect."""
+
+    quantity: int
+
+
+@dataclass(frozen=True)
+class InterpretedDrawCardsSemantics:
+    """Draw-card facts paired with reusable spell and Sneak coverage."""
+
+    program: DrawCardsProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
 
 
 @dataclass(frozen=True)
@@ -98,14 +119,15 @@ class SneakProgram:
     creature_spell: bool
     direct_keyword_ability: bool
     fixed_supported_cost: bool
+    noncreature_draw_quantity: int | None = None
 
     @property
     def executable(self) -> bool:
         return (
             self.mana_cost is not None
-            and self.creature_spell
             and self.direct_keyword_ability
             and self.fixed_supported_cost
+            and (self.creature_spell or self.noncreature_draw_quantity is not None)
         )
 
 
@@ -726,7 +748,7 @@ class CardInterpreter:
     def sneak_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedSneakSemantics | None:
-        """Recognize Sneak references while bounding execution to fixed-cost creatures."""
+        """Recognize fixed-cost creature Sneak and direct draw-spell Sneak."""
         if not re.search(r"\bsneak\b", fragment, re.I):
             return None
         match = self.SNEAK_ABILITY.match(fragment)
@@ -734,13 +756,23 @@ class CardInterpreter:
         direct = match is not None
         creature = "Creature" in card.type_line
         fixed = mana_cost is not None and self.FIXED_SNEAK_COST.fullmatch(mana_cost) is not None
-        program = SneakProgram(mana_cost, creature, direct, fixed)
+        draw_semantics = None
+        for candidate in self.fragments(card):
+            draw_semantics = self.draw_cards_semantic_coverage(card, candidate)
+            if draw_semantics is not None:
+                break
+        draw_quantity = (
+            draw_semantics.program.quantity
+            if draw_semantics is not None and draw_semantics.coverage.fully_supported
+            else None
+        )
+        program = SneakProgram(mana_cost, creature, direct, fixed, draw_quantity)
         limitations: list[str] = []
         if not direct:
             limitations.append("sneak_reference_or_granted_ability_not_implemented")
         elif not fixed:
             limitations.append("sneak_cost_shape_not_implemented")
-        elif not creature:
+        elif not creature and draw_quantity is None:
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
             payload_executable=program.executable,
@@ -749,6 +781,49 @@ class CardInterpreter:
             limitations=tuple(limitations),
         )
         return InterpretedSneakSemantics(program, coverage)
+
+    DRAW_CARDS = re.compile(
+        r"^Draw (?P<quantity>[1-9][0-9]*|one|two|three|four|five|six|seven|eight|nine|ten) "
+        r"cards?\.$",
+        re.I,
+    )
+    DRAW_QUANTITIES = {
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+        "ten": 10,
+    }
+
+    def draw_cards_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDrawCardsSemantics | None:
+        """Recognize a direct spell draw clause with a deterministic quantity."""
+        match = self.DRAW_CARDS.fullmatch(fragment.strip())
+        if match is None:
+            return None
+        spell_source = any(
+            card_type in card.type_line.split(" â€” ", 1)[0].split()
+            for card_type in ("Instant", "Sorcery")
+        )
+        spell_source = card.type_line.split(maxsplit=1)[0] in {"Instant", "Sorcery"}
+        limitations = () if spell_source else ("draw_nonspell_source_not_implemented",)
+        quantity_text = match.group("quantity").lower()
+        quantity = self.DRAW_QUANTITIES.get(quantity_text)
+        if quantity is None:
+            quantity = int(quantity_text)
+        coverage = SemanticCoverage(
+            payload_executable=spell_source,
+            parent_executable=spell_source,
+            followup_executable=spell_source,
+            limitations=limitations,
+        )
+        return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
         if card.type_line.startswith("Instant") and card.oracle_text.startswith(
@@ -768,6 +843,10 @@ class CardInterpreter:
         destroy = self.destroy_permanent_semantic_coverage(card, card.oracle_text)
         if destroy is not None and destroy.coverage.fully_supported:
             return CastProgram(CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE)
+        for fragment in self.fragments(card):
+            draw = self.draw_cards_semantic_coverage(card, fragment)
+            if draw is not None and draw.coverage.fully_supported:
+                return CastProgram(CastKind.DRAW_CARDS, draw.program.quantity)
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
@@ -2239,6 +2318,11 @@ class CardInterpreter:
                 if self.supports_pt_fragment(fragment):
                     continue
                 for reason in sneak_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            draw_cards = self.draw_cards_semantic_coverage(card, fragment)
+            if draw_cards is not None:
+                for reason in draw_cards.limitations:
                     unsupported.append((fragment, reason))
                 continue
             token_coverage = self.token_semantic_coverage(card, fragment)

@@ -240,6 +240,7 @@ def _semantic_coverage(
         ("trample", interpreter.trample_semantic_coverage(card, fragment)),
         ("lifelink", interpreter.lifelink_semantic_coverage(card, fragment)),
         ("sneak", interpreter.sneak_semantic_coverage(card, fragment)),
+        ("draw_cards", interpreter.draw_cards_semantic_coverage(card, fragment)),
     )
     for family, interpreted in candidates:
         if interpreted is None:
