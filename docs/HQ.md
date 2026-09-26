@@ -53,8 +53,8 @@ Primary orientation and governance records:
 | Pilot Fitness V3 | Cardcade | Bounded pass completed | Preserve fitness limits; no automatic deck revision | `docs/cardcade/PILOT_FITNESS_V3_*` |
 | Calibration Protocol V1 / Seed Table V2 | Cardcade | Protocol governed; seed table frozen and immutable | Fresh run identity, exact artifacts, separate authorization | `docs/cardcade/` calibration records |
 | V16 calibration run | Cardcade | Incomplete at 121,808 / 184,320; storage/evidence failure | Never resume or use for partial balance conclusions | V16 run and preserved archive |
-| Calibration Protocol V1 | Cardcade | **Complete and audited; Design Studio review active** | Review artifact and explicit Design Studio decision | `docs/cardcade/` and `docs/design-studio/` |
-| Prototype 0.3 | Design Studio | **NOT AUTHORIZED** | Cardcade evidence + explicit Design Studio decision | Future preserved prototype when authorized |
+| Calibration Protocol V1 | Cardcade | **Complete and audited; interpretation merged** | Limited Design Studio authorization record | `docs/cardcade/` and `docs/design-studio/` |
+| Prototype 0.3 | Design Studio | **LIMITED DESIGN-CYCLE AUTHORIZATION; FILES NOT AUTHORIZED** | Candidate packets and later explicit card-level approval | Future preserved prototype when authorized |
 | Deck-box structural prototype | Mr. Paperback | p0.2 geometry physically validated; artwork/productization continues | Print/cut/fold/fit and final production stock | Physical-product records/specs |
 | Sewer Stamps | Mr. Paperback | Prototype registered; physical iteration remains actionable | Print/cut/apply testing | Physical-product records/specs |
 | Canon/source research | Canon / Source Material | Active support function | Department requests | `docs/Knowledge-Architecture.md`, `docs/WORLD_GUIDE.md`, `encyclopedia/` |
@@ -73,7 +73,7 @@ Primary orientation and governance records:
 
 ### Critical Path
 
-**Design Studio review of the completed, audited Calibration V1 evidence.**
+**Bounded Design Studio candidate-packet investigation for Shredder, Raphael, Donatello, and Casey Jones.**
 
 Engine 0.8 is accepted, and banked evidence reaches Action #32 where supported. Pilot Fitness V3 and Calibration Protocol V1 are the governing preparation records. V16 is permanently incomplete after local storage exhaustion, not balance evidence.
 
@@ -90,26 +90,26 @@ These are simulator-credibility milestones, not deck-balance conclusions.
 
 ### Gate — What's required?
 
-Design Studio must independently review the banked Calibration V1 interpretation before any Prototype 0.3 design work can begin.
+Design Studio has authorized limited candidate-packet investigation; actual Prototype 0.3 deck files remain closed.
 
 The Gate is not "make every deck 50%." It is reproducible rules execution, explicit unsupported behavior, authenticated evidence, deterministic replays, and enough mechanical credibility that downstream balance conclusions mean something.
 
 ### Blockers — What must be fixed?
 
-The current blocker is governance sequencing: this review must be independently verified and merged before any deck revision begins. No deck file is changed by this review.
+The current blocker is evidence-to-card translation: candidate packets and human-play questions must be reviewed before any card-level approval. No deck file is changed by this authorization.
 
 ### Holds — Intentionally waiting
 
-- Prototype 0.3 authorization.
+- Actual Prototype 0.3 deck-file authorization.
 - Exact deck changes until ownership and tradeoffs are independently reviewed.
-- Prototype 0.3 authorization until this review is independently verified and merged.
+- Exact card-level revision approval after candidate packets and human evidence.
 - Design Studio deck revisions based on Cardcade results.
 - Human fun testing as the primary authority, until a credible automated baseline exists.
 
 ### Actionable now
 
-- Complete independent review and merge of the Calibration V1 Design Studio review.
-- If authorized afterward, begin only the bounded scope recorded by Design Studio.
+- Prepare only the four authorized candidate packets.
+- Review human-play evidence before any card-level approval.
 - Continue Mr. Paperback physical prototyping that does not depend on deck revisions.
 - Continue Underground Press Issue #1/component work.
 - Provide targeted Canon/source support when requested.
@@ -154,7 +154,7 @@ See [THERECORD](THERECORD.md).
 
 ## Next Move
 
-**Independently review and merge the Calibration V1 Design Studio interpretation.** No deck revision or Prototype 0.3 creation begins before that review is verified and merged.
+**Prepare and review bounded candidate packets for the four authorized decks.** No card-level revision or Prototype 0.3 file creation is authorized by this state alone.
 
 ## Change discipline
 

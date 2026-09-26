@@ -12,8 +12,11 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - Prototype 0.2 remains frozen pending this review and an explicit Design Studio decision.
 - Calibration V1 is now complete, audited, and statistically interpreted in
   [the Design Studio review](CALIBRATION_V1_PROTOTYPE_0_3_REVIEW.md).
-- Prototype 0.3 remains not authorized; the review recommends only a limited,
-  hypothesis-first design cycle for selected decks after independent verification and merge.
+- Prototype 0.3 design cycle: **LIMITED AUTHORIZATION**.
+- Shredder, Raphael, Donatello, and Casey Jones may receive hypothesis/candidate-packet work.
+- Actual Prototype 0.3 deck files remain **NOT YET AUTHORIZED**.
+- Leonardo, Michelangelo, Splinter, Krang, Bebop & Rocksteady, and April O’Neil remain frozen.
+- The authorization record is [here](PROTOTYPE_0_3_LIMITED_AUTHORIZATION.md).
 
 ## Evidence boundary
 

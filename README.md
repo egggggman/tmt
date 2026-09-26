@@ -67,7 +67,7 @@ An associated creative publication with a distinct editorial and production work
 
 ## Current development state
 
-The ten-deck **Prototype 0.2 environment is frozen** while Cardcade establishes a mechanically credible baseline. **Prototype 0.3 is not authorized** until Cardcade evidence is sufficient and Design Studio explicitly decides what, if anything, should change.
+The ten-deck **Prototype 0.2 environment is frozen**. A limited Prototype 0.3 design-cycle investigation is authorized only for Shredder, Raphael, Donatello, and Casey Jones; actual Prototype 0.3 deck files remain unauthorized.
 
 Cardcade's Engine 0.8 architectural foundation has been accepted. Its Foundation Matrix reached **10 GREEN / 10 YELLOW / 0 RED / 0 UNKNOWN**, establishing the architectural baseline while preserving explicit unsupported mechanics rather than silently approximating them.
 
@@ -77,7 +77,7 @@ The bounded **Pilot Fitness V3** pass and **Calibration Protocol V1** are now th
 
 PR #172, merged as `58a8bac85600318ccd727959770b60869003c017`, established the fail-closed V16 run-ID reservation contract. The migrated host is qualified: `C:\Projects\tmt` is the code/runtime location and `G:\` is the prospective live evidence target (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic write/replace/read-back cycles successful, zero failures). Historical archived evidence remains preserved separately.
 
-The current critical path is: **independently review/merge the completed Calibration Protocol V1 audit and statistical interpretation → make an explicit, bounded Design Studio decision**. The audited run is complete; no deck revision or Prototype 0.3 creation begins before that review is verified and merged.
+The current critical path is: **prepare and review bounded candidate packets for the four authorized decks → make later explicit card-level decisions**. No deck revision or Prototype 0.3 file creation is authorized by the design-cycle decision alone.
 
 ## Development discipline
 
