@@ -16,6 +16,9 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
   [pre-balance authorization](PROTOTYPE_0_3_PREBALANCE_AUTHORIZATION.md).
 - Shredder, Raphael, Donatello, and Casey Jones may receive bounded Prototype 0.3 candidate-list
   work under the change-size and smoke-test rules in that authorization.
+- Prototype 0.3 candidate decklists are now prepared on the focused pre-balance branch; they remain
+  provisional pending review and merge. The shared [smoke plan](PROTOTYPE_0_3_PREBALANCE_SMOKE_PLAN.md)
+  must not run before those decklists merge.
 - Prototype 0.3 remains limited to this pre-balance pass; no broad rebalance is authorized.
 - Leonardo, Michelangelo, Splinter, Krang, Bebop & Rocksteady, and April O’Neil remain frozen.
 - The authorization record is [here](PROTOTYPE_0_3_LIMITED_AUTHORIZATION.md).
