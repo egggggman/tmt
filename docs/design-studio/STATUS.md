@@ -18,6 +18,7 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - Leonardo, Michelangelo, Splinter, Krang, Bebop & Rocksteady, and April O’Neil remain frozen.
 - The authorization record is [here](PROTOTYPE_0_3_LIMITED_AUTHORIZATION.md).
 - Shredder's first candidate packet is [here](SHREDDER_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
+- Raphael's first candidate packet is [here](RAPHAEL_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
 
 ## Evidence boundary
 
