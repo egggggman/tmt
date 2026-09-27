@@ -24,6 +24,7 @@ class CardDefinition(Protocol):
 
 class CastKind(Enum):
     CREATURE = "creature"
+    PERMANENT = "permanent"
     DRAW_CARDS = "draw_cards"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
@@ -382,12 +383,15 @@ class DiscardDrawProgram:
     optional: bool
     draw_conditional_on_discard: bool
     draw_first: bool = False
+    mill_quantity: int = 0
 
     @property
     def executable(self) -> bool:
         return (
-            self.discard_quantity == 1
-            and self.draw_quantity == 1
+            self.discard_quantity is not None
+            and self.draw_quantity is not None
+            and self.discard_quantity > 0
+            and self.draw_quantity > 0
             and (
                 (self.optional and self.draw_conditional_on_discard and not self.draw_first)
                 or (self.draw_first and not self.optional and not self.draw_conditional_on_discard)
@@ -847,9 +851,49 @@ class CardInterpreter:
             draw = self.draw_cards_semantic_coverage(card, fragment)
             if draw is not None and draw.coverage.fully_supported:
                 return CastProgram(CastKind.DRAW_CARDS, draw.program.quantity)
+        if any(
+            self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None
+            for fragment in self.fragments(card)
+        ):
+            return CastProgram(CastKind.PERMANENT)
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    ETB_MILL_DRAW_DISCARD = re.compile(
+        r"^When this Class enters, mill (?P<mill>[1-9][0-9]*|one|two|three|four|five) cards?, draw "
+        r"(?P<draw>[1-9][0-9]*|one|two|three|four|five) cards?, then discard "
+        r"(?P<discard>[1-9][0-9]*|one|two|three|four|five) cards?\.$",
+        re.I,
+    )
+
+    def etb_mill_draw_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Recognize the bounded Class enter setup sequence used by Does Machines."""
+        match = self.ETB_MILL_DRAW_DISCARD.fullmatch(fragment.strip())
+        if match is None or "Class" not in card.type_line:
+            return None
+        quantities = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+
+        def quantity(value: str) -> int:
+            return quantities[value.lower()] if value.lower() in quantities else int(value)
+
+        program = DiscardDrawProgram(
+            quantity(match.group("discard")),
+            quantity(match.group("draw")),
+            False,
+            False,
+            draw_first=True,
+            mill_quantity=quantity(match.group("mill")),
+        )
+        return InterpretedDiscardDrawSemantics(
+            program,
+            SemanticCoverage(True, True, True, ()),
+            fragment,
+            0,
+            len(fragment),
+        )
 
     def destroy_permanent_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -2355,6 +2399,8 @@ class CardInterpreter:
             if self.etb_food_search_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
             if discard_draw is not None:

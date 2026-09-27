@@ -6,12 +6,12 @@ from tmnt_design_studio.stage002 import DeckSpec, GameSpec
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_prior_diagnostic_seed_3000_executes_technique_after_coverage_fix():
-    """Seed 3000 previously left the drawn Technique uncast and unresolved."""
+def test_prior_diagnostic_seed_3002_executes_technique_after_coverage_fix():
+    """Seed 3002 still exercises the previously dead Technique path."""
     spec = GameSpec(
-        "shredder-donatello-technique-3000",
+        "shredder-donatello-technique-3002",
         "shredder/donatello",
-        3000,
+        3002,
         "other",
         (
             DeckSpec("shredder-p0.3", "decks/shredder/PROTOTYPE_0.3.txt"),

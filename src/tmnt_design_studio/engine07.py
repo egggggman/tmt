@@ -291,6 +291,7 @@ class FoodActivationEvidence:
 
 class RulesEventKind(Enum):
     CREATURE_ENTERED = "creature_entered"
+    PERMANENT_ENTERED = "permanent_entered"
     CREATURE_DIED = "creature_died"
     TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
@@ -321,6 +322,7 @@ class TriggerEffect(Enum):
     VIGILANTE_DISCARD = "vigilante_discard"
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
+    ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
@@ -1326,6 +1328,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._draw_discard_anchors = {}
         self._draw_discard_sources = {}
         self._draw_discard_consumed: set[str] = set()
+        self._mill_draw_discard_anchors = {}
+        self._mill_draw_discard_sources = {}
+        self._mill_draw_discard_consumed: set[str] = set()
         self._mandatory_discard_choice_active = False
         self.draw_discard_chooser = draw_discard_chooser or (lambda _view, options: options[0])
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
@@ -3344,6 +3349,58 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             failed_draw_pending=player.failed_draw_pending,
         )
 
+    def _resolve_etb_mill_draw_discard(self, ability: TriggeredAbilityObject) -> None:
+        anchor = self._mill_draw_discard_anchors.get(ability.object_id)
+        semantics = self.interpreter.etb_mill_draw_discard_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        if (
+            anchor is None
+            or ability.zone != "former"
+            or ability.trigger_id in self._mill_draw_discard_consumed
+            or semantics is None
+            or not semantics.coverage.fully_supported
+        ):
+            raise ValueError("ETB mill/draw/discard trigger provenance is invalid or consumed")
+        source, trigger = anchor
+        if source.card is not ability.source_card or trigger.event is not ability.event:
+            raise ValueError("ETB mill/draw/discard source was relinked")
+        self._mill_draw_discard_consumed.add(ability.trigger_id)
+        player = self.players[ability.controller]
+        library_before = tuple(card.object_id for card in player.library)
+        hand_before = tuple(card.object_id for card in player.hand)
+        graveyard_before = tuple(card.object_id for card in player.graveyard)
+        milled = []
+        for _ in range(min(semantics.program.mill_quantity, len(player.library))):
+            moved = self.move_object(player.library[-1], "graveyard", reason="etb_mill")
+            milled.append(moved.object_id)
+        draw_count = semantics.program.draw_quantity or 0
+        draw_succeeded = self.draw(player, draw_count)
+        discard_count = min(semantics.program.discard_quantity or 0, len(player.hand))
+        discarded = []
+        for card in tuple(player.hand[:discard_count]):
+            moved = self.move_object(card, "graveyard", reason="etb_mandatory_discard")
+            discarded.append(moved.object_id)
+        self.log(
+            "etb_mill_draw_discard_committed",
+            event_id=ability.event.event_id,
+            trigger_id=ability.trigger_id,
+            stack_object_id=ability.object_id,
+            source_id=ability.source_id,
+            controller=ability.controller,
+            oracle_fragment=ability.oracle_fragment,
+            library_before=list(library_before),
+            hand_before=list(hand_before),
+            graveyard_before=list(graveyard_before),
+            milled_ids=milled,
+            draw_count=draw_count,
+            draw_succeeded=draw_succeeded,
+            discarded_ids=discarded,
+            library_after=[card.object_id for card in player.library],
+            hand_after=[card.object_id for card in player.hand],
+            graveyard_after=[card.object_id for card in player.graveyard],
+        )
+
     @staticmethod
     def validate_draw_discard_snapshot_evidence(snapshot: dict[str, object]) -> None:
         """Reconstruct the bounded ETB transaction from independent event records."""
@@ -3804,6 +3861,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
             self._witness_from_existing_events(occurrence)
             self._draw_discard_sources[key] = (source, source.card)
+        if effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind
+                not in {RulesEventKind.CREATURE_ENTERED, RulesEventKind.PERMANENT_ENTERED}
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or fragment not in self.interpreter.fragments(source.card)
+                or self.interpreter.etb_mill_draw_discard_semantic_coverage(source.card, fragment)
+                is None
+            ):
+                raise ValueError("ETB mill/draw/discard entry provenance is invalid")
+            key = (source.object_id, fragment)
+            if key in self._mill_draw_discard_sources:
+                return
+            self._mill_draw_discard_sources[key] = (source, None)
         if effect is TriggerEffect.LTB_MUTAGEN:
             self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
             key = (source.object_id, event.event_id, fragment)
@@ -3882,6 +3957,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         (trigger.source_id, trigger.oracle_fragment)
                     ]
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
+                if ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
+                    source, _card = self._mill_draw_discard_sources[
+                        (trigger.source_id, trigger.oracle_fragment)
+                    ]
+                    self._mill_draw_discard_anchors[ability.object_id] = (source, trigger)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._anchor_mill_three(ability, trigger)
@@ -4573,6 +4653,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._resolve_etb_food_search(ability)
         elif ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
             self._resolve_etb_draw_discard(ability)
+        elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
+            self._resolve_etb_mill_draw_discard(ability)
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4889,6 +4971,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
+                TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
@@ -5790,15 +5873,29 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             TriggerEffect.ETB_VIGILANTE,
             TriggerEffect.ETB_FOOD_SEARCH,
             TriggerEffect.ETB_DRAW_DISCARD,
+            TriggerEffect.ETB_MILL_DRAW_DISCARD,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
             event = self._new_rules_event(
-                RulesEventKind.CREATURE_ENTERED,
+                RulesEventKind.CREATURE_ENTERED
+                if permanent.card.is_creature
+                else RulesEventKind.PERMANENT_ENTERED,
                 permanent.controller,
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.ETB_MILL_DRAW_DISCARD in enabled:
+                for fragment in self.interpreter.fragments(permanent.card):
+                    if (
+                        self.interpreter.etb_mill_draw_discard_semantic_coverage(
+                            permanent.card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_MILL_DRAW_DISCARD
+                        )
             if TriggerEffect.ETB_KRANG_REFILL in enabled:
                 for fragment in self.interpreter.fragments(permanent.card):
                     if self.interpreter.krang_refill_semantic_coverage(permanent.card, fragment):
@@ -6383,6 +6480,21 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if kind is CastKind.CREATURE:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
+                )
+            elif kind is CastKind.PERMANENT:
+                fragment = next(
+                    fragment
+                    for fragment in self.interpreter.fragments(card.card)
+                    if self.interpreter.etb_mill_draw_discard_semantic_coverage(card.card, fragment)
+                    is not None
+                )
+                options.append(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        oracle_fragment=fragment,
+                    )
                 )
             elif kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
                 options.extend(
@@ -8916,6 +9028,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
+                TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
@@ -8948,13 +9061,21 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ):
             raise ValueError("Sneak spell cannot resolve before all players pass")
 
-        if spell.cast_kind is CastKind.CREATURE:
+        if spell.cast_kind in {CastKind.CREATURE, CastKind.PERMANENT}:
             permanent = self.move_object(
                 spell,
                 "battlefield",
                 controller=spell.controller,
                 summoning_sick=True if sneak_cast else "Haste" not in spell.card.keywords,
-                reason="sneak_creature_resolved" if sneak_cast else "creature_resolved",
+                reason=(
+                    "sneak_creature_resolved"
+                    if sneak_cast
+                    else (
+                        "creature_resolved"
+                        if spell.cast_kind is CastKind.CREATURE
+                        else "permanent_resolved"
+                    )
+                ),
             )
             assert isinstance(permanent, Permanent)
             if spell.finality_on_entry:
@@ -9002,7 +9123,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         )
                         break
             else:
-                self.log("creature_resolved", player=player.name, card=spell.name)
+                self.log(
+                    "creature_resolved"
+                    if spell.cast_kind is CastKind.CREATURE
+                    else "permanent_resolved",
+                    player=player.name,
+                    card=spell.name,
+                )
             self.refresh_static_pt_modifiers()
             self._process_creatures_entered_triggers(
                 (permanent,),
