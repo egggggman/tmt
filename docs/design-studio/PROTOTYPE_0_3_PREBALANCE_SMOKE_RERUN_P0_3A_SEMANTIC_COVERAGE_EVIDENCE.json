@@ -1,0 +1,71 @@
+{
+  "schema": "prototype-0.3-prebalance-smoke-semantic-coverage-v1",
+  "repository_sha": "55aa0d4994903fff5c4d4abe05d94af970b221a1",
+  "harness": {
+    "path": "tools/run_prototype_0_3_prebalance_smoke.py",
+    "sha256": "4f07befdadc97da9c614123471f555b70f0e320f24eb7ba38a838c6ae2c2854f"
+  },
+  "runtime_identity": {
+    "digest": "d4074ad9f69c2c0db0e2d608b09ad94ca817232717e09be1fc733f225e39c533",
+    "files": {
+      "src/tmnt_design_studio/engine07.py": "9e03ac0758ac81e82e557822890977664e730a376ffcb13301b73ae362fda207",
+      "src/tmnt_design_studio/stage002.py": "3ab1b23e28e00bdb840e59e1df034a0899e638c9ba200b56af4e90865ff50d13",
+      "src/tmnt_design_studio/pilot07.py": "478074ec72fb4c5389ecf1cfa9639a8773b54fdafef5fc3b70e48fbbdeba1363",
+      "src/tmnt_design_studio/card_interpreter07.py": "580ac99a9d0aa4c07a42a6b661dfe96be07302516a446d2fd34417e8e756ca44"
+    }
+  },
+  "decks": {
+    "shredder": {"path": "decks/shredder/PROTOTYPE_0.3.txt", "sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2"},
+    "raphael": {"path": "decks/raphael/PROTOTYPE_0.3.txt", "sha256": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51"},
+    "casey_jones": {"path": "decks/casey_jones/PROTOTYPE_0.3.txt", "sha256": "f18d2dd6591520e495a0c723e1d15f5d3f4f6ce8a2693e4f93be0cd6660e838f"},
+    "donatello": {"path": "decks/donatello/PROTOTYPE_0.3a.txt", "sha256": "25812e2d7f0ac64ae2476c0d62298db35196d1719c9376b5369d5080faa6aad1"}
+  },
+  "schedule": {
+    "sha256": "608230400bd3466e9a43cfc160bbd93d93be074c7a31c07ab1eae430331e2928",
+    "matchups": ["shredder/raphael", "shredder/casey_jones", "shredder/donatello", "raphael/casey_jones", "raphael/donatello", "casey_jones/donatello"],
+    "games_per_matchup": 40,
+    "seeds": "3000-3039",
+    "starts_per_deck": 20,
+    "total_games": 240
+  },
+  "completion": {
+    "scheduled": 240,
+    "attempted": 240,
+    "completed": 240,
+    "runtime_errors": 0,
+    "malformed": 0,
+    "draws": 0,
+    "turn_caps": 0,
+    "runtime_error_records": []
+  },
+  "semantic_telemetry": {
+    "technique_draw_occurrences": 68,
+    "games_with_technique_draw": 57,
+    "technique_main_phase_casts": 59,
+    "technique_sneak_casts": 9,
+    "technique_casts": 68,
+    "technique_resolutions": 68,
+    "cards_drawn_via_technique": 136,
+    "successful_draw_resolution_events": 68,
+    "technique_sneak_executions": 9,
+    "technique_sneak_opportunities": "NOT_CAPTURED_BY_EXISTING_HARNESS",
+    "all_card_sneak_announcements": 50,
+    "post_resolution_games_with_meaningful_events": 57,
+    "post_resolution_meaningful_events": 3267
+  },
+  "matchups": {
+    "shredder/raphael": {"w_l_d": {"shredder": [22, 18, 0], "raphael": [18, 22, 0]}, "completed": 40, "starting_split": {"shredder": 20, "raphael": 20}, "errors": 0},
+    "shredder/casey_jones": {"w_l_d": {"shredder": [22, 18, 0], "casey_jones": [18, 22, 0]}, "completed": 40, "starting_split": {"shredder": 20, "casey_jones": 20}, "errors": 0},
+    "shredder/donatello": {"w_l_d": {"shredder": [36, 4, 0], "donatello": [4, 36, 0]}, "completed": 40, "starting_split": {"shredder": 20, "donatello": 20}, "errors": 0},
+    "raphael/casey_jones": {"w_l_d": {"raphael": [25, 15, 0], "casey_jones": [15, 25, 0]}, "completed": 40, "starting_split": {"raphael": 20, "casey_jones": 20}, "errors": 0},
+    "raphael/donatello": {"w_l_d": {"raphael": [36, 4, 0], "donatello": [4, 36, 0]}, "completed": 40, "starting_split": {"raphael": 20, "donatello": 20}, "errors": 0},
+    "casey_jones/donatello": {"w_l_d": {"casey_jones": [33, 7, 0], "donatello": [7, 33, 0]}, "completed": 40, "starting_split": {"casey_jones": 20, "donatello": 20}, "errors": 0}
+  },
+  "deck_aggregates": {
+    "shredder": [80, 40, 0],
+    "raphael": [79, 41, 0],
+    "casey_jones": [66, 54, 0],
+    "donatello": [15, 105, 0]
+  },
+  "readiness_decision": "MORE_DONATELLO_COVERAGE_REQUIRED"
+}
