@@ -3,6 +3,8 @@ import pytest
 from tmnt_design_studio.card_interpreter07 import CastKind
 from tmnt_design_studio.engine07 import CardFact, Game, ManaRequirement, PaymentPlan
 
+ISLAND = CardFact("Island", "", 0, "Basic Land", "({T}: Add {U}.)")
+
 PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains", "({T}: Add {W}.)")
 MOUNTAIN = CardFact("Mountain", "", 0, "Basic Land — Mountain", "({T}: Add {R}.)")
 BEAR = CardFact("Bear", "{1}{W}", 2, "Creature — Bear", power=2, toughness=2)
@@ -16,7 +18,7 @@ MULTICOLOR = CardFact(
 )
 HYBRID = CardFact(
     "Hybrid Test",
-    "{W/R}",
+    "{U/R}",
     1,
     "Creature — Test",
     power=1,
@@ -35,7 +37,7 @@ def prepared_game(hand: list[CardFact]) -> Game:
 def test_typed_cost_construction_is_exact_and_rejects_unrepresented_symbols():
     assert Game.mana_requirement(BEAR) == ManaRequirement(1, ("W",))
     assert Game.mana_requirement(MULTICOLOR) == ManaRequirement(1, ("W", "R"))
-    assert Game.mana_requirement(HYBRID) is None
+    assert Game.mana_requirement(HYBRID) == ManaRequirement(0, ("U/R",))
     inconsistent = CardFact("Bad Value", "{1}{W}", 3, "Creature", power=1, toughness=1)
     assert Game.mana_requirement(inconsistent) is None
 
@@ -115,19 +117,32 @@ def test_zone_failure_rolls_back_every_payment_source(monkeypatch):
     assert current.stack == []
 
 
-def test_unsupported_cost_stays_explicit_and_never_pays_or_moves():
+def test_hybrid_cost_pays_with_blue():
     current = prepared_game([HYBRID])
-    source = current.create_permanent(PLAINS, 0, summoning_sick=False)
+    source = current.create_permanent(ISLAND, 0, summoning_sick=False)
     card = current.players[0].hand[0]
 
-    assert current.announce_spell(0, card) is None
+    plan = current.payment_plan(0, card)
+    assert plan is not None
+    assert plan.requirement == ManaRequirement(0, ("U/R",))
+    assert plan.source_ids == (source.object_id,)
+    assert current.announce_spell(0, card) is not None
+    assert source.tapped
 
-    assert not source.tapped
-    assert current.players[0].hand == [card]
-    assert current.stack == []
-    assert any(
-        event["event"] == "unsupported_semantics"
-        and event["reason"] == "mana_cost_not_implemented"
-        and event["oracle_fragment"] == "{W/R}"
-        for event in current.events
-    )
+
+def test_hybrid_cost_pays_with_red():
+    current = prepared_game([HYBRID])
+    source = current.create_permanent(MOUNTAIN, 0, summoning_sick=False)
+    card = current.players[0].hand[0]
+
+    assert current.payment_plan(0, card) is not None
+    assert current.announce_spell(0, card) is not None
+    assert source.tapped
+
+
+def test_hybrid_cost_rejects_insufficient_mana():
+    current = prepared_game([HYBRID])
+    card = current.players[0].hand[0]
+
+    assert current.payment_plan(0, card) is None
+    assert current.announce_spell(0, card) is None
