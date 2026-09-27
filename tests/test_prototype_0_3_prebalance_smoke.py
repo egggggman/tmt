@@ -73,17 +73,17 @@ def test_schedule_uses_the_authorized_deck_paths() -> None:
     for item in schedule:
         for deck_key in (item.starting_deck, item.opposing_deck):
             expected_suffix = (
-                "PROTOTYPE_0.3b.txt" if deck_key == "donatello" else "PROTOTYPE_0.3.txt"
+                "PROTOTYPE_0.3c.txt" if deck_key == "donatello" else "PROTOTYPE_0.3.txt"
             )
             assert DECKS[deck_key][1].endswith(expected_suffix)
 
 
-def test_p0_3b_is_required_and_old_donatello_input_fails_authentication(
+def test_p0_3c_is_required_and_old_donatello_input_fails_authentication(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    assert DECKS["donatello"][1] == "decks/donatello/PROTOTYPE_0.3b.txt"
+    assert DECKS["donatello"][1] == "decks/donatello/PROTOTYPE_0.3c.txt"
     assert DECKS["donatello"][2] == (
-        "244363af025331d6eb2895734aeeb565a67635949f26666d47155d01d78c4340"
+        "b0d8a0dc42b267ac1a162096fe6e0336176f92db9a79a95f1c7dbd0d5c2d2cc6"
     )
     old_input = {
         key: (
@@ -95,13 +95,13 @@ def test_p0_3b_is_required_and_old_donatello_input_fails_authentication(
     }
     old_input["donatello"] = (
         DECKS["donatello"][0],
-        "decks/donatello/PROTOTYPE_0.3a.txt",
+        "decks/donatello/PROTOTYPE_0.3b.txt",
         DECKS["donatello"][2],
     )
     monkeypatch.setattr("tools.run_prototype_0_3_prebalance_smoke.DECKS", old_input)
     with pytest.raises(
         PreflightError,
-        match=r"deck hash mismatch: decks/donatello/PROTOTYPE_0\.3a\.txt",
+        match=r"deck hash mismatch: decks/donatello/PROTOTYPE_0\.3b\.txt",
     ):
         _authenticate_decks(ROOT)
 

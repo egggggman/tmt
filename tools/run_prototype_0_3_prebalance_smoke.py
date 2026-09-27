@@ -41,8 +41,8 @@ DECKS = {
     ),
     "donatello": (
         "Donatello",
-        "decks/donatello/PROTOTYPE_0.3b.txt",
-        "244363af025331d6eb2895734aeeb565a67635949f26666d47155d01d78c4340",
+        "decks/donatello/PROTOTYPE_0.3c.txt",
+        "b0d8a0dc42b267ac1a162096fe6e0336176f92db9a79a95f1c7dbd0d5c2d2cc6",
     ),
     "casey_jones": (
         "Casey Jones",
