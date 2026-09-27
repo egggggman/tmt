@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "35ccf2712e06f6cd0b93d03dbb867e909a6c8350e3e84616d0cee9b14f067190"
-EXECUTABLE_DIGEST = "d3486fc39737e3ab5db521d8486870c35f958ece215802e9fc60bb5c995c6406"
+EXECUTABLE_DIGEST = "1ab45cc5f9b14e2fd4cf97a66b0d63d1aca083eaffc43010654340ca81b0353c"
 
 
 def game(seed=51):
@@ -560,10 +560,11 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 131 and len(recognized) == 156
-    assert len({item[0] for item in executable}) == 7 and len(executable) == 8
+    assert len({item[0] for item in executable}) == 8 and len(executable) == 9
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",
+        "Does Machines",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",
@@ -604,6 +605,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     assert {name for name, cards in decks.items() if cards & recognized_names} == set(decks)
     assert executable_names == {
         "Fugitive Droid",
+        "Does Machines",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",

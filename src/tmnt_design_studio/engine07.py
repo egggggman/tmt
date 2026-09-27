@@ -302,6 +302,7 @@ class RulesEventKind(Enum):
     DISCARD_DRAW = "discard_draw"
     VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
+    CLASS_LEVEL_ADVANCED = "class_level_advanced"
 
 
 class TriggerEffect(Enum):
@@ -323,6 +324,7 @@ class TriggerEffect(Enum):
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
+    CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
@@ -865,6 +867,7 @@ class TriggeredAbilityObject:
     trigger_id: str | None = None
     zone: Zone = "stack"
     target_id: str | None = None
+    target_ids: tuple[str, ...] = ()
 
     @property
     def owner(self) -> int:
@@ -928,6 +931,11 @@ class Permanent:
     temporary_keyword_effects: list[TemporaryKeywordEffect] = field(default_factory=list)
     is_token: bool = False
     type_line_override: str | None = None
+    class_level: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.class_level is None and "Class" in self.card.type_line:
+            self.class_level = 1
 
     @property
     def type_line(self) -> str:
@@ -1239,6 +1247,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
         draw_discard_chooser=None,
+        class_recovery_chooser=None,
         food_search_chooser=None,
         jury_rig_chooser=None,
         paramecia_exile_chooser=None,
@@ -1331,6 +1340,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._mill_draw_discard_anchors = {}
         self._mill_draw_discard_sources = {}
         self._mill_draw_discard_consumed: set[str] = set()
+        self._class_recovery_targets = {}
+        self.class_recovery_chooser = class_recovery_chooser or (
+            lambda _player_index, _source_id, offered: tuple(offered[:2])
+        )
         self._mandatory_discard_choice_active = False
         self.draw_discard_chooser = draw_discard_chooser or (lambda _view, options: options[0])
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
@@ -3879,6 +3892,20 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if key in self._mill_draw_discard_sources:
                 return
             self._mill_draw_discard_sources[key] = (source, None)
+        if effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or source.class_level != 2
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.CLASS_LEVEL_ADVANCED
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or fragment not in self.interpreter.fragments(source.card)
+                or self.interpreter.class_level_recovery_semantic_coverage(source.card, fragment)
+                is None
+            ):
+                raise ValueError("Class level recovery entry provenance is invalid")
         if effect is TriggerEffect.LTB_MUTAGEN:
             self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
             key = (source.object_id, event.event_id, fragment)
@@ -3962,6 +3989,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         (trigger.source_id, trigger.oracle_fragment)
                     ]
                     self._mill_draw_discard_anchors[ability.object_id] = (source, trigger)
+                if ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
+                    self._select_class_recovery_targets(ability, trigger)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._anchor_mill_three(ability, trigger)
@@ -3979,6 +4008,48 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     controller=self.players[trigger.controller].name,
                 )
         return True
+
+    def _select_class_recovery_targets(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        source = self._objects.get(trigger.source_id)
+        if (
+            not isinstance(source, Permanent)
+            or not self.is_authoritative(source, "battlefield")
+            or source.card is not trigger.source_card
+            or source.class_level != 2
+            or trigger.event.kind is not RulesEventKind.CLASS_LEVEL_ADVANCED
+            or self.interpreter.class_level_recovery_semantic_coverage(
+                source.card, trigger.oracle_fragment
+            )
+            is None
+        ):
+            raise ValueError("Class level recovery trigger has invalid provenance")
+        candidates = tuple(
+            card
+            for card in self.players[trigger.controller].graveyard
+            if self.is_authoritative(card, "graveyard")
+            and card.card.type_line.startswith("Artifact")
+        )
+        offered = tuple(sorted(card.object_id for card in candidates))
+        selected = self.class_recovery_chooser(trigger.controller, trigger.source_id, offered)
+        if not isinstance(selected, (tuple, list)) or len(selected) > 2:
+            raise ValueError("Class recovery chooser must select up to two listed artifacts")
+        selected = tuple(selected)
+        if len(set(selected)) != len(selected) or any(item not in offered for item in selected):
+            raise ValueError("Class recovery chooser selected an illegal artifact")
+        self._class_recovery_targets[ability.object_id] = (selected, offered)
+        ability.target_ids = selected
+        self.log(
+            "class_level_recovery_targets_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            source_id=trigger.source_id,
+            controller=trigger.controller,
+            offered_ids=list(offered),
+            selected_ids=list(selected),
+            oracle_fragment=trigger.oracle_fragment,
+        )
 
     def _select_rock_soldiers_target(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
@@ -4655,6 +4726,29 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._resolve_etb_mill_draw_discard(ability)
+        elif ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
+            selected = self._class_recovery_targets.get(ability.object_id, ((), ()))[0]
+            recovered = []
+            for object_id in selected:
+                card = self._objects.get(object_id)
+                if (
+                    isinstance(card, CardObject)
+                    and self.is_authoritative(card, "graveyard")
+                    and card.owner == ability.controller
+                    and card.card.type_line.startswith("Artifact")
+                ):
+                    moved = self.move_object(card, "hand", reason="class_level_artifact_recovery")
+                    recovered.append(moved.object_id)
+            self.log(
+                "class_level_artifact_recovery_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                selected_ids=list(selected),
+                recovered_ids=recovered,
+                oracle_fragment=ability.oracle_fragment,
+            )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4972,6 +5066,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
+                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
@@ -7764,6 +7859,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
+        if (
+            semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
+            and source.class_level != 1
+        ):
+            return None
         cost = semantics.program.cost
         requirement = self.activation_mana_requirement(cost.mana_cost)
         if requirement is None:
@@ -7960,6 +8060,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
+            return None
+        if semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL and (
+            self.priority_state is not None
+            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+        ):
             return None
         counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
         mutagen_counter = semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER
@@ -8294,6 +8399,35 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         delivered = False
         food_life_before: int | None = None
+        if (
+            ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
+            and source_permanent is not None
+            and source_permanent.class_level == 1
+            and "Class" in source_permanent.card.type_line
+        ):
+            source_permanent.class_level = 2
+            event = self._new_rules_event(
+                RulesEventKind.CLASS_LEVEL_ADVANCED,
+                ability.controller,
+                (source_permanent.object_id,),
+                source_id=source_permanent.object_id,
+            )
+            recovery_fragment = CardInterpreter.CLASS_LEVEL_TWO_RECOVERY
+            self._enqueue_trigger(
+                event,
+                source_permanent,
+                recovery_fragment,
+                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
+            )
+            self.log(
+                "class_level_advanced",
+                source_id=source_permanent.object_id,
+                stack_object_id=ability.object_id,
+                from_level=1,
+                to_level=2,
+                oracle_fragment=ability.oracle_fragment,
+            )
+            delivered = True
         if ability.program.effect_kind is ActivatedEffectKind.GRANT_REACH_UNTIL_EOT:
             if isinstance(source_permanent, Permanent) and self.is_authoritative(
                 source_permanent, "battlefield"
@@ -8502,6 +8636,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             )
             food_life_after = self.players[ability.controller].life
             delivered = True
+        elif ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL:
+            pass
         else:
             self.log(
                 "activated_ability_resolved_no_effect",
@@ -8544,7 +8680,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             controller=self.players[ability.controller].name,
             delivered=delivered,
         )
-        if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
+        if ability.program.effect_kind in {
+            ActivatedEffectKind.GAIN_THREE_LIFE,
+            ActivatedEffectKind.ADVANCE_CLASS_LEVEL,
+        }:
             self._put_pending_triggers_on_stack()
 
     def _validate_food_activation_linkage(self, ability: ActivatedAbilityObject) -> None:
@@ -9029,6 +9168,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
+                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
@@ -10578,6 +10718,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         "effect": entry.effect.value,
                         "event_id": entry.event.event_id,
                         "trigger_id": entry.trigger_id,
+                        "target_ids": list(entry.target_ids),
                     }
                 )
                 for entry in self.stack
@@ -10854,6 +10995,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             "tapped": x.tapped,
                             "summoning_sick": x.summoning_sick,
                             "entered_battlefield_turn": x.entered_battlefield_turn,
+                            **({"class_level": x.class_level} if x.class_level is not None else {}),
                             "damage": x.damage,
                             "counters": dict(x.counters),
                             "pt_modifiers": [

@@ -427,6 +427,7 @@ class ActivationCostProgram:
 
 
 class ActivatedEffectKind(Enum):
+    ADVANCE_CLASS_LEVEL = "advance_class_level"
     GRANT_SELF_FIRST_STRIKE_UNTIL_EOT = "grant_self_first_strike_until_eot"
     RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND = (
         "return_another_creature_you_control_to_owners_hand"
@@ -866,6 +867,16 @@ class CardInterpreter:
         r"(?P<discard>[1-9][0-9]*|one|two|three|four|five) cards?\.$",
         re.I,
     )
+    CLASS_LEVEL_UP = re.compile(r"^\{1\}\{U\}: Level 2$")
+    CLASS_LEVEL_TWO_RECOVERY = (
+        "When this Class becomes level 2, return up to two target artifact cards "
+        "from your graveyard to your hand."
+    )
+
+    def class_level_recovery_semantic_coverage(self, card, fragment):
+        if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
+            return None
+        return SemanticCoverage(True, True, True, ())
 
     def etb_mill_draw_discard_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -1765,6 +1776,9 @@ class CardInterpreter:
 
         cost_text = fragment[:colon].strip()
         effect_text = fragment[colon + 1 :].strip()
+        class_level = (
+            "Class" in card.type_line and self.CLASS_LEVEL_UP.fullmatch(fragment) is not None
+        )
         cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
         tap_source = "{T}" in {part.upper() for part in cost_parts}
         canonical_food = bool(
@@ -1863,7 +1877,10 @@ class CardInterpreter:
         ray_fillets = self.RAY_FILLET_DRAW.fullmatch(fragment.strip())
         token_haste = self.TOKEN_HASTE.fullmatch(fragment.strip())
         first_strike = None
-        if counter_target:
+        if class_level:
+            effect_kind = ActivatedEffectKind.ADVANCE_CLASS_LEVEL
+            action_match = True
+        elif counter_target:
             self_reference = "sacrifice this creature" in cost_text.casefold()
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
             action_match = True
@@ -1877,7 +1894,10 @@ class CardInterpreter:
         targeted_return = bool(
             return_semantics is not None and return_semantics.coverage.payload_executable
         )
-        if counter_target:
+        if class_level:
+            effect_kind = ActivatedEffectKind.ADVANCE_CLASS_LEVEL
+            action_match = True
+        elif counter_target:
             effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
             action_match = True
         elif frog_reach:
@@ -1942,6 +1962,7 @@ class CardInterpreter:
             or mutagen_source
             or ray_fillets
             or token_haste
+            or class_level
         ):
             followup_executable = bool(action_match)
         else:
@@ -2401,6 +2422,8 @@ class CardInterpreter:
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
             if discard_draw is not None:
