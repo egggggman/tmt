@@ -58,7 +58,9 @@ approximated:
   recovery at level 2, and level 3 artifact animation/counters.
 - Sewer-veillance Cam: enter/leave tap-or-untap choice and sacrifice draw activation.
 - Bespoke Bō: its exact static/triggered support behavior still requires separate audit.
-- Donatello, Way with Machines: artifact-entry counter trigger is not claimed here.
+- Donatello, Way with Machines: artifact-entry counter trigger is covered by the
+  separate [`DONATELLO_P0_3A_WAY_WITH_MACHINES_COVERAGE.md`](DONATELLO_P0_3A_WAY_WITH_MACHINES_COVERAGE.md)
+  artifact; flying and broader closing behavior remain outside this slice.
 - Donatello, Gadget Master: Sneak is represented by the existing creature path, but the
   combat-damage artifact-copy trigger and target choice are not claimed here.
 - Donatello, Mutant Mechanic: tap-to-counter/animate activation and graveyard counter
