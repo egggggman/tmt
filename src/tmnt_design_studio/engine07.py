@@ -7154,19 +7154,25 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             for permanent in self.players[player_index].battlefield
             if permanent.card.is_land and not permanent.tapped and permanent is not attacker
         ]
-        chosen: list[Permanent] = []
-        for color in requirement.colored:
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) == color),
-                None,
-            )
-            if source is None:
+        if any("/" in symbol for symbol in requirement.colored):
+            selected = self._select_mana_sources(requirement, available)
+            if selected is None:
                 return None
-            chosen.append(source)
-            available.remove(source)
-        if len(available) < requirement.generic:
-            return None
-        chosen.extend(available[: requirement.generic])
+            _floating_colors, chosen = selected
+        else:
+            chosen = []
+            for color in requirement.colored:
+                mana_source = next(
+                    (permanent for permanent in available if self._mana_color(permanent) == color),
+                    None,
+                )
+                if mana_source is None:
+                    return None
+                chosen.append(mana_source)
+                available.remove(mana_source)
+            if len(available) < requirement.generic:
+                return None
+            chosen.extend(available[: requirement.generic])
         return SneakPaymentPlan(
             player_index,
             card.object_id,
@@ -7812,15 +7818,64 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         }.get(source.card.name)
 
     @staticmethod
+    def _mana_symbol_options(symbol: str) -> tuple[str, ...] | None:
+        """Return the colors that can pay one fixed or hybrid symbol."""
+        if symbol in {"W", "U", "B", "R", "G"}:
+            return (symbol,)
+        options = tuple(symbol.split("/"))
+        if len(options) == 2 and set(options) == {"U", "R"}:
+            return options
+        return None
+
+    def _select_mana_sources(
+        self,
+        requirement: ManaRequirement,
+        available: list[Permanent],
+        floating: dict[str, int] | None = None,
+    ) -> tuple[list[str], list[Permanent]] | None:
+        """Select colored and generic payment sources deterministically."""
+        pool = {} if floating is None else dict(floating)
+        floating_colors: list[str] = []
+        chosen: list[Permanent] = []
+        for symbol in requirement.colored:
+            options = self._mana_symbol_options(symbol)
+            if options is None:
+                return None
+            floating_color = next((color for color in options if pool.get(color, 0)), None)
+            if floating_color is not None:
+                pool[floating_color] -= 1
+                floating_colors.append(floating_color)
+                continue
+            source = next(
+                (permanent for permanent in available if self._mana_color(permanent) in options),
+                None,
+            )
+            if source is None:
+                return None
+            chosen.append(source)
+            available.remove(source)
+        remaining_generic = requirement.generic
+        for color in sorted(pool):
+            take = min(pool[color], remaining_generic)
+            floating_colors.extend([color] * take)
+            remaining_generic -= take
+            if remaining_generic == 0:
+                break
+        if len(available) < remaining_generic:
+            return None
+        chosen.extend(available[:remaining_generic])
+        return floating_colors, chosen
+
+    @staticmethod
     def mana_requirement(card: CardFact | CardObject) -> ManaRequirement | None:
-        """Construct the currently represented fixed generic/colored total mana cost."""
+        """Construct a fixed generic/colored mana cost, including hybrid symbols."""
         symbols = re.findall(r"\{([^}]+)\}", card.mana_cost)
         generic = 0
         colored: list[str] = []
         for symbol in symbols:
             if symbol.isdecimal():
                 generic += int(symbol)
-            elif symbol in {"W", "U", "B", "R", "G"}:
+            elif Game._mana_symbol_options(symbol) is not None:
                 colored.append(symbol)
             else:
                 return None
@@ -7840,7 +7895,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         for symbol in symbols:
             if symbol.isdecimal():
                 generic += int(symbol)
-            elif symbol in {"W", "U", "B", "R", "G"}:
+            elif Game._mana_symbol_options(symbol) is not None:
                 colored.append(symbol)
             else:
                 return None
@@ -7884,19 +7939,25 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             and not permanent.tapped
             and (not cost.tap_source or permanent is not source)
         ]
-        chosen: list[Permanent] = []
-        for color in requirement.colored:
-            mana_source = next(
-                (permanent for permanent in available if self._mana_color(permanent) == color),
-                None,
-            )
-            if mana_source is None:
+        if any("/" in symbol for symbol in requirement.colored):
+            selected = self._select_mana_sources(requirement, available)
+            if selected is None:
                 return None
-            chosen.append(mana_source)
-            available.remove(mana_source)
-        if len(available) < requirement.generic:
-            return None
-        chosen.extend(available[: requirement.generic])
+            _floating_colors, chosen = selected
+        else:
+            chosen = []
+            for color in requirement.colored:
+                mana_source = next(
+                    (permanent for permanent in available if self._mana_color(permanent) == color),
+                    None,
+                )
+                if mana_source is None:
+                    return None
+                chosen.append(mana_source)
+                available.remove(mana_source)
+            if len(available) < requirement.generic:
+                return None
+            chosen.extend(available[: requirement.generic])
         counter_target_id = None
         if cost.remove_counter_target:
             eligible = tuple(
@@ -8740,22 +8801,23 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         requirement = self.mana_requirement(card)
         if requirement is None:
             return None
-        pool = self.floating_mana.snapshot(player_index)
-        floating: list[str] = []
-        for color in requirement.colored:
-            if pool.get(color, 0):
-                pool[color] -= 1
-                floating.append(color)
-            else:
-                break
-        else:
-            remaining_generic = requirement.generic
-            for color, quantity in sorted(pool.items()):
-                take = min(quantity, remaining_generic)
-                floating.extend([color] * take)
-                remaining_generic -= take
-                if remaining_generic == 0:
+        if not any("/" in symbol for symbol in requirement.colored):
+            pool = self.floating_mana.snapshot(player_index)
+            floating: list[str] = []
+            for color in requirement.colored:
+                if pool.get(color, 0):
+                    pool[color] -= 1
+                    floating.append(color)
+                else:
                     break
+            else:
+                remaining_generic = requirement.generic
+                for color, quantity in sorted(pool.items()):
+                    take = min(quantity, remaining_generic)
+                    floating.extend([color] * take)
+                    remaining_generic -= take
+                    if remaining_generic == 0:
+                        break
             available = [
                 p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
             ]
@@ -8780,17 +8842,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         available = [
             p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]
-        chosen: list[Permanent] = []
-        for color in requirement.colored[len(floating) :]:
-            source = next((p for p in available if self._mana_color(p) == color), None)
-            if source is None:
-                return None
-            chosen.append(source)
-            available.remove(source)
-        need = requirement.generic
-        if len(available) < need:
+        selected = self._select_mana_sources(
+            requirement, available, self.floating_mana.snapshot(player_index)
+        )
+        if selected is None:
             return None
-        chosen.extend(available[:need])
+        floating, chosen = selected
         return PaymentPlan(
             player_index,
             card.object_id,
@@ -8810,15 +8867,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             for permanent in self.players[player_index].battlefield
             if permanent.card.is_land and not permanent.tapped
         ]
-        for color in requirement.colored:
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) == color),
-                None,
-            )
-            if source is None:
-                return False
-            available.remove(source)
-        return len(available) >= requirement.generic
+        return self._select_mana_sources(requirement, available) is not None
 
     def _commit_announcement_payment(
         self,
@@ -9432,7 +9481,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if p.card.is_creature
             and not p.tapped
             and (not p.summoning_sick or self.has_temporary_keyword(p, TemporaryKeyword.HASTE))
+            and self.attacking_restriction(p) is None
         ]
+
+    def attacking_restriction(self, attacker: Permanent) -> tuple[str, str] | None:
+        """Return the first Oracle-derived restriction that makes an attack illegal."""
+        for fragment in self.interpreter.fragments(attacker.card):
+            if not self.interpreter.CANT_ATTACK_UNLESS_ANOTHER_ARTIFACT.fullmatch(fragment):
+                continue
+            has_other_artifact = any(
+                permanent is not attacker
+                and permanent.controller == attacker.controller
+                and self.is_authoritative(permanent, "battlefield")
+                and "Artifact" in permanent.card.type_line
+                for permanent in self.players[attacker.controller].battlefield
+            )
+            if not has_other_artifact:
+                return fragment, "attack_requires_another_controlled_artifact"
+        return None
 
     def has_temporary_keyword(self, permanent: Permanent, keyword: TemporaryKeyword) -> bool:
         """Read a current bounded temporary keyword from authoritative incarnation state."""

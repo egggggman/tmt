@@ -574,6 +574,9 @@ class CardInterpreter:
         r"^\{U\}, Sacrifice this creature: Counter target spell that targets an artifact "
         r"or creature you control\.$"
     )
+    CANT_ATTACK_UNLESS_ANOTHER_ARTIFACT = re.compile(
+        r"^This creature can't attack unless you control another artifact\.$"
+    )
 
     """Derive reusable executable constructs without legality, mutation, or strategy."""
 
