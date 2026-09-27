@@ -32,7 +32,7 @@ def test_does_machines_is_recognized_as_an_executable_permanent_with_setup_cover
     assert semantics.program.mill_quantity == 2
     assert semantics.program.draw_quantity == 2
     assert semantics.program.discard_quantity == 2
-    assert any(
+    assert not any(
         fragment.startswith("When this Class becomes level 2")
         for fragment, _reason in interpreter.unsupported_fragments(card)
     )
