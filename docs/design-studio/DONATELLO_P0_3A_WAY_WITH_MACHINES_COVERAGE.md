@@ -27,6 +27,13 @@ evaluation provide persistent `+1/+1` counters and updated power/toughness.
 Existing stack and rules-event logging records the trigger and
 `artifact_entry_counter_resolved` payload deterministically.
 
+The generic combat legality surface now also recognizes the card's authoritative
+`Flying` keyword. A flying attacker may be blocked only by a blocker with
+`Flying` or `Reach`; ordinary blockers are filtered from legal block options and
+rejected by direct combat validation. Static card-data keywords and existing
+temporary Reach/Flying effects use the same reusable predicate. AcceptancePilot
+receives the filtered legal options and requires no Donatello-specific change.
+
 No new Pilot policy or target chooser is required: the ability names its own
 source rather than asking the Pilot to select a target. Existing artifact typing
 also covers normal artifact creatures and recovered artifact permanents. Token
@@ -48,8 +55,6 @@ before/after state transition without requiring a winner change.
 
 This artifact does not claim support for:
 
-- Way with Machines flying behavior if the broader keyword surface does not expose
-  it to every combat decision;
 - Donatello, Gadget Master's combat-damage artifact-copy trigger;
 - Donatello, Mutant Mechanic activation/transfer behavior;
 - Sewer-veillance Cam abilities;

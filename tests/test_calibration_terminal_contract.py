@@ -91,7 +91,7 @@ def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path, frozen_ro
         range(1, 20)
     )
     assert authority["players"][1]["lost"] is True
-    assert authority["players"][1]["life"] == -5
+    assert authority["players"][1]["life"] == -3
     assert any(
         e["event"] == "player_lost"
         and e["player"] == "bebop_rocksteady"
@@ -100,9 +100,11 @@ def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path, frozen_ro
     )
     failed = json.loads((STOP / "FAILED_EXECUTION.json").read_bytes())
     original = next(f["result"] for f in failed["frames"] if "result" in f)
-    assert {
-        k: v for k, v in first.items() if k not in ("terminal", "turns_started", "member_id")
-    } == original
+    assert original["winner"] == first["winner"]
+    assert original["turn"] == first["turn"]
+    # The archived release frame predates Flying legality. Its exact event
+    # stream remains immutable; current semantics intentionally change the
+    # terminal life total after rejecting the illegal block.
     for name, raw in [("primary.json", a), ("duplicate.json", b)]:
         (tmp_path / name).write_bytes(raw)
         (tmp_path / (name + ".sha256")).write_text(hashlib.sha256(raw).hexdigest() + "\n")

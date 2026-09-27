@@ -9444,6 +9444,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self, attacker: Permanent, blocker: Permanent
     ) -> tuple[str, str] | None:
         """Return the first Oracle-derived restriction that makes this block illegal."""
+        if self._has_flying(attacker) and not (
+            self._has_flying(blocker) or self._has_reach(blocker)
+        ):
+            return "Flying", "flying_requires_flying_or_reach"
         for fragment in self.interpreter.fragments(attacker.card):
             match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
@@ -9454,6 +9458,22 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             ):
                 return fragment, "blocker_power_greater_than_attacker"
         return None
+
+    @staticmethod
+    def _has_keyword(permanent: Permanent, keyword: str) -> bool:
+        return keyword.casefold() in {value.casefold() for value in permanent.card.keywords}
+
+    def _has_flying(self, permanent: Permanent) -> bool:
+        return self._has_keyword(permanent, "Flying") or any(
+            effect.keyword is TemporaryKeyword.FLYING
+            for effect in permanent.temporary_keyword_effects
+        )
+
+    def _has_reach(self, permanent: Permanent) -> bool:
+        return self._has_keyword(permanent, "Reach") or any(
+            effect.keyword is TemporaryKeyword.REACH
+            for effect in permanent.temporary_keyword_effects
+        )
 
     def _has_menace(self, attacker: Permanent) -> bool:
         return (
