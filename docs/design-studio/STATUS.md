@@ -28,6 +28,12 @@ coordination; Design Studio owns deck identity, prototypes, and revision decisio
 - Raphael's first candidate packet is [here](RAPHAEL_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
 - Donatello's first candidate packet is [here](DONATELLO_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends gathering human evidence first and creates no decklist.
 - Casey Jones's first candidate packet is [here](CASEY_JONES_PROTOTYPE_0_3_CANDIDATE_PACKET.md); it recommends a small pre-balance candidate shape and creates no decklist.
+- Donatello Prototype 0.3c has passed the bounded Cardcade response-support gate and is now
+  **HUMAN PLAY WITH KNOWN IMBALANCE**. The active gate is the 12-game [human-play protocol](DONATELLO_P0_3C_HUMAN_PLAY_PROTOCOL.md),
+  using the preserved P0.3c deck and its [results template](DONATELLO_P0_3C_HUMAN_PLAY_RESULTS_TEMPLATE.md).
+- The post-response smoke recorded `P0_3C_RESPONSE_SUPPORT_VALIDATED` and a 26–94 Donatello
+  aggregate; this is directional simulator context, not a human win-rate target. Cardcade semantic
+  work is not the active critical path for this deck while the human gate is pending.
 
 ## Evidence boundary
 
