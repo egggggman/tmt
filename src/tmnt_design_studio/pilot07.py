@@ -179,7 +179,10 @@ class AcceptancePilot:
             if item.kind == "spell" and item.controller != view.priority_player
         }
         for option in options:
-            if option.kind is ActionKind.ACTIVATE_ABILITY and option.target_id in opposing_spells:
+            if (
+                option.kind in {ActionKind.ACTIVATE_ABILITY, ActionKind.CAST}
+                and option.target_id in opposing_spells
+            ):
                 return option
         return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 

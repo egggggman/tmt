@@ -1269,6 +1269,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self.priority_state: PriorityState | None = None
         self._priority_resolution_in_progress = False
         self._next_priority_epoch = 1
+        self._response_exposure_keys: set[tuple[int, str, str]] = set()
         self.pending_triggers: list[TriggerInstance] = []
         self._triggers: dict[str, TriggerInstance] = {}
         self._next_event_number = 1
@@ -6787,6 +6788,118 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             and self._is_legal_counter_target(spell, controller)
         )
 
+    def _hand_response_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Expose one bounded class of supported hand-instants for an opponent spell.
+
+        This deliberately covers only the current supported counterspell path and only the
+        original pending spell. It is not a general nested-priority or counter-war surface.
+        """
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or len(self.stack) != 1
+            or not isinstance(self.stack[-1], StackObject)
+        ):
+            return ()
+        target = self.stack[-1]
+        if target.controller == player_index:
+            return ()
+        options = []
+        for card in self.players[player_index].hand:
+            program = self.interpreter.cast_program(card.card)
+            if (
+                "Instant" not in card.card.type_line
+                or program.kind is not CastKind.OOZE_SPILL
+                or self.payment_plan(player_index, card) is None
+                or not self._is_legal_ooze_target(target, player_index)
+            ):
+                continue
+            options.append(
+                ActionOption(
+                    ActionKind.CAST,
+                    player_index,
+                    object_id=card.object_id,
+                    target_id=target.object_id,
+                    oracle_fragment=card.card.oracle_text,
+                    priority_epoch=state.epoch,
+                )
+            )
+        return tuple(options)
+
+    def _announce_hand_response(
+        self, player_index: int, card: CardObject, target: StackObject
+    ) -> StackObject | None:
+        """Announce one supported hand instant against the current opponent spell."""
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or len(self.stack) != 1
+            or self.stack[-1] is not target
+            or target.controller == player_index
+            or not self.is_authoritative(card, "hand")
+            or card.owner != player_index
+            or "Instant" not in card.card.type_line
+            or self.interpreter.cast_program(card.card).kind is not CastKind.OOZE_SPILL
+            or not self._is_legal_ooze_target(target, player_index)
+        ):
+            return None
+        plan = self.payment_plan(player_index, card)
+        if plan is None:
+            return None
+        spell = self._commit_announcement_payment(
+            card,
+            plan,
+            cast_kind=CastKind.OOZE_SPILL,
+            target_id=target.object_id,
+        )
+        self.log(
+            "spell_cast",
+            player=self.players[player_index].name,
+            card=spell.name,
+            stack_object_id=spell.object_id,
+            target_id=target.object_id,
+            response=True,
+        )
+        self.log(
+            "response_selected",
+            player=self.players[player_index].name,
+            player_index=player_index,
+            response_card=spell.name,
+            response_object_id=spell.object_id,
+            target_spell_id=target.object_id,
+            priority_epoch=state.epoch,
+        )
+        self.log(
+            "response_target_selected",
+            response_object_id=spell.object_id,
+            target_spell_id=target.object_id,
+            target_card=target.card.name,
+        )
+        self._begin_priority_window()
+        return spell
+
+    def _log_supported_hand_responses(self) -> None:
+        state = self.priority_state
+        if state is None:
+            return
+        for option in self._hand_response_options(state.player_index):
+            key = (state.epoch, option.object_id or "", option.target_id or "")
+            if key in self._response_exposure_keys:
+                continue
+            self._response_exposure_keys.add(key)
+            self.log(
+                "legal_response_exposed",
+                player=self.players[state.player_index].name,
+                player_index=state.player_index,
+                response_object_id=option.object_id,
+                target_spell_id=option.target_id,
+                priority_epoch=state.epoch,
+            )
+
     def _counter_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
         state = self.priority_state
         if (
@@ -6839,6 +6952,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 player_index,
                 priority_epoch=state.epoch,
             ),
+            *self._hand_response_options(player_index),
             *self._counter_activation_options(player_index),
         )
 
@@ -6856,6 +6970,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             )
             if ability is None:
                 raise ValueError("counter activation option became illegal")
+            return True
+        if option.kind is ActionKind.CAST:
+            card = self._objects.get(option.object_id or "")
+            target = self._objects.get(option.target_id or "")
+            if not isinstance(card, CardObject) or not isinstance(target, StackObject):
+                raise ValueError("hand response option is malformed")
+            spell = self._announce_hand_response(option.player_index, card, target)
+            if spell is None:
+                raise ValueError("hand response option became illegal")
             return True
         if option.kind is not ActionKind.PASS_PRIORITY:
             raise ValueError("unsupported priority action kind")
@@ -6969,7 +7092,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         epoch = self._next_priority_epoch
         self._next_priority_epoch += 1
         self.priority_state = PriorityState(epoch, self.active_player)
+        top = self.stack[-1]
+        self.log(
+            "response_window_opened",
+            stack_object_id=top.object_id,
+            stack_card=top.name if isinstance(top, StackObject) else None,
+            priority_epoch=epoch,
+        )
         self._witness_unsupported_stack_responses()
+        self._log_supported_hand_responses()
         self.log(
             "priority_granted",
             player=self.players[self.active_player].name,
@@ -9366,6 +9497,17 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if spell.cast_kind is CastKind.OOZE_SPILL:
             assert isinstance(target, StackObject)
             countered = self.move_object(target, "graveyard", reason="ooze_spill_countered")
+            self.log(
+                "spell_countered",
+                stack_object_id=spell.object_id,
+                target_spell_id=target.object_id,
+                target_object_id=target.target_id,
+                target_card=target.card.name,
+                controller=spell.controller,
+                oracle_fragment=spell.card.oracle_text,
+                target_relationship="counter_target_spell",
+                countered_object_id=countered.object_id,
+            )
             mutagen = self.interpreter.PREDEFINED_TOKENS["mutagen"]
             program = TokenCreationProgram(mutagen, 1)
             created = self.create_tokens(
@@ -10117,8 +10259,15 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if item.returned_hand_id not in self._objects:
                 raise AssertionError("Sneak evidence lacks returned-object identity")
             resolved = item.resolved_object_id is not None
+            countered = any(
+                event.get("event") == "spell_countered"
+                and event.get("target_spell_id") == spell.object_id
+                for event in self.events
+            )
             if spell.cast_kind is CastKind.CREATURE:
-                if resolved != (spell.zone == "former"):
+                if resolved and spell.zone != "former":
+                    raise AssertionError("Sneak evidence resolution disagrees with stack state")
+                if not resolved and spell.zone == "former" and not countered:
                     raise AssertionError("Sneak evidence resolution disagrees with stack state")
                 if resolved and (
                     item.resolved_object_id not in self._objects
