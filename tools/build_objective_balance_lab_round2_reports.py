@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
+
+# The report builder contains long evidence-table strings; generated report text is intentionally
+# kept readable in the source mapping below.
+# ruff: noqa: E501, SIM114
 
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / "docs/objective-balance-lab/ROUND_2_EVIDENCE.json"
