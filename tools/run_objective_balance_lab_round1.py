@@ -37,14 +37,19 @@ PARENT = {
     "casey_jones": "decks/casey_jones/PROTOTYPE_0.3.txt",
 }
 CANDIDATE = {
-    deck: f"docs/objective-balance-lab/candidates/{deck.upper()}_OBL_R1.txt"
-    for deck in PARENT
+    deck: f"docs/objective-balance-lab/candidates/{deck.upper()}_OBL_R1.txt" for deck in PARENT
 }
 DISPLAY = {
-    "leonardo": "Leonardo", "raphael": "Raphael", "donatello": "Donatello",
-    "michelangelo": "Michelangelo", "splinter": "Splinter", "shredder": "Shredder",
-    "krang": "Krang", "bebop_rocksteady": "Bebop & Rocksteady",
-    "april_oneil": "April O'Neil", "casey_jones": "Casey Jones",
+    "leonardo": "Leonardo",
+    "raphael": "Raphael",
+    "donatello": "Donatello",
+    "michelangelo": "Michelangelo",
+    "splinter": "Splinter",
+    "shredder": "Shredder",
+    "krang": "Krang",
+    "bebop_rocksteady": "Bebop & Rocksteady",
+    "april_oneil": "April O'Neil",
+    "casey_jones": "Casey Jones",
 }
 DECKS = tuple(PARENT)
 PAIRS = tuple((DECKS[i], DECKS[j]) for i in range(10) for j in range(i + 1, 10))
@@ -136,13 +141,27 @@ def schedule() -> list[dict[str, object]]:
     result = []
     for left, right in PAIRS:
         for block in range(50):
-            canonical = by_pair[(left, right, block, "canonical")] if left < right else by_pair[(right, left, block, "reversed")]
-            reversed_row = by_pair[(left, right, block, "reversed")] if left < right else by_pair[(right, left, block, "canonical")]
+            canonical = (
+                by_pair[(left, right, block, "canonical")]
+                if left < right
+                else by_pair[(right, left, block, "reversed")]
+            )
+            reversed_row = (
+                by_pair[(left, right, block, "reversed")]
+                if left < right
+                else by_pair[(right, left, block, "canonical")]
+            )
             for row in (canonical, reversed_row):
-                result.append({
-                    "pair": [left, right], "decks": row["decks"], "orientation": row["orientation"],
-                    "block": block, "seed": row["seed"], "pair_index": row["pair_index"],
-                })
+                result.append(
+                    {
+                        "pair": [left, right],
+                        "decks": row["decks"],
+                        "orientation": row["orientation"],
+                        "block": block,
+                        "seed": row["seed"],
+                        "pair_index": row["pair_index"],
+                    }
+                )
     return result
 
 
@@ -151,17 +170,26 @@ def card_from_event(event: dict[str, object]) -> str | None:
     return card if isinstance(card, str) else None
 
 
-def game_metrics(snapshot: dict[str, object], seats: tuple[str, str], cards: dict[str, dict[str, object]]) -> dict[str, object]:
+def game_metrics(
+    snapshot: dict[str, object], seats: tuple[str, str], cards: dict[str, dict[str, object]]
+) -> dict[str, object]:
     events = snapshot.get("events", [])
     rules = snapshot.get("rules_event_evidence", [])
     cast = [e for e in events if e.get("event") == "spell_cast"]
     creatures = [e for e in events if e.get("event") == "creature_resolved"]
     lands = [e for e in events if e.get("event") == "land_played"]
     interaction_names = {
-        name for name, card in cards.items()
-        if any(word in (card.get("oracle_text") or "").lower() for word in ("counter target", "destroy target", "exile target", "return target"))
+        name
+        for name, card in cards.items()
+        if any(
+            word in (card.get("oracle_text") or "").lower()
+            for word in ("counter target", "destroy target", "exile target", "return target")
+        )
     }
-    first = {deck: {"land_miss": None, "creature": None, "blocker": None, "interaction": None} for deck in seats}
+    first = {
+        deck: {"land_miss": None, "creature": None, "blocker": None, "interaction": None}
+        for deck in seats
+    }
     casts_by_deck = Counter()
     signatures = Counter()
     battlefield = {deck: {} for deck in seats}
@@ -187,19 +215,41 @@ def game_metrics(snapshot: dict[str, object], seats: tuple[str, str], cards: dic
         deck = seats[0] if int(event.get("player_index", 0)) == 0 else seats[1]
         turn = int(event.get("turn", 0))
         first[deck]["blocker"] = first[deck]["blocker"] or turn
-        count = sum("Creature" in row.get("type_line", "") for row in event.get("battlefield_characteristics", []))
+        count = sum(
+            "Creature" in row.get("type_line", "")
+            for row in event.get("battlefield_characteristics", [])
+        )
         for threshold in (3, 5, 7):
             if turn <= threshold:
                 battlefield[deck][threshold] = max(battlefield[deck].get(threshold, 0), count)
     for deck in seats:
-        turn_starts = Counter(int(e.get("turn", 0)) for e in events if e.get("event") == "turn_started" and str(e.get("active_player")) in {deck, "a" if deck == seats[0] else "b", "0" if deck == seats[0] else "1"})
-        played = Counter(int(e.get("turn", 0)) for e in lands if str(e.get("player")) in {deck, "a" if deck == seats[0] else "b", "0" if deck == seats[0] else "1"})
+        turn_starts = Counter(
+            int(e.get("turn", 0))
+            for e in events
+            if e.get("event") == "turn_started"
+            and str(e.get("active_player"))
+            in {deck, "a" if deck == seats[0] else "b", "0" if deck == seats[0] else "1"}
+        )
+        played = Counter(
+            int(e.get("turn", 0))
+            for e in lands
+            if str(e.get("player"))
+            in {deck, "a" if deck == seats[0] else "b", "0" if deck == seats[0] else "1"}
+        )
         for turn in sorted(turn_starts):
-            if sum(played[t] for t in played if t <= turn) < sum(turn_starts[t] for t in turn_starts if t <= turn):
+            if sum(played[t] for t in played if t <= turn) < sum(
+                turn_starts[t] for t in turn_starts if t <= turn
+            ):
                 first[deck]["land_miss"] = turn
                 break
     winner = snapshot.get("winner")
-    winner_deck = seats[0] if winner in {seats[0], "a", "0"} else seats[1] if winner in {seats[1], "b", "1"} else None
+    winner_deck = (
+        seats[0]
+        if winner in {seats[0], "a", "0"}
+        else seats[1]
+        if winner in {seats[1], "b", "1"}
+        else None
+    )
     ending_turn = int(snapshot.get("turn", 0))
     return {
         "winner": winner_deck,
@@ -210,7 +260,12 @@ def game_metrics(snapshot: dict[str, object], seats: tuple[str, str], cards: dic
         "battlefield_presence": battlefield,
         "casts": dict(casts_by_deck),
         "signature_casts": dict(signatures),
-        "interaction_casts": {deck: sum(1 for key, value in signatures.items() if key.startswith(deck + ":") and value) for deck in seats},
+        "interaction_casts": {
+            deck: sum(
+                1 for key, value in signatures.items() if key.startswith(deck + ":") and value
+            )
+            for deck in seats
+        },
         "runtime_fingerprint": snapshot.get("authoritative_state_fingerprint"),
     }
 
@@ -222,22 +277,50 @@ def aggregate(games: list[dict[str, object]], deck_ids: tuple[str, str]) -> dict
         wins = sum(game["winner"] == deck for game in own)
         draws = sum(game["draw"] for game in own)
         starts = [game for game in own if game["first_player"] == deck]
+
         def average_field(field: str) -> float | None:
             values = [game[field] for game in own if game[field] is not None]
             return round(statistics.mean(values), 4) if values else None
 
         def average_first(metric: str) -> float | None:
-            values = [game["first"][deck][metric] for game in own if game["first"].get(deck, {}).get(metric) is not None]
+            values = [
+                game["first"][deck][metric]
+                for game in own
+                if game["first"].get(deck, {}).get(metric) is not None
+            ]
             return round(statistics.mean(values), 4) if values else None
+
         result[deck] = {
-            "games": len(own), "wins": wins, "losses": len(own) - wins - draws, "draws": draws,
+            "games": len(own),
+            "wins": wins,
+            "losses": len(own) - wins - draws,
+            "draws": draws,
             "win_rate": round((wins + draws / 2) / len(own), 6) if own else None,
-            "first_player_rate": round(sum(game["winner"] == deck for game in starts) / len(starts), 6) if starts else None,
+            "first_player_rate": round(
+                sum(game["winner"] == deck for game in starts) / len(starts), 6
+            )
+            if starts
+            else None,
             "average_turn": average_field("turn"),
             "median_turn": statistics.median([game["turn"] for game in own]) if own else None,
-            "first_play": {metric: average_first(metric) for metric in ("land_miss", "creature", "blocker", "interaction")},
-            "interaction_casts": round(statistics.mean(game["interaction_casts"].get(deck, 0) for game in own), 4) if own else None,
-            "battlefield_presence": {str(t): round(statistics.mean(game["battlefield_presence"].get(deck, {}).get(t, 0) for game in own), 4) for t in (3, 5, 7)},
+            "first_play": {
+                metric: average_first(metric)
+                for metric in ("land_miss", "creature", "blocker", "interaction")
+            },
+            "interaction_casts": round(
+                statistics.mean(game["interaction_casts"].get(deck, 0) for game in own), 4
+            )
+            if own
+            else None,
+            "battlefield_presence": {
+                str(t): round(
+                    statistics.mean(
+                        game["battlefield_presence"].get(deck, {}).get(t, 0) for game in own
+                    ),
+                    4,
+                )
+                for t in (3, 5, 7)
+            },
         }
     return result
 
@@ -251,6 +334,7 @@ def _init_worker(cards: dict[str, dict[str, object]]) -> None:
     # run_game's public contract is unchanged; cache the immutable catalog once per worker
     # instead of reparsing the frozen 472-print snapshot for every game.
     import tmnt_design_studio.stage002 as stage002
+
     frozen_catalog = stage002.load_catalog(ROOT)
     stage002.load_catalog = lambda _root: frozen_catalog
 
@@ -259,22 +343,46 @@ def _run_one(payload: tuple[int, dict[str, str], dict[str, object]]) -> dict[str
     index, deck_paths, item = payload
     a, b = item["decks"]
     try:
-        spec = GameSpec(f"obl-r1-{index:05d}", f"{a}-vs-{b}", item["seed"], item["orientation"], (DeckSpec(a, deck_paths[a]), DeckSpec(b, deck_paths[b])))
+        spec = GameSpec(
+            f"obl-r1-{index:05d}",
+            f"{a}-vs-{b}",
+            item["seed"],
+            item["orientation"],
+            (DeckSpec(a, deck_paths[a]), DeckSpec(b, deck_paths[b])),
+        )
         snapshot = run_game(ROOT, spec, AcceptancePilot())
         metrics = game_metrics(snapshot, (a, b), _WORKER_CARDS)
         metrics.update({"schedule": item, "seats": [a, b], "runtime_error": None})
         return metrics
     except Exception as error:  # preserve a per-game runtime failure without changing the schedule
-        return {"schedule": item, "seats": [a, b], "winner": None, "draw": False, "turn": None,
-                "first_player": a, "first": {}, "battlefield_presence": {}, "casts": {},
-                "signature_casts": {}, "interaction_casts": {}, "runtime_fingerprint": None,
-                "runtime_error": f"{type(error).__name__}: {error}"}
+        return {
+            "schedule": item,
+            "seats": [a, b],
+            "winner": None,
+            "draw": False,
+            "turn": None,
+            "first_player": a,
+            "first": {},
+            "battlefield_presence": {},
+            "casts": {},
+            "signature_casts": {},
+            "interaction_casts": {},
+            "runtime_fingerprint": None,
+            "runtime_error": f"{type(error).__name__}: {error}",
+        }
 
 
-def run_set(deck_paths: dict[str, str], games: list[dict[str, object]], cards: dict[str, dict[str, object]], workers: int) -> list[dict[str, object]]:
+def run_set(
+    deck_paths: dict[str, str],
+    games: list[dict[str, object]],
+    cards: dict[str, dict[str, object]],
+    workers: int,
+) -> list[dict[str, object]]:
     payloads = [(index, deck_paths, item) for index, item in enumerate(games, 1)]
     results = []
-    with ProcessPoolExecutor(max_workers=workers, initializer=_init_worker, initargs=(cards,)) as executor:
+    with ProcessPoolExecutor(
+        max_workers=workers, initializer=_init_worker, initargs=(cards,)
+    ) as executor:
         for index, result in enumerate(executor.map(_run_one, payloads, chunksize=1), 1):
             results.append(result)
             if index % 250 == 0:
@@ -289,14 +397,25 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
     cards = catalog()
-    if hashlib.sha256(SNAPSHOT.read_bytes()).hexdigest() != json.loads(SNAPSHOT_MANIFEST.read_text())["snapshot"]["sha256"]:
+    if (
+        hashlib.sha256(SNAPSHOT.read_bytes()).hexdigest()
+        != json.loads(SNAPSHOT_MANIFEST.read_text())["snapshot"]["sha256"]
+    ):
         raise SystemExit("authoritative snapshot checksum mismatch")
     manifests = {"baseline": {}, "candidate": {}}
     for deck in DECKS:
         manifests["baseline"][deck] = validate_deck(ROOT / PARENT[deck], cards)
         manifests["candidate"][deck] = validate_deck(ROOT / CANDIDATE[deck], cards)
-        manifests["candidate"][deck]["diff"] = diff(manifests["baseline"][deck]["cards"], manifests["candidate"][deck]["cards"])
-    payload = {"schema": "objective-balance-lab-round-1-v1", "main": "dd439b892e7d97ff65744419855fc581eff218a6", "snapshot": {"path": SNAPSHOT.relative_to(ROOT).as_posix(), "sha256": sha(SNAPSHOT)}, "manifests": manifests, "schedule": schedule()}
+        manifests["candidate"][deck]["diff"] = diff(
+            manifests["baseline"][deck]["cards"], manifests["candidate"][deck]["cards"]
+        )
+    payload = {
+        "schema": "objective-balance-lab-round-1-v1",
+        "main": "dd439b892e7d97ff65744419855fc581eff218a6",
+        "snapshot": {"path": SNAPSHOT.relative_to(ROOT).as_posix(), "sha256": sha(SNAPSHOT)},
+        "manifests": manifests,
+        "schedule": schedule(),
+    }
     if args.validate_only:
         print(json.dumps(payload, indent=2, ensure_ascii=True))
         return 0
@@ -308,7 +427,10 @@ def main() -> int:
     candidate_results = {}
     checkpoint = args.output.with_name(args.output.stem + ".checkpoint.json")
     payload["baseline_results"] = baseline_results
-    checkpoint.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    checkpoint.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+
     def candidate_run(deck: str) -> tuple[str, list[dict[str, object]]]:
         games = [item for item in baseline_games if deck in item["pair"]]
         paths = dict(PARENT)
@@ -321,14 +443,29 @@ def main() -> int:
         for deck, results in executor.map(candidate_run, DECKS):
             candidate_results[deck] = results
             payload["candidate_results"] = candidate_results
-            checkpoint.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            checkpoint.write_text(
+                json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
     payload["baseline_results"] = baseline_results
     payload["candidate_results"] = candidate_results
     payload["baseline_summary"] = aggregate(baseline_results, DECKS)
-    payload["candidate_summary"] = {deck: aggregate(results, tuple(item for item in DECKS if item != deck) + (deck,)) for deck, results in candidate_results.items()}
+    payload["candidate_summary"] = {
+        deck: aggregate(results, tuple(item for item in DECKS if item != deck) + (deck,))
+        for deck, results in candidate_results.items()
+    }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps({"baseline_games": len(baseline_results), "candidate_games": sum(map(len, candidate_results.values())), "output": str(args.output)}))
+    args.output.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        json.dumps(
+            {
+                "baseline_games": len(baseline_results),
+                "candidate_games": sum(map(len, candidate_results.values())),
+                "output": str(args.output),
+            }
+        )
+    )
     return 0
 
 
