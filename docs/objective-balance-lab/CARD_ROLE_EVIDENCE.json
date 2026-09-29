@@ -1,0 +1,1806 @@
+{
+  "schema": "objective-balance-lab-card-role-evidence-v1",
+  "round1_evidence_sha256": "5a74f7ea75349ba33bd4bf4869c09e79fa5f1b4774cea6f1b6aa674a12bcf8dc",
+  "records": [
+    {
+      "deck": "Leonardo",
+      "candidate": "A",
+      "card": "Leader's Talent",
+      "copies_changed": 1,
+      "replacement_relationship": "leadership / attack counters / class progression",
+      "mana_value": null,
+      "card_type": "Enchantment \u2014 Class",
+      "rules_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you attack, put a +1/+1 counter on target attacking creature.\n{2}{W}: Level 2\nWhenever a creature you control leaves the battlefield, if it had a counter on it, you gain 2 life.\n{3}{W}: Level 3\nWhenever you cast a spell, put a +1/+1 counter on each creature you control.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.028888,
+      "matchup_deltas": {
+        "raphael": -0.03,
+        "donatello": -0.02,
+        "michelangelo": -0.05,
+        "splinter": 0.02,
+        "shredder": -0.02,
+        "krang": -0.04,
+        "bebop_rocksteady": -0.05,
+        "april_oneil": -0.02,
+        "casey_jones": -0.05
+      },
+      "balance_error_delta": 0.017778,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0.3067,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": -0.0011,
+          "7": -0.0111
+        }
+      },
+      "interaction_delta": -0.11,
+      "signature_delta": 6.9247,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Leonardo",
+      "candidate": "A",
+      "card": "Mighty Mutanimals",
+      "copies_changed": -1,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Creature \u2014 Mutant Rebel",
+      "rules_text": "When this creature enters, create a 2/2 red Mutant creature token.\nAlliance \u2014 Whenever another creature you control enters, put a +1/+1 counter on target creature you control.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": -0.028888,
+      "matchup_deltas": {
+        "raphael": -0.03,
+        "donatello": -0.02,
+        "michelangelo": -0.05,
+        "splinter": 0.02,
+        "shredder": -0.02,
+        "krang": -0.04,
+        "bebop_rocksteady": -0.05,
+        "april_oneil": -0.02,
+        "casey_jones": -0.05
+      },
+      "balance_error_delta": 0.017778,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0.3067,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": -0.0011,
+          "7": -0.0111
+        }
+      },
+      "interaction_delta": -0.11,
+      "signature_delta": 6.9247,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Leonardo",
+      "candidate": "B",
+      "card": "Hamato Guardian Stance",
+      "copies_changed": 1,
+      "replacement_relationship": "combat protection and coordinated defense",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.002222,
+      "matchup_deltas": {
+        "raphael": 0.0,
+        "donatello": 0.02,
+        "michelangelo": 0.0,
+        "splinter": 0.01,
+        "shredder": -0.04,
+        "krang": 0.01,
+        "bebop_rocksteady": -0.01,
+        "april_oneil": 0.0,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0045,
+        "blocker": -0.0045,
+        "interaction": 0.7459,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0045,
+          "7": 0.0223
+        }
+      },
+      "interaction_delta": -0.1033,
+      "signature_delta": 6.8013,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Leonardo",
+      "candidate": "B",
+      "card": "Make Your Move",
+      "copies_changed": -1,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Destroy target artifact, enchantment, or creature with power 4 or greater.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": -0.002222,
+      "matchup_deltas": {
+        "raphael": 0.0,
+        "donatello": 0.02,
+        "michelangelo": 0.0,
+        "splinter": 0.01,
+        "shredder": -0.04,
+        "krang": 0.01,
+        "bebop_rocksteady": -0.01,
+        "april_oneil": 0.0,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0045,
+        "blocker": -0.0045,
+        "interaction": 0.7459,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0045,
+          "7": 0.0223
+        }
+      },
+      "interaction_delta": -0.1033,
+      "signature_delta": 6.8013,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Raphael",
+      "candidate": "A",
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "copies_changed": -2,
+      "replacement_relationship": "jury-rig equipment and efficient combat pressure",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Human Berserker",
+      "rules_text": "Haste\nWhen Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.021111,
+      "matchup_deltas": {
+        "leonardo": 0.04,
+        "donatello": 0.04,
+        "michelangelo": 0.02,
+        "splinter": -0.01,
+        "shredder": 0.03,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.03,
+        "april_oneil": -0.01,
+        "casey_jones": 0.08
+      },
+      "balance_error_delta": 0.021111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.2192,
+        "blocker": 0.2192,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0356,
+          "5": -0.0889,
+          "7": -0.0389
+        }
+      },
+      "interaction_delta": -0.1333,
+      "signature_delta": 4.6622,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Raphael",
+      "candidate": "A",
+      "card": "Raphael, the Nightwatcher",
+      "copies_changed": 2,
+      "replacement_relationship": "sneak and double-strike attack coordination",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "rules_text": "Sneak {1}{R}{R} (You may cast this spell for {1}{R}{R} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nAttacking creatures you control have double strike.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.021111,
+      "matchup_deltas": {
+        "leonardo": 0.04,
+        "donatello": 0.04,
+        "michelangelo": 0.02,
+        "splinter": -0.01,
+        "shredder": 0.03,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.03,
+        "april_oneil": -0.01,
+        "casey_jones": 0.08
+      },
+      "balance_error_delta": 0.021111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.2192,
+        "blocker": 0.2192,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0356,
+          "5": -0.0889,
+          "7": -0.0389
+        }
+      },
+      "interaction_delta": -0.1333,
+      "signature_delta": 4.6622,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Raphael",
+      "candidate": "B",
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "copies_changed": -2,
+      "replacement_relationship": "jury-rig equipment and efficient combat pressure",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Human Berserker",
+      "rules_text": "Haste\nWhen Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.014444,
+      "matchup_deltas": {
+        "leonardo": 0.02,
+        "donatello": 0.02,
+        "michelangelo": 0.04,
+        "splinter": -0.03,
+        "shredder": 0.04,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.02,
+        "april_oneil": -0.01,
+        "casey_jones": 0.04
+      },
+      "balance_error_delta": 0.014444,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.2192,
+        "blocker": 0.2192,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0356,
+          "5": -0.0889,
+          "7": -0.0389
+        }
+      },
+      "interaction_delta": -0.08,
+      "signature_delta": 4.7933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Raphael",
+      "candidate": "B",
+      "card": "Raphael, Ninja Destroyer",
+      "copies_changed": 2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "rules_text": "Raphael must be blocked if able.\nEnrage \u2014 Whenever Raphael is dealt damage, add that much {R}. Until end of turn, you don't lose this mana as steps and phases end.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.014444,
+      "matchup_deltas": {
+        "leonardo": 0.02,
+        "donatello": 0.02,
+        "michelangelo": 0.04,
+        "splinter": -0.03,
+        "shredder": 0.04,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.02,
+        "april_oneil": -0.01,
+        "casey_jones": 0.04
+      },
+      "balance_error_delta": 0.014444,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.2192,
+        "blocker": 0.2192,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0356,
+          "5": -0.0889,
+          "7": -0.0389
+        }
+      },
+      "interaction_delta": -0.08,
+      "signature_delta": 4.7933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Donatello",
+      "candidate": "A",
+      "card": "Bespoke B\u014d",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "When this Equipment enters, return up to one other target nonland permanent to its owner's hand.\nEquipped creature gets +2/+1 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": -0.005556,
+      "matchup_deltas": {
+        "leonardo": -0.06,
+        "raphael": 0.06,
+        "michelangelo": 0.1,
+        "splinter": 0.0,
+        "shredder": -0.07,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.01,
+        "casey_jones": -0.08
+      },
+      "balance_error_delta": -0.007778,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0317,
+        "blocker": 0.0317,
+        "interaction": 0.0451,
+        "battlefield_presence": {
+          "3": -0.0034,
+          "5": -0.0478,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.1033,
+      "signature_delta": 7.2102,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Donatello",
+      "candidate": "A",
+      "card": "Donatello, Turtle Techie",
+      "copies_changed": 2,
+      "replacement_relationship": "artifact-oriented battlefield development",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "rules_text": "When Donatello enters, if you control an artifact, draw a card.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.005556,
+      "matchup_deltas": {
+        "leonardo": -0.06,
+        "raphael": 0.06,
+        "michelangelo": 0.1,
+        "splinter": 0.0,
+        "shredder": -0.07,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.01,
+        "casey_jones": -0.08
+      },
+      "balance_error_delta": -0.007778,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0317,
+        "blocker": 0.0317,
+        "interaction": 0.0451,
+        "battlefield_presence": {
+          "3": -0.0034,
+          "5": -0.0478,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.1033,
+      "signature_delta": 7.2102,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Donatello",
+      "candidate": "B",
+      "card": "Bespoke B\u014d",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "When this Equipment enters, return up to one other target nonland permanent to its owner's hand.\nEquipped creature gets +2/+1 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": -0.007778,
+      "matchup_deltas": {
+        "leonardo": -0.05,
+        "raphael": 0.04,
+        "michelangelo": 0.11,
+        "splinter": -0.01,
+        "shredder": -0.07,
+        "krang": -0.04,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.05,
+        "casey_jones": -0.1
+      },
+      "balance_error_delta": -0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0273,
+        "blocker": 0.0273,
+        "interaction": 0.0033,
+        "battlefield_presence": {
+          "3": -0.0034,
+          "5": -0.0389,
+          "7": 0.0089
+        }
+      },
+      "interaction_delta": -0.0055,
+      "signature_delta": 7.2747,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Donatello",
+      "candidate": "B",
+      "card": "Donatello, Gadget Master",
+      "copies_changed": 2,
+      "replacement_relationship": "artifact-copy payoff on combat damage",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "rules_text": "Sneak {1}{U} (You may cast this spell for {1}{U} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.007778,
+      "matchup_deltas": {
+        "leonardo": -0.05,
+        "raphael": 0.04,
+        "michelangelo": 0.11,
+        "splinter": -0.01,
+        "shredder": -0.07,
+        "krang": -0.04,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.05,
+        "casey_jones": -0.1
+      },
+      "balance_error_delta": -0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0273,
+        "blocker": 0.0273,
+        "interaction": 0.0033,
+        "battlefield_presence": {
+          "3": -0.0034,
+          "5": -0.0389,
+          "7": 0.0089
+        }
+      },
+      "interaction_delta": -0.0055,
+      "signature_delta": 7.2747,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Michelangelo",
+      "candidate": "A",
+      "card": "Michelangelo's Technique",
+      "copies_changed": 2,
+      "replacement_relationship": "sneak-based creature deployment and explosive selection",
+      "mana_value": null,
+      "card_type": "Sorcery",
+      "rules_text": "Sneak {3}{G} (You may cast this spell for {3}{G} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nLook at the top eight cards of your library. Put up to two creature cards with total mana value 6 or less from among them onto the battlefield and the rest on the bottom of your library in a random order.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 3.8933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Michelangelo",
+      "candidate": "A",
+      "card": "Saved by the Shell",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "This spell costs {1} less to cast if you control a Turtle.\nPut a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 3.8933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Michelangelo",
+      "candidate": "B",
+      "card": "Saved by the Shell",
+      "copies_changed": -1,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "This spell costs {1} less to cast if you control a Turtle.\nPut a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 3.8933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Michelangelo",
+      "candidate": "B",
+      "card": "Tenderize",
+      "copies_changed": 1,
+      "replacement_relationship": "power-based combat removal",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Target creature you control deals damage equal to its power to target creature an opponent controls.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 3.8933,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Splinter",
+      "candidate": "A",
+      "card": "Ninja Teen",
+      "copies_changed": -2,
+      "replacement_relationship": "early Ninja pressure",
+      "mana_value": null,
+      "card_type": "Enchantment \u2014 Class",
+      "rules_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever a creature you control leaves the battlefield, each opponent loses 1 life.\n{1}{B}: Level 2\nCreatures you control get +1/+0 and have menace.\n{B}: Level 3\nCreature cards in your graveyard have sneak {3}{B}.\nYou may cast creature spells from your graveyard using their sneak abilities.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.7982,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Splinter",
+      "candidate": "A",
+      "card": "Splinter's Technique",
+      "copies_changed": 2,
+      "replacement_relationship": "patient Splinter value / timing",
+      "mana_value": null,
+      "card_type": "Sorcery",
+      "rules_text": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.7982,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Splinter",
+      "candidate": "B",
+      "card": "Death in the Family",
+      "copies_changed": 1,
+      "replacement_relationship": "black interaction and graveyard timing",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Exile target creature with mana value 3 or less.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.7982,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Splinter",
+      "candidate": "B",
+      "card": "Pain 101",
+      "copies_changed": 1,
+      "replacement_relationship": "black interaction and disciplined control",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.7982,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Splinter",
+      "candidate": "B",
+      "card": "Stomped by the Foot",
+      "copies_changed": -2,
+      "replacement_relationship": "efficient Foot pressure / interaction",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Kicker\u2014Sacrifice an artifact or creature. (You may sacrifice an artifact or creature in addition to any other costs as you cast this spell.)\nTarget creature gets -2/-2 until end of turn. If this spell was kicked, that creature gets -5/-5 until end of turn instead.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.7982,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Shredder",
+      "candidate": "A",
+      "card": "Anchovy & Banana Pizza",
+      "copies_changed": 2,
+      "replacement_relationship": "slower thematic artifact-food pressure",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Food",
+      "rules_text": "When this artifact enters, destroy target creature.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.3991,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Shredder",
+      "candidate": "A",
+      "card": "Stomped by the Foot",
+      "copies_changed": -2,
+      "replacement_relationship": "efficient Foot pressure / interaction",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Kicker\u2014Sacrifice an artifact or creature. (You may sacrifice an artifact or creature in addition to any other costs as you cast this spell.)\nTarget creature gets -2/-2 until end of turn. If this spell was kicked, that creature gets -5/-5 until end of turn instead.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.3991,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Shredder",
+      "candidate": "B",
+      "card": "Ninja Teen",
+      "copies_changed": 2,
+      "replacement_relationship": "early Ninja pressure",
+      "mana_value": null,
+      "card_type": "Enchantment \u2014 Class",
+      "rules_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever a creature you control leaves the battlefield, each opponent loses 1 life.\n{1}{B}: Level 2\nCreatures you control get +1/+0 and have menace.\n{B}: Level 3\nCreature cards in your graveyard have sneak {3}{B}.\nYou may cast creature spells from your graveyard using their sneak abilities.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.3991,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Shredder",
+      "candidate": "B",
+      "card": "Shredder's Armor",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "Equipped creature gets +2/+1.\nWhen this Equipment enters, attach it to target creature you control.\nEquip\u2014Sacrifice another nonland permanent. Activate only once each turn.",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": 0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.3991,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Krang",
+      "candidate": "A",
+      "card": "Does Machines",
+      "copies_changed": 2,
+      "replacement_relationship": "artifact engine / conversion",
+      "mana_value": null,
+      "card_type": "Enchantment \u2014 Class",
+      "rules_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, mill two cards, draw two cards, then discard two cards.\n{1}{U}: Level 2\nWhen this Class becomes level 2, return up to two target artifact cards from your graveyard to your hand.\n{4}{U}: Level 3\nAt the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.037778,
+      "matchup_deltas": {
+        "leonardo": 0.01,
+        "raphael": -0.02,
+        "donatello": -0.05,
+        "michelangelo": -0.07,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "bebop_rocksteady": -0.04,
+        "april_oneil": -0.07,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": 0.026667,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.3275,
+        "blocker": 0.3275,
+        "interaction": -0.0664,
+        "battlefield_presence": {
+          "3": -0.0689,
+          "5": -0.1955,
+          "7": -0.1544
+        }
+      },
+      "interaction_delta": 0.11,
+      "signature_delta": 6.3851,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Krang",
+      "candidate": "A",
+      "card": "Sewer-veillance Cam",
+      "copies_changed": -2,
+      "replacement_relationship": "artifact information and selection",
+      "mana_value": null,
+      "card_type": "Artifact",
+      "rules_text": "Flash\nWhen this artifact enters or leaves the battlefield, you may tap or untap target creature.\n{3}{U}, Sacrifice this artifact: Draw two cards.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.037778,
+      "matchup_deltas": {
+        "leonardo": 0.01,
+        "raphael": -0.02,
+        "donatello": -0.05,
+        "michelangelo": -0.07,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "bebop_rocksteady": -0.04,
+        "april_oneil": -0.07,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": 0.026667,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.3275,
+        "blocker": 0.3275,
+        "interaction": -0.0664,
+        "battlefield_presence": {
+          "3": -0.0689,
+          "5": -0.1955,
+          "7": -0.1544
+        }
+      },
+      "interaction_delta": 0.11,
+      "signature_delta": 6.3851,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Krang",
+      "candidate": "B",
+      "card": "Bespoke B\u014d",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "When this Equipment enters, return up to one other target nonland permanent to its owner's hand.\nEquipped creature gets +2/+1 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.038889,
+      "matchup_deltas": {
+        "leonardo": 0.01,
+        "raphael": 0.01,
+        "donatello": 0.09,
+        "michelangelo": 0.02,
+        "splinter": 0.02,
+        "shredder": 0.03,
+        "bebop_rocksteady": 0.03,
+        "april_oneil": 0.09,
+        "casey_jones": 0.05
+      },
+      "balance_error_delta": -0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0356,
+        "blocker": -0.0356,
+        "interaction": 0.045,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0289,
+          "7": 0.0633
+        }
+      },
+      "interaction_delta": 0.3467,
+      "signature_delta": 5.9718,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Krang",
+      "candidate": "B",
+      "card": "Donatello, Gadget Master",
+      "copies_changed": 2,
+      "replacement_relationship": "artifact-copy payoff on combat damage",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Mutant Ninja Turtle",
+      "rules_text": "Sneak {1}{U} (You may cast this spell for {1}{U} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)\nWhenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.038889,
+      "matchup_deltas": {
+        "leonardo": 0.01,
+        "raphael": 0.01,
+        "donatello": 0.09,
+        "michelangelo": 0.02,
+        "splinter": 0.02,
+        "shredder": 0.03,
+        "bebop_rocksteady": 0.03,
+        "april_oneil": 0.09,
+        "casey_jones": 0.05
+      },
+      "balance_error_delta": -0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0356,
+        "blocker": -0.0356,
+        "interaction": 0.045,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0289,
+          "7": 0.0633
+        }
+      },
+      "interaction_delta": 0.3467,
+      "signature_delta": 5.9718,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "candidate": "A",
+      "card": "Bebop, Warthog Warrior",
+      "copies_changed": 1,
+      "replacement_relationship": "brute-force creature pressure",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Boar Mutant Warrior",
+      "rules_text": "Menace (This creature can't be blocked except by two or more creatures.)\nRhinos you control have menace.\nSwampcycling {2} ({2}, Discard this card: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.)",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.046666,
+      "matchup_deltas": {
+        "leonardo": 0.06,
+        "raphael": 0.05,
+        "donatello": 0.06,
+        "michelangelo": 0.08,
+        "splinter": 0.01,
+        "shredder": 0.07,
+        "krang": 0.09,
+        "april_oneil": 0.04,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.028889,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0024,
+        "blocker": 0.0024,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0033,
+          "5": -0.0133,
+          "7": -0.0122
+        }
+      },
+      "interaction_delta": 0.0933,
+      "signature_delta": 2.3891,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "candidate": "A",
+      "card": "Putrid Pals",
+      "copies_changed": 1,
+      "replacement_relationship": "creature-density development",
+      "mana_value": null,
+      "card_type": "Creature \u2014 Human Ooze Mutant",
+      "rules_text": "Deathtouch\nDisappear \u2014 This creature enters with two +1/+1 counters on it if a permanent left the battlefield under your control this turn.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.046666,
+      "matchup_deltas": {
+        "leonardo": 0.06,
+        "raphael": 0.05,
+        "donatello": 0.06,
+        "michelangelo": 0.08,
+        "splinter": 0.01,
+        "shredder": 0.07,
+        "krang": 0.09,
+        "april_oneil": 0.04,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.028889,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0024,
+        "blocker": 0.0024,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0033,
+          "5": -0.0133,
+          "7": -0.0122
+        }
+      },
+      "interaction_delta": 0.0933,
+      "signature_delta": 2.3891,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "candidate": "A",
+      "card": "Tainted Treats",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Destroy target artifact or creature. If its mana value was 4 or less, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.046666,
+      "matchup_deltas": {
+        "leonardo": 0.06,
+        "raphael": 0.05,
+        "donatello": 0.06,
+        "michelangelo": 0.08,
+        "splinter": 0.01,
+        "shredder": 0.07,
+        "krang": 0.09,
+        "april_oneil": 0.04,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.028889,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0024,
+        "blocker": 0.0024,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0033,
+          "5": -0.0133,
+          "7": -0.0122
+        }
+      },
+      "interaction_delta": 0.0933,
+      "signature_delta": 2.3891,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "candidate": "B",
+      "card": "Rocksteady, Crash Courser",
+      "copies_changed": 2,
+      "replacement_relationship": "large trample payoff",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Rhino Mutant",
+      "rules_text": "Rocksteady can't be blocked by more than one creature.\nBoars you control can't be blocked by more than one creature.\nForestcycling {2} ({2}, Discard this card: Search your library for a Forest card, reveal it, put it into your hand, then shuffle.)",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.056666,
+      "matchup_deltas": {
+        "leonardo": 0.02,
+        "raphael": 0.09,
+        "donatello": 0.04,
+        "michelangelo": 0.08,
+        "splinter": 0.01,
+        "shredder": 0.04,
+        "krang": 0.08,
+        "april_oneil": 0.08,
+        "casey_jones": 0.07
+      },
+      "balance_error_delta": -0.034445,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0231,
+        "blocker": 0.0231,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.1133,
+      "signature_delta": 2.4147,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "candidate": "B",
+      "card": "Tainted Treats",
+      "copies_changed": -2,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Destroy target artifact or creature. If its mana value was 4 or less, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.056666,
+      "matchup_deltas": {
+        "leonardo": 0.02,
+        "raphael": 0.09,
+        "donatello": 0.04,
+        "michelangelo": 0.08,
+        "splinter": 0.01,
+        "shredder": 0.04,
+        "krang": 0.08,
+        "april_oneil": 0.08,
+        "casey_jones": 0.07
+      },
+      "balance_error_delta": -0.034445,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0231,
+        "blocker": 0.0231,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.1133,
+      "signature_delta": 2.4147,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "April O'Neil",
+      "candidate": "A",
+      "card": "April O'Neil, Kunoichi Trainee",
+      "copies_changed": 2,
+      "replacement_relationship": "scry selection and evasive resourcefulness",
+      "mana_value": null,
+      "card_type": "Legendary Creature \u2014 Human Ninja",
+      "rules_text": "When April O'Neil enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\nApril O'Neil can't be blocked by creatures with power 3 or greater.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.004444,
+      "matchup_deltas": {
+        "leonardo": -0.09,
+        "raphael": 0.05,
+        "donatello": -0.02,
+        "michelangelo": 0.0,
+        "splinter": 0.08,
+        "shredder": 0.04,
+        "krang": -0.07,
+        "bebop_rocksteady": 0.07,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": -0.004444,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0107,
+        "blocker": -0.0107,
+        "interaction": -0.0165,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0111
+        }
+      },
+      "interaction_delta": -0.01,
+      "signature_delta": 4.8529,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "April O'Neil",
+      "candidate": "A",
+      "card": "Return to the Sewers",
+      "copies_changed": -2,
+      "replacement_relationship": "slow adaptive recursion / reset",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Target creature's owner puts it on their choice of the top or bottom of their library. You create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.004444,
+      "matchup_deltas": {
+        "leonardo": -0.09,
+        "raphael": 0.05,
+        "donatello": -0.02,
+        "michelangelo": 0.0,
+        "splinter": 0.08,
+        "shredder": 0.04,
+        "krang": -0.07,
+        "bebop_rocksteady": 0.07,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": -0.004444,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.0107,
+        "blocker": -0.0107,
+        "interaction": -0.0165,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0111
+        }
+      },
+      "interaction_delta": -0.01,
+      "signature_delta": 4.8529,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "April O'Neil",
+      "candidate": "B",
+      "card": "Negate",
+      "copies_changed": 1,
+      "replacement_relationship": "adaptive instant interaction",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Counter target noncreature spell.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0.0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.8596,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "April O'Neil",
+      "candidate": "B",
+      "card": "Retro-Mutation",
+      "copies_changed": 1,
+      "replacement_relationship": "same frozen Standard snapshot card",
+      "mana_value": null,
+      "card_type": "Enchantment \u2014 Aura",
+      "rules_text": "Flash\nEnchant creature\nEnchanted creature is a Turtle with base power and toughness 0/1. It can't attack and loses all abilities. (It also loses all other creature types.)",
+      "semantic_support": "SUPPORTED_BY_FROZEN_CARDCADE_CATALOG",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0.0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.8596,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "April O'Neil",
+      "candidate": "B",
+      "card": "Return to the Sewers",
+      "copies_changed": -2,
+      "replacement_relationship": "slow adaptive recursion / reset",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Target creature's owner puts it on their choice of the top or bottom of their library. You create a Mutagen token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": 0.0,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "raphael": 0.0,
+        "donatello": 0.0,
+        "michelangelo": 0.0,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": 0.0,
+        "casey_jones": 0.0
+      },
+      "balance_error_delta": -0.0,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0,
+        "blocker": 0.0,
+        "interaction": 0.0,
+        "battlefield_presence": {
+          "3": 0.0,
+          "5": 0.0,
+          "7": 0.0
+        }
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 4.8596,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "A",
+      "card": "Manhole Missile",
+      "copies_changed": -2,
+      "replacement_relationship": "direct combat pressure",
+      "mana_value": null,
+      "card_type": "Instant",
+      "rules_text": "Manhole Missile deals 3 damage to target creature. You may put a card from your hand on the bottom of your library. If you do, draw a card.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.023333,
+      "matchup_deltas": {
+        "leonardo": -0.02,
+        "raphael": -0.06,
+        "donatello": 0.01,
+        "michelangelo": 0.01,
+        "splinter": -0.05,
+        "shredder": -0.05,
+        "krang": -0.02,
+        "bebop_rocksteady": 0.01,
+        "april_oneil": -0.04
+      },
+      "balance_error_delta": 0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.3204,
+        "blocker": -0.3204,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0378,
+          "5": 0.2645,
+          "7": 0.2611
+        }
+      },
+      "interaction_delta": -0.3022,
+      "signature_delta": 4.7976,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "A",
+      "card": "Quintessential Katana",
+      "copies_changed": 1,
+      "replacement_relationship": "improvised equipment combat",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "Equipped creature gets +1/+1 and has \"Whenever this creature deals combat damage, untap it and you gain 2 life.\"\nWhenever a Ninja you control enters, you may attach this Equipment to it.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.023333,
+      "matchup_deltas": {
+        "leonardo": -0.02,
+        "raphael": -0.06,
+        "donatello": 0.01,
+        "michelangelo": 0.01,
+        "splinter": -0.05,
+        "shredder": -0.05,
+        "krang": -0.02,
+        "bebop_rocksteady": 0.01,
+        "april_oneil": -0.04
+      },
+      "balance_error_delta": 0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.3204,
+        "blocker": -0.3204,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0378,
+          "5": 0.2645,
+          "7": 0.2611
+        }
+      },
+      "interaction_delta": -0.3022,
+      "signature_delta": 4.7976,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "A",
+      "card": "Skateboard",
+      "copies_changed": 1,
+      "replacement_relationship": "improvised equipment mobility",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Equipment",
+      "rules_text": "When this Equipment enters, tap target permanent.\nEquipped creature gets +1/+0 and has haste.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.023333,
+      "matchup_deltas": {
+        "leonardo": -0.02,
+        "raphael": -0.06,
+        "donatello": 0.01,
+        "michelangelo": 0.01,
+        "splinter": -0.05,
+        "shredder": -0.05,
+        "krang": -0.02,
+        "bebop_rocksteady": 0.01,
+        "april_oneil": -0.04
+      },
+      "balance_error_delta": 0.001111,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": -0.3204,
+        "blocker": -0.3204,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": 0.0378,
+          "5": 0.2645,
+          "7": 0.2611
+        }
+      },
+      "interaction_delta": -0.3022,
+      "signature_delta": 4.7976,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "B",
+      "card": "Mouser Foundry",
+      "copies_changed": 1,
+      "replacement_relationship": "artifact token development",
+      "mana_value": null,
+      "card_type": "Artifact",
+      "rules_text": "When this artifact enters or leaves the battlefield, create a 1/1 colorless Robot artifact creature token.\n{4}{R}, Sacrifice this artifact: It deals 3 damage to target creature.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.027777,
+      "matchup_deltas": {
+        "leonardo": -0.01,
+        "raphael": -0.07,
+        "donatello": -0.08,
+        "michelangelo": 0.03,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": -0.07,
+        "april_oneil": -0.05
+      },
+      "balance_error_delta": -0.012222,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0485,
+        "blocker": 0.0485,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0211,
+          "5": 0.0067,
+          "7": -0.03
+        }
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": 5.1787,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "B",
+      "card": "Mutant Town Musicians",
+      "copies_changed": -2,
+      "replacement_relationship": "generic creature support",
+      "mana_value": null,
+      "card_type": "Creature \u2014 Mutant Bard Performer",
+      "rules_text": "Trample\nAlliance \u2014 Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.027777,
+      "matchup_deltas": {
+        "leonardo": -0.01,
+        "raphael": -0.07,
+        "donatello": -0.08,
+        "michelangelo": 0.03,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": -0.07,
+        "april_oneil": -0.05
+      },
+      "balance_error_delta": -0.012222,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0485,
+        "blocker": 0.0485,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0211,
+          "5": 0.0067,
+          "7": -0.03
+        }
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": 5.1787,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    },
+    {
+      "deck": "Casey Jones",
+      "candidate": "B",
+      "card": "Spicy Oatmeal Pizza",
+      "copies_changed": 1,
+      "replacement_relationship": "artifact direct-damage payoff",
+      "mana_value": null,
+      "card_type": "Artifact \u2014 Food",
+      "rules_text": "When this artifact enters, it deals 4 damage to any target and 3 damage to you.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "semantic_support": "SUPPORTED_BY_CURRENT_CARDCADE",
+      "aggregate_win_rate_delta": -0.027777,
+      "matchup_deltas": {
+        "leonardo": -0.01,
+        "raphael": -0.07,
+        "donatello": -0.08,
+        "michelangelo": 0.03,
+        "splinter": 0.0,
+        "shredder": 0.0,
+        "krang": 0.0,
+        "bebop_rocksteady": -0.07,
+        "april_oneil": -0.05
+      },
+      "balance_error_delta": -0.012222,
+      "early_board_delta": {
+        "land_miss": 0,
+        "creature": 0.0485,
+        "blocker": 0.0485,
+        "interaction": 0,
+        "battlefield_presence": {
+          "3": -0.0211,
+          "5": 0.0067,
+          "7": -0.03
+        }
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": 5.1787,
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Package-level evidence only; this single card is not assigned causal credit from drawn-game win rate."
+    }
+  ]
+}
