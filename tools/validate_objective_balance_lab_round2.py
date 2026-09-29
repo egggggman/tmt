@@ -13,8 +13,12 @@ import run_objective_balance_lab_round2 as r2  # noqa: E402
 
 
 def main() -> None:
-    evidence = json.loads((ROOT / "docs/objective-balance-lab/ROUND_2_EVIDENCE.json").read_text(encoding="utf-8"))
-    round1 = json.loads((ROOT / "docs/objective-balance-lab/ROUND_1_EVIDENCE.json").read_text(encoding="utf-8"))
+    evidence = json.loads(
+        (ROOT / "docs/objective-balance-lab/ROUND_2_EVIDENCE.json").read_text(encoding="utf-8")
+    )
+    round1 = json.loads(
+        (ROOT / "docs/objective-balance-lab/ROUND_1_EVIDENCE.json").read_text(encoding="utf-8")
+    )
     cards = r1.catalog()
     assert evidence["main"] == "63b303b8853d7919a2f683eb8b215e20374e5606"
     assert evidence["schedule_sha256"]
@@ -40,7 +44,13 @@ def main() -> None:
             manifest = evidence["manifests"][deck]["candidates"][label]
             assert sum(manifest["cards"].values()) == 60
             assert len(manifest["diff"]) <= 4
-            assert sum(abs(change["candidate"] - change["parent"]) for change in manifest["diff"].values()) <= 8
+            assert (
+                sum(
+                    abs(change["candidate"] - change["parent"])
+                    for change in manifest["diff"].values()
+                )
+                <= 8
+            )
             r1.validate_deck(ROOT / manifest["path"], cards)
     assert evidence["candidate_results"]["leonardo"]["A"][0]["schedule"] in expected_schedule
 
@@ -54,13 +64,27 @@ def main() -> None:
             paths[deck] = r2.CANDIDATES[deck][label]
             replay = r1._run_one((0, paths, item))
             assert replay["runtime_error"] is None
-            assert replay["runtime_fingerprint"] == evidence["candidate_results"][deck][label][0]["runtime_fingerprint"]
+            assert (
+                replay["runtime_fingerprint"]
+                == evidence["candidate_results"][deck][label][0]["runtime_fingerprint"]
+            )
             replayed += 1
 
-    roles = json.loads((ROOT / "docs/objective-balance-lab/CARD_ROLE_EVIDENCE.json").read_text(encoding="utf-8"))
+    roles = json.loads(
+        (ROOT / "docs/objective-balance-lab/CARD_ROLE_EVIDENCE.json").read_text(encoding="utf-8")
+    )
     assert roles["records"]
     assert all(record["semantic_support"] for record in roles["records"])
-    print(json.dumps({"candidate_slices": 20, "candidate_games": 18000, "replayed_fingerprints": replayed, "runtime_errors": 0}))
+    print(
+        json.dumps(
+            {
+                "candidate_slices": 20,
+                "candidate_games": 18000,
+                "replayed_fingerprints": replayed,
+                "runtime_errors": 0,
+            }
+        )
+    )
 
 
 if __name__ == "__main__":

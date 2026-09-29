@@ -33,9 +33,7 @@ def matchup_rates(games: list[dict[str, object]], deck: str) -> dict[str, float]
     for opponent in r1.DECKS:
         if opponent == deck:
             continue
-        subset = [
-            game for game in games if deck in game["seats"] and opponent in game["seats"]
-        ]
+        subset = [game for game in games if deck in game["seats"] and opponent in game["seats"]]
         wins = sum(game["winner"] == deck for game in subset)
         draws = sum(game["draw"] for game in subset)
         result[opponent] = round((wins + draws / 2) / len(subset), 6) if subset else None
@@ -142,7 +140,10 @@ def main() -> int:
     results: dict[str, dict[str, list[dict[str, object]]]] = {}
     tasks = [(deck, label) for deck in r1.DECKS for label in ("A", "B")]
     with ThreadPoolExecutor(max_workers=len(tasks)) as executor:
-        futures = [executor.submit(run_variant, deck, label, cards, max(1, args.workers // 20)) for deck, label in tasks]
+        futures = [
+            executor.submit(run_variant, deck, label, cards, max(1, args.workers // 20))
+            for deck, label in tasks
+        ]
         for future in futures:
             deck, label, games = future.result()
             results.setdefault(deck, {})[label] = games
@@ -158,8 +159,12 @@ def main() -> int:
     }
     payload["counts"] = {
         "baseline_games_reused": len(round1["baseline_results"]),
-        "candidate_games": sum(len(games) for variants in results.values() for games in variants.values()),
-        "total_experimental_games": sum(len(games) for variants in results.values() for games in variants.values()),
+        "candidate_games": sum(
+            len(games) for variants in results.values() for games in variants.values()
+        ),
+        "total_experimental_games": sum(
+            len(games) for variants in results.values() for games in variants.values()
+        ),
         "runtime_errors": sum(
             bool(game.get("runtime_error"))
             for variants in results.values()
