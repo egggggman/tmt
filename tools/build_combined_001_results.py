@@ -1,5 +1,8 @@
 """Build combined-environment metrics, interaction effects, and durable results."""
 
+# Generated Markdown keeps compact evidence rows; long lines are intentional.
+# ruff: noqa: E501
+
 from __future__ import annotations
 
 import json
@@ -70,7 +73,7 @@ def pair_metrics(summary: dict[str, dict]) -> list[dict]:
     result = []
     seen = set()
     for deck in DECKS:
-        for opponent, rate in summary[deck]["matchup_win_rates"].items():
+        for opponent, _rate in summary[deck]["matchup_win_rates"].items():
             key = tuple(sorted((deck, opponent)))
             if key in seen:
                 continue
@@ -154,8 +157,8 @@ def effect(deck: str, combined: dict, baseline: dict, ledger: dict) -> dict | No
 
 def main() -> None:
     evidence = load(EVIDENCE)
-    r1 = load(R1)
-    r2 = load(R2)
+    load(R1)
+    load(R2)
     ledger = load(LEDGER)
     baseline = evidence["baseline_summary"]
     combined = evidence["combined_summary"]
