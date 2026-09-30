@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -19,7 +20,12 @@ OBL = ROOT / "docs/objective-balance-lab"
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    relative = path.relative_to(ROOT).as_posix()
+    try:
+        data = subprocess.check_output(["git", "show", f"HEAD:{relative}"])
+    except subprocess.CalledProcessError:
+        data = path.read_bytes()
+    return hashlib.sha256(data).hexdigest()
 
 
 def main() -> int:

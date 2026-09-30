@@ -1,0 +1,173 @@
+{
+  "schema": "objective-balance-lab-combined-manifest-v2",
+  "environment_id": "OBL-COMBINED-002",
+  "state": "EXPERIMENTAL_COMBINED_ENVIRONMENT",
+  "repository_sha": "ca3b6b83f59f449091f103d1e94c117ddb9ff5fa",
+  "parent_environment_id": "OBL-BASELINE-001",
+  "selection_experiment_ids": [
+    "OBL-R3-APRIL_ONEIL-A",
+    "OBL-R3-KRANG-A"
+  ],
+  "source_evidence": {
+    "path": "docs/objective-balance-lab/COMBINED_002_EVIDENCE.json",
+    "sha256": "0a7b0aad48d335bca10c46fbea88afe65ed4ddf3468370e11691493aca947199"
+  },
+  "selected_decks": [
+    {
+      "deck": "Leonardo",
+      "deck_key": "leonardo",
+      "source_kind": "baseline_001",
+      "source_path": "docs/objective-balance-lab/candidates/LEONARDO_OBL_R1.txt",
+      "sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "parent_baseline_sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Raphael",
+      "deck_key": "raphael",
+      "source_kind": "baseline_001",
+      "source_path": "decks/raphael/PROTOTYPE_0.3.txt",
+      "sha256": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+      "parent_baseline_sha256": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Donatello",
+      "deck_key": "donatello",
+      "source_kind": "baseline_001",
+      "source_path": "docs/objective-balance-lab/candidates/DONATELLO_OBL_R2_A.txt",
+      "sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "parent_baseline_sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Michelangelo",
+      "deck_key": "michelangelo",
+      "source_kind": "baseline_001",
+      "source_path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "parent_baseline_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Splinter",
+      "deck_key": "splinter",
+      "source_kind": "baseline_001",
+      "source_path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "parent_baseline_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Shredder",
+      "deck_key": "shredder",
+      "source_kind": "baseline_001",
+      "source_path": "decks/shredder/PROTOTYPE_0.3.txt",
+      "sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
+      "parent_baseline_sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "Krang",
+      "deck_key": "krang",
+      "source_kind": "round3_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/KRANG_OBL_R3_A.txt",
+      "sha256": "ae0f037ecbbf2ea29343985a805cb14b8c6be24004009d2ca9e701d8d310c645",
+      "parent_baseline_sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "promotion_experiment_id": "OBL-R3-KRANG-A",
+      "exact_diff": {
+        "Crustacean Commando": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Omni-Cheese Pizza": {
+          "parent": 0,
+          "candidate": 2
+        }
+      },
+      "selection_rationale": "Promising but higher-risk isolated result; included to test the open engine-consistency question."
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "deck_key": "bebop_rocksteady",
+      "source_kind": "baseline_001",
+      "source_path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R2_B.txt",
+      "sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "parent_baseline_sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    },
+    {
+      "deck": "April O'Neil",
+      "deck_key": "april_oneil",
+      "source_kind": "round3_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/APRIL_ONEIL_OBL_R3_A.txt",
+      "sha256": "9ac6a28230acccbacaa4ce4ab1800a954e722fbc4bc2cc6a5a4bf1bf01a6e315",
+      "parent_baseline_sha256": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
+      "promotion_experiment_id": "OBL-R3-APRIL_ONEIL-A",
+      "exact_diff": {
+        "April O'Neil, Hacktivist": {
+          "parent": 2,
+          "candidate": 3
+        },
+        "April, Reporter of the Weird": {
+          "parent": 3,
+          "candidate": 4
+        },
+        "Mind Transfer Protocol": {
+          "parent": 3,
+          "candidate": 1
+        }
+      },
+      "selection_rationale": "Accepted isolated value result; selected for Combined 002."
+    },
+    {
+      "deck": "Casey Jones",
+      "deck_key": "casey_jones",
+      "source_kind": "baseline_001",
+      "source_path": "docs/objective-balance-lab/candidates/CASEY_JONES_OBL_R2_B.txt",
+      "sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "parent_baseline_sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "additions": {},
+        "removals": {}
+      },
+      "selection_rationale": "Frozen unchanged from OBL-BASELINE-001."
+    }
+  ]
+}
