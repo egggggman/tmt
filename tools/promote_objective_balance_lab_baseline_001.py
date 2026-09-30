@@ -164,14 +164,18 @@ def main() -> None:
             if item["promotion_experiment_id"] in PROMOTED:
                 item["sha256"] = records[item["promotion_experiment_id"]]["candidate"]["sha256"]
             else:
-                item["source_path"] = round1_evidence["manifests"]["baseline"][item["deck_key"]]["path"]
+                item["source_path"] = round1_evidence["manifests"]["baseline"][item["deck_key"]][
+                    "path"
+                ]
                 item["sha256"] = item["parent_baseline_sha256"]
                 item["exact_diff"] = {"additions": {}, "removals": {}}
                 item["source_kind"] = "retained_baseline"
             item["source_combined_evidence"]["sha256"] = sha(COMBINED_EVIDENCE_PATH)
         write(BASELINE_MANIFEST_PATH, baseline_manifest)
         for deck in registry["decks"]:
-            manifest_deck = next(item for item in baseline_manifest["decks"] if item["deck_key"] == deck["deck_key"])
+            manifest_deck = next(
+                item for item in baseline_manifest["decks"] if item["deck_key"] == deck["deck_key"]
+            )
             deck["source_path"] = manifest_deck["source_path"]
             deck["sha256"] = manifest_deck["sha256"]
         write(REGISTRY_PATH, registry)
@@ -255,7 +259,9 @@ def main() -> None:
         old["aggregate_baseline_win_rate"] = metrics["win_rate"]
         old["mean_matchup_balance_error"] = metrics["mean_matchup_balance_error"]
         old["current_strongest_experimental_candidate"] = experiment_id
-        old["candidate_status"] = "PROMOTED" if experiment_id in PROMOTED else old["candidate_status"]
+        old["candidate_status"] = (
+            "PROMOTED" if experiment_id in PROMOTED else old["candidate_status"]
+        )
         old["promotion_status"] = (
             f"PROMOTED: {experiment_id}"
             if experiment_id in PROMOTED

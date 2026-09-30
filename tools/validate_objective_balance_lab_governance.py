@@ -40,8 +40,12 @@ def sha(path: Path) -> str:
 def main() -> None:
     registry = json.loads((OBL / "ENVIRONMENT_REGISTRY.json").read_text(encoding="utf-8"))
     ledger = json.loads((OBL / "EXPERIMENT_LEDGER.json").read_text(encoding="utf-8"))
-    manifest = json.loads((OBL / "baselines/OBL_BASELINE_001_MANIFEST.json").read_text(encoding="utf-8"))
-    combined_manifest = json.loads((OBL / "combined/OBL_COMBINED_001_MANIFEST.json").read_text(encoding="utf-8"))
+    manifest = json.loads(
+        (OBL / "baselines/OBL_BASELINE_001_MANIFEST.json").read_text(encoding="utf-8")
+    )
+    combined_manifest = json.loads(
+        (OBL / "combined/OBL_COMBINED_001_MANIFEST.json").read_text(encoding="utf-8")
+    )
     assert registry["environment_id"] == "OBL-BASELINE-001"
     assert registry["repository_sha"] == EXPECTED_MAIN
     assert registry["status"] == "BASELINE"
@@ -66,8 +70,13 @@ def main() -> None:
         assert deck["candidate_lineage"]
         assert manifest_by_key[deck["deck_key"]]["sha256"] == deck["sha256"]
         assert deck["official_current_baseline_version"] == "OBL-BASELINE-001"
-        assert combined_by_key[deck["deck_key"]]["parent_baseline_sha256"] == manifest_by_key[deck["deck_key"]]["parent_baseline_sha256"]
-        assert not subprocess.run(["git", "diff", "--quiet", "HEAD", "--", deck["source_path"]], check=False).returncode
+        assert (
+            combined_by_key[deck["deck_key"]]["parent_baseline_sha256"]
+            == manifest_by_key[deck["deck_key"]]["parent_baseline_sha256"]
+        )
+        assert not subprocess.run(
+            ["git", "diff", "--quiet", "HEAD", "--", deck["source_path"]], check=False
+        ).returncode
 
     assert len(ledger["experiments"]) == 30
     assert len({record["experiment_id"] for record in ledger["experiments"]}) == 30
@@ -77,7 +86,9 @@ def main() -> None:
         parent = ROOT / record["parent"]["path"]
         candidate = ROOT / record["candidate"]["path"]
         assert parent.exists() and candidate.exists()
-        assert not subprocess.run(["git", "diff", "--quiet", "HEAD", "--", record["parent"]["path"]], check=False).returncode
+        assert not subprocess.run(
+            ["git", "diff", "--quiet", "HEAD", "--", record["parent"]["path"]], check=False
+        ).returncode
         assert sha(candidate) == record["candidate"]["sha256"]
         assert record["source_evidence"]["path"] in {
             "docs/objective-balance-lab/ROUND_1_EVIDENCE.json",
@@ -94,7 +105,11 @@ def main() -> None:
             assert record["verdict"] != "PROMOTED"
 
     assert all(record["result_metrics"] for record in ledger["experiments"])
-    assert {record["experiment_id"] for record in ledger["experiments"] if record["promotion_status"] == "PROMOTED"} == PROMOTED
+    assert {
+        record["experiment_id"]
+        for record in ledger["experiments"]
+        if record["promotion_status"] == "PROMOTED"
+    } == PROMOTED
     history = (OBL / "PROMOTION_HISTORY.md").read_text(encoding="utf-8")
     assert "OBL-PROMOTION-001" in history
     assert "OBL-BASELINE-000" in history and "OBL-BASELINE-001" in history
