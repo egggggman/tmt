@@ -35,6 +35,6 @@ Logical games: **4,500**. Newly executed: **100**. Reused authenticated games: *
 - April A: isolated 27.22%, combined 26.56%; balance classification `DELTA_WEAKENS`; April-vs-Krang rate `40.00%`.
 - Krang A: isolated 36.00%, combined 36.33%; balance classification `DELTA_WEAKENS`; Krang-vs-April rate `60.00%`.
 
-April is `COMBINED_VALIDATION_PASSED` and `PROMOTION_ELIGIBLE` only if its composed balance and extreme metrics improve; Krang is treated as the higher-risk mixed candidate and is not promotion-eligible.
+April is `COMBINED_VALIDATION_MIXED` and `NOT_PROMOTION_ELIGIBLE`: its isolated gain disappears in the combined environment, although its extreme-count profile improves. Krang is `COMBINED_VALIDATION_FAILED` and `NOT_PROMOTION_ELIGIBLE` because its balance position does not improve in the combined environment.
 
 Machine evidence: `COMBINED_002_EVIDENCE.json`; manifest: `combined/OBL_COMBINED_002_MANIFEST.json`; new pairing: `COMBINED_002_NEW_PAIRING.json`.
