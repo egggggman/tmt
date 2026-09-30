@@ -36,3 +36,16 @@ This ledger preserves every isolated experiment. Four candidates are now `PROMOT
 | `OBL-R2-CASEY_JONES-B` | R2 | Casey Jones | `f18d2dd65915…` | -2 Mutant Town Musicians; +1 Mouser Foundry, +1 Spicy Oatmeal Pizza | 60.67% | 63.44% | -1.22 pp | IDENTITY_STRENGTHENED | PROMOTED | PROMOTED | `docs/objective-balance-lab/ROUND_2_EVIDENCE.json` | See source evidence and combined validation records. |
 
 Promotion eligibility is not inferred from isolated results. The four promoted records cite `OBL-COMBINED-001`; Krang R2B and April R1A were not promoted because their combined validation was mixed or weakened.
+
+## Round 3 appended records
+
+| ID | Round | Deck | Diff | Parent WR | Candidate WR | Balance Δ | Identity | Verdict | Promotion | Evidence | Key lesson |
+|---|---|---|---|---:|---:|---:|---|---|---|---|---|
+| `OBL-R3-RAPHAEL-A` | R3 | Raphael | -2 Casey Jones, Jury-Rig Justiciar; +2 Raphael, Most Attitude | 75.11% | 77.89% | +2.78% | IDENTITY_STRENGTHENED | REJECT_BALANCE_REGRESSION | NOT_PROMOTED | `ROUND_3_EVIDENCE.json` | Casey reduction alone did not lower Raphael power. |
+| `OBL-R3-RAPHAEL-B` | R3 | Raphael | -2 Casey Jones, Jury-Rig Justiciar; +2 Raphael's Technique | 75.11% | 76.22% | +1.11% | IDENTITY_STRENGTHENED | REJECT_BALANCE_REGRESSION | NOT_PROMOTED | `ROUND_3_EVIDENCE.json` | Narrower combat-risk lever still regressed balance. |
+| `OBL-R3-SHREDDER-A` | R3 | Shredder | -2 Squirrelanoids; +1 Oroku Saki, Shredder Rising, +1 Shredder's Technique | 72.44% | 72.22% | +0.44% | IDENTITY_PRESERVED | REJECT_BALANCE_REGRESSION | NOT_PROMOTED | `ROUND_3_EVIDENCE.json` | Active early-pressure reduction was directionally close but insufficient. |
+| `OBL-R3-SHREDDER-B` | R3 | Shredder | -2 Shredder's Armor; +1 Oroku Saki, Shredder Rising, +1 Shredder's Technique | 72.44% | 74.22% | +1.33% | IDENTITY_PRESERVED | REJECT_BALANCE_REGRESSION | NOT_PROMOTED | `ROUND_3_EVIDENCE.json` | Armor reduction did not reduce conversion. |
+| `OBL-R3-APRIL_ONEIL-A` | R3 | April O'Neil | -2 Mind Transfer Protocol; +1 April O'Neil, Hacktivist, +1 April, Reporter of the Weird | 26.56% | 27.22% | -0.67% | IDENTITY_STRENGTHENED | ACCEPT_FOR_COMBINED_MATRIX | NOT_PROMOTED | `ROUND_3_EVIDENCE.json` | April-specific value was the clearest positive signal. |
+| `OBL-R3-APRIL_ONEIL-B` | R3 | April O'Neil | -2 Buzz Bots; +1 Negate, +1 Retro-Mutation | 26.56% | 23.78% | +2.78% | IDENTITY_PRESERVED | REJECT_BALANCE_REGRESSION | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | More interaction did not solve survival. |
+| `OBL-R3-KRANG-A` | R3 | Krang | -2 Crustacean Commando; +2 Omni-Cheese Pizza | 38.33% | 36.00% | -0.33% | IDENTITY_STRENGTHENED | PROMISING_NEEDS_VARIANT | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | Artifact smoothing changed matchup shape but needs a variant. |
+| `OBL-R3-KRANG-B` | R3 | Krang | -2 Ray Fillet, Man Ray; +2 Krang, Master Mind | 38.33% | 27.00% | +4.00% | IDENTITY_STRENGTHENED | REJECT_BALANCE_REGRESSION | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | More top-end payoff without consistency was strongly harmful. |

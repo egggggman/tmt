@@ -34,7 +34,11 @@ PROMOTED = {
 
 def sha(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
-    return hashlib.sha256(subprocess.check_output(["git", "show", f"HEAD:{relative}"])).hexdigest()
+    try:
+        content = subprocess.check_output(["git", "show", f"HEAD:{relative}"])
+    except subprocess.CalledProcessError:
+        content = path.read_bytes()
+    return hashlib.sha256(content).hexdigest()
 
 
 def main() -> None:
@@ -78,10 +82,11 @@ def main() -> None:
             ["git", "diff", "--quiet", "HEAD", "--", deck["source_path"]], check=False
         ).returncode
 
-    assert len(ledger["experiments"]) == 30
-    assert len({record["experiment_id"] for record in ledger["experiments"]}) == 30
+    assert len(ledger["experiments"]) == 38
+    assert len({record["experiment_id"] for record in ledger["experiments"]}) == 38
     assert sum(record["round"] == "R1" for record in ledger["experiments"]) == 10
     assert sum(record["round"] == "R2" for record in ledger["experiments"]) == 20
+    assert sum(record["round"] == "R3" for record in ledger["experiments"]) == 8
     for record in ledger["experiments"]:
         parent = ROOT / record["parent"]["path"]
         candidate = ROOT / record["candidate"]["path"]
@@ -93,6 +98,7 @@ def main() -> None:
         assert record["source_evidence"]["path"] in {
             "docs/objective-balance-lab/ROUND_1_EVIDENCE.json",
             "docs/objective-balance-lab/ROUND_2_EVIDENCE.json",
+            "docs/objective-balance-lab/ROUND_3_EVIDENCE.json",
         }
         evidence = ROOT / record["source_evidence"]["path"]
         assert evidence.exists()
@@ -121,7 +127,8 @@ def main() -> None:
                 "r1_experiments": 10,
                 "r2_experiments": 20,
                 "promoted": len(PROMOTED),
-                "next_gate": "ROUND_3_EXPERIMENT_DESIGN",
+                "r3_experiments": 8,
+                "next_gate": ledger["next_gate"],
             }
         )
     )
