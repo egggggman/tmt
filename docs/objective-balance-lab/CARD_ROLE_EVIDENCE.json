@@ -2541,6 +2541,323 @@
       "identity_result": "IDENTITY_STRENGTHENED",
       "hypothesis_result": "FALSIFIED",
       "causality_note": "Associational evidence from an isolated 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-A",
+      "round": "R4A",
+      "deck": "Raphael",
+      "candidate": "OBL-R4-RAPHAEL-A",
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "copies_changed": -2,
+      "replacement_relationship": {
+        "Casey Jones, Jury-Rig Justiciar": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Skateboard": {
+          "parent": 2,
+          "candidate": 4
+        }
+      },
+      "mana_value": null,
+      "card_type": "Legendary Creature — Human Berserker",
+      "rules_text": "Haste\nWhen Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_support": "PASSED_PRE_SCREEN",
+      "aggregate_win_rate_delta": 0.005556,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "donatello": 0.05,
+        "michelangelo": 0.02,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.04,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": 0.005556,
+      "early_board_delta": {
+        "3": null,
+        "5": null,
+        "7": null
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": {
+        "Skateboard": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Spicy Oatmeal Pizza": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Casey Jones, Jury-Rig Justiciar": {
+          "total_casts": 467,
+          "average_per_game": 0.5189,
+          "games_with_cast": 407
+        }
+      },
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-A",
+      "round": "R4A",
+      "deck": "Raphael",
+      "candidate": "OBL-R4-RAPHAEL-A",
+      "card": "Skateboard",
+      "copies_changed": 2,
+      "replacement_relationship": {
+        "Casey Jones, Jury-Rig Justiciar": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Skateboard": {
+          "parent": 2,
+          "candidate": 4
+        }
+      },
+      "mana_value": null,
+      "card_type": "Artifact — Equipment",
+      "rules_text": "When this Equipment enters, tap target permanent.\nEquipped creature gets +1/+0 and has haste.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "PASSED_PRE_SCREEN",
+      "aggregate_win_rate_delta": 0.005556,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "donatello": 0.05,
+        "michelangelo": 0.02,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.04,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": 0.005556,
+      "early_board_delta": {
+        "3": null,
+        "5": null,
+        "7": null
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": {
+        "Skateboard": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Spicy Oatmeal Pizza": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Casey Jones, Jury-Rig Justiciar": {
+          "total_casts": 467,
+          "average_per_game": 0.5189,
+          "games_with_cast": 407
+        }
+      },
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-B",
+      "round": "R4A",
+      "deck": "Raphael",
+      "candidate": "OBL-R4-RAPHAEL-B",
+      "card": "Casey Jones, Jury-Rig Justiciar",
+      "copies_changed": -2,
+      "replacement_relationship": {
+        "Casey Jones, Jury-Rig Justiciar": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Skateboard": {
+          "parent": 2,
+          "candidate": 3
+        },
+        "Spicy Oatmeal Pizza": {
+          "parent": 0,
+          "candidate": 1
+        }
+      },
+      "mana_value": null,
+      "card_type": "Legendary Creature — Human Berserker",
+      "rules_text": "Haste\nWhen Casey Jones enters, look at the top four cards of your library. You may reveal an artifact card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "semantic_support": "PASSED_PRE_SCREEN",
+      "aggregate_win_rate_delta": 0.005556,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "donatello": 0.05,
+        "michelangelo": 0.02,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.04,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": 0.005556,
+      "early_board_delta": {
+        "3": null,
+        "5": null,
+        "7": null
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": {
+        "Skateboard": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Spicy Oatmeal Pizza": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Casey Jones, Jury-Rig Justiciar": {
+          "total_casts": 467,
+          "average_per_game": 0.5189,
+          "games_with_cast": 407
+        }
+      },
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-B",
+      "round": "R4A",
+      "deck": "Raphael",
+      "candidate": "OBL-R4-RAPHAEL-B",
+      "card": "Skateboard",
+      "copies_changed": 1,
+      "replacement_relationship": {
+        "Casey Jones, Jury-Rig Justiciar": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Skateboard": {
+          "parent": 2,
+          "candidate": 3
+        },
+        "Spicy Oatmeal Pizza": {
+          "parent": 0,
+          "candidate": 1
+        }
+      },
+      "mana_value": null,
+      "card_type": "Artifact — Equipment",
+      "rules_text": "When this Equipment enters, tap target permanent.\nEquipped creature gets +1/+0 and has haste.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
+      "semantic_support": "PASSED_PRE_SCREEN",
+      "aggregate_win_rate_delta": 0.005556,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "donatello": 0.05,
+        "michelangelo": 0.02,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.04,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": 0.005556,
+      "early_board_delta": {
+        "3": null,
+        "5": null,
+        "7": null
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": {
+        "Skateboard": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Spicy Oatmeal Pizza": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Casey Jones, Jury-Rig Justiciar": {
+          "total_casts": 467,
+          "average_per_game": 0.5189,
+          "games_with_cast": 407
+        }
+      },
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-B",
+      "round": "R4A",
+      "deck": "Raphael",
+      "candidate": "OBL-R4-RAPHAEL-B",
+      "card": "Spicy Oatmeal Pizza",
+      "copies_changed": 1,
+      "replacement_relationship": {
+        "Casey Jones, Jury-Rig Justiciar": {
+          "parent": 4,
+          "candidate": 2
+        },
+        "Skateboard": {
+          "parent": 2,
+          "candidate": 3
+        },
+        "Spicy Oatmeal Pizza": {
+          "parent": 0,
+          "candidate": 1
+        }
+      },
+      "mana_value": null,
+      "card_type": "Artifact — Food",
+      "rules_text": "When this artifact enters, it deals 4 damage to any target and 3 damage to you.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.",
+      "semantic_support": "PASSED_PRE_SCREEN",
+      "aggregate_win_rate_delta": 0.005556,
+      "matchup_deltas": {
+        "leonardo": 0.0,
+        "donatello": 0.05,
+        "michelangelo": 0.02,
+        "splinter": -0.05,
+        "shredder": -0.01,
+        "krang": -0.03,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.04,
+        "casey_jones": -0.02
+      },
+      "balance_error_delta": 0.005556,
+      "early_board_delta": {
+        "3": null,
+        "5": null,
+        "7": null
+      },
+      "interaction_delta": -0.2189,
+      "signature_delta": {
+        "Skateboard": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Spicy Oatmeal Pizza": {
+          "total_casts": 0,
+          "average_per_game": 0,
+          "games_with_cast": 0
+        },
+        "Casey Jones, Jury-Rig Justiciar": {
+          "total_casts": 467,
+          "average_per_game": 0.5189,
+          "games_with_cast": 407
+        }
+      },
+      "engine_activation_delta": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
     }
   ],
   "round3_evidence_path": "docs/objective-balance-lab/ROUND_3_EVIDENCE.json"

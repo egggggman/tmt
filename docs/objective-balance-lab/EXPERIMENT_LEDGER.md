@@ -49,3 +49,13 @@ Promotion eligibility is not inferred from isolated results. The four promoted r
 | `OBL-R3-APRIL_ONEIL-B` | R3 | April O'Neil | -2 Buzz Bots; +1 Negate, +1 Retro-Mutation | 26.56% | 23.78% | +2.78% | IDENTITY_PRESERVED | REJECT_BALANCE_REGRESSION | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | More interaction did not solve survival. |
 | `OBL-R3-KRANG-A` | R3 | Krang | -2 Crustacean Commando; +2 Omni-Cheese Pizza | 38.33% | 36.00% | -0.33% | IDENTITY_STRENGTHENED | PROMISING_NEEDS_VARIANT | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | Artifact smoothing changed matchup shape but needs a variant. |
 | `OBL-R3-KRANG-B` | R3 | Krang | -2 Ray Fillet, Man Ray; +2 Krang, Master Mind | 38.33% | 27.00% | +4.00% | IDENTITY_STRENGTHENED | REJECT_BALANCE_REGRESSION | NOT PROMOTED | `ROUND_3_EVIDENCE.json` | More top-end payoff without consistency was strongly harmful. |
+
+
+
+
+## Round 4A appended records
+
+| ID | Round | Deck | Diff | Parent WR | Candidate WR | Balance Δ | Identity | Hypothesis | Verdict | Promotion | Evidence |
+|---|---|---|---|---:|---:|---:|---|---|---|---|---|
+| `OBL-R4-RAPHAEL-A` | R4A | Raphael | {'Casey Jones, Jury-Rig Justiciar': {'parent': 4, 'candidate': 2}, 'Skateboard': {'parent': 2, 'candidate': 4}} | 75.11% | 75.67% | +0.56% | IDENTITY_STRENGTHENED | SEMANTICALLY_UNRESOLVED | REJECT_SEMANTIC_CONFIDENCE | NOT PROMOTED | `ROUND_4A_RAPHAEL_EVIDENCE.json` |
+| `OBL-R4-RAPHAEL-B` | R4A | Raphael | {'Casey Jones, Jury-Rig Justiciar': {'parent': 4, 'candidate': 2}, 'Skateboard': {'parent': 2, 'candidate': 3}, 'Spicy Oatmeal Pizza': {'parent': 0, 'candidate': 1}} | 75.11% | 75.67% | +0.56% | IDENTITY_STRENGTHENED | SEMANTICALLY_UNRESOLVED | REJECT_SEMANTIC_CONFIDENCE | NOT PROMOTED | `ROUND_4A_RAPHAEL_EVIDENCE.json` |
