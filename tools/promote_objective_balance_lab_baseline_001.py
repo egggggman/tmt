@@ -1,5 +1,8 @@
 """Create the authoritative OBL-BASELINE-001 promotion layer."""
 
+# Generated governance Markdown keeps wide evidence tables and prose rows.
+# ruff: noqa: E501
+
 from __future__ import annotations
 
 import hashlib
