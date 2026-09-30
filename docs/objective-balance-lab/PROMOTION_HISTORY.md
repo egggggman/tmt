@@ -22,3 +22,22 @@ Every future promotion must append a record containing:
 - explicit authorization.
 
 No future record may rewrite or delete this initial state.
+
+## Promotion OBL-PROMOTION-001
+
+- Prior environment: `OBL-BASELINE-000` (`SUPERSEDED`)
+- New environment: `OBL-BASELINE-001`
+- Source combined environment: `OBL-COMBINED-001`
+- Repository commit: `7d74d24226f904dfb85b3c4a9e57ab8f9de5500a`
+- Authorization: explicit Objective Balance Lab promotion request
+- Basis: combined-environment evidence, not isolated win rate alone
+- Promoted experiments: `OBL-R1-LEONARDO-A`, `OBL-R2-DONATELLO-A`, `OBL-R2-BEBOP_ROCKSTEADY-B`, `OBL-R2-CASEY_JONES-B`
+- Retained baseline decks: Raphael, Michelangelo, Splinter, Shredder, Krang, April O'Neil
+- Combined evidence: `docs/objective-balance-lab/COMBINED_001_EVIDENCE.json`
+- Combined evidence SHA-256: `f2ca3c09e6f07bcba5f754f546bbd5d9a233bf12cf6fd8d08e02fe4539d81bc5`
+- Mean Matchup Balance Error: `20.96% → 19.33%` (`-1.62 pp`)
+- 70/30 matchups: `21 → 19`
+- Aggregate WR spread: `51.11% → 48.56%`
+- First-player rate: essentially neutral (`50.38% → 50.40%`)
+
+Krang R2B was not eligible because its isolated improvement reversed/mixed in the combined meta. April R1A weakened in the combined meta and was not eligible. No simulation was rerun and no legacy prototype file was overwritten.

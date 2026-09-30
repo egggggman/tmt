@@ -60,4 +60,4 @@ A numerically improved candidate with diluted identity must be flagged and must 
 
 ## Current gate
 
-The active next gate is **SELECT COMBINED-MATRIX CANDIDATES**. This governance change does not select candidates, create a combined environment, run simulations, or promote any deck.
+The active next gate is **ROUND_3_EXPERIMENT_DESIGN**, starting from `OBL-BASELINE-001`. Promotion 001 was based on `OBL-COMBINED-001`; it did not rerun the matrix or automatically promote mixed candidates.

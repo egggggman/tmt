@@ -1,7 +1,7 @@
 {
   "schema": "objective-balance-lab-experiment-ledger-v1",
-  "repository_sha": "4f2d69d87bf5a3cbb4d8d9a2508be3851eb2e836",
-  "environment_id": "OBL-BASELINE-000",
+  "repository_sha": "7d74d24226f904dfb85b3c4a9e57ab8f9de5500a",
+  "environment_id": "OBL-BASELINE-001",
   "experiments": [
     {
       "experiment_id": "OBL-R1-LEONARDO-A",
@@ -61,8 +61,19 @@
         }
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
-      "verdict": "ACCEPTED_FOR_COMBINED_MATRIX",
-      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-001",
+        "prior_environment": "OBL-BASELINE-000",
+        "new_environment": "OBL-BASELINE-001",
+        "source_combined_environment": "OBL-COMBINED-001",
+        "combined_validation": "COMBINED_VALIDATION_PASSED",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
+          "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b"
+        }
+      }
     },
     {
       "experiment_id": "OBL-R2-LEONARDO-A",
@@ -388,7 +399,7 @@
         "Utrom Scientists": 2
       },
       "exact_removals": {
-        "Bespoke B\u014d": 2
+        "Bespoke Bō": 2
       },
       "hypothesis": "More early artifact bodies improve stabilization and feed the Mouser/artifact engine.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
@@ -449,7 +460,7 @@
         "Donatello, Turtle Techie": 2
       },
       "exact_removals": {
-        "Bespoke B\u014d": 2
+        "Bespoke Bō": 2
       },
       "hypothesis": "A fourth Donatello, Turtle Techie improves artifact battlefield presence and tempo.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
@@ -488,8 +499,19 @@
         }
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
-      "verdict": "ACCEPTED_FOR_COMBINED_MATRIX",
-      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-001",
+        "prior_environment": "OBL-BASELINE-000",
+        "new_environment": "OBL-BASELINE-001",
+        "source_combined_environment": "OBL-COMBINED-001",
+        "combined_validation": "COMBINED_VALIDATION_PASSED",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
+          "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b"
+        }
+      }
     },
     {
       "experiment_id": "OBL-R2-DONATELLO-B",
@@ -510,7 +532,7 @@
         "Donatello, Gadget Master": 2
       },
       "exact_removals": {
-        "Bespoke B\u014d": 2
+        "Bespoke Bō": 2
       },
       "hypothesis": "A fourth Donatello, Gadget Master improves artifact-engine conversion into payoff.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
@@ -1122,7 +1144,7 @@
         "Stockman, Mad Fly-entist": 2
       },
       "exact_removals": {
-        "Bespoke B\u014d": 2
+        "Bespoke Bō": 2
       },
       "hypothesis": "More artifact-engine density improves inevitability through represented draw/discard conversion.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
@@ -1244,7 +1266,7 @@
         "Donatello, Gadget Master": 2
       },
       "exact_removals": {
-        "Bespoke B\u014d": 2
+        "Bespoke Bō": 2
       },
       "hypothesis": "Donatello, Gadget Master tests an artifact-copy payoff and closing route.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
@@ -1468,8 +1490,19 @@
         }
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
-      "verdict": "ACCEPTED_FOR_COMBINED_MATRIX",
-      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-001",
+        "prior_environment": "OBL-BASELINE-000",
+        "new_environment": "OBL-BASELINE-001",
+        "source_combined_environment": "OBL-COMBINED-001",
+        "combined_validation": "COMBINED_VALIDATION_PASSED",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
+          "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b"
+        }
+      }
     },
     {
       "experiment_id": "OBL-R1-APRIL_ONEIL-A",
@@ -1838,8 +1871,21 @@
         }
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
-      "verdict": "ACCEPTED_FOR_COMBINED_MATRIX",
-      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-001",
+        "prior_environment": "OBL-BASELINE-000",
+        "new_environment": "OBL-BASELINE-001",
+        "source_combined_environment": "OBL-COMBINED-001",
+        "combined_validation": "COMBINED_VALIDATION_PASSED",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
+          "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b"
+        }
+      }
     }
-  ]
+  ],
+  "promotion_status": "OBL-PROMOTION-001",
+  "next_gate": "ROUND_3_EXPERIMENT_DESIGN"
 }
