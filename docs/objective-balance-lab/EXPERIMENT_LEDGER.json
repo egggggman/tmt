@@ -2600,8 +2600,243 @@
       "hypothesis_result": "FALSIFIED",
       "verdict": "REJECT_BALANCE_REGRESSION",
       "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-A",
+      "round": "R4A",
+      "deck": "Raphael",
+      "deck_key": "raphael",
+      "parent": {
+        "path": "decks/raphael/PROTOTYPE_0.3.txt",
+        "sha256": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+        "environment_id": "OBL-BASELINE-001"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/RAPHAEL_OBL_R4_A.txt",
+        "sha256": "281026f75c0b8054ab3915d6621628036f55d1ffe06f7ad6836c12fd560aa783",
+        "label": "A"
+      },
+      "exact_additions": {
+        "Skateboard": 2
+      },
+      "exact_removals": {
+        "Casey Jones, Jury-Rig Justiciar": 2
+      },
+      "hypothesis": "Replacing two efficient creatures with noncreature utility lowers Raphael’s board-pressure efficiency while preserving street-fighter / improvised-gear identity.",
+      "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+      "source_evidence": {
+        "path": "docs/objective-balance-lab/ROUND_4A_RAPHAEL_EVIDENCE.json",
+        "sha256": "84929e6cdfcd24096cf44ce60607795544eedfd06b5957f4112fac65d1e05935"
+      },
+      "result_metrics": {
+        "parent_win_rate": 0.751111,
+        "candidate_win_rate": 0.756667,
+        "balance_error_parent": 0.251111,
+        "balance_error_candidate": 0.256667,
+        "balance_delta": 0.005556,
+        "matchup_deltas": {
+          "leonardo": 0.0,
+          "donatello": 0.05,
+          "michelangelo": 0.02,
+          "splinter": -0.05,
+          "shredder": -0.01,
+          "krang": -0.03,
+          "bebop_rocksteady": 0.05,
+          "april_oneil": 0.04,
+          "casey_jones": -0.02
+        },
+        "parent_extremes": {
+          "worst_matchup": "krang",
+          "worst_matchup_win_rate": 0.92,
+          "strongest_matchup": "krang",
+          "strongest_matchup_win_rate": 0.92,
+          "weakest_matchup": "shredder",
+          "weakest_matchup_win_rate": 0.57,
+          "over_60_40": 8,
+          "over_70_30": 5
+        },
+        "candidate_extremes": {
+          "worst_matchup": "april_oneil",
+          "worst_matchup_win_rate": 0.94,
+          "over_60_40": 7,
+          "over_70_30": 5
+        },
+        "parent_first_player_rate": 0.762222,
+        "candidate_first_player_rate": 0.78,
+        "parent_average_turn": 17.3044,
+        "candidate_average_turn": 17.01,
+        "parent_median_turn": 16.0,
+        "candidate_median_turn": 16.0,
+        "parent_first_play": {
+          "land_miss": null,
+          "creature": 5.1242,
+          "blocker": 5.1242,
+          "interaction": null
+        },
+        "candidate_first_play": {
+          "land_miss": null,
+          "creature": 5.3725,
+          "blocker": 5.3725,
+          "interaction": null
+        },
+        "parent_interaction_casts": 4.6567,
+        "candidate_interaction_casts": 4.4378,
+        "parent_battlefield_presence": {
+          "3": 0.3567,
+          "5": 1.15,
+          "7": 2.0156
+        },
+        "candidate_battlefield_presence": {
+          "3": 0,
+          "5": 0,
+          "7": 0
+        },
+        "candidate_signature_usage": {
+          "Skateboard": {
+            "total_casts": 0,
+            "average_per_game": 0,
+            "games_with_cast": 0
+          },
+          "Spicy Oatmeal Pizza": {
+            "total_casts": 0,
+            "average_per_game": 0,
+            "games_with_cast": 0
+          },
+          "Casey Jones, Jury-Rig Justiciar": {
+            "total_casts": 467,
+            "average_per_game": 0.5189,
+            "games_with_cast": 407
+          }
+        },
+        "jury_rig_artifact_hit": null,
+        "identity_classification": "IDENTITY_STRENGTHENED",
+        "hypothesis_result": "SEMANTICALLY_UNRESOLVED",
+        "verdict": "REJECT_SEMANTIC_CONFIDENCE"
+      },
+      "identity_classification": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "SEMANTICALLY_UNRESOLVED",
+      "verdict": "REJECT_SEMANTIC_CONFIDENCE",
+      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-B",
+      "round": "R4A",
+      "deck": "Raphael",
+      "deck_key": "raphael",
+      "parent": {
+        "path": "decks/raphael/PROTOTYPE_0.3.txt",
+        "sha256": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+        "environment_id": "OBL-BASELINE-001"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/RAPHAEL_OBL_R4_B.txt",
+        "sha256": "06dbb6e05fae769c8af9908cd3d667a89961ee6da79b62cfe7ba5debeb52c9e7",
+        "label": "B"
+      },
+      "exact_additions": {
+        "Skateboard": 1,
+        "Spicy Oatmeal Pizza": 1
+      },
+      "exact_removals": {
+        "Casey Jones, Jury-Rig Justiciar": 2
+      },
+      "hypothesis": "Diversifying the replacement utility package lowers threat density without overconcentrating Raphael around one support card.",
+      "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+      "source_evidence": {
+        "path": "docs/objective-balance-lab/ROUND_4A_RAPHAEL_EVIDENCE.json",
+        "sha256": "84929e6cdfcd24096cf44ce60607795544eedfd06b5957f4112fac65d1e05935"
+      },
+      "result_metrics": {
+        "parent_win_rate": 0.751111,
+        "candidate_win_rate": 0.756667,
+        "balance_error_parent": 0.251111,
+        "balance_error_candidate": 0.256667,
+        "balance_delta": 0.005556,
+        "matchup_deltas": {
+          "leonardo": 0.0,
+          "donatello": 0.05,
+          "michelangelo": 0.02,
+          "splinter": -0.05,
+          "shredder": -0.01,
+          "krang": -0.03,
+          "bebop_rocksteady": 0.05,
+          "april_oneil": 0.04,
+          "casey_jones": -0.02
+        },
+        "parent_extremes": {
+          "worst_matchup": "krang",
+          "worst_matchup_win_rate": 0.92,
+          "strongest_matchup": "krang",
+          "strongest_matchup_win_rate": 0.92,
+          "weakest_matchup": "shredder",
+          "weakest_matchup_win_rate": 0.57,
+          "over_60_40": 8,
+          "over_70_30": 5
+        },
+        "candidate_extremes": {
+          "worst_matchup": "april_oneil",
+          "worst_matchup_win_rate": 0.94,
+          "over_60_40": 7,
+          "over_70_30": 5
+        },
+        "parent_first_player_rate": 0.762222,
+        "candidate_first_player_rate": 0.78,
+        "parent_average_turn": 17.3044,
+        "candidate_average_turn": 17.01,
+        "parent_median_turn": 16.0,
+        "candidate_median_turn": 16.0,
+        "parent_first_play": {
+          "land_miss": null,
+          "creature": 5.1242,
+          "blocker": 5.1242,
+          "interaction": null
+        },
+        "candidate_first_play": {
+          "land_miss": null,
+          "creature": 5.3725,
+          "blocker": 5.3725,
+          "interaction": null
+        },
+        "parent_interaction_casts": 4.6567,
+        "candidate_interaction_casts": 4.4378,
+        "parent_battlefield_presence": {
+          "3": 0.3567,
+          "5": 1.15,
+          "7": 2.0156
+        },
+        "candidate_battlefield_presence": {
+          "3": 0,
+          "5": 0,
+          "7": 0
+        },
+        "candidate_signature_usage": {
+          "Skateboard": {
+            "total_casts": 0,
+            "average_per_game": 0,
+            "games_with_cast": 0
+          },
+          "Spicy Oatmeal Pizza": {
+            "total_casts": 0,
+            "average_per_game": 0,
+            "games_with_cast": 0
+          },
+          "Casey Jones, Jury-Rig Justiciar": {
+            "total_casts": 467,
+            "average_per_game": 0.5189,
+            "games_with_cast": 407
+          }
+        },
+        "jury_rig_artifact_hit": null,
+        "identity_classification": "IDENTITY_STRENGTHENED",
+        "hypothesis_result": "SEMANTICALLY_UNRESOLVED",
+        "verdict": "REJECT_SEMANTIC_CONFIDENCE"
+      },
+      "identity_classification": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "SEMANTICALLY_UNRESOLVED",
+      "verdict": "REJECT_SEMANTIC_CONFIDENCE",
+      "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
     }
   ],
   "promotion_status": "OBL-PROMOTION-001",
-  "next_gate": "SELECT COMBINED-MATRIX CANDIDATES FOR OBL-COMBINED-002"
+  "next_gate": "SELECT COMBINED-MATRIX CANDIDATES FOR OBL-COMBINED-003"
 }
