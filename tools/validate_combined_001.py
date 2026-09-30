@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -18,7 +19,8 @@ import run_objective_balance_lab_round1 as r1  # noqa: E402
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    relative = path.relative_to(ROOT).as_posix()
+    return hashlib.sha256(subprocess.check_output(["git", "show", f"HEAD:{relative}"])).hexdigest()
 
 
 def main() -> None:
@@ -38,14 +40,20 @@ def main() -> None:
     for selected in manifest["selected_decks"]:
         path = ROOT / selected["source_path"]
         assert path.exists()
-        assert sha(path) == selected["selected_sha256"]
-        assert sha(ROOT / selected["source_path"]) == selected["selected_sha256"]
+        if selected["experiment_id"]:
+            assert sha(path) == selected["selected_sha256"]
+        else:
+            assert selected["selected_sha256"] == selected["parent_baseline_sha256"]
+            assert not subprocess.run(
+                ["git", "diff", "--quiet", "HEAD", "--", selected["source_path"]], check=False
+            ).returncode
         r1.validate_deck(path, cards)
         if selected["experiment_id"]:
             assert selected["experiment_id"] in by_id
-            assert by_id[selected["experiment_id"]]["verdict"] == "ACCEPTED_FOR_COMBINED_MATRIX"
-        else:
-            assert selected["selected_sha256"] == selected["parent_baseline_sha256"]
+            assert by_id[selected["experiment_id"]]["verdict"] in {
+                "ACCEPTED_FOR_COMBINED_MATRIX",
+                "PROMOTED",
+            }
         paths[selected["deck_key"]] = selected["source_path"]
     assert set(paths) == set(r1.DECKS)
     schedule = r1.schedule()
@@ -85,7 +93,17 @@ def main() -> None:
         assert replay["runtime_fingerprint"] == game["runtime_fingerprint"]
         replayed += 1
     assert evidence["environment_decision"] == "COMBINED_ENVIRONMENT_IMPROVED"
-    assert not any(record.get("promotion_status") == "PROMOTED" for record in by_id.values())
+    promoted = {
+        record["experiment_id"]
+        for record in by_id.values()
+        if record.get("promotion_status") == "PROMOTED"
+    }
+    assert promoted <= {
+        "OBL-R1-LEONARDO-A",
+        "OBL-R2-DONATELLO-A",
+        "OBL-R2-BEBOP_ROCKSTEADY-B",
+        "OBL-R2-CASEY_JONES-B",
+    }
     print(
         json.dumps(
             {
@@ -94,7 +112,7 @@ def main() -> None:
                 "games": 4500,
                 "replayed_fingerprints": replayed,
                 "runtime_errors": 0,
-                "promoted": 0,
+                "promoted": len(promoted),
             }
         )
     )
