@@ -1,0 +1,13 @@
+{
+  "environment_id": "OBL-COMBINED-003",
+  "state": "BLOCKED_BY_RUNTIME_INCOMPATIBILITY",
+  "repository_sha": "744d85b8c53fd1b173c5780fa6b978bc56fb1336",
+  "parent_environment_id": "OBL-BASELINE-001",
+  "selected_decks": [],
+  "proposed_selection": {
+    "raphael": {"experiment_id": "OBL-R4-RAPHAEL-C", "path": "docs/objective-balance-lab/candidates/RAPHAEL_OBL_R4_C.txt", "sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f"},
+    "other_decks": "exact OBL-BASELINE-001 sources"
+  },
+  "composition_authorized": false,
+  "blocker": "Baseline cells were generated under pre-support Cardcade/Pilot semantics and cannot be combined with post-support R4-C cells."
+}
