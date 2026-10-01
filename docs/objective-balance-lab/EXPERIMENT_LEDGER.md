@@ -59,3 +59,7 @@ Promotion eligibility is not inferred from isolated results. The four promoted r
 |---|---|---|---|---:|---:|---:|---|---|---|---|---|
 | `OBL-R4-RAPHAEL-A` | R4A | Raphael | {'Casey Jones, Jury-Rig Justiciar': {'parent': 4, 'candidate': 2}, 'Skateboard': {'parent': 2, 'candidate': 4}} | 75.11% | 75.67% | +0.56% | IDENTITY_STRENGTHENED | SEMANTICALLY_UNRESOLVED | REJECT_SEMANTIC_CONFIDENCE | NOT PROMOTED | `ROUND_4A_RAPHAEL_EVIDENCE.json` |
 | `OBL-R4-RAPHAEL-B` | R4A | Raphael | {'Casey Jones, Jury-Rig Justiciar': {'parent': 4, 'candidate': 2}, 'Skateboard': {'parent': 2, 'candidate': 3}, 'Spicy Oatmeal Pizza': {'parent': 0, 'candidate': 1}} | 75.11% | 75.67% | +0.56% | IDENTITY_STRENGTHENED | SEMANTICALLY_UNRESOLVED | REJECT_SEMANTIC_CONFIDENCE | NOT PROMOTED | `ROUND_4A_RAPHAEL_EVIDENCE.json` |
+
+
+| OBL-R4-RAPHAEL-C | R4B | Raphael | OBL-BASELINE-001 | -2 Casey, -1 Mutant Town Musicians, +2 Skateboard, +1 Spicy Oatmeal Pizza | Deeper supported utility substitution lowers pressure while preserving identity | PROMISING_NEEDS_VARIANT | docs/objective-balance-lab/ROUND_4B_RAPHAEL_RESULTS.md |
+| OBL-R4-RAPHAEL-D | R4B | Raphael | OBL-BASELINE-001 | -2 Casey, +2 Spicy Oatmeal Pizza | Utility substitution works without Skateboard-specific dependence | PROMISING_NEEDS_VARIANT | docs/objective-balance-lab/ROUND_4B_RAPHAEL_RESULTS.md |
