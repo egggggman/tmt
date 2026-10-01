@@ -84,13 +84,27 @@ def main() -> None:
             ["git", "diff", "--quiet", "HEAD", "--", deck["source_path"]], check=False
         ).returncode
 
-    assert len(ledger["experiments"]) == 40
-    assert len({record["experiment_id"] for record in ledger["experiments"]}) == 40
+    assert len(ledger["experiments"]) == 42
+    assert len({record["experiment_id"] for record in ledger["experiments"]}) == 42
     assert sum(record["round"] == "R1" for record in ledger["experiments"]) == 10
     assert sum(record["round"] == "R2" for record in ledger["experiments"]) == 20
     assert sum(record["round"] == "R3" for record in ledger["experiments"]) == 8
     assert sum(record["round"] == "R4A" for record in ledger["experiments"]) == 2
+    assert sum(record["round"] == "R4B" for record in ledger["experiments"]) == 2
     for record in ledger["experiments"]:
+        if record["round"] == "R4B":
+            evidence = json.loads(
+                (OBL / "ROUND_4B_RAPHAEL_EVIDENCE.json").read_text(encoding="utf-8")
+            )
+            manifest = evidence["candidate_manifests"][record["experiment_id"]]
+            assert record["candidate_deck_hash"] == manifest["candidate_sha256"]
+            assert record["parent_deck_hash"] == manifest["parent_sha256"]
+            assert (
+                record["source_evidence"]
+                == "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json"
+            )
+            assert record["promotion_status"] != "PROMOTED"
+            continue
         parent = ROOT / record["parent"]["path"]
         candidate = ROOT / record["candidate"]["path"]
         assert parent.exists() and candidate.exists()

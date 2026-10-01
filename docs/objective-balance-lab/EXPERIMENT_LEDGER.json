@@ -2835,6 +2835,92 @@
       "hypothesis_result": "SEMANTICALLY_UNRESOLVED",
       "verdict": "REJECT_SEMANTIC_CONFIDENCE",
       "promotion_status": "NOT_PROMOTED_COMBINED_MATRIX_REQUIRED"
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-C",
+      "round": "R4B",
+      "deck": "Raphael",
+      "parent_deck_hash": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+      "candidate_deck_hash": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "exact_additions": {
+        "Skateboard": 2,
+        "Spicy Oatmeal Pizza": 1
+      },
+      "exact_removals": {
+        "Casey Jones, Jury-Rig Justiciar": 2,
+        "Mutant Town Musicians": 1
+      },
+      "result_metrics": {
+        "candidate_win_rate": 0.7022222222222222,
+        "parent_win_rate": 0.767778,
+        "balance_delta": -0.04777799999999999,
+        "extremes": {
+          "worst_matchup": "april_oneil",
+          "worst_matchup_win_rate": 0.91,
+          "weakest_matchup": "shredder",
+          "weakest_matchup_win_rate": 0.42,
+          "over_60_40": 7,
+          "over_70_30": 5
+        },
+        "matchup_deltas": {
+          "leonardo": -0.019999999999999907,
+          "donatello": -0.07000000000000006,
+          "michelangelo": -0.020000000000000018,
+          "splinter": -0.09999999999999998,
+          "shredder": -0.14999999999999997,
+          "krang": -0.06000000000000005,
+          "bebop_rocksteady": -0.12,
+          "april_oneil": -0.05999999999999994,
+          "casey_jones": 0.010000000000000009
+        }
+      },
+      "identity_classification": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED",
+      "verdict": "PROMISING_NEEDS_VARIANT",
+      "promotion_status": "EXPERIMENTAL",
+      "source_evidence": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json"
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-D",
+      "round": "R4B",
+      "deck": "Raphael",
+      "parent_deck_hash": "220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51",
+      "candidate_deck_hash": "ee1008973b3aa90a5fadc035f81506a13a5c6b963d360aa0d8c7407bf3080cc2",
+      "exact_additions": {
+        "Spicy Oatmeal Pizza": 2
+      },
+      "exact_removals": {
+        "Casey Jones, Jury-Rig Justiciar": 2
+      },
+      "result_metrics": {
+        "candidate_win_rate": 0.7455555555555555,
+        "parent_win_rate": 0.767778,
+        "balance_delta": -0.02222244444444446,
+        "extremes": {
+          "worst_matchup": "april_oneil",
+          "worst_matchup_win_rate": 0.91,
+          "weakest_matchup": "shredder",
+          "weakest_matchup_win_rate": 0.55,
+          "over_60_40": 7,
+          "over_70_30": 5
+        },
+        "matchup_deltas": {
+          "leonardo": 0.010000000000000009,
+          "donatello": -0.030000000000000027,
+          "michelangelo": 0.029999999999999916,
+          "splinter": -0.07999999999999996,
+          "shredder": -0.019999999999999907,
+          "krang": -0.06000000000000005,
+          "bebop_rocksteady": -0.050000000000000044,
+          "april_oneil": -0.05999999999999994,
+          "casey_jones": 0.06000000000000005
+        }
+      },
+      "identity_classification": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED",
+      "verdict": "PROMISING_NEEDS_VARIANT",
+      "promotion_status": "EXPERIMENTAL",
+      "source_evidence": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json"
     }
   ],
   "promotion_status": "OBL-PROMOTION-001",
