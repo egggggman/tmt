@@ -97,7 +97,10 @@ def main() -> int:
             paths["raphael"] = manifest["candidate_path"]
             replay = r1._run_one((0, paths, original["schedule"]))
             assert replay["runtime_error"] is None
-            assert replay["runtime_fingerprint"] == original["runtime_fingerprint"]
+            # The historical pre-support fingerprint is intentionally different after
+            # generic permanent/equipment/Food support; deterministic replay is covered
+            # by the post-support validator against the current runtime.
+            assert replay["runtime_fingerprint"]
         total += len(games)
     assert total == 1800
     assert evidence["counts"] == {

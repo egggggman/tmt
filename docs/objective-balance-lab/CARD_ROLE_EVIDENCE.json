@@ -2860,5 +2860,65 @@
       "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
     }
   ],
-  "round3_evidence_path": "docs/objective-balance-lab/ROUND_3_EVIDENCE.json"
+  "round3_evidence_path": "docs/objective-balance-lab/ROUND_3_EVIDENCE.json",
+  "post_support_observations": [
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-A",
+      "kind": "POST_SUPPORT_OBSERVATION",
+      "cards": {
+        "Skateboard": {
+          "drawn": 1057,
+          "legal_opportunities": 19454,
+          "selected": 970,
+          "casts": 970,
+          "resolved": 970,
+          "activations": 2540,
+          "equips": 2540,
+          "effect_used": 2540
+        },
+        "Spicy Oatmeal Pizza": {
+          "drawn": 129,
+          "legal_opportunities": 3328,
+          "selected": 66,
+          "casts": 66,
+          "resolved": 66,
+          "activations": 48,
+          "equips": 0,
+          "effect_used": 48
+        }
+      },
+      "balance_delta": -0.047778000000000015,
+      "hypothesis_result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED",
+      "verdict": "PROMISING_NEEDS_VARIANT"
+    },
+    {
+      "experiment_id": "OBL-R4-RAPHAEL-B",
+      "kind": "POST_SUPPORT_OBSERVATION",
+      "cards": {
+        "Skateboard": {
+          "drawn": 790,
+          "legal_opportunities": 14112,
+          "selected": 725,
+          "casts": 725,
+          "resolved": 725,
+          "activations": 2039,
+          "equips": 2039,
+          "effect_used": 2039
+        },
+        "Spicy Oatmeal Pizza": {
+          "drawn": 397,
+          "legal_opportunities": 10892,
+          "selected": 206,
+          "casts": 206,
+          "resolved": 206,
+          "activations": 126,
+          "equips": 0,
+          "effect_used": 126
+        }
+      },
+      "balance_delta": -0.03777799999999998,
+      "hypothesis_result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED",
+      "verdict": "PROMISING_NEEDS_VARIANT"
+    }
+  ]
 }

@@ -440,6 +440,7 @@ class ActivatedEffectKind(Enum):
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
+    ATTACH_EQUIPMENT = "attach_equipment"
     UNSUPPORTED = "unsupported"
 
 
@@ -740,11 +741,21 @@ class CardInterpreter:
         ),
     }
     CANONICAL_FOOD_ACTIVATION = "{2}, {T}, Sacrifice this token: You gain 3 life."
-    FOOD_ACTIVATION = re.compile(r"\{2\}, \{T\}, Sacrifice this token: You gain 3 life\.", re.I)
+    FOOD_ACTIVATION = re.compile(
+        r"\{2\}, \{T\}, Sacrifice this (?:token|artifact): You gain 3 life\.", re.I
+    )
+    EQUIP_ACTIVATION = re.compile(
+        r"^Equip (?P<cost>\{(?:[0-9]+|[WUBRG])\})(?: \((?P<nested>"
+        r"\{(?:[0-9]+|[WUBRG])\}: Attach to target creature you control\. "
+        r"Equip only as a sorcery\.)\))?$",
+        re.I,
+    )
 
     @classmethod
     def _is_canonical_food_source(cls, card: CardDefinition) -> bool:
         """Identify the canonical Food subtype and ability without source-card dispatch."""
+        if "Artifact" in card.type_line and "Food" in card.type_line:
+            return True
         return bool(
             "Food" in card.type_line.split(" — ")[-1].split()
             and cls.FOOD_ACTIVATION.fullmatch(card.oracle_text.strip())
@@ -858,6 +869,11 @@ class CardInterpreter:
         if any(
             self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None
             for fragment in self.fragments(card)
+        ):
+            return CastProgram(CastKind.PERMANENT)
+        if any(
+            card_type in card.type_line
+            for card_type in ("Artifact", "Battle", "Enchantment", "Planeswalker")
         ):
             return CastProgram(CastKind.PERMANENT)
         if card.is_creature and card.power is not None and card.toughness is not None:
@@ -1753,6 +1769,33 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedActivatedAbilitySemantics | None:
         """Recognize activated syntax without upgrading unsupported costs or children."""
+        equip = self.EQUIP_ACTIVATION.fullmatch(fragment.strip())
+        if equip is not None:
+            cost_text = equip.group("cost")
+            requirement = bool(re.fullmatch(r"\{(?:[0-9]+|[WUBRG])\}", cost_text, re.I))
+            executable = (
+                "Equipment" in card.type_line and requirement and equip.group("nested") is not None
+            )
+            limitations = () if executable else ("equipment_source_or_shape_not_supported",)
+            program = ActivatedAbilityProgram(
+                cost_text,
+                "Attach to target creature you control.",
+                ActivationCostProgram(cost_text, False, False, False, executable, limitations),
+                ActivatedEffectKind.ATTACH_EQUIPMENT,
+                1,
+                False,
+                "Equip only as a sorcery.",
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program,
+                SemanticCoverage(executable, executable, executable, limitations),
+                True,
+                executable,
+                executable,
+                executable,
+                executable,
+                executable,
+            )
         if ":" not in fragment:
             return None
         colon = self._top_level_colon(fragment)
@@ -1809,7 +1852,8 @@ class CardInterpreter:
             for part in cost_parts
         )
         sacrifice_source = any(
-            part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+            part.casefold()
+            in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
             for part in cost_parts
         ) and (
             canonical_food
@@ -1822,7 +1866,8 @@ class CardInterpreter:
             if part.upper() != "{T}"
             and not (
                 sacrifice_source
-                and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+                and part.casefold()
+                in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
             )
             and not (
                 remove_counter_target
@@ -1839,7 +1884,8 @@ class CardInterpreter:
             if part.upper() != "{T}"
             and not (
                 sacrifice_source
-                and part.casefold() in {"sacrifice this token", "sacrifice this creature"}
+                and part.casefold()
+                in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
             )
             and not (
                 remove_counter_target
