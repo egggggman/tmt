@@ -932,6 +932,7 @@ class Permanent:
     is_token: bool = False
     type_line_override: str | None = None
     class_level: int | None = None
+    attached_to: str | None = None
 
     def __post_init__(self) -> None:
         if self.class_level is None and "Class" in self.card.type_line:
@@ -5886,6 +5887,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_ARTIFACT_DRAW
                     )
+        if "Artifact" in entering.type_line and not entering.card.is_creature:
+            return
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
@@ -6387,7 +6390,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 )
                 return False
             self.move_object(player.library[-1], "hand", reason="draw")
-            self.log("card_drawn", player=player.name, setup=setup)
+            self.log(
+                "card_drawn",
+                player=player.name,
+                card=player.hand[-1].card.name,
+                setup=setup,
+            )
         return True
 
     def transition_to(self, step: TurnStep) -> None:
@@ -6579,11 +6587,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 )
             elif kind is CastKind.PERMANENT:
                 fragment = next(
-                    fragment
-                    for fragment in self.interpreter.fragments(card.card)
-                    if self.interpreter.etb_mill_draw_discard_semantic_coverage(card.card, fragment)
-                    is not None
+                    (
+                        fragment
+                        for fragment in self.interpreter.fragments(card.card)
+                        if self.interpreter.etb_mill_draw_discard_semantic_coverage(
+                            card.card, fragment
+                        )
+                        is not None
+                    ),
+                    None,
                 )
+                if card.name in {"Skateboard", "Spicy Oatmeal Pizza"}:
+                    self.log(
+                        "utility_artifact_legal_opportunity",
+                        player=self.players[player_index].name,
+                        card=card.name,
+                        object_id=card.object_id,
+                        mana_value=card.mana_value,
+                    )
                 options.append(
                     ActionOption(
                         ActionKind.CAST,
@@ -7162,6 +7183,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             target = self._objects.get(option.target_id or "")
             if target is not None and not isinstance(target, Permanent):
                 raise ValueError("target option does not identify a permanent")
+            if obj.name in {"Skateboard", "Spicy Oatmeal Pizza"}:
+                self.log(
+                    "utility_artifact_action_selected",
+                    player=self.players[option.player_index].name,
+                    card=obj.name,
+                    object_id=obj.object_id,
+                )
             return self.cast(
                 option.player_index,
                 obj,
@@ -8148,6 +8176,18 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                                 oracle_fragment=fragment,
                             )
                         )
+                elif semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT:
+                    for target in self.players[player_index].battlefield:
+                        if target.card.is_creature and target.controller == player_index:
+                            options.append(
+                                ActionOption(
+                                    ActionKind.ACTIVATE_ABILITY,
+                                    player_index,
+                                    object_id=source.object_id,
+                                    target_id=target.object_id,
+                                    oracle_fragment=fragment,
+                                )
+                            )
                 else:
                     options.append(
                         ActionOption(
@@ -8264,6 +8304,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
         )
+        targeted_equipment = semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT
         if semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA and (
             choice_ids or semantics.program.choices_required
         ):
@@ -8296,6 +8337,17 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 not isinstance(target, Permanent)
                 or not self.is_authoritative(target, "battlefield")
                 or target is source
+                or target.controller != player_index
+                or not target.card.is_creature
+            ):
+                return None
+        elif targeted_equipment:
+            if len(target_ids) != 1:
+                return None
+            target = self._objects.get(target_ids[0])
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
                 or target.controller != player_index
                 or not target.card.is_creature
             ):
@@ -8817,6 +8869,35 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     source_id=ability.source_id,
                     reason="target_illegal_at_resolution",
                 )
+        elif ability.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT:
+            target = self._objects.get(ability.target_ids[0]) if ability.target_ids else None
+            legal = (
+                isinstance(source_permanent, Permanent)
+                and self.is_authoritative(source_permanent, "battlefield")
+                and "Equipment" in source_permanent.type_line
+                and isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and target.card.is_creature
+            )
+            if legal:
+                source_permanent.attached_to = target.object_id
+                delivered = True
+                self.log(
+                    "equipment_attached",
+                    stack_object_id=ability.object_id,
+                    source_id=source_permanent.object_id,
+                    card=source_permanent.card.name,
+                    target_id=target.object_id,
+                    player=self.players[ability.controller].name,
+                )
+            else:
+                self.log(
+                    "equipment_attach_failed_closed",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=ability.target_ids[0] if ability.target_ids else None,
+                )
         elif ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
             food_life_before = self.players[ability.controller].life
             self.gain_life(
@@ -8869,6 +8950,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             "activated_ability_resolved",
             stack_object_id=ability.object_id,
             source_id=ability.source_id,
+            card=ability.source_card.name,
             controller=self.players[ability.controller].name,
             delivered=delivered,
         )
@@ -11231,6 +11313,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             "summoning_sick": x.summoning_sick,
                             "entered_battlefield_turn": x.entered_battlefield_turn,
                             **({"class_level": x.class_level} if x.class_level is not None else {}),
+                            **({"attached_to": x.attached_to} if x.attached_to is not None else {}),
                             "damage": x.damage,
                             "counters": dict(x.counters),
                             "pt_modifiers": [

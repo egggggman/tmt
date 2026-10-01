@@ -125,6 +125,17 @@ class AcceptancePilot:
             ]
             if creatures:
                 return min(creatures, key=lambda row: (row[1][2], row[1][1]))[0]
+            utility = [
+                option
+                for option in casts
+                if (card := self._card(view, option.player_index, option.object_id))
+                and card[1] in {"Skateboard", "Spicy Oatmeal Pizza"}
+            ]
+            if utility:
+                return min(
+                    utility,
+                    key=lambda option: self._card(view, option.player_index, option.object_id)[2],
+                )
         return fallback
 
     def choose_attack(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
