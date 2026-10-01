@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -33,7 +35,8 @@ def main() -> int:
     for experiment_id, candidate_path in runner.CANDIDATES.items():
         candidate = r1.validate_deck(ROOT / candidate_path, cards)
         manifest = evidence["candidate_manifests"][experiment_id]
-        assert candidate["sha256"] == manifest["candidate_sha256"]
+        blob = subprocess.check_output(["git", "show", f"HEAD:{candidate_path}"])
+        assert hashlib.sha256(blob).hexdigest() == manifest["candidate_sha256"]
         assert manifest["parent_sha256"] == parent["sha256"]
         assert manifest["exact_diff"] == r1.diff(parent["cards"], candidate["cards"])
         rows = evidence["candidate_results"][experiment_id]
