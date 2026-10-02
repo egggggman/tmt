@@ -4,7 +4,7 @@ from tools.validate_objective_balance_lab_round5_design import _payable, validat
 
 
 def test_round5_candidate_design_is_reproducible_and_simulation_free():
-    assert validate() == {
+    assert validate(allow_results=True) == {
         "status": "PASS",
         "candidates": 5,
         "planned_games": 4500,

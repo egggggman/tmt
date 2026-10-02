@@ -2858,6 +2858,587 @@
       "engine_activation_delta": null,
       "identity_result": "IDENTITY_STRENGTHENED",
       "causality_note": "Associational evidence from a controlled 900-game slice; not a card-level causal claim."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-A",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-A",
+      "card": "Dream Beavers",
+      "copies_changed": -1,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Squirrelanoids": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 1.0,
+      "card_type": "Creature — Beaver Nightmare",
+      "rules_text": "Flying\nWhen this creature enters, each opponent loses 1 life and you gain 1 life. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.004444,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.05,
+        "splinter": -0.02,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.04,
+        "casey_jones": 0.02
+      },
+      "balance_error_delta": -0.004444,
+      "early_board_delta": {
+        "3": -0.0454,
+        "5": -0.0464,
+        "7": 0.0125
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": -291,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-A",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-A",
+      "card": "Squirrelanoids",
+      "copies_changed": -1,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Squirrelanoids": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 1.0,
+      "card_type": "Creature — Squirrel Mutant",
+      "rules_text": "Deathtouch",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.004444,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.05,
+        "splinter": -0.02,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.04,
+        "casey_jones": 0.02
+      },
+      "balance_error_delta": -0.004444,
+      "early_board_delta": {
+        "3": -0.0454,
+        "5": -0.0464,
+        "7": 0.0125
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": -256,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-A",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-A",
+      "card": "Tunnel Rats",
+      "copies_changed": 2,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Squirrelanoids": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Creature — Rat",
+      "rules_text": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.004444,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.05,
+        "splinter": -0.02,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.04,
+        "casey_jones": 0.02
+      },
+      "balance_error_delta": -0.004444,
+      "early_board_delta": {
+        "3": -0.0454,
+        "5": -0.0464,
+        "7": 0.0125
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 503,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-B",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-B",
+      "card": "Dream Beavers",
+      "copies_changed": -1,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Shark Shredder, Killer Clone": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 1.0,
+      "card_type": "Creature — Beaver Nightmare",
+      "rules_text": "Flying\nWhen this creature enters, each opponent loses 1 life and you gain 1 life. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.025556,
+      "matchup_deltas": {
+        "leonardo": -0.14,
+        "raphael": -0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.01,
+        "splinter": 0.0,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.02,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": -0.025556,
+      "early_board_delta": {
+        "3": 0.0276,
+        "5": 0.0385,
+        "7": 0.0721
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": -260,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-B",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-B",
+      "card": "Shark Shredder, Killer Clone",
+      "copies_changed": -1,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Shark Shredder, Killer Clone": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 4.0,
+      "card_type": "Legendary Creature — Shark Octopus Ninja",
+      "rules_text": "Sneak {3}{B}{B}\nFirst strike\nWhenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.025556,
+      "matchup_deltas": {
+        "leonardo": -0.14,
+        "raphael": -0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.01,
+        "splinter": 0.0,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.02,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": -0.025556,
+      "early_board_delta": {
+        "3": 0.0276,
+        "5": 0.0385,
+        "7": 0.0721
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": -189,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-B",
+      "round": "R5",
+      "deck": "Shredder",
+      "candidate": "OBL-R5-SHREDDER-B",
+      "card": "Tunnel Rats",
+      "copies_changed": 2,
+      "replacement_relationship": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Shark Shredder, Killer Clone": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Creature — Rat",
+      "rules_text": "{4}{B}: Return this card from your graveyard to the battlefield tapped.",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "aggregate_win_rate_delta": -0.025556,
+      "matchup_deltas": {
+        "leonardo": -0.14,
+        "raphael": -0.05,
+        "donatello": -0.01,
+        "michelangelo": 0.01,
+        "splinter": 0.0,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.0,
+        "april_oneil": -0.02,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": -0.025556,
+      "early_board_delta": {
+        "3": 0.0276,
+        "5": 0.0385,
+        "7": 0.0721
+      },
+      "interaction_delta": 0.0,
+      "signature_delta": 519,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-APRIL_ONEIL-A",
+      "round": "R5",
+      "deck": "April O'Neil",
+      "candidate": "OBL-R5-APRIL_ONEIL-A",
+      "card": "Negate",
+      "copies_changed": -2,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "April, Reporter of the Weird": 1,
+          "Utrom Scientists": 1
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Instant",
+      "rules_text": "Counter target noncreature spell.",
+      "semantic_support": "CREATURE_CAST_AND_STUN_SUPPORTED_REPORTER_COMBAT_DRAW_NOT_TESTED",
+      "aggregate_win_rate_delta": 0.04,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.09,
+        "donatello": 0.05,
+        "michelangelo": 0.03,
+        "splinter": 0.11,
+        "shredder": 0.08,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.13,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.04,
+      "early_board_delta": {
+        "3": 0.0,
+        "5": 0.027,
+        "7": 0.0498
+      },
+      "interaction_delta": 0.0145,
+      "signature_delta": 0,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-APRIL_ONEIL-A",
+      "round": "R5",
+      "deck": "April O'Neil",
+      "candidate": "OBL-R5-APRIL_ONEIL-A",
+      "card": "April, Reporter of the Weird",
+      "copies_changed": 1,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "April, Reporter of the Weird": 1,
+          "Utrom Scientists": 1
+        }
+      },
+      "mana_value": 3.0,
+      "card_type": "Legendary Creature — Human Detective",
+      "rules_text": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.",
+      "semantic_support": "CREATURE_CAST_AND_STUN_SUPPORTED_REPORTER_COMBAT_DRAW_NOT_TESTED",
+      "aggregate_win_rate_delta": 0.04,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.09,
+        "donatello": 0.05,
+        "michelangelo": 0.03,
+        "splinter": 0.11,
+        "shredder": 0.08,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.13,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.04,
+      "early_board_delta": {
+        "3": 0.0,
+        "5": 0.027,
+        "7": 0.0498
+      },
+      "interaction_delta": 0.0145,
+      "signature_delta": 288,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-APRIL_ONEIL-A",
+      "round": "R5",
+      "deck": "April O'Neil",
+      "candidate": "OBL-R5-APRIL_ONEIL-A",
+      "card": "Utrom Scientists",
+      "copies_changed": 1,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "April, Reporter of the Weird": 1,
+          "Utrom Scientists": 1
+        }
+      },
+      "mana_value": 3.0,
+      "card_type": "Artifact Creature — Utrom Robot Scientist",
+      "rules_text": "When this creature enters, tap up to one target creature and put a stun counter on it. (If a permanent with a stun counter would become untapped, remove one from it instead.)",
+      "semantic_support": "CREATURE_CAST_AND_STUN_SUPPORTED_REPORTER_COMBAT_DRAW_NOT_TESTED",
+      "aggregate_win_rate_delta": 0.04,
+      "matchup_deltas": {
+        "leonardo": -0.08,
+        "raphael": 0.09,
+        "donatello": 0.05,
+        "michelangelo": 0.03,
+        "splinter": 0.11,
+        "shredder": 0.08,
+        "krang": -0.01,
+        "bebop_rocksteady": 0.13,
+        "casey_jones": -0.04
+      },
+      "balance_error_delta": -0.04,
+      "early_board_delta": {
+        "3": 0.0,
+        "5": 0.027,
+        "7": 0.0498
+      },
+      "interaction_delta": 0.0145,
+      "signature_delta": 193,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-A",
+      "round": "R5",
+      "deck": "Krang",
+      "candidate": "OBL-R5-KRANG-A",
+      "card": "Negate",
+      "copies_changed": -2,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "Mouser Mark III": 2
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Instant",
+      "rules_text": "Counter target noncreature spell.",
+      "semantic_support": "CAST_AND_OTHER_ARTIFACT_ATTACK_GATE_UNIT_TESTED",
+      "aggregate_win_rate_delta": 0.048889,
+      "matchup_deltas": {
+        "leonardo": 0.03,
+        "raphael": 0.07,
+        "donatello": -0.04,
+        "michelangelo": 0.01,
+        "splinter": 0.07,
+        "shredder": 0.04,
+        "bebop_rocksteady": 0.1,
+        "april_oneil": 0.17,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": 0.017777,
+      "early_board_delta": {
+        "3": 0.0658,
+        "5": 0.0874,
+        "7": 0.1155
+      },
+      "interaction_delta": -0.0178,
+      "signature_delta": 0,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-A",
+      "round": "R5",
+      "deck": "Krang",
+      "candidate": "OBL-R5-KRANG-A",
+      "card": "Mouser Mark III",
+      "copies_changed": 2,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "Mouser Mark III": 2
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Artifact Creature — Robot",
+      "rules_text": "This creature can't attack unless you control another artifact.",
+      "semantic_support": "CAST_AND_OTHER_ARTIFACT_ATTACK_GATE_UNIT_TESTED",
+      "aggregate_win_rate_delta": 0.048889,
+      "matchup_deltas": {
+        "leonardo": 0.03,
+        "raphael": 0.07,
+        "donatello": -0.04,
+        "michelangelo": 0.01,
+        "splinter": 0.07,
+        "shredder": 0.04,
+        "bebop_rocksteady": 0.1,
+        "april_oneil": 0.17,
+        "casey_jones": -0.01
+      },
+      "balance_error_delta": 0.017777,
+      "early_board_delta": {
+        "3": 0.0658,
+        "5": 0.0874,
+        "7": 0.1155
+      },
+      "interaction_delta": -0.0178,
+      "signature_delta": 548,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-B",
+      "round": "R5",
+      "deck": "Krang",
+      "candidate": "OBL-R5-KRANG-B",
+      "card": "Negate",
+      "copies_changed": -2,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "Donatello, Turtle Techie": 2
+        }
+      },
+      "mana_value": 2.0,
+      "card_type": "Instant",
+      "rules_text": "Counter target noncreature spell.",
+      "semantic_support": "CREATURE_CAST_AND_ARTIFACT_CONDITIONAL_ETB_DRAW_UNIT_TESTED",
+      "aggregate_win_rate_delta": 0.078889,
+      "matchup_deltas": {
+        "leonardo": 0.06,
+        "raphael": 0.09,
+        "donatello": 0.04,
+        "michelangelo": 0.05,
+        "splinter": 0.09,
+        "shredder": 0.03,
+        "bebop_rocksteady": 0.1,
+        "april_oneil": 0.12,
+        "casey_jones": 0.13
+      },
+      "balance_error_delta": -0.016667,
+      "early_board_delta": {
+        "3": 0.0131,
+        "5": 0.0332,
+        "7": 0.0597
+      },
+      "interaction_delta": 0.0111,
+      "signature_delta": 0,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-B",
+      "round": "R5",
+      "deck": "Krang",
+      "candidate": "OBL-R5-KRANG-B",
+      "card": "Donatello, Turtle Techie",
+      "copies_changed": 2,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "Donatello, Turtle Techie": 2
+        }
+      },
+      "mana_value": 4.0,
+      "card_type": "Legendary Creature — Mutant Ninja Turtle",
+      "rules_text": "When Donatello enters, if you control an artifact, draw a card.",
+      "semantic_support": "CREATURE_CAST_AND_ARTIFACT_CONDITIONAL_ETB_DRAW_UNIT_TESTED",
+      "aggregate_win_rate_delta": 0.078889,
+      "matchup_deltas": {
+        "leonardo": 0.06,
+        "raphael": 0.09,
+        "donatello": 0.04,
+        "michelangelo": 0.05,
+        "splinter": 0.09,
+        "shredder": 0.03,
+        "bebop_rocksteady": 0.1,
+        "april_oneil": 0.12,
+        "casey_jones": 0.13
+      },
+      "balance_error_delta": -0.016667,
+      "early_board_delta": {
+        "3": 0.0131,
+        "5": 0.0332,
+        "7": 0.0597
+      },
+      "interaction_delta": 0.0111,
+      "signature_delta": 447,
+      "utility_telemetry": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "causality_note": "Paired deck-level association, not drawn-card causality."
     }
   ],
   "round3_evidence_path": "docs/objective-balance-lab/ROUND_3_EVIDENCE.json",
@@ -3000,5 +3581,6 @@
       "identity": "IDENTITY_STRENGTHENED",
       "result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED"
     }
-  ]
+  ],
+  "round5_evidence_path": "docs/objective-balance-lab/ROUND_5_EVIDENCE.json"
 }
