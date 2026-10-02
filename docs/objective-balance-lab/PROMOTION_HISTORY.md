@@ -41,3 +41,21 @@ No future record may rewrite or delete this initial state.
 - First-player rate: essentially neutral (`50.38% → 50.40%`)
 
 Krang R2B was not eligible because its isolated improvement reversed/mixed in the combined meta. April R1A weakened in the combined meta and was not eligible. No simulation was rerun and no legacy prototype file was overwritten.
+
+## Promotion OBL-PROMOTION-002
+
+- Date: `2026-10-01`
+- Prior environment: `OBL-BASELINE-001` (`SUPERSEDED`)
+- New environment: `OBL-BASELINE-002` (`OFFICIAL_BASELINE`)
+- Source combined environment: `OBL-COMBINED-003`
+- Deck: Raphael
+- Candidate: `OBL-R4-RAPHAEL-C`
+- Parent deck SHA-256: `220ea90ccc579e09bef38ce972ba84f661c2382b92c7a4559667d24a5eec6f51`
+- Promoted deck SHA-256: `e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f`
+- Exact diff: `-2 Casey Jones, Jury-Rig Justiciar; -1 Mutant Town Musicians; +2 Skateboard; +1 Spicy Oatmeal Pizza`
+- Combined evidence: `docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json` (`2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9`)
+- Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
+- Combined verdict: `COMBINED_VALIDATED`; promotion eligibility: `PROMOTION_ELIGIBLE`
+- Reason: lower mean matchup balance error, fewer 60/40 matchups, improved worst matchup, persistent Raphael balance reduction, and strengthened identity. The aggregate WR-spread increase is recorded as an accepted tradeoff.
+- Simulations run: `0`
+- Authorization: explicit Objective Balance Lab promotion request

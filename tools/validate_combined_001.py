@@ -105,6 +105,7 @@ def main() -> None:
         "OBL-R2-DONATELLO-A",
         "OBL-R2-BEBOP_ROCKSTEADY-B",
         "OBL-R2-CASEY_JONES-B",
+        "OBL-R4-RAPHAEL-C",
     }
     print(
         json.dumps(

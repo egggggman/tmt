@@ -1,7 +1,7 @@
 {
   "schema": "objective-balance-lab-experiment-ledger-v1",
-  "repository_sha": "7d74d24226f904dfb85b3c4a9e57ab8f9de5500a",
-  "environment_id": "OBL-BASELINE-001",
+  "repository_sha": "1c9b70358ab663f6872bf6b9cf2e96f4cac80ce2",
+  "environment_id": "OBL-BASELINE-002",
   "experiments": [
     {
       "experiment_id": "OBL-R1-LEONARDO-A",
@@ -2876,9 +2876,40 @@
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
       "hypothesis_result": "UTILITY_HYPOTHESIS_PARTIALLY_SUPPORTED",
-      "verdict": "PROMISING_NEEDS_VARIANT",
-      "promotion_status": "EXPERIMENTAL",
-      "source_evidence": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json"
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "source_evidence": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+      "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-002",
+        "prior_environment": "OBL-BASELINE-001",
+        "new_environment": "OBL-BASELINE-002",
+        "source_combined_environment": "OBL-COMBINED-003",
+        "combined_validation": "COMBINED_VALIDATED",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+          "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+        },
+        "promotion_evidence": [
+          {
+            "path": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json",
+            "sha256": "4988454402a69027ac6bc4e7e52a6cd08b0b0dd3ee05238f4e773038ed6f76d6"
+          },
+          {
+            "path": "docs/objective-balance-lab/ROUND_4A_POST_SUPPORT_EVIDENCE.json",
+            "sha256": "e27649ccbd5a3bc9fda5c7e3c7bc09ecc08b8da9430d5dae2cc5e33146e3d50d"
+          },
+          {
+            "path": "docs/objective-balance-lab/BASELINE_001_RUNTIME_REFRESH_EVIDENCE.json",
+            "sha256": "7ce2632f67ba5c2401cc80a8854dfeb6a654de710d23144b46250712fb8e59aa"
+          },
+          {
+            "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+            "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+          }
+        ],
+        "promotion_authority": "explicit Objective Balance Lab promotion request"
+      }
     },
     {
       "experiment_id": "OBL-R4-RAPHAEL-D",
@@ -2923,6 +2954,6 @@
       "source_evidence": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json"
     }
   ],
-  "promotion_status": "OBL-PROMOTION-001",
-  "next_gate": "SELECT COMBINED-MATRIX CANDIDATES FOR OBL-COMBINED-003"
+  "promotion_status": "OBL-PROMOTION-002",
+  "next_gate": "ROUND_5_EXPERIMENT_DESIGN"
 }
