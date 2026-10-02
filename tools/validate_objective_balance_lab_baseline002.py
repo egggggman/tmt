@@ -7,6 +7,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from objective_balance_lab_promotion_metrics import validate_baseline002
+
 ROOT = Path(__file__).resolve().parents[1]
 OBL = ROOT / "docs/objective-balance-lab"
 RUNTIME = "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25"
@@ -67,6 +69,7 @@ def main() -> int:
     assert record["promotion"]["new_environment"] == "OBL-BASELINE-002"
     assert sum(row.get("promotion_status") == "PROMOTED" for row in ledger["experiments"]) == 5
     assert "OBL-PROMOTION-002" in (OBL / "PROMOTION_HISTORY.md").read_text(encoding="utf-8")
+    validate_baseline002()
     assert not subprocess.check_output(
         ["git", "diff", "--name-only", "--", "decks"], cwd=ROOT, text=True
     ).strip()

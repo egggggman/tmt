@@ -222,8 +222,8 @@
   "lineage_parent_environment": "OBL-BASELINE-001",
   "source_combined_environment": "OBL-COMBINED-003",
   "source_combined_evidence": {
-    "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
-    "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b"
+    "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+    "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
   },
   "promotion_experiment_ids": [
     "OBL-R1-LEONARDO-A",
@@ -245,6 +245,30 @@
   "reference_evidence": {
     "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
     "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+  },
+  "environment_metrics": {
+    "mean_matchup_balance_error": 0.189556,
+    "median_matchup_deviation": 0.17,
+    "worst_matchup": {
+      "decks": [
+        "april_oneil",
+        "raphael"
+      ],
+      "games": 100,
+      "win_rates": {
+        "april_oneil": 0.09,
+        "raphael": 0.91
+      },
+      "winner_side": "raphael",
+      "deviation": 0.41
+    },
+    "over_60_40": 34,
+    "over_70_30": 18,
+    "aggregate_win_rate_spread": 0.492222,
+    "aggregate_win_rate_stddev": 0.158985,
+    "mean_first_player_result_rate": 0.505556,
+    "mean_ending_turn": 19.6916,
+    "median_ending_turn": 18.0
   },
   "promotion_evidence": [
     {

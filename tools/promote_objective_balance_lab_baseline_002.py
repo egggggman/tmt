@@ -118,7 +118,9 @@ def main() -> int:
             "source_combined_environment": "OBL-COMBINED-003",
             "next_gate": "ROUND_5_EXPERIMENT_DESIGN",
             "semantic_runtime_sha256": RUNTIME,
+            "source_combined_evidence": {"path": combined_path, "sha256": combined_sha},
             "reference_evidence": {"path": combined_path, "sha256": combined_sha},
+            "environment_metrics": metrics,
             "promotion_evidence": promotion_evidence,
             "superseded_environments": [
                 {"environment_id": "OBL-BASELINE-000", "status": "SUPERSEDED"},
@@ -200,6 +202,19 @@ def main() -> int:
         "- Lineage: `OBL-BASELINE-001` → `OBL-COMBINED-003` → `OBL-BASELINE-002`",
         "- Semantic runtime: `" + RUNTIME + "`",
         "- Next gate: **ROUND_5_EXPERIMENT_DESIGN**",
+        "",
+        (
+            "Official reference metrics come from the runtime-compatible `OBL-COMBINED-003` evidence: "
+            f"mean matchup balance error **{metrics['mean_matchup_balance_error']:.4%}** "
+            f"({metrics['mean_matchup_balance_error']:.2%} to two decimal places), "
+            f"median deviation {metrics['median_matchup_deviation']:.0%}, "
+            f"{metrics['over_60_40']} matchups over 60/40, {metrics['over_70_30']} over 70/30, "
+            f"WR spread {metrics['aggregate_win_rate_spread']:.4%}, "
+            f"first-player result rate {metrics['mean_first_player_result_rate']:.4%}, "
+            f"mean ending turn {metrics['mean_ending_turn']}, and median ending turn "
+            f"{metrics['median_ending_turn']:g}. The worst matchup is April O'Neil versus Raphael "
+            "at 9/91. See [Baseline 002 metric audit](BASELINE_002_METRIC_AUDIT.md)."
+        ),
         "",
         "| Deck | Version | Source | SHA-256 | WR | Balance error | Promotion |",
         "|---|---|---|---|---:|---:|---|",

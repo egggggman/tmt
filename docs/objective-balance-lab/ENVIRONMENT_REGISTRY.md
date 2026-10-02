@@ -11,6 +11,8 @@ Experiments are cheap. Promotion is expensive.
 - Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
 - Next gate: **ROUND_5_EXPERIMENT_DESIGN**
 
+Official reference metrics come from the runtime-compatible `OBL-COMBINED-003` evidence: mean matchup balance error **18.9556%** (18.96% to two decimal places), median deviation 17%, 34 matchups over 60/40, 18 over 70/30, WR spread 49.2222%, first-player result rate 50.5556%, mean ending turn 19.6916, and median ending turn 18. The worst matchup is April O'Neil versus Raphael at 9/91. See [Baseline 002 metric audit](BASELINE_002_METRIC_AUDIT.md).
+
 | Deck | Version | Source | SHA-256 | WR | Balance error | Promotion |
 |---|---|---|---|---:|---:|---|
 | Leonardo | `OBL-BASELINE-002` | `docs/objective-balance-lab/candidates/LEONARDO_OBL_R1.txt` | `4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960` | 36.22% | 14.89% | BASELINE_RETAINED |
