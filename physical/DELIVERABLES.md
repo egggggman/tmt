@@ -73,7 +73,25 @@ Across the ten labels, vary the depth and subject of the hidden material rather 
 
 The easter egg remains subordinate to usability: one primary hidden reference per scene, naturally embedded in the environment, never another required badge or information block, and never allowed to compromise character readability, deck identification, mana identity, or the simple/functional/collectible principle.
 
-The current Leonardo hand-drawn label iteration is the visual-reference checkpoint for this direction. It is a visual standard, not yet a production-final print artifact. The next gate is to turn the approved direction into a correctly sized 63.5 mm × 101.6 mm print proof and physically test placement, adhesion, readability, and finish on an actual tin.
+The earlier Leonardo hand-drawn label iteration remains preserved as the visual-reference checkpoint that led to the current standard.
+
+### OL600SP physical validation checkpoint
+
+The deck-label print system has now passed a real-world print test on **OnlineLabels OL600SP** media. The exact mechanically validated sheet geometry and accepted graphic setup are frozen in `physical/OL600SP_DECK_LABEL_STANDARD.md`.
+
+Validation date: **2026-10-02**.
+
+Validated result:
+
+- exact 8.5 in × 11 in sheet geometry: **PASS**;
+- eight 4 in × 2.5 in labels: **PASS**;
+- 2 × 4 placement / registration: **PASS**;
+- graphic framing and readability: **PASS**;
+- overall physical print test: **PASS**.
+
+The accepted standard uses 0.18 in left/right margins, 0.50 in top/bottom margins, 0.14 in horizontal spacing, 0 in vertical spacing, 4.14 in horizontal pitch, 2.5 in vertical pitch, and 0.125 in corner radius. Print at **100% / Actual Size** with no fit-to-page scaling.
+
+The physical validation freezes the **sheet geometry and graphic system**. Deck-specific gameplay claims and mana identity remain Design Studio-owned data and must still be synchronized from the accepted deck source of truth before final production.
 
 ## Validation states
 
