@@ -45,6 +45,11 @@ def sha(path: Path) -> str:
 
 def main() -> None:
     registry = json.loads((OBL / "ENVIRONMENT_REGISTRY.json").read_text(encoding="utf-8"))
+    if registry.get("environment_id") == "OBL-BASELINE-002":
+        from validate_objective_balance_lab_baseline002 import main as validate_baseline002
+
+        validate_baseline002()
+        return
     ledger = json.loads((OBL / "EXPERIMENT_LEDGER.json").read_text(encoding="utf-8"))
     manifest = json.loads(
         (OBL / "baselines/OBL_BASELINE_001_MANIFEST.json").read_text(encoding="utf-8")
