@@ -1,0 +1,122 @@
+{
+  "schema": "objective-balance-lab-round5-design-v1",
+  "state": "DESIGN_ONLY_NOT_SIMULATED",
+  "parent_environment_id": "OBL-BASELINE-002",
+  "parent_manifest": "docs/objective-balance-lab/baselines/OBL_BASELINE_002_MANIFEST.json",
+  "metric_audit": "docs/objective-balance-lab/BASELINE_002_METRIC_AUDIT.json",
+  "reference_evidence": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+  "card_snapshot": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+  "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+  "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "frozen_decks": ["leonardo", "raphael", "donatello", "michelangelo", "splinter", "bebop_rocksteady", "casey_jones"],
+  "card_pre_screen": [
+    {
+      "card": "Tunnel Rats", "mana_value": 2, "mana_cost": "{1}{B}", "colors": ["B"], "card_type": "Creature", "rules_text": "{4}{B}: Return this card from your graveyard to the battlefield tapped.", "standard_legal": true, "deck_payable": true, "pilot_usage": "CREATURE_CAST_AND_BODY_SUPPORTED_GRAVEYARD_ACTIVATION_NOT_ASSUMED", "prior_obl_appearances": [], "functional_role": "slower black board body", "expected_power_direction": "DOWN", "thematic_rationale": "undercity villain minion"
+    },
+    {
+      "card": "April, Reporter of the Weird", "mana_value": 3, "mana_cost": "{2}{U}", "colors": ["U"], "card_type": "Legendary Creature", "rules_text": "Whenever April deals combat damage to a player, draw that many cards, then discard a card.", "standard_legal": true, "deck_payable": true, "pilot_usage": "CREATURE_CAST_AND_BODY_SUPPORTED_COMBAT_DRAW_NOT_EXECUTED", "prior_obl_appearances": ["OBL-R3-APRIL_ONEIL-A"], "functional_role": "reporter body from reactive slot", "expected_power_direction": "UP_IF_EARLY_BOARD_MATTERS", "thematic_rationale": "April reporting identity"
+    },
+    {
+      "card": "Utrom Scientists", "mana_value": 3, "mana_cost": "{2}{U}", "colors": ["U"], "card_type": "Artifact Creature", "rules_text": "When this creature enters, tap up to one target creature and put a stun counter on it. (If a permanent with a stun counter would become untapped, remove one from it instead.)", "standard_legal": true, "deck_payable": true, "pilot_usage": "CREATURE_CAST_AND_ETB_STUN_SUPPORTED", "prior_obl_appearances": ["BASELINE_APRIL", "BASELINE_KRANG", "OBL-R1-DONATELLO-A"], "functional_role": "board plus tempo", "expected_power_direction": "UP", "thematic_rationale": "adaptive technology ally"
+    },
+    {
+      "card": "Mouser Mark III", "mana_value": 2, "mana_cost": "{1}{U/R}", "colors": ["U", "R"], "card_type": "Artifact Creature", "rules_text": "This creature can't attack unless you control another artifact.", "standard_legal": true, "deck_payable": true, "pilot_usage": "CREATURE_CAST_AND_OTHER_ARTIFACT_ATTACK_GATE_UNIT_TESTED", "prior_obl_appearances": ["BASELINE_DONATELLO"], "functional_role": "cheap artifact-conditioned pressure", "expected_power_direction": "UP", "thematic_rationale": "Krang robot technology"
+    },
+    {
+      "card": "Donatello, Turtle Techie", "mana_value": 4, "mana_cost": "{3}{U}", "colors": ["U"], "card_type": "Legendary Creature", "rules_text": "When Donatello enters, if you control an artifact, draw a card.", "standard_legal": true, "deck_payable": true, "pilot_usage": "CREATURE_CAST_AND_CONDITIONAL_ETB_DRAW_UNIT_TESTED", "prior_obl_appearances": ["OBL-R2-DONATELLO-A"], "functional_role": "midgame artifact conversion", "expected_power_direction": "UP", "thematic_rationale": "technology cameo with identity-dilution risk"
+    }
+  ],
+  "new_match_simulations": 0,
+  "proposed_candidate_games": 4500,
+  "maximum_if_six_candidates": 5400,
+  "screened_out": [
+    {"deck": "april_oneil", "idea": "April O'Neil, Kunoichi Trainee", "result": "REJECT_PRE_SCREEN", "reason": "White mana cost {1}{W} is not payable by mono-blue April."},
+    {"deck": "april_oneil", "idea": "More Negate or Retro-Mutation", "result": "REJECT_PRE_SCREEN", "reason": "R3-B tested the reactive direction and regressed."},
+    {"deck": "april_oneil", "idea": "Additional April reporting/selection as a second candidate", "result": "NEEDS_SEMANTIC_SUPPORT", "reason": "The current Pilot casts April bodies but the Reporter combat-draw and Hacktivist end-step-draw text is not implemented. Another value-density test would not distinguish information generation from creature count."},
+    {"deck": "shredder", "idea": "Shredder's Revenge or extra Anchovy & Banana Pizza", "result": "REJECT_PRE_SCREEN", "reason": "Revenge's modal sorcery is not cast by the current Pilot; baseline Anchovy Pizza was drawn but never cast and R2 repeated this inert replacement."},
+    {"deck": "krang", "idea": "Chrome Dome or Technodrome as artifact payoff", "result": "NEEDS_SEMANTIC_SUPPORT", "reason": "The artifact-buff/copy and attack-gating/activation text, respectively, is not currently represented sufficiently for payoff evidence."},
+    {"deck": "krang", "idea": "More Does Machines, Krang Master Mind, or Omni-Cheese Pizza", "result": "REJECT_PRE_SCREEN", "reason": "R2/R3 evidence already falsified or weakened these setup/high-end packages."}
+  ],
+  "candidates": [
+    {
+      "experiment_id": "OBL-R5-SHREDDER-A",
+      "deck_key": "shredder",
+      "candidate_path": "docs/objective-balance-lab/candidates/SHREDDER_OBL_R5_A.txt",
+      "candidate_sha256": "7431daaed35e68d663a88f6e529444e468500b393d4676aaa658bb0c2a564139",
+      "parent_path": "decks/shredder/PROTOTYPE_0.3.txt",
+      "parent_sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
+      "removals": {"Dream Beavers": 1, "Squirrelanoids": 1},
+      "additions": {"Tunnel Rats": 2},
+      "hypothesis": "Replacing one copy each of Shredder's two active one-drop pressure cards with slower Tunnel Rats should reduce early battlefield dominance while keeping an undercity villain-minion shell.",
+      "predicted_observables": {"aggregate_wr": "DOWN", "balance_error": "DOWN", "early_presence": "DOWN", "extreme_matchups": "FEWER", "identity": "PRESERVED"},
+      "prior_evidence_classification": "NEW_LEVER",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "selection_status": "READY_FOR_ROUND_5_SIMULATION",
+      "primary_for_deck": true
+    },
+    {
+      "experiment_id": "OBL-R5-SHREDDER-B",
+      "deck_key": "shredder",
+      "candidate_path": "docs/objective-balance-lab/candidates/SHREDDER_OBL_R5_B.txt",
+      "candidate_sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "parent_path": "decks/shredder/PROTOTYPE_0.3.txt",
+      "parent_sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
+      "removals": {"Dream Beavers": 1, "Shark Shredder, Killer Clone": 1},
+      "additions": {"Tunnel Rats": 2},
+      "hypothesis": "Trading one active early drain/flyer and one large Shredder closer for lower-impact Tunnel Rats should lower both opening pressure and late conversion without removing the villain core.",
+      "predicted_observables": {"aggregate_wr": "DOWN", "balance_error": "DOWN", "early_presence": "SAME_OR_DOWN", "closing": "DOWN", "extreme_matchups": "FEWER", "identity": "PRESERVED"},
+      "prior_evidence_classification": "NEW_LEVER",
+      "semantic_support": "PRESSURE_BODY_SUPPORTED_GRAVEYARD_RECURSION_NOT_TESTED",
+      "selection_status": "READY_FOR_ROUND_5_SIMULATION",
+      "primary_for_deck": false
+    },
+    {
+      "experiment_id": "OBL-R5-APRIL_ONEIL-A",
+      "deck_key": "april_oneil",
+      "candidate_path": "docs/objective-balance-lab/candidates/APRIL_ONEIL_OBL_R5_A.txt",
+      "candidate_sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "parent_path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+      "parent_sha256": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
+      "removals": {"Negate": 2},
+      "additions": {"April, Reporter of the Weird": 1, "Utrom Scientists": 1},
+      "hypothesis": "Moving two reactive Negate slots into a Reporter body and an ETB-stun scientist should advance April's battlefield sooner and improve pressure survival without losing her resourceful identity.",
+      "predicted_observables": {"aggregate_wr": "UP", "balance_error": "DOWN", "early_presence": "UP", "interaction_casts": "DOWN", "extreme_matchups": "FEWER", "identity": "PRESERVED"},
+      "prior_evidence_classification": "NEW_LEVER",
+      "semantic_support": "CREATURE_CAST_AND_STUN_SUPPORTED_REPORTER_COMBAT_DRAW_NOT_TESTED",
+      "selection_status": "READY_FOR_ROUND_5_SIMULATION",
+      "primary_for_deck": true
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-A",
+      "deck_key": "krang",
+      "candidate_path": "docs/objective-balance-lab/candidates/KRANG_OBL_R5_A.txt",
+      "candidate_sha256": "565b5e0c0486d04c631ccefa238fc0c16af13d13c4b6d409fd12d4ea82a24ca9",
+      "parent_path": "decks/krang/PROTOTYPE_0.2.txt",
+      "parent_sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "removals": {"Negate": 2},
+      "additions": {"Mouser Mark III": 2},
+      "hypothesis": "Converting two reactive slots into cheap artifact-conditioned Mouser attackers should turn Krang's existing artifacts into earlier board pressure and improve his worst pressure matchups.",
+      "predicted_observables": {"aggregate_wr": "UP", "balance_error": "DOWN", "early_presence": "UP", "interaction_casts": "DOWN", "extreme_matchups": "FEWER", "identity": "PRESERVED"},
+      "prior_evidence_classification": "NEW_LEVER",
+      "semantic_support": "CAST_AND_OTHER_ARTIFACT_ATTACK_GATE_UNIT_TESTED",
+      "selection_status": "READY_FOR_ROUND_5_SIMULATION",
+      "primary_for_deck": true
+    },
+    {
+      "experiment_id": "OBL-R5-KRANG-B",
+      "deck_key": "krang",
+      "candidate_path": "docs/objective-balance-lab/candidates/KRANG_OBL_R5_B.txt",
+      "candidate_sha256": "d1691343e948d96f454468fb360c85e2f68dbe04ae7eed545430560153816bcd",
+      "parent_path": "decks/krang/PROTOTYPE_0.2.txt",
+      "parent_sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "removals": {"Negate": 2},
+      "additions": {"Donatello, Turtle Techie": 2},
+      "hypothesis": "Replacing two reactive Negates with artifact-conditioned ETB draw bodies should let Krang convert an established artifact board into a tempo-positive threat and card without extra setup.",
+      "predicted_observables": {"aggregate_wr": "UP", "balance_error": "DOWN", "early_presence": "SAME", "midgame_presence": "UP", "interaction_casts": "DOWN", "extreme_matchups": "FEWER", "identity": "PRESERVED_WITH_DONATELLO_CAMEO_RISK"},
+      "prior_evidence_classification": "VARIANT_OF_PROMISING_LEVER",
+      "semantic_support": "CREATURE_CAST_AND_ARTIFACT_CONDITIONAL_ETB_DRAW_UNIT_TESTED",
+      "selection_status": "READY_FOR_ROUND_5_SIMULATION",
+      "primary_for_deck": false
+    }
+  ]
+}
