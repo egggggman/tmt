@@ -1,0 +1,66 @@
+{
+  "schema": "objective-balance-lab-metric-audit-v1",
+  "baseline_environment": "OBL-BASELINE-002",
+  "promotion_authority": "OBL-COMBINED-003",
+  "recorded_evidence_sha256_line_endings": "CRLF",
+  "conclusion": "BASELINE_002_METADATA_CORRECTED",
+  "classification": [
+    "PRE_REFRESH_METRIC_USED",
+    "WRONG_EVIDENCE_SOURCE"
+  ],
+  "erroneous_reported_mean_balance_error": 0.193333,
+  "erroneous_metric_source": {
+    "path": "docs/objective-balance-lab/COMBINED_001_EVIDENCE.json",
+    "sha256": "84ef3186f9960e32cfb9246f9e1a13f6cfa75a680df97e4b25e964f0b301356b",
+    "json_path": "global_metrics.combined.mean_matchup_balance_error",
+    "environment": "OBL-COMBINED-001"
+  },
+  "authority_source": {
+    "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+    "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9",
+    "json_path": "combined_games"
+  },
+  "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "matchup_cells": 45,
+  "logical_games": 4500,
+  "new_simulations": 0,
+  "matchup_fingerprint_digest_sha256": "26aaf7ba16b1f759e94c2d7142d4af1d72fb18c11a481e594e17fbcbbe3a7c65",
+  "formula": "For each 100-game matchup: win rate = (wins + draws / 2) / 100; deviation = abs(win rate - 0.5). Mean matchup balance error = arithmetic mean of all 45 deviations. Strict >0.1 and >0.2 thresholds define 60/40 and 70/30 counts. Aggregate deck WR = (wins + draws / 2) / 900. First-player result rate = mean of ten deck-specific first-seat win rates, excluding half-draw credit, following the authoritative builder.",
+  "global_metrics": {
+    "mean_matchup_balance_error": 0.189556,
+    "median_matchup_deviation": 0.17,
+    "worst_matchup": {
+      "decks": ["april_oneil", "raphael"],
+      "games": 100,
+      "win_rates": {"april_oneil": 0.09, "raphael": 0.91},
+      "winner_side": "raphael",
+      "deviation": 0.41
+    },
+    "over_60_40": 34,
+    "over_70_30": 18,
+    "aggregate_win_rate_spread": 0.492222,
+    "aggregate_win_rate_stddev": 0.158985,
+    "mean_first_player_result_rate": 0.505556,
+    "mean_ending_turn": 19.6916,
+    "median_ending_turn": 18.0
+  },
+  "per_deck_win_rates": {
+    "april_oneil": 0.257778,
+    "bebop_rocksteady": 0.4,
+    "casey_jones": 0.615556,
+    "donatello": 0.41,
+    "krang": 0.351111,
+    "leonardo": 0.362222,
+    "michelangelo": 0.517778,
+    "raphael": 0.702222,
+    "shredder": 0.75,
+    "splinter": 0.633333
+  },
+  "corrected_metadata": [
+    "ENVIRONMENT_REGISTRY.json: source_combined_evidence now points to the runtime-compatible Combined 003 artifact",
+    "ENVIRONMENT_REGISTRY.json: environment_metrics explicitly records the full Baseline 002 reference set",
+    "ENVIRONMENT_REGISTRY.md: reference metrics and audit link added"
+  ],
+  "next_gate": "ROUND_5_EXPERIMENT_DESIGN"
+}
