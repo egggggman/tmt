@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -66,7 +67,7 @@ def _payable(mana_cost: str, allowed_color: str) -> bool:
     return True
 
 
-def validate() -> dict[str, object]:
+def validate(*, allow_results: bool = False) -> dict[str, object]:
     plan = json.loads((OBL / "ROUND_5_CANDIDATE_PLAN.json").read_text(encoding="utf-8"))
     baseline = json.loads(
         (OBL / "baselines/OBL_BASELINE_002_MANIFEST.json").read_text(encoding="utf-8")
@@ -102,14 +103,16 @@ def validate() -> dict[str, object]:
     interpreter = CardInterpreter()
     assert len(plan["candidates"]) == 5
     assert {row["experiment_id"] for row in plan["candidates"]} == EXPECTED_IDS
-    assert not EXPECTED_IDS & prior_ids
+    if not allow_results:
+        assert not EXPECTED_IDS & prior_ids
     assert plan["proposed_candidate_games"] == 900 * len(plan["candidates"])
     assert plan["maximum_if_six_candidates"] == 5400
-    assert all(
-        not (OBL / name).exists()
-        for name in ("ROUND_5_EVIDENCE.json", "ROUND_5_EVIDENCE.checkpoint.json")
-    )
-    assert not list(OBL.glob("ROUND_5_*RESULT*"))
+    if not allow_results:
+        assert all(
+            not (OBL / name).exists()
+            for name in ("ROUND_5_EVIDENCE.json", "ROUND_5_EVIDENCE.checkpoint.json")
+        )
+        assert not list(OBL.glob("ROUND_5_*RESULT*"))
 
     for baseline_row in baseline["decks"]:
         assert _recorded_sha_matches(ROOT / baseline_row["source_path"], baseline_row["sha256"])
@@ -168,7 +171,8 @@ def validate() -> dict[str, object]:
         assert key not in seen_diffs
         seen_diffs.add(key)
         assert not any(
-            (old.get("deck_key") == deck or old.get("deck") == r1.DISPLAY[deck])
+            old["experiment_id"] != row["experiment_id"]
+            and (old.get("deck_key") == deck or old.get("deck") == r1.DISPLAY[deck])
             and old["exact_removals"] == row["removals"]
             and old["exact_additions"] == row["additions"]
             for old in ledger["experiments"]
@@ -220,7 +224,10 @@ def validate() -> dict[str, object]:
 
 
 def main() -> int:
-    print(json.dumps(validate(), sort_keys=True))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--allow-results", action="store_true")
+    args = parser.parse_args()
+    print(json.dumps(validate(allow_results=args.allow_results), sort_keys=True))
     return 0
 
 
