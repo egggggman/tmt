@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "src"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import assert_pre_chrome_evidence_runtime  # noqa: E402
 
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind  # noqa: E402
 from tmnt_design_studio.engine07 import load_facts  # noqa: E402
@@ -78,7 +78,7 @@ def validate(*, allow_results: bool = False) -> dict[str, object]:
     assert baseline["environment_metrics"]["mean_matchup_balance_error"] == 0.189556
     assert audit["conclusion"] == "BASELINE_002_METADATA_CORRECTED"
     assert plan["semantic_runtime_sha256"] == baseline["semantic_runtime_sha256"]
-    assert identity()["aggregate_semantic_runtime_sha256"] == plan["semantic_runtime_sha256"]
+    assert_pre_chrome_evidence_runtime(plan["semantic_runtime_sha256"])
     assert plan["schedule_identity"] == baseline["schedule_identity"]
     assert plan["new_match_simulations"] == 0
     assert len(baseline["decks"]) == 10

@@ -1,0 +1,58 @@
+{
+  "schema": "objective-balance-lab-r6b-semantic-readiness-v1",
+  "candidate_experiment_id": "OBL-R6-KRANG-B",
+  "design_studio_pr": "https://github.com/egggggman/tmt/pull/260",
+  "design_studio_head_sha": "6315561e92c76142d3d3527538024ba55f4694ec",
+  "candidate_path_in_design_studio_pr": "docs/objective-balance-lab/candidates/KRANG_OBL_R6_B.txt",
+  "candidate_git_blob_sha1": "53af73af05c475832bd3e8a08c67264a0ff8fd44",
+  "candidate_canonical_lf_sha256": "5460b9d1288d193db3f8db7a78076dfeb38f734c79acdd1ddbe898da030b3bdf",
+  "candidate_rows": [
+    "Deck",
+    "4 Fugitive Droid",
+    "4 Buzz Bots",
+    "4 Crustacean Commando",
+    "4 Utrom Scientists",
+    "2 Krang, Master Mind",
+    "3 Ray Fillet, Man Ray",
+    "2 Stockman, Mad Fly-entist",
+    "1 Chrome Dome",
+    "4 Sewer-veillance Cam",
+    "2 Does Machines",
+    "2 Bespoke Bō",
+    "2 Negate",
+    "2 Ooze Spill",
+    "2 Retro-Mutation",
+    "22 Island"
+  ],
+  "exact_diff_from_baseline_003": {
+    "removals": {"Negate": 1},
+    "additions": {"Chrome Dome": 1}
+  },
+  "candidate_identity_verified": true,
+  "candidate_edited_in_this_pr": false,
+  "card_snapshot_path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+  "card_snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+  "chrome_dome_oracle_id": "3dc71e16-b935-4ad7-b3f7-945ac2c179a7",
+  "chrome_dome_scryfall_ids": [
+    "994a01eb-2689-49e7-be23-0713da9da9a8",
+    "8bae4950-bf6d-4e96-91f9-26d27021b748"
+  ],
+  "chrome_dome_mana_cost": "{2}",
+  "chrome_dome_type_line": "Artifact Creature — Robot Ninja",
+  "chrome_dome_power_toughness": [1, 3],
+  "chrome_dome_standard_legality": "legal",
+  "required_oracle_clause": "Other artifact creatures you control get +1/+0.",
+  "nonrequired_oracle_clause": "{5}: Create a token that's a copy of another target artifact you control. That token gains haste. Sacrifice it at the beginning of the next end step.",
+  "semantic_coverage": {
+    "creature_permanent_casting": "SUPPORTED",
+    "static_other_artifact_creatures_you_control_plus_1_plus_0": "SUPPORTED",
+    "copy_activation": "UNSUPPORTED_OUT_OF_SCOPE",
+    "whole_card_fully_executable": false,
+    "hypothesis_semantics": "READY"
+  },
+  "old_semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+  "new_semantic_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
+  "baseline_environment": "OBL-BASELINE-003",
+  "historical_baseline_evidence_compatible_with_new_runtime": false,
+  "simulations_run": 0
+}

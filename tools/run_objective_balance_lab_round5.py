@@ -19,7 +19,10 @@ OUTPUT = OBL / "ROUND_5_EVIDENCE.json"
 sys.path.insert(0, str(ROOT / "tools"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import (  # noqa: E402
+    assert_pre_chrome_evidence_runtime,
+    identity,
+)
 from validate_objective_balance_lab_round5_design import validate as validate_design  # noqa: E402
 
 
@@ -55,8 +58,8 @@ def preflight() -> tuple[dict, dict, list[dict], dict[str, str]]:
         evidence["semantic_runtime_sha256"]
         == baseline["semantic_runtime_sha256"]
         == plan["semantic_runtime_sha256"]
-        == identity()["aggregate_semantic_runtime_sha256"]
     )
+    assert_pre_chrome_evidence_runtime(plan["semantic_runtime_sha256"])
     assert evidence["environment_id"] == "OBL-COMBINED-003"
     assert evidence["newly_executed_games"] == 0
     assert len(evidence["combined_games"]) == len(schedule)
@@ -159,6 +162,9 @@ def main() -> int:
     if not args.run:
         print(json.dumps({"status": "PREFLIGHT_PASS", "candidate_games": 4500}))
         return 0
+    assert identity()["aggregate_semantic_runtime_sha256"] == plan["semantic_runtime_sha256"], (
+        "historical Round 5 games cannot run under a changed semantic runtime"
+    )
     if OUTPUT.exists():
         completed = json.loads(OUTPUT.read_text(encoding="utf-8"))
         assert len(completed["candidate_results"]) == 5

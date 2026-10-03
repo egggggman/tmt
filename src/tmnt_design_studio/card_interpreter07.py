@@ -42,6 +42,26 @@ class CastProgram:
 
 
 @dataclass(frozen=True)
+class StaticTeamModifierProgram:
+    """Bounded controller-scoped modifier for other qualified creatures."""
+
+    quality: str
+    power: int
+    toughness: int
+    other: bool = True
+
+
+@dataclass(frozen=True)
+class InterpretedStaticTeamModifierSemantics:
+    program: StaticTeamModifierProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class DrawCardsProgram:
     """Oracle-derived draw quantity for a directly executable spell effect."""
 
@@ -584,6 +604,10 @@ class CardInterpreter:
     STATIC_OTHER_CREATURES = re.compile(
         r"^.+ gets \+(\d+)/\+(\d+) for each other creature you control\.$"
     )
+    STATIC_OTHER_QUALIFIED_CREATURES = re.compile(
+        r"^Other (?P<quality>artifact) creatures you control get "
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
+    )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
         r"^Alliance — Whenever another creature you control enters, this creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
@@ -988,11 +1012,31 @@ class CardInterpreter:
     def fragments(card: CardDefinition) -> tuple[str, ...]:
         return tuple(line.strip() for line in card.oracle_text.splitlines() if line.strip())
 
+    def static_team_modifier_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticTeamModifierSemantics | None:
+        match = self.STATIC_OTHER_QUALIFIED_CREATURES.fullmatch(fragment)
+        if match is None:
+            return None
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        limitations = () if permanent_source else ("static_modifier_source_is_not_permanent",)
+        program = StaticTeamModifierProgram(
+            match.group("quality"), int(match.group("power")), int(match.group("toughness"))
+        )
+        return InterpretedStaticTeamModifierSemantics(
+            program,
+            SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
+        )
+
     def supports_pt_fragment(self, fragment: str) -> bool:
         return any(
             pattern.fullmatch(fragment)
             for pattern in (
                 self.STATIC_OTHER_CREATURES,
+                self.STATIC_OTHER_QUALIFIED_CREATURES,
                 self.ALLIANCE_THIS_UNTIL_EOT,
                 self.SNEAK_ETB_TEAM_UNTIL_EOT,
                 self.ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
@@ -2391,6 +2435,10 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            static_team = self.static_team_modifier_semantic_coverage(card, fragment)
+            if static_team is not None:
+                unsupported.extend((fragment, reason) for reason in static_team.limitations)
+                continue
             stun = self.etb_tap_stun_semantic_coverage(card, fragment)
             if stun is not None:
                 unsupported.extend((fragment, reason) for reason in stun.limitations)

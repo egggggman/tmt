@@ -705,6 +705,7 @@ class PowerToughnessModifier:
     created_turn: int
     created_order: int = 0
     derived_static: bool = False
+    source_object_id: str | None = None
 
 
 class CharacteristicLayer(Enum):
@@ -1285,6 +1286,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self.conformance_stop_records: list[ConformanceStopRecord] = []
         self._next_trigger_number = 1
         self._next_effect_number = 1
+        self._static_team_contributions: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
         self._init_mill_three()
         self._init_krang_refill()
         self.players = [PlayerState(names[i], []) for i in range(2)]
@@ -6211,6 +6213,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         source_card: str,
         oracle_fragment: str,
         derived_static: bool = False,
+        source_object_id: str | None = None,
         log_event: bool = True,
     ) -> None:
         if not self.is_authoritative(target, "battlefield"):
@@ -6225,6 +6228,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 created_turn=self.turn,
                 created_order=self._next_effect_number,
                 derived_static=derived_static,
+                source_object_id=source_object_id,
             )
         )
         self._next_effect_number += 1
@@ -6279,11 +6283,20 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
 
     def refresh_static_pt_modifiers(self) -> None:
         previous: dict[str, tuple[int, int]] = {}
+        previous_team = self._static_team_contributions
         for player in self.players:
             for permanent in player.battlefield:
                 previous[permanent.object_id] = (
-                    sum(x.power for x in permanent.pt_modifiers if x.derived_static),
-                    sum(x.toughness for x in permanent.pt_modifiers if x.derived_static),
+                    sum(
+                        x.power
+                        for x in permanent.pt_modifiers
+                        if x.derived_static and x.source_object_id is None
+                    ),
+                    sum(
+                        x.toughness
+                        for x in permanent.pt_modifiers
+                        if x.derived_static and x.source_object_id is None
+                    ),
                 )
                 permanent.pt_modifiers = [
                     modifier for modifier in permanent.pt_modifiers if not modifier.derived_static
@@ -6320,6 +6333,65 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                                 toughness=current[1],
                                 oracle_fragment=fragment,
                             )
+        current_team: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
+        for player in self.players:
+            for source in player.battlefield:
+                for fragment in self.interpreter.fragments(source.card):
+                    semantics = self.interpreter.static_team_modifier_semantic_coverage(
+                        source.card, fragment
+                    )
+                    if semantics is None or not semantics.coverage.fully_supported:
+                        continue
+                    program = semantics.program
+                    for target in player.battlefield:
+                        if target is source or not target.is_creature:
+                            continue
+                        if program.quality == "artifact" and "Artifact" not in target.type_line:
+                            continue
+                        self.apply_pt_modifier(
+                            target,
+                            program.power,
+                            program.toughness,
+                            duration="persistent",
+                            source_card=source.card.name,
+                            oracle_fragment=fragment,
+                            derived_static=True,
+                            source_object_id=source.object_id,
+                            log_event=False,
+                        )
+                        current_team[(source.object_id, target.object_id, fragment)] = (
+                            program.power,
+                            program.toughness,
+                            source.card.name,
+                            target.card.name,
+                        )
+        qualifying_counts: dict[str, int] = {}
+        for source_id, _target_id, _fragment in current_team:
+            qualifying_counts[source_id] = qualifying_counts.get(source_id, 0) + 1
+        self._static_team_contributions = current_team
+        for key in dict.fromkeys((*previous_team, *current_team)):
+            before = previous_team.get(key)
+            after = current_team.get(key)
+            if before == after:
+                continue
+            source_id, target_id, fragment = key
+            before_power, before_toughness = (0, 0) if before is None else before[:2]
+            after_power, after_toughness = (0, 0) if after is None else after[:2]
+            source_card, target_card = (after or before)[2:]
+            self.log(
+                "pt_static_team_modifier_changed",
+                action="applied" if before is None else "removed" if after is None else "updated",
+                source=source_card,
+                source_object_id=source_id,
+                target=target_card,
+                target_object_id=target_id,
+                power_delta=after_power - before_power,
+                toughness_delta=after_toughness - before_toughness,
+                power=after_power,
+                toughness=after_toughness,
+                qualifying_targets=qualifying_counts.get(source_id, 0),
+                oracle_fragment=fragment,
+            )
 
     def resolve_creature_entered_pt_effects(self, entering: Permanent) -> None:
         self._process_creature_entered_triggers(
@@ -11326,6 +11398,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                                     "created_turn": modifier.created_turn,
                                     "created_order": modifier.created_order,
                                     "derived_static": modifier.derived_static,
+                                    **(
+                                        {"source_object_id": modifier.source_object_id}
+                                        if modifier.source_object_id is not None
+                                        else {}
+                                    ),
                                 }
                                 for modifier in x.pt_modifiers
                             ],

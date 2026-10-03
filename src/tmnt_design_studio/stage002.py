@@ -223,6 +223,10 @@ def _semantic_coverage(
         }
     candidates = (
         (
+            "static_team_modifier",
+            interpreter.static_team_modifier_semantic_coverage(card, fragment),
+        ),
+        (
             "etb_artifact_draw",
             interpreter.etb_artifact_draw_semantic_coverage(card, fragment),
         ),
