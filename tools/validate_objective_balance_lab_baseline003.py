@@ -15,7 +15,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import run_combined_004 as c4  # noqa: E402
 import run_objective_balance_lab_round1 as r1  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import (  # noqa: E402
+    assert_pre_chrome_evidence_runtime,
+)
 from validate_combined_005 import validate as validate_combined005  # noqa: E402
 from validate_objective_balance_lab_baseline003_metrics import (  # noqa: E402
     validate as validate_metrics,
@@ -75,7 +77,7 @@ def validate() -> dict:
         == registry["repository_sha"]
         == "ed8848c51750d7b2343a35877857304d88371a5e"
     )
-    assert baseline["semantic_runtime_sha256"] == identity()["aggregate_semantic_runtime_sha256"]
+    assert_pre_chrome_evidence_runtime(baseline["semantic_runtime_sha256"])
     assert baseline["semantic_runtime_sha256"] == combined["semantic_runtime_sha256"]
     assert baseline["schedule_identity"] == combined["schedule_sha256"]
     assert (

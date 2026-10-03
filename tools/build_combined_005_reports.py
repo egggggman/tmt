@@ -18,7 +18,9 @@ import build_combined_004_reports as b4  # noqa: E402
 import run_combined_004 as c4  # noqa: E402
 import run_objective_balance_lab_round1 as r1  # noqa: E402
 import run_objective_balance_lab_round5 as r5  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import (  # noqa: E402
+    assert_pre_chrome_evidence_runtime,
+)
 from validate_combined_004 import validate as validate_c4  # noqa: E402
 
 EXPECTED_MAIN = "d25b47e26c685018210acfec3b2e8e0ed3c83849"
@@ -101,7 +103,7 @@ def _metric_delta(source: dict, target: dict) -> dict:
 def build() -> tuple[dict, dict]:
     _check_lineage()
     validate_c4(replay=False)
-    assert identity()["aggregate_semantic_runtime_sha256"] == c4.RUNTIME
+    assert_pre_chrome_evidence_runtime(c4.RUNTIME)
     baseline_manifest = json.loads(c4.BASELINE_PATH.read_text(encoding="utf-8"))
     baseline = json.loads(c4.BASELINE_EVIDENCE.read_text(encoding="utf-8"))
     round5 = json.loads(c4.ROUND5_PATH.read_text(encoding="utf-8"))

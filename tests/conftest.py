@@ -8,7 +8,7 @@ import pytest
 
 @pytest.fixture
 def frozen_v1_source_files(monkeypatch, tmp_path):
-    """Use current Cardcade sources and historical orchestration sources.
+    """Supply the exact pre-change source blobs for the frozen v1 plan.
 
     Only these tests opt in. All other inputs still come from the workspace,
     and production plan() continues to reject unaccepted source identities.
@@ -17,13 +17,15 @@ def frozen_v1_source_files(monkeypatch, tmp_path):
 
     root = Path(__file__).resolve().parents[1]
     original = smoke01._git_text_identity
-    revision = "de52f57a24a5c29a258573ad673051a0aa5c7e5c"
-    historical = {
-        "src/tmnt_design_studio/engine07.py": root / "src/tmnt_design_studio/engine07.py",
-        "src/tmnt_design_studio/card_interpreter07.py": root
-        / "src/tmnt_design_studio/card_interpreter07.py",
+    revisions = {
+        "engine07.py": "1a05fb646479494c1585bb8b2582d1ff6721797e",
+        "card_interpreter07.py": "1a05fb646479494c1585bb8b2582d1ff6721797e",
+        "pilot07.py": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+        "stage002.py": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
+        "smoke01.py": "de52f57a24a5c29a258573ad673051a0aa5c7e5c",
     }
-    for name in ("pilot07.py", "stage002.py", "smoke01.py"):
+    historical = {}
+    for name, revision in revisions.items():
         relative = f"src/tmnt_design_studio/{name}"
         target = tmp_path / name
         target.write_bytes(
