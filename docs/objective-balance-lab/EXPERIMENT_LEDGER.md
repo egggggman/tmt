@@ -59,3 +59,6 @@ Round 6 Design Studio handoff: [Krang R6-A evidence](ROUND_6_A_EVIDENCE.json) an
 | Experiment | Round | Deck | Parent SHA-256 | Candidate SHA-256 | Cardcade verdict | Promotion |
 |---|---|---|---|---|---|---|
 | `OBL-R6-KRANG-A` | R6 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `f7d5734781c06349d33dc3396614ec8f7e448ada4ceb8d468db84d1f268a38fa` | RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION | EXPERIMENTAL |
+| `OBL-R6-KRANG-B` | R6 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `5460b9d1288d193db3f8db7a78076dfeb38f734c79acdd1ddbe898da030b3bdf` | RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION | EXPERIMENTAL |
+
+R6-B uses the [new-runtime Baseline 003 control](BASELINE_003_RUNTIME_REFRESH_EVIDENCE.json); [isolated evidence](ROUND_6_B_EVIDENCE.json) and [results](ROUND_6_B_RESULTS.md) are not promotion authority.

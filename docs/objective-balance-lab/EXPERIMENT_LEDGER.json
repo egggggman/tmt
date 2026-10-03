@@ -3327,6 +3327,56 @@
       "verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
       "promotion_status": "EXPERIMENTAL",
       "promotion": null
+    },
+    {
+      "experiment_id": "OBL-R6-KRANG-B",
+      "round": "R6",
+      "deck": "Krang",
+      "deck_key": "krang",
+      "parent": {
+        "environment_id": "OBL-BASELINE-003",
+        "path": "decks/krang/PROTOTYPE_0.2.txt",
+        "sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/KRANG_OBL_R6_B.txt",
+        "sha256": "5460b9d1288d193db3f8db7a78076dfeb38f734c79acdd1ddbe898da030b3bdf",
+        "git_blob_sha1": "53af73af05c475832bd3e8a08c67264a0ff8fd44",
+        "label": "B"
+      },
+      "exact_additions": {"Chrome Dome": 1},
+      "exact_removals": {"Negate": 1},
+      "hypothesis": "One Chrome Dome improves severe Shredder and Raphael matchups through artifact-board resistance without R6-A polarization.",
+      "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+      "semantic_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
+      "control_evidence_id": "OBL-BASELINE-003-RUNTIME-REFRESH-001",
+      "source_evidence": "docs/objective-balance-lab/ROUND_6_B_EVIDENCE.json",
+      "result_metrics": {
+        "candidate_win_rate": 0.386667,
+        "parent_win_rate": 0.353333,
+        "balance_delta": 0.002222,
+        "extremes": {
+          "worst_matchup": {"opponent": "raphael", "win_rate": 0.13},
+          "over_60_40": 7,
+          "over_70_30": 3
+        },
+        "matchup_deltas": {
+          "leonardo": 0.02,
+          "raphael": 0.0,
+          "donatello": 0.0,
+          "michelangelo": 0.0,
+          "splinter": 0.03,
+          "shredder": 0.03,
+          "bebop_rocksteady": 0.05,
+          "april_oneil": 0.09,
+          "casey_jones": 0.08
+        }
+      },
+      "identity_classification": "IDENTITY_STRENGTHENED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
+      "promotion_status": "EXPERIMENTAL",
+      "promotion": null
     }
   ],
   "promotion_status": "OBL-PROMOTION-003",
