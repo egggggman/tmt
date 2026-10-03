@@ -35,6 +35,24 @@ def write_json(path: Path, value: dict) -> None:
     r6.atomic_json(path, value)
 
 
+def stage_presence(games: list[dict]) -> dict:
+    result = {}
+    for turn in (3, 5, 7):
+        observed = [
+            game["battlefield_presence"]["krang"][str(turn)]
+            for game in games
+            if str(turn) in game["battlefield_presence"].get("krang", {})
+        ]
+        result[str(turn)] = {
+            "observed_games": len(observed),
+            "mean_creatures_if_observed": (
+                round(statistics.mean(observed), 4) if observed else None
+            ),
+            "positive_games": sum(value > 0 for value in observed),
+        }
+    return result
+
+
 def build() -> dict:
     _manifest, schedule, paths, parent_games = r6.preflight()
     evidence = json.loads(r6.EVIDENCE.read_text(encoding="utf-8"))
@@ -112,9 +130,7 @@ def build() -> dict:
                 "first_creature_proxy": r1.aggregate(evidence["cells"][opponent], ("krang",))[
                     "krang"
                 ]["first_play"]["creature"],
-                "battlefield_presence_proxy": r1.aggregate(evidence["cells"][opponent], ("krang",))[
-                    "krang"
-                ]["battlefield_presence"],
+                "battlefield_presence_proxy": stage_presence(evidence["cells"][opponent]),
                 "turtle_techie_casts": sum(
                     game["signature_casts"].get("krang:Donatello, Turtle Techie", 0)
                     for game in evidence["cells"][opponent]

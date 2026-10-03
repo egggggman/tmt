@@ -77740,9 +77740,21 @@
         "median_ending_turn": 17.5,
         "first_creature_proxy": 7.9022,
         "battlefield_presence_proxy": {
-          "3": 0,
-          "5": 0,
-          "7": 0
+          "3": {
+            "observed_games": 67,
+            "mean_creatures_if_observed": 1.3433,
+            "positive_games": 52
+          },
+          "5": {
+            "observed_games": 84,
+            "mean_creatures_if_observed": 2.0952,
+            "positive_games": 75
+          },
+          "7": {
+            "observed_games": 87,
+            "mean_creatures_if_observed": 3,
+            "positive_games": 85
+          }
         },
         "turtle_techie_casts": 19,
         "turtle_techie_effect_events": {
@@ -77764,9 +77776,21 @@
         "median_ending_turn": 18.0,
         "first_creature_proxy": 9.3571,
         "battlefield_presence_proxy": {
-          "3": 0,
-          "5": 0,
-          "7": 0
+          "3": {
+            "observed_games": 64,
+            "mean_creatures_if_observed": 0.8594,
+            "positive_games": 48
+          },
+          "5": {
+            "observed_games": 82,
+            "mean_creatures_if_observed": 1.4756,
+            "positive_games": 73
+          },
+          "7": {
+            "observed_games": 91,
+            "mean_creatures_if_observed": 2.044,
+            "positive_games": 88
+          }
         },
         "turtle_techie_casts": 16,
         "turtle_techie_effect_events": {

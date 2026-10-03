@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import statistics
 import sys
 from pathlib import Path
 
@@ -53,6 +54,18 @@ def validate() -> None:
         stage = results["stage1"][opponent]
         assert stage["games"] == 100
         assert stage["candidate_first_games"] == stage["opponent_first_games"] == 50
+        for turn in (3, 5, 7):
+            observed = [
+                game["battlefield_presence"]["krang"][str(turn)]
+                for game in evidence["cells"][opponent]
+                if str(turn) in game["battlefield_presence"].get("krang", {})
+            ]
+            proxy = stage["battlefield_presence_proxy"][str(turn)]
+            assert proxy["observed_games"] == len(observed)
+            assert proxy["mean_creatures_if_observed"] == (
+                round(statistics.mean(observed), 4) if observed else None
+            )
+            assert proxy["positive_games"] == sum(value > 0 for value in observed)
     assert (
         results["turtle_techie_casts"] == candidate["signature_casts"]["Donatello, Turtle Techie"]
     )
