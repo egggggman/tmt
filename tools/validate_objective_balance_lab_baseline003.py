@@ -129,9 +129,14 @@ def validate() -> dict:
             )
             assert source["parent_sha256"] == old["sha256"]
             candidate_bytes = git_bytes(source["candidate_path"])
-            artifact_bytes = (ROOT / row["source_path"]).read_bytes()
+            artifact_bytes = git_bytes(row["source_path"])
             assert artifact_bytes == candidate_bytes
             assert hashlib.sha256(artifact_bytes).hexdigest() == expected_sha
+            # Git may check out text with CRLF on Windows. The authoritative
+            # SHA is for the preserved blob, but the working list must still
+            # contain precisely the same card bytes after newline conversion.
+            working_bytes = (ROOT / row["source_path"]).read_bytes()
+            assert working_bytes.replace(b"\r\n", b"\n") == artifact_bytes
             if not subprocess.run(
                 ["git", "cat-file", "-e", f"HEAD:{row['source_path']}"],
                 cwd=ROOT,

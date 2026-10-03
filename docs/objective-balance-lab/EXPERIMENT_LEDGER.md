@@ -53,3 +53,9 @@ Historical isolated evidence and verdicts remain traceable. Only Shredder B and 
 | `OBL-R5-KRANG-B` | R5 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `d1691343e948d96f454468fb360c85e2f68dbe04ae7eed545430560153816bcd` | ACCEPT_FOR_COMBINED_MATRIX | EXPERIMENTAL |
 
 Round 5 isolated source: [evidence](ROUND_5_EVIDENCE.json).
+
+Round 6 Design Studio handoff: [Krang R6-A evidence](ROUND_6_A_EVIDENCE.json) and [result](ROUND_6_A_RESULTS.md).
+
+| Experiment | Round | Deck | Parent SHA-256 | Candidate SHA-256 | Cardcade verdict | Promotion |
+|---|---|---|---|---|---|---|
+| `OBL-R6-KRANG-A` | R6 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `f7d5734781c06349d33dc3396614ec8f7e448ada4ceb8d468db84d1f268a38fa` | RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION | EXPERIMENTAL |
