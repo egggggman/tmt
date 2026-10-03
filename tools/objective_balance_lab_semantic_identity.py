@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+PRE_CHROME_PROVENANCE_COMMIT = "1a05fb646479494c1585bb8b2582d1ff6721797e"
 
 # These are the execution/runtime inputs, not reporting artifacts.  Keep this list
 # explicit so a future semantic change cannot be hidden by a repository SHA.
@@ -58,6 +59,12 @@ def identity(commit: str | None = None) -> dict[str, object]:
         "files": records,
         "aggregate_semantic_runtime_sha256": hashlib.sha256(canonical).hexdigest(),
     }
+
+
+def assert_pre_chrome_evidence_runtime(expected_sha256: str) -> None:
+    """Authenticate old evidence against its source commit, never the live runtime."""
+    historical = identity(PRE_CHROME_PROVENANCE_COMMIT)["aggregate_semantic_runtime_sha256"]
+    assert historical == expected_sha256
 
 
 def main() -> int:

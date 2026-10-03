@@ -16,7 +16,10 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
 import run_objective_balance_lab_round5 as r5  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import (  # noqa: E402
+    assert_pre_chrome_evidence_runtime,
+    identity,
+)
 from validate_objective_balance_lab_round5_results import validate as validate_r5  # noqa: E402
 
 EXPECTED_MAIN = "0a09e2a17e14826d6a0dd37902b9b2ba4be9d495"
@@ -110,8 +113,7 @@ def preflight() -> tuple[dict, dict, dict, dict, dict, dict, list[dict]]:
     plan = json.loads(r5.PLAN.read_text(encoding="utf-8"))
     schedule = r1.schedule()
     schedule_hash = r5.digest(schedule)
-    live_runtime = identity()["aggregate_semantic_runtime_sha256"]
-    assert live_runtime == RUNTIME
+    assert_pre_chrome_evidence_runtime(RUNTIME)
     assert baseline_manifest["environment_id"] == "OBL-BASELINE-002"
     assert baseline["environment_id"] == "OBL-COMBINED-003"
     assert baseline["combined_global_metrics"] == baseline_manifest["environment_metrics"]
@@ -121,7 +123,7 @@ def preflight() -> tuple[dict, dict, dict, dict, dict, dict, list[dict]]:
         == baseline["semantic_runtime_sha256"]
         == round5["semantic_runtime_sha256"]
         == plan["semantic_runtime_sha256"]
-        == live_runtime
+        == RUNTIME
     )
     assert (
         baseline_manifest["schedule_identity"]
@@ -232,6 +234,9 @@ def main() -> int:
     if not args.run_new:
         print(json.dumps({"status": "PREFLIGHT_PASS", "reused_cells": 42, "new_games": 300}))
         return 0
+    assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME, (
+        "Cannot execute historical Combined 004 cells under a changed semantic runtime"
+    )
     checkpoint = (
         json.loads(NEW_CHECKPOINT.read_text(encoding="utf-8"))
         if NEW_CHECKPOINT.exists()

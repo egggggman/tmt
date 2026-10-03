@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from tmnt_design_studio.pilot07 import AcceptancePilot  # noqa: E402
+from tmnt_design_studio.card_interpreter07 import CardInterpreter  # noqa: E402
 from tmnt_design_studio.stage002 import DeckSpec, GameSpec, run_game  # noqa: E402
 
 SNAPSHOT = ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
@@ -174,6 +175,51 @@ def game_metrics(
     snapshot: dict[str, object], seats: tuple[str, str], cards: dict[str, dict[str, object]]
 ) -> dict[str, object]:
     events = snapshot.get("events", [])
+    static_source_names = {
+        name
+        for name, card in cards.items()
+        if any(
+            CardInterpreter.STATIC_OTHER_QUALIFIED_CREATURES.fullmatch(line.strip())
+            for line in (card.get("oracle_text") or "").splitlines()
+        )
+    }
+    static_modifier_changes = [
+        {
+            key: event[key]
+            for key in (
+                "action",
+                "source",
+                "source_object_id",
+                "target",
+                "target_object_id",
+                "power_delta",
+                "toughness_delta",
+                "power",
+                "toughness",
+                "qualifying_targets",
+                "oracle_fragment",
+            )
+        }
+        for event in events
+        if event.get("event") == "pt_static_team_modifier_changed"
+    ]
+    static_source_zone_changes = [
+        {
+            key: event[key]
+            for key in (
+                "card",
+                "source_object_id",
+                "destination_object_id",
+                "source_zone",
+                "destination_zone",
+                "reason",
+            )
+        }
+        for event in events
+        if event.get("event") == "zone_changed"
+        and event.get("card") in static_source_names
+        and "battlefield" in (event.get("source_zone"), event.get("destination_zone"))
+    ]
     rules = snapshot.get("rules_event_evidence", [])
     cast = [e for e in events if e.get("event") == "spell_cast"]
     creatures = [e for e in events if e.get("event") == "creature_resolved"]
@@ -267,6 +313,8 @@ def game_metrics(
             for deck in seats
         },
         "runtime_fingerprint": snapshot.get("authoritative_state_fingerprint"),
+        "static_modifier_changes": static_modifier_changes,
+        "static_source_zone_changes": static_source_zone_changes,
     }
 
 

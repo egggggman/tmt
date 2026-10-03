@@ -17,7 +17,10 @@ OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "tools"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
-from objective_balance_lab_semantic_identity import identity  # noqa: E402
+from objective_balance_lab_semantic_identity import (  # noqa: E402
+    assert_pre_chrome_evidence_runtime,
+    identity,
+)
 
 from tmnt_design_studio.pilot07 import AcceptancePilot  # noqa: E402
 from tmnt_design_studio.stage002 import DeckSpec, GameSpec, run_game  # noqa: E402
@@ -76,7 +79,7 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], list[dict]]:
     assert len(schedule) == 4500
     assert digest(schedule) == manifest["schedule_identity"] == source["schedule_sha256"]
     assert manifest["semantic_runtime_sha256"] == source["semantic_runtime_sha256"] == RUNTIME
-    assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME
+    assert_pre_chrome_evidence_runtime(RUNTIME)
     assert len(source["combined_games"]) == 4500
     assert not source["runtime_errors"]
     verify_preserved_file(CANDIDATE, CANDIDATE_SHA)
@@ -206,6 +209,10 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
     _manifest, schedule, paths, _baseline = preflight()
+    if args.run or args.enrich_replay:
+        assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME, (
+            "historical Round 6-A games cannot run under a changed semantic runtime"
+        )
     if args.enrich_replay:
         payload = json.loads(EVIDENCE.read_text(encoding="utf-8"))
         verify(payload, schedule)
