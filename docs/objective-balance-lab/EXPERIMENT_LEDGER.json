@@ -3271,6 +3271,62 @@
       "verdict": "ACCEPT_FOR_COMBINED_MATRIX",
       "promotion_status": "EXPERIMENTAL",
       "promotion": null
+    },
+    {
+      "experiment_id": "OBL-R6-KRANG-A",
+      "round": "R6",
+      "deck": "Krang",
+      "deck_key": "krang",
+      "parent": {
+        "environment_id": "OBL-BASELINE-003",
+        "path": "decks/krang/PROTOTYPE_0.2.txt",
+        "sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/KRANG_OBL_R6_A.txt",
+        "sha256": "f7d5734781c06349d33dc3396614ec8f7e448ada4ceb8d468db84d1f268a38fa",
+        "git_blob_sha256": "15d218c5395eb66e1e36bdd66758051287ed383fb09d803f0eec465284e8d3f6",
+        "label": "A"
+      },
+      "exact_additions": {
+        "Donatello, Turtle Techie": 1
+      },
+      "exact_removals": {
+        "Negate": 1
+      },
+      "hypothesis": "One Turtle Techie captures midgame artifact conversion without R5-B's two-copy polarization.",
+      "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+      "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+      "source_evidence": "docs/objective-balance-lab/ROUND_6_A_EVIDENCE.json",
+      "result_metrics": {
+        "candidate_win_rate": 0.401111,
+        "parent_win_rate": 0.353333,
+        "balance_delta": 0.003333,
+        "extremes": {
+          "worst_matchup": {
+            "opponent": "raphael",
+            "win_rate": 0.14
+          },
+          "over_60_40": 7,
+          "over_70_30": 4
+        },
+        "matchup_deltas": {
+          "leonardo": 0.04,
+          "raphael": 0.01,
+          "donatello": 0.02,
+          "michelangelo": -0.01,
+          "splinter": 0.03,
+          "shredder": 0.05,
+          "bebop_rocksteady": 0.05,
+          "april_oneil": 0.14,
+          "casey_jones": 0.1
+        }
+      },
+      "identity_classification": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
+      "promotion_status": "EXPERIMENTAL",
+      "promotion": null
     }
   ],
   "promotion_status": "OBL-PROMOTION-003",

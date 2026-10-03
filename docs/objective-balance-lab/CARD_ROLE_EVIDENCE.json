@@ -3439,6 +3439,96 @@
       "identity_result": "IDENTITY_PRESERVED",
       "hypothesis_result": "PARTIALLY_SUPPORTED",
       "causality_note": "Paired deck-level association, not drawn-card causality."
+    },
+    {
+      "experiment_id": "OBL-R6-KRANG-A",
+      "round": "R6",
+      "deck": "Krang",
+      "candidate": "OBL-R6-KRANG-A",
+      "card": "Negate",
+      "copies_changed": -1,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 1
+        },
+        "additions": {
+          "Donatello, Turtle Techie": 1
+        }
+      },
+      "role_hypothesis": "Midgame artifact conversion with less polarization than a two-copy package.",
+      "aggregate_win_rate_delta": 0.047778,
+      "matchup_deltas": {
+        "leonardo": 0.04,
+        "raphael": 0.01,
+        "donatello": 0.02,
+        "michelangelo": -0.01,
+        "splinter": 0.03,
+        "shredder": 0.05,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.14,
+        "casey_jones": 0.1
+      },
+      "balance_error_delta": 0.003333,
+      "early_board_delta": {
+        "3": 0.0198,
+        "5": 0.0034,
+        "7": 0.022
+      },
+      "interaction_delta": 0.0145,
+      "signature_delta": 0,
+      "supported_effect_events": null,
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "cardcade_verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
+      "causality_note": "Paired deck-level association, not drawn-card causality.",
+      "semantic_support": "COUNTERSPELL_SEMANTICS_SUPPORTED;ZERO_PARENT_CASTS_OBSERVED"
+    },
+    {
+      "experiment_id": "OBL-R6-KRANG-A",
+      "round": "R6",
+      "deck": "Krang",
+      "candidate": "OBL-R6-KRANG-A",
+      "card": "Donatello, Turtle Techie",
+      "copies_changed": 1,
+      "replacement_relationship": {
+        "removals": {
+          "Negate": 1
+        },
+        "additions": {
+          "Donatello, Turtle Techie": 1
+        }
+      },
+      "role_hypothesis": "Midgame artifact conversion with less polarization than a two-copy package.",
+      "aggregate_win_rate_delta": 0.047778,
+      "matchup_deltas": {
+        "leonardo": 0.04,
+        "raphael": 0.01,
+        "donatello": 0.02,
+        "michelangelo": -0.01,
+        "splinter": 0.03,
+        "shredder": 0.05,
+        "bebop_rocksteady": 0.05,
+        "april_oneil": 0.14,
+        "casey_jones": 0.1
+      },
+      "balance_error_delta": 0.003333,
+      "early_board_delta": {
+        "3": 0.0198,
+        "5": 0.0034,
+        "7": 0.022
+      },
+      "interaction_delta": 0.0145,
+      "signature_delta": 218,
+      "supported_effect_events": {
+        "resolved": 188,
+        "condition_met": 188,
+        "cards_drawn": 188
+      },
+      "identity_result": "IDENTITY_PRESERVED",
+      "hypothesis_result": "PARTIALLY_SUPPORTED",
+      "cardcade_verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
+      "causality_note": "Paired deck-level association, not drawn-card causality.",
+      "semantic_support": "CREATURE_CAST_AND_ARTIFACT_ETB_DRAW_EXECUTED"
     }
   ],
   "round3_evidence_path": "docs/objective-balance-lab/ROUND_3_EVIDENCE.json",
