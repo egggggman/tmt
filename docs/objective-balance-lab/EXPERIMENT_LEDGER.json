@@ -1,7 +1,7 @@
 {
   "schema": "objective-balance-lab-experiment-ledger-v1",
-  "repository_sha": "1c9b70358ab663f6872bf6b9cf2e96f4cac80ce2",
-  "environment_id": "OBL-BASELINE-002",
+  "repository_sha": "ed8848c51750d7b2343a35877857304d88371a5e",
+  "environment_id": "OBL-BASELINE-003",
   "experiments": [
     {
       "experiment_id": "OBL-R1-LEONARDO-A",
@@ -3061,9 +3061,27 @@
       },
       "identity_classification": "IDENTITY_PRESERVED",
       "hypothesis_result": "PARTIALLY_SUPPORTED",
-      "verdict": "ACCEPT_FOR_COMBINED_MATRIX",
-      "promotion_status": "EXPERIMENTAL",
-      "promotion": null
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-003",
+        "promotion_record_id": "OBL-PROMOTION-003-SHREDDER",
+        "prior_environment": "OBL-BASELINE-002",
+        "new_environment": "OBL-BASELINE-003",
+        "source_combined_environment": "OBL-COMBINED-005",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json",
+          "sha256": "f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e"
+        },
+        "combined_validation": "COMBINED_VALIDATED",
+        "combined_verdict": "COMBINED_VALIDATION_PASSED",
+        "promotion_eligibility": "PROMOTION_ELIGIBLE",
+        "identity_classification": "IDENTITY_PRESERVED",
+        "promoted_artifact": "docs/objective-balance-lab/baselines/SHREDDER_OBL_BASELINE_003.txt",
+        "aliases": [],
+        "authorization": "explicit Objective Balance Lab promotion request"
+      },
+      "combined_validation": "COMBINED_VALIDATED"
     },
     {
       "experiment_id": "OBL-R5-APRIL_ONEIL-A",
@@ -3117,9 +3135,32 @@
       },
       "identity_classification": "IDENTITY_STRENGTHENED",
       "hypothesis_result": "PARTIALLY_SUPPORTED",
-      "verdict": "ACCEPT_FOR_COMBINED_MATRIX",
-      "promotion_status": "EXPERIMENTAL",
-      "promotion": null
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-003",
+        "promotion_record_id": "OBL-PROMOTION-003-APRIL_ONEIL",
+        "prior_environment": "OBL-BASELINE-002",
+        "new_environment": "OBL-BASELINE-003",
+        "source_combined_environment": "OBL-COMBINED-005",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json",
+          "sha256": "f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e"
+        },
+        "combined_validation": "COMBINED_VALIDATED",
+        "combined_verdict": "COMBINED_VALIDATION_PASSED",
+        "promotion_eligibility": "PROMOTION_ELIGIBLE",
+        "identity_classification": "IDENTITY_STRENGTHENED",
+        "promoted_artifact": "docs/objective-balance-lab/baselines/APRIL_ONEIL_OBL_BASELINE_003.txt",
+        "aliases": [
+          "OBL-R5-APRIL-A"
+        ],
+        "authorization": "explicit Objective Balance Lab promotion request"
+      },
+      "combined_validation": "COMBINED_VALIDATED",
+      "aliases": [
+        "OBL-R5-APRIL-A"
+      ]
     },
     {
       "experiment_id": "OBL-R5-KRANG-A",
@@ -3232,6 +3273,9 @@
       "promotion": null
     }
   ],
-  "promotion_status": "OBL-PROMOTION-002",
-  "next_gate": "ROUND_5_EXPERIMENT_DESIGN"
+  "promotion_status": "OBL-PROMOTION-003",
+  "next_gate": "ROUND_6_EXPERIMENT_DESIGN",
+  "combined_validation_state": {
+    "OBL-COMBINED-005": "COMBINED_VALIDATED"
+  }
 }

@@ -45,6 +45,11 @@ def sha(path: Path) -> str:
 
 def main() -> None:
     registry = json.loads((OBL / "ENVIRONMENT_REGISTRY.json").read_text(encoding="utf-8"))
+    if registry.get("environment_id") == "OBL-BASELINE-003":
+        from validate_objective_balance_lab_baseline003 import validate
+
+        print(json.dumps(validate(), sort_keys=True))
+        return
     if registry.get("environment_id") == "OBL-BASELINE-002":
         from validate_objective_balance_lab_baseline002 import main as validate_baseline002
 

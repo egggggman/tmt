@@ -10,6 +10,7 @@ import pytest
 
 from tools.objective_balance_lab_promotion_metrics import (
     AUTHORITY_PATH,
+    historical_baseline002_registry,
     load,
     recorded_evidence_sha_bytes,
     validate_direct_promotion,
@@ -18,13 +19,17 @@ from tools.objective_balance_lab_promotion_metrics import (
 
 @pytest.fixture(scope="module")
 def promotion_inputs():
+    baseline = load("docs/objective-balance-lab/baselines/OBL_BASELINE_002_MANIFEST.json")
+    authority = load(AUTHORITY_PATH)
     return (
-        load("docs/objective-balance-lab/baselines/OBL_BASELINE_002_MANIFEST.json"),
-        load(AUTHORITY_PATH),
+        baseline,
+        authority,
         load(
             "docs/objective-balance-lab/combined/OBL_COMBINED_003_RUNTIME_COMPATIBLE_MANIFEST.json"
         ),
-        load("docs/objective-balance-lab/ENVIRONMENT_REGISTRY.json"),
+        historical_baseline002_registry(
+            baseline, authority, load("docs/objective-balance-lab/ENVIRONMENT_REGISTRY.json")
+        ),
     )
 
 

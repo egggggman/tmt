@@ -59,3 +59,43 @@ Krang R2B was not eligible because its isolated improvement reversed/mixed in th
 - Reason: lower mean matchup balance error, fewer 60/40 matchups, improved worst matchup, persistent Raphael balance reduction, and strengthened identity. The aggregate WR-spread increase is recorded as an accepted tradeoff.
 - Simulations run: `0`
 - Authorization: explicit Objective Balance Lab promotion request
+
+## Promotion OBL-PROMOTION-003
+
+- Date: `2026-10-03`; source repository commit: `ed8848c51750d7b2343a35877857304d88371a5e`
+- Prior environment: `OBL-BASELINE-002` (`SUPERSEDED`)
+- New environment: `OBL-BASELINE-003` (`OFFICIAL_BASELINE`)
+- Lineage: `OBL-BASELINE-002` → `OBL-COMBINED-005` (`COMBINED_VALIDATED`) → `OBL-BASELINE-003`
+- Combined evidence: `docs/objective-balance-lab/COMBINED_005_EVIDENCE.json` (`f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e`)
+- Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
+- Mean matchup balance error: 18.9556% → 17.6667%
+- >60/40 matchups: 34 → 32; >70/30: 18 → 17
+- WR spread: 49.2222% → 41.7778%
+- Both isolated candidate effects persisted or strengthened under Combined 005; promotion is based on the combined ten-deck environment, not isolated WR alone.
+- Carried-forward risk: **Krang vs Shredder 12/88**, the worst matchup; priority diagnostic for the next round.
+- New simulations: `0`; new logical games: `0`
+- Authorization: explicit Objective Balance Lab promotion request
+
+### Shredder — OBL-PROMOTION-003-SHREDDER
+
+- Candidate: `OBL-R5-SHREDDER-B`
+- Parent baseline: `OBL-BASELINE-002`; new baseline: `OBL-BASELINE-003`
+- Parent deck SHA-256: `818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2`
+- Promoted deck SHA-256: `1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1`
+- Exact diff: `-1 Dream Beavers; -1 Shark Shredder, Killer Clone; +2 Tunnel Rats`
+- Combined authority: `OBL-COMBINED-005`; evidence `docs/objective-balance-lab/COMBINED_005_EVIDENCE.json`
+- Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
+- Identity: `IDENTITY_PRESERVED`
+- Combined result: `COMBINED_VALIDATION_PASSED`; eligibility: `PROMOTION_ELIGIBLE`; state: `PROMOTED`
+
+### April O'Neil — OBL-PROMOTION-003-APRIL_ONEIL
+
+- Candidate: `OBL-R5-APRIL_ONEIL-A` (alias `OBL-R5-APRIL-A`)
+- Parent baseline: `OBL-BASELINE-002`; new baseline: `OBL-BASELINE-003`
+- Parent deck SHA-256: `684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4`
+- Promoted deck SHA-256: `ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7`
+- Exact diff: `-2 Negate; +1 April, Reporter of the Weird; +1 Utrom Scientists`
+- Combined authority: `OBL-COMBINED-005`; evidence `docs/objective-balance-lab/COMBINED_005_EVIDENCE.json`
+- Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
+- Identity: `IDENTITY_STRENGTHENED`
+- Combined result: `COMBINED_VALIDATION_PASSED`; eligibility: `PROMOTION_ELIGIBLE`; state: `PROMOTED`
