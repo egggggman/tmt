@@ -232,16 +232,46 @@ def validate_direct_promotion(
     return metrics, per_deck, digest
 
 
+def historical_baseline002_registry(baseline: dict, authority: dict, registry: dict) -> dict:
+    """Recover the immutable Baseline 002 registry view after it is superseded."""
+    require(baseline["environment_id"] == "OBL-BASELINE-002", "Baseline identity mismatch")
+    if registry["environment_id"] == "OBL-BASELINE-002":
+        return registry
+    require(
+        {"environment_id": "OBL-BASELINE-002", "status": "SUPERSEDED"}
+        in registry["superseded_environments"],
+        "Baseline 002 is not recorded as superseded",
+    )
+    # The live registry now points to Baseline 003. Reconstruct the historical
+    # registry view solely from the immutable Baseline 002 manifest and its
+    # authenticated Combined 003 authority; do not relax the metric invariant.
+    return {
+        "environment_id": "OBL-BASELINE-002",
+        "environment_metrics": baseline["environment_metrics"],
+        "source_combined_environment": baseline["source_combined_environment"],
+        "source_combined_evidence": baseline["source_combined_evidence"],
+        "reference_evidence": baseline["source_combined_evidence"],
+        "decks": [
+            {
+                "deck_key": row["deck_key"],
+                "sha256": row["sha256"],
+                "aggregate_baseline_win_rate": authority["combined_deck_summary"][row["deck_key"]][
+                    "win_rate"
+                ],
+            }
+            for row in baseline["decks"]
+        ],
+    }
+
+
 def validate_baseline002() -> tuple[dict, dict[str, float], str]:
     baseline = load("docs/objective-balance-lab/baselines/OBL_BASELINE_002_MANIFEST.json")
     authority = load(AUTHORITY_PATH)
     authority_manifest = load(
         "docs/objective-balance-lab/combined/OBL_COMBINED_003_RUNTIME_COMPATIBLE_MANIFEST.json"
     )
-    registry = load("docs/objective-balance-lab/ENVIRONMENT_REGISTRY.json")
-    require(
-        baseline["environment_id"] == registry["environment_id"] == "OBL-BASELINE-002",
-        "Baseline identity mismatch",
+    registry = historical_baseline002_registry(
+        baseline, authority, load("docs/objective-balance-lab/ENVIRONMENT_REGISTRY.json")
     )
     return validate_direct_promotion(
         baseline, authority, authority_manifest, registry, AUTHORITY_PATH

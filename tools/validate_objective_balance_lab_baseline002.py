@@ -33,8 +33,15 @@ def main() -> int:
     r4c = json.loads((OBL / "ROUND_4B_RAPHAEL_EVIDENCE.json").read_text(encoding="utf-8"))[
         "candidate_manifests"
     ][EXPERIMENT]
-    assert manifest["environment_id"] == registry["environment_id"] == "OBL-BASELINE-002"
-    assert manifest["state"] == registry["status"] == "OFFICIAL_BASELINE"
+    assert manifest["environment_id"] == "OBL-BASELINE-002"
+    assert manifest["state"] == "OFFICIAL_BASELINE"  # historical snapshot, kept immutable
+    assert registry["environment_id"] in {"OBL-BASELINE-002", "OBL-BASELINE-003"}
+    if registry["environment_id"] == "OBL-BASELINE-003":
+        assert {"environment_id": "OBL-BASELINE-002", "status": "SUPERSEDED"} in registry[
+            "superseded_environments"
+        ]
+    else:
+        assert registry["status"] == "OFFICIAL_BASELINE"
     assert manifest["semantic_runtime_sha256"] == combined["semantic_runtime_sha256"] == RUNTIME
     assert identity["current"]["aggregate_semantic_runtime_sha256"] == RUNTIME
     assert manifest["source_combined_environment"] == "OBL-COMBINED-003"
@@ -67,7 +74,9 @@ def main() -> int:
     record = next(row for row in ledger["experiments"] if row["experiment_id"] == EXPERIMENT)
     assert record["verdict"] == record["promotion_status"] == "PROMOTED"
     assert record["promotion"]["new_environment"] == "OBL-BASELINE-002"
-    assert sum(row.get("promotion_status") == "PROMOTED" for row in ledger["experiments"]) == 5
+    assert sum(row.get("promotion_status") == "PROMOTED" for row in ledger["experiments"]) == (
+        7 if registry["environment_id"] == "OBL-BASELINE-003" else 5
+    )
     assert "OBL-PROMOTION-002" in (OBL / "PROMOTION_HISTORY.md").read_text(encoding="utf-8")
     validate_baseline002()
     assert not subprocess.check_output(

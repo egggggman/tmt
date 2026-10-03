@@ -100,8 +100,14 @@ def validate(*, replay: bool = True) -> dict[str, object]:
         assert record["parent"]["sha256"] == planned["parent_sha256"]
         assert record["parent"]["environment_id"] == "OBL-BASELINE-002"
         assert record["schedule_identity"] == plan["schedule_identity"]
-        assert record["verdict"] == evidence["reports"][experiment_id]["verdict"]
-        assert record["promotion_status"] == "EXPERIMENTAL"
+        promoted = experiment_id in {"OBL-R5-SHREDDER-B", "OBL-R5-APRIL_ONEIL-A"}
+        if promoted and ledger["environment_id"] == "OBL-BASELINE-003":
+            assert record["verdict"] == record["promotion_status"] == "PROMOTED"
+            assert record["promotion"]["new_environment"] == "OBL-BASELINE-003"
+            assert record["promotion"]["source_combined_environment"] == "OBL-COMBINED-005"
+        else:
+            assert record["verdict"] == evidence["reports"][experiment_id]["verdict"]
+            assert record["promotion_status"] == "EXPERIMENTAL"
         assert record["source_evidence"] == r5.OUTPUT.relative_to(ROOT).as_posix()
     role = json.loads((OBL / "CARD_ROLE_EVIDENCE.json").read_text(encoding="utf-8"))
     for planned in plan["candidates"]:
@@ -128,7 +134,6 @@ def validate(*, replay: bool = True) -> dict[str, object]:
             "docs/objective-balance-lab/ROUND_5_DIAGNOSTIC.md",
             "docs/objective-balance-lab/ROUND_5_CANDIDATE_PLAN.md",
             "docs/objective-balance-lab/ROUND_5_CANDIDATE_PLAN.json",
-            "docs/objective-balance-lab/PROMOTION_HISTORY.md",
         ]
     )
     assert not subprocess.check_output(

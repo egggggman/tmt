@@ -1,9 +1,13 @@
 {
   "schema": "objective-balance-lab-environment-registry-v1",
-  "environment_id": "OBL-BASELINE-002",
-  "repository_sha": "1c9b70358ab663f6872bf6b9cf2e96f4cac80ce2",
+  "environment_id": "OBL-BASELINE-003",
+  "current_baseline_manifest": {
+    "path": "docs/objective-balance-lab/baselines/OBL_BASELINE_003_MANIFEST.json",
+    "sha256": "068bc167e27880deff13cc35267aac3aee6ceb83f7198cdb803fa7f4ce466b67"
+  },
+  "repository_sha": "ed8848c51750d7b2343a35877857304d88371a5e",
   "status": "OFFICIAL_BASELINE",
-  "promotion_status": "PROMOTED_FROM_OBL-COMBINED-003",
+  "promotion_status": "PROMOTED_FROM_OBL-COMBINED-005",
   "evidence": [
     {
       "path": "docs/objective-balance-lab/ROUND_1_EVIDENCE.json",
@@ -15,16 +19,16 @@
     }
   ],
   "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
-  "next_gate": "ROUND_5_EXPERIMENT_DESIGN",
+  "next_gate": "ROUND_6_EXPERIMENT_DESIGN",
   "decks": [
     {
       "deck": "Leonardo",
       "deck_key": "leonardo",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "docs/objective-balance-lab/candidates/LEONARDO_OBL_R1.txt",
       "sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
-      "aggregate_baseline_win_rate": 0.362222,
-      "mean_matchup_balance_error": 0.148889,
+      "aggregate_baseline_win_rate": 0.386667,
+      "mean_matchup_balance_error": 0.142222,
       "candidate_lineage": [
         "OBL-R1-LEONARDO-A",
         "OBL-R2-LEONARDO-A",
@@ -40,11 +44,11 @@
     {
       "deck": "Raphael",
       "deck_key": "raphael",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "docs/objective-balance-lab/baselines/RAPHAEL_OBL_BASELINE_002.txt",
       "sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
-      "aggregate_baseline_win_rate": 0.702222,
-      "mean_matchup_balance_error": 0.22,
+      "aggregate_baseline_win_rate": 0.697778,
+      "mean_matchup_balance_error": 0.204444,
       "candidate_lineage": [
         "OBL-R1-RAPHAEL-A",
         "OBL-R2-RAPHAEL-A",
@@ -55,17 +59,17 @@
       "candidate_status": "PROMOTED",
       "identity_status": "IDENTITY_PROTECTED: confrontation / aggressive pressure",
       "semantic_confidence_status": "PARTIALLY_REPRESENTED; no core semantic block in Round 1 audit",
-      "promotion_status": "PROMOTED: OBL-R4-RAPHAEL-C",
+      "promotion_status": "BASELINE_RETAINED",
       "next_experimental_question": "Assess the remaining Raphael overperformance from Baseline 002."
     },
     {
       "deck": "Donatello",
       "deck_key": "donatello",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "docs/objective-balance-lab/candidates/DONATELLO_OBL_R2_A.txt",
       "sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
-      "aggregate_baseline_win_rate": 0.41,
-      "mean_matchup_balance_error": 0.163333,
+      "aggregate_baseline_win_rate": 0.405556,
+      "mean_matchup_balance_error": 0.156667,
       "candidate_lineage": [
         "OBL-R1-DONATELLO-A",
         "OBL-R2-DONATELLO-A",
@@ -81,11 +85,11 @@
     {
       "deck": "Michelangelo",
       "deck_key": "michelangelo",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "decks/michelangelo/PROTOTYPE_0.1.txt",
       "sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
-      "aggregate_baseline_win_rate": 0.517778,
-      "mean_matchup_balance_error": 0.162222,
+      "aggregate_baseline_win_rate": 0.513333,
+      "mean_matchup_balance_error": 0.16,
       "candidate_lineage": [
         "OBL-R1-MICHELANGELO-A",
         "OBL-R2-MICHELANGELO-A",
@@ -101,11 +105,11 @@
     {
       "deck": "Splinter",
       "deck_key": "splinter",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "decks/splinter/PROTOTYPE_0.1.txt",
       "sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
-      "aggregate_baseline_win_rate": 0.633333,
-      "mean_matchup_balance_error": 0.197778,
+      "aggregate_baseline_win_rate": 0.621111,
+      "mean_matchup_balance_error": 0.185556,
       "candidate_lineage": [
         "OBL-R1-SPLINTER-A",
         "OBL-R2-SPLINTER-A",
@@ -121,30 +125,31 @@
     {
       "deck": "Shredder",
       "deck_key": "shredder",
-      "official_current_baseline_version": "OBL-BASELINE-002",
-      "source_path": "decks/shredder/PROTOTYPE_0.3.txt",
-      "sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
-      "aggregate_baseline_win_rate": 0.75,
-      "mean_matchup_balance_error": 0.25,
+      "official_current_baseline_version": "OBL-BASELINE-003",
+      "source_path": "docs/objective-balance-lab/baselines/SHREDDER_OBL_BASELINE_003.txt",
+      "sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "aggregate_baseline_win_rate": 0.716667,
+      "mean_matchup_balance_error": 0.216667,
       "candidate_lineage": [
         "OBL-R1-SHREDDER-A",
         "OBL-R2-SHREDDER-A",
-        "OBL-R2-SHREDDER-B"
+        "OBL-R2-SHREDDER-B",
+        "OBL-R5-SHREDDER-B"
       ],
-      "current_strongest_experimental_candidate": null,
-      "candidate_status": "NONE_PROMOTABLE",
+      "current_strongest_experimental_candidate": "OBL-R5-SHREDDER-B",
+      "candidate_status": "PROMOTED",
       "identity_status": "IDENTITY_PROTECTED: ruthless interaction / villain pressure",
       "semantic_confidence_status": "PARTIALLY_REPRESENTED; no core semantic block in Round 1 audit",
-      "promotion_status": "BASELINE_RETAINED",
-      "next_experimental_question": "Reduce major overperformance with a distinguishable pressure or interaction change."
+      "promotion_status": "PROMOTED: OBL-R5-SHREDDER-B",
+      "next_experimental_question": "Diagnose the residual 88/12 Shredder advantage against Krang without repeating prior shell swaps."
     },
     {
       "deck": "Krang",
       "deck_key": "krang",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "decks/krang/PROTOTYPE_0.2.txt",
       "sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
-      "aggregate_baseline_win_rate": 0.351111,
+      "aggregate_baseline_win_rate": 0.353333,
       "mean_matchup_balance_error": 0.195556,
       "candidate_lineage": [
         "OBL-R1-KRANG-A",
@@ -156,16 +161,16 @@
       "identity_status": "IDENTITY_PROTECTED: technology / artifact engine",
       "semantic_confidence_status": "PARTIALLY_REPRESENTED; no core semantic block in Round 1 audit",
       "promotion_status": "BASELINE_RETAINED",
-      "next_experimental_question": "Find an engine route toward center without adding matchup extremes; R2B was mixed."
+      "next_experimental_question": "Diagnose the 12/88 Shredder matchup under Baseline 003; Krang B was not eligible in Combined 004."
     },
     {
       "deck": "Bebop & Rocksteady",
       "deck_key": "bebop_rocksteady",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R2_B.txt",
       "sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
-      "aggregate_baseline_win_rate": 0.4,
-      "mean_matchup_balance_error": 0.148889,
+      "aggregate_baseline_win_rate": 0.385556,
+      "mean_matchup_balance_error": 0.134444,
       "candidate_lineage": [
         "OBL-R1-BEBOP_ROCKSTEADY-A",
         "OBL-R2-BEBOP_ROCKSTEADY-A",
@@ -181,31 +186,32 @@
     {
       "deck": "April O'Neil",
       "deck_key": "april_oneil",
-      "official_current_baseline_version": "OBL-BASELINE-002",
-      "source_path": "decks/april_oneil/PROTOTYPE_0.1.txt",
-      "sha256": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
-      "aggregate_baseline_win_rate": 0.257778,
-      "mean_matchup_balance_error": 0.242222,
+      "official_current_baseline_version": "OBL-BASELINE-003",
+      "source_path": "docs/objective-balance-lab/baselines/APRIL_ONEIL_OBL_BASELINE_003.txt",
+      "sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "aggregate_baseline_win_rate": 0.298889,
+      "mean_matchup_balance_error": 0.201111,
       "candidate_lineage": [
         "OBL-R1-APRIL_ONEIL-A",
         "OBL-R2-APRIL_ONEIL-A",
-        "OBL-R2-APRIL_ONEIL-B"
+        "OBL-R2-APRIL_ONEIL-B",
+        "OBL-R5-APRIL_ONEIL-A"
       ],
-      "current_strongest_experimental_candidate": "OBL-R1-APRIL_ONEIL-A",
-      "candidate_status": "ACCEPTED_FOR_COMBINED_MATRIX",
+      "current_strongest_experimental_candidate": "OBL-R5-APRIL_ONEIL-A",
+      "candidate_status": "PROMOTED",
       "identity_status": "IDENTITY_PROTECTED: resourceful / adaptive play",
       "semantic_confidence_status": "PARTIALLY_REPRESENTED; no core semantic block in Round 1 audit",
-      "promotion_status": "BASELINE_RETAINED",
-      "next_experimental_question": "Increase resourceful adaptability; R1 weakened in the combined meta."
+      "promotion_status": "PROMOTED: OBL-R5-APRIL_ONEIL-A",
+      "next_experimental_question": "Find further proactive, resourceful improvement; April remains below center despite promotion."
     },
     {
       "deck": "Casey Jones",
       "deck_key": "casey_jones",
-      "official_current_baseline_version": "OBL-BASELINE-002",
+      "official_current_baseline_version": "OBL-BASELINE-003",
       "source_path": "docs/objective-balance-lab/candidates/CASEY_JONES_OBL_R2_B.txt",
       "sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
-      "aggregate_baseline_win_rate": 0.615556,
-      "mean_matchup_balance_error": 0.166667,
+      "aggregate_baseline_win_rate": 0.621111,
+      "mean_matchup_balance_error": 0.17,
       "candidate_lineage": [
         "OBL-R1-CASEY_JONES-A",
         "OBL-R2-CASEY_JONES-A",
@@ -219,11 +225,11 @@
       "next_experimental_question": "Select the stronger artifact/equipment package before combined validation."
     }
   ],
-  "lineage_parent_environment": "OBL-BASELINE-001",
-  "source_combined_environment": "OBL-COMBINED-003",
+  "lineage_parent_environment": "OBL-BASELINE-002",
+  "source_combined_environment": "OBL-COMBINED-005",
   "source_combined_evidence": {
-    "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
-    "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+    "path": "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json",
+    "sha256": "f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e"
   },
   "promotion_experiment_ids": [
     "OBL-R1-LEONARDO-A",
@@ -239,53 +245,343 @@
     {
       "environment_id": "OBL-BASELINE-001",
       "status": "SUPERSEDED"
+    },
+    {
+      "environment_id": "OBL-BASELINE-002",
+      "status": "SUPERSEDED"
     }
   ],
   "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
   "reference_evidence": {
-    "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
-    "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+    "path": "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json",
+    "sha256": "f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e"
   },
   "environment_metrics": {
-    "mean_matchup_balance_error": 0.189556,
-    "median_matchup_deviation": 0.17,
+    "mean_matchup_balance_error": 0.176667,
+    "median_matchup_deviation": 0.15,
     "worst_matchup": {
       "decks": [
-        "april_oneil",
-        "raphael"
+        "krang",
+        "shredder"
       ],
       "games": 100,
       "win_rates": {
-        "april_oneil": 0.09,
-        "raphael": 0.91
+        "krang": 0.12,
+        "shredder": 0.88
       },
-      "winner_side": "raphael",
-      "deviation": 0.41
+      "winner_side": "shredder",
+      "deviation": 0.38
     },
-    "over_60_40": 34,
-    "over_70_30": 18,
-    "aggregate_win_rate_spread": 0.492222,
-    "aggregate_win_rate_stddev": 0.158985,
-    "mean_first_player_result_rate": 0.505556,
-    "mean_ending_turn": 19.6916,
-    "median_ending_turn": 18.0
+    "over_60_40": 32,
+    "over_70_30": 17,
+    "aggregate_win_rate_spread": 0.417778,
+    "aggregate_win_rate_stddev": 0.145737,
+    "mean_first_player_result_rate": 0.509556,
+    "mean_ending_turn": 19.9027,
+    "median_ending_turn": 19.0
   },
   "promotion_evidence": [
     {
-      "path": "docs/objective-balance-lab/ROUND_4B_RAPHAEL_EVIDENCE.json",
-      "sha256": "4988454402a69027ac6bc4e7e52a6cd08b0b0dd3ee05238f4e773038ed6f76d6"
+      "path": "docs/objective-balance-lab/ROUND_5_EVIDENCE.json",
+      "sha256": "8795457485d7c76874e43b30604a734d5836ad213e490c61d6e83c9fcb2809ef"
     },
     {
-      "path": "docs/objective-balance-lab/ROUND_4A_POST_SUPPORT_EVIDENCE.json",
-      "sha256": "e27649ccbd5a3bc9fda5c7e3c7bc09ecc08b8da9430d5dae2cc5e33146e3d50d"
-    },
-    {
-      "path": "docs/objective-balance-lab/BASELINE_001_RUNTIME_REFRESH_EVIDENCE.json",
-      "sha256": "7ce2632f67ba5c2401cc80a8854dfeb6a654de710d23144b46250712fb8e59aa"
-    },
-    {
-      "path": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
-      "sha256": "2a68b4e2b3e09ef9291b2fde6e64025d9c0b5e499fb85bc4fd562c59958e82e9"
+      "path": "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json",
+      "sha256": "f62f65030a841795696c58a9f08e2cb20932111ba7b9848530ccd97902e3519e"
     }
-  ]
+  ],
+  "source_combined_state": "COMBINED_VALIDATED",
+  "per_deck_metrics": {
+    "leonardo": {
+      "win_rate": 0.386667,
+      "matchup_win_rates": {
+        "april_oneil": 0.59,
+        "bebop_rocksteady": 0.54,
+        "casey_jones": 0.36,
+        "donatello": 0.35,
+        "krang": 0.32,
+        "michelangelo": 0.4,
+        "raphael": 0.2,
+        "shredder": 0.36,
+        "splinter": 0.36
+      },
+      "mean_matchup_balance_error": 0.142222,
+      "over_60_40": 6,
+      "over_70_30": 1,
+      "strongest_matchup": {
+        "deck": "april_oneil",
+        "win_rate": 0.59
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.2
+      },
+      "most_extreme_matchup": {
+        "opponent": "raphael",
+        "win_rate": 0.2
+      }
+    },
+    "raphael": {
+      "win_rate": 0.697778,
+      "matchup_win_rates": {
+        "april_oneil": 0.82,
+        "bebop_rocksteady": 0.76,
+        "casey_jones": 0.63,
+        "donatello": 0.74,
+        "krang": 0.87,
+        "leonardo": 0.8,
+        "michelangelo": 0.65,
+        "shredder": 0.47,
+        "splinter": 0.54
+      },
+      "mean_matchup_balance_error": 0.204444,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "krang",
+        "win_rate": 0.87
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.47
+      },
+      "most_extreme_matchup": {
+        "opponent": "krang",
+        "win_rate": 0.87
+      }
+    },
+    "donatello": {
+      "win_rate": 0.405556,
+      "matchup_win_rates": {
+        "april_oneil": 0.59,
+        "bebop_rocksteady": 0.47,
+        "casey_jones": 0.37,
+        "krang": 0.54,
+        "leonardo": 0.65,
+        "michelangelo": 0.37,
+        "raphael": 0.26,
+        "shredder": 0.17,
+        "splinter": 0.23
+      },
+      "mean_matchup_balance_error": 0.156667,
+      "over_60_40": 6,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.65
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.17
+      },
+      "most_extreme_matchup": {
+        "opponent": "shredder",
+        "win_rate": 0.17
+      }
+    },
+    "michelangelo": {
+      "win_rate": 0.513333,
+      "matchup_win_rates": {
+        "april_oneil": 0.76,
+        "bebop_rocksteady": 0.61,
+        "casey_jones": 0.35,
+        "donatello": 0.63,
+        "krang": 0.68,
+        "leonardo": 0.6,
+        "raphael": 0.35,
+        "shredder": 0.28,
+        "splinter": 0.36
+      },
+      "mean_matchup_balance_error": 0.16,
+      "over_60_40": 8,
+      "over_70_30": 2,
+      "strongest_matchup": {
+        "deck": "april_oneil",
+        "win_rate": 0.76
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.28
+      },
+      "most_extreme_matchup": {
+        "opponent": "april_oneil",
+        "win_rate": 0.76
+      }
+    },
+    "splinter": {
+      "win_rate": 0.621111,
+      "matchup_win_rates": {
+        "april_oneil": 0.78,
+        "bebop_rocksteady": 0.75,
+        "casey_jones": 0.42,
+        "donatello": 0.77,
+        "krang": 0.8,
+        "leonardo": 0.64,
+        "michelangelo": 0.64,
+        "raphael": 0.46,
+        "shredder": 0.33
+      },
+      "mean_matchup_balance_error": 0.185556,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "krang",
+        "win_rate": 0.8
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.33
+      },
+      "most_extreme_matchup": {
+        "opponent": "krang",
+        "win_rate": 0.8
+      }
+    },
+    "shredder": {
+      "win_rate": 0.716667,
+      "matchup_win_rates": {
+        "april_oneil": 0.82,
+        "bebop_rocksteady": 0.77,
+        "casey_jones": 0.59,
+        "donatello": 0.83,
+        "krang": 0.88,
+        "leonardo": 0.64,
+        "michelangelo": 0.72,
+        "raphael": 0.53,
+        "splinter": 0.67
+      },
+      "mean_matchup_balance_error": 0.216667,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "krang",
+        "win_rate": 0.88
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.53
+      },
+      "most_extreme_matchup": {
+        "opponent": "krang",
+        "win_rate": 0.88
+      }
+    },
+    "krang": {
+      "win_rate": 0.353333,
+      "matchup_win_rates": {
+        "april_oneil": 0.53,
+        "bebop_rocksteady": 0.51,
+        "casey_jones": 0.23,
+        "donatello": 0.46,
+        "leonardo": 0.68,
+        "michelangelo": 0.32,
+        "raphael": 0.13,
+        "shredder": 0.12,
+        "splinter": 0.2
+      },
+      "mean_matchup_balance_error": 0.195556,
+      "over_60_40": 6,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.68
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.12
+      },
+      "most_extreme_matchup": {
+        "opponent": "shredder",
+        "win_rate": 0.12
+      }
+    },
+    "bebop_rocksteady": {
+      "win_rate": 0.385556,
+      "matchup_win_rates": {
+        "april_oneil": 0.56,
+        "casey_jones": 0.32,
+        "donatello": 0.53,
+        "krang": 0.49,
+        "leonardo": 0.46,
+        "michelangelo": 0.39,
+        "raphael": 0.24,
+        "shredder": 0.23,
+        "splinter": 0.25
+      },
+      "mean_matchup_balance_error": 0.134444,
+      "over_60_40": 5,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "april_oneil",
+        "win_rate": 0.56
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.23
+      },
+      "most_extreme_matchup": {
+        "opponent": "shredder",
+        "win_rate": 0.23
+      }
+    },
+    "april_oneil": {
+      "win_rate": 0.298889,
+      "matchup_win_rates": {
+        "bebop_rocksteady": 0.44,
+        "casey_jones": 0.14,
+        "donatello": 0.41,
+        "krang": 0.47,
+        "leonardo": 0.41,
+        "michelangelo": 0.24,
+        "raphael": 0.18,
+        "shredder": 0.18,
+        "splinter": 0.22
+      },
+      "mean_matchup_balance_error": 0.201111,
+      "over_60_40": 5,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "krang",
+        "win_rate": 0.47
+      },
+      "weakest_matchup": {
+        "deck": "casey_jones",
+        "win_rate": 0.14
+      },
+      "most_extreme_matchup": {
+        "opponent": "casey_jones",
+        "win_rate": 0.14
+      }
+    },
+    "casey_jones": {
+      "win_rate": 0.621111,
+      "matchup_win_rates": {
+        "april_oneil": 0.86,
+        "bebop_rocksteady": 0.68,
+        "donatello": 0.63,
+        "krang": 0.77,
+        "leonardo": 0.64,
+        "michelangelo": 0.65,
+        "raphael": 0.37,
+        "shredder": 0.41,
+        "splinter": 0.58
+      },
+      "mean_matchup_balance_error": 0.17,
+      "over_60_40": 7,
+      "over_70_30": 2,
+      "strongest_matchup": {
+        "deck": "april_oneil",
+        "win_rate": 0.86
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.37
+      },
+      "most_extreme_matchup": {
+        "opponent": "april_oneil",
+        "win_rate": 0.86
+      }
+    }
+  },
+  "carried_forward_risk": "Krang vs Shredder: 12/88; priority diagnostic for the next experimental round."
 }
