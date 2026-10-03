@@ -1,0 +1,164 @@
+{
+  "schema": "objective-balance-lab-combined-environment-v1",
+  "environment_id": "OBL-COMBINED-005",
+  "state": "EXPERIMENTAL_COMBINED_ENVIRONMENT",
+  "source_repository_sha": "d25b47e26c685018210acfec3b2e8e0ed3c83849",
+  "parent_environment": "OBL-BASELINE-002",
+  "semantic_runtime_sha256": "78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "selected_experiments": [
+    "OBL-R5-SHREDDER-B",
+    "OBL-R5-APRIL_ONEIL-A"
+  ],
+  "decks": [
+    {
+      "deck": "Leonardo",
+      "deck_key": "leonardo",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "docs/objective-balance-lab/candidates/LEONARDO_OBL_R1.txt",
+      "sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "canonical_git_sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "parent_baseline_sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Raphael",
+      "deck_key": "raphael",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "docs/objective-balance-lab/baselines/RAPHAEL_OBL_BASELINE_002.txt",
+      "sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "canonical_git_sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "parent_baseline_sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Donatello",
+      "deck_key": "donatello",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "docs/objective-balance-lab/candidates/DONATELLO_OBL_R2_A.txt",
+      "sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "canonical_git_sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "parent_baseline_sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Michelangelo",
+      "deck_key": "michelangelo",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "canonical_git_sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f",
+      "parent_baseline_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Splinter",
+      "deck_key": "splinter",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "canonical_git_sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42",
+      "parent_baseline_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Shredder",
+      "deck_key": "shredder",
+      "selection": "OBL-R5-SHREDDER-B",
+      "source_path": "docs/objective-balance-lab/candidates/SHREDDER_OBL_R5_B.txt",
+      "sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "canonical_git_sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "parent_baseline_sha256": "818e9a847fcdf8521f53ab9b49c0f054ddd6f9bce95e9fd57c89cb6c94da2ed2",
+      "exact_diff": {
+        "removals": {
+          "Dream Beavers": 1,
+          "Shark Shredder, Killer Clone": 1
+        },
+        "additions": {
+          "Tunnel Rats": 2
+        }
+      }
+    },
+    {
+      "deck": "Krang",
+      "deck_key": "krang",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "decks/krang/PROTOTYPE_0.2.txt",
+      "sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "canonical_git_sha256": "1a87eab0d496d3b02dec69dbe7882fbac5d9ee496a86e42ddcf924600bbeb525",
+      "parent_baseline_sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "deck_key": "bebop_rocksteady",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R2_B.txt",
+      "sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "canonical_git_sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "parent_baseline_sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    },
+    {
+      "deck": "April O'Neil",
+      "deck_key": "april_oneil",
+      "selection": "OBL-R5-APRIL_ONEIL-A",
+      "source_path": "docs/objective-balance-lab/candidates/APRIL_ONEIL_OBL_R5_A.txt",
+      "sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "canonical_git_sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "parent_baseline_sha256": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
+      "exact_diff": {
+        "removals": {
+          "Negate": 2
+        },
+        "additions": {
+          "April, Reporter of the Weird": 1,
+          "Utrom Scientists": 1
+        }
+      }
+    },
+    {
+      "deck": "Casey Jones",
+      "deck_key": "casey_jones",
+      "selection": "OBL-BASELINE-002",
+      "source_path": "docs/objective-balance-lab/candidates/CASEY_JONES_OBL_R2_B.txt",
+      "sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "canonical_git_sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "parent_baseline_sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      }
+    }
+  ],
+  "logical_matchups": 45,
+  "logical_games": 4500,
+  "reused_games": 4500,
+  "newly_executed_games": 0,
+  "source_artifacts": {
+    "BASELINE_002_REUSED": "docs/objective-balance-lab/COMBINED_003_RUNTIME_COMPATIBLE_EVIDENCE.json",
+    "ROUND_5_REUSED": "docs/objective-balance-lab/ROUND_5_EVIDENCE.json",
+    "COMBINED_004_REUSED": "docs/objective-balance-lab/COMBINED_004_EVIDENCE.json"
+  }
+}
