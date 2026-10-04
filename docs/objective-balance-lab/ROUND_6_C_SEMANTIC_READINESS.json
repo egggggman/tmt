@@ -1,0 +1,241 @@
+{
+  "experiment_id": "OBL-R6-KRANG-C",
+  "status": "SEMANTICALLY_READY_CONTROL_REFRESH_REQUIRED",
+  "runtime_repository_sha": "d072197ac10ed924d52723d6d0a061adbc42a6e3",
+  "semantic_runtime_sha256": "db7a64ca38e3ea34d1a330a879b61b20d684f8d876fa418d360ae0203e2ad849",
+  "semantic_runtime_identity": {
+    "identity_schema": "obl-semantic-runtime-v1",
+    "repository_commit": "d072197ac10ed924d52723d6d0a061adbc42a6e3",
+    "files": [
+      {
+        "path": "src/tmnt_design_studio/__init__.py",
+        "sha256": "d5724478ec710bae63fdd5364cf0ca7ed8eed80fa9a937d396b97fb4ccedcae0",
+        "bytes": 49
+      },
+      {
+        "path": "src/tmnt_design_studio/__main__.py",
+        "sha256": "27c2970a7e84f63cac07027565488c5b1b3ed7f66cfa03b7ed627f341a363758",
+        "bytes": 46
+      },
+      {
+        "path": "src/tmnt_design_studio/aura07.py",
+        "sha256": "63d4f61bdadd50a7e2ca5bf5aa2097fec0b9ffea7d62e8977612e383deb805aa",
+        "bytes": 7982
+      },
+      {
+        "path": "src/tmnt_design_studio/calibration_executor.py",
+        "sha256": "f8b2f2337f52a3587cf6c696e4357ba13c3402b38384f3063bf7b8e71e0e8ba2",
+        "bytes": 2085
+      },
+      {
+        "path": "src/tmnt_design_studio/calibration_runner.py",
+        "sha256": "29d029495500b9343e037075c3c27879a0ae667f1602824278945fad2c9fecf1",
+        "bytes": 9754
+      },
+      {
+        "path": "src/tmnt_design_studio/capabilities.py",
+        "sha256": "33974cb9775aa32a0adf8116725897c3f6e5d8ab54528a21e840a3a3ca48ffdb",
+        "bytes": 25259
+      },
+      {
+        "path": "src/tmnt_design_studio/card_data.py",
+        "sha256": "a352e57fef93992b34390b8d964f51005faf93da4f1c832c794efc9f060d3a08",
+        "bytes": 4228
+      },
+      {
+        "path": "src/tmnt_design_studio/card_interpreter07.py",
+        "sha256": "23f6e5b82ef7aabe0a6a5ab4384e9f0f3b4a2c0840baf391170e622ac4364ea2",
+        "bytes": 102414
+      },
+      {
+        "path": "src/tmnt_design_studio/cardcade.py",
+        "sha256": "81c277a3c767da5cbb364293fdb9c96d9f7fa02e6ff15937e32fe0a131f5ddb9",
+        "bytes": 36781
+      },
+      {
+        "path": "src/tmnt_design_studio/cli.py",
+        "sha256": "55d5f90e7bab694a1eccee689f6bf732f9a14c66a5c267491fa5eb8dcea41417",
+        "bytes": 13013
+      },
+      {
+        "path": "src/tmnt_design_studio/conformance07.py",
+        "sha256": "093336ed744bbb7e84aaefb521eaf14ec343afc60d5b9b9e95cc5042f62510b2",
+        "bytes": 3222
+      },
+      {
+        "path": "src/tmnt_design_studio/database.py",
+        "sha256": "6d92fdb46f9ffd47767e8436958fde9f1e39a530fba242772b02765c3019f263",
+        "bytes": 3341
+      },
+      {
+        "path": "src/tmnt_design_studio/deck_analysis.py",
+        "sha256": "7b430d6c9870cce0dde0e6a5f1170f28817b472bcb2d7863ed22601ffe6495fe",
+        "bytes": 30244
+      },
+      {
+        "path": "src/tmnt_design_studio/engine07.py",
+        "sha256": "ef29e208818b4b01852dff38fac3dddd2e548a9bb9dd28a19057538977e7701f",
+        "bytes": 516450
+      },
+      {
+        "path": "src/tmnt_design_studio/food_search07.py",
+        "sha256": "eb09134ab8e99e8718cfbaa5417866a39b96ae7c08644f73935058c3a8e6b5f9",
+        "bytes": 25431
+      },
+      {
+        "path": "src/tmnt_design_studio/jury_rig07.py",
+        "sha256": "b9253e2dcaf735412918e152e937f6680fd3e77f92e6ddcc15f1b27865f00448",
+        "bytes": 26409
+      },
+      {
+        "path": "src/tmnt_design_studio/krang_refill07.py",
+        "sha256": "01e51f3e0bae1bb12d6fe23d82c3045d13d7377ef695fec06d6780fc3657f374",
+        "bytes": 30288
+      },
+      {
+        "path": "src/tmnt_design_studio/mana_ledger07.py",
+        "sha256": "6e7549c4ed0dc4b38eb0f220f0073bc5107bb2bd7b67fd828e204b419ea856a5",
+        "bytes": 2911
+      },
+      {
+        "path": "src/tmnt_design_studio/mill_three07.py",
+        "sha256": "093d430b6cb01f6c4c6d0aa8f15cfead5e8a04e9763937f24e6760e589d43ab1",
+        "bytes": 24926
+      },
+      {
+        "path": "src/tmnt_design_studio/pilot07.py",
+        "sha256": "4c1623bcd23f6ed6fbfd4aa4178c3473f8fe74f1d777be8a007f2bb815bed45b",
+        "bytes": 10497
+      },
+      {
+        "path": "src/tmnt_design_studio/pilot_input_v2.py",
+        "sha256": "e9f5d1e4f5616c1290392ee1bc5c353763e43d1edc59dc24407d349c4a865a1a",
+        "bytes": 9993
+      },
+      {
+        "path": "src/tmnt_design_studio/scryfall.py",
+        "sha256": "5340a4829f4a96bf131d349382ae11ffbfe8ad5f22d9a312e42f9d8c6d65c8dd",
+        "bytes": 19945
+      },
+      {
+        "path": "src/tmnt_design_studio/semantic_coverage.py",
+        "sha256": "bd107fac20d17f701125f2d9b9f8c9f265efd3cdba7c01129cd88e6ccaebb9bb",
+        "bytes": 894
+      },
+      {
+        "path": "src/tmnt_design_studio/smoke01.py",
+        "sha256": "4231121755f54969a8547cabf1bbd89ddb43d4030d1cadd78d54741c5cadff6f",
+        "bytes": 27000
+      },
+      {
+        "path": "src/tmnt_design_studio/stage002.py",
+        "sha256": "76fc180f09822e49a8d5cea657f2468f8d5eeb7eb91752115f711b53ff9e1fc1",
+        "bytes": 52788
+      },
+      {
+        "path": "src/tmnt_design_studio/stage02.py",
+        "sha256": "1c5f02e6712ba95ccc65036ac16341d9df383b46d1952211e6cbe67dae9629bd",
+        "bytes": 56278
+      },
+      {
+        "path": "src/tmnt_design_studio/vigilante07.py",
+        "sha256": "647690c6404b31730539f63919b5c48a8168f20d7325e34c5bc420dd55c12013",
+        "bytes": 34172
+      },
+      {
+        "path": "tools/run_objective_balance_lab_round1.py",
+        "sha256": "eb3913e10561b73fa78cce33da3fdab082353de1692f2272200d7c20d54b7cce",
+        "bytes": 20214
+      },
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+        "sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+        "bytes": 473942
+      },
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+        "sha256": "ddbf57645bd016d16659424f2196cd816edfc7a187c4b653a9e6e8839b3e9a6d",
+        "bytes": 2067
+      },
+      {
+        "path": "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
+        "sha256": "6be94f69a2e9432e615aea7a8592d68b6537998b3f7355a60191a29e71dc6e5c",
+        "bytes": 32584022
+      }
+    ],
+    "aggregate_semantic_runtime_sha256": "db7a64ca38e3ea34d1a330a879b61b20d684f8d876fa418d360ae0203e2ad849"
+  },
+  "execution_driver_sha256": "9770462df3009c6323e5de07ecd2fa430562e8e3bbef795bb75ae2e61662d48f",
+  "baseline_manifest_sha256": "068bc167e27880deff13cc35267aac3aee6ceb83f7198cdb803fa7f4ce466b67",
+  "candidate_sha256": "c458ff8bd6b5d4f30ce1cd03313492b4d69bfba253f795e22b78bd9292728ac5",
+  "candidate_path": "docs/objective-balance-lab/candidates/KRANG_OBL_R6_C.txt",
+  "supersedes_readiness": "ROUND_6_C_RETRO_MUTATION_READINESS.json",
+  "historical_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
+  "historical_control_id": "OBL-BASELINE-003-RUNTIME-REFRESH-001",
+  "new_control_id": "OBL-BASELINE-003-AURA-RUNTIME-REFRESH-001",
+  "baseline_decks_changed": false,
+  "redesign": false,
+  "combined_validation_authorized": false,
+  "promotion_authorized": false,
+  "candidate_games_required": 900,
+  "candidate_replays_required": 900,
+  "control_games_required": 4500,
+  "control_replay_samples_required": 6,
+  "primary": "raphael",
+  "secondary": "shredder",
+  "sentinel": "april_oneil",
+  "oracle_id": "d8b5de6d-8654-4550-bccb-79de6cbef4d5",
+  "oracle_text": "Flash\nEnchant creature\nEnchanted creature is a Turtle with base power and toughness 0/1. It can't attack and loses all abilities. (It also loses all other creature types.)",
+  "coverage": {
+    "Flash": {
+      "family": "keyword_fact",
+      "payload_executable": true,
+      "parent_executable": true,
+      "followup_executable": true,
+      "fully_supported": true,
+      "limitations": []
+    },
+    "Enchant creature": {
+      "family": "aura_suppression",
+      "payload_executable": true,
+      "parent_executable": true,
+      "followup_executable": true,
+      "fully_supported": true,
+      "limitations": []
+    },
+    "Enchanted creature is a Turtle with base power and toughness 0/1. It can't attack and loses all abilities. (It also loses all other creature types.)": {
+      "family": "aura_suppression",
+      "payload_executable": true,
+      "parent_executable": true,
+      "followup_executable": true,
+      "fully_supported": true,
+      "limitations": []
+    }
+  },
+  "unsupported_fragments": [],
+  "validation": {
+    "aura_tests_passed": 17,
+    "regression_tests_passed": 1575,
+    "regression_skipped": 2,
+    "regression_scope": "all tests except unchanged legacy tests/test_cardcade.py",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS"
+  },
+  "limits": [
+    "Bounded creature-Aura Oracle template; other Aura payloads remain unsupported.",
+    "Ward/protection targeting dependencies fail closed; no such baseline creature was found.",
+    "Pilot uses a generic main-phase suppression policy; Flash is executable in priority windows but the pilot does not optimize Flash timing.",
+    "Historical Negate and other unrelated unsupported mechanics remain unimplemented."
+  ],
+  "rules_source": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+  "rules": [
+    "303.4a-c",
+    "303.4e",
+    "613.1d",
+    "613.1f",
+    "613.4b-d",
+    "613.7b/e",
+    "702.8a",
+    "704.5m"
+  ]
+}

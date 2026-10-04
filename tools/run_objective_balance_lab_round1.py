@@ -175,6 +175,14 @@ def game_metrics(
     snapshot: dict[str, object], seats: tuple[str, str], cards: dict[str, dict[str, object]]
 ) -> dict[str, object]:
     events = snapshot.get("events", [])
+    aura_names = {name for name, card in cards.items() if "Aura" in card.get("type_line", "")}
+    aura_events = [
+        event
+        for event in events
+        if str(event.get("event", "")).startswith("aura_")
+        or (event.get("event") == "spell_cast" and event.get("card") in aura_names)
+        or (event.get("event") == "spell_countered" and event.get("target_card") in aura_names)
+    ]
     static_source_names = {
         name
         for name, card in cards.items()
@@ -315,6 +323,7 @@ def game_metrics(
         "runtime_fingerprint": snapshot.get("authoritative_state_fingerprint"),
         "static_modifier_changes": static_modifier_changes,
         "static_source_zone_changes": static_source_zone_changes,
+        "aura_events": aura_events,
     }
 
 
