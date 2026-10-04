@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "experiment_id": "OBL-R6-KRANG-C",
+  "semantic_runtime_sha256": "ccfa75ed8e817bc3af0a04f75ef048aaee54e5175c06abfc21feaad6515bb0ec",
+  "runtime_repository_sha": "bd361c5fa5d0671734dacce6fe90a0f6b6a102be",
+  "candidate_sha256": "c458ff8bd6b5d4f30ce1cd03313492b4d69bfba253f795e22b78bd9292728ac5",
+  "control_games": 4500,
+  "control_replay_samples_matched": 6,
+  "candidate_games": 900,
+  "candidate_replays_matched": 900,
+  "runtime_errors": 0,
+  "full_pytest": {
+    "passed": 1611,
+    "skipped": 2,
+    "log": "FULL_PYTEST.log"
+  },
+  "ruff_check": "PASS",
+  "ruff_format": "PASS",
+  "markdown_relative_links": {
+    "checked": 13,
+    "status": "PASS"
+  },
+  "terminology_scan": "PASS",
+  "git_diff_check": "PASS",
+  "derived_analysis_check": "PASS",
+  "artifact_sha256": {
+    "ROUND_6_C_SEMANTIC_READINESS.json": "4d1c961a6a9bcb5bb87edb7a8c3c142e58e6c3448c7c5404c6b3d4100026a0b0",
+    "BASELINE_003_AURA_RUNTIME_CONTROL.json.gz": "dc5b1400f539d89680fd55d4458f1b81b745d06289427514e1bb716537f94cf9",
+    "ROUND_6_C_EVIDENCE.json.gz": "a55ffa25366b1d812d946bc75fc4889371935e2dd8943150a62a47fc0e573ab6",
+    "ROUND_6_C_ANALYSIS.json": "d118aff9e0f7fbd6c9d88d2749448afb5fc38b74a2b9a3dab01df245db1ee420",
+    "ROUND_6_C_RESULTS.md": "fb9505a7036fbc140e4e3153fae8bb6154d563bf1357a90e7a629218dcf5d9c1",
+    "BASELINE_003_AURA_RUNTIME_CONTROL.md": "c9a6f79d70e89a7f8dfd16e42bc39e670738c9cebc8a227082256824933fdd58"
+  },
+  "next_move_owner": "Design Studio",
+  "redesign": false,
+  "baseline_decks_changed": false,
+  "combined_validation_run": false,
+  "promotion_authorized": false,
+  "merge_authorized": false
+}

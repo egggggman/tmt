@@ -1,0 +1,37 @@
+{
+  "status": "SUPERSEDED_DO_NOT_USE_FOR_FINAL_BALANCE",
+  "reason": "Candidate game 424 exposed combinatorial enumeration of impossible repeated-blocker assignments. The same legal options and order are retained by pruning invalid partial assignments. The runtime identity changes, so both accepted control and candidate must be rerun.",
+  "semantic_runtime_sha256": "f66d39929f97614853102b8b62196d1aab2d112f3d6b32943eca36112a2fba63",
+  "runtime_repository_sha": "afbe5663400bdd42b13f847497d4555e7bfa5d5d",
+  "candidate_frozen_unchanged": true,
+  "diagnostic_only_replays": {
+    "cell": "splinter|krang",
+    "completed_under_old_enumerator": 99,
+    "interrupted_slow_game": 424,
+    "post_pruning_game_424_seconds": 0.9537,
+    "post_pruning_game_424_result": {
+      "winner": "splinter",
+      "turn": 32,
+      "runtime_error": null
+    },
+    "included_in_final_metrics": false
+  },
+  "records": [
+    {
+      "file": "BASELINE_003_AURA_RUNTIME_CONTROL.json.gz",
+      "sha256": "9705d9f9d928ce65ea8bda8403736ff83664e76607add21e632dc3e443fccb2f",
+      "games": 4500,
+      "replayed_cells": 6,
+      "status_at_stop": "COMPLETE",
+      "runtime_errors": 0
+    },
+    {
+      "file": "ROUND_6_C_EVIDENCE.json.gz",
+      "sha256": "0e3aab874409f597670299cfbd96e1c8717ff2604c7b501890c23f8740e13c9d",
+      "games": 400,
+      "replayed_cells": 4,
+      "status_at_stop": "IN_PROGRESS",
+      "runtime_errors": 0
+    }
+  ]
+}

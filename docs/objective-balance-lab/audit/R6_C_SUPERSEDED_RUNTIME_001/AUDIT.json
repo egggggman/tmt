@@ -1,0 +1,31 @@
+{
+  "status": "SUPERSEDED_DO_NOT_USE_FOR_BALANCE",
+  "reason": "Post-run code review caught an extra positional logging argument on ordinary spells whose target became illegal. It was not exercised in these games. The branch was corrected and both control and candidate will be rerun under the corrected runtime identity; no equivalence claim is used.",
+  "semantic_runtime_sha256": "db7a64ca38e3ea34d1a330a879b61b20d684f8d876fa418d360ae0203e2ad849",
+  "candidate_frozen_unchanged": true,
+  "records": [
+    {
+      "file": "BASELINE_003_AURA_RUNTIME_CONTROL.json.gz",
+      "sha256": "197c6679fc3cfc6c5ff9633045111fdfc437a5234a30c5b9a3a5c78fd0d94ac3",
+      "games": 4500,
+      "replayed_cells": 6,
+      "status_at_stop": "COMPLETE",
+      "runtime_errors": 0
+    },
+    {
+      "file": "ROUND_6_C_EVIDENCE.json.gz",
+      "sha256": "639a5d8f0bafa004be845cccb3a706673e02175fd984523c4fa98b1dc664572d",
+      "games": 400,
+      "replayed_cells": 4,
+      "status_at_stop": "IN_PROGRESS",
+      "runtime_errors": 0
+    }
+  ],
+  "exact_runtime_git_archive": {
+    "path": "runtime.bundle",
+    "sha256": "4216caeb9170c62196bce10bced9b3f87fd3f53bdcc97cb5ee01f6e8df6399d8",
+    "prerequisite_commit": "6b4f2968978974a56479862e8a6759e738d4b49a",
+    "ref": "refs/heads/cardcade-r6c-local-audit",
+    "purpose": "Preserve exact superseded local commit ancestry for audit only; not required for accepted-runtime execution."
+  }
+}
