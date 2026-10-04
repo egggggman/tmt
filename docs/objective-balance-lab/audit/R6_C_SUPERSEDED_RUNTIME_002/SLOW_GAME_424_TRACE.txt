@@ -1,0 +1,4 @@
+424 {'pair': ['splinter', 'krang'], 'decks': ['krang', 'splinter'], 'orientation': 'canonical', 'block': 11, 'seed': 50460497577721030583363051637890110691801793046980663318776557038266469701768, 'pair_index': 34}
+Timeout (0:00:20)!
+Thread 0x00007fb07ddda740 (most recent call first):
+  File "/workspace/scratch/ffc2612af7b5/tmt/src/tmnt_design_studio/engine07.py", line 7404 in <genexpr>

@@ -37,7 +37,20 @@ def _current_bytes(relative: str) -> bytes:
 
 def identity(commit: str | None = None) -> dict[str, object]:
     records = []
-    for relative in SEMANTIC_PATHS:
+    paths = SEMANTIC_PATHS
+    if commit is not None:
+        # Historical runtimes have their own module set; newly added modules must
+        # neither invalidate old evidence nor disappear from the live identity.
+        tracked = subprocess.check_output(
+            ["git", "ls-tree", "-r", "--name-only", commit, "src/tmnt_design_studio"],
+            cwd=ROOT,
+            text=True,
+        ).splitlines()
+        paths = [
+            *sorted(p for p in tracked if p.endswith(".py") and p.count("/") == 2),
+            *[p for p in SEMANTIC_PATHS if not p.startswith("src/")],
+        ]
+    for relative in paths:
         content = _git_bytes(commit, relative) if commit else _current_bytes(relative)
         content = content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
         records.append(

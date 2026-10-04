@@ -3,6 +3,8 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import pytest
+
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
 from tmnt_design_studio.engine07 import CardFact, Game, TurnStep
 from tmnt_design_studio.stage002 import _semantic_coverage, load_catalog
@@ -76,10 +78,9 @@ def test_frozen_chrome_dome_clause_and_partial_interpreter_coverage():
 
 
 def test_r6b_readiness_fingerprint_and_candidate_identity():
-    result = validate_readiness()
-    assert result["status"] == "PASS"
-    assert result["simulations_run"] == 0
-    assert result["new_runtime"] != result["old_runtime"]
+    # R6-B's execution gate must reject the new Aura runtime, preserving its old evidence.
+    with pytest.raises(AssertionError):
+        validate_readiness()
 
 
 def test_controller_other_artifact_filter_and_no_op_refresh_are_deterministic():

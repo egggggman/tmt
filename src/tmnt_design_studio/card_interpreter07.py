@@ -23,6 +23,7 @@ class CardDefinition(Protocol):
 
 
 class CastKind(Enum):
+    AURA = "aura"
     CREATURE = "creature"
     PERMANENT = "permanent"
     DRAW_CARDS = "draw_cards"
@@ -39,6 +40,18 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class AuraSuppressionProgram:
+    """Bounded Oracle-derived creature Aura; no card-name dispatch."""
+
+    creature_type: str
+    power: int
+    toughness: int
+    cant_attack: bool
+    loses_abilities: bool
+    oracle_fragment: str
 
 
 @dataclass(frozen=True)
@@ -869,6 +882,10 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if "Aura" in card.type_line:
+            return CastProgram(
+                CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
+            )
         if card.type_line.startswith("Instant") and card.oracle_text.startswith(
             "Counter target spell. Create a Mutagen token."
         ):
@@ -903,6 +920,38 @@ class CardInterpreter:
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    AURA_SUPPRESSION = re.compile(
+        r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
+        r"(?P<power>-?\d+)/(?P<toughness>\d+)\. It can't attack and loses all abilities\."
+        r"(?: \(It also loses all other creature types\.\))?$"
+    )
+
+    def aura_program(self, card: CardDefinition) -> AuraSuppressionProgram | None:
+        if "Aura" not in card.type_line or "Enchant creature" not in self.fragments(card):
+            return None
+        for fragment in self.fragments(card):
+            match = self.AURA_SUPPRESSION.fullmatch(fragment)
+            if match:
+                return AuraSuppressionProgram(
+                    match["type"],
+                    int(match["power"]),
+                    int(match["toughness"]),
+                    True,
+                    True,
+                    fragment,
+                )
+        return None
+
+    def aura_semantic_coverage(self, card, fragment):
+        program = self.aura_program(card)
+        if program is not None and fragment in {
+            "Flash",
+            "Enchant creature",
+            program.oracle_fragment,
+        }:
+            return SemanticCoverage(True, True, True, ())
+        return None
 
     ETB_MILL_DRAW_DISCARD = re.compile(
         r"^When this Class enters, mill (?P<mill>[1-9][0-9]*|one|two|three|four|five) cards?, draw "
@@ -2435,6 +2484,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
                 unsupported.extend((fragment, reason) for reason in static_team.limitations)

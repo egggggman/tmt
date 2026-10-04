@@ -1,0 +1,10 @@
+{"phase": "candidate", "pair": "leonardo|krang", "games": 100}
+{"phase": "candidate", "pair": "raphael|krang", "games": 200}
+{"phase": "candidate", "pair": "donatello|krang", "games": 300}
+{"phase": "candidate", "pair": "michelangelo|krang", "games": 400}
+{"phase": "candidate", "pair": "splinter|krang", "games": 500}
+{"phase": "candidate", "pair": "shredder|krang", "games": 600}
+{"phase": "candidate", "pair": "krang|bebop_rocksteady", "games": 700}
+{"phase": "candidate", "pair": "krang|april_oneil", "games": 800}
+{"phase": "candidate", "pair": "krang|casey_jones", "games": 900}
+{"status": "COMPLETE", "evidence": "ROUND_6_C_EVIDENCE.json.gz", "games": 900, "replay_cells": 9}

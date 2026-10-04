@@ -12,10 +12,11 @@ from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
-from itertools import permutations, product
+from itertools import permutations
 from pathlib import Path
 from typing import Literal, Protocol
 
+from tmnt_design_studio.aura07 import AuraMixin
 from tmnt_design_studio.card_data import CardDataCatalog
 from tmnt_design_studio.card_interpreter07 import (
     ActivatedAbilityProgram,
@@ -638,6 +639,7 @@ class TemporaryKeywordEffect:
     duration: Literal["until_end_of_turn"]
     source_id: str
     oracle_fragment: str
+    timestamp: tuple[int, int] = (0, 0)
 
 
 @dataclass(frozen=True)
@@ -789,6 +791,10 @@ class CardObject:
     is_token: bool = False
 
     @property
+    def rules_card(self):
+        return self.card
+
+    @property
     def name(self) -> str:
         return self.card.name
 
@@ -848,6 +854,10 @@ class StackObject:
     cast_from_raphael: bool = False
     sneak_mana_source_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
+
+    @property
+    def rules_card(self):
+        return self.card
 
     @property
     def name(self) -> str:
@@ -934,6 +944,27 @@ class Permanent:
     type_line_override: str | None = None
     class_level: int | None = None
     attached_to: str | None = None
+    attachment_timestamp: tuple[int, int] = (0, 0)
+    entered_timestamp: tuple[int, int] = (0, 0)
+    ability_loss_timestamp: tuple[int, int] | None = None
+    aura_creature_type: str | None = None
+    aura_effect_ids: tuple[str, ...] = ()
+    aura_attack_restrictions: tuple[tuple[str, str], ...] = ()
+
+    @property
+    def rules_card(self):
+        """Evaluated intrinsic abilities; printed card facts remain immutable for history."""
+        if self.ability_loss_timestamp is None:
+            return self.card
+        return replace(self.card, oracle_text="", keywords=())
+
+    @property
+    def active_temporary_keyword_effects(self):
+        return tuple(
+            effect
+            for effect in self.temporary_keyword_effects
+            if self.ability_loss_timestamp is None or effect.timestamp > self.ability_loss_timestamp
+        )
 
     def __post_init__(self) -> None:
         if self.class_level is None and "Class" in self.card.type_line:
@@ -942,7 +973,31 @@ class Permanent:
     @property
     def type_line(self) -> str:
         """The permanent's current authoritative type line on the battlefield."""
-        return self.card.type_line if self.type_line_override is None else self.type_line_override
+        current = (
+            self.card.type_line if self.type_line_override is None else self.type_line_override
+        )
+        if self.aura_creature_type is not None and "Creature" in current:
+            types, _, subtypes = current.partition(" — ")
+            # Preserve represented noncreature subtypes on multi-type permanents.
+            retained = [
+                s
+                for s in subtypes.split()
+                if s
+                in {
+                    "Equipment",
+                    "Vehicle",
+                    "Fortification",
+                    "Food",
+                    "Clue",
+                    "Treasure",
+                    "Mutagen",
+                    "Blood",
+                    "Map",
+                    "Powerstone",
+                }
+            ]
+            return types + " — " + " ".join([*retained, self.aura_creature_type])
+        return current
 
     @property
     def is_creature(self) -> bool:
@@ -1230,7 +1285,9 @@ class DeterministicRNG:
         return result
 
 
-class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangRefillMixin):
+class Game(
+    AuraMixin, FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangRefillMixin
+):
     """Two-player deterministic game state and the supported legal transitions."""
 
     def __init__(
@@ -1437,6 +1494,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if obj.object_id in self._objects:
             raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
         self._objects[obj.object_id] = obj
+        if isinstance(obj, Permanent):
+            obj.entered_timestamp = self._effect_timestamp()
         self._mill_three_register(obj)
         self._krang_refill_register(obj)
         return obj
@@ -1625,7 +1684,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         sources: list[tuple[Permanent, str]] = []
         for player in self.players:
             for permanent in player.battlefield:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     coverage = self.interpreter.permanent_left_self_counter_semantic_coverage(
                         permanent.card, fragment
                     )
@@ -1713,7 +1772,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             )
             ltb_mutagen_fragments = tuple(
                 fragment
-                for fragment in self.interpreter.fragments(obj.card)
+                for fragment in self.interpreter.fragments(obj.rules_card)
                 if self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment) is not None
             )
             for fragment in ltb_mutagen_fragments:
@@ -1860,6 +1919,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             ("source_zone", source_zone),
                         ),
                     )
+        if source_zone == "battlefield":
+            self.refresh_static_pt_modifiers()
         return replacement
 
     def change_controller(self, permanent: Permanent, controller: int) -> None:
@@ -3842,7 +3903,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 or event.subject_ids != (source.object_id,)
                 or event.player_index != source.controller
                 or (source.object_id, source.controller) not in event.battlefield_authority
-                or fragment not in self.interpreter.fragments(source.card)
+                or fragment not in self.interpreter.fragments(source.rules_card)
                 or self.interpreter.etb_food_search_semantic_coverage(source.card, fragment) is None
             ):
                 raise ValueError("ETB Food search entry provenance is invalid")
@@ -3864,7 +3925,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 or event.subject_ids != (source.object_id,)
                 or event.player_index != source.controller
                 or (source.object_id, source.controller) not in event.battlefield_authority
-                or fragment not in self.interpreter.fragments(source.card)
+                or fragment not in self.interpreter.fragments(source.rules_card)
                 or self.interpreter.etb_draw_discard_semantic_coverage(source.card, fragment)
                 is None
             ):
@@ -3887,7 +3948,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 not in {RulesEventKind.CREATURE_ENTERED, RulesEventKind.PERMANENT_ENTERED}
                 or event.subject_ids != (source.object_id,)
                 or event.player_index != source.controller
-                or fragment not in self.interpreter.fragments(source.card)
+                or fragment not in self.interpreter.fragments(source.rules_card)
                 or self.interpreter.etb_mill_draw_discard_semantic_coverage(source.card, fragment)
                 is None
             ):
@@ -3905,7 +3966,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 or event.kind is not RulesEventKind.CLASS_LEVEL_ADVANCED
                 or event.subject_ids != (source.object_id,)
                 or event.player_index != source.controller
-                or fragment not in self.interpreter.fragments(source.card)
+                or fragment not in self.interpreter.fragments(source.rules_card)
                 or self.interpreter.class_level_recovery_semantic_coverage(source.card, fragment)
                 is None
             ):
@@ -4324,6 +4385,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         "until_end_of_turn",
                         ability.source_id,
                         ability.oracle_fragment,
+                        timestamp=self._effect_timestamp(),
                     )
                 )
                 self.log(
@@ -4827,6 +4889,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         "until_end_of_turn",
                         ability.source_id,
                         ability.oracle_fragment,
+                        timestamp=self._effect_timestamp(),
                     )
                 )
             self.log(
@@ -5407,7 +5470,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     @staticmethod
     def _validate_stun_targeting_dependencies(target: Permanent) -> None:
         # These keyword/cost systems are absent. Do not silently target through them.
-        text = " ".join((*target.card.keywords, target.card.oracle_text))
+        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
         if re.search(
             r"\b(?:hexproof|shroud|ward|protection)\b|can't be (?:the )?target", text, re.I
         ):
@@ -5813,13 +5876,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     ) -> None:
         """Detect one creature's triggers without prematurely placing or draining the batch."""
         if TriggerEffect.SNEAK_ETB_CONDITION in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 if self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.SNEAK_ETB_CONDITION
                     )
         if TriggerEffect.CREATE_TOKEN in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.token_semantic_coverage(entering.card, fragment)
                 if (
                     coverage is not None
@@ -5829,7 +5892,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 ):
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
         if TriggerEffect.SCRY in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.scry_semantic_coverage(entering.card, fragment)
                 if (
                     coverage is not None
@@ -5839,7 +5902,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 ):
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.SCRY)
         if TriggerEffect.ETB_DRAIN_GAIN_SCRY in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.etb_drain_gain_scry_semantic_coverage(
                     entering.card, fragment
                 )
@@ -5848,7 +5911,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
                     )
         if TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.rock_soldiers_etb_semantic_coverage(
                     entering.card, fragment
                 )
@@ -5857,7 +5920,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         event, entering, fragment, TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY
                     )
         if TriggerEffect.ETB_TAP_STUN in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.etb_tap_stun_semantic_coverage(entering.card, fragment)
                 if coverage is not None and coverage.fully_supported:
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.ETB_TAP_STUN)
@@ -5868,7 +5931,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             for source in list(self.players[entering.controller].battlefield):
                 if source is entering:
                     continue
-                for fragment in self.interpreter.fragments(source.card):
+                for fragment in self.interpreter.fragments(source.rules_card):
                     coverage = self.interpreter.artifact_entry_self_counter_semantic_coverage(
                         source.card, fragment
                     )
@@ -5877,7 +5940,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, source, fragment, TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER
                         )
         if TriggerEffect.ETB_ARTIFACT_DRAW in enabled:
-            for fragment in self.interpreter.fragments(entering.card):
+            for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.etb_artifact_draw_semantic_coverage(
                     entering.card, fragment
                 )
@@ -5894,7 +5957,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
                 continue
-            fragments = self.interpreter.fragments(source.card)
+            fragments = self.interpreter.fragments(source.rules_card)
             for fragment in fragments:
                 if (
                     TriggerEffect.ALLIANCE_PT in enabled
@@ -5987,7 +6050,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 source_id=source_id,
             )
             if TriggerEffect.ETB_MILL_DRAW_DISCARD in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.etb_mill_draw_discard_semantic_coverage(
                             permanent.card, fragment
@@ -5998,13 +6061,13 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_MILL_DRAW_DISCARD
                         )
             if TriggerEffect.ETB_KRANG_REFILL in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if self.interpreter.krang_refill_semantic_coverage(permanent.card, fragment):
                         self._enqueue_trigger(
                             event, permanent, fragment, TriggerEffect.ETB_KRANG_REFILL
                         )
             if TriggerEffect.ETB_MILL_THREE in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.mill_three_semantic_coverage(permanent.card, fragment)
                         is not None
@@ -6013,7 +6076,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_MILL_THREE
                         )
             if TriggerEffect.ETB_JURY_RIG in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.jury_rig_semantic_coverage(permanent.card, fragment)
                         is not None
@@ -6022,7 +6085,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_JURY_RIG
                         )
             if TriggerEffect.ETB_VIGILANTE in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.vigilante_semantic_coverage(permanent.card, fragment)
                         is not None
@@ -6031,7 +6094,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_VIGILANTE
                         )
             if TriggerEffect.ETB_FOOD_SEARCH in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.etb_food_search_semantic_coverage(permanent.card, fragment)
                         is not None
@@ -6040,7 +6103,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_FOOD_SEARCH
                         )
             if TriggerEffect.ETB_DRAW_DISCARD in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
                         self.interpreter.etb_draw_discard_semantic_coverage(
                             permanent.card, fragment
@@ -6051,7 +6114,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             event, permanent, fragment, TriggerEffect.ETB_DRAW_DISCARD
                         )
             if TriggerEffect.SHREDDER_DEATHTOUCH in enabled:
-                for fragment in self.interpreter.fragments(permanent.card):
+                for fragment in self.interpreter.fragments(permanent.rules_card):
                     coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
                         permanent.card, fragment
                     )
@@ -6193,7 +6256,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
         event = self._new_rules_event(RulesEventKind.LIFE_GAINED, player_index, ())
         for permanent in list(player.battlefield):
-            for fragment in self.interpreter.fragments(permanent.card):
+            for fragment in self.interpreter.fragments(permanent.rules_card):
                 if self.interpreter.GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
                     self._enqueue_trigger(
                         event, permanent, fragment, TriggerEffect.LIFE_GAIN_COUNTER
@@ -6282,6 +6345,9 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         )
 
     def refresh_static_pt_modifiers(self) -> None:
+        if getattr(self, "_continuous_refresh_deferred", False):
+            return
+        self.refresh_aura_effects()
         previous: dict[str, tuple[int, int]] = {}
         previous_team = self._static_team_contributions
         for player in self.players:
@@ -6306,7 +6372,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 permanent for permanent in player.battlefield if permanent.card.is_creature
             ]
             for source in creatures:
-                for fragment in self.interpreter.fragments(source.card):
+                for fragment in self.interpreter.fragments(source.rules_card):
                     match = self.interpreter.STATIC_OTHER_CREATURES.fullmatch(fragment)
                     if match:
                         count = len(creatures) - 1
@@ -6336,7 +6402,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         current_team: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
         for player in self.players:
             for source in player.battlefield:
-                for fragment in self.interpreter.fragments(source.card):
+                for fragment in self.interpreter.fragments(source.rules_card):
                     semantics = self.interpreter.static_team_modifier_semantic_coverage(
                         source.card, fragment
                     )
@@ -6414,7 +6480,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             tuple(attacker.object_id for attacker in attackers),
         )
         for source in attackers:
-            for fragment in self.interpreter.fragments(source.card):
+            for fragment in self.interpreter.fragments(source.rules_card):
                 coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
                     source.card, fragment
                 )
@@ -6741,6 +6807,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             oracle_fragment=permission[1],
                         )
                     )
+        options.extend(self._aura_cast_options(player_index))
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
@@ -6791,7 +6858,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     def _graveyard_cast_permission(self, source: Permanent) -> tuple[int, str] | None:
         if not self.is_authoritative(source, "battlefield"):
             return None
-        for fragment in self.interpreter.fragments(source.card):
+        for fragment in self.interpreter.fragments(source.rules_card):
             match = re.match(
                 r"^During your turn, you may cast creature spells with power or toughness "
                 r"(?P<limit>\d+) or less from your graveyard\.",
@@ -7007,7 +7074,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             return ()
         options = []
         for source in self.players[player_index].battlefield:
-            for fragment in self.interpreter.fragments(source.card):
+            for fragment in self.interpreter.fragments(source.rules_card):
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
                 if (
                     semantics is None
@@ -7032,12 +7099,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
-        if (
-            state is None
-            or state.resolution_pending
-            or player_index != state.player_index
-            or not self.stack
-        ):
+        if state is None or state.resolution_pending or player_index != state.player_index:
             return ()
         return (
             ActionOption(
@@ -7046,6 +7108,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 priority_epoch=state.epoch,
             ),
             *self._hand_response_options(player_index),
+            *self._aura_cast_options(player_index, priority=True),
             *self._counter_activation_options(player_index),
         )
 
@@ -7067,6 +7130,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
+                spell = self.announce_spell(option.player_index, card, target)
+                if spell is None:
+                    raise ValueError("Aura response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if not isinstance(card, CardObject) or not isinstance(target, StackObject):
                 raise ValueError("hand response option is malformed")
             spell = self._announce_hand_response(option.player_index, card, target)
@@ -7108,8 +7177,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             )
         else:
             self.log(
-                "stack_resolution_permitted",
-                stack_object_id=self.stack[-1].object_id,
+                "stack_resolution_permitted" if self.stack else "priority_window_passed",
+                stack_object_id=self.stack[-1].object_id if self.stack else None,
                 priority_epoch=state.epoch,
             )
         return True
@@ -7120,7 +7189,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if state is None or not state.resolution_pending:
             raise ValueError("stack resolution is not permitted")
         if not self.stack:
-            raise ValueError("priority state cannot resolve an empty stack")
+            self.priority_state = None
+            return True
         self.priority_state = None
         self._priority_resolution_in_progress = True
         try:
@@ -7179,16 +7249,21 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             priority_epoch=state.epoch,
         )
 
-    def _begin_priority_window(self) -> None:
-        if not self.stack:
+    def _begin_priority_window(
+        self, *, allow_empty: bool = False, priority_player: int | None = None
+    ) -> None:
+        if not self.stack and not allow_empty:
             raise ValueError("priority requires a nonempty stack")
+        if allow_empty and self.step in {TurnStep.SETUP, TurnStep.UNTAP, TurnStep.CLEANUP}:
+            raise ValueError("this step has no ordinary priority window")
         epoch = self._next_priority_epoch
         self._next_priority_epoch += 1
-        self.priority_state = PriorityState(epoch, self.active_player)
-        top = self.stack[-1]
+        holder = self.active_player if priority_player is None else priority_player
+        self.priority_state = PriorityState(epoch, holder)
+        top = self.stack[-1] if self.stack else None
         self.log(
             "response_window_opened",
-            stack_object_id=top.object_id,
+            stack_object_id=top.object_id if top is not None else None,
             stack_card=top.name if isinstance(top, StackObject) else None,
             priority_epoch=epoch,
         )
@@ -7196,8 +7271,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         self._log_supported_hand_responses()
         self.log(
             "priority_granted",
-            player=self.players[self.active_player].name,
-            player_index=self.active_player,
+            player=self.players[holder].name,
+            player_index=holder,
             priority_epoch=epoch,
         )
 
@@ -7314,25 +7389,31 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if p.card.is_creature and not p.tapped
         ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
-        choices = []
-        for attacker in attackers:
-            groups = [
-                group
-                for count in range(len(available) + 1)
-                for group in permutations(available, count)
-                if not group or (not self._has_menace(attacker) or count >= 2)
-            ]
-            choices.append((attacker, groups))
-        for selected in product(*(groups for _attacker, groups in choices)):
-            assignment = tuple(
-                (attacker.object_id, blocker.object_id)
-                for (attacker, _groups), group in zip(choices, selected, strict=True)
-                for blocker in group
-            )
-            if assignment and self._valid_block_assignment(attackers, assignment, defender_index):
-                options.append(
-                    ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index, blocks=assignment)
-                )
+
+        def visit(index, remaining, assignment):
+            if index == len(attackers):
+                if assignment:
+                    options.append(
+                        ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index, blocks=assignment)
+                    )
+                return
+            attacker = attackers[index]
+            for count in range(len(remaining) + 1):
+                for group in permutations(remaining, count):
+                    blocks = tuple((attacker.object_id, blocker.object_id) for blocker in group)
+                    if not self._valid_block_assignment([attacker], blocks, defender_index):
+                        continue
+                    used = {blocker.object_id for blocker in group}
+                    visit(
+                        index + 1,
+                        tuple(blocker for blocker in remaining if blocker.object_id not in used),
+                        assignment + blocks,
+                    )
+
+        # The old Cartesian product validated only at the leaves. Removing used
+        # blockers and illegal per-attacker groups early preserves its exact
+        # surviving option order, including the pilot's first-max tie break.
+        visit(0, tuple(available), ())
         return tuple(options)
 
     def _sneak_semantics(self, card: CardObject):
@@ -7509,14 +7590,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             keyword
             for keyword in StrikeKeyword
             if keyword.value.replace("_", " ").casefold()
-            in {value.casefold() for value in permanent.card.keywords}
+            in {value.casefold() for value in permanent.rules_card.keywords}
         }
         keywords.update(
             effect.keyword
-            for effect in permanent.temporary_keyword_effects
+            for effect in permanent.active_temporary_keyword_effects
             if isinstance(effect.keyword, StrikeKeyword)
         )
-        for fragment in self.interpreter.fragments(permanent.card):
+        for fragment in self.interpreter.fragments(permanent.rules_card):
             semantics = self.interpreter.strike_semantic_coverage(permanent.card, fragment)
             if semantics is None or not semantics.coverage.fully_supported:
                 continue
@@ -7527,13 +7608,17 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 keywords.add(semantics.program.keyword)
         if permanent.object_id in self._combat_attackers:
             for source in self.players[permanent.controller].battlefield:
-                for fragment in self.interpreter.fragments(source.card):
+                for fragment in self.interpreter.fragments(source.rules_card):
                     semantics = self.interpreter.strike_semantic_coverage(source.card, fragment)
                     if (
                         semantics is not None
                         and semantics.coverage.fully_supported
                         and semantics.program.applicability
                         is StrikeApplicability.ATTACKING_CREATURES_YOU_CONTROL
+                        and (
+                            permanent.ability_loss_timestamp is None
+                            or source.entered_timestamp > permanent.ability_loss_timestamp
+                        )
                     ):
                         keywords.add(semantics.program.keyword)
         return frozenset(keywords)
@@ -7650,14 +7735,14 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         if not self.is_authoritative(permanent, "battlefield"):
             return False
         if isinstance(permanent.card, TokenDefinition) and "trample" in {
-            keyword.casefold() for keyword in permanent.card.keywords
+            keyword.casefold() for keyword in permanent.rules_card.keywords
         }:
             return True
         return any(
             semantics is not None
             and semantics.coverage.payload_executable
             and semantics.coverage.parent_executable
-            for fragment in self.interpreter.fragments(permanent.card)
+            for fragment in self.interpreter.fragments(permanent.rules_card)
             if (semantics := self.interpreter.trample_semantic_coverage(permanent.card, fragment))
             is not None
         )
@@ -7669,12 +7754,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ):
             return False
         if isinstance(source.card, TokenDefinition) and "lifelink" in {
-            keyword.casefold() for keyword in source.card.keywords
+            keyword.casefold() for keyword in source.rules_card.keywords
         }:
             return True
         return any(
             semantics.coverage.fully_supported
-            for fragment in self.interpreter.fragments(source.card)
+            for fragment in self.interpreter.fragments(source.rules_card)
             if (semantics := self.interpreter.lifelink_semantic_coverage(source.card, fragment))
             is not None
         )
@@ -8037,7 +8122,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
 
     @staticmethod
     def _mana_color(source: Permanent) -> str | None:
-        match = re.search(r"Add \{([WUBRG])\}", source.card.oracle_text)
+        match = re.search(r"Add \{([WUBRG])\}", source.rules_card.oracle_text)
         if match:
             return match.group(1)
         return {
@@ -8142,6 +8227,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             or source.controller != player_index
         ):
             return None
+        if oracle_fragment not in self.interpreter.fragments(source.rules_card):
+            return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
@@ -8159,7 +8246,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             or (
                 source.card.is_creature
                 and source.summoning_sick
-                and "Haste" not in source.card.keywords
+                and not self._has_keyword(source, "Haste")
+                and not self.has_temporary_keyword(source, TemporaryKeyword.HASTE)
             )
         ):
             return None
@@ -8225,7 +8313,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             return ()
         options: list[ActionOption] = []
         for source in self.players[player_index].battlefield:
-            for fragment in self.interpreter.fragments(source.card):
+            for fragment in self.interpreter.fragments(source.rules_card):
                 plan = self.activation_payment_plan(player_index, source, fragment)
                 if plan is None:
                     continue
@@ -8361,6 +8449,8 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             )
             or source.controller != player_index
         ):
+            return None
+        if oracle_fragment not in self.interpreter.fragments(source.rules_card):
             return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
@@ -8754,6 +8844,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                         "until_end_of_turn",
                         source_permanent.object_id,
                         ability.oracle_fragment,
+                        timestamp=self._effect_timestamp(),
                     )
                 )
                 self.log(
@@ -8822,6 +8913,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             "until_end_of_turn",
                             ability.source_id,
                             ability.oracle_fragment,
+                            timestamp=self._effect_timestamp(),
                         )
                     )
             self.log(
@@ -8899,6 +8991,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                     "until_end_of_turn",
                     ability.source_id,
                     ability.oracle_fragment,
+                    timestamp=self._effect_timestamp(),
                 )
             )
             delivered = True
@@ -9371,9 +9464,25 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
+        flash_priority = (
+            self.priority_state is not None
+            and not self.priority_state.resolution_pending
+            and self.priority_state.player_index == player_index
+            and self.interpreter.aura_program(card.card) is not None
+            and "Flash" in self.interpreter.fragments(card.card)
+        )
         if (
-            player_index != self.active_player
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            (
+                not flash_priority
+                and (
+                    player_index != self.active_player
+                    or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+                    or (
+                        (self.priority_state is not None or self.stack)
+                        and self.interpreter.aura_program(card.card) is not None
+                    )
+                )
+            )
             or not (
                 self.is_authoritative(card, "graveyard")
                 if cast_from_graveyard
@@ -9406,7 +9515,11 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 return None
         program = self.interpreter.cast_program(card.card)
         target_id: str | None = None
-        if program.kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
+        if program.kind is CastKind.AURA:
+            if not self.legal_aura_target(card.card, target, player_index):
+                return None
+            target_id = target.object_id
+        elif program.kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             if (
                 target is None
                 or not self.is_authoritative(target, "battlefield")
@@ -9535,12 +9648,24 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
         ):
             raise ValueError("Sneak spell cannot resolve before all players pass")
 
-        if spell.cast_kind in {CastKind.CREATURE, CastKind.PERMANENT}:
+        if spell.cast_kind is CastKind.AURA and not self.legal_aura_target(
+            spell.card, target, spell.controller
+        ):
+            resolved = self.move_object(spell, "graveyard", reason="aura_all_targets_illegal")
+            self.log(
+                "aura_failed",
+                card=spell.name,
+                source_id=stack_object_id,
+                target_id=spell.target_id,
+                reason="all_targets_illegal",
+            )
+            return resolved
+        if spell.cast_kind in {CastKind.CREATURE, CastKind.PERMANENT, CastKind.AURA}:
             permanent = self.move_object(
                 spell,
                 "battlefield",
                 controller=spell.controller,
-                summoning_sick=True if sneak_cast else "Haste" not in spell.card.keywords,
+                summoning_sick=True,
                 reason=(
                     "sneak_creature_resolved"
                     if sneak_cast
@@ -9552,6 +9677,20 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 ),
             )
             assert isinstance(permanent, Permanent)
+            if spell.cast_kind is CastKind.AURA:
+                self.attach_aura(permanent, target)
+                self.log(
+                    "aura_resolved",
+                    card=spell.name,
+                    stack_object_id=stack_object_id,
+                    source_id=permanent.object_id,
+                    target_id=target.object_id,
+                    target=target.card.name,
+                    controller=spell.controller,
+                    power=target.power,
+                    toughness=target.toughness,
+                    oracle_fragment=self.interpreter.aura_program(spell.card).oracle_fragment,
+                )
             if spell.finality_on_entry:
                 permanent.counters["finality"] = permanent.counters.get("finality", 0) + 1
                 self.log(
@@ -9776,13 +9915,19 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             for p in self.players[player_index].battlefield
             if p.card.is_creature
             and not p.tapped
-            and (not p.summoning_sick or self.has_temporary_keyword(p, TemporaryKeyword.HASTE))
+            and (
+                not p.summoning_sick
+                or self._has_keyword(p, "Haste")
+                or self.has_temporary_keyword(p, TemporaryKeyword.HASTE)
+            )
             and self.attacking_restriction(p) is None
         ]
 
     def attacking_restriction(self, attacker: Permanent) -> tuple[str, str] | None:
         """Return the first Oracle-derived restriction that makes an attack illegal."""
-        for fragment in self.interpreter.fragments(attacker.card):
+        if attacker.aura_attack_restrictions:
+            return attacker.aura_attack_restrictions[0][1], "aura_cant_attack"
+        for fragment in self.interpreter.fragments(attacker.rules_card):
             if not self.interpreter.CANT_ATTACK_UNLESS_ANOTHER_ARTIFACT.fullmatch(fragment):
                 continue
             has_other_artifact = any(
@@ -9799,7 +9944,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     def has_temporary_keyword(self, permanent: Permanent, keyword: TemporaryKeyword) -> bool:
         """Read a current bounded temporary keyword from authoritative incarnation state."""
         return self.is_authoritative(permanent, "battlefield") and any(
-            effect.keyword is keyword for effect in permanent.temporary_keyword_effects
+            effect.keyword is keyword for effect in permanent.active_temporary_keyword_effects
         )
 
     def blocking_restriction(
@@ -9810,7 +9955,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             self._has_flying(blocker) or self._has_reach(blocker)
         ):
             return "Flying", "flying_requires_flying_or_reach"
-        for fragment in self.interpreter.fragments(attacker.card):
+        for fragment in self.interpreter.fragments(attacker.rules_card):
             match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
                 return fragment, "blocker_power_at_or_above_restriction"
@@ -9823,30 +9968,30 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
 
     @staticmethod
     def _has_keyword(permanent: Permanent, keyword: str) -> bool:
-        return keyword.casefold() in {value.casefold() for value in permanent.card.keywords}
+        return keyword.casefold() in {value.casefold() for value in permanent.rules_card.keywords}
 
     def _has_flying(self, permanent: Permanent) -> bool:
         return self._has_keyword(permanent, "Flying") or any(
             effect.keyword is TemporaryKeyword.FLYING
-            for effect in permanent.temporary_keyword_effects
+            for effect in permanent.active_temporary_keyword_effects
         )
 
     def _has_reach(self, permanent: Permanent) -> bool:
         return self._has_keyword(permanent, "Reach") or any(
             effect.keyword is TemporaryKeyword.REACH
-            for effect in permanent.temporary_keyword_effects
+            for effect in permanent.active_temporary_keyword_effects
         )
 
     def _has_menace(self, attacker: Permanent) -> bool:
         return (
-            "menace" in {keyword.casefold() for keyword in attacker.card.keywords}
+            "menace" in {keyword.casefold() for keyword in attacker.rules_card.keywords}
             or any(
                 effect.keyword is TemporaryKeyword.MENACE
-                for effect in attacker.temporary_keyword_effects
+                for effect in attacker.active_temporary_keyword_effects
             )
             or any(
                 fragment.casefold().startswith("menace")
-                for fragment in self.interpreter.fragments(attacker.card)
+                for fragment in self.interpreter.fragments(attacker.rules_card)
             )
         )
 
@@ -9870,7 +10015,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 return False
             if blocker_ids and any(
                 "can't be blocked by more than one creature" in fragment.casefold()
-                for fragment in self.interpreter.fragments(attacker.card)
+                for fragment in self.interpreter.fragments(attacker.rules_card)
             ):
                 return False
             for blocker_id in blocker_ids:
@@ -10040,15 +10185,22 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             raise ValueError("simultaneous departure requires authoritative permanents")
         authority = self._battlefield_authority_snapshot()
         sources = self._permanent_left_trigger_sources()
-        return tuple(
-            self.put_into_graveyard(
-                permanent,
-                state_based_action=state_based_action,
-                _departure_authority=authority,
-                _departure_sources=sources,
+        # All departing objects use pre-event abilities, including suppressed dies/LTB text.
+        deferred = getattr(self, "_continuous_refresh_deferred", False)
+        self._continuous_refresh_deferred = True
+        try:
+            return tuple(
+                self.put_into_graveyard(
+                    permanent,
+                    state_based_action=state_based_action,
+                    _departure_authority=authority,
+                    _departure_sources=sources,
+                )
+                for permanent in permanents
             )
-            for permanent in permanents
-        )
+        finally:
+            self._continuous_refresh_deferred = deferred
+            self.refresh_static_pt_modifiers()
 
     def put_into_graveyard(
         self,
@@ -10067,10 +10219,10 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
             if _departure_authority is None
             else _departure_authority
         )
-        paramecia_fragment = self._paramecia_fragment(permanent.card)
+        paramecia_fragment = self._paramecia_fragment(permanent.rules_card)
         dies_draw_fragments = tuple(
             fragment
-            for fragment in self.interpreter.fragments(permanent.card)
+            for fragment in self.interpreter.fragments(permanent.rules_card)
             if (coverage := self.interpreter.dies_draw_semantic_coverage(permanent.card, fragment))
             is not None
             and coverage.fully_supported
@@ -10131,7 +10283,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
     def check_state_based_actions(self) -> None:
         self.refresh_static_pt_modifiers()
         while True:
-            changed = False
+            changed = self.aura_state_based_actions()
             for action in self.state_based_actions:
                 if action.apply(self):
                     changed = True
@@ -10876,6 +11028,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                 "trigger_resolved",
                 "spell_resolved",
                 "spell_resolved_no_effect",
+                "aura_resolved",
             }:
                 source_id = event.get("source_id")
                 fragment = event.get("oracle_fragment")
@@ -11386,6 +11539,12 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             "entered_battlefield_turn": x.entered_battlefield_turn,
                             **({"class_level": x.class_level} if x.class_level is not None else {}),
                             **({"attached_to": x.attached_to} if x.attached_to is not None else {}),
+                            "entered_timestamp": list(x.entered_timestamp),
+                            "attachment_timestamp": list(x.attachment_timestamp),
+                            "ability_loss_timestamp": x.ability_loss_timestamp,
+                            "aura_creature_type": x.aura_creature_type,
+                            "aura_effect_ids": list(x.aura_effect_ids),
+                            "aura_attack_restrictions": list(x.aura_attack_restrictions),
                             "damage": x.damage,
                             "counters": dict(x.counters),
                             "pt_modifiers": [
@@ -11425,6 +11584,7 @@ class Game(FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangR
                             "temporary_keyword_effects": [
                                 {
                                     "keyword": effect.keyword.value,
+                                    "timestamp": list(effect.timestamp),
                                     "duration": effect.duration,
                                     "source_id": effect.source_id,
                                     "oracle_fragment": effect.oracle_fragment,

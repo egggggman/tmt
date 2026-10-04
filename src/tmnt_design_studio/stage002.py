@@ -222,6 +222,7 @@ def _semantic_coverage(
             "limitations": [],
         }
     candidates = (
+        ("aura_suppression", interpreter.aura_semantic_coverage(card, fragment)),
         (
             "static_team_modifier",
             interpreter.static_team_modifier_semantic_coverage(card, fragment),
@@ -796,6 +797,7 @@ def _authoritative_execution_index(
             "trigger_resolved",
             "spell_resolved",
             "spell_resolved_no_effect",
+            "aura_resolved",
         }:
             continue
         evidence_id = event.get("event_id") or event.get("stack_object_id")

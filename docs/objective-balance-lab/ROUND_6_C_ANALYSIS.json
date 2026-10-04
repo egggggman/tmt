@@ -1,0 +1,5144 @@
+{
+  "schema": "obl-r6c-derived-analysis-v1",
+  "experiment_id": "OBL-R6-KRANG-C",
+  "verdict": "RETURN_TO_DESIGN_STUDIO",
+  "hypothesis": "Threat suppression instead of additional board value",
+  "primary": "raphael",
+  "secondary": "shredder",
+  "sentinel": "april_oneil",
+  "mechanism_status": "EXECUTED_AND_TELEMETRY_VERIFIED",
+  "candidate_path": "docs/objective-balance-lab/candidates/KRANG_OBL_R6_C.txt",
+  "candidate_sha256": "c458ff8bd6b5d4f30ce1cd03313492b4d69bfba253f795e22b78bd9292728ac5",
+  "candidate_git_blob": "cad818bb3bf376fda59baf63cb809416949f0fe1",
+  "semantic_runtime_sha256": "ccfa75ed8e817bc3af0a04f75ef048aaee54e5175c06abfc21feaad6515bb0ec",
+  "runtime_repository_sha": "bd361c5fa5d0671734dacce6fe90a0f6b6a102be",
+  "readiness_sha256": "4d1c961a6a9bcb5bb87edb7a8c3c142e58e6c3448c7c5404c6b3d4100026a0b0",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "control_id": "OBL-BASELINE-003-AURA-RUNTIME-REFRESH-001",
+  "control_sha256": "dc5b1400f539d89680fd55d4458f1b81b745d06289427514e1bb716537f94cf9",
+  "candidate_evidence_sha256": "a55ffa25366b1d812d946bc75fc4889371935e2dd8943150a62a47fc0e573ab6",
+  "historical_control_sha256": "1692845aff68ea29817f4eeb9ef34732f35abe3d682bd3c141322f8a4338fe2e",
+  "baseline_manifest_sha256": "068bc167e27880deff13cc35267aac3aee6ceb83f7198cdb803fa7f4ce466b67",
+  "comparison": {
+    "parent": {
+      "games": 900,
+      "wins": 347,
+      "draws": 0,
+      "losses": 553,
+      "win_rate": 0.385556,
+      "matchup_win_rates": {
+        "leonardo": 0.66,
+        "raphael": 0.19,
+        "donatello": 0.44,
+        "michelangelo": 0.36,
+        "splinter": 0.26,
+        "shredder": 0.22,
+        "bebop_rocksteady": 0.54,
+        "april_oneil": 0.56,
+        "casey_jones": 0.24
+      },
+      "mean_matchup_balance_error": 0.172222,
+      "median_matchup_deviation": 0.16,
+      "over_60_40": 6,
+      "over_70_30": 4,
+      "worst_matchup": {
+        "opponent": "raphael",
+        "win_rate": 0.19
+      },
+      "weakest_matchup": {
+        "opponent": "raphael",
+        "win_rate": 0.19
+      },
+      "first_player_result_rate": 0.408889,
+      "mean_ending_turn": 21.2722,
+      "median_ending_turn": 20.0,
+      "first_play": {
+        "land_miss": {
+          "observed_games": 0,
+          "mean_turn_if_observed": null,
+          "median_turn_if_observed": null
+        },
+        "creature": {
+          "observed_games": 814,
+          "mean_turn_if_observed": 9.7322,
+          "median_turn_if_observed": 9.0
+        },
+        "blocker": {
+          "observed_games": 897,
+          "mean_turn_if_observed": 3.8317,
+          "median_turn_if_observed": 3
+        },
+        "interaction": {
+          "observed_games": 724,
+          "mean_turn_if_observed": 6.2307,
+          "median_turn_if_observed": 3.0
+        }
+      },
+      "battlefield_presence": {
+        "3": {
+          "observed_games": 608,
+          "mean_creatures_if_observed": 1.1595,
+          "positive_games": 494
+        },
+        "5": {
+          "observed_games": 756,
+          "mean_creatures_if_observed": 1.8532,
+          "positive_games": 693
+        },
+        "7": {
+          "observed_games": 805,
+          "mean_creatures_if_observed": 2.5702,
+          "positive_games": 788
+        }
+      },
+      "interaction_casts_total": 1378,
+      "interaction_casts_per_game": 1.5311,
+      "source_distinct_cast_names_proxy_total": 4654,
+      "source_distinct_cast_names_proxy_per_game": 5.1711,
+      "signature_casts": {
+        "Buzz Bots": 1264,
+        "Crustacean Commando": 1067,
+        "Does Machines": 578,
+        "Fugitive Droid": 1350,
+        "Krang, Master Mind": 137,
+        "Ooze Spill": 28,
+        "Ray Fillet, Man Ray": 648,
+        "Retro-Mutation": 504,
+        "Stockman, Mad Fly-entist": 380,
+        "Utrom Scientists": 1075
+      },
+      "utility_telemetry": {},
+      "runtime_errors": 0
+    },
+    "candidate": {
+      "games": 900,
+      "wins": 371,
+      "draws": 0,
+      "losses": 529,
+      "win_rate": 0.412222,
+      "matchup_win_rates": {
+        "leonardo": 0.72,
+        "raphael": 0.21,
+        "donatello": 0.42,
+        "michelangelo": 0.39,
+        "splinter": 0.26,
+        "shredder": 0.26,
+        "bebop_rocksteady": 0.58,
+        "april_oneil": 0.62,
+        "casey_jones": 0.25
+      },
+      "mean_matchup_balance_error": 0.181111,
+      "median_matchup_deviation": 0.22,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "worst_matchup": {
+        "opponent": "raphael",
+        "win_rate": 0.21
+      },
+      "weakest_matchup": {
+        "opponent": "raphael",
+        "win_rate": 0.21
+      },
+      "first_player_result_rate": 0.424444,
+      "mean_ending_turn": 21.75,
+      "median_ending_turn": 21.0,
+      "first_play": {
+        "land_miss": {
+          "observed_games": 0,
+          "mean_turn_if_observed": null,
+          "median_turn_if_observed": null
+        },
+        "creature": {
+          "observed_games": 814,
+          "mean_turn_if_observed": 9.9189,
+          "median_turn_if_observed": 9.0
+        },
+        "blocker": {
+          "observed_games": 897,
+          "mean_turn_if_observed": 3.8562,
+          "median_turn_if_observed": 3
+        },
+        "interaction": {
+          "observed_games": 733,
+          "mean_turn_if_observed": 6.4625,
+          "median_turn_if_observed": 4
+        }
+      },
+      "battlefield_presence": {
+        "3": {
+          "observed_games": 608,
+          "mean_creatures_if_observed": 1.1595,
+          "positive_games": 494
+        },
+        "5": {
+          "observed_games": 756,
+          "mean_creatures_if_observed": 1.8386,
+          "positive_games": 691
+        },
+        "7": {
+          "observed_games": 803,
+          "mean_creatures_if_observed": 2.5405,
+          "positive_games": 785
+        }
+      },
+      "interaction_casts_total": 1402,
+      "interaction_casts_per_game": 1.5578,
+      "source_distinct_cast_names_proxy_total": 4826,
+      "source_distinct_cast_names_proxy_per_game": 5.3622,
+      "signature_casts": {
+        "Buzz Bots": 1281,
+        "Crustacean Commando": 1082,
+        "Does Machines": 587,
+        "Fugitive Droid": 1372,
+        "Krang, Master Mind": 152,
+        "Ooze Spill": 30,
+        "Ray Fillet, Man Ray": 657,
+        "Retro-Mutation": 753,
+        "Stockman, Mad Fly-entist": 385,
+        "Utrom Scientists": 1096
+      },
+      "utility_telemetry": {},
+      "runtime_errors": 0
+    },
+    "aggregate_win_rate_delta": 0.026666,
+    "balance_delta": 0.008889,
+    "matchup_deltas": {
+      "leonardo": 0.06,
+      "raphael": 0.02,
+      "donatello": -0.02,
+      "michelangelo": 0.03,
+      "splinter": 0.0,
+      "shredder": 0.04,
+      "bebop_rocksteady": 0.04,
+      "april_oneil": 0.06,
+      "casey_jones": 0.01
+    },
+    "over_60_40_delta": 1,
+    "over_70_30_delta": 1,
+    "first_creature_mean_delta": 0.1867,
+    "battlefield_presence_mean_deltas": {
+      "3": 0.0,
+      "5": -0.0146,
+      "7": -0.0297
+    },
+    "interaction_casts_per_game_delta": 0.0267
+  },
+  "distribution_observations": {
+    "aggregate_win_rate_improved": true,
+    "mean_matchup_balance_error_improved": false,
+    "primary_delta": 0.02,
+    "secondary_delta": 0.04,
+    "sentinel_delta": 0.06,
+    "new_over_60_40_opponents": [
+      "april_oneil"
+    ],
+    "new_over_70_30_opponents": [
+      "leonardo"
+    ],
+    "interpretation_owner": "Design Studio"
+  },
+  "paired": {
+    "outcome_changed_games": 40,
+    "ending_turn_changed_games": 145,
+    "krang_loss_to_win": 32,
+    "krang_win_to_loss": 8
+  },
+  "distributions": {
+    "control": {
+      "ending_turn_histogram": {
+        "11": 5,
+        "12": 7,
+        "13": 22,
+        "14": 31,
+        "15": 63,
+        "16": 59,
+        "17": 66,
+        "18": 62,
+        "19": 73,
+        "20": 63,
+        "21": 67,
+        "22": 55,
+        "23": 57,
+        "24": 52,
+        "25": 36,
+        "26": 39,
+        "27": 25,
+        "28": 20,
+        "29": 25,
+        "30": 11,
+        "31": 14,
+        "32": 12,
+        "33": 9,
+        "34": 6,
+        "35": 6,
+        "36": 3,
+        "37": 2,
+        "38": 3,
+        "41": 1,
+        "42": 2,
+        "44": 3,
+        "50": 1
+      },
+      "first_player_counts": {
+        "leonardo": 50,
+        "krang": 450,
+        "raphael": 50,
+        "donatello": 50,
+        "michelangelo": 50,
+        "splinter": 50,
+        "shredder": 50,
+        "bebop_rocksteady": 50,
+        "april_oneil": 50,
+        "casey_jones": 50
+      },
+      "draws": 0,
+      "ending_turn_min": 11,
+      "ending_turn_max": 50
+    },
+    "candidate": {
+      "ending_turn_histogram": {
+        "11": 4,
+        "12": 7,
+        "13": 22,
+        "14": 26,
+        "15": 57,
+        "16": 60,
+        "17": 57,
+        "18": 59,
+        "19": 76,
+        "20": 61,
+        "21": 57,
+        "22": 59,
+        "23": 62,
+        "24": 54,
+        "25": 38,
+        "26": 42,
+        "27": 24,
+        "28": 20,
+        "29": 23,
+        "30": 13,
+        "31": 16,
+        "32": 17,
+        "33": 12,
+        "34": 6,
+        "35": 5,
+        "36": 3,
+        "37": 3,
+        "38": 4,
+        "39": 2,
+        "41": 1,
+        "42": 2,
+        "44": 5,
+        "45": 1,
+        "52": 1,
+        "57": 1
+      },
+      "first_player_counts": {
+        "leonardo": 50,
+        "krang": 450,
+        "raphael": 50,
+        "donatello": 50,
+        "michelangelo": 50,
+        "splinter": 50,
+        "shredder": 50,
+        "bebop_rocksteady": 50,
+        "april_oneil": 50,
+        "casey_jones": 50
+      },
+      "draws": 0,
+      "ending_turn_min": 11,
+      "ending_turn_max": 57
+    }
+  },
+  "aura": {
+    "control": {
+      "casts": 504,
+      "resolutions": 504,
+      "failed_illegal_target": 0,
+      "countered": 0,
+      "attachments_verified": 504,
+      "recalculation_events": 508,
+      "restoration_events": 4,
+      "games": 900,
+      "games_with_cast": 437,
+      "games_with_resolution": 437,
+      "win_rate_in_games_with_cast_descriptive_only": 0.4302059496567506,
+      "mean_first_cast_turn_if_observed": 11.373,
+      "resolution_turn_histogram": {
+        "5": 43,
+        "6": 58,
+        "7": 36,
+        "8": 51,
+        "9": 30,
+        "10": 35,
+        "11": 35,
+        "12": 32,
+        "13": 18,
+        "14": 19,
+        "15": 19,
+        "16": 22,
+        "17": 15,
+        "18": 20,
+        "19": 12,
+        "20": 12,
+        "21": 11,
+        "22": 4,
+        "23": 4,
+        "24": 7,
+        "25": 3,
+        "26": 2,
+        "27": 3,
+        "28": 3,
+        "29": 1,
+        "30": 1,
+        "31": 3,
+        "32": 1,
+        "33": 1,
+        "36": 1,
+        "38": 1,
+        "49": 1
+      },
+      "resolved_effective_pt_counts": {
+        "0/1": 489,
+        "1/2": 4,
+        "2/3": 7,
+        "3/4": 2,
+        "4/5": 2
+      },
+      "targets": {
+        "Zoo Escapees": 33,
+        "Fugitive Droid": 31,
+        "Buzz Bots": 27,
+        "Purple Dragon Punks": 25,
+        "Tunnel Rats": 23,
+        "Prehistoric Pet": 18,
+        "Raphael, Tough Turtle": 17,
+        "Leonardo, Leader in Blue": 15,
+        "Super Shredder": 15,
+        "Donatello, Mutant Mechanic": 14,
+        "Shark Shredder, Killer Clone": 14,
+        "Splinter, Hamato Yoshi": 14,
+        "Squirrelanoids": 14,
+        "Casey Jones, Jury-Rig Justiciar": 13,
+        "Foot Mystic": 11,
+        "Null Group Biological Assets": 11,
+        "Paramecia Coloniex": 11,
+        "Crustacean Commando": 10,
+        "Leonardo, Big Brother": 10,
+        "Utrom Scientists": 10,
+        "April, Reporter of the Weird": 9,
+        "Casey Jones, Vigilante": 9,
+        "Insectoid Exterminator": 9,
+        "Michelangelo, Improviser": 9,
+        "Oroku Saki, Shredder Rising": 9,
+        "April O'Neil, Kunoichi Trainee": 8,
+        "Dream Beavers": 8,
+        "Frog Butler": 8,
+        "Courier of Comestibles": 7,
+        "Michelangelo, Game Master": 7,
+        "Mutant Town Musicians": 7,
+        "Raphael, Ninja Destroyer": 7,
+        "Shredder, Unrelenting": 7,
+        "Bebop, Warthog Warrior": 6,
+        "Michelangelo, Weirdness to 11": 6,
+        "Mouser Mark III": 6,
+        "Donatello, Way with Machines": 5,
+        "Lita, Little Orphan Amphibian": 5,
+        "Ray Fillet, Man Ray": 5,
+        "Rock Soldiers": 5,
+        "Leonardo, Sewer Samurai": 4,
+        "Ravenous Robots": 4,
+        "Wingnut, Bat on the Belfry": 4,
+        "Donatello, Turtle Techie": 3,
+        "Michelangelo, Mutant BFF": 3,
+        "Leonardo, Cutting Edge": 2,
+        "Raphael, Most Attitude": 2,
+        "Rocksteady, Crash Courser": 2,
+        "April O'Neil, Hacktivist": 1,
+        "Donatello, Gadget Master": 1
+      }
+    },
+    "candidate": {
+      "casts": 753,
+      "resolutions": 753,
+      "failed_illegal_target": 0,
+      "countered": 0,
+      "attachments_verified": 753,
+      "recalculation_events": 759,
+      "restoration_events": 6,
+      "games": 900,
+      "games_with_cast": 553,
+      "games_with_resolution": 553,
+      "win_rate_in_games_with_cast_descriptive_only": 0.46835443037974683,
+      "mean_first_cast_turn_if_observed": 10.9222,
+      "resolution_turn_histogram": {
+        "5": 54,
+        "6": 79,
+        "7": 45,
+        "8": 77,
+        "9": 47,
+        "10": 57,
+        "11": 50,
+        "12": 46,
+        "13": 30,
+        "14": 30,
+        "15": 32,
+        "16": 35,
+        "17": 22,
+        "18": 32,
+        "19": 18,
+        "20": 17,
+        "21": 16,
+        "22": 8,
+        "23": 6,
+        "24": 10,
+        "25": 7,
+        "26": 7,
+        "27": 3,
+        "28": 8,
+        "29": 3,
+        "30": 1,
+        "31": 6,
+        "32": 1,
+        "33": 2,
+        "36": 2,
+        "38": 1,
+        "49": 1
+      },
+      "resolved_effective_pt_counts": {
+        "0/1": 736,
+        "1/2": 5,
+        "2/3": 7,
+        "3/4": 3,
+        "4/5": 2
+      },
+      "targets": {
+        "Zoo Escapees": 49,
+        "Fugitive Droid": 48,
+        "Buzz Bots": 39,
+        "Tunnel Rats": 32,
+        "Purple Dragon Punks": 30,
+        "Leonardo, Leader in Blue": 25,
+        "Prehistoric Pet": 23,
+        "Raphael, Tough Turtle": 22,
+        "Crustacean Commando": 20,
+        "Splinter, Hamato Yoshi": 20,
+        "Super Shredder": 20,
+        "Utrom Scientists": 20,
+        "Shark Shredder, Killer Clone": 19,
+        "Casey Jones, Jury-Rig Justiciar": 18,
+        "Foot Mystic": 18,
+        "Leonardo, Big Brother": 17,
+        "Null Group Biological Assets": 17,
+        "Squirrelanoids": 17,
+        "April, Reporter of the Weird": 16,
+        "Donatello, Mutant Mechanic": 15,
+        "Dream Beavers": 15,
+        "Paramecia Coloniex": 15,
+        "Insectoid Exterminator": 14,
+        "Michelangelo, Game Master": 14,
+        "Oroku Saki, Shredder Rising": 14,
+        "April O'Neil, Kunoichi Trainee": 13,
+        "Michelangelo, Improviser": 13,
+        "Courier of Comestibles": 12,
+        "Mutant Town Musicians": 12,
+        "Raphael, Ninja Destroyer": 12,
+        "Shredder, Unrelenting": 12,
+        "Mouser Mark III": 11,
+        "Casey Jones, Vigilante": 10,
+        "Ravenous Robots": 10,
+        "Bebop, Warthog Warrior": 9,
+        "Frog Butler": 9,
+        "Lita, Little Orphan Amphibian": 7,
+        "Michelangelo, Weirdness to 11": 7,
+        "Rock Soldiers": 7,
+        "Wingnut, Bat on the Belfry": 7,
+        "Ray Fillet, Man Ray": 6,
+        "Rocksteady, Crash Courser": 6,
+        "April O'Neil, Hacktivist": 5,
+        "Donatello, Way with Machines": 5,
+        "Leonardo, Sewer Samurai": 5,
+        "Michelangelo, Mutant BFF": 5,
+        "Raphael, Most Attitude": 5,
+        "Donatello, Turtle Techie": 3,
+        "Leonardo, Cutting Edge": 3,
+        "Donatello, Gadget Master": 2
+      }
+    }
+  },
+  "opponents": {
+    "raphael": {
+      "control": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 4,
+          "13": 2,
+          "14": 8,
+          "15": 9,
+          "16": 7,
+          "17": 14,
+          "18": 6,
+          "19": 5,
+          "20": 11,
+          "21": 9,
+          "22": 4,
+          "23": 3,
+          "24": 5,
+          "25": 1,
+          "26": 3,
+          "27": 3,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "32": 1,
+          "33": 1
+        },
+        "first_player_counts": {
+          "raphael": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 33,
+        "aura": {
+          "casts": 48,
+          "resolutions": 48,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 48,
+          "recalculation_events": 48,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 41,
+          "games_with_resolution": 41,
+          "win_rate_in_games_with_cast_descriptive_only": 0.2682926829268293,
+          "mean_first_cast_turn_if_observed": 10.3659,
+          "resolution_turn_histogram": {
+            "5": 2,
+            "6": 6,
+            "7": 2,
+            "8": 8,
+            "9": 3,
+            "10": 5,
+            "11": 2,
+            "12": 3,
+            "15": 3,
+            "16": 5,
+            "17": 2,
+            "18": 3,
+            "20": 2,
+            "22": 1,
+            "28": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 48
+          },
+          "targets": {
+            "Raphael, Tough Turtle": 17,
+            "Null Group Biological Assets": 8,
+            "Raphael, Ninja Destroyer": 7,
+            "Mutant Town Musicians": 6,
+            "Casey Jones, Jury-Rig Justiciar": 4,
+            "Wingnut, Bat on the Belfry": 4,
+            "Raphael, Most Attitude": 2
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 4,
+          "13": 2,
+          "14": 7,
+          "15": 9,
+          "16": 8,
+          "17": 11,
+          "18": 4,
+          "19": 4,
+          "20": 11,
+          "21": 10,
+          "22": 5,
+          "23": 3,
+          "24": 6,
+          "25": 2,
+          "26": 5,
+          "27": 2,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "32": 1,
+          "33": 1,
+          "39": 1
+        },
+        "first_player_counts": {
+          "raphael": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 39,
+        "aura": {
+          "casts": 76,
+          "resolutions": 76,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 76,
+          "recalculation_events": 76,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 58,
+          "games_with_resolution": 58,
+          "win_rate_in_games_with_cast_descriptive_only": 0.3103448275862069,
+          "mean_first_cast_turn_if_observed": 10.2931,
+          "resolution_turn_histogram": {
+            "5": 3,
+            "6": 8,
+            "7": 2,
+            "8": 11,
+            "9": 5,
+            "10": 7,
+            "11": 6,
+            "12": 4,
+            "13": 2,
+            "14": 2,
+            "15": 3,
+            "16": 6,
+            "17": 5,
+            "18": 4,
+            "20": 2,
+            "22": 1,
+            "23": 1,
+            "25": 1,
+            "26": 1,
+            "28": 2
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 76
+          },
+          "targets": {
+            "Raphael, Tough Turtle": 22,
+            "Null Group Biological Assets": 12,
+            "Raphael, Ninja Destroyer": 12,
+            "Mutant Town Musicians": 10,
+            "Casey Jones, Jury-Rig Justiciar": 8,
+            "Wingnut, Bat on the Belfry": 7,
+            "Raphael, Most Attitude": 5
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 4,
+        "ending_turn_changed_games": 16,
+        "krang_loss_to_win": 3,
+        "krang_win_to_loss": 1
+      }
+    },
+    "shredder": {
+      "control": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 1,
+          "13": 8,
+          "14": 7,
+          "15": 5,
+          "16": 10,
+          "17": 3,
+          "18": 8,
+          "19": 5,
+          "20": 5,
+          "21": 9,
+          "22": 7,
+          "23": 4,
+          "24": 6,
+          "25": 3,
+          "26": 1,
+          "27": 2,
+          "28": 5,
+          "29": 3,
+          "30": 1,
+          "31": 1,
+          "32": 1,
+          "33": 1,
+          "34": 2,
+          "35": 1
+        },
+        "first_player_counts": {
+          "shredder": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 35,
+        "aura": {
+          "casts": 62,
+          "resolutions": 62,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 62,
+          "recalculation_events": 62,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 50,
+          "games_with_resolution": 50,
+          "win_rate_in_games_with_cast_descriptive_only": 0.32,
+          "mean_first_cast_turn_if_observed": 10.94,
+          "resolution_turn_histogram": {
+            "5": 7,
+            "6": 6,
+            "7": 4,
+            "8": 8,
+            "9": 3,
+            "10": 2,
+            "11": 4,
+            "12": 4,
+            "13": 2,
+            "14": 5,
+            "15": 2,
+            "16": 3,
+            "18": 1,
+            "19": 4,
+            "20": 2,
+            "21": 1,
+            "22": 2,
+            "23": 1,
+            "25": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 55,
+            "1/2": 1,
+            "2/3": 4,
+            "3/4": 1,
+            "4/5": 1
+          },
+          "targets": {
+            "Super Shredder": 15,
+            "Oroku Saki, Shredder Rising": 9,
+            "Squirrelanoids": 8,
+            "Shredder, Unrelenting": 7,
+            "Foot Mystic": 6,
+            "Shark Shredder, Killer Clone": 6,
+            "Tunnel Rats": 6,
+            "Dream Beavers": 5
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 1,
+          "13": 8,
+          "14": 4,
+          "15": 5,
+          "16": 10,
+          "17": 2,
+          "18": 10,
+          "19": 4,
+          "20": 6,
+          "21": 5,
+          "22": 10,
+          "23": 7,
+          "24": 7,
+          "25": 2,
+          "26": 2,
+          "27": 2,
+          "28": 4,
+          "29": 2,
+          "31": 1,
+          "32": 2,
+          "33": 1,
+          "34": 2,
+          "35": 2
+        },
+        "first_player_counts": {
+          "shredder": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 35,
+        "aura": {
+          "casts": 91,
+          "resolutions": 91,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 91,
+          "recalculation_events": 91,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 64,
+          "games_with_resolution": 64,
+          "win_rate_in_games_with_cast_descriptive_only": 0.34375,
+          "mean_first_cast_turn_if_observed": 10.5469,
+          "resolution_turn_histogram": {
+            "5": 8,
+            "6": 8,
+            "7": 8,
+            "8": 9,
+            "9": 6,
+            "10": 4,
+            "11": 6,
+            "12": 5,
+            "13": 2,
+            "14": 7,
+            "15": 5,
+            "16": 5,
+            "18": 3,
+            "19": 4,
+            "20": 4,
+            "21": 2,
+            "22": 2,
+            "23": 1,
+            "25": 1,
+            "27": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 83,
+            "1/2": 2,
+            "2/3": 4,
+            "3/4": 1,
+            "4/5": 1
+          },
+          "targets": {
+            "Super Shredder": 20,
+            "Oroku Saki, Shredder Rising": 14,
+            "Shredder, Unrelenting": 12,
+            "Squirrelanoids": 10,
+            "Tunnel Rats": 10,
+            "Foot Mystic": 9,
+            "Shark Shredder, Killer Clone": 9,
+            "Dream Beavers": 7
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 6,
+        "ending_turn_changed_games": 16,
+        "krang_loss_to_win": 5,
+        "krang_win_to_loss": 1
+      }
+    },
+    "april_oneil": {
+      "control": {
+        "ending_turn_histogram": {
+          "15": 4,
+          "16": 4,
+          "17": 7,
+          "18": 2,
+          "19": 5,
+          "20": 4,
+          "21": 6,
+          "22": 8,
+          "23": 8,
+          "24": 9,
+          "25": 8,
+          "26": 8,
+          "27": 2,
+          "28": 2,
+          "29": 5,
+          "30": 2,
+          "31": 4,
+          "32": 4,
+          "33": 1,
+          "35": 4,
+          "36": 1,
+          "38": 1,
+          "42": 1
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "april_oneil": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 15,
+        "ending_turn_max": 42,
+        "aura": {
+          "casts": 58,
+          "resolutions": 58,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 58,
+          "recalculation_events": 58,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 49,
+          "games_with_resolution": 49,
+          "win_rate_in_games_with_cast_descriptive_only": 0.5510204081632653,
+          "mean_first_cast_turn_if_observed": 10.7551,
+          "resolution_turn_histogram": {
+            "5": 8,
+            "6": 10,
+            "7": 4,
+            "8": 4,
+            "9": 4,
+            "10": 3,
+            "11": 2,
+            "12": 5,
+            "13": 2,
+            "14": 2,
+            "15": 1,
+            "16": 5,
+            "18": 2,
+            "19": 2,
+            "21": 1,
+            "23": 1,
+            "31": 1,
+            "38": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 58
+          },
+          "targets": {
+            "Buzz Bots": 17,
+            "Fugitive Droid": 12,
+            "April, Reporter of the Weird": 9,
+            "Utrom Scientists": 8,
+            "Crustacean Commando": 6,
+            "Ray Fillet, Man Ray": 5,
+            "April O'Neil, Hacktivist": 1
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "15": 4,
+          "16": 4,
+          "17": 6,
+          "18": 1,
+          "19": 6,
+          "20": 3,
+          "21": 4,
+          "22": 10,
+          "23": 10,
+          "24": 5,
+          "25": 9,
+          "26": 6,
+          "28": 3,
+          "29": 4,
+          "30": 3,
+          "31": 6,
+          "32": 5,
+          "33": 3,
+          "35": 3,
+          "36": 1,
+          "38": 1,
+          "42": 1,
+          "44": 1,
+          "45": 1
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "april_oneil": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 15,
+        "ending_turn_max": 45,
+        "aura": {
+          "casts": 101,
+          "resolutions": 101,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 101,
+          "recalculation_events": 101,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 67,
+          "games_with_resolution": 67,
+          "win_rate_in_games_with_cast_descriptive_only": 0.6567164179104478,
+          "mean_first_cast_turn_if_observed": 10.2239,
+          "resolution_turn_histogram": {
+            "5": 9,
+            "6": 13,
+            "7": 7,
+            "8": 9,
+            "9": 6,
+            "10": 7,
+            "11": 3,
+            "12": 6,
+            "13": 4,
+            "14": 3,
+            "15": 2,
+            "16": 8,
+            "17": 1,
+            "18": 5,
+            "19": 4,
+            "21": 2,
+            "23": 1,
+            "24": 1,
+            "26": 2,
+            "28": 2,
+            "31": 3,
+            "33": 1,
+            "36": 1,
+            "38": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 101
+          },
+          "targets": {
+            "Buzz Bots": 24,
+            "Fugitive Droid": 19,
+            "Utrom Scientists": 18,
+            "April, Reporter of the Weird": 16,
+            "Crustacean Commando": 13,
+            "Ray Fillet, Man Ray": 6,
+            "April O'Neil, Hacktivist": 5
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 8,
+        "ending_turn_changed_games": 24,
+        "krang_loss_to_win": 7,
+        "krang_win_to_loss": 1
+      }
+    },
+    "splinter": {
+      "control": {
+        "ending_turn_histogram": {
+          "11": 2,
+          "12": 1,
+          "13": 3,
+          "14": 5,
+          "15": 6,
+          "16": 8,
+          "17": 2,
+          "18": 5,
+          "19": 8,
+          "20": 6,
+          "21": 11,
+          "22": 5,
+          "23": 8,
+          "24": 7,
+          "25": 3,
+          "26": 7,
+          "27": 4,
+          "28": 2,
+          "29": 1,
+          "32": 3,
+          "33": 2,
+          "38": 1
+        },
+        "first_player_counts": {
+          "splinter": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 38,
+        "aura": {
+          "casts": 62,
+          "resolutions": 62,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 62,
+          "recalculation_events": 62,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 54,
+          "games_with_resolution": 54,
+          "win_rate_in_games_with_cast_descriptive_only": 0.2777777777777778,
+          "mean_first_cast_turn_if_observed": 10.0556,
+          "resolution_turn_histogram": {
+            "5": 9,
+            "6": 4,
+            "7": 7,
+            "8": 7,
+            "9": 4,
+            "10": 6,
+            "11": 6,
+            "12": 5,
+            "13": 4,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 2,
+            "18": 2,
+            "21": 2,
+            "36": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 62
+          },
+          "targets": {
+            "Tunnel Rats": 17,
+            "Splinter, Hamato Yoshi": 14,
+            "Insectoid Exterminator": 9,
+            "Shark Shredder, Killer Clone": 8,
+            "Squirrelanoids": 6,
+            "Foot Mystic": 5,
+            "Dream Beavers": 3
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 1,
+          "13": 3,
+          "14": 4,
+          "15": 5,
+          "16": 9,
+          "17": 2,
+          "18": 4,
+          "19": 9,
+          "20": 6,
+          "21": 11,
+          "22": 5,
+          "23": 10,
+          "24": 6,
+          "25": 1,
+          "26": 6,
+          "27": 5,
+          "28": 2,
+          "29": 2,
+          "30": 2,
+          "32": 4,
+          "33": 1,
+          "38": 1
+        },
+        "first_player_counts": {
+          "splinter": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 38,
+        "aura": {
+          "casts": 90,
+          "resolutions": 90,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 90,
+          "recalculation_events": 90,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 62,
+          "games_with_resolution": 62,
+          "win_rate_in_games_with_cast_descriptive_only": 0.3387096774193548,
+          "mean_first_cast_turn_if_observed": 9.5484,
+          "resolution_turn_histogram": {
+            "5": 10,
+            "6": 8,
+            "7": 8,
+            "8": 11,
+            "9": 7,
+            "10": 9,
+            "11": 6,
+            "12": 6,
+            "13": 5,
+            "14": 1,
+            "15": 2,
+            "16": 2,
+            "17": 2,
+            "18": 2,
+            "19": 1,
+            "20": 1,
+            "21": 3,
+            "23": 1,
+            "24": 2,
+            "27": 1,
+            "28": 1,
+            "36": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 90
+          },
+          "targets": {
+            "Tunnel Rats": 22,
+            "Splinter, Hamato Yoshi": 20,
+            "Insectoid Exterminator": 14,
+            "Shark Shredder, Killer Clone": 10,
+            "Foot Mystic": 9,
+            "Dream Beavers": 8,
+            "Squirrelanoids": 7
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 16,
+        "krang_loss_to_win": 0,
+        "krang_win_to_loss": 0
+      }
+    },
+    "casey_jones": {
+      "control": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 1,
+          "13": 3,
+          "14": 2,
+          "15": 9,
+          "16": 8,
+          "17": 5,
+          "18": 5,
+          "19": 9,
+          "20": 5,
+          "21": 6,
+          "22": 6,
+          "23": 9,
+          "24": 7,
+          "25": 4,
+          "26": 5,
+          "27": 3,
+          "28": 2,
+          "29": 3,
+          "31": 3,
+          "32": 2,
+          "37": 1,
+          "42": 1
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "casey_jones": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 42,
+        "aura": {
+          "casts": 56,
+          "resolutions": 56,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 56,
+          "recalculation_events": 56,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 49,
+          "games_with_resolution": 49,
+          "win_rate_in_games_with_cast_descriptive_only": 0.2857142857142857,
+          "mean_first_cast_turn_if_observed": 11.5714,
+          "resolution_turn_histogram": {
+            "5": 2,
+            "6": 6,
+            "7": 5,
+            "8": 10,
+            "9": 5,
+            "10": 5,
+            "11": 3,
+            "13": 2,
+            "14": 1,
+            "15": 4,
+            "16": 1,
+            "17": 2,
+            "18": 3,
+            "19": 2,
+            "20": 1,
+            "21": 1,
+            "23": 1,
+            "24": 1,
+            "28": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 56
+          },
+          "targets": {
+            "Purple Dragon Punks": 25,
+            "Casey Jones, Jury-Rig Justiciar": 9,
+            "Casey Jones, Vigilante": 9,
+            "Rock Soldiers": 5,
+            "Ravenous Robots": 4,
+            "Null Group Biological Assets": 3,
+            "Mutant Town Musicians": 1
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "11": 1,
+          "12": 1,
+          "13": 3,
+          "14": 2,
+          "15": 8,
+          "16": 8,
+          "17": 5,
+          "18": 5,
+          "19": 9,
+          "20": 5,
+          "21": 3,
+          "22": 3,
+          "23": 10,
+          "24": 10,
+          "25": 5,
+          "26": 5,
+          "27": 2,
+          "28": 2,
+          "29": 5,
+          "31": 3,
+          "32": 3,
+          "37": 1,
+          "42": 1
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "casey_jones": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 11,
+        "ending_turn_max": 42,
+        "aura": {
+          "casts": 74,
+          "resolutions": 74,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 74,
+          "recalculation_events": 74,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 55,
+          "games_with_resolution": 55,
+          "win_rate_in_games_with_cast_descriptive_only": 0.2909090909090909,
+          "mean_first_cast_turn_if_observed": 11.2364,
+          "resolution_turn_histogram": {
+            "5": 2,
+            "6": 7,
+            "7": 5,
+            "8": 11,
+            "9": 6,
+            "10": 8,
+            "11": 4,
+            "12": 4,
+            "13": 2,
+            "14": 2,
+            "15": 7,
+            "16": 2,
+            "17": 2,
+            "18": 3,
+            "19": 2,
+            "20": 1,
+            "21": 2,
+            "23": 1,
+            "24": 1,
+            "26": 1,
+            "28": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 74
+          },
+          "targets": {
+            "Purple Dragon Punks": 30,
+            "Casey Jones, Jury-Rig Justiciar": 10,
+            "Casey Jones, Vigilante": 10,
+            "Ravenous Robots": 10,
+            "Rock Soldiers": 7,
+            "Null Group Biological Assets": 5,
+            "Mutant Town Musicians": 2
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 1,
+        "ending_turn_changed_games": 9,
+        "krang_loss_to_win": 1,
+        "krang_win_to_loss": 0
+      }
+    },
+    "michelangelo": {
+      "control": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 3,
+          "15": 12,
+          "16": 6,
+          "17": 12,
+          "18": 13,
+          "19": 9,
+          "20": 7,
+          "21": 9,
+          "22": 8,
+          "23": 4,
+          "24": 4,
+          "25": 3,
+          "26": 1,
+          "27": 1,
+          "28": 2,
+          "29": 1,
+          "30": 2,
+          "31": 1,
+          "37": 1
+        },
+        "first_player_counts": {
+          "michelangelo": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 37,
+        "aura": {
+          "casts": 45,
+          "resolutions": 45,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 45,
+          "recalculation_events": 45,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 41,
+          "games_with_resolution": 41,
+          "win_rate_in_games_with_cast_descriptive_only": 0.43902439024390244,
+          "mean_first_cast_turn_if_observed": 11.2927,
+          "resolution_turn_histogram": {
+            "5": 5,
+            "6": 3,
+            "7": 2,
+            "8": 3,
+            "9": 3,
+            "10": 4,
+            "11": 4,
+            "12": 4,
+            "13": 2,
+            "14": 3,
+            "15": 3,
+            "16": 1,
+            "17": 1,
+            "18": 2,
+            "19": 2,
+            "20": 2,
+            "21": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 45
+          },
+          "targets": {
+            "Zoo Escapees": 13,
+            "Michelangelo, Improviser": 9,
+            "Courier of Comestibles": 7,
+            "Michelangelo, Game Master": 7,
+            "Michelangelo, Weirdness to 11": 6,
+            "Michelangelo, Mutant BFF": 3
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 3,
+          "15": 10,
+          "16": 6,
+          "17": 8,
+          "18": 12,
+          "19": 12,
+          "20": 6,
+          "21": 9,
+          "22": 7,
+          "23": 5,
+          "24": 6,
+          "25": 4,
+          "26": 2,
+          "27": 1,
+          "28": 2,
+          "29": 1,
+          "30": 2,
+          "31": 1,
+          "32": 1,
+          "37": 1
+        },
+        "first_player_counts": {
+          "michelangelo": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 37,
+        "aura": {
+          "casts": 74,
+          "resolutions": 74,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 74,
+          "recalculation_events": 74,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 60,
+          "games_with_resolution": 60,
+          "win_rate_in_games_with_cast_descriptive_only": 0.45,
+          "mean_first_cast_turn_if_observed": 10.6833,
+          "resolution_turn_histogram": {
+            "5": 9,
+            "6": 6,
+            "7": 3,
+            "8": 9,
+            "9": 3,
+            "10": 5,
+            "11": 5,
+            "12": 4,
+            "13": 3,
+            "14": 5,
+            "15": 3,
+            "16": 2,
+            "17": 3,
+            "18": 4,
+            "19": 3,
+            "20": 3,
+            "21": 1,
+            "24": 2,
+            "26": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 74
+          },
+          "targets": {
+            "Zoo Escapees": 23,
+            "Michelangelo, Game Master": 14,
+            "Michelangelo, Improviser": 13,
+            "Courier of Comestibles": 12,
+            "Michelangelo, Weirdness to 11": 7,
+            "Michelangelo, Mutant BFF": 5
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 3,
+        "ending_turn_changed_games": 16,
+        "krang_loss_to_win": 3,
+        "krang_win_to_loss": 0
+      }
+    },
+    "donatello": {
+      "control": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 1,
+          "15": 4,
+          "16": 7,
+          "17": 3,
+          "18": 8,
+          "19": 17,
+          "20": 6,
+          "21": 7,
+          "22": 8,
+          "23": 7,
+          "24": 5,
+          "25": 5,
+          "26": 4,
+          "27": 5,
+          "28": 2,
+          "29": 3,
+          "30": 3,
+          "31": 2,
+          "36": 2
+        },
+        "first_player_counts": {
+          "donatello": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 36,
+        "aura": {
+          "casts": 64,
+          "resolutions": 64,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 64,
+          "recalculation_events": 64,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 54,
+          "games_with_resolution": 54,
+          "win_rate_in_games_with_cast_descriptive_only": 0.5,
+          "mean_first_cast_turn_if_observed": 12.6296,
+          "resolution_turn_histogram": {
+            "5": 4,
+            "6": 5,
+            "7": 4,
+            "8": 5,
+            "9": 5,
+            "10": 3,
+            "11": 5,
+            "12": 6,
+            "13": 2,
+            "14": 3,
+            "15": 1,
+            "16": 5,
+            "18": 2,
+            "20": 1,
+            "21": 3,
+            "22": 1,
+            "24": 2,
+            "25": 1,
+            "26": 1,
+            "27": 2,
+            "29": 1,
+            "30": 1,
+            "33": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 61,
+            "1/2": 1,
+            "2/3": 1,
+            "3/4": 1
+          },
+          "targets": {
+            "Fugitive Droid": 19,
+            "Donatello, Mutant Mechanic": 14,
+            "Buzz Bots": 10,
+            "Mouser Mark III": 6,
+            "Donatello, Way with Machines": 5,
+            "Crustacean Commando": 4,
+            "Donatello, Turtle Techie": 3,
+            "Utrom Scientists": 2,
+            "Donatello, Gadget Master": 1
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 1,
+          "15": 4,
+          "16": 6,
+          "17": 3,
+          "18": 8,
+          "19": 17,
+          "20": 5,
+          "21": 7,
+          "22": 8,
+          "23": 5,
+          "24": 5,
+          "25": 6,
+          "26": 7,
+          "27": 4,
+          "28": 3,
+          "29": 2,
+          "30": 2,
+          "31": 3,
+          "32": 1,
+          "36": 2
+        },
+        "first_player_counts": {
+          "donatello": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 36,
+        "aura": {
+          "casts": 89,
+          "resolutions": 89,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 89,
+          "recalculation_events": 89,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 65,
+          "games_with_resolution": 65,
+          "win_rate_in_games_with_cast_descriptive_only": 0.4461538461538462,
+          "mean_first_cast_turn_if_observed": 11.9846,
+          "resolution_turn_histogram": {
+            "5": 4,
+            "6": 6,
+            "7": 4,
+            "8": 8,
+            "9": 8,
+            "10": 6,
+            "11": 9,
+            "12": 7,
+            "13": 3,
+            "14": 5,
+            "15": 4,
+            "16": 6,
+            "17": 1,
+            "18": 4,
+            "20": 2,
+            "21": 3,
+            "22": 1,
+            "24": 2,
+            "25": 2,
+            "26": 1,
+            "29": 1,
+            "30": 1,
+            "33": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 86,
+            "1/2": 1,
+            "2/3": 1,
+            "3/4": 1
+          },
+          "targets": {
+            "Fugitive Droid": 29,
+            "Buzz Bots": 15,
+            "Donatello, Mutant Mechanic": 15,
+            "Mouser Mark III": 11,
+            "Crustacean Commando": 7,
+            "Donatello, Way with Machines": 5,
+            "Donatello, Turtle Techie": 3,
+            "Donatello, Gadget Master": 2,
+            "Utrom Scientists": 2
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 4,
+        "ending_turn_changed_games": 18,
+        "krang_loss_to_win": 1,
+        "krang_win_to_loss": 3
+      }
+    },
+    "bebop_rocksteady": {
+      "control": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 1,
+          "15": 8,
+          "16": 7,
+          "17": 17,
+          "18": 13,
+          "19": 8,
+          "20": 10,
+          "21": 7,
+          "22": 4,
+          "23": 10,
+          "24": 3,
+          "25": 3,
+          "26": 2,
+          "27": 1,
+          "28": 2,
+          "29": 3
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "bebop_rocksteady": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 29,
+        "aura": {
+          "casts": 47,
+          "resolutions": 47,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 47,
+          "recalculation_events": 47,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 44,
+          "games_with_resolution": 44,
+          "win_rate_in_games_with_cast_descriptive_only": 0.5454545454545454,
+          "mean_first_cast_turn_if_observed": 11.0909,
+          "resolution_turn_histogram": {
+            "5": 4,
+            "6": 9,
+            "7": 2,
+            "8": 3,
+            "9": 2,
+            "10": 4,
+            "11": 4,
+            "12": 3,
+            "13": 1,
+            "14": 3,
+            "15": 2,
+            "17": 4,
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 2,
+            "28": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 47
+          },
+          "targets": {
+            "Zoo Escapees": 20,
+            "Paramecia Coloniex": 11,
+            "Frog Butler": 8,
+            "Bebop, Warthog Warrior": 6,
+            "Rocksteady, Crash Courser": 2
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "13": 1,
+          "15": 7,
+          "16": 7,
+          "17": 17,
+          "18": 13,
+          "19": 9,
+          "20": 11,
+          "21": 5,
+          "22": 4,
+          "23": 8,
+          "24": 4,
+          "25": 5,
+          "26": 2,
+          "27": 2,
+          "28": 2,
+          "29": 2,
+          "44": 1
+        },
+        "first_player_counts": {
+          "krang": 50,
+          "bebop_rocksteady": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 44,
+        "aura": {
+          "casts": 65,
+          "resolutions": 65,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 65,
+          "recalculation_events": 65,
+          "restoration_events": 0,
+          "games": 100,
+          "games_with_cast": 56,
+          "games_with_resolution": 56,
+          "win_rate_in_games_with_cast_descriptive_only": 0.5892857142857143,
+          "mean_first_cast_turn_if_observed": 10.9107,
+          "resolution_turn_histogram": {
+            "5": 5,
+            "6": 10,
+            "7": 2,
+            "8": 4,
+            "9": 4,
+            "10": 7,
+            "11": 5,
+            "12": 6,
+            "13": 3,
+            "14": 3,
+            "15": 3,
+            "16": 1,
+            "17": 4,
+            "18": 1,
+            "19": 2,
+            "20": 1,
+            "21": 2,
+            "28": 2
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 65
+          },
+          "targets": {
+            "Zoo Escapees": 26,
+            "Paramecia Coloniex": 15,
+            "Bebop, Warthog Warrior": 9,
+            "Frog Butler": 9,
+            "Rocksteady, Crash Courser": 6
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 4,
+        "ending_turn_changed_games": 11,
+        "krang_loss_to_win": 4,
+        "krang_win_to_loss": 0
+      }
+    },
+    "leonardo": {
+      "control": {
+        "ending_turn_histogram": {
+          "13": 3,
+          "14": 4,
+          "15": 6,
+          "16": 2,
+          "17": 3,
+          "18": 2,
+          "19": 7,
+          "20": 9,
+          "21": 3,
+          "22": 5,
+          "23": 4,
+          "24": 6,
+          "25": 6,
+          "26": 8,
+          "27": 4,
+          "28": 2,
+          "29": 5,
+          "30": 2,
+          "31": 3,
+          "32": 1,
+          "33": 4,
+          "34": 4,
+          "35": 1,
+          "38": 1,
+          "41": 1,
+          "44": 3,
+          "50": 1
+        },
+        "first_player_counts": {
+          "leonardo": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 50,
+        "aura": {
+          "casts": 62,
+          "resolutions": 62,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 62,
+          "recalculation_events": 66,
+          "restoration_events": 4,
+          "games": 100,
+          "games_with_cast": 55,
+          "games_with_resolution": 55,
+          "win_rate_in_games_with_cast_descriptive_only": 0.6545454545454545,
+          "mean_first_cast_turn_if_observed": 13.2364,
+          "resolution_turn_histogram": {
+            "5": 2,
+            "6": 9,
+            "7": 6,
+            "8": 3,
+            "9": 1,
+            "10": 3,
+            "11": 5,
+            "12": 2,
+            "13": 3,
+            "14": 1,
+            "15": 2,
+            "16": 1,
+            "17": 4,
+            "18": 4,
+            "19": 1,
+            "20": 3,
+            "23": 1,
+            "24": 4,
+            "25": 1,
+            "26": 1,
+            "27": 1,
+            "31": 2,
+            "32": 1,
+            "49": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 57,
+            "1/2": 2,
+            "2/3": 2,
+            "4/5": 1
+          },
+          "targets": {
+            "Prehistoric Pet": 18,
+            "Leonardo, Leader in Blue": 15,
+            "Leonardo, Big Brother": 10,
+            "April O'Neil, Kunoichi Trainee": 8,
+            "Lita, Little Orphan Amphibian": 5,
+            "Leonardo, Sewer Samurai": 4,
+            "Leonardo, Cutting Edge": 2
+          }
+        }
+      },
+      "candidate": {
+        "ending_turn_histogram": {
+          "13": 3,
+          "14": 5,
+          "15": 5,
+          "16": 2,
+          "17": 3,
+          "18": 2,
+          "19": 6,
+          "20": 8,
+          "21": 3,
+          "22": 7,
+          "23": 4,
+          "24": 5,
+          "25": 4,
+          "26": 7,
+          "27": 6,
+          "28": 1,
+          "29": 4,
+          "30": 3,
+          "31": 2,
+          "33": 6,
+          "34": 4,
+          "37": 1,
+          "38": 2,
+          "39": 1,
+          "41": 1,
+          "44": 3,
+          "52": 1,
+          "57": 1
+        },
+        "first_player_counts": {
+          "leonardo": 50,
+          "krang": 50
+        },
+        "draws": 0,
+        "ending_turn_min": 13,
+        "ending_turn_max": 57,
+        "aura": {
+          "casts": 93,
+          "resolutions": 93,
+          "failed_illegal_target": 0,
+          "countered": 0,
+          "attachments_verified": 93,
+          "recalculation_events": 99,
+          "restoration_events": 6,
+          "games": 100,
+          "games_with_cast": 66,
+          "games_with_resolution": 66,
+          "win_rate_in_games_with_cast_descriptive_only": 0.7424242424242424,
+          "mean_first_cast_turn_if_observed": 12.7576,
+          "resolution_turn_histogram": {
+            "5": 4,
+            "6": 13,
+            "7": 6,
+            "8": 5,
+            "9": 2,
+            "10": 4,
+            "11": 6,
+            "12": 4,
+            "13": 6,
+            "14": 2,
+            "15": 3,
+            "16": 3,
+            "17": 4,
+            "18": 6,
+            "19": 2,
+            "20": 3,
+            "21": 1,
+            "22": 4,
+            "23": 1,
+            "24": 2,
+            "25": 3,
+            "26": 1,
+            "27": 1,
+            "29": 2,
+            "31": 3,
+            "32": 1,
+            "49": 1
+          },
+          "resolved_effective_pt_counts": {
+            "0/1": 87,
+            "1/2": 2,
+            "2/3": 2,
+            "3/4": 1,
+            "4/5": 1
+          },
+          "targets": {
+            "Leonardo, Leader in Blue": 25,
+            "Prehistoric Pet": 23,
+            "Leonardo, Big Brother": 17,
+            "April O'Neil, Kunoichi Trainee": 13,
+            "Lita, Little Orphan Amphibian": 7,
+            "Leonardo, Sewer Samurai": 5,
+            "Leonardo, Cutting Edge": 3
+          }
+        }
+      },
+      "paired": {
+        "outcome_changed_games": 10,
+        "ending_turn_changed_games": 19,
+        "krang_loss_to_win": 8,
+        "krang_win_to_loss": 2
+      }
+    }
+  },
+  "block_enumeration_regression": {
+    "ordered_legal_surface_tests": 9,
+    "complete_control_records_identical_before_and_after": 4500,
+    "completed_candidate_prefix_records_identical_before_and_after": 400,
+    "no_old_records_reused_in_final_runs": true,
+    "prior_runtime_sha256": "f66d39929f97614853102b8b62196d1aab2d112f3d6b32943eca36112a2fba63",
+    "prior_control_sha256": "9705d9f9d928ce65ea8bda8403736ff83664e76607add21e632dc3e443fccb2f",
+    "prior_candidate_prefix_sha256": "0e3aab874409f597670299cfbd96e1c8717ff2604c7b501890c23f8740e13c9d"
+  },
+  "control_refresh": {
+    "runtime_equivalence_claimed": false,
+    "historical_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
+    "historical_global_metrics": {
+      "mean_matchup_balance_error": 0.176667,
+      "median_matchup_deviation": 0.15,
+      "worst_matchup": {
+        "decks": [
+          "krang",
+          "shredder"
+        ],
+        "games": 100,
+        "win_rates": {
+          "krang": 0.12,
+          "shredder": 0.88
+        },
+        "winner_side": "shredder",
+        "deviation": 0.38
+      },
+      "over_60_40": 32,
+      "over_70_30": 17,
+      "aggregate_win_rate_spread": 0.417778,
+      "aggregate_win_rate_stddev": 0.145737,
+      "mean_first_player_result_rate": 0.509556,
+      "mean_ending_turn": 19.9027,
+      "median_ending_turn": 19.0
+    },
+    "refreshed_global_metrics": {
+      "mean_matchup_balance_error": 0.166667,
+      "median_matchup_deviation": 0.15,
+      "worst_matchup": {
+        "decks": [
+          "donatello",
+          "shredder"
+        ],
+        "games": 100,
+        "win_rates": {
+          "donatello": 0.17,
+          "shredder": 0.83
+        },
+        "winner_side": "shredder",
+        "deviation": 0.33
+      },
+      "over_60_40": 32,
+      "over_70_30": 16,
+      "aggregate_win_rate_spread": 0.383334,
+      "aggregate_win_rate_stddev": 0.136372,
+      "mean_first_player_result_rate": 0.510222,
+      "mean_ending_turn": 20.3087,
+      "median_ending_turn": 19.0
+    },
+    "baseline_deck_summaries": {
+      "leonardo": {
+        "games": 900,
+        "wins": 348,
+        "draws": 0,
+        "losses": 552,
+        "win_rate": 0.386667,
+        "matchup_win_rates": {
+          "raphael": 0.2,
+          "donatello": 0.35,
+          "michelangelo": 0.4,
+          "splinter": 0.36,
+          "shredder": 0.36,
+          "krang": 0.34,
+          "bebop_rocksteady": 0.54,
+          "april_oneil": 0.57,
+          "casey_jones": 0.36
+        },
+        "mean_matchup_balance_error": 0.137778,
+        "median_matchup_deviation": 0.14,
+        "over_60_40": 6,
+        "over_70_30": 1,
+        "worst_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.2
+        },
+        "weakest_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.2
+        },
+        "first_player_result_rate": 0.384444,
+        "mean_ending_turn": 23.6944,
+        "median_ending_turn": 21.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 898,
+            "mean_turn_if_observed": 2.4454,
+            "median_turn_if_observed": 2.0
+          },
+          "blocker": {
+            "observed_games": 898,
+            "mean_turn_if_observed": 2.4454,
+            "median_turn_if_observed": 2.0
+          },
+          "interaction": {
+            "observed_games": 486,
+            "mean_turn_if_observed": 13.4362,
+            "median_turn_if_observed": 12.0
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 723,
+            "mean_creatures_if_observed": 1.3154,
+            "positive_games": 700
+          },
+          "5": {
+            "observed_games": 868,
+            "mean_creatures_if_observed": 1.9378,
+            "positive_games": 858
+          },
+          "7": {
+            "observed_games": 887,
+            "mean_creatures_if_observed": 2.584,
+            "positive_games": 885
+          }
+        },
+        "interaction_casts_total": 648,
+        "interaction_casts_per_game": 0.72,
+        "source_distinct_cast_names_proxy_total": 4249,
+        "source_distinct_cast_names_proxy_per_game": 4.7211,
+        "signature_casts": {
+          "April O'Neil, Kunoichi Trainee": 1526,
+          "Leonardo, Big Brother": 755,
+          "Leonardo, Cutting Edge": 789,
+          "Leonardo, Leader in Blue": 1191,
+          "Leonardo, Sewer Samurai": 400,
+          "Lita, Little Orphan Amphibian": 811,
+          "Make Your Move": 648,
+          "Mighty Mutanimals": 157,
+          "Prehistoric Pet": 1965
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "raphael": {
+        "games": 900,
+        "wins": 621,
+        "draws": 0,
+        "losses": 279,
+        "win_rate": 0.69,
+        "matchup_win_rates": {
+          "leonardo": 0.8,
+          "donatello": 0.74,
+          "michelangelo": 0.65,
+          "splinter": 0.54,
+          "shredder": 0.47,
+          "krang": 0.81,
+          "bebop_rocksteady": 0.76,
+          "april_oneil": 0.81,
+          "casey_jones": 0.63
+        },
+        "mean_matchup_balance_error": 0.196667,
+        "median_matchup_deviation": 0.24,
+        "over_60_40": 7,
+        "over_70_30": 5,
+        "worst_matchup": {
+          "opponent": "krang",
+          "win_rate": 0.81
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.47
+        },
+        "first_player_result_rate": 0.711111,
+        "mean_ending_turn": 18.3767,
+        "median_ending_turn": 17.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 885,
+            "mean_turn_if_observed": 5.4486,
+            "median_turn_if_observed": 5
+          },
+          "blocker": {
+            "observed_games": 885,
+            "mean_turn_if_observed": 5.4486,
+            "median_turn_if_observed": 5
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 396,
+            "mean_creatures_if_observed": 0.7298,
+            "positive_games": 225
+          },
+          "5": {
+            "observed_games": 599,
+            "mean_creatures_if_observed": 1.4975,
+            "positive_games": 507
+          },
+          "7": {
+            "observed_games": 758,
+            "mean_creatures_if_observed": 2.1412,
+            "positive_games": 730
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 4729,
+        "source_distinct_cast_names_proxy_per_game": 5.2544,
+        "signature_casts": {
+          "Casey Jones, Jury-Rig Justiciar": 486,
+          "Manhole Missile": 963,
+          "Mutant Town Musicians": 435,
+          "Null Group Biological Assets": 879,
+          "Raphael, Most Attitude": 353,
+          "Raphael, Ninja Destroyer": 356,
+          "Raphael, Tough Turtle": 970,
+          "Raphael, the Nightwatcher": 274,
+          "Skateboard": 972,
+          "Spicy Oatmeal Pizza": 164,
+          "Wingnut, Bat on the Belfry": 449
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "donatello": {
+        "games": 900,
+        "wins": 365,
+        "draws": 0,
+        "losses": 535,
+        "win_rate": 0.405556,
+        "matchup_win_rates": {
+          "leonardo": 0.65,
+          "raphael": 0.26,
+          "michelangelo": 0.37,
+          "splinter": 0.23,
+          "shredder": 0.17,
+          "krang": 0.56,
+          "bebop_rocksteady": 0.47,
+          "april_oneil": 0.57,
+          "casey_jones": 0.37
+        },
+        "mean_matchup_balance_error": 0.156667,
+        "median_matchup_deviation": 0.13,
+        "over_60_40": 6,
+        "over_70_30": 3,
+        "worst_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.17
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.17
+        },
+        "first_player_result_rate": 0.44,
+        "mean_ending_turn": 19.91,
+        "median_ending_turn": 19.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 788,
+            "mean_turn_if_observed": 9.2805,
+            "median_turn_if_observed": 8.0
+          },
+          "blocker": {
+            "observed_games": 895,
+            "mean_turn_if_observed": 3.7196,
+            "median_turn_if_observed": 3
+          },
+          "interaction": {
+            "observed_games": 790,
+            "mean_turn_if_observed": 5.6785,
+            "median_turn_if_observed": 2.0
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 629,
+            "mean_creatures_if_observed": 1.2051,
+            "positive_games": 521
+          },
+          "5": {
+            "observed_games": 750,
+            "mean_creatures_if_observed": 1.9427,
+            "positive_games": 682
+          },
+          "7": {
+            "observed_games": 811,
+            "mean_creatures_if_observed": 2.7891,
+            "positive_games": 794
+          }
+        },
+        "interaction_casts_total": 1714,
+        "interaction_casts_per_game": 1.9044,
+        "source_distinct_cast_names_proxy_total": 5312,
+        "source_distinct_cast_names_proxy_per_game": 5.9022,
+        "signature_casts": {
+          "Buzz Bots": 1304,
+          "Crustacean Commando": 1052,
+          "Does Machines": 846,
+          "Donatello's Technique": 500,
+          "Donatello, Gadget Master": 282,
+          "Donatello, Mutant Mechanic": 327,
+          "Donatello, Turtle Techie": 421,
+          "Donatello, Way with Machines": 572,
+          "Fugitive Droid": 1678,
+          "Mouser Mark III": 778,
+          "Ooze Spill": 36,
+          "Utrom Scientists": 389
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "michelangelo": {
+        "games": 900,
+        "wins": 450,
+        "draws": 0,
+        "losses": 450,
+        "win_rate": 0.5,
+        "matchup_win_rates": {
+          "leonardo": 0.6,
+          "raphael": 0.35,
+          "donatello": 0.63,
+          "splinter": 0.36,
+          "shredder": 0.28,
+          "krang": 0.64,
+          "bebop_rocksteady": 0.61,
+          "april_oneil": 0.68,
+          "casey_jones": 0.35
+        },
+        "mean_matchup_balance_error": 0.146667,
+        "median_matchup_deviation": 0.14,
+        "over_60_40": 8,
+        "over_70_30": 1,
+        "worst_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.28
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.28
+        },
+        "first_player_result_rate": 0.504444,
+        "mean_ending_turn": 19.64,
+        "median_ending_turn": 18.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 890,
+            "mean_turn_if_observed": 4.3281,
+            "median_turn_if_observed": 4.0
+          },
+          "blocker": {
+            "observed_games": 890,
+            "mean_turn_if_observed": 4.3281,
+            "median_turn_if_observed": 4.0
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 410,
+            "mean_creatures_if_observed": 1.0707,
+            "positive_games": 327
+          },
+          "5": {
+            "observed_games": 778,
+            "mean_creatures_if_observed": 1.9961,
+            "positive_games": 746
+          },
+          "7": {
+            "observed_games": 834,
+            "mean_creatures_if_observed": 2.6667,
+            "positive_games": 822
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 3172,
+        "source_distinct_cast_names_proxy_per_game": 3.5244,
+        "signature_casts": {
+          "Courier of Comestibles": 988,
+          "Michelangelo, Game Master": 702,
+          "Michelangelo, Improviser": 427,
+          "Michelangelo, Mutant BFF": 426,
+          "Michelangelo, Weirdness to 11": 903,
+          "Zoo Escapees": 986
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "splinter": {
+        "games": 900,
+        "wins": 552,
+        "draws": 0,
+        "losses": 348,
+        "win_rate": 0.613333,
+        "matchup_win_rates": {
+          "leonardo": 0.64,
+          "raphael": 0.46,
+          "donatello": 0.77,
+          "michelangelo": 0.64,
+          "shredder": 0.33,
+          "krang": 0.74,
+          "bebop_rocksteady": 0.75,
+          "april_oneil": 0.77,
+          "casey_jones": 0.42
+        },
+        "mean_matchup_balance_error": 0.177778,
+        "median_matchup_deviation": 0.17,
+        "over_60_40": 7,
+        "over_70_30": 4,
+        "worst_matchup": {
+          "opponent": "donatello",
+          "win_rate": 0.77
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.33
+        },
+        "first_player_result_rate": 0.613333,
+        "mean_ending_turn": 19.5844,
+        "median_ending_turn": 19.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 899,
+            "mean_turn_if_observed": 2.5273,
+            "median_turn_if_observed": 2
+          },
+          "blocker": {
+            "observed_games": 899,
+            "mean_turn_if_observed": 2.5273,
+            "median_turn_if_observed": 2
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 746,
+            "mean_creatures_if_observed": 1.4866,
+            "positive_games": 713
+          },
+          "5": {
+            "observed_games": 859,
+            "mean_creatures_if_observed": 2.3318,
+            "positive_games": 846
+          },
+          "7": {
+            "observed_games": 884,
+            "mean_creatures_if_observed": 3.0226,
+            "positive_games": 881
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 3840,
+        "source_distinct_cast_names_proxy_per_game": 4.2667,
+        "signature_casts": {
+          "Dream Beavers": 1063,
+          "Foot Mystic": 597,
+          "Insectoid Exterminator": 658,
+          "Shark Shredder, Killer Clone": 364,
+          "Splinter, Hamato Yoshi": 885,
+          "Squirrelanoids": 966,
+          "Tunnel Rats": 956
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "shredder": {
+        "games": 900,
+        "wins": 635,
+        "draws": 0,
+        "losses": 265,
+        "win_rate": 0.705556,
+        "matchup_win_rates": {
+          "leonardo": 0.64,
+          "raphael": 0.53,
+          "donatello": 0.83,
+          "michelangelo": 0.72,
+          "splinter": 0.67,
+          "krang": 0.78,
+          "bebop_rocksteady": 0.77,
+          "april_oneil": 0.82,
+          "casey_jones": 0.59
+        },
+        "mean_matchup_balance_error": 0.205556,
+        "median_matchup_deviation": 0.22,
+        "over_60_40": 7,
+        "over_70_30": 5,
+        "worst_matchup": {
+          "opponent": "donatello",
+          "win_rate": 0.83
+        },
+        "weakest_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.53
+        },
+        "first_player_result_rate": 0.706667,
+        "mean_ending_turn": 19.6811,
+        "median_ending_turn": 18.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 897,
+            "mean_turn_if_observed": 3.0847,
+            "median_turn_if_observed": 2
+          },
+          "blocker": {
+            "observed_games": 897,
+            "mean_turn_if_observed": 3.0847,
+            "median_turn_if_observed": 2
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 707,
+            "mean_creatures_if_observed": 1.3296,
+            "positive_games": 623
+          },
+          "5": {
+            "observed_games": 807,
+            "mean_creatures_if_observed": 2.1202,
+            "positive_games": 773
+          },
+          "7": {
+            "observed_games": 845,
+            "mean_creatures_if_observed": 2.7373,
+            "positive_games": 842
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 3763,
+        "source_distinct_cast_names_proxy_per_game": 4.1811,
+        "signature_casts": {
+          "Dream Beavers": 800,
+          "Foot Mystic": 615,
+          "Oroku Saki, Shredder Rising": 596,
+          "Shark Shredder, Killer Clone": 418,
+          "Shredder, Unrelenting": 379,
+          "Squirrelanoids": 1001,
+          "Super Shredder": 802,
+          "Tunnel Rats": 520
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "krang": {
+        "games": 900,
+        "wins": 347,
+        "draws": 0,
+        "losses": 553,
+        "win_rate": 0.385556,
+        "matchup_win_rates": {
+          "leonardo": 0.66,
+          "raphael": 0.19,
+          "donatello": 0.44,
+          "michelangelo": 0.36,
+          "splinter": 0.26,
+          "shredder": 0.22,
+          "bebop_rocksteady": 0.54,
+          "april_oneil": 0.56,
+          "casey_jones": 0.24
+        },
+        "mean_matchup_balance_error": 0.172222,
+        "median_matchup_deviation": 0.16,
+        "over_60_40": 6,
+        "over_70_30": 4,
+        "worst_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.19
+        },
+        "weakest_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.19
+        },
+        "first_player_result_rate": 0.408889,
+        "mean_ending_turn": 21.2722,
+        "median_ending_turn": 20.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 814,
+            "mean_turn_if_observed": 9.7322,
+            "median_turn_if_observed": 9.0
+          },
+          "blocker": {
+            "observed_games": 897,
+            "mean_turn_if_observed": 3.8317,
+            "median_turn_if_observed": 3
+          },
+          "interaction": {
+            "observed_games": 724,
+            "mean_turn_if_observed": 6.2307,
+            "median_turn_if_observed": 3.0
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 608,
+            "mean_creatures_if_observed": 1.1595,
+            "positive_games": 494
+          },
+          "5": {
+            "observed_games": 756,
+            "mean_creatures_if_observed": 1.8532,
+            "positive_games": 693
+          },
+          "7": {
+            "observed_games": 805,
+            "mean_creatures_if_observed": 2.5702,
+            "positive_games": 788
+          }
+        },
+        "interaction_casts_total": 1378,
+        "interaction_casts_per_game": 1.5311,
+        "source_distinct_cast_names_proxy_total": 4654,
+        "source_distinct_cast_names_proxy_per_game": 5.1711,
+        "signature_casts": {
+          "Buzz Bots": 1264,
+          "Crustacean Commando": 1067,
+          "Does Machines": 578,
+          "Fugitive Droid": 1350,
+          "Krang, Master Mind": 137,
+          "Ooze Spill": 28,
+          "Ray Fillet, Man Ray": 648,
+          "Retro-Mutation": 504,
+          "Stockman, Mad Fly-entist": 380,
+          "Utrom Scientists": 1075
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "bebop_rocksteady": {
+        "games": 900,
+        "wins": 339,
+        "draws": 0,
+        "losses": 561,
+        "win_rate": 0.376667,
+        "matchup_win_rates": {
+          "leonardo": 0.46,
+          "raphael": 0.24,
+          "donatello": 0.53,
+          "michelangelo": 0.39,
+          "splinter": 0.25,
+          "shredder": 0.23,
+          "krang": 0.46,
+          "april_oneil": 0.51,
+          "casey_jones": 0.32
+        },
+        "mean_matchup_balance_error": 0.132222,
+        "median_matchup_deviation": 0.11,
+        "over_60_40": 5,
+        "over_70_30": 3,
+        "worst_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.23
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.23
+        },
+        "first_player_result_rate": 0.402222,
+        "mean_ending_turn": 18.5233,
+        "median_ending_turn": 18.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 830,
+            "mean_turn_if_observed": 5.8108,
+            "median_turn_if_observed": 4.0
+          },
+          "blocker": {
+            "observed_games": 830,
+            "mean_turn_if_observed": 5.8108,
+            "median_turn_if_observed": 4.0
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 416,
+            "mean_creatures_if_observed": 0.7356,
+            "positive_games": 221
+          },
+          "5": {
+            "observed_games": 660,
+            "mean_creatures_if_observed": 1.497,
+            "positive_games": 528
+          },
+          "7": {
+            "observed_games": 716,
+            "mean_creatures_if_observed": 1.9148,
+            "positive_games": 610
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 2054,
+        "source_distinct_cast_names_proxy_per_game": 2.2822,
+        "signature_casts": {
+          "Bebop, Warthog Warrior": 359,
+          "Frog Butler": 488,
+          "Paramecia Coloniex": 457,
+          "Rocksteady, Crash Courser": 511,
+          "Zoo Escapees": 920
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "april_oneil": {
+        "games": 900,
+        "wins": 290,
+        "draws": 0,
+        "losses": 610,
+        "win_rate": 0.322222,
+        "matchup_win_rates": {
+          "leonardo": 0.43,
+          "raphael": 0.19,
+          "donatello": 0.43,
+          "michelangelo": 0.32,
+          "splinter": 0.23,
+          "shredder": 0.18,
+          "krang": 0.44,
+          "bebop_rocksteady": 0.49,
+          "casey_jones": 0.19
+        },
+        "mean_matchup_balance_error": 0.177778,
+        "median_matchup_deviation": 0.18,
+        "over_60_40": 5,
+        "over_70_30": 4,
+        "worst_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.18
+        },
+        "weakest_matchup": {
+          "opponent": "shredder",
+          "win_rate": 0.18
+        },
+        "first_player_result_rate": 0.328889,
+        "mean_ending_turn": 22.04,
+        "median_ending_turn": 21.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 881,
+            "mean_turn_if_observed": 7.1964,
+            "median_turn_if_observed": 6
+          },
+          "blocker": {
+            "observed_games": 899,
+            "mean_turn_if_observed": 3.238,
+            "median_turn_if_observed": 3
+          },
+          "interaction": {
+            "observed_games": 690,
+            "mean_turn_if_observed": 6.129,
+            "median_turn_if_observed": 2.0
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 611,
+            "mean_creatures_if_observed": 1.3421,
+            "positive_games": 550
+          },
+          "5": {
+            "observed_games": 814,
+            "mean_creatures_if_observed": 2.0897,
+            "positive_games": 797
+          },
+          "7": {
+            "observed_games": 862,
+            "mean_creatures_if_observed": 2.7703,
+            "positive_games": 861
+          }
+        },
+        "interaction_casts_total": 1105,
+        "interaction_casts_per_game": 1.2278,
+        "source_distinct_cast_names_proxy_total": 4567,
+        "source_distinct_cast_names_proxy_per_game": 5.0744,
+        "signature_casts": {
+          "April O'Neil, Hacktivist": 473,
+          "April, Reporter of the Weird": 1056,
+          "Buzz Bots": 1082,
+          "Crustacean Commando": 1066,
+          "Fugitive Droid": 1105,
+          "Ray Fillet, Man Ray": 436,
+          "Retro-Mutation": 518,
+          "Utrom Scientists": 964
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      },
+      "casey_jones": {
+        "games": 900,
+        "wins": 553,
+        "draws": 0,
+        "losses": 347,
+        "win_rate": 0.614444,
+        "matchup_win_rates": {
+          "leonardo": 0.64,
+          "raphael": 0.37,
+          "donatello": 0.63,
+          "michelangelo": 0.65,
+          "splinter": 0.58,
+          "shredder": 0.41,
+          "krang": 0.76,
+          "bebop_rocksteady": 0.68,
+          "april_oneil": 0.81
+        },
+        "mean_matchup_balance_error": 0.163333,
+        "median_matchup_deviation": 0.14,
+        "over_60_40": 7,
+        "over_70_30": 2,
+        "worst_matchup": {
+          "opponent": "april_oneil",
+          "win_rate": 0.81
+        },
+        "weakest_matchup": {
+          "opponent": "raphael",
+          "win_rate": 0.37
+        },
+        "first_player_result_rate": 0.602222,
+        "mean_ending_turn": 20.3644,
+        "median_ending_turn": 19.0,
+        "first_play": {
+          "land_miss": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          },
+          "creature": {
+            "observed_games": 871,
+            "mean_turn_if_observed": 5.5385,
+            "median_turn_if_observed": 4
+          },
+          "blocker": {
+            "observed_games": 881,
+            "mean_turn_if_observed": 4.8354,
+            "median_turn_if_observed": 4
+          },
+          "interaction": {
+            "observed_games": 0,
+            "mean_turn_if_observed": null,
+            "median_turn_if_observed": null
+          }
+        },
+        "battlefield_presence": {
+          "3": {
+            "observed_games": 397,
+            "mean_creatures_if_observed": 0.9244,
+            "positive_games": 289
+          },
+          "5": {
+            "observed_games": 669,
+            "mean_creatures_if_observed": 1.7474,
+            "positive_games": 629
+          },
+          "7": {
+            "observed_games": 807,
+            "mean_creatures_if_observed": 2.3606,
+            "positive_games": 782
+          }
+        },
+        "interaction_casts_total": 0,
+        "interaction_casts_per_game": 0.0,
+        "source_distinct_cast_names_proxy_total": 4602,
+        "source_distinct_cast_names_proxy_per_game": 5.1133,
+        "signature_casts": {
+          "Casey Jones, Jury-Rig Justiciar": 1101,
+          "Casey Jones, Vigilante": 691,
+          "Manhole Missile": 781,
+          "Mutant Town Musicians": 197,
+          "Null Group Biological Assets": 404,
+          "Purple Dragon Punks": 1097,
+          "Ravenous Robots": 1156,
+          "Rock Soldiers": 576,
+          "Spicy Oatmeal Pizza": 694
+        },
+        "utility_telemetry": {},
+        "runtime_errors": 0
+      }
+    },
+    "matchup_comparisons": [
+      {
+        "decks": [
+          "april_oneil",
+          "bebop_rocksteady"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.44,
+          "bebop_rocksteady": 0.56
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.49,
+          "bebop_rocksteady": 0.51
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 44,
+            "bebop_rocksteady": 56
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 56,
+            "bebop_rocksteady": 44
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 49,
+            "bebop_rocksteady": 51
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 51,
+            "bebop_rocksteady": 49
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.05,
+          "bebop_rocksteady": -0.05
+        },
+        "historical_deviation": 0.06,
+        "refreshed_deviation": 0.01,
+        "outcome_changed_games": 9,
+        "ending_turn_changed_games": 30,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "casey_jones"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.14,
+          "casey_jones": 0.86
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.19,
+          "casey_jones": 0.81
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 14,
+            "casey_jones": 86
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 86,
+            "casey_jones": 14
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 19,
+            "casey_jones": 81
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 81,
+            "casey_jones": 19
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.05,
+          "casey_jones": -0.05
+        },
+        "historical_deviation": 0.36,
+        "refreshed_deviation": 0.31,
+        "outcome_changed_games": 7,
+        "ending_turn_changed_games": 40,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "donatello"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.41,
+          "donatello": 0.59
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.43,
+          "donatello": 0.57
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 41,
+            "donatello": 59
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 59,
+            "donatello": 41
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 43,
+            "donatello": 57
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 57,
+            "donatello": 43
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.02,
+          "donatello": -0.02
+        },
+        "historical_deviation": 0.09,
+        "refreshed_deviation": 0.07,
+        "outcome_changed_games": 4,
+        "ending_turn_changed_games": 34,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "krang"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.47,
+          "krang": 0.53
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.44,
+          "krang": 0.56
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 47,
+            "krang": 53
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 53,
+            "krang": 47
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 44,
+            "krang": 56
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 56,
+            "krang": 44
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": -0.03,
+          "krang": 0.03
+        },
+        "historical_deviation": 0.03,
+        "refreshed_deviation": 0.06,
+        "outcome_changed_games": 13,
+        "ending_turn_changed_games": 51,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "leonardo"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.41,
+          "leonardo": 0.59
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.43,
+          "leonardo": 0.57
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 41,
+            "leonardo": 59
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 59,
+            "leonardo": 41
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 43,
+            "leonardo": 57
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 57,
+            "leonardo": 43
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.02,
+          "leonardo": -0.02
+        },
+        "historical_deviation": 0.09,
+        "refreshed_deviation": 0.07,
+        "outcome_changed_games": 10,
+        "ending_turn_changed_games": 35,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.24,
+          "michelangelo": 0.76
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.32,
+          "michelangelo": 0.68
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 24,
+            "michelangelo": 76
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 76,
+            "michelangelo": 24
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 32,
+            "michelangelo": 68
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 68,
+            "michelangelo": 32
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.08,
+          "michelangelo": -0.08
+        },
+        "historical_deviation": 0.26,
+        "refreshed_deviation": 0.18,
+        "outcome_changed_games": 8,
+        "ending_turn_changed_games": 36,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.18,
+          "raphael": 0.82
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.19,
+          "raphael": 0.81
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 18,
+            "raphael": 82
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 82,
+            "raphael": 18
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 19,
+            "raphael": 81
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 81,
+            "raphael": 19
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.01,
+          "raphael": -0.01
+        },
+        "historical_deviation": 0.32,
+        "refreshed_deviation": 0.31,
+        "outcome_changed_games": 5,
+        "ending_turn_changed_games": 29,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.18,
+          "shredder": 0.82
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.18,
+          "shredder": 0.82
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 18,
+            "shredder": 82
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 82,
+            "shredder": 18
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 18,
+            "shredder": 82
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 82,
+            "shredder": 18
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.32,
+        "refreshed_deviation": 0.32,
+        "outcome_changed_games": 2,
+        "ending_turn_changed_games": 33,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "april_oneil",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "april_oneil": 0.22,
+          "splinter": 0.78
+        },
+        "refreshed_win_rates": {
+          "april_oneil": 0.23,
+          "splinter": 0.77
+        },
+        "historical_wld": {
+          "wins": {
+            "april_oneil": 22,
+            "splinter": 78
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 78,
+            "splinter": 22
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "april_oneil": 23,
+            "splinter": 77
+          },
+          "draws": 0,
+          "losses": {
+            "april_oneil": 77,
+            "splinter": 23
+          }
+        },
+        "win_rate_delta": {
+          "april_oneil": 0.01,
+          "splinter": -0.01
+        },
+        "historical_deviation": 0.28,
+        "refreshed_deviation": 0.27,
+        "outcome_changed_games": 5,
+        "ending_turn_changed_games": 40,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "casey_jones"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.32,
+          "casey_jones": 0.68
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.32,
+          "casey_jones": 0.68
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 32,
+            "casey_jones": 68
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 68,
+            "casey_jones": 32
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 32,
+            "casey_jones": 68
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 68,
+            "casey_jones": 32
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "casey_jones": 0.0
+        },
+        "historical_deviation": 0.18,
+        "refreshed_deviation": 0.18,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "donatello"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.53,
+          "donatello": 0.47
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.53,
+          "donatello": 0.47
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 53,
+            "donatello": 47
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 47,
+            "donatello": 53
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 53,
+            "donatello": 47
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 47,
+            "donatello": 53
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "donatello": 0.0
+        },
+        "historical_deviation": 0.03,
+        "refreshed_deviation": 0.03,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "krang"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.49,
+          "krang": 0.51
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.46,
+          "krang": 0.54
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 49,
+            "krang": 51
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 51,
+            "krang": 49
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 46,
+            "krang": 54
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 54,
+            "krang": 46
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": -0.03,
+          "krang": 0.03
+        },
+        "historical_deviation": 0.01,
+        "refreshed_deviation": 0.04,
+        "outcome_changed_games": 5,
+        "ending_turn_changed_games": 24,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "leonardo"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.46,
+          "leonardo": 0.54
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.46,
+          "leonardo": 0.54
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 46,
+            "leonardo": 54
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 54,
+            "leonardo": 46
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 46,
+            "leonardo": 54
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 54,
+            "leonardo": 46
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "leonardo": 0.0
+        },
+        "historical_deviation": 0.04,
+        "refreshed_deviation": 0.04,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.39,
+          "michelangelo": 0.61
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.39,
+          "michelangelo": 0.61
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 39,
+            "michelangelo": 61
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 61,
+            "michelangelo": 39
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 39,
+            "michelangelo": 61
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 61,
+            "michelangelo": 39
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "michelangelo": 0.0
+        },
+        "historical_deviation": 0.11,
+        "refreshed_deviation": 0.11,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.24,
+          "raphael": 0.76
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.24,
+          "raphael": 0.76
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 24,
+            "raphael": 76
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 76,
+            "raphael": 24
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 24,
+            "raphael": 76
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 76,
+            "raphael": 24
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "raphael": 0.0
+        },
+        "historical_deviation": 0.26,
+        "refreshed_deviation": 0.26,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.23,
+          "shredder": 0.77
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.23,
+          "shredder": 0.77
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 23,
+            "shredder": 77
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 77,
+            "shredder": 23
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 23,
+            "shredder": 77
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 77,
+            "shredder": 23
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.27,
+        "refreshed_deviation": 0.27,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "bebop_rocksteady",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "bebop_rocksteady": 0.25,
+          "splinter": 0.75
+        },
+        "refreshed_win_rates": {
+          "bebop_rocksteady": 0.25,
+          "splinter": 0.75
+        },
+        "historical_wld": {
+          "wins": {
+            "bebop_rocksteady": 25,
+            "splinter": 75
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 75,
+            "splinter": 25
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "bebop_rocksteady": 25,
+            "splinter": 75
+          },
+          "draws": 0,
+          "losses": {
+            "bebop_rocksteady": 75,
+            "splinter": 25
+          }
+        },
+        "win_rate_delta": {
+          "bebop_rocksteady": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.25,
+        "refreshed_deviation": 0.25,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "donatello"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.63,
+          "donatello": 0.37
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.63,
+          "donatello": 0.37
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 63,
+            "donatello": 37
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 37,
+            "donatello": 63
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 63,
+            "donatello": 37
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 37,
+            "donatello": 63
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "donatello": 0.0
+        },
+        "historical_deviation": 0.13,
+        "refreshed_deviation": 0.13,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "krang"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.77,
+          "krang": 0.23
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.76,
+          "krang": 0.24
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 77,
+            "krang": 23
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 23,
+            "krang": 77
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 76,
+            "krang": 24
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 24,
+            "krang": 76
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": -0.01,
+          "krang": 0.01
+        },
+        "historical_deviation": 0.27,
+        "refreshed_deviation": 0.26,
+        "outcome_changed_games": 3,
+        "ending_turn_changed_games": 32,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "leonardo"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.64,
+          "leonardo": 0.36
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.64,
+          "leonardo": 0.36
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 64,
+            "leonardo": 36
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 36,
+            "leonardo": 64
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 64,
+            "leonardo": 36
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 36,
+            "leonardo": 64
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "leonardo": 0.0
+        },
+        "historical_deviation": 0.14,
+        "refreshed_deviation": 0.14,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.65,
+          "michelangelo": 0.35
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.65,
+          "michelangelo": 0.35
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 65,
+            "michelangelo": 35
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 35,
+            "michelangelo": 65
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 65,
+            "michelangelo": 35
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 35,
+            "michelangelo": 65
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "michelangelo": 0.0
+        },
+        "historical_deviation": 0.15,
+        "refreshed_deviation": 0.15,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.37,
+          "raphael": 0.63
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.37,
+          "raphael": 0.63
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 37,
+            "raphael": 63
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 63,
+            "raphael": 37
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 37,
+            "raphael": 63
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 63,
+            "raphael": 37
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "raphael": 0.0
+        },
+        "historical_deviation": 0.13,
+        "refreshed_deviation": 0.13,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.41,
+          "shredder": 0.59
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.41,
+          "shredder": 0.59
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 41,
+            "shredder": 59
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 59,
+            "shredder": 41
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 41,
+            "shredder": 59
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 59,
+            "shredder": 41
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.09,
+        "refreshed_deviation": 0.09,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "casey_jones",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "casey_jones": 0.58,
+          "splinter": 0.42
+        },
+        "refreshed_win_rates": {
+          "casey_jones": 0.58,
+          "splinter": 0.42
+        },
+        "historical_wld": {
+          "wins": {
+            "casey_jones": 58,
+            "splinter": 42
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 42,
+            "splinter": 58
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "casey_jones": 58,
+            "splinter": 42
+          },
+          "draws": 0,
+          "losses": {
+            "casey_jones": 42,
+            "splinter": 58
+          }
+        },
+        "win_rate_delta": {
+          "casey_jones": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.08,
+        "refreshed_deviation": 0.08,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "donatello",
+          "krang"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.54,
+          "krang": 0.46
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.56,
+          "krang": 0.44
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 54,
+            "krang": 46
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 46,
+            "krang": 54
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 56,
+            "krang": 44
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 44,
+            "krang": 56
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.02,
+          "krang": -0.02
+        },
+        "historical_deviation": 0.04,
+        "refreshed_deviation": 0.06,
+        "outcome_changed_games": 12,
+        "ending_turn_changed_games": 28,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "donatello",
+          "leonardo"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.65,
+          "leonardo": 0.35
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.65,
+          "leonardo": 0.35
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 65,
+            "leonardo": 35
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 35,
+            "leonardo": 65
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 65,
+            "leonardo": 35
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 35,
+            "leonardo": 65
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.0,
+          "leonardo": 0.0
+        },
+        "historical_deviation": 0.15,
+        "refreshed_deviation": 0.15,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "donatello",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.37,
+          "michelangelo": 0.63
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.37,
+          "michelangelo": 0.63
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 37,
+            "michelangelo": 63
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 63,
+            "michelangelo": 37
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 37,
+            "michelangelo": 63
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 63,
+            "michelangelo": 37
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.0,
+          "michelangelo": 0.0
+        },
+        "historical_deviation": 0.13,
+        "refreshed_deviation": 0.13,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "donatello",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.26,
+          "raphael": 0.74
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.26,
+          "raphael": 0.74
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 26,
+            "raphael": 74
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 74,
+            "raphael": 26
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 26,
+            "raphael": 74
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 74,
+            "raphael": 26
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.0,
+          "raphael": 0.0
+        },
+        "historical_deviation": 0.24,
+        "refreshed_deviation": 0.24,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "donatello",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.17,
+          "shredder": 0.83
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.17,
+          "shredder": 0.83
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 17,
+            "shredder": 83
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 83,
+            "shredder": 17
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 17,
+            "shredder": 83
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 83,
+            "shredder": 17
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.33,
+        "refreshed_deviation": 0.33,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "donatello",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "donatello": 0.23,
+          "splinter": 0.77
+        },
+        "refreshed_win_rates": {
+          "donatello": 0.23,
+          "splinter": 0.77
+        },
+        "historical_wld": {
+          "wins": {
+            "donatello": 23,
+            "splinter": 77
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 77,
+            "splinter": 23
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "donatello": 23,
+            "splinter": 77
+          },
+          "draws": 0,
+          "losses": {
+            "donatello": 77,
+            "splinter": 23
+          }
+        },
+        "win_rate_delta": {
+          "donatello": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.27,
+        "refreshed_deviation": 0.27,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "krang",
+          "leonardo"
+        ],
+        "historical_win_rates": {
+          "krang": 0.68,
+          "leonardo": 0.32
+        },
+        "refreshed_win_rates": {
+          "krang": 0.66,
+          "leonardo": 0.34
+        },
+        "historical_wld": {
+          "wins": {
+            "krang": 68,
+            "leonardo": 32
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 32,
+            "leonardo": 68
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "krang": 66,
+            "leonardo": 34
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 34,
+            "leonardo": 66
+          }
+        },
+        "win_rate_delta": {
+          "krang": -0.02,
+          "leonardo": 0.02
+        },
+        "historical_deviation": 0.18,
+        "refreshed_deviation": 0.16,
+        "outcome_changed_games": 10,
+        "ending_turn_changed_games": 31,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "krang",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "krang": 0.32,
+          "michelangelo": 0.68
+        },
+        "refreshed_win_rates": {
+          "krang": 0.36,
+          "michelangelo": 0.64
+        },
+        "historical_wld": {
+          "wins": {
+            "krang": 32,
+            "michelangelo": 68
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 68,
+            "michelangelo": 32
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "krang": 36,
+            "michelangelo": 64
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 64,
+            "michelangelo": 36
+          }
+        },
+        "win_rate_delta": {
+          "krang": 0.04,
+          "michelangelo": -0.04
+        },
+        "historical_deviation": 0.18,
+        "refreshed_deviation": 0.14,
+        "outcome_changed_games": 4,
+        "ending_turn_changed_games": 25,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "krang",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "krang": 0.13,
+          "raphael": 0.87
+        },
+        "refreshed_win_rates": {
+          "krang": 0.19,
+          "raphael": 0.81
+        },
+        "historical_wld": {
+          "wins": {
+            "krang": 13,
+            "raphael": 87
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 87,
+            "raphael": 13
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "krang": 19,
+            "raphael": 81
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 81,
+            "raphael": 19
+          }
+        },
+        "win_rate_delta": {
+          "krang": 0.06,
+          "raphael": -0.06
+        },
+        "historical_deviation": 0.37,
+        "refreshed_deviation": 0.31,
+        "outcome_changed_games": 8,
+        "ending_turn_changed_games": 31,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "krang",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "krang": 0.12,
+          "shredder": 0.88
+        },
+        "refreshed_win_rates": {
+          "krang": 0.22,
+          "shredder": 0.78
+        },
+        "historical_wld": {
+          "wins": {
+            "krang": 12,
+            "shredder": 88
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 88,
+            "shredder": 12
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "krang": 22,
+            "shredder": 78
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 78,
+            "shredder": 22
+          }
+        },
+        "win_rate_delta": {
+          "krang": 0.1,
+          "shredder": -0.1
+        },
+        "historical_deviation": 0.38,
+        "refreshed_deviation": 0.28,
+        "outcome_changed_games": 12,
+        "ending_turn_changed_games": 37,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "krang",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "krang": 0.2,
+          "splinter": 0.8
+        },
+        "refreshed_win_rates": {
+          "krang": 0.26,
+          "splinter": 0.74
+        },
+        "historical_wld": {
+          "wins": {
+            "krang": 20,
+            "splinter": 80
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 80,
+            "splinter": 20
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "krang": 26,
+            "splinter": 74
+          },
+          "draws": 0,
+          "losses": {
+            "krang": 74,
+            "splinter": 26
+          }
+        },
+        "win_rate_delta": {
+          "krang": 0.06,
+          "splinter": -0.06
+        },
+        "historical_deviation": 0.3,
+        "refreshed_deviation": 0.24,
+        "outcome_changed_games": 12,
+        "ending_turn_changed_games": 42,
+        "cell_result_changed": true
+      },
+      {
+        "decks": [
+          "leonardo",
+          "michelangelo"
+        ],
+        "historical_win_rates": {
+          "leonardo": 0.4,
+          "michelangelo": 0.6
+        },
+        "refreshed_win_rates": {
+          "leonardo": 0.4,
+          "michelangelo": 0.6
+        },
+        "historical_wld": {
+          "wins": {
+            "leonardo": 40,
+            "michelangelo": 60
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 60,
+            "michelangelo": 40
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "leonardo": 40,
+            "michelangelo": 60
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 60,
+            "michelangelo": 40
+          }
+        },
+        "win_rate_delta": {
+          "leonardo": 0.0,
+          "michelangelo": 0.0
+        },
+        "historical_deviation": 0.1,
+        "refreshed_deviation": 0.1,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "leonardo",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "leonardo": 0.2,
+          "raphael": 0.8
+        },
+        "refreshed_win_rates": {
+          "leonardo": 0.2,
+          "raphael": 0.8
+        },
+        "historical_wld": {
+          "wins": {
+            "leonardo": 20,
+            "raphael": 80
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 80,
+            "raphael": 20
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "leonardo": 20,
+            "raphael": 80
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 80,
+            "raphael": 20
+          }
+        },
+        "win_rate_delta": {
+          "leonardo": 0.0,
+          "raphael": 0.0
+        },
+        "historical_deviation": 0.3,
+        "refreshed_deviation": 0.3,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "leonardo",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "leonardo": 0.36,
+          "shredder": 0.64
+        },
+        "refreshed_win_rates": {
+          "leonardo": 0.36,
+          "shredder": 0.64
+        },
+        "historical_wld": {
+          "wins": {
+            "leonardo": 36,
+            "shredder": 64
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 64,
+            "shredder": 36
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "leonardo": 36,
+            "shredder": 64
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 64,
+            "shredder": 36
+          }
+        },
+        "win_rate_delta": {
+          "leonardo": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.14,
+        "refreshed_deviation": 0.14,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "leonardo",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "leonardo": 0.36,
+          "splinter": 0.64
+        },
+        "refreshed_win_rates": {
+          "leonardo": 0.36,
+          "splinter": 0.64
+        },
+        "historical_wld": {
+          "wins": {
+            "leonardo": 36,
+            "splinter": 64
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 64,
+            "splinter": 36
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "leonardo": 36,
+            "splinter": 64
+          },
+          "draws": 0,
+          "losses": {
+            "leonardo": 64,
+            "splinter": 36
+          }
+        },
+        "win_rate_delta": {
+          "leonardo": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.14,
+        "refreshed_deviation": 0.14,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "raphael"
+        ],
+        "historical_win_rates": {
+          "michelangelo": 0.35,
+          "raphael": 0.65
+        },
+        "refreshed_win_rates": {
+          "michelangelo": 0.35,
+          "raphael": 0.65
+        },
+        "historical_wld": {
+          "wins": {
+            "michelangelo": 35,
+            "raphael": 65
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 65,
+            "raphael": 35
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "michelangelo": 35,
+            "raphael": 65
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 65,
+            "raphael": 35
+          }
+        },
+        "win_rate_delta": {
+          "michelangelo": 0.0,
+          "raphael": 0.0
+        },
+        "historical_deviation": 0.15,
+        "refreshed_deviation": 0.15,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "michelangelo": 0.28,
+          "shredder": 0.72
+        },
+        "refreshed_win_rates": {
+          "michelangelo": 0.28,
+          "shredder": 0.72
+        },
+        "historical_wld": {
+          "wins": {
+            "michelangelo": 28,
+            "shredder": 72
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 72,
+            "shredder": 28
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "michelangelo": 28,
+            "shredder": 72
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 72,
+            "shredder": 28
+          }
+        },
+        "win_rate_delta": {
+          "michelangelo": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.22,
+        "refreshed_deviation": 0.22,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "michelangelo",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "michelangelo": 0.36,
+          "splinter": 0.64
+        },
+        "refreshed_win_rates": {
+          "michelangelo": 0.36,
+          "splinter": 0.64
+        },
+        "historical_wld": {
+          "wins": {
+            "michelangelo": 36,
+            "splinter": 64
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 64,
+            "splinter": 36
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "michelangelo": 36,
+            "splinter": 64
+          },
+          "draws": 0,
+          "losses": {
+            "michelangelo": 64,
+            "splinter": 36
+          }
+        },
+        "win_rate_delta": {
+          "michelangelo": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.14,
+        "refreshed_deviation": 0.14,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "raphael",
+          "shredder"
+        ],
+        "historical_win_rates": {
+          "raphael": 0.47,
+          "shredder": 0.53
+        },
+        "refreshed_win_rates": {
+          "raphael": 0.47,
+          "shredder": 0.53
+        },
+        "historical_wld": {
+          "wins": {
+            "raphael": 47,
+            "shredder": 53
+          },
+          "draws": 0,
+          "losses": {
+            "raphael": 53,
+            "shredder": 47
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "raphael": 47,
+            "shredder": 53
+          },
+          "draws": 0,
+          "losses": {
+            "raphael": 53,
+            "shredder": 47
+          }
+        },
+        "win_rate_delta": {
+          "raphael": 0.0,
+          "shredder": 0.0
+        },
+        "historical_deviation": 0.03,
+        "refreshed_deviation": 0.03,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "raphael",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "raphael": 0.54,
+          "splinter": 0.46
+        },
+        "refreshed_win_rates": {
+          "raphael": 0.54,
+          "splinter": 0.46
+        },
+        "historical_wld": {
+          "wins": {
+            "raphael": 54,
+            "splinter": 46
+          },
+          "draws": 0,
+          "losses": {
+            "raphael": 46,
+            "splinter": 54
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "raphael": 54,
+            "splinter": 46
+          },
+          "draws": 0,
+          "losses": {
+            "raphael": 46,
+            "splinter": 54
+          }
+        },
+        "win_rate_delta": {
+          "raphael": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.04,
+        "refreshed_deviation": 0.04,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      },
+      {
+        "decks": [
+          "shredder",
+          "splinter"
+        ],
+        "historical_win_rates": {
+          "shredder": 0.67,
+          "splinter": 0.33
+        },
+        "refreshed_win_rates": {
+          "shredder": 0.67,
+          "splinter": 0.33
+        },
+        "historical_wld": {
+          "wins": {
+            "shredder": 67,
+            "splinter": 33
+          },
+          "draws": 0,
+          "losses": {
+            "shredder": 33,
+            "splinter": 67
+          }
+        },
+        "refreshed_wld": {
+          "wins": {
+            "shredder": 67,
+            "splinter": 33
+          },
+          "draws": 0,
+          "losses": {
+            "shredder": 33,
+            "splinter": 67
+          }
+        },
+        "win_rate_delta": {
+          "shredder": 0.0,
+          "splinter": 0.0
+        },
+        "historical_deviation": 0.17,
+        "refreshed_deviation": 0.17,
+        "outcome_changed_games": 0,
+        "ending_turn_changed_games": 0,
+        "cell_result_changed": false
+      }
+    ],
+    "changed_cell_count": 16,
+    "outcome_changed_games": 129,
+    "ending_turn_changed_games": 578
+  },
+  "validation": {
+    "control_games": 4500,
+    "candidate_games": 900,
+    "control_replay_samples_matched": 6,
+    "candidate_replays_matched": 900,
+    "runtime_errors": 0,
+    "balanced_starts_each_cell": [
+      50,
+      50
+    ],
+    "semantic_and_regression_validation": {
+      "aura_tests_passed": 17,
+      "regression_tests_passed": 1604,
+      "regression_skipped": 2,
+      "regression_scope": "Full engine and historical evidence suite in one invocation, excluding only the new R6-C final-evidence tests until final evidence exists.",
+      "ruff_check": "PASS",
+      "ruff_format": "PASS",
+      "block_enumeration_equivalence_tests_passed": 9
+    }
+  },
+  "redesign": false,
+  "combined_validation_run": false,
+  "promotion_authorized": false,
+  "limits": [
+    "Bounded creature-Aura Oracle template; other Aura payloads remain unsupported.",
+    "Ward/protection targeting dependencies fail closed; no such baseline creature was found.",
+    "Pilot uses a generic main-phase suppression policy; Flash is executable in priority windows but the pilot does not optimize Flash timing.",
+    "Historical Negate and other unrelated unsupported mechanics remain unimplemented.",
+    "Both control and candidate now execute Retro-Mutation (two versus three copies); cast telemetry cannot identify the marginal physical copy.",
+    "Historical interaction and first-interaction proxies exclude Aura suppression; Aura execution is reported separately.",
+    "Cast-conditioned win rates are descriptive selection-biased subsets, not causal estimates.",
+    "Effective P/T after resolution can exceed 0/1 because counters and other modifiers apply after base P/T setting.",
+    "Full saved-record replay hashes include Aura events. The older runtime_fingerprint field alone does not encode every continuous characteristic.",
+    "Suppression and attachment are observed; counterfactual prevented attacks or damage are not quantified."
+  ]
+}

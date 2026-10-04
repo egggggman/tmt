@@ -16,7 +16,15 @@ import run_objective_balance_lab_round5 as r5  # noqa: E402
 
 
 def test_preflight_keeps_exact_baseline003_decks_and_frozen_schedule():
-    manifest, schedule, paths, runtime = run.preflight()
+    # The Chrome-Dome-era gate remains closed after the Aura runtime change.
+    with pytest.raises(AssertionError):
+        run.preflight()
+    manifest = json.loads(run.MANIFEST.read_text())
+    schedule = run.r1.schedule()
+    paths = {row["deck_key"]: row["source_path"] for row in manifest["decks"]}
+    runtime = run.identity(run.BASE)
+    for row in manifest["decks"]:
+        run.verify_deck(row)
     assert manifest["environment_id"] == "OBL-BASELINE-003"
     assert len(paths) == 10 and all("R6_B" not in path for path in paths.values())
     assert len(schedule) == 4500
@@ -24,7 +32,8 @@ def test_preflight_keeps_exact_baseline003_decks_and_frozen_schedule():
 
 
 def test_checkpoint_fails_closed_on_runtime_manifest_and_schedule_drift():
-    manifest, schedule, _paths, runtime = run.preflight()
+    manifest = json.loads(run.MANIFEST.read_text())
+    schedule, runtime = run.r1.schedule(), run.identity(run.BASE)
     expected = run.checkpoint_template(manifest, runtime)
     run.verify_checkpoint(expected, expected, schedule)
     for field, bad in (

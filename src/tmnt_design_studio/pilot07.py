@@ -92,6 +92,24 @@ class AcceptancePilot:
                     ),
                 )
         if stage == "destroy":
+            # A semantic action tag, independent of card/deck/opponent identity.
+            battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+            suppression = [
+                option
+                for option in casts
+                if option.oracle_fragment is not None
+                and option.oracle_fragment.startswith("Enchanted creature is a ")
+                and option.target_id in battlefield
+                and battlefield[option.target_id].controller != option.player_index
+            ]
+            if suppression:
+                return max(
+                    suppression,
+                    key=lambda option: (
+                        battlefield[option.target_id].power or 0,
+                        battlefield[option.target_id].toughness or 0,
+                    ),
+                )
             return next(
                 (
                     option
