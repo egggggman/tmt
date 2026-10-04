@@ -12,7 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
-from itertools import permutations, product
+from itertools import permutations
 from pathlib import Path
 from typing import Literal, Protocol
 
@@ -7389,25 +7389,31 @@ class Game(
             if p.card.is_creature and not p.tapped
         ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
-        choices = []
-        for attacker in attackers:
-            groups = [
-                group
-                for count in range(len(available) + 1)
-                for group in permutations(available, count)
-                if not group or (not self._has_menace(attacker) or count >= 2)
-            ]
-            choices.append((attacker, groups))
-        for selected in product(*(groups for _attacker, groups in choices)):
-            assignment = tuple(
-                (attacker.object_id, blocker.object_id)
-                for (attacker, _groups), group in zip(choices, selected, strict=True)
-                for blocker in group
-            )
-            if assignment and self._valid_block_assignment(attackers, assignment, defender_index):
-                options.append(
-                    ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index, blocks=assignment)
-                )
+
+        def visit(index, remaining, assignment):
+            if index == len(attackers):
+                if assignment:
+                    options.append(
+                        ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index, blocks=assignment)
+                    )
+                return
+            attacker = attackers[index]
+            for count in range(len(remaining) + 1):
+                for group in permutations(remaining, count):
+                    blocks = tuple((attacker.object_id, blocker.object_id) for blocker in group)
+                    if not self._valid_block_assignment([attacker], blocks, defender_index):
+                        continue
+                    used = {blocker.object_id for blocker in group}
+                    visit(
+                        index + 1,
+                        tuple(blocker for blocker in remaining if blocker.object_id not in used),
+                        assignment + blocks,
+                    )
+
+        # The old Cartesian product validated only at the leaves. Removing used
+        # blockers and illegal per-attacker groups early preserves its exact
+        # surviving option order, including the pilot's first-max tie break.
+        visit(0, tuple(available), ())
         return tuple(options)
 
     def _sneak_semantics(self, card: CardObject):
