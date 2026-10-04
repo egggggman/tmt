@@ -1,0 +1,167 @@
+{
+  "schema": "obl-round-6-loss-signature-diagnostic-v1",
+  "diagnostic_id": "OBL-R6-KRANG-LOSS-SIGNATURE-DIAGNOSTIC-001",
+  "repository_sha": "c2df2ec62c3b0760a95203d590cb79185b5efadf",
+  "environment_id": "OBL-BASELINE-003",
+  "control_evidence_id": "OBL-BASELINE-003-RUNTIME-REFRESH-001",
+  "semantic_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
+  "source_evidence": [
+    "docs/objective-balance-lab/BASELINE_003_RUNTIME_REFRESH_EVIDENCE.json",
+    "docs/objective-balance-lab/ROUND_6_A_EVIDENCE.json",
+    "docs/objective-balance-lab/ROUND_6_B_EVIDENCE.json"
+  ],
+  "new_simulations_run": 0,
+  "deck_changes_authorized": false,
+  "r6_c_designed": false,
+  "design_input": {
+    "closed_hypothesis_family": "Replacing one dormant Negate with generally useful proactive artifact material is sufficient to smooth Krang's matchup distribution.",
+    "status": "FALSIFIED_FOR_ROUND_6"
+  },
+  "baseline_loss_signatures": {
+    "raphael": {
+      "krang_win_rate": 0.13,
+      "krang_losses": 87,
+      "loss_ending_turn": {
+        "mean": 17.735632,
+        "median": 17,
+        "by_turn_15": 0.287356,
+        "by_turn_17": 0.528736,
+        "by_turn_19": 0.689655,
+        "by_turn_21": 0.862069
+      },
+      "first_creature_turn_in_krang_losses": {
+        "krang": 8.611111,
+        "raphael": 5.321839
+      },
+      "first_blocker_proxy_turn_in_krang_losses": {
+        "krang": 3.747126,
+        "raphael": 5.321839
+      },
+      "interaction_casts_per_krang_loss": {
+        "krang": 4.022989,
+        "raphael": 5.126437
+      },
+      "battlefield_presence_conditional_mean_in_krang_losses": {
+        "turn_3": {"krang": 0.875, "raphael": 0.692308},
+        "turn_5": {"krang": 1.459459, "raphael": 1.389831},
+        "turn_7": {"krang": 2.012821, "raphael": 2.114286}
+      },
+      "opponent_cards_with_largest_win_presence_lift": [
+        {"card": "Raphael, Tough Turtle", "win_presence": 0.724, "loss_presence": 0.538, "delta": 0.186},
+        {"card": "Mutant Town Musicians", "win_presence": 0.391, "loss_presence": 0.231, "delta": 0.160},
+        {"card": "Manhole Missile", "win_presence": 0.690, "loss_presence": 0.538, "delta": 0.151},
+        {"card": "Raphael, Ninja Destroyer", "win_presence": 0.437, "loss_presence": 0.308, "delta": 0.129},
+        {"card": "Raphael, Most Attitude", "win_presence": 0.391, "loss_presence": 0.308, "delta": 0.083},
+        {"card": "Null Group Biological Assets", "win_presence": 0.690, "loss_presence": 0.615, "delta": 0.074}
+      ],
+      "krang_cards_with_largest_win_presence_lift": [
+        {"card": "Stockman, Mad Fly-entist", "win_presence": 0.846, "loss_presence": 0.276, "delta": 0.570},
+        {"card": "Ray Fillet, Man Ray", "win_presence": 0.692, "loss_presence": 0.356, "delta": 0.336},
+        {"card": "Crustacean Commando", "win_presence": 0.923, "loss_presence": 0.701, "delta": 0.222},
+        {"card": "Utrom Scientists", "win_presence": 0.923, "loss_presence": 0.701, "delta": 0.222}
+      ]
+    },
+    "shredder": {
+      "krang_win_rate": 0.12,
+      "krang_losses": 88,
+      "loss_ending_turn": {
+        "mean": 18.420455,
+        "median": 17,
+        "by_turn_15": 0.352273,
+        "by_turn_17": 0.522727,
+        "by_turn_19": 0.625,
+        "by_turn_21": 0.75
+      },
+      "first_creature_turn_in_krang_losses": {
+        "krang": 8.207317,
+        "shredder": 3.125
+      },
+      "first_blocker_proxy_turn_in_krang_losses": {
+        "krang": 4.147727,
+        "shredder": 3.125
+      },
+      "interaction_casts_per_krang_loss": {
+        "krang": 4.090909,
+        "shredder": 4.0
+      },
+      "battlefield_presence_conditional_mean_in_krang_losses": {
+        "turn_3": {"krang": 1.258621, "shredder": 1.352941},
+        "turn_5": {"krang": 2.136986, "shredder": 2.13253},
+        "turn_7": {"krang": 3.090909, "shredder": 2.894118}
+      },
+      "opponent_cards_with_largest_win_presence_lift": [
+        {"card": "Foot Mystic", "win_presence": 0.500, "loss_presence": 0.167, "delta": 0.333},
+        {"card": "Shark Shredder, Killer Clone", "win_presence": 0.398, "loss_presence": 0.167, "delta": 0.231},
+        {"card": "Shredder, Unrelenting", "win_presence": 0.273, "loss_presence": 0.083, "delta": 0.189},
+        {"card": "Super Shredder", "win_presence": 0.670, "loss_presence": 0.583, "delta": 0.087}
+      ],
+      "krang_cards_with_largest_win_presence_lift": [
+        {"card": "Ray Fillet, Man Ray", "win_presence": 0.917, "loss_presence": 0.420, "delta": 0.496},
+        {"card": "Stockman, Mad Fly-entist", "win_presence": 0.667, "loss_presence": 0.216, "delta": 0.451},
+        {"card": "Fugitive Droid", "win_presence": 0.833, "loss_presence": 0.682, "delta": 0.152},
+        {"card": "Utrom Scientists", "win_presence": 0.750, "loss_presence": 0.648, "delta": 0.102}
+      ]
+    }
+  },
+  "round_6_mechanism_crosscheck": {
+    "r6_a_turtle_techie": {
+      "raphael": {"candidate_win_rate": 0.14, "cast_games": 16, "cast_game_win_rate": 0.125},
+      "shredder": {"candidate_win_rate": 0.17, "cast_games": 19, "cast_game_win_rate": 0.421053}
+    },
+    "r6_b_chrome_dome": {
+      "raphael": {
+        "candidate_win_rate": 0.13,
+        "cast_games": 25,
+        "cast_game_win_rate": 0.12,
+        "modifier_impact_games": 10,
+        "modifier_impact_game_win_rate": 0.20
+      },
+      "shredder": {
+        "candidate_win_rate": 0.15,
+        "cast_games": 23,
+        "cast_game_win_rate": 0.26087,
+        "modifier_impact_games": 16,
+        "modifier_impact_game_win_rate": 0.375
+      }
+    }
+  },
+  "r6_b_cell_telemetry_change": {
+    "raphael": {
+      "krang_first_creature_turn": {"control": 8.447059, "candidate": 9.646341, "delta": 1.199282},
+      "krang_first_blocker_proxy_turn": {"control": 3.7, "candidate": 3.959596, "delta": 0.259596},
+      "krang_battlefield_presence": {
+        "turn_3_delta": -0.015625,
+        "turn_5_delta": -0.041632,
+        "turn_7_delta": -0.032967
+      }
+    },
+    "shredder": {
+      "krang_first_creature_turn": {"control": 8.212766, "candidate": 8.228261, "delta": 0.015495},
+      "krang_first_blocker_proxy_turn": {"control": 4.02, "candidate": 3.816327, "delta": -0.203673},
+      "krang_battlefield_presence": {
+        "turn_3_delta": 0.059702,
+        "turn_5_delta": -0.026578,
+        "turn_7_delta": -0.022727
+      }
+    }
+  },
+  "mechanical_diagnosis": {
+    "raphael": "Interaction-assisted threat conversion. Raphael does not need an earlier creature clock than Shredder to finish just as quickly; in Krang losses Raphael's first creature is later, but Raphael casts materially more interaction and wins are associated with Tough Turtle, Manhole Missile, Ninja Destroyer, and Null Group. Generic extra material does not disrupt this sequence.",
+    "shredder": "Board-contestable creature progression into higher-impact closers. Shredder establishes creatures much earlier, while Krang often reaches comparable raw board counts by turns 5-7. Shredder wins are associated with Foot Mystic, Shark Shredder, Shredder Unrelenting, and Super Shredder. Proactive artifact material can alter combat/trading in some of these games, producing a modest response.",
+    "answer_to_primary_question": "Additional early/proactive material helps Shredder modestly because that matchup exposes a board-combat conversion point that extra bodies or power can contest. Raphael's loss signature is not primarily missing raw board material; its interaction-backed threat conversion remains intact, so the same material does not move the matchup."
+  },
+  "telemetry_limitations": [
+    "Per-turn life totals and damage-source trajectories are not present in the preserved OBL game summaries; ending-turn distribution is the available pressure proxy.",
+    "Per-turn hand size, unused mana, stranded cards, flood/screw, and loss-cause classification are unavailable and must not be inferred.",
+    "First-interaction timing for the opponent is not populated in these game summaries, so opponent interaction is compared by cast totals and signature-card association.",
+    "Card-presence and cast-game win-rate comparisons are observational associations, not card-level causal proof.",
+    "Krang-win comparison samples are small in these severe matchups (13 vs Raphael, 12 vs Shredder)."
+  ],
+  "handoff": {
+    "owner": "DESIGN_STUDIO",
+    "next_question": "Choose a mechanism-specific R6-C only if this diagnosis supports one; do not repeat the generic proactive-material family.",
+    "candidate_recommended_by_cardcade": false,
+    "combined_validation_authorized": false,
+    "promotion_authorized": false
+  }
+}
