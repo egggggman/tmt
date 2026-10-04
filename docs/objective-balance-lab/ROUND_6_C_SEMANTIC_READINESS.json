@@ -1,11 +1,11 @@
 {
   "experiment_id": "OBL-R6-KRANG-C",
   "status": "SEMANTICALLY_READY_CONTROL_REFRESH_REQUIRED",
-  "runtime_repository_sha": "d072197ac10ed924d52723d6d0a061adbc42a6e3",
-  "semantic_runtime_sha256": "db7a64ca38e3ea34d1a330a879b61b20d684f8d876fa418d360ae0203e2ad849",
+  "runtime_repository_sha": "afbe5663400bdd42b13f847497d4555e7bfa5d5d",
+  "semantic_runtime_sha256": "f66d39929f97614853102b8b62196d1aab2d112f3d6b32943eca36112a2fba63",
   "semantic_runtime_identity": {
     "identity_schema": "obl-semantic-runtime-v1",
-    "repository_commit": "d072197ac10ed924d52723d6d0a061adbc42a6e3",
+    "repository_commit": "afbe5663400bdd42b13f847497d4555e7bfa5d5d",
     "files": [
       {
         "path": "src/tmnt_design_studio/__init__.py",
@@ -74,8 +74,8 @@
       },
       {
         "path": "src/tmnt_design_studio/engine07.py",
-        "sha256": "ef29e208818b4b01852dff38fac3dddd2e548a9bb9dd28a19057538977e7701f",
-        "bytes": 516450
+        "sha256": "387aba35d6600318dc6ac016b06a2b82c3be6cc943587dbe74bea9897fdea88d",
+        "bytes": 516417
       },
       {
         "path": "src/tmnt_design_studio/food_search07.py",
@@ -163,7 +163,7 @@
         "bytes": 32584022
       }
     ],
-    "aggregate_semantic_runtime_sha256": "db7a64ca38e3ea34d1a330a879b61b20d684f8d876fa418d360ae0203e2ad849"
+    "aggregate_semantic_runtime_sha256": "f66d39929f97614853102b8b62196d1aab2d112f3d6b32943eca36112a2fba63"
   },
   "execution_driver_sha256": "9770462df3009c6323e5de07ecd2fa430562e8e3bbef795bb75ae2e61662d48f",
   "baseline_manifest_sha256": "068bc167e27880deff13cc35267aac3aee6ceb83f7198cdb803fa7f4ce466b67",
@@ -215,9 +215,9 @@
   "unsupported_fragments": [],
   "validation": {
     "aura_tests_passed": 17,
-    "regression_tests_passed": 1575,
+    "regression_tests_passed": 1595,
     "regression_skipped": 2,
-    "regression_scope": "all tests except unchanged legacy tests/test_cardcade.py",
+    "regression_scope": "Full test inventory in two invocations: 1575 passed/2 skipped excluding legacy test_cardcade.py; unchanged legacy module 20 passed. Focused Aura/stack/removal suite 40 passed after final edits.",
     "ruff_check": "PASS",
     "ruff_format": "PASS"
   },
@@ -237,5 +237,6 @@
     "613.7b/e",
     "702.8a",
     "704.5m"
-  ]
+  ],
+  "superseded_attempt_audit": "audit/R6_C_SUPERSEDED_RUNTIME_001/AUDIT.json"
 }
