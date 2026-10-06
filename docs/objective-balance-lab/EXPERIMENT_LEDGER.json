@@ -1,7 +1,7 @@
 {
   "schema": "objective-balance-lab-experiment-ledger-v1",
-  "repository_sha": "ed8848c51750d7b2343a35877857304d88371a5e",
-  "environment_id": "OBL-BASELINE-003",
+  "repository_sha": "9df32b344fb659594984285f95cbb6f3683a6cea",
+  "environment_id": "OBL-BASELINE-004",
   "experiments": [
     {
       "experiment_id": "OBL-R1-LEONARDO-A",
@@ -41,7 +41,7 @@
           "donatello": 0.02,
           "michelangelo": 0.02,
           "splinter": 0.05,
-          "shredder": 0.0,
+          "shredder": 0,
           "krang": -0.02,
           "bebop_rocksteady": -0.02,
           "april_oneil": 0.01,
@@ -168,16 +168,16 @@
         "candidate_win_rate": 0.352222,
         "balance_error_parent": 0.167778,
         "balance_error_candidate": 0.167778,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "raphael": 0.0,
+          "raphael": 0,
           "donatello": 0.02,
-          "michelangelo": 0.0,
+          "michelangelo": 0,
           "splinter": 0.01,
           "shredder": -0.04,
           "krang": 0.01,
           "bebop_rocksteady": -0.01,
-          "april_oneil": 0.0,
+          "april_oneil": 0,
           "casey_jones": -0.01
         },
         "parent_extremes": {
@@ -416,13 +416,13 @@
         "matchup_deltas": {
           "leonardo": -0.01,
           "raphael": -0.02,
-          "michelangelo": 0.0,
+          "michelangelo": 0,
           "splinter": 0.01,
           "shredder": 0.05,
           "krang": 0.05,
           "bebop_rocksteady": 0.04,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "raphael",
@@ -478,10 +478,10 @@
           "leonardo": -0.06,
           "raphael": 0.06,
           "michelangelo": 0.1,
-          "splinter": 0.0,
+          "splinter": 0,
           "shredder": -0.07,
           "krang": -0.01,
-          "bebop_rocksteady": 0.0,
+          "bebop_rocksteady": 0,
           "april_oneil": 0.01,
           "casey_jones": -0.08
         },
@@ -553,7 +553,7 @@
           "splinter": -0.01,
           "shredder": -0.07,
           "krang": -0.04,
-          "bebop_rocksteady": 0.0,
+          "bebop_rocksteady": 0,
           "april_oneil": 0.05,
           "casey_jones": -0.1
         },
@@ -606,17 +606,17 @@
         "candidate_win_rate": 0.541111,
         "balance_error_parent": 0.183333,
         "balance_error_candidate": 0.183333,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "splinter": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "splinter": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -667,17 +667,17 @@
         "candidate_win_rate": 0.541111,
         "balance_error_parent": 0.183333,
         "balance_error_candidate": 0.183333,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "splinter": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "splinter": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -728,17 +728,17 @@
         "candidate_win_rate": 0.541111,
         "balance_error_parent": 0.183333,
         "balance_error_candidate": 0.183333,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "splinter": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "splinter": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -790,17 +790,17 @@
         "candidate_win_rate": 0.627778,
         "balance_error_parent": 0.216667,
         "balance_error_candidate": 0.216667,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -851,17 +851,17 @@
         "candidate_win_rate": 0.627778,
         "balance_error_parent": 0.216667,
         "balance_error_candidate": 0.216667,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -913,17 +913,17 @@
         "candidate_win_rate": 0.627778,
         "balance_error_parent": 0.216667,
         "balance_error_candidate": 0.216667,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -974,17 +974,17 @@
         "candidate_win_rate": 0.73,
         "balance_error_parent": 0.245556,
         "balance_error_candidate": 0.245556,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "splinter": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "splinter": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -1035,17 +1035,17 @@
         "candidate_win_rate": 0.73,
         "balance_error_parent": 0.245556,
         "balance_error_candidate": 0.245556,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "splinter": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "splinter": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -1096,17 +1096,17 @@
         "candidate_win_rate": 0.73,
         "balance_error_parent": 0.245556,
         "balance_error_candidate": 0.245556,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "splinter": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "april_oneil": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "splinter": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "april_oneil": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "april_oneil",
@@ -1546,7 +1546,7 @@
           "shredder": 0.05,
           "krang": -0.03,
           "bebop_rocksteady": 0.08,
-          "casey_jones": 0.0
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "raphael",
@@ -1602,7 +1602,7 @@
           "leonardo": -0.09,
           "raphael": 0.05,
           "donatello": -0.02,
-          "michelangelo": 0.0,
+          "michelangelo": 0,
           "splinter": 0.08,
           "shredder": 0.04,
           "krang": -0.07,
@@ -1659,17 +1659,17 @@
         "candidate_win_rate": 0.256667,
         "balance_error_parent": 0.243333,
         "balance_error_candidate": 0.243333,
-        "balance_delta": 0.0,
+        "balance_delta": 0,
         "matchup_deltas": {
-          "leonardo": 0.0,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
-          "splinter": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
-          "bebop_rocksteady": 0.0,
-          "casey_jones": 0.0
+          "leonardo": 0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
+          "splinter": 0,
+          "shredder": 0,
+          "krang": 0,
+          "bebop_rocksteady": 0,
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "raphael",
@@ -1851,9 +1851,9 @@
           "raphael": -0.07,
           "donatello": -0.08,
           "michelangelo": 0.03,
-          "splinter": 0.0,
-          "shredder": 0.0,
-          "krang": 0.0,
+          "splinter": 0,
+          "shredder": 0,
+          "krang": 0,
           "bebop_rocksteady": -0.07,
           "april_oneil": -0.05
         },
@@ -1924,7 +1924,7 @@
           "michelangelo": 0.03,
           "splinter": -0.03,
           "shredder": 0.03,
-          "krang": 0.0,
+          "krang": 0,
           "bebop_rocksteady": 0.02,
           "april_oneil": 0.05,
           "casey_jones": 0.02
@@ -1947,8 +1947,8 @@
         },
         "parent_mean_turn": 17.3044,
         "candidate_mean_turn": 16.9167,
-        "parent_median_turn": 16.0,
-        "candidate_median_turn": 16.0,
+        "parent_median_turn": 16,
+        "candidate_median_turn": 16,
         "parent_first_player_rate": 0.762222,
         "candidate_first_player_rate": 0.793333,
         "parent_first_play": {
@@ -2036,8 +2036,8 @@
         },
         "parent_mean_turn": 17.3044,
         "candidate_mean_turn": 17.0711,
-        "parent_median_turn": 16.0,
-        "candidate_median_turn": 16.0,
+        "parent_median_turn": 16,
+        "candidate_median_turn": 16,
         "parent_first_player_rate": 0.762222,
         "candidate_first_player_rate": 0.786667,
         "parent_first_play": {
@@ -2126,8 +2126,8 @@
         },
         "parent_mean_turn": 18.3778,
         "candidate_mean_turn": 18.8978,
-        "parent_median_turn": 17.0,
-        "candidate_median_turn": 18.0,
+        "parent_median_turn": 17,
+        "candidate_median_turn": 18,
         "parent_first_player_rate": 0.706667,
         "candidate_first_player_rate": 0.715556,
         "parent_first_play": {
@@ -2191,7 +2191,7 @@
           "leonardo": -0.08,
           "raphael": 0.02,
           "donatello": 0.01,
-          "michelangelo": 0.0,
+          "michelangelo": 0,
           "splinter": 0.03,
           "krang": 0.06,
           "bebop_rocksteady": 0.06,
@@ -2216,8 +2216,8 @@
         },
         "parent_mean_turn": 18.3778,
         "candidate_mean_turn": 18.3756,
-        "parent_median_turn": 17.0,
-        "candidate_median_turn": 17.0,
+        "parent_median_turn": 17,
+        "candidate_median_turn": 17,
         "parent_first_player_rate": 0.706667,
         "candidate_first_player_rate": 0.735556,
         "parent_first_play": {
@@ -2281,9 +2281,9 @@
           "leonardo": -0.02,
           "raphael": -0.01,
           "donatello": -0.01,
-          "michelangelo": 0.0,
-          "splinter": 0.0,
-          "shredder": 0.0,
+          "michelangelo": 0,
+          "splinter": 0,
+          "shredder": 0,
           "krang": 0.1,
           "bebop_rocksteady": 0.01,
           "casey_jones": -0.01
@@ -2306,8 +2306,8 @@
         },
         "parent_mean_turn": 20.6256,
         "candidate_mean_turn": 20.6856,
-        "parent_median_turn": 19.0,
-        "candidate_median_turn": 19.0,
+        "parent_median_turn": 19,
+        "candidate_median_turn": 19,
         "parent_first_player_rate": 0.266667,
         "candidate_first_player_rate": 0.271111,
         "parent_first_play": {
@@ -2396,8 +2396,8 @@
         },
         "parent_mean_turn": 20.6256,
         "candidate_mean_turn": 20.3689,
-        "parent_median_turn": 19.0,
-        "candidate_median_turn": 19.0,
+        "parent_median_turn": 19,
+        "candidate_median_turn": 19,
         "parent_first_player_rate": 0.266667,
         "candidate_first_player_rate": 0.242222,
         "parent_first_play": {
@@ -2458,14 +2458,14 @@
         "balance_delta": -0.003333,
         "matchup_deltas": {
           "leonardo": -0.07,
-          "raphael": 0.0,
+          "raphael": 0,
           "donatello": -0.13,
           "michelangelo": 0.02,
           "splinter": 0.01,
           "shredder": 0.01,
           "bebop_rocksteady": 0.02,
           "april_oneil": -0.07,
-          "casey_jones": 0.0
+          "casey_jones": 0
         },
         "parent_extremes": {
           "worst_matchup": "raphael",
@@ -2485,8 +2485,8 @@
         },
         "parent_mean_turn": 20.0011,
         "candidate_mean_turn": 19.7733,
-        "parent_median_turn": 19.0,
-        "candidate_median_turn": 19.0,
+        "parent_median_turn": 19,
+        "candidate_median_turn": 19,
         "parent_first_player_rate": 0.42,
         "candidate_first_player_rate": 0.384444,
         "parent_first_play": {
@@ -2574,8 +2574,8 @@
         },
         "parent_mean_turn": 20.0011,
         "candidate_mean_turn": 20.3233,
-        "parent_median_turn": 19.0,
-        "candidate_median_turn": 19.0,
+        "parent_median_turn": 19,
+        "candidate_median_turn": 19,
         "parent_first_player_rate": 0.42,
         "candidate_first_player_rate": 0.295556,
         "parent_first_play": {
@@ -2635,7 +2635,7 @@
         "balance_error_candidate": 0.256667,
         "balance_delta": 0.005556,
         "matchup_deltas": {
-          "leonardo": 0.0,
+          "leonardo": 0,
           "donatello": 0.05,
           "michelangelo": 0.02,
           "splinter": -0.05,
@@ -2665,8 +2665,8 @@
         "candidate_first_player_rate": 0.78,
         "parent_average_turn": 17.3044,
         "candidate_average_turn": 17.01,
-        "parent_median_turn": 16.0,
-        "candidate_median_turn": 16.0,
+        "parent_median_turn": 16,
+        "candidate_median_turn": 16,
         "parent_first_play": {
           "land_miss": null,
           "creature": 5.1242,
@@ -2753,7 +2753,7 @@
         "balance_error_candidate": 0.256667,
         "balance_delta": 0.005556,
         "matchup_deltas": {
-          "leonardo": 0.0,
+          "leonardo": 0,
           "donatello": 0.05,
           "michelangelo": 0.02,
           "splinter": -0.05,
@@ -2783,8 +2783,8 @@
         "candidate_first_player_rate": 0.78,
         "parent_average_turn": 17.3044,
         "candidate_average_turn": 17.01,
-        "parent_median_turn": 16.0,
-        "candidate_median_turn": 16.0,
+        "parent_median_turn": 16,
+        "candidate_median_turn": 16,
         "parent_first_play": {
           "land_miss": null,
           "creature": 5.1242,
@@ -2998,7 +2998,7 @@
           "michelangelo": 0.05,
           "splinter": -0.02,
           "krang": -0.01,
-          "bebop_rocksteady": 0.0,
+          "bebop_rocksteady": 0,
           "april_oneil": -0.04,
           "casey_jones": 0.02
         }
@@ -3052,9 +3052,9 @@
           "raphael": -0.05,
           "donatello": -0.01,
           "michelangelo": 0.01,
-          "splinter": 0.0,
+          "splinter": 0,
           "krang": -0.01,
-          "bebop_rocksteady": 0.0,
+          "bebop_rocksteady": 0,
           "april_oneil": -0.02,
           "casey_jones": -0.01
         }
@@ -3344,8 +3344,12 @@
         "git_blob_sha1": "53af73af05c475832bd3e8a08c67264a0ff8fd44",
         "label": "B"
       },
-      "exact_additions": {"Chrome Dome": 1},
-      "exact_removals": {"Negate": 1},
+      "exact_additions": {
+        "Chrome Dome": 1
+      },
+      "exact_removals": {
+        "Negate": 1
+      },
       "hypothesis": "One Chrome Dome improves severe Shredder and Raphael matchups through artifact-board resistance without R6-A polarization.",
       "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
       "semantic_runtime_sha256": "252f00317d8efbf552512768503d5f453ef9594ade48e27a94f95f05c7625982",
@@ -3356,15 +3360,18 @@
         "parent_win_rate": 0.353333,
         "balance_delta": 0.002222,
         "extremes": {
-          "worst_matchup": {"opponent": "raphael", "win_rate": 0.13},
+          "worst_matchup": {
+            "opponent": "raphael",
+            "win_rate": 0.13
+          },
           "over_60_40": 7,
           "over_70_30": 3
         },
         "matchup_deltas": {
           "leonardo": 0.02,
-          "raphael": 0.0,
-          "donatello": 0.0,
-          "michelangelo": 0.0,
+          "raphael": 0,
+          "donatello": 0,
+          "michelangelo": 0,
           "splinter": 0.03,
           "shredder": 0.03,
           "bebop_rocksteady": 0.05,
@@ -3377,11 +3384,75 @@
       "verdict": "RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION",
       "promotion_status": "EXPERIMENTAL",
       "promotion": null
+    },
+    {
+      "experiment_id": "OBL-R7-KRANG-A",
+      "round": "R7",
+      "deck": "Krang",
+      "deck_key": "krang",
+      "parent": {
+        "environment_id": "OBL-BASELINE-003",
+        "path": "decks/krang/PROTOTYPE_0.2.txt",
+        "sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/KRANG_OBL_R7_A.txt",
+        "sha256": "2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1",
+        "label": "A"
+      },
+      "exact_additions": {
+        "Ray Fillet, Man Ray": 1,
+        "Stockman, Mad Fly-entist": 1
+      },
+      "exact_removals": {
+        "Does Machines": 1,
+        "Negate": 1
+      },
+      "semantic_runtime_sha256": "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1",
+      "source_evidence": "docs/objective-balance-lab/ROUND_7_A_EVIDENCE.json.gz",
+      "result_metrics": {
+        "candidate_win_rate": 0.387778,
+        "parent_win_rate": 0.345556,
+        "balance_delta": -0.04,
+        "extremes": {
+          "over_60_40": 7,
+          "over_70_30": 5
+        },
+        "matchup_deltas": {
+          "raphael": 0.04,
+          "shredder": 0.04,
+          "april_oneil": 0.02,
+          "leonardo": -0.02
+        }
+      },
+      "identity_classification": "IDENTITY_PRESERVED",
+      "hypothesis_result": "SUPPORTED_AT_ISOLATED_AND_COMBINED_SCOPE",
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "combined_validation": "COMBINED_VALIDATED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-004",
+        "promotion_record_id": "OBL-PROMOTION-004-KRANG",
+        "prior_environment": "OBL-BASELINE-003",
+        "new_environment": "OBL-BASELINE-004",
+        "source_combined_environment": "OBL-COMBINED-006",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+          "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+        },
+        "combined_validation": "COMBINED_VALIDATED",
+        "combined_verdict": "COMBINED_VALIDATION_PASSED",
+        "promotion_eligibility": "PROMOTION_ELIGIBLE",
+        "identity_classification": "IDENTITY_PRESERVED",
+        "promoted_artifact": "docs/objective-balance-lab/baselines/KRANG_OBL_BASELINE_004.txt",
+        "authorization": "explicit Objective Balance Lab Baseline 004 promotion request"
+      }
     }
   ],
-  "promotion_status": "OBL-PROMOTION-003",
-  "next_gate": "ROUND_6_EXPERIMENT_DESIGN",
+  "promotion_status": "OBL-PROMOTION-004",
+  "next_gate": "BASELINE_004_REVIEW",
   "combined_validation_state": {
-    "OBL-COMBINED-005": "COMBINED_VALIDATED"
+    "OBL-COMBINED-005": "COMBINED_VALIDATED",
+    "OBL-COMBINED-006": "COMBINED_VALIDATED"
   }
 }
