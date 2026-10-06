@@ -62,9 +62,7 @@ def snapshot() -> dict:
     prior.verify(control, prior.template(authority, manifest, schedule), schedule, complete=True)
     runtime = identity(MERGED_AUTHORITY)
     assert runtime["aggregate_semantic_runtime_sha256"] == control["semantic_runtime_sha256"]
-    assert (
-        identity()["aggregate_semantic_runtime_sha256"] == control["semantic_runtime_sha256"]
-    )
+    assert identity()["aggregate_semantic_runtime_sha256"] == control["semantic_runtime_sha256"]
     catalog = prior.r1.catalog()
     baseline = prior.r1.validate_deck(ROOT / paths["krang"], catalog)
     candidate = prior.r1.validate_deck(ROOT / CANDIDATE, catalog)
