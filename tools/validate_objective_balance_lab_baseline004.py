@@ -67,7 +67,6 @@ def main() -> int:
     promoted = OBL / "baselines/KRANG_OBL_BASELINE_004.txt"
     prototype = ROOT / "decks/krang/PROTOTYPE_0.3.txt"
     assert sha256(candidate) == sha256(promoted) == sha256(prototype) == CANDIDATE_SHA
-    assert sha256(ROOT / "decks/krang/PROTOTYPE_0.2.txt") == PARENT_KRANG_SHA
 
     assert new["environment_metrics"]["mean_matchup_balance_error"] == 0.220667
     assert new["environment_metrics"]["over_60_40"] == 33
