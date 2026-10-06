@@ -1,6 +1,6 @@
 # Objective Balance Lab — Experiment Ledger
 
-Historical isolated evidence and verdicts remain traceable. Only Shredder B and April A were promoted after [Combined 005](COMBINED_005_RESULTS.md) validation; `OBL-R5-APRIL-A` remains an alias of `OBL-R5-APRIL_ONEIL-A`.
+Historical isolated evidence and verdicts remain traceable. Baseline 004 promotes only `OBL-R7-KRANG-A` after accepted isolated evidence and Combined 006 validation.
 
 | Experiment | Round | Deck | Parent | Candidate | Verdict | Promotion |
 |---|---|---|---|---|---|---|
@@ -62,3 +62,11 @@ Round 6 Design Studio handoff: [Krang R6-A evidence](ROUND_6_A_EVIDENCE.json) an
 | `OBL-R6-KRANG-B` | R6 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `5460b9d1288d193db3f8db7a78076dfeb38f734c79acdd1ddbe898da030b3bdf` | RETURN_TO_DESIGN_STUDIO_REJECT_POLARIZATION | EXPERIMENTAL |
 
 R6-B uses the [new-runtime Baseline 003 control](BASELINE_003_RUNTIME_REFRESH_EVIDENCE.json); [isolated evidence](ROUND_6_B_EVIDENCE.json) and [results](ROUND_6_B_RESULTS.md) are not promotion authority.
+
+## Round 7 promotion
+
+| Experiment | Round | Deck | Parent SHA-256 | Candidate SHA-256 | Verdict | Promotion |
+|---|---|---|---|---|---|---|
+| `OBL-R7-KRANG-A` | R7 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1` | PROMOTED | OBL-PROMOTION-004 |
+
+Promotion authority: [Combined 006](COMBINED_006_R7A_RESULTS.md). No promotion simulations were run.
