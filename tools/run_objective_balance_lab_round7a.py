@@ -75,10 +75,26 @@ def preflight():
         runtime["aggregate_semantic_runtime_sha256"]
         != (json.loads((OBL / "ROUND_7_A_READINESS.json").read_text())["semantic_runtime_sha256"])
     )
-    assert (
-        identity(authority["runtime_repository_sha"])["aggregate_semantic_runtime_sha256"]
-        == (authority["semantic_runtime_sha256"])
+    source_available = (
+        subprocess.run(
+            ["git", "cat-file", "-e", f"{authority['runtime_repository_sha']}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        ).returncode
+        == 0
     )
+    if source_available:
+        assert (
+            identity(authority["runtime_repository_sha"])["aggregate_semantic_runtime_sha256"]
+            == authority["semantic_runtime_sha256"]
+        )
+    else:
+        # API publication can preserve an exact tree without the original local
+        # commit object. A shallow CI checkout must still prove every input blob.
+        assert [(row["path"], row["sha256"]) for row in runtime["files"]] == [
+            (row["path"], row["sha256"]) for row in authority["semantic_runtime_identity"]["files"]
+        ]
     manifest = json.loads(old.MANIFEST.read_text())
     assert old.file_sha(old.MANIFEST) == authority["baseline_manifest_sha256"]
     paths = {}

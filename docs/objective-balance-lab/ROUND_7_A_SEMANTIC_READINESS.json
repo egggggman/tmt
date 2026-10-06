@@ -172,7 +172,7 @@
     "aggregate_semantic_runtime_sha256": "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1"
   },
   "prior_aura_runtime_sha256": "ccfa75ed8e817bc3af0a04f75ef048aaee54e5175c06abfc21feaad6515bb0ec",
-  "execution_driver_sha256": "a40317146009dbeec309519ab7ec4150e9ea134f609b301a4fa533b5efb09108",
+  "execution_driver_sha256": "2e1f741ba0ae1488d24a9a91db1806aac9bf2fe0bd4512791c0ebe5973369792",
   "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
   "control_id": "OBL-BASELINE-003-R7A-SEMANTIC-REFRESH-001",
   "control_required_games": 4500,
@@ -245,5 +245,6 @@
   "baseline_unchanged": true,
   "combined_validation_run": false,
   "promotion_authorized": false,
-  "superseded_failed_control": "audit/R7_A_SUPERSEDED_RUNTIME_001/AUDIT.json"
+  "superseded_failed_control": "audit/R7_A_SUPERSEDED_RUNTIME_001/AUDIT.json",
+  "published_tree_authentication": "Semantic file hashes are checked when the local source commit is unavailable in shallow GitHub CI."
 }

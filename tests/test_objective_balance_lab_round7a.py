@@ -2,6 +2,7 @@
 
 import copy
 import json
+import subprocess
 
 import pytest
 
@@ -48,3 +49,15 @@ def test_runtime_or_replay_tampering_fails_closed(accepted):
     changed["replays"][key] = "0" * 64
     with pytest.raises(AssertionError):
         run.verify(changed, expected, selected, complete=True)
+
+
+def test_shallow_checkout_authenticates_semantic_file_hashes(monkeypatch):
+    actual = run.subprocess.run
+
+    def missing_local_commit(args, *other, **kwargs):
+        if args[:3] == ["git", "cat-file", "-e"]:
+            return subprocess.CompletedProcess(args, 1)
+        return actual(args, *other, **kwargs)
+
+    monkeypatch.setattr(run.subprocess, "run", missing_local_commit)
+    run.preflight()
