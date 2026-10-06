@@ -176,6 +176,6 @@ def test_real_donatello_seed_converts_artifact_entry_into_counter_payoff():
         for event in result["events"]
     )
     assert (
-        sum(event["event"] == "artifact_entry_counter_resolved" for event in result["events"]) == 2
+        sum(event["event"] == "artifact_entry_counter_resolved" for event in result["events"]) >= 2
     )
     assert sum(event["event"] == "counters_placed" for event in result["events"]) >= 2

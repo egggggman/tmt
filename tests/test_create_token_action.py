@@ -159,7 +159,7 @@ def authoritative_catalog():
     )
 
 
-def test_predefined_tokens_keep_only_canonical_food_activation_enabled():
+def test_predefined_food_and_counter_token_activations_are_supported():
     food = program("Create a Food token.")
     mutagen = program("Create a Mutagen token.")
 
@@ -169,10 +169,10 @@ def test_predefined_tokens_keep_only_canonical_food_activation_enabled():
     assert food.retained_limitation is None
     assert mutagen.executable and mutagen.definition.type_line == "Artifact — Mutagen"
     assert "Activate only as a sorcery" in mutagen.definition.oracle_text
-    assert mutagen.retained_limitation == "token_activated_ability_not_implemented"
+    assert mutagen.retained_limitation is None
 
 
-@pytest.mark.parametrize("token_name", ["Mutagen", "Treasure", "Clue"])
+@pytest.mark.parametrize("token_name", ["Treasure", "Clue"])
 def test_other_predefined_token_creation_never_claims_its_activation(token_name):
     fragment = f"Create a {token_name} token."
     source = CardFact("Renamed Token Source", "{1}", 1, "Sorcery", fragment)
@@ -797,8 +797,16 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Lita, Little Orphan Amphibian",
         "Pizza Face, Gastromancer",
         "Slash, Reptile Rampager",
+        "Genghis Frog",
+        "Zoo Escapees",
+        "Raphael, the Muscle",
+        "Ray Fillet, Man Ray",
+        "Crustacean Commando",
+        "Michelangelo, Mutant BFF",
+        "Michelangelo, Weirdness to 11",
+        "Slithering Cryptid",
     }
-    assert len(fully_supported) == 8
+    assert len(fully_supported) == 16
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

@@ -12,6 +12,13 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import build_objective_balance_lab_round6c_results as report  # noqa: E402
 import run_objective_balance_lab_round6c as run  # noqa: E402
+from objective_balance_lab_semantic_identity import identity  # noqa: E402
+
+pytestmark = pytest.mark.skipif(
+    identity()["aggregate_semantic_runtime_sha256"]
+    != "ccfa75ed8e817bc3af0a04f75ef048aaee54e5175c06abfc21feaad6515bb0ec",
+    reason="archived R6-C evidence requires the Aura semantic runtime",
+)
 
 
 @pytest.fixture(scope="module")

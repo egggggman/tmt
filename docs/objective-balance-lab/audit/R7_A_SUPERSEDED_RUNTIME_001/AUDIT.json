@@ -1,0 +1,11 @@
+{
+  "status": "SUPERSEDED_FAIL_CLOSED",
+  "reason": "A battlefield Stockman was offered a hand-only landcycling ability; discard provenance was absent at resolution. The generic battlefield activation path now rejects hand-only costs.",
+  "runtime": "cd7c8f34293b5e18ca5039772267063a09895653a3874f06494afd8755c5c21f",
+  "control_games_preserved": 500,
+  "control_status": "FAIL_CLOSED",
+  "failure": "[{\"schedule\": {\"pair\": [\"leonardo\", \"krang\"], \"decks\": [\"krang\", \"leonardo\"], \"orientation\": \"canonical\", \"block\": 20, \"seed\": 34953317406326358165053374183161061935715743409283620701359473082267337693301, \"pair_index\": 30}, \"seats\": [\"krang\", \"leonardo\"], \"winner\": null, \"draw\": false, \"turn\": null, \"first_player\": \"krang\", \"first\": {}, \"battlefield_presence\": {}, \"casts\": {}, \"signature_casts\": {}, \"interaction_casts\": {}, \"runtime_fingerprint\": null, \"runtime_error\": \"ValueError: landcycling discard provenance is invalid\"}, {\"schedule\": {\"pair\": [\"leonardo\", \"krang\"], \"decks\": [\"krang\", \"leonardo\"], \"orientation\": \"canonical\", \"block\": 45, \"seed\": 15870153418215578176375613182021320366390071895860503539880148158271051154499, \"pair_index\": 30}, \"seats\": [\"krang\", \"leonardo\"], \"winner\": null, \"draw\": false, \"turn\": null, \"first_player\": \"krang\", \"first\": {}, \"battlefield_presence\": {}, \"casts\": {}, \"signature_casts\": {}, \"interaction_casts\": {}, \"runtime_fingerprint\": null, \"runtime_error\": \"ValueError: landcycling discard provenance is invalid\"}]",
+  "sha256": "5b3529ed55b4de05da965ff5634eb9e67ec03cf6a5b78fb5d9b1417fb5f70765",
+  "candidate_games": 0,
+  "reused_in_final_control": 0
+}

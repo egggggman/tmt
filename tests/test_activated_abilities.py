@@ -43,7 +43,7 @@ UNKNOWN_NAMES = {
     "Plague of Vermin",
 }
 RECOGNIZED_DIGEST = "8bfdfe58aecd9520d09a9290367609003aae8fc932c22f9fdd58d97b84f153e0"
-EXECUTABLE_DIGEST = "8a99036c9b278541c0e89f18134ab41a64dcbeb4c9e82a2d967ee21941c6224e"
+EXECUTABLE_DIGEST = "dfaf418f90e12257bec9b36233a8e2567d8ba3226ddf841e1223189bd013898d"
 
 
 def game(seed=51):
@@ -539,14 +539,10 @@ def test_supported_child_does_not_upgrade_an_unsupported_activation_followup():
     assert not semantics.coverage.fully_supported
 
 
-def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
+def test_other_token_and_equipment_neighbors_are_not_enabled():
     interpreter = CardInterpreter()
     texts = (
         "{2}, {T}, Sacrifice this token: You gain 3 life.",
-        (
-            "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
-            "Activate only as a sorcery."
-        ),
         "{T}, Sacrifice this token: Add one mana of any color.",
         "{2}, Sacrifice this token: Draw a card.",
         "Equip {2} ({2}: Attach to target creature you control.)",
@@ -560,7 +556,7 @@ def test_food_mutagen_treasure_clue_and_equipment_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 136 and len(recognized) == 164
-    assert len({item[0] for item in executable}) == 18 and len(executable) == 19
+    assert len({item[0] for item in executable}) == 23 and len(executable) == 24
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",
@@ -581,6 +577,11 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Guac & Marshmallow Pizza",
         "Spicy Oatmeal Pizza",
         "Omni-Cheese Pizza",
+        "Bebop, Warthog Warrior",
+        "Rocksteady, Crash Courser",
+        "Stockman, Mad Fly-entist",
+        "Jennika, Bad Apple Big Sister",
+        "Zog, Triceraton Castaway",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert digest(executable) == EXECUTABLE_DIGEST
@@ -629,6 +630,9 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Anchovy & Banana Pizza",
         "Guac & Marshmallow Pizza",
         "Spicy Oatmeal Pizza",
+        "Bebop, Warthog Warrior",
+        "Rocksteady, Crash Courser",
+        "Stockman, Mad Fly-entist",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",

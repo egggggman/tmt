@@ -53,10 +53,10 @@ def test_exact_authoritative_grammar_without_name_dispatch():
     for card in (ZOO, replace(ZOO, name="Renamed")):
         c = i.ltb_mutagen_semantic_coverage(card, FRAGMENT)
         assert c.payload_executable and c.parent_executable
-        assert not c.followup_executable and not c.fully_supported
+        assert c.followup_executable and c.fully_supported
         assert c.program.quantity == 1
         assert c.program.definition is i.PREDEFINED_TOKENS["mutagen"]
-        assert c.limitations == ("token_activated_ability_not_implemented",)
+        assert c.limitations == ()
 
 
 @pytest.mark.parametrize(
