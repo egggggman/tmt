@@ -35,7 +35,6 @@ def main() -> int:
     assert (
         new["environment_id"] == registry["environment_id"] == ledger["environment_id"] == BASELINE
     )
-    )
     assert new["lineage_parent_environment"] == PARENT
     assert new["source_combined_environment"] == COMBINED
     assert new["promotion_id"] == "OBL-PROMOTION-004"
