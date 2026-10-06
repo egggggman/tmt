@@ -27,6 +27,35 @@ def read(relative: str) -> dict:
 def validate() -> dict:
     baseline = read("docs/objective-balance-lab/baselines/OBL_BASELINE_003_MANIFEST.json")
     registry = read("docs/objective-balance-lab/ENVIRONMENT_REGISTRY.json")
+    if registry["environment_id"] != "OBL-BASELINE-003":
+        require(
+            {"environment_id": "OBL-BASELINE-003", "status": "SUPERSEDED"}
+            in registry["superseded_environments"],
+            "Baseline 003 is not recorded as superseded",
+        )
+        registry = {
+            "environment_id": "OBL-BASELINE-003",
+            "status": "OFFICIAL_BASELINE",
+            "source_combined_state": baseline["source_combined_state"],
+            "source_combined_evidence": baseline["source_combined_evidence"],
+            "reference_evidence": baseline["source_combined_evidence"],
+            "promotion_evidence": baseline["promotion_evidence"],
+            "semantic_runtime_sha256": baseline["semantic_runtime_sha256"],
+            "schedule_identity": baseline["schedule_identity"],
+            "environment_metrics": baseline["environment_metrics"],
+            "per_deck_metrics": baseline["per_deck_metrics"],
+            "decks": [
+                {
+                    "deck_key": row["deck_key"],
+                    "sha256": row["sha256"],
+                    "aggregate_baseline_win_rate": baseline["per_deck_win_rates"][row["deck_key"]],
+                    "mean_matchup_balance_error": baseline["per_deck_metrics"][row["deck_key"]][
+                        "mean_matchup_balance_error"
+                    ],
+                }
+                for row in baseline["decks"]
+            ],
+        }
     combined = read("docs/objective-balance-lab/COMBINED_005_EVIDENCE.json")
     combined_manifest = read("docs/objective-balance-lab/combined/OBL_COMBINED_005_MANIFEST.json")
     authority_path = "docs/objective-balance-lab/COMBINED_005_EVIDENCE.json"

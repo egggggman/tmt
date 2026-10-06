@@ -99,3 +99,24 @@ Krang R2B was not eligible because its isolated improvement reversed/mixed in th
 - Semantic runtime: `78bcce5b5f635f11c67247df91f90fef2bf0dbf948973c5c1ac38419f28b0e25`
 - Identity: `IDENTITY_STRENGTHENED`
 - Combined result: `COMBINED_VALIDATION_PASSED`; eligibility: `PROMOTION_ELIGIBLE`; state: `PROMOTED`
+
+## Promotion OBL-PROMOTION-004
+
+- Date: `2026-10-06`; source repository commit: `9df32b344fb659594984285f95cbb6f3683a6cea`
+- Prior environment: `OBL-BASELINE-003` (preserved; becomes `SUPERSEDED` on merge)
+- New environment: `OBL-BASELINE-004`
+- Lineage: `OBL-BASELINE-003` → `OBL-COMBINED-006` (`COMBINED_VALIDATED`) → `OBL-BASELINE-004`
+- Promoted experiment: `OBL-R7-KRANG-A`
+- **Krang is the only deck changed from Baseline 003.**
+- Exact diff: `-1 Does Machines; -1 Negate; +1 Ray Fillet, Man Ray; +1 Stockman, Mad Fly-entist`
+- Parent Krang SHA-256: `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96`
+- Promoted Krang SHA-256: `2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1`
+- Combined authority: `OBL-COMBINED-006`; report `docs/objective-balance-lab/COMBINED_006_R7A_RESULTS.md`; machine evidence `docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz`
+- Accepted isolated evidence: PR #269; Combined 006 evidence: PR #270
+- Semantic runtime: `f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1`
+- Mean matchup balance error: **22.87% → 22.07%**
+- >60/40 matchups: **34 → 33**; >70/30: **23 → 22**
+- Krang aggregate WR: **34.56% → 38.78%**
+- New simulations for promotion: `0`; Combined 006 itself composed 4,500 authenticated source games with `0` new executions.
+- Authorization: explicit Objective Balance Lab Baseline 004 promotion request.
+
