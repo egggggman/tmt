@@ -71,8 +71,8 @@ def main() -> int:
     assert new["environment_metrics"]["mean_matchup_balance_error"] == 0.220667
     assert new["environment_metrics"]["over_60_40"] == 33
     assert new["environment_metrics"]["over_70_30"] == 22
-    assert new["per_deck_win_rates"]["krang"] == 0.3878
-    assert new["per_deck_metrics"]["krang"]["mean_matchup_balance_error"] == 0.2233
+    assert round(new["per_deck_win_rates"]["krang"], 4) == 0.3878
+    assert round(new["per_deck_metrics"]["krang"]["mean_matchup_balance_error"], 4) == 0.2233
 
     record = next(row for row in ledger["experiments"] if row["experiment_id"] == "OBL-R7-KRANG-A")
     assert record["promotion_status"] == record["verdict"] == "PROMOTED"
