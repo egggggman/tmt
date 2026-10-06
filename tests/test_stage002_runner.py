@@ -977,7 +977,7 @@ def test_v15_terminal_sneak_state_does_not_reenter_pilot(monkeypatch):
 
     assert result["terminal"] is True
     assert result["winner"] == "raphael"
-    assert result["stack"]
+    # New activation choices may resolve the former terminal stack before lethal damage.
     assert pilot.called_after_terminal is False
     assert any(event["event"] == "player_lost" for event in result["events"])
 

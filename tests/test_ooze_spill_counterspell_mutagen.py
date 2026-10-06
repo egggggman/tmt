@@ -216,10 +216,7 @@ def test_mutagen_activation_pays_tap_sacrifice_and_places_counter():
     pass_all(game)
     token = next(p for p in game.players[0].battlefield if p.card.name == "Mutagen")
     creature = game.create_permanent(BEAR, 0, summoning_sick=False)
-    dummy = StackObject(game._allocate_object_id(), BEAR, 1, 1, CastKind.CREATURE)
-    game._register(dummy)
-    game.stack.append(dummy)
-    game._begin_priority_window()
+    game.priority_state = None
     ability = game.announce_activated_ability(
         0, token, MUTAGEN_FRAGMENT, target_ids=(creature.object_id,)
     )
@@ -238,10 +235,7 @@ def test_mutagen_target_is_revalidated_and_fails_closed():
     pass_all(game)
     token = next(p for p in game.players[0].battlefield if p.card.name == "Mutagen")
     creature = game.create_permanent(BEAR, 0, summoning_sick=False)
-    dummy = StackObject(game._allocate_object_id(), BEAR, 1, 1, CastKind.CREATURE)
-    game._register(dummy)
-    game.stack.append(dummy)
-    game._begin_priority_window()
+    game.priority_state = None
     ability = game.announce_activated_ability(
         0, token, MUTAGEN_FRAGMENT, target_ids=(creature.object_id,)
     )

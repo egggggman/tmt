@@ -183,6 +183,18 @@ def game_metrics(
         or (event.get("event") == "spell_cast" and event.get("card") in aura_names)
         or (event.get("event") == "spell_countered" and event.get("target_card") in aura_names)
     ]
+    activation_events = [
+        event
+        for event in events
+        if str(event.get("event", "")).startswith(
+            ("activation_", "activated_ability_", "landcycling_", "mutagen_counter_")
+        )
+        or (
+            event.get("event") == "zone_changed"
+            and event.get("reason") in {"activation_sacrifice_cost", "landcycling_discard_cost"}
+        )
+        or (event.get("event") == "tokens_created" and event.get("token") == "Mutagen")
+    ]
     static_source_names = {
         name
         for name, card in cards.items()
@@ -324,6 +336,7 @@ def game_metrics(
         "static_modifier_changes": static_modifier_changes,
         "static_source_zone_changes": static_source_zone_changes,
         "aura_events": aura_events,
+        "activation_events": activation_events,
     }
 
 

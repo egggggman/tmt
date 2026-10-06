@@ -457,6 +457,7 @@ class ActivationCostProgram:
     remove_counter_target: bool
     executable: bool
     limitations: tuple[str, ...] = ()
+    discard_source: bool = False
 
 
 class ActivatedEffectKind(Enum):
@@ -468,6 +469,7 @@ class ActivatedEffectKind(Enum):
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
     MUTAGEN_COUNTER = "mutagen_counter"
+    SEARCH_LAND_TYPE = "search_land_type"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
@@ -594,6 +596,17 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    COUNTER_TOKEN_ACTIVATION = re.compile(
+        r"^\{1\}, \{T\}, Sacrifice this (?:token|artifact): Put a \+1/\+1 counter "
+        r"on target creature\. Activate only as a sorcery\.$",
+        re.I,
+    )
+    LANDCYCLING = re.compile(
+        r"^(?P<land>Plains|Island|Swamp|Mountain|Forest)cycling "
+        r"(?P<cost>\{[0-9]+\}) \(\2, Discard this card: Search your library "
+        r"for an? (?P=land) card, reveal it, put it into your hand, then shuffle\.\)$",
+        re.I,
+    )
     RAY_FILLET_DRAW = re.compile(
         r"^\{2\}, Remove a \+1/\+1 counter from a creature you control: Draw a card\.$"
     )
@@ -1345,6 +1358,10 @@ class CardInterpreter:
             definition is not None
             and definition.oracle_text
             and not self._is_canonical_food_source(definition)
+            and not (
+                "Artifact" in definition.type_line
+                and self.COUNTER_TOKEN_ACTIVATION.fullmatch(definition.oracle_text)
+            )
         ):
             retained_limitation = "token_activated_ability_not_implemented"
         elif re.search(
@@ -1862,6 +1879,23 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedActivatedAbilitySemantics | None:
         """Recognize activated syntax without upgrading unsupported costs or children."""
+        landcycling = self.LANDCYCLING.fullmatch(fragment.strip())
+        if landcycling is not None:
+            cost = landcycling.group("cost")
+            land = landcycling.group("land")
+            article = "an" if land[0].casefold() in "aeiou" else "a"
+            program = ActivatedAbilityProgram(
+                f"{cost}, Discard this card",
+                f"Search your library for {article} {land} card, reveal it, "
+                "put it into your hand, then shuffle.",
+                ActivationCostProgram(cost, False, False, False, True, discard_source=True),
+                ActivatedEffectKind.SEARCH_LAND_TYPE,
+                0,
+                False,
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program, SemanticCoverage(True, True, True), True, True, True, True, True, True
+            )
         equip = self.EQUIP_ACTIVATION.fullmatch(fragment.strip())
         if equip is not None:
             cost_text = equip.group("cost")
@@ -1924,9 +1958,9 @@ class CardInterpreter:
             self._is_canonical_food_source(card)
             and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
         )
-        mutagen_source = "Mutagen" in card.type_line and fragment.strip() == (
-            "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
-            "Activate only as a sorcery."
+        mutagen_source = bool(
+            "Artifact" in card.type_line
+            and self.COUNTER_TOKEN_ACTIVATION.fullmatch(fragment.strip())
         )
         frog_reach = (
             card.name == "Frog Butler"

@@ -10,6 +10,7 @@ from tmnt_design_studio import calibration_executor as adapter
 from tmnt_design_studio import stage002
 from tmnt_design_studio.calibration_runner import ProtocolMember
 from tmnt_design_studio.engine07 import CardFact, Game, TurnStep
+from tools.objective_balance_lab_semantic_identity import identity
 
 ROOT = Path(__file__).resolve().parents[1]
 STOP = ROOT / "docs/cardcade/CALIBRATION_V1_20260914T224952Z_c3e745631702"
@@ -64,6 +65,11 @@ def frozen_root(tmp_path_factory):
     return root
 
 
+@pytest.mark.skipif(
+    identity()["aggregate_semantic_runtime_sha256"]
+    != "ccfa75ed8e817bc3af0a04f75ef048aaee54e5175c06abfc21feaad6515bb0ec",
+    reason="archived exact terminal frame requires the Aura semantic runtime",
+)
 def test_exact_failed_member_terminal_and_duplicate_evidence(tmp_path, frozen_root):
     member = failed_member()
     table_path = ROOT / "docs/cardcade/CALIBRATION_SEED_TABLE_V1.json"

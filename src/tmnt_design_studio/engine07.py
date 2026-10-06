@@ -913,6 +913,7 @@ class ActivatedAbilityObject:
     tap_source: bool
     sacrifice_source: bool = False
     sacrificed_destination_id: str | None = None
+    discarded_destination_id: str | None = None
     target_ids: tuple[str, ...] = ()
     choice_ids: tuple[str, ...] = ()
     cost_target_id: str | None = None
@@ -6808,6 +6809,7 @@ class Game(
                         )
                     )
         options.extend(self._aura_cast_options(player_index))
+        options.extend(self.legal_hand_activated_ability_actions(player_index))
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
@@ -7109,6 +7111,7 @@ class Game(
             ),
             *self._hand_response_options(player_index),
             *self._aura_cast_options(player_index, priority=True),
+            *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
         )
 
@@ -7118,6 +7121,13 @@ class Game(
             raise ValueError("priority action is not currently legal")
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             source = self._objects.get(option.object_id or "")
+            if isinstance(source, CardObject) and option.oracle_fragment is not None:
+                return (
+                    self.announce_hand_activated_ability(
+                        option.player_index, source, option.oracle_fragment
+                    )
+                    is not None
+                )
             if not isinstance(source, Permanent) or option.oracle_fragment is None:
                 raise ValueError("counter activation option is malformed")
             target_ids = () if option.target_id is None else (option.target_id,)
@@ -7348,6 +7358,13 @@ class Game(
                 ),
             )
         if option.kind is ActionKind.ACTIVATE_ABILITY:
+            if isinstance(obj, CardObject) and option.oracle_fragment is not None:
+                return (
+                    self.announce_hand_activated_ability(
+                        option.player_index, obj, option.oracle_fragment
+                    )
+                    is not None
+                )
             if not isinstance(obj, Permanent):
                 raise ValueError("activation option does not identify a permanent")
             if option.oracle_fragment is None:
@@ -8232,6 +8249,8 @@ class Game(
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
+        if semantics.program.cost.discard_source:
+            return None
         if (
             semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
             and source.class_level != 1
@@ -8320,7 +8339,19 @@ class Game(
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
                 if semantics is None or not semantics.coverage.fully_supported:
                     continue
-                if (
+                if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
+                    for target in self.players[0].battlefield + self.players[1].battlefield:
+                        if self.is_authoritative(target, "battlefield") and target.card.is_creature:
+                            options.append(
+                                ActionOption(
+                                    ActionKind.ACTIVATE_ABILITY,
+                                    player_index,
+                                    object_id=source.object_id,
+                                    target_id=target.object_id,
+                                    oracle_fragment=fragment,
+                                )
+                            )
+                elif (
                     semantics.program.effect_kind
                     is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
                 ):
@@ -8358,6 +8389,162 @@ class Game(
                         )
                     )
         return tuple(options)
+
+    def legal_hand_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer Oracle-derived landcycling from hand at its ordinary instant timing."""
+        return tuple(
+            ActionOption(
+                ActionKind.ACTIVATE_ABILITY,
+                player_index,
+                object_id=card.object_id,
+                oracle_fragment=fragment,
+                priority_epoch=self.priority_state.epoch if self.priority_state else None,
+            )
+            for card in self.players[player_index].hand
+            for fragment in self.interpreter.fragments(card.card)
+            if self._hand_activation_mana_sources(player_index, card, fragment) is not None
+        )
+
+    def _hand_activation_mana_sources(
+        self, player_index: int, card: CardObject, fragment: str
+    ) -> tuple[Permanent, ...] | None:
+        if (
+            not self.is_authoritative(card, "hand")
+            or card.owner != player_index
+            or player_index not in range(2)
+        ):
+            return None
+        semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
+        if (
+            fragment not in self.interpreter.fragments(card.card)
+            or semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program.effect_kind is not ActivatedEffectKind.SEARCH_LAND_TYPE
+            or not semantics.program.cost.discard_source
+        ):
+            return None
+        requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
+        if requirement is None:
+            return None
+        available = [
+            land
+            for land in self.players[player_index].battlefield
+            if land.card.is_land and not land.tapped and self.is_authoritative(land, "battlefield")
+        ]
+        selected = self._select_mana_sources(requirement, available)
+        if selected is None:
+            return None
+        _floating, chosen = selected
+        return tuple(chosen)
+
+    def announce_hand_activated_ability(
+        self, player_index: int, card: CardObject, fragment: str
+    ) -> ActivatedAbilityObject | None:
+        """Pay mana and discard as one authoritative hand activation transaction."""
+        if (
+            self.priority_state is None
+            and (
+                player_index != self.active_player
+                or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+                or self.stack
+            )
+        ) or (
+            self.priority_state is not None
+            and (
+                self.priority_state.player_index != player_index
+                or self.priority_state.resolution_pending
+            )
+        ):
+            return None
+        lands = self._hand_activation_mana_sources(player_index, card, fragment)
+        if lands is None:
+            return None
+        semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
+        assert semantics is not None
+        owner = self.players[card.owner]
+        hand_index = owner.hand.index(card)
+        previous_number = self._next_object_number
+        previous_taps = tuple(land.tapped for land in lands)
+        discarded = None
+        ability = None
+        try:
+            discarded = CardObject(
+                self._allocate_object_id(), card.card, card.owner, card.owner, "graveyard"
+            )
+            ability = ActivatedAbilityObject(
+                self._allocate_object_id(),
+                player_index,
+                card.object_id,
+                card.card,
+                fragment,
+                semantics.program,
+                tuple(land.object_id for land in lands),
+                False,
+                discarded_destination_id=discarded.object_id,
+            )
+            for land in lands:
+                land.tapped = True
+            owner.hand.pop(hand_index)
+            owner.graveyard.append(discarded)
+            card.zone = "former"
+            self._register(discarded)
+            self._register(ability)
+            self.stack.append(ability)
+        except Exception:
+            for land, tapped in zip(lands, previous_taps, strict=True):
+                land.tapped = tapped
+            if discarded is not None:
+                owner.graveyard[:] = [item for item in owner.graveyard if item is not discarded]
+                self._objects.pop(discarded.object_id, None)
+            if card not in owner.hand:
+                owner.hand.insert(hand_index, card)
+            card.zone = "hand"
+            if ability is not None:
+                self.stack[:] = [item for item in self.stack if item is not ability]
+                self._objects.pop(ability.object_id, None)
+            self._next_object_number = previous_number
+            raise
+        self.activation_evidence.append(
+            ActivationEvidence(
+                ability.object_id,
+                card.object_id,
+                player_index,
+                fragment,
+                ability.mana_source_ids,
+                False,
+                False,
+            )
+        )
+        self.log(
+            "zone_changed",
+            card=card.name,
+            owner=owner.name,
+            source_object_id=card.object_id,
+            destination_object_id=discarded.object_id,
+            source_zone="hand",
+            destination_zone="graveyard",
+            reason="landcycling_discard_cost",
+        )
+        self.log(
+            "activation_cost_paid",
+            player=owner.name,
+            source_id=card.object_id,
+            stack_object_id=ability.object_id,
+            generic=semantics.program.cost.mana_cost,
+            mana_source_ids=list(ability.mana_source_ids),
+            discard_source=True,
+            discarded_destination_id=discarded.object_id,
+        )
+        self.log(
+            "activation_announced",
+            player=owner.name,
+            source=card.name,
+            source_id=card.object_id,
+            stack_object_id=ability.object_id,
+            oracle_fragment=fragment,
+        )
+        self._begin_priority_window()
+        return ability
 
     def announce_graveyard_activated_ability(
         self, player_index: int, source: CardObject, oracle_fragment: str
@@ -8455,9 +8642,18 @@ class Game(
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
         if semantics is None or not semantics.coverage.fully_supported:
             return None
+        if semantics.program.cost.discard_source:
+            return None
         if semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL and (
             self.priority_state is not None
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+        ):
+            return None
+        if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER and (
+            player_index != self.active_player
+            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            or self.stack
+            or self.priority_state is not None
         ):
             return None
         counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
@@ -8795,6 +8991,20 @@ class Game(
             or semantics.program != ability.program
         ):
             raise AssertionError("stacked activation no longer has executable semantics")
+        if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
+            source = self._objects.get(ability.source_id)
+            discarded = self._objects.get(ability.discarded_destination_id or "")
+            if (
+                not isinstance(source, CardObject)
+                or source.zone != "former"
+                or source.card is not ability.source_card
+                or not isinstance(discarded, CardObject)
+                or discarded.card is not ability.source_card
+                or discarded.owner != ability.controller
+                or ability.discarded_destination_id != discarded.object_id
+                or not self.is_authoritative(discarded, "graveyard")
+            ):
+                raise ValueError("landcycling discard provenance is invalid")
         self.stack.pop()
         ability.zone = "former"
         source = self._objects.get(ability.source_id)
@@ -8805,6 +9015,46 @@ class Game(
         )
         delivered = False
         food_life_before: int | None = None
+        if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
+            land_type = self.interpreter.LANDCYCLING.fullmatch(ability.oracle_fragment)
+            assert land_type is not None
+            player = self.players[ability.controller]
+            matches = sorted(
+                (
+                    card
+                    for card in player.library
+                    if re.search(rf"\b{land_type.group('land')}\b", card.card.type_line)
+                ),
+                key=lambda card: card.object_id,
+            )
+            found = matches[0] if matches else None
+            if found is not None:
+                self.log(
+                    "landcycling_revealed",
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                    card=found.name,
+                    library_object_id=found.object_id,
+                )
+                in_hand = self.move_object(found, "hand", reason="landcycling_search")
+                delivered = True
+                self.log(
+                    "landcycling_found",
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                    card=in_hand.name,
+                    hand_object_id=in_hand.object_id,
+                )
+            player.library[:] = self.rng.shuffled(
+                player.library, domain=f"landcycling:{ability.object_id}"
+            )
+            self.log(
+                "landcycling_shuffled",
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+                found=delivered,
+                library_size=len(player.library),
+            )
         if (
             ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
             and source_permanent is not None
