@@ -1,0 +1,622 @@
+{
+  "schema": "objective-balance-lab-official-baseline-v1",
+  "environment_id": "OBL-BASELINE-004",
+  "state": "OFFICIAL_BASELINE",
+  "repository_sha": "9df32b344fb659594984285f95cbb6f3683a6cea",
+  "semantic_runtime_sha256": "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1",
+  "lineage_parent_environment": "OBL-BASELINE-003",
+  "source_combined_environment": "OBL-COMBINED-006",
+  "source_combined_state": "COMBINED_VALIDATED",
+  "source_combined_evidence": {
+    "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+    "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+  },
+  "source_combined_results": {
+    "path": "docs/objective-balance-lab/COMBINED_006_R7A_RESULTS.md",
+    "git_blob_sha1": "47d9560316d4f35011163494f148299bbd9c5061"
+  },
+  "source_combined_manifest": {
+    "path": "docs/objective-balance-lab/combined/OBL_COMBINED_006_MANIFEST.json",
+    "git_blob_sha1": "beb3f12f6d2c0b4a6ac23ef496a9605d32986d49"
+  },
+  "promotion_evidence": [
+    {
+      "path": "docs/objective-balance-lab/ROUND_7_A_EVIDENCE.json.gz",
+      "sha256": "8f998c3258ef5c8ff98a77d4b51f15a345bb49e098f5a5b04a9f26dc0af34b7f"
+    },
+    {
+      "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+      "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+    }
+  ],
+  "promotion_authority": "OBL-COMBINED-006",
+  "promotion_id": "OBL-PROMOTION-004",
+  "promotion_experiment_ids": [
+    "OBL-R7-KRANG-A"
+  ],
+  "retained_baseline_decks": [
+    "leonardo",
+    "raphael",
+    "donatello",
+    "michelangelo",
+    "splinter",
+    "shredder",
+    "bebop_rocksteady",
+    "april_oneil",
+    "casey_jones"
+  ],
+  "schedule_identity": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "environment_metrics": {
+    "mean_matchup_balance_error": 0.220667,
+    "median_matchup_deviation": 0.17,
+    "over_60_40": 33,
+    "over_70_30": 22,
+    "aggregate_win_rate_spread": 0.654445,
+    "aggregate_win_rate_stddev": 0.187555,
+    "mean_first_player_result_rate": 0.573111,
+    "mean_ending_turn": 20.088,
+    "median_ending_turn": 18
+  },
+  "per_deck_metrics": {
+    "leonardo": {
+      "win_rate": 0.4389,
+      "matchup_win_rates": {
+        "april_oneil": 0.53,
+        "bebop_rocksteady": 0.99,
+        "casey_jones": 0.36,
+        "donatello": 0.29000000000000004,
+        "krang": 0.39,
+        "michelangelo": 0.47,
+        "raphael": 0.2,
+        "shredder": 0.36,
+        "splinter": 0.36
+      },
+      "mean_matchup_balance_error": 0.17670000000000002,
+      "over_60_40": 7,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.99
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.2
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.99
+      }
+    },
+    "raphael": {
+      "win_rate": 0.7189,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.98,
+        "casey_jones": 0.63,
+        "donatello": 0.76,
+        "krang": 0.81,
+        "leonardo": 0.8,
+        "michelangelo": 0.6699999999999999,
+        "shredder": 0.47,
+        "splinter": 0.54
+      },
+      "mean_matchup_balance_error": 0.2256,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.47
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.98
+      }
+    },
+    "donatello": {
+      "win_rate": 0.46,
+      "matchup_win_rates": {
+        "april_oneil": 0.5700000000000001,
+        "bebop_rocksteady": 0.86,
+        "casey_jones": 0.36,
+        "krang": 0.63,
+        "leonardo": 0.71,
+        "michelangelo": 0.39,
+        "raphael": 0.24,
+        "shredder": 0.19,
+        "splinter": 0.19
+      },
+      "mean_matchup_balance_error": 0.21109999999999998,
+      "over_60_40": 8,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.86
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.19
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.86
+      }
+    },
+    "michelangelo": {
+      "win_rate": 0.5333,
+      "matchup_win_rates": {
+        "april_oneil": 0.6,
+        "bebop_rocksteady": 0.87,
+        "casey_jones": 0.43000000000000005,
+        "donatello": 0.61,
+        "krang": 0.6,
+        "leonardo": 0.53,
+        "raphael": 0.33,
+        "shredder": 0.37,
+        "splinter": 0.46
+      },
+      "mean_matchup_balance_error": 0.1244,
+      "over_60_40": 4,
+      "over_70_30": 1,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.87
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.33
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.87
+      }
+    },
+    "splinter": {
+      "win_rate": 0.6356,
+      "matchup_win_rates": {
+        "april_oneil": 0.77,
+        "bebop_rocksteady": 0.97,
+        "casey_jones": 0.42000000000000004,
+        "donatello": 0.81,
+        "krang": 0.78,
+        "leonardo": 0.64,
+        "michelangelo": 0.54,
+        "raphael": 0.45999999999999996,
+        "shredder": 0.32999999999999996
+      },
+      "mean_matchup_balance_error": 0.2,
+      "over_60_40": 6,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.97
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.32999999999999996
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.97
+      }
+    },
+    "shredder": {
+      "win_rate": 0.7167,
+      "matchup_win_rates": {
+        "april_oneil": 0.76,
+        "bebop_rocksteady": 0.98,
+        "casey_jones": 0.5900000000000001,
+        "donatello": 0.81,
+        "krang": 0.84,
+        "leonardo": 0.64,
+        "michelangelo": 0.63,
+        "raphael": 0.53,
+        "splinter": 0.67
+      },
+      "mean_matchup_balance_error": 0.2167,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.53
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.98
+      }
+    },
+    "krang": {
+      "win_rate": 0.38780000000000003,
+      "matchup_win_rates": {
+        "april_oneil": 0.43000000000000005,
+        "bebop_rocksteady": 0.89,
+        "casey_jones": 0.21999999999999997,
+        "donatello": 0.37,
+        "leonardo": 0.61,
+        "michelangelo": 0.4,
+        "raphael": 0.19,
+        "shredder": 0.16,
+        "splinter": 0.22
+      },
+      "mean_matchup_balance_error": 0.22329999999999997,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.89
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.16
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.89
+      }
+    },
+    "bebop_rocksteady": {
+      "win_rate": 0.0644,
+      "matchup_win_rates": {
+        "april_oneil": 0.09999999999999998,
+        "casey_jones": 0.02,
+        "donatello": 0.14,
+        "krang": 0.11,
+        "leonardo": 0.01,
+        "michelangelo": 0.13,
+        "raphael": 0.02,
+        "shredder": 0.02,
+        "splinter": 0.03
+      },
+      "mean_matchup_balance_error": 0.43560000000000004,
+      "over_60_40": 9,
+      "over_70_30": 9,
+      "strongest_matchup": {
+        "deck": "donatello",
+        "win_rate": 0.14
+      },
+      "weakest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.01
+      },
+      "most_extreme_matchup": {
+        "opponent": "leonardo",
+        "win_rate": 0.01
+      }
+    },
+    "april_oneil": {
+      "win_rate": 0.4022,
+      "matchup_win_rates": {
+        "bebop_rocksteady": 0.9,
+        "casey_jones": 0.19,
+        "donatello": 0.43,
+        "krang": 0.57,
+        "leonardo": 0.47,
+        "michelangelo": 0.4,
+        "raphael": 0.19,
+        "shredder": 0.24,
+        "splinter": 0.23
+      },
+      "mean_matchup_balance_error": 0.2022,
+      "over_60_40": 5,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.9
+      },
+      "weakest_matchup": {
+        "deck": "casey_jones",
+        "win_rate": 0.19
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.9
+      }
+    },
+    "casey_jones": {
+      "win_rate": 0.6422,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.98,
+        "donatello": 0.64,
+        "krang": 0.78,
+        "leonardo": 0.64,
+        "michelangelo": 0.57,
+        "raphael": 0.37,
+        "shredder": 0.41,
+        "splinter": 0.58
+      },
+      "mean_matchup_balance_error": 0.1911,
+      "over_60_40": 6,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.37
+      },
+      "most_extreme_matchup": {
+        "opponent": "bebop_rocksteady",
+        "win_rate": 0.98
+      }
+    }
+  },
+  "per_deck_win_rates": {
+    "leonardo": 0.4389,
+    "raphael": 0.7189,
+    "donatello": 0.46,
+    "michelangelo": 0.5333,
+    "splinter": 0.6356,
+    "shredder": 0.7167,
+    "krang": 0.38780000000000003,
+    "bebop_rocksteady": 0.0644,
+    "april_oneil": 0.4022,
+    "casey_jones": 0.6422
+  },
+  "decks": [
+    {
+      "deck": "Leonardo",
+      "deck_key": "leonardo",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/LEONARDO_OBL_R1.txt",
+      "sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    },
+    {
+      "deck": "Raphael",
+      "deck_key": "raphael",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/baselines/RAPHAEL_OBL_BASELINE_002.txt",
+      "sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "promotion_authority": "OBL-COMBINED-003",
+      "inherited_promotion_experiment_id": "OBL-R4-RAPHAEL-C"
+    },
+    {
+      "deck": "Donatello",
+      "deck_key": "donatello",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/DONATELLO_OBL_R2_A.txt",
+      "sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    },
+    {
+      "deck": "Michelangelo",
+      "deck_key": "michelangelo",
+      "source_kind": "retained_baseline",
+      "source_path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    },
+    {
+      "deck": "Splinter",
+      "deck_key": "splinter",
+      "source_kind": "retained_baseline",
+      "source_path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    },
+    {
+      "deck": "Shredder",
+      "deck_key": "shredder",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/baselines/SHREDDER_OBL_BASELINE_003.txt",
+      "sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": "OBL-R5-SHREDDER-B",
+      "promotion_authority": "OBL-COMBINED-005",
+      "promotion_aliases": []
+    },
+    {
+      "deck": "Krang",
+      "deck_key": "krang",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/baselines/KRANG_OBL_BASELINE_004.txt",
+      "sha256": "2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96",
+      "promotion_experiment_id": "OBL-R7-KRANG-A",
+      "exact_diff": {
+        "removals": {
+          "Does Machines": 1,
+          "Negate": 1
+        },
+        "additions": {
+          "Ray Fillet, Man Ray": 1,
+          "Stockman, Mad Fly-entist": 1
+        }
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "PROMOTED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null,
+      "promotion_authority": "OBL-COMBINED-006"
+    },
+    {
+      "deck": "Bebop & Rocksteady",
+      "deck_key": "bebop_rocksteady",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R2_B.txt",
+      "sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    },
+    {
+      "deck": "April O'Neil",
+      "deck_key": "april_oneil",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/baselines/APRIL_ONEIL_OBL_BASELINE_003.txt",
+      "sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": "OBL-R5-APRIL_ONEIL-A",
+      "promotion_authority": "OBL-COMBINED-005",
+      "promotion_aliases": [
+        "OBL-R5-APRIL-A"
+      ]
+    },
+    {
+      "deck": "Casey Jones",
+      "deck_key": "casey_jones",
+      "source_kind": "promoted_candidate",
+      "source_path": "docs/objective-balance-lab/candidates/CASEY_JONES_OBL_R2_B.txt",
+      "sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "parent_environment_id": "OBL-BASELINE-003",
+      "parent_baseline_sha256": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170",
+      "promotion_experiment_id": null,
+      "exact_diff": {
+        "removals": {},
+        "additions": {}
+      },
+      "source_combined_environment": "OBL-COMBINED-006",
+      "source_combined_evidence": {
+        "path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+        "git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330"
+      },
+      "promotion_status": "BASELINE_RETAINED",
+      "environment_id": "OBL-BASELINE-004",
+      "official_current_baseline_version": "OBL-BASELINE-004",
+      "lineage_parent_environment": "OBL-BASELINE-003",
+      "inherited_promotion_experiment_id": null
+    }
+  ],
+  "next_gate": "BASELINE_004_REVIEW",
+  "carried_forward_risk": "Bebop & Rocksteady remains the largest aggregate outlier at 6.44% WR; Raphael and Shredder remain strong at 71.89% and 71.67% under the common semantic runtime."
+}
