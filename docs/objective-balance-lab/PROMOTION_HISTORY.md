@@ -120,3 +120,20 @@ Krang R2B was not eligible because its isolated improvement reversed/mixed in th
 - New simulations for promotion: `0`; Combined 006 itself composed 4,500 authenticated source games with `0` new executions.
 - Authorization: explicit Objective Balance Lab Baseline 004 promotion request.
 
+
+## Promotion OBL-PROMOTION-005 — Baseline 005
+
+- Date: `2026-10-07`; source repository commit: `df15e8bff151d07ea5018d8766bba3553eb7b200`
+- Prior environment: `OBL-BASELINE-004` (preserved unchanged; becomes `SUPERSEDED` on merge)
+- New environment: `OBL-BASELINE-005`; lineage: Baseline 004 → Combined 007 (`COMBINED_VALIDATED`) → Baseline 005
+- Promoted experiment: `OBL-R8-BEBOP-A`; **Bebop & Rocksteady is the only deck changed from Baseline 004.**
+- Exact diff: `−2 Illegitimate Business / +2 Primordial Pachyderm`
+- Parent B&R SHA-256: `6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509`
+- Promoted B&R SHA-256: `aaa61d3a3d65f7c8ab74062cc8f41d220a46066b44c28e3c71921c570a6b66ed`
+- Accepted isolated evidence: PR #275; Combined 007 promotion evidence: PR #276
+- Semantic runtime: `d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924`
+- Mean matchup balance error: **17.67% → 15.64%**; >60/40: **33 → 30**; >70/30: **18 → 16**; WR spread: **46.44% → 35.56%**
+- B&R aggregate WR: **23.33% → 36.33%**; primary cells Raphael/Shredder/Splinter/Casey each improved.
+- Both lists retain 20 basic lands. Illegitimate Business is a Land; total lands change **24 → 22**. [Provenance audit](ROUND_8_A_LAND_COUNT_PROVENANCE.md).
+- New simulations for promotion: `0`; Combined 007 composed 4,500 authenticated source games with `0` new executions.
+- Authorization: explicit Design Studio Baseline 005 promotion request. The land-count provenance is corrected above without changing game evidence or the candidate.

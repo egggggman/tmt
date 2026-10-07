@@ -1,6 +1,6 @@
 # Objective Balance Lab — Experiment Ledger
 
-Historical isolated evidence and verdicts remain traceable. Baseline 004 promotes only `OBL-R7-KRANG-A` after accepted isolated evidence and Combined 006 validation.
+Historical isolated evidence and verdicts remain traceable. Baseline 005 promotes exact `OBL-R8-BEBOP-A` after accepted isolated evidence and Combined 007 validation; earlier promotions remain historical.
 
 | Experiment | Round | Deck | Parent | Candidate | Verdict | Promotion |
 |---|---|---|---|---|---|---|
@@ -70,3 +70,11 @@ R6-B uses the [new-runtime Baseline 003 control](BASELINE_003_RUNTIME_REFRESH_EV
 | `OBL-R7-KRANG-A` | R7 | Krang | `5a52bc59b5de1034721ba17d1c1d4f12c493ec70681c1a910c8230808e4e4f96` | `2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1` | PROMOTED | OBL-PROMOTION-004 |
 
 Promotion authority: [Combined 006](COMBINED_006_R7A_RESULTS.md). No promotion simulations were run.
+
+## Round 8 promotion
+
+| Experiment | Round | Deck | Parent SHA-256 | Candidate SHA-256 | Verdict | Promotion |
+|---|---|---|---|---|---|---|
+| `OBL-R8-BEBOP-A` | R8 | Bebop & Rocksteady | `6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509` | `aaa61d3a3d65f7c8ab74062cc8f41d220a46066b44c28e3c71921c570a6b66ed` | PROMOTED | OBL-PROMOTION-005 |
+
+Authority: [Combined 007](COMBINED_007_R8A_RESULTS.md), after accepted [isolated R8-A](ROUND_8_A_RESULTS.md). No new promotion simulations. The exact cut removes two nonbasic lands; [20 basics remain unchanged](ROUND_8_A_LAND_COUNT_PROVENANCE.md). No R8-B authorized.

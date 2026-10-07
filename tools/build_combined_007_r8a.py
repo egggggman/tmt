@@ -256,7 +256,7 @@ def build() -> dict:
         "",
         "## R8-A diagnostics and polarization sentinels",
         "",
-        "The B&R result rate is shown in each cell. The frozen swap reduces its land count from 24 to 22; these are outcomes for the whole substitution.",
+        "The B&R result rate is shown in each cell. Both lists contain 20 basic lands (10 Forest and 10 Swamp). Illegitimate Business is a Land, so the exact frozen swap reduces total lands from 24 to 22; these are outcomes for the whole substitution.",
         "",
         "| Opponent | Role | Baseline B&R WR | Combined B&R WR | Delta |",
         "|---|---|---:|---:|---:|",
