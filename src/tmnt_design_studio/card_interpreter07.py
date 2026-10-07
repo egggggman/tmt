@@ -706,6 +706,11 @@ class CardInterpreter:
         r"(?: \(Look at the top card of your library\. You may put that card on the bottom\.\))?$",
         re.IGNORECASE,
     )
+    ETB_SELF_LIFE_GAIN = re.compile(
+        r"^When (?P<source>this creature|[^,]+) enters, you gain "
+        r"(?P<amount>[1-9][0-9]*) life\.$",
+        re.IGNORECASE,
+    )
     ETB_ARTIFACT_DRAW_ONE = re.compile(
         r"^When (?P<source>this source|[^,]+) enters, if "
         r"(?P<condition>its controller controls|you control) an artifact, draw a card\.$",
@@ -1182,6 +1187,31 @@ class CardInterpreter:
             if not condition
         )
         return SemanticCoverage(executable, executable, executable, limitations)
+
+    def etb_self_life_gain_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, SemanticCoverage] | None:
+        """A creature's own entry gains a fixed positive amount of life."""
+        match = self.ETB_SELF_LIFE_GAIN.fullmatch(fragment)
+        if match is None:
+            return None
+        self_reference = match.group("source").casefold() in {
+            "this creature",
+            card.name.casefold(),
+        }
+        creature = "Creature" in card.type_line
+        supported = self_reference and creature
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "etb_life_gain_source_mismatch"),
+                (creature, "etb_life_gain_source_not_creature"),
+            )
+            if not condition
+        )
+        return int(match.group("amount")), SemanticCoverage(
+            supported, supported, supported, limitations
+        )
 
     def artifact_entry_self_counter_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -2553,6 +2583,11 @@ class CardInterpreter:
             etb_drain_gain_scry = self.etb_drain_gain_scry_semantic_coverage(card, fragment)
             if etb_drain_gain_scry is not None:
                 for reason in etb_drain_gain_scry.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            etb_life_gain = self.etb_self_life_gain_semantics(card, fragment)
+            if etb_life_gain is not None:
+                for reason in etb_life_gain[1].limitations:
                     unsupported.append((fragment, reason))
                 continue
             dies_draw = self.dies_draw_semantic_coverage(card, fragment)
