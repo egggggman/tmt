@@ -150,7 +150,7 @@ def mechanism(games: list[dict]) -> dict:
 
 
 def build() -> dict:
-    authority, manifest, schedule, _paths = run.preflight()
+    authority, manifest, schedule, _paths = run.preflight(historical=True)
     control = run.read(run.CONTROL)
     run.verify(control, run.template(authority, manifest, schedule), schedule, complete=True)
     selected = [row for row in schedule if "krang" in row["pair"]]

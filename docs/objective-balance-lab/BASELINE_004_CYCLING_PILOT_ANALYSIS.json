@@ -1,0 +1,1709 @@
+{
+  "schema": "obl-baseline004-cycling-pilot-control-analysis-v1",
+  "status": "CONTROL_VALIDATED_RETURN_TO_HQ_DESIGN_STUDIO",
+  "environment_id": "OBL-BASELINE-004",
+  "control_id": "OBL-BASELINE-004-CYCLING-PILOT-REFRESH-001",
+  "prior_semantic_runtime_sha256": "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1",
+  "new_semantic_runtime_sha256": "24ce312cdac00d914606d1f4c111813826ca615768d631532e995faf1c8d57fa",
+  "baseline_manifest_sha256": "4dc89f1ae5f6f38f27b871478d54c3f101ac0c0787ff49b52989f8afdfae9d2e",
+  "readiness_sha256": "b7adcb971c9adc81078ff832f75071267d383672a8eb03c168e6f42c6c50ed55",
+  "source_combined_sha256": "450d5bc059c747b5951248f2b606fa50534ce6f17e0f99cd77a4291610c130d7",
+  "control_evidence_sha256": "25c64af33b736c2da546b7235f1e27d52671255c9908b1245dbdf4b41d3808ee",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "validation": {
+    "games": 4500,
+    "matchups": 45,
+    "balanced_starts_each_cell": [
+      50,
+      50
+    ],
+    "deterministic_replay_samples_matched": 6,
+    "runtime_errors": 0,
+    "decks_changed": 0,
+    "new_candidate_games": 0
+  },
+  "paired": {
+    "changed_outcomes": 286,
+    "changed_ending_turns": 755
+  },
+  "prior_global_metrics": {
+    "mean_matchup_balance_error": 0.220667,
+    "median_matchup_deviation": 0.17,
+    "worst_matchup": {
+      "decks": [
+        "bebop_rocksteady",
+        "leonardo"
+      ],
+      "games": 100,
+      "win_rates": {
+        "bebop_rocksteady": 0.01,
+        "leonardo": 0.99
+      },
+      "winner_side": "leonardo",
+      "deviation": 0.49
+    },
+    "over_60_40": 33,
+    "over_70_30": 22,
+    "aggregate_win_rate_spread": 0.654445,
+    "aggregate_win_rate_stddev": 0.187555,
+    "mean_first_player_result_rate": 0.573111,
+    "mean_ending_turn": 20.088,
+    "median_ending_turn": 18.0
+  },
+  "new_global_metrics": {
+    "mean_matchup_balance_error": 0.176667,
+    "median_matchup_deviation": 0.14,
+    "worst_matchup": {
+      "decks": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "games": 100,
+      "win_rates": {
+        "bebop_rocksteady": 0.11,
+        "raphael": 0.89
+      },
+      "winner_side": "raphael",
+      "deviation": 0.39
+    },
+    "over_60_40": 33,
+    "over_70_30": 18,
+    "aggregate_win_rate_spread": 0.464445,
+    "aggregate_win_rate_stddev": 0.14584,
+    "mean_first_player_result_rate": 0.575778,
+    "mean_ending_turn": 19.8602,
+    "median_ending_turn": 18.0
+  },
+  "global_delta": {
+    "mean_matchup_balance_error": -0.044,
+    "median_matchup_deviation": -0.03,
+    "over_60_40": 0,
+    "over_70_30": -4,
+    "aggregate_win_rate_spread": -0.19,
+    "aggregate_win_rate_stddev": -0.041715,
+    "mean_first_player_result_rate": 0.002667,
+    "mean_ending_turn": -0.2278,
+    "median_ending_turn": 0.0
+  },
+  "prior_deck_summary": {
+    "leonardo": {
+      "games": 900,
+      "wins": 395,
+      "losses": 505,
+      "draws": 0,
+      "win_rate": 0.438889,
+      "first_player_rate": 0.473333,
+      "average_turn": 24.4289,
+      "median_turn": 21.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 2.441,
+        "blocker": 2.441,
+        "interaction": 14.1681
+      },
+      "interaction_casts": 4.7056,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "raphael": {
+      "games": 900,
+      "wins": 647,
+      "losses": 253,
+      "draws": 0,
+      "win_rate": 0.718889,
+      "first_player_rate": 0.773333,
+      "average_turn": 18.0722,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 5.4549,
+        "blocker": 5.4549,
+        "interaction": null
+      },
+      "interaction_casts": 5.2056,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "donatello": {
+      "games": 900,
+      "wins": 414,
+      "losses": 486,
+      "draws": 0,
+      "win_rate": 0.46,
+      "first_player_rate": 0.566667,
+      "average_turn": 19.6422,
+      "median_turn": 19.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 9.4171,
+        "blocker": 3.7333,
+        "interaction": 5.5109
+      },
+      "interaction_casts": 5.7011,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "michelangelo": {
+      "games": 900,
+      "wins": 480,
+      "losses": 420,
+      "draws": 0,
+      "win_rate": 0.533333,
+      "first_player_rate": 0.68,
+      "average_turn": 18.2711,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 4.3281,
+        "blocker": 4.3281,
+        "interaction": null
+      },
+      "interaction_casts": 3.3689,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "splinter": {
+      "games": 900,
+      "wins": 572,
+      "losses": 328,
+      "draws": 0,
+      "win_rate": 0.635556,
+      "first_player_rate": 0.684444,
+      "average_turn": 19.16,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 2.5134,
+        "blocker": 2.5134,
+        "interaction": null
+      },
+      "interaction_casts": 4.2222,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "shredder": {
+      "games": 900,
+      "wins": 645,
+      "losses": 255,
+      "draws": 0,
+      "win_rate": 0.716667,
+      "first_player_rate": 0.748889,
+      "average_turn": 19.2678,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 3.0681,
+        "blocker": 3.0681,
+        "interaction": null
+      },
+      "interaction_casts": 4.1511,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "krang": {
+      "games": 900,
+      "wins": 349,
+      "losses": 551,
+      "draws": 0,
+      "win_rate": 0.387778,
+      "first_player_rate": 0.517778,
+      "average_turn": 21.2167,
+      "median_turn": 20.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 9.8738,
+        "blocker": 4.0469,
+        "interaction": 6.1742
+      },
+      "interaction_casts": 4.6967,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "bebop_rocksteady": {
+      "games": 900,
+      "wins": 58,
+      "losses": 842,
+      "draws": 0,
+      "win_rate": 0.064444,
+      "first_player_rate": 0.104444,
+      "average_turn": 19.4089,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 6.5733,
+        "blocker": 6.5733,
+        "interaction": null
+      },
+      "interaction_casts": 1.5489,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "april_oneil": {
+      "games": 900,
+      "wins": 362,
+      "losses": 538,
+      "draws": 0,
+      "win_rate": 0.402222,
+      "first_player_rate": 0.515556,
+      "average_turn": 21.4978,
+      "median_turn": 20.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 7.1907,
+        "blocker": 3.2358,
+        "interaction": 6.1319
+      },
+      "interaction_casts": 4.9789,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "casey_jones": {
+      "games": 900,
+      "wins": 578,
+      "losses": 322,
+      "draws": 0,
+      "win_rate": 0.642222,
+      "first_player_rate": 0.666667,
+      "average_turn": 19.9144,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 5.5189,
+        "blocker": 4.8413,
+        "interaction": null
+      },
+      "interaction_casts": 5.0478,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    }
+  },
+  "new_deck_summary": {
+    "leonardo": {
+      "games": 900,
+      "wins": 352,
+      "losses": 548,
+      "draws": 0,
+      "win_rate": 0.391111,
+      "first_player_rate": 0.415556,
+      "average_turn": 23.8044,
+      "median_turn": 21.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 2.4454,
+        "blocker": 2.4454,
+        "interaction": 13.8197
+      },
+      "interaction_casts": 4.6944,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "raphael": {
+      "games": 900,
+      "wins": 628,
+      "losses": 272,
+      "draws": 0,
+      "win_rate": 0.697778,
+      "first_player_rate": 0.757778,
+      "average_turn": 18.0822,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 5.4752,
+        "blocker": 5.4752,
+        "interaction": null
+      },
+      "interaction_casts": 5.2044,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "donatello": {
+      "games": 900,
+      "wins": 379,
+      "losses": 521,
+      "draws": 0,
+      "win_rate": 0.421111,
+      "first_player_rate": 0.526667,
+      "average_turn": 19.4633,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 9.3118,
+        "blocker": 3.7333,
+        "interaction": 5.5307
+      },
+      "interaction_casts": 5.6744,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "michelangelo": {
+      "games": 900,
+      "wins": 463,
+      "losses": 437,
+      "draws": 0,
+      "win_rate": 0.514444,
+      "first_player_rate": 0.666667,
+      "average_turn": 18.3189,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 4.3281,
+        "blocker": 4.3281,
+        "interaction": null
+      },
+      "interaction_casts": 3.36,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "splinter": {
+      "games": 900,
+      "wins": 550,
+      "losses": 350,
+      "draws": 0,
+      "win_rate": 0.611111,
+      "first_player_rate": 0.666667,
+      "average_turn": 19.18,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 2.5134,
+        "blocker": 2.5134,
+        "interaction": null
+      },
+      "interaction_casts": 4.2222,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "shredder": {
+      "games": 900,
+      "wins": 625,
+      "losses": 275,
+      "draws": 0,
+      "win_rate": 0.694444,
+      "first_player_rate": 0.726667,
+      "average_turn": 19.2544,
+      "median_turn": 18.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 3.0681,
+        "blocker": 3.0681,
+        "interaction": null
+      },
+      "interaction_casts": 4.1589,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "krang": {
+      "games": 900,
+      "wins": 427,
+      "losses": 473,
+      "draws": 0,
+      "win_rate": 0.474444,
+      "first_player_rate": 0.597778,
+      "average_turn": 20.6344,
+      "median_turn": 20.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 9.0083,
+        "blocker": 3.6325,
+        "interaction": 6.2079
+      },
+      "interaction_casts": 5.0267,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "bebop_rocksteady": {
+      "games": 900,
+      "wins": 210,
+      "losses": 690,
+      "draws": 0,
+      "win_rate": 0.233333,
+      "first_player_rate": 0.295556,
+      "average_turn": 18.5833,
+      "median_turn": 17.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 5.6496,
+        "blocker": 5.6496,
+        "interaction": null
+      },
+      "interaction_casts": 1.9156,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "april_oneil": {
+      "games": 900,
+      "wins": 318,
+      "losses": 582,
+      "draws": 0,
+      "win_rate": 0.353333,
+      "first_player_rate": 0.468889,
+      "average_turn": 21.3133,
+      "median_turn": 20.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 7.183,
+        "blocker": 3.2358,
+        "interaction": 6
+      },
+      "interaction_casts": 4.9389,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    },
+    "casey_jones": {
+      "games": 900,
+      "wins": 548,
+      "losses": 352,
+      "draws": 0,
+      "win_rate": 0.608889,
+      "first_player_rate": 0.635556,
+      "average_turn": 19.9678,
+      "median_turn": 19.0,
+      "first_play": {
+        "land_miss": null,
+        "creature": 5.5121,
+        "blocker": 4.8468,
+        "interaction": null
+      },
+      "interaction_casts": 5.03,
+      "battlefield_presence": {
+        "3": 0,
+        "5": 0,
+        "7": 0
+      }
+    }
+  },
+  "prior_per_deck": {
+    "leonardo": {
+      "win_rate": 0.438889,
+      "matchup_win_rates": {
+        "april_oneil": 0.53,
+        "bebop_rocksteady": 0.99,
+        "casey_jones": 0.36,
+        "donatello": 0.29,
+        "krang": 0.39,
+        "michelangelo": 0.47,
+        "raphael": 0.2,
+        "shredder": 0.36,
+        "splinter": 0.36
+      },
+      "mean_matchup_balance_error": 0.176667,
+      "over_60_40": 7,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.99
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.2
+      }
+    },
+    "raphael": {
+      "win_rate": 0.718889,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.98,
+        "casey_jones": 0.63,
+        "donatello": 0.76,
+        "krang": 0.81,
+        "leonardo": 0.8,
+        "michelangelo": 0.67,
+        "shredder": 0.47,
+        "splinter": 0.54
+      },
+      "mean_matchup_balance_error": 0.225556,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.47
+      }
+    },
+    "donatello": {
+      "win_rate": 0.46,
+      "matchup_win_rates": {
+        "april_oneil": 0.57,
+        "bebop_rocksteady": 0.86,
+        "casey_jones": 0.36,
+        "krang": 0.63,
+        "leonardo": 0.71,
+        "michelangelo": 0.39,
+        "raphael": 0.24,
+        "shredder": 0.19,
+        "splinter": 0.19
+      },
+      "mean_matchup_balance_error": 0.211111,
+      "over_60_40": 8,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.86
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.19
+      }
+    },
+    "michelangelo": {
+      "win_rate": 0.533333,
+      "matchup_win_rates": {
+        "april_oneil": 0.6,
+        "bebop_rocksteady": 0.87,
+        "casey_jones": 0.43,
+        "donatello": 0.61,
+        "krang": 0.6,
+        "leonardo": 0.53,
+        "raphael": 0.33,
+        "shredder": 0.37,
+        "splinter": 0.46
+      },
+      "mean_matchup_balance_error": 0.124444,
+      "over_60_40": 4,
+      "over_70_30": 1,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.87
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.33
+      }
+    },
+    "splinter": {
+      "win_rate": 0.635556,
+      "matchup_win_rates": {
+        "april_oneil": 0.77,
+        "bebop_rocksteady": 0.97,
+        "casey_jones": 0.42,
+        "donatello": 0.81,
+        "krang": 0.78,
+        "leonardo": 0.64,
+        "michelangelo": 0.54,
+        "raphael": 0.46,
+        "shredder": 0.33
+      },
+      "mean_matchup_balance_error": 0.2,
+      "over_60_40": 6,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.97
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.33
+      }
+    },
+    "shredder": {
+      "win_rate": 0.716667,
+      "matchup_win_rates": {
+        "april_oneil": 0.76,
+        "bebop_rocksteady": 0.98,
+        "casey_jones": 0.59,
+        "donatello": 0.81,
+        "krang": 0.84,
+        "leonardo": 0.64,
+        "michelangelo": 0.63,
+        "raphael": 0.53,
+        "splinter": 0.67
+      },
+      "mean_matchup_balance_error": 0.216667,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.53
+      }
+    },
+    "krang": {
+      "win_rate": 0.387778,
+      "matchup_win_rates": {
+        "april_oneil": 0.43,
+        "bebop_rocksteady": 0.89,
+        "casey_jones": 0.22,
+        "donatello": 0.37,
+        "leonardo": 0.61,
+        "michelangelo": 0.4,
+        "raphael": 0.19,
+        "shredder": 0.16,
+        "splinter": 0.22
+      },
+      "mean_matchup_balance_error": 0.223333,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.89
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.16
+      }
+    },
+    "bebop_rocksteady": {
+      "win_rate": 0.064444,
+      "matchup_win_rates": {
+        "april_oneil": 0.1,
+        "casey_jones": 0.02,
+        "donatello": 0.14,
+        "krang": 0.11,
+        "leonardo": 0.01,
+        "michelangelo": 0.13,
+        "raphael": 0.02,
+        "shredder": 0.02,
+        "splinter": 0.03
+      },
+      "mean_matchup_balance_error": 0.435556,
+      "over_60_40": 9,
+      "over_70_30": 9,
+      "strongest_matchup": {
+        "deck": "donatello",
+        "win_rate": 0.14
+      },
+      "weakest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.01
+      }
+    },
+    "april_oneil": {
+      "win_rate": 0.402222,
+      "matchup_win_rates": {
+        "bebop_rocksteady": 0.9,
+        "casey_jones": 0.19,
+        "donatello": 0.43,
+        "krang": 0.57,
+        "leonardo": 0.47,
+        "michelangelo": 0.4,
+        "raphael": 0.19,
+        "shredder": 0.24,
+        "splinter": 0.23
+      },
+      "mean_matchup_balance_error": 0.202222,
+      "over_60_40": 5,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.9
+      },
+      "weakest_matchup": {
+        "deck": "casey_jones",
+        "win_rate": 0.19
+      }
+    },
+    "casey_jones": {
+      "win_rate": 0.642222,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.98,
+        "donatello": 0.64,
+        "krang": 0.78,
+        "leonardo": 0.64,
+        "michelangelo": 0.57,
+        "raphael": 0.37,
+        "shredder": 0.41,
+        "splinter": 0.58
+      },
+      "mean_matchup_balance_error": 0.191111,
+      "over_60_40": 6,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.98
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.37
+      }
+    }
+  },
+  "new_per_deck": {
+    "leonardo": {
+      "win_rate": 0.391111,
+      "matchup_win_rates": {
+        "april_oneil": 0.53,
+        "bebop_rocksteady": 0.69,
+        "casey_jones": 0.36,
+        "donatello": 0.29,
+        "krang": 0.26,
+        "michelangelo": 0.47,
+        "raphael": 0.2,
+        "shredder": 0.36,
+        "splinter": 0.36
+      },
+      "mean_matchup_balance_error": 0.157778,
+      "over_60_40": 7,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.69
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.2
+      }
+    },
+    "raphael": {
+      "win_rate": 0.697778,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.89,
+        "casey_jones": 0.63,
+        "donatello": 0.76,
+        "krang": 0.71,
+        "leonardo": 0.8,
+        "michelangelo": 0.67,
+        "shredder": 0.47,
+        "splinter": 0.54
+      },
+      "mean_matchup_balance_error": 0.204444,
+      "over_60_40": 7,
+      "over_70_30": 5,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.89
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.47
+      }
+    },
+    "donatello": {
+      "win_rate": 0.421111,
+      "matchup_win_rates": {
+        "april_oneil": 0.57,
+        "bebop_rocksteady": 0.61,
+        "casey_jones": 0.36,
+        "krang": 0.53,
+        "leonardo": 0.71,
+        "michelangelo": 0.39,
+        "raphael": 0.24,
+        "shredder": 0.19,
+        "splinter": 0.19
+      },
+      "mean_matchup_balance_error": 0.172222,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.71
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.19
+      }
+    },
+    "michelangelo": {
+      "win_rate": 0.514444,
+      "matchup_win_rates": {
+        "april_oneil": 0.6,
+        "bebop_rocksteady": 0.75,
+        "casey_jones": 0.43,
+        "donatello": 0.61,
+        "krang": 0.55,
+        "leonardo": 0.53,
+        "raphael": 0.33,
+        "shredder": 0.37,
+        "splinter": 0.46
+      },
+      "mean_matchup_balance_error": 0.105556,
+      "over_60_40": 4,
+      "over_70_30": 1,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.75
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.33
+      }
+    },
+    "splinter": {
+      "win_rate": 0.611111,
+      "matchup_win_rates": {
+        "april_oneil": 0.77,
+        "bebop_rocksteady": 0.88,
+        "casey_jones": 0.42,
+        "donatello": 0.81,
+        "krang": 0.65,
+        "leonardo": 0.64,
+        "michelangelo": 0.54,
+        "raphael": 0.46,
+        "shredder": 0.33
+      },
+      "mean_matchup_balance_error": 0.175556,
+      "over_60_40": 6,
+      "over_70_30": 3,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.88
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.33
+      }
+    },
+    "shredder": {
+      "win_rate": 0.694444,
+      "matchup_win_rates": {
+        "april_oneil": 0.76,
+        "bebop_rocksteady": 0.87,
+        "casey_jones": 0.59,
+        "donatello": 0.81,
+        "krang": 0.75,
+        "leonardo": 0.64,
+        "michelangelo": 0.63,
+        "raphael": 0.53,
+        "splinter": 0.67
+      },
+      "mean_matchup_balance_error": 0.194444,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.87
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.53
+      }
+    },
+    "krang": {
+      "win_rate": 0.474444,
+      "matchup_win_rates": {
+        "april_oneil": 0.61,
+        "bebop_rocksteady": 0.73,
+        "casey_jones": 0.38,
+        "donatello": 0.47,
+        "leonardo": 0.74,
+        "michelangelo": 0.45,
+        "raphael": 0.29,
+        "shredder": 0.25,
+        "splinter": 0.35
+      },
+      "mean_matchup_balance_error": 0.154444,
+      "over_60_40": 7,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "leonardo",
+        "win_rate": 0.74
+      },
+      "weakest_matchup": {
+        "deck": "shredder",
+        "win_rate": 0.25
+      }
+    },
+    "bebop_rocksteady": {
+      "win_rate": 0.233333,
+      "matchup_win_rates": {
+        "april_oneil": 0.36,
+        "casey_jones": 0.16,
+        "donatello": 0.39,
+        "krang": 0.27,
+        "leonardo": 0.31,
+        "michelangelo": 0.25,
+        "raphael": 0.11,
+        "shredder": 0.13,
+        "splinter": 0.12
+      },
+      "mean_matchup_balance_error": 0.266667,
+      "over_60_40": 9,
+      "over_70_30": 6,
+      "strongest_matchup": {
+        "deck": "donatello",
+        "win_rate": 0.39
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.11
+      }
+    },
+    "april_oneil": {
+      "win_rate": 0.353333,
+      "matchup_win_rates": {
+        "bebop_rocksteady": 0.64,
+        "casey_jones": 0.19,
+        "donatello": 0.43,
+        "krang": 0.39,
+        "leonardo": 0.47,
+        "michelangelo": 0.4,
+        "raphael": 0.19,
+        "shredder": 0.24,
+        "splinter": 0.23
+      },
+      "mean_matchup_balance_error": 0.177778,
+      "over_60_40": 6,
+      "over_70_30": 4,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.64
+      },
+      "weakest_matchup": {
+        "deck": "casey_jones",
+        "win_rate": 0.19
+      }
+    },
+    "casey_jones": {
+      "win_rate": 0.608889,
+      "matchup_win_rates": {
+        "april_oneil": 0.81,
+        "bebop_rocksteady": 0.84,
+        "donatello": 0.64,
+        "krang": 0.62,
+        "leonardo": 0.64,
+        "michelangelo": 0.57,
+        "raphael": 0.37,
+        "shredder": 0.41,
+        "splinter": 0.58
+      },
+      "mean_matchup_balance_error": 0.157778,
+      "over_60_40": 6,
+      "over_70_30": 2,
+      "strongest_matchup": {
+        "deck": "bebop_rocksteady",
+        "win_rate": 0.84
+      },
+      "weakest_matchup": {
+        "deck": "raphael",
+        "win_rate": 0.37
+      }
+    }
+  },
+  "matchup_deltas": [
+    {
+      "decks": [
+        "april_oneil",
+        "bebop_rocksteady"
+      ],
+      "prior_first_deck_win_rate": 0.9,
+      "new_first_deck_win_rate": 0.64,
+      "first_deck_delta": -0.26
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "casey_jones"
+      ],
+      "prior_first_deck_win_rate": 0.19,
+      "new_first_deck_win_rate": 0.19,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "donatello"
+      ],
+      "prior_first_deck_win_rate": 0.43,
+      "new_first_deck_win_rate": 0.43,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "krang"
+      ],
+      "prior_first_deck_win_rate": 0.57,
+      "new_first_deck_win_rate": 0.39,
+      "first_deck_delta": -0.18
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "leonardo"
+      ],
+      "prior_first_deck_win_rate": 0.47,
+      "new_first_deck_win_rate": 0.47,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.4,
+      "new_first_deck_win_rate": 0.4,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.19,
+      "new_first_deck_win_rate": 0.19,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.24,
+      "new_first_deck_win_rate": 0.24,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "april_oneil",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.23,
+      "new_first_deck_win_rate": 0.23,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "casey_jones"
+      ],
+      "prior_first_deck_win_rate": 0.02,
+      "new_first_deck_win_rate": 0.16,
+      "first_deck_delta": 0.14
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "donatello"
+      ],
+      "prior_first_deck_win_rate": 0.14,
+      "new_first_deck_win_rate": 0.39,
+      "first_deck_delta": 0.25
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "krang"
+      ],
+      "prior_first_deck_win_rate": 0.11,
+      "new_first_deck_win_rate": 0.27,
+      "first_deck_delta": 0.16
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "leonardo"
+      ],
+      "prior_first_deck_win_rate": 0.01,
+      "new_first_deck_win_rate": 0.31,
+      "first_deck_delta": 0.3
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.13,
+      "new_first_deck_win_rate": 0.25,
+      "first_deck_delta": 0.12
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.02,
+      "new_first_deck_win_rate": 0.11,
+      "first_deck_delta": 0.09
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.02,
+      "new_first_deck_win_rate": 0.13,
+      "first_deck_delta": 0.11
+    },
+    {
+      "decks": [
+        "bebop_rocksteady",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.03,
+      "new_first_deck_win_rate": 0.12,
+      "first_deck_delta": 0.09
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "donatello"
+      ],
+      "prior_first_deck_win_rate": 0.64,
+      "new_first_deck_win_rate": 0.64,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "krang"
+      ],
+      "prior_first_deck_win_rate": 0.78,
+      "new_first_deck_win_rate": 0.62,
+      "first_deck_delta": -0.16
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "leonardo"
+      ],
+      "prior_first_deck_win_rate": 0.64,
+      "new_first_deck_win_rate": 0.64,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.57,
+      "new_first_deck_win_rate": 0.57,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.37,
+      "new_first_deck_win_rate": 0.37,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.41,
+      "new_first_deck_win_rate": 0.41,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "casey_jones",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.58,
+      "new_first_deck_win_rate": 0.58,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "donatello",
+        "krang"
+      ],
+      "prior_first_deck_win_rate": 0.63,
+      "new_first_deck_win_rate": 0.53,
+      "first_deck_delta": -0.1
+    },
+    {
+      "decks": [
+        "donatello",
+        "leonardo"
+      ],
+      "prior_first_deck_win_rate": 0.71,
+      "new_first_deck_win_rate": 0.71,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "donatello",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.39,
+      "new_first_deck_win_rate": 0.39,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "donatello",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.24,
+      "new_first_deck_win_rate": 0.24,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "donatello",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.19,
+      "new_first_deck_win_rate": 0.19,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "donatello",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.19,
+      "new_first_deck_win_rate": 0.19,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "krang",
+        "leonardo"
+      ],
+      "prior_first_deck_win_rate": 0.61,
+      "new_first_deck_win_rate": 0.74,
+      "first_deck_delta": 0.13
+    },
+    {
+      "decks": [
+        "krang",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.4,
+      "new_first_deck_win_rate": 0.45,
+      "first_deck_delta": 0.05
+    },
+    {
+      "decks": [
+        "krang",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.19,
+      "new_first_deck_win_rate": 0.29,
+      "first_deck_delta": 0.1
+    },
+    {
+      "decks": [
+        "krang",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.16,
+      "new_first_deck_win_rate": 0.25,
+      "first_deck_delta": 0.09
+    },
+    {
+      "decks": [
+        "krang",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.22,
+      "new_first_deck_win_rate": 0.35,
+      "first_deck_delta": 0.13
+    },
+    {
+      "decks": [
+        "leonardo",
+        "michelangelo"
+      ],
+      "prior_first_deck_win_rate": 0.47,
+      "new_first_deck_win_rate": 0.47,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "leonardo",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.2,
+      "new_first_deck_win_rate": 0.2,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "leonardo",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.36,
+      "new_first_deck_win_rate": 0.36,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "leonardo",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.36,
+      "new_first_deck_win_rate": 0.36,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "michelangelo",
+        "raphael"
+      ],
+      "prior_first_deck_win_rate": 0.33,
+      "new_first_deck_win_rate": 0.33,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "michelangelo",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.37,
+      "new_first_deck_win_rate": 0.37,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "michelangelo",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.46,
+      "new_first_deck_win_rate": 0.46,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "raphael",
+        "shredder"
+      ],
+      "prior_first_deck_win_rate": 0.47,
+      "new_first_deck_win_rate": 0.47,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "raphael",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.54,
+      "new_first_deck_win_rate": 0.54,
+      "first_deck_delta": 0.0
+    },
+    {
+      "decks": [
+        "shredder",
+        "splinter"
+      ],
+      "prior_first_deck_win_rate": 0.67,
+      "new_first_deck_win_rate": 0.67,
+      "first_deck_delta": 0.0
+    }
+  ],
+  "distribution": {
+    "prior": {
+      "ending_turn_histogram": {
+        "9": 2,
+        "10": 2,
+        "11": 108,
+        "12": 91,
+        "13": 294,
+        "14": 261,
+        "15": 455,
+        "16": 320,
+        "17": 404,
+        "18": 322,
+        "19": 373,
+        "20": 224,
+        "21": 256,
+        "22": 191,
+        "23": 204,
+        "24": 145,
+        "25": 136,
+        "26": 88,
+        "27": 107,
+        "28": 83,
+        "29": 76,
+        "30": 58,
+        "31": 40,
+        "32": 30,
+        "33": 33,
+        "34": 31,
+        "35": 19,
+        "36": 10,
+        "37": 12,
+        "38": 17,
+        "39": 14,
+        "40": 7,
+        "41": 7,
+        "42": 11,
+        "43": 3,
+        "44": 8,
+        "45": 6,
+        "46": 5,
+        "47": 4,
+        "48": 2,
+        "49": 5,
+        "50": 1,
+        "51": 3,
+        "52": 1,
+        "53": 2,
+        "55": 4,
+        "56": 4,
+        "57": 1,
+        "58": 1,
+        "59": 1,
+        "61": 2,
+        "62": 2,
+        "63": 1,
+        "64": 2,
+        "70": 1,
+        "71": 1,
+        "74": 1,
+        "75": 1,
+        "77": 1,
+        "78": 1,
+        "81": 1,
+        "82": 2,
+        "84": 1,
+        "98": 1
+      },
+      "draws": 0,
+      "ending_turn_min": 9,
+      "ending_turn_max": 98,
+      "first_player_counts": {
+        "leonardo": 450,
+        "raphael": 450,
+        "donatello": 450,
+        "michelangelo": 450,
+        "splinter": 450,
+        "shredder": 450,
+        "krang": 450,
+        "bebop_rocksteady": 450,
+        "april_oneil": 450,
+        "casey_jones": 450
+      }
+    },
+    "new": {
+      "ending_turn_histogram": {
+        "9": 1,
+        "10": 2,
+        "11": 105,
+        "12": 88,
+        "13": 294,
+        "14": 255,
+        "15": 457,
+        "16": 315,
+        "17": 433,
+        "18": 331,
+        "19": 379,
+        "20": 244,
+        "21": 258,
+        "22": 192,
+        "23": 207,
+        "24": 132,
+        "25": 126,
+        "26": 91,
+        "27": 107,
+        "28": 83,
+        "29": 73,
+        "30": 53,
+        "31": 41,
+        "32": 29,
+        "33": 32,
+        "34": 31,
+        "35": 17,
+        "36": 11,
+        "37": 13,
+        "38": 14,
+        "39": 10,
+        "40": 7,
+        "41": 2,
+        "42": 12,
+        "43": 4,
+        "44": 4,
+        "45": 4,
+        "46": 4,
+        "47": 4,
+        "48": 2,
+        "49": 5,
+        "50": 1,
+        "51": 4,
+        "52": 1,
+        "53": 5,
+        "54": 1,
+        "55": 5,
+        "56": 2,
+        "58": 1,
+        "59": 1,
+        "61": 2,
+        "64": 2,
+        "70": 1,
+        "82": 1,
+        "96": 1
+      },
+      "draws": 0,
+      "ending_turn_min": 9,
+      "ending_turn_max": 96,
+      "first_player_counts": {
+        "leonardo": 450,
+        "raphael": 450,
+        "donatello": 450,
+        "michelangelo": 450,
+        "splinter": 450,
+        "shredder": 450,
+        "krang": 450,
+        "bebop_rocksteady": 450,
+        "april_oneil": 450,
+        "casey_jones": 450
+      }
+    }
+  },
+  "cycling_decks": {
+    "krang": {
+      "prior": {
+        "cards": [
+          "Stockman, Mad Fly-entist"
+        ],
+        "games": 900,
+        "cycling_games": 592,
+        "activations": {
+          "Stockman, Mad Fly-entist": 843
+        },
+        "casts": {
+          "Stockman, Mad Fly-entist": 12
+        },
+        "land_found": 843,
+        "shuffles": 843,
+        "first_creature_by_turn_4": 103,
+        "games_without_creature": 84,
+        "battlefield_presence": {
+          "3": 0.7078,
+          "5": 1.3944,
+          "7": 2.2289
+        },
+        "spell_casts": 6543
+      },
+      "new": {
+        "cards": [
+          "Stockman, Mad Fly-entist"
+        ],
+        "games": 900,
+        "cycling_games": 98,
+        "activations": {
+          "Stockman, Mad Fly-entist": 107
+        },
+        "casts": {
+          "Stockman, Mad Fly-entist": 434
+        },
+        "land_found": 107,
+        "shuffles": 107,
+        "first_creature_by_turn_4": 150,
+        "games_without_creature": 56,
+        "battlefield_presence": {
+          "3": 0.8322,
+          "5": 1.6567,
+          "7": 2.3933
+        },
+        "spell_casts": 6886
+      }
+    },
+    "bebop_rocksteady": {
+      "prior": {
+        "cards": [
+          "Bebop, Warthog Warrior",
+          "Rocksteady, Crash Courser"
+        ],
+        "games": 900,
+        "cycling_games": 756,
+        "activations": {
+          "Rocksteady, Crash Courser": 1140,
+          "Bebop, Warthog Warrior": 509
+        },
+        "casts": {
+          "Bebop, Warthog Warrior": 0,
+          "Rocksteady, Crash Courser": 0
+        },
+        "land_found": 1640,
+        "shuffles": 1649,
+        "first_creature_by_turn_4": 204,
+        "games_without_creature": 122,
+        "battlefield_presence": {
+          "3": 0.1556,
+          "5": 0.7044,
+          "7": 1.3767
+        },
+        "spell_casts": 1862
+      },
+      "new": {
+        "cards": [
+          "Bebop, Warthog Warrior",
+          "Rocksteady, Crash Courser"
+        ],
+        "games": 900,
+        "cycling_games": 692,
+        "activations": {
+          "Rocksteady, Crash Courser": 777,
+          "Bebop, Warthog Warrior": 286
+        },
+        "casts": {
+          "Bebop, Warthog Warrior": 173,
+          "Rocksteady, Crash Courser": 216
+        },
+        "land_found": 1063,
+        "shuffles": 1063,
+        "first_creature_by_turn_4": 470,
+        "games_without_creature": 98,
+        "battlefield_presence": {
+          "3": 0.34,
+          "5": 1.1044,
+          "7": 1.57
+        },
+        "spell_casts": 2270
+      }
+    }
+  },
+  "combined_validation_run": false,
+  "promotion_authorized": false,
+  "deck_design_decision": "DEFER_TO_HQ_DESIGN_STUDIO"
+}

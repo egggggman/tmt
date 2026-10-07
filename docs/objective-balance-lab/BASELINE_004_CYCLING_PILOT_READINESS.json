@@ -1,0 +1,236 @@
+{
+  "schema": "obl-baseline004-cycling-pilot-readiness-v1",
+  "status": "READY_FOR_UNCHANGED_BASELINE004_CONTROL",
+  "source_merged_main_sha": "eadc5f84ba67cb1ffa48506781fd36f36475ca4b",
+  "diagnostic_pr": 272,
+  "environment_id": "OBL-BASELINE-004",
+  "baseline_manifest_path": "docs/objective-balance-lab/baselines/OBL_BASELINE_004_MANIFEST.json",
+  "baseline_manifest_sha256": "4dc89f1ae5f6f38f27b871478d54c3f101ac0c0787ff49b52989f8afdfae9d2e",
+  "baseline_deck_hashes": {
+    "leonardo": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+    "raphael": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+    "donatello": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+    "michelangelo": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+    "splinter": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+    "shredder": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+    "krang": "2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1",
+    "bebop_rocksteady": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+    "april_oneil": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+    "casey_jones": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170"
+  },
+  "source_combined_path": "docs/objective-balance-lab/COMBINED_006_R7A_EVIDENCE.json.gz",
+  "source_combined_sha256": "8ce116dc37eb006c0479511141a4fa1b78035b541deabec969b7ecac6190509c",
+  "source_combined_git_blob_sha1": "67adbd9fcd0e39d3a77847570df80ae7c317c330",
+  "prior_semantic_runtime_sha256": "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1",
+  "semantic_runtime_sha256": "24ce312cdac00d914606d1f4c111813826ca615768d631532e995faf1c8d57fa",
+  "semantic_runtime_identity": {
+    "identity_schema": "obl-semantic-runtime-v1",
+    "repository_commit": "18ed94e534617071b239e007d7054a1584ab472c",
+    "files": [
+      {
+        "path": "src/tmnt_design_studio/__init__.py",
+        "sha256": "d5724478ec710bae63fdd5364cf0ca7ed8eed80fa9a937d396b97fb4ccedcae0",
+        "bytes": 49
+      },
+      {
+        "path": "src/tmnt_design_studio/__main__.py",
+        "sha256": "27c2970a7e84f63cac07027565488c5b1b3ed7f66cfa03b7ed627f341a363758",
+        "bytes": 46
+      },
+      {
+        "path": "src/tmnt_design_studio/aura07.py",
+        "sha256": "63d4f61bdadd50a7e2ca5bf5aa2097fec0b9ffea7d62e8977612e383deb805aa",
+        "bytes": 7982
+      },
+      {
+        "path": "src/tmnt_design_studio/calibration_executor.py",
+        "sha256": "f8b2f2337f52a3587cf6c696e4357ba13c3402b38384f3063bf7b8e71e0e8ba2",
+        "bytes": 2085
+      },
+      {
+        "path": "src/tmnt_design_studio/calibration_runner.py",
+        "sha256": "29d029495500b9343e037075c3c27879a0ae667f1602824278945fad2c9fecf1",
+        "bytes": 9754
+      },
+      {
+        "path": "src/tmnt_design_studio/capabilities.py",
+        "sha256": "33974cb9775aa32a0adf8116725897c3f6e5d8ab54528a21e840a3a3ca48ffdb",
+        "bytes": 25259
+      },
+      {
+        "path": "src/tmnt_design_studio/card_data.py",
+        "sha256": "a352e57fef93992b34390b8d964f51005faf93da4f1c832c794efc9f060d3a08",
+        "bytes": 4228
+      },
+      {
+        "path": "src/tmnt_design_studio/card_interpreter07.py",
+        "sha256": "cac95a89348c1ab4fa1f58bf9d0988b7ee5876b7f55e0447f5528fe1462557c5",
+        "bytes": 103949
+      },
+      {
+        "path": "src/tmnt_design_studio/cardcade.py",
+        "sha256": "81c277a3c767da5cbb364293fdb9c96d9f7fa02e6ff15937e32fe0a131f5ddb9",
+        "bytes": 36781
+      },
+      {
+        "path": "src/tmnt_design_studio/cli.py",
+        "sha256": "55d5f90e7bab694a1eccee689f6bf732f9a14c66a5c267491fa5eb8dcea41417",
+        "bytes": 13013
+      },
+      {
+        "path": "src/tmnt_design_studio/conformance07.py",
+        "sha256": "093336ed744bbb7e84aaefb521eaf14ec343afc60d5b9b9e95cc5042f62510b2",
+        "bytes": 3222
+      },
+      {
+        "path": "src/tmnt_design_studio/database.py",
+        "sha256": "6d92fdb46f9ffd47767e8436958fde9f1e39a530fba242772b02765c3019f263",
+        "bytes": 3341
+      },
+      {
+        "path": "src/tmnt_design_studio/deck_analysis.py",
+        "sha256": "7b430d6c9870cce0dde0e6a5f1170f28817b472bcb2d7863ed22601ffe6495fe",
+        "bytes": 30244
+      },
+      {
+        "path": "src/tmnt_design_studio/engine07.py",
+        "sha256": "ab193c4ebb14967eaa5e7139f27372dcae826220ad48613d1c1cc5b823875be7",
+        "bytes": 527471
+      },
+      {
+        "path": "src/tmnt_design_studio/food_search07.py",
+        "sha256": "eb09134ab8e99e8718cfbaa5417866a39b96ae7c08644f73935058c3a8e6b5f9",
+        "bytes": 25431
+      },
+      {
+        "path": "src/tmnt_design_studio/jury_rig07.py",
+        "sha256": "b9253e2dcaf735412918e152e937f6680fd3e77f92e6ddcc15f1b27865f00448",
+        "bytes": 26409
+      },
+      {
+        "path": "src/tmnt_design_studio/krang_refill07.py",
+        "sha256": "01e51f3e0bae1bb12d6fe23d82c3045d13d7377ef695fec06d6780fc3657f374",
+        "bytes": 30288
+      },
+      {
+        "path": "src/tmnt_design_studio/mana_ledger07.py",
+        "sha256": "6e7549c4ed0dc4b38eb0f220f0073bc5107bb2bd7b67fd828e204b419ea856a5",
+        "bytes": 2911
+      },
+      {
+        "path": "src/tmnt_design_studio/mill_three07.py",
+        "sha256": "093d430b6cb01f6c4c6d0aa8f15cfead5e8a04e9763937f24e6760e589d43ab1",
+        "bytes": 24926
+      },
+      {
+        "path": "src/tmnt_design_studio/pilot07.py",
+        "sha256": "ec56b4155fe05bd3616e931aae85375c34cba4d513355377221659c8308362a5",
+        "bytes": 11480
+      },
+      {
+        "path": "src/tmnt_design_studio/pilot_input_v2.py",
+        "sha256": "e9f5d1e4f5616c1290392ee1bc5c353763e43d1edc59dc24407d349c4a865a1a",
+        "bytes": 9993
+      },
+      {
+        "path": "src/tmnt_design_studio/scryfall.py",
+        "sha256": "5340a4829f4a96bf131d349382ae11ffbfe8ad5f22d9a312e42f9d8c6d65c8dd",
+        "bytes": 19945
+      },
+      {
+        "path": "src/tmnt_design_studio/semantic_coverage.py",
+        "sha256": "bd107fac20d17f701125f2d9b9f8c9f265efd3cdba7c01129cd88e6ccaebb9bb",
+        "bytes": 894
+      },
+      {
+        "path": "src/tmnt_design_studio/smoke01.py",
+        "sha256": "4231121755f54969a8547cabf1bbd89ddb43d4030d1cadd78d54741c5cadff6f",
+        "bytes": 27000
+      },
+      {
+        "path": "src/tmnt_design_studio/stage002.py",
+        "sha256": "76fc180f09822e49a8d5cea657f2468f8d5eeb7eb91752115f711b53ff9e1fc1",
+        "bytes": 52788
+      },
+      {
+        "path": "src/tmnt_design_studio/stage02.py",
+        "sha256": "1c5f02e6712ba95ccc65036ac16341d9df383b46d1952211e6cbe67dae9629bd",
+        "bytes": 56278
+      },
+      {
+        "path": "src/tmnt_design_studio/vigilante07.py",
+        "sha256": "647690c6404b31730539f63919b5c48a8168f20d7325e34c5bc420dd55c12013",
+        "bytes": 34172
+      },
+      {
+        "path": "tools/run_objective_balance_lab_round1.py",
+        "sha256": "0728c0aa073ea08b990c61b31b07081276427c6e3528812a0f076803ee181c62",
+        "bytes": 20740
+      },
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+        "sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+        "bytes": 473942
+      },
+      {
+        "path": "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+        "sha256": "ddbf57645bd016d16659424f2196cd816edfc7a187c4b653a9e6e8839b3e9a6d",
+        "bytes": 2067
+      },
+      {
+        "path": "docs/cardcade/CALIBRATION_SEED_TABLE_V2.json",
+        "sha256": "6be94f69a2e9432e615aea7a8592d68b6537998b3f7355a60191a29e71dc6e5c",
+        "bytes": 32584022
+      }
+    ],
+    "aggregate_semantic_runtime_sha256": "24ce312cdac00d914606d1f4c111813826ca615768d631532e995faf1c8d57fa"
+  },
+  "changed_semantic_inputs": [
+    {
+      "path": "src/tmnt_design_studio/pilot07.py",
+      "prior_sha256": "4c1623bcd23f6ed6fbfd4aa4178c3473f8fe74f1d777be8a007f2bb815bed45b",
+      "new_sha256": "ec56b4155fe05bd3616e931aae85375c34cba4d513355377221659c8308362a5"
+    }
+  ],
+  "execution_driver_sha256": "6619d86dfc2f13dc100a1e3f2f39ad14bafd1dcc20a80590b1345736febd8396",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "required_matchups": 45,
+  "required_games": 4500,
+  "balanced_starts_per_cell": [
+    50,
+    50
+  ],
+  "deterministic_replay_samples_required": 6,
+  "cycling_inventory": {
+    "krang": [
+      {
+        "card": "Stockman, Mad Fly-entist",
+        "copies": 3,
+        "cycling": "Islandcycling {2}"
+      }
+    ],
+    "bebop_rocksteady": [
+      {
+        "card": "Bebop, Warthog Warrior",
+        "copies": 2,
+        "cycling": "Swampcycling {2}"
+      },
+      {
+        "card": "Rocksteady, Crash Courser",
+        "copies": 4,
+        "cycling": "Forestcycling {2}"
+      }
+    ]
+  },
+  "pilot_policy": "Defer legal hand cycling until the casting decision; cast a creature or other chosen spell first, cycle only if no spell is currently castable; all battlefield activations retain their established priority.",
+  "focused_tests": [
+    "test_cycling_is_selected_when_no_spell_can_be_cast_and_replays_match",
+    "test_pilot_can_retain_cycling_creature_and_cast_it_when_affordable",
+    "test_castable_creature_is_chosen_before_cycling_another_hand_card"
+  ],
+  "landcycling_legality_unchanged": true,
+  "baseline_decks_changed": false,
+  "new_candidate_games": 0,
+  "combined_validation_run": false,
+  "promotion_authorized": false
+}
