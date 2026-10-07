@@ -1,0 +1,2534 @@
+{
+  "schema": "obl-round8-bebop-corrected-control-diagnostic-v1",
+  "status": "DIAGNOSTIC_ONLY_RETURN_TO_DESIGN_STUDIO",
+  "environment_id": "OBL-BASELINE-004",
+  "control_id": "OBL-BASELINE-004-CYCLING-PILOT-REFRESH-001",
+  "control_sha256": "25c64af33b736c2da546b7235f1e27d52671255c9908b1245dbdf4b41d3808ee",
+  "analysis_sha256": "c57c8f54aa24438dc4c1ae5e1c278525f6ffe30b064e91b54a6548eccdc24db2",
+  "manifest_git_blob_sha1": "cc17b1760410d7a8547626bb9dbd4a0cd534207f",
+  "semantic_runtime_sha256": "24ce312cdac00d914606d1f4c111813826ca615768d631532e995faf1c8d57fa",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "baseline_decks": {
+    "leonardo": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
+    "raphael": "e8d29b97e4fa52bd1a8ae0d8056b5217660b1367e0a386e811908e256dea711f",
+    "donatello": "d9baf095831d82d7fae01af75b61ecf0debefe04a14ad945e67e0db696aa09c6",
+    "michelangelo": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+    "splinter": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+    "shredder": "1ce0828b6ac107bc8cdf2e0b965d919e83941316803880a71d11bbbb48902fc1",
+    "krang": "2d598af2d05212ffb0f19fe5f315b7bf8f85501975155f394448b0a48fa81ab1",
+    "bebop_rocksteady": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509",
+    "april_oneil": "ebaff265d90b5cfbec4f7e9662a9d105f9ef8f58a17b06949626ed2ff898b8b7",
+    "casey_jones": "9cf8a038530dad01f4bc64bc9293889abe389cd043845cf6d538dd29865ad170"
+  },
+  "games_analyzed": 900,
+  "new_games": 0,
+  "by_opponent": {
+    "leonardo": {
+      "all": {
+        "games": 100,
+        "wins": 31,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 15,
+        "bebop_first_creature_by_turn_4": 58,
+        "opponent_first_creature_by_turn_4": 93,
+        "bebop_no_creature": 5,
+        "bebop_casts": 338,
+        "opponent_casts": 1006,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 24,
+          "Rocksteady, Crash Courser": 51
+        },
+        "bebop_cycling_activations": 136,
+        "bebop_cycling_games": 84,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.41,
+          "5": 1.43,
+          "7": 1.8
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.89,
+          "5": 1.75,
+          "7": 2.28
+        },
+        "mean_ending_turn": 24.52,
+        "ending_by_turn_17": 39,
+        "ending_turn_histogram": {
+          "11": 2,
+          "12": 3,
+          "13": 1,
+          "14": 10,
+          "15": 12,
+          "16": 7,
+          "17": 4,
+          "18": 10,
+          "19": 6,
+          "20": 4,
+          "21": 2,
+          "22": 1,
+          "23": 5,
+          "24": 1,
+          "25": 1,
+          "26": 2,
+          "27": 1,
+          "28": 2,
+          "30": 1,
+          "31": 4,
+          "32": 1,
+          "34": 4,
+          "35": 1,
+          "37": 2,
+          "42": 2,
+          "43": 2,
+          "49": 1,
+          "51": 1,
+          "54": 1,
+          "55": 2,
+          "58": 1,
+          "61": 1,
+          "64": 1,
+          "96": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 24,
+          "Frog Butler": 69,
+          "Paramecia Coloniex": 71,
+          "Rocksteady, Crash Courser": 51,
+          "Zoo Escapees": 123
+        },
+        "opponent_signature_casts": {
+          "leonardo:April O'Neil, Kunoichi Trainee": 185,
+          "leonardo:Leonardo, Big Brother": 58,
+          "leonardo:Leonardo, Cutting Edge": 78,
+          "leonardo:Leonardo, Leader in Blue": 229,
+          "leonardo:Leonardo, Sewer Samurai": 31,
+          "leonardo:Lita, Little Orphan Amphibian": 83,
+          "leonardo:Make Your Move": 57,
+          "leonardo:Mighty Mutanimals": 8,
+          "leonardo:Prehistoric Pet": 277
+        },
+        "opponents": [
+          "leonardo"
+        ]
+      },
+      "wins": {
+        "games": 31,
+        "wins": 31,
+        "draws": 0,
+        "first_player_games": 15,
+        "first_player_wins": 15,
+        "bebop_first_creature_by_turn_4": 17,
+        "opponent_first_creature_by_turn_4": 29,
+        "bebop_no_creature": 0,
+        "bebop_casts": 144,
+        "opponent_casts": 434,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 15,
+          "Rocksteady, Crash Courser": 36
+        },
+        "bebop_cycling_activations": 39,
+        "bebop_cycling_games": 27,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3548,
+          "5": 1.6129,
+          "7": 1.9355
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 1.0323,
+          "5": 1.9677,
+          "7": 2.3548
+        },
+        "mean_ending_turn": 32.5484,
+        "ending_by_turn_17": 1,
+        "ending_turn_histogram": {
+          "14": 1,
+          "18": 3,
+          "19": 2,
+          "22": 1,
+          "23": 2,
+          "25": 1,
+          "26": 2,
+          "27": 1,
+          "28": 1,
+          "30": 1,
+          "31": 2,
+          "32": 1,
+          "34": 3,
+          "35": 1,
+          "37": 2,
+          "42": 1,
+          "43": 1,
+          "49": 1,
+          "54": 1,
+          "55": 1,
+          "61": 1,
+          "64": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 15,
+          "Frog Butler": 25,
+          "Paramecia Coloniex": 26,
+          "Rocksteady, Crash Courser": 36,
+          "Zoo Escapees": 42
+        },
+        "opponent_signature_casts": {
+          "leonardo:April O'Neil, Kunoichi Trainee": 99,
+          "leonardo:Leonardo, Big Brother": 18,
+          "leonardo:Leonardo, Cutting Edge": 22,
+          "leonardo:Leonardo, Leader in Blue": 110,
+          "leonardo:Leonardo, Sewer Samurai": 6,
+          "leonardo:Lita, Little Orphan Amphibian": 24,
+          "leonardo:Make Your Move": 22,
+          "leonardo:Mighty Mutanimals": 1,
+          "leonardo:Prehistoric Pet": 132
+        },
+        "opponents": [
+          "leonardo"
+        ]
+      },
+      "nonwins": {
+        "games": 69,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 35,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 41,
+        "opponent_first_creature_by_turn_4": 64,
+        "bebop_no_creature": 5,
+        "bebop_casts": 194,
+        "opponent_casts": 572,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Rocksteady, Crash Courser": 15
+        },
+        "bebop_cycling_activations": 97,
+        "bebop_cycling_games": 57,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.4348,
+          "5": 1.3478,
+          "7": 1.7391
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.8261,
+          "5": 1.6522,
+          "7": 2.2464
+        },
+        "mean_ending_turn": 20.913,
+        "ending_by_turn_17": 38,
+        "ending_turn_histogram": {
+          "11": 2,
+          "12": 3,
+          "13": 1,
+          "14": 9,
+          "15": 12,
+          "16": 7,
+          "17": 4,
+          "18": 7,
+          "19": 4,
+          "20": 4,
+          "21": 2,
+          "23": 3,
+          "24": 1,
+          "28": 1,
+          "31": 2,
+          "34": 1,
+          "42": 1,
+          "43": 1,
+          "51": 1,
+          "55": 1,
+          "58": 1,
+          "96": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Frog Butler": 44,
+          "Paramecia Coloniex": 45,
+          "Rocksteady, Crash Courser": 15,
+          "Zoo Escapees": 81
+        },
+        "opponent_signature_casts": {
+          "leonardo:April O'Neil, Kunoichi Trainee": 86,
+          "leonardo:Leonardo, Big Brother": 40,
+          "leonardo:Leonardo, Cutting Edge": 56,
+          "leonardo:Leonardo, Leader in Blue": 119,
+          "leonardo:Leonardo, Sewer Samurai": 25,
+          "leonardo:Lita, Little Orphan Amphibian": 59,
+          "leonardo:Make Your Move": 35,
+          "leonardo:Mighty Mutanimals": 7,
+          "leonardo:Prehistoric Pet": 145
+        },
+        "opponents": [
+          "leonardo"
+        ]
+      },
+      "prior_win_rate": 0.01,
+      "corrected_win_rate": 0.31
+    },
+    "raphael": {
+      "all": {
+        "games": 100,
+        "wins": 11,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 6,
+        "bebop_first_creature_by_turn_4": 58,
+        "opponent_first_creature_by_turn_4": 53,
+        "bebop_no_creature": 13,
+        "bebop_casts": 239,
+        "opponent_casts": 588,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 13,
+          "Rocksteady, Crash Courser": 19
+        },
+        "bebop_cycling_activations": 110,
+        "bebop_cycling_games": 72,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.26,
+          "5": 0.95,
+          "7": 1.36
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.3,
+          "5": 0.94,
+          "7": 1.69
+        },
+        "mean_ending_turn": 15.69,
+        "ending_by_turn_17": 72,
+        "ending_turn_histogram": {
+          "9": 1,
+          "11": 9,
+          "12": 12,
+          "13": 11,
+          "14": 11,
+          "15": 11,
+          "16": 10,
+          "17": 7,
+          "18": 11,
+          "19": 4,
+          "20": 2,
+          "21": 5,
+          "22": 1,
+          "24": 1,
+          "25": 2,
+          "30": 1,
+          "31": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 13,
+          "Frog Butler": 48,
+          "Paramecia Coloniex": 51,
+          "Rocksteady, Crash Courser": 19,
+          "Zoo Escapees": 108
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 46,
+          "raphael:Manhole Missile": 84,
+          "raphael:Mutant Town Musicians": 54,
+          "raphael:Null Group Biological Assets": 97,
+          "raphael:Raphael, Most Attitude": 28,
+          "raphael:Raphael, Ninja Destroyer": 30,
+          "raphael:Raphael, Tough Turtle": 100,
+          "raphael:Raphael, the Nightwatcher": 19,
+          "raphael:Skateboard": 77,
+          "raphael:Spicy Oatmeal Pizza": 13,
+          "raphael:Wingnut, Bat on the Belfry": 40
+        },
+        "opponents": [
+          "raphael"
+        ]
+      },
+      "wins": {
+        "games": 11,
+        "wins": 11,
+        "draws": 0,
+        "first_player_games": 6,
+        "first_player_wins": 6,
+        "bebop_first_creature_by_turn_4": 9,
+        "opponent_first_creature_by_turn_4": 5,
+        "bebop_no_creature": 0,
+        "bebop_casts": 38,
+        "opponent_casts": 59,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 6,
+          "Rocksteady, Crash Courser": 10
+        },
+        "bebop_cycling_activations": 14,
+        "bebop_cycling_games": 9,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3636,
+          "5": 1.4545,
+          "7": 1.6364
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.2727,
+          "5": 0.7273,
+          "7": 1.1818
+        },
+        "mean_ending_turn": 18.3636,
+        "ending_by_turn_17": 6,
+        "ending_turn_histogram": {
+          "15": 3,
+          "16": 1,
+          "17": 2,
+          "18": 2,
+          "20": 1,
+          "21": 1,
+          "30": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 6,
+          "Frog Butler": 3,
+          "Paramecia Coloniex": 9,
+          "Rocksteady, Crash Courser": 10,
+          "Zoo Escapees": 10
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 1,
+          "raphael:Manhole Missile": 14,
+          "raphael:Mutant Town Musicians": 2,
+          "raphael:Null Group Biological Assets": 11,
+          "raphael:Raphael, Most Attitude": 3,
+          "raphael:Raphael, Ninja Destroyer": 3,
+          "raphael:Raphael, Tough Turtle": 12,
+          "raphael:Skateboard": 10,
+          "raphael:Wingnut, Bat on the Belfry": 3
+        },
+        "opponents": [
+          "raphael"
+        ]
+      },
+      "nonwins": {
+        "games": 89,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 44,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 49,
+        "opponent_first_creature_by_turn_4": 48,
+        "bebop_no_creature": 13,
+        "bebop_casts": 201,
+        "opponent_casts": 529,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 7,
+          "Rocksteady, Crash Courser": 9
+        },
+        "bebop_cycling_activations": 96,
+        "bebop_cycling_games": 63,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.2472,
+          "5": 0.8876,
+          "7": 1.3258
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.3034,
+          "5": 0.9663,
+          "7": 1.7528
+        },
+        "mean_ending_turn": 15.3596,
+        "ending_by_turn_17": 66,
+        "ending_turn_histogram": {
+          "9": 1,
+          "11": 9,
+          "12": 12,
+          "13": 11,
+          "14": 11,
+          "15": 8,
+          "16": 9,
+          "17": 5,
+          "18": 9,
+          "19": 4,
+          "20": 1,
+          "21": 4,
+          "22": 1,
+          "24": 1,
+          "25": 2,
+          "31": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 7,
+          "Frog Butler": 45,
+          "Paramecia Coloniex": 42,
+          "Rocksteady, Crash Courser": 9,
+          "Zoo Escapees": 98
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 45,
+          "raphael:Manhole Missile": 70,
+          "raphael:Mutant Town Musicians": 52,
+          "raphael:Null Group Biological Assets": 86,
+          "raphael:Raphael, Most Attitude": 25,
+          "raphael:Raphael, Ninja Destroyer": 27,
+          "raphael:Raphael, Tough Turtle": 88,
+          "raphael:Raphael, the Nightwatcher": 19,
+          "raphael:Skateboard": 67,
+          "raphael:Spicy Oatmeal Pizza": 13,
+          "raphael:Wingnut, Bat on the Belfry": 37
+        },
+        "opponents": [
+          "raphael"
+        ]
+      },
+      "prior_win_rate": 0.02,
+      "corrected_win_rate": 0.11
+    },
+    "donatello": {
+      "all": {
+        "games": 100,
+        "wins": 39,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 25,
+        "bebop_first_creature_by_turn_4": 52,
+        "opponent_first_creature_by_turn_4": 12,
+        "bebop_no_creature": 10,
+        "bebop_casts": 272,
+        "opponent_casts": 908,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 25,
+          "Rocksteady, Crash Courser": 30
+        },
+        "bebop_cycling_activations": 108,
+        "bebop_cycling_games": 70,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.4,
+          "5": 1.03,
+          "7": 1.62
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.73,
+          "5": 1.46,
+          "7": 2.34
+        },
+        "mean_ending_turn": 19.33,
+        "ending_by_turn_17": 46,
+        "ending_turn_histogram": {
+          "11": 1,
+          "13": 8,
+          "14": 3,
+          "15": 12,
+          "16": 11,
+          "17": 11,
+          "18": 7,
+          "19": 7,
+          "20": 5,
+          "21": 8,
+          "22": 7,
+          "23": 5,
+          "24": 1,
+          "25": 2,
+          "26": 1,
+          "27": 2,
+          "28": 1,
+          "29": 3,
+          "30": 1,
+          "31": 2,
+          "36": 1,
+          "40": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 25,
+          "Frog Butler": 63,
+          "Paramecia Coloniex": 55,
+          "Rocksteady, Crash Courser": 30,
+          "Zoo Escapees": 99
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 170,
+          "donatello:Crustacean Commando": 118,
+          "donatello:Does Machines": 101,
+          "donatello:Donatello's Technique": 48,
+          "donatello:Donatello, Gadget Master": 31,
+          "donatello:Donatello, Mutant Mechanic": 25,
+          "donatello:Donatello, Turtle Techie": 31,
+          "donatello:Donatello, Way with Machines": 50,
+          "donatello:Fugitive Droid": 213,
+          "donatello:Mouser Mark III": 81,
+          "donatello:Utrom Scientists": 40
+        },
+        "opponents": [
+          "donatello"
+        ]
+      },
+      "wins": {
+        "games": 39,
+        "wins": 39,
+        "draws": 0,
+        "first_player_games": 25,
+        "first_player_wins": 25,
+        "bebop_first_creature_by_turn_4": 28,
+        "opponent_first_creature_by_turn_4": 2,
+        "bebop_no_creature": 0,
+        "bebop_casts": 153,
+        "opponent_casts": 345,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 19,
+          "Rocksteady, Crash Courser": 18
+        },
+        "bebop_cycling_activations": 36,
+        "bebop_cycling_games": 27,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.7179,
+          "5": 1.2821,
+          "7": 2.0769
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.359,
+          "5": 0.8974,
+          "7": 1.8462
+        },
+        "mean_ending_turn": 19.9744,
+        "ending_by_turn_17": 13,
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 1,
+          "15": 2,
+          "16": 4,
+          "17": 5,
+          "18": 1,
+          "19": 6,
+          "20": 2,
+          "21": 5,
+          "22": 5,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "31": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 19,
+          "Frog Butler": 29,
+          "Paramecia Coloniex": 31,
+          "Rocksteady, Crash Courser": 18,
+          "Zoo Escapees": 56
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 73,
+          "donatello:Crustacean Commando": 46,
+          "donatello:Does Machines": 53,
+          "donatello:Donatello's Technique": 23,
+          "donatello:Donatello, Gadget Master": 5,
+          "donatello:Donatello, Mutant Mechanic": 7,
+          "donatello:Donatello, Turtle Techie": 3,
+          "donatello:Donatello, Way with Machines": 11,
+          "donatello:Fugitive Droid": 85,
+          "donatello:Mouser Mark III": 24,
+          "donatello:Utrom Scientists": 15
+        },
+        "opponents": [
+          "donatello"
+        ]
+      },
+      "nonwins": {
+        "games": 61,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 25,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 24,
+        "opponent_first_creature_by_turn_4": 10,
+        "bebop_no_creature": 10,
+        "bebop_casts": 119,
+        "opponent_casts": 563,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 6,
+          "Rocksteady, Crash Courser": 12
+        },
+        "bebop_cycling_activations": 72,
+        "bebop_cycling_games": 43,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.1967,
+          "5": 0.8689,
+          "7": 1.3279
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.9672,
+          "5": 1.8197,
+          "7": 2.6557
+        },
+        "mean_ending_turn": 18.918,
+        "ending_by_turn_17": 33,
+        "ending_turn_histogram": {
+          "11": 1,
+          "13": 7,
+          "14": 2,
+          "15": 10,
+          "16": 7,
+          "17": 6,
+          "18": 6,
+          "19": 1,
+          "20": 3,
+          "21": 3,
+          "22": 2,
+          "23": 4,
+          "26": 1,
+          "27": 1,
+          "28": 1,
+          "29": 3,
+          "30": 1,
+          "36": 1,
+          "40": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 6,
+          "Frog Butler": 34,
+          "Paramecia Coloniex": 24,
+          "Rocksteady, Crash Courser": 12,
+          "Zoo Escapees": 43
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 97,
+          "donatello:Crustacean Commando": 72,
+          "donatello:Does Machines": 48,
+          "donatello:Donatello's Technique": 25,
+          "donatello:Donatello, Gadget Master": 26,
+          "donatello:Donatello, Mutant Mechanic": 18,
+          "donatello:Donatello, Turtle Techie": 28,
+          "donatello:Donatello, Way with Machines": 39,
+          "donatello:Fugitive Droid": 128,
+          "donatello:Mouser Mark III": 57,
+          "donatello:Utrom Scientists": 25
+        },
+        "opponents": [
+          "donatello"
+        ]
+      },
+      "prior_win_rate": 0.14,
+      "corrected_win_rate": 0.39
+    },
+    "michelangelo": {
+      "all": {
+        "games": 100,
+        "wins": 25,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 23,
+        "bebop_first_creature_by_turn_4": 54,
+        "opponent_first_creature_by_turn_4": 76,
+        "bebop_no_creature": 12,
+        "bebop_casts": 217,
+        "opponent_casts": 415,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 19,
+          "Rocksteady, Crash Courser": 15
+        },
+        "bebop_cycling_activations": 132,
+        "bebop_cycling_games": 80,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.28,
+          "5": 0.93,
+          "7": 1.46
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.33,
+          "5": 1.45,
+          "7": 2.16
+        },
+        "mean_ending_turn": 16.13,
+        "ending_by_turn_17": 69,
+        "ending_turn_histogram": {
+          "11": 11,
+          "12": 6,
+          "13": 11,
+          "14": 5,
+          "15": 18,
+          "16": 6,
+          "17": 12,
+          "18": 8,
+          "19": 8,
+          "20": 2,
+          "21": 6,
+          "23": 2,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "28": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 19,
+          "Frog Butler": 40,
+          "Paramecia Coloniex": 51,
+          "Rocksteady, Crash Courser": 15,
+          "Zoo Escapees": 92
+        },
+        "opponent_signature_casts": {
+          "michelangelo:Courier of Comestibles": 86,
+          "michelangelo:Michelangelo, Game Master": 66,
+          "michelangelo:Michelangelo, Improviser": 38,
+          "michelangelo:Michelangelo, Mutant BFF": 40,
+          "michelangelo:Michelangelo, Weirdness to 11": 94,
+          "michelangelo:Zoo Escapees": 91
+        },
+        "opponents": [
+          "michelangelo"
+        ]
+      },
+      "wins": {
+        "games": 25,
+        "wins": 25,
+        "draws": 0,
+        "first_player_games": 23,
+        "first_player_wins": 23,
+        "bebop_first_creature_by_turn_4": 17,
+        "opponent_first_creature_by_turn_4": 20,
+        "bebop_no_creature": 0,
+        "bebop_casts": 81,
+        "opponent_casts": 111,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Rocksteady, Crash Courser": 8
+        },
+        "bebop_cycling_activations": 37,
+        "bebop_cycling_games": 20,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.6,
+          "5": 1.56,
+          "7": 2
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0,
+          "5": 1.36,
+          "7": 2.04
+        },
+        "mean_ending_turn": 18.76,
+        "ending_by_turn_17": 12,
+        "ending_turn_histogram": {
+          "13": 1,
+          "15": 3,
+          "17": 8,
+          "18": 2,
+          "19": 4,
+          "21": 3,
+          "23": 1,
+          "25": 2,
+          "27": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Frog Butler": 10,
+          "Paramecia Coloniex": 21,
+          "Rocksteady, Crash Courser": 8,
+          "Zoo Escapees": 33
+        },
+        "opponent_signature_casts": {
+          "michelangelo:Courier of Comestibles": 31,
+          "michelangelo:Michelangelo, Game Master": 15,
+          "michelangelo:Michelangelo, Improviser": 7,
+          "michelangelo:Michelangelo, Mutant BFF": 8,
+          "michelangelo:Michelangelo, Weirdness to 11": 32,
+          "michelangelo:Zoo Escapees": 18
+        },
+        "opponents": [
+          "michelangelo"
+        ]
+      },
+      "nonwins": {
+        "games": 75,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 27,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 37,
+        "opponent_first_creature_by_turn_4": 56,
+        "bebop_no_creature": 12,
+        "bebop_casts": 136,
+        "opponent_casts": 304,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Rocksteady, Crash Courser": 7
+        },
+        "bebop_cycling_activations": 95,
+        "bebop_cycling_games": 60,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.1733,
+          "5": 0.72,
+          "7": 1.28
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.44,
+          "5": 1.48,
+          "7": 2.2
+        },
+        "mean_ending_turn": 15.2533,
+        "ending_by_turn_17": 57,
+        "ending_turn_histogram": {
+          "11": 11,
+          "12": 6,
+          "13": 10,
+          "14": 5,
+          "15": 15,
+          "16": 6,
+          "17": 4,
+          "18": 6,
+          "19": 4,
+          "20": 2,
+          "21": 3,
+          "23": 1,
+          "24": 1,
+          "28": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Frog Butler": 30,
+          "Paramecia Coloniex": 30,
+          "Rocksteady, Crash Courser": 7,
+          "Zoo Escapees": 59
+        },
+        "opponent_signature_casts": {
+          "michelangelo:Courier of Comestibles": 55,
+          "michelangelo:Michelangelo, Game Master": 51,
+          "michelangelo:Michelangelo, Improviser": 31,
+          "michelangelo:Michelangelo, Mutant BFF": 32,
+          "michelangelo:Michelangelo, Weirdness to 11": 62,
+          "michelangelo:Zoo Escapees": 73
+        },
+        "opponents": [
+          "michelangelo"
+        ]
+      },
+      "prior_win_rate": 0.13,
+      "corrected_win_rate": 0.25
+    },
+    "splinter": {
+      "all": {
+        "games": 100,
+        "wins": 12,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 8,
+        "bebop_first_creature_by_turn_4": 57,
+        "opponent_first_creature_by_turn_4": 88,
+        "bebop_no_creature": 9,
+        "bebop_casts": 230,
+        "opponent_casts": 590,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 20,
+          "Rocksteady, Crash Courser": 10
+        },
+        "bebop_cycling_activations": 119,
+        "bebop_cycling_games": 76,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.4,
+          "5": 1.38,
+          "7": 1.85
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 1,
+          "5": 2.25,
+          "7": 2.89
+        },
+        "mean_ending_turn": 17.12,
+        "ending_by_turn_17": 62,
+        "ending_turn_histogram": {
+          "11": 4,
+          "12": 3,
+          "13": 9,
+          "14": 14,
+          "15": 13,
+          "16": 8,
+          "17": 11,
+          "18": 10,
+          "19": 5,
+          "20": 5,
+          "21": 4,
+          "22": 4,
+          "23": 4,
+          "24": 1,
+          "25": 1,
+          "26": 1,
+          "29": 2,
+          "37": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 20,
+          "Frog Butler": 55,
+          "Paramecia Coloniex": 38,
+          "Rocksteady, Crash Courser": 10,
+          "Zoo Escapees": 107
+        },
+        "opponent_signature_casts": {
+          "splinter:Dream Beavers": 119,
+          "splinter:Foot Mystic": 59,
+          "splinter:Insectoid Exterminator": 72,
+          "splinter:Shark Shredder, Killer Clone": 40,
+          "splinter:Splinter, Hamato Yoshi": 93,
+          "splinter:Squirrelanoids": 103,
+          "splinter:Tunnel Rats": 104
+        },
+        "opponents": [
+          "splinter"
+        ]
+      },
+      "wins": {
+        "games": 12,
+        "wins": 12,
+        "draws": 0,
+        "first_player_games": 8,
+        "first_player_wins": 8,
+        "bebop_first_creature_by_turn_4": 8,
+        "opponent_first_creature_by_turn_4": 9,
+        "bebop_no_creature": 0,
+        "bebop_casts": 47,
+        "opponent_casts": 70,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 7,
+          "Rocksteady, Crash Courser": 4
+        },
+        "bebop_cycling_activations": 15,
+        "bebop_cycling_games": 10,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.9167,
+          "5": 1.5833,
+          "7": 2
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.6667,
+          "5": 1.75,
+          "7": 2.5833
+        },
+        "mean_ending_turn": 21,
+        "ending_by_turn_17": 2,
+        "ending_turn_histogram": {
+          "17": 2,
+          "20": 2,
+          "21": 3,
+          "22": 2,
+          "23": 2,
+          "25": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 7,
+          "Frog Butler": 10,
+          "Paramecia Coloniex": 8,
+          "Rocksteady, Crash Courser": 4,
+          "Zoo Escapees": 18
+        },
+        "opponent_signature_casts": {
+          "splinter:Dream Beavers": 12,
+          "splinter:Foot Mystic": 3,
+          "splinter:Insectoid Exterminator": 11,
+          "splinter:Shark Shredder, Killer Clone": 2,
+          "splinter:Splinter, Hamato Yoshi": 11,
+          "splinter:Squirrelanoids": 15,
+          "splinter:Tunnel Rats": 16
+        },
+        "opponents": [
+          "splinter"
+        ]
+      },
+      "nonwins": {
+        "games": 88,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 42,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 49,
+        "opponent_first_creature_by_turn_4": 79,
+        "bebop_no_creature": 9,
+        "bebop_casts": 183,
+        "opponent_casts": 520,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 13,
+          "Rocksteady, Crash Courser": 6
+        },
+        "bebop_cycling_activations": 104,
+        "bebop_cycling_games": 66,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3295,
+          "5": 1.3523,
+          "7": 1.8295
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 1.0455,
+          "5": 2.3182,
+          "7": 2.9318
+        },
+        "mean_ending_turn": 16.5909,
+        "ending_by_turn_17": 60,
+        "ending_turn_histogram": {
+          "11": 4,
+          "12": 3,
+          "13": 9,
+          "14": 14,
+          "15": 13,
+          "16": 8,
+          "17": 9,
+          "18": 10,
+          "19": 5,
+          "20": 3,
+          "21": 1,
+          "22": 2,
+          "23": 2,
+          "24": 1,
+          "26": 1,
+          "29": 2,
+          "37": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 13,
+          "Frog Butler": 45,
+          "Paramecia Coloniex": 30,
+          "Rocksteady, Crash Courser": 6,
+          "Zoo Escapees": 89
+        },
+        "opponent_signature_casts": {
+          "splinter:Dream Beavers": 107,
+          "splinter:Foot Mystic": 56,
+          "splinter:Insectoid Exterminator": 61,
+          "splinter:Shark Shredder, Killer Clone": 38,
+          "splinter:Splinter, Hamato Yoshi": 82,
+          "splinter:Squirrelanoids": 88,
+          "splinter:Tunnel Rats": 88
+        },
+        "opponents": [
+          "splinter"
+        ]
+      },
+      "prior_win_rate": 0.03,
+      "corrected_win_rate": 0.12
+    },
+    "shredder": {
+      "all": {
+        "games": 100,
+        "wins": 13,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 6,
+        "bebop_first_creature_by_turn_4": 45,
+        "opponent_first_creature_by_turn_4": 77,
+        "bebop_no_creature": 16,
+        "bebop_casts": 201,
+        "opponent_casts": 498,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Rocksteady, Crash Courser": 13
+        },
+        "bebop_cycling_activations": 121,
+        "bebop_cycling_games": 82,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.37,
+          "5": 1.19,
+          "7": 1.6
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.88,
+          "5": 1.79,
+          "7": 2.39
+        },
+        "mean_ending_turn": 16.27,
+        "ending_by_turn_17": 69,
+        "ending_turn_histogram": {
+          "11": 10,
+          "12": 6,
+          "13": 15,
+          "14": 12,
+          "15": 7,
+          "16": 11,
+          "17": 8,
+          "18": 8,
+          "19": 4,
+          "20": 5,
+          "21": 2,
+          "22": 4,
+          "23": 2,
+          "26": 2,
+          "28": 1,
+          "29": 1,
+          "30": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Frog Butler": 45,
+          "Paramecia Coloniex": 43,
+          "Rocksteady, Crash Courser": 13,
+          "Zoo Escapees": 90
+        },
+        "opponent_signature_casts": {
+          "shredder:Dream Beavers": 91,
+          "shredder:Foot Mystic": 60,
+          "shredder:Oroku Saki, Shredder Rising": 47,
+          "shredder:Shark Shredder, Killer Clone": 39,
+          "shredder:Shredder, Unrelenting": 33,
+          "shredder:Squirrelanoids": 103,
+          "shredder:Super Shredder": 77,
+          "shredder:Tunnel Rats": 48
+        },
+        "opponents": [
+          "shredder"
+        ]
+      },
+      "wins": {
+        "games": 13,
+        "wins": 13,
+        "draws": 0,
+        "first_player_games": 6,
+        "first_player_wins": 6,
+        "bebop_first_creature_by_turn_4": 9,
+        "opponent_first_creature_by_turn_4": 9,
+        "bebop_no_creature": 0,
+        "bebop_casts": 47,
+        "opponent_casts": 69,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Rocksteady, Crash Courser": 8
+        },
+        "bebop_cycling_activations": 16,
+        "bebop_cycling_games": 12,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.5385,
+          "5": 1.6923,
+          "7": 1.7692
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.7692,
+          "5": 1.4615,
+          "7": 1.7692
+        },
+        "mean_ending_turn": 20.9231,
+        "ending_by_turn_17": 3,
+        "ending_turn_histogram": {
+          "16": 1,
+          "17": 2,
+          "18": 1,
+          "19": 1,
+          "20": 2,
+          "21": 1,
+          "22": 1,
+          "23": 2,
+          "26": 1,
+          "30": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Frog Butler": 6,
+          "Paramecia Coloniex": 10,
+          "Rocksteady, Crash Courser": 8,
+          "Zoo Escapees": 18
+        },
+        "opponent_signature_casts": {
+          "shredder:Dream Beavers": 12,
+          "shredder:Foot Mystic": 6,
+          "shredder:Oroku Saki, Shredder Rising": 9,
+          "shredder:Shark Shredder, Killer Clone": 5,
+          "shredder:Shredder, Unrelenting": 5,
+          "shredder:Squirrelanoids": 17,
+          "shredder:Super Shredder": 10,
+          "shredder:Tunnel Rats": 5
+        },
+        "opponents": [
+          "shredder"
+        ]
+      },
+      "nonwins": {
+        "games": 87,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 44,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 36,
+        "opponent_first_creature_by_turn_4": 68,
+        "bebop_no_creature": 16,
+        "bebop_casts": 154,
+        "opponent_casts": 429,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Rocksteady, Crash Courser": 5
+        },
+        "bebop_cycling_activations": 105,
+        "bebop_cycling_games": 70,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3448,
+          "5": 1.1149,
+          "7": 1.5747
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.8966,
+          "5": 1.8391,
+          "7": 2.4828
+        },
+        "mean_ending_turn": 15.5747,
+        "ending_by_turn_17": 66,
+        "ending_turn_histogram": {
+          "11": 10,
+          "12": 6,
+          "13": 15,
+          "14": 12,
+          "15": 7,
+          "16": 10,
+          "17": 6,
+          "18": 7,
+          "19": 3,
+          "20": 3,
+          "21": 1,
+          "22": 3,
+          "26": 1,
+          "28": 1,
+          "29": 1,
+          "30": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Frog Butler": 39,
+          "Paramecia Coloniex": 33,
+          "Rocksteady, Crash Courser": 5,
+          "Zoo Escapees": 72
+        },
+        "opponent_signature_casts": {
+          "shredder:Dream Beavers": 79,
+          "shredder:Foot Mystic": 54,
+          "shredder:Oroku Saki, Shredder Rising": 38,
+          "shredder:Shark Shredder, Killer Clone": 34,
+          "shredder:Shredder, Unrelenting": 28,
+          "shredder:Squirrelanoids": 86,
+          "shredder:Super Shredder": 67,
+          "shredder:Tunnel Rats": 43
+        },
+        "opponents": [
+          "shredder"
+        ]
+      },
+      "prior_win_rate": 0.02,
+      "corrected_win_rate": 0.13
+    },
+    "krang": {
+      "all": {
+        "games": 100,
+        "wins": 27,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 18,
+        "bebop_first_creature_by_turn_4": 46,
+        "opponent_first_creature_by_turn_4": 15,
+        "bebop_no_creature": 10,
+        "bebop_casts": 249,
+        "opponent_casts": 721,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 23,
+          "Rocksteady, Crash Courser": 31
+        },
+        "bebop_cycling_activations": 109,
+        "bebop_cycling_games": 74,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.34,
+          "5": 0.97,
+          "7": 1.38
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.67,
+          "5": 1.55,
+          "7": 2.27
+        },
+        "mean_ending_turn": 19.59,
+        "ending_by_turn_17": 39,
+        "ending_turn_histogram": {
+          "13": 4,
+          "14": 3,
+          "15": 9,
+          "16": 8,
+          "17": 15,
+          "18": 8,
+          "19": 11,
+          "20": 6,
+          "21": 7,
+          "22": 9,
+          "23": 7,
+          "24": 3,
+          "25": 2,
+          "28": 2,
+          "30": 1,
+          "31": 2,
+          "32": 1,
+          "33": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 23,
+          "Frog Butler": 60,
+          "Paramecia Coloniex": 42,
+          "Rocksteady, Crash Courser": 31,
+          "Zoo Escapees": 93
+        },
+        "opponent_signature_casts": {
+          "krang:Buzz Bots": 125,
+          "krang:Crustacean Commando": 108,
+          "krang:Does Machines": 31,
+          "krang:Fugitive Droid": 131,
+          "krang:Krang, Master Mind": 11,
+          "krang:Ray Fillet, Man Ray": 89,
+          "krang:Retro-Mutation": 52,
+          "krang:Stockman, Mad Fly-entist": 50,
+          "krang:Utrom Scientists": 124
+        },
+        "opponents": [
+          "krang"
+        ]
+      },
+      "wins": {
+        "games": 27,
+        "wins": 27,
+        "draws": 0,
+        "first_player_games": 18,
+        "first_player_wins": 18,
+        "bebop_first_creature_by_turn_4": 16,
+        "opponent_first_creature_by_turn_4": 4,
+        "bebop_no_creature": 0,
+        "bebop_casts": 96,
+        "opponent_casts": 202,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 11,
+          "Rocksteady, Crash Courser": 21
+        },
+        "bebop_cycling_activations": 25,
+        "bebop_cycling_games": 20,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.5926,
+          "5": 1.4074,
+          "7": 1.8519
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.5185,
+          "5": 1.2963,
+          "7": 2.1111
+        },
+        "mean_ending_turn": 22.8889,
+        "ending_by_turn_17": 3,
+        "ending_turn_histogram": {
+          "15": 2,
+          "17": 1,
+          "18": 2,
+          "19": 5,
+          "21": 2,
+          "22": 3,
+          "23": 3,
+          "24": 1,
+          "25": 1,
+          "28": 2,
+          "30": 1,
+          "31": 2,
+          "33": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 11,
+          "Frog Butler": 16,
+          "Paramecia Coloniex": 14,
+          "Rocksteady, Crash Courser": 21,
+          "Zoo Escapees": 34
+        },
+        "opponent_signature_casts": {
+          "krang:Buzz Bots": 34,
+          "krang:Crustacean Commando": 34,
+          "krang:Does Machines": 11,
+          "krang:Fugitive Droid": 47,
+          "krang:Krang, Master Mind": 5,
+          "krang:Ray Fillet, Man Ray": 14,
+          "krang:Retro-Mutation": 16,
+          "krang:Stockman, Mad Fly-entist": 9,
+          "krang:Utrom Scientists": 32
+        },
+        "opponents": [
+          "krang"
+        ]
+      },
+      "nonwins": {
+        "games": 73,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 32,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 30,
+        "opponent_first_creature_by_turn_4": 11,
+        "bebop_no_creature": 10,
+        "bebop_casts": 153,
+        "opponent_casts": 519,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 12,
+          "Rocksteady, Crash Courser": 10
+        },
+        "bebop_cycling_activations": 84,
+        "bebop_cycling_games": 54,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.2466,
+          "5": 0.8082,
+          "7": 1.2055
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.726,
+          "5": 1.6438,
+          "7": 2.3288
+        },
+        "mean_ending_turn": 18.3699,
+        "ending_by_turn_17": 36,
+        "ending_turn_histogram": {
+          "13": 4,
+          "14": 3,
+          "15": 7,
+          "16": 8,
+          "17": 14,
+          "18": 6,
+          "19": 6,
+          "20": 6,
+          "21": 5,
+          "22": 6,
+          "23": 4,
+          "24": 2,
+          "25": 1,
+          "32": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 12,
+          "Frog Butler": 44,
+          "Paramecia Coloniex": 28,
+          "Rocksteady, Crash Courser": 10,
+          "Zoo Escapees": 59
+        },
+        "opponent_signature_casts": {
+          "krang:Buzz Bots": 91,
+          "krang:Crustacean Commando": 74,
+          "krang:Does Machines": 20,
+          "krang:Fugitive Droid": 84,
+          "krang:Krang, Master Mind": 6,
+          "krang:Ray Fillet, Man Ray": 75,
+          "krang:Retro-Mutation": 36,
+          "krang:Stockman, Mad Fly-entist": 41,
+          "krang:Utrom Scientists": 92
+        },
+        "opponents": [
+          "krang"
+        ]
+      },
+      "prior_win_rate": 0.11,
+      "corrected_win_rate": 0.27
+    },
+    "april_oneil": {
+      "all": {
+        "games": 100,
+        "wins": 36,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 25,
+        "bebop_first_creature_by_turn_4": 53,
+        "opponent_first_creature_by_turn_4": 23,
+        "bebop_no_creature": 6,
+        "bebop_casts": 303,
+        "opponent_casts": 734,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 29,
+          "Rocksteady, Crash Courser": 27
+        },
+        "bebop_cycling_activations": 113,
+        "bebop_cycling_games": 78,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.37,
+          "5": 1.25,
+          "7": 1.79
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.75,
+          "5": 1.83,
+          "7": 2.49
+        },
+        "mean_ending_turn": 21.66,
+        "ending_by_turn_17": 22,
+        "ending_turn_histogram": {
+          "13": 2,
+          "14": 1,
+          "15": 4,
+          "16": 4,
+          "17": 11,
+          "18": 9,
+          "19": 13,
+          "20": 11,
+          "21": 10,
+          "22": 3,
+          "23": 7,
+          "24": 3,
+          "25": 5,
+          "26": 2,
+          "27": 3,
+          "28": 1,
+          "29": 5,
+          "31": 1,
+          "32": 1,
+          "38": 1,
+          "39": 1,
+          "53": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 29,
+          "Frog Butler": 56,
+          "Paramecia Coloniex": 64,
+          "Rocksteady, Crash Courser": 27,
+          "Zoo Escapees": 127
+        },
+        "opponent_signature_casts": {
+          "april_oneil:April O'Neil, Hacktivist": 46,
+          "april_oneil:April, Reporter of the Weird": 123,
+          "april_oneil:Buzz Bots": 125,
+          "april_oneil:Crustacean Commando": 126,
+          "april_oneil:Fugitive Droid": 109,
+          "april_oneil:Ray Fillet, Man Ray": 37,
+          "april_oneil:Retro-Mutation": 51,
+          "april_oneil:Utrom Scientists": 117
+        },
+        "opponents": [
+          "april_oneil"
+        ]
+      },
+      "wins": {
+        "games": 36,
+        "wins": 36,
+        "draws": 0,
+        "first_player_games": 25,
+        "first_player_wins": 25,
+        "bebop_first_creature_by_turn_4": 26,
+        "opponent_first_creature_by_turn_4": 11,
+        "bebop_no_creature": 0,
+        "bebop_casts": 144,
+        "opponent_casts": 252,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 20,
+          "Rocksteady, Crash Courser": 20
+        },
+        "bebop_cycling_activations": 40,
+        "bebop_cycling_games": 31,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.7222,
+          "5": 1.7222,
+          "7": 2.0556
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.6667,
+          "5": 1.7778,
+          "7": 2.3333
+        },
+        "mean_ending_turn": 23.4167,
+        "ending_by_turn_17": 6,
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "17": 3,
+          "18": 2,
+          "19": 3,
+          "20": 5,
+          "21": 5,
+          "22": 1,
+          "23": 2,
+          "25": 3,
+          "26": 2,
+          "27": 2,
+          "29": 2,
+          "39": 1,
+          "53": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 20,
+          "Frog Butler": 20,
+          "Paramecia Coloniex": 34,
+          "Rocksteady, Crash Courser": 20,
+          "Zoo Escapees": 50
+        },
+        "opponent_signature_casts": {
+          "april_oneil:April O'Neil, Hacktivist": 19,
+          "april_oneil:April, Reporter of the Weird": 38,
+          "april_oneil:Buzz Bots": 34,
+          "april_oneil:Crustacean Commando": 48,
+          "april_oneil:Fugitive Droid": 44,
+          "april_oneil:Ray Fillet, Man Ray": 9,
+          "april_oneil:Retro-Mutation": 19,
+          "april_oneil:Utrom Scientists": 41
+        },
+        "opponents": [
+          "april_oneil"
+        ]
+      },
+      "nonwins": {
+        "games": 64,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 25,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 27,
+        "opponent_first_creature_by_turn_4": 12,
+        "bebop_no_creature": 6,
+        "bebop_casts": 159,
+        "opponent_casts": 482,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Rocksteady, Crash Courser": 7
+        },
+        "bebop_cycling_activations": 73,
+        "bebop_cycling_games": 47,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.1719,
+          "5": 0.9844,
+          "7": 1.6406
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.7969,
+          "5": 1.8594,
+          "7": 2.5781
+        },
+        "mean_ending_turn": 20.6719,
+        "ending_by_turn_17": 16,
+        "ending_turn_histogram": {
+          "13": 1,
+          "15": 3,
+          "16": 4,
+          "17": 8,
+          "18": 7,
+          "19": 10,
+          "20": 6,
+          "21": 5,
+          "22": 2,
+          "23": 5,
+          "24": 3,
+          "25": 2,
+          "27": 1,
+          "28": 1,
+          "29": 3,
+          "31": 1,
+          "32": 1,
+          "38": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 9,
+          "Frog Butler": 36,
+          "Paramecia Coloniex": 30,
+          "Rocksteady, Crash Courser": 7,
+          "Zoo Escapees": 77
+        },
+        "opponent_signature_casts": {
+          "april_oneil:April O'Neil, Hacktivist": 27,
+          "april_oneil:April, Reporter of the Weird": 85,
+          "april_oneil:Buzz Bots": 91,
+          "april_oneil:Crustacean Commando": 78,
+          "april_oneil:Fugitive Droid": 65,
+          "april_oneil:Ray Fillet, Man Ray": 28,
+          "april_oneil:Retro-Mutation": 32,
+          "april_oneil:Utrom Scientists": 76
+        },
+        "opponents": [
+          "april_oneil"
+        ]
+      },
+      "prior_win_rate": 0.1,
+      "corrected_win_rate": 0.36
+    },
+    "casey_jones": {
+      "all": {
+        "games": 100,
+        "wins": 16,
+        "draws": 0,
+        "first_player_games": 50,
+        "first_player_wins": 7,
+        "bebop_first_creature_by_turn_4": 47,
+        "opponent_first_creature_by_turn_4": 64,
+        "bebop_no_creature": 17,
+        "bebop_casts": 221,
+        "opponent_casts": 598,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Rocksteady, Crash Courser": 20
+        },
+        "bebop_cycling_activations": 115,
+        "bebop_cycling_games": 76,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.23,
+          "5": 0.81,
+          "7": 1.27
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.4,
+          "5": 1.31,
+          "7": 1.89
+        },
+        "mean_ending_turn": 16.94,
+        "ending_by_turn_17": 63,
+        "ending_turn_histogram": {
+          "11": 3,
+          "12": 9,
+          "13": 10,
+          "14": 12,
+          "15": 5,
+          "16": 12,
+          "17": 12,
+          "18": 10,
+          "19": 8,
+          "20": 1,
+          "21": 3,
+          "22": 4,
+          "23": 2,
+          "24": 1,
+          "25": 3,
+          "26": 1,
+          "27": 2,
+          "28": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 10,
+          "Frog Butler": 55,
+          "Paramecia Coloniex": 42,
+          "Rocksteady, Crash Courser": 20,
+          "Zoo Escapees": 94
+        },
+        "opponent_signature_casts": {
+          "casey_jones:Casey Jones, Jury-Rig Justiciar": 111,
+          "casey_jones:Casey Jones, Vigilante": 54,
+          "casey_jones:Manhole Missile": 52,
+          "casey_jones:Mutant Town Musicians": 18,
+          "casey_jones:Null Group Biological Assets": 34,
+          "casey_jones:Purple Dragon Punks": 111,
+          "casey_jones:Ravenous Robots": 113,
+          "casey_jones:Rock Soldiers": 44,
+          "casey_jones:Spicy Oatmeal Pizza": 61
+        },
+        "opponents": [
+          "casey_jones"
+        ]
+      },
+      "wins": {
+        "games": 16,
+        "wins": 16,
+        "draws": 0,
+        "first_player_games": 7,
+        "first_player_wins": 7,
+        "bebop_first_creature_by_turn_4": 10,
+        "opponent_first_creature_by_turn_4": 3,
+        "bebop_no_creature": 0,
+        "bebop_casts": 68,
+        "opponent_casts": 86,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Rocksteady, Crash Courser": 15
+        },
+        "bebop_cycling_activations": 18,
+        "bebop_cycling_games": 12,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.375,
+          "5": 0.9375,
+          "7": 1.8125
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.25,
+          "5": 0.5625,
+          "7": 1.1875
+        },
+        "mean_ending_turn": 20.8125,
+        "ending_by_turn_17": 5,
+        "ending_turn_histogram": {
+          "16": 3,
+          "17": 2,
+          "18": 1,
+          "19": 2,
+          "20": 1,
+          "21": 1,
+          "22": 1,
+          "24": 1,
+          "25": 1,
+          "27": 1,
+          "28": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Frog Butler": 16,
+          "Paramecia Coloniex": 9,
+          "Rocksteady, Crash Courser": 15,
+          "Zoo Escapees": 23
+        },
+        "opponent_signature_casts": {
+          "casey_jones:Casey Jones, Jury-Rig Justiciar": 14,
+          "casey_jones:Casey Jones, Vigilante": 4,
+          "casey_jones:Manhole Missile": 12,
+          "casey_jones:Mutant Town Musicians": 2,
+          "casey_jones:Null Group Biological Assets": 5,
+          "casey_jones:Purple Dragon Punks": 15,
+          "casey_jones:Ravenous Robots": 20,
+          "casey_jones:Rock Soldiers": 6,
+          "casey_jones:Spicy Oatmeal Pizza": 8
+        },
+        "opponents": [
+          "casey_jones"
+        ]
+      },
+      "nonwins": {
+        "games": 84,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 43,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 37,
+        "opponent_first_creature_by_turn_4": 61,
+        "bebop_no_creature": 17,
+        "bebop_casts": 153,
+        "opponent_casts": 512,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Rocksteady, Crash Courser": 5
+        },
+        "bebop_cycling_activations": 97,
+        "bebop_cycling_games": 64,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.2024,
+          "5": 0.7857,
+          "7": 1.1667
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.4286,
+          "5": 1.4524,
+          "7": 2.0238
+        },
+        "mean_ending_turn": 16.2024,
+        "ending_by_turn_17": 58,
+        "ending_turn_histogram": {
+          "11": 3,
+          "12": 9,
+          "13": 10,
+          "14": 12,
+          "15": 5,
+          "16": 9,
+          "17": 10,
+          "18": 9,
+          "19": 6,
+          "21": 2,
+          "22": 3,
+          "23": 2,
+          "25": 2,
+          "26": 1,
+          "27": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 5,
+          "Frog Butler": 39,
+          "Paramecia Coloniex": 33,
+          "Rocksteady, Crash Courser": 5,
+          "Zoo Escapees": 71
+        },
+        "opponent_signature_casts": {
+          "casey_jones:Casey Jones, Jury-Rig Justiciar": 97,
+          "casey_jones:Casey Jones, Vigilante": 50,
+          "casey_jones:Manhole Missile": 40,
+          "casey_jones:Mutant Town Musicians": 16,
+          "casey_jones:Null Group Biological Assets": 29,
+          "casey_jones:Purple Dragon Punks": 96,
+          "casey_jones:Ravenous Robots": 93,
+          "casey_jones:Rock Soldiers": 38,
+          "casey_jones:Spicy Oatmeal Pizza": 53
+        },
+        "opponents": [
+          "casey_jones"
+        ]
+      },
+      "prior_win_rate": 0.02,
+      "corrected_win_rate": 0.16
+    }
+  },
+  "comparison_groups": {
+    "relatively_functional": {
+      "all": {
+        "games": 300,
+        "wins": 97,
+        "draws": 0,
+        "first_player_games": 150,
+        "first_player_wins": 58,
+        "bebop_first_creature_by_turn_4": 156,
+        "opponent_first_creature_by_turn_4": 120,
+        "bebop_no_creature": 25,
+        "bebop_casts": 859,
+        "opponent_casts": 2635,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 72,
+          "Rocksteady, Crash Courser": 112
+        },
+        "bebop_cycling_activations": 353,
+        "bebop_cycling_games": 228,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3833,
+          "5": 1.1433,
+          "7": 1.6
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.7633,
+          "5": 1.5867,
+          "7": 2.2967
+        },
+        "mean_ending_turn": 21.1467,
+        "ending_by_turn_17": 124,
+        "ending_turn_histogram": {
+          "11": 3,
+          "12": 3,
+          "13": 13,
+          "14": 16,
+          "15": 33,
+          "16": 26,
+          "17": 30,
+          "18": 25,
+          "19": 24,
+          "20": 15,
+          "21": 17,
+          "22": 17,
+          "23": 17,
+          "24": 5,
+          "25": 5,
+          "26": 3,
+          "27": 3,
+          "28": 5,
+          "29": 3,
+          "30": 3,
+          "31": 8,
+          "32": 2,
+          "33": 2,
+          "34": 4,
+          "35": 1,
+          "36": 1,
+          "37": 2,
+          "40": 1,
+          "42": 2,
+          "43": 2,
+          "49": 1,
+          "51": 1,
+          "54": 1,
+          "55": 2,
+          "58": 1,
+          "61": 1,
+          "64": 1,
+          "96": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 72,
+          "Frog Butler": 192,
+          "Paramecia Coloniex": 168,
+          "Rocksteady, Crash Courser": 112,
+          "Zoo Escapees": 315
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 170,
+          "donatello:Crustacean Commando": 118,
+          "donatello:Does Machines": 101,
+          "donatello:Donatello's Technique": 48,
+          "donatello:Donatello, Gadget Master": 31,
+          "donatello:Donatello, Mutant Mechanic": 25,
+          "donatello:Donatello, Turtle Techie": 31,
+          "donatello:Donatello, Way with Machines": 50,
+          "donatello:Fugitive Droid": 213,
+          "donatello:Mouser Mark III": 81,
+          "donatello:Utrom Scientists": 40,
+          "krang:Buzz Bots": 125,
+          "krang:Crustacean Commando": 108,
+          "krang:Does Machines": 31,
+          "krang:Fugitive Droid": 131,
+          "krang:Krang, Master Mind": 11,
+          "krang:Ray Fillet, Man Ray": 89,
+          "krang:Retro-Mutation": 52,
+          "krang:Stockman, Mad Fly-entist": 50,
+          "krang:Utrom Scientists": 124,
+          "leonardo:April O'Neil, Kunoichi Trainee": 185,
+          "leonardo:Leonardo, Big Brother": 58,
+          "leonardo:Leonardo, Cutting Edge": 78,
+          "leonardo:Leonardo, Leader in Blue": 229,
+          "leonardo:Leonardo, Sewer Samurai": 31,
+          "leonardo:Lita, Little Orphan Amphibian": 83,
+          "leonardo:Make Your Move": 57,
+          "leonardo:Mighty Mutanimals": 8,
+          "leonardo:Prehistoric Pet": 277
+        },
+        "opponents": [
+          "donatello",
+          "krang",
+          "leonardo"
+        ]
+      },
+      "wins": {
+        "games": 97,
+        "wins": 97,
+        "draws": 0,
+        "first_player_games": 58,
+        "first_player_wins": 58,
+        "bebop_first_creature_by_turn_4": 61,
+        "opponent_first_creature_by_turn_4": 35,
+        "bebop_no_creature": 0,
+        "bebop_casts": 393,
+        "opponent_casts": 981,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 45,
+          "Rocksteady, Crash Courser": 75
+        },
+        "bebop_cycling_activations": 100,
+        "bebop_cycling_games": 74,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.567,
+          "5": 1.4227,
+          "7": 1.9691
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.6186,
+          "5": 1.3505,
+          "7": 2.0825
+        },
+        "mean_ending_turn": 24.8041,
+        "ending_by_turn_17": 17,
+        "ending_turn_histogram": {
+          "13": 1,
+          "14": 2,
+          "15": 4,
+          "16": 4,
+          "17": 6,
+          "18": 6,
+          "19": 13,
+          "20": 2,
+          "21": 7,
+          "22": 9,
+          "23": 6,
+          "24": 2,
+          "25": 4,
+          "26": 2,
+          "27": 2,
+          "28": 3,
+          "30": 2,
+          "31": 6,
+          "32": 1,
+          "33": 2,
+          "34": 3,
+          "35": 1,
+          "37": 2,
+          "42": 1,
+          "43": 1,
+          "49": 1,
+          "54": 1,
+          "55": 1,
+          "61": 1,
+          "64": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 45,
+          "Frog Butler": 70,
+          "Paramecia Coloniex": 71,
+          "Rocksteady, Crash Courser": 75,
+          "Zoo Escapees": 132
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 73,
+          "donatello:Crustacean Commando": 46,
+          "donatello:Does Machines": 53,
+          "donatello:Donatello's Technique": 23,
+          "donatello:Donatello, Gadget Master": 5,
+          "donatello:Donatello, Mutant Mechanic": 7,
+          "donatello:Donatello, Turtle Techie": 3,
+          "donatello:Donatello, Way with Machines": 11,
+          "donatello:Fugitive Droid": 85,
+          "donatello:Mouser Mark III": 24,
+          "donatello:Utrom Scientists": 15,
+          "krang:Buzz Bots": 34,
+          "krang:Crustacean Commando": 34,
+          "krang:Does Machines": 11,
+          "krang:Fugitive Droid": 47,
+          "krang:Krang, Master Mind": 5,
+          "krang:Ray Fillet, Man Ray": 14,
+          "krang:Retro-Mutation": 16,
+          "krang:Stockman, Mad Fly-entist": 9,
+          "krang:Utrom Scientists": 32,
+          "leonardo:April O'Neil, Kunoichi Trainee": 99,
+          "leonardo:Leonardo, Big Brother": 18,
+          "leonardo:Leonardo, Cutting Edge": 22,
+          "leonardo:Leonardo, Leader in Blue": 110,
+          "leonardo:Leonardo, Sewer Samurai": 6,
+          "leonardo:Lita, Little Orphan Amphibian": 24,
+          "leonardo:Make Your Move": 22,
+          "leonardo:Mighty Mutanimals": 1,
+          "leonardo:Prehistoric Pet": 132
+        },
+        "opponents": [
+          "donatello",
+          "krang",
+          "leonardo"
+        ]
+      },
+      "nonwins": {
+        "games": 203,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 92,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 95,
+        "opponent_first_creature_by_turn_4": 85,
+        "bebop_no_creature": 25,
+        "bebop_casts": 466,
+        "opponent_casts": 1654,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 27,
+          "Rocksteady, Crash Courser": 37
+        },
+        "bebop_cycling_activations": 253,
+        "bebop_cycling_games": 154,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.2956,
+          "5": 1.0099,
+          "7": 1.4236
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.8325,
+          "5": 1.6995,
+          "7": 2.399
+        },
+        "mean_ending_turn": 19.399,
+        "ending_by_turn_17": 107,
+        "ending_turn_histogram": {
+          "11": 3,
+          "12": 3,
+          "13": 12,
+          "14": 14,
+          "15": 29,
+          "16": 22,
+          "17": 24,
+          "18": 19,
+          "19": 11,
+          "20": 13,
+          "21": 10,
+          "22": 8,
+          "23": 11,
+          "24": 3,
+          "25": 1,
+          "26": 1,
+          "27": 1,
+          "28": 2,
+          "29": 3,
+          "30": 1,
+          "31": 2,
+          "32": 1,
+          "34": 1,
+          "36": 1,
+          "40": 1,
+          "42": 1,
+          "43": 1,
+          "51": 1,
+          "55": 1,
+          "58": 1,
+          "96": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 27,
+          "Frog Butler": 122,
+          "Paramecia Coloniex": 97,
+          "Rocksteady, Crash Courser": 37,
+          "Zoo Escapees": 183
+        },
+        "opponent_signature_casts": {
+          "donatello:Buzz Bots": 97,
+          "donatello:Crustacean Commando": 72,
+          "donatello:Does Machines": 48,
+          "donatello:Donatello's Technique": 25,
+          "donatello:Donatello, Gadget Master": 26,
+          "donatello:Donatello, Mutant Mechanic": 18,
+          "donatello:Donatello, Turtle Techie": 28,
+          "donatello:Donatello, Way with Machines": 39,
+          "donatello:Fugitive Droid": 128,
+          "donatello:Mouser Mark III": 57,
+          "donatello:Utrom Scientists": 25,
+          "krang:Buzz Bots": 91,
+          "krang:Crustacean Commando": 74,
+          "krang:Does Machines": 20,
+          "krang:Fugitive Droid": 84,
+          "krang:Krang, Master Mind": 6,
+          "krang:Ray Fillet, Man Ray": 75,
+          "krang:Retro-Mutation": 36,
+          "krang:Stockman, Mad Fly-entist": 41,
+          "krang:Utrom Scientists": 92,
+          "leonardo:April O'Neil, Kunoichi Trainee": 86,
+          "leonardo:Leonardo, Big Brother": 40,
+          "leonardo:Leonardo, Cutting Edge": 56,
+          "leonardo:Leonardo, Leader in Blue": 119,
+          "leonardo:Leonardo, Sewer Samurai": 25,
+          "leonardo:Lita, Little Orphan Amphibian": 59,
+          "leonardo:Make Your Move": 35,
+          "leonardo:Mighty Mutanimals": 7,
+          "leonardo:Prehistoric Pet": 145
+        },
+        "opponents": [
+          "donatello",
+          "krang",
+          "leonardo"
+        ]
+      }
+    },
+    "severe": {
+      "all": {
+        "games": 300,
+        "wins": 36,
+        "draws": 0,
+        "first_player_games": 150,
+        "first_player_wins": 20,
+        "bebop_first_creature_by_turn_4": 160,
+        "opponent_first_creature_by_turn_4": 218,
+        "bebop_no_creature": 38,
+        "bebop_casts": 670,
+        "opponent_casts": 1676,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 43,
+          "Rocksteady, Crash Courser": 42
+        },
+        "bebop_cycling_activations": 350,
+        "bebop_cycling_games": 230,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3433,
+          "5": 1.1733,
+          "7": 1.6033
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.7267,
+          "5": 1.66,
+          "7": 2.3233
+        },
+        "mean_ending_turn": 16.36,
+        "ending_by_turn_17": 203,
+        "ending_turn_histogram": {
+          "9": 1,
+          "11": 23,
+          "12": 21,
+          "13": 35,
+          "14": 37,
+          "15": 31,
+          "16": 29,
+          "17": 26,
+          "18": 29,
+          "19": 13,
+          "20": 12,
+          "21": 11,
+          "22": 9,
+          "23": 6,
+          "24": 2,
+          "25": 3,
+          "26": 3,
+          "28": 1,
+          "29": 3,
+          "30": 3,
+          "31": 1,
+          "37": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 43,
+          "Frog Butler": 148,
+          "Paramecia Coloniex": 132,
+          "Rocksteady, Crash Courser": 42,
+          "Zoo Escapees": 305
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 46,
+          "raphael:Manhole Missile": 84,
+          "raphael:Mutant Town Musicians": 54,
+          "raphael:Null Group Biological Assets": 97,
+          "raphael:Raphael, Most Attitude": 28,
+          "raphael:Raphael, Ninja Destroyer": 30,
+          "raphael:Raphael, Tough Turtle": 100,
+          "raphael:Raphael, the Nightwatcher": 19,
+          "raphael:Skateboard": 77,
+          "raphael:Spicy Oatmeal Pizza": 13,
+          "raphael:Wingnut, Bat on the Belfry": 40,
+          "shredder:Dream Beavers": 91,
+          "shredder:Foot Mystic": 60,
+          "shredder:Oroku Saki, Shredder Rising": 47,
+          "shredder:Shark Shredder, Killer Clone": 39,
+          "shredder:Shredder, Unrelenting": 33,
+          "shredder:Squirrelanoids": 103,
+          "shredder:Super Shredder": 77,
+          "shredder:Tunnel Rats": 48,
+          "splinter:Dream Beavers": 119,
+          "splinter:Foot Mystic": 59,
+          "splinter:Insectoid Exterminator": 72,
+          "splinter:Shark Shredder, Killer Clone": 40,
+          "splinter:Splinter, Hamato Yoshi": 93,
+          "splinter:Squirrelanoids": 103,
+          "splinter:Tunnel Rats": 104
+        },
+        "opponents": [
+          "raphael",
+          "shredder",
+          "splinter"
+        ]
+      },
+      "wins": {
+        "games": 36,
+        "wins": 36,
+        "draws": 0,
+        "first_player_games": 20,
+        "first_player_wins": 20,
+        "bebop_first_creature_by_turn_4": 26,
+        "opponent_first_creature_by_turn_4": 23,
+        "bebop_no_creature": 0,
+        "bebop_casts": 132,
+        "opponent_casts": 198,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 18,
+          "Rocksteady, Crash Courser": 22
+        },
+        "bebop_cycling_activations": 45,
+        "bebop_cycling_games": 31,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.6111,
+          "5": 1.5833,
+          "7": 1.8056
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.5833,
+          "5": 1.3333,
+          "7": 1.8611
+        },
+        "mean_ending_turn": 20.1667,
+        "ending_by_turn_17": 11,
+        "ending_turn_histogram": {
+          "15": 3,
+          "16": 2,
+          "17": 6,
+          "18": 3,
+          "19": 1,
+          "20": 5,
+          "21": 5,
+          "22": 3,
+          "23": 4,
+          "25": 1,
+          "26": 1,
+          "30": 2
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 18,
+          "Frog Butler": 19,
+          "Paramecia Coloniex": 27,
+          "Rocksteady, Crash Courser": 22,
+          "Zoo Escapees": 46
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 1,
+          "raphael:Manhole Missile": 14,
+          "raphael:Mutant Town Musicians": 2,
+          "raphael:Null Group Biological Assets": 11,
+          "raphael:Raphael, Most Attitude": 3,
+          "raphael:Raphael, Ninja Destroyer": 3,
+          "raphael:Raphael, Tough Turtle": 12,
+          "raphael:Skateboard": 10,
+          "raphael:Wingnut, Bat on the Belfry": 3,
+          "shredder:Dream Beavers": 12,
+          "shredder:Foot Mystic": 6,
+          "shredder:Oroku Saki, Shredder Rising": 9,
+          "shredder:Shark Shredder, Killer Clone": 5,
+          "shredder:Shredder, Unrelenting": 5,
+          "shredder:Squirrelanoids": 17,
+          "shredder:Super Shredder": 10,
+          "shredder:Tunnel Rats": 5,
+          "splinter:Dream Beavers": 12,
+          "splinter:Foot Mystic": 3,
+          "splinter:Insectoid Exterminator": 11,
+          "splinter:Shark Shredder, Killer Clone": 2,
+          "splinter:Splinter, Hamato Yoshi": 11,
+          "splinter:Squirrelanoids": 15,
+          "splinter:Tunnel Rats": 16
+        },
+        "opponents": [
+          "raphael",
+          "shredder",
+          "splinter"
+        ]
+      },
+      "nonwins": {
+        "games": 264,
+        "wins": 0,
+        "draws": 0,
+        "first_player_games": 130,
+        "first_player_wins": 0,
+        "bebop_first_creature_by_turn_4": 134,
+        "opponent_first_creature_by_turn_4": 195,
+        "bebop_no_creature": 38,
+        "bebop_casts": 538,
+        "opponent_casts": 1478,
+        "bebop_cycler_casts": {
+          "Bebop, Warthog Warrior": 25,
+          "Rocksteady, Crash Courser": 20
+        },
+        "bebop_cycling_activations": 305,
+        "bebop_cycling_games": 199,
+        "bebop_battlefield_presence_mean": {
+          "3": 0.3068,
+          "5": 1.1174,
+          "7": 1.5758
+        },
+        "opponent_battlefield_presence_mean": {
+          "3": 0.7462,
+          "5": 1.7045,
+          "7": 2.3864
+        },
+        "mean_ending_turn": 15.8409,
+        "ending_by_turn_17": 192,
+        "ending_turn_histogram": {
+          "9": 1,
+          "11": 23,
+          "12": 21,
+          "13": 35,
+          "14": 37,
+          "15": 28,
+          "16": 27,
+          "17": 20,
+          "18": 26,
+          "19": 12,
+          "20": 7,
+          "21": 6,
+          "22": 6,
+          "23": 2,
+          "24": 2,
+          "25": 2,
+          "26": 2,
+          "28": 1,
+          "29": 3,
+          "30": 1,
+          "31": 1,
+          "37": 1
+        },
+        "bebop_signature_casts": {
+          "Bebop, Warthog Warrior": 25,
+          "Frog Butler": 129,
+          "Paramecia Coloniex": 105,
+          "Rocksteady, Crash Courser": 20,
+          "Zoo Escapees": 259
+        },
+        "opponent_signature_casts": {
+          "raphael:Casey Jones, Jury-Rig Justiciar": 45,
+          "raphael:Manhole Missile": 70,
+          "raphael:Mutant Town Musicians": 52,
+          "raphael:Null Group Biological Assets": 86,
+          "raphael:Raphael, Most Attitude": 25,
+          "raphael:Raphael, Ninja Destroyer": 27,
+          "raphael:Raphael, Tough Turtle": 88,
+          "raphael:Raphael, the Nightwatcher": 19,
+          "raphael:Skateboard": 67,
+          "raphael:Spicy Oatmeal Pizza": 13,
+          "raphael:Wingnut, Bat on the Belfry": 37,
+          "shredder:Dream Beavers": 79,
+          "shredder:Foot Mystic": 54,
+          "shredder:Oroku Saki, Shredder Rising": 38,
+          "shredder:Shark Shredder, Killer Clone": 34,
+          "shredder:Shredder, Unrelenting": 28,
+          "shredder:Squirrelanoids": 86,
+          "shredder:Super Shredder": 67,
+          "shredder:Tunnel Rats": 43,
+          "splinter:Dream Beavers": 107,
+          "splinter:Foot Mystic": 56,
+          "splinter:Insectoid Exterminator": 61,
+          "splinter:Shark Shredder, Killer Clone": 38,
+          "splinter:Splinter, Hamato Yoshi": 82,
+          "splinter:Squirrelanoids": 88,
+          "splinter:Tunnel Rats": 88
+        },
+        "opponents": [
+          "raphael",
+          "shredder",
+          "splinter"
+        ]
+      }
+    }
+  },
+  "telemetry_limits": [
+    "No attack declarations or per-turn life/damage progression in game summaries.",
+    "No resolved removal target history, per-turn hand composition, or unused mana.",
+    "Cast totals depend on game length; grouped cast differences are descriptive, not causal.",
+    "Battlefield presence uses available fixed-turn snapshots; absent snapshots count zero.",
+    "First creature is a game summary timing proxy, not threat-quality measurement."
+  ],
+  "candidate_authorized": false,
+  "promotion_authorized": false
+}
