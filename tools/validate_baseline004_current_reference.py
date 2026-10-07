@@ -42,6 +42,33 @@ def main() -> None:
     control_path = OBL / "BASELINE_004_CYCLING_PILOT_CONTROL.json.gz"
     control = json.loads(gzip.decompress(control_path.read_bytes()))
     report_path = OBL / "BASELINE_004_CYCLING_PILOT_CONTROL.md"
+    if registry["environment_id"] == "OBL-BASELINE-005":
+        historical = registry["baseline_004_historical_reference"]
+        saved = historical["simulation_control"]
+        assert blob(manifest_path) == historical["manifest"]["git_blob_sha1"]
+        assert saved["control_id"] == control["evidence_id"]
+        assert saved["sha256"] == sha(control_path)
+        assert saved["git_blob_sha1"] == blob(control_path)
+        assert saved["analysis_git_blob_sha1"] == blob(analysis_path)
+        assert saved["diagnosis_git_blob_sha1"] == blob(diagnosis_path)
+        assert saved["semantic_runtime_sha256"] == control["semantic_runtime_sha256"]
+        assert saved["schedule_sha256"] == control["schedule_sha256"]
+        assert saved["games"] == len(control["games"]) == 4500
+        assert saved["matchups"] == len(control["cell_hashes"]) == 45
+        assert saved["deterministic_replay_samples"] == len(control["replays"]) == 6
+        assert control["runtime_errors"] == saved["decks_changed"] == 0
+        assert historical["reference_evidence"] == {
+            "path": str(report_path.relative_to(ROOT)),
+            "git_blob_sha1": blob(report_path),
+        }
+        assert historical["environment_metrics"] == {
+            key: analysis["new_global_metrics"][key] for key in historical["environment_metrics"]
+        }
+        assert {row["deck_key"]: row["sha256"] for row in control["baseline_decks"]} == {
+            row["deck_key"]: row["sha256"] for row in manifest["decks"]
+        }
+        print("Baseline 004 historical simulation reference: PASS; 4,500 preserved games")
+        return
     current = registry["current_simulation_control"]
     old = registry["original_promotion_reference"]
 

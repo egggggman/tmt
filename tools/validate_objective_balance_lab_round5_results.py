@@ -101,7 +101,9 @@ def validate(*, replay: bool = True) -> dict[str, object]:
         assert record["parent"]["environment_id"] == "OBL-BASELINE-002"
         assert record["schedule_identity"] == plan["schedule_identity"]
         promoted = experiment_id in {"OBL-R5-SHREDDER-B", "OBL-R5-APRIL_ONEIL-A"}
-        if promoted and ledger["environment_id"] in {"OBL-BASELINE-003", "OBL-BASELINE-004"}:
+        if promoted and ledger["environment_id"] in {
+            "OBL-BASELINE-003", "OBL-BASELINE-004", "OBL-BASELINE-005"
+        }:
             assert record["verdict"] == record["promotion_status"] == "PROMOTED"
             assert record["promotion"]["new_environment"] == "OBL-BASELINE-003"
             assert record["promotion"]["source_combined_environment"] == "OBL-COMBINED-005"

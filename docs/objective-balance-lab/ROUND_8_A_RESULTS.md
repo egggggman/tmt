@@ -42,7 +42,7 @@ Aggregate B&R win rate 23.33% → 36.33%; mean matchup balance error 26.67% → 
 | pachyderm_etb_games | 0 | 363 |
 | all_etb_life_gain_events | 0 | 415 |
 
-The raw ETB events preserve source, controller, trigger and stack IDs, amount, and life totals before and after each resolution. Machine analysis includes per-cell paired outcomes, first-creature timing, battlefield presence, ending-turn histograms, cast signatures, and all distribution metrics. The frozen swap also changes B&R from 24 to 22 lands, so this experiment measures the whole substitution rather than isolating life gain from that resource change.
+The raw ETB events preserve source, controller, trigger and stack IDs, amount, and life totals before and after each resolution. Machine analysis includes per-cell paired outcomes, first-creature timing, battlefield presence, ending-turn histograms, cast signatures, and all distribution metrics. Both lists contain 20 basic lands (10 Forest and 10 Swamp). Illegitimate Business is also a Land in the frozen catalog; cutting two copies changes total lands from 24 to 22. This experiment measures the whole substitution rather than isolating life gain from that resource change.
 
 The refreshed unchanged Baseline 004 control has 0/45 changed cell results, 0/4,500 changed outcomes, 4500/4,500 matching state fingerprints, and 0 new ETB life-gain events versus the prior control. The runtime identity changed, so the complete new control is the comparison anchor. No combined candidate validation occurred. A superseded partial 600-game checkpoint is preserved in [audit](audit/R8_A_SUPERSEDED_TELEMETRY_CONTROL_001/README.md) and was excluded from all comparisons.
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,9 +33,28 @@ def main() -> int:
     ledger = load(OBL / "EXPERIMENT_LEDGER.json")
 
     assert old["environment_id"] == PARENT
+    assert new["environment_id"] == BASELINE
     assert (
-        new["environment_id"] == registry["environment_id"] == ledger["environment_id"] == BASELINE
+        registry["environment_id"]
+        == ledger["environment_id"]
+        in {
+            BASELINE,
+            "OBL-BASELINE-005",
+        }
     )
+    if registry["environment_id"] == "OBL-BASELINE-005":
+        assert registry["baseline_004_historical_reference"]["manifest"] == {
+            "path": "docs/objective-balance-lab/baselines/OBL_BASELINE_004_MANIFEST.json",
+            "git_blob_sha1": subprocess.check_output(
+                [
+                    "git",
+                    "hash-object",
+                    "docs/objective-balance-lab/baselines/OBL_BASELINE_004_MANIFEST.json",
+                ],
+                cwd=ROOT,
+                text=True,
+            ).strip(),
+        }
     assert new["lineage_parent_environment"] == PARENT
     assert new["source_combined_environment"] == COMBINED
     assert new["promotion_id"] == "OBL-PROMOTION-004"

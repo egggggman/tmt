@@ -1,7 +1,7 @@
 {
   "schema": "objective-balance-lab-experiment-ledger-v1",
-  "repository_sha": "9df32b344fb659594984285f95cbb6f3683a6cea",
-  "environment_id": "OBL-BASELINE-004",
+  "repository_sha": "df15e8bff151d07ea5018d8766bba3553eb7b200",
+  "environment_id": "OBL-BASELINE-005",
   "experiments": [
     {
       "experiment_id": "OBL-R1-LEONARDO-A",
@@ -3447,12 +3447,79 @@
         "promoted_artifact": "docs/objective-balance-lab/baselines/KRANG_OBL_BASELINE_004.txt",
         "authorization": "explicit Objective Balance Lab Baseline 004 promotion request"
       }
+    },
+    {
+      "experiment_id": "OBL-R8-BEBOP-A",
+      "round": "R8",
+      "deck": "Bebop & Rocksteady",
+      "deck_key": "bebop_rocksteady",
+      "parent": {
+        "environment_id": "OBL-BASELINE-004",
+        "path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R2_B.txt",
+        "sha256": "6d9fb051c62f16b49a6ffc9045efb40d26007e2ffbcdac1e0524e1722cd4f509"
+      },
+      "candidate": {
+        "path": "docs/objective-balance-lab/candidates/BEBOP_ROCKSTEADY_OBL_R8_A.txt",
+        "sha256": "aaa61d3a3d65f7c8ab74062cc8f41d220a46066b44c28e3c71921c570a6b66ed",
+        "label": "A"
+      },
+      "exact_additions": {
+        "Primordial Pachyderm": 2
+      },
+      "exact_removals": {
+        "Illegitimate Business": 2
+      },
+      "semantic_runtime_sha256": "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924",
+      "source_evidence": "docs/objective-balance-lab/ROUND_8_A_EVIDENCE.json.gz",
+      "result_metrics": {
+        "candidate_win_rate": 0.363333,
+        "parent_win_rate": 0.233333,
+        "balance_delta": -0.101111,
+        "extremes": {
+          "over_60_40": 6,
+          "over_70_30": 4
+        },
+        "matchup_deltas": {
+          "leonardo": 0.04,
+          "raphael": 0.12,
+          "donatello": 0.15,
+          "michelangelo": 0.07,
+          "splinter": 0.17,
+          "shredder": 0.06,
+          "krang": 0.27,
+          "april_oneil": 0.19,
+          "casey_jones": 0.1
+        }
+      },
+      "identity_classification": "IDENTITY_PRESERVED",
+      "hypothesis_result": "SUPPORTED_AT_ISOLATED_AND_COMBINED_SCOPE",
+      "verdict": "PROMOTED",
+      "promotion_status": "PROMOTED",
+      "combined_validation": "COMBINED_VALIDATED",
+      "promotion": {
+        "promotion_id": "OBL-PROMOTION-005",
+        "promotion_record_id": "OBL-PROMOTION-005-BEBOP_ROCKSTEADY",
+        "prior_environment": "OBL-BASELINE-004",
+        "new_environment": "OBL-BASELINE-005",
+        "source_combined_environment": "OBL-COMBINED-007",
+        "combined_evidence": {
+          "path": "docs/objective-balance-lab/COMBINED_007_R8A_EVIDENCE.json.gz",
+          "git_blob_sha1": "1fe3fad3808508f91c38faec9675c4f5aaaded28"
+        },
+        "combined_validation": "COMBINED_VALIDATED",
+        "combined_verdict": "COMBINED_VALIDATION_PASSED",
+        "promotion_eligibility": "PROMOTION_ELIGIBLE",
+        "identity_classification": "IDENTITY_PRESERVED",
+        "promoted_artifact": "docs/objective-balance-lab/baselines/BEBOP_ROCKSTEADY_OBL_BASELINE_005.txt",
+        "authorization": "explicit Design Studio R8-A Baseline 005 promotion request; land-count provenance clarified as 20 basics and 24 to 22 total lands"
+      }
     }
   ],
-  "promotion_status": "OBL-PROMOTION-004",
-  "next_gate": "ROUND_8_BEBOP_CORRECTED_CONTROL_DIAGNOSIS_INTERPRETATION",
+  "promotion_status": "OBL-PROMOTION-005",
+  "next_gate": "BASELINE_005_REVIEW",
   "combined_validation_state": {
     "OBL-COMBINED-005": "COMBINED_VALIDATED",
-    "OBL-COMBINED-006": "COMBINED_VALIDATED"
+    "OBL-COMBINED-006": "COMBINED_VALIDATED",
+    "OBL-COMBINED-007": "COMBINED_VALIDATED"
   }
 }
