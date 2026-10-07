@@ -195,6 +195,9 @@ def game_metrics(
         )
         or (event.get("event") == "tokens_created" and event.get("token") == "Mutagen")
     ]
+    etb_life_gain_events = [
+        event for event in events if event.get("event") == "etb_life_gain_resolved"
+    ]
     static_source_names = {
         name
         for name, card in cards.items()
@@ -337,6 +340,7 @@ def game_metrics(
         "static_source_zone_changes": static_source_zone_changes,
         "aura_events": aura_events,
         "activation_events": activation_events,
+        "etb_life_gain_events": etb_life_gain_events,
     }
 
 

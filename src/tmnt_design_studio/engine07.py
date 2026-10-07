@@ -329,6 +329,7 @@ class TriggerEffect(Enum):
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
+    ETB_SELF_LIFE_GAIN = "etb_self_life_gain"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
@@ -4296,6 +4297,8 @@ class Game(
             raise ValueError("Paramecia trigger has invalid provenance")
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
+        if ability.effect is TriggerEffect.ETB_SELF_LIFE_GAIN:
+            self._validate_etb_self_life_gain_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             self._validate_permanent_left_counter_provenance(
                 controller=ability.controller,
@@ -4705,6 +4708,29 @@ class Game(
                     scry_event_id,
                     False,
                 )
+            )
+        elif ability.effect is TriggerEffect.ETB_SELF_LIFE_GAIN:
+            amount = self._validate_etb_self_life_gain_trigger(ability)
+            life_before = self.players[ability.controller].life
+            event = self.gain_life(
+                ability.controller,
+                amount,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+                defer_trigger_delivery=True,
+            )
+            self.log(
+                "etb_life_gain_resolved",
+                event_id=ability.event.event_id,
+                life_gain_event_id=event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                source_card=ability.source_card.name,
+                controller=self.players[ability.controller].name,
+                amount=amount,
+                life_before=life_before,
+                life_after=self.players[ability.controller].life,
+                oracle_fragment=ability.oracle_fragment,
             )
         elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             source_before = self._validate_permanent_left_counter_provenance(
@@ -5138,6 +5164,7 @@ class Game(
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+                TriggerEffect.ETB_SELF_LIFE_GAIN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -5836,6 +5863,37 @@ class Game(
         ):
             raise ValueError("ETB drain/gain/Scry trigger has mismatched entry provenance")
 
+    def _validate_etb_self_life_gain_trigger(self, ability: TriggeredAbilityObject) -> int:
+        """Authenticate the self-entry event even if its source has since left play."""
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        semantics = self.interpreter.etb_self_life_gain_semantics(
+            ability.source_card, ability.oracle_fragment
+        )
+        trigger = self._triggers.get(ability.trigger_id)
+        if (
+            ability.effect is not TriggerEffect.ETB_SELF_LIFE_GAIN
+            or semantics is None
+            or not semantics[1].fully_supported
+            or event.kind is not RulesEventKind.CREATURE_ENTERED
+            or self._rules_events.get(event.event_id) is not event
+            or event.subject_ids != (ability.source_id,)
+            or event.player_index != ability.controller
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or trigger is None
+            or trigger.controller != ability.controller
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.effect is not ability.effect
+            or trigger.event is not event
+        ):
+            raise ValueError("ETB life-gain trigger has mismatched entry provenance")
+        return semantics[0]
+
     def _validate_alliance_temporary_keyword_choice_trigger(
         self, ability: TriggeredAbilityObject
     ) -> None:
@@ -5910,6 +5968,13 @@ class Game(
                 if coverage is not None and coverage.fully_supported:
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
+                    )
+        if TriggerEffect.ETB_SELF_LIFE_GAIN in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                semantics = self.interpreter.etb_self_life_gain_semantics(entering.card, fragment)
+                if semantics is not None and semantics[1].fully_supported:
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ETB_SELF_LIFE_GAIN
                     )
         if TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY in enabled:
             for fragment in self.interpreter.fragments(entering.rules_card):
@@ -6028,6 +6093,7 @@ class Game(
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+            TriggerEffect.ETB_SELF_LIFE_GAIN,
             TriggerEffect.ETB_ARTIFACT_DRAW,
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
@@ -9870,6 +9936,7 @@ class Game(
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.SNEAK_ETB_CONDITION,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+                TriggerEffect.ETB_SELF_LIFE_GAIN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -10922,6 +10989,11 @@ class Game(
                 if obj.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
                     try:
                         self._validate_etb_drain_gain_scry_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.ETB_SELF_LIFE_GAIN:
+                    try:
+                        self._validate_etb_self_life_gain_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
                 if obj.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
