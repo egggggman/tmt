@@ -3450,7 +3450,7 @@
     }
   ],
   "promotion_status": "OBL-PROMOTION-004",
-  "next_gate": "BASELINE_004_REVIEW",
+  "next_gate": "ROUND_8_BEBOP_CORRECTED_CONTROL_DIAGNOSIS_INTERPRETATION",
   "combined_validation_state": {
     "OBL-COMBINED-005": "COMBINED_VALIDATED",
     "OBL-COMBINED-006": "COMBINED_VALIDATED"
