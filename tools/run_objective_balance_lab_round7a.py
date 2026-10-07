@@ -38,6 +38,8 @@ REPLAY_PAIRS = (
     ("april_oneil", "raphael"),
     ("bebop_rocksteady", "donatello"),
 )
+ACCEPTED_PRE_PILOT_MAIN = "eadc5f84ba67cb1ffa48506781fd36f36475ca4b"
+ACCEPTED_LOCAL_EVIDENCE = "a28b165f7663ce1cf4d29fc41dc83a72fe92ac23"
 
 
 def digest(value):
@@ -59,18 +61,52 @@ def save(path, payload):
     temporary.replace(path)
 
 
-def preflight():
+def preflight(*, historical=False):
     authority = json.loads(AUTHORITY.read_text())
     assert AUTHORITY.read_bytes() == subprocess.check_output(
         ["git", "show", f"HEAD:{AUTHORITY.relative_to(ROOT).as_posix()}"], cwd=ROOT
     )
-    assert old.file_sha(Path(__file__)) == authority["execution_driver_sha256"]
     runtime = identity()
-    assert runtime["aggregate_semantic_runtime_sha256"] == authority["semantic_runtime_sha256"]
-    assert (
-        identity("HEAD")["aggregate_semantic_runtime_sha256"]
-        == authority["semantic_runtime_sha256"]
-    ), "runtime must be committed and unchanged"
+    if historical:
+        # Frozen evidence remains verifiable after later pilot/runtime changes.
+        # Execution keeps the live identity check below and cannot use this path.
+        for commit in (ACCEPTED_PRE_PILOT_MAIN, ACCEPTED_LOCAL_EVIDENCE):
+            if (
+                subprocess.run(
+                    ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+                    cwd=ROOT,
+                    capture_output=True,
+                    check=False,
+                ).returncode
+                == 0
+            ):
+                historical_driver = subprocess.check_output(
+                    ["git", "show", f"{commit}:{Path(__file__).relative_to(ROOT).as_posix()}"],
+                    cwd=ROOT,
+                )
+                assert (
+                    old.sha(historical_driver.replace(b"\r\n", b"\n"))
+                    == authority["execution_driver_sha256"]
+                )
+                frozen = identity(commit)
+                assert (
+                    frozen["aggregate_semantic_runtime_sha256"]
+                    == authority["semantic_runtime_sha256"]
+                )
+                assert [(row["path"], row["sha256"]) for row in frozen["files"]] == [
+                    (row["path"], row["sha256"])
+                    for row in authority["semantic_runtime_identity"]["files"]
+                ]
+                break
+        else:
+            raise AssertionError("frozen R7-A semantic source commit is unavailable")
+    else:
+        assert old.file_sha(Path(__file__)) == authority["execution_driver_sha256"]
+        assert runtime["aggregate_semantic_runtime_sha256"] == authority["semantic_runtime_sha256"]
+        assert (
+            identity("HEAD")["aggregate_semantic_runtime_sha256"]
+            == authority["semantic_runtime_sha256"]
+        ), "runtime must be committed and unchanged"
     assert (
         runtime["aggregate_semantic_runtime_sha256"]
         != (json.loads((OBL / "ROUND_7_A_READINESS.json").read_text())["semantic_runtime_sha256"])
@@ -84,7 +120,9 @@ def preflight():
         ).returncode
         == 0
     )
-    if source_available:
+    if historical:
+        pass  # The complete frozen source identity was authenticated above.
+    elif source_available:
         assert (
             identity(authority["runtime_repository_sha"])["aggregate_semantic_runtime_sha256"]
             == authority["semantic_runtime_sha256"]

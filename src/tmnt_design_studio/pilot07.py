@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Protocol
 
 from tmnt_design_studio.engine07 import (
@@ -61,6 +62,16 @@ class AcceptancePilot:
     def _card(view: GameView, player: int, object_id: str | None):
         return next((row for row in view.hands[player] if row[0] == object_id), None)
 
+    @staticmethod
+    def _hand_cycling(view: GameView, option: ActionOption) -> bool:
+        """Recognize a legal cycling choice from its public option and hand zone."""
+        return (
+            option.kind is ActionKind.ACTIVATE_ABILITY
+            and option.oracle_fragment is not None
+            and re.match(r"^[A-Za-z]+cycling\s+\{", option.oracle_fragment) is not None
+            and any(card[0] == option.object_id for card in view.hands[option.player_index])
+        )
+
     def choose_main_action(
         self, view: GameView, options: tuple[ActionOption, ...], stage: str
     ) -> ActionOption:
@@ -71,7 +82,12 @@ class AcceptancePilot:
             )
         if stage == "activate":
             return next(
-                (option for option in options if option.kind is ActionKind.ACTIVATE_ABILITY),
+                (
+                    option
+                    for option in options
+                    if option.kind is ActionKind.ACTIVATE_ABILITY
+                    and not self._hand_cycling(view, option)
+                ),
                 fallback,
             )
         casts = [option for option in options if option.kind is ActionKind.CAST]
@@ -153,6 +169,13 @@ class AcceptancePilot:
                 return min(
                     utility,
                     key=lambda option: self._card(view, option.player_index, option.object_id)[2],
+                )
+            # A hand cycling option competes with casting. Use it for resource
+            # development only when no ordinary spell is currently castable.
+            if not casts:
+                return next(
+                    (option for option in options if self._hand_cycling(view, option)),
+                    fallback,
                 )
         return fallback
 

@@ -12,7 +12,7 @@ from tools import run_objective_balance_lab_round7a as run
 
 @pytest.fixture(scope="module")
 def accepted():
-    authority, manifest, schedule, _ = run.preflight()
+    authority, manifest, schedule, _ = run.preflight(historical=True)
     control = run.read(run.CONTROL)
     selected = [row for row in schedule if "krang" in row["pair"]]
     candidate = run.read(run.RESULT)
@@ -51,7 +51,13 @@ def test_runtime_or_replay_tampering_fails_closed(accepted):
         run.verify(changed, expected, selected, complete=True)
 
 
-def test_shallow_checkout_authenticates_semantic_file_hashes(monkeypatch):
+def test_changed_runtime_blocks_historical_runner_but_allows_read_only_validation():
+    with pytest.raises(AssertionError):
+        run.preflight()
+    run.preflight(historical=True)
+
+
+def test_missing_historical_source_fails_closed(monkeypatch):
     actual = run.subprocess.run
 
     def missing_local_commit(args, *other, **kwargs):
@@ -60,4 +66,5 @@ def test_shallow_checkout_authenticates_semantic_file_hashes(monkeypatch):
         return actual(args, *other, **kwargs)
 
     monkeypatch.setattr(run.subprocess, "run", missing_local_commit)
-    run.preflight()
+    with pytest.raises(AssertionError, match="source commit is unavailable"):
+        run.preflight(historical=True)
