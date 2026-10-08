@@ -66,7 +66,7 @@ some of the mulligans could be in part due to recently built decks and card clum
 | Game | First player | Reported winner | Result / notes |
 |---|---|---|---|
 | Raphael vs Casey Jones | Raphael | Raphael | Raphael at 11 life; Casey defeated with double-strike overkill. Multiple mulligans and land difficulty; Skateboard and haste lookup; three Skateboards seen in draw (not explicitly identified as opening hand). |
-| Splinter vs Michelangelo | Michelangelo | **Not explicitly named** | Notes say final life -5 / 6, with no explicit mapping to deck order; Splinter appeared ahead, but two Food tokens revived low-life Michelangelo and changed the outcome. **Michelangelo win is plausible inference, not confirmed.** |
+| Splinter vs Michelangelo | Michelangelo | **Michelangelo (player-confirmed in follow-up)** | Notes say final life -5 / 6, with no explicit mapping to deck order; Splinter appeared ahead, but two Food tokens revived low-life Michelangelo and changed the outcome. **Winner confirmed as Michelangelo in a subsequent player clarification; original life notation remains unmapped.** |
 | Casey Jones vs Michelangelo | Casey Jones | Casey Jones | Final life 8 / -4 in listed deck order; felt close, with potentially one decisive turn. |
 
 Game lengths, mulligan counts, exact sequencing, card effects, and identity of players were not recorded.
@@ -88,7 +88,7 @@ Game lengths, mulligan counts, exact sequencing, card effects, and identity of p
 ## Comparison with preserved Baseline 005 (descriptive only)
 
 - Casey vs Raphael: Cardcade 37/63 (Casey/Raphael); the observed Raphael win is directionally consistent but one game cannot establish imbalance.
-- Michelangelo vs Splinter: Cardcade 46/54 (Michelangelo/Splinter); a possible Michelangelo comeback would be a plausible outcome, not a contradiction.
+- Michelangelo vs Splinter: Cardcade 46/54 (Michelangelo/Splinter); the confirmed Michelangelo comeback is a plausible outcome, not a contradiction.
 - Casey vs Michelangelo: Cardcade 57/43 (Casey/Michelangelo); observed Casey win directionally consistent; player report of close game is more valuable than the binary result alone.
 
 ## Department handoffs
@@ -118,6 +118,6 @@ Verify wording against actual card Oracle text and official Magic rules before p
 
 ## Next gate
 
-Ask for clarification of Game 2 winner only when convenient. Preserve ambiguous notation without silent correction. No deck revision is authorized.
+Game 2 winner confirmed as Michelangelo by the player after the initial report. Original raw notes and ambiguous final-life notation remain unchanged. No deck revision is authorized.
 
 COWABUNGA.
