@@ -1,0 +1,13 @@
+{
+  "decks": [
+    "splinter",
+    "raphael"
+  ],
+  "error": "max() iterable argument is empty",
+  "exception_type": "ValueError",
+  "member_id": "b0001-p43-reversed",
+  "orientation": "reversed",
+  "outcome": "failed",
+  "seed": 69329389027231960176075381949713942033236410054125259144722684160125546981741,
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 8, in <module>\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\calibration_executor.py\", line 31, in execute_member\n    result = run_game(root, spec, AcceptancePilot())\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\stage002.py\", line 611, in run_game\n    blocks = chosen_pilot.choose_blocks(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\projects\\tmt\\src\\tmnt_design_studio\\pilot07.py\", line 120, in choose_blocks\n    return max(options, key=lambda option: len(option.blocks))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: max() iterable argument is empty\n"
+}
