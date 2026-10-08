@@ -53,7 +53,7 @@ If Raphael was excluded from the later two games, retain that selection effect. 
 
 ## Outstanding factual clarification
 
-Game 2 Splinter vs Michelangelo winner not explicitly identified in raw notes; final-life notation -5/6 is not mapped to deck order. Leave unknown until confirmed. This does not block the departmental work above.
+Game 2 winner confirmed by the player as **Michelangelo** in a subsequent follow-up. The original -5/6 final-life notation remains unmapped; do not silently assign those values. This does not block departmental work.
 
 ## Gate
 
