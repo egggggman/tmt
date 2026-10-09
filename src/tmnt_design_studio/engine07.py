@@ -298,6 +298,7 @@ class RulesEventKind(Enum):
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
     DAMAGE_DEALT = "damage_dealt"
+    COMBAT_DAMAGE_TO_PLAYER = "combat_damage_to_player"
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
     DISCARD_DRAW = "discard_draw"
@@ -324,6 +325,7 @@ class TriggerEffect(Enum):
     VIGILANTE_DISCARD = "vigilante_discard"
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
+    COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
     LTB_MUTAGEN = "ltb_mutagen"
@@ -1400,6 +1402,8 @@ class Game(
         self._draw_discard_anchors = {}
         self._draw_discard_sources = {}
         self._draw_discard_consumed: set[str] = set()
+        self._combat_draw_discard_anchors = {}
+        self._combat_draw_discard_consumed: set[str] = set()
         self._mill_draw_discard_anchors = {}
         self._mill_draw_discard_sources = {}
         self._mill_draw_discard_consumed: set[str] = set()
@@ -3429,6 +3433,93 @@ class Game(
             failed_draw_pending=player.failed_draw_pending,
         )
 
+    def _validate_combat_draw_discard_trigger(self, ability: TriggeredAbilityObject) -> None:
+        if not self._priority_resolution_in_progress and (
+            self.priority_state is None or not self.priority_state.resolution_pending
+        ):
+            raise ValueError("combat Draw/discard requires Priority resolution")
+        anchor = self._combat_draw_discard_anchors.get(ability.object_id)
+        if anchor is None:
+            raise ValueError("combat Draw/discard lacks Stack provenance")
+        original, trigger, source, card = anchor
+        event = ability.event
+        self._authenticate_original_rules_event(event)
+        if (
+            ability is not original
+            or self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(ability.trigger_id) is not trigger
+            or self._objects.get(trigger.source_id) is not source
+            or source.card is not card
+            or source.zone not in {"battlefield", "former"}
+            or ability.source_card is not card
+            or ability.source_id != source.object_id
+            or ability.controller != trigger.controller
+            or ability.oracle_fragment != trigger.oracle_fragment
+            or ability.effect is not TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD
+            or event is not trigger.event
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != ability.controller
+            or event.target_player != 1 - ability.controller
+            or event.amount is None
+            or event.amount <= 0
+            or ability.trigger_id in self._combat_draw_discard_consumed
+            or self.interpreter.combat_damage_draw_discard_semantic_coverage(
+                card, ability.oracle_fragment
+            )
+            is None
+        ):
+            raise ValueError("combat Draw/discard trigger provenance is invalid or consumed")
+
+    def _resolve_combat_draw_discard(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_combat_draw_discard_trigger(ability)
+        if ability.zone != "former":
+            raise ValueError("combat Draw/discard requires Priority resolution")
+        self._combat_draw_discard_consumed.add(ability.trigger_id)
+        amount = ability.event.amount
+        assert amount is not None and amount > 0
+        player = self.players[ability.controller]
+        hand_before = tuple(card.object_id for card in player.hand)
+        library_before = tuple(card.object_id for card in player.library)
+        graveyard_before = tuple(card.object_id for card in player.graveyard)
+        cursor = len(self.events)
+        draw_succeeded = self.draw(player, amount)
+        plan = self.choose_discard_draw(
+            ability.controller, DiscardDrawProgram(1, amount, False, False, draw_first=True)
+        )
+        discarded_id = None
+        if plan.selected is not None:
+            discarded_id = self.move_object(
+                plan.selected, "graveyard", reason="mandatory_discard"
+            ).object_id
+        self.log(
+            "combat_draw_discard_committed",
+            event_id=ability.event.event_id,
+            trigger_id=ability.trigger_id,
+            stack_object_id=ability.object_id,
+            source_id=ability.source_id,
+            controller=ability.controller,
+            target_player=ability.event.target_player,
+            damage=amount,
+            oracle_fragment=ability.oracle_fragment,
+            start_event_cursor=cursor,
+            pre_hand_ids=list(hand_before),
+            pre_library_ids=list(library_before),
+            pre_graveyard_ids=list(graveyard_before),
+            draw_succeeded=draw_succeeded,
+            drawn_count=len(library_before) - len(player.library),
+            post_draw_hand_ids=list(plan.pre_hand_ids),
+            offered_choice_ids=list(plan.offered_choice_ids),
+            selected_hand_id=plan.choice.card_id,
+            discarded_graveyard_id=discarded_id,
+            post_hand_ids=[card.object_id for card in player.hand],
+            post_library_ids=[card.object_id for card in player.library],
+            post_graveyard_ids=[card.object_id for card in player.graveyard],
+            failed_draw_pending=player.failed_draw_pending,
+        )
+
     def _resolve_etb_mill_draw_discard(self, ability: TriggeredAbilityObject) -> None:
         anchor = self._mill_draw_discard_anchors.get(ability.object_id)
         semantics = self.interpreter.etb_mill_draw_discard_semantic_coverage(
@@ -3941,6 +4032,26 @@ class Game(
             occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
             self._witness_from_existing_events(occurrence)
             self._draw_discard_sources[key] = (source, source.card)
+        if effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                or event.source_id != source.object_id
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or event.target_player != 1 - source.controller
+                or event.amount is None
+                or event.amount <= 0
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or self.interpreter.combat_damage_draw_discard_semantic_coverage(
+                    source.card, fragment
+                )
+                is None
+            ):
+                raise ValueError("combat Draw/discard damage provenance is invalid")
         if effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._authenticate_original_rules_event(event)
             if (
@@ -4051,6 +4162,15 @@ class Game(
                         (trigger.source_id, trigger.oracle_fragment)
                     ]
                     self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
+                if ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD:
+                    source = self._objects[trigger.source_id]
+                    assert isinstance(source, Permanent)
+                    self._combat_draw_discard_anchors[ability.object_id] = (
+                        ability,
+                        trigger,
+                        source,
+                        source.card,
+                    )
                 if ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
                     source, _card = self._mill_draw_discard_sources[
                         (trigger.source_id, trigger.oracle_fragment)
@@ -4330,6 +4450,11 @@ class Game(
             or ability.object_id in self._draw_discard_anchors
         ):
             self._validate_etb_draw_discard_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD
+            or ability.object_id in self._combat_draw_discard_anchors
+        ):
+            self._validate_combat_draw_discard_trigger(ability)
         if (
             ability.effect is TriggerEffect.LTB_MUTAGEN
             or ability.object_id in self._ltb_mutagen_anchors
@@ -4817,6 +4942,8 @@ class Game(
             self._resolve_etb_food_search(ability)
         elif ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
             self._resolve_etb_draw_discard(ability)
+        elif ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD:
+            self._resolve_combat_draw_discard(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._resolve_etb_mill_draw_discard(ability)
         elif ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
@@ -5159,6 +5286,7 @@ class Game(
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
+                TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
@@ -8040,10 +8168,29 @@ class Game(
                 self.log(
                     "combat_damage_player",
                     source=source.card.name,
+                    source_id=source.object_id,
+                    target_player=assignment.target_player,
                     damage=assignment.amount,
                     damage_step=self._combat_damage_step_kind.value,
                     role=assignment.role,
                 )
+                if assignment.amount > 0:
+                    event = self._new_rules_event(
+                        RulesEventKind.COMBAT_DAMAGE_TO_PLAYER,
+                        source.controller,
+                        (source.object_id,),
+                        source_id=source.object_id,
+                        target_player=assignment.target_player,
+                        amount=assignment.amount,
+                    )
+                    for fragment in self.interpreter.fragments(source.rules_card):
+                        semantics = self.interpreter.combat_damage_draw_discard_semantic_coverage(
+                            source.card, fragment
+                        )
+                        if semantics is not None and semantics.coverage.fully_supported:
+                            self._enqueue_trigger(
+                                event, source, fragment, TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD
+                            )
             else:
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
@@ -8090,7 +8237,7 @@ class Game(
         resolved_total = self._combat_damage_total_steps
         self.check_state_based_actions()
         self.check_life()
-        if lifelink_assignments:
+        if self.winner is None and self.pending_triggers:
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
         after_remaining = {
@@ -9930,6 +10077,7 @@ class Game(
                 TriggerEffect.ETB_JURY_RIG,
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
+                TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
