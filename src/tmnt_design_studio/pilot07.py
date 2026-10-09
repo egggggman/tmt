@@ -162,8 +162,7 @@ class AcceptancePilot:
             utility = [
                 option
                 for option in casts
-                if (card := self._card(view, option.player_index, option.object_id))
-                and card[1] in {"Skateboard", "Spicy Oatmeal Pizza"}
+                if (card := self._card(view, option.player_index, option.object_id)) and not card[3]
             ]
             if utility:
                 return min(

@@ -212,6 +212,15 @@ def _semantic_coverage(
     fragment: str,
     limitations: tuple[str, ...],
 ) -> dict[str, object]:
+    if interpreter.equipment_static_semantics(card, fragment) is not None:
+        return {
+            "family": "equipment_static",
+            "payload_executable": True,
+            "parent_executable": True,
+            "followup_executable": True,
+            "fully_supported": True,
+            "limitations": [],
+        }
     if fragment in card.keywords and not limitations:
         return {
             "family": "keyword_fact",

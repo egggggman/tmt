@@ -326,6 +326,7 @@ class TriggerEffect(Enum):
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
+    UTILITY_TARGET = "utility_target"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
     LTB_MUTAGEN = "ltb_mutagen"
@@ -1404,6 +1405,8 @@ class Game(
         self._draw_discard_consumed: set[str] = set()
         self._combat_draw_discard_anchors = {}
         self._combat_draw_discard_consumed: set[str] = set()
+        self._utility_trigger_anchors = {}
+        self._utility_trigger_consumed: set[str] = set()
         self._mill_draw_discard_anchors = {}
         self._mill_draw_discard_sources = {}
         self._mill_draw_discard_consumed: set[str] = set()
@@ -1758,6 +1761,7 @@ class Game(
         departure_sources = None
         departure_last_known = None
         ltb_mutagen_fragments = ()
+        ltb_utility_fragments = ()
         if source_zone == "battlefield" and destination != "battlefield":
             assert isinstance(obj, Permanent)
             departure_authority = (
@@ -1780,6 +1784,13 @@ class Game(
                 fragment
                 for fragment in self.interpreter.fragments(obj.rules_card)
                 if self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment) is not None
+            )
+            ltb_utility_fragments = tuple(
+                fragment
+                for fragment in self.interpreter.fragments(obj.rules_card)
+                if (semantics := self.interpreter.utility_trigger_semantics(obj.card, fragment))
+                is not None
+                and semantics[0] == "entry_or_leave"
             )
             for fragment in ltb_mutagen_fragments:
                 coverage = self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment)
@@ -1852,7 +1863,7 @@ class Game(
                 for watcher, fragment in departure_sources
                 if watcher.object_id != obj.object_id
             )
-            if qualifying_sources or ltb_mutagen_fragments:
+            if qualifying_sources or ltb_mutagen_fragments or ltb_utility_fragments:
                 departure_record = tuple(self.events[-1].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
@@ -1881,6 +1892,8 @@ class Game(
                         departure_record,
                     )
                     self._enqueue_trigger(event, obj, fragment, TriggerEffect.LTB_MUTAGEN)
+                for fragment in ltb_utility_fragments:
+                    self._enqueue_trigger(event, obj, fragment, TriggerEffect.UTILITY_TARGET)
                 for watcher, fragment in qualifying_sources:
                     self._enqueue_trigger(
                         event,
@@ -3955,6 +3968,28 @@ class Game(
         if effect is TriggerEffect.ETB_KRANG_REFILL:
             self._enqueue_krang_refill(event, source, fragment)
             return
+        if effect is TriggerEffect.UTILITY_TARGET:
+            semantics = self.interpreter.utility_trigger_semantics(source.card, fragment)
+            self._authenticate_original_rules_event(event)
+            if (
+                semantics is None
+                or self._rules_events.get(event.event_id) is not event
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.card)
+                or not (
+                    event.kind
+                    in {RulesEventKind.CREATURE_ENTERED, RulesEventKind.PERMANENT_ENTERED}
+                    and semantics[0] in {"entry", "entry_or_leave"}
+                    and self.is_authoritative(source, "battlefield")
+                    or event.kind is RulesEventKind.PERMANENT_LEFT
+                    and semantics[0] == "entry_or_leave"
+                    and source.zone == "former"
+                    and event.source_id == source.object_id
+                )
+            ):
+                raise ValueError("utility trigger event provenance is invalid")
         if effect is TriggerEffect.ETB_MILL_THREE:
             self._enqueue_mill_three(event, source, fragment)
             return
@@ -4171,6 +4206,11 @@ class Game(
                         source,
                         source.card,
                     )
+                if (
+                    ability.effect is TriggerEffect.UTILITY_TARGET
+                    and not self._select_utility_target(ability, trigger)
+                ):
+                    continue
                 if ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
                     source, _card = self._mill_draw_discard_sources[
                         (trigger.source_id, trigger.oracle_fragment)
@@ -4195,6 +4235,156 @@ class Game(
                     controller=self.players[trigger.controller].name,
                 )
         return True
+
+    def _select_utility_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> bool:
+        semantics = self.interpreter.utility_trigger_semantics(
+            trigger.source_card, trigger.oracle_fragment
+        )
+        assert semantics is not None
+        _event, effect, optional = semantics
+        targets = [
+            target
+            for player in self.players
+            for target in player.battlefield
+            if self.is_authoritative(target, "battlefield")
+            and (
+                target.card.is_creature
+                if effect == "tap_or_untap_creature"
+                else (
+                    not target.card.is_land and target.object_id != trigger.source_id
+                    if effect == "bounce_other_nonland"
+                    else True
+                )
+            )
+        ]
+        targets = [
+            target
+            for target in targets
+            if not re.search(
+                r"\b(?:hexproof|shroud|ward|protection)\b|can't be (?:the )?target",
+                " ".join((*target.rules_card.keywords, target.rules_card.oracle_text)),
+                re.I,
+            )
+        ]
+        hostile = [target for target in targets if target.controller != trigger.controller]
+        if effect == "bounce_other_nonland":
+            chosen = max(
+                hostile,
+                key=lambda target: (
+                    target.power if target.is_creature else 0,
+                    target.object_id,
+                ),
+                default=None,
+            )
+        elif effect == "tap_or_untap_creature":
+            chosen = next((target for target in hostile if not target.tapped), None)
+            chosen = chosen or next(
+                (
+                    target
+                    for target in targets
+                    if target.controller == trigger.controller and target.tapped
+                ),
+                None,
+            )
+            chosen = chosen or (targets[0] if targets else None)
+        else:
+            chosen = next((target for target in hostile if not target.tapped), None)
+            chosen = chosen or (hostile[0] if hostile else targets[0] if targets else None)
+        if chosen is None and not optional:
+            self.log("utility_trigger_no_target", trigger_id=trigger.trigger_id)
+            return False
+        ability.target_id = chosen.object_id if chosen is not None else None
+        source = self._objects[trigger.source_id]
+        assert isinstance(source, Permanent)
+        self._utility_trigger_anchors[ability.object_id] = (
+            ability,
+            trigger,
+            source,
+            chosen,
+            semantics,
+        )
+        self.log(
+            "utility_target_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            source_id=trigger.source_id,
+            target_id=ability.target_id,
+            offered_ids=[target.object_id for target in targets],
+            effect=effect,
+        )
+        return True
+
+    def _validate_utility_trigger(self, ability: TriggeredAbilityObject) -> None:
+        anchor = self._utility_trigger_anchors.get(ability.object_id)
+        if anchor is None:
+            raise ValueError("utility trigger lacks targeting provenance")
+        original, trigger, source, target, semantics = anchor
+        event = ability.event
+        self._authenticate_original_rules_event(event)
+        if (
+            ability is not original
+            or self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(ability.trigger_id) is not trigger
+            or trigger.event is not event
+            or trigger.source_id != source.object_id
+            or self._objects.get(source.object_id) is not source
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or trigger.controller != ability.controller
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or ability.effect is not TriggerEffect.UTILITY_TARGET
+            or self.interpreter.utility_trigger_semantics(source.card, ability.oracle_fragment)
+            != semantics
+            or ability.target_id != (target.object_id if target is not None else None)
+            or ability.trigger_id in self._utility_trigger_consumed
+        ):
+            raise ValueError("utility trigger provenance is invalid or consumed")
+
+    def _resolve_utility_trigger(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_utility_trigger(ability)
+        if ability.zone != "former":
+            raise ValueError("utility trigger requires Priority resolution")
+        self._utility_trigger_consumed.add(ability.trigger_id)
+        _original, _trigger, _source, target, semantics = self._utility_trigger_anchors[
+            ability.object_id
+        ]
+        _event, effect, _optional = semantics
+        legal = isinstance(target, Permanent) and self.is_authoritative(target, "battlefield")
+        if legal and effect == "bounce_other_nonland":
+            legal = not target.card.is_land and target.object_id != ability.source_id
+        elif legal and effect == "tap_or_untap_creature":
+            legal = target.card.is_creature
+        result = "no_legal_target"
+        destination_id = None
+        if legal and target is not None:
+            if effect == "bounce_other_nonland":
+                destination_id = self.move_object(target, "hand", reason="utility_bounce").object_id
+                result = "returned"
+            elif effect == "tap_or_untap_creature":
+                if target.controller != ability.controller and not target.tapped:
+                    target.tapped = True
+                    result = "tapped"
+                elif target.controller == ability.controller and target.tapped:
+                    self.untap_permanent(target)
+                    result = "untapped" if not target.tapped else "stun_removed"
+                else:
+                    result = "declined"
+            else:
+                target.tapped = True
+                result = "tapped"
+        self.log(
+            "utility_trigger_resolved",
+            event_id=ability.event.event_id,
+            stack_object_id=ability.object_id,
+            trigger_id=ability.trigger_id,
+            source_id=ability.source_id,
+            target_id=ability.target_id,
+            destination_id=destination_id,
+            effect=effect,
+            result=result,
+        )
 
     def _select_class_recovery_targets(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
@@ -4455,6 +4645,11 @@ class Game(
             or ability.object_id in self._combat_draw_discard_anchors
         ):
             self._validate_combat_draw_discard_trigger(ability)
+        if (
+            ability.effect is TriggerEffect.UTILITY_TARGET
+            or ability.object_id in self._utility_trigger_anchors
+        ):
+            self._validate_utility_trigger(ability)
         if (
             ability.effect is TriggerEffect.LTB_MUTAGEN
             or ability.object_id in self._ltb_mutagen_anchors
@@ -4944,6 +5139,8 @@ class Game(
             self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD:
             self._resolve_combat_draw_discard(ability)
+        elif ability.effect is TriggerEffect.UTILITY_TARGET:
+            self._resolve_utility_trigger(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._resolve_etb_mill_draw_discard(ability)
         elif ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
@@ -5287,6 +5484,7 @@ class Game(
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
+                TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
@@ -6233,6 +6431,7 @@ class Game(
             TriggerEffect.ETB_FOOD_SEARCH,
             TriggerEffect.ETB_DRAW_DISCARD,
             TriggerEffect.ETB_MILL_DRAW_DISCARD,
+            TriggerEffect.UTILITY_TARGET,
             TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
         for permanent in entering:
@@ -6254,6 +6453,13 @@ class Game(
                     ):
                         self._enqueue_trigger(
                             event, permanent, fragment, TriggerEffect.ETB_MILL_DRAW_DISCARD
+                        )
+            if TriggerEffect.UTILITY_TARGET in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    semantics = self.interpreter.utility_trigger_semantics(permanent.card, fragment)
+                    if semantics is not None and semantics[0] in {"entry", "entry_or_leave"}:
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.UTILITY_TARGET
                         )
             if TriggerEffect.ETB_KRANG_REFILL in enabled:
                 for fragment in self.interpreter.fragments(permanent.rules_card):
@@ -6597,6 +6803,48 @@ class Game(
         current_team: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
         for player in self.players:
             for source in player.battlefield:
+                if "Equipment" in source.type_line and source.attached_to is not None:
+                    attached = self._objects.get(source.attached_to)
+                    if not (
+                        isinstance(attached, Permanent)
+                        and self.is_authoritative(attached, "battlefield")
+                        and attached.is_creature
+                    ):
+                        old_target = source.attached_to
+                        source.attached_to = None
+                        source.attachment_timestamp = (0, 0)
+                        self.log(
+                            "equipment_detached",
+                            source_id=source.object_id,
+                            target_id=old_target,
+                            reason="attachment_illegal",
+                        )
+                    else:
+                        for fragment in self.interpreter.fragments(source.rules_card):
+                            semantics = self.interpreter.equipment_static_semantics(
+                                source.card, fragment
+                            )
+                            if semantics is None:
+                                continue
+                            power, toughness, _keyword = semantics
+                            if power or toughness:
+                                self.apply_pt_modifier(
+                                    attached,
+                                    power,
+                                    toughness,
+                                    duration="persistent",
+                                    source_card=source.card.name,
+                                    oracle_fragment=fragment,
+                                    derived_static=True,
+                                    source_object_id=source.object_id,
+                                    log_event=False,
+                                )
+                                current_team[(source.object_id, attached.object_id, fragment)] = (
+                                    power,
+                                    toughness,
+                                    source.card.name,
+                                    attached.card.name,
+                                )
                 for fragment in self.interpreter.fragments(source.rules_card):
                     semantics = self.interpreter.static_team_modifier_semantic_coverage(
                         source.card, fragment
@@ -7305,8 +7553,26 @@ class Game(
             ),
             *self._hand_response_options(player_index),
             *self._aura_cast_options(player_index, priority=True),
+            *self._flash_permanent_cast_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
+        )
+
+    def _flash_permanent_cast_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                priority_epoch=state.epoch,
+            )
+            for card in self.players[player_index].hand
+            if "Flash" in self.interpreter.fragments(card.card)
+            and self.interpreter.cast_program(card.card).kind is CastKind.PERMANENT
+            and self.can_afford(player_index, card)
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
@@ -7334,6 +7600,14 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            if isinstance(card, CardObject) and option in self._flash_permanent_cast_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(option.player_index, card)
+                if spell is None:
+                    raise ValueError("Flash permanent response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
                 spell = self.announce_spell(option.player_index, card, target)
                 if spell is None:
@@ -7744,7 +8018,8 @@ class Game(
         if not all(isinstance(obj, Permanent) for obj in attackers):
             raise ValueError("combat option references a nonpermanent")
         for attacker in attackers:
-            attacker.tapped = True  # type: ignore[union-attr]
+            if not self._has_keyword(attacker, "Vigilance"):
+                attacker.tapped = True  # type: ignore[union-attr]
         self._combat_attackers = attack.attacker_ids
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
@@ -7807,6 +8082,11 @@ class Game(
             effect.keyword
             for effect in permanent.active_temporary_keyword_effects
             if isinstance(effect.keyword, StrikeKeyword)
+        )
+        keywords.update(
+            keyword
+            for keyword in StrikeKeyword
+            if keyword.value.replace("_", " ") in self._equipment_keywords(permanent)
         )
         for fragment in self.interpreter.fragments(permanent.rules_card):
             semantics = self.interpreter.strike_semantic_coverage(permanent.card, fragment)
@@ -7945,6 +8225,8 @@ class Game(
         """Evaluate only authoritative, fully supported Trample characteristics."""
         if not self.is_authoritative(permanent, "battlefield"):
             return False
+        if "trample" in self._equipment_keywords(permanent):
+            return True
         if isinstance(permanent.card, TokenDefinition) and "trample" in {
             keyword.casefold() for keyword in permanent.rules_card.keywords
         }:
@@ -8950,6 +9232,18 @@ class Game(
         )
         starting_object_number = self._next_object_number
         source_index = self.players[source.controller].battlefield.index(source)
+        utility_leaves = (
+            tuple(
+                fragment
+                for fragment in self.interpreter.fragments(source.rules_card)
+                if (utility := self.interpreter.utility_trigger_semantics(source.card, fragment))
+                is not None
+                and utility[0] == "entry_or_leave"
+            )
+            if plan.sacrifice_source
+            else ()
+        )
+        departure_authority = self._battlefield_authority_snapshot() if utility_leaves else ()
         sacrificed: CardObject | None = None
         ability: ActivatedAbilityObject | None = None
         try:
@@ -9057,6 +9351,19 @@ class Game(
                 destination_zone="graveyard",
                 reason="activation_sacrifice_cost",
             )
+            if utility_leaves:
+                event = self._new_rules_event(
+                    RulesEventKind.PERMANENT_LEFT,
+                    player_index,
+                    (source.object_id,),
+                    source_id=source.object_id,
+                    battlefield_authority=departure_authority,
+                    last_known_battlefield=(
+                        (source.object_id, player_index, source.type_line, source.is_creature),
+                    ),
+                )
+                for fragment in utility_leaves:
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.UTILITY_TARGET)
         self.log(
             "activation_announced",
             player=self.players[player_index].name,
@@ -9085,7 +9392,8 @@ class Game(
         )
         if sacrificed is not None:
             self.check_state_based_actions()
-        self._begin_priority_window()
+        if self.priority_state is None:
+            self._begin_priority_window()
         if (
             sacrificed is not None
             and semantics.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE
@@ -9356,6 +9664,26 @@ class Game(
                 hand_size_after=len(self.players[ability.controller].hand),
             )
             delivered = drew
+        elif ability.program.effect_kind is ActivatedEffectKind.DRAW_CARDS:
+            match = re.search(
+                r": Draw (?P<count>one|two|three|four|five|[1-9]\d*) cards?\.$",
+                ability.oracle_fragment,
+                re.I,
+            )
+            assert match is not None
+            quantity = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}.get(
+                match.group("count").casefold()
+            ) or int(match.group("count"))
+            before = len(self.players[ability.controller].library)
+            delivered = self.draw(self.players[ability.controller], quantity)
+            self.log(
+                "activated_draw_resolved",
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                requested=quantity,
+                cards_drawn=before - len(self.players[ability.controller].library),
+                draw_succeeded=delivered,
+            )
         elif ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
             recipients = [
                 p
@@ -9510,6 +9838,8 @@ class Game(
             )
             if legal:
                 source_permanent.attached_to = target.object_id
+                source_permanent.attachment_timestamp = self._effect_timestamp()
+                self.refresh_static_pt_modifiers()
                 delivered = True
                 self.log(
                     "equipment_attached",
@@ -9931,8 +10261,8 @@ class Game(
             self.priority_state is not None
             and not self.priority_state.resolution_pending
             and self.priority_state.player_index == player_index
-            and self.interpreter.aura_program(card.card) is not None
             and "Flash" in self.interpreter.fragments(card.card)
+            and self.interpreter.cast_program(card.card).kind in {CastKind.AURA, CastKind.PERMANENT}
         )
         if (
             (
@@ -10078,6 +10408,7 @@ class Game(
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
+                TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
                 TriggerEffect.DISCARD_DRAW,
@@ -10431,9 +10762,31 @@ class Game(
                 return fragment, "blocker_power_greater_than_attacker"
         return None
 
-    @staticmethod
-    def _has_keyword(permanent: Permanent, keyword: str) -> bool:
-        return keyword.casefold() in {value.casefold() for value in permanent.rules_card.keywords}
+    def _equipment_keywords(self, permanent: Permanent) -> frozenset[str]:
+        if not self.is_authoritative(permanent, "battlefield"):
+            return frozenset()
+        return frozenset(
+            semantics[2]
+            for player in self.players
+            for source in player.battlefield
+            if source.attached_to == permanent.object_id
+            and self.is_authoritative(source, "battlefield")
+            and "Equipment" in source.type_line
+            and (
+                permanent.ability_loss_timestamp is None
+                or source.attachment_timestamp > permanent.ability_loss_timestamp
+            )
+            for fragment in self.interpreter.fragments(source.rules_card)
+            if (semantics := self.interpreter.equipment_static_semantics(source.card, fragment))
+            is not None
+            and semantics[2] is not None
+        )
+
+    def _has_keyword(self, permanent: Permanent, keyword: str) -> bool:
+        return keyword.casefold() in {
+            *(value.casefold() for value in permanent.rules_card.keywords),
+            *self._equipment_keywords(permanent),
+        }
 
     def _has_flying(self, permanent: Permanent) -> bool:
         return self._has_keyword(permanent, "Flying") or any(
@@ -10762,6 +11115,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
+                TriggerEffect.UTILITY_TARGET,
             }
         ):
             self._drain_triggered_abilities()
