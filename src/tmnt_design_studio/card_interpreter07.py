@@ -475,6 +475,7 @@ class ActivatedEffectKind(Enum):
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
+    DRAW_CARDS = "draw_cards"
     ATTACH_EQUIPMENT = "attach_equipment"
     UNSUPPORTED = "unsupported"
 
@@ -1595,6 +1596,55 @@ class CardInterpreter:
             len(fragment),
         )
 
+    def equipment_static_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int, str | None] | None:
+        """A bounded, continuously evaluated equipped-creature P/T and keyword clause."""
+        if "Equipment" not in card.type_line:
+            return None
+        match = re.fullmatch(
+            r"Equipped creature gets \+(?P<power>\d+)/\+(?P<toughness>\d+)"
+            r"(?: and has (?P<keyword>haste|vigilance|trample|double strike))?\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        if match is not None:
+            return (
+                int(match.group("power")),
+                int(match.group("toughness")),
+                match.group("keyword").casefold() if match.group("keyword") else None,
+            )
+        match = re.fullmatch(
+            r"Equipped creature has (?P<keyword>haste|vigilance|trample|double strike)\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        return (0, 0, match.group("keyword").casefold()) if match else None
+
+    def utility_trigger_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[str, str, bool] | None:
+        """Return event, effect, and optional-target facts for bounded artifact triggers."""
+        artifact = "Artifact" in card.type_line
+        equipment = "Equipment" in card.type_line
+        if equipment and fragment == "When this Equipment enters, tap target permanent.":
+            return ("entry", "tap_permanent", False)
+        if (
+            equipment
+            and fragment
+            == "When this Equipment enters, return up to one other target nonland permanent "
+            "to its owner's hand."
+        ):
+            return ("entry", "bounce_other_nonland", True)
+        if (
+            artifact
+            and fragment
+            == "When this artifact enters or leaves the battlefield, "
+            "you may tap or untap target creature."
+        ):
+            return ("entry_or_leave", "tap_or_untap_creature", False)
+        return None
+
     def combat_damage_draw_discard_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -2020,6 +2070,15 @@ class CardInterpreter:
             "Artifact" in card.type_line
             and self.COUNTER_TOKEN_ACTIVATION.fullmatch(fragment.strip())
         )
+        sacrifice_draw = bool(
+            "Artifact" in card.type_line
+            and re.fullmatch(
+                r"(?:\{(?:\d+|[WUBRG])\})+, Sacrifice this artifact: "
+                r"Draw (?:one|two|three|four|five|[1-9]\d*) cards?\.",
+                fragment,
+                re.IGNORECASE,
+            )
+        )
         frog_reach = (
             card.name == "Frog Butler"
             and fragment.strip() == "{2}: This creature gains reach until end of turn."
@@ -2043,6 +2102,7 @@ class CardInterpreter:
         ) and (
             canonical_food
             or mutagen_source
+            or sacrifice_draw
             or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None
         )
         mana_parts = tuple(
@@ -2149,6 +2209,9 @@ class CardInterpreter:
         elif ray_fillets:
             effect_kind = ActivatedEffectKind.DRAW_CARD
             action_match = True
+        elif sacrifice_draw:
+            effect_kind = ActivatedEffectKind.DRAW_CARDS
+            action_match = True
         elif token_haste:
             effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
             action_match = True
@@ -2195,6 +2258,7 @@ class CardInterpreter:
             or tunnel_rats_return
             or mutagen_source
             or ray_fillets
+            or sacrifice_draw
             or token_haste
             or class_level
         ):
@@ -2577,6 +2641,12 @@ class CardInterpreter:
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
             if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.equipment_static_semantics(card, fragment) is not None:
+                continue
+            if self.utility_trigger_semantics(card, fragment) is not None:
+                continue
+            if fragment == "Flash" and "Artifact" in card.type_line:
                 continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:

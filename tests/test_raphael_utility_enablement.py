@@ -66,6 +66,8 @@ def test_skateboard_cast_and_deterministic_equip():
         event["event"] == "permanent_resolved" and event["card"] == "Skateboard"
         for event in current.events
     )
+    # Its entry trigger must resolve through Priority before a sorcery-speed Equip.
+    resolve(current)
     equip_option = next(
         item
         for item in current.legal_main_actions(0)
