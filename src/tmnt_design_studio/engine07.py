@@ -941,6 +941,7 @@ class Permanent:
     tapped: bool = False
     summoning_sick: bool = True
     entered_battlefield_turn: int = 0
+    entered_under_controller: int = -1
     damage: int = 0
     deathtouch_damage: bool = False
     counters: dict[str, int] = field(default_factory=dict)
@@ -1541,6 +1542,7 @@ class Game(
             tapped=tapped,
             summoning_sick=summoning_sick,
             entered_battlefield_turn=self.turn,
+            entered_under_controller=owner if controller is None else controller,
         )
         self._register(permanent)
         self.players[permanent.controller].battlefield.append(permanent)
@@ -1587,6 +1589,7 @@ class Game(
                     tapped=program.tapped,
                     summoning_sick=definition.is_creature,
                     entered_battlefield_turn=self.turn,
+                    entered_under_controller=destination_controller,
                     is_token=True,
                 )
                 self._register(token)
@@ -1817,6 +1820,7 @@ class Game(
                 destination_controller,
                 summoning_sick=summoning_sick,
                 entered_battlefield_turn=self.turn,
+                entered_under_controller=destination_controller,
                 is_token=getattr(obj, "is_token", False),
             )
             destination_container = self.players[destination_controller].battlefield
@@ -7395,6 +7399,20 @@ class Game(
             and target.controller != controller
         )
 
+    def _is_legal_hand_counter_target(self, card: CardFact, target: object) -> bool:
+        kind = self.interpreter.cast_program(card).kind
+        return (
+            isinstance(target, StackObject)
+            and self.is_authoritative(target, "stack")
+            and (
+                kind is CastKind.OOZE_SPILL
+                or (
+                    kind is CastKind.COUNTER_TARGET_SPELL
+                    and ("noncreature" not in card.oracle_text or not target.card.is_creature)
+                )
+            )
+        )
+
     def _legal_counter_target_ids(self, controller: int) -> tuple[str, ...]:
         return tuple(
             spell.object_id
@@ -7405,62 +7423,57 @@ class Game(
         )
 
     def _hand_response_options(self, player_index: int) -> tuple[ActionOption, ...]:
-        """Expose one bounded class of supported hand-instants for an opponent spell.
-
-        This deliberately covers only the current supported counterspell path and only the
-        original pending spell. It is not a general nested-priority or counter-war surface.
-        """
+        """Expose payable hand counters against opposing spells anywhere on the stack."""
         state = self.priority_state
         if (
             state is None
             or state.resolution_pending
             or state.player_index != player_index
-            or len(self.stack) != 1
-            or not isinstance(self.stack[-1], StackObject)
+            or not self.stack
         ):
-            return ()
-        target = self.stack[-1]
-        if target.controller == player_index:
             return ()
         options = []
         for card in self.players[player_index].hand:
-            program = self.interpreter.cast_program(card.card)
             if (
                 "Instant" not in card.card.type_line
-                or program.kind is not CastKind.OOZE_SPILL
                 or self.payment_plan(player_index, card) is None
-                or not self._is_legal_ooze_target(target, player_index)
             ):
                 continue
-            options.append(
-                ActionOption(
-                    ActionKind.CAST,
-                    player_index,
-                    object_id=card.object_id,
-                    target_id=target.object_id,
-                    oracle_fragment=card.card.oracle_text,
-                    priority_epoch=state.epoch,
+            for target in reversed(self.stack):
+                if (
+                    not isinstance(target, StackObject)
+                    or target.controller == player_index
+                    or not self._is_legal_hand_counter_target(card.card, target)
+                ):
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        oracle_fragment=card.card.oracle_text,
+                        priority_epoch=state.epoch,
+                    )
                 )
-            )
         return tuple(options)
 
     def _announce_hand_response(
         self, player_index: int, card: CardObject, target: StackObject
     ) -> StackObject | None:
-        """Announce one supported hand instant against the current opponent spell."""
+        """Announce one supported hand instant against an opposing stack spell."""
         state = self.priority_state
         if (
             state is None
             or state.resolution_pending
             or state.player_index != player_index
-            or len(self.stack) != 1
-            or self.stack[-1] is not target
+            or not self.stack
+            or target not in self.stack
             or target.controller == player_index
             or not self.is_authoritative(card, "hand")
             or card.owner != player_index
             or "Instant" not in card.card.type_line
-            or self.interpreter.cast_program(card.card).kind is not CastKind.OOZE_SPILL
-            or not self._is_legal_ooze_target(target, player_index)
+            or not self._is_legal_hand_counter_target(card.card, target)
         ):
             return None
         plan = self.payment_plan(player_index, card)
@@ -7469,7 +7482,7 @@ class Game(
         spell = self._commit_announcement_payment(
             card,
             plan,
-            cast_kind=CastKind.OOZE_SPILL,
+            cast_kind=self.interpreter.cast_program(card.card).kind,
             target_id=target.object_id,
         )
         self.log(
@@ -7495,7 +7508,7 @@ class Game(
             target_spell_id=target.object_id,
             target_card=target.card.name,
         )
-        self._begin_priority_window()
+        self._begin_priority_window(priority_player=player_index)
         return spell
 
     def _log_supported_hand_responses(self) -> None:
@@ -10287,7 +10300,7 @@ class Game(
         self,
         player_index: int,
         card: CardObject,
-        target: Permanent | None = None,
+        target: Permanent | StackObject | None = None,
         *,
         cast_from_graveyard: bool = False,
         cast_from_exile: bool = False,
@@ -10367,6 +10380,16 @@ class Game(
                 or not self._is_legal_ooze_target(target, player_index)
             ):
                 return None
+            target_id = target.object_id
+        elif program.kind is CastKind.COUNTER_TARGET_SPELL:
+            if (
+                self.priority_state is None
+                or self.priority_state.resolution_pending
+                or self.priority_state.player_index != player_index
+                or not self._is_legal_hand_counter_target(card.card, target)
+            ):
+                return None
+            assert isinstance(target, StackObject)
             target_id = target.object_id
         elif program.kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             if (
@@ -10596,6 +10619,8 @@ class Game(
             legal_target = legal_target and target.controller != spell.controller
         elif spell.cast_kind is CastKind.OOZE_SPILL:
             legal_target = self._is_legal_ooze_target(target, spell.controller)
+        elif spell.cast_kind is CastKind.COUNTER_TARGET_SPELL:
+            legal_target = self._is_legal_hand_counter_target(spell.card, target)
         elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             legal_target = (
                 legal_target
@@ -10616,7 +10641,11 @@ class Game(
                 reason="all_targets_illegal",
             )
             return resolved_card
-        if spell.cast_kind not in {CastKind.OOZE_SPILL, CastKind.DRAW_CARDS}:
+        if spell.cast_kind not in {
+            CastKind.OOZE_SPILL,
+            CastKind.COUNTER_TARGET_SPELL,
+            CastKind.DRAW_CARDS,
+        }:
             assert isinstance(target, Permanent)
         filter_plan = None
         filter_semantics = None
@@ -10649,6 +10678,21 @@ class Game(
                 target_spell_id=target.object_id,
                 countered_object_id=countered.object_id,
                 mutagen_token_id=created[0].object_id,
+            )
+        elif spell.cast_kind is CastKind.COUNTER_TARGET_SPELL:
+            assert isinstance(target, StackObject)
+            countered = self.move_object(target, "graveyard", reason="spell_countered")
+            self.log(
+                "spell_countered",
+                stack_object_id=spell.object_id,
+                target_spell_id=target.object_id,
+                target_card=target.card.name,
+                controller=spell.controller,
+                oracle_fragment=spell.card.oracle_text,
+                target_relationship="counter_target_noncreature_spell"
+                if "noncreature" in spell.card.oracle_text
+                else "counter_target_spell",
+                countered_object_id=countered.object_id,
             )
         elif spell.cast_kind is CastKind.DRAW_CARDS:
             draw_semantics = next(
@@ -10789,6 +10833,14 @@ class Game(
         ):
             return "Flying", "flying_requires_flying_or_reach"
         for fragment in self.interpreter.fragments(attacker.rules_card):
+            if self.interpreter.CANT_BE_BLOCKED_AFTER_ARTIFACT_ENTRY.fullmatch(fragment) and any(
+                isinstance(entered, Permanent)
+                and entered.entered_battlefield_turn == self.turn
+                and entered.entered_under_controller == attacker.controller
+                and "Artifact" in entered.card.type_line
+                for entered in self._objects.values()
+            ):
+                return fragment, "artifact_entered_under_attacker_controller_this_turn"
             match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
                 return fragment, "blocker_power_at_or_above_restriction"
@@ -11642,6 +11694,8 @@ class Game(
                     raise AssertionError("battlefield controller does not match player zone")
                 if permanent.entered_battlefield_turn > self.turn:
                     raise AssertionError("permanent entered the battlefield in a future turn")
+                if permanent.entered_under_controller not in range(2):
+                    raise AssertionError("permanent lacks its entry controller provenance")
                 if permanent.is_token != isinstance(permanent.card, TokenDefinition):
                     raise AssertionError("token runtime state does not match its token definition")
                 if not permanent.type_line:
@@ -12405,6 +12459,7 @@ class Game(
                             "tapped": x.tapped,
                             "summoning_sick": x.summoning_sick,
                             "entered_battlefield_turn": x.entered_battlefield_turn,
+                            "entered_under_controller": x.entered_under_controller,
                             **({"class_level": x.class_level} if x.class_level is not None else {}),
                             **({"attached_to": x.attached_to} if x.attached_to is not None else {}),
                             "entered_timestamp": list(x.entered_timestamp),

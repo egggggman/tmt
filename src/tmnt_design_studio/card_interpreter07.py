@@ -30,6 +30,7 @@ class CastKind(Enum):
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
     OOZE_SPILL = "ooze_spill"
+    COUNTER_TARGET_SPELL = "counter_target_spell"
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
         "destroy_artifact_enchantment_or_power_4_creature"
     )
@@ -653,6 +654,10 @@ class CardInterpreter:
     CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
         r"^This creature can't be blocked by creatures with greater power\.$"
     )
+    CANT_BE_BLOCKED_AFTER_ARTIFACT_ENTRY = re.compile(
+        r"^This creature can't be blocked if an artifact entered the battlefield "
+        r"under your control this turn\.$"
+    )
     ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
         r"^Alliance — Whenever another creature you control enters, put "
         r"(?:a|one|([0-9]+)) \+1/\+1 counters? on target creature you control\.$"
@@ -909,6 +914,8 @@ class CardInterpreter:
             "Counter target spell. Create a Mutagen token."
         ):
             return CastProgram(CastKind.OOZE_SPILL)
+        if self.counter_spell_semantic_coverage(card, card.oracle_text).fully_supported:
+            return CastProgram(CastKind.COUNTER_TARGET_SPELL)
         if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
             return CastProgram(CastKind.DAMAGE_3_OPPOSING_CREATURE)
         damage = self.damage_semantic_coverage(card, card.oracle_text)
@@ -939,6 +946,23 @@ class CardInterpreter:
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    @staticmethod
+    def counter_spell_semantic_coverage(card: CardDefinition, fragment: str) -> SemanticCoverage:
+        """Only the complete fixed-target, no-followup instant counter grammar."""
+        matched = re.fullmatch(r"Counter target (?:noncreature )?spell\.", fragment) is not None
+        complete = fragment == card.oracle_text.strip()
+        instant = "Instant" in card.type_line
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (matched, "counter_target_grammar_not_implemented"),
+                (complete, "counter_followup_not_implemented"),
+                (instant, "counter_source_not_instant"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(matched, instant, complete, limitations)
 
     AURA_SUPPRESSION = re.compile(
         r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
@@ -1117,6 +1141,7 @@ class CardInterpreter:
             for pattern in (
                 self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
                 self.CANT_BE_BLOCKED_BY_GREATER_POWER,
+                self.CANT_BE_BLOCKED_AFTER_ARTIFACT_ENTRY,
             )
         )
 
@@ -2639,6 +2664,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.counter_spell_semantic_coverage(card, fragment).fully_supported:
+                continue
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
             if self.equipment_static_semantics(card, fragment) is not None:
