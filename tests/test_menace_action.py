@@ -130,8 +130,10 @@ def test_menace_multi_block_trample_assigns_lethal_then_excess():
         first.object_id,
         second.object_id,
     ]
-    assert attacker_assignments[-1].target_player == 1 and attacker_assignments[-1].amount == 1
-    assert game.players[1].life == 19
+    assert attacker_assignments[-1].target_player == 1 and attacker_assignments[-1].amount == 3
+    assert [item.amount for item in attacker_assignments[:2]] == [1, 1]
+    assert game.players[1].life == 17
+    assert all(blocker.zone == "former" for blocker in (first, second))
 
 
 def test_menace_deathtouch_multi_block_damage_marks_both_blockers():

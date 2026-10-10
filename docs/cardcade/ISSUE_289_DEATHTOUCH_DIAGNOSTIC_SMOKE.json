@@ -1,0 +1,26 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "08a7705c385daf2b1c3e8cfd0da6a303eb7a52ac54aec9dff734a78d76798e3b",
+  "game_count": 2,
+  "replay_count": 2,
+  "games": [
+    {
+      "game_id": "issue289-deathtouch-bebop_rocksteady-first",
+      "first_player": "bebop_rocksteady",
+      "seed": 289,
+      "replay_equal": true,
+      "result_digest": "442ca067edd2746b62dfefd1b6881f934c6f1ae68af302b03a5e2978fac26698",
+      "event_count": 578,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-deathtouch-shredder-first",
+      "first_player": "shredder",
+      "seed": 289,
+      "replay_equal": true,
+      "result_digest": "700707852b90fdcc5640276c5a4fbda08cbc1f5e0a98be3419eb69fea3d188ad",
+      "event_count": 807,
+      "runtime_error": null
+    }
+  ]
+}

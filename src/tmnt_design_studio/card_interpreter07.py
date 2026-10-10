@@ -330,7 +330,7 @@ class TrampleProgram:
 
     @property
     def executable(self) -> bool:
-        return self.self_static and not self.deathtouch_modified
+        return self.self_static
 
 
 @dataclass(frozen=True)
@@ -1901,7 +1901,7 @@ class CardInterpreter:
         else:
             parent_limitation = "trample_parent_context_not_implemented"
         unsupported_companions = tuple(
-            part for part in keyword_parts if part not in {"trample", "haste"}
+            part for part in keyword_parts if part not in {"trample", "haste", "deathtouch"}
         )
         followup_limitation = (
             "trample_followup_semantics_not_implemented" if unsupported_companions else None
@@ -1909,7 +1909,6 @@ class CardInterpreter:
         limitations = tuple(
             reason
             for reason in (
-                "trample_deathtouch_lethal_not_implemented" if deathtouch_modified else None,
                 parent_limitation,
                 followup_limitation,
             )

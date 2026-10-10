@@ -607,6 +607,7 @@ class TrampleDamageEvidence:
     defending_life_after: int
     blocker_marked_damage_after: int | None
     blocker_survived: bool
+    source_deathtouch: bool = False
 
 
 @dataclass(frozen=True)
@@ -941,6 +942,7 @@ class Permanent:
     summoning_sick: bool = True
     entered_battlefield_turn: int = 0
     damage: int = 0
+    deathtouch_damage: bool = False
     counters: dict[str, int] = field(default_factory=dict)
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
@@ -1106,7 +1108,14 @@ class LethalDamageStateBasedAction:
             permanent
             for player in game.players
             for permanent in player.battlefield
-            if permanent.card.is_creature and permanent.damage >= permanent.toughness
+            if permanent.card.is_creature
+            and (
+                permanent.toughness <= 0
+                or (
+                    permanent.damage > 0
+                    and (permanent.damage >= permanent.toughness or permanent.deathtouch_damage)
+                )
+            )
         )
         if lethal:
             game.put_permanents_into_graveyard(lethal, state_based_action=self.name)
@@ -3008,6 +3017,8 @@ class Game(
 
         if target is not None:
             target.damage += transaction.amount
+            if self.evaluated_deathtouch(source):
+                target.deathtouch_damage = True
             subject_ids = (target.object_id,)
         else:
             assert target_player is not None
@@ -7081,6 +7092,7 @@ class Game(
                 ]
                 expired += before - len(permanent.pt_modifiers)
                 permanent.damage = 0
+                permanent.deathtouch_damage = False
         self._reset_current_combat_state()
         self.refresh_static_pt_modifiers()
         self.alliance_modes_chosen.clear()
@@ -8257,6 +8269,16 @@ class Game(
             is not None
         )
 
+    def evaluated_deathtouch(self, source: CardObject | StackObject | Permanent) -> bool:
+        """Read deathtouch from the damage source at damage time."""
+        if not self.is_authoritative(source, "battlefield"):
+            return False
+        if isinstance(source, Permanent):
+            return self._has_keyword(source, "Deathtouch") or self.has_temporary_keyword(
+                source, TemporaryKeyword.DEATHTOUCH
+            )
+        return False
+
     def _apply_lifelink_result(
         self,
         source: CardObject | StackObject | Permanent,
@@ -8341,7 +8363,7 @@ class Game(
         assignments: list[CombatDamageAssignment] = []
         damaged_pairs: list[tuple[Permanent, Permanent]] = []
         trample_inputs: dict[
-            str, tuple[str | None, int, int | None, int | None, int, int, int]
+            str, tuple[str | None, int, int | None, int | None, int, int, int, bool]
         ] = {}
         for attacker_id, attacker in attackers.items():
             attacker_present = self.is_authoritative(attacker, "battlefield")
@@ -8363,7 +8385,10 @@ class Game(
                 for index, blocker in enumerate(present):
                     if remaining <= 0:
                         break
-                    lethal = max(0, blocker.toughness - blocker.damage)
+                    lethal = min(
+                        max(0, blocker.toughness - blocker.damage),
+                        1 if self.evaluated_deathtouch(attacker) else blocker.toughness,
+                    )
                     is_last = index == len(present) - 1
                     amount = (
                         min(remaining, lethal)
@@ -8387,9 +8412,17 @@ class Game(
                         power,
                         first.toughness if first else None,
                         first.damage if first else None,
-                        max(0, first.toughness - first.damage) if first else 0,
+                        (
+                            min(
+                                max(0, first.toughness - first.damage),
+                                1 if self.evaluated_deathtouch(attacker) else first.toughness,
+                            )
+                            if first
+                            else 0
+                        ),
                         power - remaining,
                         remaining,
+                        self.evaluated_deathtouch(attacker),
                     )
                     if remaining:
                         assignments.append(
@@ -8477,6 +8510,8 @@ class Game(
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
                 target.damage += assignment.amount
+                if assignment.amount > 0 and self.evaluated_deathtouch(source):
+                    target.deathtouch_damage = True
                 self.log(
                     "combat_damage_assignment",
                     source=source.card.name,
@@ -8538,6 +8573,7 @@ class Game(
             lethal,
             blocker_assigned,
             player_assigned,
+            source_deathtouch,
         ) in trample_inputs.items():
             blocker_after = self._objects.get(blocker_id) if blocker_id is not None else None
             blocker_survived = isinstance(blocker_after, Permanent) and self.is_authoritative(
@@ -8559,6 +8595,7 @@ class Game(
                     trample_life_after[source_id],
                     blocker_after.damage if blocker_survived else None,
                     blocker_survived,
+                    source_deathtouch,
                 )
             )
         evidence = CombatDamageStepEvidence(
@@ -11274,14 +11311,20 @@ class Game(
                 if result.blocker_toughness is not None and (
                     result.blocker_marked_damage_before is None
                     or result.lethal_required
-                    != max(
-                        0,
-                        result.blocker_toughness - result.blocker_marked_damage_before,
+                    != min(
+                        max(0, result.blocker_toughness - result.blocker_marked_damage_before),
+                        1 if result.source_deathtouch else result.blocker_toughness,
                     )
                 ):
                     raise AssertionError("Trample evidence lethal calculation is inconsistent")
                 if result.blocker_survived != (result.blocker_marked_damage_after is not None):
                     raise AssertionError("Trample evidence blocker result is inconsistent")
+        if any(
+            permanent.deathtouch_damage and permanent.damage <= 0
+            for player in self.players
+            for permanent in player.battlefield
+        ):
+            raise AssertionError("Deathtouch marker requires positive damage")
         if len({item.stack_object_id for item in self.etb_drain_gain_scry_evidence}) != len(
             self.etb_drain_gain_scry_evidence
         ):
@@ -12180,6 +12223,7 @@ class Game(
                                 "defending_life_after": result.defending_life_after,
                                 "blocker_marked_damage_after": (result.blocker_marked_damage_after),
                                 "blocker_survived": result.blocker_survived,
+                                "source_deathtouch": result.source_deathtouch,
                             }
                             for result in item.trample_results
                         ],
@@ -12370,6 +12414,7 @@ class Game(
                             "aura_effect_ids": list(x.aura_effect_ids),
                             "aura_attack_restrictions": list(x.aura_attack_restrictions),
                             "damage": x.damage,
+                            "deathtouch_damage": x.deathtouch_damage,
                             "counters": dict(x.counters),
                             "pt_modifiers": [
                                 {
