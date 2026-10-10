@@ -160,9 +160,9 @@ def test_real_donatello_seed_converts_artifact_entry_into_counter_payoff():
     result = run_smoke_game(
         ROOT,
         GameSpec(
-            "donatello-shredder-way-3004",
+            "donatello-shredder-way-3006",
             "donatello/shredder",
-            3004,
+            3006,
             "donatello-first",
             (
                 DeckSpec("donatello-p0.3a", "decks/donatello/PROTOTYPE_0.3a.txt"),

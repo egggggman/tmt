@@ -207,8 +207,8 @@ def test_supported_payload_does_not_hide_other_keywords_or_unsupported_parent():
     assert not attached.coverage.parent_executable
     assert "trample_attachment_context_not_implemented" in attached.limitations
     deathtouch = interpreter.trample_semantic_coverage(BEAR, "Deathtouch, trample")
-    assert deathtouch is not None and not deathtouch.coverage.payload_executable
-    assert "trample_deathtouch_lethal_not_implemented" in deathtouch.limitations
+    assert deathtouch is not None and deathtouch.coverage.fully_supported
+    assert deathtouch.program.deathtouch_modified
 
 
 def test_unblocked_trample_is_ordinary_player_combat_damage():
@@ -515,6 +515,7 @@ def test_assignment_evidence_is_immutable_and_survives_combat_state_cleanup():
         "defending_life_after": 17,
         "blocker_marked_damage_after": None,
         "blocker_survived": False,
+        "source_deathtouch": False,
     }
 
 
