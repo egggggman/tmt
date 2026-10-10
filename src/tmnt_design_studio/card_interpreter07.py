@@ -1217,27 +1217,51 @@ class CardInterpreter:
     def etb_self_life_gain_semantics(
         self, card: CardDefinition, fragment: str
     ) -> tuple[int, SemanticCoverage] | None:
-        """A creature's own entry gains a fixed positive amount of life."""
+        """A permanent's own entry gains a fixed positive amount of life."""
         match = self.ETB_SELF_LIFE_GAIN.fullmatch(fragment)
         if match is None:
             return None
         self_reference = match.group("source").casefold() in {
             "this creature",
+            "this land",
+            "this permanent",
             card.name.casefold(),
         }
-        creature = "Creature" in card.type_line
-        supported = self_reference and creature
+        permanent = any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES)
+        supported = self_reference and permanent
         limitations = tuple(
             reason
             for condition, reason in (
                 (self_reference, "etb_life_gain_source_mismatch"),
-                (creature, "etb_life_gain_source_not_creature"),
+                (permanent, "etb_life_gain_source_not_permanent"),
             )
             if not condition
         )
         return int(match.group("amount")), SemanticCoverage(
             supported, supported, supported, limitations
         )
+
+    @staticmethod
+    def enters_tapped_semantics(card: CardDefinition) -> bool:
+        """Recognize an unconditional enters-tapped replacement on this permanent."""
+        for fragment in CardInterpreter.fragments(card):
+            match = re.fullmatch(
+                r"This (land|artifact|creature|permanent) enters tapped\.", fragment
+            )
+            if match is None:
+                continue
+            kind = match.group(1)
+            if kind == "permanent" or kind.capitalize() in card.type_line:
+                return True
+        return False
+
+    @staticmethod
+    def land_mana_outputs(card: CardDefinition, fragment: str) -> tuple[str, ...] | None:
+        """Recognize a single tap for one of the printed mana outputs."""
+        if "Land" not in card.type_line:
+            return None
+        match = re.fullmatch(r"\{T\}: Add \{([WUBRGC])\}(?: or \{([WUBRGC])\})?\.", fragment)
+        return tuple(dict.fromkeys(color for color in match.groups() if color)) if match else None
 
     def artifact_entry_self_counter_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -2673,6 +2697,10 @@ class CardInterpreter:
             if self.utility_trigger_semantics(card, fragment) is not None:
                 continue
             if fragment == "Flash" and "Artifact" in card.type_line:
+                continue
+            if fragment.endswith("enters tapped.") and self.enters_tapped_semantics(card):
+                continue
+            if self.land_mana_outputs(card, fragment) is not None:
                 continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
