@@ -1818,6 +1818,7 @@ class Game(
                 obj.card,
                 obj.owner,
                 destination_controller,
+                tapped=self.interpreter.enters_tapped_semantics(obj.card),
                 summoning_sick=summoning_sick,
                 entered_battlefield_turn=self.turn,
                 entered_under_controller=destination_controller,
@@ -6216,7 +6217,12 @@ class Game(
             ability.effect is not TriggerEffect.ETB_SELF_LIFE_GAIN
             or semantics is None
             or not semantics[1].fully_supported
-            or event.kind is not RulesEventKind.CREATURE_ENTERED
+            or event.kind
+            is not (
+                RulesEventKind.CREATURE_ENTERED
+                if ability.source_card.is_creature
+                else RulesEventKind.PERMANENT_ENTERED
+            )
             or self._rules_events.get(event.event_id) is not event
             or event.subject_ids != (ability.source_id,)
             or event.player_index != ability.controller
@@ -7976,25 +7982,10 @@ class Game(
             for permanent in self.players[player_index].battlefield
             if permanent.card.is_land and not permanent.tapped and permanent is not attacker
         ]
-        if any("/" in symbol for symbol in requirement.colored):
-            selected = self._select_mana_sources(requirement, available)
-            if selected is None:
-                return None
-            _floating_colors, chosen = selected
-        else:
-            chosen = []
-            for color in requirement.colored:
-                mana_source = next(
-                    (permanent for permanent in available if self._mana_color(permanent) == color),
-                    None,
-                )
-                if mana_source is None:
-                    return None
-                chosen.append(mana_source)
-                available.remove(mana_source)
-            if len(available) < requirement.generic:
-                return None
-            chosen.extend(available[: requirement.generic])
+        selected = self._select_mana_sources(requirement, available)
+        if selected is None:
+            return None
+        _floating_colors, chosen = selected
         return SneakPaymentPlan(
             player_index,
             card.object_id,
@@ -8670,30 +8661,49 @@ class Game(
             or (from_raphael and self._raphael_permission_for(player_index, card) is None)
         ):
             return False
-        self.move_object(
+        entering = self.move_object(
             card,
             "battlefield",
             controller=player_index,
             summoning_sick=False,
             reason="raphael_land_played" if from_raphael else "land_played",
         )
+        assert isinstance(entering, Permanent)
         self.refresh_static_pt_modifiers()
         player.lands_played += 1
         self.log("land_played", player=player.name, card=card.name)
+        if any(
+            semantics is not None and semantics[1].fully_supported
+            for fragment in self.interpreter.fragments(entering.rules_card)
+            if (semantics := self.interpreter.etb_self_life_gain_semantics(card.card, fragment))
+        ):
+            self._process_creature_entered_triggers(
+                entering, effects={TriggerEffect.ETB_SELF_LIFE_GAIN}
+            )
         return True
 
     @staticmethod
-    def _mana_color(source: Permanent) -> str | None:
-        match = re.search(r"Add \{([WUBRG])\}", source.rules_card.oracle_text)
-        if match:
-            return match.group(1)
-        return {
+    def _mana_colors(source: Permanent) -> tuple[str, ...]:
+        """Available one-mana outputs printed on an untapped land."""
+        for fragment in CardInterpreter.fragments(source.rules_card):
+            colors = CardInterpreter.land_mana_outputs(source.rules_card, fragment)
+            if colors is not None:
+                return colors
+        if not source.card.type_line.startswith("Basic Land"):
+            return ()
+        basic = {
             "Plains": "W",
             "Island": "U",
             "Swamp": "B",
             "Mountain": "R",
             "Forest": "G",
         }.get(source.card.name)
+        return (basic,) if basic else ()
+
+    @staticmethod
+    def _mana_color(source: Permanent) -> str | None:
+        """Legacy single-output projection; payment uses all legal colors."""
+        return next(iter(Game._mana_colors(source)), None)
 
     @staticmethod
     def _mana_symbol_options(symbol: str) -> tuple[str, ...] | None:
@@ -8713,36 +8723,49 @@ class Game(
     ) -> tuple[list[str], list[Permanent]] | None:
         """Select colored and generic payment sources deterministically."""
         pool = {} if floating is None else dict(floating)
-        floating_colors: list[str] = []
-        chosen: list[Permanent] = []
-        for symbol in requirement.colored:
-            options = self._mana_symbol_options(symbol)
+        sources = [land for land in available if self._mana_colors(land)]
+
+        def assign(
+            index: int,
+            remaining: list[Permanent],
+            mana_pool: dict[str, int],
+            paid_floating: list[str],
+            chosen: list[Permanent],
+        ) -> tuple[list[str], list[Permanent]] | None:
+            if index == len(requirement.colored):
+                generic = requirement.generic
+                floating_generic = []
+                for color in sorted(mana_pool):
+                    take = min(mana_pool[color], generic)
+                    floating_generic.extend([color] * take)
+                    generic -= take
+                if len(remaining) < generic:
+                    return None
+                return paid_floating + floating_generic, chosen + remaining[:generic]
+            options = self._mana_symbol_options(requirement.colored[index])
             if options is None:
                 return None
-            floating_color = next((color for color in options if pool.get(color, 0)), None)
-            if floating_color is not None:
-                pool[floating_color] -= 1
-                floating_colors.append(floating_color)
-                continue
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) in options),
-                None,
-            )
-            if source is None:
-                return None
-            chosen.append(source)
-            available.remove(source)
-        remaining_generic = requirement.generic
-        for color in sorted(pool):
-            take = min(pool[color], remaining_generic)
-            floating_colors.extend([color] * take)
-            remaining_generic -= take
-            if remaining_generic == 0:
-                break
-        if len(available) < remaining_generic:
+            for color in options:
+                if mana_pool.get(color, 0):
+                    next_pool = dict(mana_pool)
+                    next_pool[color] -= 1
+                    found = assign(index + 1, remaining, next_pool, paid_floating + [color], chosen)
+                    if found is not None:
+                        return found
+            for position, land in enumerate(remaining):
+                if any(color in self._mana_colors(land) for color in options):
+                    found = assign(
+                        index + 1,
+                        remaining[:position] + remaining[position + 1 :],
+                        mana_pool,
+                        paid_floating,
+                        chosen + [land],
+                    )
+                    if found is not None:
+                        return found
             return None
-        chosen.extend(available[:remaining_generic])
-        return floating_colors, chosen
+
+        return assign(0, sources, pool, [], [])
 
     @staticmethod
     def mana_requirement(card: CardFact | CardObject) -> ManaRequirement | None:
@@ -8822,25 +8845,10 @@ class Game(
             and not permanent.tapped
             and (not cost.tap_source or permanent is not source)
         ]
-        if any("/" in symbol for symbol in requirement.colored):
-            selected = self._select_mana_sources(requirement, available)
-            if selected is None:
-                return None
-            _floating_colors, chosen = selected
-        else:
-            chosen = []
-            for color in requirement.colored:
-                mana_source = next(
-                    (permanent for permanent in available if self._mana_color(permanent) == color),
-                    None,
-                )
-                if mana_source is None:
-                    return None
-                chosen.append(mana_source)
-                available.remove(mana_source)
-            if len(available) < requirement.generic:
-                return None
-            chosen.extend(available[: requirement.generic])
+        selected = self._select_mana_sources(requirement, available)
+        if selected is None:
+            return None
+        _floating_colors, chosen = selected
         counter_target_id = None
         if cost.remove_counter_target:
             eligible = tuple(
@@ -9112,7 +9120,7 @@ class Game(
         available = [
             p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]
-        black = next((p for p in available if self._mana_color(p) == "B"), None)
+        black = next((p for p in available if "B" in self._mana_colors(p)), None)
         if black is None or len(available) < 5:
             return None
         chosen = [black] + [p for p in available if p is not black][:4]
@@ -10022,44 +10030,6 @@ class Game(
         requirement = self.mana_requirement(card)
         if requirement is None:
             return None
-        if not any("/" in symbol for symbol in requirement.colored):
-            pool = self.floating_mana.snapshot(player_index)
-            floating: list[str] = []
-            for color in requirement.colored:
-                if pool.get(color, 0):
-                    pool[color] -= 1
-                    floating.append(color)
-                else:
-                    break
-            else:
-                remaining_generic = requirement.generic
-                for color, quantity in sorted(pool.items()):
-                    take = min(quantity, remaining_generic)
-                    floating.extend([color] * take)
-                    remaining_generic -= take
-                    if remaining_generic == 0:
-                        break
-            available = [
-                p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-            ]
-            chosen: list[Permanent] = []
-            for color in requirement.colored[len(floating) :]:
-                source = next((p for p in available if self._mana_color(p) == color), None)
-                if source is None:
-                    return None
-                chosen.append(source)
-                available.remove(source)
-            need = requirement.generic - max(0, len(floating) - len(requirement.colored))
-            if len(available) < need:
-                return None
-            chosen.extend(available[:need])
-            return PaymentPlan(
-                player_index,
-                card.object_id,
-                requirement,
-                tuple(p.object_id for p in chosen),
-                tuple(floating),
-            )
         available = [
             p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]

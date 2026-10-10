@@ -1,0 +1,28 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "26a20e23ec621f492a7e4cf980ec431b0349bd520816baafbd9e9b72150a4c11",
+  "game_count": 2,
+  "replay_count": 2,
+  "games": [
+    {
+      "game_id": "issue289-land-bebop_rocksteady-first",
+      "first_player": "bebop_rocksteady",
+      "seed": 2899,
+      "replay_equal": true,
+      "result_digest": "33b66561db10d4dbbb65946c8f0835e3d3f9972f66b4b5fca7572d7228c1199f",
+      "event_count": 705,
+      "tested_land_plays": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-land-april_oneil-first",
+      "first_player": "april_oneil",
+      "seed": 2899,
+      "replay_equal": true,
+      "result_digest": "3c50a4faeec3bfe01cc6731de56b8450926caf19af712888082b9c61f4a25ecc",
+      "event_count": 783,
+      "tested_land_plays": 0,
+      "runtime_error": null
+    }
+  ]
+}
