@@ -1,0 +1,28 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "57b01e4af5cd15a995e527da26cc7f017441a8df030d66a64bb189159198d72f",
+  "game_count": 2,
+  "replay_count": 2,
+  "games": [
+    {
+      "game_id": "issue289-critical-april_oneil-first",
+      "first_player": "april_oneil",
+      "seed": 2897,
+      "replay_equal": true,
+      "result_digest": "30ccff6b003f910bce983d6671f3369b0952c389df1be124aa9ae84bfe26052d",
+      "event_count": 1363,
+      "counterspell_resolutions": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-critical-krang-first",
+      "first_player": "krang",
+      "seed": 2897,
+      "replay_equal": true,
+      "result_digest": "8ad671b26fe3acc0f32d24abebcae5cc90689da3041e9c8aafd533f58103d51a",
+      "event_count": 813,
+      "counterspell_resolutions": 0,
+      "runtime_error": null
+    }
+  ]
+}

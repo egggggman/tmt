@@ -824,7 +824,7 @@ def test_stack_response_requires_card_mana_and_authoritative_stack_target():
         "{1}{U}",
         2,
         "Instant",
-        "Counter target noncreature spell.",
+        "Counter target noncreature spell. Draw a card.",
         oracle_id="denial",
     )
     spell_card = CardFact("Effect", "{1}", 1, "Sorcery", "Draw a card.", oracle_id="effect")
@@ -835,6 +835,7 @@ def test_stack_response_requires_card_mana_and_authoritative_stack_target():
     permanent(current, LAND, 1)
     stack_object = current.move_object(spell, "stack", controller=0, cast_kind=CastKind.DEAL_DAMAGE)
     current._begin_priority_window()
+    # The compound counter/draw clause still lacks a supported casting program.
     witness = current.opportunity_witnesses[-1]
     assert witness.object_id == response.object_id
     assert witness.cause_subject_ids == (stack_object.object_id,)
