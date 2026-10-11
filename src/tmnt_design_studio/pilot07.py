@@ -92,6 +92,28 @@ class AcceptancePilot:
             )
         casts = [option for option in options if option.kind is ActionKind.CAST]
         if stage == "damage":
+            battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+            modifiers = [
+                option
+                for option in casts
+                if option.oracle_fragment is not None
+                and "Target creature gets -" in option.oracle_fragment
+                and "until end of turn" in option.oracle_fragment
+                and option.target_id in battlefield
+                and battlefield[option.target_id].controller != option.player_index
+                and battlefield[option.target_id].toughness is not None
+                and battlefield[option.target_id].toughness - battlefield[option.target_id].damage
+                <= (5 if option.cost_object_id is not None else 2)
+            ]
+            if modifiers:
+                return min(
+                    modifiers,
+                    key=lambda option: (
+                        option.cost_object_id is not None,
+                        battlefield[option.target_id].toughness,
+                        option.target_id,
+                    ),
+                )
             candidates = [
                 option
                 for option in casts
@@ -162,7 +184,12 @@ class AcceptancePilot:
             utility = [
                 option
                 for option in casts
-                if (card := self._card(view, option.player_index, option.object_id)) and not card[3]
+                if (card := self._card(view, option.player_index, option.object_id))
+                and not card[3]
+                and not (
+                    option.oracle_fragment is not None
+                    and "Target creature gets -" in option.oracle_fragment
+                )
             ]
             if utility:
                 return min(
@@ -235,6 +262,21 @@ class AcceptancePilot:
                 and option.target_id in opposing_spells
             ):
                 return option
+        if view.context.step == "declare_blockers":
+            battlefield = {obj.object_id: obj for side in view.context.battlefields for obj in side}
+            for option in options:
+                target = battlefield.get(option.target_id)
+                if (
+                    option.kind is ActionKind.CAST
+                    and option.oracle_fragment is not None
+                    and "Target creature gets -" in option.oracle_fragment
+                    and target is not None
+                    and target.controller != view.priority_player
+                    and target.toughness is not None
+                    and target.toughness - target.damage
+                    <= (5 if option.cost_object_id is not None else 2)
+                ):
+                    return option
         return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 
 

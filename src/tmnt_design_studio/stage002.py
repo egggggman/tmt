@@ -212,6 +212,16 @@ def _semantic_coverage(
     fragment: str,
     limitations: tuple[str, ...],
 ) -> dict[str, object]:
+    shared = interpreter.shared_interaction_semantic_coverage(card, fragment)
+    if shared is not None:
+        return {
+            "family": "shared_interaction_spell",
+            "payload_executable": shared.payload_executable,
+            "parent_executable": shared.parent_executable,
+            "followup_executable": shared.followup_executable,
+            "fully_supported": shared.fully_supported,
+            "limitations": list(shared.limitations),
+        }
     if interpreter.land_mana_outputs(card, fragment) is not None:
         return {
             "family": "land_mana_output",
@@ -654,6 +664,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             lambda blocks=blocks: game.execute_block_action(blocks),
             "block action",
         )
+        _drain_priority(game, chosen_pilot)
         while game.winner is None and game.step.value == "declare_blockers":
             options = game.legal_sneak_actions(active)
             if not options:

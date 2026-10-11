@@ -349,6 +349,7 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
             _checked_action(
                 game, lambda blocks=blocks: game.execute_block_action(blocks), "block action"
             )
+            _drain_priority(game, chosen_pilot)
             while game.step.value == "declare_blockers":
                 options = game.legal_sneak_actions(active)
                 choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
