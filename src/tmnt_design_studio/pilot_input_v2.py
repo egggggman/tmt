@@ -74,6 +74,14 @@ class ScryViewV2:
 
 
 @dataclass(frozen=True, slots=True)
+class TopCardSelectionViewV2:
+    player_index: int
+    cards: tuple[CardDescription, ...]
+    context: DecisionContextV2
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
 class HandBottomDrawViewV2:
     player_index: int
     cards: tuple[tuple[str, str], ...]

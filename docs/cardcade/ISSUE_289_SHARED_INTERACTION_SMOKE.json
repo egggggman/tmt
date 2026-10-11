@@ -1,0 +1,30 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "5a7b948a7c6745971bfb9d66471aee4a369363ff944f2926fad0536700f7aed3",
+  "game_count": 2,
+  "replay_count": 2,
+  "games": [
+    {
+      "game_id": "issue289-shared-bebop_rocksteady-first",
+      "first_player": "bebop_rocksteady",
+      "seed": 2901,
+      "replay_equal": true,
+      "result_digest": "c7a4914904ff8190ef0bc2410614026dc7dfd9a0cfb5eff49cfee0d40471da45",
+      "event_count": 829,
+      "kicked_spell_resolutions": 2,
+      "top_card_selections": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-shared-shredder-first",
+      "first_player": "shredder",
+      "seed": 2901,
+      "replay_equal": true,
+      "result_digest": "2b1b3bb0136d9b2bfd9f3873866846eacea3b0d2f39ad0a6424e0ec63c8be097",
+      "event_count": 603,
+      "kicked_spell_resolutions": 0,
+      "top_card_selections": 0,
+      "runtime_error": null
+    }
+  ]
+}

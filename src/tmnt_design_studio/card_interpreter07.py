@@ -34,6 +34,8 @@ class CastKind(Enum):
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
         "destroy_artifact_enchantment_or_power_4_creature"
     )
+    KICKED_CREATURE_PT = "kicked_creature_pt"
+    TOP_CARD_SELECTION = "top_card_selection"
     UNSUPPORTED = "unsupported"
 
 
@@ -41,6 +43,20 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class KickedCreaturePTProgram:
+    sacrifice_types: tuple[str, ...]
+    ordinary: tuple[int, int]
+    kicked: tuple[int, int]
+
+
+@dataclass(frozen=True)
+class TopCardSelectionProgram:
+    count: int
+    subtypes: tuple[str, ...]
+    include_land: bool
 
 
 @dataclass(frozen=True)
@@ -906,6 +922,10 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.kicked_creature_pt_program(card) is not None:
+            return CastProgram(CastKind.KICKED_CREATURE_PT)
+        if self.top_card_selection_program(card) is not None:
+            return CastProgram(CastKind.TOP_CARD_SELECTION)
         if "Aura" in card.type_line:
             return CastProgram(
                 CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
@@ -946,6 +966,56 @@ class CardInterpreter:
         if card.is_creature and card.power is not None and card.toughness is not None:
             return CastProgram(CastKind.CREATURE)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    KICKED_CREATURE_PT = re.compile(
+        r"Kicker—Sacrifice an artifact or creature\. \(You may sacrifice an artifact or creature "
+        r"in addition to any other costs as you cast this spell\.\)\n"
+        r"Target creature gets (?P<base_p>-?\d+)/(?P<base_t>-?\d+) until end of turn\. "
+        r"If this spell was kicked, that creature gets (?P<kick_p>-?\d+)/(?P<kick_t>-?\d+) "
+        r"until end of turn instead\."
+    )
+    TOP_CARD_SELECTION = re.compile(
+        r"Look at the top (?P<count>[1-9][0-9]*|one|two|three|four|five) cards of your library\. "
+        r"You may reveal a (?P<types>[A-Z][A-Za-z]*(?:, [A-Z][A-Za-z]*)*(?:, or [A-Z][A-Za-z]*)?), "
+        r"or land card from among them and put it into your hand\. "
+        r"Put the rest on the bottom of your library in a random order\."
+    )
+
+    def kicked_creature_pt_program(self, card: CardDefinition) -> KickedCreaturePTProgram | None:
+        if "Instant" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.KICKED_CREATURE_PT.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        return KickedCreaturePTProgram(
+            ("Artifact", "Creature"),
+            (int(match["base_p"]), int(match["base_t"])),
+            (int(match["kick_p"]), int(match["kick_t"])),
+        )
+
+    def top_card_selection_program(self, card: CardDefinition) -> TopCardSelectionProgram | None:
+        if "Sorcery" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.TOP_CARD_SELECTION.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        types = tuple(part.strip() for part in match["types"].replace(", or ", ", ").split(", "))
+        quantity = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+        count = match["count"]
+        return TopCardSelectionProgram(
+            quantity[count] if count in quantity else int(count), types, True
+        )
+
+    def shared_interaction_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        kicked = self.kicked_creature_pt_program(card)
+        if kicked is not None and fragment in self.fragments(card):
+            return SemanticCoverage(True, True, True, ())
+        selection = self.top_card_selection_program(card)
+        if selection is not None and fragment == card.oracle_text.strip():
+            return SemanticCoverage(True, True, True, ())
+        return None
 
     @staticmethod
     def counter_spell_semantic_coverage(card: CardDefinition, fragment: str) -> SemanticCoverage:
@@ -2688,6 +2758,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.shared_interaction_semantic_coverage(card, fragment) is not None:
+                continue
             if self.counter_spell_semantic_coverage(card, fragment).fully_supported:
                 continue
             if self.aura_semantic_coverage(card, fragment) is not None:

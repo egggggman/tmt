@@ -53,6 +53,7 @@ from tmnt_design_studio.pilot_input_v2 import (
     HandBottomDrawViewV2,
     PriorityViewV2,
     ScryViewV2,
+    TopCardSelectionViewV2,
     decision_context,
     describe_card,
     pilot_view,
@@ -160,6 +161,11 @@ class ActionOption:
     attacker_ids: tuple[str, ...] = ()
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
+
+
+@dataclass(frozen=True)
+class TopCardSelectionOption:
+    card_id: str | None
 
 
 @dataclass(frozen=True)
@@ -850,6 +856,7 @@ class StackObject:
     controller: int
     cast_kind: CastKind
     target_id: str | None = None
+    kicker_sacrifice_id: str | None = None
     sneak_returned_attacker_id: str | None = None
     sneak_returned_hand_id: str | None = None
     sneak_defending_player: int | None = None
@@ -1318,6 +1325,7 @@ class Game(
         temporary_keyword_chooser=None,
         stun_target_chooser=None,
         scry_chooser=None,
+        top_card_chooser=None,
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
         draw_discard_chooser=None,
@@ -1458,6 +1466,11 @@ class Game(
                 for option in options
                 if option.top_ids == tuple(object_id for object_id, _name in view.cards)
                 and not option.bottom_ids
+            )
+        )
+        self.top_card_chooser = top_card_chooser or (
+            lambda _view, options: next(
+                (option for option in options if option.card_id is not None), options[0]
             )
         )
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
@@ -7242,6 +7255,12 @@ class Game(
                         oracle_fragment=draw_fragment,
                     )
                 )
+            elif kind is CastKind.TOP_CARD_SELECTION:
+                options.append(
+                    ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
+                )
+            elif kind is CastKind.KICKED_CREATURE_PT:
+                options.extend(self._kicked_creature_pt_options(player_index, card))
             elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 options.extend(
                     ActionOption(
@@ -7277,6 +7296,42 @@ class Game(
         options.extend(self.legal_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
+
+    def _kicked_creature_pt_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.kicked_creature_pt_program(card.card)
+        if program is None or self.payment_plan(player_index, card) is None:
+            return ()
+        sacrifices = tuple(
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if self._legal_kicker_sacrifice(player_index, permanent, program.sacrifice_types)
+        )
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                cost_object_id=cost.object_id if cost is not None else None,
+                oracle_fragment=card.oracle_text,
+                priority_epoch=priority_epoch,
+            )
+            for side in self.players
+            for target in side.battlefield
+            if target.is_creature
+            for cost in (None, *sacrifices)
+        )
+
+    def _legal_kicker_sacrifice(
+        self, player_index: int, source: Permanent, sacrifice_types: tuple[str, ...]
+    ) -> bool:
+        return (
+            self.is_authoritative(source, "battlefield")
+            and source.controller == player_index
+            and bool(set(source.type_line.split(" — ", 1)[0].split()) & set(sacrifice_types))
+        )
 
     def _witness_unsupported_activation_contexts(self, player_index: int) -> None:
         """Witness only fixed-cost unsupported activations provably available now."""
@@ -7583,6 +7638,14 @@ class Game(
                 priority_epoch=state.epoch,
             ),
             *self._hand_response_options(player_index),
+            *(
+                option
+                for card in self.players[player_index].hand
+                if self.interpreter.kicked_creature_pt_program(card.card) is not None
+                for option in self._kicked_creature_pt_options(
+                    player_index, card, priority_epoch=state.epoch
+                )
+            ),
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
@@ -7643,6 +7706,22 @@ class Game(
                 spell = self.announce_spell(option.player_index, card, target)
                 if spell is None:
                     raise ValueError("Aura response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if isinstance(card, CardObject) and self.interpreter.kicked_creature_pt_program(
+                card.card
+            ):
+                if not isinstance(target, Permanent):
+                    raise ValueError("creature modifier target is invalid")
+                cost = self._objects.get(option.cost_object_id or "")
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target,
+                    sacrifice_cost=cost if isinstance(cost, Permanent) else None,
+                )
+                if spell is None:
+                    raise ValueError("instant response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if not isinstance(card, CardObject) or not isinstance(target, StackObject):
@@ -7846,10 +7925,30 @@ class Game(
                     card=obj.name,
                     object_id=obj.object_id,
                 )
+            if self.interpreter.cast_program(obj.card).kind in {
+                CastKind.KICKED_CREATURE_PT,
+                CastKind.TOP_CARD_SELECTION,
+            }:
+                cost = self._objects.get(option.cost_object_id or "")
+                spell = self.announce_spell(
+                    option.player_index,
+                    obj,
+                    target,
+                    sacrifice_cost=cost if isinstance(cost, Permanent) else None,
+                )
+                if spell is None:
+                    raise ValueError("shared spell became illegal at announcement")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             return self.cast(
                 option.player_index,
                 obj,
                 target,
+                sacrifice_cost=(
+                    self._objects.get(option.cost_object_id or "")
+                    if option.cost_object_id is not None
+                    else None
+                ),
                 cast_from_graveyard=(
                     isinstance(obj, CardObject)
                     and option.oracle_fragment is not None
@@ -8061,6 +8160,14 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
+        if any(
+            self.interpreter.kicked_creature_pt_program(card.card) is not None
+            and self._kicked_creature_pt_options(player_index, card)
+            for player_index, player in enumerate(self.players)
+            for card in player.hand
+        ):
+            self._begin_priority_window(allow_empty=True)
+            return
         if not any(
             option.kind is ActionKind.CAST
             for option in self.legal_sneak_actions(self.active_player)
@@ -10252,6 +10359,7 @@ class Game(
         target: Permanent | None = None,
         *,
         cast_from_graveyard: bool = False,
+        sacrifice_cost: Permanent | None = None,
     ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -10259,7 +10367,11 @@ class Game(
         pass sequencing. Every represented spell still traverses the authoritative stack lifecycle.
         """
         spell = self.announce_spell(
-            player_index, card, target, cast_from_graveyard=cast_from_graveyard
+            player_index,
+            card,
+            target,
+            cast_from_graveyard=cast_from_graveyard,
+            sacrifice_cost=sacrifice_cost,
         )
         if spell is None:
             return False
@@ -10274,6 +10386,7 @@ class Game(
         *,
         cast_from_graveyard: bool = False,
         cast_from_exile: bool = False,
+        sacrifice_cost: Permanent | None = None,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -10284,9 +10397,15 @@ class Game(
             and "Flash" in self.interpreter.fragments(card.card)
             and self.interpreter.cast_program(card.card).kind in {CastKind.AURA, CastKind.PERMANENT}
         )
+        instant_priority = (
+            self.priority_state is not None
+            and not self.priority_state.resolution_pending
+            and self.priority_state.player_index == player_index
+            and self.interpreter.kicked_creature_pt_program(card.card) is not None
+        )
         if (
             (
-                not flash_priority
+                not (flash_priority or instant_priority)
                 and (
                     player_index != self.active_player
                     or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
@@ -10327,6 +10446,16 @@ class Game(
             ):
                 return None
         program = self.interpreter.cast_program(card.card)
+        if sacrifice_cost is not None and (
+            program.kind is not CastKind.KICKED_CREATURE_PT
+            or not isinstance(sacrifice_cost, Permanent)
+            or not self._legal_kicker_sacrifice(
+                player_index,
+                sacrifice_cost,
+                self.interpreter.kicked_creature_pt_program(card.card).sacrifice_types,
+            )
+        ):
+            return None
         target_id: str | None = None
         if program.kind is CastKind.AURA:
             if not self.legal_aura_target(card.card, target, player_index):
@@ -10372,6 +10501,14 @@ class Game(
                 )
                 return None
             target_id = target.object_id
+        elif program.kind is CastKind.KICKED_CREATURE_PT:
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or not target.is_creature
+            ):
+                return None
+            target_id = target.object_id
         elif program.kind is CastKind.UNSUPPORTED:
             fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
             for fragment in fragments or [card.type_line]:
@@ -10406,6 +10543,16 @@ class Game(
             finality_on_entry=cast_from_graveyard,
             cast_from_raphael=cast_from_exile,
         )
+        if sacrifice_cost is not None:
+            spell.kicker_sacrifice_id = sacrifice_cost.object_id
+            self.move_object(sacrifice_cost, "graveyard", reason="kicker_sacrifice_cost")
+            self.log(
+                "kicker_cost_paid",
+                stack_object_id=spell.object_id,
+                sacrificed_id=sacrifice_cost.object_id,
+                card=spell.name,
+            )
+            self.check_state_based_actions()
         self.log(
             "spell_cast",
             player=player.name,
@@ -10468,6 +10615,19 @@ class Game(
         player = self.players[spell.controller]
         target = self._objects.get(spell.target_id or "")
         sneak_cast = spell.sneak_returned_attacker_id is not None
+        if spell.cast_kind is CastKind.KICKED_CREATURE_PT and spell.kicker_sacrifice_id is not None:
+            paid = self._objects.get(spell.kicker_sacrifice_id)
+            if (
+                not isinstance(paid, Permanent)
+                or paid.zone != "former"
+                or not any(
+                    event["event"] == "kicker_cost_paid"
+                    and event.get("stack_object_id") == spell.object_id
+                    and event.get("sacrificed_id") == paid.object_id
+                    for event in self.events
+                )
+            ):
+                raise AssertionError("kicker choice lacks a paid sacrifice")
         if sneak_cast and (
             not self._priority_resolution_in_progress
             and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -10582,7 +10742,7 @@ class Game(
                 self.check_state_based_actions()
             return permanent
 
-        legal_target = spell.cast_kind is CastKind.DRAW_CARDS or (
+        legal_target = spell.cast_kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION} or (
             isinstance(target, Permanent) and self.is_authoritative(target, "battlefield")
         )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
@@ -10597,6 +10757,8 @@ class Game(
                 and isinstance(target, Permanent)
                 and self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
             )
+        elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
+            legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
         if not legal_target:
             resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
             assert isinstance(resolved_card, CardObject)
@@ -10615,6 +10777,7 @@ class Game(
             CastKind.OOZE_SPILL,
             CastKind.COUNTER_TARGET_SPELL,
             CastKind.DRAW_CARDS,
+            CastKind.TOP_CARD_SELECTION,
         }:
             assert isinstance(target, Permanent)
         filter_plan = None
@@ -10685,6 +10848,33 @@ class Game(
                 quantity=draw_semantics.program.quantity,
                 draw_succeeded=draw_succeeded,
             )
+        elif spell.cast_kind is CastKind.TOP_CARD_SELECTION:
+            program = self.interpreter.top_card_selection_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked card selection is no longer executable")
+            self.resolve_top_card_selection(spell.controller, program, source_id=spell.object_id)
+        elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
+            program = self.interpreter.kicked_creature_pt_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked kicked modifier is no longer executable")
+            modifier = program.kicked if spell.kicker_sacrifice_id is not None else program.ordinary
+            self.apply_pt_modifier(
+                target,
+                *modifier,
+                duration="until_end_of_turn",
+                source_card=spell.name,
+                oracle_fragment=spell.card.oracle_text,
+                source_object_id=spell.object_id,
+            )
+            self.log(
+                "kicked_creature_pt_resolved",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                kicker_sacrifice_id=spell.kicker_sacrifice_id,
+                power=modifier[0],
+                toughness=modifier[1],
+            )
+            self.check_state_based_actions()
         elif spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             semantics = self.interpreter.damage_semantic_coverage(
                 spell.card, spell.card.oracle_text
@@ -10743,6 +10933,57 @@ class Game(
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
         return resolved_card
+
+    def resolve_top_card_selection(self, player_index, program, *, source_id: str) -> None:
+        """Choose privately from the inspected top cards, then randomize only the remainder."""
+        player = self.players[player_index]
+        library = player.library
+        inspected = tuple(reversed(library[-program.count :]))
+        eligible = tuple(
+            card
+            for card in inspected
+            if (program.include_land and card.is_land)
+            or bool(set(card.type_line.partition(" — ")[2].split()) & set(program.subtypes))
+        )
+        options = (TopCardSelectionOption(None),) + tuple(
+            TopCardSelectionOption(card.object_id) for card in eligible
+        )
+        view = TopCardSelectionViewV2(
+            player_index,
+            tuple(describe_card(card.object_id, card.card) for card in inspected),
+            decision_context(self, player_index),
+        )
+        before_library = tuple(library)
+        before_hand = tuple(player.hand)
+        try:
+            choice = self.top_card_chooser(view, options)
+            if not isinstance(choice, TopCardSelectionOption) or choice not in options:
+                raise ValueError("top card chooser must return one eligible option")
+            if tuple(library) != before_library or tuple(player.hand) != before_hand:
+                raise ValueError("top card chooser mutated authoritative zones")
+        except Exception:
+            library[:] = before_library
+            player.hand[:] = before_hand
+            raise
+        selected = next((card for card in eligible if card.object_id == choice.card_id), None)
+        if selected is not None:
+            revealed_id = selected.object_id
+            self.move_object(selected, "hand", reason="top_card_revealed_to_hand")
+        else:
+            revealed_id = None
+        remainder = [card for card in inspected if card is not selected]
+        randomized = self.rng.shuffled(remainder, domain="top_card_selection_bottom")
+        inspected_identities = {id(card) for card in remainder}
+        library[:] = randomized + [card for card in library if id(card) not in inspected_identities]
+        self.log(
+            "top_card_selection_resolved",
+            source_id=source_id,
+            player=player.name,
+            inspected_ids=[card.object_id for card in inspected],
+            revealed_id=revealed_id,
+            bottom_ids=[card.object_id for card in randomized],
+            hand_id=player.hand[-1].object_id if selected is not None else None,
+        )
 
     @staticmethod
     def _is_destroy_artifact_enchantment_or_power_4_creature_target(
@@ -11469,7 +11710,9 @@ class Game(
                 raise AssertionError("noncreature Sneak evidence has a battlefield result")
         if self.priority_state is not None:
             state = self.priority_state
-            if not self.stack:
+            if not self.stack and not (
+                self.step is TurnStep.DECLARE_BLOCKERS and self._blockers_declared
+            ):
                 raise AssertionError("priority state requires a nonempty stack")
             if state.player_index not in range(2):
                 raise AssertionError("priority player is invalid")
@@ -12119,6 +12362,7 @@ class Game(
                         "controller": entry.controller,
                         "cast_kind": entry.cast_kind.value,
                         "target_id": entry.target_id,
+                        "kicker_sacrifice_id": entry.kicker_sacrifice_id,
                         "sneak_returned_attacker_id": entry.sneak_returned_attacker_id,
                         "sneak_returned_hand_id": entry.sneak_returned_hand_id,
                         "sneak_defending_player": entry.sneak_defending_player,
