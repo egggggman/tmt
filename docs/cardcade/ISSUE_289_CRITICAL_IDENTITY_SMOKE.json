@@ -1,0 +1,64 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "75a725ffdc6460a8d1190c5738837dddf0ed1a85d628eefaca4ed35adf8f1ccd",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-critical-identity-bebop_rocksteady-raphael",
+      "seed": 2991,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "2fc5bc00fa476a6b78c8fbb78f73201553528d39e4fb5b419b96318314b2934b",
+      "event_count": 764,
+      "linked_exile": 0,
+      "linked_permission": 0,
+      "class_discard_damage": 2,
+      "class_search": 1,
+      "conditional_removal": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-critical-identity-raphael-bebop_rocksteady",
+      "seed": 2991,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "551fff48a4c6dcd8968e4875b41022f7159392a6fa23332bd96930cc0cb71566",
+      "event_count": 1324,
+      "linked_exile": 0,
+      "linked_permission": 0,
+      "class_discard_damage": 1,
+      "class_search": 1,
+      "conditional_removal": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-critical-identity-april_oneil-raphael",
+      "seed": 2991,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "9380e1307feea168dd37c27b036d24c654baf12afc4e8ea4e2f275420acb1be5",
+      "event_count": 898,
+      "linked_exile": 0,
+      "linked_permission": 0,
+      "class_discard_damage": 3,
+      "class_search": 0,
+      "conditional_removal": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-critical-identity-raphael-april_oneil",
+      "seed": 2991,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "6900949c0efe0444b30d59f2b90dad2403219fa7460e4217f120e0d657d5d48b",
+      "event_count": 580,
+      "linked_exile": 0,
+      "linked_permission": 0,
+      "class_discard_damage": 3,
+      "class_search": 1,
+      "conditional_removal": 0,
+      "runtime_error": null
+    }
+  ]
+}

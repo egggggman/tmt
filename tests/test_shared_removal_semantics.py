@@ -11,6 +11,7 @@ from tmnt_design_studio.stage02 import _authoritative_state_stops, _terminal_out
 
 LAND = CardFact("Mountain", "", 0, "Basic Land — Mountain")
 FOREST = CardFact("Forest", "", 0, "Basic Land — Forest")
+SWAMP = CardFact("Swamp", "", 0, "Basic Land — Swamp")
 PIZZA = CardFact(
     "Generic Hot Food",
     "{2}{R}",
@@ -34,13 +35,21 @@ SHROUD = replace(FLIER, name="Veiled Bird", keywords=("Flying", "Shroud"))
 ARTIFACT = CardFact("Device", "{1}", 1, "Artifact")
 ENCHANTMENT = CardFact("Ward", "{1}", 1, "Enchantment")
 INDSTRUCTIBLE = replace(ARTIFACT, name="Shielded Device", keywords=("Indestructible",))
+CONDITIONAL = CardFact(
+    "Generic Conditional Removal",
+    "{1}{B}{G}",
+    3,
+    "Instant",
+    "Destroy target artifact or creature. If its mana value was 4 or less, create a Food token. "
+    '(It\'s an artifact with "{2}, {T}, Sacrifice this token: You gain 3 life.")',
+)
 
 
 def setup(*, chooser=None):
     game = Game(([LAND] * 60, [LAND] * 60), seed=289, damage_target_chooser=chooser)
     game.begin_turn()
     for side in (0, 1):
-        for land in (LAND, LAND, LAND, FOREST, FOREST):
+        for land in (LAND, LAND, LAND, FOREST, FOREST, SWAMP):
             game.create_permanent(land, side, summoning_sick=False)
     return game
 
@@ -67,6 +76,8 @@ def test_oracle_grammar_and_coverage_are_card_name_independent():
     interpreter = CardInterpreter()
     assert interpreter.cast_program(CHAIN).kind is CastKind.OPTIONAL_DESTROY_AND_CREATE
     assert interpreter.cast_program(PIZZA).kind is CastKind.PERMANENT
+    assert interpreter.cast_program(CONDITIONAL).kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE
+    assert not interpreter.unsupported_fragments(CONDITIONAL)
     assert interpreter.shared_removal_semantic_coverage(CHAIN, CHAIN.oracle_text).fully_supported
     assert interpreter.shared_removal_semantic_coverage(
         PIZZA, PIZZA.oracle_text.splitlines()[0]
@@ -188,6 +199,34 @@ def test_chain_fizzles_when_its_only_selected_target_changes_zone():
     game.destroy(target)
     game.resolve_top_of_stack()
     assert not any(p.card.name == "Mutagen" for p in game.players[0].battlefield)
+    assert any(e["event"] == "spell_resolved_no_effect" for e in game.events)
+
+
+@pytest.mark.parametrize(
+    "target_fact,food",
+    [(ARTIFACT, True), (INDSTRUCTIBLE, True), (replace(BEAR, mana_value=5), False)],
+)
+def test_conditional_removal_uses_last_known_value_and_legal_target(target_fact, food):
+    game = setup()
+    target = game.create_permanent(target_fact, 1)
+    chosen = next(o for o in options(game, CONDITIONAL) if o.target_id == target.object_id)
+    game.execute_main_action(chosen)
+    resolve(game)
+    event = next(e for e in game.events if e["event"] == "conditional_removal_resolved")
+    assert event["last_known_mana_value"] == target_fact.mana_value
+    assert len(event["token_ids"]) == int(food)
+    assert (target.zone == "battlefield") == (target_fact is INDSTRUCTIBLE)
+    game.check_invariants()
+
+
+def test_conditional_removal_fizzles_without_food_when_target_changes_zone():
+    game = setup()
+    target = game.create_permanent(ARTIFACT, 1)
+    options(game, CONDITIONAL)
+    assert game.announce_spell(0, game.players[0].hand[0], target) is not None
+    game.destroy(target)
+    game.resolve_top_of_stack()
+    assert not any(p.card.name == "Food" for p in game.players[0].battlefield)
     assert any(e["event"] == "spell_resolved_no_effect" for e in game.events)
 
 

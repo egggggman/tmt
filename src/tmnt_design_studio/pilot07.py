@@ -136,7 +136,9 @@ class AcceptancePilot:
                 option
                 for option in casts
                 if option.oracle_fragment is not None
-                and option.oracle_fragment.startswith("Destroy up to one target ")
+                and option.oracle_fragment.startswith(
+                    ("Destroy up to one target ", "Destroy target artifact or creature.")
+                )
                 and option.target_id in battlefield
                 and battlefield[option.target_id].controller != option.player_index
             ]
@@ -287,8 +289,18 @@ class AcceptancePilot:
                 and option.target_id in opposing_spells
             ):
                 return option
+        battlefield = {obj.object_id: obj for side in view.context.battlefields for obj in side}
+        for option in options:
+            target = battlefield.get(option.target_id)
+            if (
+                option.kind is ActionKind.CAST
+                and target is not None
+                and target.controller != view.priority_player
+                and option.oracle_fragment is not None
+                and option.oracle_fragment.startswith("Destroy target artifact or creature.")
+            ):
+                return option
         if view.context.step == "declare_blockers":
-            battlefield = {obj.object_id: obj for side in view.context.battlefields for obj in side}
             for option in options:
                 target = battlefield.get(option.target_id)
                 if (

@@ -44,7 +44,7 @@ UNKNOWN_NAMES = {
 }
 RECOGNIZED_DIGEST = "8bfdfe58aecd9520d09a9290367609003aae8fc932c22f9fdd58d97b84f153e0"
 # Previous runtime: dfaf418f90e12257bec9b36233a8e2567d8ba3226ddf841e1223189bd013898d
-EXECUTABLE_DIGEST = "9950dc4389f838ee4abdeba5fad2f945ff1e77c59ff83c37ea4af068fdcd5658"
+EXECUTABLE_DIGEST = "950f4288e713b0baff66e0395f0f8e947c4e72c8113e943685cea9e7274313ae"
 
 
 def game(seed=51):
@@ -557,7 +557,7 @@ def test_other_token_and_equipment_neighbors_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 136 and len(recognized) == 164
-    assert len({item[0] for item in executable}) == 24 and len(executable) == 25
+    assert len({item[0] for item in executable}) == 25 and len(executable) == 27
     assert full == executable
     assert {item[1] for item in executable} == {
         "Fugitive Droid",
@@ -583,6 +583,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Rocksteady, Crash Courser",
         "Stockman, Mad Fly-entist",
         "Jennika, Bad Apple Big Sister",
+        "Cool but Rude",
         "Zog, Triceraton Castaway",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
@@ -636,6 +637,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Bebop, Warthog Warrior",
         "Rocksteady, Crash Courser",
         "Stockman, Mad Fly-entist",
+        "Cool but Rude",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",

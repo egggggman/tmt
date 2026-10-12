@@ -806,8 +806,9 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Michelangelo, Weirdness to 11",
         "Slithering Cryptid",
         "Mutant Chain Reaction",
+        "Tainted Treats",
     }
-    assert len(fully_supported) == 17
+    assert len(fully_supported) == 18
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

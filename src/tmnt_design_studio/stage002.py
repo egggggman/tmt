@@ -228,8 +228,20 @@ def _semantic_coverage(
                 "parent_executable": True,
                 "followup_executable": complete,
                 "fully_supported": complete,
-                "limitations": [] if complete else ["linked_cast_family_breadth_under_review"],
+                "limitations": [] if complete else ["linked_uninterpreted_spell_families"],
             }
+    if "Class" in card.type_line and (
+        interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
+        or interpreter.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+    ):
+        return {
+            "family": "class_trigger",
+            "payload_executable": True,
+            "parent_executable": True,
+            "followup_executable": True,
+            "fully_supported": True,
+            "limitations": [],
+        }
     shared = interpreter.shared_interaction_semantic_coverage(card, fragment)
     removal = interpreter.shared_removal_semantic_coverage(card, fragment)
     if removal is not None:
