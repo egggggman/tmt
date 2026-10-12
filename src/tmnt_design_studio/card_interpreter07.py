@@ -37,6 +37,7 @@ class CastKind(Enum):
     KICKED_CREATURE_PT = "kicked_creature_pt"
     TOP_CARD_SELECTION = "top_card_selection"
     OPTIONAL_DESTROY_AND_CREATE = "optional_destroy_and_create"
+    CONDITIONAL_DESTROY_AND_CREATE = "conditional_destroy_and_create"
     UNSUPPORTED = "unsupported"
 
 
@@ -71,6 +72,12 @@ class OptionalDestroyAndCreateProgram:
     token: TokenCreationProgram
     target_types: tuple[str, ...]
     creature_keyword: str
+
+
+@dataclass(frozen=True)
+class ConditionalDestroyAndCreateProgram:
+    token: TokenCreationProgram
+    maximum_mana_value: int
 
 
 @dataclass(frozen=True)
@@ -936,6 +943,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.conditional_destroy_and_create_program(card) is not None:
+            return CastProgram(CastKind.CONDITIONAL_DESTROY_AND_CREATE)
         if self.optional_destroy_and_create_program(card) is not None:
             return CastProgram(CastKind.OPTIONAL_DESTROY_AND_CREATE)
         if self.kicked_creature_pt_program(card) is not None:
@@ -1005,6 +1014,32 @@ class CardInterpreter:
         r"Create an? (?P<token>[A-Za-z]+) token\. "
         r"\(It's an artifact with \"(?P<ability>[^\"]+)\"\)"
     )
+    CONDITIONAL_DESTROY_AND_CREATE = re.compile(
+        r"Destroy target artifact or creature\. If its mana value was (?P<maximum>[0-9]+) "
+        r"or less, create an? (?P<token>[A-Za-z]+) token\. "
+        r'\(It\'s an artifact with "(?P<ability>[^"]+)"\)'
+    )
+
+    def conditional_destroy_and_create_program(
+        self, card: CardDefinition
+    ) -> ConditionalDestroyAndCreateProgram | None:
+        if "Instant" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.CONDITIONAL_DESTROY_AND_CREATE.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token = self.token_creation_program(card.oracle_text)
+        if (
+            token is None
+            or not token.executable
+            or token.retained_limitation is not None
+            or token.definition is None
+            or token.definition.name.casefold() != match["token"].casefold()
+            or token.definition.oracle_text != match["ability"]
+            or self.FOOD_ACTIVATION.fullmatch(match["ability"]) is None
+        ):
+            return None
+        return ConditionalDestroyAndCreateProgram(token, int(match["maximum"]))
 
     def entry_any_target_damage_program(
         self, card: CardDefinition, fragment: str
@@ -1041,6 +1076,11 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
         if self.entry_any_target_damage_program(card, fragment) is not None:
+            return SemanticCoverage(True, True, True, ())
+        if (
+            fragment == card.oracle_text.strip()
+            and self.conditional_destroy_and_create_program(card) is not None
+        ):
             return SemanticCoverage(True, True, True, ())
         if (
             fragment == card.oracle_text.strip()
@@ -1140,11 +1180,38 @@ class CardInterpreter:
         r"(?P<discard>[1-9][0-9]*|one|two|three|four|five) cards?\.$",
         re.I,
     )
-    CLASS_LEVEL_UP = re.compile(r"^\{1\}\{U\}: Level 2$")
+    CLASS_LEVEL_UP = re.compile(r"^(?:\{(?:[0-9]+|[WUBRG])\})+: Level (?P<level>[23])$")
     CLASS_LEVEL_TWO_RECOVERY = (
         "When this Class becomes level 2, return up to two target artifact cards "
         "from your graveyard to your hand."
     )
+    CLASS_DISCARD_DAMAGE = re.compile(
+        r"^Whenever you discard a card, this Class deals (?P<amount>[1-9][0-9]*) "
+        r"damage to each opponent\.$"
+    )
+    CLASS_LEVEL_THREE_SEARCH = re.compile(
+        r"^When this Class becomes level 3, search your library for a card, "
+        r"put it into your hand, shuffle, then discard a card at random\.$"
+    )
+
+    def class_level_child(self, card: CardDefinition, level: int) -> str | None:
+        if "Class" not in card.type_line:
+            return None
+        return next(
+            (
+                fragment
+                for fragment in self.fragments(card)
+                if (
+                    level == 2
+                    and (
+                        self.class_level_recovery_semantic_coverage(card, fragment) is not None
+                        or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
+                    )
+                )
+                or (level == 3 and self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment))
+            ),
+            None,
+        )
 
     def class_level_recovery_semantic_coverage(self, card, fragment):
         if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
@@ -1925,6 +1992,9 @@ class CardInterpreter:
         )
         parent_executable = bool(
             re.fullmatch(rf"Whenever {self_reference} attacks,\s*", prefix, re.IGNORECASE)
+            or (
+                "Class" in card.type_line and re.fullmatch(r"Whenever you attack,\s*", prefix, re.I)
+            )
         )
         parent_limitation = (
             None if parent_executable else "discard_draw_attack_trigger_context_not_implemented"
@@ -2286,8 +2356,11 @@ class CardInterpreter:
 
         cost_text = fragment[:colon].strip()
         effect_text = fragment[colon + 1 :].strip()
-        class_level = (
-            "Class" in card.type_line and self.CLASS_LEVEL_UP.fullmatch(fragment) is not None
+        level_match = self.CLASS_LEVEL_UP.fullmatch(fragment)
+        class_level = bool(
+            "Class" in card.type_line
+            and level_match
+            and self.class_level_child(card, int(level_match["level"])) is not None
         )
         cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
         tap_source = "{T}" in {part.upper() for part in cost_parts}
@@ -2873,6 +2946,12 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if "Class" in card.type_line and (
+                fragment == "(Gain the next level as a sorcery to add its ability.)"
+                or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
+                or self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+            ):
+                continue
             if (
                 self.combat_discard_or_sacrifice(card, fragment)
                 or self.must_be_blocked(card, fragment)
@@ -2990,6 +3069,11 @@ class CardInterpreter:
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
+                continue
+            if "Class" in card.type_line and (
+                self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
+                or self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+            ):
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
             if discard_draw is not None:

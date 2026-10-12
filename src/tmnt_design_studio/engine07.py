@@ -313,6 +313,7 @@ class RulesEventKind(Enum):
     VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
     CLASS_LEVEL_ADVANCED = "class_level_advanced"
+    CARD_DISCARDED = "card_discarded"
 
 
 class TriggerEffect(Enum):
@@ -338,6 +339,8 @@ class TriggerEffect(Enum):
     UTILITY_TARGET = "utility_target"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
+    CLASS_DISCARD_DAMAGE = "class_discard_damage"
+    CLASS_LEVEL_THREE_SEARCH = "class_level_three_search"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
@@ -1897,6 +1900,21 @@ class Game(
             reason=reason,
             library_position=library_position,
         )
+        if source_zone == "hand" and destination == "graveyard" and reason and "discard" in reason:
+            event = self._new_rules_event(
+                RulesEventKind.CARD_DISCARDED,
+                obj.owner,
+                (obj.object_id,),
+                source_id=obj.object_id,
+            )
+            for watcher in tuple(self.players[obj.owner].battlefield):
+                if watcher.class_level is None or watcher.class_level < 2:
+                    continue
+                for fragment in self.interpreter.fragments(watcher.rules_card):
+                    if self.interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment):
+                        self._enqueue_trigger(
+                            event, watcher, fragment, TriggerEffect.CLASS_DISCARD_DAMAGE
+                        )
         if departure_authority is not None:
             assert departure_sources is not None and departure_last_known is not None
             qualifying_sources = tuple(
@@ -3031,8 +3049,15 @@ class Game(
                 isinstance(source, Permanent)
                 and self._rules_events.get(event.event_id) is event
                 and event.kind
-                in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
-                and event.subject_ids == (source.object_id,)
+                in {
+                    RulesEventKind.PERMANENT_ENTERED,
+                    RulesEventKind.CREATURE_ENTERED,
+                    RulesEventKind.CARD_DISCARDED,
+                }
+                and (
+                    event.subject_ids == (source.object_id,)
+                    or (event.kind is RulesEventKind.CARD_DISCARDED and event.subject_ids)
+                )
                 and event.player_index == transaction.controller
                 and (source.object_id, source.controller) in event.battlefield_authority
             )
@@ -3821,7 +3846,14 @@ class Game(
             or event.step != TurnStep.DECLARE_ATTACKERS.value
             or event.player_index != trigger.controller
             or event.active_player != trigger.controller
-            or event.subject_ids.count(trigger.source_id) != 1
+            or (
+                event.subject_ids.count(trigger.source_id) != 1
+                and not (
+                    "Class" in trigger.source_card.type_line
+                    and event.subject_ids
+                    and trigger.oracle_fragment.startswith("Whenever you attack,")
+                )
+            )
         ):
             raise ValueError("discard/Draw trigger has mismatched attack provenance")
         return AttackTriggerProvenance(
@@ -4225,6 +4257,30 @@ class Game(
                 is None
             ):
                 raise ValueError("Class level recovery entry provenance is invalid")
+        if effect is TriggerEffect.CLASS_DISCARD_DAMAGE:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or source.class_level is None
+                or source.class_level < 2
+                or event.kind is not RulesEventKind.CARD_DISCARDED
+                or event.player_index != source.controller
+                or self.interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment) is None
+                or fragment not in self.interpreter.fragments(source.rules_card)
+            ):
+                raise ValueError("Class discard trigger provenance is invalid")
+        if effect is TriggerEffect.CLASS_LEVEL_THREE_SEARCH:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or source.class_level != 3
+                or event.kind is not RulesEventKind.CLASS_LEVEL_ADVANCED
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or self.interpreter.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment) is None
+                or fragment not in self.interpreter.fragments(source.rules_card)
+            ):
+                raise ValueError("Class level-three trigger provenance is invalid")
         if effect is TriggerEffect.LTB_MUTAGEN:
             self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
             key = (source.object_id, event.event_id, fragment)
@@ -5404,6 +5460,72 @@ class Game(
                 plan,
                 trigger=ability,
             )
+        elif ability.effect is TriggerEffect.CLASS_DISCARD_DAMAGE:
+            match = self.interpreter.CLASS_DISCARD_DAMAGE.fullmatch(ability.oracle_fragment)
+            assert match is not None
+            self._authenticate_original_rules_event(ability.event)
+            if ability.event.kind is not RulesEventKind.CARD_DISCARDED:
+                raise ValueError("Class damage requires a discarded-card event")
+            amount = int(match["amount"])
+            source = self._objects.get(ability.source_id)
+            if not isinstance(source, Permanent):
+                raise ValueError("Class damage source has no permanent incarnation")
+            for opponent in range(2):
+                if opponent != ability.controller:
+                    self.deal_damage(
+                        DamageTransaction(
+                            ability.controller,
+                            source,
+                            DamageTargetKind.PLAYER,
+                            amount,
+                            ability.oracle_fragment,
+                            target_player=opponent,
+                            source_event=ability.event,
+                        )
+                    )
+            self.log(
+                "class_discard_damage_resolved",
+                trigger_id=ability.trigger_id,
+                source_id=ability.source_id,
+                amount=amount,
+                discarded_id=ability.event.subject_ids[0],
+            )
+        elif ability.effect is TriggerEffect.CLASS_LEVEL_THREE_SEARCH:
+            if self.interpreter.CLASS_LEVEL_THREE_SEARCH.fullmatch(ability.oracle_fragment) is None:
+                raise AssertionError("Class search semantics changed while stacked")
+            player = self.players[ability.controller]
+            selected = max(
+                player.library, key=lambda card: (card.mana_value, card.name), default=None
+            )
+            if selected is not None:
+                fetched = self.move_object(selected, "hand", reason="class_search")
+                self.log(
+                    "class_card_searched",
+                    source_id=ability.source_id,
+                    searched_id=selected.object_id,
+                    hand_id=fetched.object_id,
+                )
+            player.library[:] = self.rng.shuffled(
+                player.library, domain=f"class_search:{ability.object_id}"
+            )
+            self.log(
+                "class_library_shuffled",
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+            )
+            if player.hand:
+                discard = player.hand[
+                    self.rng.randrange(
+                        len(player.hand), domain=f"class_random_discard:{ability.object_id}"
+                    )
+                ]
+                moved = self.move_object(discard, "graveyard", reason="class_random_discard")
+                self.log(
+                    "class_random_card_discarded",
+                    source_id=ability.source_id,
+                    hand_id=discard.object_id,
+                    graveyard_id=moved.object_id,
+                )
         elif ability.effect is TriggerEffect.DIES_DRAW:
             coverage = self.interpreter.dies_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -7235,6 +7357,16 @@ class Game(
                 )
                 if discard_draw is not None and discard_draw.coverage.fully_supported:
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.DISCARD_DRAW)
+        if attackers:
+            for source in tuple(self.players[self.active_player].battlefield):
+                if source in attackers or "Class" not in source.card.type_line:
+                    continue
+                for fragment in self.interpreter.fragments(source.rules_card):
+                    discard_draw = self.interpreter.discard_draw_semantic_coverage(
+                        source.card, fragment
+                    )
+                    if discard_draw is not None and discard_draw.coverage.fully_supported:
+                        self._enqueue_trigger(event, source, fragment, TriggerEffect.DISCARD_DRAW)
         self._put_pending_triggers_on_stack()
         self._drain_triggered_abilities()
 
@@ -7505,7 +7637,7 @@ class Game(
                         target_id=target.object_id,
                     )
                     for target in opponent.battlefield
-                    if target.card.is_creature
+                    if self._legal_damage_target(target, player_index)
                 )
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
@@ -7527,6 +7659,19 @@ class Game(
                     for side in self.players
                     for target in side.battlefield
                     if self._legal_optional_destroy_target(target, player_index)
+                )
+            elif kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        oracle_fragment=card.oracle_text,
+                    )
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_conditional_destroy_target(target, player_index)
                 )
             elif kind is CastKind.DRAW_CARDS:
                 draw_fragment = next(
@@ -7560,6 +7705,7 @@ class Game(
                     for target_player in self.players
                     for target in target_player.battlefield
                     if self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
+                    and self._legal_targeting_protection(target, player_index)
                 )
         for source in player.battlefield:
             permission = self._graveyard_cast_permission(source)
@@ -7589,7 +7735,13 @@ class Game(
         self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
     ) -> tuple[ActionOption, ...]:
         program = self.interpreter.kicked_creature_pt_program(card.card)
-        if program is None or self.payment_plan(player_index, card) is None:
+        if (
+            program is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
             return ()
         sacrifices = tuple(
             permanent
@@ -7936,6 +8088,7 @@ class Game(
             ),
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
+            *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
         )
@@ -7967,6 +8120,84 @@ class Game(
             is not None
         )
 
+    def _linked_exile_instant_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer paid, Oracle-interpreted instant spells granted by a linked play permission."""
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        options: list[ActionOption] = []
+        for card in self.players[player_index].exile:
+            if (
+                self._raphael_permission_for(player_index, card) is None
+                or "Instant" not in card.card.type_line.split(" — ", 1)[0].split()
+                or self.payment_plan(player_index, card, allow_exile=True) is None
+            ):
+                continue
+            kind = self.interpreter.cast_program(card.card).kind
+            if kind is CastKind.KICKED_CREATURE_PT:
+                options.extend(
+                    self._kicked_creature_pt_options(player_index, card, priority_epoch=state.epoch)
+                )
+                continue
+            if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
+                targets = (None,)
+            elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+                targets = (None,) + tuple(
+                    target
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_optional_destroy_target(target, player_index)
+                )
+            elif kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
+                targets = tuple(
+                    target
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_conditional_destroy_target(target, player_index)
+                )
+            elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
+                targets = tuple(
+                    target
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
+                    and self._legal_targeting_protection(target, player_index)
+                )
+            elif kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
+                targets = tuple(
+                    target
+                    for target in self.players[1 - player_index].battlefield
+                    if self._legal_damage_target(target, player_index)
+                )
+            elif kind is CastKind.OOZE_SPILL:
+                targets = tuple(
+                    target
+                    for target in self.stack
+                    if isinstance(target, StackObject)
+                    and self._is_legal_ooze_target(target, player_index)
+                )
+            elif kind is CastKind.COUNTER_TARGET_SPELL:
+                targets = tuple(
+                    target
+                    for target in self.stack
+                    if isinstance(target, StackObject)
+                    and self._is_legal_hand_counter_target(card.card, target)
+                )
+            else:
+                continue
+            options.extend(
+                ActionOption(
+                    ActionKind.CAST,
+                    player_index,
+                    object_id=card.object_id,
+                    target_id=target.object_id if target is not None else None,
+                    oracle_fragment=card.card.oracle_text,
+                    priority_epoch=state.epoch,
+                )
+                for target in targets
+            )
+        return tuple(options)
+
     def execute_priority_action(self, option: ActionOption) -> bool:
         """Revalidate and apply one pilot-selected bounded priority decision."""
         if option not in self.legal_priority_actions(option.player_index):
@@ -7992,6 +8223,21 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            if isinstance(card, CardObject) and option in self._linked_exile_instant_options(
+                option.player_index
+            ):
+                cost = self._objects.get(option.cost_object_id or "")
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target,
+                    cast_from_exile=True,
+                    sacrifice_cost=cost if isinstance(cost, Permanent) else None,
+                )
+                if spell is None:
+                    raise ValueError("linked instant became illegal at announcement")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and option in self._flash_permanent_cast_options(
                 option.player_index
             ):
@@ -8254,6 +8500,7 @@ class Game(
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
+                CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -9283,9 +9530,9 @@ class Game(
             return None
         if semantics.program.cost.discard_source:
             return None
-        if (
-            semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
-            and source.class_level != 1
+        if semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL and (
+            (match := self.interpreter.CLASS_LEVEL_UP.fullmatch(oracle_fragment)) is None
+            or source.class_level != int(match["level"]) - 1
         ):
             return None
         cost = semantics.program.cost
@@ -10101,29 +10348,40 @@ class Game(
         if (
             ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
             and source_permanent is not None
-            and source_permanent.class_level == 1
             and "Class" in source_permanent.card.type_line
         ):
-            source_permanent.class_level = 2
+            level_match = self.interpreter.CLASS_LEVEL_UP.fullmatch(ability.oracle_fragment)
+            if level_match is None or source_permanent.class_level != int(level_match["level"]) - 1:
+                raise ValueError("Class level advancement no longer has valid progression")
+            next_level = int(level_match["level"])
+            source_permanent.class_level = next_level
             event = self._new_rules_event(
                 RulesEventKind.CLASS_LEVEL_ADVANCED,
                 ability.controller,
                 (source_permanent.object_id,),
                 source_id=source_permanent.object_id,
             )
-            recovery_fragment = CardInterpreter.CLASS_LEVEL_TWO_RECOVERY
-            self._enqueue_trigger(
-                event,
-                source_permanent,
-                recovery_fragment,
-                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
-            )
+            child = self.interpreter.class_level_child(source_permanent.card, next_level)
+            if child is not None:
+                if (
+                    self.interpreter.class_level_recovery_semantic_coverage(
+                        source_permanent.card, child
+                    )
+                    is not None
+                ):
+                    self._enqueue_trigger(
+                        event, source_permanent, child, TriggerEffect.CLASS_LEVEL_TWO_RECOVERY
+                    )
+                elif self.interpreter.CLASS_LEVEL_THREE_SEARCH.fullmatch(child):
+                    self._enqueue_trigger(
+                        event, source_permanent, child, TriggerEffect.CLASS_LEVEL_THREE_SEARCH
+                    )
             self.log(
                 "class_level_advanced",
                 source_id=source_permanent.object_id,
                 stack_object_id=ability.object_id,
-                from_level=1,
-                to_level=2,
+                from_level=next_level - 1,
+                to_level=next_level,
                 oracle_fragment=ability.oracle_fragment,
             )
             delivered = True
@@ -10758,7 +11016,25 @@ class Game(
             self.priority_state is not None
             and not self.priority_state.resolution_pending
             and self.priority_state.player_index == player_index
-            and self.interpreter.kicked_creature_pt_program(card.card) is not None
+            and (
+                self.interpreter.kicked_creature_pt_program(card.card) is not None
+                or (
+                    cast_from_exile
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                    and self.interpreter.cast_program(card.card).kind
+                    in {
+                        CastKind.DRAW_CARDS,
+                        CastKind.TOP_CARD_SELECTION,
+                        CastKind.OPTIONAL_DESTROY_AND_CREATE,
+                        CastKind.CONDITIONAL_DESTROY_AND_CREATE,
+                        CastKind.DAMAGE_3_OPPOSING_CREATURE,
+                        CastKind.DEAL_DAMAGE,
+                        CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE,
+                        CastKind.OOZE_SPILL,
+                        CastKind.COUNTER_TARGET_SPELL,
+                    }
+                )
+            )
         )
         if (
             (
@@ -10823,6 +11099,7 @@ class Game(
                 target is None
                 or not self.is_authoritative(target, "battlefield")
                 or target.controller == player_index
+                or not self._legal_damage_target(target, player_index)
             ):
                 self.log(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
@@ -10852,6 +11129,7 @@ class Game(
                 target is None
                 or not self.is_authoritative(target, "battlefield")
                 or not self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
+                or not self._legal_targeting_protection(target, player_index)
             ):
                 self.log(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
@@ -10865,6 +11143,12 @@ class Game(
                 ):
                     return None
                 target_id = target.object_id
+        elif program.kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
+            if not isinstance(target, Permanent) or not self._legal_conditional_destroy_target(
+                target, player_index
+            ):
+                return None
+            target_id = target.object_id
         elif program.kind is CastKind.KICKED_CREATURE_PT:
             if (
                 not isinstance(target, Permanent)
@@ -11133,8 +11417,16 @@ class Game(
                 isinstance(target, Permanent)
                 and self._legal_optional_destroy_target(target, spell.controller)
             )
+        elif spell.cast_kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
+            legal_target = isinstance(target, Permanent) and self._legal_conditional_destroy_target(
+                target, spell.controller
+            )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
-            legal_target = legal_target and target.controller != spell.controller
+            legal_target = (
+                legal_target
+                and target.controller != spell.controller
+                and self._legal_damage_target(target, spell.controller)
+            )
         elif spell.cast_kind is CastKind.OOZE_SPILL:
             legal_target = self._is_legal_ooze_target(target, spell.controller)
         elif spell.cast_kind is CastKind.COUNTER_TARGET_SPELL:
@@ -11144,6 +11436,7 @@ class Game(
                 legal_target
                 and isinstance(target, Permanent)
                 and self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
+                and self._legal_targeting_protection(target, spell.controller)
             )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
@@ -11167,6 +11460,7 @@ class Game(
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
+            CastKind.CONDITIONAL_DESTROY_AND_CREATE,
         }:
             assert isinstance(target, Permanent)
         filter_plan = None
@@ -11264,6 +11558,34 @@ class Game(
                 token_ids=[item.object_id for item in created],
                 oracle_fragment=spell.card.oracle_text,
             )
+        elif spell.cast_kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
+            program = self.interpreter.conditional_destroy_and_create_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked conditional removal lost its semantics")
+            assert isinstance(target, Permanent)
+            last_known_mana_value = target.card.mana_value
+            self.destroy(target)
+            created = (
+                self.create_tokens(
+                    spell.controller,
+                    program.token,
+                    source_card=spell.card.name,
+                    oracle_fragment=spell.card.oracle_text,
+                    source_id=spell.object_id,
+                    defer_post_creation=True,
+                    defer_triggers=True,
+                )
+                if last_known_mana_value <= program.maximum_mana_value
+                else ()
+            )
+            self.log(
+                "conditional_removal_resolved",
+                stack_object_id=spell.object_id,
+                target_id=spell.target_id,
+                last_known_mana_value=last_known_mana_value,
+                token_ids=[item.object_id for item in created],
+                oracle_fragment=spell.card.oracle_text,
+            )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             program = self.interpreter.kicked_creature_pt_program(spell.card)
             if program is None:
@@ -11343,7 +11665,10 @@ class Game(
             self.check_life()
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
-        if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+        if spell.cast_kind in {
+            CastKind.OPTIONAL_DESTROY_AND_CREATE,
+            CastKind.CONDITIONAL_DESTROY_AND_CREATE,
+        }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
@@ -11423,6 +11748,20 @@ class Game(
         )
         if not eligible:
             return False
+        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
+        if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
+            return False
+        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
+
+    def _legal_conditional_destroy_target(self, target: Permanent, controller: int) -> bool:
+        if not self.is_authoritative(target, "battlefield"):
+            return False
+        types = set(target.type_line.split(" — ", 1)[0].split())
+        if not types.intersection({"Artifact", "Creature"}):
+            return False
+        return self._legal_targeting_protection(target, controller)
+
+    def _legal_targeting_protection(self, target: Permanent, controller: int) -> bool:
         text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
         if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
             return False

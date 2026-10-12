@@ -14,6 +14,16 @@ RAPHAEL = CardFact(
     3,
 )
 SPELL = CardFact("Shock", "{R}", 1, "Instant", "Shock deals 3 damage to any target.")
+REMOVAL = CardFact(
+    "Generic Conditional Removal",
+    "{1}{B}{G}",
+    3,
+    "Instant",
+    "Destroy target artifact or creature. If its mana value was 4 or less, create a Food token. "
+    '(It\'s an artifact with "{2}, {T}, Sacrifice this token: You gain 3 life.")',
+)
+COUNTER = CardFact("Generic Counter", "{U}", 1, "Instant", "Counter target spell.")
+TARGET = CardFact("Target Bear", "{1}{G}", 2, "Creature — Bear", power=2, toughness=2)
 
 
 def resolve_all(game):
@@ -121,3 +131,36 @@ def test_source_departure_preserves_attack_resolution_and_cross_source_isolation
             )
     assert game._raphael_permissions[second.object_id] == (game.turn, None)
     assert game._raphael_permission_for(0, card) == first.object_id
+
+
+def test_linked_targeted_instant_uses_priority_payment_and_survives_source_departure():
+    from tmnt_design_studio.engine07 import ActionKind, TurnStep
+
+    swamp = CardFact("Swamp", "", 0, "Basic Land — Swamp")
+    forest = CardFact("Forest", "", 0, "Basic Land — Forest")
+    game = Game(([MOUNTAIN] * 20, [MOUNTAIN] * 20), seed=86)
+    game.begin_turn()
+    for land in (MOUNTAIN, swamp, forest):
+        game.create_permanent(land, 0, summoning_sick=False)
+    source = game.create_permanent(RAPHAEL, 0)
+    target = game.create_permanent(TARGET, 1)
+    card = game._create_card_object(REMOVAL, 0, "exile")
+    game.players[0].exile.append(card)
+    game._raphael_linked_exile[source.object_id] = [(card.object_id, card.card, source.object_id)]
+    game._raphael_permissions[source.object_id] = (game.turn, card.object_id)
+    game.destroy(source)
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    game._begin_priority_window(allow_empty=True, priority_player=0)
+    option = next(
+        o
+        for o in game.legal_priority_actions(0)
+        if o.kind is ActionKind.CAST
+        and o.object_id == card.object_id
+        and o.target_id == target.object_id
+    )
+    assert game.execute_priority_action(option)
+    resolve_all(game)
+    assert target.zone == "former"
+    assert any(p.card.name == "Food" for p in game.players[0].battlefield)
+    assert any(e["event"] == "spell_cast" and e["card"] == REMOVAL.name for e in game.events)
+    game.check_invariants()
