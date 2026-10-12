@@ -212,6 +212,24 @@ def _semantic_coverage(
     fragment: str,
     limitations: tuple[str, ...],
 ) -> dict[str, object]:
+    identity_families = (
+        ("combat_discard_or_sacrifice", interpreter.combat_discard_or_sacrifice(card, fragment)),
+        ("must_be_blocked", interpreter.must_be_blocked(card, fragment)),
+        ("linked_top_exile", interpreter.linked_top_exile(card, fragment)),
+        ("linked_attack_play", interpreter.linked_attack_play(card, fragment)),
+        ("end_step_spell_types_draw", interpreter.end_step_spell_types_draw(fragment)),
+    )
+    for family, matches in identity_families:
+        if matches:
+            complete = family not in {"linked_top_exile", "linked_attack_play"}
+            return {
+                "family": family,
+                "payload_executable": True,
+                "parent_executable": True,
+                "followup_executable": complete,
+                "fully_supported": complete,
+                "limitations": [] if complete else ["linked_cast_family_breadth_under_review"],
+            }
     shared = interpreter.shared_interaction_semantic_coverage(card, fragment)
     removal = interpreter.shared_removal_semantic_coverage(card, fragment)
     if removal is not None:
@@ -689,6 +707,23 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
+        for stage in ("land", "activate", "damage", "destroy", "creature"):
+            options = game.legal_main_actions(active)
+            choice = chosen_pilot.choose_main_action(game.pilot_view(active), options, stage)
+            _checked_action(
+                game,
+                lambda choice=choice: game.execute_main_action(choice),
+                "postcombat main action",
+            )
+            _drain_priority(game, chosen_pilot)
+            if game.is_terminal:
+                break
+        if game.is_terminal:
+            break
+        _checked_action(game, game.advance_step, "advance to end step")
+        _drain_priority(game, chosen_pilot)
+        if game.is_terminal:
+            break
         _checked_action(game, game.end_turn, "end turn")
     if not game.is_terminal:
         game.log("acceptance_incomplete", reason="turn_limit")

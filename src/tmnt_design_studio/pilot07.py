@@ -197,6 +197,15 @@ class AcceptancePilot:
             ]
             if creatures:
                 return min(creatures, key=lambda row: (row[1][2], row[1][1]))[0]
+            # Engine-supplied playable actions outside the hand are still legal
+            # opportunities; choose one after hand creature development.
+            external = [
+                option
+                for option in casts
+                if self._card(view, option.player_index, option.object_id) is None
+            ]
+            if external:
+                return external[0]
             utility = [
                 option
                 for option in casts

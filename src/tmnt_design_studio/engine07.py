@@ -303,6 +303,8 @@ class RulesEventKind(Enum):
     TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
+    BLOCKERS_DECLARED = "blockers_declared"
+    END_STEP_BEGAN = "end_step_began"
     DAMAGE_DEALT = "damage_dealt"
     COMBAT_DAMAGE_TO_PLAYER = "combat_damage_to_player"
     SCRIED = "scried"
@@ -351,6 +353,8 @@ class TriggerEffect(Enum):
     PARAMECIA_REFLEXIVE_RETURN = "paramecia_reflexive_return"
     RAPHAEL_ALLIANCE_EXILE = "raphael_alliance_exile"
     RAPHAEL_ATTACK_PLAY = "raphael_attack_play"
+    COMBAT_DISCARD_OR_SACRIFICE = "combat_discard_or_sacrifice"
+    END_STEP_SPELL_TYPES_DRAW = "end_step_spell_types_draw"
 
 
 class TemporaryKeyword(Enum):
@@ -1415,6 +1419,9 @@ class Game(
         self._paramecia_departures = {}
         self._raphael_linked_exile = {}
         self._raphael_permissions = {}
+        self.discard_or_sacrifice_chooser = lambda _controller, _source, discards, sacrifices: (
+            ("discard", discards[-1]) if discards else ("sacrifice", sacrifices[0])
+        )
         self._init_vigilante()
         self._init_jury_rig(jury_rig_chooser)
         self._food_search_history = []
@@ -4013,6 +4020,43 @@ class Game(
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect in {
+            TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
+            TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
+            TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
+            TriggerEffect.RAPHAEL_ATTACK_PLAY,
+        }:
+            self._authenticate_original_rules_event(event)
+            valid = {
+                TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE: (
+                    event.kind
+                    in {RulesEventKind.ATTACKERS_DECLARED, RulesEventKind.BLOCKERS_DECLARED}
+                    and source.object_id in event.subject_ids
+                    and self.interpreter.combat_discard_or_sacrifice(source.card, fragment)
+                ),
+                TriggerEffect.END_STEP_SPELL_TYPES_DRAW: (
+                    event.kind is RulesEventKind.END_STEP_BEGAN
+                    and event.player_index == source.controller
+                    and self.interpreter.end_step_spell_types_draw(fragment)
+                ),
+                TriggerEffect.RAPHAEL_ALLIANCE_EXILE: (
+                    event.kind
+                    in {RulesEventKind.CREATURE_ENTERED, RulesEventKind.PERMANENT_ENTERED}
+                    and self.interpreter.linked_top_exile(source.card, fragment)
+                ),
+                TriggerEffect.RAPHAEL_ATTACK_PLAY: (
+                    event.kind is RulesEventKind.ATTACKERS_DECLARED
+                    and source.object_id in event.subject_ids
+                    and self.interpreter.linked_attack_play(source.card, fragment)
+                ),
+            }[effect]
+            if (
+                not valid
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or not self.is_authoritative(source, "battlefield")
+                or fragment not in self.interpreter.fragments(source.rules_card)
+            ):
+                raise ValueError("combat or end-step trigger has invalid event provenance")
         if effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
             self._authenticate_original_rules_event(event)
             if (
@@ -5479,18 +5523,13 @@ class Game(
                     trigger_id=ability.trigger_id,
                 )
         elif ability.effect is TriggerEffect.RAPHAEL_ALLIANCE_EXILE:
-            source = self._objects.get(ability.source_id)
-            if (
-                not isinstance(source, Permanent)
-                or not self.is_authoritative(source, "battlefield")
-                or not self.raphael_exile_chooser(ability.controller, ability.source_id)
-            ):
+            if not self.raphael_exile_chooser(ability.controller, ability.source_id):
                 self.log("raphael_alliance_exile_declined", source_id=ability.source_id)
             elif self.players[ability.controller].library:
                 top = self.players[ability.controller].library[-1]
                 moved = self.move_object(top, "exile", reason="raphael_alliance_exile")
                 self._raphael_linked_exile.setdefault(ability.source_id, []).append(
-                    (moved.object_id, moved.card, source.object_id)
+                    (moved.object_id, moved.card, ability.source_id)
                 )
                 self.log(
                     "raphael_linked_exile",
@@ -5502,29 +5541,73 @@ class Game(
             else:
                 self.log("raphael_alliance_exile_empty", source_id=ability.source_id)
         elif ability.effect is TriggerEffect.RAPHAEL_ATTACK_PLAY:
-            source = self._objects.get(ability.source_id)
             links = tuple(self._raphael_linked_exile.get(ability.source_id, ()))
-            if isinstance(source, Permanent) and self.is_authoritative(source, "battlefield"):
-                options = tuple(
-                    item[0]
-                    for item in links
-                    if self._objects.get(item[0]) is not None
-                    and self.is_authoritative(self._objects[item[0]], "exile")
-                )
-                chosen = self.raphael_play_chooser(ability.controller, ability.source_id, options)
-                self._raphael_permissions[ability.source_id] = (
-                    self.turn,
-                    chosen if chosen in options else None,
-                )
-                self.log(
-                    "raphael_play_permission_created",
-                    source_id=ability.source_id,
-                    exiled_object_ids=list(options),
-                    chosen_object_id=chosen if chosen in options else None,
-                    expires_turn=self.turn,
-                )
+            options = tuple(
+                item[0]
+                for item in links
+                if self._objects.get(item[0]) is not None
+                and self.is_authoritative(self._objects[item[0]], "exile")
+            )
+            chosen = self.raphael_play_chooser(ability.controller, ability.source_id, options)
+            self._raphael_permissions[ability.source_id] = (
+                self.turn,
+                chosen if chosen in options else None,
+            )
+            self.log(
+                "raphael_play_permission_created",
+                source_id=ability.source_id,
+                exiled_object_ids=list(options),
+                chosen_object_id=chosen if chosen in options else None,
+                expires_turn=self.turn,
+                event_id=ability.event.event_id,
+            )
+        elif ability.effect is TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE:
+            discards = tuple(card.object_id for card in self.players[ability.controller].hand)
+            sacrifices = tuple(
+                permanent.object_id for permanent in self.players[ability.controller].battlefield
+            )
+            choice = self.discard_or_sacrifice_chooser(
+                ability.controller, ability.source_id, discards, sacrifices
+            )
+            if choice[0] == "discard" and choice[1] in discards:
+                selected = self._objects[choice[1]]
+                self.move_object(selected, "graveyard", reason="combat_trigger_discard")
+            elif choice[0] == "sacrifice" and choice[1] in sacrifices:
+                selected = self._objects[choice[1]]
+                self.move_object(selected, "graveyard", reason="combat_trigger_sacrifice")
+            elif sacrifices and not discards:
+                raise ValueError("mandatory sacrifice requires a legal permanent choice")
+            elif discards or sacrifices:
+                raise ValueError("combat trigger chooser returned an illegal choice")
             else:
-                self.log("raphael_attack_source_departed", source_id=ability.source_id)
+                selected = None
+            self.log(
+                "combat_discard_or_sacrifice_resolved",
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                choice=choice[0] if selected is not None else "none",
+                chosen_id=selected.object_id if selected is not None else None,
+            )
+            self.check_state_based_actions()
+        elif ability.effect is TriggerEffect.END_STEP_SPELL_TYPES_DRAW:
+            types = sorted(
+                {
+                    card_type
+                    for record in self.events
+                    if record["event"] == "spell_cast"
+                    and record["turn"] == ability.event.turn
+                    and record["player_index"] == ability.controller
+                    for card_type in record["card_types"]
+                }
+            )
+            self.log(
+                "end_step_spell_types_draw_resolved",
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                card_types=types,
+                count=len(types),
+            )
+            self.draw(self.players[ability.controller], len(types))
         elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
             match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -5657,6 +5740,8 @@ class Game(
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                 TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
                 TriggerEffect.RAPHAEL_ATTACK_PLAY,
+                TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
+                TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -6550,8 +6635,7 @@ class Game(
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ALLIANCE_COUNTER)
                 if (
                     TriggerEffect.RAPHAEL_ALLIANCE_EXILE in enabled
-                    and fragment.startswith("Alliance")
-                    and "may exile the top card of your library" in fragment
+                    and self.interpreter.linked_top_exile(source.card, fragment)
                 ):
                     self._enqueue_trigger(
                         event, source, fragment, TriggerEffect.RAPHAEL_ALLIANCE_EXILE
@@ -7127,12 +7211,13 @@ class Game(
                     )
                 if self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(fragment):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.ATTACK_PT)
-                if fragment.startswith("Whenever Raphael attacks") or (
-                    fragment.startswith("Whenever ")
-                    and "until end of turn, you may play a card exiled with Raphael." in fragment
-                ):
+                if self.interpreter.linked_attack_play(source.card, fragment):
                     self._enqueue_trigger(
                         event, source, fragment, TriggerEffect.RAPHAEL_ATTACK_PLAY
+                    )
+                if self.interpreter.combat_discard_or_sacrifice(source.card, fragment):
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE
                     )
                 token_coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
                 if (
@@ -7241,6 +7326,16 @@ class Game(
         elif step is TurnStep.POSTCOMBAT_MAIN:
             # CR 511.3: the combat phase has ended, so no object remains in combat.
             self._reset_current_combat_state()
+        elif step is TurnStep.END_STEP:
+            event = self._new_rules_event(RulesEventKind.END_STEP_BEGAN, self.active_player, ())
+            for source in tuple(player.battlefield):
+                for fragment in self.interpreter.fragments(source.rules_card):
+                    if self.interpreter.end_step_spell_types_draw(fragment):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.END_STEP_SPELL_TYPES_DRAW
+                        )
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         elif step is TurnStep.CLEANUP:
             self._perform_cleanup()
 
@@ -7353,8 +7448,20 @@ class Game(
                 for card in player.hand
                 if card.is_land
             )
-        for card in player.hand:
-            if not self.can_afford(player_index, card):
+        for card in player.exile:
+            if self._raphael_permission_for(player_index, card) is None:
+                continue
+            if card.is_land and player.lands_played < 1:
+                options.append(
+                    ActionOption(ActionKind.PLAY_LAND, player_index, object_id=card.object_id)
+                )
+        playable_exile = tuple(
+            card
+            for card in player.exile
+            if self._raphael_permission_for(player_index, card) is not None
+        )
+        for card in (*player.hand, *playable_exile):
+            if self.payment_plan(player_index, card, allow_exile=card in playable_exile) is None:
                 continue
             kind = self.interpreter.cast_program(card.card).kind
             if kind is CastKind.CREATURE:
@@ -7844,10 +7951,20 @@ class Game(
                 object_id=card.object_id,
                 priority_epoch=state.epoch,
             )
-            for card in self.players[player_index].hand
+            for card in (
+                *self.players[player_index].hand,
+                *(
+                    candidate
+                    for candidate in self.players[player_index].exile
+                    if self._raphael_permission_for(player_index, candidate) is not None
+                ),
+            )
             if "Flash" in self.interpreter.fragments(card.card)
             and self.interpreter.cast_program(card.card).kind is CastKind.PERMANENT
-            and self.can_afford(player_index, card)
+            and self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is not None
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
@@ -7878,13 +7995,22 @@ class Game(
             if isinstance(card, CardObject) and option in self._flash_permanent_cast_options(
                 option.player_index
             ):
-                spell = self.announce_spell(option.player_index, card)
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
                 if spell is None:
                     raise ValueError("Flash permanent response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
-                spell = self.announce_spell(option.player_index, card, target)
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
                 if spell is None:
                     raise ValueError("Aura response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
@@ -8092,7 +8218,9 @@ class Game(
         if option.kind is ActionKind.PLAY_LAND:
             if not isinstance(obj, CardObject):
                 raise ValueError("land option does not identify a card object")
-            return self.play_land(option.player_index, obj)
+            return self.play_land(
+                option.player_index, obj, from_raphael=self.is_authoritative(obj, "exile")
+            )
         if option.kind is ActionKind.CAST:
             if not isinstance(obj, CardObject):
                 raise ValueError("cast option does not identify a card object")
@@ -8106,6 +8234,22 @@ class Game(
                     card=obj.name,
                     object_id=obj.object_id,
                 )
+            if self.is_authoritative(obj, "exile"):
+                spell = self.announce_spell(
+                    option.player_index,
+                    obj,
+                    target,
+                    cast_from_exile=True,
+                    sacrifice_cost=(
+                        self._objects.get(option.cost_object_id or "")
+                        if option.cost_object_id is not None
+                        else None
+                    ),
+                )
+                if spell is None:
+                    raise ValueError("linked exile spell became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if self.interpreter.cast_program(obj.card).kind in {
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
@@ -8211,6 +8355,21 @@ class Game(
         # blockers and illegal per-attacker groups early preserves its exact
         # surviving option order, including the pilot's first-max tie break.
         visit(0, tuple(available), ())
+        required = {
+            attacker.object_id
+            for attacker in attackers
+            if any(
+                self.interpreter.must_be_blocked(attacker.card, fragment)
+                for fragment in self.interpreter.fragments(attacker.rules_card)
+            )
+        }
+        if required:
+
+            def score(option: ActionOption) -> int:
+                return len(required & {attacker_id for attacker_id, _ in option.blocks})
+
+            maximum = max(map(score, options))
+            options = [option for option in options if score(option) == maximum]
         return tuple(options)
 
     def _sneak_semantics(self, card: CardObject):
@@ -8342,6 +8501,24 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
+        if blocks.blocks:
+            event = self._new_rules_event(
+                RulesEventKind.BLOCKERS_DECLARED,
+                defender,
+                tuple(blocker_id for _, blocker_id in blocks.blocks),
+            )
+            for blocker_id in event.subject_ids:
+                source = self._objects[blocker_id]
+                assert isinstance(source, Permanent)
+                for fragment in self.interpreter.fragments(source.rules_card):
+                    if self.interpreter.combat_discard_or_sacrifice(source.card, fragment):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE
+                        )
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
+            if self.stack or self.priority_state is not None:
+                return
         if any(
             self.interpreter.kicked_creature_pt_program(card.card) is not None
             and self._kicked_creature_pt_options(player_index, card)
@@ -8916,19 +9093,17 @@ class Game(
         for source_id, (expiry_turn, chosen_id) in self._raphael_permissions.items():
             if expiry_turn != self.turn or chosen_id != card.object_id:
                 continue
-            if any(
-                linked_id == card.object_id and owner_id == source_id
-                for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
-                    source_id, ()
+            if (
+                card.owner == player_index
+                and self.is_authoritative(card, "exile")
+                and any(
+                    linked_id == card.object_id and owner_id == source_id
+                    for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
+                        source_id, ()
+                    )
                 )
             ):
-                source = self._objects.get(source_id)
-                if (
-                    isinstance(source, Permanent)
-                    and source.controller == player_index
-                    and card.owner == player_index
-                ):
-                    return source_id
+                return source_id
         return None
 
     def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:
@@ -10745,7 +10920,22 @@ class Game(
         self.log(
             "spell_cast",
             player=player.name,
+            player_index=player_index,
             card=spell.name,
+            card_types=tuple(
+                kind
+                for kind in (
+                    "Artifact",
+                    "Battle",
+                    "Creature",
+                    "Enchantment",
+                    "Instant",
+                    "Planeswalker",
+                    "Sorcery",
+                    "Tribal",
+                )
+                if kind in spell.card.type_line.split(" — ", 1)[0].split()
+            ),
             stack_object_id=spell.object_id,
             target_id=target_id,
         )
@@ -10766,6 +10956,8 @@ class Game(
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                 TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
                 TriggerEffect.RAPHAEL_ATTACK_PLAY,
+                TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
+                TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -11522,11 +11714,13 @@ class Game(
         """Compatibility helper: follow legal transitions through cleanup."""
         if self.step in {TurnStep.SETUP, TurnStep.CLEANUP}:
             raise ValueError("end_turn is legal only during an active turn")
-        while self.step is not TurnStep.POSTCOMBAT_MAIN:
+        while self.step not in {TurnStep.POSTCOMBAT_MAIN, TurnStep.END_STEP}:
             if self.step is TurnStep.COMBAT_DAMAGE:
                 self.resolve_combat_damage()
             else:
                 self.advance_step()
+        if self.step is TurnStep.POSTCOMBAT_MAIN:
+            self.advance_step()
         self.advance_to(TurnStep.CLEANUP)
 
     def put_permanents_into_graveyard(

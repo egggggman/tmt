@@ -1242,6 +1242,49 @@ class CardInterpreter:
     def fragments(card: CardDefinition) -> tuple[str, ...]:
         return tuple(line.strip() for line in card.oracle_text.splitlines() if line.strip())
 
+    @staticmethod
+    def _self_reference(card: CardDefinition, text: str) -> bool:
+        """Accept a self-reference by full name, short name, or 'this creature'."""
+        return text in {card.name, card.name.split(",", 1)[0], "this creature"}
+
+    def combat_discard_or_sacrifice(self, card: CardDefinition, fragment: str) -> bool:
+        match = re.fullmatch(
+            r"Whenever (.+) attack or block, sacrifice a permanent unless you discard a card\.",
+            fragment,
+        )
+        return bool(match and self._self_reference(card, match.group(1)))
+
+    def must_be_blocked(self, card: CardDefinition, fragment: str) -> bool:
+        match = re.fullmatch(r"(.+) must be blocked if able\.", fragment)
+        return bool(match and self._self_reference(card, match.group(1)))
+
+    def linked_top_exile(self, card: CardDefinition, fragment: str) -> bool:
+        return fragment == (
+            "Alliance — Whenever another creature you control enters, you may exile "
+            "the top card of your library."
+        ) or fragment == (
+            "Alliance - Whenever another creature you control enters, you may exile "
+            "the top card of your library."
+        )
+
+    def linked_attack_play(self, card: CardDefinition, fragment: str) -> bool:
+        match = re.fullmatch(
+            r"Whenever (.+) attacks, until end of turn, you may play a card exiled with (.+)\.",
+            fragment,
+        )
+        return bool(
+            match
+            and all(self._self_reference(card, ref) for ref in match.groups())
+            and any(self.linked_top_exile(card, line) for line in self.fragments(card))
+        )
+
+    @staticmethod
+    def end_step_spell_types_draw(fragment: str) -> bool:
+        return fragment == (
+            "At the beginning of your end step, draw a card for each card type "
+            "among spells you've cast this turn."
+        )
+
     def static_team_modifier_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedStaticTeamModifierSemantics | None:
@@ -2830,6 +2873,12 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (
+                self.combat_discard_or_sacrifice(card, fragment)
+                or self.must_be_blocked(card, fragment)
+                or self.end_step_spell_types_draw(fragment)
+            ):
+                continue
             if self.shared_removal_semantic_coverage(card, fragment) is not None:
                 continue
             if self.shared_interaction_semantic_coverage(card, fragment) is not None:

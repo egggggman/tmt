@@ -1,0 +1,60 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "4d1dd3aa00758c8bf150878bcc0379e0a92f9c604ca2339c478d3a1b533e24bb",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-identity-bebop_rocksteady-raphael",
+      "first_player": "bebop_rocksteady",
+      "seed": 2981,
+      "replay_equal": true,
+      "result_digest": "d7ed68345238ff7c346fc4059ce4291a5ace4e2bc906e460439b599fc8ff77cf",
+      "event_count": 619,
+      "combat_choice_resolutions": 0,
+      "linked_exile_events": 0,
+      "linked_permission_events": 0,
+      "end_step_draw_resolutions": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-identity-raphael-bebop_rocksteady",
+      "first_player": "raphael",
+      "seed": 2981,
+      "replay_equal": true,
+      "result_digest": "bb8adbb71cd6837b3bc4258bd6f222d36a5b3690b50e244da341c69d28057769",
+      "event_count": 721,
+      "combat_choice_resolutions": 0,
+      "linked_exile_events": 0,
+      "linked_permission_events": 0,
+      "end_step_draw_resolutions": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-identity-april_oneil-raphael",
+      "first_player": "april_oneil",
+      "seed": 2981,
+      "replay_equal": true,
+      "result_digest": "017333590de70006c5f9030e96961a76016bd1b28f7077c1961b0b218135f674",
+      "event_count": 903,
+      "combat_choice_resolutions": 0,
+      "linked_exile_events": 0,
+      "linked_permission_events": 0,
+      "end_step_draw_resolutions": 3,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-identity-raphael-april_oneil",
+      "first_player": "raphael",
+      "seed": 2981,
+      "replay_equal": true,
+      "result_digest": "ca96e3b8655ed7b69977a5ce2ec43622784a200ad7c798f48695f0f81e339ff5",
+      "event_count": 815,
+      "combat_choice_resolutions": 0,
+      "linked_exile_events": 0,
+      "linked_permission_events": 0,
+      "end_step_draw_resolutions": 0,
+      "runtime_error": null
+    }
+  ]
+}
