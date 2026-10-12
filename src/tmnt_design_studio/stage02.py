@@ -109,7 +109,7 @@ def _authority_tuple_from_preimage(preimage: object) -> tuple[object, ...]:
         or (winner is not None and winner not in {0, 1})
     ):
         raise ValueError("authoritative-state scalar preimage is malformed")
-    return (
+    authority = (
         turn,
         active,
         step,
@@ -120,6 +120,12 @@ def _authority_tuple_from_preimage(preimage: object) -> tuple[object, ...]:
         rng_digest,
         winner,
     )
+    draw = preimage.get("terminal_draw", False)
+    if not isinstance(draw, bool) or (
+        draw and (winner is not None or not all(p[6] for p in zones))
+    ):
+        raise ValueError("authoritative-state terminal draw is malformed")
+    return authority + (True,) if draw else authority
 
 
 def _fingerprint_from_preimage(preimage: object) -> str:
@@ -168,6 +174,8 @@ def _authoritative_state_stops(snapshot: dict[str, object]) -> list[str]:
     if rng.get("state_digest") != authority[7]:
         stops.append("authoritative-state RNG projection disagrees")
     expected_winner = None if authority[8] is None else names[authority[8]]
+    if len(authority) == 10 and snapshot.get("terminal") is not True:
+        stops.append("authoritative terminal draw projection disagrees")
     if snapshot.get("winner") != expected_winner:
         stops.append("authoritative-state winner projection disagrees")
     for index, player in enumerate(players):
@@ -225,7 +233,11 @@ def _execution_commitment(
         "authoritative_preimage_sha256": hashlib.sha256(
             canonical_json(preimage).encode("utf-8")
         ).hexdigest(),
-        "terminal": snapshot.get("winner") is not None,
+        "terminal": (
+            snapshot.get("terminal") is True
+            if snapshot.get("terminal_draw") is True
+            else snapshot.get("winner") is not None
+        ),
         "winner": snapshot.get("winner"),
         "turn": snapshot.get("turn"),
         "phase": snapshot.get("phase"),
@@ -322,6 +334,21 @@ def _terminal_outcome_stops(snapshot: dict[str, object]) -> list[str]:
     if not isinstance(players, list) or len(players) != 2 or not isinstance(events, list):
         return ["terminal player state is malformed"]
     if winner is None:
+        if snapshot.get("terminal_draw") is True:
+            lost = [p for p in players if p.get("lost") is True]
+            losses = [e for e in events if e.get("event") == "player_lost"]
+            draws = [e for e in events if e.get("event") == "game_draw"]
+            if (
+                len(lost) != 2
+                or any(
+                    p.get("loss_reason") != "life_zero_or_less" or p.get("life", 1) > 0
+                    for p in lost
+                )
+                or len(losses) != 2
+                or len(draws) != 1
+                or snapshot.get("terminal") is not True
+            ):
+                return ["terminal draw lacks simultaneous authoritative player loss"]
         return []
     names = [player.get("name") for player in players]
     if any(not isinstance(name, str) or not name for name in names) or len(set(names)) != 2:

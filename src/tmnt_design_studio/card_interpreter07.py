@@ -36,6 +36,7 @@ class CastKind(Enum):
     )
     KICKED_CREATURE_PT = "kicked_creature_pt"
     TOP_CARD_SELECTION = "top_card_selection"
+    OPTIONAL_DESTROY_AND_CREATE = "optional_destroy_and_create"
     UNSUPPORTED = "unsupported"
 
 
@@ -57,6 +58,19 @@ class TopCardSelectionProgram:
     count: int
     subtypes: tuple[str, ...]
     include_land: bool
+
+
+@dataclass(frozen=True)
+class EntryAnyTargetDamageProgram:
+    target_damage: int
+    self_damage: int
+
+
+@dataclass(frozen=True)
+class OptionalDestroyAndCreateProgram:
+    token: TokenCreationProgram
+    target_types: tuple[str, ...]
+    creature_keyword: str
 
 
 @dataclass(frozen=True)
@@ -922,6 +936,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.optional_destroy_and_create_program(card) is not None:
+            return CastProgram(CastKind.OPTIONAL_DESTROY_AND_CREATE)
         if self.kicked_creature_pt_program(card) is not None:
             return CastProgram(CastKind.KICKED_CREATURE_PT)
         if self.top_card_selection_program(card) is not None:
@@ -980,6 +996,58 @@ class CardInterpreter:
         r"or land card from among them and put it into your hand\. "
         r"Put the rest on the bottom of your library in a random order\."
     )
+    ENTRY_ANY_TARGET_DAMAGE = re.compile(
+        r"When this artifact enters, it deals (?P<target>[1-9][0-9]*) damage "
+        r"to any target and (?P<self>[1-9][0-9]*) damage to you\."
+    )
+    OPTIONAL_DESTROY_AND_CREATE = re.compile(
+        r"Destroy up to one target artifact, enchantment, or creature with flying\. "
+        r"Create an? (?P<token>[A-Za-z]+) token\. "
+        r"\(It's an artifact with \"(?P<ability>[^\"]+)\"\)"
+    )
+
+    def entry_any_target_damage_program(
+        self, card: CardDefinition, fragment: str
+    ) -> EntryAnyTargetDamageProgram | None:
+        if "Artifact" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.ENTRY_ANY_TARGET_DAMAGE.fullmatch(fragment)
+        if match is None:
+            return None
+        return EntryAnyTargetDamageProgram(int(match["target"]), int(match["self"]))
+
+    def optional_destroy_and_create_program(
+        self, card: CardDefinition
+    ) -> OptionalDestroyAndCreateProgram | None:
+        if "Sorcery" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.OPTIONAL_DESTROY_AND_CREATE.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token = self.token_creation_program(card.oracle_text)
+        if (
+            token is None
+            or not token.executable
+            or token.retained_limitation is not None
+            or token.definition is None
+            or token.definition.name.casefold() != match["token"].casefold()
+            or token.definition.oracle_text != match["ability"]
+            or self.COUNTER_TOKEN_ACTIVATION.fullmatch(match["ability"]) is None
+        ):
+            return None
+        return OptionalDestroyAndCreateProgram(token, ("Artifact", "Enchantment"), "Flying")
+
+    def shared_removal_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        if self.entry_any_target_damage_program(card, fragment) is not None:
+            return SemanticCoverage(True, True, True, ())
+        if (
+            fragment == card.oracle_text.strip()
+            and self.optional_destroy_and_create_program(card) is not None
+        ):
+            return SemanticCoverage(True, True, True, ())
+        return None
 
     def kicked_creature_pt_program(self, card: CardDefinition) -> KickedCreaturePTProgram | None:
         if "Instant" not in card.type_line.split(" — ", 1)[0].split():
@@ -2674,6 +2742,10 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        if self.optional_destroy_and_create_program(card) is not None:
+            program = self.token_creation_program(fragment)
+            if program is not None:
+                return self._token_semantics(program, True)
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
@@ -2758,6 +2830,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.shared_removal_semantic_coverage(card, fragment) is not None:
+                continue
             if self.shared_interaction_semantic_coverage(card, fragment) is not None:
                 continue
             if self.counter_spell_semantic_coverage(card, fragment).fully_supported:

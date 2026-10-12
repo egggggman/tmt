@@ -322,6 +322,7 @@ class TriggerEffect(Enum):
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
     DEAL_DAMAGE = "deal_damage"
+    ETB_ANY_TARGET_DAMAGE = "etb_any_target_damage"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
     ETB_KRANG_REFILL = "etb_krang_refill"
@@ -408,6 +409,7 @@ class DamageTransaction:
     oracle_fragment: str
     target: Permanent | None = None
     target_player: int | None = None
+    source_event: RulesEvent | None = None
 
 
 @dataclass(frozen=True)
@@ -1336,6 +1338,7 @@ class Game(
         paramecia_target_chooser=None,
         raphael_exile_chooser=None,
         raphael_play_chooser=None,
+        damage_target_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1391,6 +1394,8 @@ class Game(
         self._first_double_strike_ids: tuple[str, ...] = ()
         self._regular_damage_initial_ids: tuple[str, ...] = ()
         self.winner: int | None = None
+        self.terminal_draw = False
+        self.damage_target_chooser = damage_target_chooser
         self.events: list[dict[str, object]] = []
         self.floating_mana = FloatingManaLedger()
         self.scry_evidence: list[ScryEvidence] = []
@@ -1570,6 +1575,8 @@ class Game(
         source_card: str,
         oracle_fragment: str,
         source_id: str | None = None,
+        defer_post_creation: bool = False,
+        defer_triggers: bool = False,
     ) -> tuple[Permanent, ...]:
         """Atomically create one deterministic batch of Oracle-derived token permanents."""
         if creator_index not in range(2):
@@ -1634,11 +1641,11 @@ class Game(
             source_id=source_id,
             oracle_fragment=oracle_fragment,
         )
-        creatures = tuple(token for token in created if token.card.is_creature)
-        if creatures:
-            self._process_creatures_entered_triggers(creatures)
+        if created:
+            self._process_creatures_entered_triggers(tuple(created), defer_triggers=defer_triggers)
         self.refresh_static_pt_modifiers()
-        self.check_state_based_actions()
+        if not defer_post_creation:
+            self.check_state_based_actions()
         return tuple(created)
 
     def place_on_battlefield(self, permanent: Permanent) -> None:
@@ -3010,6 +3017,18 @@ class Game(
         source_authoritative = self.is_authoritative(
             source, "battlefield"
         ) or self.is_authoritative(source, "stack")
+        if transaction.source_event is not None:
+            event = transaction.source_event
+            self._authenticate_original_rules_event(event)
+            source_authoritative = source_authoritative or (
+                isinstance(source, Permanent)
+                and self._rules_events.get(event.event_id) is event
+                and event.kind
+                in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
+                and event.subject_ids == (source.object_id,)
+                and event.player_index == transaction.controller
+                and (source.object_id, source.controller) in event.battlefield_authority
+            )
         if not source_authoritative:
             raise ValueError("damage source is not authoritative")
         if transaction.controller != source.controller:
@@ -3994,6 +4013,20 @@ class Game(
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
+            self._authenticate_original_rules_event(event)
+            if (
+                self._rules_events.get(event.event_id) is not event
+                or event.kind
+                not in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or not self.is_authoritative(source, "battlefield")
+                or fragment not in self.interpreter.fragments(source.card)
+                or self.interpreter.entry_any_target_damage_program(source.card, fragment) is None
+            ):
+                raise ValueError("entry damage trigger has invalid original event")
         if effect is TriggerEffect.ETB_KRANG_REFILL:
             self._enqueue_krang_refill(event, source, fragment)
             return
@@ -4209,6 +4242,8 @@ class Game(
                 )
                 if ability.effect is TriggerEffect.ETB_TAP_STUN:
                     self._select_stun_target(ability, trigger)
+                if ability.effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
+                    self._select_entry_damage_target(ability, trigger)
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
                 if (
@@ -4264,6 +4299,57 @@ class Game(
                     controller=self.players[trigger.controller].name,
                 )
         return True
+
+    def _legal_damage_target(self, target: Permanent, controller: int) -> bool:
+        if not self.is_authoritative(target, "battlefield") or not target.is_creature:
+            return False
+        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
+        if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
+            return False
+        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
+
+    def _select_entry_damage_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        program = self.interpreter.entry_any_target_damage_program(
+            trigger.source_card, trigger.oracle_fragment
+        )
+        if program is None:
+            raise ValueError("entry damage program is absent")
+        candidates = tuple(
+            target
+            for player in self.players
+            for target in player.battlefield
+            if self._legal_damage_target(target, trigger.controller)
+        )
+        offered = ("player:0", "player:1") + tuple(target.object_id for target in candidates)
+        hostile = [
+            target
+            for target in candidates
+            if target.controller != trigger.controller
+            and target.toughness is not None
+            and target.toughness - target.damage <= program.target_damage
+        ]
+        selected = (
+            self.damage_target_chooser(trigger.controller, offered)
+            if self.damage_target_chooser is not None
+            else (
+                min(hostile, key=lambda target: (target.toughness, target.object_id)).object_id
+                if hostile
+                else f"player:{1 - trigger.controller}"
+            )
+        )
+        if selected not in offered:
+            raise ValueError("entry damage target choice is not legal")
+        ability.target_id = selected
+        self.log(
+            "entry_damage_target_selected",
+            stack_object_id=ability.object_id,
+            event_id=trigger.event.event_id,
+            target_id=selected,
+            offered_ids=list(offered),
+            oracle_fragment=trigger.oracle_fragment,
+        )
 
     def _select_utility_target(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
@@ -4636,6 +4722,21 @@ class Game(
             raise ValueError("Paramecia trigger has invalid provenance")
         if ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
             self._validate_etb_drain_gain_scry_trigger(ability)
+        if ability.effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
+            self._authenticate_original_rules_event(ability.event)
+            if (
+                ability.event.subject_ids != (ability.source_id,)
+                or ability.event.kind
+                not in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
+                or ability.event.player_index != ability.controller
+                or (ability.source_id, ability.controller)
+                not in ability.event.battlefield_authority
+                or self.interpreter.entry_any_target_damage_program(
+                    ability.source_card, ability.oracle_fragment
+                )
+                is None
+            ):
+                raise ValueError("entry damage resolution provenance is invalid")
         if ability.effect is TriggerEffect.ETB_SELF_LIFE_GAIN:
             self._validate_etb_self_life_gain_trigger(ability)
         if ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
@@ -4839,7 +4940,7 @@ class Game(
             chosen = bool(self.paramecia_exile_chooser(ability.controller, ability.source_id))
             if (
                 chosen
-                and self.winner is None
+                and not self.is_terminal
                 and self._objects.get(grave.object_id) is grave
                 and self.is_authoritative(grave, "graveyard")
             ):
@@ -4954,6 +5055,57 @@ class Game(
                         target_player=target_player,
                     )
                 )
+        elif ability.effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
+            program = self.interpreter.entry_any_target_damage_program(
+                ability.source_card, ability.oracle_fragment
+            )
+            assert program is not None
+            target_id = ability.target_id
+            player_target = target_id in {"player:0", "player:1"}
+            target = self._objects.get(target_id or "")
+            legal = player_target or (
+                isinstance(target, Permanent)
+                and self._legal_damage_target(target, ability.controller)
+            )
+            if legal:
+                source = self._objects[ability.source_id]
+                assert isinstance(source, Permanent)
+                self.deal_damage(
+                    DamageTransaction(
+                        ability.controller,
+                        source,
+                        DamageTargetKind.PLAYER if player_target else DamageTargetKind.CREATURE,
+                        program.target_damage,
+                        ability.oracle_fragment,
+                        target=None if player_target else target,
+                        target_player=int(target_id[-1]) if player_target else None,
+                        source_event=ability.event,
+                    ),
+                    defer_post_damage=True,
+                )
+                self.deal_damage(
+                    DamageTransaction(
+                        ability.controller,
+                        source,
+                        DamageTargetKind.PLAYER,
+                        program.self_damage,
+                        ability.oracle_fragment,
+                        target_player=ability.controller,
+                        source_event=ability.event,
+                    ),
+                    defer_post_damage=True,
+                )
+                self.check_state_based_actions()
+            self.log(
+                "entry_damage_resolved",
+                stack_object_id=ability.object_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                target_id=target_id,
+                target_damage=program.target_damage if legal else 0,
+                self_damage=program.self_damage if legal else 0,
+                result="resolved" if legal else "all_targets_illegal",
+            )
         elif ability.effect is TriggerEffect.SCRY:
             semantics = self.interpreter.scry_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4992,7 +5144,7 @@ class Game(
                 oracle_fragment=ability.oracle_fragment,
             )
             self.check_life()
-            if self.winner is not None:
+            if self.is_terminal:
                 evidence = EtbDrainGainScryEvidence(
                     ability.event.event_id,
                     ability.object_id,
@@ -5523,6 +5675,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.ETB_ANY_TARGET_DAMAGE,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
@@ -6451,6 +6604,7 @@ class Game(
             TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             TriggerEffect.CREATE_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
+            TriggerEffect.ETB_ANY_TARGET_DAMAGE,
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_SELF_LIFE_GAIN,
@@ -6494,6 +6648,12 @@ class Game(
                     if semantics is not None and semantics[0] in {"entry", "entry_or_leave"}:
                         self._enqueue_trigger(
                             event, permanent, fragment, TriggerEffect.UTILITY_TARGET
+                        )
+            if TriggerEffect.ETB_ANY_TARGET_DAMAGE in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    if self.interpreter.entry_any_target_damage_program(permanent.card, fragment):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_ANY_TARGET_DAMAGE
                         )
             if TriggerEffect.ETB_KRANG_REFILL in enabled:
                 for fragment in self.interpreter.fragments(permanent.rules_card):
@@ -7240,6 +7400,27 @@ class Game(
                     for target in opponent.battlefield
                     if target.card.is_creature
                 )
+            elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+                options.append(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        oracle_fragment=card.oracle_text,
+                    )
+                )
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        oracle_fragment=card.oracle_text,
+                    )
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_optional_destroy_target(target, player_index)
+                )
             elif kind is CastKind.DRAW_CARDS:
                 draw_fragment = next(
                     fragment
@@ -7786,18 +7967,18 @@ class Game(
         finally:
             self._priority_resolution_in_progress = False
         self.check_state_based_actions()
-        if self.winner is None:
+        if not self.is_terminal:
             self._put_pending_triggers_on_stack()
-        if self.winner is None and self.stack and self.priority_state is None:
+        if not self.is_terminal and self.stack and self.priority_state is None:
             self._begin_priority_window()
         elif (
-            self.winner is None
+            not self.is_terminal
             and self.step is TurnStep.COMBAT_DAMAGE
             and self._combat_damage_resolved
         ):
             self._advance_after_combat_damage()
         elif (
-            self.winner is None
+            not self.is_terminal
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
         ):
@@ -7812,7 +7993,7 @@ class Game(
             return
         if (
             self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
-            and self.winner is None
+            and not self.is_terminal
         ):
             self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
         else:
@@ -7928,6 +8109,7 @@ class Game(
             if self.interpreter.cast_program(obj.card).kind in {
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
+                CastKind.OPTIONAL_DESTROY_AND_CREATE,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -8665,7 +8847,7 @@ class Game(
         resolved_total = self._combat_damage_total_steps
         self.check_state_based_actions()
         self.check_life()
-        if self.winner is None and self.pending_triggers:
+        if not self.is_terminal and self.pending_triggers:
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
         after_remaining = {
@@ -10501,6 +10683,13 @@ class Game(
                 )
                 return None
             target_id = target.object_id
+        elif program.kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+            if target is not None:
+                if not isinstance(target, Permanent) or not self._legal_optional_destroy_target(
+                    target, player_index
+                ):
+                    return None
+                target_id = target.object_id
         elif program.kind is CastKind.KICKED_CREATURE_PT:
             if (
                 not isinstance(target, Permanent)
@@ -10596,6 +10785,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.ETB_ANY_TARGET_DAMAGE,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -10742,9 +10932,15 @@ class Game(
                 self.check_state_based_actions()
             return permanent
 
-        legal_target = spell.cast_kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION} or (
-            isinstance(target, Permanent) and self.is_authoritative(target, "battlefield")
-        )
+        legal_target = spell.cast_kind in {
+            CastKind.DRAW_CARDS,
+            CastKind.TOP_CARD_SELECTION,
+        } or (isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"))
+        if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+            legal_target = spell.target_id is None or (
+                isinstance(target, Permanent)
+                and self._legal_optional_destroy_target(target, spell.controller)
+            )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = legal_target and target.controller != spell.controller
         elif spell.cast_kind is CastKind.OOZE_SPILL:
@@ -10778,6 +10974,7 @@ class Game(
             CastKind.COUNTER_TARGET_SPELL,
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
+            CastKind.OPTIONAL_DESTROY_AND_CREATE,
         }:
             assert isinstance(target, Permanent)
         filter_plan = None
@@ -10853,6 +11050,28 @@ class Game(
             if program is None:
                 raise AssertionError("stacked card selection is no longer executable")
             self.resolve_top_card_selection(spell.controller, program, source_id=spell.object_id)
+        elif spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+            program = self.interpreter.optional_destroy_and_create_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked optional removal lost its semantics")
+            if isinstance(target, Permanent):
+                self.destroy(target)
+            created = self.create_tokens(
+                spell.controller,
+                program.token,
+                source_card=spell.card.name,
+                oracle_fragment=spell.card.oracle_text,
+                source_id=spell.object_id,
+                defer_post_creation=True,
+                defer_triggers=True,
+            )
+            self.log(
+                "optional_removal_resolved",
+                stack_object_id=spell.object_id,
+                target_id=spell.target_id,
+                token_ids=[item.object_id for item in created],
+                oracle_fragment=spell.card.oracle_text,
+            )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             program = self.interpreter.kicked_creature_pt_program(spell.card)
             if program is None:
@@ -10932,6 +11151,10 @@ class Game(
             self.check_life()
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
+        if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
+            self.check_state_based_actions()
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         return resolved_card
 
     def resolve_top_card_selection(self, player_index, program, *, source_id: str) -> None:
@@ -10996,6 +11219,22 @@ class Game(
             or "Enchantment" in card_types
             or ("Creature" in card_types and target.power >= 4)
         )
+
+    def _legal_optional_destroy_target(self, target: Permanent, controller: int) -> bool:
+        if not self.is_authoritative(target, "battlefield"):
+            return False
+        card_types = set(target.type_line.split(" — ", 1)[0].split())
+        eligible = (
+            "Artifact" in card_types
+            or "Enchantment" in card_types
+            or (target.is_creature and self._has_keyword(target, "Flying"))
+        )
+        if not eligible:
+            return False
+        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
+        if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
+            return False
+        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
         return [
@@ -11396,6 +11635,11 @@ class Game(
         return replacement
 
     def destroy(self, permanent: Permanent, *, state_based_action: str | None = None) -> None:
+        if self._has_keyword(permanent, "Indestructible"):
+            self.log(
+                "destruction_prevented", target_id=permanent.object_id, reason="indestructible"
+            )
+            return
         self.put_into_graveyard(permanent, state_based_action=state_based_action)
 
     def check_state_based_actions(self) -> None:
@@ -11409,7 +11653,7 @@ class Game(
             if not changed:
                 break
         self.check_life()
-        if self.winner is None and self._put_pending_triggers_on_stack(
+        if not self.is_terminal and self._put_pending_triggers_on_stack(
             {
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
@@ -11959,12 +12203,23 @@ class Game(
                     legendary_names.add(permanent.card.name)
 
     def check_life(self) -> None:
+        newly_lost = []
         for index, player in enumerate(self.players):
             if player.life <= 0 and not player.lost:
                 player.lost = True
                 player.loss_reason = "life_zero_or_less"
-                self.winner = 1 - index
+                newly_lost.append(index)
                 self.log("player_lost", player=player.name, reason=player.loss_reason)
+        if len(newly_lost) == 2:
+            self.winner = None
+            self.terminal_draw = True
+            self.log("game_draw", reason="simultaneous_player_loss")
+        elif newly_lost:
+            self.winner = 1 - newly_lost[0]
+
+    @property
+    def is_terminal(self) -> bool:
+        return self.winner is not None or self.terminal_draw
 
     def record_conformance_stop(
         self, kind: str, before_fingerprint: str, *, detail: str
@@ -12009,7 +12264,7 @@ class Game(
             )
             for player in self.players
         )
-        return (
+        original = (
             self.turn,
             self.active_player,
             self.step.value,
@@ -12020,6 +12275,7 @@ class Game(
             self.rng.state_digest,
             self.winner,
         )
+        return original + (True,) if self.terminal_draw else original
 
     def authoritative_state_fingerprint_evidence(self) -> dict[str, object]:
         """Serialize the existing fingerprint preimage without defining a second state model."""
@@ -12048,6 +12304,7 @@ class Game(
             ],
             "rng_state_digest": authority[7],
             "winner_index": authority[8],
+            **({"terminal_draw": True} if self.terminal_draw else {}),
         }
 
     def _executed_conformance_references(self) -> list[dict[str, object]]:
@@ -12193,7 +12450,8 @@ class Game(
             "engine_version": ENGINE_VERSION,
             "turn": self.turn,
             "turns_started": self.turn,
-            "terminal": self.winner is not None,
+            "terminal": self.is_terminal,
+            "terminal_draw": self.terminal_draw,
             "active_player": self.players[self.active_player].name,
             "phase": self.phase,
             "step": self.step.value,
