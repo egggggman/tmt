@@ -1422,6 +1422,7 @@ class Game(
         self._paramecia_departures = {}
         self._raphael_linked_exile = {}
         self._raphael_permissions = {}
+        self._linked_play_prior_grants: dict[str, list[tuple[int, str]]] = {}
         self.discard_or_sacrifice_chooser = lambda _controller, _source, discards, sacrifices: (
             ("discard", discards[-1]) if discards else ("sacrifice", sacrifices[0])
         )
@@ -5675,6 +5676,9 @@ class Game(
                 and self.is_authoritative(self._objects[item[0]], "exile")
             )
             chosen = self.raphael_play_chooser(ability.controller, ability.source_id, options)
+            previous = self._raphael_permissions.get(ability.source_id)
+            if previous is not None and previous[0] == self.turn and previous[1] is not None:
+                self._linked_play_prior_grants.setdefault(ability.source_id, []).append(previous)
             self._raphael_permissions[ability.source_id] = (
                 self.turn,
                 chosen if chosen in options else None,
@@ -9341,20 +9345,24 @@ class Game(
         return evidence
 
     def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
-        for source_id, (expiry_turn, chosen_id) in self._raphael_permissions.items():
-            if expiry_turn != self.turn or chosen_id != card.object_id:
-                continue
-            if (
-                card.owner == player_index
-                and self.is_authoritative(card, "exile")
-                and any(
-                    linked_id == card.object_id and owner_id == source_id
-                    for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
-                        source_id, ()
-                    )
-                )
+        for source_id, current in self._raphael_permissions.items():
+            for expiry_turn, chosen_id in (
+                current,
+                *self._linked_play_prior_grants.get(source_id, ()),
             ):
-                return source_id
+                if expiry_turn != self.turn or chosen_id != card.object_id:
+                    continue
+                if (
+                    card.owner == player_index
+                    and self.is_authoritative(card, "exile")
+                    and any(
+                        linked_id == card.object_id and owner_id == source_id
+                        for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
+                            source_id, ()
+                        )
+                    )
+                ):
+                    return source_id
         return None
 
     def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:

@@ -7,7 +7,7 @@ The ten Baseline 005 deck files, the original 172-row ledger, and all earlier ov
 
 | Family | Evidence | Rows closed |
 | --- | --- | ---: |
-| Linked exile/play permission | A source-bound, chosen exiled card can use represented main-phase or instant-priority casts with ordinary mana, targeting, and stack rules. Kicked instant, counter, targeted damage/removal, draw, Aura, Flash, land, creature, and other represented permanent paths are offered at legal timing. Permission expires at turn end; source departure does not revoke an already created permission. A card with an uninterpreted spell effect remains unplayable, so the Oracle ability is still partial. | 2 partial P0 retained |
+| Linked exile/play permission | A source-bound, chosen exiled card can use represented main-phase or instant-priority casts with ordinary mana, targeting, and stack rules. Kicked instant, counter, targeted damage/removal, draw, Aura, Flash, land, creature, and other represented permanent paths are offered at legal timing. Distinct attack grants accumulate through the end of the turn; source departure does not revoke an existing grant. A card with an uninterpreted spell effect remains unplayable, so the Oracle ability is still partial. | 2 partial P0 retained |
 | Class levels and discard | Class level costs advance exactly one level at sorcery timing. Attacking with a creature delivers the Class level-one optional discard then draw. At level two, each actual hand discard triggers damage on the stack, including an unrelated discard, and survives source departure. Level three searches for a card, puts it in hand, shuffles, then discards at random; the level-two trigger sees that discard. | 2 P0 and 3 P1 |
 | Conditional destroy and Food | An Instant legally targets an artifact or creature, attempts destruction, uses the target's last-known mana value, and creates a Food token only if that value was at most four. An illegal target on resolution prevents the whole spell's effects. The condition can be true even when an indestructible target remains. | 1 P0 |
 
@@ -18,7 +18,7 @@ The implementation dispatches from interpreted Oracle text and permanent types. 
 - Original ledger: `ISSUE_289_COVERAGE_LEDGER.csv`, SHA-256 `56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100`, 172 rows.
 - Previous overlay: `ISSUE_289_IDENTITY_CHECKPOINT.json`, SHA-256 `d1fe2dca95f2e3a3426f1234de3df664f499ca314e59994ce361846c5aa40282`.
 - Previous semantic runtime: `4d1dd3aa00758c8bf150878bcc0379e0a92f9c604ca2339c478d3a1b533e24bb`.
-- New semantic runtime: `dad0f6442d87ad5c3360dca142727c9ac8b60ec58c3ae8f9bc9053cc9b1be231`.
+- New semantic runtime: `75a725ffdc6460a8d1190c5738837dddf0ed1a85d628eefaca4ed35adf8f1ccd`.
 - Reproduce the row overlay: `PYTHONPATH=src:tools python tools/report_issue289_critical_identity.py`.
 - Remaining: **27 critical P0** (25 gaps and 2 partial), **65 important P1**, **2 partial**. Six rows changed to supported; 90 gaps remain (25 critical and 65 important). Seven annotations and 33 previously covered rows retain their classifications.
 
@@ -28,7 +28,7 @@ The remaining critical entries include Raphael's uninterpreted exiled spell fami
 
 - Focused tests cover legal and illegal target states, payment, priority timing, source departure, exact event provenance, indestructible and high-value targets, Class level progression, Class search/shuffle/random discard, and deterministic replay.
 - Four mirrored frozen B&R/Raphael and April/Raphael diagnostics matched four exact replays, with no runtime errors. Class discard damage resolved nine times and level-three search three times across these small diagnostics. No linked exile or conditional removal resolved in those four seeds; their actual execution is established by focused tests. These are diagnostics, not balance evidence.
-- Full regression: **1,737 passed, 10 skipped** after updating the now-supported Food coverage expectation. Ruff check/format, diff checks, Baseline 005 structural validator, and prior evidence hash checks passed. The validator's console text about a historical land-count change is stale prose; authenticated lists are unchanged.
+- Full regression: **1,738 passed, 10 skipped** after the repeated-grant fixture and updated coverage expectations. Ruff check/format, diff checks, Baseline 005 structural validator, and prior evidence hash checks passed. The validator's console text about a historical land-count change is stale prose; authenticated lists are unchanged.
 
 **Checkpoint acceptance:** pending remote CI.
 

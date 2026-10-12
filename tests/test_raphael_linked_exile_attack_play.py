@@ -64,6 +64,34 @@ def test_attack_permission_exposes_only_linked_exile_and_expires_by_turn():
     assert game._raphael_permissions[source.object_id][1] != unrelated.object_id
 
 
+def test_two_attack_grants_preserve_both_distinct_choices_until_turn_ends():
+    chosen = iter((0, 1))
+    game = Game(
+        ([MOUNTAIN] * 20, [MOUNTAIN] * 20),
+        seed=85,
+        raphael_play_chooser=lambda _controller, _source, options: options[next(chosen)],
+    )
+    game.begin_turn()
+    source = game.create_permanent(RAPHAEL, 0)
+    first = game._create_card_object(MOUNTAIN, 0, "exile")
+    second = game._create_card_object(SPELL, 0, "exile")
+    game.players[0].exile.extend((first, second))
+    game._raphael_linked_exile[source.object_id] = [
+        (first.object_id, first.card, source.object_id),
+        (second.object_id, second.card, source.object_id),
+    ]
+    game.resolve_attack_pt_effects([source])
+    resolve_all(game)
+    assert game._raphael_permission_for(0, first) == source.object_id
+    game.resolve_attack_pt_effects([source])
+    resolve_all(game)
+    assert game._raphael_permission_for(0, first) == source.object_id
+    assert game._raphael_permission_for(0, second) == source.object_id
+    game._turn += 1
+    assert game._raphael_permission_for(0, first) is None
+    assert game._raphael_permission_for(0, second) is None
+
+
 def _permission_fixture():
     game = Game(([MOUNTAIN] * 15, [MOUNTAIN] * 15), seed=83)
     game.begin_turn()
