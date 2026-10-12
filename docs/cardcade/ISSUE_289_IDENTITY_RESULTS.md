@@ -25,5 +25,12 @@ The historical Raphael identifiers in the existing state and telemetry remain fo
 
 **Remaining:** 30 critical (P0), 68 important (P1), 2 partial. Next highest-impact work includes Raphael's remaining linked casting coverage, shared interaction for Cool but Rude, and B&R's Tainted Treats removal. Classification is about execution, not deck strength.
 
-**Checkpoint acceptance:** pending complete regression and remote CI.
+## Validation
+
+- Full regression: **1,726 passed, 10 skipped**.
+- Focused fixture tests include both discard and sacrifice, combat declaration timing, mandatory legal blocks, source-independent linked resolution, exiled land/spell/Aura actions, actual multitype cast announcements, end-step draws, and byte-identical fixture replays.
+- Four frozen-deck diagnostic games and four deterministic replays matched with zero runtime errors. Historical acceptance launchers and sealed pilot-input fixtures remain untouched.
+- Ruff check and format, diff check, Baseline 005 structural validator, original ledger SHA, and previous checkpoint SHA all passed.
+
+**Checkpoint acceptance:** local validation passed; see the stacked draft PR for remote CI.
 **Baseline 005 calibration readiness:** BLOCKED. No control games were run, no deck was revised, and no baseline was promoted.
