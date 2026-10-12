@@ -438,10 +438,10 @@ def test_authoritative_coverage_membership_and_digests_are_locked():
     recognized, payload, full = coverage_sets()
     assert [member[1] for member in recognized] == ["Cool but Rude", "Null Group Biological Assets"]
     assert recognized == payload
-    assert [member[1] for member in full] == ["Null Group Biological Assets"]
+    assert [member[1] for member in full] == ["Cool but Rude", "Null Group Biological Assets"]
     assert digest(recognized) == "0adbade241a770917df78da65282c73d2296a5fe8511f24bff46a47005549065"
     assert digest(payload) == "0adbade241a770917df78da65282c73d2296a5fe8511f24bff46a47005549065"
-    assert digest(full) == "71732520f3cf6094c7ea9d2dee6377d5677cb6448a7876ba803cda9bbc200821"
+    assert digest(full) == "0adbade241a770917df78da65282c73d2296a5fe8511f24bff46a47005549065"
 
 
 def test_frozen_roster_coverage_is_two_cards_across_two_decks():
@@ -461,7 +461,7 @@ def test_frozen_roster_coverage_is_two_cards_across_two_decks():
         "raphael",
     }
     assert {member[1] for member in payload} == names
-    assert {member[1] for member in full} == {"Null Group Biological Assets"}
+    assert {member[1] for member in full} == {"Cool but Rude", "Null Group Biological Assets"}
 
 
 def test_no_card_name_dispatch_or_parallel_zone_mutation():

@@ -1901,20 +1901,24 @@ class Game(
             library_position=library_position,
         )
         if source_zone == "hand" and destination == "graveyard" and reason and "discard" in reason:
-            event = self._new_rules_event(
-                RulesEventKind.CARD_DISCARDED,
-                obj.owner,
-                (obj.object_id,),
-                source_id=obj.object_id,
+            watchers = tuple(
+                (watcher, fragment)
+                for watcher in self.players[obj.owner].battlefield
+                if watcher.class_level is not None and watcher.class_level >= 2
+                for fragment in self.interpreter.fragments(watcher.rules_card)
+                if self.interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
             )
-            for watcher in tuple(self.players[obj.owner].battlefield):
-                if watcher.class_level is None or watcher.class_level < 2:
-                    continue
-                for fragment in self.interpreter.fragments(watcher.rules_card):
-                    if self.interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment):
-                        self._enqueue_trigger(
-                            event, watcher, fragment, TriggerEffect.CLASS_DISCARD_DAMAGE
-                        )
+            if watchers:
+                event = self._new_rules_event(
+                    RulesEventKind.CARD_DISCARDED,
+                    obj.owner,
+                    (obj.object_id,),
+                    source_id=obj.object_id,
+                )
+                for watcher, fragment in watchers:
+                    self._enqueue_trigger(
+                        event, watcher, fragment, TriggerEffect.CLASS_DISCARD_DAMAGE
+                    )
         if departure_authority is not None:
             assert departure_sources is not None and departure_last_known is not None
             qualifying_sources = tuple(

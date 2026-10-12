@@ -2858,7 +2858,10 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
-        if self.optional_destroy_and_create_program(card) is not None:
+        if (
+            self.optional_destroy_and_create_program(card) is not None
+            or self.conditional_destroy_and_create_program(card) is not None
+        ):
             program = self.token_creation_program(fragment)
             if program is not None:
                 return self._token_semantics(program, True)

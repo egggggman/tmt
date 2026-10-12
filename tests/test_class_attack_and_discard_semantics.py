@@ -85,3 +85,20 @@ def test_level_three_search_shuffles_and_discards_at_random_with_deterministic_r
         return game.snapshot(), game.events, game.rng.records
 
     assert run() == run()
+
+
+def test_discard_damage_trigger_survives_class_departure_and_does_not_trigger_at_level_one():
+    game, source, _ = setup()
+    card = game.players[0].hand[0]
+    game.move_object(card, "graveyard", reason="test_discard")
+    assert not any(e.kind is RulesEventKind.CARD_DISCARDED for e in game._rules_events.values())
+    game.activate_ability(0, source, "{1}{R}: Level 2")
+    resolve(game)
+    game.move_object(game.players[0].hand[0], "graveyard", reason="test_discard")
+    game._put_pending_triggers_on_stack()
+    assert game.stack[-1].effect is TriggerEffect.CLASS_DISCARD_DAMAGE
+    game.destroy(source)
+    game._begin_priority_window()
+    resolve(game)
+    assert game.players[1].life == 18
+    game.check_invariants()
