@@ -213,6 +213,16 @@ def _semantic_coverage(
     limitations: tuple[str, ...],
 ) -> dict[str, object]:
     shared = interpreter.shared_interaction_semantic_coverage(card, fragment)
+    removal = interpreter.shared_removal_semantic_coverage(card, fragment)
+    if removal is not None:
+        return {
+            "family": "shared_removal",
+            "payload_executable": removal.payload_executable,
+            "parent_executable": removal.parent_executable,
+            "followup_executable": removal.followup_executable,
+            "fully_supported": removal.fully_supported,
+            "limitations": list(removal.limitations),
+        }
     if shared is not None:
         return {
             "family": "shared_interaction_spell",
@@ -444,7 +454,7 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
 
 
 def _drain_priority(game: Game, pilot: Pilot) -> None:
-    while game.winner is None and game.priority_state is not None:
+    while not game.is_terminal and game.priority_state is not None:
         if game.priority_state.resolution_pending:
             _checked_action(game, game.process_priority_resolution, "priority resolution")
             continue
@@ -465,16 +475,16 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
 
     if game.step not in {TurnStep.SETUP, TurnStep.CLEANUP}:
         raise ValueError("begin turn requires setup or cleanup")
-    while game.winner is None and game.step is not TurnStep.PRECOMBAT_MAIN:
+    while not game.is_terminal and game.step is not TurnStep.PRECOMBAT_MAIN:
         _checked_action(game, game.advance_step, "beginning step")
         _drain_priority(game, pilot)
 
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
-    while game.winner is None and game.step.value == "combat_damage":
+    while not game.is_terminal and game.step.value == "combat_damage":
         _checked_action(game, game.resolve_combat_damage, "combat damage")
-        if game.winner is None:
+        if not game.is_terminal:
             _drain_priority(game, pilot)
 
 
@@ -617,11 +627,11 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
-    while game.winner is None and game.turn < 120:
+    while not game.is_terminal and game.turn < 120:
         if game.turn >= 119:
             raise RuntimeError("attempted to begin turn 120")
         _begin_turn_with_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.is_terminal:
             break
         active = game.active_player
         for stage in ("land", "activate", "damage", "destroy", "creature"):
@@ -631,9 +641,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
                 game, lambda choice=choice: game.execute_main_action(choice), "main action"
             )
             _drain_priority(game, chosen_pilot)
-            if game.winner is not None:
+            if game.is_terminal:
                 break
-        if game.winner is not None:
+        if game.is_terminal:
             break
         _checked_action(game, game.advance_step, "advance to combat")
         _checked_action(game, game.advance_step, "advance to attackers")
@@ -646,10 +656,10 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             "attack action",
         )
         _drain_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.is_terminal:
             break
         if (
-            game.winner is None
+            not game.is_terminal
             and game.step is TurnStep.DECLARE_ATTACKERS
             and game._attackers_declared
             and game._combat_attackers
@@ -665,22 +675,22 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             "block action",
         )
         _drain_priority(game, chosen_pilot)
-        while game.winner is None and game.step.value == "declare_blockers":
+        while not game.is_terminal and game.step.value == "declare_blockers":
             options = game.legal_sneak_actions(active)
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
             _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
             _drain_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.is_terminal:
             break
         _resolve_combat_damage_steps(game, chosen_pilot)
-        if game.winner is not None:
+        if game.is_terminal:
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
         _checked_action(game, game.end_turn, "end turn")
-    if game.winner is None:
+    if not game.is_terminal:
         game.log("acceptance_incomplete", reason="turn_limit")
     snapshot = game.snapshot()
     _add_created_token_presence(game, presence, snapshot["events"])

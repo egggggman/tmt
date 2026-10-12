@@ -132,6 +132,22 @@ class AcceptancePilot:
         if stage == "destroy":
             # A semantic action tag, independent of card/deck/opponent identity.
             battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+            optional_removal = [
+                option
+                for option in casts
+                if option.oracle_fragment is not None
+                and option.oracle_fragment.startswith("Destroy up to one target ")
+                and option.target_id in battlefield
+                and battlefield[option.target_id].controller != option.player_index
+            ]
+            if optional_removal:
+                return max(
+                    optional_removal,
+                    key=lambda option: (
+                        battlefield[option.target_id].power or 0,
+                        option.target_id,
+                    ),
+                )
             suppression = [
                 option
                 for option in casts

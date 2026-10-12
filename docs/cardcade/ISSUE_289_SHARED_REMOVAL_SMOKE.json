@@ -1,0 +1,52 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "9d263bb6151f3060dcacd59482f14a35d7759f1f0daae2a54c28c6dc0cb561a2",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-removal-raphael-first",
+      "first_player": "raphael",
+      "seed": 2907,
+      "replay_equal": true,
+      "result_digest": "34630ecdc65fa4a3b1b32b78163322480bc9863a7fa9028c82db8432144fa9c3",
+      "event_count": 1008,
+      "pizza_entry_resolutions": 0,
+      "optional_removal_resolutions": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-removal-casey_jones-first",
+      "first_player": "casey_jones",
+      "seed": 2907,
+      "replay_equal": true,
+      "result_digest": "9e3911fb9a576bbd42c26596c00e4a997a177f9bd1fe3c7fdb17352623fcddbd",
+      "event_count": 1160,
+      "pizza_entry_resolutions": 2,
+      "optional_removal_resolutions": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-removal-bebop_rocksteady-first",
+      "first_player": "bebop_rocksteady",
+      "seed": 2907,
+      "replay_equal": true,
+      "result_digest": "ec402e0c1472931d906944154ea1dda3a882c124f3d0d58b86dfa3d668c230ed",
+      "event_count": 1162,
+      "pizza_entry_resolutions": 0,
+      "optional_removal_resolutions": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-removal-michelangelo-first",
+      "first_player": "michelangelo",
+      "seed": 2907,
+      "replay_equal": true,
+      "result_digest": "f4515855f4bb5dac1817fe9c057efa0fbde7658ff112a04fa5c9bbfa224d2a4c",
+      "event_count": 815,
+      "pizza_entry_resolutions": 0,
+      "optional_removal_resolutions": 1,
+      "runtime_error": null
+    }
+  ]
+}

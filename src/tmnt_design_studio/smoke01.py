@@ -310,9 +310,9 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
     failure_context = None
     try:
-        while game.winner is None and game.turn < 120:
+        while not game.is_terminal and game.turn < 120:
             _begin_turn_with_priority(game, chosen_pilot)
-            if game.winner is not None:
+            if game.is_terminal:
                 break
             active = game.active_player
             for stage in ("land", "activate", "damage", "destroy", "creature"):
@@ -322,10 +322,10 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                     game, lambda choice=choice: game.execute_main_action(choice), "main action"
                 )
                 _drain_priority(game, chosen_pilot)
-                if game.winner is not None:
+                if game.is_terminal:
                     # A terminal trigger may end the game without advancing the current step.
                     break
-            if game.winner is not None:
+            if game.is_terminal:
                 break
             _checked_action(game, game.advance_step, "advance to combat")
             _checked_action(game, game.advance_step, "advance to attackers")
@@ -338,7 +338,7 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                 game, lambda attack=attack: game.execute_attack_action(attack), "attack action"
             )
             _drain_priority(game, chosen_pilot)
-            if game.winner is not None:
+            if game.is_terminal:
                 # Do not request blockers after attack-trigger priority ends the game.
                 break
             block_options = game.legal_block_options(attack, 1 - active)
@@ -358,12 +358,12 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                 )
                 _drain_priority(game, chosen_pilot)
             _resolve_combat_damage_steps(game, chosen_pilot)
-            if game.winner is not None:
+            if game.is_terminal:
                 break
             _checked_action(game, game.advance_step, "advance after combat")
             game.check_invariants()
             _checked_action(game, game.end_turn, "end turn")
-        if game.winner is None:
+        if not game.is_terminal:
             game.log("acceptance_incomplete", reason="turn_limit")
         snapshot = game.snapshot()
         _add_created_token_presence(game, presence, snapshot["events"])

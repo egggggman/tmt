@@ -91,6 +91,8 @@ def test_pizza_cast_and_food_activation():
     )
     current.execute_main_action(option)
     pizza = next(item for item in current.players[0].battlefield if item.card is PIZZA)
+    resolve(current)
+    assert any(event["event"] == "entry_damage_resolved" for event in current.events)
     before = current.players[0].life
     activation = next(
         item for item in current.legal_main_actions(0) if item.object_id == pizza.object_id
