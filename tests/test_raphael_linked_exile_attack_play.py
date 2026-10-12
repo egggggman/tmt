@@ -99,7 +99,7 @@ def test_linked_land_respects_one_land_limit_and_turn_expiry():
     assert not game.announce_spell(0, _spell, cast_from_exile=True)
 
 
-def test_source_departure_blocks_attack_permission_and_cross_raphael_leakage():
+def test_source_departure_preserves_attack_resolution_and_cross_source_isolation():
     game = Game(([MOUNTAIN] * 15, [MOUNTAIN] * 15), seed=84)
     game.begin_turn()
     first = game.create_permanent(RAPHAEL, 0)
@@ -119,4 +119,5 @@ def test_source_departure_blocks_attack_permission_and_cross_raphael_leakage():
             game.execute_priority_action(
                 game.legal_priority_actions(game.priority_state.player_index)[0]
             )
-    assert game._raphael_permissions.get(second.object_id) is None
+    assert game._raphael_permissions[second.object_id] == (game.turn, None)
+    assert game._raphael_permission_for(0, card) == first.object_id
