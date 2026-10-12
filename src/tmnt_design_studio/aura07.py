@@ -167,9 +167,17 @@ class AuraMixin:
         from tmnt_design_studio.engine07 import ActionKind, ActionOption
 
         options = []
-        for card in self.players[player_index].hand:
+        playable_exile = tuple(
+            card
+            for card in self.players[player_index].exile
+            if self._raphael_permission_for(player_index, card) is not None
+        )
+        for card in (*self.players[player_index].hand, *playable_exile):
             program = self.interpreter.aura_program(card.card)
-            if program is None or self.payment_plan(player_index, card) is None:
+            if (
+                program is None
+                or self.payment_plan(player_index, card, allow_exile=card in playable_exile) is None
+            ):
                 continue
             if priority and "Flash" not in self.interpreter.fragments(card.card):
                 continue

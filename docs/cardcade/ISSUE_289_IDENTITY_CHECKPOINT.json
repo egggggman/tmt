@@ -4,7 +4,7 @@
   "base_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
   "previous_checkpoint_sha256": "6fb3f210a07ac02282e7cffbfad619682282b49794b058fa10e216ebaa74275e",
   "before_runtime_sha256": "9d263bb6151f3060dcacd59482f14a35d7759f1f0daae2a54c28c6dc0cb561a2",
-  "semantic_runtime_sha256": "2e470001b485230e4504903e38313921a0a34c0a783eeb95b8250e236a5bf1f4",
+  "semantic_runtime_sha256": "4d1dd3aa00758c8bf150878bcc0379e0a92f9c604ca2339c478d3a1b533e24bb",
   "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
   "catalog_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
   "historical_runtime_sha256": "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924",

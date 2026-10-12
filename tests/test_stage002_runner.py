@@ -885,7 +885,7 @@ def test_ordinary_card_execution_key_is_not_normalized():
     assert report["authenticated_executed_references"][0]["semantic_key"] == "known-key"
 
 
-def test_parameterized_runner_preserves_acceptance_001_gameplay():
+def test_parameterized_runner_replays_current_runtime_without_rewriting_acceptance_001():
     script_path = ROOT / "scripts" / "run_acceptance_match_001.py"
     module_spec = importlib.util.spec_from_file_location("acceptance_match_001", script_path)
     assert module_spec is not None and module_spec.loader is not None
@@ -905,7 +905,12 @@ def test_parameterized_runner_preserves_acceptance_001_gameplay():
     generic = run_game(ROOT, spec)
     presence = generic.pop("stage002_presence")
     assert presence
-    assert generic == module.run(ROOT, 7001)
+    # The historical launcher retains its original pilot schedule. Current
+    # postcombat play and end-step priority intentionally change that runtime.
+    historical = module.run(ROOT, 7001)
+    assert historical["rng"]["seed"] == generic["rng"]["seed"] == 7001
+    assert historical["events"][0] == generic["events"][0]
+    assert generic == {k: v for k, v in run_game(ROOT, spec).items() if k != "stage002_presence"}
     generic["stage002_presence"] = presence
     catalog = load_catalog(ROOT)
     manifest = {"decks": [build_deck_manifest(ROOT, seat, catalog) for seat in spec.seats]}

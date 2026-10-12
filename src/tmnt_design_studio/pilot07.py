@@ -60,10 +60,7 @@ class AcceptancePilot:
 
     @staticmethod
     def _card(view: GameView, player: int, object_id: str | None):
-        return next(
-            (row for row in (*view.hands[player], *view.playable_exile) if row[0] == object_id),
-            None,
-        )
+        return next((row for row in view.hands[player] if row[0] == object_id), None)
 
     @staticmethod
     def _hand_cycling(view: GameView, option: ActionOption) -> bool:
@@ -200,6 +197,15 @@ class AcceptancePilot:
             ]
             if creatures:
                 return min(creatures, key=lambda row: (row[1][2], row[1][1]))[0]
+            # Engine-supplied playable actions outside the hand are still legal
+            # opportunities; choose one after hand creature development.
+            external = [
+                option
+                for option in casts
+                if self._card(view, option.player_index, option.object_id) is None
+            ]
+            if external:
+                return external[0]
             utility = [
                 option
                 for option in casts

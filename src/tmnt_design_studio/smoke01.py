@@ -362,6 +362,23 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
                 break
             _checked_action(game, game.advance_step, "advance after combat")
             game.check_invariants()
+            for stage in ("land", "activate", "damage", "destroy", "creature"):
+                options = game.legal_main_actions(active)
+                choice = chosen_pilot.choose_main_action(game.pilot_view(active), options, stage)
+                _checked_action(
+                    game,
+                    lambda choice=choice: game.execute_main_action(choice),
+                    "postcombat main action",
+                )
+                _drain_priority(game, chosen_pilot)
+                if game.is_terminal:
+                    break
+            if game.is_terminal:
+                break
+            _checked_action(game, game.advance_step, "advance to end step")
+            _drain_priority(game, chosen_pilot)
+            if game.is_terminal:
+                break
             _checked_action(game, game.end_turn, "end turn")
         if not game.is_terminal:
             game.log("acceptance_incomplete", reason="turn_limit")

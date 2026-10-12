@@ -7951,10 +7951,20 @@ class Game(
                 object_id=card.object_id,
                 priority_epoch=state.epoch,
             )
-            for card in self.players[player_index].hand
+            for card in (
+                *self.players[player_index].hand,
+                *(
+                    candidate
+                    for candidate in self.players[player_index].exile
+                    if self._raphael_permission_for(player_index, candidate) is not None
+                ),
+            )
             if "Flash" in self.interpreter.fragments(card.card)
             and self.interpreter.cast_program(card.card).kind is CastKind.PERMANENT
-            and self.can_afford(player_index, card)
+            and self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is not None
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
@@ -7985,13 +7995,22 @@ class Game(
             if isinstance(card, CardObject) and option in self._flash_permanent_cast_options(
                 option.player_index
             ):
-                spell = self.announce_spell(option.player_index, card)
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
                 if spell is None:
                     raise ValueError("Flash permanent response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
-                spell = self.announce_spell(option.player_index, card, target)
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
                 if spell is None:
                     raise ValueError("Aura response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
@@ -8229,7 +8248,7 @@ class Game(
                 )
                 if spell is None:
                     raise ValueError("linked exile spell became illegal")
-                self.resolve_top_of_stack()
+                self._begin_priority_window(priority_player=option.player_index)
                 return True
             if self.interpreter.cast_program(obj.card).kind in {
                 CastKind.KICKED_CREATURE_PT,
@@ -11695,7 +11714,7 @@ class Game(
         """Compatibility helper: follow legal transitions through cleanup."""
         if self.step in {TurnStep.SETUP, TurnStep.CLEANUP}:
             raise ValueError("end_turn is legal only during an active turn")
-        while self.step is not TurnStep.POSTCOMBAT_MAIN:
+        while self.step not in {TurnStep.POSTCOMBAT_MAIN, TurnStep.END_STEP}:
             if self.step is TurnStep.COMBAT_DAMAGE:
                 self.resolve_combat_damage()
             else:

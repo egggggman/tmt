@@ -140,7 +140,6 @@ class GameViewV2:
     hands: tuple[tuple[tuple[str, str, int, bool], ...], ...]
     battlefields: tuple[tuple[BattlefieldViewV2, ...], ...]
     hand_sizes: tuple[int, ...]
-    playable_exile: tuple[tuple[str, str, int, bool], ...] = ()
     schema_version: int = field(default=2, init=False)
 
 
@@ -231,11 +230,6 @@ def pilot_view(game: Game, observer_index: int) -> GameViewV2:
         tuple(own_rows if i == observer_index else () for i in range(2)),
         context.battlefields,
         context.hand_sizes,
-        tuple(
-            (card.object_id, card.name, card.mana_value, "Creature" in card.type_line)
-            for card in game.players[observer_index].exile
-            if game._raphael_permission_for(observer_index, card) is not None
-        ),
     )
 
 
