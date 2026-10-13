@@ -7430,6 +7430,11 @@ class Game(
         elif previous is TurnStep.SETUP:
             self._turn = 1
             self._active_player = 0
+        for index in range(len(self.players)):
+            before = self.floating_mana.snapshot(index)
+            if before:
+                self.floating_mana.empty(index)
+                self.log("floating_mana_emptied", player=self.players[index].name, mana=before)
         self._step = step
         self.log("step_started", step=step.value, previous_step=previous.value)
         self._on_enter_step(step)
@@ -9781,6 +9786,8 @@ class Game(
                     mana is not None
                     and semantics.program.effect_kind is ActivatedEffectKind.ADD_MANA
                 ):
+                    if source.card.is_land:
+                        continue  # the land payment planner already selects and taps lands
                     options.extend(
                         ActionOption(
                             ActionKind.ACTIVATE_ABILITY,
@@ -9863,6 +9870,7 @@ class Game(
             for fragment in self.interpreter.fragments(source.rules_card)
             for mana in (self.interpreter.mana_ability_program(fragment),)
             if mana is not None
+            and not source.card.is_land
             and self.activation_payment_plan(player_index, source, fragment) is not None
             for color in mana.colors
         )
@@ -9884,7 +9892,7 @@ class Game(
 
     def _hand_activation_mana_sources(
         self, player_index: int, card: CardObject, fragment: str
-    ) -> tuple[Permanent, ...] | None:
+    ) -> tuple[tuple[Permanent, ...], tuple[str, ...]] | None:
         if (
             not self.is_authoritative(card, "hand")
             or card.owner != player_index
@@ -9908,11 +9916,13 @@ class Game(
             for land in self.players[player_index].battlefield
             if land.card.is_land and not land.tapped and self.is_authoritative(land, "battlefield")
         ]
-        selected = self._select_mana_sources(requirement, available)
+        selected = self._plan_mana_with_floating(
+            player_index, requirement, available, "activate_ability"
+        )
         if selected is None:
             return None
-        _floating, chosen = selected
-        return tuple(chosen)
+        _floating, event_ids, chosen = selected
+        return tuple(chosen), event_ids
 
     def announce_hand_activated_ability(
         self, player_index: int, card: CardObject, fragment: str
@@ -9933,9 +9943,10 @@ class Game(
             )
         ):
             return None
-        lands = self._hand_activation_mana_sources(player_index, card, fragment)
-        if lands is None:
+        payment = self._hand_activation_mana_sources(player_index, card, fragment)
+        if payment is None:
             return None
+        lands, floating_event_ids = payment
         semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
         assert semantics is not None
         owner = self.players[card.owner]
@@ -9981,6 +9992,9 @@ class Game(
                 self._objects.pop(ability.object_id, None)
             self._next_object_number = previous_number
             raise
+        self.floating_mana.consume_events(
+            player_index, floating_event_ids, ability.object_id, "activate_ability"
+        )
         self.activation_evidence.append(
             ActivationEvidence(
                 ability.object_id,
@@ -10009,6 +10023,7 @@ class Game(
             stack_object_id=ability.object_id,
             generic=semantics.program.cost.mana_cost,
             mana_source_ids=list(ability.mana_source_ids),
+            floating_event_ids=list(floating_event_ids),
             discard_source=True,
             discarded_destination_id=discarded.object_id,
         )
@@ -10096,12 +10111,12 @@ class Game(
         """Revalidate, transactionally pay, and put one activated ability on the stack."""
         if (
             not self.is_authoritative(source, "battlefield")
+            or (self.priority_state is not None and self.priority_state.resolution_pending)
             or (
                 player_index != self.active_player
                 and not (
                     self.priority_state is not None
                     and self.priority_state.player_index == player_index
-                    and self.stack
                 )
             )
             or (
@@ -10360,6 +10375,7 @@ class Game(
             generic=plan.requirement.generic,
             colored=list(plan.requirement.colored),
             mana_source_ids=list(plan.mana_source_ids),
+            floating_event_ids=list(plan.floating_event_ids),
             tap_source=plan.tap_source,
             sacrifice_source=plan.sacrifice_source,
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),

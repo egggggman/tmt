@@ -1,0 +1,318 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "0d953551f6faee293e74afb9642c75c8cc7a9c93142f64a4c0d7b45537d3832a",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-restricted-mana-casey_jones-krang",
+      "seed": 3022,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "05c1a54e44cc0e00e85613d300d54e4d8268acb4c96679f19aa8bf36a1badbea",
+      "event_count": 1678,
+      "restricted_productions": [
+        {
+          "source_id": "object-000179",
+          "event_id": "object-000190",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000179",
+          "event_id": "object-000213",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000192",
+          "event_id": "object-000227",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000179",
+          "event_id": "object-000248",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000192",
+          "event_id": "object-000265",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000192",
+          "event_id": "object-000279",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000192",
+          "event_id": "object-000291",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000192",
+          "event_id": "object-000306",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        }
+      ],
+      "mana_payment_events": [
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000227"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000248"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000291"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000306"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-restricted-mana-krang-casey_jones",
+      "seed": 3022,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "09ef7a6e06ffb8d1603140bde6923033195edc8ecadc545e3a2e9546ff04e7cd",
+      "event_count": 712,
+      "restricted_productions": [
+        {
+          "source_id": "object-000148",
+          "event_id": "object-000155",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000148",
+          "event_id": "object-000168",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000148",
+          "event_id": "object-000179",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000148",
+          "event_id": "object-000197",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000148",
+          "event_id": "object-000215",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        }
+      ],
+      "mana_payment_events": [
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000155"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000197"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000215"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-restricted-mana-casey_jones-raphael",
+      "seed": 3022,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "861eb182a8e2297cb31229c7fdba7921e5ced720aa083eb8471f30e2aa8924db",
+      "event_count": 641,
+      "restricted_productions": [],
+      "mana_payment_events": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-restricted-mana-raphael-casey_jones",
+      "seed": 3022,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "195e57c20b865d2216b0dd0e27f1d4e4d2f4aba36089d1bcb0327e8454f2f236",
+      "event_count": 835,
+      "restricted_productions": [
+        {
+          "source_id": "object-000142",
+          "event_id": "object-000146",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000142",
+          "event_id": "object-000157",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000142",
+          "event_id": "object-000168",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000177",
+          "event_id": "object-000192",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000177",
+          "event_id": "object-000206",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000177",
+          "event_id": "object-000217",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        },
+        {
+          "source_id": "object-000177",
+          "event_id": "object-000225",
+          "color": "R",
+          "quantity": 1,
+          "allowed_spending": [
+            "artifact_spell",
+            "activate_ability"
+          ]
+        }
+      ],
+      "mana_payment_events": [
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000146"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000192"
+          ]
+        },
+        {
+          "event": "cost_paid",
+          "floating_event_ids": [
+            "object-000206"
+          ]
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}

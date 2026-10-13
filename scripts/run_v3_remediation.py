@@ -70,6 +70,16 @@ def fixtures():
             )
         )
     rows.extend((p2.scry_fixture(), p2.sneak_boundary()))
+    # The sealed V3 fixtures predate explicit mana-color choices on ActionOption.
+    # Preserve their exact projection when the new optional choice is empty.
+    for row in rows:
+        for option in row["base"]["options"]:
+            if option.get("choice_ids") == []:
+                del option["choice_ids"]
+        for branch in row.get("branches", []):
+            option = branch.get("option", {})
+            if option.get("choice_ids") == []:
+                del option["choice_ids"]
     return rows
 
 

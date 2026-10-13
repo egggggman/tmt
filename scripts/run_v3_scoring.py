@@ -6,7 +6,7 @@ import argparse
 import hashlib
 import json
 import subprocess
-from dataclasses import asdict, fields, is_dataclass
+from dataclasses import MISSING, asdict, fields, is_dataclass
 from enum import Enum
 from pathlib import Path
 from typing import get_args, get_origin, get_type_hints
@@ -49,7 +49,11 @@ def decode(cls, value):
     if is_dataclass(cls):
         hints = get_type_hints(cls)
         result = cls(
-            **{f.name: decode(hints[f.name], value[f.name]) for f in fields(cls) if f.init}
+            **{
+                f.name: decode(hints[f.name], value[f.name]) if f.name in value else f.default
+                for f in fields(cls)
+                if f.init and (f.name in value or f.default is not MISSING)
+            }
         )
         return result
     return value
@@ -58,6 +62,11 @@ def decode(cls, value):
 def encode(value):
     if isinstance(value, Enum):
         return value.value
+    if isinstance(value, ActionOption):
+        encoded = asdict(value)
+        if not value.choice_ids:
+            del encoded["choice_ids"]  # historical sealed observations predate mana choices
+        return encode(encoded)
     if is_dataclass(value):
         return encode(asdict(value))
     if isinstance(value, (list, tuple)):
