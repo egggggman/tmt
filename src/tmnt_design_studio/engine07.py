@@ -252,6 +252,7 @@ class ActivationPaymentPlan:
     sacrifice_source: bool
     counter_target_id: str | None = None
     floating_event_ids: tuple[str, ...] = ()
+    other_sacrifice_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -352,6 +353,7 @@ class TriggerEffect(Enum):
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
+    ETB_ATTACH_EQUIPMENT = "etb_attach_equipment"
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
     ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
     ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
@@ -980,6 +982,7 @@ class Permanent:
     aura_creature_type: str | None = None
     aura_effect_ids: tuple[str, ...] = ()
     aura_attack_restrictions: tuple[tuple[str, str], ...] = ()
+    once_per_turn_activations: dict[str, int] = field(default_factory=dict)
 
     @property
     def rules_card(self):
@@ -4101,6 +4104,15 @@ class Game(
                 or fragment not in self.interpreter.fragments(source.rules_card)
             ):
                 raise ValueError("combat or end-step trigger has invalid event provenance")
+        if effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
+            self._authenticate_original_rules_event(event)
+            if (
+                event.kind is not RulesEventKind.PERMANENT_ENTERED
+                or event.subject_ids != (source.object_id,)
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or not self.interpreter.equipment_etb_attach(source.card, fragment)
+            ):
+                raise ValueError("equipment entry trigger lacks event provenance")
         if effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
             self._authenticate_original_rules_event(event)
             if (
@@ -4356,6 +4368,27 @@ class Game(
                     self._select_stun_target(ability, trigger)
                 if ability.effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
                     self._select_entry_damage_target(ability, trigger)
+                if ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
+                    eligible = tuple(
+                        sorted(
+                            permanent.object_id
+                            for permanent in self.players[trigger.controller].battlefield
+                            if self.is_authoritative(permanent, "battlefield")
+                            and permanent.is_creature
+                            and self._legal_targeting_protection(permanent, trigger.controller)
+                        )
+                    )
+                    if not eligible:
+                        self.log("equipment_entry_no_legal_target", source_id=trigger.source_id)
+                        continue
+                    ability.target_id = eligible[0]
+                    self.log(
+                        "equipment_entry_target_selected",
+                        stack_object_id=ability.object_id,
+                        event_id=trigger.event.event_id,
+                        target_id=ability.target_id,
+                        offered_ids=list(eligible),
+                    )
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
                 if (
@@ -4825,6 +4858,18 @@ class Game(
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
+            self._authenticate_original_rules_event(ability.event)
+            if (
+                ability.event.kind is not RulesEventKind.PERMANENT_ENTERED
+                or ability.event.subject_ids != (ability.source_id,)
+                or (ability.source_id, ability.controller)
+                not in ability.event.battlefield_authority
+                or not self.interpreter.equipment_etb_attach(
+                    ability.source_card, ability.oracle_fragment
+                )
+            ):
+                raise ValueError("equipment entry resolution lacks event provenance")
         if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
             self._validate_shredder_trigger(ability)
         if ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
@@ -4971,6 +5016,30 @@ class Game(
                     source_id=ability.source_id,
                     target_id=target.object_id if target is not None else None,
                 )
+        elif ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
+            equipment = self._objects.get(ability.source_id)
+            target = self._objects.get(ability.target_id or "")
+            legal = (
+                isinstance(equipment, Permanent)
+                and self.is_authoritative(equipment, "battlefield")
+                and "Equipment" in equipment.type_line
+                and isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.is_creature
+                and target.controller == ability.controller
+                and self._legal_targeting_protection(target, ability.controller)
+            )
+            if legal:
+                equipment.attached_to = target.object_id
+                equipment.attachment_timestamp = self._effect_timestamp()
+                self.refresh_static_pt_modifiers()
+            self.log(
+                "equipment_entry_attach_resolved",
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                target_id=ability.target_id,
+                attached=legal,
+            )
         elif ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             target_id = self._rock_soldiers_targets.get(ability.object_id)
             target = self._objects.get(target_id) if target_id else None
@@ -5898,6 +5967,7 @@ class Game(
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ETB_ANY_TARGET_DAMAGE,
+                TriggerEffect.ETB_ATTACH_EQUIPMENT,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
@@ -6826,6 +6896,7 @@ class Game(
             TriggerEffect.CREATE_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.ETB_ANY_TARGET_DAMAGE,
+            TriggerEffect.ETB_ATTACH_EQUIPMENT,
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_SELF_LIFE_GAIN,
@@ -6875,6 +6946,12 @@ class Game(
                     if self.interpreter.entry_any_target_damage_program(permanent.card, fragment):
                         self._enqueue_trigger(
                             event, permanent, fragment, TriggerEffect.ETB_ANY_TARGET_DAMAGE
+                        )
+            if TriggerEffect.ETB_ATTACH_EQUIPMENT in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    if self.interpreter.equipment_etb_attach(permanent.card, fragment):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_ATTACH_EQUIPMENT
                         )
             if TriggerEffect.ETB_KRANG_REFILL in enabled:
                 for fragment in self.interpreter.fragments(permanent.rules_card):
@@ -8756,6 +8833,7 @@ class Game(
                     option.oracle_fragment,
                     target_ids=target_ids,
                     choice_ids=option.choice_ids,
+                    other_sacrifice_id=option.cost_object_id,
                 )
                 is not None
             )
@@ -9819,7 +9897,12 @@ class Game(
         return ManaRequirement(generic, tuple(colored))
 
     def activation_payment_plan(
-        self, player_index: int, source: Permanent, oracle_fragment: str
+        self,
+        player_index: int,
+        source: Permanent,
+        oracle_fragment: str,
+        *,
+        other_sacrifice_id: str | None = None,
     ) -> ActivationPaymentPlan | None:
         """Build a deterministic activation payment without mutating game state."""
         if (
@@ -9841,6 +9924,20 @@ class Game(
         ):
             return None
         cost = semantics.program.cost
+        if cost.sacrifice_other_nonland:
+            if source.once_per_turn_activations.get(oracle_fragment) == self.turn:
+                return None
+            eligible = tuple(
+                permanent.object_id
+                for permanent in self.players[player_index].battlefield
+                if permanent is not source
+                and self.is_authoritative(permanent, "battlefield")
+                and "Land" not in permanent.type_line.split(" — ")[0].split()
+            )
+            if other_sacrifice_id not in eligible:
+                return None
+        elif other_sacrifice_id is not None:
+            return None
         requirement = self.activation_mana_requirement(cost.mana_cost)
         if requirement is None:
             return None
@@ -9892,6 +9989,7 @@ class Game(
             cost.sacrifice_source,
             counter_target_id,
             floating_event_ids,
+            other_sacrifice_id,
         )
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -9905,12 +10003,26 @@ class Game(
         options: list[ActionOption] = []
         for source in self.players[player_index].battlefield:
             for fragment in self.interpreter.fragments(source.rules_card):
-                plan = self.activation_payment_plan(player_index, source, fragment)
-                if plan is None:
-                    continue
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
                 if semantics is None or not semantics.coverage.fully_supported:
                     continue
+                cost_options = (
+                    tuple(
+                        permanent.object_id
+                        for permanent in self.players[player_index].battlefield
+                        if permanent is not source
+                        and "Land" not in permanent.type_line.split(" — ")[0].split()
+                    )
+                    if semantics.program.cost.sacrifice_other_nonland
+                    else (None,)
+                )
+                first_cost = cost_options[0] if cost_options else None
+                plan = self.activation_payment_plan(
+                    player_index, source, fragment, other_sacrifice_id=first_cost
+                )
+                if plan is None:
+                    continue
+                first_option_index = len(options)
                 mana = self.interpreter.mana_ability_program(fragment)
                 if (
                     mana is not None
@@ -9975,13 +10087,18 @@ class Game(
                         )
                 elif semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT:
                     for target in self.players[player_index].battlefield:
-                        if target.card.is_creature and target.controller == player_index:
+                        if (
+                            target.is_creature
+                            and target.controller == player_index
+                            and self._legal_targeting_protection(target, player_index)
+                        ):
                             options.append(
                                 ActionOption(
                                     ActionKind.ACTIVATE_ABILITY,
                                     player_index,
                                     object_id=source.object_id,
                                     target_id=target.object_id,
+                                    cost_object_id=first_cost,
                                     oracle_fragment=fragment,
                                 )
                             )
@@ -9994,6 +10111,12 @@ class Game(
                             oracle_fragment=fragment,
                         )
                     )
+                if semantics.program.cost.sacrifice_other_nonland:
+                    chosen = tuple(options[first_option_index:])
+                    for additional_cost in cost_options[1:]:
+                        options.extend(
+                            replace(option, cost_object_id=additional_cost) for option in chosen
+                        )
         return tuple(options)
 
     def _legal_activated_damage_target(self, target: object, controller: int) -> bool:
@@ -10261,6 +10384,7 @@ class Game(
         *,
         target_ids: tuple[str, ...] = (),
         choice_ids: tuple[str, ...] = (),
+        other_sacrifice_id: str | None = None,
     ) -> ActivatedAbilityObject | None:
         """Revalidate, transactionally pay, and put one activated ability on the stack."""
         if (
@@ -10362,7 +10486,8 @@ class Game(
                 not isinstance(target, Permanent)
                 or not self.is_authoritative(target, "battlefield")
                 or target.controller != player_index
-                or not target.card.is_creature
+                or not target.is_creature
+                or not self._legal_targeting_protection(target, player_index)
             ):
                 return None
         elif targeted_damage:
@@ -10372,8 +10497,13 @@ class Game(
                 return None
         elif target_ids or semantics.program.target_count:
             return None
-        plan = self.activation_payment_plan(player_index, source, oracle_fragment)
+        plan = self.activation_payment_plan(
+            player_index, source, oracle_fragment, other_sacrifice_id=other_sacrifice_id
+        )
         if plan is None:
+            return None
+        other_sacrifice = self._objects.get(plan.other_sacrifice_id or "")
+        if plan.other_sacrifice_id is not None and not isinstance(other_sacrifice, Permanent):
             return None
         mana_sources: list[Permanent] = []
         for object_id in plan.mana_source_ids:
@@ -10507,6 +10637,18 @@ class Game(
             plan.counter_target_id,
         )
         self.activation_evidence.append(evidence)
+        if isinstance(other_sacrifice, Permanent):
+            destination = self.move_object(
+                other_sacrifice, "graveyard", reason="equipment_activation_sacrifice_cost"
+            )
+            source.once_per_turn_activations[oracle_fragment] = self.turn
+            self.log(
+                "activation_other_sacrifice_paid",
+                stack_object_id=ability.object_id,
+                source_id=source.object_id,
+                cost_object_id=other_sacrifice.object_id,
+                destination_object_id=destination.object_id,
+            )
         if sacrificed is not None:
             self.log(
                 "zone_changed",
@@ -10551,6 +10693,7 @@ class Game(
             tap_source=plan.tap_source,
             sacrifice_source=plan.sacrifice_source,
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
+            other_sacrifice_id=plan.other_sacrifice_id,
         )
         self.floating_mana.consume_events(
             player_index, plan.floating_event_ids, ability.object_id, "activate_ability"
@@ -10585,7 +10728,7 @@ class Game(
             source_id=source.object_id,
             controller=self.players[player_index].name,
         )
-        if sacrificed is not None:
+        if sacrificed is not None or isinstance(other_sacrifice, Permanent):
             self.check_state_based_actions()
         if self.priority_state is None:
             self._begin_priority_window()
@@ -11094,7 +11237,8 @@ class Game(
                 and isinstance(target, Permanent)
                 and self.is_authoritative(target, "battlefield")
                 and target.controller == ability.controller
-                and target.card.is_creature
+                and target.is_creature
+                and self._legal_targeting_protection(target, ability.controller)
             )
             if legal:
                 source_permanent.attached_to = target.object_id
@@ -13366,6 +13510,13 @@ class Game(
                 )
                 if invalid_counters:
                     raise AssertionError("counter quantities must be nonnegative integers")
+                if any(
+                    fragment not in self.interpreter.fragments(permanent.card)
+                    or turn > self.turn
+                    or turn < 1
+                    for fragment, turn in permanent.once_per_turn_activations.items()
+                ):
+                    raise AssertionError("once-per-turn activation marker is invalid")
                 for modifier in permanent.pt_modifiers:
                     if modifier.duration not in {"persistent", "until_end_of_turn"}:
                         raise AssertionError("unknown P/T modifier duration")
@@ -14138,6 +14289,7 @@ class Game(
                             "damage": x.damage,
                             "deathtouch_damage": x.deathtouch_damage,
                             "counters": dict(x.counters),
+                            "once_per_turn_activations": dict(x.once_per_turn_activations),
                             "pt_modifiers": [
                                 {
                                     "power": modifier.power,
