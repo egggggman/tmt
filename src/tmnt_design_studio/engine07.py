@@ -6753,7 +6753,7 @@ class Game(
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_ARTIFACT_DRAW
                     )
-        if "Artifact" in entering.type_line and not entering.card.is_creature:
+        if not entering.is_creature:
             return
         for source in list(self.players[entering.controller].battlefield):
             if source is entering:
@@ -6846,7 +6846,7 @@ class Game(
         for permanent in entering:
             event = self._new_rules_event(
                 RulesEventKind.CREATURE_ENTERED
-                if permanent.card.is_creature
+                if permanent.is_creature
                 else RulesEventKind.PERMANENT_ENTERED,
                 permanent.controller,
                 (permanent.object_id,),
@@ -7239,6 +7239,17 @@ class Game(
                             semantics = self.interpreter.equipment_static_semantics(
                                 source.card, fragment
                             )
+                            scaled = self.interpreter.equipment_scaled_static_semantics(
+                                source.card, fragment
+                            )
+                            if scaled is not None:
+                                power_per, toughness_per, quality = scaled
+                                count = sum(
+                                    quality
+                                    in permanent.type_line.casefold().split(" — ", 1)[0].split()
+                                    for permanent in self.players[source.controller].battlefield
+                                )
+                                semantics = (power_per * count, toughness_per * count, None)
                             if semantics is None:
                                 continue
                             power, toughness, _keyword = semantics
@@ -10285,6 +10296,13 @@ class Game(
         ):
             return None
         if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER and (
+            player_index != self.active_player
+            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            or self.stack
+            or self.priority_state is not None
+        ):
+            return None
+        if semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT and (
             player_index != self.active_player
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
             or self.stack

@@ -5,7 +5,14 @@ from pathlib import Path
 
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, StrikeKeyword
-from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, load_facts
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    CardFact,
+    Game,
+    TurnStep,
+    load_facts,
+)
 
 LAND = CardFact("Mountain", "", 0, "Basic Land — Mountain")
 BEAR = CardFact("Runner", "{R}", 1, "Creature", power=2, toughness=2)
@@ -17,6 +24,14 @@ EQUIPMENT = CardFact(
     "Equipped creature gets +1/+0 and has haste.\n"
     "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)",
 )
+SCALED_EQUIPMENT = CardFact(
+    "Renamed Arsenal",
+    "{2}{R}",
+    3,
+    "Artifact — Equipment",
+    "Equipped creature gets +1/+0 for each artifact you control.\nEquip {R}",
+)
+OTHER_ARTIFACT = CardFact("Renamed Bauble", "{1}", 1, "Artifact")
 
 
 def setup(card=EQUIPMENT):
@@ -113,3 +128,132 @@ def test_equipment_granted_haste_obeys_aura_ability_loss_timestamp():
     game.move_object(aura, "graveyard", reason="test_aura_removed")
     assert game._has_keyword(creature, "Haste")
     game.check_invariants()
+
+
+def test_frozen_bare_equip_and_scaled_bonus_are_oracle_derived():
+    root = Path(__file__).resolve().parents[1]
+    catalog = load_card_data(
+        root / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json",
+        root / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json",
+    )
+    frozen = load_facts(catalog, {"Improvised Arsenal"})["Improvised Arsenal"]
+    interpreter = CardInterpreter()
+    fragment = "Equipped creature gets +1/+0 for each artifact you control."
+    assert fragment in frozen.oracle_text
+    assert interpreter.equipment_scaled_static_semantics(frozen, fragment) == (1, 0, "artifact")
+    assert interpreter.equipment_scaled_static_semantics(SCALED_EQUIPMENT, fragment) == (
+        1,
+        0,
+        "artifact",
+    )
+    assert interpreter.activated_ability_semantics(frozen, "Equip {R}").coverage.fully_supported
+    assert interpreter.activated_ability_semantics(
+        SCALED_EQUIPMENT, "Equip {R}"
+    ).coverage.fully_supported
+    assert (
+        interpreter.equipment_scaled_static_semantics(
+            replace(SCALED_EQUIPMENT, type_line="Artifact"), fragment
+        )
+        is None
+    )
+
+
+def test_bare_equip_payment_attachment_artifact_count_and_departure():
+    game, equipment, first, second = setup(SCALED_EQUIPMENT)
+    assert first.power == 2
+    equip(game, equipment, first)
+    assert first.power == 3  # Equipment itself is one controlled artifact.
+    assert first.toughness == 2
+    artifact = game.create_permanent(OTHER_ARTIFACT, 0)
+    game.refresh_static_pt_modifiers()
+    assert first.power == 4
+    assert any(
+        event["event"] == "pt_static_team_modifier_changed" and event["power"] == 2
+        for event in game.events
+    )
+    for land in game.players[0].battlefield:
+        if land.card.is_land:
+            land.tapped = False
+    equip(game, equipment, second)
+    assert first.power == 2 and second.power == 4
+    game.move_object(artifact, "graveyard", reason="test_artifact_removed")
+    game.refresh_static_pt_modifiers()
+    assert second.power == 3
+    game.move_object(equipment, "graveyard", reason="test_equipment_removed")
+    game.refresh_static_pt_modifiers()
+    assert second.power == 2
+    game.check_invariants()
+
+
+def test_bare_equip_timing_mana_target_and_stack_independence():
+    game, equipment, first, second = setup(SCALED_EQUIPMENT)
+    ability = "Equip {R}"
+    game._begin_priority_window(allow_empty=True, priority_player=0)
+    assert not any(
+        option.object_id == equipment.object_id and option.oracle_fragment == ability
+        for option in game.legal_priority_actions(0)
+    )
+    assert (
+        game.announce_activated_ability(0, equipment, ability, target_ids=(first.object_id,))
+        is None
+    )
+    game.priority_state = None
+    assert (
+        game.announce_activated_ability(0, equipment, ability, target_ids=(equipment.object_id,))
+        is None
+    )
+    assert (
+        game.announce_activated_ability(1, equipment, ability, target_ids=(first.object_id,))
+        is None
+    )
+    for land in game.players[0].battlefield:
+        if land.card.is_land:
+            land.tapped = True
+    assert (
+        game.announce_activated_ability(0, equipment, ability, target_ids=(first.object_id,))
+        is None
+    )
+    for land in game.players[0].battlefield:
+        if land.card.is_land:
+            land.tapped = False
+    announced = game.announce_activated_ability(
+        0, equipment, ability, target_ids=(first.object_id,)
+    )
+    assert announced is not None and announced.zone == "stack"
+    game.move_object(equipment, "graveyard", reason="test_response_removal")
+    while game.priority_state:
+        if game.priority_state.resolution_pending:
+            game.process_priority_resolution()
+        else:
+            game.execute_priority_action(
+                game.legal_priority_actions(game.priority_state.player_index)[0]
+            )
+    assert first.power == 2
+    assert any(event["event"] == "equipment_attach_failed_closed" for event in game.events)
+    game.check_invariants()
+
+
+def test_scaled_equipment_replay_and_combat_damage_use_current_power():
+    def run():
+        game, equipment, first, second = setup(SCALED_EQUIPMENT)
+        first.summoning_sick = False
+        equip(game, equipment, first)
+        game.create_permanent(OTHER_ARTIFACT, 0)
+        game.refresh_static_pt_modifiers()
+        assert first.power == 4
+        game.advance_to(TurnStep.DECLARE_ATTACKERS)
+        assert first in game.legal_attackers(0)
+        game.execute_attack_action(
+            next(
+                option
+                for option in game.legal_attack_options(0)
+                if option.attacker_ids == (first.object_id,)
+            )
+        )
+        game.execute_block_action(ActionOption(ActionKind.DECLARE_BLOCKERS, 1, blocks=()))
+        game.resolve_combat_damage()
+        assert game.players[1].life == 16
+        game.check_invariants()
+        return game.snapshot(), game.events
+
+    assert run() == run()

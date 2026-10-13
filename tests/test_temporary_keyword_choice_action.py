@@ -30,6 +30,8 @@ SOURCE = CardFact(
     toughness=2,
     oracle_id="generic-bat",
 )
+ENCHANTMENT = CardFact("Renamed Class", "{1}{R}", 2, "Enchantment — Class")
+ARTIFACT = CardFact("Renamed Device", "{1}", 1, "Artifact")
 
 
 def game(*, choice="flying"):
@@ -47,6 +49,47 @@ def create_trigger(current, source):
     assert isinstance(ability, TriggeredAbilityObject)
     assert ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE
     return ability
+
+
+@pytest.mark.parametrize("noncreature", [ENCHANTMENT, ARTIFACT, PLAINS])
+def test_noncreature_permanent_entry_never_queues_alliance(noncreature):
+    current = game(choice="flying")
+    source = current.create_permanent(SOURCE, 0)
+    entering = current.create_permanent(noncreature, 0)
+    current._process_creature_entered_triggers(entering, defer_triggers=True)
+
+    assert not any(
+        item["event"] == "trigger_pending" and item["source"] == SOURCE.name
+        for item in current.events
+    )
+    assert current.stack == []
+    event = next(
+        item
+        for item in current.events
+        if item["event"] == "rules_event" and item["subject_ids"] == [entering.object_id]
+    )
+    assert event["rules_event"] == "permanent_entered"
+    assert source.temporary_keyword_effects == []
+    current.check_invariants()
+
+
+def test_creature_entry_after_noncreature_still_triggers_and_expires():
+    current = game(choice="menace")
+    current.begin_turn()
+    source = current.create_permanent(SOURCE, 0)
+    entry = current.create_permanent(ENCHANTMENT, 0)
+    current._process_creature_entered_triggers(entry, defer_triggers=True)
+    creature = current.create_permanent(BEAR, 0)
+    current._process_creature_entered_triggers(creature, defer_triggers=True)
+    ability = current.stack[-1]
+    assert ability.event.subject_ids == (creature.object_id,)
+    current.resolve_top_of_stack()
+    assert current.has_temporary_keyword(source, TemporaryKeyword.MENACE)
+    current.advance_to(TurnStep.COMBAT_DAMAGE)
+    current.resolve_combat_damage()
+    current.advance_to(TurnStep.CLEANUP)
+    assert not current.has_temporary_keyword(source, TemporaryKeyword.MENACE)
+    current.check_invariants()
 
 
 def pass_priority(current):
