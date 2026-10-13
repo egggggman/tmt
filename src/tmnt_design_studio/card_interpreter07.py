@@ -899,11 +899,38 @@ class CardInterpreter:
         r"^When this Equipment enters, attach it to target creature you control\.$",
         re.I,
     )
+    EQUIPMENT_GRANTED_COMBAT = re.compile(
+        r"^Equipped creature gets \+(?P<power>\d+)/\+(?P<toughness>\d+) and has "
+        r'"Whenever this creature deals combat damage, untap it and you gain '
+        r'(?P<life>\d+) life\."$',
+        re.I,
+    )
+    EQUIPMENT_SUBTYPE_ENTRY_ATTACH = re.compile(
+        r"^Whenever a (?P<subtype>[A-Za-z]+) you control enters, "
+        r"you may attach this Equipment to it\.$",
+        re.I,
+    )
 
     def equipment_etb_attach(self, card: CardDefinition, fragment: str) -> bool:
         return "Equipment" in card.type_line and bool(
             self.EQUIPMENT_ETB_ATTACH.fullmatch(fragment.strip())
         )
+
+    def equipment_granted_combat_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int, int] | None:
+        if "Equipment" not in card.type_line:
+            return None
+        match = self.EQUIPMENT_GRANTED_COMBAT.fullmatch(fragment.strip())
+        if match is None or int(match["life"]) <= 0:
+            return None
+        return int(match["power"]), int(match["toughness"]), int(match["life"])
+
+    def equipment_subtype_entry_attach(self, card: CardDefinition, fragment: str) -> str | None:
+        if "Equipment" not in card.type_line:
+            return None
+        match = self.EQUIPMENT_SUBTYPE_ENTRY_ATTACH.fullmatch(fragment.strip())
+        return match["subtype"] if match is not None else None
 
     @classmethod
     def _is_canonical_food_source(cls, card: CardDefinition) -> bool:
@@ -2073,6 +2100,9 @@ class CardInterpreter:
         """A bounded, continuously evaluated equipped-creature P/T and keyword clause."""
         if "Equipment" not in card.type_line:
             return None
+        granted = self.equipment_granted_combat_semantics(card, fragment)
+        if granted is not None:
+            return granted[0], granted[1], None
         match = re.fullmatch(
             r"Equipped creature gets \+(?P<power>\d+)/\+(?P<toughness>\d+)"
             r"(?: and has (?P<keyword>haste|vigilance|trample|double strike))?\.",
@@ -3213,6 +3243,8 @@ class CardInterpreter:
             if self.equipment_static_semantics(card, fragment) is not None:
                 continue
             if self.equipment_etb_attach(card, fragment):
+                continue
+            if self.equipment_subtype_entry_attach(card, fragment) is not None:
                 continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
