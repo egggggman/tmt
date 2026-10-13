@@ -124,6 +124,27 @@ class AcceptancePilot:
         casts = [option for option in options if option.kind is ActionKind.CAST]
         if stage == "damage":
             battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+            creature_damage = [
+                option
+                for option in casts
+                if option.choice_ids
+                and option.choice_ids[0] in battlefield
+                and option.target_id in battlefield
+                and battlefield[option.choice_ids[0]].controller == option.player_index
+                and battlefield[option.target_id].controller != option.player_index
+                and (battlefield[option.choice_ids[0]].power or 0) > 0
+                and (battlefield[option.target_id].toughness or 0)
+                - battlefield[option.target_id].damage
+                <= (battlefield[option.choice_ids[0]].power or 0)
+            ]
+            if creature_damage:
+                return max(
+                    creature_damage,
+                    key=lambda option: (
+                        battlefield[option.target_id].power or 0,
+                        option.target_id,
+                    ),
+                )
             modifiers = [
                 option
                 for option in casts

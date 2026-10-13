@@ -162,7 +162,6 @@ class ActionOption:
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
     choice_ids: tuple[str, ...] = ()
-    choice_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -870,6 +869,7 @@ class StackObject:
     controller: int
     cast_kind: CastKind
     target_id: str | None = None
+    source_target_id: str | None = None
     kicker_sacrifice_id: str | None = None
     sneak_returned_attacker_id: str | None = None
     sneak_returned_hand_id: str | None = None
@@ -7659,6 +7659,21 @@ class Game(
                     for target in opponent.battlefield
                     if self._legal_damage_target(target, player_index)
                 )
+            elif kind is CastKind.CREATURE_POWER_DAMAGE:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        choice_ids=(source.object_id,),
+                        oracle_fragment=card.card.oracle_text,
+                    )
+                    for source in player.battlefield
+                    if self._legal_creature_power_source(source, player_index)
+                    for target in opponent.battlefield
+                    if self._legal_creature_power_recipient(target, player_index)
+                )
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
                     ActionOption(
@@ -8124,11 +8139,50 @@ class Game(
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
             *self._hand_targeted_removal_options(player_index),
+            *self._hand_creature_power_damage_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
             *self._counter_activation_options(player_index),
             *self._damage_activation_priority_options(player_index),
+        )
+
+    def _legal_creature_power_source(self, source: object, controller: int) -> bool:
+        return (
+            isinstance(source, Permanent)
+            and source.controller == controller
+            and self._legal_damage_target(source, controller)
+        )
+
+    def _legal_creature_power_recipient(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and target.controller != controller
+            and self._legal_damage_target(target, controller)
+        )
+
+    def _hand_creature_power_damage_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                choice_ids=(source.object_id,),
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=state.epoch,
+            )
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind is CastKind.CREATURE_POWER_DAMAGE
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            and self.payment_plan(player_index, card) is not None
+            for source in self.players[player_index].battlefield
+            if self._legal_creature_power_source(source, player_index)
+            for target in self.players[1 - player_index].battlefield
+            if self._legal_creature_power_recipient(target, player_index)
         )
 
     def _damage_activation_priority_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -8220,6 +8274,23 @@ class Game(
             ):
                 continue
             kind = self.interpreter.cast_program(card.card).kind
+            if kind is CastKind.CREATURE_POWER_DAMAGE:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        choice_ids=(source.object_id,),
+                        oracle_fragment=card.card.oracle_text,
+                        priority_epoch=state.epoch,
+                    )
+                    for source in self.players[player_index].battlefield
+                    if self._legal_creature_power_source(source, player_index)
+                    for target in self.players[1 - player_index].battlefield
+                    if self._legal_creature_power_recipient(target, player_index)
+                )
+                continue
             if kind is CastKind.KICKED_CREATURE_PT:
                 options.extend(
                     self._kicked_creature_pt_options(player_index, card, priority_epoch=state.epoch)
@@ -8322,6 +8393,20 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            if isinstance(card, CardObject) and option in self._hand_creature_power_damage_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target,
+                    source_target=source_target if isinstance(source_target, Permanent) else None,
+                )
+                if spell is None:
+                    raise ValueError("creature-power damage response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and option in self._hand_targeted_removal_options(
                 option.player_index
             ):
@@ -8340,6 +8425,7 @@ class Game(
                     target,
                     cast_from_exile=True,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
+                    source_target=source_target if isinstance(source_target, Permanent) else None,
                 )
                 if spell is None:
                     raise ValueError("linked instant became illegal at announcement")
@@ -8578,6 +8664,7 @@ class Game(
             if not isinstance(obj, CardObject):
                 raise ValueError("cast option does not identify a card object")
             target = self._objects.get(option.target_id or "")
+            source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
             if target is not None and not isinstance(target, Permanent):
                 raise ValueError("target option does not identify a permanent")
             if obj.name in {"Skateboard", "Spicy Oatmeal Pizza"}:
@@ -8598,6 +8685,7 @@ class Game(
                         if option.cost_object_id is not None
                         else None
                     ),
+                    source_target=source_target if isinstance(source_target, Permanent) else None,
                 )
                 if spell is None:
                     raise ValueError("linked exile spell became illegal")
@@ -8608,6 +8696,7 @@ class Game(
                 CastKind.TOP_CARD_SELECTION,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
+                CastKind.CREATURE_POWER_DAMAGE,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -8615,6 +8704,7 @@ class Game(
                     obj,
                     target,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
+                    source_target=source_target if isinstance(source_target, Permanent) else None,
                 )
                 if spell is None:
                     raise ValueError("shared spell became illegal at announcement")
@@ -11404,6 +11494,7 @@ class Game(
         *,
         cast_from_graveyard: bool = False,
         sacrifice_cost: Permanent | None = None,
+        source_target: Permanent | None = None,
     ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -11416,6 +11507,7 @@ class Game(
             target,
             cast_from_graveyard=cast_from_graveyard,
             sacrifice_cost=sacrifice_cost,
+            source_target=source_target,
         )
         if spell is None:
             return False
@@ -11431,6 +11523,7 @@ class Game(
         cast_from_graveyard: bool = False,
         cast_from_exile: bool = False,
         sacrifice_cost: Permanent | None = None,
+        source_target: Permanent | None = None,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -11458,6 +11551,7 @@ class Game(
                         CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                         CastKind.DAMAGE_3_OPPOSING_CREATURE,
                         CastKind.DEAL_DAMAGE,
+                        CastKind.CREATURE_POWER_DAMAGE,
                         CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE,
                         CastKind.OOZE_SPILL,
                         CastKind.COUNTER_TARGET_SPELL,
@@ -11467,6 +11561,12 @@ class Game(
                 or (
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind is CastKind.TARGETED_REMOVAL
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.CREATURE_POWER_DAMAGE
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -11540,6 +11640,13 @@ class Game(
                     "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
                 )
                 return None
+            target_id = target.object_id
+        elif program.kind is CastKind.CREATURE_POWER_DAMAGE:
+            if not self._legal_creature_power_source(
+                source_target, player_index
+            ) or not self._legal_creature_power_recipient(target, player_index):
+                return None
+            assert isinstance(target, Permanent)
             target_id = target.object_id
         elif program.kind is CastKind.OOZE_SPILL:
             if (
@@ -11635,6 +11742,9 @@ class Game(
             finality_on_entry=cast_from_graveyard,
             cast_from_raphael=cast_from_exile,
         )
+        if program.kind is CastKind.CREATURE_POWER_DAMAGE:
+            assert isinstance(source_target, Permanent)
+            spell.source_target_id = source_target.object_id
         if sacrifice_cost is not None:
             spell.kicker_sacrifice_id = sacrifice_cost.object_id
             self.move_object(sacrifice_cost, "graveyard", reason="kicker_sacrifice_cost")
@@ -11666,6 +11776,7 @@ class Game(
             ),
             stack_object_id=spell.object_id,
             target_id=target_id,
+            source_target_id=spell.source_target_id,
         )
         return spell
 
@@ -11872,6 +11983,11 @@ class Game(
                 and isinstance(target, Permanent)
                 and self._legal_targeted_removal_target(target, spell.controller, removal)
             )
+        elif spell.cast_kind is CastKind.CREATURE_POWER_DAMAGE:
+            damage_source = self._objects.get(spell.source_target_id or "")
+            legal_target = self._legal_creature_power_source(
+                damage_source, spell.controller
+            ) or self._legal_creature_power_recipient(target, spell.controller)
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = (
                 legal_target
@@ -11912,6 +12028,7 @@ class Game(
             CastKind.TOP_CARD_SELECTION,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
+            CastKind.CREATURE_POWER_DAMAGE,
         }:
             assert isinstance(target, Permanent)
         filter_plan = None
@@ -12094,6 +12211,46 @@ class Game(
                     filter_plan,
                     source_id=spell.object_id,
                     oracle_fragment=spell.card.oracle_text,
+                )
+        elif spell.cast_kind is CastKind.CREATURE_POWER_DAMAGE:
+            program = self.interpreter.creature_power_damage_program(
+                spell.card, spell.card.oracle_text
+            )
+            if program is None:
+                raise AssertionError("stacked creature-power damage lost its semantics")
+            source = self._objects.get(spell.source_target_id or "")
+            source_legal = self._legal_creature_power_source(source, spell.controller)
+            target_legal = self._legal_creature_power_recipient(target, spell.controller)
+            amount = max(0, source.power) if source_legal else 0
+            if source_legal and target_legal and amount > 0:
+                assert isinstance(source, Permanent) and isinstance(target, Permanent)
+                event = self.deal_damage(
+                    DamageTransaction(
+                        spell.controller,
+                        source,
+                        DamageTargetKind.CREATURE,
+                        amount,
+                        spell.card.oracle_text,
+                        target=target,
+                    )
+                )
+                self.log(
+                    "creature_power_damage_resolved",
+                    stack_object_id=spell.object_id,
+                    source_target_id=source.object_id,
+                    target_id=target.object_id,
+                    damage_event_id=event.event_id,
+                    amount=amount,
+                )
+            else:
+                self.log(
+                    "creature_power_damage_resolved_no_damage",
+                    stack_object_id=spell.object_id,
+                    source_target_id=spell.source_target_id,
+                    target_id=spell.target_id,
+                    source_legal=source_legal,
+                    target_legal=target_legal,
+                    amount=amount,
                 )
         elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             self.destroy(target)
@@ -13639,6 +13796,7 @@ class Game(
                         "controller": entry.controller,
                         "cast_kind": entry.cast_kind.value,
                         "target_id": entry.target_id,
+                        "source_target_id": entry.source_target_id,
                         "kicker_sacrifice_id": entry.kicker_sacrifice_id,
                         "sneak_returned_attacker_id": entry.sneak_returned_attacker_id,
                         "sneak_returned_hand_id": entry.sneak_returned_hand_id,

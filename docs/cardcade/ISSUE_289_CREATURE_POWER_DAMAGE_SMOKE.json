@@ -1,0 +1,79 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "61fcd7d0c5aeb1972fc5e531bc6b7d8168ec7b616feb1d39322d9e56819db4ed",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-creature-power-damage-michelangelo-raphael",
+      "seed": 3035,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "64d02138e4b59bbcedeb9fd68e5a1f70383d1eaf468abdf81f5a61c28d3ff5d4",
+      "event_count": 1649,
+      "creature_power_damage": [
+        {
+          "stack_object_id": "object-000237",
+          "source_target_id": "object-000232",
+          "target_id": "object-000226",
+          "damage_event_id": "event-000089",
+          "amount": 3
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-creature-power-damage-raphael-michelangelo",
+      "seed": 3035,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "5673bde2de81c2a86b7e7f2ee0a3dd4ee9eb25cfbdb8c9daea0a6df251293a9c",
+      "event_count": 649,
+      "creature_power_damage": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-creature-power-damage-michelangelo-leonardo",
+      "seed": 3035,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "17d3e1ac884816aea186bd95f9720d0e4634ccfee37faec285f1538151073c66",
+      "event_count": 1121,
+      "creature_power_damage": [
+        {
+          "stack_object_id": "object-000203",
+          "source_target_id": "object-000149",
+          "target_id": "object-000165",
+          "damage_event_id": "event-000073",
+          "amount": 3
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-creature-power-damage-leonardo-michelangelo",
+      "seed": 3035,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "132ccdb98719e3391410b23d2f8a3c46b1e0f4af71a494076b69b3e5bf34c147",
+      "event_count": 1399,
+      "creature_power_damage": [
+        {
+          "stack_object_id": "object-000196",
+          "source_target_id": "object-000182",
+          "target_id": "object-000192",
+          "damage_event_id": "event-000056",
+          "amount": 1
+        },
+        {
+          "stack_object_id": "object-000213",
+          "source_target_id": "object-000182",
+          "target_id": "object-000210",
+          "damage_event_id": "event-000067",
+          "amount": 1
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}
