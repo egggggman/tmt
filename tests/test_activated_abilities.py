@@ -557,9 +557,24 @@ def test_other_token_and_equipment_neighbors_are_not_enabled():
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 136 and len(recognized) == 164
-    assert len({item[0] for item in executable}) == 25 and len(executable) == 27
+    newly_executable_mana = {
+        item
+        for item in executable
+        if CardInterpreter.mana_ability_program(item[2]) is not None and item[1] != "Frog Butler"
+    }
+    assert {item[1] for item in newly_executable_mana} == {
+        "Ash Barrens",
+        "Chromatic Lantern",
+        "City of Brass",
+        "Grand Coliseum",
+        "Northampton Farm",
+        "Purple Dragon Punks",
+        "Turtle Lair",
+        "Weather Maker",
+    }
+    assert len({item[0] for item in executable}) == 33 and len(executable) == 35
     assert full == executable
-    assert {item[1] for item in executable} == {
+    assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
         "Does Machines",
         "Leonardo, Leader in Blue",
@@ -587,8 +602,12 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Zog, Triceraton Castaway",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
-    assert digest(executable) == EXECUTABLE_DIGEST
-    assert digest(full) == EXECUTABLE_DIGEST
+    assert (
+        digest([item for item in executable if item not in newly_executable_mana])
+        == EXECUTABLE_DIGEST
+    )
+    assert digest(executable) == "fdfff9c1d55fe254d7373994e9d78c5f91e5c200bc5f00140313325f076eb8b3"
+    assert digest(full) == digest(executable)
 
 
 def test_frozen_activation_memberships_and_unknown_universe_are_locked():
@@ -638,6 +657,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Rocksteady, Crash Courser",
         "Stockman, Mad Fly-entist",
         "Cool but Rude",
+        "Purple Dragon Punks",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",

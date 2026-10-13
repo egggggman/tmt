@@ -24,6 +24,7 @@ def test_frog_butler_produces_chosen_color_with_source_provenance():
     game._begin_priority_window()
     ability = game.announce_activated_ability(0, frog, FRAGMENT, choice_ids=("U",))
     assert ability is not None
+    assert ability.zone == "former" and game.stack == [dummy]
     while game.priority_state is not None:
         if game.priority_state.resolution_pending:
             game.process_priority_resolution()

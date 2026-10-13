@@ -156,7 +156,7 @@ def test_conditional_subtype_reduction_is_controller_scoped_and_nonstacking():
     assert next(e for e in current.events if e["event"] == "cost_paid")["generic"] == 1
 
 
-def test_frozen_krang_discount_executes_but_saved_payload_and_restricted_mana_remain_gaps():
+def test_frozen_krang_discount_executes_and_saved_payload_remains_a_gap():
     facts = frozen_facts()
     krang, saved, punks = (
         facts[name] for name in ("Krang, Master Mind", "Saved by the Shell", "Purple Dragon Punks")
@@ -186,7 +186,7 @@ def test_frozen_krang_discount_executes_but_saved_payload_and_restricted_mana_re
         interpreter.activated_ability_semantics(
             punks, interpreter.fragments(punks)[0]
         ).coverage.fully_supported
-        is False
+        is True
     )
     assert current._mana_colors(source) == ()
     current.players[0].battlefield[0].tapped = True
