@@ -8724,7 +8724,7 @@ class Game(
         fragment, semantics = interpreted
         program: SneakProgram = semantics.program
         assert program.mana_cost is not None
-        requirement = self.activation_mana_requirement(program.mana_cost)
+        requirement = self.casting_requirement(player_index, card, alternative=program.mana_cost)
         if requirement is None:
             return None
         available = [
@@ -9576,6 +9576,46 @@ class Game(
         if requirement.total != card.mana_value:
             return None
         return requirement
+
+    def casting_requirement(
+        self, player_index: int, card: CardFact | CardObject, *, alternative: str | None = None
+    ) -> ManaRequirement | None:
+        """Apply Oracle-derived generic discounts to the chosen spell cost."""
+        base = (
+            self.mana_requirement(card)
+            if alternative is None
+            else self.activation_mana_requirement(alternative)
+        )
+        if base is None:
+            return None
+        reduction = sum(
+            program.amount * (len(sources) if program.per_permanent else bool(sources))
+            for program, sources in self._casting_reductions(player_index, card)
+        )
+        return ManaRequirement(max(0, base.generic - reduction), base.colored)
+
+    def _casting_reductions(self, player_index: int, card: CardFact | CardObject):
+        """Return discount witnesses from current controlled permanents."""
+        if player_index not in range(2):
+            return ()
+        facts = card.card if isinstance(card, CardObject) else card
+        result = []
+        for fragment in self.interpreter.fragments(facts):
+            program = self.interpreter.generic_cost_reduction_program(facts, fragment)
+            if program is None:
+                continue
+            sources = tuple(
+                source.object_id
+                for source in self.players[player_index].battlefield
+                if self.is_authoritative(source, "battlefield")
+                and (
+                    program.quality in source.type_line.split(" — ", 1)[0].split()
+                    if program.per_permanent
+                    else program.quality in source.type_line.partition(" — ")[2].split()
+                )
+            )
+            result.append((program, sources))
+        return tuple(result)
 
     @staticmethod
     def activation_mana_requirement(mana_cost: str) -> ManaRequirement | None:
@@ -10830,7 +10870,7 @@ class Game(
         source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
         if not self.is_authoritative(card, source_zone) or card.owner != player_index:
             return None
-        requirement = self.mana_requirement(card)
+        requirement = self.casting_requirement(player_index, card)
         if requirement is None:
             return None
         available = [
@@ -10853,7 +10893,7 @@ class Game(
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
         if isinstance(card, CardObject):
             return self.payment_plan(player_index, card) is not None
-        requirement = self.mana_requirement(card)
+        requirement = self.casting_requirement(player_index, card)
         if requirement is None:
             return False
         available = [
@@ -10920,6 +10960,25 @@ class Game(
             colored=list(plan.requirement.colored),
             source_ids=list(plan.source_ids),
         )
+        printed = self.mana_requirement(card)
+        if printed is not None and plan.requirement.generic < printed.generic:
+            self.log(
+                "casting_cost_reduced",
+                player=self.players[plan.player_index].name,
+                card=card.name,
+                printed_generic=printed.generic,
+                paid_generic=plan.requirement.generic,
+                reductions=[
+                    {
+                        "oracle_fragment": program.oracle_fragment,
+                        "amount": program.amount,
+                        "per_permanent": program.per_permanent,
+                        "qualifying_source_ids": list(sources),
+                    }
+                    for program, sources in self._casting_reductions(plan.player_index, card)
+                    if sources
+                ],
+            )
         return spell
 
     def _commit_sneak_announcement(
