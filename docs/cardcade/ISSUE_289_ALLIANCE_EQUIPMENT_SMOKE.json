@@ -1,0 +1,225 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "d27c9c8f7aeb82a3311b6cc72586b6a5103c0f8ce333588fe13c41812e6c7e2d",
+  "alliance_reproduction": {
+    "game_id": "issue289-alliance-repro-michelangelo-raphael",
+    "seed": 3032,
+    "historical_failure": "permanent_entered_noncreature_queued_creature_entered_alliance",
+    "replay_equal": true,
+    "result_digest": "9723123121f1cd0d221f7474eee829dd499ed3e3ab32dec0d1ebdf0de71fea54",
+    "runtime_error": null,
+    "invalid_noncreature_alliance_triggers": 0
+  },
+  "equipment_game_count": 4,
+  "total_replay_count": 5,
+  "games": [
+    {
+      "game_id": "issue289-equipment-casey_jones-raphael",
+      "seed": 3045,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "4f0d5bd83962f51f92e62916c117f4b2ba1051817013d67f00d52069795ef466",
+      "event_count": 1084,
+      "equipment_attached": [
+        {
+          "stack_object_id": "object-000165",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000181",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000195",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000207",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000222",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000230",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        },
+        {
+          "stack_object_id": "object-000240",
+          "source_id": "object-000155",
+          "target_id": "object-000141"
+        }
+      ],
+      "scaled_power": [
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000141",
+          "power": 1
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000141",
+          "power": 2
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000141",
+          "power": 1
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000141",
+          "power": 2
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-equipment-raphael-casey_jones",
+      "seed": 3045,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "1c8b92fcdb2f0c59588d93e60aa0d91d4579866409a2c858ad850a364dbbcd56",
+      "event_count": 850,
+      "equipment_attached": [],
+      "scaled_power": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-equipment-casey_jones-shredder",
+      "seed": 3045,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "bf2121941d96409fb96df96501320e879c2e26171080be17b1594f1c32f6ca01",
+      "event_count": 1355,
+      "equipment_attached": [
+        {
+          "stack_object_id": "object-000165",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000174",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000183",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000191",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000196",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000205",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000208",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000213",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000223",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000231",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000235",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000241",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000245",
+          "source_id": "object-000155",
+          "target_id": "object-000164"
+        },
+        {
+          "stack_object_id": "object-000260",
+          "source_id": "object-000155",
+          "target_id": "object-000259"
+        }
+      ],
+      "scaled_power": [
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000164",
+          "power": 1
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000164",
+          "power": 2
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000164",
+          "power": 1
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000164",
+          "power": 2
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000164",
+          "power": 0
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000259",
+          "power": 2
+        },
+        {
+          "source_object_id": "object-000155",
+          "target_object_id": "object-000259",
+          "power": 0
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-equipment-shredder-casey_jones",
+      "seed": 3045,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "a70d3646b297c59328894678d1f3d08dddab5c777c647eb0e487715010a76342",
+      "event_count": 1440,
+      "equipment_attached": [],
+      "scaled_power": [],
+      "runtime_error": null
+    }
+  ]
+}
