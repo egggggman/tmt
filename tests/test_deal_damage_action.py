@@ -62,13 +62,16 @@ EXECUTABLE_NAMES = {
     "Mouser Foundry",
     "Raphael, Tough Turtle",
     "Slash, Reptile Rampager",
+    "Super Combo",
     "Swift Demise",
+    "Tenderize",
 }
 FULL_NAMES = {
     "Manhole Missile",
     "Mouser Foundry",
     "Raphael, Tough Turtle",
     "Slash, Reptile Rampager",
+    "Tenderize",
 }
 ROSTER_RECOGNIZED = {
     "Cool but Rude",
@@ -83,6 +86,7 @@ ROSTER_EXECUTABLE = {
     "Manhole Missile",
     "Mouser Foundry",
     "Raphael, Tough Turtle",
+    "Tenderize",
 }
 
 
@@ -435,16 +439,16 @@ def test_unsupported_trigger_parent_is_not_delivered_by_engine():
 def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, fully_supported = coverage_sets()
     assert len({member[0] for member in recognized}) == 28 and len(recognized) == 29
-    assert len({member[0] for member in executable}) == 12 and len(executable) == 12
-    assert len({member[0] for member in fully_supported}) == 4 and len(fully_supported) == 4
+    assert len({member[0] for member in executable}) == 14 and len(executable) == 14
+    assert len({member[0] for member in fully_supported}) == 5 and len(fully_supported) == 5
     assert {member[1] for member in recognized} == RECOGNIZED_NAMES
     assert {member[1] for member in executable} == EXECUTABLE_NAMES
     assert {member[1] for member in fully_supported} == FULL_NAMES
     assert digest(recognized) == "b8aa5f14cda90075a37af4cac2fab889d6c5f3299973cf4303f603e180e0d39a"
-    assert digest(executable) == "5c977d6a1386af69dc65c694dcb146d1e5b52a7278a085df61ae667b852a89f1"
+    assert digest(executable) == "e2e7b99f1714f4d185d19e5bb588a124bd029c18e61d3f2f11ea8a37de29afd9"
     assert (
         digest(fully_supported)
-        == "55640f037390d4cffcbf1c909623f1b4f8670d8187a2d31040877651cdda2ba0"
+        == "8dc71285015313faaa8e2e000c98858ba85b625aacdef3b82399adbb3df4f02e"
     )
 
 
@@ -465,6 +469,7 @@ def test_frozen_roster_memberships_are_locked():
         "Manhole Missile",
         "Mouser Foundry",
         "Raphael, Tough Turtle",
+        "Tenderize",
     }
     assert {name for name, cards in decks.items() if cards & ROSTER_RECOGNIZED} == {
         "casey_jones",
@@ -473,6 +478,7 @@ def test_frozen_roster_memberships_are_locked():
     }
     assert {name for name, cards in decks.items() if cards & ROSTER_EXECUTABLE} == {
         "casey_jones",
+        "michelangelo",
         "raphael",
     }
 

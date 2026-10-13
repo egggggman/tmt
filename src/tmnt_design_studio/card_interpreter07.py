@@ -29,6 +29,7 @@ class CastKind(Enum):
     DRAW_CARDS = "draw_cards"
     DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
     DEAL_DAMAGE = "deal_damage"
+    CREATURE_POWER_DAMAGE = "creature_power_damage"
     OOZE_SPILL = "ooze_spill"
     COUNTER_TARGET_SPELL = "counter_target_spell"
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
@@ -266,12 +267,12 @@ class DamageProgram:
     unsupported_reason: str | None = None
     retained_limitation: str | None = None
     additional_limitation: str | None = None
+    amount_source: str | None = None
 
     @property
     def executable(self) -> bool:
         return (
-            self.amount is not None
-            and self.amount > 0
+            ((self.amount is not None and self.amount > 0) or self.amount_source == "source_power")
             and self.target_kind is not None
             and self.target_scope in {"target_opponent", "each_opponent", "you", "target_creature"}
             and self.unsupported_reason is None
@@ -762,6 +763,11 @@ class CardInterpreter:
         r"each of those creatures)\b",
         re.IGNORECASE,
     )
+    CREATURE_POWER_DAMAGE = re.compile(
+        r"^Target creature you control deals damage equal to its power to "
+        r"target creature an opponent controls\.$",
+        re.IGNORECASE,
+    )
     SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
     STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
     TRAMPLE_KEYWORD = re.compile(r"\btrample\b", re.IGNORECASE)
@@ -1000,6 +1006,11 @@ class CardInterpreter:
             return CastProgram(CastKind.COUNTER_TARGET_SPELL)
         if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
             return CastProgram(CastKind.DAMAGE_3_OPPOSING_CREATURE)
+        if (
+            card.type_line.split(" — ", 1)[0] in {"Instant", "Sorcery"}
+            and self.creature_power_damage_program(card, card.oracle_text) is not None
+        ):
+            return CastProgram(CastKind.CREATURE_POWER_DAMAGE)
         damage = self.damage_semantic_coverage(card, card.oracle_text)
         if (
             damage is not None
@@ -1834,10 +1845,13 @@ class CardInterpreter:
             return None
         amount_text = (match.group("amount") or match.group("dynamic_amount")).casefold()
         amount = int(amount_text) if amount_text.isdecimal() else None
+        source_power = self.CREATURE_POWER_DAMAGE.fullmatch(fragment.strip()) is not None
         target_text = match.group("target").casefold()
         target_kind = None
         target_scope = None
-        amount_limitation = "dynamic_damage_amount_not_implemented" if amount is None else None
+        amount_limitation = (
+            "dynamic_damage_amount_not_implemented" if amount is None and not source_power else None
+        )
         targeting_limitation = None
         if target_text in {"target opponent", "each opponent", "you"}:
             target_kind = DamageTargetKind.PLAYER
@@ -1893,7 +1907,20 @@ class CardInterpreter:
             unsupported_reason,
             retained,
             additional_limitation,
+            "source_power" if source_power else None,
         )
+
+    def creature_power_damage_program(
+        self, card: CardDefinition, fragment: str
+    ) -> DamageProgram | None:
+        """A two-target damage spell with a battlefield creature as damage source."""
+        if (
+            card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}
+            or self.CREATURE_POWER_DAMAGE.fullmatch(fragment.strip()) is None
+        ):
+            return None
+        program = self.damage_program(fragment)
+        return program if program is not None and program.executable else None
 
     def damage_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -1914,6 +1941,9 @@ class CardInterpreter:
         if alliance:
             parent_executable = True
             parent_limitation = None
+        elif program.amount_source and card.oracle_text.strip() != fragment.strip():
+            parent_executable = False
+            parent_limitation = "damage_spell_additional_semantics_not_implemented"
         elif fragment.startswith("• "):
             parent_executable = False
             parent_limitation = "damage_choice_context_not_implemented"
@@ -1931,7 +1961,9 @@ class CardInterpreter:
             parent_limitation = (
                 None if parent_executable else "damage_activation_context_not_implemented"
             )
-        elif direct_spell:
+        elif direct_spell and (
+            not program.amount_source or card.type_line.split(" — ", 1)[0] in {"Instant", "Sorcery"}
+        ):
             parent_executable = True
             parent_limitation = None
         else:
