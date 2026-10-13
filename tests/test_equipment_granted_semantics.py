@@ -143,12 +143,22 @@ def test_combat_hit_waits_for_priority_untaps_recipient_and_gains_life():
     game.check_invariants()
 
 
-def test_blocking_prevents_player_hit_and_double_strike_gives_two_triggers():
+def test_blocking_creature_damage_triggers_and_double_strike_gives_two_player_triggers():
     game, _equipment, attacker = setup()
     blocker = game.create_permanent(WARRIOR, 1)
     combat(game, attacker, (blocker,))
     game.resolve_combat_damage()
-    assert not any(e["event"] == "equipment_granted_combat_resolved" for e in game.events)
+    assert game.players[1].life == 20 and game.players[0].life == 20
+    assert len(game.stack) == 1
+    resolve(game)
+    assert game.players[0].life == 22
+    assert (
+        next(e for e in game.events if e["event"] == "equipment_granted_combat_resolved")[
+            "damage_recipient_id"
+        ]
+        == blocker.object_id
+    )
+    game.check_invariants()
 
     game, _equipment, attacker = setup(creature=DOUBLE)
     combat(game, attacker)

@@ -312,6 +312,7 @@ class RulesEventKind(Enum):
     END_STEP_BEGAN = "end_step_began"
     DAMAGE_DEALT = "damage_dealt"
     COMBAT_DAMAGE_TO_PLAYER = "combat_damage_to_player"
+    COMBAT_DAMAGE_TO_CREATURE = "combat_damage_to_creature"
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
     DISCARD_DRAW = "discard_draw"
@@ -4088,11 +4089,20 @@ class Game(
                     source.ability_loss_timestamp is not None
                     and grant_source.attachment_timestamp <= source.ability_loss_timestamp
                 )
-                or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
-                or event.subject_ids != (source.object_id,)
+                or event.kind
+                not in {
+                    RulesEventKind.COMBAT_DAMAGE_TO_PLAYER,
+                    RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                }
+                or not event.subject_ids
+                or event.subject_ids[0] != source.object_id
                 or event.source_id != source.object_id
                 or event.player_index != source.controller
-                or event.target_player != 1 - source.controller
+                or (
+                    event.target_player != 1 - source.controller
+                    if event.kind is RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                    else event.target_player is not None or len(event.subject_ids) != 2
+                )
                 or (source.object_id, source.controller) not in event.battlefield_authority
                 or (grant_source.object_id, grant_source.controller)
                 not in event.battlefield_authority
@@ -4925,11 +4935,20 @@ class Game(
                     grant.card, ability.oracle_fragment
                 )
                 is None
-                or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                or event.kind
+                not in {
+                    RulesEventKind.COMBAT_DAMAGE_TO_PLAYER,
+                    RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                }
                 or event.source_id != source.object_id
-                or event.subject_ids != (source.object_id,)
+                or not event.subject_ids
+                or event.subject_ids[0] != source.object_id
                 or event.player_index != ability.controller
-                or event.target_player != 1 - ability.controller
+                or (
+                    event.target_player != 1 - ability.controller
+                    if event.kind is RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                    else event.target_player is not None or len(event.subject_ids) != 2
+                )
                 or event.amount is None
                 or event.amount <= 0
                 or (grant.object_id, grant.controller) not in event.battlefield_authority
@@ -5174,6 +5193,11 @@ class Game(
                 recipient_id=ability.target_id,
                 untapped=untapped,
                 life_gained=gain[2],
+                damage_recipient_id=(
+                    ability.event.subject_ids[1]
+                    if ability.event.kind is RulesEventKind.COMBAT_DAMAGE_TO_CREATURE
+                    else None
+                ),
             )
         elif ability.effect is TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH:
             recipient = self._objects.get(ability.target_id or "")
@@ -9563,6 +9587,27 @@ class Game(
         )
         return evidence
 
+    def _enqueue_equipment_combat_triggers(self, event: RulesEvent, recipient: Permanent) -> None:
+        """Grant combat triggers from Equipment attached at the damage event."""
+        for player in self.players:
+            for equipment in player.battlefield:
+                if equipment.attached_to != recipient.object_id:
+                    continue
+                for fragment in self.interpreter.fragments(equipment.rules_card):
+                    if (
+                        self.interpreter.equipment_granted_combat_semantics(
+                            equipment.card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event,
+                            recipient,
+                            fragment,
+                            TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+                            grant_source=equipment,
+                        )
+
     def resolve_combat_damage(self) -> CombatDamageStepEvidence:
         """Resolve exactly one authoritative CR 510.4 combat-damage step."""
         if (
@@ -9729,6 +9774,7 @@ class Game(
                         target_player=assignment.target_player,
                         amount=assignment.amount,
                     )
+                    self._enqueue_equipment_combat_triggers(event, source)
                     for fragment in self.interpreter.fragments(source.rules_card):
                         semantics = self.interpreter.combat_damage_draw_discard_semantic_coverage(
                             source.card, fragment
@@ -9737,30 +9783,21 @@ class Game(
                             self._enqueue_trigger(
                                 event, source, fragment, TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD
                             )
-                    for player in self.players:
-                        for equipment in player.battlefield:
-                            if equipment.attached_to != source.object_id:
-                                continue
-                            for fragment in self.interpreter.fragments(equipment.rules_card):
-                                if (
-                                    self.interpreter.equipment_granted_combat_semantics(
-                                        equipment.card, fragment
-                                    )
-                                    is not None
-                                ):
-                                    self._enqueue_trigger(
-                                        event,
-                                        source,
-                                        fragment,
-                                        TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
-                                        grant_source=equipment,
-                                    )
             else:
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
                 target.damage += assignment.amount
                 if assignment.amount > 0 and self.evaluated_deathtouch(source):
                     target.deathtouch_damage = True
+                if assignment.amount > 0:
+                    event = self._new_rules_event(
+                        RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                        source.controller,
+                        (source.object_id, target.object_id),
+                        source_id=source.object_id,
+                        amount=assignment.amount,
+                    )
+                    self._enqueue_equipment_combat_triggers(event, source)
                 self.log(
                     "combat_damage_assignment",
                     source=source.card.name,
