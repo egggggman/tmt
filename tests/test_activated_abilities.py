@@ -42,7 +42,8 @@ UNKNOWN_NAMES = {
     "Fast Forward",
     "Plague of Vermin",
 }
-RECOGNIZED_DIGEST = "8bfdfe58aecd9520d09a9290367609003aae8fc932c22f9fdd58d97b84f153e0"
+# Previous recognized digest: 8bfdfe58aecd9520d09a9290367609003aae8fc932c22f9fdd58d97b84f153e0
+RECOGNIZED_DIGEST = "26381c11430f8ac5eeb277aba4a7296e4497d788c1dfebfed95d71ae5fc5f3c1"
 # Previous runtime: dfaf418f90e12257bec9b36233a8e2567d8ba3226ddf841e1223189bd013898d
 EXECUTABLE_DIGEST = "204be94d8df7b7447d56f271c30c9093aa6b4b45b80bba23e6d11d550a530d68"
 
@@ -556,7 +557,7 @@ def test_other_token_and_equipment_neighbors_are_not_enabled():
 
 def test_authoritative_activation_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
-    assert len({item[0] for item in recognized}) == 136 and len(recognized) == 164
+    assert len({item[0] for item in recognized}) == 137 and len(recognized) == 165
     newly_executable_mana = {
         item
         for item in executable
@@ -572,7 +573,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    assert len({item[0] for item in executable}) == 42 and len(executable) == 44
+    assert len({item[0] for item in executable}) == 43 and len(executable) == 45
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -605,6 +606,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Conqueror's Flail",
         "Foot Chopper",
         "Improvised Arsenal",
+        "Shredder's Armor",
         "Shadowspear",
         "Sword of Hearth and Home",
         "Sword of Sinew and Steel",
@@ -613,9 +615,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "66212a031e9ae5b82a0c7ce5ee942792c215e5e85a3c39dd4bcf3c31c1828c3f"
+        == "e6579bf2ad84a91bce8df548cfc0be0e5e8ed3c5b494eda0227070e9aa72eb00"
     )
-    assert digest(executable) == "6366e63bb5fd99be401eb86f463001b54a5c4b2d46deafdcf5a221b7887393cd"
+    assert digest(executable) == "5fdd8a76f3421d156a2056487cc359f80007a446ae6ce868b3a2fec0bc563ad3"
     assert digest(full) == digest(executable)
 
 
@@ -643,7 +645,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     assert len(roster) == 102 and len(decks) == 10
     recognized_names = {item[1] for item in recognized} & roster
     executable_names = {item[1] for item in executable} & roster
-    assert len(recognized_names) == 45
+    assert len(recognized_names) == 46
     assert {name for name, cards in decks.items() if cards & recognized_names} == set(decks)
     assert executable_names == {
         "Fugitive Droid",
@@ -669,6 +671,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Cool but Rude",
         "Purple Dragon Punks",
         "Improvised Arsenal",
+        "Shredder's Armor",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",

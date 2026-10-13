@@ -531,6 +531,7 @@ class ActivationCostProgram:
     executable: bool
     limitations: tuple[str, ...] = ()
     discard_source: bool = False
+    sacrifice_other_nonland: bool = False
 
 
 class ActivatedEffectKind(Enum):
@@ -890,6 +891,19 @@ class CardInterpreter:
         r"Equip only as a sorcery\.)\))?$",
         re.I,
     )
+    EQUIP_SACRIFICE_ACTIVATION = re.compile(
+        r"^Equip—Sacrifice another nonland permanent\. Activate only once each turn\.$",
+        re.I,
+    )
+    EQUIPMENT_ETB_ATTACH = re.compile(
+        r"^When this Equipment enters, attach it to target creature you control\.$",
+        re.I,
+    )
+
+    def equipment_etb_attach(self, card: CardDefinition, fragment: str) -> bool:
+        return "Equipment" in card.type_line and bool(
+            self.EQUIPMENT_ETB_ATTACH.fullmatch(fragment.strip())
+        )
 
     @classmethod
     def _is_canonical_food_source(cls, card: CardDefinition) -> bool:
@@ -2508,6 +2522,36 @@ class CardInterpreter:
                 executable,
                 executable,
             )
+        if self.EQUIP_SACRIFICE_ACTIVATION.fullmatch(fragment.strip()):
+            executable = "Equipment" in card.type_line
+            limitations = () if executable else ("equipment_source_not_supported",)
+            program = ActivatedAbilityProgram(
+                "Sacrifice another nonland permanent",
+                "Attach to target creature you control.",
+                ActivationCostProgram(
+                    "",
+                    False,
+                    False,
+                    False,
+                    executable,
+                    limitations,
+                    sacrifice_other_nonland=True,
+                ),
+                ActivatedEffectKind.ATTACH_EQUIPMENT,
+                1,
+                False,
+                "Equip only as a sorcery. Activate only once each turn.",
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program,
+                SemanticCoverage(executable, executable, executable, limitations),
+                True,
+                executable,
+                executable,
+                executable,
+                executable,
+                executable,
+            )
         if ":" not in fragment:
             return None
         colon = self._top_level_colon(fragment)
@@ -3167,6 +3211,8 @@ class CardInterpreter:
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
             if self.equipment_static_semantics(card, fragment) is not None:
+                continue
+            if self.equipment_etb_attach(card, fragment):
                 continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
