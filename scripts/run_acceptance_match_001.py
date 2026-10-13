@@ -92,6 +92,15 @@ def run(root: Path, seed: int, pilot: Pilot | None = None) -> dict[str, object]:
                 game.execute_priority_action(priority_choice)
         while game.winner is None and game.step.value == "combat_damage":
             game.resolve_combat_damage()
+            while game.winner is None and game.priority_state is not None:
+                if game.priority_state.resolution_pending:
+                    game.process_priority_resolution()
+                    continue
+                priority_options = game.legal_priority_actions(game.priority_state.player_index)
+                priority_choice = pilot.choose_priority(
+                    game.priority_view(game.priority_state.player_index), priority_options
+                )
+                game.execute_priority_action(priority_choice)
         if game.winner is not None:
             break
         game.advance_step()
