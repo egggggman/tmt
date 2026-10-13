@@ -44,7 +44,7 @@ UNKNOWN_NAMES = {
 }
 RECOGNIZED_DIGEST = "8bfdfe58aecd9520d09a9290367609003aae8fc932c22f9fdd58d97b84f153e0"
 # Previous runtime: dfaf418f90e12257bec9b36233a8e2567d8ba3226ddf841e1223189bd013898d
-EXECUTABLE_DIGEST = "950f4288e713b0baff66e0395f0f8e947c4e72c8113e943685cea9e7274313ae"
+EXECUTABLE_DIGEST = "204be94d8df7b7447d56f271c30c9093aa6b4b45b80bba23e6d11d550a530d68"
 
 
 def game(seed=51):
@@ -572,7 +572,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    assert len({item[0] for item in executable}) == 33 and len(executable) == 35
+    assert len({item[0] for item in executable}) == 34 and len(executable) == 36
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -600,13 +600,14 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Jennika, Bad Apple Big Sister",
         "Cool but Rude",
         "Zog, Triceraton Castaway",
+        "Mouser Foundry",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
         == EXECUTABLE_DIGEST
     )
-    assert digest(executable) == "fdfff9c1d55fe254d7373994e9d78c5f91e5c200bc5f00140313325f076eb8b3"
+    assert digest(executable) == "51884e565312ebbf94066a47879337abfbc54363b71072fbaa0d65a7306139c5"
     assert digest(full) == digest(executable)
 
 
@@ -650,6 +651,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Hard-Won Jitte",
         "Skateboard",
         "Sewer-veillance Cam",
+        "Mouser Foundry",
         "Anchovy & Banana Pizza",
         "Guac & Marshmallow Pizza",
         "Spicy Oatmeal Pizza",

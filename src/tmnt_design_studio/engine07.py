@@ -939,6 +939,7 @@ class ActivatedAbilityObject:
     tap_source: bool
     sacrifice_source: bool = False
     sacrificed_destination_id: str | None = None
+    departure_event_id: str | None = None
     discarded_destination_id: str | None = None
     target_ids: tuple[str, ...] = ()
     choice_ids: tuple[str, ...] = ()
@@ -3063,6 +3064,7 @@ class Game(
                     RulesEventKind.PERMANENT_ENTERED,
                     RulesEventKind.CREATURE_ENTERED,
                     RulesEventKind.CARD_DISCARDED,
+                    RulesEventKind.PERMANENT_LEFT,
                 }
                 and (
                     event.subject_ids == (source.object_id,)
@@ -8126,6 +8128,33 @@ class Game(
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
             *self._counter_activation_options(player_index),
+            *self._damage_activation_priority_options(player_index),
+        )
+
+    def _damage_activation_priority_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.ACTIVATE_ABILITY,
+                player_index,
+                object_id=source.object_id,
+                target_id=target.object_id,
+                oracle_fragment=fragment,
+                priority_epoch=state.epoch,
+            )
+            for source in self.players[player_index].battlefield
+            for fragment in self.interpreter.fragments(source.rules_card)
+            for semantics in (self.interpreter.activated_ability_semantics(source.card, fragment),)
+            if semantics is not None
+            and semantics.coverage.fully_supported
+            and semantics.program.effect_kind
+            is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+            and self.activation_payment_plan(player_index, source, fragment) is not None
+            for player in self.players
+            for target in player.battlefield
+            if self._legal_activated_damage_target(target, player_index)
         )
 
     def _hand_targeted_removal_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -9813,6 +9842,22 @@ class Game(
                             )
                 elif (
                     semantics.program.effect_kind
+                    is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+                ):
+                    for player in self.players:
+                        for target in player.battlefield:
+                            if self._legal_activated_damage_target(target, player_index):
+                                options.append(
+                                    ActionOption(
+                                        ActionKind.ACTIVATE_ABILITY,
+                                        player_index,
+                                        object_id=source.object_id,
+                                        target_id=target.object_id,
+                                        oracle_fragment=fragment,
+                                    )
+                                )
+                elif (
+                    semantics.program.effect_kind
                     is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
                 ):
                     for target in self.players[player_index].battlefield:
@@ -9849,6 +9894,14 @@ class Game(
                         )
                     )
         return tuple(options)
+
+    def _legal_activated_damage_target(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and target.card.is_creature
+            and self._legal_targeting_protection(target, controller)
+        )
 
     def legal_mana_ability_actions(
         self, player_index: int, *, priority: bool = False
@@ -10155,6 +10208,10 @@ class Game(
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
         )
         targeted_equipment = semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT
+        targeted_damage = (
+            semantics.program.effect_kind
+            is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+        )
         mana_ability = self.interpreter.mana_ability_program(oracle_fragment)
         if mana_ability is None and (choice_ids or semantics.program.choices_required):
             return None
@@ -10200,6 +10257,11 @@ class Game(
                 or not target.card.is_creature
             ):
                 return None
+        elif targeted_damage:
+            if len(target_ids) != 1 or not self._legal_activated_damage_target(
+                self._objects.get(target_ids[0]), player_index
+            ):
+                return None
         elif target_ids or semantics.program.target_count:
             return None
         plan = self.activation_payment_plan(player_index, source, oracle_fragment)
@@ -10238,7 +10300,9 @@ class Game(
             if plan.sacrifice_source
             else ()
         )
-        departure_authority = self._battlefield_authority_snapshot() if utility_leaves else ()
+        departure_authority = (
+            self._battlefield_authority_snapshot() if plan.sacrifice_source else ()
+        )
         sacrificed: CardObject | None = None
         ability: ActivatedAbilityObject | None = None
         try:
@@ -10346,19 +10410,19 @@ class Game(
                 destination_zone="graveyard",
                 reason="activation_sacrifice_cost",
             )
-            if utility_leaves:
-                event = self._new_rules_event(
-                    RulesEventKind.PERMANENT_LEFT,
-                    player_index,
-                    (source.object_id,),
-                    source_id=source.object_id,
-                    battlefield_authority=departure_authority,
-                    last_known_battlefield=(
-                        (source.object_id, player_index, source.type_line, source.is_creature),
-                    ),
-                )
-                for fragment in utility_leaves:
-                    self._enqueue_trigger(event, source, fragment, TriggerEffect.UTILITY_TARGET)
+            event = self._new_rules_event(
+                RulesEventKind.PERMANENT_LEFT,
+                player_index,
+                (source.object_id,),
+                source_id=source.object_id,
+                battlefield_authority=departure_authority,
+                last_known_battlefield=(
+                    (source.object_id, player_index, source.type_line, source.is_creature),
+                ),
+            )
+            ability.departure_event_id = event.event_id
+            for fragment in utility_leaves:
+                self._enqueue_trigger(event, source, fragment, TriggerEffect.UTILITY_TARGET)
         self.log(
             "activation_announced",
             player=self.players[player_index].name,
@@ -10535,6 +10599,33 @@ class Game(
             or semantics.program != ability.program
         ):
             raise AssertionError("stacked activation no longer has executable semantics")
+        damage_departure_event: RulesEvent | None = None
+        if ability.program.effect_kind is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE:
+            source_object = self._objects.get(ability.source_id)
+            evidence = tuple(
+                item
+                for item in self.activation_evidence
+                if item.stack_object_id == ability.object_id
+            )
+            damage_departure_event = self._rules_events.get(ability.departure_event_id or "")
+            if (
+                len(evidence) != 1
+                or evidence[0].resolved
+                or evidence[0].source_id != ability.source_id
+                or evidence[0].controller != ability.controller
+                or evidence[0].oracle_fragment != ability.oracle_fragment
+                or evidence[0].mana_source_ids != ability.mana_source_ids
+                or not ability.sacrifice_source
+                or not isinstance(source_object, Permanent)
+                or source_object.zone != "former"
+                or source_object.card is not ability.source_card
+                or damage_departure_event is None
+                or damage_departure_event.kind is not RulesEventKind.PERMANENT_LEFT
+                or damage_departure_event.subject_ids != (ability.source_id,)
+                or damage_departure_event.player_index != ability.controller
+            ):
+                raise ValueError("activated damage source provenance is invalid")
+            self._authenticate_original_rules_event(damage_departure_event)
         if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
             source = self._objects.get(ability.source_id)
             discarded = self._objects.get(ability.discarded_destination_id or "")
@@ -10766,6 +10857,44 @@ class Game(
                     source_id=ability.source_id,
                     target_id=ability.target_ids[0] if ability.target_ids else None,
                 )
+        elif (
+            ability.program.effect_kind is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+        ):
+            target = self._objects.get(ability.target_ids[0]) if ability.target_ids else None
+            if self._legal_activated_damage_target(target, ability.controller):
+                assert isinstance(source, Permanent) and damage_departure_event is not None
+                program = self.interpreter.damage_program(ability.program.effect_text)
+                assert program is not None and program.amount is not None
+                assert isinstance(target, Permanent)
+                damage_event = self.deal_damage(
+                    DamageTransaction(
+                        ability.controller,
+                        source,
+                        DamageTargetKind.CREATURE,
+                        program.amount,
+                        ability.oracle_fragment,
+                        target,
+                        source_event=damage_departure_event,
+                    ),
+                    defer_post_damage=True,
+                )
+                delivered = True
+                self.log(
+                    "activated_damage_resolved",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    damage_event_id=damage_event.event_id,
+                    amount=program.amount,
+                )
+            else:
+                self.log(
+                    "activated_ability_resolved_no_effect",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=ability.target_ids[0] if ability.target_ids else None,
+                    reason="target_illegal_at_resolution",
+                )
         elif ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
             target = (
                 self._objects.get(ability.target_ids[0]) if len(ability.target_ids) == 1 else None
@@ -10935,6 +11064,11 @@ class Game(
             controller=self.players[ability.controller].name,
             delivered=delivered,
         )
+        if ability.program.effect_kind is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE:
+            self.check_state_based_actions()
+            self.check_life()
+            if delivered:
+                self._put_pending_triggers_on_stack()
         if ability.program.effect_kind in {
             ActivatedEffectKind.GAIN_THREE_LIFE,
             ActivatedEffectKind.ADVANCE_CLASS_LEVEL,
