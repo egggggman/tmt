@@ -90,12 +90,34 @@ class AcceptancePilot:
                 (option for option in options if option.kind is ActionKind.PLAY_LAND), fallback
             )
         if stage == "activate":
+            battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+            damage_activations = [
+                option
+                for option in options
+                if option.kind is ActionKind.ACTIVATE_ABILITY
+                and option.oracle_fragment is not None
+                and " damage to target creature." in option.oracle_fragment
+                and option.target_id in battlefield
+                and battlefield[option.target_id].controller != option.player_index
+            ]
+            if damage_activations:
+                return max(
+                    damage_activations,
+                    key=lambda option: (
+                        battlefield[option.target_id].power or 0,
+                        option.target_id,
+                    ),
+                )
             return next(
                 (
                     option
                     for option in options
                     if option.kind is ActionKind.ACTIVATE_ABILITY
                     and not self._hand_cycling(view, option)
+                    and not (
+                        option.oracle_fragment is not None
+                        and " damage to target creature." in option.oracle_fragment
+                    )
                 ),
                 fallback,
             )

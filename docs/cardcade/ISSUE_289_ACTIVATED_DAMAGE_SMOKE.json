@@ -1,0 +1,56 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "7ca337922f33feeaf8371f15eb5813ade5bcbaa21a0f0fbbae6166c8a49daa9d",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-activated-damage-casey_jones-krang",
+      "seed": 3031,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "d2936f8bed55ab4b9d0c8025c6a061eaf398e8620b0791bf2356ccd1753bd36f",
+      "event_count": 908,
+      "activated_damage": [
+        {
+          "stack_object_id": "object-000219",
+          "source_id": "object-000210",
+          "target_id": "object-000188",
+          "damage_event_id": "event-000062",
+          "amount": 3
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-activated-damage-krang-casey_jones",
+      "seed": 3031,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "74ad4611cd615a5a6e29d0510c56e5d85483e080a463517c6c76d07925a80a4d",
+      "event_count": 1042,
+      "activated_damage": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-activated-damage-casey_jones-raphael",
+      "seed": 3031,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "674f10ccc09056226f426ebf1e26f59f6a0d487e508f6f2c82ee264d7845a853",
+      "event_count": 801,
+      "activated_damage": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-activated-damage-raphael-casey_jones",
+      "seed": 3031,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "50a3340e56fd3178719a0fb6e5c183ff86dd9218488224b6838cf96dc98d2575",
+      "event_count": 1297,
+      "activated_damage": [],
+      "runtime_error": null
+    }
+  ]
+}

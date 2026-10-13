@@ -550,6 +550,7 @@ class ActivatedEffectKind(Enum):
     DRAW_CARD = "draw_card"
     DRAW_CARDS = "draw_cards"
     ATTACH_EQUIPMENT = "attach_equipment"
+    DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE = "deal_fixed_damage_to_target_creature"
     UNSUPPORTED = "unsupported"
 
 
@@ -1920,8 +1921,16 @@ class CardInterpreter:
             parent_executable = False
             parent_limitation = "damage_trigger_context_not_implemented"
         elif ":" in prefix:
-            parent_executable = False
-            parent_limitation = "damage_activation_context_not_implemented"
+            activation = self.activated_ability_semantics(card, fragment)
+            parent_executable = bool(
+                activation is not None
+                and activation.coverage.fully_supported
+                and activation.program.effect_kind
+                is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+            )
+            parent_limitation = (
+                None if parent_executable else "damage_activation_context_not_implemented"
+            )
         elif direct_spell:
             parent_executable = True
             parent_limitation = None
@@ -2500,6 +2509,16 @@ class CardInterpreter:
                 re.IGNORECASE,
             )
         )
+        activated_damage = bool(
+            "Artifact" in card.type_line
+            and "Creature" not in card.type_line.split(" — ", 1)[0].split()
+            and re.fullmatch(
+                r"(?:\{(?:\d+|[WUBRG])\})+, Sacrifice this artifact: "
+                r"(?:It|This artifact) deals [1-9]\d* damage to target creature\.",
+                fragment.strip(),
+                re.IGNORECASE,
+            )
+        )
         frog_reach = (
             card.name == "Frog Butler"
             and fragment.strip() == "{2}: This creature gains reach until end of turn."
@@ -2522,6 +2541,7 @@ class CardInterpreter:
             canonical_food
             or mutagen_source
             or sacrifice_draw
+            or activated_damage
             or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None
         )
         mana_parts = tuple(
@@ -2631,6 +2651,9 @@ class CardInterpreter:
         elif sacrifice_draw:
             effect_kind = ActivatedEffectKind.DRAW_CARDS
             action_match = True
+        elif activated_damage:
+            effect_kind = ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+            action_match = True
         elif token_haste:
             effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
             action_match = True
@@ -2664,7 +2687,7 @@ class CardInterpreter:
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
-            or bool(targeted_return or counter_target or mutagen_source)
+            or bool(targeted_return or counter_target or mutagen_source or activated_damage)
             and target_count == 1
         )
         if targeted_return and return_semantics is not None:
@@ -2678,6 +2701,7 @@ class CardInterpreter:
             or mutagen_source
             or ray_fillets
             or sacrifice_draw
+            or activated_damage
             or token_haste
             or class_level
         ):
