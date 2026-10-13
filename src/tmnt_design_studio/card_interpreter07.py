@@ -102,6 +102,14 @@ class GenericCostReductionProgram:
 
 
 @dataclass(frozen=True)
+class ManaAbilityProgram:
+    """A tap ability's output and the contexts in which each unit may be spent."""
+
+    colors: tuple[str, ...]
+    allowed_spending: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class AuraSuppressionProgram:
     """Bounded Oracle-derived creature Aura; no card-name dispatch."""
 
@@ -536,6 +544,7 @@ class ActivatedEffectKind(Enum):
     SEARCH_LAND_TYPE = "search_land_type"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
+    ADD_MANA = "add_mana"
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
@@ -1604,6 +1613,23 @@ class CardInterpreter:
         match = re.fullmatch(r"\{T\}: Add \{([WUBRGC])\}(?: or \{([WUBRGC])\})?\.", fragment)
         return tuple(dict.fromkeys(color for color in match.groups() if color)) if match else None
 
+    @staticmethod
+    def mana_ability_program(fragment: str) -> ManaAbilityProgram | None:
+        """Fail closed on any unrepresented output, restriction, or follow-up."""
+        match = re.fullmatch(
+            r"\{T\}: Add (?P<output>\{[WUBRGC]\}|one mana of any color)\."
+            r"(?: Spend this mana only to (?P<restriction>cast an artifact spell or to "
+            r"activate an ability)\.)?",
+            fragment,
+        )
+        if match is None:
+            return None
+        output = match["output"]
+        return ManaAbilityProgram(
+            tuple("WUBRGC") if output == "one mana of any color" else (output[1],),
+            ("artifact_spell", "activate_ability") if match["restriction"] else (),
+        )
+
     def artifact_entry_self_counter_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
@@ -2478,9 +2504,7 @@ class CardInterpreter:
             card.name == "Frog Butler"
             and fragment.strip() == "{2}: This creature gains reach until end of turn."
         )
-        frog_mana = (
-            card.name == "Frog Butler" and fragment.strip() == "{T}: Add one mana of any color."
-        )
+        mana_ability = self.mana_ability_program(fragment.strip())
         tunnel_rats_return = (
             card.name == "Tunnel Rats"
             and fragment.strip()
@@ -2592,8 +2616,8 @@ class CardInterpreter:
         elif frog_reach:
             effect_kind = ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
             action_match = True
-        elif frog_mana:
-            effect_kind = ActivatedEffectKind.ADD_ANY_COLOR_MANA
+        elif mana_ability:
+            effect_kind = ActivatedEffectKind.ADD_MANA
             action_match = True
         elif tunnel_rats_return:
             effect_kind = ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
@@ -2624,7 +2648,7 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (frog_mana or frog_reach or mutagen_source)
+            (mana_ability or frog_reach or mutagen_source)
             and instructions
             or (
                 targeted_return
@@ -2636,7 +2660,7 @@ class CardInterpreter:
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None or frog_mana or frog_reach or mutagen_source
+            else instructions is None or mana_ability or frog_reach or mutagen_source
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -2648,7 +2672,7 @@ class CardInterpreter:
         elif (
             canonical_food
             or counter_target
-            or frog_mana
+            or mana_ability
             or frog_reach
             or tunnel_rats_return
             or mutagen_source
