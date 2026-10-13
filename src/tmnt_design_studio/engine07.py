@@ -7681,6 +7681,21 @@ class Game(
                     for target in side.battlefield
                     if self._legal_conditional_destroy_target(target, player_index)
                 )
+            elif kind is CastKind.TARGETED_REMOVAL:
+                program = self.interpreter.targeted_removal_program(card.card)
+                assert program is not None
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        target_id=target.object_id,
+                        oracle_fragment=card.oracle_text,
+                    )
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_targeted_removal_target(target, player_index, program)
+                )
             elif kind is CastKind.DRAW_CARDS:
                 draw_fragment = next(
                     fragment
@@ -8096,9 +8111,32 @@ class Game(
             ),
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
+            *self._hand_targeted_removal_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
+        )
+
+    def _hand_targeted_removal_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=state.epoch,
+            )
+            for card in self.players[player_index].hand
+            if "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for program in (self.interpreter.targeted_removal_program(card.card),)
+            if program is not None and self.payment_plan(player_index, card) is not None
+            for side in self.players
+            for target in side.battlefield
+            if self._legal_targeted_removal_target(target, player_index, program)
         )
 
     def _flash_permanent_cast_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -8162,6 +8200,15 @@ class Game(
                     for side in self.players
                     for target in side.battlefield
                     if self._legal_conditional_destroy_target(target, player_index)
+                )
+            elif kind is CastKind.TARGETED_REMOVAL:
+                program = self.interpreter.targeted_removal_program(card.card)
+                assert program is not None
+                targets = tuple(
+                    target
+                    for side in self.players
+                    for target in side.battlefield
+                    if self._legal_targeted_removal_target(target, player_index, program)
                 )
             elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 targets = tuple(
@@ -8231,6 +8278,14 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            if isinstance(card, CardObject) and option in self._hand_targeted_removal_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(option.player_index, card, target)
+                if spell is None:
+                    raise ValueError("targeted removal response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and option in self._linked_exile_instant_options(
                 option.player_index
             ):
@@ -8709,14 +8764,27 @@ class Game(
             fragment, _semantics = interpreted
             for attacker in self._unblocked_attackers(player_index):
                 if self.sneak_payment_plan(player_index, card, attacker) is not None:
-                    options.append(
+                    removal = self.interpreter.targeted_removal_program(card.card)
+                    targets = (
+                        tuple(
+                            target
+                            for side in self.players
+                            for target in side.battlefield
+                            if self._legal_targeted_removal_target(target, player_index, removal)
+                        )
+                        if removal is not None
+                        else (None,)
+                    )
+                    options.extend(
                         ActionOption(
                             ActionKind.CAST,
                             player_index,
                             object_id=card.object_id,
+                            target_id=target.object_id if target is not None else None,
                             cost_object_id=attacker.object_id,
                             oracle_fragment=fragment,
                         )
+                        for target in targets
                     )
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
@@ -8802,7 +8870,8 @@ class Game(
         plan = self.sneak_payment_plan(option.player_index, card, attacker)
         if plan is None or plan.oracle_fragment != option.oracle_fragment:
             raise ValueError("Sneak option became stale or illegal")
-        self._commit_sneak_announcement(card, attacker, plan)
+        target = self._objects.get(option.target_id or "")
+        self._commit_sneak_announcement(card, attacker, plan, target=target)
         return True
 
     def evaluated_strike_keywords(self, permanent: Permanent) -> frozenset[StrikeKeyword]:
@@ -10854,11 +10923,16 @@ class Game(
         return spell
 
     def _commit_sneak_announcement(
-        self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan
+        self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan, *, target=None
     ) -> StackObject:
         """Atomically pay fixed Sneak mana plus the authoritative return cost."""
         if plan != self.sneak_payment_plan(plan.player_index, card, attacker):
             raise ValueError("Sneak payment plan is no longer legal")
+        removal = self.interpreter.targeted_removal_program(card.card)
+        if removal is not None and not self._legal_targeted_removal_target(
+            target, plan.player_index, removal
+        ):
+            raise ValueError("Sneak target is no longer legal")
         sources: list[Permanent] = []
         for object_id in plan.mana_source_ids:
             source = self._objects.get(object_id)
@@ -10888,6 +10962,7 @@ class Game(
             card.owner,
             plan.player_index,
             self.interpreter.cast_program(card.card).kind,
+            target_id=target.object_id if target is not None else None,
             sneak_returned_attacker_id=attacker.object_id,
             sneak_returned_hand_id=returned.object_id,
             sneak_defending_player=plan.defending_player,
@@ -11044,7 +11119,13 @@ class Game(
                         CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE,
                         CastKind.OOZE_SPILL,
                         CastKind.COUNTER_TARGET_SPELL,
+                        CastKind.TARGETED_REMOVAL,
                     }
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind is CastKind.TARGETED_REMOVAL
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
         )
@@ -11158,6 +11239,15 @@ class Game(
         elif program.kind is CastKind.CONDITIONAL_DESTROY_AND_CREATE:
             if not isinstance(target, Permanent) or not self._legal_conditional_destroy_target(
                 target, player_index
+            ):
+                return None
+            target_id = target.object_id
+        elif program.kind is CastKind.TARGETED_REMOVAL:
+            removal = self.interpreter.targeted_removal_program(card.card)
+            if (
+                removal is None
+                or not isinstance(target, Permanent)
+                or not self._legal_targeted_removal_target(target, player_index, removal)
             ):
                 return None
             target_id = target.object_id
@@ -11433,6 +11523,13 @@ class Game(
             legal_target = isinstance(target, Permanent) and self._legal_conditional_destroy_target(
                 target, spell.controller
             )
+        elif spell.cast_kind is CastKind.TARGETED_REMOVAL:
+            removal = self.interpreter.targeted_removal_program(spell.card)
+            legal_target = (
+                removal is not None
+                and isinstance(target, Permanent)
+                and self._legal_targeted_removal_target(target, spell.controller, removal)
+            )
         if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             legal_target = (
                 legal_target
@@ -11658,6 +11755,27 @@ class Game(
                 )
         elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
             self.destroy(target)
+        elif spell.cast_kind is CastKind.TARGETED_REMOVAL:
+            removal = self.interpreter.targeted_removal_program(spell.card)
+            assert removal is not None
+            was_enchantment = "Enchantment" in target.type_line.split(" — ", 1)[0].split()
+            if removal.destination == "exile":
+                self.move_object(target, "exile", reason="targeted_removal_exile")
+            else:
+                self.destroy(target)
+            if (
+                was_enchantment
+                and not self.is_authoritative(target, "battlefield")
+                and removal.enchantment_life_loss
+            ):
+                self.players[spell.controller].life -= removal.enchantment_life_loss
+                self.log(
+                    "life_lost",
+                    player=self.players[spell.controller].name,
+                    amount=removal.enchantment_life_loss,
+                    source=spell.name,
+                    oracle_fragment=spell.card.oracle_text,
+                )
         resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
         assert isinstance(resolved_card, CardObject)
         self.report_unsupported_abilities(spell.controller, spell.card, source=resolved_card)
@@ -11680,6 +11798,7 @@ class Game(
         if spell.cast_kind in {
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
+            CastKind.TARGETED_REMOVAL,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
@@ -11772,6 +11891,19 @@ class Game(
         if not types.intersection({"Artifact", "Creature"}):
             return False
         return self._legal_targeting_protection(target, controller)
+
+    def _legal_targeted_removal_target(self, target, controller: int, program) -> bool:
+        if not isinstance(target, Permanent) or not self.is_authoritative(target, "battlefield"):
+            return False
+        types = set(target.type_line.split(" — ", 1)[0].split())
+        return (
+            bool(types.intersection(program.target_types))
+            and (
+                program.maximum_mana_value is None
+                or target.card.mana_value <= program.maximum_mana_value
+            )
+            and self._legal_targeting_protection(target, controller)
+        )
 
     def _legal_targeting_protection(self, target: Permanent, controller: int) -> bool:
         text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))

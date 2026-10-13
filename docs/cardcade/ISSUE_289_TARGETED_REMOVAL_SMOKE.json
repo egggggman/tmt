@@ -1,0 +1,52 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "92528faf3854869ea0905e36102c2aa22b8b36d8a880ccaeebf7ab8668b33cb5",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-targeted-removal-splinter-shredder",
+      "seed": 3031,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "0c77feedf20f06d1445033911e592607865f260744c521a88076c43e5ce85aec",
+      "event_count": 779,
+      "targeted_exile": 2,
+      "direct_removal_casts": 2,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-targeted-removal-shredder-splinter",
+      "seed": 3031,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "2eacd5483515a0b4469d9f1fc4cf216766e0fa72a82276f1cd60c7e90b827686",
+      "event_count": 936,
+      "targeted_exile": 0,
+      "direct_removal_casts": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-targeted-removal-april_oneil-shredder",
+      "seed": 3031,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "cd0ae9db3bc44096596f8426e42183d66456a5e67b9c8a190dff0239f7ea17d3",
+      "event_count": 1515,
+      "targeted_exile": 0,
+      "direct_removal_casts": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-targeted-removal-shredder-april_oneil",
+      "seed": 3031,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "1257e9336965768202abfa23f6d112a1acb4b24558f8a2ffd5aab6f67dda1d69",
+      "event_count": 1217,
+      "targeted_exile": 0,
+      "direct_removal_casts": 1,
+      "runtime_error": null
+    }
+  ]
+}
