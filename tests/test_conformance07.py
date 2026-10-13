@@ -513,7 +513,6 @@ def test_artifact_and_replacement_contexts_require_their_authoritative_predicate
 @pytest.mark.parametrize(
     "fragment",
     [
-        "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)",
         "Destroy target artifact.",
         "{2}, Sacrifice this artifact: Draw a card.",
         "Create a token that's a copy of target artifact you control.",
@@ -540,6 +539,27 @@ def test_artifact_entry_does_not_promote_unrelated_artifact_semantics(fragment):
     assert not any(
         item.occurrence_id == occurrence.occurrence_id for item in current.opportunity_witnesses
     )
+    assert not any(item.source_id == source.object_id for item in current.opportunity_contexts)
+
+
+def test_affinity_is_a_cast_discount_and_never_an_artifact_entry_trigger():
+    source_card = CardFact(
+        "Generic Affinity",
+        "{1}{U}",
+        2,
+        "Artifact Creature — Construct",
+        "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)",
+        1,
+        3,
+    )
+    current = game()
+    source = permanent(current, source_card)
+    current.report_unsupported_abilities(0, source_card, source=source)
+    assert not any(item.object_id == source.object_id for item in current.semantic_occurrences)
+    entering = permanent(
+        current, CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)
+    )
+    current._new_rules_event(RulesEventKind.CREATURE_ENTERED, 0, (entering.object_id,))
     assert not any(item.source_id == source.object_id for item in current.opportunity_contexts)
 
 

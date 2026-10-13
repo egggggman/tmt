@@ -92,6 +92,16 @@ class TargetedRemovalProgram:
 
 
 @dataclass(frozen=True)
+class GenericCostReductionProgram:
+    """A current-battlefield predicate reducing only generic spell mana."""
+
+    quality: str
+    amount: int
+    per_permanent: bool
+    oracle_fragment: str
+
+
+@dataclass(frozen=True)
 class AuraSuppressionProgram:
     """Bounded Oracle-derived creature Aura; no card-name dispatch."""
 
@@ -1044,6 +1054,37 @@ class CardInterpreter:
         r"(?: with mana value (?P<maximum>\d+) or less)?\."
         r"(?: If an enchantment was destroyed this way, you lose (?P<life>\d+) life\.)?$"
     )
+
+    CONDITIONAL_GENERIC_REDUCTION = re.compile(
+        r"^This spell costs \{(?P<amount>[1-9]\d*)\} less to cast if you control "
+        r"a (?P<subtype>[A-Z][A-Za-z]+)\.$"
+    )
+    AFFINITY_GENERIC_REDUCTION = re.compile(
+        r"^Affinity for (?P<plural>artifacts|creatures|enchantments) "
+        r"\(This spell costs \{(?P<amount>[1-9]\d*)\} less to cast for each "
+        r"(?P<singular>artifact|creature|enchantment) you control\.\)$"
+    )
+
+    def generic_cost_reduction_program(
+        self, card: CardDefinition, fragment: str
+    ) -> GenericCostReductionProgram | None:
+        """Read a self-spell conditional or affinity discount, never an activated cost."""
+        if (
+            fragment not in self.fragments(card)
+            or "Land" in card.type_line.split(" — ", 1)[0].split()
+        ):
+            return None
+        match = self.CONDITIONAL_GENERIC_REDUCTION.fullmatch(fragment)
+        if match is not None:
+            return GenericCostReductionProgram(
+                match["subtype"], int(match["amount"]), False, fragment
+            )
+        match = self.AFFINITY_GENERIC_REDUCTION.fullmatch(fragment)
+        if match is None or match["plural"] != match["singular"] + "s":
+            return None
+        return GenericCostReductionProgram(
+            match["singular"].capitalize(), int(match["amount"]), True, fragment
+        )
 
     def targeted_removal_program(self, card: CardDefinition) -> TargetedRemovalProgram | None:
         """Interpret complete direct instant/sorcery removal, including a Sneak preface."""
@@ -3001,6 +3042,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.generic_cost_reduction_program(card, fragment) is not None:
+                continue
             if self.targeted_removal_program(card) is not None and self.TARGETED_REMOVAL.fullmatch(
                 fragment
             ):

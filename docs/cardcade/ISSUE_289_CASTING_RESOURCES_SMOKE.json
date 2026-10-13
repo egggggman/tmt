@@ -1,0 +1,62 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "a3044b406738ae66f12ad3173a655849a5b5317ae2c009d80a460edfca94a178",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-casting-resources-krang-michelangelo",
+      "seed": 3021,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "46773eabfd22e58ea4f6aff3efe7a6e40504cbf0e7f6c4590d9b7788b270f292",
+      "event_count": 1012,
+      "cost_reductions": [
+        {
+          "card": "Krang, Master Mind",
+          "printed_generic": 6,
+          "paid_generic": 1,
+          "qualifying_source_count": 5
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-casting-resources-michelangelo-krang",
+      "seed": 3021,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "cedbaaff39c901c6d9b03284d577aa35d63a42e360f9019a66de783dae218edb",
+      "event_count": 1039,
+      "cost_reductions": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-casting-resources-krang-casey_jones",
+      "seed": 3021,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "aea2174e137afe6b06083a78bd83e719827a39da77b6b5aeffe829d8112529f5",
+      "event_count": 1271,
+      "cost_reductions": [
+        {
+          "card": "Krang, Master Mind",
+          "printed_generic": 6,
+          "paid_generic": 3,
+          "qualifying_source_count": 3
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-casting-resources-casey_jones-krang",
+      "seed": 3021,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "f699f29ec3a3cebae4656262f6f6b9850de2bdbd99226e85446663ce96d9a261",
+      "event_count": 960,
+      "cost_reductions": [],
+      "runtime_error": null
+    }
+  ]
+}
