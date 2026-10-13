@@ -66,8 +66,8 @@ def test_pair_targeting_cost_and_no_partial_mutation_on_illegal_announcement():
         for option in game.legal_main_actions(0)
         if option.kind is ActionKind.CAST and option.object_id == card.object_id
     ]
-    assert {(option.source_target_id, option.target_id) for option in options} == {
-        (own.object_id, other.object_id)
+    assert {(option.choice_ids, option.target_id) for option in options} == {
+        ((own.object_id,), other.object_id)
     }
     spell = game.announce_spell(0, card, other, source_target=own)
     assert spell is not None and spell.source_target_id == own.object_id
@@ -127,10 +127,51 @@ def test_zero_power_has_no_damage_and_sorcery_is_excluded_from_priority_options(
     options = game.legal_priority_actions(0)
     assert any(
         option.object_id == card.object_id
-        and option.source_target_id == own.object_id
+        and option.choice_ids == (own.object_id,)
         and option.target_id == other.object_id
         for option in options
     )
+
+
+def test_target_protection_control_change_and_creature_damage_keywords():
+    protected = CardFact(
+        "Protected", "{1}{G}", 2, "Creature", power=2, toughness=2, keywords=("hexproof",)
+    )
+    game, card, own, other = setup(recipient=protected)
+    assert game.announce_spell(0, card, other, source_target=own) is None
+    lifelink = CardFact(
+        "Lifelink Source",
+        "{1}{G}",
+        2,
+        "Creature",
+        power=2,
+        toughness=2,
+        keywords=("lifelink", "deathtouch"),
+        oracle_text="Lifelink\nDeathtouch",
+    )
+    game, card, own, other = setup(source=lifelink)
+    game.announce_spell(0, card, other, source_target=own)
+    own.controller = 1
+    game.resolve_top_of_stack()
+    assert other.damage == 0  # A target whose controller changed is illegal at resolution.
+    game, card, own, other = setup(source=lifelink)
+    before_life = game.players[0].life
+    game.announce_spell(0, card, other, source_target=own)
+    game.resolve_top_of_stack()
+    assert game.players[0].life == before_life + 2
+    assert other.zone == "former"  # Deathtouch makes even 2 damage lethal to the 4/5.
+
+
+def test_sorcery_is_available_only_in_main_and_uses_the_same_resolution():
+    game, card, own, other = setup(spell=SORCERY)
+    option = next(
+        option for option in game.legal_main_actions(0) if option.object_id == card.object_id
+    )
+    assert option.choice_ids == (own.object_id,)
+    assert game.execute_main_action(option)
+    game.priority_state = None
+    game.resolve_top_of_stack()
+    assert other.damage == 2
 
 
 def test_replay_including_action_and_damage_provenance_is_deterministic():

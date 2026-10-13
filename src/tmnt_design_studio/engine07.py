@@ -162,7 +162,6 @@ class ActionOption:
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
     choice_ids: tuple[str, ...] = ()
-    source_target_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -7667,7 +7666,7 @@ class Game(
                         player_index,
                         object_id=card.object_id,
                         target_id=target.object_id,
-                        source_target_id=source.object_id,
+                        choice_ids=(source.object_id,),
                         oracle_fragment=card.card.oracle_text,
                     )
                     for source in player.battlefield
@@ -8172,7 +8171,7 @@ class Game(
                 player_index,
                 object_id=card.object_id,
                 target_id=target.object_id,
-                source_target_id=source.object_id,
+                choice_ids=(source.object_id,),
                 oracle_fragment=card.card.oracle_text,
                 priority_epoch=state.epoch,
             )
@@ -8282,7 +8281,7 @@ class Game(
                         player_index,
                         object_id=card.object_id,
                         target_id=target.object_id,
-                        source_target_id=source.object_id,
+                        choice_ids=(source.object_id,),
                         oracle_fragment=card.card.oracle_text,
                         priority_epoch=state.epoch,
                     )
@@ -8394,7 +8393,7 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
-            source_target = self._objects.get(option.source_target_id or "")
+            source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
             if isinstance(card, CardObject) and option in self._hand_creature_power_damage_options(
                 option.player_index
             ):
@@ -8665,7 +8664,7 @@ class Game(
             if not isinstance(obj, CardObject):
                 raise ValueError("cast option does not identify a card object")
             target = self._objects.get(option.target_id or "")
-            source_target = self._objects.get(option.source_target_id or "")
+            source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
             if target is not None and not isinstance(target, Permanent):
                 raise ValueError("target option does not identify a permanent")
             if obj.name in {"Skateboard", "Spicy Oatmeal Pizza"}:
