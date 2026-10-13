@@ -1921,8 +1921,16 @@ class CardInterpreter:
             parent_executable = False
             parent_limitation = "damage_trigger_context_not_implemented"
         elif ":" in prefix:
-            parent_executable = False
-            parent_limitation = "damage_activation_context_not_implemented"
+            activation = self.activated_ability_semantics(card, fragment)
+            parent_executable = bool(
+                activation is not None
+                and activation.coverage.fully_supported
+                and activation.program.effect_kind
+                is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
+            )
+            parent_limitation = (
+                None if parent_executable else "damage_activation_context_not_implemented"
+            )
         elif direct_spell:
             parent_executable = True
             parent_limitation = None
@@ -2503,6 +2511,7 @@ class CardInterpreter:
         )
         activated_damage = bool(
             "Artifact" in card.type_line
+            and "Creature" not in card.type_line.split(" — ", 1)[0].split()
             and re.fullmatch(
                 r"(?:\{(?:\d+|[WUBRG])\})+, Sacrifice this artifact: "
                 r"(?:It|This artifact) deals [1-9]\d* damage to target creature\.",
@@ -3081,14 +3090,6 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
-            activation = self.activated_ability_semantics(card, fragment)
-            if (
-                activation is not None
-                and activation.coverage.fully_supported
-                and activation.program.effect_kind
-                is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
-            ):
-                continue
             if self.generic_cost_reduction_program(card, fragment) is not None:
                 continue
             if self.targeted_removal_program(card) is not None and self.TARGETED_REMOVAL.fullmatch(

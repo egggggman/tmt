@@ -6,7 +6,8 @@ import pytest
 
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import ActivatedEffectKind, CardInterpreter
-from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, RulesEventKind
+from tmnt_design_studio.engine07 import ActionKind, ActionOption, CardFact, Game, RulesEventKind
+from tmnt_design_studio.pilot07 import AcceptancePilot
 
 ROOT = Path(__file__).resolve().parents[1]
 MOUNTAIN = CardFact("Mountain", "", 0, "Basic Land — Mountain", "({T}: Add {R}.)")
@@ -55,6 +56,21 @@ def test_frozen_oracle_fixture_and_generic_shape():
     ) not in CardInterpreter().unsupported_fragments(card)
     generic = CardInterpreter().activated_ability_semantics(REACTOR, REACTOR.oracle_text)
     assert generic is not None and generic.coverage.fully_supported
+    # Creature-source last-known keyword effects remain outside this bounded family.
+    artifact_creature = CardFact(
+        "Other Source",
+        "{1}{R}",
+        2,
+        "Artifact Creature — Construct",
+        REACTOR.oracle_text,
+        2,
+        2,
+        ("Deathtouch",),
+    )
+    unsupported = CardInterpreter().activated_ability_semantics(
+        artifact_creature, artifact_creature.oracle_text
+    )
+    assert unsupported is not None and not unsupported.coverage.fully_supported
 
 
 def test_mana_sacrifice_target_damage_lethal_sba_and_event_provenance():
@@ -125,6 +141,19 @@ def test_source_departure_does_not_cancel_ability_but_target_departure_does():
     game.check_invariants()
 
 
+def test_relinked_departure_event_fails_before_resolution_mutation():
+    game, source, target = setup()
+    ability = game.announce_activated_ability(
+        0, source, REACTOR.oracle_text, target_ids=(target.object_id,)
+    )
+    assert ability is not None
+    ability.departure_event_id = "event-999999"
+    with pytest.raises(ValueError, match="source provenance"):
+        resolve(game)
+    assert target.damage == 0 and target.zone == "battlefield"
+    assert game.stack[-1] is ability
+
+
 def test_priority_window_offers_generic_instant_speed_activation():
     game, source, target = setup()
     game._begin_priority_window(allow_empty=True)
@@ -132,6 +161,20 @@ def test_priority_window_offers_generic_instant_speed_activation():
         option.object_id == source.object_id and option.target_id == target.object_id
         for option in game.legal_priority_actions(0)
     )
+
+
+def test_pilot_uses_opposing_creature_and_declines_self_damage():
+    game, source, target = setup()
+    pilot = AcceptancePilot()
+    options = (*game.legal_activated_ability_actions(0), ActionOption(ActionKind.PASS, 0))
+    selected = pilot.choose_main_action(game.pilot_view(0), options, "activate")
+    assert selected.object_id == source.object_id and selected.target_id == target.object_id
+    game.move_object(target, "hand", reason="fixture_removal")
+    game.create_permanent(TARGET, 0)
+    options = (*game.legal_activated_ability_actions(0), ActionOption(ActionKind.PASS, 0))
+    # Targetable own creatures alone do not justify firing.
+    selected = pilot.choose_main_action(game.pilot_view(0), options, "activate")
+    assert selected.kind is ActionKind.PASS
 
 
 @pytest.mark.parametrize("seed", [71, 72])

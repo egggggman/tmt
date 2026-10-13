@@ -114,6 +114,10 @@ class AcceptancePilot:
                     for option in options
                     if option.kind is ActionKind.ACTIVATE_ABILITY
                     and not self._hand_cycling(view, option)
+                    and not (
+                        option.oracle_fragment is not None
+                        and " damage to target creature." in option.oracle_fragment
+                    )
                 ),
                 fallback,
             )
