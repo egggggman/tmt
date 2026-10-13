@@ -2,10 +2,9 @@
 
 from dataclasses import replace
 
-import pytest
-
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
 from tmnt_design_studio.engine07 import ActionKind, ActionOption, CardFact, Game, TurnStep
+from tmnt_design_studio.pilot07 import AcceptancePilot
 
 SWAMP = CardFact("Swamp", "", 0, "Basic Land — Swamp")
 BEAR = CardFact("Bear", "{1}{G}", 2, "Creature — Bear", power=2, toughness=2)
@@ -66,6 +65,36 @@ def test_illegal_target_on_resolution_fizzles_and_saves_conditional_life():
     assert any(e["event"] == "spell_resolved_no_effect" for e in current.events)
 
 
+def test_instant_removal_uses_priority_and_rejects_newly_illegal_target():
+    current = game(EXILE, mana=2)
+    target = current.create_permanent(BEAR, 1)
+    current._begin_priority_window(allow_empty=True, priority_player=0)
+    option = next(
+        a
+        for a in current.legal_priority_actions(0)
+        if a.kind is ActionKind.CAST and a.target_id == target.object_id
+    )
+    assert (
+        AcceptancePilot().choose_priority(
+            current.priority_view(0), current.legal_priority_actions(0)
+        )
+        == option
+    )
+    current.execute_priority_action(option)
+    assert current.stack[-1].target_id == target.object_id
+    assert current.is_authoritative(target, "battlefield")
+    target.type_line_override = "Artifact"
+    while current.priority_state is not None:
+        if current.priority_state.resolution_pending:
+            current.process_priority_resolution()
+        else:
+            current.execute_priority_action(
+                current.legal_priority_actions(current.priority_state.player_index)[0]
+            )
+    assert current.is_authoritative(target, "battlefield")
+    assert any(e["event"] == "spell_resolved_no_effect" for e in current.events)
+
+
 def test_destroy_creature_and_enchantment_life_condition_and_indestructible():
     for card, indestructible, expected_loss in (
         (BEAR, False, 0),
@@ -96,6 +125,10 @@ def test_sneak_targeted_removal_pays_return_and_mana_with_replay():
         options = [a for a in current.legal_sneak_actions(0) if a.kind is ActionKind.CAST]
         assert len(options) == 2  # attacking creature and enchantment are both legal
         option = next(a for a in options if a.target_id == target.object_id)
+        assert (
+            AcceptancePilot().choose_sneak(current.pilot_view(0), current.legal_sneak_actions(0))
+            == option
+        )
         current.execute_sneak_action(option)
         assert current.stack[-1].target_id == target.object_id
         assert any(card.name == BEAR.name for card in current.players[0].hand)
@@ -112,6 +145,23 @@ def test_sneak_targeted_removal_pays_return_and_mana_with_replay():
         return current.snapshot()
 
     assert run() == run()
+
+
+def test_pilot_selects_opponent_for_direct_removal_and_declines_own_target():
+    current = game(EXILE, mana=2)
+    own = current.create_permanent(BEAR, 0)
+    target = current.create_permanent(BEAR, 1)
+    pilot = AcceptancePilot()
+    action = pilot.choose_main_action(
+        current.pilot_view(0), current.legal_main_actions(0), "destroy"
+    )
+    assert action.target_id == target.object_id
+    current.destroy(target)
+    action = pilot.choose_main_action(
+        current.pilot_view(0), current.legal_main_actions(0), "destroy"
+    )
+    assert action.kind is ActionKind.PASS
+    assert current.is_authoritative(own, "battlefield")
 
 
 def test_only_complete_oracle_parent_and_legal_spelling_are_executable():

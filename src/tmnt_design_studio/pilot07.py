@@ -59,6 +59,15 @@ class AcceptancePilot:
     """Preserved Acceptance Match strategy; it never owns legality or state mutation."""
 
     @staticmethod
+    def _targeted_removal(fragment: str | None) -> bool:
+        return bool(
+            fragment
+            and re.search(
+                r"(?m)^(?:Destroy|Exile) target (?:artifact|creature|enchantment)\b", fragment
+            )
+        )
+
+    @staticmethod
     def _card(view: GameView, player: int, object_id: str | None):
         return next((row for row in view.hands[player] if row[0] == object_id), None)
 
@@ -136,8 +145,9 @@ class AcceptancePilot:
                 option
                 for option in casts
                 if option.oracle_fragment is not None
-                and option.oracle_fragment.startswith(
-                    ("Destroy up to one target ", "Destroy target artifact or creature.")
+                and (
+                    option.oracle_fragment.startswith("Destroy up to one target ")
+                    or self._targeted_removal(option.oracle_fragment)
                 )
                 and option.target_id in battlefield
                 and battlefield[option.target_id].controller != option.player_index
@@ -241,8 +251,26 @@ class AcceptancePilot:
         return max(options, key=lambda option: len(option.blocks))
 
     def choose_sneak(self, view: GameView, options: tuple[ActionOption, ...]) -> ActionOption:
-        """Choose the first engine-generated Sneak cast; legality remains engine-owned."""
-        del view
+        """Prefer a legal opposing target when a Sneak spell requires removal."""
+        battlefield = {obj.object_id: obj for side in view.battlefields for obj in side}
+        removals = [
+            option
+            for option in options
+            if option.kind is ActionKind.CAST and option.target_id is not None
+        ]
+        if removals:
+            opposing = next(
+                (
+                    option
+                    for option in removals
+                    if option.target_id in battlefield
+                    and battlefield[option.target_id].controller != option.player_index
+                ),
+                None,
+            )
+            if opposing is not None:
+                return opposing
+            options = tuple(option for option in options if option not in removals)
         return next(
             (option for option in options if option.kind is ActionKind.CAST),
             next(option for option in options if option.kind is ActionKind.PASS),
@@ -297,7 +325,7 @@ class AcceptancePilot:
                 and target is not None
                 and target.controller != view.priority_player
                 and option.oracle_fragment is not None
-                and option.oracle_fragment.startswith("Destroy target artifact or creature.")
+                and self._targeted_removal(option.oracle_fragment)
             ):
                 return option
         if view.context.step == "declare_blockers":

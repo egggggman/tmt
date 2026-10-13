@@ -8111,9 +8111,32 @@ class Game(
             ),
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
+            *self._hand_targeted_removal_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
+        )
+
+    def _hand_targeted_removal_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=state.epoch,
+            )
+            for card in self.players[player_index].hand
+            if "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for program in (self.interpreter.targeted_removal_program(card.card),)
+            if program is not None and self.payment_plan(player_index, card) is not None
+            for side in self.players
+            for target in side.battlefield
+            if self._legal_targeted_removal_target(target, player_index, program)
         )
 
     def _flash_permanent_cast_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -8255,6 +8278,14 @@ class Game(
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
+            if isinstance(card, CardObject) and option in self._hand_targeted_removal_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(option.player_index, card, target)
+                if spell is None:
+                    raise ValueError("targeted removal response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and option in self._linked_exile_instant_options(
                 option.player_index
             ):
@@ -11088,7 +11119,13 @@ class Game(
                         CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE,
                         CastKind.OOZE_SPILL,
                         CastKind.COUNTER_TARGET_SPELL,
+                        CastKind.TARGETED_REMOVAL,
                     }
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind is CastKind.TARGETED_REMOVAL
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
         )
