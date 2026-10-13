@@ -38,6 +38,7 @@ class CastKind(Enum):
     TOP_CARD_SELECTION = "top_card_selection"
     OPTIONAL_DESTROY_AND_CREATE = "optional_destroy_and_create"
     CONDITIONAL_DESTROY_AND_CREATE = "conditional_destroy_and_create"
+    TARGETED_REMOVAL = "targeted_removal"
     UNSUPPORTED = "unsupported"
 
 
@@ -78,6 +79,16 @@ class OptionalDestroyAndCreateProgram:
 class ConditionalDestroyAndCreateProgram:
     token: TokenCreationProgram
     maximum_mana_value: int
+
+
+@dataclass(frozen=True)
+class TargetedRemovalProgram:
+    """A direct spell's zone change and current-characteristic target restriction."""
+
+    destination: str
+    target_types: tuple[str, ...]
+    maximum_mana_value: int | None = None
+    enchantment_life_loss: int = 0
 
 
 @dataclass(frozen=True)
@@ -192,6 +203,7 @@ class SneakProgram:
     direct_keyword_ability: bool
     fixed_supported_cost: bool
     noncreature_draw_quantity: int | None = None
+    noncreature_targeted_removal: bool = False
 
     @property
     def executable(self) -> bool:
@@ -199,7 +211,11 @@ class SneakProgram:
             self.mana_cost is not None
             and self.direct_keyword_ability
             and self.fixed_supported_cost
-            and (self.creature_spell or self.noncreature_draw_quantity is not None)
+            and (
+                self.creature_spell
+                or self.noncreature_draw_quantity is not None
+                or self.noncreature_targeted_removal
+            )
         )
 
 
@@ -883,13 +899,14 @@ class CardInterpreter:
             if draw_semantics is not None and draw_semantics.coverage.fully_supported
             else None
         )
-        program = SneakProgram(mana_cost, creature, direct, fixed, draw_quantity)
+        removal = self.targeted_removal_program(card) is not None
+        program = SneakProgram(mana_cost, creature, direct, fixed, draw_quantity, removal)
         limitations: list[str] = []
         if not direct:
             limitations.append("sneak_reference_or_granted_ability_not_implemented")
         elif not fixed:
             limitations.append("sneak_cost_shape_not_implemented")
-        elif not creature and draw_quantity is None:
+        elif not creature and draw_quantity is None and not removal:
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
             payload_executable=program.executable,
@@ -974,6 +991,8 @@ class CardInterpreter:
         destroy = self.destroy_permanent_semantic_coverage(card, card.oracle_text)
         if destroy is not None and destroy.coverage.fully_supported:
             return CastProgram(CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE)
+        if self.targeted_removal_program(card) is not None:
+            return CastProgram(CastKind.TARGETED_REMOVAL)
         for fragment in self.fragments(card):
             draw = self.draw_cards_semantic_coverage(card, fragment)
             if draw is not None and draw.coverage.fully_supported:
@@ -1019,6 +1038,39 @@ class CardInterpreter:
         r"or less, create an? (?P<token>[A-Za-z]+) token\. "
         r'\(It\'s an artifact with "(?P<ability>[^"]+)"\)'
     )
+
+    TARGETED_REMOVAL = re.compile(
+        r"^(?P<verb>Destroy|Exile) target (?P<types>creature(?: or enchantment)?)"
+        r"(?: with mana value (?P<maximum>\d+) or less)?\."
+        r"(?: If an enchantment was destroyed this way, you lose (?P<life>\d+) life\.)?$"
+    )
+
+    def targeted_removal_program(self, card: CardDefinition) -> TargetedRemovalProgram | None:
+        """Interpret complete direct instant/sorcery removal, including a Sneak preface."""
+        if not any(
+            kind in card.type_line.split(" — ", 1)[0].split() for kind in ("Instant", "Sorcery")
+        ):
+            return None
+        fragments = self.fragments(card)
+        payloads = [fragment for fragment in fragments if self.TARGETED_REMOVAL.fullmatch(fragment)]
+        if len(payloads) != 1 or len(fragments) not in (1, 2):
+            return None
+        if len(fragments) == 2 and not (
+            fragments[0].startswith("Sneak ")
+            and self.SNEAK_ABILITY.match(fragments[0])
+            and fragments[1] == payloads[0]
+        ):
+            return None
+        match = self.TARGETED_REMOVAL.fullmatch(payloads[0])
+        assert match is not None
+        if match["life"] and (match["verb"] != "Destroy" or "enchantment" not in match["types"]):
+            return None
+        return TargetedRemovalProgram(
+            "exile" if match["verb"] == "Exile" else "graveyard",
+            tuple(kind.capitalize() for kind in match["types"].split(" or ")),
+            int(match["maximum"]) if match["maximum"] else None,
+            int(match["life"] or 0),
+        )
 
     def conditional_destroy_and_create_program(
         self, card: CardDefinition
@@ -2949,6 +3001,10 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.targeted_removal_program(card) is not None and self.TARGETED_REMOVAL.fullmatch(
+                fragment
+            ):
+                continue
             if "Class" in card.type_line and (
                 fragment == "(Gain the next level as a sorcery to add its ability.)"
                 or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
