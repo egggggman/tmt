@@ -1,0 +1,473 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "289ce95d8282e2ee33b1ffb468c117a7620dea7127609dcfe9ebc993cb5ea8a3",
+  "game_count": 5,
+  "replay_count": 5,
+  "games": [
+    {
+      "game_id": "issue289-katana-leonardo-raphael",
+      "seed": 3071,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "d7c49440c4037ddd1193b471e42fca07f277562067a517c5da05ea870346bc50",
+      "event_count": 1084,
+      "optional_attach": [],
+      "granted_combat": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-katana-raphael-leonardo",
+      "seed": 3071,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "04b5a35246f1134067f6c94944785cb02e5b6d91adbe346b69aa88f90244fbfc",
+      "event_count": 835,
+      "optional_attach": [],
+      "granted_combat": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-katana-leonardo-shredder",
+      "seed": 3071,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "09a66462bbe268fea5f6ab8e2c47fb3da03c0583ff10358b4b65151464517696",
+      "event_count": 1985,
+      "optional_attach": [],
+      "granted_combat": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-katana-shredder-leonardo",
+      "seed": 3071,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "a1759317223faf361fed57d1d0d16858749d3d086a8dc430da72b73e0ac737ae",
+      "event_count": 1295,
+      "optional_attach": [],
+      "granted_combat": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-katana-leonardo-shredder-trigger-execution",
+      "seed": 3073,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "af43b23473449ad9471a7f325207cb63dbd2688630e8e14388cc8632c5a768f1",
+      "event_count": 3861,
+      "optional_attach": [
+        {
+          "stack_object_id": "object-000192",
+          "event_id": "event-000052",
+          "source_id": "object-000156",
+          "recipient_id": "object-000191",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000204",
+          "event_id": "event-000058",
+          "source_id": "object-000156",
+          "recipient_id": "object-000203",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000225",
+          "event_id": "event-000072",
+          "source_id": "object-000156",
+          "recipient_id": "object-000224",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000269",
+          "event_id": "event-000107",
+          "source_id": "object-000261",
+          "recipient_id": "object-000268",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000278",
+          "event_id": "event-000113",
+          "source_id": "object-000261",
+          "recipient_id": "object-000277",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000287",
+          "event_id": "event-000119",
+          "source_id": "object-000261",
+          "recipient_id": "object-000286",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000309",
+          "event_id": "event-000132",
+          "source_id": "object-000261",
+          "recipient_id": "object-000308",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000318",
+          "event_id": "event-000138",
+          "source_id": "object-000261",
+          "recipient_id": "object-000317",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000327",
+          "event_id": "event-000143",
+          "source_id": "object-000261",
+          "recipient_id": "object-000326",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000339",
+          "event_id": "event-000149",
+          "source_id": "object-000261",
+          "recipient_id": "object-000338",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000349",
+          "event_id": "event-000154",
+          "source_id": "object-000261",
+          "recipient_id": "object-000348",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000363",
+          "event_id": "event-000162",
+          "source_id": "object-000261",
+          "recipient_id": "object-000362",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000367",
+          "event_id": "event-000164",
+          "source_id": "object-000261",
+          "recipient_id": "object-000366",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000378",
+          "event_id": "event-000169",
+          "source_id": "object-000261",
+          "recipient_id": "object-000377",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000382",
+          "event_id": "event-000171",
+          "source_id": "object-000261",
+          "recipient_id": "object-000381",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000386",
+          "event_id": "event-000172",
+          "source_id": "object-000261",
+          "recipient_id": "object-000385",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000396",
+          "event_id": "event-000178",
+          "source_id": "object-000261",
+          "recipient_id": "object-000395",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000401",
+          "event_id": "event-000180",
+          "source_id": "object-000261",
+          "recipient_id": "object-000400",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000405",
+          "event_id": "event-000181",
+          "source_id": "object-000261",
+          "recipient_id": "object-000404",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000409",
+          "event_id": "event-000182",
+          "source_id": "object-000261",
+          "recipient_id": "object-000408",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000419",
+          "event_id": "event-000188",
+          "source_id": "object-000261",
+          "recipient_id": "object-000418",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000424",
+          "event_id": "event-000190",
+          "source_id": "object-000261",
+          "recipient_id": "object-000423",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000428",
+          "event_id": "event-000191",
+          "source_id": "object-000261",
+          "recipient_id": "object-000427",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000432",
+          "event_id": "event-000192",
+          "source_id": "object-000261",
+          "recipient_id": "object-000431",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000436",
+          "event_id": "event-000193",
+          "source_id": "object-000261",
+          "recipient_id": "object-000435",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000451",
+          "event_id": "event-000201",
+          "source_id": "object-000261",
+          "recipient_id": "object-000450",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000456",
+          "event_id": "event-000203",
+          "source_id": "object-000261",
+          "recipient_id": "object-000455",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000460",
+          "event_id": "event-000204",
+          "source_id": "object-000261",
+          "recipient_id": "object-000459",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000464",
+          "event_id": "event-000205",
+          "source_id": "object-000261",
+          "recipient_id": "object-000463",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000468",
+          "event_id": "event-000206",
+          "source_id": "object-000261",
+          "recipient_id": "object-000467",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000472",
+          "event_id": "event-000207",
+          "source_id": "object-000261",
+          "recipient_id": "object-000471",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000484",
+          "event_id": "event-000214",
+          "source_id": "object-000261",
+          "recipient_id": "object-000483",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000489",
+          "event_id": "event-000216",
+          "source_id": "object-000261",
+          "recipient_id": "object-000488",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000493",
+          "event_id": "event-000217",
+          "source_id": "object-000261",
+          "recipient_id": "object-000492",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000497",
+          "event_id": "event-000218",
+          "source_id": "object-000261",
+          "recipient_id": "object-000496",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000501",
+          "event_id": "event-000219",
+          "source_id": "object-000261",
+          "recipient_id": "object-000500",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000505",
+          "event_id": "event-000220",
+          "source_id": "object-000261",
+          "recipient_id": "object-000504",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000509",
+          "event_id": "event-000221",
+          "source_id": "object-000261",
+          "recipient_id": "object-000508",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000518",
+          "event_id": "event-000227",
+          "source_id": "object-000261",
+          "recipient_id": "object-000517",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000523",
+          "event_id": "event-000229",
+          "source_id": "object-000261",
+          "recipient_id": "object-000522",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000527",
+          "event_id": "event-000230",
+          "source_id": "object-000261",
+          "recipient_id": "object-000526",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000531",
+          "event_id": "event-000231",
+          "source_id": "object-000261",
+          "recipient_id": "object-000530",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000535",
+          "event_id": "event-000232",
+          "source_id": "object-000261",
+          "recipient_id": "object-000534",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000539",
+          "event_id": "event-000233",
+          "source_id": "object-000261",
+          "recipient_id": "object-000538",
+          "chosen": true,
+          "attached": true
+        },
+        {
+          "stack_object_id": "object-000543",
+          "event_id": "event-000234",
+          "source_id": "object-000261",
+          "recipient_id": "object-000542",
+          "chosen": true,
+          "attached": true
+        }
+      ],
+      "granted_combat": [
+        {
+          "stack_object_id": "object-000218",
+          "event_id": "event-000067",
+          "grant_source_id": "object-000156",
+          "recipient_id": "object-000203",
+          "untapped": true,
+          "life_gained": 2
+        },
+        {
+          "stack_object_id": "object-000387",
+          "event_id": "event-000173",
+          "grant_source_id": "object-000261",
+          "recipient_id": "object-000385",
+          "untapped": true,
+          "life_gained": 2
+        },
+        {
+          "stack_object_id": "object-000410",
+          "event_id": "event-000183",
+          "grant_source_id": "object-000261",
+          "recipient_id": "object-000408",
+          "untapped": true,
+          "life_gained": 2
+        },
+        {
+          "stack_object_id": "object-000438",
+          "event_id": "event-000194",
+          "grant_source_id": "object-000261",
+          "recipient_id": "object-000435",
+          "untapped": true,
+          "life_gained": 2
+        },
+        {
+          "stack_object_id": "object-000474",
+          "event_id": "event-000208",
+          "grant_source_id": "object-000261",
+          "recipient_id": "object-000471",
+          "untapped": true,
+          "life_gained": 2
+        },
+        {
+          "stack_object_id": "object-000510",
+          "event_id": "event-000222",
+          "grant_source_id": "object-000261",
+          "recipient_id": "object-000508",
+          "untapped": true,
+          "life_gained": 2
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}

@@ -312,6 +312,7 @@ class RulesEventKind(Enum):
     END_STEP_BEGAN = "end_step_began"
     DAMAGE_DEALT = "damage_dealt"
     COMBAT_DAMAGE_TO_PLAYER = "combat_damage_to_player"
+    COMBAT_DAMAGE_TO_CREATURE = "combat_damage_to_creature"
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
     DISCARD_DRAW = "discard_draw"
@@ -341,6 +342,8 @@ class TriggerEffect(Enum):
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
+    GRANTED_COMBAT_UNTAP_GAIN = "granted_combat_untap_gain"
+    EQUIPMENT_SUBTYPE_ENTRY_ATTACH = "equipment_subtype_entry_attach"
     UTILITY_TARGET = "utility_target"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
@@ -677,6 +680,7 @@ class TriggerInstance:
     oracle_fragment: str
     effect: TriggerEffect
     event: RulesEvent
+    grant_source_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -1355,6 +1359,7 @@ class Game(
         raphael_exile_chooser=None,
         raphael_play_chooser=None,
         damage_target_chooser=None,
+        equipment_attach_chooser=None,
         interpreter: CardInterpreter | None = None,
     ):
         self.rng = DeterministicRNG(seed)
@@ -1513,6 +1518,9 @@ class Game(
         self.raphael_exile_chooser = raphael_exile_chooser or (lambda _controller, _source_id: True)
         self.raphael_play_chooser = raphael_play_chooser or (
             lambda _controller, _source_id, options: options[0] if options else None
+        )
+        self.equipment_attach_chooser = equipment_attach_chooser or (
+            lambda _controller, _source_id, _recipient_id: True
         )
         self.alliance_modes_chosen: dict[str, set[str]] = {}
         for player in self.players:
@@ -4066,7 +4074,65 @@ class Game(
         source: Permanent,
         fragment: str,
         effect: TriggerEffect,
+        *,
+        grant_source: Permanent | None = None,
     ) -> None:
+        if effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN:
+            self._authenticate_original_rules_event(event)
+            if (
+                grant_source is None
+                or not self.is_authoritative(source, "battlefield")
+                or not self.is_authoritative(grant_source, "battlefield")
+                or grant_source.attached_to != source.object_id
+                or "Equipment" not in grant_source.type_line
+                or (
+                    source.ability_loss_timestamp is not None
+                    and grant_source.attachment_timestamp <= source.ability_loss_timestamp
+                )
+                or event.kind
+                not in {
+                    RulesEventKind.COMBAT_DAMAGE_TO_PLAYER,
+                    RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                }
+                or not event.subject_ids
+                or event.subject_ids[0] != source.object_id
+                or event.source_id != source.object_id
+                or event.player_index != source.controller
+                or (
+                    event.target_player != 1 - source.controller
+                    if event.kind is RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                    else event.target_player is not None or len(event.subject_ids) != 2
+                )
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or (grant_source.object_id, grant_source.controller)
+                not in event.battlefield_authority
+                or event.amount is None
+                or event.amount <= 0
+                or fragment not in self.interpreter.fragments(grant_source.rules_card)
+                or self.interpreter.equipment_granted_combat_semantics(grant_source.card, fragment)
+                is None
+            ):
+                raise ValueError("granted combat trigger lacks damage and attachment provenance")
+        elif grant_source is not None:
+            raise ValueError("grant source is valid only for a granted combat trigger")
+        if effect is TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH:
+            self._authenticate_original_rules_event(event)
+            subtype = self.interpreter.equipment_subtype_entry_attach(source.card, fragment)
+            entering = (
+                self._objects.get(event.subject_ids[0]) if len(event.subject_ids) == 1 else None
+            )
+            if (
+                subtype is None
+                or not self.is_authoritative(source, "battlefield")
+                or event.kind is not RulesEventKind.CREATURE_ENTERED
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or event.player_index != source.controller
+                or not isinstance(entering, Permanent)
+                or not self.is_authoritative(entering, "battlefield")
+                or entering.controller != source.controller
+                or subtype not in entering.type_line.partition(" — ")[2].split()
+            ):
+                raise ValueError("Equipment subtype entry lacks creature-entry provenance")
         if effect in {
             TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
             TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
@@ -4326,6 +4392,7 @@ class Game(
             fragment,
             effect,
             event,
+            grant_source.object_id if grant_source is not None else None,
         )
         self._next_trigger_number += 1
         self._triggers[trigger.trigger_id] = trigger
@@ -4337,6 +4404,7 @@ class Game(
             source=source.card.name,
             controller=self.players[source.controller].name,
             oracle_fragment=fragment,
+            **({"grant_source_id": grant_source.object_id} if grant_source is not None else {}),
         )
 
     def _put_pending_triggers_on_stack(self, effects: set[TriggerEffect] | None = None) -> bool:
@@ -4389,6 +4457,10 @@ class Game(
                         target_id=ability.target_id,
                         offered_ids=list(eligible),
                     )
+                if ability.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN:
+                    ability.target_id = trigger.event.source_id  # recipient, not a target
+                if ability.effect is TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH:
+                    ability.target_id = trigger.event.subject_ids[0]  # "it", not a target
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
                 if (
@@ -4835,6 +4907,78 @@ class Game(
         ):
             raise ValueError("Rock Soldiers trigger has invalid source provenance")
 
+    def _validate_equipment_granted_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        event = ability.event
+        self._authenticate_original_rules_event(event)
+        if (
+            trigger is None
+            or trigger.event is not event
+            or trigger.effect is not ability.effect
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or self._rules_events.get(event.event_id) is not event
+        ):
+            raise ValueError("Equipment trigger identity is invalid")
+        source = self._objects.get(ability.source_id)
+        if ability.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN:
+            grant = self._objects.get(trigger.grant_source_id or "")
+            if (
+                not isinstance(source, Permanent)
+                or source.card is not ability.source_card
+                or source.zone not in {"battlefield", "former"}
+                or not isinstance(grant, Permanent)
+                or grant.zone not in {"battlefield", "former"}
+                or self.interpreter.equipment_granted_combat_semantics(
+                    grant.card, ability.oracle_fragment
+                )
+                is None
+                or event.kind
+                not in {
+                    RulesEventKind.COMBAT_DAMAGE_TO_PLAYER,
+                    RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                }
+                or event.source_id != source.object_id
+                or not event.subject_ids
+                or event.subject_ids[0] != source.object_id
+                or event.player_index != ability.controller
+                or (
+                    event.target_player != 1 - ability.controller
+                    if event.kind is RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                    else event.target_player is not None or len(event.subject_ids) != 2
+                )
+                or event.amount is None
+                or event.amount <= 0
+                or (grant.object_id, grant.controller) not in event.battlefield_authority
+                or (source.object_id, ability.controller) not in event.battlefield_authority
+                or ability.target_id != source.object_id
+            ):
+                raise ValueError("granted combat trigger provenance is invalid")
+        elif ability.effect is TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH:
+            subtype = self.interpreter.equipment_subtype_entry_attach(
+                ability.source_card, ability.oracle_fragment
+            )
+            if (
+                subtype is None
+                or not isinstance(source, Permanent)
+                or source.card is not ability.source_card
+                or source.zone not in {"battlefield", "former"}
+                or event.kind is not RulesEventKind.CREATURE_ENTERED
+                or len(event.subject_ids) != 1
+                or ability.target_id != event.subject_ids[0]
+                or (source.object_id, ability.controller) not in event.battlefield_authority
+                or event.player_index != ability.controller
+                or not any(
+                    object_id == ability.target_id
+                    and controller == ability.controller
+                    and subtype in type_line.partition(" — ")[2].split()
+                    for object_id, controller, type_line in event.battlefield_characteristics
+                )
+            ):
+                raise ValueError("Equipment subtype-entry trigger provenance is invalid")
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -4858,6 +5002,11 @@ class Game(
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect in {
+            TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+            TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
+        }:
+            self._validate_equipment_granted_trigger(ability)
         if ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
             self._authenticate_original_rules_event(ability.event)
             if (
@@ -5016,6 +5165,68 @@ class Game(
                     source_id=ability.source_id,
                     target_id=target.object_id if target is not None else None,
                 )
+        elif ability.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN:
+            recipient = self._objects.get(ability.target_id or "")
+            untapped = isinstance(recipient, Permanent) and self.is_authoritative(
+                recipient, "battlefield"
+            )
+            if untapped:
+                recipient.tapped = False
+            grant = self._triggers[ability.trigger_id].grant_source_id
+            assert grant is not None
+            gain = self.interpreter.equipment_granted_combat_semantics(
+                self._objects[grant].card, ability.oracle_fragment
+            )
+            assert gain is not None
+            self.gain_life(
+                ability.controller,
+                gain[2],
+                source_card=self._objects[grant].card.name,
+                oracle_fragment=ability.oracle_fragment,
+                defer_trigger_delivery=True,
+            )
+            self.log(
+                "equipment_granted_combat_resolved",
+                stack_object_id=ability.object_id,
+                event_id=ability.event.event_id,
+                grant_source_id=grant,
+                recipient_id=ability.target_id,
+                untapped=untapped,
+                life_gained=gain[2],
+                damage_recipient_id=(
+                    ability.event.subject_ids[1]
+                    if ability.event.kind is RulesEventKind.COMBAT_DAMAGE_TO_CREATURE
+                    else None
+                ),
+            )
+        elif ability.effect is TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH:
+            recipient = self._objects.get(ability.target_id or "")
+            chosen = self.equipment_attach_chooser(
+                ability.controller, ability.source_id, ability.target_id
+            )
+            if not isinstance(chosen, bool):
+                raise ValueError("optional Equipment attachment chooser must return a boolean")
+            legal = (
+                chosen
+                and source_permanent is not None
+                and "Equipment" in source_permanent.type_line
+                and isinstance(recipient, Permanent)
+                and self.is_authoritative(recipient, "battlefield")
+                and recipient.is_creature
+            )
+            if legal:
+                source_permanent.attached_to = recipient.object_id
+                source_permanent.attachment_timestamp = self._effect_timestamp()
+                self.refresh_static_pt_modifiers()
+            self.log(
+                "equipment_subtype_entry_attach_resolved",
+                stack_object_id=ability.object_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                recipient_id=ability.target_id,
+                chosen=chosen,
+                attached=legal,
+            )
         elif ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
             equipment = self._objects.get(ability.source_id)
             target = self._objects.get(ability.target_id or "")
@@ -5968,6 +6179,8 @@ class Game(
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ETB_ANY_TARGET_DAMAGE,
                 TriggerEffect.ETB_ATTACH_EQUIPMENT,
+                TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+                TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
@@ -6847,6 +7060,15 @@ class Game(
                     self._enqueue_trigger(
                         event, source, fragment, TriggerEffect.RAPHAEL_ALLIANCE_EXILE
                     )
+                if TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH in enabled:
+                    subtype = self.interpreter.equipment_subtype_entry_attach(source.card, fragment)
+                    if (
+                        subtype is not None
+                        and subtype in entering.type_line.partition(" — ")[2].split()
+                    ):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH
+                        )
                 if TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE in enabled:
                     semantics = self.interpreter.temporary_keyword_choice_semantic_coverage(
                         source.card, fragment
@@ -6897,6 +7119,7 @@ class Game(
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.ETB_ANY_TARGET_DAMAGE,
             TriggerEffect.ETB_ATTACH_EQUIPMENT,
+            TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
             TriggerEffect.SCRY,
             TriggerEffect.ETB_DRAIN_GAIN_SCRY,
             TriggerEffect.ETB_SELF_LIFE_GAIN,
@@ -9364,6 +9587,27 @@ class Game(
         )
         return evidence
 
+    def _enqueue_equipment_combat_triggers(self, event: RulesEvent, recipient: Permanent) -> None:
+        """Grant combat triggers from Equipment attached at the damage event."""
+        for player in self.players:
+            for equipment in player.battlefield:
+                if equipment.attached_to != recipient.object_id:
+                    continue
+                for fragment in self.interpreter.fragments(equipment.rules_card):
+                    if (
+                        self.interpreter.equipment_granted_combat_semantics(
+                            equipment.card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event,
+                            recipient,
+                            fragment,
+                            TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+                            grant_source=equipment,
+                        )
+
     def resolve_combat_damage(self) -> CombatDamageStepEvidence:
         """Resolve exactly one authoritative CR 510.4 combat-damage step."""
         if (
@@ -9530,6 +9774,7 @@ class Game(
                         target_player=assignment.target_player,
                         amount=assignment.amount,
                     )
+                    self._enqueue_equipment_combat_triggers(event, source)
                     for fragment in self.interpreter.fragments(source.rules_card):
                         semantics = self.interpreter.combat_damage_draw_discard_semantic_coverage(
                             source.card, fragment
@@ -9544,6 +9789,15 @@ class Game(
                 target.damage += assignment.amount
                 if assignment.amount > 0 and self.evaluated_deathtouch(source):
                     target.deathtouch_damage = True
+                if assignment.amount > 0:
+                    event = self._new_rules_event(
+                        RulesEventKind.COMBAT_DAMAGE_TO_CREATURE,
+                        source.controller,
+                        (source.object_id, target.object_id),
+                        source_id=source.object_id,
+                        amount=assignment.amount,
+                    )
+                    self._enqueue_equipment_combat_triggers(event, source)
                 self.log(
                     "combat_damage_assignment",
                     source=source.card.name,
@@ -13418,6 +13672,14 @@ class Game(
                         self._validate_alliance_temporary_keyword_choice_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect in {
+                    TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+                    TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
+                }:
+                    try:
+                        self._validate_equipment_granted_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
                 if obj.source_id not in self._objects:
                     raise AssertionError("activated ability source ID was never registered")
@@ -13990,7 +14252,17 @@ class Game(
                         "kind": "triggered_ability",
                         **(
                             {"target_id": entry.target_id}
-                            if entry.effect is TriggerEffect.ETB_TAP_STUN
+                            if entry.effect
+                            in {
+                                TriggerEffect.ETB_TAP_STUN,
+                                TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
+                                TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
+                            }
+                            else {}
+                        ),
+                        **(
+                            {"grant_source_id": self._triggers[entry.trigger_id].grant_source_id}
+                            if entry.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN
                             else {}
                         ),
                         "source": entry.source_card.name,
