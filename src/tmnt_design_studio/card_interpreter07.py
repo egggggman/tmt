@@ -2078,6 +2078,26 @@ class CardInterpreter:
         )
         return (0, 0, match.group("keyword").casefold()) if match else None
 
+    def equipment_scaled_static_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int, str] | None:
+        """Per-controlled-permanent bonuses, evaluated again whenever the board changes."""
+        if "Equipment" not in card.type_line:
+            return None
+        match = re.fullmatch(
+            r"Equipped creature gets \+(?P<power>\d+)/\+(?P<toughness>\d+) "
+            r"for each (?P<quality>artifact|creature) you control\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        if match is None:
+            return None
+        return (
+            int(match.group("power")),
+            int(match.group("toughness")),
+            match.group("quality").casefold(),
+        )
+
     def utility_trigger_semantics(
         self, card: CardDefinition, fragment: str
     ) -> tuple[str, str, bool] | None:
@@ -2467,9 +2487,7 @@ class CardInterpreter:
         if equip is not None:
             cost_text = equip.group("cost")
             requirement = bool(re.fullmatch(r"\{(?:[0-9]+|[WUBRG])\}", cost_text, re.I))
-            executable = (
-                "Equipment" in card.type_line and requirement and equip.group("nested") is not None
-            )
+            executable = "Equipment" in card.type_line and requirement
             limitations = () if executable else ("equipment_source_or_shape_not_supported",)
             program = ActivatedAbilityProgram(
                 cost_text,
@@ -3149,6 +3167,8 @@ class CardInterpreter:
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
             if self.equipment_static_semantics(card, fragment) is not None:
+                continue
+            if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
             if self.utility_trigger_semantics(card, fragment) is not None:
                 continue

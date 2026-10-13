@@ -741,7 +741,7 @@ def test_unequipped_equipment_characteristic_remains_present_unreached():
         "{2}",
         2,
         "Artifact — Equipment",
-        "Equipped creature gets +1/+0 for each artifact you control.",
+        "Equipped creature gets +1/+0 for each enchantment you control.",
         oracle_id="counterweight",
     )
     artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)

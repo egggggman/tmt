@@ -40,7 +40,7 @@ def test_alliance_exile_is_linked_to_source():
     game = Game(([MOUNTAIN] * 12, [MOUNTAIN] * 12), seed=81)
     game.begin_turn()
     source = game.create_permanent(RAPHAEL, 0)
-    entering = game.create_permanent(SPELL, 0)
+    entering = game.create_permanent(TARGET, 0)
     game._process_creature_entered_triggers(entering)
     assert game.stack[-1].effect is TriggerEffect.RAPHAEL_ALLIANCE_EXILE
     resolve_all(game)

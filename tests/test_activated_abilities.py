@@ -572,7 +572,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    assert len({item[0] for item in executable}) == 34 and len(executable) == 36
+    assert len({item[0] for item in executable}) == 42 and len(executable) == 44
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -601,13 +601,21 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Cool but Rude",
         "Zog, Triceraton Castaway",
         "Mouser Foundry",
+        "Commander's Plate",
+        "Conqueror's Flail",
+        "Foot Chopper",
+        "Improvised Arsenal",
+        "Shadowspear",
+        "Sword of Hearth and Home",
+        "Sword of Sinew and Steel",
+        "Umezawa's Jitte",
     }
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == EXECUTABLE_DIGEST
+        == "66212a031e9ae5b82a0c7ce5ee942792c215e5e85a3c39dd4bcf3c31c1828c3f"
     )
-    assert digest(executable) == "51884e565312ebbf94066a47879337abfbc54363b71072fbaa0d65a7306139c5"
+    assert digest(executable) == "6366e63bb5fd99be401eb86f463001b54a5c4b2d46deafdcf5a221b7887393cd"
     assert digest(full) == digest(executable)
 
 
@@ -660,6 +668,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
         "Stockman, Mad Fly-entist",
         "Cool but Rude",
         "Purple Dragon Punks",
+        "Improvised Arsenal",
     }
     assert {name for name, cards in decks.items() if cards & executable_names} == {
         "april_oneil",
