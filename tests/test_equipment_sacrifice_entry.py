@@ -43,6 +43,7 @@ def test_oracle_shapes_are_generic_and_non_equipment_does_not_qualify():
     interpreter = CardInterpreter()
     assert interpreter.equipment_etb_attach(EQUIPMENT, ENTRY)
     assert interpreter.activated_ability_semantics(EQUIPMENT, EQUIP).coverage.fully_supported
+    assert not interpreter.unsupported_fragments(EQUIPMENT)
     altered = CardFact("Relic", "{1}", 1, "Artifact", ENTRY + "\n" + EQUIP)
     assert not interpreter.equipment_etb_attach(altered, ENTRY)
     assert not interpreter.activated_ability_semantics(altered, EQUIP).coverage.fully_supported

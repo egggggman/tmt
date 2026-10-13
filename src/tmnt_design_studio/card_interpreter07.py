@@ -3212,6 +3212,8 @@ class CardInterpreter:
                 continue
             if self.equipment_static_semantics(card, fragment) is not None:
                 continue
+            if self.equipment_etb_attach(card, fragment):
+                continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
             if self.utility_trigger_semantics(card, fragment) is not None:
