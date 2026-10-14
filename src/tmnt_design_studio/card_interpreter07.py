@@ -43,6 +43,7 @@ class CastKind(Enum):
     MODAL_TOKEN_OR_CREATURE_PUMP = "modal_token_or_creature_pump"
     TARGETED_COUNTER_KEYWORD_GRANT = "targeted_counter_keyword_grant"
     TEMPORARY_TYPE_BASE_PT_DRAW = "temporary_type_base_pt_draw"
+    TARGETED_LIBRARY_RETURN_AND_TOKEN = "targeted_library_return_and_token"
     UNSUPPORTED = "unsupported"
 
 
@@ -86,6 +87,14 @@ class TemporaryTypeBasePTDrawProgram:
     power: int
     toughness: int
     draw_quantity: int
+
+
+@dataclass(frozen=True)
+class TargetedLibraryReturnAndTokenProgram:
+    """Complete targeted owner-choice library movement and token creation."""
+
+    token: TokenCreationProgram
+    oracle_fragment: str
 
 
 @dataclass(frozen=True)
@@ -1066,6 +1075,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.targeted_library_return_and_token_program(card) is not None:
+            return CastProgram(CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN)
         if self.temporary_type_base_pt_draw_program(card) is not None:
             return CastProgram(CastKind.TEMPORARY_TYPE_BASE_PT_DRAW)
         if self.targeted_counter_keyword_grant_program(card) is not None:
@@ -1231,6 +1242,35 @@ class CardInterpreter:
         r"cards?\.$",
         re.I,
     )
+
+    TARGETED_LIBRARY_RETURN_AND_TOKEN = re.compile(
+        r'^Target creature\'s owner puts it on their choice of the top or bottom of their '
+        r'library\. You create an? (?P<token>[A-Za-z]+) token\. '
+        r'\(It\'s an artifact with "(?P<ability>[^"]+)"\)$'
+    )
+
+    def targeted_library_return_and_token_program(
+        self, card: CardDefinition
+    ) -> TargetedLibraryReturnAndTokenProgram | None:
+        """Require every clause, including the token's executable printed ability."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        match = self.TARGETED_LIBRARY_RETURN_AND_TOKEN.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token = self.token_creation_program(card.oracle_text)
+        if (
+            token is None
+            or not token.executable
+            or token.retained_limitation is not None
+            or token.definition is None
+            or "Artifact" not in token.definition.type_line.split(" — ", 1)[0].split()
+            or token.definition.name.casefold() != match["token"].casefold()
+            or token.definition.oracle_text != match["ability"]
+            or self.COUNTER_TOKEN_ACTIVATION.fullmatch(match["ability"]) is None
+        ):
+            return None
+        return TargetedLibraryReturnAndTokenProgram(token, card.oracle_text.strip())
 
     def temporary_type_base_pt_draw_program(
         self, card: CardDefinition
@@ -3428,6 +3468,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.targeted_library_return_and_token_program(card) is not None:
+                continue
             if self.temporary_type_base_pt_draw_program(card) is not None:
                 continue
             if (grant := self.targeted_counter_keyword_grant_program(card)) is not None and (
