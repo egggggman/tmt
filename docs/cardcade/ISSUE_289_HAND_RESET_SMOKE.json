@@ -1,0 +1,149 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "39f7b510513784981863367bb5a0be0aacb62849b1fd483357e92e08e82b7c8a",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-hand-reset-314-raphael-splinter",
+      "seed": 314,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "f9aecc2f7eb91aa9c3bb25f5bdc043e72ffb137aed886e23fcd85184b4aadee8",
+      "event_count": 843,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-hand-reset-314-splinter-raphael",
+      "seed": 314,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "acf281d1b8457cdefc4253872dac43e6ef8ccef315cc57a4a5941e036c503184",
+      "event_count": 1155,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-hand-reset-314-raphael-april_oneil",
+      "seed": 314,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "89b5a938f3e9f2f09cdfec4e38a30993aec9d56608a78c8b919655963f264849",
+      "event_count": 775,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-hand-reset-314-april_oneil-raphael",
+      "seed": 314,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "bd386a2545d0edeafa2901fb18b8aff1698dbfb1d27647065b1ad39e8489e0c4",
+      "event_count": 1649,
+      "normal_payment": [
+        {
+          "card": "Raphael's Technique",
+          "generic": 4,
+          "colored": [
+            "R",
+            "R"
+          ],
+          "source_ids": [
+            "object-000178",
+            "object-000206",
+            "object-000249",
+            "object-000258",
+            "object-000279",
+            "object-000304"
+          ]
+        }
+      ],
+      "sneak_payment": [],
+      "resolution": [
+        {
+          "stack_object_id": "object-000310",
+          "apnap_order": [
+            1,
+            0
+          ],
+          "choices": [
+            {
+              "player": 1,
+              "discard_and_draw": true
+            },
+            {
+              "player": 0,
+              "discard_and_draw": true
+            }
+          ],
+          "discarded": [
+            {
+              "player": 1,
+              "zone_ids": []
+            },
+            {
+              "player": 0,
+              "zone_ids": [
+                [
+                  "object-000191",
+                  "object-000311"
+                ],
+                [
+                  "object-000297",
+                  "object-000312"
+                ]
+              ]
+            }
+          ],
+          "drawn": [
+            {
+              "player": 1,
+              "hand_ids": [
+                "object-000313",
+                "object-000314",
+                "object-000315",
+                "object-000316",
+                "object-000317",
+                "object-000318",
+                "object-000319"
+              ]
+            },
+            {
+              "player": 0,
+              "hand_ids": [
+                "object-000320",
+                "object-000321",
+                "object-000322",
+                "object-000323",
+                "object-000324",
+                "object-000325",
+                "object-000326"
+              ]
+            }
+          ],
+          "draw_quantity": 7,
+          "draw_succeeded": [
+            {
+              "player": 1,
+              "success": true
+            },
+            {
+              "player": 0,
+              "success": true
+            }
+          ],
+          "oracle_fragment": "Each player may discard their hand and draw seven cards."
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}
