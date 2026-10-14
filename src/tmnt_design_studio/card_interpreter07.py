@@ -47,6 +47,7 @@ class CastKind(Enum):
     LIBRARY_SEARCH_TO_HAND = "library_search_to_hand"
     OPTIONAL_HAND_RESET = "optional_hand_reset"
     GRAVEYARD_RECURSION = "graveyard_recursion"
+    CONDITIONAL_SNEAK_TOKENS = "conditional_sneak_tokens"
     UNSUPPORTED = "unsupported"
 
 
@@ -303,6 +304,7 @@ class SneakProgram:
     noncreature_library_search: bool = False
     noncreature_hand_reset: bool = False
     noncreature_graveyard_recursion: bool = False
+    noncreature_conditional_tokens: bool = False
 
     @property
     def executable(self) -> bool:
@@ -317,6 +319,7 @@ class SneakProgram:
                 or self.noncreature_library_search
                 or self.noncreature_hand_reset
                 or self.noncreature_graveyard_recursion
+                or self.noncreature_conditional_tokens
             )
         )
 
@@ -727,6 +730,15 @@ class TokenCreationProgram:
 
 
 @dataclass(frozen=True)
+class ConditionalSneakTokensProgram:
+    """A complete spell creating tokens, with an alternative-cost entry condition."""
+
+    token: TokenCreationProgram
+    sneak_fragment: str
+    effect_fragment: str
+
+
+@dataclass(frozen=True)
 class InterpretedTokenSemantics:
     """An Action-specific token program paired with Action-agnostic coverage evidence."""
 
@@ -918,6 +930,10 @@ class CardInterpreter:
         r"a number of|one or more) (?P<body>.*?\btokens?)\b",
         re.IGNORECASE,
     )
+    CONDITIONAL_SNEAK_TOKEN_ENTRY = re.compile(
+        r"Create [^.]+ creature tokens\. If this spell's sneak cost was paid, "
+        r"they enter tapped and attacking\."
+    )
     EXPLICIT_CREATURE_TOKEN = re.compile(
         r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\s+"
         r"(?P<descriptor>.+?)\s+creature tokens?\b",
@@ -1053,6 +1069,7 @@ class CardInterpreter:
         search = self.library_search_to_hand_program(card)
         reset = self.optional_hand_reset_program(card)
         recursion = self.graveyard_recursion_program(card)
+        conditional_tokens = self.conditional_sneak_tokens_program(card)
         program = SneakProgram(
             mana_cost,
             creature,
@@ -1063,6 +1080,7 @@ class CardInterpreter:
             search is not None and search.sneak_fragment == fragment,
             reset is not None and reset.sneak_fragment == fragment,
             recursion is not None and recursion.sneak_fragment == fragment,
+            conditional_tokens is not None and conditional_tokens.sneak_fragment == fragment,
         )
         limitations: list[str] = []
         if not direct:
@@ -1076,6 +1094,7 @@ class CardInterpreter:
             and not program.noncreature_library_search
             and not program.noncreature_hand_reset
             and not program.noncreature_graveyard_recursion
+            and not program.noncreature_conditional_tokens
         ):
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
@@ -1130,6 +1149,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.conditional_sneak_tokens_program(card) is not None:
+            return CastProgram(CastKind.CONDITIONAL_SNEAK_TOKENS)
         if self.graveyard_recursion_program(card) is not None:
             return CastProgram(CastKind.GRAVEYARD_RECURSION)
         if self.optional_hand_reset_program(card) is not None:
@@ -2217,10 +2238,15 @@ class CardInterpreter:
             unsupported_reason = "token_characteristics_not_safely_derived"
         elif variable_quantity:
             unsupported_reason = "variable_token_quantity_not_implemented"
-        elif re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I):
+        elif (
+            re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I)
+            and self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragment) is None
+        ):
             unsupported_reason = "token_attacking_context_not_implemented"
 
         tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
+        if self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragment) is not None:
+            tapped = False  # The entry modifier applies only when the alternative cost was paid.
         retained_limitation = None
         if (
             definition is not None
@@ -2246,6 +2272,24 @@ class CardInterpreter:
             unsupported_reason=unsupported_reason,
             retained_limitation=retained_limitation,
         )
+
+    def conditional_sneak_tokens_program(
+        self, card: CardDefinition
+    ) -> ConditionalSneakTokensProgram | None:
+        """Recognize a complete Sneak spell with conditional attacking token entry."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if (
+            len(fragments) != 2
+            or self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is None
+            or self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragments[1]) is None
+        ):
+            return None
+        token = self.token_creation_program(fragments[1])
+        if token is None or not token.executable or token.retained_limitation is not None:
+            return None
+        return ConditionalSneakTokensProgram(token, fragments[0], fragments[1])
 
     def damage_program(self, fragment: str) -> DamageProgram | None:
         """Recognize damage payloads without confusing damage with adjacent outcomes."""
@@ -3521,6 +3565,9 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        conditional_tokens = self.conditional_sneak_tokens_program(card)
+        if conditional_tokens is not None and fragment == conditional_tokens.effect_fragment:
+            return self._token_semantics(conditional_tokens.token, True)
         library_return = self.targeted_library_return_and_token_program(card)
         if library_return is not None and fragment == library_return.oracle_fragment:
             return self._token_semantics(library_return.token, True)
@@ -3618,6 +3665,13 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (
+                conditional_tokens := self.conditional_sneak_tokens_program(card)
+            ) is not None and fragment in {
+                conditional_tokens.effect_fragment,
+                conditional_tokens.sneak_fragment,
+            }:
+                continue
             if (recursion := self.graveyard_recursion_program(card)) is not None and fragment in {
                 recursion.effect_fragment,
                 recursion.sneak_fragment,

@@ -102,7 +102,6 @@ EXPECTED_EXECUTABLE_NAMES = EXPECTED_RECOGNIZED_NAMES - {
     "Shredder, Shadow Master",
     "Tempestra, Dame of Games",
     "The Cloning of Shredder",
-    "The Last Ronin's Technique",
     "Triceraton Commander",
 }
 EXPECTED_ROSTER_NAMES = {
@@ -683,7 +682,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
         name for name, items in rows_by_name.items() if any(x[2].payload_executable for x in items)
     } == EXPECTED_EXECUTABLE_NAMES
     assert sum(map(len, rows_by_name.values())) == 71
-    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 50
+    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 51
     recognized_rows = {
         (oracle_id, fragment) for items in rows_by_name.values() for oracle_id, fragment, _ in items
     }
@@ -705,7 +704,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
     )
     assert (
         digest(executable_rows)
-        == "3fdec6260d5627e3e2c0e57b9a8e56b71ea35e59c51efcbb574de10f67254d55"
+        == "730328d8bed852b4dd429df58c976e50aec8f53d51b136de79e93d1f88fad84e"
     )
 
     roster = json.loads((ROOT / "cardcade/roster-0.2.json").read_text(encoding="utf-8"))
@@ -729,7 +728,6 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
         "Donatello, Gadget Master",
         "Improvised Arsenal",
         "Mutagen Man, Living Ooze",
-        "The Last Ronin's Technique",
     }
 
 
@@ -759,12 +757,12 @@ def test_every_bounded_full_pool_program_executes_the_same_authoritative_action(
         for card_name, fragment, candidate in executable
     ]
 
-    assert len(executable) == len(created) == 50
+    assert len(executable) == len(created) == 51
     assert all(batch for batch in created)
     assert len({token.object_id for batch in created for token in batch}) == sum(
         len(batch) for batch in created
     )
-    assert sum(event["event"] == "tokens_created" for event in current.events) == 50
+    assert sum(event["event"] == "tokens_created" for event in current.events) == 51
     current.check_invariants()
 
 
@@ -802,8 +800,9 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Tainted Treats",
         "Mouser Attack!",
         "Return to the Sewers",
+        "The Last Ronin's Technique",
     }
-    assert len(fully_supported) == 20
+    assert len(fully_supported) == 21
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason
