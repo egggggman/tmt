@@ -1,0 +1,106 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "61d1822d4ebe01aae002305f12b48375c3a943df4871fe1ab6a3c6f199a0c458",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-conditional-tokens-319-leonardo-april_oneil",
+      "seed": 319,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "c69429a455ae55feeb825f28f52f05464ed7704e694b8e0b792d4d7e67e642d8",
+      "event_count": 1389,
+      "normal_payment": [
+        {
+          "card": "The Last Ronin's Technique",
+          "generic": 3,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000161",
+            "object-000177",
+            "object-000195",
+            "object-000213"
+          ]
+        }
+      ],
+      "sneak_payment": [],
+      "resolution": [
+        {
+          "stack_object_id": "object-000240",
+          "token_ids": [
+            "object-000241",
+            "object-000242",
+            "object-000243"
+          ],
+          "sneak_cost_paid": false,
+          "tapped": false,
+          "attacking_defender": null,
+          "oracle_fragment": "Create three 1/1 white Ninja Turtle Spirit creature tokens. If this spell's sneak cost was paid, they enter tapped and attacking."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-conditional-tokens-319-april_oneil-leonardo",
+      "seed": 319,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "74727902afb14a2f6baf64b299479a70658e366086e65b7c6a4f15f1845cf06f",
+      "event_count": 1416,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-conditional-tokens-320-leonardo-april_oneil",
+      "seed": 320,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "85eb7921c44f01c1da6ad71c17729cea1337ca319c82a3ed1c5a8c6affeacc0e",
+      "event_count": 1199,
+      "normal_payment": [],
+      "sneak_payment": [
+        {
+          "card": "The Last Ronin's Technique",
+          "mana_source_ids": [
+            "object-000144",
+            "object-000168"
+          ],
+          "returned_attacker_id": "object-000205"
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000222",
+          "token_ids": [
+            "object-000223",
+            "object-000224",
+            "object-000225"
+          ],
+          "sneak_cost_paid": true,
+          "tapped": true,
+          "attacking_defender": 1,
+          "oracle_fragment": "Create three 1/1 white Ninja Turtle Spirit creature tokens. If this spell's sneak cost was paid, they enter tapped and attacking."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-conditional-tokens-320-april_oneil-leonardo",
+      "seed": 320,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "40a3efbd8a40b494d34906263c45b31a5d58885309f5aeccbccc8eb319fe17c5",
+      "event_count": 2170,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    }
+  ]
+}

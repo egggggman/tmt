@@ -191,3 +191,26 @@ def test_trigger_persists_after_attachment_or_recipient_departure_and_replays():
         return game.snapshot(), game.events
 
     assert run() == run()
+
+
+def test_granted_combat_trigger_obeys_recipient_ability_loss_timestamp():
+    def run(suppressed):
+        game, _equipment, attacker = setup(equipped=False)
+        blocker = game.create_permanent(WARRIOR, 1)
+        gear = game.create_permanent(GEAR, 1)
+        gear.attached_to = blocker.object_id
+        gear.attachment_timestamp = game._effect_timestamp()
+        game.refresh_static_pt_modifiers()
+        if suppressed:
+            blocker.ability_loss_timestamp = game._effect_timestamp()
+        combat(game, attacker, (blocker,))
+        game.resolve_combat_damage()
+        assert (
+            any(ability.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN for ability in game.stack)
+            is not suppressed
+        )
+        game.check_invariants()
+        return game.snapshot()
+
+    assert run(True) == run(True)
+    assert run(False) == run(False)

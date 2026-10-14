@@ -10437,6 +10437,11 @@ class Game(
             for equipment in player.battlefield:
                 if equipment.attached_to != recipient.object_id:
                     continue
+                if (
+                    recipient.ability_loss_timestamp is not None
+                    and equipment.attachment_timestamp <= recipient.ability_loss_timestamp
+                ):
+                    continue
                 for fragment in self.interpreter.fragments(equipment.rules_card):
                     if (
                         self.interpreter.equipment_granted_combat_semantics(
