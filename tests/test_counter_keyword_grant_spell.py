@@ -159,6 +159,43 @@ def test_temporary_hexproof_restricts_opponents_but_allows_own_targeting():
     current.check_invariants()
 
 
+def test_temporary_hexproof_prevents_opposing_trigger_target_at_selection_and_resolution():
+    source = CardFact(
+        "Unnamed Tapper",
+        "{2}{U}",
+        3,
+        "Creature — Scientist",
+        CardInterpreter.ETB_TAP_STUN,
+        power=1,
+        toughness=4,
+    )
+    current, card, own = game(lands=1)
+    current.announce_spell(0, card, own)
+    current.resolve_top_of_stack()
+    selected = []
+    current.stun_target_chooser = lambda _controller, _source, offered: (
+        selected.append(offered),
+        None,
+    )[1]
+    entering = current.create_permanent(source, 1)
+    current._process_creature_entered_triggers(entering)
+    assert selected and own.object_id not in selected[0]
+    drain(current)
+    assert own.counters == {"+1/+1": 1} and not own.tapped
+    current.check_invariants()
+
+    current, card, own = game(lands=1)
+    entering = current.create_permanent(source, 1)
+    current.stun_target_chooser = lambda *_: own.object_id
+    current._process_creature_entered_triggers(entering)
+    current.announce_spell(0, card, own)
+    drain(current)
+    resolved = next(event for event in current.events if event["event"] == "stun_etb_resolved")
+    assert resolved["applied"] is False
+    assert own.counters == {"+1/+1": 1} and not own.tapped
+    current.check_invariants()
+
+
 def test_indestructible_prevents_destroy_and_lethal_damage_but_not_zero_toughness():
     current, card, own = game(lands=1)
     current.announce_spell(0, card, own)

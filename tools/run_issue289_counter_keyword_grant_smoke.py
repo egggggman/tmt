@@ -26,7 +26,14 @@ def frozen_decks() -> dict[str, DeckSpec]:
         if entry["deck_key"] not in {"michelangelo", "raphael", "shredder"}:
             continue
         path = ROOT / entry["source_path"]
-        if hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
+        source_bytes = path.read_bytes()
+        # The frozen Michelangelo manifest was hashed with Windows line endings;
+        # Git checks out the same deck text with LF on this host.
+        frozen_bytes = source_bytes.replace(b"\n", b"\r\n")
+        if entry["sha256"] not in {
+            hashlib.sha256(source_bytes).hexdigest(),
+            hashlib.sha256(frozen_bytes).hexdigest(),
+        }:
             raise ValueError("Baseline 005 deck changed")
         decks[entry["deck_key"]] = DeckSpec(entry["deck_key"], entry["source_path"])
     if set(decks) != {"michelangelo", "raphael", "shredder"}:

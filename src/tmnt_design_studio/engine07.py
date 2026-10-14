@@ -5474,7 +5474,14 @@ class Game(
             selection = self._stun_selections[ability.object_id]
             target = selection.target
             legal = target is not None and self.is_authoritative(target, "battlefield")
-            legal = legal and "Creature" in target.type_line
+            legal = (
+                legal
+                and "Creature" in target.type_line
+                and not (
+                    target.controller != ability.controller
+                    and self.has_temporary_keyword(target, TemporaryKeyword.HEXPROOF)
+                )
+            )
             before = target.counters.get("stun", 0) if legal else None
             tapped_before = target.tapped if legal else None
             placement_cursor = None
@@ -6772,7 +6779,12 @@ class Game(
             permanent
             for player in self.players
             for permanent in player.battlefield
-            if self.is_authoritative(permanent, "battlefield") and "Creature" in permanent.type_line
+            if self.is_authoritative(permanent, "battlefield")
+            and "Creature" in permanent.type_line
+            and not (
+                permanent.controller != trigger.controller
+                and self.has_temporary_keyword(permanent, TemporaryKeyword.HEXPROOF)
+            )
         )
         offered = tuple(sorted(target.object_id for target in targets))
         choice = self.stun_target_chooser(trigger.controller, trigger.source_id, (*offered, None))
@@ -7579,7 +7591,7 @@ class Game(
                     "source_id": source_id,
                     "stack_object_id": stack_object_id,
                 }
-                if source_id is not None or stack_object_id is not None
+                if counter_type == "stun" or source_id is not None or stack_object_id is not None
                 else {}
             ),
         )

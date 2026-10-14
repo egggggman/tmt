@@ -28,7 +28,31 @@ def plan():
 
 
 def test_four_corrected_domains_and_objectives(runner, plan):
-    assert runner.fixtures() == plan["fixtures"]
+    # Sealed V3 views predate the additional temporary keyword statuses. Keep
+    # the historical packet byte-for-byte while comparing its original view.
+    historical = plan["fixtures"]
+    current = runner.fixtures()
+
+    def project(value):
+        if isinstance(value, dict):
+            return {key: project(item) for key, item in value.items()}
+        if isinstance(value, list):
+            if value and all(
+                isinstance(item, list)
+                and len(item) == 2
+                and isinstance(item[0], str)
+                and isinstance(item[1], bool)
+                for item in value
+            ):
+                added = {"temporary_trample", "temporary_hexproof", "temporary_indestructible"}
+                for key, active in value:
+                    if key in added:
+                        assert active is False
+                return [project(item) for item in value if item[0] not in added]
+            return [project(item) for item in value]
+        return value
+
+    assert project(current) == historical
     fixtures = {f["fixture_id"]: f for f in plan["fixtures"]}
     assert set(fixtures) == set(runner.IDS)
     priority = fixtures[runner.IDS[0]]
