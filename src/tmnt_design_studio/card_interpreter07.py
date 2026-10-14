@@ -1580,6 +1580,21 @@ class CardInterpreter:
             () if supported else ("rock_soldiers_source_not_creature",),
         )
 
+    def etb_destroy_target_creature(self, card: CardDefinition, fragment: str) -> bool:
+        """Mandatory targeted creature destruction on this permanent's entry."""
+        match = re.fullmatch(
+            r"When this (artifact|creature|permanent) enters, destroy target creature\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        if match is None:
+            return False
+        source = match.group(1).casefold()
+        return (
+            source == "permanent"
+            or source.capitalize() in card.type_line.split(" — ", 1)[0].split()
+        )
+
     def etb_tap_stun_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
@@ -3267,6 +3282,8 @@ class CardInterpreter:
             if self.equipment_etb_attach(card, fragment):
                 continue
             if self.equipment_subtype_entry_attach(card, fragment) is not None:
+                continue
+            if self.etb_destroy_target_creature(card, fragment):
                 continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue

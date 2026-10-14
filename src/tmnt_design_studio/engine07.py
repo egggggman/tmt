@@ -360,6 +360,7 @@ class TriggerEffect(Enum):
     ETB_ATTACH_EQUIPMENT = "etb_attach_equipment"
     ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
     ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
+    ETB_DESTROY_TARGET_CREATURE = "etb_destroy_target_creature"
     ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
     SHREDDER_DEATHTOUCH = "shredder_deathtouch"
     PARAMECIA_EXILE_CHOICE = "paramecia_exile_choice"
@@ -1424,6 +1425,7 @@ class Game(
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self._stun_selections: dict[str, StunTargetSelection] = {}
         self._rock_soldiers_targets: dict[str, str | None] = {}
+        self._etb_creature_destroy_targets: dict[str, tuple[Permanent, tuple[str, ...]]] = {}
         self._shredder_targets: dict[
             str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
         ] = {}
@@ -4318,6 +4320,23 @@ class Game(
                 raise ValueError("combat Draw/discard damage provenance is invalid")
         if effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
             self._validate_combat_draw_life_event(event, source, fragment)
+        if effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or event.kind
+                is not (
+                    RulesEventKind.CREATURE_ENTERED
+                    if source.card.is_creature
+                    else RulesEventKind.PERMANENT_ENTERED
+                )
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or not self.interpreter.etb_destroy_target_creature(source.card, fragment)
+            ):
+                raise ValueError("entry destruction lacks source event provenance")
         if effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._authenticate_original_rules_event(event)
             if (
@@ -4466,6 +4485,11 @@ class Game(
                     ability.target_id = trigger.event.subject_ids[0]  # "it", not a target
                 if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
                     self._select_rock_soldiers_target(ability, trigger)
+                if (
+                    ability.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE
+                    and not self._select_etb_creature_destroy_target(ability, trigger)
+                ):
+                    continue
                 if (
                     ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH
                     and not self._select_shredder_target(ability, trigger)
@@ -4806,6 +4830,66 @@ class Game(
             oracle_fragment=trigger.oracle_fragment,
         )
 
+    def _select_etb_creature_destroy_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> bool:
+        """Choose a mandatory legal creature target as this trigger goes on the stack."""
+        self._authenticate_original_rules_event(trigger.event)
+        source = self._objects.get(trigger.source_id)
+        if (
+            not isinstance(source, Permanent)
+            or not self.is_authoritative(source, "battlefield")
+            or source.card is not trigger.source_card
+            or trigger.event.kind
+            is not (
+                RulesEventKind.CREATURE_ENTERED
+                if trigger.source_card.is_creature
+                else RulesEventKind.PERMANENT_ENTERED
+            )
+            or trigger.event.subject_ids != (trigger.source_id,)
+            or trigger.event.player_index != trigger.controller
+            or (trigger.source_id, trigger.controller) not in trigger.event.battlefield_authority
+            or trigger.oracle_fragment not in self.interpreter.fragments(trigger.source_card)
+            or not self.interpreter.etb_destroy_target_creature(
+                trigger.source_card, trigger.oracle_fragment
+            )
+        ):
+            raise ValueError("entry destruction target lacks event provenance")
+        candidates = tuple(
+            permanent
+            for player in self.players
+            for permanent in player.battlefield
+            if self.is_authoritative(permanent, "battlefield")
+            and permanent.is_creature
+            and self._legal_targeting_protection(permanent, trigger.controller)
+        )
+        offered = tuple(sorted(permanent.object_id for permanent in candidates))
+        if not offered:
+            self.log(
+                "etb_creature_destroy_no_legal_target",
+                source_id=trigger.source_id,
+                event_id=trigger.event.event_id,
+            )
+            return False
+        chosen = self.counter_target_chooser(trigger.controller, trigger.source_id, offered)
+        if not isinstance(chosen, str) or chosen not in offered:
+            raise ValueError("entry destruction chooser must return a listed creature")
+        target = next(permanent for permanent in candidates if permanent.object_id == chosen)
+        ability.target_id = chosen
+        self._etb_creature_destroy_targets[ability.object_id] = (target, offered)
+        self.log(
+            "etb_creature_destroy_target_selected",
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            event_id=trigger.event.event_id,
+            source_id=trigger.source_id,
+            target_id=chosen,
+            offered_ids=list(offered),
+            controller=trigger.controller,
+            oracle_fragment=trigger.oracle_fragment,
+        )
+        return True
+
     def _select_shredder_target(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
     ) -> bool:
@@ -4909,6 +4993,44 @@ class Game(
             or source.zone not in {"battlefield", "former"}
         ):
             raise ValueError("Rock Soldiers trigger has invalid source provenance")
+
+    def _validate_etb_creature_destroy_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        target, offered = self._etb_creature_destroy_targets.get(ability.object_id, (None, ()))
+        self._authenticate_original_rules_event(event)
+        if (
+            trigger is None
+            or trigger.event is not event
+            or trigger.effect is not TriggerEffect.ETB_DESTROY_TARGET_CREATURE
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind
+            is not (
+                RulesEventKind.CREATURE_ENTERED
+                if ability.source_card.is_creature
+                else RulesEventKind.PERMANENT_ENTERED
+            )
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != ability.controller
+            or (source.object_id, ability.controller) not in event.battlefield_authority
+            or not self.interpreter.etb_destroy_target_creature(
+                ability.source_card, ability.oracle_fragment
+            )
+            or not isinstance(target, Permanent)
+            or self._objects.get(target.object_id) is not target
+            or not offered
+            or ability.target_id != target.object_id
+            or ability.target_id not in offered
+        ):
+            raise ValueError("entry destruction trigger has invalid target provenance")
 
     def _validate_equipment_granted_trigger(self, ability: TriggeredAbilityObject) -> None:
         trigger = self._triggers.get(ability.trigger_id or "")
@@ -5055,6 +5177,8 @@ class Game(
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
+            self._validate_etb_creature_destroy_trigger(ability)
         if ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
             self._validate_combat_draw_life_trigger(ability)
         if ability.effect in {
@@ -5329,6 +5453,25 @@ class Game(
                     stack_object_id=ability.object_id,
                     source_id=ability.source_id,
                 )
+        elif ability.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
+            target = self._etb_creature_destroy_targets[ability.object_id][0]
+            legal = (
+                self.is_authoritative(target, "battlefield")
+                and target.is_creature
+                and self._legal_targeting_protection(target, ability.controller)
+            )
+            if legal:
+                self.destroy(target)
+            self.log(
+                "etb_creature_destroy_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                target_id=ability.target_id,
+                legal_target=legal,
+                destroyed=legal and not self.is_authoritative(target, "battlefield"),
+            )
         if ability.effect is TriggerEffect.ETB_TAP_STUN:
             selection = self._stun_selections[ability.object_id]
             target = selection.target
@@ -6273,6 +6416,7 @@ class Game(
                 TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
                 TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
+                TriggerEffect.ETB_DESTROY_TARGET_CREATURE,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             }:
@@ -7094,6 +7238,12 @@ class Game(
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY
                     )
+        if TriggerEffect.ETB_DESTROY_TARGET_CREATURE in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                if self.interpreter.etb_destroy_target_creature(entering.card, fragment):
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ETB_DESTROY_TARGET_CREATURE
+                    )
         if TriggerEffect.ETB_TAP_STUN in enabled:
             for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.etb_tap_stun_semantic_coverage(entering.card, fragment)
@@ -7217,6 +7367,7 @@ class Game(
             TriggerEffect.ETB_ARTIFACT_DRAW,
             TriggerEffect.ETB_TAP_STUN,
             TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
+            TriggerEffect.ETB_DESTROY_TARGET_CREATURE,
             TriggerEffect.SHREDDER_DEATHTOUCH,
             TriggerEffect.ETB_KRANG_REFILL,
             TriggerEffect.ETB_MILL_THREE,
@@ -12329,6 +12480,7 @@ class Game(
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ETB_ANY_TARGET_DAMAGE,
+                TriggerEffect.ETB_DESTROY_TARGET_CREATURE,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -13779,6 +13931,11 @@ class Game(
                 if obj.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
                     try:
                         self._validate_combat_draw_life_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
+                    try:
+                        self._validate_etb_creature_destroy_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):
