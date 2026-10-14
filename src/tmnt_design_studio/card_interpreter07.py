@@ -1244,8 +1244,8 @@ class CardInterpreter:
     )
 
     TARGETED_LIBRARY_RETURN_AND_TOKEN = re.compile(
-        r'^Target creature\'s owner puts it on their choice of the top or bottom of their '
-        r'library\. You create an? (?P<token>[A-Za-z]+) token\. '
+        r"^Target creature\'s owner puts it on their choice of the top or bottom of their "
+        r"library\. You create an? (?P<token>[A-Za-z]+) token\. "
         r'\(It\'s an artifact with "(?P<ability>[^"]+)"\)$'
     )
 
@@ -3374,6 +3374,9 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        library_return = self.targeted_library_return_and_token_program(card)
+        if library_return is not None and fragment == library_return.oracle_fragment:
+            return self._token_semantics(library_return.token, True)
         if (
             self.optional_destroy_and_create_program(card) is not None
             or self.conditional_destroy_and_create_program(card) is not None

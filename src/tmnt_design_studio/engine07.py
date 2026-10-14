@@ -8597,7 +8597,8 @@ class Game(
             self.interpreter.targeted_library_return_and_token_program(card.card) is None
             or self.payment_plan(
                 player_index, card, allow_exile=self.is_authoritative(card, "exile")
-            ) is None
+            )
+            is None
         ):
             return ()
         return tuple(
