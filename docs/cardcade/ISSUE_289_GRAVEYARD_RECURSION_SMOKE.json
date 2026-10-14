@@ -1,0 +1,110 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "2e4135b43d16e587175a96608bf54c723c2d772cf67fe8bd4f4c695393388598",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-graveyard-recursion-317-leonardo-raphael",
+      "seed": 317,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "b3bd072bbc01a76ad18869da23e39a557f9ff318f3adee27580087f0470940ae",
+      "event_count": 2144,
+      "normal_payment": [
+        {
+          "card": "Leonardo's Technique",
+          "generic": 3,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000152",
+            "object-000178",
+            "object-000217",
+            "object-000232"
+          ]
+        }
+      ],
+      "sneak_payment": [],
+      "resolution": [
+        {
+          "stack_object_id": "object-000234",
+          "target_ids": [
+            "object-000150"
+          ],
+          "entered": [
+            {
+              "graveyard_id": "object-000150",
+              "battlefield_id": "object-000235"
+            }
+          ],
+          "invalid_target_ids": [],
+          "oracle_fragment": "Return one or two target creature cards each with mana value 3 or less from your graveyard to the battlefield."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-graveyard-recursion-317-raphael-leonardo",
+      "seed": 317,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "4b75e3c93390d428a6ee707d69f1d0da71fa2c879eb3ef9df2209a1d40b09434",
+      "event_count": 726,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-graveyard-recursion-317-leonardo-april_oneil",
+      "seed": 317,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "e402c43eebdab8394443c439434ad262410cfa1f628206d38f9eceea2f9cbf99",
+      "event_count": 1975,
+      "normal_payment": [],
+      "sneak_payment": [
+        {
+          "card": "Leonardo's Technique",
+          "mana_source_ids": [
+            "object-000200",
+            "object-000222"
+          ],
+          "returned_attacker_id": "object-000245"
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000281",
+          "target_ids": [
+            "object-000263"
+          ],
+          "entered": [
+            {
+              "graveyard_id": "object-000263",
+              "battlefield_id": "object-000282"
+            }
+          ],
+          "invalid_target_ids": [],
+          "oracle_fragment": "Return one or two target creature cards each with mana value 3 or less from your graveyard to the battlefield."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-graveyard-recursion-317-april_oneil-leonardo",
+      "seed": 317,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "e25b44425ba34114b3bb2b1fb93aab5e76e22ca23e3570fbfba703abbcc453d8",
+      "event_count": 1490,
+      "normal_payment": [],
+      "sneak_payment": [],
+      "resolution": [],
+      "runtime_error": null
+    }
+  ]
+}

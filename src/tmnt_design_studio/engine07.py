@@ -12,7 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from enum import Enum
 from hashlib import sha256
-from itertools import permutations
+from itertools import combinations, permutations
 from pathlib import Path
 from typing import Literal, Protocol
 
@@ -892,6 +892,7 @@ class StackObject:
     controller: int
     cast_kind: CastKind
     target_id: str | None = None
+    target_ids: tuple[str, ...] = ()
     source_target_id: str | None = None
     mode_fragment: str | None = None
     kicker_sacrifice_id: str | None = None
@@ -8270,6 +8271,44 @@ class Game(
             ),  # type: ignore[arg-type]
         )
 
+    def _legal_graveyard_recursion_target(
+        self, target: object, controller: int, limit: int
+    ) -> bool:
+        return (
+            isinstance(target, CardObject)
+            and self.is_authoritative(target, "graveyard")
+            and target.owner == controller
+            and target.card.is_creature
+            and target.mana_value <= limit
+        )
+
+    def _valid_graveyard_recursion_targets(
+        self, targets: tuple[object, ...], controller: int, limit: int
+    ) -> bool:
+        return (
+            1 <= len(targets) <= 2
+            and len({item.object_id for item in targets if isinstance(item, CardObject)})
+            == len(targets)
+            and all(
+                self._legal_graveyard_recursion_target(item, controller, limit) for item in targets
+            )
+        )
+
+    def _graveyard_recursion_targets(
+        self, player_index: int, card: CardObject
+    ) -> tuple[tuple[CardObject, ...], ...]:
+        program = self.interpreter.graveyard_recursion_program(card.card)
+        if program is None:
+            return ()
+        eligible = tuple(
+            target
+            for target in self.players[player_index].graveyard
+            if self._legal_graveyard_recursion_target(
+                target, player_index, program.mana_value_limit
+            )
+        )
+        return tuple(combinations(eligible, 1)) + tuple(combinations(eligible, 2))
+
     def legal_main_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate every currently represented legal main-phase option."""
         if (
@@ -8376,6 +8415,16 @@ class Game(
             elif kind in {CastKind.LIBRARY_SEARCH_TO_HAND, CastKind.OPTIONAL_HAND_RESET}:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
+                )
+            elif kind is CastKind.GRAVEYARD_RECURSION:
+                options.extend(
+                    ActionOption(
+                        ActionKind.CAST,
+                        player_index,
+                        object_id=card.object_id,
+                        choice_ids=tuple(target.object_id for target in targets),
+                    )
+                    for targets in self._graveyard_recursion_targets(player_index, card)
                 )
             elif kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
                 options.extend(self._targeted_library_return_options(player_index, card))
@@ -9692,6 +9741,7 @@ class Game(
                 raise ValueError("cast option does not identify a card object")
             target = self._objects.get(option.target_id or "")
             source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            recursion_targets = tuple(self._objects.get(item) for item in option.choice_ids)
             if target is not None and not isinstance(target, Permanent):
                 raise ValueError("target option does not identify a permanent")
             if obj.name in {"Skateboard", "Spicy Oatmeal Pizza"}:
@@ -9713,6 +9763,7 @@ class Game(
                         else None
                     ),
                     source_target=source_target if isinstance(source_target, Permanent) else None,
+                    recursion_targets=recursion_targets,
                     mode_fragment=(
                         option.oracle_fragment
                         if self.interpreter.cast_program(obj.card).kind
@@ -9729,6 +9780,7 @@ class Game(
                 CastKind.TOP_CARD_SELECTION,
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
+                CastKind.GRAVEYARD_RECURSION,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
@@ -9744,6 +9796,7 @@ class Game(
                     target,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
                     source_target=source_target if isinstance(source_target, Permanent) else None,
+                    recursion_targets=recursion_targets,
                     mode_fragment=(
                         option.oracle_fragment
                         if self.interpreter.cast_program(obj.card).kind
@@ -9957,6 +10010,20 @@ class Game(
             fragment, _semantics = interpreted
             for attacker in self._unblocked_attackers(player_index):
                 if self.sneak_payment_plan(player_index, card, attacker) is not None:
+                    recursion = self.interpreter.graveyard_recursion_program(card.card)
+                    if recursion is not None:
+                        options.extend(
+                            ActionOption(
+                                ActionKind.CAST,
+                                player_index,
+                                object_id=card.object_id,
+                                cost_object_id=attacker.object_id,
+                                oracle_fragment=fragment,
+                                choice_ids=tuple(target.object_id for target in targets),
+                            )
+                            for targets in self._graveyard_recursion_targets(player_index, card)
+                        )
+                        continue
                     removal = self.interpreter.targeted_removal_program(card.card)
                     targets = (
                         tuple(
@@ -10064,7 +10131,10 @@ class Game(
         if plan is None or plan.oracle_fragment != option.oracle_fragment:
             raise ValueError("Sneak option became stale or illegal")
         target = self._objects.get(option.target_id or "")
-        self._commit_sneak_announcement(card, attacker, plan, target=target)
+        recursion_targets = tuple(self._objects.get(object_id) for object_id in option.choice_ids)
+        self._commit_sneak_announcement(
+            card, attacker, plan, target=target, recursion_targets=recursion_targets
+        )
         return True
 
     def evaluated_strike_keywords(self, permanent: Permanent) -> frozenset[StrikeKeyword]:
@@ -12498,7 +12568,13 @@ class Game(
         return spell
 
     def _commit_sneak_announcement(
-        self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan, *, target=None
+        self,
+        card: CardObject,
+        attacker: Permanent,
+        plan: SneakPaymentPlan,
+        *,
+        target=None,
+        recursion_targets: tuple[object, ...] = (),
     ) -> StackObject:
         """Atomically pay fixed Sneak mana plus the authoritative return cost."""
         if plan != self.sneak_payment_plan(plan.player_index, card, attacker):
@@ -12510,6 +12586,14 @@ class Game(
             raise ValueError("Sneak target is no longer legal")
         if removal is None and target is not None:
             raise ValueError("untargeted Sneak spell cannot announce a target")
+        recursion = self.interpreter.graveyard_recursion_program(card.card)
+        if recursion is not None:
+            if not self._valid_graveyard_recursion_targets(
+                recursion_targets, plan.player_index, recursion.mana_value_limit
+            ):
+                raise ValueError("Sneak recursion targets are no longer legal")
+        elif recursion_targets:
+            raise ValueError("nonrecursion Sneak spell cannot announce graveyard targets")
         sources: list[Permanent] = []
         for object_id in plan.mana_source_ids:
             source = self._objects.get(object_id)
@@ -12540,6 +12624,7 @@ class Game(
             plan.player_index,
             self.interpreter.cast_program(card.card).kind,
             target_id=target.object_id if target is not None else None,
+            target_ids=tuple(item.object_id for item in recursion_targets),
             sneak_returned_attacker_id=attacker.object_id,
             sneak_returned_hand_id=returned.object_id,
             sneak_defending_player=plan.defending_player,
@@ -12650,6 +12735,7 @@ class Game(
         sacrifice_cost: Permanent | None = None,
         source_target: Permanent | None = None,
         mode_fragment: str | None = None,
+        recursion_targets: tuple[CardObject, ...] = (),
     ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -12664,6 +12750,7 @@ class Game(
             sacrifice_cost=sacrifice_cost,
             source_target=source_target,
             mode_fragment=mode_fragment,
+            recursion_targets=recursion_targets,
         )
         if spell is None:
             return False
@@ -12681,6 +12768,7 @@ class Game(
         sacrifice_cost: Permanent | None = None,
         source_target: Permanent | None = None,
         mode_fragment: str | None = None,
+        recursion_targets: tuple[object, ...] = (),
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -12933,6 +13021,16 @@ class Game(
             and target is not None
         ):
             return None
+        elif program.kind is CastKind.GRAVEYARD_RECURSION:
+            recursion = self.interpreter.graveyard_recursion_program(card.card)
+            if (
+                target is not None
+                or recursion is None
+                or not self._valid_graveyard_recursion_targets(
+                    recursion_targets, player_index, recursion.mana_value_limit
+                )
+            ):
+                return None
         elif program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if mode_fragment == modal.token_fragment:
                 if target is not None:
@@ -12976,6 +13074,14 @@ class Game(
             finality_on_entry=cast_from_graveyard,
             cast_from_raphael=cast_from_exile,
         )
+        if program.kind is CastKind.GRAVEYARD_RECURSION:
+            spell.target_ids = tuple(item.object_id for item in recursion_targets)
+            self.log(
+                "graveyard_recursion_targets_announced",
+                stack_object_id=spell.object_id,
+                target_ids=list(spell.target_ids),
+                controller=player_index,
+            )
         if program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             spell.mode_fragment = mode_fragment
             self.log(
@@ -13215,6 +13321,15 @@ class Game(
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
         } or (isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"))
+        if spell.cast_kind is CastKind.GRAVEYARD_RECURSION:
+            recursion = self.interpreter.graveyard_recursion_program(spell.card)
+            assert recursion is not None and spell.target_ids
+            legal_target = any(
+                self._legal_graveyard_recursion_target(
+                    self._objects.get(object_id), spell.controller, recursion.mana_value_limit
+                )
+                for object_id in spell.target_ids
+            )
         if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             legal_target = spell.target_id is None or (
                 isinstance(target, Permanent)
@@ -13287,6 +13402,11 @@ class Game(
                 source_id=resolved_card.object_id,
                 oracle_fragment=spell.card.oracle_text,
                 target_source_id=spell.target_id,
+                target_source_ids=(
+                    list(spell.target_ids)
+                    if spell.cast_kind is CastKind.GRAVEYARD_RECURSION
+                    else None
+                ),
                 reason="all_targets_illegal",
             )
             return resolved_card
@@ -13297,6 +13417,7 @@ class Game(
             CastKind.TOP_CARD_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
+            CastKind.GRAVEYARD_RECURSION,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.CREATURE_POWER_DAMAGE,
@@ -13389,6 +13510,45 @@ class Game(
                 raise AssertionError("stacked hand reset lost its complete semantics")
             self.resolve_optional_hand_reset(
                 program.draw_quantity, program.effect_fragment, source_id=spell.object_id
+            )
+        elif spell.cast_kind is CastKind.GRAVEYARD_RECURSION:
+            program = self.interpreter.graveyard_recursion_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked graveyard recursion lost its complete semantics")
+            entered = []
+            invalid = []
+            for object_id in spell.target_ids:
+                candidate = self._objects.get(object_id)
+                if not self._legal_graveyard_recursion_target(
+                    candidate, spell.controller, program.mana_value_limit
+                ):
+                    invalid.append(object_id)
+                    continue
+                permanent = self.move_object(
+                    candidate,
+                    "battlefield",
+                    controller=spell.controller,
+                    reason="graveyard_recursion_return",
+                )
+                assert isinstance(permanent, Permanent)
+                entered.append((object_id, permanent))
+            self.refresh_static_pt_modifiers()
+            self.log(
+                "graveyard_recursion_resolved",
+                stack_object_id=spell.object_id,
+                controller=spell.controller,
+                oracle_fragment=program.effect_fragment,
+                target_ids=list(spell.target_ids),
+                entered=[
+                    {"graveyard_id": source, "battlefield_id": item.object_id}
+                    for source, item in entered
+                ],
+                invalid_target_ids=invalid,
+            )
+            self._process_creatures_entered_triggers(
+                tuple(item for _, item in entered),
+                source_id=spell.object_id,
+                defer_triggers=True,
             )
         elif spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             program = self.interpreter.optional_destroy_and_create_program(spell.card)
@@ -13741,6 +13901,7 @@ class Game(
             CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
+            CastKind.GRAVEYARD_RECURSION,
             CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
@@ -14784,6 +14945,10 @@ class Game(
                     raise AssertionError("unsupported spells cannot become stack objects")
                 if obj.target_id is not None and obj.target_id not in self._objects:
                     raise AssertionError("stack target ID was never registered")
+                if any(target_id not in self._objects for target_id in obj.target_ids):
+                    raise AssertionError("spell target ID was never registered")
+                if len(set(obj.target_ids)) != len(obj.target_ids):
+                    raise AssertionError("spell targets are not distinct")
             elif isinstance(obj, TriggeredAbilityObject):
                 if obj.event.player_index not in range(2):
                     raise AssertionError("trigger event player is invalid")
@@ -15414,6 +15579,7 @@ class Game(
                         "controller": entry.controller,
                         "cast_kind": entry.cast_kind.value,
                         "target_id": entry.target_id,
+                        **({"target_ids": list(entry.target_ids)} if entry.target_ids else {}),
                         "source_target_id": entry.source_target_id,
                         "mode_fragment": entry.mode_fragment,
                         "kicker_sacrifice_id": entry.kicker_sacrifice_id,
