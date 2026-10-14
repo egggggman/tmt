@@ -677,6 +677,17 @@ class TemporaryKeywordEffect:
 
 
 @dataclass(frozen=True)
+class TemporaryTypeEffect:
+    """A layer-four addition to a permanent's card types for a bounded duration."""
+
+    added_types: tuple[str, ...]
+    duration: Literal["until_end_of_turn"]
+    source_id: str
+    oracle_fragment: str
+    timestamp: tuple[int, int]
+
+
+@dataclass(frozen=True)
 class TriggerInstance:
     trigger_id: str
     controller: int
@@ -779,6 +790,7 @@ class CharacteristicEffect:
     timestamp: tuple[int, int] = (0, 0)
     depends_on: tuple[str, ...] = ()
     source_card: str = ""
+    duration: Literal["persistent", "until_end_of_turn"] = "persistent"
 
 
 def _ordered_characteristic_effects(
@@ -982,6 +994,7 @@ class Permanent:
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
     temporary_keyword_effects: list[TemporaryKeywordEffect] = field(default_factory=list)
+    temporary_type_effects: list[TemporaryTypeEffect] = field(default_factory=list)
     is_token: bool = False
     type_line_override: str | None = None
     class_level: int | None = None
@@ -1039,7 +1052,18 @@ class Permanent:
                     "Powerstone",
                 }
             ]
-            return types + " — " + " ".join([*retained, self.aura_creature_type])
+            current = types + " — " + " ".join([*retained, self.aura_creature_type])
+        if self.temporary_type_effects:
+            card_types, separator, subtypes = current.partition(" — ")
+            tokens = card_types.split()
+            for effect in sorted(self.temporary_type_effects, key=lambda item: item.timestamp):
+                for added in effect.added_types:
+                    if added not in tokens:
+                        if added == "Artifact" and "Creature" in tokens:
+                            tokens.insert(tokens.index("Creature"), added)
+                        else:
+                            tokens.append(added)
+            current = " ".join(tokens) + (separator + subtypes if separator else "")
         return current
 
     @property
@@ -1060,6 +1084,15 @@ class Permanent:
         plus = self.counters.get("+1/+1", 0)
         minus = self.counters.get("-1/-1", 0)
         return plus - minus, plus - minus
+
+    @property
+    def has_represented_power_toughness(self) -> bool:
+        """Return whether the current creature has a represented P/T starting point."""
+        return (self.card.power is not None and self.card.toughness is not None) or any(
+            effect.sublayer is PowerToughnessSubLayer.SET_BASE
+            and effect.operation is CharacteristicOperation.SET
+            for effect in self.characteristic_effects
+        )
 
     @property
     def power(self) -> int:
@@ -1098,7 +1131,16 @@ class Permanent:
             )
             for index, modifier in enumerate(self.pt_modifiers)
         )
-        power, toughness = self.printed_power, self.printed_toughness
+        if self.card.power is None or self.card.toughness is None:
+            if not any(
+                effect.sublayer is PowerToughnessSubLayer.SET_BASE
+                and effect.operation is CharacteristicOperation.SET
+                for effect in effects
+            ):
+                raise ValueError("animated noncreature lacks a represented base P/T effect")
+            power, toughness = 0, 0
+        else:
+            power, toughness = self.printed_power, self.printed_toughness
         for effect in _ordered_characteristic_effects(effects):
             if effect.layer is not CharacteristicLayer.POWER_TOUGHNESS:
                 continue
@@ -1144,7 +1186,8 @@ class LethalDamageStateBasedAction:
             permanent
             for player in game.players
             for permanent in player.battlefield
-            if permanent.card.is_creature
+            if permanent.is_creature
+            and permanent.has_represented_power_toughness
             and (
                 permanent.toughness <= 0
                 or (
@@ -2129,7 +2172,7 @@ class Game(
                     permanent.object_id
                     for player in self.players
                     for permanent in player.battlefield
-                    if permanent.card.is_creature
+                    if permanent.is_creature
                 )
                 if candidates:
                     self._new_opportunity_context(
@@ -4611,7 +4654,7 @@ class Game(
             for target in player.battlefield
             if self.is_authoritative(target, "battlefield")
             and (
-                target.card.is_creature
+                target.is_creature
                 if effect == "tap_or_untap_creature"
                 else (
                     not target.card.is_land and target.object_id != trigger.source_id
@@ -4712,7 +4755,7 @@ class Game(
         if legal and effect == "bounce_other_nonland":
             legal = not target.card.is_land and target.object_id != ability.source_id
         elif legal and effect == "tap_or_untap_creature":
-            legal = target.card.is_creature
+            legal = target.is_creature
         result = "no_legal_target"
         destination_id = None
         if legal and target is not None:
@@ -4915,7 +4958,7 @@ class Game(
             for permanent in self.players[trigger.controller].battlefield
             if self.is_authoritative(permanent, "battlefield")
             and permanent is not source
-            and permanent.card.is_creature
+            and permanent.is_creature
         )
         offered = tuple(sorted(permanent.object_id for permanent in candidates))
         if not offered:
@@ -5312,7 +5355,7 @@ class Game(
                 and self.is_authoritative(target, "battlefield")
                 and target.controller == ability.controller
                 and target.card is target_card
-                and target.card.is_creature
+                and target.is_creature
                 and target.object_id != ability.source_id
             )
             if legal:
@@ -6076,7 +6119,7 @@ class Game(
                 )
             else:
                 for permanent in tuple(self.players[ability.controller].battlefield):
-                    if permanent.card.is_creature:
+                    if permanent.is_creature:
                         self.apply_pt_modifier(
                             permanent,
                             int(match.group(1)),
@@ -6269,7 +6312,7 @@ class Game(
             candidates = tuple(
                 permanent
                 for permanent in self.players[ability.controller].battlefield
-                if permanent.card.is_creature
+                if permanent.is_creature
             )
             target_id = self.counter_target_chooser(
                 ability.controller,
@@ -7713,6 +7756,59 @@ class Game(
             source=effect.source_card,
         )
 
+    def apply_temporary_type_and_base_pt(
+        self,
+        target: Permanent,
+        *,
+        added_types: tuple[str, ...],
+        power: int,
+        toughness: int,
+        source_id: str,
+        source_card: str,
+        oracle_fragment: str,
+    ) -> None:
+        """Apply layer four before layer 7b, sharing an immutable spell timestamp."""
+        if not self.is_authoritative(target, "battlefield"):
+            raise ValueError("temporary animation requires an authoritative permanent")
+        if not added_types or any(not item for item in added_types):
+            raise ValueError("temporary animation requires card types")
+        timestamp = self._effect_timestamp()
+        type_effect = TemporaryTypeEffect(
+            added_types, "until_end_of_turn", source_id, oracle_fragment, timestamp
+        )
+        target.temporary_type_effects.append(type_effect)
+        try:
+            self.add_characteristic_effect(
+                target,
+                CharacteristicEffect(
+                    f"animation:{source_id}:{target.object_id}:base_pt",
+                    CharacteristicLayer.POWER_TOUGHNESS,
+                    PowerToughnessSubLayer.SET_BASE,
+                    CharacteristicOperation.SET,
+                    power,
+                    toughness,
+                    timestamp,
+                    source_card=source_card,
+                    duration="until_end_of_turn",
+                ),
+            )
+        except Exception:
+            target.temporary_type_effects.remove(type_effect)
+            raise
+        self.log(
+            "temporary_type_base_pt_applied",
+            source_id=source_id,
+            target_id=target.object_id,
+            added_types=list(added_types),
+            power=power,
+            toughness=toughness,
+            timestamp=list(timestamp),
+            oracle_fragment=oracle_fragment,
+            resulting_type_line=target.type_line,
+            resulting_power=target.power,
+            resulting_toughness=target.toughness,
+        )
+
     def refresh_static_pt_modifiers(self) -> None:
         if getattr(self, "_continuous_refresh_deferred", False):
             return
@@ -7737,9 +7833,7 @@ class Game(
                     modifier for modifier in permanent.pt_modifiers if not modifier.derived_static
                 ]
         for player in self.players:
-            creatures = [
-                permanent for permanent in player.battlefield if permanent.card.is_creature
-            ]
+            creatures = [permanent for permanent in player.battlefield if permanent.is_creature]
             for source in creatures:
                 for fragment in self.interpreter.fragments(source.rules_card):
                     match = self.interpreter.STATIC_OTHER_CREATURES.fullmatch(fragment)
@@ -7774,7 +7868,8 @@ class Game(
                 if "Equipment" in source.type_line and source.attached_to is not None:
                     attached = self._objects.get(source.attached_to)
                     if not (
-                        isinstance(attached, Permanent)
+                        not source.is_creature
+                        and isinstance(attached, Permanent)
                         and self.is_authoritative(attached, "battlefield")
                         and attached.is_creature
                     ):
@@ -8084,6 +8179,16 @@ class Game(
                     for effect in permanent.temporary_keyword_effects
                     if effect.duration != "until_end_of_turn"
                 ]
+                permanent.temporary_type_effects = [
+                    effect
+                    for effect in permanent.temporary_type_effects
+                    if effect.duration != "until_end_of_turn"
+                ]
+                permanent.characteristic_effects = [
+                    effect
+                    for effect in permanent.characteristic_effects
+                    if effect.duration != "until_end_of_turn"
+                ]
                 expired += before - len(permanent.pt_modifiers)
                 permanent.damage = 0
                 permanent.deathtouch_damage = False
@@ -8129,8 +8234,8 @@ class Game(
                         permanent.object_id,
                         permanent.card.name,
                         permanent.controller,
-                        permanent.power if permanent.card.is_creature else None,
-                        permanent.toughness if permanent.card.is_creature else None,
+                        permanent.power if permanent.is_creature else None,
+                        permanent.toughness if permanent.is_creature else None,
                         permanent.tapped,
                         permanent.damage,
                         permanent.is_token,
@@ -8242,6 +8347,8 @@ class Game(
                 options.extend(self._modal_spell_options(player_index, card))
             elif kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
                 options.extend(self._counter_keyword_grant_options(player_index, card))
+            elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
+                options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
                     ActionOption(
@@ -8448,6 +8555,45 @@ class Game(
             and self.is_authoritative(target, "battlefield")
             and target.controller == controller
             and target.is_creature
+            and self._legal_targeting_protection(target, controller)
+        )
+
+    def _temporary_type_base_pt_draw_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.temporary_type_base_pt_draw_program(card.card)
+        if (
+            program is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=program.effect_fragment,
+                priority_epoch=priority_epoch,
+            )
+            for side in self.players
+            for target in side.battlefield
+            if self._legal_temporary_type_base_pt_target(target, player_index, program.target_types)
+        )
+
+    def _legal_temporary_type_base_pt_target(
+        self, target: object, controller: int, target_types: frozenset[str]
+    ) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and bool(
+                {part.casefold() for part in target.type_line.partition(" — ")[0].split()}
+                & target_types
+            )
             and self._legal_targeting_protection(target, controller)
         )
 
@@ -8787,6 +8933,7 @@ class Game(
             *self._hand_creature_power_damage_options(player_index),
             *self._hand_modal_spell_options(player_index),
             *self._hand_counter_keyword_grant_options(player_index),
+            *self._hand_temporary_type_base_pt_draw_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
@@ -8856,6 +9003,22 @@ class Game(
             is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
             and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
             for option in self._counter_keyword_grant_options(
+                player_index, card, priority_epoch=state.epoch
+            )
+        )
+
+    def _hand_temporary_type_base_pt_draw_options(
+        self, player_index: int
+    ) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            option
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for option in self._temporary_type_base_pt_draw_options(
                 player_index, card, priority_epoch=state.epoch
             )
         )
@@ -8983,6 +9146,13 @@ class Game(
                     )
                 )
                 continue
+            if kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
+                options.extend(
+                    self._temporary_type_base_pt_draw_options(
+                        player_index, card, priority_epoch=state.epoch
+                    )
+                )
+                continue
             if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -9081,6 +9251,19 @@ class Game(
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
             source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
+                CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target if isinstance(target, Permanent) else None,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
+                if spell is None:
+                    raise ValueError("temporary animation response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
                 CastKind.TARGETED_COUNTER_KEYWORD_GRANT
             ):
@@ -9419,6 +9602,7 @@ class Game(
                 CastKind.CREATURE_POWER_DAMAGE,
                 CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                 CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+                CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -9505,9 +9689,7 @@ class Game(
         if not all(isinstance(obj, Permanent) for obj in attackers):
             return ()
         available = [
-            p
-            for p in self.players[defender_index].battlefield
-            if p.card.is_creature and not p.tapped
+            p for p in self.players[defender_index].battlefield if p.is_creature and not p.tapped
         ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
 
@@ -10645,7 +10827,7 @@ class Game(
                 permanent
                 for permanent in self.players[player_index].battlefield
                 if self.is_authoritative(permanent, "battlefield")
-                and permanent.card.is_creature
+                and permanent.is_creature
                 and permanent.counters.get("+1/+1", 0) > 0
             )
             offered = tuple(sorted(permanent.object_id for permanent in eligible))
@@ -10718,7 +10900,7 @@ class Game(
                     continue
                 if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
                     for target in self.players[0].battlefield + self.players[1].battlefield:
-                        if self.is_authoritative(target, "battlefield") and target.card.is_creature:
+                        if self.is_authoritative(target, "battlefield") and target.is_creature:
                             options.append(
                                 ActionOption(
                                     ActionKind.ACTIVATE_ABILITY,
@@ -10749,7 +10931,7 @@ class Game(
                     is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
                 ):
                     for target in self.players[player_index].battlefield:
-                        if target is source or not target.card.is_creature:
+                        if target is source or not target.is_creature:
                             continue
                         options.append(
                             ActionOption(
@@ -10798,7 +10980,7 @@ class Game(
         return (
             isinstance(target, Permanent)
             and self.is_authoritative(target, "battlefield")
-            and target.card.is_creature
+            and target.is_creature
             and self._legal_targeting_protection(target, controller)
         )
 
@@ -11138,7 +11320,7 @@ class Game(
             if (
                 not isinstance(target, Permanent)
                 or not self.is_authoritative(target, "battlefield")
-                or not target.card.is_creature
+                or not target.is_creature
             ):
                 return None
         elif targeted_return:
@@ -11150,7 +11332,7 @@ class Game(
                 or not self.is_authoritative(target, "battlefield")
                 or target is source
                 or target.controller != player_index
-                or not target.card.is_creature
+                or not target.is_creature
             ):
                 return None
         elif targeted_equipment:
@@ -11260,7 +11442,7 @@ class Game(
                     not isinstance(counter_target, Permanent)
                     or not self.is_authoritative(counter_target, "battlefield")
                     or counter_target.controller != player_index
-                    or not counter_target.card.is_creature
+                    or not counter_target.is_creature
                     or counter_target.counters.get("+1/+1", 0) <= 0
                 ):
                     raise ValueError("counter-cost target became illegal")
@@ -11729,7 +11911,7 @@ class Game(
                 p
                 for player in self.players
                 for p in player.battlefield
-                if p.controller == ability.controller and p.is_token and p.card.is_creature
+                if p.controller == ability.controller and p.is_token and p.is_creature
             ]
             for recipient in recipients:
                 if not any(
@@ -11759,7 +11941,7 @@ class Game(
             if (
                 isinstance(target, Permanent)
                 and self.is_authoritative(target, "battlefield")
-                and target.card.is_creature
+                and target.is_creature
             ):
                 self.place_counters(
                     target,
@@ -11882,7 +12064,7 @@ class Game(
                 and self.is_authoritative(target, "battlefield")
                 and target.object_id != ability.source_id
                 and target.controller == ability.controller
-                and target.card.is_creature
+                and target.is_creature
             ):
                 replacement = self.move_object(
                     target, "hand", reason="activated_return_to_owners_hand"
@@ -12398,6 +12580,7 @@ class Game(
                         CastKind.TARGETED_REMOVAL,
                         CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                         CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+                        CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
                     }
                 )
                 or (
@@ -12421,6 +12604,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -12573,6 +12762,14 @@ class Game(
             target_id = target.object_id
         elif program.kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
             if not self._legal_counter_keyword_grant_target(target, player_index):
+                return None
+            assert isinstance(target, Permanent)
+            target_id = target.object_id
+        elif program.kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
+            animation = self.interpreter.temporary_type_base_pt_draw_program(card.card)
+            if animation is None or not self._legal_temporary_type_base_pt_target(
+                target, player_index, animation.target_types
+            ):
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
@@ -12898,6 +13095,11 @@ class Game(
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
         elif spell.cast_kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
             legal_target = self._legal_counter_keyword_grant_target(target, spell.controller)
+        elif spell.cast_kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
+            animation = self.interpreter.temporary_type_base_pt_draw_program(spell.card)
+            legal_target = animation is not None and self._legal_temporary_type_base_pt_target(
+                target, spell.controller, animation.target_types
+            )
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             modal = self.interpreter.modal_token_or_creature_pump_program(spell.card)
             if modal is None or spell.mode_fragment not in {
@@ -13115,6 +13317,34 @@ class Game(
                 keywords=list(program.keywords),
                 oracle_fragment=program.effect_fragment,
             )
+        elif spell.cast_kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
+            program = self.interpreter.temporary_type_base_pt_draw_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked animation-and-draw spell lost its semantics")
+            assert isinstance(target, Permanent)
+            self.apply_temporary_type_and_base_pt(
+                target,
+                added_types=program.added_types,
+                power=program.power,
+                toughness=program.toughness,
+                source_id=spell.object_id,
+                source_card=spell.name,
+                oracle_fragment=program.effect_fragment,
+            )
+            self.refresh_static_pt_modifiers()
+            draw_succeeded = self.draw(player, program.draw_quantity)
+            self.log(
+                "temporary_animation_draw_resolved",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                source_id=spell.object_id,
+                type_line=target.type_line,
+                power=target.power,
+                toughness=target.toughness,
+                draw_quantity=program.draw_quantity,
+                draw_succeeded=draw_succeeded,
+                drawn_fragment=program.draw_fragment,
+            )
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if spell.mode_fragment == modal.token_fragment:
                 created = self.create_tokens(
@@ -13287,6 +13517,7 @@ class Game(
             CastKind.TARGETED_REMOVAL,
             CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
             CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+            CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
@@ -13403,7 +13634,7 @@ class Game(
         return [
             p
             for p in self.players[player_index].battlefield
-            if p.card.is_creature
+            if p.is_creature
             and not p.tapped
             and (
                 not p.summoning_sick
@@ -13574,7 +13805,7 @@ class Game(
         return (
             blocker.controller == defender_index
             and any(candidate is blocker for candidate in self.players[defender_index].battlefield)
-            and blocker.card.is_creature
+            and blocker.is_creature
             and not blocker.tapped
             and self.blocking_restriction(attacker, blocker) is None
         )
@@ -13590,7 +13821,7 @@ class Game(
         available = [
             permanent
             for permanent in self.players[defender_index].battlefield
-            if permanent.card.is_creature and not permanent.tapped
+            if permanent.is_creature and not permanent.tapped
         ]
         blocks: dict[str, Permanent] = {}
         for attacker in attackers:
@@ -14341,11 +14572,16 @@ class Game(
                     raise AssertionError("token runtime state does not match its token definition")
                 if not permanent.type_line:
                     raise AssertionError("permanent type line must remain nonempty")
-                if permanent.card.is_creature:
-                    if permanent.card.power is None or permanent.card.toughness is None:
-                        raise AssertionError("creature permanent lacks printed power/toughness")
-                    if permanent.toughness <= 0:
-                        raise AssertionError("nonpositive toughness must be handled by an SBA")
+                if permanent.card.is_creature and (
+                    permanent.card.power is None or permanent.card.toughness is None
+                ):
+                    raise AssertionError("creature permanent lacks printed power/toughness")
+                if (
+                    permanent.is_creature
+                    and permanent.has_represented_power_toughness
+                    and permanent.toughness <= 0
+                ):
+                    raise AssertionError("nonpositive toughness must be handled by an SBA")
                 invalid_counters = any(
                     not isinstance(counter_type, str)
                     or not counter_type
@@ -14374,16 +14610,28 @@ class Game(
                     for effect in permanent.temporary_keyword_effects
                 ):
                     raise AssertionError("temporary keyword effect is malformed")
+                if any(
+                    effect.duration != "until_end_of_turn"
+                    or not effect.added_types
+                    or any(not item for item in effect.added_types)
+                    for effect in permanent.temporary_type_effects
+                ):
+                    raise AssertionError("temporary type effect is malformed")
                 effect_ids = {effect.effect_id for effect in permanent.characteristic_effects}
                 if len(effect_ids) != len(permanent.characteristic_effects):
                     raise AssertionError("characteristic effect IDs must be unique")
+                if any(
+                    effect.duration not in {"persistent", "until_end_of_turn"}
+                    for effect in permanent.characteristic_effects
+                ):
+                    raise AssertionError("characteristic effect duration is malformed")
                 if any(
                     dependency not in effect_ids
                     for effect in permanent.characteristic_effects
                     for dependency in effect.depends_on
                 ):
                     raise AssertionError("characteristic effect dependency is missing")
-                if permanent.card.is_creature:
+                if permanent.is_creature and permanent.has_represented_power_toughness:
                     try:
                         permanent.evaluate_power_toughness()
                     except ValueError as error:
@@ -15178,9 +15426,30 @@ class Game(
                                     "timestamp": list(effect.timestamp),
                                     "depends_on": list(effect.depends_on),
                                     "source_card": effect.source_card,
+                                    **(
+                                        {"duration": effect.duration}
+                                        if effect.duration != "persistent"
+                                        else {}
+                                    ),
                                 }
                                 for effect in x.characteristic_effects
                             ],
+                            **(
+                                {
+                                    "temporary_type_effects": [
+                                        {
+                                            "added_types": list(effect.added_types),
+                                            "duration": effect.duration,
+                                            "source_id": effect.source_id,
+                                            "oracle_fragment": effect.oracle_fragment,
+                                            "timestamp": list(effect.timestamp),
+                                        }
+                                        for effect in x.temporary_type_effects
+                                    ]
+                                }
+                                if x.temporary_type_effects
+                                else {}
+                            ),
                             "temporary_keyword_effects": [
                                 {
                                     "keyword": effect.keyword.value,

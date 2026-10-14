@@ -1,0 +1,105 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "60bcdf05b99454f1e69015652c603f744c0df9a91e8dc83f0eb8fbb3128ebf1a",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-temporary-animation-april_oneil-raphael",
+      "seed": 3128,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "48b3080d15171df1c4133c1369ce9e99b7058062bd4de27ed0d4068f692bda8f",
+      "event_count": 1710,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-temporary-animation-raphael-april_oneil",
+      "seed": 3128,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "c8c175d88ad27e43a97fa84128cf66f7fb9ae376a9febe33452e9788a0ec5392",
+      "event_count": 1659,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Mind Transfer Protocol",
+          "generic": 2,
+          "colored": [
+            "U"
+          ],
+          "source_ids": [
+            "object-000137",
+            "object-000148",
+            "object-000161"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000241",
+          "source_id": "object-000241",
+          "target_id": "object-000187",
+          "type_line": "Artifact Creature \u2014 Equipment",
+          "power": 4,
+          "toughness": 5,
+          "draw_quantity": 1,
+          "draw_succeeded": true
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-temporary-animation-april_oneil-donatello",
+      "seed": 3128,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "6c3fdc287a00c4b4d15abe4ea64ccd8d04fea063317fe75b44eff872f562d968",
+      "event_count": 1162,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-temporary-animation-donatello-april_oneil",
+      "seed": 3128,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "22bf5024fbea6595ca7e18224d0456e877b412e5bc932472b55b6369d6be10d0",
+      "event_count": 1049,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Mind Transfer Protocol",
+          "generic": 2,
+          "colored": [
+            "U"
+          ],
+          "source_ids": [
+            "object-000139",
+            "object-000147",
+            "object-000157"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000191",
+          "source_id": "object-000191",
+          "target_id": "object-000187",
+          "type_line": "Artifact Creature \u2014 Robot Scientist",
+          "power": 4,
+          "toughness": 5,
+          "draw_quantity": 1,
+          "draw_succeeded": true
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}

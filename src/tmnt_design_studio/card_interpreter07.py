@@ -42,6 +42,7 @@ class CastKind(Enum):
     TARGETED_REMOVAL = "targeted_removal"
     MODAL_TOKEN_OR_CREATURE_PUMP = "modal_token_or_creature_pump"
     TARGETED_COUNTER_KEYWORD_GRANT = "targeted_counter_keyword_grant"
+    TEMPORARY_TYPE_BASE_PT_DRAW = "temporary_type_base_pt_draw"
     UNSUPPORTED = "unsupported"
 
 
@@ -72,6 +73,19 @@ class TargetedCounterKeywordGrantProgram:
     quantity: int
     keywords: tuple[str, ...]
     cost_reduction: GenericCostReductionProgram | None
+
+
+@dataclass(frozen=True)
+class TemporaryTypeBasePTDrawProgram:
+    """Complete targeted animation followed by a card draw on resolution."""
+
+    effect_fragment: str
+    draw_fragment: str
+    target_types: frozenset[str]
+    added_types: tuple[str, ...]
+    power: int
+    toughness: int
+    draw_quantity: int
 
 
 @dataclass(frozen=True)
@@ -1052,6 +1066,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.temporary_type_base_pt_draw_program(card) is not None:
+            return CastProgram(CastKind.TEMPORARY_TYPE_BASE_PT_DRAW)
         if self.targeted_counter_keyword_grant_program(card) is not None:
             return CastProgram(CastKind.TARGETED_COUNTER_KEYWORD_GRANT)
         if self.modal_token_or_creature_pump_program(card) is not None:
@@ -1096,7 +1112,17 @@ class CardInterpreter:
             return CastProgram(CastKind.TARGETED_REMOVAL)
         for fragment in self.fragments(card):
             draw = self.draw_cards_semantic_coverage(card, fragment)
-            if draw is not None and draw.coverage.fully_supported:
+            if (
+                draw is not None
+                and draw.coverage.fully_supported
+                and (
+                    len(self.fragments(card)) == 1
+                    or (
+                        len(self.fragments(card)) == 2
+                        and self.sneak_semantic_coverage(card, self.fragments(card)[0]) is not None
+                    )
+                )
+            ):
                 return CastProgram(CastKind.DRAW_CARDS, draw.program.quantity)
         if any(
             self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None
@@ -1193,6 +1219,45 @@ class CardInterpreter:
         r"It gains (?P<keywords>[A-Za-z, ]+) until end of turn\.$",
         re.I,
     )
+
+    TEMPORARY_TYPE_BASE_PT = re.compile(
+        r"^Until end of turn, target (?P<targets>artifact or creature|creature or artifact) "
+        r"becomes an artifact creature with base power and toughness "
+        r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\.$",
+        re.I,
+    )
+    FOLLOWUP_DRAW = re.compile(
+        r"^Draw (?P<quantity>a|one|two|three|four|five|six|seven|eight|nine|ten|[1-9][0-9]*) "
+        r"cards?\.$",
+        re.I,
+    )
+
+    def temporary_type_base_pt_draw_program(
+        self, card: CardDefinition
+    ) -> TemporaryTypeBasePTDrawProgram | None:
+        """Require both complete clauses before any portion can be cast."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) != 2:
+            return None
+        animation = self.TEMPORARY_TYPE_BASE_PT.fullmatch(fragments[0])
+        draw = self.FOLLOWUP_DRAW.fullmatch(fragments[1])
+        if animation is None or draw is None:
+            return None
+        quantity_text = draw["quantity"].casefold()
+        quantity = 1 if quantity_text == "a" else self.DRAW_QUANTITIES.get(quantity_text)
+        if quantity is None:
+            quantity = int(quantity_text)
+        return TemporaryTypeBasePTDrawProgram(
+            fragments[0],
+            fragments[1],
+            frozenset(animation["targets"].casefold().split(" or ")),
+            ("Artifact", "Creature"),
+            int(animation["power"]),
+            int(animation["toughness"]),
+            quantity,
+        )
 
     def targeted_counter_keyword_grant_program(
         self, card: CardDefinition
@@ -3363,6 +3428,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.temporary_type_base_pt_draw_program(card) is not None:
+                continue
             if (grant := self.targeted_counter_keyword_grant_program(card)) is not None and (
                 fragment == grant.effect_fragment
                 or (

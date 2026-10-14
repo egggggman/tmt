@@ -1,0 +1,25 @@
+# Issue 289: temporary artifact-creature animation and draw
+
+This checkpoint stacks on draft PR #311. Baseline 005, the original 172-row ledger, every prior overlay, and all historical simulation evidence remain unchanged. The four games below are diagnostics, not balance estimates.
+
+## Selection
+
+| Critical family | Frozen copies / rows | Assessment |
+| --- | ---: | --- |
+| Mind Transfer Protocol | 3 April / 2 | Changes creature combat and card access together. Existing targeting, stack, draw, and 7b P/T evaluation can support a bounded layer-four type addition. **Selected.** |
+| Raphael linked exile/play | 2 Raphael / 2 | High identity impact, but permission duration, linked-card ownership, and multiple casting paths make this a larger intervention. |
+| Graveyard recursion, library search/selection, hand reset, attacking-token Sneak | 1–2 each | Material but each requires a distinct choice, zone, or combat-entry family. Remain critical. |
+
+The [machine overlay](ISSUE_289_TEMPORARY_ANIMATION_DRAW_CHECKPOINT.json) retains all remaining rows and the exact selection authority. The printed Oracle fixture is `{2}{U}` instant: “Until end of turn, target artifact or creature becomes an artifact creature with base power and toughness 4/5. Draw a card.” The interpreter parses a generic bounded type, base P/T, and draw template; no card-name or deck-name branch executes it. Magic's [official release notes](https://magic.wizards.com/en/news/feature/the-lost-caverns-of-ixalan-release-notes) confirm that an artifact animated into a creature retains its other types and that base P/T setting is applied before modifiers and counters.
+
+## Rules and evidence
+
+The spell offers only legally targetable artifacts or creatures, including opposing permanents; it pays mana and uses normal priority and stack handling. It checks type and target protection again at resolution. An illegal target makes the entire spell resolve without effect, including its draw. A legal target receives a temporary layer-four artifact/creature type addition while retaining supertypes and compatible subtypes, then a timestamped layer-7b base P/T set. The caster draws the specified card as part of the same resolution. State-based actions occur after the whole spell, including a failed empty-library draw. Temporary type and base P/T effects expire at cleanup, disappear on a zone change, and survive the spell card leaving the stack. Creature targeting, attack/block legality, lethal damage, static evaluation, and Equipment attachment consult the current battlefield type. An Equipment that becomes a creature detaches. Unsupported companion clauses cannot be cast as a draw-only spell.
+
+- Twelve focused tests cover the frozen Oracle fixture and renamed source, rejection of incomplete variants, legal and illegal targets, payment, main and priority actions, fizzle without draw, later Aura base-setting order, counters and P/T modifiers, artifact attack/block, Equipment detachment, lethal state-based actions, failed draw, zone change, source departure, cleanup, and repeatable snapshots. Equipment regression tests also pass.
+- Four mirrored April/Raphael and April/Donatello frozen-deck diagnostics matched four deterministic replays with no errors. They produced **two casts, two `{2}{U}` payments, and two complete animation-plus-draw resolutions**. One animated target was Equipment. The [machine diagnostics](ISSUE_289_TEMPORARY_ANIMATION_DRAW_SMOKE.json) retain stable game digests, paid mana sources, stack and target IDs, resulting characteristics, and draw outcomes. All selected deck bytes match the frozen Baseline 005 manifest.
+- The original ledger SHA-256 remains `56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100`. The #311 overlay SHA-256 remains `3322db61328575c4b3fe21119997e1b1356efc6e96931f5436dfe644408c4a32`. Exactly two Mind Transfer Protocol rows change from gap/P0 to supported/none: **11 critical / 61 important / 2 partial → 9 critical / 61 important / 2 partial**. All 172 original row identities remain fixed.
+- Semantic runtime changes from `1ecd33d0702f60c5c892a94a43112c238874518334cdcb4ed80acf5d831a57ca` to `60bcdf05b99454f1e69015652c603f744c0df9a91e8dc83f0eb8fbb3128ebf1a`. Historical controls are not runtime compatible. Baseline 005 manifest SHA-256 remains `c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac`.
+- Focused and affected regression tests: **27 passed**. Full regression: **1,837 passed, 10 skipped**. Baseline 005 structural validation, repository-wide Ruff check/format, exact row-change audit, Markdown links, and diff check passed. Two historical fixtures that inject a creature type without a represented P/T effect remain unchanged; state-based P/T evaluation applies to executable creature characteristics, including all supported animations. Final-head GitHub CI is pending.
+
+**Checkpoint acceptance:** pending final-head CI. **Baseline 005 calibration readiness:** BLOCKED by nine critical rows. No control, deck change, merge, or promotion occurred.
