@@ -44,6 +44,7 @@ class CastKind(Enum):
     TARGETED_COUNTER_KEYWORD_GRANT = "targeted_counter_keyword_grant"
     TEMPORARY_TYPE_BASE_PT_DRAW = "temporary_type_base_pt_draw"
     TARGETED_LIBRARY_RETURN_AND_TOKEN = "targeted_library_return_and_token"
+    LIBRARY_SEARCH_TO_HAND = "library_search_to_hand"
     UNSUPPORTED = "unsupported"
 
 
@@ -95,6 +96,14 @@ class TargetedLibraryReturnAndTokenProgram:
 
     token: TokenCreationProgram
     oracle_fragment: str
+
+
+@dataclass(frozen=True)
+class LibrarySearchToHandProgram:
+    """Unrestricted private library selection, move to hand, then shuffle."""
+
+    search_fragment: str
+    sneak_fragment: str | None = None
 
 
 @dataclass(frozen=True)
@@ -271,6 +280,7 @@ class SneakProgram:
     fixed_supported_cost: bool
     noncreature_draw_quantity: int | None = None
     noncreature_targeted_removal: bool = False
+    noncreature_library_search: bool = False
 
     @property
     def executable(self) -> bool:
@@ -282,6 +292,7 @@ class SneakProgram:
                 self.creature_spell
                 or self.noncreature_draw_quantity is not None
                 or self.noncreature_targeted_removal
+                or self.noncreature_library_search
             )
         )
 
@@ -1015,13 +1026,27 @@ class CardInterpreter:
             else None
         )
         removal = self.targeted_removal_program(card) is not None
-        program = SneakProgram(mana_cost, creature, direct, fixed, draw_quantity, removal)
+        search = self.library_search_to_hand_program(card)
+        program = SneakProgram(
+            mana_cost,
+            creature,
+            direct,
+            fixed,
+            draw_quantity,
+            removal,
+            search is not None and search.sneak_fragment == fragment,
+        )
         limitations: list[str] = []
         if not direct:
             limitations.append("sneak_reference_or_granted_ability_not_implemented")
         elif not fixed:
             limitations.append("sneak_cost_shape_not_implemented")
-        elif not creature and draw_quantity is None and not removal:
+        elif (
+            not creature
+            and draw_quantity is None
+            and not removal
+            and not program.noncreature_library_search
+        ):
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
             payload_executable=program.executable,
@@ -1075,6 +1100,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.library_search_to_hand_program(card) is not None:
+            return CastProgram(CastKind.LIBRARY_SEARCH_TO_HAND)
         if self.targeted_library_return_and_token_program(card) is not None:
             return CastProgram(CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN)
         if self.temporary_type_base_pt_draw_program(card) is not None:
@@ -1248,6 +1275,32 @@ class CardInterpreter:
         r"library\. You create an? (?P<token>[A-Za-z]+) token\. "
         r'\(It\'s an artifact with "(?P<ability>[^"]+)"\)$'
     )
+
+    SEARCH_LIBRARY_TO_HAND = (
+        "Search your library for a card, put that card into your hand, then shuffle."
+    )
+    COMPLETE_SNEAK_PREFACE = re.compile(
+        r"^Sneak (?P<cost>(?:\{(?:[0-9]+|[WUBRG])\})+) "
+        r"\(You may cast this spell for (?P=cost) if you also return an unblocked "
+        r"attacker you control to hand during the declare blockers step\.\)$"
+    )
+
+    def library_search_to_hand_program(
+        self, card: CardDefinition
+    ) -> LibrarySearchToHandProgram | None:
+        """Recognize the whole spell, including any printed alternative Sneak cost."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) == 1 and fragments[0] == self.SEARCH_LIBRARY_TO_HAND:
+            return LibrarySearchToHandProgram(fragments[0])
+        if (
+            len(fragments) == 2
+            and fragments[1] == self.SEARCH_LIBRARY_TO_HAND
+            and self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is not None
+        ):
+            return LibrarySearchToHandProgram(fragments[1], fragments[0])
+        return None
 
     def targeted_library_return_and_token_program(
         self, card: CardDefinition
@@ -1483,6 +1536,9 @@ class CardInterpreter:
             return SemanticCoverage(True, True, True, ())
         selection = self.top_card_selection_program(card)
         if selection is not None and fragment == card.oracle_text.strip():
+            return SemanticCoverage(True, True, True, ())
+        search = self.library_search_to_hand_program(card)
+        if search is not None and fragment == search.search_fragment:
             return SemanticCoverage(True, True, True, ())
         return None
 
@@ -3471,6 +3527,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (search := self.library_search_to_hand_program(card)) is not None and fragment in {
+                search.search_fragment,
+                search.sneak_fragment,
+            }:
+                continue
             if self.targeted_library_return_and_token_program(card) is not None:
                 continue
             if self.temporary_type_base_pt_draw_program(card) is not None:
