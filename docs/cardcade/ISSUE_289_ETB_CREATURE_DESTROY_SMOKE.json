@@ -1,0 +1,146 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "fb7dab9e04fe1b138c5bb1560cc7d0026d289d8cbe5ca7a7890e12ad69346476",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-etb-creature-destroy-shredder-casey_jones",
+      "seed": 3093,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "8ff45ddb839d1134a9f9dfe9e42199cdd6f45d679e5d4d85895e945ed78e0e87",
+      "event_count": 991,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000202",
+          "trigger_id": "trigger-000005",
+          "event_id": "event-000043",
+          "source_id": "object-000201",
+          "target_id": "object-000171",
+          "offered_ids": [
+            "object-000171"
+          ],
+          "controller": 0
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000202",
+          "trigger_id": "trigger-000005",
+          "event_id": "event-000043",
+          "source_id": "object-000201",
+          "target_id": "object-000171",
+          "legal_target": true,
+          "destroyed": true
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-etb-creature-destroy-casey_jones-shredder",
+      "seed": 3093,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "327a4394106e1f42030895047d7128439160cf993c74cfb6a055ee74c53dcc06",
+      "event_count": 1500,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000225",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000061",
+          "source_id": "object-000224",
+          "target_id": "object-000161",
+          "offered_ids": [
+            "object-000161"
+          ],
+          "controller": 1
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000225",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000061",
+          "source_id": "object-000224",
+          "target_id": "object-000161",
+          "legal_target": true,
+          "destroyed": true
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-etb-creature-destroy-shredder-leonardo",
+      "seed": 3093,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "236bbbde3d30585034b99f4bded75a310e3a9b397b36aba07382dfcea3ce5763",
+      "event_count": 900,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000193",
+          "trigger_id": "trigger-000004",
+          "event_id": "event-000051",
+          "source_id": "object-000192",
+          "target_id": "object-000172",
+          "offered_ids": [
+            "object-000172",
+            "object-000179"
+          ],
+          "controller": 0
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000193",
+          "trigger_id": "trigger-000004",
+          "event_id": "event-000051",
+          "source_id": "object-000192",
+          "target_id": "object-000172",
+          "legal_target": true,
+          "destroyed": true
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-etb-creature-destroy-leonardo-shredder",
+      "seed": 3093,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "095d4879f644d22ac952af3874f3a82c249e7c0d2aaa69ba8b280c04fd898209",
+      "event_count": 1190,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000216",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000065",
+          "source_id": "object-000215",
+          "target_id": "object-000189",
+          "offered_ids": [
+            "object-000189"
+          ],
+          "controller": 1
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000216",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000065",
+          "source_id": "object-000215",
+          "target_id": "object-000189",
+          "legal_target": true,
+          "destroyed": true
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}
