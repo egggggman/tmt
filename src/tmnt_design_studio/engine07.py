@@ -1209,7 +1209,7 @@ class FailedDrawStateBasedAction:
     name: str = "failed_draw"
 
     def apply(self, game: Game) -> bool:
-        changed = False
+        newly_lost = []
         for index, player in enumerate(game.players):
             if not player.failed_draw_pending:
                 continue
@@ -1217,15 +1217,20 @@ class FailedDrawStateBasedAction:
             if not player.lost:
                 player.lost = True
                 player.loss_reason = "draw_from_empty_library"
-                game.winner = 1 - index
+                newly_lost.append(index)
                 game.log(
                     "player_lost",
                     player=player.name,
                     reason=player.loss_reason,
                     state_based_action=self.name,
                 )
-            changed = True
-        return changed
+        if len(newly_lost) == 2:
+            game.winner = None
+            game.terminal_draw = True
+            game.log("game_draw", reason="simultaneous_failed_draw")
+        elif newly_lost:
+            game.winner = 1 - newly_lost[0]
+        return bool(newly_lost)
 
 
 @dataclass(frozen=True)

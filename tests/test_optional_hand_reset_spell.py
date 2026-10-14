@@ -203,3 +203,35 @@ def test_countered_spell_has_no_choices_or_hand_movement():
     assert not called
     assert tuple(tuple(player.hand) for player in current.players) == hands
     current.check_invariants()
+
+
+def test_simultaneous_failed_draw_is_a_terminal_draw():
+    current, spell = game(chooser=lambda *_: True)
+    for player in current.players:
+        for card in player.library:
+            card.zone = "former"
+        player.library.clear()
+    assert current.announce_spell(0, spell) is not None
+    current.resolve_top_of_stack()
+    assert current.winner is None and current.terminal_draw
+    assert sum(e["event"] == "draw_failed" for e in current.events) == 2
+    assert any(
+        e["event"] == "game_draw" and e["reason"] == "simultaneous_failed_draw"
+        for e in current.events
+    )
+    current.check_invariants()
+
+
+def test_nonactive_player_may_cast_in_priority_with_normal_instant_payment():
+    current, _spell = game()
+    for _ in range(6):
+        current.create_permanent(MOUNTAIN, 1)
+    spell = current.set_hand_for_testing(1, [CARD])[0]
+    current._begin_priority_window(allow_empty=True, priority_player=1)
+    option = next(a for a in current.legal_priority_actions(1) if a.object_id == spell.object_id)
+    assert current.execute_priority_action(option)
+    drain(current)
+    event = next(e for e in current.events if e["event"] == "optional_hand_reset_resolved")
+    assert event["apnap_order"] == [0, 1]
+    assert any(e["event"] == "cost_paid" and e["player"] == "B" for e in current.events)
+    current.check_invariants()
