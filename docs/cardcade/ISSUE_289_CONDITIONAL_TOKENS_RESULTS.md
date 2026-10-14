@@ -21,6 +21,8 @@ The diagnostic also reproduced a pre-existing Equipment/ability-loss invariant e
 The [172-row overlay](ISSUE_289_CONDITIONAL_TOKENS_CHECKPOINT.json) is regenerated from the immutable prior checkpoint and the [original ledger](ISSUE_289_COVERAGE_LEDGER.csv) after verifying their SHA-256 values. The duplicate Last Ronin rows close together: **5 → 3 critical**, of which **2 remain partial Raphael rows**. **61 important** rows remain. Michelangelo's top-eight selection remains a complete critical gap. The historical Baseline 005 manifest SHA-256 remains `c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac`.
 
 Before runtime: `2e4135b43d16e587175a96608bf54c723c2d772cf67fe8bd4f4c695393388598`.
-After runtime: `61d1822d4ebe01aae002305f12b48375c3a943df4871fe1ab6a3c6f199a0c458`.
+After runtime: `5b3992c75837fbffee40d3eb641af9042b43505ec5e4eeab78c8334b7e9d8780`.
+
+The complete regression initially identified four stale frozen-corpus expectations. Their recognized roster remains unchanged; one token payload and one complete Sneak spell now join the executable sets. The token payload is untapped in ordinary use, and conditional tapped entry is applied only on the paid Sneak branch. Updated membership and digest assertions pass in the focused 72-test suite.
 
 Checkpoint acceptance: **pending final-head tests and CI**. Baseline 005 calibration readiness: **BLOCKED** by three critical entries and important limitations. No 4,500-game control or balance conclusion is authorized.

@@ -1,7 +1,7 @@
 {
   "kind": "diagnostic_only_not_balance_evidence",
   "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
-  "semantic_runtime_sha256": "61d1822d4ebe01aae002305f12b48375c3a943df4871fe1ab6a3c6f199a0c458",
+  "semantic_runtime_sha256": "5b3992c75837fbffee40d3eb641af9042b43505ec5e4eeab78c8334b7e9d8780",
   "game_count": 4,
   "replay_count": 4,
   "games": [

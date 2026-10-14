@@ -930,6 +930,10 @@ class CardInterpreter:
         r"a number of|one or more) (?P<body>.*?\btokens?)\b",
         re.IGNORECASE,
     )
+    CONDITIONAL_SNEAK_TOKEN_ENTRY = re.compile(
+        r"Create [^.]+ creature tokens\. If this spell's sneak cost was paid, "
+        r"they enter tapped and attacking\."
+    )
     EXPLICIT_CREATURE_TOKEN = re.compile(
         r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\s+"
         r"(?P<descriptor>.+?)\s+creature tokens?\b",
@@ -2234,16 +2238,15 @@ class CardInterpreter:
             unsupported_reason = "token_characteristics_not_safely_derived"
         elif variable_quantity:
             unsupported_reason = "variable_token_quantity_not_implemented"
-        elif re.search(
-            r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I
-        ) and not re.fullmatch(
-            r"Create [^.]+ creature tokens\. If this spell's sneak cost was paid, "
-            r"they enter tapped and attacking\.",
-            fragment,
+        elif (
+            re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I)
+            and self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragment) is None
         ):
             unsupported_reason = "token_attacking_context_not_implemented"
 
         tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
+        if self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragment) is not None:
+            tapped = False  # The entry modifier applies only when the alternative cost was paid.
         retained_limitation = None
         if (
             definition is not None
@@ -2280,12 +2283,7 @@ class CardInterpreter:
         if (
             len(fragments) != 2
             or self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is None
-            or re.fullmatch(
-                r"Create [^.]+ creature tokens\. If this spell's sneak cost was paid, "
-                r"they enter tapped and attacking\.",
-                fragments[1],
-            )
-            is None
+            or self.CONDITIONAL_SNEAK_TOKEN_ENTRY.fullmatch(fragments[1]) is None
         ):
             return None
         token = self.token_creation_program(fragments[1])

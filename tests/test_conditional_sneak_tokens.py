@@ -56,6 +56,7 @@ def test_interpreter_requires_complete_generic_spell_and_rejects_partial_variant
         program = interpreter.conditional_sneak_tokens_program(card)
         assert program is not None
         assert program.token.quantity == 3 and program.token.definition.power == 1
+        assert not program.token.tapped
         assert interpreter.cast_program(card).kind is CastKind.CONDITIONAL_SNEAK_TOKENS
         assert interpreter.sneak_semantic_coverage(
             card, program.sneak_fragment
