@@ -1399,6 +1399,7 @@ class Game(
         scry_chooser=None,
         top_card_chooser=None,
         hand_bottom_draw_chooser=None,
+        library_position_chooser=None,
         discard_draw_chooser=None,
         draw_discard_chooser=None,
         class_recovery_chooser=None,
@@ -1557,6 +1558,10 @@ class Game(
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
+        self.library_position_chooser = library_position_chooser or (
+            lambda _owner, _source_id, _target_id, options: options[0]
+        )
+        self._library_position_choice_active = False
         self.discard_draw_chooser = discard_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
@@ -1836,6 +1841,8 @@ class Game(
             raise ValueError("Food search chooser cannot move authoritative objects")
         if self._mandatory_discard_choice_active:
             raise ValueError("discard/Draw chooser cannot move authoritative objects")
+        if self._library_position_choice_active:
+            raise ValueError("library-position chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
         if obj.zone == "former":
@@ -8349,6 +8356,8 @@ class Game(
                 options.extend(self._counter_keyword_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
+            elif kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
+                options.extend(self._targeted_library_return_options(player_index, card))
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
                     ActionOption(
@@ -8582,6 +8591,39 @@ class Game(
             for side in self.players
             for target in side.battlefield
             if self._legal_temporary_type_base_pt_target(target, player_index, program.target_types)
+        )
+
+    def _targeted_library_return_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        if (
+            self.interpreter.targeted_library_return_and_token_program(card.card) is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=priority_epoch,
+            )
+            for side in self.players
+            for target in side.battlefield
+            if self._legal_targeted_library_return(target, player_index)
+        )
+
+    def _legal_targeted_library_return(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and target.is_creature
+            and self._legal_targeting_protection(target, controller)
         )
 
     def _legal_temporary_type_base_pt_target(
@@ -8934,6 +8976,7 @@ class Game(
             *self._hand_modal_spell_options(player_index),
             *self._hand_counter_keyword_grant_options(player_index),
             *self._hand_temporary_type_base_pt_draw_options(player_index),
+            *self._hand_targeted_library_return_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
@@ -9019,6 +9062,21 @@ class Game(
             if self.interpreter.cast_program(card.card).kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
             and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
             for option in self._temporary_type_base_pt_draw_options(
+                player_index, card, priority_epoch=state.epoch
+            )
+        )
+
+    def _hand_targeted_library_return_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            option
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind
+            is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for option in self._targeted_library_return_options(
                 player_index, card, priority_epoch=state.epoch
             )
         )
@@ -9153,6 +9211,13 @@ class Game(
                     )
                 )
                 continue
+            if kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
+                options.extend(
+                    self._targeted_library_return_options(
+                        player_index, card, priority_epoch=state.epoch
+                    )
+                )
+                continue
             if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -9251,6 +9316,19 @@ class Game(
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
             source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
+                CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target if isinstance(target, Permanent) else None,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
+                if spell is None:
+                    raise ValueError("targeted library return response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
                 CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
             ):
@@ -9603,6 +9681,7 @@ class Game(
                 CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                 CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
                 CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
+                CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -12581,6 +12660,7 @@ class Game(
                         CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                         CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
                         CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
+                        CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
                     }
                 )
                 or (
@@ -12610,6 +12690,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -12770,6 +12856,11 @@ class Game(
             if animation is None or not self._legal_temporary_type_base_pt_target(
                 target, player_index, animation.target_types
             ):
+                return None
+            assert isinstance(target, Permanent)
+            target_id = target.object_id
+        elif program.kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
+            if not self._legal_targeted_library_return(target, player_index):
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
@@ -13100,6 +13191,8 @@ class Game(
             legal_target = animation is not None and self._legal_temporary_type_base_pt_target(
                 target, spell.controller, animation.target_types
             )
+        elif spell.cast_kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
+            legal_target = self._legal_targeted_library_return(target, spell.controller)
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             modal = self.interpreter.modal_token_or_creature_pump_program(spell.card)
             if modal is None or spell.mode_fragment not in {
@@ -13345,6 +13438,47 @@ class Game(
                 draw_succeeded=draw_succeeded,
                 drawn_fragment=program.draw_fragment,
             )
+        elif spell.cast_kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
+            program = self.interpreter.targeted_library_return_and_token_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked library return lost its complete semantics")
+            assert isinstance(target, Permanent)
+            owner_index = target.owner
+            options = ("top", "bottom")
+            self._library_position_choice_active = True
+            try:
+                position = self.library_position_chooser(
+                    owner_index, spell.object_id, target.object_id, options
+                )
+            finally:
+                self._library_position_choice_active = False
+            if position not in options:
+                raise ValueError("target owner must select a legal library position")
+            moved = self.move_object(
+                target,
+                "library",
+                library_position=position,
+                reason="targeted_library_return",
+            )
+            created = self.create_tokens(
+                spell.controller,
+                program.token,
+                source_card=spell.card.name,
+                oracle_fragment=program.oracle_fragment,
+                source_id=spell.object_id,
+                defer_post_creation=True,
+                defer_triggers=True,
+            )
+            self.log(
+                "targeted_library_return_token_resolved",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                target_owner=owner_index,
+                chosen_position=position,
+                destination_id=moved.object_id,
+                token_ids=[item.object_id for item in created],
+                oracle_fragment=program.oracle_fragment,
+            )
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if spell.mode_fragment == modal.token_fragment:
                 created = self.create_tokens(
@@ -13518,6 +13652,7 @@ class Game(
             CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
             CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
             CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
+            CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
