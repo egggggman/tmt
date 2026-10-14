@@ -78,6 +78,7 @@ RECOGNIZED_NAMES = {
     "Zog, Triceraton Castaway",
 }
 EXECUTABLE_NAMES = {
+    "Saved by the Shell",
     "General Traag, Heart of Stone",
     "Genghis Frog",
     "Groundchuck & Dirtbag",
@@ -100,6 +101,7 @@ EXECUTABLE_NAMES = {
     "Zog, Triceraton Castaway",
 }
 FULL_NAMES = {
+    "Saved by the Shell",
     "General Traag, Heart of Stone",
     "Genghis Frog",
     "Groundchuck & Dirtbag",
@@ -558,14 +560,14 @@ def test_no_card_name_dispatch_and_existing_unknowns_are_unchanged():
 def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 25 and len(recognized) == 26
-    assert len({item[0] for item in executable}) == 20 and len(executable) == 20
-    assert len({item[0] for item in full}) == 15 and len(full) == 15
+    assert len({item[0] for item in executable}) == 21 and len(executable) == 21
+    assert len({item[0] for item in full}) == 16 and len(full) == 16
     assert {item[1] for item in recognized} == RECOGNIZED_NAMES
     assert {item[1] for item in executable} == EXECUTABLE_NAMES
     assert {item[1] for item in full} == FULL_NAMES
     assert digest(recognized) == "1110d74154eec8dd568fd31387db2a2be243dd7d5ad27bd2f2c89206cc29786e"
-    assert digest(executable) == "eb31687830676ca3d020256f0226cb0ab4fd7861903dd5f433ae93cf97ff15b5"
-    assert digest(full) == "84bb2753b742e60f61e1790af18080b9f5c5bbfaaa786b502554eaa1ac03e67b"
+    assert digest(executable) == "d3ae9aba8e938aaf7694e42ede75bb8b61f82c0e24db178c94072606ce727379"
+    assert digest(full) == "c5cf239116419e54830a004800b7f96e388dcbb269fef0e2de82723fdf346201"
 
 
 def test_frozen_roster_memberships_and_deck_exposure_are_locked():
@@ -587,10 +589,12 @@ def test_frozen_roster_memberships_and_deck_exposure_are_locked():
     assert {item[1] for item in executable} & all_names == {
         "Mutagen Man, Living Ooze",
         "Mutant Town Musicians",
+        "Saved by the Shell",
     }
     assert {item[1] for item in full} & all_names == {
         "Mutagen Man, Living Ooze",
         "Mutant Town Musicians",
+        "Saved by the Shell",
     }
     assert {name for name, cards in decks.items() if cards & RECOGNIZED_NAMES} == {
         "bebop_rocksteady",
@@ -601,5 +605,6 @@ def test_frozen_roster_memberships_and_deck_exposure_are_locked():
     assert {name for name, cards in decks.items() if cards & EXECUTABLE_NAMES} == {
         "bebop_rocksteady",
         "casey_jones",
+        "michelangelo",
         "raphael",
     }

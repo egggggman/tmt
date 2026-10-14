@@ -1,0 +1,139 @@
+"""Bounded frozen-deck counter-and-keyword diagnostics and deterministic replays."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+from objective_balance_lab_semantic_identity import identity
+
+from tmnt_design_studio.smoke01 import run_smoke_game
+from tmnt_design_studio.stage002 import DeckSpec, GameSpec, stable_digest
+
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT = ROOT / "docs/cardcade/ISSUE_289_COUNTER_KEYWORD_GRANT_SMOKE.json"
+MANIFEST = ROOT / "docs/objective-balance-lab/baselines/OBL_BASELINE_005_MANIFEST.json"
+MANIFEST_SHA = "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac"
+
+
+def frozen_decks() -> dict[str, DeckSpec]:
+    if hashlib.sha256(MANIFEST.read_bytes()).hexdigest() != MANIFEST_SHA:
+        raise ValueError("Baseline 005 manifest changed")
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    decks = {}
+    for entry in manifest["decks"]:
+        if entry["deck_key"] not in {"michelangelo", "raphael", "shredder"}:
+            continue
+        path = ROOT / entry["source_path"]
+        source_bytes = path.read_bytes()
+        # The frozen Michelangelo manifest was hashed with Windows line endings;
+        # Git checks out the same deck text with LF on this host.
+        frozen_bytes = source_bytes.replace(b"\n", b"\r\n")
+        if entry["sha256"] not in {
+            hashlib.sha256(source_bytes).hexdigest(),
+            hashlib.sha256(frozen_bytes).hexdigest(),
+        }:
+            raise ValueError("Baseline 005 deck changed")
+        decks[entry["deck_key"]] = DeckSpec(entry["deck_key"], entry["source_path"])
+    if set(decks) != {"michelangelo", "raphael", "shredder"}:
+        raise ValueError("selected Baseline 005 decks missing")
+    return decks
+
+
+def main() -> None:
+    decks = frozen_decks()
+    michelangelo, raphael, shredder = (
+        decks[key] for key in ("michelangelo", "raphael", "shredder")
+    )
+    specs = []
+    for opponent in (raphael, shredder):
+        for seats in ((michelangelo, opponent), (opponent, michelangelo)):
+            specs.append(
+                GameSpec(
+                    f"issue289-counter-keyword-{seats[0].display_id}-{seats[1].display_id}",
+                    "issue289-diagnostic",
+                    3113,
+                    f"{seats[0].display_id}-first",
+                    seats,
+                )
+            )
+    games = []
+    for spec in specs:
+        first = run_smoke_game(ROOT, spec)
+        replay = run_smoke_game(ROOT, spec)
+        digest = stable_digest(first)
+        if first.get("error") or replay.get("error") or digest != stable_digest(replay):
+            raise ValueError(f"diagnostic replay mismatch: {spec.game_id}")
+        events = first["events"]
+        paid = [
+            {
+                key: event[key]
+                for key in (
+                    "card",
+                    "generic",
+                    "colored",
+                    "source_ids",
+                )
+            }
+            for event in events
+            if event["event"] == "cost_paid" and event.get("card") == "Saved by the Shell"
+        ]
+        resolved = [
+            {
+                key: event[key]
+                for key in (
+                    "stack_object_id",
+                    "source_id",
+                    "target_id",
+                    "counter_type",
+                    "quantity",
+                    "keywords",
+                )
+            }
+            for event in events
+            if event["event"] == "counter_keyword_grant_resolved"
+        ]
+        games.append(
+            {
+                "game_id": spec.game_id,
+                "seed": spec.seed,
+                "first_player": spec.seats[0].display_id,
+                "replay_equal": True,
+                "result_digest": digest,
+                "event_count": len(events),
+                "frozen_source_casts": sum(
+                    event["event"] == "spell_cast" and event.get("card") == "Saved by the Shell"
+                    for event in events
+                ),
+                "payment": paid,
+                "resolution": resolved,
+                "runtime_error": None,
+            }
+        )
+    if not any(game["resolution"] for game in games):
+        raise ValueError("frozen diagnostic did not execute the selected clause")
+    result = {
+        "kind": "diagnostic_only_not_balance_evidence",
+        "baseline_manifest_sha256": MANIFEST_SHA,
+        "semantic_runtime_sha256": identity()["aggregate_semantic_runtime_sha256"],
+        "game_count": len(games),
+        "replay_count": len(games),
+        "games": games,
+    }
+    OUTPUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(
+        json.dumps(
+            {
+                "games": len(games),
+                "replays": len(games),
+                "casts": sum(game["frozen_source_casts"] for game in games),
+                "payments": sum(len(game["payment"]) for game in games),
+                "resolutions": sum(len(game["resolution"]) for game in games),
+            }
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

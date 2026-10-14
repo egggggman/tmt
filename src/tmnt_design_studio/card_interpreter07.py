@@ -41,6 +41,7 @@ class CastKind(Enum):
     CONDITIONAL_DESTROY_AND_CREATE = "conditional_destroy_and_create"
     TARGETED_REMOVAL = "targeted_removal"
     MODAL_TOKEN_OR_CREATURE_PUMP = "modal_token_or_creature_pump"
+    TARGETED_COUNTER_KEYWORD_GRANT = "targeted_counter_keyword_grant"
     UNSUPPORTED = "unsupported"
 
 
@@ -60,6 +61,17 @@ class ModalTokenOrCreaturePumpProgram:
     power: int
     toughness: int
     strike_keyword: StrikeKeyword
+
+
+@dataclass(frozen=True)
+class TargetedCounterKeywordGrantProgram:
+    """One complete spell placing a counter and granting bounded temporary keywords."""
+
+    effect_fragment: str
+    counter_type: str
+    quantity: int
+    keywords: tuple[str, ...]
+    cost_reduction: GenericCostReductionProgram | None
 
 
 @dataclass(frozen=True)
@@ -1040,6 +1052,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.targeted_counter_keyword_grant_program(card) is not None:
+            return CastProgram(CastKind.TARGETED_COUNTER_KEYWORD_GRANT)
         if self.modal_token_or_creature_pump_program(card) is not None:
             return CastProgram(CastKind.MODAL_TOKEN_OR_CREATURE_PUMP)
         if self.conditional_destroy_and_create_program(card) is not None:
@@ -1173,6 +1187,41 @@ class CardInterpreter:
         r"^This spell costs \{(?P<amount>[1-9]\d*)\} less to cast if you control "
         r"a (?P<subtype>[A-Z][A-Za-z]+)\.$"
     )
+
+    TARGETED_COUNTER_KEYWORD_GRANT = re.compile(
+        r"^Put a (?P<counter>\+1/\+1|-1/-1) counter on target creature you control\. "
+        r"It gains (?P<keywords>[A-Za-z, ]+) until end of turn\.$",
+        re.I,
+    )
+
+    def targeted_counter_keyword_grant_program(
+        self, card: CardDefinition
+    ) -> TargetedCounterKeywordGrantProgram | None:
+        """Reject unsupported companions rather than casting only a recognized clause."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) not in {1, 2}:
+            return None
+        reduction = None
+        if len(fragments) == 2:
+            reduction = self.generic_cost_reduction_program(card, fragments[0])
+            if reduction is None:
+                return None
+        effect = fragments[-1]
+        match = self.TARGETED_COUNTER_KEYWORD_GRANT.fullmatch(effect)
+        if match is None:
+            return None
+        words = match["keywords"].casefold()
+        keywords = tuple(part.strip() for part in re.split(r",?\s+and\s+|,\s*", words))
+        if (
+            not keywords
+            or len(keywords) != len(set(keywords))
+            or not set(keywords) <= {"trample", "hexproof", "indestructible"}
+        ):
+            return None
+        return TargetedCounterKeywordGrantProgram(effect, match["counter"], 1, keywords, reduction)
+
     AFFINITY_GENERIC_REDUCTION = re.compile(
         r"^Affinity for (?P<plural>artifacts|creatures|enchantments) "
         r"\(This spell costs \{(?P<amount>[1-9]\d*)\} less to cast for each "
@@ -2492,6 +2541,11 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTrampleSemantics | None:
         """Recognize Trample while keeping grants and parent delivery unsupported."""
+        grant = self.targeted_counter_keyword_grant_program(card)
+        if grant is not None and fragment == grant.effect_fragment and "trample" in grant.keywords:
+            return InterpretedTrampleSemantics(
+                TrampleProgram(False), SemanticCoverage(True, True, True, ()), None
+            )
         del card
         match = self.TRAMPLE_KEYWORD.search(fragment)
         if match is None:
@@ -3309,6 +3363,14 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (grant := self.targeted_counter_keyword_grant_program(card)) is not None and (
+                fragment == grant.effect_fragment
+                or (
+                    grant.cost_reduction is not None
+                    and fragment == grant.cost_reduction.oracle_fragment
+                )
+            ):
+                continue
             if self.modal_token_or_creature_pump_program(card) is not None:
                 continue
             if self.generic_cost_reduction_program(card, fragment) is not None:

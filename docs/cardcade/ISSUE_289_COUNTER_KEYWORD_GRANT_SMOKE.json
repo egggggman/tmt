@@ -1,0 +1,153 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "1ecd33d0702f60c5c892a94a43112c238874518334cdcb4ed80acf5d831a57ca",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-counter-keyword-michelangelo-raphael",
+      "seed": 3113,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "80d7541fc42188b7fbc19573c5ff565760248264c79dd9dbc153f21bc7d86ea5",
+      "event_count": 1164,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Saved by the Shell",
+          "generic": 0,
+          "colored": [
+            "G"
+          ],
+          "source_ids": [
+            "object-000192"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000211",
+          "source_id": "object-000211",
+          "target_id": "object-000210",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "keywords": [
+            "trample",
+            "hexproof",
+            "indestructible"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-counter-keyword-raphael-michelangelo",
+      "seed": 3113,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "832e87f916515f9fca362ce5e7239c249886940b4929a0498ae7bbf94a4f250d",
+      "event_count": 781,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Saved by the Shell",
+          "generic": 0,
+          "colored": [
+            "G"
+          ],
+          "source_ids": [
+            "object-000171"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000174",
+          "source_id": "object-000174",
+          "target_id": "object-000173",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "keywords": [
+            "trample",
+            "hexproof",
+            "indestructible"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-counter-keyword-michelangelo-shredder",
+      "seed": 3113,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "707f4905cf8d7d43e6cdcdda1dcaf1cf6c36e97a471d5b29c34b000cd292a8fb",
+      "event_count": 950,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Saved by the Shell",
+          "generic": 0,
+          "colored": [
+            "G"
+          ],
+          "source_ids": [
+            "object-000184"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000197",
+          "source_id": "object-000197",
+          "target_id": "object-000196",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "keywords": [
+            "trample",
+            "hexproof",
+            "indestructible"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-counter-keyword-shredder-michelangelo",
+      "seed": 3113,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "23eda3f3b83533f80e639dde927ff5a1a17df83808cdf1e3cec3291cf2265b06",
+      "event_count": 1108,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Saved by the Shell",
+          "generic": 0,
+          "colored": [
+            "G"
+          ],
+          "source_ids": [
+            "object-000160"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000163",
+          "source_id": "object-000163",
+          "target_id": "object-000162",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "keywords": [
+            "trample",
+            "hexproof",
+            "indestructible"
+          ]
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}
