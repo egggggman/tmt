@@ -9318,7 +9318,12 @@ class Game(
                         else None
                     ),
                     source_target=source_target if isinstance(source_target, Permanent) else None,
-                    mode_fragment=option.oracle_fragment,
+                    mode_fragment=(
+                        option.oracle_fragment
+                        if self.interpreter.cast_program(obj.card).kind
+                        is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                        else None
+                    ),
                 )
                 if spell is None:
                     raise ValueError("linked exile spell became illegal")
@@ -9339,7 +9344,12 @@ class Game(
                     target,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
                     source_target=source_target if isinstance(source_target, Permanent) else None,
-                    mode_fragment=option.oracle_fragment,
+                    mode_fragment=(
+                        option.oracle_fragment
+                        if self.interpreter.cast_program(obj.card).kind
+                        is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                        else None
+                    ),
                 )
                 if spell is None:
                     raise ValueError("shared spell became illegal at announcement")
