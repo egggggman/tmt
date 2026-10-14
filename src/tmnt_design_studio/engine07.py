@@ -1561,6 +1561,7 @@ class Game(
         self.library_position_chooser = library_position_chooser or (
             lambda _owner, _source_id, _target_id, options: options[0]
         )
+        self._library_position_choice_active = False
         self.discard_draw_chooser = discard_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
@@ -1840,6 +1841,8 @@ class Game(
             raise ValueError("Food search chooser cannot move authoritative objects")
         if self._mandatory_discard_choice_active:
             raise ValueError("discard/Draw chooser cannot move authoritative objects")
+        if self._library_position_choice_active:
+            raise ValueError("library-position chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
         if obj.zone == "former":
@@ -13442,9 +13445,13 @@ class Game(
             assert isinstance(target, Permanent)
             owner_index = target.owner
             options = ("top", "bottom")
-            position = self.library_position_chooser(
-                owner_index, spell.object_id, target.object_id, options
-            )
+            self._library_position_choice_active = True
+            try:
+                position = self.library_position_chooser(
+                    owner_index, spell.object_id, target.object_id, options
+                )
+            finally:
+                self._library_position_choice_active = False
             if position not in options:
                 raise ValueError("target owner must select a legal library position")
             moved = self.move_object(

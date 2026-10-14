@@ -172,6 +172,23 @@ def test_invalid_owner_choice_rejects_before_zone_movement():
     assert not any(e["event"] == "tokens_created" for e in current.events)
 
 
+def test_owner_choice_cannot_move_objects_before_resolution_commit():
+    current, card = game()
+    target = current.create_permanent(BEAR, 1)
+    current.library_position_chooser = lambda *_args: current.move_object(
+        target, "graveyard", reason="illegal_choice"
+    )
+    current.announce_spell(0, card, target)
+    try:
+        current.resolve_top_of_stack()
+    except ValueError as exc:
+        assert "chooser cannot move" in str(exc)
+    else:
+        raise AssertionError("impure choice was accepted")
+    assert target.zone == "battlefield"
+    assert not any(e["event"] == "tokens_created" for e in current.events)
+
+
 def test_seeded_replay_identical_zone_and_token_provenance():
     def run():
         current, card = game(seed=314)
