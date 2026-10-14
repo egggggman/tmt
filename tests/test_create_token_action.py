@@ -311,13 +311,6 @@ def test_context_dependent_token_semantics_remain_explicitly_unsupported(fragmen
             None,
         ),
         (
-            "Mouser Attack!",
-            "• Create",
-            False,
-            "token_choice_context_not_implemented",
-            None,
-        ),
-        (
             "Mouser Foundry",
             "artifact enters or leaves",
             False,
@@ -326,7 +319,7 @@ def test_context_dependent_token_semantics_remain_explicitly_unsupported(fragmen
         ),
     ],
 )
-def test_all_eighteen_rejected_payloads_preserve_parent_and_followup_coverage(
+def test_rejected_payloads_preserve_parent_and_followup_coverage(
     card_name, fragment_marker, parent_executable, parent_limitation, followup
 ):
     card = authoritative_catalog().resolve_name(card_name)
@@ -807,8 +800,9 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Slithering Cryptid",
         "Mutant Chain Reaction",
         "Tainted Treats",
+        "Mouser Attack!",
     }
-    assert len(fully_supported) == 18
+    assert len(fully_supported) == 19
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

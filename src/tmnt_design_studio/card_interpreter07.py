@@ -40,6 +40,7 @@ class CastKind(Enum):
     OPTIONAL_DESTROY_AND_CREATE = "optional_destroy_and_create"
     CONDITIONAL_DESTROY_AND_CREATE = "conditional_destroy_and_create"
     TARGETED_REMOVAL = "targeted_removal"
+    MODAL_TOKEN_OR_CREATURE_PUMP = "modal_token_or_creature_pump"
     UNSUPPORTED = "unsupported"
 
 
@@ -47,6 +48,18 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class ModalTokenOrCreaturePumpProgram:
+    """Two complete spell modes; the chosen instruction is fixed on announcement."""
+
+    token_fragment: str
+    pump_fragment: str
+    token: TokenCreationProgram
+    power: int
+    toughness: int
+    strike_keyword: StrikeKeyword
 
 
 @dataclass(frozen=True)
@@ -1027,6 +1040,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.modal_token_or_creature_pump_program(card) is not None:
+            return CastProgram(CastKind.MODAL_TOKEN_OR_CREATURE_PUMP)
         if self.conditional_destroy_and_create_program(card) is not None:
             return CastProgram(CastKind.CONDITIONAL_DESTROY_AND_CREATE)
         if self.optional_destroy_and_create_program(card) is not None:
@@ -1116,6 +1131,43 @@ class CardInterpreter:
         r"(?: with mana value (?P<maximum>\d+) or less)?\."
         r"(?: If an enchantment was destroyed this way, you lose (?P<life>\d+) life\.)?$"
     )
+
+    MODAL_CREATURE_PUMP = re.compile(
+        r"^• Target creature gets (?P<power>[+-]\d+)/(?P<toughness>[+-]\d+) "
+        r"and gains (?P<keyword>first strike|double strike) until end of turn\.$",
+        re.I,
+    )
+
+    def modal_token_or_creature_pump_program(
+        self, card: CardDefinition
+    ) -> ModalTokenOrCreaturePumpProgram | None:
+        """Accept only a complete two-mode Oracle instruction, never one partial mode."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) != 3 or fragments[0] != "Choose one —":
+            return None
+        token_fragment, pump_fragment = fragments[1:]
+        if not token_fragment.startswith("• Create ") or not re.fullmatch(
+            r"• Create (?:a|an|one|two|three|four|five|[0-9]+) "
+            r"[0-9]+/[0-9]+ (?:colorless |white |blue |black |red |green )*"
+            r"(?:[A-Za-z]+ )+(?:artifact )?creature token\.",
+            token_fragment,
+            re.I,
+        ):
+            return None
+        token = self.token_creation_program(token_fragment)
+        pump = self.MODAL_CREATURE_PUMP.fullmatch(pump_fragment)
+        if token is None or not token.executable or token.retained_limitation or pump is None:
+            return None
+        return ModalTokenOrCreaturePumpProgram(
+            token_fragment,
+            pump_fragment,
+            token,
+            int(pump["power"]),
+            int(pump["toughness"]),
+            StrikeKeyword(pump["keyword"].lower().replace(" ", "_")),
+        )
 
     CONDITIONAL_GENERIC_REDUCTION = re.compile(
         r"^This spell costs \{(?P<amount>[1-9]\d*)\} less to cast if you control "
@@ -2394,7 +2446,10 @@ class CardInterpreter:
             return None
         match = self.STRIKE_KEYWORD.search(fragment)
         assert match is not None
-        if program.applicability is not None:
+        if program.applicability is not None or (
+            (modal := self.modal_token_or_creature_pump_program(card)) is not None
+            and fragment == modal.pump_fragment
+        ):
             parent_executable = True
             parent_limitation = None
         elif re.search(r"\bEquipped creature\b", fragment, re.I):
@@ -3170,6 +3225,9 @@ class CardInterpreter:
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
+        modal = self.modal_token_or_creature_pump_program(card)
+        if modal is not None and fragment == modal.token_fragment:
+            return self._token_semantics(modal.token, True)
         program = self.token_creation_program(fragment)
         if program is None:
             return None
@@ -3251,6 +3309,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.modal_token_or_creature_pump_program(card) is not None:
+                continue
             if self.generic_cost_reduction_program(card, fragment) is not None:
                 continue
             if self.targeted_removal_program(card) is not None and self.TARGETED_REMOVAL.fullmatch(

@@ -58,6 +58,7 @@ RECOGNIZED_NAMES = {
     "Tokka & Rahzar, Unsupervised",
 }
 FULL_NAMES = {
+    "Mouser Attack!",
     "Casey Jones, Asphalt Hooligan",
     "Leonardo, Sewer Samurai",
     "Leonardo, Worldly Warrior",
@@ -76,6 +77,7 @@ ROSTER_RECOGNIZED = {
     "Shark Shredder, Killer Clone",
 }
 ROSTER_FULL = {
+    "Mouser Attack!",
     "Leonardo, Sewer Samurai",
     "Null Group Biological Assets",
     "Raphael, the Nightwatcher",
@@ -522,12 +524,12 @@ def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({item[0] for item in recognized}) == 12 and len(recognized) == 12
     assert executable == recognized
-    assert len({item[0] for item in full}) == 7 and len(full) == 7
+    assert len({item[0] for item in full}) == 8 and len(full) == 8
     assert {item[1] for item in recognized} == RECOGNIZED_NAMES
     assert {item[1] for item in full} == FULL_NAMES
     assert digest(recognized) == "32e10abed618dd875abd28047910371b0ee1be4ad7b634f071bab0e6dbf93725"
     assert digest(executable) == "32e10abed618dd875abd28047910371b0ee1be4ad7b634f071bab0e6dbf93725"
-    assert digest(full) == "7c03c57d6d1c84a769e0a834597914c718d6bb983381a408b50dc35a553f8ebc"
+    assert digest(full) == "b60f0135ea4d5fefdc864b495da3fd63fea45cf9f0481506eb9b1de13019d36e"
 
 
 def test_frozen_roster_memberships_and_deck_exposure_are_locked():
