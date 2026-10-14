@@ -1,0 +1,180 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "3ba2f858ffa06a24322f98dc2e0da218d53967fee6b385ef8cd1a252e6ad5fc0",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-library-return-3129-april_oneil-raphael",
+      "seed": 3129,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "d60d0056abcf319fbb156a3818111173ad07fd96737d2646afd409616c6336b8",
+      "event_count": 1216,
+      "frozen_source_casts": 1,
+      "payment": [
+        {
+          "card": "Return to the Sewers",
+          "generic": 3,
+          "colored": [
+            "U"
+          ],
+          "source_ids": [
+            "object-000144",
+            "object-000155",
+            "object-000168",
+            "object-000184"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000218",
+          "target_id": "object-000186",
+          "target_owner": 0,
+          "chosen_position": "top",
+          "destination_id": "object-000219",
+          "token_ids": [
+            "object-000220"
+          ]
+        }
+      ],
+      "target_movement": [
+        {
+          "source_object_id": "object-000186",
+          "destination_object_id": "object-000219",
+          "library_position": "top",
+          "destination_zone": "library"
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-library-return-3129-raphael-april_oneil",
+      "seed": 3129,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "f0fa77557005bb3d249f4e8572fffd9c957a3db8fca3d4e528683219957fae63",
+      "event_count": 1065,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "target_movement": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-library-return-3130-april_oneil-raphael",
+      "seed": 3130,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "0118a430c3cce7288508021b0f8a3553345a1e6386e3b746e3a92ed16a517e30",
+      "event_count": 2004,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "target_movement": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-library-return-3130-raphael-april_oneil",
+      "seed": 3130,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "46b4e89c95bf5e86f30f3eaad4761abe9cb0f53bb2da5a0cc25ddcd11788c821",
+      "event_count": 1324,
+      "frozen_source_casts": 2,
+      "payment": [
+        {
+          "card": "Return to the Sewers",
+          "generic": 3,
+          "colored": [
+            "U"
+          ],
+          "source_ids": [
+            "object-000137",
+            "object-000143",
+            "object-000148",
+            "object-000164"
+          ]
+        },
+        {
+          "card": "Return to the Sewers",
+          "generic": 3,
+          "colored": [
+            "U"
+          ],
+          "source_ids": [
+            "object-000137",
+            "object-000143",
+            "object-000148",
+            "object-000164"
+          ]
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000238",
+          "target_id": "object-000207",
+          "target_owner": 0,
+          "chosen_position": "top",
+          "destination_id": "object-000239",
+          "token_ids": [
+            "object-000240"
+          ]
+        },
+        {
+          "stack_object_id": "object-000267",
+          "target_id": "object-000235",
+          "target_owner": 0,
+          "chosen_position": "top",
+          "destination_id": "object-000268",
+          "token_ids": [
+            "object-000269"
+          ]
+        }
+      ],
+      "target_movement": [
+        {
+          "source_object_id": "object-000207",
+          "destination_object_id": "object-000239",
+          "library_position": "top",
+          "destination_zone": "library"
+        },
+        {
+          "source_object_id": "object-000235",
+          "destination_object_id": "object-000268",
+          "library_position": "top",
+          "destination_zone": "library"
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-library-return-3130-april_oneil-donatello",
+      "seed": 3130,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "a1d17bb1ef785a4c8e451321ccdadb2abce317e9ed256f17c763181a82685a6c",
+      "event_count": 1461,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "target_movement": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-library-return-3130-donatello-april_oneil",
+      "seed": 3130,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "fd964209bcce69fabfe387fc9d7b7eef876cf91c2b5622a15985697a95876a5a",
+      "event_count": 1270,
+      "frozen_source_casts": 0,
+      "payment": [],
+      "resolution": [],
+      "target_movement": [],
+      "runtime_error": null
+    }
+  ]
+}
