@@ -46,6 +46,7 @@ class CastKind(Enum):
     TARGETED_LIBRARY_RETURN_AND_TOKEN = "targeted_library_return_and_token"
     LIBRARY_SEARCH_TO_HAND = "library_search_to_hand"
     OPTIONAL_HAND_RESET = "optional_hand_reset"
+    GRAVEYARD_RECURSION = "graveyard_recursion"
     UNSUPPORTED = "unsupported"
 
 
@@ -113,6 +114,15 @@ class OptionalHandResetProgram:
 
     effect_fragment: str
     draw_quantity: int
+    sneak_fragment: str | None = None
+
+
+@dataclass(frozen=True)
+class GraveyardRecursionProgram:
+    """One or two targeted creature cards in the caster's graveyard."""
+
+    effect_fragment: str
+    mana_value_limit: int
     sneak_fragment: str | None = None
 
 
@@ -292,6 +302,7 @@ class SneakProgram:
     noncreature_targeted_removal: bool = False
     noncreature_library_search: bool = False
     noncreature_hand_reset: bool = False
+    noncreature_graveyard_recursion: bool = False
 
     @property
     def executable(self) -> bool:
@@ -305,6 +316,7 @@ class SneakProgram:
                 or self.noncreature_targeted_removal
                 or self.noncreature_library_search
                 or self.noncreature_hand_reset
+                or self.noncreature_graveyard_recursion
             )
         )
 
@@ -1040,6 +1052,7 @@ class CardInterpreter:
         removal = self.targeted_removal_program(card) is not None
         search = self.library_search_to_hand_program(card)
         reset = self.optional_hand_reset_program(card)
+        recursion = self.graveyard_recursion_program(card)
         program = SneakProgram(
             mana_cost,
             creature,
@@ -1049,6 +1062,7 @@ class CardInterpreter:
             removal,
             search is not None and search.sneak_fragment == fragment,
             reset is not None and reset.sneak_fragment == fragment,
+            recursion is not None and recursion.sneak_fragment == fragment,
         )
         limitations: list[str] = []
         if not direct:
@@ -1061,6 +1075,7 @@ class CardInterpreter:
             and not removal
             and not program.noncreature_library_search
             and not program.noncreature_hand_reset
+            and not program.noncreature_graveyard_recursion
         ):
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
@@ -1115,6 +1130,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.graveyard_recursion_program(card) is not None:
+            return CastProgram(CastKind.GRAVEYARD_RECURSION)
         if self.optional_hand_reset_program(card) is not None:
             return CastProgram(CastKind.OPTIONAL_HAND_RESET)
         if self.library_search_to_hand_program(card) is not None:
@@ -1307,6 +1324,29 @@ class CardInterpreter:
         r"one|two|three|four|five|six|seven|eight|nine|ten) cards?\.$",
         re.I,
     )
+
+    GRAVEYARD_RECURSION = re.compile(
+        r"^Return one or two target creature cards each with mana value "
+        r"(?P<limit>[0-9]+) or less from your graveyard to the battlefield\.$"
+    )
+
+    def graveyard_recursion_program(self, card: CardDefinition) -> GraveyardRecursionProgram | None:
+        """Require the complete bounded sorcery and optional fixed Sneak preface."""
+        if card.type_line.split(" — ", 1)[0] != "Sorcery":
+            return None
+        fragments = self.fragments(card)
+        if not fragments or len(fragments) > 2:
+            return None
+        sneak = None
+        if len(fragments) == 2:
+            if self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is None:
+                return None
+            sneak = fragments[0]
+        effect = fragments[-1]
+        match = self.GRAVEYARD_RECURSION.fullmatch(effect)
+        if match is None:
+            return None
+        return GraveyardRecursionProgram(effect, int(match["limit"]), sneak)
 
     def optional_hand_reset_program(self, card: CardDefinition) -> OptionalHandResetProgram | None:
         """Recognize the entire spell and optional fixed Sneak cost; reject follow-ups."""
@@ -1587,6 +1627,9 @@ class CardInterpreter:
             return SemanticCoverage(True, True, True, ())
         reset = self.optional_hand_reset_program(card)
         if reset is not None and fragment == reset.effect_fragment:
+            return SemanticCoverage(True, True, True, ())
+        recursion = self.graveyard_recursion_program(card)
+        if recursion is not None and fragment == recursion.effect_fragment:
             return SemanticCoverage(True, True, True, ())
         return None
 
@@ -3575,6 +3618,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (recursion := self.graveyard_recursion_program(card)) is not None and fragment in {
+                recursion.effect_fragment,
+                recursion.sneak_fragment,
+            }:
+                continue
             if (reset := self.optional_hand_reset_program(card)) is not None and fragment in {
                 reset.effect_fragment,
                 reset.sneak_fragment,
