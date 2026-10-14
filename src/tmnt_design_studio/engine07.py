@@ -1398,6 +1398,7 @@ class Game(
         stun_target_chooser=None,
         scry_chooser=None,
         top_card_chooser=None,
+        library_search_chooser=None,
         hand_bottom_draw_chooser=None,
         library_position_chooser=None,
         discard_draw_chooser=None,
@@ -1555,6 +1556,8 @@ class Game(
                 (option for option in options if option.card_id is not None), options[0]
             )
         )
+        self.library_search_chooser = library_search_chooser or self._default_library_search_choice
+        self._library_search_choice_active = False
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
@@ -1843,6 +1846,8 @@ class Game(
             raise ValueError("discard/Draw chooser cannot move authoritative objects")
         if self._library_position_choice_active:
             raise ValueError("library-position chooser cannot move authoritative objects")
+        if self._library_search_choice_active:
+            raise ValueError("library-search chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
         if obj.zone == "former":
@@ -8356,6 +8361,10 @@ class Game(
                 options.extend(self._counter_keyword_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
+            elif kind is CastKind.LIBRARY_SEARCH_TO_HAND:
+                options.append(
+                    ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
+                )
             elif kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
                 options.extend(self._targeted_library_return_options(player_index, card))
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -9218,7 +9227,11 @@ class Game(
                     )
                 )
                 continue
-            if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
+            if kind in {
+                CastKind.DRAW_CARDS,
+                CastKind.TOP_CARD_SELECTION,
+                CastKind.LIBRARY_SEARCH_TO_HAND,
+            }:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 targets = (None,) + tuple(
@@ -9675,6 +9688,7 @@ class Game(
             if self.interpreter.cast_program(obj.card).kind in {
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
+                CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
@@ -12454,6 +12468,8 @@ class Game(
             target, plan.player_index, removal
         ):
             raise ValueError("Sneak target is no longer legal")
+        if removal is None and target is not None:
+            raise ValueError("untargeted Sneak spell cannot announce a target")
         sources: list[Permanent] = []
         for object_id in plan.mana_source_ids:
             source = self._objects.get(object_id)
@@ -12648,6 +12664,7 @@ class Game(
                     in {
                         CastKind.DRAW_CARDS,
                         CastKind.TOP_CARD_SELECTION,
+                        CastKind.LIBRARY_SEARCH_TO_HAND,
                         CastKind.OPTIONAL_DESTROY_AND_CREATE,
                         CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                         CastKind.DAMAGE_3_OPPOSING_CREATURE,
@@ -12864,6 +12881,8 @@ class Game(
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
+        elif program.kind is CastKind.LIBRARY_SEARCH_TO_HAND and target is not None:
+            return None
         elif program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if mode_fragment == modal.token_fragment:
                 if target is not None:
@@ -13143,6 +13162,7 @@ class Game(
         legal_target = spell.cast_kind in {
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
+            CastKind.LIBRARY_SEARCH_TO_HAND,
         } or (isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"))
         if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             legal_target = spell.target_id is None or (
@@ -13224,6 +13244,7 @@ class Game(
             CastKind.COUNTER_TARGET_SPELL,
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
+            CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.CREATURE_POWER_DAMAGE,
@@ -13303,6 +13324,13 @@ class Game(
             if program is None:
                 raise AssertionError("stacked card selection is no longer executable")
             self.resolve_top_card_selection(spell.controller, program, source_id=spell.object_id)
+        elif spell.cast_kind is CastKind.LIBRARY_SEARCH_TO_HAND:
+            program = self.interpreter.library_search_to_hand_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked library search lost its complete semantics")
+            self.resolve_library_search_to_hand(
+                spell.controller, program.search_fragment, source_id=spell.object_id
+            )
         elif spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             program = self.interpreter.optional_destroy_and_create_program(spell.card)
             if program is None:
@@ -13652,6 +13680,7 @@ class Game(
             CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
             CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
             CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
+            CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
@@ -13708,6 +13737,78 @@ class Game(
             revealed_id=revealed_id,
             bottom_ids=[card.object_id for card in randomized],
             hand_id=player.hand[-1].object_id if selected is not None else None,
+        )
+
+    @staticmethod
+    def _default_library_search_choice(view, options):
+        """Choose a needed land or a near-term castable spell from private card facts."""
+        own = view.context.battlefields[view.player_index]
+        lands = sum("Land" in item.card.type_line.split(" — ", 1)[0].split() for item in own)
+        land_in_hand = any(
+            "Land" in card.type_line.split(" — ", 1)[0].split() for card in view.context.own_hand
+        )
+        facts = {card.object_id: card for card in view.cards}
+
+        def score(option):
+            card = facts[option.card_id]
+            land = "Land" in card.type_line.split(" — ", 1)[0].split()
+            if land and lands < 4 and not land_in_hand:
+                return (3, 0, card.object_id)
+            if not land and card.mana_value <= lands + 1:
+                return (2, card.mana_value, card.object_id)
+            if not land:
+                return (1, -card.mana_value, card.object_id)
+            return (0, 0, card.object_id)
+
+        return max(options, key=score)
+
+    def resolve_library_search_to_hand(
+        self, player_index: int, oracle_fragment: str, *, source_id: str
+    ) -> None:
+        """Give the searching player a private legal choice, move it, then shuffle."""
+        player = self.players[player_index]
+        before_library = tuple(player.library)
+        before_hand = tuple(player.hand)
+        selected = None
+        if before_library:
+            options = tuple(TopCardSelectionOption(card.object_id) for card in before_library)
+            view = TopCardSelectionViewV2(
+                player_index,
+                tuple(describe_card(card.object_id, card.card) for card in before_library),
+                decision_context(self, player_index),
+            )
+            self._library_search_choice_active = True
+            try:
+                choice = self.library_search_chooser(view, options)
+                if not isinstance(choice, TopCardSelectionOption) or choice not in options:
+                    raise ValueError("library search must select one offered card")
+                if tuple(player.library) != before_library or tuple(player.hand) != before_hand:
+                    raise ValueError("library search chooser mutated authoritative zones")
+            except Exception:
+                player.library[:] = before_library
+                player.hand[:] = before_hand
+                raise
+            finally:
+                self._library_search_choice_active = False
+            selected = next(card for card in before_library if card.object_id == choice.card_id)
+        moved = (
+            self.move_object(selected, "hand", reason="library_search_to_hand")
+            if selected is not None
+            else None
+        )
+        domain = f"library_search:{source_id}"
+        pre_shuffle_ids = [card.object_id for card in player.library]
+        player.library[:] = self.rng.shuffled(player.library, domain=domain)
+        self.log(
+            "library_search_to_hand_resolved",
+            stack_object_id=source_id,
+            oracle_fragment=oracle_fragment,
+            searching_player=player_index,
+            selected_id=None if selected is None else selected.object_id,
+            hand_id=None if moved is None else moved.object_id,
+            pre_shuffle_ids=pre_shuffle_ids,
+            post_shuffle_ids=[card.object_id for card in player.library],
+            shuffle_domain=domain,
         )
 
     @staticmethod
