@@ -342,6 +342,7 @@ class TriggerEffect(Enum):
     ETB_FOOD_SEARCH = "etb_food_search"
     ETB_DRAW_DISCARD = "etb_draw_discard"
     COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
+    COMBAT_DAMAGE_DRAW_LOSE_LIFE = "combat_damage_draw_lose_life"
     GRANTED_COMBAT_UNTAP_GAIN = "granted_combat_untap_gain"
     EQUIPMENT_SUBTYPE_ENTRY_ATTACH = "equipment_subtype_entry_attach"
     UTILITY_TARGET = "utility_target"
@@ -4315,6 +4316,8 @@ class Game(
                 is None
             ):
                 raise ValueError("combat Draw/discard damage provenance is invalid")
+        if effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
+            self._validate_combat_draw_life_event(event, source, fragment)
         if effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._authenticate_original_rules_event(event)
             if (
@@ -4979,6 +4982,56 @@ class Game(
             ):
                 raise ValueError("Equipment subtype-entry trigger provenance is invalid")
 
+    def _validate_combat_draw_life_event(
+        self, event: RulesEvent, source: Permanent, fragment: str
+    ) -> None:
+        self._authenticate_original_rules_event(event)
+        if (
+            event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != source.controller
+            or event.target_player != 1 - source.controller
+            or event.amount is None
+            or event.amount <= 0
+            or (source.object_id, source.controller) not in event.battlefield_authority
+            or fragment not in self.interpreter.fragments(source.rules_card)
+            or self.interpreter.combat_damage_draw_lose_life(source.card, fragment) is None
+        ):
+            raise ValueError("combat draw/life event provenance is invalid")
+
+    def _validate_combat_draw_life_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        self._authenticate_original_rules_event(event)
+        if (
+            trigger is None
+            or trigger.event is not event
+            or trigger.effect is not TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != ability.controller
+            or event.target_player != 1 - ability.controller
+            or event.amount is None
+            or event.amount <= 0
+            or (source.object_id, ability.controller) not in event.battlefield_authority
+            or self.interpreter.combat_damage_draw_lose_life(
+                ability.source_card, ability.oracle_fragment
+            )
+            is None
+        ):
+            raise ValueError("combat draw/life trigger provenance is invalid")
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -5002,6 +5055,8 @@ class Game(
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
+            self._validate_combat_draw_life_trigger(ability)
         if ability.effect in {
             TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
             TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
@@ -5712,6 +5767,41 @@ class Game(
             self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD:
             self._resolve_combat_draw_discard(ability)
+        elif ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
+            semantics = self.interpreter.combat_damage_draw_lose_life(
+                ability.source_card, ability.oracle_fragment
+            )
+            assert semantics is not None
+            draw_count, life_loss = semantics
+            player = self.players[ability.controller]
+            library_before = len(player.library)
+            life_before = player.life
+            self.draw(player, draw_count)
+            player.life -= life_loss
+            self.log(
+                "life_lost",
+                player=player.name,
+                amount=life_loss,
+                source=ability.source_card.name,
+                source_id=ability.source_id,
+                stack_object_id=ability.object_id,
+                oracle_fragment=ability.oracle_fragment,
+            )
+            self.log(
+                "combat_draw_life_resolved",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                damage=ability.event.amount,
+                draw_count=draw_count,
+                drawn_count=min(library_before, draw_count),
+                failed_draw_pending=player.failed_draw_pending,
+                life_before=life_before,
+                life_after=player.life,
+                life_lost=life_loss,
+            )
         elif ability.effect is TriggerEffect.UTILITY_TARGET:
             self._resolve_utility_trigger(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
@@ -6167,6 +6257,7 @@ class Game(
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
+                TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -9783,6 +9874,10 @@ class Game(
                             self._enqueue_trigger(
                                 event, source, fragment, TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD
                             )
+                        if self.interpreter.combat_damage_draw_lose_life(source.card, fragment):
+                            self._enqueue_trigger(
+                                event, source, fragment, TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE
+                            )
             else:
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
@@ -12221,6 +12316,7 @@ class Game(
                 TriggerEffect.ETB_FOOD_SEARCH,
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
+                TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -13678,6 +13774,11 @@ class Game(
                 }:
                     try:
                         self._validate_equipment_granted_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
+                    try:
+                        self._validate_combat_draw_life_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
             elif isinstance(obj, ActivatedAbilityObject):

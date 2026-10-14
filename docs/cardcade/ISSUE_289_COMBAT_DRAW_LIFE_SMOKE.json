@@ -1,0 +1,108 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "semantic_runtime_sha256": "d22d08a2d0181af12413cc816c64edbd096d112d55903711d50c13c1fef2f3e3",
+  "game_count": 5,
+  "replay_count": 5,
+  "games": [
+    {
+      "game_id": "issue289-combat-draw-life-shredder-april_oneil",
+      "seed": 3087,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "ceb82fa9870fe6a11c2fc09f4ea2efb9143c74ea4f7c7065902411bcf1486a0a",
+      "event_count": 709,
+      "frozen_source_casts": 1,
+      "resolved_trigger": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-combat-draw-life-april_oneil-shredder",
+      "seed": 3087,
+      "first_player": "april_oneil",
+      "replay_equal": true,
+      "result_digest": "80f5ebeef22ca136b5c1c8b0807173ea87a19b188b52fc9d6438df670208fc51",
+      "event_count": 1279,
+      "frozen_source_casts": 1,
+      "resolved_trigger": [
+        {
+          "event_id": "event-000031",
+          "trigger_id": "trigger-000004",
+          "stack_object_id": "object-000174",
+          "source_id": "object-000163",
+          "controller": 1,
+          "damage": 3,
+          "draw_count": 1,
+          "drawn_count": 1,
+          "life_lost": 1,
+          "life_before": 19,
+          "life_after": 18,
+          "failed_draw_pending": false
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-combat-draw-life-shredder-casey_jones",
+      "seed": 3087,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "e052dd0af8b69a513396aaff3b9407502817419d2354bd1e3f6b8ee78d4f315e",
+      "event_count": 563,
+      "frozen_source_casts": 1,
+      "resolved_trigger": [
+        {
+          "event_id": "event-000039",
+          "trigger_id": "trigger-000007",
+          "stack_object_id": "object-000178",
+          "source_id": "object-000169",
+          "controller": 0,
+          "damage": 3,
+          "draw_count": 1,
+          "drawn_count": 1,
+          "life_lost": 1,
+          "life_before": 21,
+          "life_after": 20,
+          "failed_draw_pending": false
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-combat-draw-life-casey_jones-shredder",
+      "seed": 3087,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "d5b8b0631b3ac221a46571820c4aa0acdca440bc41b73f5afa1ac3186420672c",
+      "event_count": 2377,
+      "frozen_source_casts": 2,
+      "resolved_trigger": [
+        {
+          "event_id": "event-000022",
+          "trigger_id": "trigger-000002",
+          "stack_object_id": "object-000168",
+          "source_id": "object-000160",
+          "controller": 1,
+          "damage": 3,
+          "draw_count": 1,
+          "drawn_count": 1,
+          "life_lost": 1,
+          "life_before": 20,
+          "life_after": 19,
+          "failed_draw_pending": false
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-combat-draw-life-blocked",
+      "seed": 3081,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "1adb1e8d9342dd50fb56f3f2f3763162d1e1ea5633c7df4b33ec1c15d83fcb1e",
+      "event_count": 2163,
+      "frozen_source_casts": 1,
+      "resolved_trigger": [],
+      "runtime_error": null
+    }
+  ]
+}

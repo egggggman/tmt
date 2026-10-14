@@ -2194,6 +2194,28 @@ class CardInterpreter:
             len(fragment),
         )
 
+    def combat_damage_draw_lose_life(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int] | None:
+        """A self combat-damage-to-player trigger drawing then losing life."""
+        if "Creature" not in card.type_line:
+            return None
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = (
+            "(?:" + "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True)) + ")"
+        )
+        match = re.fullmatch(
+            rf"Whenever {reference} deals combat damage to a player, "
+            r"you draw (?P<draw>a card|\d+ cards) and lose (?P<loss>\d+) life\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        if match is None:
+            return None
+        draw = 1 if match["draw"].lower() == "a card" else int(match["draw"].split()[0])
+        loss = int(match["loss"])
+        return (draw, loss) if draw > 0 and loss > 0 else None
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -3345,6 +3367,8 @@ class CardInterpreter:
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.combat_damage_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.combat_damage_draw_lose_life(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
