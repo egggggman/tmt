@@ -377,6 +377,9 @@ class TemporaryKeyword(Enum):
     HASTE = "haste"
     DEATHTOUCH = "deathtouch"
     REACH = "reach"
+    TRAMPLE = "trample"
+    HEXPROOF = "hexproof"
+    INDESTRUCTIBLE = "indestructible"
 
 
 @dataclass(frozen=True)
@@ -1147,6 +1150,7 @@ class LethalDamageStateBasedAction:
                 or (
                     permanent.damage > 0
                     and (permanent.damage >= permanent.toughness or permanent.deathtouch_damage)
+                    and not game._has_keyword(permanent, "Indestructible")
                 )
             )
         )
@@ -4548,10 +4552,7 @@ class Game(
     def _legal_damage_target(self, target: Permanent, controller: int) -> bool:
         if not self.is_authoritative(target, "battlefield") or not target.is_creature:
             return False
-        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
-        if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
-            return False
-        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
+        return self._legal_targeting_protection(target, controller)
 
     def _select_entry_damage_target(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
@@ -4622,11 +4623,7 @@ class Game(
         targets = [
             target
             for target in targets
-            if not re.search(
-                r"\b(?:hexproof|shroud|ward|protection)\b|can't be (?:the )?target",
-                " ".join((*target.rules_card.keywords, target.rules_card.oracle_text)),
-                re.I,
-            )
+            if self._legal_targeting_protection(target, trigger.controller)
         ]
         hostile = [target for target in targets if target.controller != trigger.controller]
         if effect == "bounce_other_nonland":
@@ -7515,6 +7512,7 @@ class Game(
         oracle_fragment: str,
         source_id: str | None = None,
         stack_object_id: str | None = None,
+        defer_post_placement: bool = False,
     ) -> None:
         if not counter_type or not isinstance(quantity, int) or isinstance(quantity, bool):
             raise ValueError("counter placement requires a named counter and integer quantity")
@@ -7581,11 +7579,11 @@ class Game(
                     "source_id": source_id,
                     "stack_object_id": stack_object_id,
                 }
-                if counter_type == "stun"
+                if source_id is not None or stack_object_id is not None
                 else {}
             ),
         )
-        if not self._priority_resolution_in_progress:
+        if not self._priority_resolution_in_progress and not defer_post_placement:
             self.check_state_based_actions()
 
     def resolve_creature_entered_counter_effects(self, entering: Permanent) -> None:
@@ -8230,6 +8228,8 @@ class Game(
                 )
             elif kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
                 options.extend(self._modal_spell_options(player_index, card))
+            elif kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
+                options.extend(self._counter_keyword_grant_options(player_index, card))
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
                     ActionOption(
@@ -8403,6 +8403,40 @@ class Game(
                 for target in side.battlefield
                 if self._legal_modal_creature_target(target, player_index)
             ),
+        )
+
+    def _counter_keyword_grant_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.targeted_counter_keyword_grant_program(card.card)
+        if (
+            program is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=program.effect_fragment,
+                priority_epoch=priority_epoch,
+            )
+            for target in self.players[player_index].battlefield
+            if self._legal_counter_keyword_grant_target(target, player_index)
+        )
+
+    def _legal_counter_keyword_grant_target(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and target.controller == controller
+            and target.is_creature
+            and self._legal_targeting_protection(target, controller)
         )
 
     def _legal_modal_creature_target(self, target: object, controller: int) -> bool:
@@ -8740,6 +8774,7 @@ class Game(
             *self._hand_targeted_removal_options(player_index),
             *self._hand_creature_power_damage_options(player_index),
             *self._hand_modal_spell_options(player_index),
+            *self._hand_counter_keyword_grant_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
@@ -8796,6 +8831,21 @@ class Game(
             is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
             and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
             for option in self._modal_spell_options(player_index, card, priority_epoch=state.epoch)
+        )
+
+    def _hand_counter_keyword_grant_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            option
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind
+            is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for option in self._counter_keyword_grant_options(
+                player_index, card, priority_epoch=state.epoch
+            )
         )
 
     def _damage_activation_priority_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -8914,6 +8964,13 @@ class Game(
                     self._modal_spell_options(player_index, card, priority_epoch=state.epoch)
                 )
                 continue
+            if kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
+                options.extend(
+                    self._counter_keyword_grant_options(
+                        player_index, card, priority_epoch=state.epoch
+                    )
+                )
+                continue
             if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -9012,6 +9069,19 @@ class Game(
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
             source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
+                CastKind.TARGETED_COUNTER_KEYWORD_GRANT
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target if isinstance(target, Permanent) else None,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
+                if spell is None:
+                    raise ValueError("counter-and-keyword response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
                 CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
             ):
@@ -9336,6 +9406,7 @@ class Game(
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
                 CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
+                CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -9826,7 +9897,7 @@ class Game(
         """Evaluate only authoritative, fully supported Trample characteristics."""
         if not self.is_authoritative(permanent, "battlefield"):
             return False
-        if "trample" in self._equipment_keywords(permanent):
+        if self._has_keyword(permanent, "Trample"):
             return True
         if isinstance(permanent.card, TokenDefinition) and "trample" in {
             keyword.casefold() for keyword in permanent.rules_card.keywords
@@ -12314,6 +12385,7 @@ class Game(
                         CastKind.COUNTER_TARGET_SPELL,
                         CastKind.TARGETED_REMOVAL,
                         CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
+                        CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
                     }
                 )
                 or (
@@ -12331,6 +12403,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -12480,6 +12558,11 @@ class Game(
                 or not target.is_creature
             ):
                 return None
+            target_id = target.object_id
+        elif program.kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
+            if not self._legal_counter_keyword_grant_target(target, player_index):
+                return None
+            assert isinstance(target, Permanent)
             target_id = target.object_id
         elif program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if mode_fragment == modal.token_fragment:
@@ -12801,6 +12884,8 @@ class Game(
             )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
+        elif spell.cast_kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
+            legal_target = self._legal_counter_keyword_grant_target(target, spell.controller)
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             modal = self.interpreter.modal_token_or_creature_pump_program(spell.card)
             if modal is None or spell.mode_fragment not in {
@@ -12983,6 +13068,41 @@ class Game(
                 toughness=modifier[1],
             )
             self.check_state_based_actions()
+        elif spell.cast_kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
+            program = self.interpreter.targeted_counter_keyword_grant_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked counter-and-keyword spell lost its semantics")
+            assert isinstance(target, Permanent)
+            self.place_counters(
+                target,
+                program.counter_type,
+                program.quantity,
+                source_card=spell.name,
+                oracle_fragment=program.effect_fragment,
+                source_id=spell.object_id,
+                stack_object_id=spell.object_id,
+                defer_post_placement=True,
+            )
+            for keyword in program.keywords:
+                target.temporary_keyword_effects.append(
+                    TemporaryKeywordEffect(
+                        TemporaryKeyword(keyword),
+                        "until_end_of_turn",
+                        spell.object_id,
+                        program.effect_fragment,
+                        timestamp=self._effect_timestamp(),
+                    )
+                )
+            self.log(
+                "counter_keyword_grant_resolved",
+                stack_object_id=spell.object_id,
+                source_id=spell.object_id,
+                target_id=target.object_id,
+                counter_type=program.counter_type,
+                quantity=program.quantity,
+                keywords=list(program.keywords),
+                oracle_fragment=program.effect_fragment,
+            )
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if spell.mode_fragment == modal.token_fragment:
                 created = self.create_tokens(
@@ -13154,6 +13274,7 @@ class Game(
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.TARGETED_REMOVAL,
             CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
+            CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
@@ -13234,10 +13355,7 @@ class Game(
         )
         if not eligible:
             return False
-        text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
-        if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
-            return False
-        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
+        return self._legal_targeting_protection(target, controller)
 
     def _legal_conditional_destroy_target(self, target: Permanent, controller: int) -> bool:
         if not self.is_authoritative(target, "battlefield"):
@@ -13264,7 +13382,10 @@ class Game(
         text = " ".join((*target.rules_card.keywords, target.rules_card.oracle_text))
         if re.search(r"\bshroud\b|\bward\b|\bprotection\b|can't be (?:the )?target", text, re.I):
             return False
-        return not (target.controller != controller and re.search(r"\bhexproof\b", text, re.I))
+        return not (
+            target.controller != controller
+            and (self._has_keyword(target, "Hexproof") or re.search(r"\bhexproof\b", text, re.I))
+        )
 
     def legal_attackers(self, player_index: int) -> list[Permanent]:
         return [
@@ -13355,6 +13476,7 @@ class Game(
         return keyword.casefold() in {
             *(value.casefold() for value in permanent.rules_card.keywords),
             *self._equipment_keywords(permanent),
+            *(effect.keyword.value for effect in permanent.active_temporary_keyword_effects),
         }
 
     def _has_flying(self, permanent: Permanent) -> bool:

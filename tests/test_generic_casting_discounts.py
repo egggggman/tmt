@@ -156,7 +156,7 @@ def test_conditional_subtype_reduction_is_controller_scoped_and_nonstacking():
     assert next(e for e in current.events if e["event"] == "cost_paid")["generic"] == 1
 
 
-def test_frozen_krang_discount_executes_and_saved_payload_remains_a_gap():
+def test_frozen_krang_discount_and_saved_payload_execute():
     facts = frozen_facts()
     krang, saved, punks = (
         facts[name] for name in ("Krang, Master Mind", "Saved by the Shell", "Purple Dragon Punks")
@@ -177,8 +177,8 @@ def test_frozen_krang_discount_executes_and_saved_payload_remains_a_gap():
     assert current.payment_plan(0, current.players[0].hand[0]).requirement == ManaRequirement(
         0, ("G",)
     )
-    assert interpreter.cast_program(saved).kind is CastKind.UNSUPPORTED
-    assert not any(option.kind is ActionKind.CAST for option in current.legal_main_actions(0))
+    assert interpreter.cast_program(saved).kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
+    assert any(option.kind is ActionKind.CAST for option in current.legal_main_actions(0))
 
     current = game(RED_SPELL, lands=(MOUNTAIN,))
     source = current.create_permanent(punks, 0, summoning_sick=False)
