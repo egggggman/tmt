@@ -1209,7 +1209,7 @@ class FailedDrawStateBasedAction:
     name: str = "failed_draw"
 
     def apply(self, game: Game) -> bool:
-        changed = False
+        newly_lost = []
         for index, player in enumerate(game.players):
             if not player.failed_draw_pending:
                 continue
@@ -1217,15 +1217,20 @@ class FailedDrawStateBasedAction:
             if not player.lost:
                 player.lost = True
                 player.loss_reason = "draw_from_empty_library"
-                game.winner = 1 - index
+                newly_lost.append(index)
                 game.log(
                     "player_lost",
                     player=player.name,
                     reason=player.loss_reason,
                     state_based_action=self.name,
                 )
-            changed = True
-        return changed
+        if len(newly_lost) == 2:
+            game.winner = None
+            game.terminal_draw = True
+            game.log("game_draw", reason="simultaneous_failed_draw")
+        elif newly_lost:
+            game.winner = 1 - newly_lost[0]
+        return bool(newly_lost)
 
 
 @dataclass(frozen=True)
@@ -1399,6 +1404,7 @@ class Game(
         scry_chooser=None,
         top_card_chooser=None,
         library_search_chooser=None,
+        hand_reset_chooser=None,
         hand_bottom_draw_chooser=None,
         library_position_chooser=None,
         discard_draw_chooser=None,
@@ -1558,6 +1564,10 @@ class Game(
         )
         self.library_search_chooser = library_search_chooser or self._default_library_search_choice
         self._library_search_choice_active = False
+        self.hand_reset_chooser = hand_reset_chooser or (
+            lambda _player, cards, _context: len(cards) < 7
+        )
+        self._hand_reset_choice_active = False
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
@@ -1848,6 +1858,8 @@ class Game(
             raise ValueError("library-position chooser cannot move authoritative objects")
         if self._library_search_choice_active:
             raise ValueError("library-search chooser cannot move authoritative objects")
+        if self._hand_reset_choice_active:
+            raise ValueError("hand-reset chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
             raise ValueError("unregistered runtime object")
         if obj.zone == "former":
@@ -8361,7 +8373,7 @@ class Game(
                 options.extend(self._counter_keyword_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
-            elif kind is CastKind.LIBRARY_SEARCH_TO_HAND:
+            elif kind in {CastKind.LIBRARY_SEARCH_TO_HAND, CastKind.OPTIONAL_HAND_RESET}:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
                 )
@@ -8981,6 +8993,7 @@ class Game(
             *self._aura_cast_options(player_index, priority=True),
             *self._flash_permanent_cast_options(player_index),
             *self._hand_targeted_removal_options(player_index),
+            *self._hand_optional_reset_options(player_index),
             *self._hand_creature_power_damage_options(player_index),
             *self._hand_modal_spell_options(player_index),
             *self._hand_counter_keyword_grant_options(player_index),
@@ -9138,6 +9151,23 @@ class Game(
             if self._legal_targeted_removal_target(target, player_index, program)
         )
 
+    def _hand_optional_reset_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                priority_epoch=state.epoch,
+            )
+            for card in self.players[player_index].hand
+            if "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            and self.interpreter.optional_hand_reset_program(card.card) is not None
+            and self.payment_plan(player_index, card) is not None
+        )
+
     def _flash_permanent_cast_options(self, player_index: int) -> tuple[ActionOption, ...]:
         state = self.priority_state
         if state is None or state.resolution_pending or state.player_index != player_index:
@@ -9231,6 +9261,7 @@ class Game(
                 CastKind.DRAW_CARDS,
                 CastKind.TOP_CARD_SELECTION,
                 CastKind.LIBRARY_SEARCH_TO_HAND,
+                CastKind.OPTIONAL_HAND_RESET,
             }:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -9401,6 +9432,14 @@ class Game(
                 spell = self.announce_spell(option.player_index, card, target)
                 if spell is None:
                     raise ValueError("targeted removal response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if isinstance(card, CardObject) and option in self._hand_optional_reset_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(option.player_index, card)
+                if spell is None:
+                    raise ValueError("hand reset response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and option in self._linked_exile_instant_options(
@@ -9689,6 +9728,7 @@ class Game(
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
                 CastKind.LIBRARY_SEARCH_TO_HAND,
+                CastKind.OPTIONAL_HAND_RESET,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
@@ -12665,6 +12705,7 @@ class Game(
                         CastKind.DRAW_CARDS,
                         CastKind.TOP_CARD_SELECTION,
                         CastKind.LIBRARY_SEARCH_TO_HAND,
+                        CastKind.OPTIONAL_HAND_RESET,
                         CastKind.OPTIONAL_DESTROY_AND_CREATE,
                         CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                         CastKind.DAMAGE_3_OPPOSING_CREATURE,
@@ -12713,6 +12754,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.OPTIONAL_HAND_RESET
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -12881,7 +12928,10 @@ class Game(
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
-        elif program.kind is CastKind.LIBRARY_SEARCH_TO_HAND and target is not None:
+        elif (
+            program.kind in {CastKind.LIBRARY_SEARCH_TO_HAND, CastKind.OPTIONAL_HAND_RESET}
+            and target is not None
+        ):
             return None
         elif program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
             if mode_fragment == modal.token_fragment:
@@ -13163,6 +13213,7 @@ class Game(
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
+            CastKind.OPTIONAL_HAND_RESET,
         } or (isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"))
         if spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             legal_target = spell.target_id is None or (
@@ -13245,6 +13296,7 @@ class Game(
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
+            CastKind.OPTIONAL_HAND_RESET,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.CREATURE_POWER_DAMAGE,
@@ -13330,6 +13382,13 @@ class Game(
                 raise AssertionError("stacked library search lost its complete semantics")
             self.resolve_library_search_to_hand(
                 spell.controller, program.search_fragment, source_id=spell.object_id
+            )
+        elif spell.cast_kind is CastKind.OPTIONAL_HAND_RESET:
+            program = self.interpreter.optional_hand_reset_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked hand reset lost its complete semantics")
+            self.resolve_optional_hand_reset(
+                program.draw_quantity, program.effect_fragment, source_id=spell.object_id
             )
         elif spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             program = self.interpreter.optional_destroy_and_create_program(spell.card)
@@ -13681,6 +13740,7 @@ class Game(
             CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
             CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
             CastKind.LIBRARY_SEARCH_TO_HAND,
+            CastKind.OPTIONAL_HAND_RESET,
             CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
@@ -13761,6 +13821,65 @@ class Game(
             return (0, 0, card.object_id)
 
         return max(options, key=score)
+
+    def resolve_optional_hand_reset(
+        self, quantity: int, oracle_fragment: str, *, source_id: str
+    ) -> None:
+        """Collect APNAP choices, then discard chosen hands before any player draws."""
+        order = (self.active_player, 1 - self.active_player)
+        choices: dict[int, bool] = {}
+        snapshots = tuple(tuple(zone) for zone in self._all_zone_lists())
+        for index in order:
+            player = self.players[index]
+            hand = tuple(player.hand)
+            self._hand_reset_choice_active = True
+            try:
+                decision = self.hand_reset_chooser(
+                    index,
+                    tuple(describe_card(card.object_id, card.card) for card in hand),
+                    decision_context(self, index),
+                )
+                if type(decision) is not bool:
+                    raise ValueError("hand reset choice must be a boolean")
+                if any(
+                    tuple(zone) != before
+                    for zone, before in zip(self._all_zone_lists(), snapshots, strict=True)
+                ):
+                    raise ValueError("hand reset chooser mutated authoritative zones")
+            except Exception:
+                for zone, before in zip(self._all_zone_lists(), snapshots, strict=True):
+                    zone[:] = before
+                raise
+            finally:
+                self._hand_reset_choice_active = False
+            choices[index] = decision
+        discarded: dict[int, list[tuple[str, str]]] = {index: [] for index in order}
+        for index in order:
+            if choices[index]:
+                for card in tuple(self.players[index].hand):
+                    moved = self.move_object(
+                        card, "graveyard", reason="optional_hand_reset_discard"
+                    )
+                    discarded[index].append((card.object_id, moved.object_id))
+        drawn: dict[int, list[str]] = {index: [] for index in order}
+        succeeded: dict[int, bool] = {}
+        for index in order:
+            if choices[index]:
+                player = self.players[index]
+                before = len(player.hand)
+                succeeded[index] = self.draw(player, quantity)
+                drawn[index] = [card.object_id for card in player.hand[before:]]
+        self.log(
+            "optional_hand_reset_resolved",
+            stack_object_id=source_id,
+            oracle_fragment=oracle_fragment,
+            apnap_order=list(order),
+            choices=[{"player": index, "discard_and_draw": choices[index]} for index in order],
+            discarded=[{"player": index, "zone_ids": discarded[index]} for index in order],
+            drawn=[{"player": index, "hand_ids": drawn[index]} for index in order],
+            draw_quantity=quantity,
+            draw_succeeded=[{"player": index, "success": succeeded.get(index)} for index in order],
+        )
 
     def resolve_library_search_to_hand(
         self, player_index: int, oracle_fragment: str, *, source_id: str

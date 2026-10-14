@@ -45,6 +45,7 @@ class CastKind(Enum):
     TEMPORARY_TYPE_BASE_PT_DRAW = "temporary_type_base_pt_draw"
     TARGETED_LIBRARY_RETURN_AND_TOKEN = "targeted_library_return_and_token"
     LIBRARY_SEARCH_TO_HAND = "library_search_to_hand"
+    OPTIONAL_HAND_RESET = "optional_hand_reset"
     UNSUPPORTED = "unsupported"
 
 
@@ -103,6 +104,15 @@ class LibrarySearchToHandProgram:
     """Unrestricted private library selection, move to hand, then shuffle."""
 
     search_fragment: str
+    sneak_fragment: str | None = None
+
+
+@dataclass(frozen=True)
+class OptionalHandResetProgram:
+    """Each player independently chooses a complete discard-and-draw effect."""
+
+    effect_fragment: str
+    draw_quantity: int
     sneak_fragment: str | None = None
 
 
@@ -281,6 +291,7 @@ class SneakProgram:
     noncreature_draw_quantity: int | None = None
     noncreature_targeted_removal: bool = False
     noncreature_library_search: bool = False
+    noncreature_hand_reset: bool = False
 
     @property
     def executable(self) -> bool:
@@ -293,6 +304,7 @@ class SneakProgram:
                 or self.noncreature_draw_quantity is not None
                 or self.noncreature_targeted_removal
                 or self.noncreature_library_search
+                or self.noncreature_hand_reset
             )
         )
 
@@ -1027,6 +1039,7 @@ class CardInterpreter:
         )
         removal = self.targeted_removal_program(card) is not None
         search = self.library_search_to_hand_program(card)
+        reset = self.optional_hand_reset_program(card)
         program = SneakProgram(
             mana_cost,
             creature,
@@ -1035,6 +1048,7 @@ class CardInterpreter:
             draw_quantity,
             removal,
             search is not None and search.sneak_fragment == fragment,
+            reset is not None and reset.sneak_fragment == fragment,
         )
         limitations: list[str] = []
         if not direct:
@@ -1046,6 +1060,7 @@ class CardInterpreter:
             and draw_quantity is None
             and not removal
             and not program.noncreature_library_search
+            and not program.noncreature_hand_reset
         ):
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
@@ -1100,6 +1115,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.optional_hand_reset_program(card) is not None:
+            return CastProgram(CastKind.OPTIONAL_HAND_RESET)
         if self.library_search_to_hand_program(card) is not None:
             return CastProgram(CastKind.LIBRARY_SEARCH_TO_HAND)
         if self.targeted_library_return_and_token_program(card) is not None:
@@ -1284,6 +1301,34 @@ class CardInterpreter:
         r"\(You may cast this spell for (?P=cost) if you also return an unblocked "
         r"attacker you control to hand during the declare blockers step\.\)$"
     )
+
+    OPTIONAL_HAND_RESET = re.compile(
+        r"^Each player may discard their hand and draw (?P<quantity>[1-9][0-9]*|"
+        r"one|two|three|four|five|six|seven|eight|nine|ten) cards?\.$",
+        re.I,
+    )
+
+    def optional_hand_reset_program(self, card: CardDefinition) -> OptionalHandResetProgram | None:
+        """Recognize the entire spell and optional fixed Sneak cost; reject follow-ups."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if not fragments or len(fragments) > 2:
+            return None
+        sneak = None
+        if len(fragments) == 2:
+            if self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is None:
+                return None
+            sneak = fragments[0]
+        effect = fragments[-1]
+        match = self.OPTIONAL_HAND_RESET.fullmatch(effect)
+        if match is None:
+            return None
+        quantity_text = match["quantity"].lower()
+        quantity = self.DRAW_QUANTITIES.get(quantity_text)
+        if quantity is None:
+            quantity = int(quantity_text)
+        return OptionalHandResetProgram(effect, quantity, sneak)
 
     def library_search_to_hand_program(
         self, card: CardDefinition
@@ -1539,6 +1584,9 @@ class CardInterpreter:
             return SemanticCoverage(True, True, True, ())
         search = self.library_search_to_hand_program(card)
         if search is not None and fragment == search.search_fragment:
+            return SemanticCoverage(True, True, True, ())
+        reset = self.optional_hand_reset_program(card)
+        if reset is not None and fragment == reset.effect_fragment:
             return SemanticCoverage(True, True, True, ())
         return None
 
@@ -3527,6 +3575,11 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (reset := self.optional_hand_reset_program(card)) is not None and fragment in {
+                reset.effect_fragment,
+                reset.sneak_fragment,
+            }:
+                continue
             if (search := self.library_search_to_hand_program(card)) is not None and fragment in {
                 search.search_fragment,
                 search.sneak_fragment,
