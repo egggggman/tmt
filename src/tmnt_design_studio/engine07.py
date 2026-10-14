@@ -1086,6 +1086,15 @@ class Permanent:
         return plus - minus, plus - minus
 
     @property
+    def has_represented_power_toughness(self) -> bool:
+        """Return whether the current creature has a represented P/T starting point."""
+        return (self.card.power is not None and self.card.toughness is not None) or any(
+            effect.sublayer is PowerToughnessSubLayer.SET_BASE
+            and effect.operation is CharacteristicOperation.SET
+            for effect in self.characteristic_effects
+        )
+
+    @property
     def power(self) -> int:
         return self.evaluate_power_toughness()[0]
 
@@ -1178,6 +1187,7 @@ class LethalDamageStateBasedAction:
             for player in game.players
             for permanent in player.battlefield
             if permanent.is_creature
+            and permanent.has_represented_power_toughness
             and (
                 permanent.toughness <= 0
                 or (
@@ -14566,7 +14576,11 @@ class Game(
                     permanent.card.power is None or permanent.card.toughness is None
                 ):
                     raise AssertionError("creature permanent lacks printed power/toughness")
-                if permanent.is_creature and permanent.toughness <= 0:
+                if (
+                    permanent.is_creature
+                    and permanent.has_represented_power_toughness
+                    and permanent.toughness <= 0
+                ):
                     raise AssertionError("nonpositive toughness must be handled by an SBA")
                 invalid_counters = any(
                     not isinstance(counter_type, str)
@@ -14617,7 +14631,7 @@ class Game(
                     for dependency in effect.depends_on
                 ):
                     raise AssertionError("characteristic effect dependency is missing")
-                if permanent.is_creature:
+                if permanent.is_creature and permanent.has_represented_power_toughness:
                     try:
                         permanent.evaluate_power_toughness()
                     except ValueError as error:
