@@ -1675,6 +1675,7 @@ class Game(
         source_id: str | None = None,
         defer_post_creation: bool = False,
         defer_triggers: bool = False,
+        attacking_defender: int | None = None,
     ) -> tuple[Permanent, ...]:
         """Atomically create one deterministic batch of Oracle-derived token permanents."""
         if creator_index not in range(2):
@@ -1688,6 +1689,15 @@ class Game(
             raise ValueError("token creation program is not executable")
         assert program.definition is not None and program.quantity is not None
         definition = program.definition
+        if attacking_defender is not None and (
+            not definition.is_creature
+            or not program.tapped
+            or destination_controller != self.active_player
+            or attacking_defender != 1 - destination_controller
+            or self.step is not TurnStep.DECLARE_BLOCKERS
+            or not self._blockers_declared
+        ):
+            raise ValueError("attacking tokens require a legal defending player and combat")
         if definition.is_creature and (definition.power is None or definition.toughness is None):
             raise ValueError("creature token definition requires power and toughness")
         if not definition.is_creature and (
@@ -1722,6 +1732,8 @@ class Game(
             raise
 
         object_ids = tuple(token.object_id for token in created)
+        if attacking_defender is not None:
+            self._combat_attackers += object_ids
         event = self._new_rules_event(
             RulesEventKind.TOKENS_CREATED,
             destination_controller,
@@ -1738,6 +1750,8 @@ class Game(
             source_card=source_card,
             source_id=source_id,
             oracle_fragment=oracle_fragment,
+            attacking_defender=attacking_defender,
+            tapped=program.tapped,
         )
         if created:
             self._process_creatures_entered_triggers(tuple(created), defer_triggers=defer_triggers)
@@ -8412,7 +8426,11 @@ class Game(
                 options.extend(self._counter_keyword_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
-            elif kind in {CastKind.LIBRARY_SEARCH_TO_HAND, CastKind.OPTIONAL_HAND_RESET}:
+            elif kind in {
+                CastKind.LIBRARY_SEARCH_TO_HAND,
+                CastKind.OPTIONAL_HAND_RESET,
+                CastKind.CONDITIONAL_SNEAK_TOKENS,
+            }:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
                 )
@@ -9043,6 +9061,7 @@ class Game(
             *self._flash_permanent_cast_options(player_index),
             *self._hand_targeted_removal_options(player_index),
             *self._hand_optional_reset_options(player_index),
+            *self._hand_conditional_token_options(player_index),
             *self._hand_creature_power_damage_options(player_index),
             *self._hand_modal_spell_options(player_index),
             *self._hand_counter_keyword_grant_options(player_index),
@@ -9214,6 +9233,20 @@ class Game(
             for card in self.players[player_index].hand
             if "Instant" in card.card.type_line.split(" — ", 1)[0].split()
             and self.interpreter.optional_hand_reset_program(card.card) is not None
+            and self.payment_plan(player_index, card) is not None
+        )
+
+    def _hand_conditional_token_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST, player_index, object_id=card.object_id, priority_epoch=state.epoch
+            )
+            for card in self.players[player_index].hand
+            if "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            and self.interpreter.conditional_sneak_tokens_program(card.card) is not None
             and self.payment_plan(player_index, card) is not None
         )
 
@@ -9489,6 +9522,14 @@ class Game(
                 spell = self.announce_spell(option.player_index, card)
                 if spell is None:
                     raise ValueError("hand reset response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if isinstance(card, CardObject) and option in self._hand_conditional_token_options(
+                option.player_index
+            ):
+                spell = self.announce_spell(option.player_index, card)
+                if spell is None:
+                    raise ValueError("token spell response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and option in self._linked_exile_instant_options(
@@ -9781,6 +9822,7 @@ class Game(
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
                 CastKind.GRAVEYARD_RECURSION,
+                CastKind.CONDITIONAL_SNEAK_TOKENS,
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
@@ -12794,6 +12836,7 @@ class Game(
                         CastKind.TOP_CARD_SELECTION,
                         CastKind.LIBRARY_SEARCH_TO_HAND,
                         CastKind.OPTIONAL_HAND_RESET,
+                        CastKind.CONDITIONAL_SNEAK_TOKENS,
                         CastKind.OPTIONAL_DESTROY_AND_CREATE,
                         CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                         CastKind.DAMAGE_3_OPPOSING_CREATURE,
@@ -12848,6 +12891,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.OPTIONAL_HAND_RESET
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.CONDITIONAL_SNEAK_TOKENS
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -13017,7 +13066,12 @@ class Game(
             assert isinstance(target, Permanent)
             target_id = target.object_id
         elif (
-            program.kind in {CastKind.LIBRARY_SEARCH_TO_HAND, CastKind.OPTIONAL_HAND_RESET}
+            program.kind
+            in {
+                CastKind.LIBRARY_SEARCH_TO_HAND,
+                CastKind.OPTIONAL_HAND_RESET,
+                CastKind.CONDITIONAL_SNEAK_TOKENS,
+            }
             and target is not None
         ):
             return None
@@ -13320,6 +13374,7 @@ class Game(
             CastKind.TOP_CARD_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
+            CastKind.CONDITIONAL_SNEAK_TOKENS,
         } or (isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"))
         if spell.cast_kind is CastKind.GRAVEYARD_RECURSION:
             recursion = self.interpreter.graveyard_recursion_program(spell.card)
@@ -13418,6 +13473,7 @@ class Game(
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
             CastKind.GRAVEYARD_RECURSION,
+            CastKind.CONDITIONAL_SNEAK_TOKENS,
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.CREATURE_POWER_DAMAGE,
@@ -13549,6 +13605,29 @@ class Game(
                 tuple(item for _, item in entered),
                 source_id=spell.object_id,
                 defer_triggers=True,
+            )
+        elif spell.cast_kind is CastKind.CONDITIONAL_SNEAK_TOKENS:
+            program = self.interpreter.conditional_sneak_tokens_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked conditional token spell lost its semantics")
+            created = self.create_tokens(
+                spell.controller,
+                replace(program.token, tapped=sneak_cast),
+                source_card=spell.name,
+                oracle_fragment=program.effect_fragment,
+                source_id=spell.object_id,
+                defer_post_creation=True,
+                defer_triggers=True,
+                attacking_defender=spell.sneak_defending_player if sneak_cast else None,
+            )
+            self.log(
+                "conditional_tokens_resolved",
+                stack_object_id=spell.object_id,
+                token_ids=[token.object_id for token in created],
+                sneak_cost_paid=sneak_cast,
+                tapped=sneak_cast,
+                attacking_defender=spell.sneak_defending_player if sneak_cast else None,
+                oracle_fragment=program.effect_fragment,
             )
         elif spell.cast_kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
             program = self.interpreter.optional_destroy_and_create_program(spell.card)
@@ -13902,6 +13981,7 @@ class Game(
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
             CastKind.GRAVEYARD_RECURSION,
+            CastKind.CONDITIONAL_SNEAK_TOKENS,
             CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
