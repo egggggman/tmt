@@ -1,0 +1,121 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "82e98882e36523ade85ee4261a8f0f7675bef98fa50ac4d96d43469d6f2fcf77",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-modal-spell-raphael-casey_jones",
+      "seed": 3104,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "898ccbaf9c373e465139574fc8ef25150ac52cc4bddad00abdce524dbfd26555",
+      "event_count": 1440,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000200",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "controller": 0
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000200",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "token_ids": [
+            "object-000201"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-modal-spell-casey_jones-raphael",
+      "seed": 3104,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "99e929e4c5da5117cdcffedf6d4d2214a04ccc1545acd03f7fbd3e8a866e8ad1",
+      "event_count": 783,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000175",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "controller": 1
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000175",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "token_ids": [
+            "object-000176"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-modal-spell-raphael-leonardo",
+      "seed": 3104,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "3a2c2cdcdb63d63df7ffd926f0935fad23e2d7c03b3fdfbc389756e442818fa3",
+      "event_count": 929,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000207",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "controller": 0
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000207",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "token_ids": [
+            "object-000208"
+          ]
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-modal-spell-leonardo-raphael",
+      "seed": 3104,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "4f45e00dafab52ddea337135f90d0b9a3a1e1bb7c01e5cec3ee3533d59ddb4e4",
+      "event_count": 1113,
+      "frozen_source_casts": 1,
+      "target_selection": [
+        {
+          "stack_object_id": "object-000173",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "controller": 1
+        }
+      ],
+      "resolution": [
+        {
+          "stack_object_id": "object-000173",
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "target_id": null,
+          "token_ids": [
+            "object-000174"
+          ]
+        }
+      ],
+      "runtime_error": null
+    }
+  ]
+}

@@ -878,6 +878,7 @@ class StackObject:
     cast_kind: CastKind
     target_id: str | None = None
     source_target_id: str | None = None
+    mode_fragment: str | None = None
     kicker_sacrifice_id: str | None = None
     sneak_returned_attacker_id: str | None = None
     sneak_returned_hand_id: str | None = None
@@ -8227,6 +8228,8 @@ class Game(
                     for target in opponent.battlefield
                     if self._legal_creature_power_recipient(target, player_index)
                 )
+            elif kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+                options.extend(self._modal_spell_options(player_index, card))
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
                 options.append(
                     ActionOption(
@@ -8365,6 +8368,49 @@ class Game(
             for target in side.battlefield
             if target.is_creature
             for cost in (None, *sacrifices)
+        )
+
+    def _modal_spell_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.modal_token_or_creature_pump_program(card.card)
+        if (
+            program is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
+            return ()
+        return (
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                oracle_fragment=program.token_fragment,
+                priority_epoch=priority_epoch,
+            ),
+            *(
+                ActionOption(
+                    ActionKind.CAST,
+                    player_index,
+                    object_id=card.object_id,
+                    target_id=target.object_id,
+                    oracle_fragment=program.pump_fragment,
+                    priority_epoch=priority_epoch,
+                )
+                for side in self.players
+                for target in side.battlefield
+                if self._legal_modal_creature_target(target, player_index)
+            ),
+        )
+
+    def _legal_modal_creature_target(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and target.is_creature
+            and self._legal_targeting_protection(target, controller)
         )
 
     def _legal_kicker_sacrifice(
@@ -8693,6 +8739,7 @@ class Game(
             *self._flash_permanent_cast_options(player_index),
             *self._hand_targeted_removal_options(player_index),
             *self._hand_creature_power_damage_options(player_index),
+            *self._hand_modal_spell_options(player_index),
             *self._linked_exile_instant_options(player_index),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
@@ -8736,6 +8783,19 @@ class Game(
             if self._legal_creature_power_source(source, player_index)
             for target in self.players[1 - player_index].battlefield
             if self._legal_creature_power_recipient(target, player_index)
+        )
+
+    def _hand_modal_spell_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            option
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind
+            is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for option in self._modal_spell_options(player_index, card, priority_epoch=state.epoch)
         )
 
     def _damage_activation_priority_options(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -8849,6 +8909,11 @@ class Game(
                     self._kicked_creature_pt_options(player_index, card, priority_epoch=state.epoch)
                 )
                 continue
+            if kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+                options.extend(
+                    self._modal_spell_options(player_index, card, priority_epoch=state.epoch)
+                )
+                continue
             if kind in {CastKind.DRAW_CARDS, CastKind.TOP_CARD_SELECTION}:
                 targets = (None,)
             elif kind is CastKind.OPTIONAL_DESTROY_AND_CREATE:
@@ -8947,6 +9012,20 @@ class Game(
             card = self._objects.get(option.object_id or "")
             target = self._objects.get(option.target_id or "")
             source_target = self._objects.get(option.choice_ids[0]) if option.choice_ids else None
+            if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
+                CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target if isinstance(target, Permanent) else None,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                    mode_fragment=option.oracle_fragment,
+                )
+                if spell is None:
+                    raise ValueError("modal response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
             if isinstance(card, CardObject) and option in self._hand_creature_power_damage_options(
                 option.player_index
             ):
@@ -9239,6 +9318,12 @@ class Game(
                         else None
                     ),
                     source_target=source_target if isinstance(source_target, Permanent) else None,
+                    mode_fragment=(
+                        option.oracle_fragment
+                        if self.interpreter.cast_program(obj.card).kind
+                        is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                        else None
+                    ),
                 )
                 if spell is None:
                     raise ValueError("linked exile spell became illegal")
@@ -9250,6 +9335,7 @@ class Game(
                 CastKind.OPTIONAL_DESTROY_AND_CREATE,
                 CastKind.CONDITIONAL_DESTROY_AND_CREATE,
                 CastKind.CREATURE_POWER_DAMAGE,
+                CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
             }:
                 cost = self._objects.get(option.cost_object_id or "")
                 spell = self.announce_spell(
@@ -9258,6 +9344,12 @@ class Game(
                     target,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
                     source_target=source_target if isinstance(source_target, Permanent) else None,
+                    mode_fragment=(
+                        option.oracle_fragment
+                        if self.interpreter.cast_program(obj.card).kind
+                        is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                        else None
+                    ),
                 )
                 if spell is None:
                     raise ValueError("shared spell became illegal at announcement")
@@ -12157,6 +12249,7 @@ class Game(
         cast_from_graveyard: bool = False,
         sacrifice_cost: Permanent | None = None,
         source_target: Permanent | None = None,
+        mode_fragment: str | None = None,
     ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -12170,6 +12263,7 @@ class Game(
             cast_from_graveyard=cast_from_graveyard,
             sacrifice_cost=sacrifice_cost,
             source_target=source_target,
+            mode_fragment=mode_fragment,
         )
         if spell is None:
             return False
@@ -12186,6 +12280,7 @@ class Game(
         cast_from_exile: bool = False,
         sacrifice_cost: Permanent | None = None,
         source_target: Permanent | None = None,
+        mode_fragment: str | None = None,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -12218,6 +12313,7 @@ class Game(
                         CastKind.OOZE_SPILL,
                         CastKind.COUNTER_TARGET_SPELL,
                         CastKind.TARGETED_REMOVAL,
+                        CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                     }
                 )
                 or (
@@ -12229,6 +12325,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.CREATURE_POWER_DAMAGE
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
             )
@@ -12276,6 +12378,15 @@ class Game(
             ):
                 return None
         program = self.interpreter.cast_program(card.card)
+        if program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+            modal = self.interpreter.modal_token_or_creature_pump_program(card.card)
+            if modal is None or mode_fragment not in {
+                modal.token_fragment,
+                modal.pump_fragment,
+            }:
+                return None
+        elif mode_fragment is not None:
+            return None
         if sacrifice_cost is not None and (
             program.kind is not CastKind.KICKED_CREATURE_PT
             or not isinstance(sacrifice_cost, Permanent)
@@ -12370,6 +12481,15 @@ class Game(
             ):
                 return None
             target_id = target.object_id
+        elif program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+            if mode_fragment == modal.token_fragment:
+                if target is not None:
+                    return None
+            else:
+                if not self._legal_modal_creature_target(target, player_index):
+                    return None
+                assert isinstance(target, Permanent)
+                target_id = target.object_id
         elif program.kind is CastKind.UNSUPPORTED:
             fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
             for fragment in fragments or [card.type_line]:
@@ -12404,6 +12524,15 @@ class Game(
             finality_on_entry=cast_from_graveyard,
             cast_from_raphael=cast_from_exile,
         )
+        if program.kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+            spell.mode_fragment = mode_fragment
+            self.log(
+                "modal_mode_chosen",
+                stack_object_id=spell.object_id,
+                mode_fragment=mode_fragment,
+                target_id=target_id,
+                controller=player_index,
+            )
         if program.kind is CastKind.CREATURE_POWER_DAMAGE:
             assert isinstance(source_target, Permanent)
             spell.source_target_id = source_target.object_id
@@ -12439,6 +12568,7 @@ class Game(
             stack_object_id=spell.object_id,
             target_id=target_id,
             source_target_id=spell.source_target_id,
+            mode_fragment=spell.mode_fragment,
         )
         return spell
 
@@ -12671,6 +12801,18 @@ class Game(
             )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
+        elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+            modal = self.interpreter.modal_token_or_creature_pump_program(spell.card)
+            if modal is None or spell.mode_fragment not in {
+                modal.token_fragment,
+                modal.pump_fragment,
+            }:
+                raise AssertionError("stacked modal spell lost its complete semantics")
+            legal_target = (
+                spell.target_id is None
+                if spell.mode_fragment == modal.token_fragment
+                else self._legal_modal_creature_target(target, spell.controller)
+            )
         if not legal_target:
             resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
             assert isinstance(resolved_card, CardObject)
@@ -12693,6 +12835,7 @@ class Game(
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.CREATURE_POWER_DAMAGE,
+            CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
         }:
             assert isinstance(target, Permanent)
         filter_plan = None
@@ -12840,6 +12983,54 @@ class Game(
                 toughness=modifier[1],
             )
             self.check_state_based_actions()
+        elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
+            if spell.mode_fragment == modal.token_fragment:
+                created = self.create_tokens(
+                    spell.controller,
+                    modal.token,
+                    source_card=spell.name,
+                    oracle_fragment=spell.mode_fragment,
+                    source_id=spell.object_id,
+                    defer_post_creation=True,
+                    defer_triggers=True,
+                )
+                self.log(
+                    "modal_spell_resolved",
+                    stack_object_id=spell.object_id,
+                    mode_fragment=spell.mode_fragment,
+                    token_ids=[token.object_id for token in created],
+                    target_id=None,
+                )
+            else:
+                assert isinstance(target, Permanent)
+                self.apply_pt_modifier(
+                    target,
+                    modal.power,
+                    modal.toughness,
+                    duration="until_end_of_turn",
+                    source_card=spell.name,
+                    oracle_fragment=spell.mode_fragment,
+                    source_object_id=spell.object_id,
+                )
+                target.temporary_keyword_effects.append(
+                    TemporaryKeywordEffect(
+                        modal.strike_keyword,
+                        "until_end_of_turn",
+                        spell.object_id,
+                        spell.mode_fragment,
+                        timestamp=self._effect_timestamp(),
+                    )
+                )
+                self.log(
+                    "modal_spell_resolved",
+                    stack_object_id=spell.object_id,
+                    mode_fragment=spell.mode_fragment,
+                    token_ids=[],
+                    target_id=target.object_id,
+                    keyword=modal.strike_keyword.value,
+                    power=modal.power,
+                    toughness=modal.toughness,
+                )
         elif spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
             semantics = self.interpreter.damage_semantic_coverage(
                 spell.card, spell.card.oracle_text
@@ -12962,6 +13153,7 @@ class Game(
             CastKind.OPTIONAL_DESTROY_AND_CREATE,
             CastKind.CONDITIONAL_DESTROY_AND_CREATE,
             CastKind.TARGETED_REMOVAL,
+            CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
@@ -14486,6 +14678,7 @@ class Game(
                         "cast_kind": entry.cast_kind.value,
                         "target_id": entry.target_id,
                         "source_target_id": entry.source_target_id,
+                        "mode_fragment": entry.mode_fragment,
                         "kicker_sacrifice_id": entry.kicker_sacrifice_id,
                         "sneak_returned_attacker_id": entry.sneak_returned_attacker_id,
                         "sneak_returned_hand_id": entry.sneak_returned_hand_id,
