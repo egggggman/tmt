@@ -328,6 +328,9 @@ def run_smoke_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> di
             if game.is_terminal:
                 break
             _checked_action(game, game.advance_step, "advance to combat")
+            _drain_priority(game, chosen_pilot)
+            if game.is_terminal:
+                break
             _checked_action(game, game.advance_step, "advance to attackers")
             attack_options = game.legal_attack_options(active)
             failure_context = _pilot_decision_diagnostic(

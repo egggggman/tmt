@@ -129,6 +129,16 @@ class GraveyardRecursionProgram:
 
 
 @dataclass(frozen=True)
+class ClassCombatArtifactAnimationProgram:
+    """Complete Class combat trigger, counter placement, and lasting animation."""
+
+    counter_quantity: int
+    base_power: int
+    base_toughness: int
+    creature_subtype: str
+
+
+@dataclass(frozen=True)
 class KickedCreaturePTProgram:
     sacrifice_types: tuple[str, ...]
     ordinary: tuple[int, int]
@@ -1812,6 +1822,42 @@ class CardInterpreter:
     CLASS_GRAVEYARD_SNEAK_PERMISSION = (
         "You may cast creature spells from your graveyard using their sneak abilities."
     )
+    CLASS_COMBAT_ARTIFACT_ANIMATION = re.compile(
+        r"^At the beginning of combat on your turn, put "
+        r"(?P<count>one|two|three|four|five|[1-9][0-9]*) "
+        r"\+1/\+1 counters on target artifact you control\. If it isn't a creature, "
+        r"it becomes a (?P<power>[0-9]+)/(?P<toughness>[0-9]+) "
+        r"(?P<subtype>[A-Z][A-Za-z]*) creature in addition to its other types\.$"
+    )
+
+    def class_combat_artifact_animation(
+        self, card: CardDefinition, fragment: str
+    ) -> ClassCombatArtifactAnimationProgram | None:
+        """Recognize one complete level-three Class section, rejecting extra clauses."""
+        if "Class" not in card.type_line:
+            return None
+        fragments = self.fragments(card)
+        level = next(
+            (
+                index
+                for index, text in enumerate(fragments)
+                if self.CLASS_LEVEL_UP.fullmatch(text) and text.endswith("Level 3")
+            ),
+            None,
+        )
+        if level is None or fragments[level + 1 :] != (fragment,):
+            return None
+        match = self.CLASS_COMBAT_ARTIFACT_ANIMATION.fullmatch(fragment)
+        if match is None:
+            return None
+        return ClassCombatArtifactAnimationProgram(
+            int(match["count"])
+            if match["count"].isdigit()
+            else {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}[match["count"]],
+            int(match["power"]),
+            int(match["toughness"]),
+            match["subtype"],
+        )
 
     def class_graveyard_sneak(self, card: CardDefinition) -> tuple[str, str, str] | None:
         """Require both complete static clauses in the same level-three section."""
@@ -1873,6 +1919,7 @@ class CardInterpreter:
                     level == 3
                     and (
                         self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+                        or self.class_combat_artifact_animation(card, fragment) is not None
                         or (
                             self.class_graveyard_sneak(card) is not None
                             and fragment == self.class_graveyard_sneak(card)[0]
@@ -3905,6 +3952,7 @@ class CardInterpreter:
                 fragment == "(Gain the next level as a sorcery to add its ability.)"
                 or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
                 or self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+                or self.class_combat_artifact_animation(card, fragment) is not None
                 or (
                     (grant := self.class_graveyard_sneak(card)) is not None
                     and fragment in grant[:2]
@@ -4047,6 +4095,7 @@ class CardInterpreter:
             if "Class" in card.type_line and (
                 self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
                 or self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+                or self.class_combat_artifact_animation(card, fragment) is not None
             ):
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
