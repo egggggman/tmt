@@ -10439,7 +10439,11 @@ class Game(
                 return ()
             source, grant = sources[0]
             granted = self.interpreter.sneak_semantic_coverage(source.rules_card, grant[0])
-            assert granted is not None and granted.coverage.fully_supported
+            assert (
+                granted is not None
+                and granted.coverage.fully_supported
+                and granted.program.granted_keyword_ability
+            )
             options = [(grant[0], granted, source.object_id)]
             options.extend(
                 (fragment, semantics, source.object_id)
