@@ -86,3 +86,13 @@ Final-head GitHub CI: **pending**.
 
 **Checkpoint acceptance: pending final-head CI. Baseline 005 calibration:
 BLOCKED.** No control, balance experiment, merge, deck revision, or promotion.
+
+## Later publication status (documentation-only addendum)
+
+The preceding “pending” line records the checkpoint's state when this report
+was written. GitHub Actions [Test run 38673029398](https://github.com/egggggman/tmt/actions/runs/38673029398)
+subsequently completed successfully on PR #322's final published head
+`458bebbaf3f4a7ac6b3f09a7aefb21c35a199f8f` (run number 1544).
+This addendum changes no test result, runtime, ledger row, deck, or historical
+game evidence. Checkpoint acceptance passed its CI gate; Baseline 005
+calibration remained **BLOCKED**.

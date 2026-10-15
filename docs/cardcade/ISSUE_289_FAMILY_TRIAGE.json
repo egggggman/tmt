@@ -1,0 +1,1038 @@
+{
+  "schema": "issue289-family-triage-v1",
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_id": "OBL-BASELINE-005",
+  "semantic_runtime_sha256": "a95807a7bf0a8a87b78155c425fe275da8b223190941e167d859ecf9f90902d9",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "start_checkpoint_sha256": "344c738abb1f59c73e21daa1e24feb6c32d43484a8f3a7dad24478aa1417807c",
+  "current_checkpoint_sha256": "01ccb63187e614cfeda064a8e1bd388f65df1210a745c9ee3345e76398ad815a",
+  "current_readiness_sha256": "a4fe44deca3ea301ab0f62e115461124e02f092eb7d514fb72878a02df82c2e7",
+  "start_counts": {
+    "important": 47,
+    "blockers": 43,
+    "unbounded": 4
+  },
+  "current_counts": {
+    "critical": 0,
+    "important": 35,
+    "blockers": 31,
+    "unbounded": 4
+  },
+  "closed_since_start": [
+    {
+      "deck": "donatello",
+      "card": "Does Machines",
+      "oracle_fragment": "At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types."
+    },
+    {
+      "deck": "donatello",
+      "card": "Does Machines",
+      "oracle_fragment": "{4}{U}: Level 3"
+    },
+    {
+      "deck": "krang",
+      "card": "Does Machines",
+      "oracle_fragment": "At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types."
+    },
+    {
+      "deck": "krang",
+      "card": "Does Machines",
+      "oracle_fragment": "{4}{U}: Level 3"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Game Master",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, put a +1/+1 counter on Michelangelo."
+    },
+    {
+      "deck": "shredder",
+      "card": "Ninja Teen",
+      "oracle_fragment": "Creature cards in your graveyard have sneak {3}{B}."
+    },
+    {
+      "deck": "shredder",
+      "card": "Ninja Teen",
+      "oracle_fragment": "You may cast creature spells from your graveyard using their sneak abilities."
+    },
+    {
+      "deck": "shredder",
+      "card": "Ninja Teen",
+      "oracle_fragment": "{B}: Level 3"
+    },
+    {
+      "deck": "splinter",
+      "card": "Insectoid Exterminator",
+      "oracle_fragment": "Disappear — At the beginning of your end step, if a permanent left the battlefield under your control this turn, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    {
+      "deck": "splinter",
+      "card": "Ninja Teen",
+      "oracle_fragment": "Creature cards in your graveyard have sneak {3}{B}."
+    },
+    {
+      "deck": "splinter",
+      "card": "Ninja Teen",
+      "oracle_fragment": "You may cast creature spells from your graveyard using their sneak abilities."
+    },
+    {
+      "deck": "splinter",
+      "card": "Ninja Teen",
+      "oracle_fragment": "{B}: Level 3"
+    }
+  ],
+  "families": [
+    {
+      "family": "artifact_token_engines",
+      "row_count": 4,
+      "frozen_distinct_card_copies": 10,
+      "affected_decks": [
+        "bebop_rocksteady",
+        "casey_jones"
+      ],
+      "cards": [
+        "Mouser Foundry",
+        "Mutagen Man, Living Ooze",
+        "Ravenous Robots"
+      ],
+      "mechanic_tags": [
+        "artifact_entry_leave_token_triggers",
+        "artifact_spell_token_triggers",
+        "artifact_token_cost_and_creation"
+      ],
+      "blocker_rows": 4,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 36,
+      "diagnostic": {
+        "battlefield_entries": 11,
+        "source_player_damage_events": 4,
+        "spell_casts": 11,
+        "unsupported_fragment_presence": 11
+      },
+      "diagnostic_by_card": {
+        "Mouser Foundry": {
+          "battlefield_entries": 5,
+          "spell_casts": 5,
+          "unsupported_fragment_presence": 5
+        },
+        "Mutagen Man, Living Ooze": {},
+        "Ravenous Robots": {
+          "battlefield_entries": 6,
+          "source_player_damage_events": 4,
+          "spell_casts": 6,
+          "unsupported_fragment_presence": 6
+        }
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "casey_jones",
+          "card": "Mouser Foundry",
+          "oracle_fragment": "When this artifact enters or leaves the battlefield, create a 1/1 colorless Robot artifact creature token.",
+          "mechanic": "artifact_entry_leave_token_triggers",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "casey_jones",
+          "card": "Ravenous Robots",
+          "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+          "mechanic": "artifact_spell_token_triggers",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "oracle_fragment": "Activated abilities of artifact tokens you control cost {1} less to activate.",
+          "mechanic": "artifact_token_cost_and_creation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "mechanic": "artifact_token_cost_and_creation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "combat_and_death_recursion",
+      "row_count": 4,
+      "frozen_distinct_card_copies": 9,
+      "affected_decks": [
+        "michelangelo",
+        "shredder",
+        "splinter"
+      ],
+      "cards": [
+        "Michelangelo, Improviser",
+        "Pain 101",
+        "Shark Shredder, Killer Clone"
+      ],
+      "mechanic_tags": [
+        "combat_damage_graveyard_recursion",
+        "combat_damage_hidden_hand_entry",
+        "temporary_death_recursion"
+      ],
+      "blocker_rows": 3,
+      "unbounded_rows": 1,
+      "top_prior_row_score": 42,
+      "diagnostic": {
+        "battlefield_entries": 5,
+        "source_player_damage_events": 4,
+        "spell_casts": 5,
+        "unsupported_fragment_presence": 5
+      },
+      "diagnostic_by_card": {
+        "Michelangelo, Improviser": {
+          "battlefield_entries": 2,
+          "source_player_damage_events": 2,
+          "spell_casts": 2,
+          "unsupported_fragment_presence": 2
+        },
+        "Pain 101": {},
+        "Shark Shredder, Killer Clone": {
+          "battlefield_entries": 3,
+          "source_player_damage_events": 2,
+          "spell_casts": 3,
+          "unsupported_fragment_presence": 3
+        }
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "shredder",
+          "card": "Shark Shredder, Killer Clone",
+          "oracle_fragment": "Whenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+          "mechanic": "combat_damage_graveyard_recursion",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "splinter",
+          "card": "Shark Shredder, Killer Clone",
+          "oracle_fragment": "Whenever Shark Shredder deals combat damage to a player, put up to one target creature card from that player's graveyard onto the battlefield under your control. It enters tapped and attacking that player.",
+          "mechanic": "combat_damage_graveyard_recursion",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "splinter",
+          "card": "Pain 101",
+          "oracle_fragment": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+          "mechanic": "temporary_death_recursion",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "michelangelo",
+          "card": "Michelangelo, Improviser",
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+          "mechanic": "combat_damage_hidden_hand_entry",
+          "copies_in_deck": 2,
+          "calibration_blocker": false
+        }
+      ]
+    },
+    {
+      "family": "class_counter_engines",
+      "row_count": 5,
+      "frozen_distinct_card_copies": 4,
+      "affected_decks": [
+        "leonardo"
+      ],
+      "cards": [
+        "Leader's Talent"
+      ],
+      "mechanic_tags": [
+        "class_levels_and_counters"
+      ],
+      "blocker_rows": 5,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 39,
+      "diagnostic": {
+        "battlefield_entries": 5,
+        "recorded_opportunity_witnesses": 356,
+        "spell_casts": 5,
+        "unsupported_fragment_presence": 25
+      },
+      "diagnostic_by_card": {
+        "Leader's Talent": {
+          "battlefield_entries": 5,
+          "recorded_opportunity_witnesses": 356,
+          "spell_casts": 5,
+          "unsupported_fragment_presence": 25
+        }
+      },
+      "recorded_witnesses_by_fragment": [
+        {
+          "card": "Leader's Talent",
+          "oracle_fragment": "Whenever a creature you control leaves the battlefield, if it had a counter on it, you gain 2 life.",
+          "count": 40
+        },
+        {
+          "card": "Leader's Talent",
+          "oracle_fragment": "{2}{W}: Level 2",
+          "count": 158
+        },
+        {
+          "card": "Leader's Talent",
+          "oracle_fragment": "{3}{W}: Level 3",
+          "count": 158
+        }
+      ],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "leonardo",
+          "card": "Leader's Talent",
+          "oracle_fragment": "Whenever a creature you control leaves the battlefield, if it had a counter on it, you gain 2 life.",
+          "mechanic": "class_levels_and_counters",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "leonardo",
+          "card": "Leader's Talent",
+          "oracle_fragment": "Whenever you attack, put a +1/+1 counter on target attacking creature.",
+          "mechanic": "class_levels_and_counters",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "leonardo",
+          "card": "Leader's Talent",
+          "oracle_fragment": "Whenever you cast a spell, put a +1/+1 counter on each creature you control.",
+          "mechanic": "class_levels_and_counters",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "leonardo",
+          "card": "Leader's Talent",
+          "oracle_fragment": "{2}{W}: Level 2",
+          "mechanic": "class_levels_and_counters",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "leonardo",
+          "card": "Leader's Talent",
+          "oracle_fragment": "{3}{W}: Level 3",
+          "mechanic": "class_levels_and_counters",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "combat_legality_and_team_effects",
+      "row_count": 4,
+      "frozen_distinct_card_copies": 12,
+      "affected_decks": [
+        "bebop_rocksteady",
+        "michelangelo",
+        "splinter"
+      ],
+      "cards": [
+        "Bebop, Warthog Warrior",
+        "Michelangelo, Mutant BFF",
+        "Rocksteady, Crash Courser",
+        "Splinter, Hamato Yoshi"
+      ],
+      "mechanic_tags": [
+        "combat_block_constraints",
+        "tribal_combat_keyword",
+        "tribal_combat_modifier"
+      ],
+      "blocker_rows": 2,
+      "unbounded_rows": 2,
+      "top_prior_row_score": 36,
+      "diagnostic": {
+        "battlefield_entries": 8,
+        "source_player_damage_events": 15,
+        "spell_casts": 8,
+        "unsupported_fragment_presence": 8
+      },
+      "diagnostic_by_card": {
+        "Bebop, Warthog Warrior": {
+          "battlefield_entries": 1,
+          "source_player_damage_events": 2,
+          "spell_casts": 1,
+          "unsupported_fragment_presence": 1
+        },
+        "Michelangelo, Mutant BFF": {},
+        "Rocksteady, Crash Courser": {
+          "battlefield_entries": 2,
+          "source_player_damage_events": 4,
+          "spell_casts": 2,
+          "unsupported_fragment_presence": 2
+        },
+        "Splinter, Hamato Yoshi": {
+          "battlefield_entries": 5,
+          "source_player_damage_events": 9,
+          "spell_casts": 5,
+          "unsupported_fragment_presence": 5
+        }
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Rocksteady, Crash Courser",
+          "oracle_fragment": "Boars you control can't be blocked by more than one creature.",
+          "mechanic": "combat_block_constraints",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "splinter",
+          "card": "Splinter, Hamato Yoshi",
+          "oracle_fragment": "Other Ninjas you control get +1/+1.",
+          "mechanic": "tribal_combat_modifier",
+          "copies_in_deck": 4,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Bebop, Warthog Warrior",
+          "oracle_fragment": "Rhinos you control have menace.",
+          "mechanic": "tribal_combat_keyword",
+          "copies_in_deck": 2,
+          "calibration_blocker": false
+        },
+        {
+          "deck": "michelangelo",
+          "card": "Michelangelo, Mutant BFF",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "mechanic": "combat_block_constraints",
+          "copies_in_deck": 2,
+          "calibration_blocker": false
+        }
+      ]
+    },
+    {
+      "family": "activated_resource_conversion",
+      "row_count": 5,
+      "frozen_distinct_card_copies": 3,
+      "affected_decks": [
+        "bebop_rocksteady"
+      ],
+      "cards": [
+        "Ice Cream Kitty"
+      ],
+      "mechanic_tags": [
+        "activation_costs_and_resource_trade"
+      ],
+      "blocker_rows": 5,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 33,
+      "diagnostic": {},
+      "diagnostic_by_card": {
+        "Ice Cream Kitty": {}
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Ice Cream Kitty",
+          "oracle_fragment": "{2}, Sacrifice another creature or token: Draw a card. Activate only as a sorcery.",
+          "mechanic": "activation_costs_and_resource_trade",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Ice Cream Kitty",
+          "oracle_fragment": "{2}, Sacrifice another creature or token: Draw a card. Activate only as a sorcery.",
+          "mechanic": "activation_costs_and_resource_trade",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Ice Cream Kitty",
+          "oracle_fragment": "{2}, Sacrifice another creature or token: Draw a card. Activate only as a sorcery.",
+          "mechanic": "activation_costs_and_resource_trade",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Ice Cream Kitty",
+          "oracle_fragment": "{2}, {T}, Sacrifice this creature: You gain 3 life.",
+          "mechanic": "activation_costs_and_resource_trade",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "bebop_rocksteady",
+          "card": "Ice Cream Kitty",
+          "oracle_fragment": "{2}, {T}, Sacrifice this creature: You gain 3 life.",
+          "mechanic": "activation_costs_and_resource_trade",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "artifact_counters_and_animation",
+      "row_count": 5,
+      "frozen_distinct_card_copies": 5,
+      "affected_decks": [
+        "donatello"
+      ],
+      "cards": [
+        "Donatello, Mutant Mechanic",
+        "Donatello, Way with Machines"
+      ],
+      "mechanic_tags": [
+        "artifact_counters_and_animation",
+        "artifact_entry_counters"
+      ],
+      "blocker_rows": 5,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 33,
+      "diagnostic": {
+        "battlefield_entries": 4,
+        "source_player_damage_events": 1,
+        "spell_casts": 4,
+        "unsupported_fragment_presence": 5
+      },
+      "diagnostic_by_card": {
+        "Donatello, Mutant Mechanic": {
+          "battlefield_entries": 1,
+          "source_player_damage_events": 1,
+          "spell_casts": 1,
+          "unsupported_fragment_presence": 2
+        },
+        "Donatello, Way with Machines": {
+          "battlefield_entries": 3,
+          "spell_casts": 3,
+          "unsupported_fragment_presence": 3
+        }
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "donatello",
+          "card": "Donatello, Way with Machines",
+          "oracle_fragment": "Whenever an artifact you control enters, put a +1/+1 counter on Donatello.",
+          "mechanic": "artifact_entry_counters",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "donatello",
+          "card": "Donatello, Mutant Mechanic",
+          "oracle_fragment": "Whenever an artifact you control is put into a graveyard from the battlefield, if it had counters on it, put those counters on up to one target artifact or creature you control.",
+          "mechanic": "artifact_counters_and_animation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "donatello",
+          "card": "Donatello, Mutant Mechanic",
+          "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+          "mechanic": "artifact_counters_and_animation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "donatello",
+          "card": "Donatello, Mutant Mechanic",
+          "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+          "mechanic": "artifact_counters_and_animation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "donatello",
+          "card": "Donatello, Mutant Mechanic",
+          "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+          "mechanic": "artifact_counters_and_animation",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "artifact_copy_effects",
+      "row_count": 4,
+      "frozen_distinct_card_copies": 5,
+      "affected_decks": [
+        "casey_jones",
+        "donatello"
+      ],
+      "cards": [
+        "Donatello, Gadget Master",
+        "Improvised Arsenal"
+      ],
+      "mechanic_tags": [
+        "combat_damage_artifact_copy",
+        "equipment_token_copy"
+      ],
+      "blocker_rows": 4,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 28,
+      "diagnostic": {
+        "battlefield_entries": 1,
+        "source_player_damage_events": 1,
+        "spell_casts": 1,
+        "unsupported_fragment_presence": 1
+      },
+      "diagnostic_by_card": {
+        "Donatello, Gadget Master": {
+          "battlefield_entries": 1,
+          "source_player_damage_events": 1,
+          "spell_casts": 1,
+          "unsupported_fragment_presence": 1
+        },
+        "Improvised Arsenal": {}
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "donatello",
+          "card": "Donatello, Gadget Master",
+          "oracle_fragment": "Whenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+          "mechanic": "combat_damage_artifact_copy",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "donatello",
+          "card": "Donatello, Gadget Master",
+          "oracle_fragment": "Whenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+          "mechanic": "combat_damage_artifact_copy",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "casey_jones",
+          "card": "Improvised Arsenal",
+          "oracle_fragment": "{4}{R}: Create a token that's a copy of this Equipment.",
+          "mechanic": "equipment_token_copy",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "casey_jones",
+          "card": "Improvised Arsenal",
+          "oracle_fragment": "{4}{R}: Create a token that's a copy of this Equipment.",
+          "mechanic": "equipment_token_copy",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "artifact_scaling",
+      "row_count": 1,
+      "frozen_distinct_card_copies": 2,
+      "affected_decks": [
+        "krang"
+      ],
+      "cards": [
+        "Krang, Master Mind"
+      ],
+      "mechanic_tags": [
+        "artifact_scaling"
+      ],
+      "blocker_rows": 1,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 30,
+      "diagnostic": {},
+      "diagnostic_by_card": {
+        "Krang, Master Mind": {}
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "krang",
+          "card": "Krang, Master Mind",
+          "oracle_fragment": "Krang gets +1/+0 for each other artifact you control.",
+          "mechanic": "artifact_scaling",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "damage_to_mana",
+      "row_count": 1,
+      "frozen_distinct_card_copies": 2,
+      "affected_decks": [
+        "raphael"
+      ],
+      "cards": [
+        "Raphael, Ninja Destroyer"
+      ],
+      "mechanic_tags": [
+        "damage_trigger_restricted_mana"
+      ],
+      "blocker_rows": 1,
+      "unbounded_rows": 0,
+      "top_prior_row_score": 30,
+      "diagnostic": {
+        "battlefield_entries": 1,
+        "source_player_damage_events": 2,
+        "spell_casts": 1,
+        "unsupported_fragment_presence": 1
+      },
+      "diagnostic_by_card": {
+        "Raphael, Ninja Destroyer": {
+          "battlefield_entries": 1,
+          "source_player_damage_events": 2,
+          "spell_casts": 1,
+          "unsupported_fragment_presence": 1
+        }
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "raphael",
+          "card": "Raphael, Ninja Destroyer",
+          "oracle_fragment": "Enrage — Whenever Raphael is dealt damage, add that much {R}. Until end of turn, you don't lose this mana as steps and phases end.",
+          "mechanic": "damage_trigger_restricted_mana",
+          "copies_in_deck": 2,
+          "calibration_blocker": true
+        }
+      ]
+    },
+    {
+      "family": "temporary_combat_effects",
+      "row_count": 2,
+      "frozen_distinct_card_copies": 5,
+      "affected_decks": [
+        "leonardo",
+        "michelangelo"
+      ],
+      "cards": [
+        "Guac & Marshmallow Pizza",
+        "Hamato Guardian Stance"
+      ],
+      "mechanic_tags": [
+        "targeted_entry_combat_modifier",
+        "temporary_combat_modifier_and_scry"
+      ],
+      "blocker_rows": 1,
+      "unbounded_rows": 1,
+      "top_prior_row_score": 28,
+      "diagnostic": {
+        "battlefield_entries": 1,
+        "spell_casts": 1,
+        "unsupported_fragment_presence": 1
+      },
+      "diagnostic_by_card": {
+        "Guac & Marshmallow Pizza": {
+          "battlefield_entries": 1,
+          "spell_casts": 1,
+          "unsupported_fragment_presence": 1
+        },
+        "Hamato Guardian Stance": {}
+      },
+      "recorded_witnesses_by_fragment": [],
+      "legal_action_availability": "unknown_for_unsupported_clauses",
+      "pilot_selection": "unknown_for_unsupported_clauses",
+      "effect_resolution": "unimplemented_or_incomplete; no success inferred",
+      "rows": [
+        {
+          "deck": "michelangelo",
+          "card": "Guac & Marshmallow Pizza",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it.",
+          "mechanic": "targeted_entry_combat_modifier",
+          "copies_in_deck": 3,
+          "calibration_blocker": true
+        },
+        {
+          "deck": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+          "mechanic": "temporary_combat_modifier_and_scry",
+          "copies_in_deck": 2,
+          "calibration_blocker": false
+        }
+      ]
+    }
+  ],
+  "diagnostic_game_count": 16,
+  "deterministic_replay_count": 16,
+  "diagnostic_games": [
+    {
+      "game_id": "issue289-family-triage-shredder-splinter",
+      "seed": 326,
+      "first_player": "shredder",
+      "second_player": "splinter",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "1f7cbcfcdac0b170ec4422f8e24b1ec00d06fb62cef7afeede6e113860b42247",
+      "event_count": 1472
+    },
+    {
+      "game_id": "issue289-family-triage-splinter-shredder",
+      "seed": 326,
+      "first_player": "splinter",
+      "second_player": "shredder",
+      "status": "failure",
+      "replay_equal": true,
+      "snapshot_digest": "ce34b19eddc71d3b8ffec271be328e7e5871db2213ef68c7c0b320e23f7e3490",
+      "event_count": 1672,
+      "error": "noncreature Sneak evidence has a battlefield result",
+      "turn": 35,
+      "last_events": [
+        {
+          "event": "sneak_cost_paid",
+          "card": "Ninja Teen",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "sneak_announced",
+          "card": "Ninja Teen",
+          "source_zone": "hand",
+          "oracle_fragment": "Creature cards in your graveyard have sneak {3}{B}.",
+          "stack_object_id": "object-000297",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "spell_cast",
+          "card": "Ninja Teen",
+          "source_zone": "hand",
+          "oracle_fragment": "Creature cards in your graveyard have sneak {3}{B}.",
+          "stack_object_id": "object-000297",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "response_window_opened",
+          "stack_object_id": "object-000297",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "priority_granted",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "priority_passed",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "priority_granted",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "priority_passed",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "stack_resolution_permitted",
+          "stack_object_id": "object-000297",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "zone_changed",
+          "card": "Ninja Teen",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "sneak_creature_resolved",
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "sneak_creature_resolved",
+          "card": "Ninja Teen",
+          "stack_object_id": "object-000297",
+          "permanent_object_id": "object-000298",
+          "tapped": true,
+          "attacking": true,
+          "turn": 35,
+          "step": "declare_blockers"
+        },
+        {
+          "event": "rules_event",
+          "turn": 35,
+          "step": "declare_blockers"
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-family-triage-leonardo-raphael",
+      "seed": 327,
+      "first_player": "leonardo",
+      "second_player": "raphael",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "581d44aa8d14b45b0960a17441b267e35b4f95c0c2a2d0ecc3400e34ec9528d0",
+      "event_count": 1004
+    },
+    {
+      "game_id": "issue289-family-triage-raphael-leonardo",
+      "seed": 327,
+      "first_player": "raphael",
+      "second_player": "leonardo",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "e3d6f6f49d6d8637da913463143bdb2d7618442ab6feb57cfadd7dc17ac6e02a",
+      "event_count": 758
+    },
+    {
+      "game_id": "issue289-family-triage-bebop_rocksteady-michelangelo",
+      "seed": 328,
+      "first_player": "bebop_rocksteady",
+      "second_player": "michelangelo",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "ae3de35aa9b0ae220ae3459565927e7ac2da8dbe35f993badb261935d1600192",
+      "event_count": 1094
+    },
+    {
+      "game_id": "issue289-family-triage-michelangelo-bebop_rocksteady",
+      "seed": 328,
+      "first_player": "michelangelo",
+      "second_player": "bebop_rocksteady",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "17fc94987a203d47eeb2af34969ef5c9d4cc090d828fc55025be8ae3766eb743",
+      "event_count": 478
+    },
+    {
+      "game_id": "issue289-family-triage-casey_jones-donatello",
+      "seed": 329,
+      "first_player": "casey_jones",
+      "second_player": "donatello",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "0e1a757bba291cf4794bf94c8e63363bad8840ef90c9d947d8c37894ed148132",
+      "event_count": 708
+    },
+    {
+      "game_id": "issue289-family-triage-donatello-casey_jones",
+      "seed": 329,
+      "first_player": "donatello",
+      "second_player": "casey_jones",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "ab4a2aa374c738a6a749a5c9a9e018f4cc0b3fb0f73c3e4f327e7bb7c2a68cdc",
+      "event_count": 904
+    },
+    {
+      "game_id": "issue289-family-triage-donatello-krang",
+      "seed": 330,
+      "first_player": "donatello",
+      "second_player": "krang",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "873aaeaa134f160eac8046720c52f413224b45c920db477680f571108554fd92",
+      "event_count": 654
+    },
+    {
+      "game_id": "issue289-family-triage-krang-donatello",
+      "seed": 330,
+      "first_player": "krang",
+      "second_player": "donatello",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "33892728a6bad8f8c4a30a1b4339524132818848232d1da6173c5f5ad1dbf469",
+      "event_count": 1066
+    },
+    {
+      "game_id": "issue289-family-triage-bebop_rocksteady-casey_jones",
+      "seed": 331,
+      "first_player": "bebop_rocksteady",
+      "second_player": "casey_jones",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "6110dab0d53b97959326f8c779976681bd4915d56311385ff6d9f9c60ba39bcd",
+      "event_count": 1332
+    },
+    {
+      "game_id": "issue289-family-triage-casey_jones-bebop_rocksteady",
+      "seed": 331,
+      "first_player": "casey_jones",
+      "second_player": "bebop_rocksteady",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "f0bd14baed61988bd0c932341211c79201a824e0f679df44ccfca7b72c1d6909",
+      "event_count": 688
+    },
+    {
+      "game_id": "issue289-family-triage-leonardo-april_oneil",
+      "seed": 332,
+      "first_player": "leonardo",
+      "second_player": "april_oneil",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "f98df6e761027ef1b88bc5a1d316dde3da1f0f98f201be056894eb328b3641dc",
+      "event_count": 2095
+    },
+    {
+      "game_id": "issue289-family-triage-april_oneil-leonardo",
+      "seed": 332,
+      "first_player": "april_oneil",
+      "second_player": "leonardo",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "14e501c651317b666f12f6f7e0c65e99956ea7c1586f4c5ebbb8597c0294c08e",
+      "event_count": 2237
+    },
+    {
+      "game_id": "issue289-family-triage-splinter-bebop_rocksteady",
+      "seed": 333,
+      "first_player": "splinter",
+      "second_player": "bebop_rocksteady",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "23bca644a8a9b327ffa2cb7bd91f55f4833b887282735ef3571b4d60d8ab1ebb",
+      "event_count": 709
+    },
+    {
+      "game_id": "issue289-family-triage-bebop_rocksteady-splinter",
+      "seed": 333,
+      "first_player": "bebop_rocksteady",
+      "second_player": "splinter",
+      "status": "success",
+      "replay_equal": true,
+      "snapshot_digest": "2c67a9563bd61e6498927dc10c66de18a1c54ec464058b4f694e50815af4de6d",
+      "event_count": 799
+    }
+  ],
+  "calibration_readiness": "BLOCKED"
+}
