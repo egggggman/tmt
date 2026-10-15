@@ -81,8 +81,9 @@ engines remain at 36. The four unbounded entries retain their prior
 classification until their impact is established; none was closed by
 reclassification.
 
-Focused tests, full regression, structural validation, repository Ruff
-check/format, and final-head GitHub CI: **pending final recording**.
+Focused and affected suites: **58 passed**. Full regression: **1,946
+passed, 10 skipped**. Baseline 005 structural validation, repository Ruff
+check/format, and diff check: **passed**. Final-head GitHub CI: **pending**.
 
 **Checkpoint acceptance: pending final-head CI. Baseline 005 calibration:
 BLOCKED.** No deck revision, 4,500-game control, merge, or promotion occurred.
