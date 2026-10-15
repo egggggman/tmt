@@ -6,8 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.card_interpreter07 import CardInterpreter
-from tmnt_design_studio.engine07 import CardFact, Game, RulesEventKind, TriggeredAbilityObject
+from tmnt_design_studio.card_interpreter07 import CardInterpreter, CastKind
+from tmnt_design_studio.engine07 import (
+    CardFact,
+    Game,
+    RulesEventKind,
+    TriggeredAbilityObject,
+    TriggerEffect,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 FOUNDRY_TEXT = (
@@ -131,6 +137,32 @@ def test_opponent_cast_and_nonartifact_spell_do_not_trigger():
     card = g.set_hand_for_testing(0, [NONARTIFACT])[0]
     assert g.announce_spell(0, card) is not None
     assert len(g.stack) == 1 and not robots(g)
+
+
+def test_compatibility_cast_yields_priority_above_the_artifact_spell():
+    g = game()
+    g.create_permanent(ROBOTS, 0)
+    card = g.set_hand_for_testing(0, [ARTIFACT])[0]
+    assert g.cast(0, card)
+    assert len(g.stack) == 2
+    assert g.stack[0].name == "Cog"
+    assert isinstance(g.stack[-1], TriggeredAbilityObject)
+    assert g.priority_state is not None and not robots(g)
+    pass_to_resolution(g)
+    assert len(robots(g)) == 1 and len(g.stack) == 1
+
+
+def test_fabricated_spell_cast_event_without_announcement_is_rejected():
+    g = game()
+    watcher = g.create_permanent(ROBOTS, 0)
+    card = g.set_hand_for_testing(0, [ARTIFACT])[0]
+    stack_card = g.move_object(card, "stack", controller=0, cast_kind=CastKind.PERMANENT)
+    event = g._new_rules_event(
+        RulesEventKind.SPELL_CAST, 0, (stack_card.object_id,), source_id=stack_card.object_id
+    )
+    with pytest.raises(ValueError, match="provenance"):
+        g._enqueue_trigger(event, watcher, ROBOTS_TEXT, TriggerEffect.CREATE_TOKEN)
+    assert not g.pending_triggers and not robots(g)
 
 
 def test_deterministic_token_trace_and_source_identity():

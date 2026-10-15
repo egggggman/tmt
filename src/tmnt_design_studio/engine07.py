@@ -4366,6 +4366,12 @@ class Game(
                 and event.subject_ids == (event.source_id,)
                 and isinstance(spell, StackObject)
                 and "Artifact" in spell.card.type_line.split(" — ", 1)[0].split()
+                and any(
+                    record["event"] == "spell_cast"
+                    and record.get("stack_object_id") == spell.object_id
+                    and record.get("player") == self.players[controller].name
+                    for record in self.events
+                )
             )
         if not valid:
             raise ValueError("artifact token trigger has invalid cast or zone provenance")
@@ -13557,6 +13563,10 @@ class Game(
         )
         if spell is None:
             return False
+        if self.stack[-1] is not spell:
+            # A cast trigger sits above the spell; ordinary priority owns that stack.
+            self._begin_priority_window(priority_player=player_index)
+            return True
         self.resolve_top_of_stack()
         return True
 
