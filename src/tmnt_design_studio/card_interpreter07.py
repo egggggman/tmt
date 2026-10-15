@@ -2837,7 +2837,11 @@ class CardInterpreter:
             re.match(r"^When .+ enters, scry\b", fragment, re.I)
         )
         prefix = fragment[: match.start()]
-        if alliance_mode or direct_creature_etb:
+        if (
+            alliance_mode
+            or direct_creature_etb
+            or self.disappear_end_step(card, fragment) == ("scry", program.amount)
+        ):
             parent_executable = True
             parent_limitation = None
         elif re.search(r"\bif\b", prefix, re.I):

@@ -46,6 +46,7 @@ def pass_priority(result):
 def test_complete_oracle_parse_and_nonmatching_followup_is_rejected():
     interpreter = CardInterpreter()
     assert interpreter.disappear_end_step(SCOUT, SCRY) == ("scry", 1)
+    assert interpreter.scry_semantic_coverage(SCOUT, SCRY).coverage.fully_supported
     assert interpreter.disappear_end_step(HERO, COUNTER) == ("self_counter", 1)
     assert not interpreter.unsupported_fragments(SCOUT)
     assert not interpreter.unsupported_fragments(HERO)
