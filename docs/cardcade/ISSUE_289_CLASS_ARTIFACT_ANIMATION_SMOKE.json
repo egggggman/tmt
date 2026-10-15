@@ -1,0 +1,87 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "a95807a7bf0a8a87b78155c425fe275da8b223190941e167d859ecf9f90902d9",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-class-artifact-donatello-shredder",
+      "seed": 323,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "3b0c47cb31abda817d6e8b61e46cb729dc4fff011d539ae3b1d1b3a1f8f7feb5",
+      "event_count": 1008,
+      "class_level_three_activations": 2,
+      "class_combat_targets": 4,
+      "class_combat_resolutions": 4,
+      "persistent_animations": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-artifact-shredder-donatello",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "0aa6e11c811f35d8b6f1fbf1081f1b976fcc47d56468d11f21eb445e77fcc9e8",
+      "event_count": 1582,
+      "class_level_three_activations": 2,
+      "class_combat_targets": 4,
+      "class_combat_resolutions": 4,
+      "persistent_animations": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-artifact-krang-shredder",
+      "seed": 323,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "77521b15271fa7c3b5a117842851ad44ae25edd7c5565816da777f1a95dc4079",
+      "event_count": 743,
+      "class_level_three_activations": 0,
+      "class_combat_targets": 0,
+      "class_combat_resolutions": 0,
+      "persistent_animations": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-artifact-shredder-krang",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "8822834c058fa830d4f391f86a38a093772657a83af4ae04e5bbfba81aacb621",
+      "event_count": 1243,
+      "class_level_three_activations": 1,
+      "class_combat_targets": 0,
+      "class_combat_resolutions": 0,
+      "persistent_animations": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-artifact-donatello-krang",
+      "seed": 323,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "bdcb9b5e8ec4c3f53b3d403519f70fd0e4dd1d84513cd9b6fb30a3c56c0658f4",
+      "event_count": 1437,
+      "class_level_three_activations": 2,
+      "class_combat_targets": 11,
+      "class_combat_resolutions": 11,
+      "persistent_animations": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-artifact-krang-donatello",
+      "seed": 323,
+      "first_player": "krang",
+      "replay_equal": true,
+      "result_digest": "27addd7a0d496ae2af2ecc3985a91c169b3d3e5c81852f36e137b81b8fe277d8",
+      "event_count": 963,
+      "class_level_three_activations": 0,
+      "class_combat_targets": 0,
+      "class_combat_resolutions": 0,
+      "persistent_animations": 0,
+      "runtime_error": null
+    }
+  ]
+}
