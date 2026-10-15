@@ -340,6 +340,7 @@ class RulesEventKind(Enum):
     VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
     CLASS_LEVEL_ADVANCED = "class_level_advanced"
+    BEGINNING_OF_COMBAT = "beginning_of_combat"
     CARD_DISCARDED = "card_discarded"
 
 
@@ -372,6 +373,7 @@ class TriggerEffect(Enum):
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
     CLASS_DISCARD_DAMAGE = "class_discard_damage"
     CLASS_LEVEL_THREE_SEARCH = "class_level_three_search"
+    CLASS_COMBAT_ARTIFACT_ANIMATION = "class_combat_artifact_animation"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
@@ -702,13 +704,14 @@ class TemporaryKeywordEffect:
 
 @dataclass(frozen=True)
 class TemporaryTypeEffect:
-    """A layer-four addition to a permanent's card types for a bounded duration."""
+    """A layer-four addition to a permanent's card types for its stated duration."""
 
     added_types: tuple[str, ...]
-    duration: Literal["until_end_of_turn"]
+    duration: Literal["persistent", "until_end_of_turn"]
     source_id: str
     oracle_fragment: str
     timestamp: tuple[int, int]
+    added_subtypes: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -1082,6 +1085,7 @@ class Permanent:
         if self.temporary_type_effects:
             card_types, separator, subtypes = current.partition(" — ")
             tokens = card_types.split()
+            subtype_tokens = subtypes.split()
             for effect in sorted(self.temporary_type_effects, key=lambda item: item.timestamp):
                 for added in effect.added_types:
                     if added not in tokens:
@@ -1089,7 +1093,12 @@ class Permanent:
                             tokens.insert(tokens.index("Creature"), added)
                         else:
                             tokens.append(added)
-            current = " ".join(tokens) + (separator + subtypes if separator else "")
+                for added in effect.added_subtypes:
+                    if added not in subtype_tokens:
+                        subtype_tokens.append(added)
+            current = " ".join(tokens) + (
+                " — " + " ".join(subtype_tokens) if subtype_tokens else ""
+            )
         return current
 
     @property
@@ -4650,6 +4659,20 @@ class Game(
                 or fragment not in self.interpreter.fragments(source.rules_card)
             ):
                 raise ValueError("Class level-three trigger provenance is invalid")
+        if effect is TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or source.class_level is None
+                or source.class_level < 3
+                or event.kind is not RulesEventKind.BEGINNING_OF_COMBAT
+                or event.player_index != source.controller
+                or event.player_index != self.active_player
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or self.interpreter.class_combat_artifact_animation(source.card, fragment) is None
+            ):
+                raise ValueError("Class combat trigger provenance is invalid")
         if effect is TriggerEffect.LTB_MUTAGEN:
             self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
             key = (source.object_id, event.event_id, fragment)
@@ -4783,6 +4806,32 @@ class Game(
                     self._mill_draw_discard_anchors[ability.object_id] = (source, trigger)
                 if ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
                     self._select_class_recovery_targets(ability, trigger)
+                if ability.effect is TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION:
+                    candidates = sorted(
+                        (
+                            permanent
+                            for permanent in self.players[trigger.controller].battlefield
+                            if "Artifact" in permanent.type_line.split(" — ", 1)[0].split()
+                            and self._legal_targeting_protection(permanent, trigger.controller)
+                        ),
+                        key=lambda permanent: (permanent.is_creature, permanent.object_id),
+                    )
+                    if not candidates:
+                        self.log(
+                            "class_combat_no_legal_target",
+                            event_id=trigger.event.event_id,
+                            source_id=trigger.source_id,
+                        )
+                        continue
+                    ability.target_id = candidates[0].object_id
+                    self.log(
+                        "class_combat_target_selected",
+                        event_id=trigger.event.event_id,
+                        stack_object_id=ability.object_id,
+                        source_id=trigger.source_id,
+                        target_id=ability.target_id,
+                        offered_ids=[permanent.object_id for permanent in candidates],
+                    )
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._anchor_mill_three(ability, trigger)
@@ -6286,6 +6335,69 @@ class Game(
                 recovered_ids=recovered,
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION:
+            self._authenticate_original_rules_event(ability.event)
+            program = self.interpreter.class_combat_artifact_animation(
+                ability.source_card, ability.oracle_fragment
+            )
+            if (
+                program is None
+                or ability.event.kind is not RulesEventKind.BEGINNING_OF_COMBAT
+                or ability.event.player_index != ability.controller
+                or (ability.source_id, ability.controller)
+                not in ability.event.battlefield_authority
+            ):
+                raise ValueError("Class combat resolution lacks original event provenance")
+            target = self._objects.get(ability.target_id)
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or target.controller != ability.controller
+                or "Artifact" not in target.type_line.split(" — ", 1)[0].split()
+                or not self._legal_targeting_protection(target, ability.controller)
+            ):
+                self.log(
+                    "class_combat_target_invalid",
+                    stack_object_id=ability.object_id,
+                    target_id=ability.target_id,
+                )
+            else:
+                was_creature = target.is_creature
+                self.place_counters(
+                    target,
+                    "+1/+1",
+                    program.counter_quantity,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                    defer_post_placement=True,
+                )
+                if not was_creature:
+                    self.apply_temporary_type_and_base_pt(
+                        target,
+                        added_types=("Creature",),
+                        added_subtypes=(program.creature_subtype,),
+                        power=program.base_power,
+                        toughness=program.base_toughness,
+                        source_id=ability.object_id,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=ability.oracle_fragment,
+                        duration="persistent",
+                    )
+                    self.refresh_static_pt_modifiers()
+                self.log(
+                    "class_combat_artifact_resolved",
+                    event_id=ability.event.event_id,
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    counter_quantity=program.counter_quantity,
+                    animated=not was_creature,
+                    resulting_type_line=target.type_line,
+                    resulting_power=target.power,
+                    resulting_toughness=target.toughness,
+                )
         elif ability.effect is TriggerEffect.DISCARD_DRAW:
             semantics = self.interpreter.discard_draw_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -6742,6 +6854,7 @@ class Game(
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
+                TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
@@ -8071,22 +8184,26 @@ class Game(
         source_id: str,
         source_card: str,
         oracle_fragment: str,
+        duration: Literal["persistent", "until_end_of_turn"] = "until_end_of_turn",
+        added_subtypes: tuple[str, ...] = (),
     ) -> None:
-        """Apply layer four before layer 7b, sharing an immutable spell timestamp."""
+        """Apply layer four before layer 7b with one immutable effect timestamp."""
         if not self.is_authoritative(target, "battlefield"):
             raise ValueError("temporary animation requires an authoritative permanent")
         if not added_types or any(not item for item in added_types):
             raise ValueError("temporary animation requires card types")
         timestamp = self._effect_timestamp()
         type_effect = TemporaryTypeEffect(
-            added_types, "until_end_of_turn", source_id, oracle_fragment, timestamp
+            added_types, duration, source_id, oracle_fragment, timestamp, added_subtypes
         )
         target.temporary_type_effects.append(type_effect)
         try:
             self.add_characteristic_effect(
                 target,
                 CharacteristicEffect(
-                    f"animation:{source_id}:{target.object_id}:base_pt",
+                    f"animation:{source_id}:{target.object_id}:{timestamp}:base_pt"
+                    if duration == "persistent"
+                    else f"animation:{source_id}:{target.object_id}:base_pt",
                     CharacteristicLayer.POWER_TOUGHNESS,
                     PowerToughnessSubLayer.SET_BASE,
                     CharacteristicOperation.SET,
@@ -8094,17 +8211,20 @@ class Game(
                     toughness,
                     timestamp,
                     source_card=source_card,
-                    duration="until_end_of_turn",
+                    duration=duration,
                 ),
             )
         except Exception:
             target.temporary_type_effects.remove(type_effect)
             raise
         self.log(
-            "temporary_type_base_pt_applied",
+            "temporary_type_base_pt_applied"
+            if duration == "until_end_of_turn"
+            else "persistent_type_base_pt_applied",
             source_id=source_id,
             target_id=target.object_id,
             added_types=list(added_types),
+            **({"added_subtypes": list(added_subtypes)} if added_subtypes else {}),
             power=power,
             toughness=toughness,
             timestamp=list(timestamp),
@@ -8467,6 +8587,24 @@ class Game(
         elif step is TurnStep.BEGINNING_OF_COMBAT:
             self._reset_current_combat_state()
             self.log("combat_state_reset")
+            event = self._new_rules_event(
+                RulesEventKind.BEGINNING_OF_COMBAT, self.active_player, ()
+            )
+            for source in tuple(player.battlefield):
+                if source.class_level is None or source.class_level < 3:
+                    continue
+                for fragment in self.interpreter.fragments(source.rules_card):
+                    if (
+                        self.interpreter.class_combat_artifact_animation(
+                            source.rules_card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION
+                        )
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
         elif step is TurnStep.COMBAT_DAMAGE:
             self._begin_combat_damage_steps()
         elif step is TurnStep.POSTCOMBAT_MAIN:
@@ -15857,9 +15995,10 @@ class Game(
                 ):
                     raise AssertionError("temporary keyword effect is malformed")
                 if any(
-                    effect.duration != "until_end_of_turn"
+                    effect.duration not in {"persistent", "until_end_of_turn"}
                     or not effect.added_types
                     or any(not item for item in effect.added_types)
+                    or any(not item for item in effect.added_subtypes)
                     for effect in permanent.temporary_type_effects
                 ):
                     raise AssertionError("temporary type effect is malformed")
@@ -16698,6 +16837,11 @@ class Game(
                                             "source_id": effect.source_id,
                                             "oracle_fragment": effect.oracle_fragment,
                                             "timestamp": list(effect.timestamp),
+                                            **(
+                                                {"added_subtypes": list(effect.added_subtypes)}
+                                                if effect.added_subtypes
+                                                else {}
+                                            ),
                                         }
                                         for effect in x.temporary_type_effects
                                     ]

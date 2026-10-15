@@ -675,6 +675,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         if game.is_terminal:
             break
         _checked_action(game, game.advance_step, "advance to combat")
+        _drain_priority(game, chosen_pilot)
+        if game.is_terminal:
+            break
         _checked_action(game, game.advance_step, "advance to attackers")
         attack = chosen_pilot.choose_attack(
             game.pilot_view(active), game.legal_attack_options(active)
