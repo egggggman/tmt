@@ -3815,6 +3815,9 @@ class CardInterpreter:
         if program is None:
             return None
 
+        if self.entry_leave_or_artifact_cast_token_context(card, fragment) is not None:
+            return self._token_semantics(program, True)
+
         match = self.CREATE_TOKEN.search(fragment)
         assert match is not None
         fragments = self.fragments(card)
@@ -3859,6 +3862,24 @@ class CardInterpreter:
         else:
             reason = "token_spell_context_not_implemented"
         return self._token_semantics(program, False, reason)
+
+    def entry_leave_or_artifact_cast_token_context(
+        self, card: CardDefinition, fragment: str
+    ) -> str | None:
+        """Recognize complete self-entry/leave or controlled artifact-cast delivery."""
+        match = self.CREATE_TOKEN.search(fragment)
+        if match is None or fragment[match.end() :] != ".":
+            return None
+        prefix = fragment[: match.start()]
+        if prefix == "When this artifact enters or leaves the battlefield, ":
+            return (
+                "entry_or_leave"
+                if "Artifact" in card.type_line.split(" — ", 1)[0].split()
+                else None
+            )
+        if prefix == "Whenever you cast an artifact spell, ":
+            return "artifact_cast"
+        return None
 
     @staticmethod
     def _token_semantics(
