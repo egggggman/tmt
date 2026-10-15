@@ -12,6 +12,7 @@ from tmnt_design_studio.engine07 import (
     ActionOption,
     CardFact,
     Game,
+    LinkedPlayGrant,
     TurnStep,
     load_facts,
 )
@@ -181,7 +182,9 @@ def test_linked_spell_announces_with_priority_and_resolves_from_exile():
     game._raphael_linked_exile[source.object_id] = [
         (exiled.object_id, exiled.card, source.object_id)
     ]
-    game._raphael_permissions[source.object_id] = (game.turn, exiled.object_id)
+    game._linked_play_grants[source.object_id] = [
+        LinkedPlayGrant("test-creature-grant", source.object_id, 0, game.turn)
+    ]
     game.put_into_graveyard(source, state_based_action="independent_removal")
     option = next(
         option
@@ -212,7 +215,9 @@ def test_linked_aura_uses_generic_target_and_priority_path():
     game._raphael_linked_exile[source.object_id] = [
         (exiled.object_id, exiled.card, source.object_id)
     ]
-    game._raphael_permissions[source.object_id] = (game.turn, exiled.object_id)
+    game._linked_play_grants[source.object_id] = [
+        LinkedPlayGrant("test-aura-grant", source.object_id, 0, game.turn)
+    ]
     option = next(
         option
         for option in game.legal_main_actions(0)

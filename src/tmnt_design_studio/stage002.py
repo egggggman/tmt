@@ -221,14 +221,13 @@ def _semantic_coverage(
     )
     for family, matches in identity_families:
         if matches:
-            complete = family not in {"linked_top_exile", "linked_attack_play"}
             return {
                 "family": family,
                 "payload_executable": True,
                 "parent_executable": True,
-                "followup_executable": complete,
-                "fully_supported": complete,
-                "limitations": [] if complete else ["linked_uninterpreted_spell_families"],
+                "followup_executable": True,
+                "fully_supported": True,
+                "limitations": [],
             }
     if "Class" in card.type_line and (
         interpreter.CLASS_DISCARD_DAMAGE.fullmatch(fragment)

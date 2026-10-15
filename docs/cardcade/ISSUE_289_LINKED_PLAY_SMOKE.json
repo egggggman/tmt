@@ -1,0 +1,81 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "dad44a47bc6db5c5070142d54017c5021f8481106f521e621163ddcddb0e64d8",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-linked-play-319-raphael-donatello",
+      "seed": 319,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "fb1733170c79ebe8a23feef1bab7118a2106cb055e1b1484d9d888cda0e45ea8",
+      "event_count": 679,
+      "linked_exiles": 0,
+      "grants": 0,
+      "grant_uses": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-linked-play-319-donatello-raphael",
+      "seed": 319,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "c48e23ab8c737fb08473f920b4b147d49da76d2605d81e31838f54b89e3af5ff",
+      "event_count": 1207,
+      "linked_exiles": 0,
+      "grants": 0,
+      "grant_uses": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-linked-play-319-raphael-casey_jones",
+      "seed": 319,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "a45ae94f3ed03bd2aae67106a025b008116577c5ec8ea5d77c30509634484fc0",
+      "event_count": 693,
+      "linked_exiles": 0,
+      "grants": 0,
+      "grant_uses": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-linked-play-319-casey_jones-raphael",
+      "seed": 319,
+      "first_player": "casey_jones",
+      "replay_equal": true,
+      "result_digest": "52ee03a4e936797d508706d8a8752103bc68dce34a215689485655c2fbd04fc1",
+      "event_count": 1042,
+      "linked_exiles": 0,
+      "grants": 0,
+      "grant_uses": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-linked-play-319-raphael-bebop_rocksteady",
+      "seed": 319,
+      "first_player": "raphael",
+      "replay_equal": true,
+      "result_digest": "b4e2ddb11de7492472f230fe2fdf159e7b0c115ff3532259df5394dd60cf4427",
+      "event_count": 869,
+      "linked_exiles": 0,
+      "grants": 2,
+      "grant_uses": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-linked-play-319-bebop_rocksteady-raphael",
+      "seed": 319,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "f0f3678bd887abc76dcb64265a662ca81dfd34133b0351c7cdd00c30ada0d30d",
+      "event_count": 1240,
+      "linked_exiles": 0,
+      "grants": 0,
+      "grant_uses": 0,
+      "runtime_error": null
+    }
+  ]
+}

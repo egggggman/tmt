@@ -169,7 +169,8 @@ class AuraMixin:
         options = []
         playable_exile = tuple(
             card
-            for card in self.players[player_index].exile
+            for owner in self.players
+            for card in owner.exile
             if self._raphael_permission_for(player_index, card) is not None
         )
         for card in (*self.players[player_index].hand, *playable_exile):
