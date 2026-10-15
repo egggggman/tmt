@@ -43,8 +43,7 @@ def report() -> dict[str, object]:
     program = interpreter.top_creature_selection_program(card)
     if (
         program is None
-        or (program.count, program.maximum_creatures, program.maximum_total_mana_value)
-        != (8, 2, 6)
+        or (program.count, program.maximum_creatures, program.maximum_total_mana_value) != (8, 2, 6)
         or interpreter.cast_program(card).kind is not CastKind.TOP_CREATURE_SELECTION
         or not interpreter.sneak_semantic_coverage(
             card, program.sneak_fragment
