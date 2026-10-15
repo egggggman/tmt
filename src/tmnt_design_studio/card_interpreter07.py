@@ -1081,6 +1081,12 @@ class CardInterpreter:
         """Recognize fixed-cost creature Sneak and direct draw-spell Sneak."""
         if not re.search(r"\bsneak\b", fragment, re.I):
             return None
+        granted = self.class_graveyard_sneak(card)
+        if granted is not None and fragment in granted[:2]:
+            return InterpretedSneakSemantics(
+                SneakProgram(granted[2], True, True, True),
+                SemanticCoverage(True, True, True, ()),
+            )
         match = self.SNEAK_ABILITY.match(fragment)
         mana_cost = None if match is None else match.group("cost")
         direct = match is not None
@@ -1800,6 +1806,33 @@ class CardInterpreter:
         r"^When this Class becomes level 3, search your library for a card, "
         r"put it into your hand, shuffle, then discard a card at random\.$"
     )
+    CLASS_GRAVEYARD_SNEAK = re.compile(
+        r"^Creature cards in your graveyard have sneak (?P<cost>(?:\{(?:[0-9]+|[WUBRG])\})+)\.$"
+    )
+    CLASS_GRAVEYARD_SNEAK_PERMISSION = (
+        "You may cast creature spells from your graveyard using their sneak abilities."
+    )
+
+    def class_graveyard_sneak(self, card: CardDefinition) -> tuple[str, str, str] | None:
+        """Require both complete static clauses in the same level-three section."""
+        if "Class" not in card.type_line:
+            return None
+        fragments = self.fragments(card)
+        level = next(
+            (
+                index
+                for index, text in enumerate(fragments)
+                if self.CLASS_LEVEL_UP.fullmatch(text) and text.endswith("Level 3")
+            ),
+            None,
+        )
+        if level is None or len(fragments[level + 1 :]) != 2:
+            return None
+        grant, permission = fragments[level + 1 :]
+        match = self.CLASS_GRAVEYARD_SNEAK.fullmatch(grant)
+        if match is None or permission != self.CLASS_GRAVEYARD_SNEAK_PERMISSION:
+            return None
+        return grant, permission, match.group("cost")
 
     def class_level_child(self, card: CardDefinition, level: int) -> str | None:
         if "Class" not in card.type_line:
@@ -1836,7 +1869,16 @@ class CardInterpreter:
                         or self.class_creature_anthem(card, fragment) is not None
                     )
                 )
-                or (level == 3 and self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment))
+                or (
+                    level == 3
+                    and (
+                        self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+                        or (
+                            self.class_graveyard_sneak(card) is not None
+                            and fragment == self.class_graveyard_sneak(card)[0]
+                        )
+                    )
+                )
             ),
             None,
         )
@@ -3863,6 +3905,10 @@ class CardInterpreter:
                 fragment == "(Gain the next level as a sorcery to add its ability.)"
                 or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
                 or self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment)
+                or (
+                    (grant := self.class_graveyard_sneak(card)) is not None
+                    and fragment in grant[:2]
+                )
             ):
                 continue
             if (

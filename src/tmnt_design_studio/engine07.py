@@ -232,6 +232,8 @@ class SneakPaymentPlan:
     defending_player: int
     oracle_fragment: str
     floating_event_ids: tuple[str, ...] = ()
+    source_zone: str = "hand"
+    permission_source_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -254,6 +256,8 @@ class SneakEvidence:
     resolved_object_id: str | None = None
     entered_tapped: bool | None = None
     entered_attacking: bool | None = None
+    source_zone: str = "hand"
+    permission_source_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -10279,12 +10283,43 @@ class Game(
             options = [option for option in options if score(option) == maximum]
         return tuple(options)
 
-    def _sneak_semantics(self, card: CardObject):
-        for fragment in self.interpreter.fragments(card.card):
-            semantics = self.interpreter.sneak_semantic_coverage(card.card, fragment)
-            if semantics is not None and semantics.coverage.fully_supported:
-                return fragment, semantics
-        return None
+    def _class_graveyard_sneak_sources(self, player_index: int):
+        """Currently controlled, level-three Class grants with both static clauses."""
+        return tuple(
+            (source, grant)
+            for source in self.players[player_index].battlefield
+            if self.is_authoritative(source, "battlefield")
+            and source.class_level is not None
+            and source.class_level >= 3
+            and (grant := self.interpreter.class_graveyard_sneak(source.rules_card)) is not None
+        )
+
+    def _sneak_semantics(self, card: CardObject, player_index: int):
+        if card.zone == "graveyard":
+            sources = self._class_graveyard_sneak_sources(player_index)
+            if not sources or card.owner != player_index or not card.card.is_creature:
+                return ()
+            source, grant = sources[0]
+            granted = self.interpreter.sneak_semantic_coverage(source.rules_card, grant[0])
+            assert granted is not None and granted.coverage.fully_supported
+            options = [(grant[0], granted, source.object_id)]
+            options.extend(
+                (fragment, semantics, source.object_id)
+                for fragment in self.interpreter.fragments(card.card)
+                if (semantics := self.interpreter.sneak_semantic_coverage(card.card, fragment))
+                is not None
+                and semantics.coverage.fully_supported
+                and semantics.program.direct_keyword_ability
+            )
+            return tuple(options)
+        return tuple(
+            (fragment, semantics, None)
+            for fragment in self.interpreter.fragments(card.card)
+            if (semantics := self.interpreter.sneak_semantic_coverage(card.card, fragment))
+            is not None
+            and semantics.coverage.fully_supported
+            and semantics.program.direct_keyword_ability
+        )
 
     def _unblocked_attackers(self, player_index: int) -> tuple[Permanent, ...]:
         blocked = {attacker_id for attacker_id, _blocker_id in self._combat_blocks}
@@ -10301,7 +10336,12 @@ class Game(
         return tuple(result)
 
     def sneak_payment_plan(
-        self, player_index: int, card: CardObject, attacker: Permanent
+        self,
+        player_index: int,
+        card: CardObject,
+        attacker: Permanent,
+        *,
+        oracle_fragment: str | None = None,
     ) -> SneakPaymentPlan | None:
         """Build one immutable fixed-cost Sneak plan without mutating game state."""
         if (
@@ -10319,14 +10359,20 @@ class Game(
             or not (
                 (self.is_authoritative(card, "hand") and card.owner == player_index)
                 or self._linked_play_grant_for(player_index, card) is not None
+                or (self.is_authoritative(card, "graveyard") and card.owner == player_index)
             )
             or attacker not in self._unblocked_attackers(player_index)
         ):
             return None
-        interpreted = self._sneak_semantics(card)
-        if interpreted is None:
+        options = self._sneak_semantics(card, player_index)
+        selected_semantics = (
+            next((option for option in options if option[0] == oracle_fragment), None)
+            if oracle_fragment is not None
+            else (options[0] if options else None)
+        )
+        if selected_semantics is None:
             return None
-        fragment, semantics = interpreted
+        fragment, semantics, permission_source_id = selected_semantics
         program: SneakProgram = semantics.program
         assert program.mana_cost is not None
         requirement = self.casting_requirement(player_index, card, alternative=program.mana_cost)
@@ -10357,6 +10403,8 @@ class Game(
             1 - player_index,
             fragment,
             floating_event_ids,
+            card.zone,
+            permission_source_id,
         )
 
     def legal_sneak_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -10382,13 +10430,21 @@ class Game(
             for card in owner.exile
             if self._linked_play_grant_for(player_index, card) is not None
         )
-        for card in (*self.players[player_index].hand, *playable_exile):
-            interpreted = self._sneak_semantics(card)
-            if interpreted is None:
-                continue
-            fragment, _semantics = interpreted
-            for attacker in self._unblocked_attackers(player_index):
-                if self.sneak_payment_plan(player_index, card, attacker) is not None:
+        playable_graveyard = (
+            tuple(self.players[player_index].graveyard)
+            if self._class_graveyard_sneak_sources(player_index)
+            else ()
+        )
+        for card in (*self.players[player_index].hand, *playable_exile, *playable_graveyard):
+            for fragment, _semantics, _source_id in self._sneak_semantics(card, player_index):
+                for attacker in self._unblocked_attackers(player_index):
+                    if (
+                        self.sneak_payment_plan(
+                            player_index, card, attacker, oracle_fragment=fragment
+                        )
+                        is None
+                    ):
+                        continue
                     recursion = self.interpreter.graveyard_recursion_program(card.card)
                     if recursion is not None:
                         options.extend(
@@ -10513,7 +10569,9 @@ class Game(
         attacker = self._objects.get(option.cost_object_id or "")
         if not isinstance(card, CardObject) or not isinstance(attacker, Permanent):
             raise ValueError("Sneak option references an invalid runtime object")
-        plan = self.sneak_payment_plan(option.player_index, card, attacker)
+        plan = self.sneak_payment_plan(
+            option.player_index, card, attacker, oracle_fragment=option.oracle_fragment
+        )
         if plan is None or plan.oracle_fragment != option.oracle_fragment:
             raise ValueError("Sneak option became stale or illegal")
         target = self._objects.get(option.target_id or "")
@@ -12996,7 +13054,9 @@ class Game(
         recursion_targets: tuple[object, ...] = (),
     ) -> StackObject:
         """Atomically pay fixed Sneak mana plus the authoritative return cost."""
-        if plan != self.sneak_payment_plan(plan.player_index, card, attacker):
+        if plan != self.sneak_payment_plan(
+            plan.player_index, card, attacker, oracle_fragment=plan.oracle_fragment
+        ):
             raise ValueError("Sneak payment plan is no longer legal")
         removal = self.interpreter.targeted_removal_program(card.card)
         if removal is not None and not self._legal_targeted_removal_target(
@@ -13049,6 +13109,7 @@ class Game(
             sneak_defending_player=plan.defending_player,
             sneak_oracle_fragment=plan.oracle_fragment,
             sneak_mana_source_ids=plan.mana_source_ids,
+            cast_from_graveyard=plan.source_zone == "graveyard",
         )
 
         battlefield = self.players[attacker.controller].battlefield
@@ -13056,11 +13117,11 @@ class Game(
         grant = (
             self._linked_play_grant_for(plan.player_index, card) if source_zone == "exile" else None
         )
-        source_cards = (
-            self.players[card.owner].exile
-            if source_zone == "exile"
-            else self.players[card.owner].hand
-        )
+        source_cards = {
+            "hand": self.players[card.owner].hand,
+            "exile": self.players[card.owner].exile,
+            "graveyard": self.players[card.owner].graveyard,
+        }[source_zone]
         if not self._identity_contains(battlefield, attacker) or not self._identity_contains(
             source_cards, card
         ):
@@ -13133,6 +13194,30 @@ class Game(
             source_zone=source_zone,
             stack_object_id=spell.object_id,
             oracle_fragment=plan.oracle_fragment,
+            permission_source_id=plan.permission_source_id,
+        )
+        self.log(
+            "spell_cast",
+            player=self.players[plan.player_index].name,
+            player_index=plan.player_index,
+            card=spell.name,
+            card_types=tuple(
+                kind
+                for kind in (
+                    "Artifact",
+                    "Battle",
+                    "Creature",
+                    "Enchantment",
+                    "Instant",
+                    "Planeswalker",
+                    "Sorcery",
+                    "Tribal",
+                )
+                if kind in spell.card.type_line.split(" — ", 1)[0].split()
+            ),
+            stack_object_id=spell.object_id,
+            source_zone=source_zone,
+            oracle_fragment=plan.oracle_fragment,
         )
         self.check_state_based_actions()
         self._begin_priority_window()
@@ -13152,6 +13237,8 @@ class Game(
                 plan.defending_player,
                 spell.object_id,
                 self.priority_state.epoch,
+                source_zone=source_zone,
+                permission_source_id=plan.permission_source_id,
             )
         )
         return spell
@@ -13746,6 +13833,8 @@ class Game(
                             permanent.object_id,
                             True,
                             True,
+                            evidence.source_zone,
+                            evidence.permission_source_id,
                         )
                         break
             else:
@@ -15451,6 +15540,17 @@ class Game(
             spell = self._objects.get(item.stack_object_id)
             if not isinstance(spell, StackObject):
                 raise AssertionError("Sneak evidence lacks its runtime stack object")
+            if item.source_zone not in {"hand", "exile", "graveyard"}:
+                raise AssertionError("Sneak evidence has an invalid cast origin")
+            if item.source_zone == "graveyard":
+                if (
+                    item.permission_source_id is None
+                    or not isinstance(self._objects.get(item.permission_source_id), Permanent)
+                    or not spell.cast_from_graveyard
+                ):
+                    raise AssertionError("graveyard Sneak lacks linked permission provenance")
+            elif item.permission_source_id is not None:
+                raise AssertionError("Sneak evidence has unexpected permission provenance")
             if item.controller not in range(2) or item.defending_player != 1 - item.controller:
                 raise AssertionError("Sneak evidence has invalid player authority")
             if (
@@ -16494,6 +16594,14 @@ class Game(
                     "resolved_object_id": item.resolved_object_id,
                     "entered_tapped": item.entered_tapped,
                     "entered_attacking": item.entered_attacking,
+                    **(
+                        {
+                            "source_zone": item.source_zone,
+                            "permission_source_id": item.permission_source_id,
+                        }
+                        if item.source_zone == "graveyard"
+                        else {}
+                    ),
                 }
                 for item in self.sneak_evidence
             ],
