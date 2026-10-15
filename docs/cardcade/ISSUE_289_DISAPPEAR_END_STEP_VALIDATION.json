@@ -1,0 +1,19 @@
+{
+  "schema": "issue289-disappear-end-step-validation-v1",
+  "base_pr": 322,
+  "base_commit_sha": "458bebbaf3f4a7ac6b3f09a7aefb21c35a199f8f",
+  "baseline_id": "OBL-BASELINE-005",
+  "semantic_runtime_sha256": "36d552befdbe3f6ae227649644528fa5661532b92a95ee64d92b03982c2bc4dd",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "focused_and_affected_tests": {"passed": 73, "failed": 0},
+  "full_regression": {"passed": 1934, "skipped": 10, "failed": 0, "duration_seconds": 106.94},
+  "structural_validation": "passed",
+  "ruff_check_and_format": "passed",
+  "original_172_row_identity_check": "passed",
+  "frozen_diagnostics": {"games": 6, "deterministic_replays": 6, "errors": 0},
+  "control_games": 0,
+  "deck_changes": 0,
+  "checkpoint_acceptance": "pending_final_head_ci",
+  "calibration_readiness": "BLOCKED"
+}

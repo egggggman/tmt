@@ -795,6 +795,10 @@ class CardInterpreter:
         r"\+1/\+1 counters? on it if a permanent left the battlefield under your control "
         r"this turn\.$"
     )
+    DISAPPEAR_END_STEP = re.compile(
+        r"^(?:Disappear — )?At the beginning of your end step, if a permanent left "
+        r"the battlefield under your control this turn, (?P<effect>.+)$"
+    )
     COUNTER_TOKEN_ACTIVATION = re.compile(
         r"^\{1\}, \{T\}, Sacrifice this (?:token|artifact): Put a \+1/\+1 counter "
         r"on target creature\. Activate only as a sorcery\.$",
@@ -1985,6 +1989,27 @@ class CardInterpreter:
             "among spells you've cast this turn."
         )
 
+    def disappear_end_step(self, card: CardDefinition, fragment: str) -> tuple[str, int] | None:
+        """Recognize complete intervening-if end-step payloads, including self references."""
+        if not any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES):
+            return None
+        match = self.DISAPPEAR_END_STEP.fullmatch(fragment)
+        if match is None:
+            return None
+        effect = match.group("effect")
+        scry = re.fullmatch(
+            r"scry (?P<amount>[1-9][0-9]*)\."
+            r"(?: \(Look at the top card of your library\. "
+            r"You may put that card on the bottom\.\))?",
+            effect,
+        )
+        if scry is not None and scry.group("amount") == "1":
+            return ("scry", 1)
+        counter = re.fullmatch(r"put a \+1/\+1 counter on (?P<recipient>.+)\.", effect)
+        if counter is not None and self._self_reference(card, counter.group("recipient")):
+            return ("self_counter", 1)
+        return None
+
     def static_team_modifier_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedStaticTeamModifierSemantics | None:
@@ -2812,7 +2837,11 @@ class CardInterpreter:
             re.match(r"^When .+ enters, scry\b", fragment, re.I)
         )
         prefix = fragment[: match.start()]
-        if alliance_mode or direct_creature_etb:
+        if (
+            alliance_mode
+            or direct_creature_etb
+            or self.disappear_end_step(card, fragment) == ("scry", program.amount)
+        ):
             parent_executable = True
             parent_limitation = None
         elif re.search(r"\bif\b", prefix, re.I):
@@ -3778,6 +3807,8 @@ class CardInterpreter:
             ):
                 continue
             if "Creature" in card.type_line and self.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
+                continue
+            if self.disappear_end_step(card, fragment) is not None:
                 continue
             if (
                 creature_selection := self.top_creature_selection_program(card)

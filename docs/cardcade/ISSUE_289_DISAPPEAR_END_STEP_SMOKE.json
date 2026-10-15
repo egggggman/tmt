@@ -1,0 +1,87 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "36d552befdbe3f6ae227649644528fa5661532b92a95ee64d92b03982c2bc4dd",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-endstep-disappear-splinter-shredder",
+      "seed": 325,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "caee70a85d52e9f8a3bb444bc35984e30d57ee13158ecd046da1b9969e096a90",
+      "event_count": 671,
+      "departures": 7,
+      "conditional_end_step_triggers": 0,
+      "conditional_scry": 0,
+      "conditional_counters": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-endstep-disappear-shredder-splinter",
+      "seed": 325,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "5434845e79cc8ac1c12d079767f705c1895d028c2370a2178012c855b747ae79",
+      "event_count": 1285,
+      "departures": 15,
+      "conditional_end_step_triggers": 3,
+      "conditional_scry": 3,
+      "conditional_counters": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-endstep-disappear-splinter-michelangelo",
+      "seed": 325,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "8105194e38a698a960cdff6526f9756b0568d8b64890184f0f3bf1fe82dd50b9",
+      "event_count": 945,
+      "departures": 10,
+      "conditional_end_step_triggers": 0,
+      "conditional_scry": 0,
+      "conditional_counters": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-endstep-disappear-michelangelo-splinter",
+      "seed": 321,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "cf982a133ad6de5df56479dec84207951028f97204e35ae87b6444288b20fd8c",
+      "event_count": 1442,
+      "departures": 15,
+      "conditional_end_step_triggers": 2,
+      "conditional_scry": 0,
+      "conditional_counters": 2,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-endstep-disappear-michelangelo-shredder",
+      "seed": 325,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "f6b31db2859cb738fc764f7ce0c027af42794e02c3c4c2df413c5e8dd8a5d440",
+      "event_count": 748,
+      "departures": 7,
+      "conditional_end_step_triggers": 0,
+      "conditional_scry": 0,
+      "conditional_counters": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-endstep-disappear-shredder-michelangelo",
+      "seed": 325,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "8027c9aeef5f59c2b700197948eabd5cc94fd8a9360d1ffea0bfaf8b3573676d",
+      "event_count": 653,
+      "departures": 5,
+      "conditional_end_step_triggers": 0,
+      "conditional_scry": 0,
+      "conditional_counters": 0,
+      "runtime_error": null
+    }
+  ]
+}
