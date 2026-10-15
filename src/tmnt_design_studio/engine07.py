@@ -13196,6 +13196,29 @@ class Game(
             oracle_fragment=plan.oracle_fragment,
             permission_source_id=plan.permission_source_id,
         )
+        self.log(
+            "spell_cast",
+            player=self.players[plan.player_index].name,
+            player_index=plan.player_index,
+            card=spell.name,
+            card_types=tuple(
+                kind
+                for kind in (
+                    "Artifact",
+                    "Battle",
+                    "Creature",
+                    "Enchantment",
+                    "Instant",
+                    "Planeswalker",
+                    "Sorcery",
+                    "Tribal",
+                )
+                if kind in spell.card.type_line.split(" — ", 1)[0].split()
+            ),
+            stack_object_id=spell.object_id,
+            source_zone=source_zone,
+            oracle_fragment=plan.oracle_fragment,
+        )
         self.check_state_based_actions()
         self._begin_priority_window()
         assert self.priority_state is not None
@@ -15517,6 +15540,17 @@ class Game(
             spell = self._objects.get(item.stack_object_id)
             if not isinstance(spell, StackObject):
                 raise AssertionError("Sneak evidence lacks its runtime stack object")
+            if item.source_zone not in {"hand", "exile", "graveyard"}:
+                raise AssertionError("Sneak evidence has an invalid cast origin")
+            if item.source_zone == "graveyard":
+                if (
+                    item.permission_source_id is None
+                    or not isinstance(self._objects.get(item.permission_source_id), Permanent)
+                    or not spell.cast_from_graveyard
+                ):
+                    raise AssertionError("graveyard Sneak lacks linked permission provenance")
+            elif item.permission_source_id is not None:
+                raise AssertionError("Sneak evidence has unexpected permission provenance")
             if item.controller not in range(2) or item.defending_player != 1 - item.controller:
                 raise AssertionError("Sneak evidence has invalid player authority")
             if (

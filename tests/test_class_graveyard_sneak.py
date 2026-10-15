@@ -130,6 +130,12 @@ def test_graveyard_cast_uses_normal_return_payment_stack_and_source_independence
     assert any(
         e["event"] == "sneak_announced" and e["source_zone"] == "graveyard" for e in game.events
     )
+    assert any(
+        e["event"] == "spell_cast"
+        and e["stack_object_id"] == spell.object_id
+        and e["source_zone"] == "graveyard"
+        for e in game.events
+    )
     with pytest.raises(ValueError, match="before all players pass"):
         game.resolve_top_of_stack()
     game.move_object(source, "graveyard")
@@ -185,6 +191,28 @@ def test_stale_permission_or_card_identity_rejected_and_replay_deterministic():
     with pytest.raises(ValueError, match="currently legal"):
         game.execute_sneak_action(option)
     assert grave.zone == "graveyard" and attacker.zone == "battlefield"
+
+    other, _source, other_attacker, other_grave = setup()
+    blockers(other, other_attacker)
+    stale = next(a for a in other.legal_sneak_actions(0) if a.object_id == other_grave.object_id)
+    other.move_object(other_grave, "hand")
+    with pytest.raises(ValueError, match="currently legal"):
+        other.execute_sneak_action(stale)
+
+    blocked, _source, blocked_attacker, blocked_grave = setup()
+    first = blocked.create_permanent(BEAR, 1)
+    second = blocked.create_permanent(BEAR, 1)
+    blocked.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(a for a in blocked.legal_attack_options(0) if a.attacker_ids)
+    blocked.execute_attack_action(attack)
+    block = next(
+        action
+        for action in blocked.legal_block_options(attack, 1)
+        if {b for _a, b in action.blocks} == {first.object_id, second.object_id}
+    )
+    blocked.execute_block_action(block)
+    assert blocked_attacker not in blocked._unblocked_attackers(0)
+    assert not any(a.object_id == blocked_grave.object_id for a in blocked.legal_sneak_actions(0))
 
     def replay():
         g, _source, returning, creature = setup()
