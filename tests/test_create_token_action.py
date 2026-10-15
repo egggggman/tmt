@@ -259,8 +259,8 @@ def test_context_dependent_token_semantics_remain_explicitly_unsupported(fragmen
         (
             "Ravenous Robots",
             "artifact spell",
-            False,
-            "token_trigger_context_not_implemented",
+            True,
+            None,
             None,
         ),
         ("Slash, Reptile Rampager", "Whenever Slash attacks", True, None, None),
@@ -305,8 +305,8 @@ def test_context_dependent_token_semantics_remain_explicitly_unsupported(fragmen
         (
             "Mouser Foundry",
             "artifact enters or leaves",
-            False,
-            "token_trigger_context_not_implemented",
+            True,
+            None,
             None,
         ),
     ],
@@ -795,8 +795,10 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Return to the Sewers",
         "The Last Ronin's Technique",
         "Foot Mystic",
+        "Mouser Foundry",
+        "Ravenous Robots",
     }
-    assert len(fully_supported) == 22
+    assert len(fully_supported) == 24
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

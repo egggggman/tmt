@@ -132,11 +132,17 @@ def test_artifact_cast_not_entry_and_multiple_watchers_stack_before_spell():
 def test_opponent_cast_and_nonartifact_spell_do_not_trigger():
     g = game()
     g.create_permanent(ROBOTS, 0)
-    other = g.set_hand_for_testing(1, [ARTIFACT])[0]
-    assert g.announce_spell(1, other) is None  # Opponent lacks sorcery timing.
     card = g.set_hand_for_testing(0, [NONARTIFACT])[0]
     assert g.announce_spell(0, card) is not None
     assert len(g.stack) == 1 and not robots(g)
+
+    other = game(12)
+    other.create_permanent(ROBOTS, 0)
+    other.end_turn()
+    other.begin_turn()
+    card = other.set_hand_for_testing(1, [ARTIFACT])[0]
+    assert other.announce_spell(1, card) is not None
+    assert len(other.stack) == 1 and not robots(other)
 
 
 def test_compatibility_cast_yields_priority_above_the_artifact_spell():
@@ -163,6 +169,40 @@ def test_fabricated_spell_cast_event_without_announcement_is_rejected():
     with pytest.raises(ValueError, match="provenance"):
         g._enqueue_trigger(event, watcher, ROBOTS_TEXT, TriggerEffect.CREATE_TOKEN)
     assert not g.pending_triggers and not robots(g)
+
+
+def test_simultaneous_departures_retain_both_last_known_sources():
+    g = game(13)
+    sources = (g.create_permanent(FOUNDRY, 0), g.create_permanent(FOUNDRY, 0))
+    g.put_permanents_into_graveyard(sources)
+    assert len(g.pending_triggers) == 2
+    assert {item.source_id for item in g.pending_triggers} == {item.object_id for item in sources}
+    g._put_pending_triggers_on_stack()
+    pass_to_resolution(g)
+    pass_to_resolution(g)
+    assert len(robots(g)) == 2
+
+
+def test_countered_artifact_spell_still_leaves_its_cast_trigger_on_stack():
+    g = game(14)
+    g.create_permanent(ROBOTS, 0)
+    card = g.set_hand_for_testing(0, [ARTIFACT])[0]
+    spell = g.announce_spell(0, card)
+    assert spell is not None and len(g.stack) == 2
+    g.move_object(spell, "graveyard", reason="countered_spell")
+    pass_to_resolution(g)
+    assert len(robots(g)) == 1
+    assert spell.zone == "former"
+
+
+def test_cast_trigger_uses_trigger_time_controller_after_control_change():
+    g = game(15)
+    source = g.create_permanent(ROBOTS, 0)
+    card = g.set_hand_for_testing(0, [ARTIFACT])[0]
+    assert g.announce_spell(0, card) is not None
+    g.change_controller(source, 1)
+    pass_to_resolution(g)
+    assert len(robots(g)) == 1 and robots(g)[0].controller == 0
 
 
 def test_deterministic_token_trace_and_source_identity():
