@@ -1981,6 +1981,16 @@ class Game(
                 entered_under_controller=destination_controller,
                 is_token=getattr(obj, "is_token", False),
             )
+            if replacement.is_creature and self._left_under_control_this_turn(
+                destination_controller
+            ):
+                for fragment in self.interpreter.fragments(replacement.rules_card):
+                    match = self.interpreter.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment)
+                    if match is not None:
+                        quantity = {"one": 1, "two": 2, "three": 3}.get(match["quantity"])
+                        replacement.counters["+1/+1"] = (
+                            quantity if quantity is not None else int(match["quantity"])
+                        )
             destination_container = self.players[destination_controller].battlefield
         elif destination == "stack":
             assert controller is not None and cast_kind is not None
@@ -2027,6 +2037,15 @@ class Game(
             reason=reason,
             library_position=library_position,
         )
+        if destination == "battlefield" and isinstance(replacement, Permanent):
+            for fragment in self.interpreter.fragments(replacement.rules_card):
+                if self.interpreter.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
+                    self.log(
+                        "conditional_entry_counters",
+                        source_id=replacement.object_id,
+                        oracle_fragment=fragment,
+                        quantity=replacement.counters.get("+1/+1", 0),
+                    )
         if source_zone == "hand" and destination == "graveyard" and reason and "discard" in reason:
             watchers = tuple(
                 (watcher, fragment)
@@ -2053,7 +2072,7 @@ class Game(
                 for watcher, fragment in departure_sources
                 if watcher.object_id != obj.object_id
             )
-            if qualifying_sources or ltb_mutagen_fragments or ltb_utility_fragments:
+            if departure_last_known is not None:
                 departure_record = tuple(self.events[-1].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
@@ -2131,6 +2150,22 @@ class Game(
         if source_zone == "battlefield":
             self.refresh_static_pt_modifiers()
         return replacement
+
+    def _left_under_control_this_turn(self, controller: int) -> bool:
+        """Use departure-time control, including before the source entered this turn."""
+        for event in self._rules_events.values():
+            if (
+                event.kind is RulesEventKind.PERMANENT_LEFT
+                and event.turn == self.turn
+                and event.player_index == controller
+            ):
+                self._authenticate_original_rules_event(event)
+                if any(
+                    object_id == event.source_id and last_controller == controller
+                    for object_id, last_controller, _type, _creature in event.last_known_battlefield
+                ):
+                    return True
+        return False
 
     def change_controller(self, permanent: Permanent, controller: int) -> None:
         """Change control without changing owner or runtime object identity."""
@@ -5715,13 +5750,33 @@ class Game(
                 or not coverage.parent_executable
             ):
                 raise AssertionError("stacked token trigger no longer has executable semantics")
-            self.create_tokens(
-                ability.controller,
-                coverage.program,
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                source_id=ability.source_id,
+            conditional = bool(
+                self.interpreter.DISAPPEAR_ETB_TOKEN.fullmatch(ability.oracle_fragment)
             )
+            if conditional:
+                self._authenticate_original_rules_event(ability.event)
+                trigger = self._triggers.get(ability.trigger_id)
+                if (
+                    ability.event.kind is not RulesEventKind.CREATURE_ENTERED
+                    or ability.event.subject_ids != (ability.source_id,)
+                    or (ability.source_id, ability.controller)
+                    not in ability.event.battlefield_authority
+                    or trigger is None
+                    or trigger.event is not ability.event
+                    or trigger.source_id != ability.source_id
+                    or trigger.effect is not ability.effect
+                ):
+                    raise ValueError("conditional entry trigger provenance is invalid")
+            if not conditional or self._left_under_control_this_turn(ability.controller):
+                self.create_tokens(
+                    ability.controller,
+                    coverage.program,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                )
+            else:
+                self.log("conditional_entry_trigger_condition_false", source_id=ability.source_id)
         elif ability.effect is TriggerEffect.DEAL_DAMAGE:
             semantics = self.interpreter.damage_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -7301,7 +7356,13 @@ class Game(
                     coverage is not None
                     and coverage.payload_executable
                     and coverage.parent_executable
-                    and re.match(r"^(?:When|Whenever) .+ enters(?: or attacks)?,", fragment)
+                    and (
+                        re.match(r"^(?:When|Whenever) .+ enters(?: or attacks)?,", fragment)
+                        or (
+                            self.interpreter.DISAPPEAR_ETB_TOKEN.fullmatch(fragment)
+                            and self._left_under_control_this_turn(entering.controller)
+                        )
+                    )
                 ):
                     self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
         if TriggerEffect.SCRY in enabled:
