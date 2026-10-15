@@ -214,3 +214,36 @@ def test_granted_combat_trigger_obeys_recipient_ability_loss_timestamp():
 
     assert run(True) == run(True)
     assert run(False) == run(False)
+
+
+def test_granted_trigger_tracks_actual_aura_attachment_and_departure():
+    root = Path(__file__).resolve().parents[1]
+    catalog = root / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
+    aura_card = load_facts(
+        load_card_data(catalog, catalog.with_suffix(".manifest.json")),
+        {"Retro-Mutation"},
+    )["Retro-Mutation"]
+
+    def run(remove_aura):
+        game, _unused, attacker = setup(equipped=False)
+        blocker = game.create_permanent(WARRIOR, 1)
+        gear = game.create_permanent(GEAR, 1)
+        gear.attached_to = blocker.object_id
+        gear.attachment_timestamp = game._effect_timestamp()
+        aura = game.create_permanent(aura_card, 0)
+        game.attach_aura(aura, blocker)
+        assert blocker.ability_loss_timestamp is not None
+        if remove_aura:
+            game.move_object(aura, "graveyard", reason="test_aura_departed")
+            assert blocker.ability_loss_timestamp is None
+        combat(game, attacker, (blocker,))
+        game.resolve_combat_damage()
+        assert (
+            any(ability.effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN for ability in game.stack)
+            is remove_aura
+        )
+        game.check_invariants()
+        return game.snapshot()
+
+    assert run(False) == run(False)
+    assert run(True) == run(True)
