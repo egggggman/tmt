@@ -1,0 +1,87 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "55b75f5adea030cb307dfb3a2bd212d579dce67abe71e98d8452fbf9460ee277",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-class-anthem-splinter-shredder",
+      "seed": 323,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "3ad129ed9265a57f1e3ea9a47954d79887d1a1b79bdf5b030f2111a59b79b931",
+      "event_count": 729,
+      "departures": 5,
+      "class_departure_life_loss": 0,
+      "class_level_two_advancements": 1,
+      "class_anthem_pt_applications": 3,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-anthem-shredder-splinter",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "08b4d27918a1a487747d4b34cec48648355bd8c922d0e8688a2e3dbb5c5f3286",
+      "event_count": 1005,
+      "departures": 9,
+      "class_departure_life_loss": 2,
+      "class_level_two_advancements": 1,
+      "class_anthem_pt_applications": 3,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-anthem-splinter-bebop_rocksteady",
+      "seed": 323,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "1ee2b21b247dde5eba2b39113f82d49e582ae072a0688a6a27ea88fb0e6bb327",
+      "event_count": 657,
+      "departures": 2,
+      "class_departure_life_loss": 0,
+      "class_level_two_advancements": 1,
+      "class_anthem_pt_applications": 4,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-anthem-bebop_rocksteady-splinter",
+      "seed": 323,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "92ec247952c9ac013b2e7894c69dd9a507dfc00195cb9a3890d94f092836c841",
+      "event_count": 1104,
+      "departures": 12,
+      "class_departure_life_loss": 0,
+      "class_level_two_advancements": 0,
+      "class_anthem_pt_applications": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-anthem-shredder-bebop_rocksteady",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "ae01c5987605e7f639eb3aa476047c4eaa89000a77fe875068dafbd75a12e924",
+      "event_count": 666,
+      "departures": 5,
+      "class_departure_life_loss": 0,
+      "class_level_two_advancements": 1,
+      "class_anthem_pt_applications": 2,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-anthem-bebop_rocksteady-shredder",
+      "seed": 323,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "d637532abe527933cef52aa7ef7ff70f1e7daef0027346eeb365ee0d21304629",
+      "event_count": 2020,
+      "departures": 22,
+      "class_departure_life_loss": 1,
+      "class_level_two_advancements": 2,
+      "class_anthem_pt_applications": 2,
+      "runtime_error": null
+    }
+  ]
+}

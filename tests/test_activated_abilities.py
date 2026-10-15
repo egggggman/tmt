@@ -573,11 +573,12 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    assert len({item[0] for item in executable}) == 43 and len(executable) == 45
+    assert len({item[0] for item in executable}) == 44 and len(executable) == 46
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
         "Does Machines",
+        "Ninja Teen",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",
@@ -615,9 +616,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "e6579bf2ad84a91bce8df548cfc0be0e5e8ed3c5b494eda0227070e9aa72eb00"
+        == "20a9b507e12b2a10deec0131a2e98f148a95107f853a78b9ddecc06bbf4d024a"
     )
-    assert digest(executable) == "5fdd8a76f3421d156a2056487cc359f80007a446ae6ce868b3a2fec0bc563ad3"
+    assert digest(executable) == "ce257aabd6302d21a3a5849db3e2d0a602b6c4d27e2b62788b4d8332bbb6a187"
     assert digest(full) == digest(executable)
 
 
@@ -650,6 +651,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     assert executable_names == {
         "Fugitive Droid",
         "Does Machines",
+        "Ninja Teen",
         "Leonardo, Leader in Blue",
         "Prehistoric Pet",
         "Ravenous Robots",
