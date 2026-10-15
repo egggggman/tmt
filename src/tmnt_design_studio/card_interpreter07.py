@@ -1800,10 +1800,30 @@ class CardInterpreter:
     def class_level_child(self, card: CardDefinition, level: int) -> str | None:
         if "Class" not in card.type_line:
             return None
+        fragments = self.fragments(card)
+        activation_index = next(
+            (
+                index
+                for index, fragment in enumerate(fragments)
+                if (match := self.CLASS_LEVEL_UP.fullmatch(fragment)) is not None
+                and int(match["level"]) == level
+            ),
+            None,
+        )
+        if activation_index is None:
+            return None
+        next_activation_index = next(
+            (
+                index
+                for index in range(activation_index + 1, len(fragments))
+                if self.CLASS_LEVEL_UP.fullmatch(fragments[index])
+            ),
+            len(fragments),
+        )
         return next(
             (
                 fragment
-                for fragment in self.fragments(card)
+                for fragment in fragments[activation_index + 1 : next_activation_index]
                 if (
                     level == 2
                     and (

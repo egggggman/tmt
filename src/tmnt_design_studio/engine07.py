@@ -8184,7 +8184,9 @@ class Game(
                     )
                     class_anthem = (
                         self.interpreter.class_creature_anthem(source.card, fragment)
-                        if source.class_level is not None and source.class_level >= 2
+                        if source.class_level is not None
+                        and source.class_level >= 2
+                        and self.interpreter.class_level_child(source.card, 2) == fragment
                         else None
                     )
                     if class_anthem is not None:
@@ -14764,6 +14766,7 @@ class Game(
                 or source.class_level_timestamp > permanent.ability_loss_timestamp
             )
             for fragment in self.interpreter.fragments(source.rules_card)
+            if self.interpreter.class_level_child(source.card, 2) == fragment
             if (semantics := self.interpreter.class_creature_anthem(source.card, fragment))
             is not None
         )

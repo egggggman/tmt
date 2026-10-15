@@ -65,6 +65,16 @@ def test_complete_clause_and_incomplete_class_levels_are_distinct():
     )
     assert interpreter.class_level_child(incomplete, 2) is None
     assert not interpreter.activated_ability_semantics(incomplete, LEVEL).coverage.fully_supported
+    misplaced = replace(
+        CLASS,
+        oracle_text=CLASS.oracle_text.replace(
+            f"{LEVEL}\n{ANTHEM}\n{{B}}: Level 3",
+            f"{LEVEL}\n{{B}}: Level 3\n{ANTHEM}",
+        ),
+    )
+    assert interpreter.class_level_child(misplaced, 2) is None
+    assert not interpreter.activated_ability_semantics(misplaced, LEVEL).coverage.fully_supported
+    assert ANTHEM in {fragment for fragment, _ in interpreter.unsupported_fragments(misplaced)}
     assert interpreter.class_level_child(replace(CLASS, name="Renamed Class"), 2) == ANTHEM
 
 
