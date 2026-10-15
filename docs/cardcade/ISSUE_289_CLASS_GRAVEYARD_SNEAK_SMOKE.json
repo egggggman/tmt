@@ -1,0 +1,81 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "f292994b9a7b192f0d543297c6a15dc31d81fc25d9a8a4035c692e7850ed3b9d",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-class-sneak-splinter-shredder",
+      "seed": 323,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "bd5e9317b226e1aba4b75450a1d1c3afd64b35e69a0170bb056356685caf2f26",
+      "event_count": 789,
+      "class_level_three_activations": 1,
+      "graveyard_sneak_announcements": 1,
+      "graveyard_spell_cast_events": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-sneak-shredder-splinter",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "7fda18e1c4a0a09ef68d7c6eff90e73c2e3e1f28496fce3e4f1ada2a14e4c118",
+      "event_count": 1021,
+      "class_level_three_activations": 1,
+      "graveyard_sneak_announcements": 1,
+      "graveyard_spell_cast_events": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-sneak-splinter-michelangelo",
+      "seed": 323,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "8145f8b7d76872cf807df9014666e08a3858add35c257323edb6646e941f9034",
+      "event_count": 784,
+      "class_level_three_activations": 1,
+      "graveyard_sneak_announcements": 1,
+      "graveyard_spell_cast_events": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-sneak-michelangelo-splinter",
+      "seed": 323,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "7262772fa7d1c397a67daddce5483bbd90eea6f479fc34cef105d34c86958d87",
+      "event_count": 853,
+      "class_level_three_activations": 0,
+      "graveyard_sneak_announcements": 0,
+      "graveyard_spell_cast_events": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-sneak-michelangelo-shredder",
+      "seed": 323,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "03efc909f91a80257e64c5e29ea466d8614c8679a0f3e20f2f1d6a93996ae679",
+      "event_count": 955,
+      "class_level_three_activations": 0,
+      "graveyard_sneak_announcements": 0,
+      "graveyard_spell_cast_events": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-sneak-shredder-michelangelo",
+      "seed": 323,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "d633a0e93b43eeefad0af3e586323314e32aff6f31f7560a2fc6ad7143c4f52d",
+      "event_count": 874,
+      "class_level_three_activations": 1,
+      "graveyard_sneak_announcements": 0,
+      "graveyard_spell_cast_events": 0,
+      "runtime_error": null
+    }
+  ]
+}
