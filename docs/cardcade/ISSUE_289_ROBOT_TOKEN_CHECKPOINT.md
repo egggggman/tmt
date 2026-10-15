@@ -64,9 +64,14 @@ blocking restriction (four B&R copies), and Mutagen Man's variable token engine.
 The four unbounded residuals remain unbounded pending execution or exposure
 evidence. The row-level ranking is retained in the readiness JSON.
 
-Focused tests: **10 passed**. Full regression and final-head CI: **pending**.
-Structural Baseline 005 validation and Ruff checks passed. Diagnostic replays:
-**6/6 matched, zero runtime errors**.
+Focused tests: **10 passed**; the two token suites together passed **56/56**.
+Full regression: **1,958 passed, 10 skipped**. Baseline 005 structural
+validation and repository Ruff check/format passed. Diagnostic replays:
+**6/6 matched, zero runtime errors**. GitHub Actions passed on the published
+implementation/evidence head `fea3a857aaf0246969e752f1c561ca1dbd0cb026`
+(run `38825536746`); final documentation-head CI is verified in the PR
+conversation.
 
-**Checkpoint acceptance: pending final-head CI. Baseline 005 calibration:
-BLOCKED.** No deck revision, 4,500-game control, merge or promotion occurred.
+**Checkpoint acceptance: subject to final documentation-head CI. Baseline 005
+calibration: BLOCKED.** No deck revision, 4,500-game control, merge or
+promotion occurred.
