@@ -388,6 +388,7 @@ class TriggerEffect(Enum):
     RAPHAEL_ATTACK_PLAY = "raphael_attack_play"
     COMBAT_DISCARD_OR_SACRIFICE = "combat_discard_or_sacrifice"
     END_STEP_SPELL_TYPES_DRAW = "end_step_spell_types_draw"
+    DISAPPEAR_END_STEP = "disappear_end_step"
 
 
 class TemporaryKeyword(Enum):
@@ -4365,6 +4366,7 @@ class Game(
         if effect in {
             TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
             TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
+            TriggerEffect.DISAPPEAR_END_STEP,
             TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
             TriggerEffect.RAPHAEL_ATTACK_PLAY,
         }:
@@ -4380,6 +4382,12 @@ class Game(
                     event.kind is RulesEventKind.END_STEP_BEGAN
                     and event.player_index == source.controller
                     and self.interpreter.end_step_spell_types_draw(fragment)
+                ),
+                TriggerEffect.DISAPPEAR_END_STEP: (
+                    event.kind is RulesEventKind.END_STEP_BEGAN
+                    and event.player_index == source.controller
+                    and self.interpreter.disappear_end_step(source.rules_card, fragment) is not None
+                    and self._left_under_control_this_turn(source.controller)
                 ),
                 TriggerEffect.RAPHAEL_ALLIANCE_EXILE: (
                     event.kind
@@ -6550,6 +6558,39 @@ class Game(
                 count=len(types),
             )
             self.draw(self.players[ability.controller], len(types))
+        elif ability.effect is TriggerEffect.DISAPPEAR_END_STEP:
+            program = self.interpreter.disappear_end_step(
+                ability.source_card, ability.oracle_fragment
+            )
+            if program is None:
+                raise ValueError("incomplete conditional end-step effect")
+            condition = self._left_under_control_this_turn(ability.controller)
+            self.log(
+                "disappear_end_step_condition_checked",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                satisfied=condition,
+            )
+            if condition and program[0] == "scry":
+                self.scry(
+                    ability.controller,
+                    ScryProgram(program[1]),
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                )
+            elif condition and program[0] == "self_counter" and source_permanent is not None:
+                self.place_counters(
+                    source_permanent,
+                    "+1/+1",
+                    program[1],
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                )
         elif ability.effect is TriggerEffect.ALLIANCE_COUNTER and source_permanent is not None:
             match = self.interpreter.ALLIANCE_TARGET_PLUS_COUNTER.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -6684,6 +6725,7 @@ class Game(
                 TriggerEffect.RAPHAEL_ATTACK_PLAY,
                 TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
                 TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
+                TriggerEffect.DISAPPEAR_END_STEP,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
@@ -8433,6 +8475,12 @@ class Game(
                     if self.interpreter.end_step_spell_types_draw(fragment):
                         self._enqueue_trigger(
                             event, source, fragment, TriggerEffect.END_STEP_SPELL_TYPES_DRAW
+                        )
+                    if self.interpreter.disappear_end_step(
+                        source.rules_card, fragment
+                    ) is not None and self._left_under_control_this_turn(source.controller):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.DISAPPEAR_END_STEP
                         )
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
@@ -13550,6 +13598,7 @@ class Game(
                 TriggerEffect.RAPHAEL_ATTACK_PLAY,
                 TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
                 TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
+                TriggerEffect.DISAPPEAR_END_STEP,
                 TriggerEffect.ETB_VIGILANTE,
                 TriggerEffect.VIGILANTE_DISCARD,
                 TriggerEffect.ETB_KRANG_REFILL,
