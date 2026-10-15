@@ -35,10 +35,18 @@ def report() -> dict[str, object]:
     ):
         raise ValueError("unexpected predecessor coverage")
     catalog = ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
-    card = load_facts(
+    names = {
+        "Michelangelo's Technique",
+        "The Last Ronin's Technique",
+        "Leonardo's Technique",
+        "Raphael's Technique",
+        "Splinter's Technique",
+    }
+    facts = load_facts(
         load_card_data(catalog, catalog.with_suffix(".manifest.json")),
-        {"Michelangelo's Technique"},
-    )["Michelangelo's Technique"]
+        names,
+    )
+    card = facts["Michelangelo's Technique"]
     interpreter = CardInterpreter()
     program = interpreter.top_creature_selection_program(card)
     if (
@@ -67,13 +75,42 @@ def report() -> dict[str, object]:
             "source provenance and deterministic replay"
         )
         closed.append({key: row[key] for key in ("deck", "card", "oracle_fragment")})
+    # Earlier spell checkpoints validated these four Sneak branches, but their
+    # P1 scanner rows were carried forward without an execution-review update.
+    # Reconcile only complete spell families with focused normal/Sneak fixtures.
+    for row in rows:
+        if (
+            row["card"] not in names
+            or row["scanner_reason"] != "sneak_noncreature_spell_not_implemented"
+        ):
+            continue
+        spell = facts[row["card"]]
+        fragment = row["oracle_fragment"]
+        semantics = interpreter.sneak_semantic_coverage(spell, fragment)
+        if (
+            row["execution_review"] != "gap"
+            or row["impact_priority"] != "P1"
+            or semantics is None
+            or not semantics.coverage.fully_supported
+            or interpreter.cast_program(spell).kind is CastKind.UNSUPPORTED
+            or interpreter.unsupported_fragments(spell)
+        ):
+            raise ValueError(f"incomplete or unexpected Sneak row: {spell.name}")
+        row["execution_review"] = "supported"
+        row["impact_priority"] = "none"
+        row["disposition"] = (
+            "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker "
+            "return, legal mana payment, declare-blockers priority, complete spell "
+            "resolution and deterministic replay; validated by focused spell fixtures"
+        )
+        closed.append({key: row[key] for key in ("deck", "card", "oracle_fragment")})
     counts = {
         "execution": dict(Counter(row["execution_review"] for row in rows)),
         "priority": dict(Counter(row["impact_priority"] for row in rows)),
     }
-    if len(closed) != 1 or counts != {
-        "execution": {"covered": 33, "supported": 69, "annotation": 7, "gap": 61, "partial": 2},
-        "priority": {"none": 109, "P1": 61, "P0": 2},
+    if len(closed) != 6 or counts != {
+        "execution": {"covered": 33, "supported": 74, "annotation": 7, "gap": 56, "partial": 2},
+        "priority": {"none": 114, "P1": 56, "P0": 2},
     }:
         raise ValueError("unexpected row closure")
     return {

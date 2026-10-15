@@ -27,14 +27,14 @@
   "counts": {
     "execution": {
       "covered": 33,
-      "supported": 69,
+      "supported": 74,
       "annotation": 7,
-      "gap": 61,
+      "gap": 56,
       "partial": 2
     },
     "priority": {
-      "none": 109,
-      "P1": 61,
+      "none": 114,
+      "P1": 56,
       "P0": 2
     }
   },
@@ -63,6 +63,31 @@
       "deck": "michelangelo",
       "card": "Michelangelo's Technique",
       "oracle_fragment": "Look at the top eight cards of your library. Put up to two creature cards with total mana value 6 or less from among them onto the battlefield and the rest on the bottom of your library in a random order."
+    },
+    {
+      "deck": "leonardo",
+      "card": "The Last Ronin's Technique",
+      "oracle_fragment": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+    },
+    {
+      "deck": "leonardo",
+      "card": "Leonardo's Technique",
+      "oracle_fragment": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+    },
+    {
+      "deck": "raphael",
+      "card": "Raphael's Technique",
+      "oracle_fragment": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo's Technique",
+      "oracle_fragment": "Sneak {3}{G} (You may cast this spell for {3}{G} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+    },
+    {
+      "deck": "splinter",
+      "card": "Splinter's Technique",
+      "oracle_fragment": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
     }
   ],
   "rows": [
@@ -182,10 +207,10 @@
       "copies": "1",
       "oracle_fragment": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)",
       "scanner_reason": "sneak_noncreature_spell_not_implemented",
-      "execution_review": "gap",
-      "impact_priority": "P1",
+      "execution_review": "supported",
+      "impact_priority": "none",
       "family": "combat",
-      "disposition": "Printed clause absent or materially incomplete"
+      "disposition": "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker return, legal mana payment, declare-blockers priority, complete spell resolution and deterministic replay; validated by focused spell fixtures"
     },
     {
       "deck": "leonardo",
@@ -215,10 +240,10 @@
       "copies": "2",
       "oracle_fragment": "Sneak {1}{W} (You may cast this spell for {1}{W} if you also return an unblocked attacker you control to hand during the declare blockers step.)",
       "scanner_reason": "sneak_noncreature_spell_not_implemented",
-      "execution_review": "gap",
-      "impact_priority": "P1",
+      "execution_review": "supported",
+      "impact_priority": "none",
       "family": "combat",
-      "disposition": "Printed clause absent or materially incomplete"
+      "disposition": "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker return, legal mana payment, declare-blockers priority, complete spell resolution and deterministic replay; validated by focused spell fixtures"
     },
     {
       "deck": "leonardo",
@@ -424,10 +449,10 @@
       "copies": "2",
       "oracle_fragment": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)",
       "scanner_reason": "sneak_noncreature_spell_not_implemented",
-      "execution_review": "gap",
-      "impact_priority": "P1",
+      "execution_review": "supported",
+      "impact_priority": "none",
       "family": "combat",
-      "disposition": "Printed clause absent or materially incomplete"
+      "disposition": "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker return, legal mana payment, declare-blockers priority, complete spell resolution and deterministic replay; validated by focused spell fixtures"
     },
     {
       "deck": "raphael",
@@ -743,10 +768,10 @@
       "copies": "2",
       "oracle_fragment": "Sneak {3}{G} (You may cast this spell for {3}{G} if you also return an unblocked attacker you control to hand during the declare blockers step.)",
       "scanner_reason": "sneak_noncreature_spell_not_implemented",
-      "execution_review": "gap",
-      "impact_priority": "P1",
+      "execution_review": "supported",
+      "impact_priority": "none",
       "family": "combat",
-      "disposition": "Printed clause absent or materially incomplete"
+      "disposition": "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker return, legal mana payment, declare-blockers priority, complete spell resolution and deterministic replay; validated by focused spell fixtures"
     },
     {
       "deck": "michelangelo",
@@ -974,10 +999,10 @@
       "copies": "2",
       "oracle_fragment": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step.)",
       "scanner_reason": "sneak_noncreature_spell_not_implemented",
-      "execution_review": "gap",
-      "impact_priority": "P1",
+      "execution_review": "supported",
+      "impact_priority": "none",
       "family": "combat",
-      "disposition": "Printed clause absent or materially incomplete"
+      "disposition": "Complete generic fixed-cost noncreature Sneak with an unblocked-attacker return, legal mana payment, declare-blockers priority, complete spell resolution and deterministic replay; validated by focused spell fixtures"
     },
     {
       "deck": "splinter",
