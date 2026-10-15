@@ -782,6 +782,10 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS = re.compile(
+        r"^Whenever a creature you control leaves the battlefield, each opponent "
+        r"loses (?P<amount>[1-9][0-9]*) life\.$"
+    )
     DISAPPEAR_ETB_TOKEN = re.compile(
         r"^(?:Disappear — )?When this creature enters, if a permanent left the "
         r"battlefield under your control this turn, (?P<effect>create (?:a|an|[0-9]+) .+ token\.)$"
@@ -3734,6 +3738,10 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(fragment) and any(
+                kind in card.type_line for kind in self.PERMANENT_CARD_TYPES
+            ):
+                continue
             if "Creature" in card.type_line and self.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
                 continue
             if (
