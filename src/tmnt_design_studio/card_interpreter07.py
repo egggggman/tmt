@@ -328,12 +328,13 @@ class SneakProgram:
     noncreature_graveyard_recursion: bool = False
     noncreature_conditional_tokens: bool = False
     noncreature_top_creature_selection: bool = False
+    granted_keyword_ability: bool = False
 
     @property
     def executable(self) -> bool:
         return (
             self.mana_cost is not None
-            and self.direct_keyword_ability
+            and (self.direct_keyword_ability or self.granted_keyword_ability)
             and self.fixed_supported_cost
             and (
                 self.creature_spell
@@ -1094,7 +1095,7 @@ class CardInterpreter:
         granted = self.class_graveyard_sneak(card)
         if granted is not None and fragment in granted[:2]:
             return InterpretedSneakSemantics(
-                SneakProgram(granted[2], True, True, True),
+                SneakProgram(granted[2], True, False, True, granted_keyword_ability=True),
                 SemanticCoverage(True, True, True, ()),
             )
         match = self.SNEAK_ABILITY.match(fragment)

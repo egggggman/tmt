@@ -100,6 +100,49 @@ def test_complete_level_three_is_required_and_incomplete_text_fails_closed():
             ).coverage.fully_supported
 
 
+def test_class_grant_is_executable_for_recipient_but_not_a_direct_sneak_keyword():
+    grant = CardInterpreter().class_graveyard_sneak(CLASS)
+    assert grant is not None
+    semantics = CardInterpreter().sneak_semantic_coverage(CLASS, grant[0])
+    assert semantics is not None and semantics.coverage.fully_supported
+    assert semantics.program.granted_keyword_ability
+    assert not semantics.program.direct_keyword_ability
+
+
+def test_grant_source_in_hand_is_not_a_sneak_spell_and_graveyard_creature_still_is():
+    def replay():
+        game, source, attacker, grave = setup()
+        card = game._create_card_object(replace(CLASS, name="Another Training Class"), 0, "hand")
+        game.players[0].hand.append(card)
+        blockers(game, attacker)
+        options = game.legal_sneak_actions(0)
+        assert not any(option.object_id == card.object_id for option in options)
+        assert game.sneak_payment_plan(0, card, attacker) is None
+        forged = ActionOption(
+            ActionKind.CAST,
+            0,
+            object_id=card.object_id,
+            cost_object_id=attacker.object_id,
+            oracle_fragment="Creature cards in your graveyard have sneak {3}{B}.",
+        )
+        with pytest.raises(ValueError, match="not currently legal"):
+            game.execute_sneak_action(forged)
+        assert card.zone == "hand" and attacker.zone == "battlefield"
+        option = next(option for option in options if option.object_id == grave.object_id)
+        game.execute_sneak_action(option)
+        game.move_object(source, "graveyard")
+        resolve_priority(game)
+        evidence = game.sneak_evidence[-1]
+        assert evidence.source_zone == "graveyard"
+        assert evidence.permission_source_id == source.object_id
+        assert evidence.resolved_object_id in game._combat_attackers
+        assert all(object_id != card.object_id for object_id in game._combat_attackers)
+        game.check_invariants()
+        return game.snapshot(), game.events
+
+    assert replay() == replay()
+
+
 def test_level_cost_timing_priority_and_source_zone_gate():
     game, source, attacker, grave = setup(level=2)
     assert source.class_level == 2
