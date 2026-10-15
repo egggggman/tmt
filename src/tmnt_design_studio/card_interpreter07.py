@@ -1779,6 +1779,11 @@ class CardInterpreter:
         re.I,
     )
     CLASS_LEVEL_UP = re.compile(r"^(?:\{(?:[0-9]+|[WUBRG])\})+: Level (?P<level>[23])$")
+    CLASS_CREATURE_ANTHEM = re.compile(
+        r"^Creatures you control get (?P<power>[+-][0-9]+)/(?P<toughness>[+-][0-9]+) "
+        r"and have (?P<keyword>menace)\.$",
+        re.I,
+    )
     CLASS_LEVEL_TWO_RECOVERY = (
         "When this Class becomes level 2, return up to two target artifact cards "
         "from your graveyard to your hand."
@@ -1804,6 +1809,7 @@ class CardInterpreter:
                     and (
                         self.class_level_recovery_semantic_coverage(card, fragment) is not None
                         or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
+                        or self.class_creature_anthem(card, fragment) is not None
                     )
                 )
                 or (level == 3 and self.CLASS_LEVEL_THREE_SEARCH.fullmatch(fragment))
@@ -1815,6 +1821,15 @@ class CardInterpreter:
         if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
             return None
         return SemanticCoverage(True, True, True, ())
+
+    def class_creature_anthem(self, card, fragment):
+        """Recognize a complete Class level-two team P/T and keyword clause."""
+        if "Class" not in card.type_line:
+            return None
+        match = self.CLASS_CREATURE_ANTHEM.fullmatch(fragment)
+        if match is None:
+            return None
+        return int(match["power"]), int(match["toughness"]), match["keyword"].casefold()
 
     def etb_mill_draw_discard_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -3926,6 +3941,11 @@ class CardInterpreter:
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
+                continue
+            if (
+                self.class_creature_anthem(card, fragment) is not None
+                and self.class_level_child(card, 2) == fragment
+            ):
                 continue
             if "Class" in card.type_line and (
                 self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)

@@ -1018,6 +1018,7 @@ class Permanent:
     is_token: bool = False
     type_line_override: str | None = None
     class_level: int | None = None
+    class_level_timestamp: tuple[int, int] = (0, 0)
     attached_to: str | None = None
     attachment_timestamp: tuple[int, int] = (0, 0)
     entered_timestamp: tuple[int, int] = (0, 0)
@@ -2179,7 +2180,7 @@ class Game(
                             ("source_zone", source_zone),
                         ),
                     )
-        if source_zone == "battlefield":
+        if source_zone == "battlefield" or destination == "battlefield":
             self.refresh_static_pt_modifiers()
         return replacement
 
@@ -8181,6 +8182,34 @@ class Game(
                     semantics = self.interpreter.static_team_modifier_semantic_coverage(
                         source.card, fragment
                     )
+                    class_anthem = (
+                        self.interpreter.class_creature_anthem(source.card, fragment)
+                        if source.class_level is not None and source.class_level >= 2
+                        else None
+                    )
+                    if class_anthem is not None:
+                        power, toughness, _keyword = class_anthem
+                        for target in player.battlefield:
+                            if not target.is_creature:
+                                continue
+                            if power or toughness:
+                                self.apply_pt_modifier(
+                                    target,
+                                    power,
+                                    toughness,
+                                    duration="persistent",
+                                    source_card=source.card.name,
+                                    oracle_fragment=fragment,
+                                    derived_static=True,
+                                    source_object_id=source.object_id,
+                                    log_event=False,
+                                )
+                                current_team[(source.object_id, target.object_id, fragment)] = (
+                                    power,
+                                    toughness,
+                                    source.card.name,
+                                    target.card.name,
+                                )
                     if semantics is None or not semantics.coverage.fully_supported:
                         continue
                     program = semantics.program
@@ -12344,6 +12373,8 @@ class Game(
                 raise ValueError("Class level advancement no longer has valid progression")
             next_level = int(level_match["level"])
             source_permanent.class_level = next_level
+            source_permanent.class_level_timestamp = self._effect_timestamp()
+            self.refresh_static_pt_modifiers()
             event = self._new_rules_event(
                 RulesEventKind.CLASS_LEVEL_ADVANCED,
                 ability.controller,
@@ -14720,10 +14751,26 @@ class Game(
         )
 
     def _has_keyword(self, permanent: Permanent, keyword: str) -> bool:
+        class_keywords = (
+            semantics[2]
+            for source in self.players[permanent.controller].battlefield
+            if permanent.is_creature
+            and source.class_level is not None
+            and source.class_level >= 2
+            and self.is_authoritative(source, "battlefield")
+            and (
+                permanent.ability_loss_timestamp is None
+                or source.class_level_timestamp > permanent.ability_loss_timestamp
+            )
+            for fragment in self.interpreter.fragments(source.rules_card)
+            if (semantics := self.interpreter.class_creature_anthem(source.card, fragment))
+            is not None
+        )
         return keyword.casefold() in {
             *(value.casefold() for value in permanent.rules_card.keywords),
             *self._equipment_keywords(permanent),
             *(effect.keyword.value for effect in permanent.active_temporary_keyword_effects),
+            *class_keywords,
         }
 
     def _has_flying(self, permanent: Permanent) -> bool:
@@ -14739,16 +14786,9 @@ class Game(
         )
 
     def _has_menace(self, attacker: Permanent) -> bool:
-        return (
-            "menace" in {keyword.casefold() for keyword in attacker.rules_card.keywords}
-            or any(
-                effect.keyword is TemporaryKeyword.MENACE
-                for effect in attacker.active_temporary_keyword_effects
-            )
-            or any(
-                fragment.casefold().startswith("menace")
-                for fragment in self.interpreter.fragments(attacker.rules_card)
-            )
+        return self._has_keyword(attacker, "Menace") or any(
+            fragment.casefold().startswith("menace")
+            for fragment in self.interpreter.fragments(attacker.rules_card)
         )
 
     def _valid_block_assignment(
