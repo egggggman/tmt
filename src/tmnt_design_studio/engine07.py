@@ -185,6 +185,17 @@ class PriorityState:
     resolution_pending: bool = False
 
 
+@dataclass
+class LinkedPlayGrant:
+    """One until-end-of-turn permission to play any one card linked to a source object."""
+
+    grant_id: str
+    source_id: str
+    controller: int
+    expires_turn: int
+    remaining_plays: int = 1
+
+
 @dataclass(frozen=True)
 class ManaRequirement:
     """The represented total mana cost after construction, before payment."""
@@ -1423,7 +1434,6 @@ class Game(
         paramecia_exile_chooser=None,
         paramecia_target_chooser=None,
         raphael_exile_chooser=None,
-        raphael_play_chooser=None,
         damage_target_chooser=None,
         equipment_attach_chooser=None,
         interpreter: CardInterpreter | None = None,
@@ -1502,8 +1512,7 @@ class Game(
         self._ltb_mutagen_consumed: set[str] = set()
         self._paramecia_departures = {}
         self._raphael_linked_exile = {}
-        self._raphael_permissions = {}
-        self._linked_play_prior_grants: dict[str, list[tuple[int, str]]] = {}
+        self._linked_play_grants: dict[str, list[LinkedPlayGrant]] = {}
         self.discard_or_sacrifice_chooser = lambda _controller, _source, discards, sacrifices: (
             ("discard", discards[-1]) if discards else ("sacrifice", sacrifices[0])
         )
@@ -1597,9 +1606,6 @@ class Game(
             lambda _controller, _source_id, options: options[0] if options else None
         )
         self.raphael_exile_chooser = raphael_exile_chooser or (lambda _controller, _source_id: True)
-        self.raphael_play_chooser = raphael_play_chooser or (
-            lambda _controller, _source_id, options: options[0] if options else None
-        )
         self.equipment_attach_chooser = equipment_attach_chooser or (
             lambda _controller, _source_id, _recipient_id: True
         )
@@ -6288,26 +6294,16 @@ class Game(
             else:
                 self.log("raphael_alliance_exile_empty", source_id=ability.source_id)
         elif ability.effect is TriggerEffect.RAPHAEL_ATTACK_PLAY:
-            links = tuple(self._raphael_linked_exile.get(ability.source_id, ()))
-            options = tuple(
-                item[0]
-                for item in links
-                if self._objects.get(item[0]) is not None
-                and self.is_authoritative(self._objects[item[0]], "exile")
+            grant = LinkedPlayGrant(
+                ability.object_id, ability.source_id, ability.controller, self.turn
             )
-            chosen = self.raphael_play_chooser(ability.controller, ability.source_id, options)
-            previous = self._raphael_permissions.get(ability.source_id)
-            if previous is not None and previous[0] == self.turn and previous[1] is not None:
-                self._linked_play_prior_grants.setdefault(ability.source_id, []).append(previous)
-            self._raphael_permissions[ability.source_id] = (
-                self.turn,
-                chosen if chosen in options else None,
-            )
+            self._linked_play_grants.setdefault(ability.source_id, []).append(grant)
             self.log(
                 "raphael_play_permission_created",
                 source_id=ability.source_id,
-                exiled_object_ids=list(options),
-                chosen_object_id=chosen if chosen in options else None,
+                grant_id=grant.grant_id,
+                controller=grant.controller,
+                remaining_plays=grant.remaining_plays,
                 expires_turn=self.turn,
                 event_id=ability.event.event_id,
             )
@@ -8359,7 +8355,7 @@ class Game(
                 for card in player.hand
                 if card.is_land
             )
-        for card in player.exile:
+        for card in (item for owner in self.players for item in owner.exile):
             if self._raphael_permission_for(player_index, card) is None:
                 continue
             if card.is_land and player.lands_played < 1:
@@ -8368,7 +8364,8 @@ class Game(
                 )
         playable_exile = tuple(
             card
-            for card in player.exile
+            for owner in self.players
+            for card in owner.exile
             if self._raphael_permission_for(player_index, card) is not None
         )
         for card in (*player.hand, *playable_exile):
@@ -9278,7 +9275,8 @@ class Game(
                 *self.players[player_index].hand,
                 *(
                     candidate
-                    for candidate in self.players[player_index].exile
+                    for owner in self.players
+                    for candidate in owner.exile
                     if self._raphael_permission_for(player_index, candidate) is not None
                 ),
             )
@@ -9296,7 +9294,7 @@ class Game(
         if state is None or state.resolution_pending or state.player_index != player_index:
             return ()
         options: list[ActionOption] = []
-        for card in self.players[player_index].exile:
+        for card in (item for owner in self.players for item in owner.exile):
             if (
                 self._raphael_permission_for(player_index, card) is None
                 or "Instant" not in card.card.type_line.split(" — ", 1)[0].split()
@@ -9557,6 +9555,12 @@ class Game(
                     cast_from_exile=True,
                     sacrifice_cost=cost if isinstance(cost, Permanent) else None,
                     source_target=source_target if isinstance(source_target, Permanent) else None,
+                    mode_fragment=(
+                        option.oracle_fragment
+                        if self.interpreter.cast_program(card.card).kind
+                        is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP
+                        else None
+                    ),
                 )
                 if spell is None:
                     raise ValueError("linked instant became illegal at announcement")
@@ -10008,8 +10012,10 @@ class Game(
             or not self._blockers_declared
             or self.priority_state is not None
             or self.stack
-            or not self.is_authoritative(card, "hand")
-            or card.owner != player_index
+            or not (
+                (self.is_authoritative(card, "hand") and card.owner == player_index)
+                or self._linked_play_grant_for(player_index, card) is not None
+            )
             or attacker not in self._unblocked_attackers(player_index)
         ):
             return None
@@ -10060,7 +10066,13 @@ class Game(
         ):
             return ()
         options: list[ActionOption] = []
-        for card in self.players[player_index].hand:
+        playable_exile = tuple(
+            card
+            for owner in self.players
+            for card in owner.exile
+            if self._linked_play_grant_for(player_index, card) is not None
+        )
+        for card in (*self.players[player_index].hand, *playable_exile):
             interpreted = self._sneak_semantics(card)
             if interpreted is None:
                 continue
@@ -10773,29 +10785,48 @@ class Game(
         self._advance_after_combat_damage()
         return evidence
 
-    def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
-        for source_id, current in self._raphael_permissions.items():
-            for expiry_turn, chosen_id in (
-                current,
-                *self._linked_play_prior_grants.get(source_id, ()),
+    def _linked_play_grant_for(self, player_index: int, card: CardObject) -> LinkedPlayGrant | None:
+        """Find the oldest unused grant linked to this exact exile incarnation."""
+        if not self.is_authoritative(card, "exile"):
+            return None
+        for source_id, grants in self._linked_play_grants.items():
+            if not any(
+                linked_id == card.object_id and owner_id == source_id
+                for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
+                    source_id, ()
+                )
             ):
-                if expiry_turn != self.turn or chosen_id != card.object_id:
-                    continue
+                continue
+            for grant in grants:
                 if (
-                    card.owner == player_index
-                    and self.is_authoritative(card, "exile")
-                    and any(
-                        linked_id == card.object_id and owner_id == source_id
-                        for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
-                            source_id, ()
-                        )
-                    )
+                    grant.controller == player_index
+                    and grant.expires_turn == self.turn
+                    and grant.remaining_plays > 0
                 ):
-                    return source_id
+                    return grant
         return None
+
+    def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
+        grant = self._linked_play_grant_for(player_index, card)
+        return None if grant is None else grant.source_id
+
+    def _consume_linked_play_grant(self, grant: LinkedPlayGrant, card_id: str) -> None:
+        if grant.remaining_plays != 1:
+            raise ValueError("linked play grant was already consumed")
+        grant.remaining_plays = 0
+        self.log(
+            "linked_play_grant_used",
+            grant_id=grant.grant_id,
+            source_id=grant.source_id,
+            controller=grant.controller,
+            exiled_object_id=card_id,
+        )
 
     def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:
         player = self.players[player_index]
+        grant = self._linked_play_grant_for(player_index, card) if from_raphael else None
+        if self.priority_state is not None or self.stack:
+            return False
         if player_index != self.active_player or self.step not in {
             TurnStep.PRECOMBAT_MAIN,
             TurnStep.POSTCOMBAT_MAIN,
@@ -10808,9 +10839,9 @@ class Game(
                 if from_raphael
                 else self.is_authoritative(card, "hand")
             )
-            or card.owner != player_index
+            or (not from_raphael and card.owner != player_index)
             or player.lands_played >= 1
-            or (from_raphael and self._raphael_permission_for(player_index, card) is None)
+            or (from_raphael and grant is None)
         ):
             return False
         entering = self.move_object(
@@ -10821,6 +10852,8 @@ class Game(
             reason="raphael_land_played" if from_raphael else "land_played",
         )
         assert isinstance(entering, Permanent)
+        if grant is not None:
+            self._consume_linked_play_grant(grant, card.object_id)
         self.refresh_static_pt_modifiers()
         player.lands_played += 1
         self.log("land_played", player=player.name, card=card.name)
@@ -12498,7 +12531,11 @@ class Game(
         allow_exile: bool = False,
     ) -> PaymentPlan | None:
         source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
-        if not self.is_authoritative(card, source_zone) or card.owner != player_index:
+        if (
+            not self.is_authoritative(card, source_zone)
+            or (allow_exile and self._linked_play_grant_for(player_index, card) is None)
+            or (card.owner != player_index and not allow_exile)
+        ):
             return None
         requirement = self.casting_requirement(player_index, card)
         if requirement is None:
@@ -12695,23 +12732,34 @@ class Game(
         )
 
         battlefield = self.players[attacker.controller].battlefield
-        hand = self.players[card.owner].hand
+        source_zone = card.zone
+        grant = (
+            self._linked_play_grant_for(plan.player_index, card) if source_zone == "exile" else None
+        )
+        source_cards = (
+            self.players[card.owner].exile
+            if source_zone == "exile"
+            else self.players[card.owner].hand
+        )
         if not self._identity_contains(battlefield, attacker) or not self._identity_contains(
-            hand, card
+            source_cards, card
         ):
             raise ValueError("Sneak source zones changed before commitment")
         attacker_index = next(i for i, value in enumerate(battlefield) if value is attacker)
-        card_index = next(i for i, value in enumerate(hand) if value is card)
+        card_index = next(i for i, value in enumerate(source_cards) if value is card)
         for source in sources:
             source.tapped = True
         battlefield.pop(attacker_index)
-        hand.pop(card_index)
+        source_cards.pop(card_index)
         self.players[attacker.owner].hand.append(returned)
         self.stack.append(spell)
         attacker.zone = "former"
         card.zone = "former"
         self._register(returned)
         self._register(spell)
+        if grant is not None:
+            spell.cast_from_raphael = True
+            self._consume_linked_play_grant(grant, card.object_id)
         self._combat_attackers = tuple(
             object_id for object_id in self._combat_attackers if object_id != attacker.object_id
         )
@@ -12744,7 +12792,7 @@ class Game(
             owner=self.players[card.owner].name,
             source_object_id=card.object_id,
             destination_object_id=spell.object_id,
-            source_zone="hand",
+            source_zone=source_zone,
             destination_zone="stack",
             reason="sneak_spell_cast",
         )
@@ -12762,6 +12810,7 @@ class Game(
             player=self.players[plan.player_index].name,
             card=spell.name,
             hand_object_id=card.object_id,
+            source_zone=source_zone,
             stack_object_id=spell.object_id,
             oracle_fragment=plan.oracle_fragment,
         )
@@ -12943,11 +12992,15 @@ class Game(
                     else self.is_authoritative(card, "hand")
                 )
             )
-            or card.owner != player_index
+            or (
+                card.owner != player_index
+                and not (cast_from_exile and self._linked_play_grant_for(player_index, card))
+            )
         ):
             return None
+        linked_grant = self._linked_play_grant_for(player_index, card) if cast_from_exile else None
         permission = None
-        if cast_from_exile and self._raphael_permission_for(player_index, card) is None:
+        if cast_from_exile and linked_grant is None:
             return None
         if cast_from_graveyard:
             permission = next(
@@ -13150,6 +13203,8 @@ class Game(
             finality_on_entry=cast_from_graveyard,
             cast_from_raphael=cast_from_exile,
         )
+        if linked_grant is not None:
+            self._consume_linked_play_grant(linked_grant, card.object_id)
         if program.kind is CastKind.GRAVEYARD_RECURSION:
             spell.target_ids = tuple(item.object_id for item in recursion_targets)
             self.log(
