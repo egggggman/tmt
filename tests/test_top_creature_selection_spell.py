@@ -33,11 +33,12 @@ ZERO = CardFact("Frail Friend", "{G}", 1, "Creature — Turtle", power=0, toughn
 ARTIFACT = CardFact("Quiet Relic", "{1}", 1, "Artifact")
 
 
-def game(*, lands=5, seed=318, chooser=None, inspected=()):
+def game(*, lands=5, seed=318, chooser=None, inspected=(), counter_chooser=None):
     current = Game(
         ([FOREST] * 40, [FOREST] * 40),
         seed=seed,
         top_creature_selection_chooser=chooser,
+        counter_target_chooser=counter_chooser,
     )
     current.begin_turn()
     for _ in range(lands):
@@ -233,3 +234,40 @@ def test_state_based_zero_toughness_and_countered_spell():
     other.move_object(stacked, "graveyard", reason="countered")
     assert not any(e["event"] == "top_creature_selection_resolved" for e in other.events)
     other.check_invariants()
+
+
+def test_both_creatures_enter_before_alliance_choices_resolve():
+    ally = CardFact(
+        "Anonymous Ally",
+        "{1}{G}",
+        2,
+        "Creature — Turtle",
+        "Alliance — Whenever another creature you control enters, put a +1/+1 counter on "
+        "target creature you control.",
+        power=2,
+        toughness=2,
+    )
+    offered = []
+
+    def counter_choice(_controller, _source, candidates):
+        offered.append(candidates)
+        return candidates[-1]
+
+    current, spell, _ = game(inspected=(ONE, FOUR), counter_chooser=counter_choice)
+    current.create_permanent(ally, 0)
+    assert current.announce_spell(0, spell)
+    current.resolve_top_of_stack()
+    event = next(e for e in current.events if e["event"] == "top_creature_selection_resolved")
+    entered_ids = {item["battlefield_id"] for item in event["selected"]}
+    assert len(offered) == 2
+    assert all(entered_ids <= set(candidates) for candidates in offered)
+    assert all(
+        any(
+            log["event"] == "zone_changed"
+            and log.get("reason") == "top_creature_selection_entry"
+            and log["destination_object_id"] == item
+            for log in current.events
+        )
+        for item in entered_ids
+    )
+    current.check_invariants()
