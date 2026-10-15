@@ -1,0 +1,127 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "7451f647b6d89b6fa6ee83c673aa29f6056cbadfe72f3e90ac9ab93c95299571",
+  "game_count": 4,
+  "replay_count": 4,
+  "games": [
+    {
+      "game_id": "issue289-top-creature-selection-317-michelangelo-leonardo",
+      "seed": 317,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "a0731dc228fe5b4a8e28e34d830c29a9d1232d49ceff5b478d98d6243a4d1b9c",
+      "event_count": 761,
+      "normal_payments": 1,
+      "sneak_payments": 0,
+      "resolutions": [
+        {
+          "stack_object_id": "object-000202",
+          "inspected_ids": [
+            "object-000037",
+            "object-000042",
+            "object-000039",
+            "object-000013",
+            "object-000041",
+            "object-000015",
+            "object-000045",
+            "object-000031"
+          ],
+          "selected": [
+            {
+              "library_id": "object-000039",
+              "battlefield_id": "object-000203"
+            },
+            {
+              "library_id": "object-000045",
+              "battlefield_id": "object-000204"
+            }
+          ],
+          "bottom_ids": [
+            "object-000031",
+            "object-000013",
+            "object-000015",
+            "object-000037",
+            "object-000041",
+            "object-000042"
+          ],
+          "maximum_creatures": 2,
+          "maximum_total_mana_value": 6,
+          "oracle_fragment": "Look at the top eight cards of your library. Put up to two creature cards with total mana value 6 or less from among them onto the battlefield and the rest on the bottom of your library in a random order."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-top-creature-selection-317-leonardo-michelangelo",
+      "seed": 317,
+      "first_player": "leonardo",
+      "replay_equal": true,
+      "result_digest": "52e925d065b396ce5c046fbc0cecabc811ccd303bc4b21a0cd44de6bc325d2e8",
+      "event_count": 757,
+      "normal_payments": 0,
+      "sneak_payments": 0,
+      "resolutions": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-top-creature-selection-317-michelangelo-donatello",
+      "seed": 317,
+      "first_player": "michelangelo",
+      "replay_equal": true,
+      "result_digest": "b0e9d1f618f915cd0cae58ec85b5137889fac2fd41d9e99d0be75f9f70e0f223",
+      "event_count": 973,
+      "normal_payments": 1,
+      "sneak_payments": 0,
+      "resolutions": [
+        {
+          "stack_object_id": "object-000231",
+          "inspected_ids": [
+            "object-000037",
+            "object-000042",
+            "object-000039",
+            "object-000013",
+            "object-000041",
+            "object-000015",
+            "object-000045",
+            "object-000031"
+          ],
+          "selected": [
+            {
+              "library_id": "object-000039",
+              "battlefield_id": "object-000232"
+            },
+            {
+              "library_id": "object-000045",
+              "battlefield_id": "object-000233"
+            }
+          ],
+          "bottom_ids": [
+            "object-000031",
+            "object-000013",
+            "object-000015",
+            "object-000037",
+            "object-000041",
+            "object-000042"
+          ],
+          "maximum_creatures": 2,
+          "maximum_total_mana_value": 6,
+          "oracle_fragment": "Look at the top eight cards of your library. Put up to two creature cards with total mana value 6 or less from among them onto the battlefield and the rest on the bottom of your library in a random order."
+        }
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-top-creature-selection-317-donatello-michelangelo",
+      "seed": 317,
+      "first_player": "donatello",
+      "replay_equal": true,
+      "result_digest": "9be5bcf56bfedbb3e2df01ec25bcb71279f5c182fd934a323aabd58c7ddd1798",
+      "event_count": 624,
+      "normal_payments": 0,
+      "sneak_payments": 0,
+      "resolutions": [],
+      "runtime_error": null
+    }
+  ]
+}

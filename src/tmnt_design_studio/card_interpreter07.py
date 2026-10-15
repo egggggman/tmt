@@ -37,6 +37,7 @@ class CastKind(Enum):
     )
     KICKED_CREATURE_PT = "kicked_creature_pt"
     TOP_CARD_SELECTION = "top_card_selection"
+    TOP_CREATURE_SELECTION = "top_creature_selection"
     OPTIONAL_DESTROY_AND_CREATE = "optional_destroy_and_create"
     CONDITIONAL_DESTROY_AND_CREATE = "conditional_destroy_and_create"
     TARGETED_REMOVAL = "targeted_removal"
@@ -139,6 +140,17 @@ class TopCardSelectionProgram:
     count: int
     subtypes: tuple[str, ...]
     include_land: bool
+
+
+@dataclass(frozen=True)
+class TopCreatureSelectionProgram:
+    """Bounded private inspection and simultaneous creature entry from a spell."""
+
+    count: int
+    maximum_creatures: int
+    maximum_total_mana_value: int
+    effect_fragment: str
+    sneak_fragment: str | None = None
 
 
 @dataclass(frozen=True)
@@ -305,6 +317,7 @@ class SneakProgram:
     noncreature_hand_reset: bool = False
     noncreature_graveyard_recursion: bool = False
     noncreature_conditional_tokens: bool = False
+    noncreature_top_creature_selection: bool = False
 
     @property
     def executable(self) -> bool:
@@ -320,6 +333,7 @@ class SneakProgram:
                 or self.noncreature_hand_reset
                 or self.noncreature_graveyard_recursion
                 or self.noncreature_conditional_tokens
+                or self.noncreature_top_creature_selection
             )
         )
 
@@ -1070,6 +1084,7 @@ class CardInterpreter:
         reset = self.optional_hand_reset_program(card)
         recursion = self.graveyard_recursion_program(card)
         conditional_tokens = self.conditional_sneak_tokens_program(card)
+        creature_selection = self.top_creature_selection_program(card)
         program = SneakProgram(
             mana_cost,
             creature,
@@ -1081,6 +1096,7 @@ class CardInterpreter:
             reset is not None and reset.sneak_fragment == fragment,
             recursion is not None and recursion.sneak_fragment == fragment,
             conditional_tokens is not None and conditional_tokens.sneak_fragment == fragment,
+            creature_selection is not None and creature_selection.sneak_fragment == fragment,
         )
         limitations: list[str] = []
         if not direct:
@@ -1095,6 +1111,7 @@ class CardInterpreter:
             and not program.noncreature_hand_reset
             and not program.noncreature_graveyard_recursion
             and not program.noncreature_conditional_tokens
+            and not program.noncreature_top_creature_selection
         ):
             limitations.append("sneak_noncreature_spell_not_implemented")
         coverage = SemanticCoverage(
@@ -1149,6 +1166,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.top_creature_selection_program(card) is not None:
+            return CastProgram(CastKind.TOP_CREATURE_SELECTION)
         if self.conditional_sneak_tokens_program(card) is not None:
             return CastProgram(CastKind.CONDITIONAL_SNEAK_TOKENS)
         if self.graveyard_recursion_program(card) is not None:
@@ -1243,6 +1262,12 @@ class CardInterpreter:
         r"You may reveal a (?P<types>[A-Z][A-Za-z]*(?:, [A-Z][A-Za-z]*)*(?:, or [A-Z][A-Za-z]*)?), "
         r"or land card from among them and put it into your hand\. "
         r"Put the rest on the bottom of your library in a random order\."
+    )
+    TOP_CREATURE_SELECTION = re.compile(
+        r"Look at the top (?P<count>[1-9][0-9]*|one|two|three|four|five|six|seven|eight) "
+        r"cards of your library\. Put up to (?P<maximum>[1-9][0-9]*|one|two|three) "
+        r"creature cards with total mana value (?P<limit>[0-9]+) or less from among them "
+        r"onto the battlefield and the rest on the bottom of your library in a random order\."
     )
     ENTRY_ANY_TARGET_DAMAGE = re.compile(
         r"When this artifact enters, it deals (?P<target>[1-9][0-9]*) damage "
@@ -1634,6 +1659,34 @@ class CardInterpreter:
             quantity[count] if count in quantity else int(count), types, True
         )
 
+    def top_creature_selection_program(
+        self, card: CardDefinition
+    ) -> TopCreatureSelectionProgram | None:
+        """Require a complete bounded creature-selection spell and optional fixed Sneak."""
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) not in {1, 2}:
+            return None
+        sneak = None
+        if len(fragments) == 2:
+            if self.COMPLETE_SNEAK_PREFACE.fullmatch(fragments[0]) is None:
+                return None
+            sneak = fragments[0]
+        match = self.TOP_CREATURE_SELECTION.fullmatch(fragments[-1])
+        if match is None:
+            return None
+        quantity = self.DRAW_QUANTITIES
+        count = quantity.get(match["count"], None)
+        maximum = quantity.get(match["maximum"], None)
+        count = int(match["count"]) if count is None else count
+        maximum = int(match["maximum"]) if maximum is None else maximum
+        if maximum > count:
+            return None
+        return TopCreatureSelectionProgram(
+            count, maximum, int(match["limit"]), fragments[-1], sneak
+        )
+
     def shared_interaction_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
@@ -1642,6 +1695,9 @@ class CardInterpreter:
             return SemanticCoverage(True, True, True, ())
         selection = self.top_card_selection_program(card)
         if selection is not None and fragment == card.oracle_text.strip():
+            return SemanticCoverage(True, True, True, ())
+        creature_selection = self.top_creature_selection_program(card)
+        if creature_selection is not None and fragment == creature_selection.effect_fragment:
             return SemanticCoverage(True, True, True, ())
         search = self.library_search_to_hand_program(card)
         if search is not None and fragment == search.search_fragment:
@@ -3665,6 +3721,13 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if (
+                creature_selection := self.top_creature_selection_program(card)
+            ) is not None and fragment in {
+                creature_selection.effect_fragment,
+                creature_selection.sneak_fragment,
+            }:
+                continue
             if (
                 conditional_tokens := self.conditional_sneak_tokens_program(card)
             ) is not None and fragment in {

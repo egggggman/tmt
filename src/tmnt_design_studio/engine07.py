@@ -54,6 +54,7 @@ from tmnt_design_studio.pilot_input_v2 import (
     PriorityViewV2,
     ScryViewV2,
     TopCardSelectionViewV2,
+    TopCreatureSelectionViewV2,
     decision_context,
     describe_card,
     pilot_view,
@@ -167,6 +168,11 @@ class ActionOption:
 @dataclass(frozen=True)
 class TopCardSelectionOption:
     card_id: str | None
+
+
+@dataclass(frozen=True)
+class TopCreatureSelectionOption:
+    card_ids: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -1404,6 +1410,7 @@ class Game(
         stun_target_chooser=None,
         scry_chooser=None,
         top_card_chooser=None,
+        top_creature_selection_chooser=None,
         library_search_chooser=None,
         hand_reset_chooser=None,
         hand_bottom_draw_chooser=None,
@@ -1563,6 +1570,10 @@ class Game(
                 (option for option in options if option.card_id is not None), options[0]
             )
         )
+        self.top_creature_selection_chooser = (
+            top_creature_selection_chooser or self._default_top_creature_selection_choice
+        )
+        self._top_creature_selection_choice_active = False
         self.library_search_chooser = library_search_chooser or self._default_library_search_choice
         self._library_search_choice_active = False
         self.hand_reset_chooser = hand_reset_chooser or (
@@ -1873,6 +1884,8 @@ class Game(
             raise ValueError("library-position chooser cannot move authoritative objects")
         if self._library_search_choice_active:
             raise ValueError("library-search chooser cannot move authoritative objects")
+        if self._top_creature_selection_choice_active:
+            raise ValueError("top-creature chooser cannot move authoritative objects")
         if self._hand_reset_choice_active:
             raise ValueError("hand-reset chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
@@ -8510,7 +8523,7 @@ class Game(
                         oracle_fragment=draw_fragment,
                     )
                 )
-            elif kind is CastKind.TOP_CARD_SELECTION:
+            elif kind in {CastKind.TOP_CARD_SELECTION, CastKind.TOP_CREATURE_SELECTION}:
                 options.append(
                     ActionOption(ActionKind.CAST, player_index, object_id=card.object_id)
                 )
@@ -9342,6 +9355,7 @@ class Game(
             if kind in {
                 CastKind.DRAW_CARDS,
                 CastKind.TOP_CARD_SELECTION,
+                CastKind.TOP_CREATURE_SELECTION,
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
             }:
@@ -9819,6 +9833,7 @@ class Game(
             if self.interpreter.cast_program(obj.card).kind in {
                 CastKind.KICKED_CREATURE_PT,
                 CastKind.TOP_CARD_SELECTION,
+                CastKind.TOP_CREATURE_SELECTION,
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
                 CastKind.GRAVEYARD_RECURSION,
@@ -12839,6 +12854,7 @@ class Game(
                     in {
                         CastKind.DRAW_CARDS,
                         CastKind.TOP_CARD_SELECTION,
+                        CastKind.TOP_CREATURE_SELECTION,
                         CastKind.LIBRARY_SEARCH_TO_HAND,
                         CastKind.OPTIONAL_HAND_RESET,
                         CastKind.CONDITIONAL_SNEAK_TOKENS,
@@ -13076,6 +13092,7 @@ class Game(
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
                 CastKind.CONDITIONAL_SNEAK_TOKENS,
+                CastKind.TOP_CREATURE_SELECTION,
             }
             and target is not None
         ):
@@ -13377,6 +13394,7 @@ class Game(
         legal_target = spell.cast_kind in {
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
+            CastKind.TOP_CREATURE_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
             CastKind.CONDITIONAL_SNEAK_TOKENS,
@@ -13475,6 +13493,7 @@ class Game(
             CastKind.COUNTER_TARGET_SPELL,
             CastKind.DRAW_CARDS,
             CastKind.TOP_CARD_SELECTION,
+            CastKind.TOP_CREATURE_SELECTION,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
             CastKind.GRAVEYARD_RECURSION,
@@ -13558,6 +13577,13 @@ class Game(
             if program is None:
                 raise AssertionError("stacked card selection is no longer executable")
             self.resolve_top_card_selection(spell.controller, program, source_id=spell.object_id)
+        elif spell.cast_kind is CastKind.TOP_CREATURE_SELECTION:
+            program = self.interpreter.top_creature_selection_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked top-creature spell lost its complete semantics")
+            self.resolve_top_creature_selection(
+                spell.controller, program, source_id=spell.object_id
+            )
         elif spell.cast_kind is CastKind.LIBRARY_SEARCH_TO_HAND:
             program = self.interpreter.library_search_to_hand_program(spell.card)
             if program is None:
@@ -13987,12 +14013,94 @@ class Game(
             CastKind.OPTIONAL_HAND_RESET,
             CastKind.GRAVEYARD_RECURSION,
             CastKind.CONDITIONAL_SNEAK_TOKENS,
+            CastKind.TOP_CREATURE_SELECTION,
             CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
         }:
             self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
             self._drain_triggered_abilities()
         return resolved_card
+
+    @staticmethod
+    def _default_top_creature_selection_choice(view, options):
+        """Prefer useful board value using only the inspected private card descriptions."""
+        facts = {card.object_id: card for card in view.cards}
+        return max(
+            options,
+            key=lambda option: (
+                sum(facts[object_id].mana_value for object_id in option.card_ids),
+                len(option.card_ids),
+                sum((facts[object_id].power or 0) for object_id in option.card_ids),
+            ),
+        )
+
+    def resolve_top_creature_selection(self, player_index, program, *, source_id: str) -> None:
+        """Choose up to N creatures privately, enter as a batch, then randomize the rest."""
+        player = self.players[player_index]
+        library = player.library
+        inspected = tuple(reversed(library[-program.count :]))
+        eligible = tuple(card for card in inspected if card.card.is_creature)
+        choices = (TopCreatureSelectionOption(()),) + tuple(
+            TopCreatureSelectionOption(tuple(card.object_id for card in group))
+            for quantity in range(1, min(program.maximum_creatures, len(eligible)) + 1)
+            for group in combinations(eligible, quantity)
+            if sum(card.mana_value for card in group) <= program.maximum_total_mana_value
+        )
+        view = TopCreatureSelectionViewV2(
+            player_index,
+            tuple(describe_card(card.object_id, card.card) for card in inspected),
+            program.maximum_creatures,
+            program.maximum_total_mana_value,
+            decision_context(self, player_index),
+        )
+        zones = self._all_zone_lists()
+        before_zones = tuple(tuple(zone) for zone in zones)
+        rng_before = self.rng.state_digest
+        self._top_creature_selection_choice_active = True
+        try:
+            choice = self.top_creature_selection_chooser(view, choices)
+            if not isinstance(choice, TopCreatureSelectionOption) or choice not in choices:
+                raise ValueError("top-creature chooser must return one legal combined-value choice")
+            if (
+                any(tuple(zone) != before for zone, before in zip(zones, before_zones, strict=True))
+                or self.rng.state_digest != rng_before
+            ):
+                raise ValueError("top-creature chooser mutated authoritative state")
+        finally:
+            self._top_creature_selection_choice_active = False
+
+        selected = tuple(
+            next(card for card in inspected if card.object_id == object_id)
+            for object_id in choice.card_ids
+        )
+        remainder = [card for card in inspected if card not in selected]
+        bottom = self.rng.shuffled(remainder, domain=f"top_creature_selection_bottom:{source_id}")
+        library[:] = bottom + [card for card in library if card not in inspected]
+        entered = []
+        for card in selected:
+            # The selected cards have already been removed from the library ordering;
+            # retain their authoritative source zone until each zone transition.
+            library.append(card)
+            permanent = self.move_object(
+                card, "battlefield", controller=player_index, reason="top_creature_selection_entry"
+            )
+            assert isinstance(permanent, Permanent)
+            entered.append((card.object_id, permanent))
+        self.log(
+            "top_creature_selection_resolved",
+            stack_object_id=source_id,
+            controller=player_index,
+            oracle_fragment=program.effect_fragment,
+            inspected_ids=[card.object_id for card in inspected],
+            selected=[{"library_id": old, "battlefield_id": new.object_id} for old, new in entered],
+            bottom_ids=[card.object_id for card in bottom],
+            maximum_creatures=program.maximum_creatures,
+            maximum_total_mana_value=program.maximum_total_mana_value,
+        )
+        self.refresh_static_pt_modifiers()
+        self._process_creatures_entered_triggers(
+            tuple(new for _, new in entered), source_id=source_id, defer_triggers=True
+        )
 
     def resolve_top_card_selection(self, player_index, program, *, source_id: str) -> None:
         """Choose privately from the inspected top cards, then randomize only the remainder."""

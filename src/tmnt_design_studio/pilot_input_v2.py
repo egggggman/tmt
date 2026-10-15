@@ -82,6 +82,16 @@ class TopCardSelectionViewV2:
 
 
 @dataclass(frozen=True, slots=True)
+class TopCreatureSelectionViewV2:
+    player_index: int
+    cards: tuple[CardDescription, ...]
+    maximum_creatures: int
+    maximum_total_mana_value: int
+    context: DecisionContextV2
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
 class HandBottomDrawViewV2:
     player_index: int
     cards: tuple[tuple[str, str], ...]
