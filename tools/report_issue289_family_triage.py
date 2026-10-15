@@ -179,9 +179,18 @@ def main() -> None:
                     {
                         field: event[field]
                         for field in (
-                            "event", "card", "source_zone", "destination_zone", "reason",
-                            "oracle_fragment", "stack_object_id", "permanent_object_id",
-                            "tapped", "attacking", "turn", "step",
+                            "event",
+                            "card",
+                            "source_zone",
+                            "destination_zone",
+                            "reason",
+                            "oracle_fragment",
+                            "stack_object_id",
+                            "permanent_object_id",
+                            "tapped",
+                            "attacking",
+                            "turn",
+                            "step",
                         )
                         if field in event
                     }
@@ -211,8 +220,11 @@ def main() -> None:
                     card_totals[name]["unsupported_fragment_presence"] += 1
             for witness in snapshot["conformance"]["opportunity_witnesses"]:
                 occurrence = next(
-                    (item for item in snapshot["conformance"]["semantic_occurrences"]
-                     if item["occurrence_id"] == witness["occurrence_id"]),
+                    (
+                        item
+                        for item in snapshot["conformance"]["semantic_occurrences"]
+                        if item["occurrence_id"] == witness["occurrence_id"]
+                    ),
                     None,
                 )
                 if occurrence is None:
@@ -295,14 +307,19 @@ def main() -> None:
         "calibration_readiness": "BLOCKED",
     }
     OUTPUT.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps({
-        "families": len(families),
-        "games": len(games),
-        "replays": len(games),
-        "failures": sum(g["status"] == "failure" for g in games),
-        "current": report["current_counts"],
-        "diagnostic": {f["family"]: f["diagnostic"] for f in families},
-    }, sort_keys=True))
+    print(
+        json.dumps(
+            {
+                "families": len(families),
+                "games": len(games),
+                "replays": len(games),
+                "failures": sum(g["status"] == "failure" for g in games),
+                "current": report["current_counts"],
+                "diagnostic": {f["family"]: f["diagnostic"] for f in families},
+            },
+            sort_keys=True,
+        )
+    )
 
 
 if __name__ == "__main__":
