@@ -446,11 +446,13 @@ def test_corpus_memberships_and_digests_are_exact():
     recognized, executable, full = coverage_sets()
 
     assert (len({row[0] for row in recognized}), len(recognized)) == (27, 32)
-    assert (len({row[0] for row in executable}), len(executable)) == (21, 21)
-    assert (len({row[0] for row in full}), len(full)) == (21, 21)
+    assert (len({row[0] for row in executable}), len(executable)) == (22, 23)
+    assert (len({row[0] for row in full}), len(full)) == (22, 23)
     assert digest(recognized) == "af93d6edb678df9768372cfc215f2e4fabab455d0eeff2422d05f5a87934b320"
     # Prior 16-member digest: 0b0ad7f7a1835d34b907ef6e1d5d0461ebc25b597b3d014f9e3ef722b7342269.
     # Prior 17-member digest: c5339e7effcd6a94c74e5e17d1b073309d878b8c4584ad4cd3803b60e8e121ac.
     # Prior 18-member digest: 0ed953d4d45cf955f3e87f3787a5b7fc320f464b3cc58c9990c3bcd230a29837.
-    assert digest(executable) == "f263dbd4d4c52301ad7eb91fda03419b7b52151d321dc81e21d5a8ea229bd49d"
-    assert digest(full) == "f263dbd4d4c52301ad7eb91fda03419b7b52151d321dc81e21d5a8ea229bd49d"
+    prior = [row for row in executable if row[1] != "Ninja Teen"]
+    assert digest(prior) == "f263dbd4d4c52301ad7eb91fda03419b7b52151d321dc81e21d5a8ea229bd49d"
+    assert digest(executable) == "750b837b62828acfb86f8a976dbdf86d56502912e1d7b3813220baf7d9e493fe"
+    assert digest(full) == "750b837b62828acfb86f8a976dbdf86d56502912e1d7b3813220baf7d9e493fe"

@@ -59,7 +59,8 @@ def test_complete_clause_and_incomplete_class_levels_are_distinct():
     assert interpreter.class_creature_anthem(CLASS, ANTHEM) == (1, 0, "menace")
     unsupported = interpreter.unsupported_fragments(CLASS)
     assert ANTHEM not in {fragment for fragment, _ in unsupported}
-    assert "{B}: Level 3" in {fragment for fragment, _ in unsupported}
+    assert "{B}: Level 3" not in {fragment for fragment, _ in unsupported}
+    assert interpreter.class_graveyard_sneak(CLASS) is not None
     incomplete = replace(
         CLASS, oracle_text=CLASS.oracle_text.replace(ANTHEM, ANTHEM + " Draw a card.")
     )
