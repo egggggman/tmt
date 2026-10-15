@@ -1,0 +1,81 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "c4e4d098b06194d58f45f10d78e2bf3cb6aa2606248656e210943d5f8ea800c4",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-disappear-320-splinter-shredder",
+      "seed": 320,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "7a2b89e07a25043887eacf870bd688cc840bd5737fbdf6d5ca96355257994ad9",
+      "event_count": 2115,
+      "departures": 20,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-disappear-320-shredder-splinter",
+      "seed": 320,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "7566ea054624d4d04f013f088fb902ab3f4ad186a65710784a47b49845f2ca0c",
+      "event_count": 808,
+      "departures": 8,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-disappear-320-splinter-bebop_rocksteady",
+      "seed": 320,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "85a5a09361b7db77b9a903f587e46253b8fd50ab695e75c756f69465ae3f18da",
+      "event_count": 1232,
+      "departures": 8,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-disappear-320-bebop_rocksteady-splinter",
+      "seed": 320,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "ebbe93c88e3841e31d12fc3b43aca5bb3baaa5da47d4a0d870895fb8d1a8efde",
+      "event_count": 1107,
+      "departures": 7,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-disappear-320-shredder-bebop_rocksteady",
+      "seed": 320,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "5d4ea02ec068872c251f92634f0309c8a9dc114e681a4244ea798a58e3c39434",
+      "event_count": 991,
+      "departures": 8,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-disappear-320-bebop_rocksteady-shredder",
+      "seed": 320,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "e215118a67a1415f6b2831fbe3e55833195c90ac3233251a8398d690cdaeadca",
+      "event_count": 1807,
+      "departures": 15,
+      "conditional_entry_counters": 0,
+      "conditional_token_triggers": 0,
+      "runtime_error": null
+    }
+  ]
+}

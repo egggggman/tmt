@@ -296,13 +296,6 @@ def test_context_dependent_token_semantics_remain_explicitly_unsupported(fragmen
             None,
         ),
         (
-            "Foot Mystic",
-            "if a permanent left",
-            False,
-            "token_condition_context_not_implemented",
-            None,
-        ),
-        (
             "Lord Dregg, Insect Invader",
             "if a permanent left",
             False,
@@ -801,8 +794,9 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Mouser Attack!",
         "Return to the Sewers",
         "The Last Ronin's Technique",
+        "Foot Mystic",
     }
-    assert len(fully_supported) == 21
+    assert len(fully_supported) == 22
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

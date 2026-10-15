@@ -782,6 +782,15 @@ class InterpretedTokenSemantics:
 
 
 class CardInterpreter:
+    DISAPPEAR_ETB_TOKEN = re.compile(
+        r"^(?:Disappear — )?When this creature enters, if a permanent left the "
+        r"battlefield under your control this turn, (?P<effect>create (?:a|an|[0-9]+) .+ token\.)$"
+    )
+    DISAPPEAR_ENTRY_COUNTERS = re.compile(
+        r"^(?:Disappear — )?This creature enters with (?P<quantity>one|two|three|[0-9]+) "
+        r"\+1/\+1 counters? on it if a permanent left the battlefield under your control "
+        r"this turn\.$"
+    )
     COUNTER_TOKEN_ACTIVATION = re.compile(
         r"^\{1\}, \{T\}, Sacrifice this (?:token|artifact): Put a \+1/\+1 counter "
         r"on target creature\. Activate only as a sorcery\.$",
@@ -3621,6 +3630,10 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        if self.DISAPPEAR_ETB_TOKEN.fullmatch(fragment) and "Creature" in card.type_line:
+            program = self.token_creation_program(fragment)
+            if program is not None:
+                return self._token_semantics(program, True)
         conditional_tokens = self.conditional_sneak_tokens_program(card)
         if conditional_tokens is not None and fragment == conditional_tokens.effect_fragment:
             return self._token_semantics(conditional_tokens.token, True)
@@ -3721,6 +3734,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if "Creature" in card.type_line and self.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
+                continue
             if (
                 creature_selection := self.top_creature_selection_program(card)
             ) is not None and fragment in {
