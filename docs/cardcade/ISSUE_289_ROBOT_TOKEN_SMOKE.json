@@ -1,0 +1,123 @@
+{
+  "schema": "issue289-robot-token-smoke-v1",
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_id": "OBL-BASELINE-005",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "checkpoint_overlay_sha256": "3604f80d3893b199d067a66b866d852adc5eb914c7b5244a0e92f5b7513ea360",
+  "semantic_runtime_sha256": "cec7e566458101e12c0dabd1d3e469960444543122a4443afc44bcdaef7837c3",
+  "game_count": 6,
+  "deterministic_replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-robot-token-casey_jones-donatello-326",
+      "first_player": "casey_jones",
+      "second_player": "donatello",
+      "seed": 326,
+      "result_digest": "ef4d92d499cef3d5975c942e51d9fa1b148af0a7c9e0aba053f74db7671a842b",
+      "replay_equal": true,
+      "ending_turn": 18,
+      "event_count": 1163,
+      "foundry_casts": 1,
+      "robots_casts": 1,
+      "trigger_kind_counts": {
+        "Mouser Foundry:permanent_entered": 1
+      },
+      "tokens_resolved": 1,
+      "tokens_created": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-robot-token-donatello-casey_jones-326",
+      "first_player": "donatello",
+      "second_player": "casey_jones",
+      "seed": 326,
+      "result_digest": "0277e5cd08ca3e4ef7b26bdc087347a199bd8a4afb53685740ea6a4a3b3a5794",
+      "replay_equal": true,
+      "ending_turn": 16,
+      "event_count": 1042,
+      "foundry_casts": 1,
+      "robots_casts": 1,
+      "trigger_kind_counts": {
+        "Mouser Foundry:permanent_entered": 1,
+        "Ravenous Robots:spell_cast": 3
+      },
+      "tokens_resolved": 4,
+      "tokens_created": 4,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-robot-token-casey_jones-bebop_rocksteady-326",
+      "first_player": "casey_jones",
+      "second_player": "bebop_rocksteady",
+      "seed": 326,
+      "result_digest": "6862e46611f82f0fb5f29a0c2dd9f7949303df9a6cf0fbc9f0a5d73da8fd7faa",
+      "replay_equal": true,
+      "ending_turn": 17,
+      "event_count": 921,
+      "foundry_casts": 1,
+      "robots_casts": 1,
+      "trigger_kind_counts": {
+        "Ravenous Robots:spell_cast": 1,
+        "Mouser Foundry:permanent_entered": 1
+      },
+      "tokens_resolved": 2,
+      "tokens_created": 2,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-robot-token-bebop_rocksteady-casey_jones-326",
+      "first_player": "bebop_rocksteady",
+      "second_player": "casey_jones",
+      "seed": 326,
+      "result_digest": "4600f6848cfdeabd56850b28b60bdb39428c6148514671809b5c1d49fede13fa",
+      "replay_equal": true,
+      "ending_turn": 16,
+      "event_count": 852,
+      "foundry_casts": 0,
+      "robots_casts": 1,
+      "trigger_kind_counts": {},
+      "tokens_resolved": 0,
+      "tokens_created": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-robot-token-casey_jones-shredder-326",
+      "first_player": "casey_jones",
+      "second_player": "shredder",
+      "seed": 326,
+      "result_digest": "57d449de0c7ed779b117bca108469042e4b79bf621a53bb2ffc09b748092732c",
+      "replay_equal": true,
+      "ending_turn": 19,
+      "event_count": 965,
+      "foundry_casts": 1,
+      "robots_casts": 1,
+      "trigger_kind_counts": {
+        "Mouser Foundry:permanent_entered": 1
+      },
+      "tokens_resolved": 1,
+      "tokens_created": 1,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-robot-token-shredder-casey_jones-326",
+      "first_player": "shredder",
+      "second_player": "casey_jones",
+      "seed": 326,
+      "result_digest": "0b6b7f470315ae392339343fff6a92e78e0e745dac9676dc50e3f48cacb75575",
+      "replay_equal": true,
+      "ending_turn": 16,
+      "event_count": 855,
+      "foundry_casts": 1,
+      "robots_casts": 1,
+      "trigger_kind_counts": {
+        "Ravenous Robots:spell_cast": 1,
+        "Mouser Foundry:permanent_entered": 1
+      },
+      "tokens_resolved": 2,
+      "tokens_created": 2,
+      "runtime_error": null
+    }
+  ],
+  "calibration_readiness": "BLOCKED"
+}

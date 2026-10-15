@@ -339,6 +339,7 @@ class RulesEventKind(Enum):
     DISCARD_DRAW = "discard_draw"
     VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
+    SPELL_CAST = "spell_cast"
     CLASS_LEVEL_ADVANCED = "class_level_advanced"
     BEGINNING_OF_COMBAT = "beginning_of_combat"
     CARD_DISCARDED = "card_discarded"
@@ -1951,6 +1952,7 @@ class Game(
         departure_last_known = None
         ltb_mutagen_fragments = ()
         ltb_utility_fragments = ()
+        ltb_token_fragments = ()
         if source_zone == "battlefield" and destination != "battlefield":
             assert isinstance(obj, Permanent)
             departure_authority = (
@@ -1980,6 +1982,15 @@ class Game(
                 if (semantics := self.interpreter.utility_trigger_semantics(obj.card, fragment))
                 is not None
                 and semantics[0] == "entry_or_leave"
+            )
+            ltb_token_fragments = tuple(
+                fragment
+                for fragment in self.interpreter.fragments(obj.rules_card)
+                if self.interpreter.entry_leave_or_artifact_cast_token_context(obj.card, fragment)
+                == "entry_or_leave"
+                and (coverage := self.interpreter.token_semantic_coverage(obj.card, fragment))
+                is not None
+                and coverage.fully_supported
             )
             for fragment in ltb_mutagen_fragments:
                 coverage = self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment)
@@ -2111,7 +2122,12 @@ class Game(
                     and self.interpreter.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(fragment)
                 )
             )
-            if qualifying_sources or ltb_mutagen_fragments or ltb_utility_fragments:
+            if (
+                qualifying_sources
+                or ltb_mutagen_fragments
+                or ltb_utility_fragments
+                or ltb_token_fragments
+            ):
                 departure_record = tuple(self.events[-2].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
@@ -2143,6 +2159,8 @@ class Game(
                     self._enqueue_trigger(event, obj, fragment, TriggerEffect.LTB_MUTAGEN)
                 for fragment in ltb_utility_fragments:
                     self._enqueue_trigger(event, obj, fragment, TriggerEffect.UTILITY_TARGET)
+                for fragment in ltb_token_fragments:
+                    self._enqueue_trigger(event, obj, fragment, TriggerEffect.CREATE_TOKEN)
                 for watcher, fragment in qualifying_sources:
                     effect = (
                         TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS
@@ -4311,6 +4329,81 @@ class Game(
             (fragment for fragment in self.interpreter.fragments(card) if fragment == target), None
         )
 
+    def _validate_artifact_token_trigger(
+        self, event: RulesEvent, source: Permanent, fragment: str, controller: int
+    ) -> None:
+        """Bind a parsed token effect to an actual cast or self-zone event."""
+        self._authenticate_original_rules_event(event)
+        context = self.interpreter.entry_leave_or_artifact_cast_token_context(source.card, fragment)
+        coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
+        if (
+            context is None
+            or coverage is None
+            or not coverage.fully_supported
+            or self._objects.get(source.object_id) is not source
+            or fragment not in self.interpreter.fragments(source.rules_card)
+            or (source.object_id, controller) not in event.battlefield_authority
+            or event.player_index != controller
+        ):
+            raise ValueError("artifact token trigger lacks source or Oracle provenance")
+        if context == "entry_or_leave":
+            if event.kind in {RulesEventKind.CREATURE_ENTERED, RulesEventKind.PERMANENT_ENTERED}:
+                valid = event.subject_ids == (source.object_id,)
+            else:
+                valid = (
+                    event.kind is RulesEventKind.PERMANENT_LEFT
+                    and event.subject_ids == (source.object_id,)
+                    and event.source_id == source.object_id
+                    and any(
+                        item[0] == source.object_id and item[1] == controller
+                        for item in event.last_known_battlefield
+                    )
+                )
+        else:
+            spell = self._objects.get(event.source_id)
+            valid = (
+                event.kind is RulesEventKind.SPELL_CAST
+                and event.subject_ids == (event.source_id,)
+                and isinstance(spell, StackObject)
+                and "Artifact" in spell.card.type_line.split(" — ", 1)[0].split()
+                and any(
+                    record["event"] == "spell_cast"
+                    and record.get("stack_object_id") == spell.object_id
+                    and record.get("player") == self.players[controller].name
+                    for record in self.events
+                )
+            )
+        if not valid:
+            raise ValueError("artifact token trigger has invalid cast or zone provenance")
+
+    def _enqueue_artifact_cast_token_triggers(self, spell: StackObject) -> None:
+        """Deliver artifact-spell triggers after complete announcement, before priority."""
+        if "Artifact" not in spell.card.type_line.split(" — ", 1)[0].split():
+            return
+        if not self.is_authoritative(spell, "stack"):
+            raise ValueError("cast event requires an authoritative spell")
+        event = self._new_rules_event(
+            RulesEventKind.SPELL_CAST,
+            spell.controller,
+            (spell.object_id,),
+            source_id=spell.object_id,
+        )
+        for source in tuple(self.players[spell.controller].battlefield):
+            for fragment in self.interpreter.fragments(source.rules_card):
+                if (
+                    self.interpreter.entry_leave_or_artifact_cast_token_context(
+                        source.card, fragment
+                    )
+                    == "artifact_cast"
+                    and (
+                        coverage := self.interpreter.token_semantic_coverage(source.card, fragment)
+                    )
+                    is not None
+                    and coverage.fully_supported
+                ):
+                    self._enqueue_trigger(event, source, fragment, TriggerEffect.CREATE_TOKEN)
+        self._put_pending_triggers_on_stack()
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -4320,6 +4413,12 @@ class Game(
         *,
         grant_source: Permanent | None = None,
     ) -> None:
+        if (
+            effect is TriggerEffect.CREATE_TOKEN
+            and self.interpreter.entry_leave_or_artifact_cast_token_context(source.card, fragment)
+            is not None
+        ):
+            self._validate_artifact_token_trigger(event, source, fragment, source.controller)
         if effect is TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN:
             self._authenticate_original_rules_event(event)
             if (
@@ -5927,6 +6026,30 @@ class Game(
                 or not coverage.parent_executable
             ):
                 raise AssertionError("stacked token trigger no longer has executable semantics")
+            if (
+                self.interpreter.entry_leave_or_artifact_cast_token_context(
+                    ability.source_card, ability.oracle_fragment
+                )
+                is not None
+            ):
+                trigger = self._triggers.get(ability.trigger_id)
+                source = self._objects.get(ability.source_id)
+                if (
+                    not isinstance(source, Permanent)
+                    or source.card is not ability.source_card
+                    or trigger is None
+                    or trigger.event is not ability.event
+                    or trigger.source_id != ability.source_id
+                    or trigger.source_card is not ability.source_card
+                    or trigger.controller != ability.controller
+                    or trigger.effect is not ability.effect
+                    or trigger.oracle_fragment != ability.oracle_fragment
+                    or source.zone not in {"battlefield", "former"}
+                ):
+                    raise ValueError("artifact token trigger was relinked")
+                self._validate_artifact_token_trigger(
+                    ability.event, source, ability.oracle_fragment, ability.controller
+                )
             conditional = ability.effect is TriggerEffect.CONDITIONAL_ENTRY_TOKEN
             if conditional:
                 self._authenticate_original_rules_event(ability.event)
@@ -6833,7 +6956,13 @@ class Game(
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
         while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
-            if self.stack[-1].effect in {
+            if (
+                self.stack[-1].effect is TriggerEffect.CREATE_TOKEN
+                and self.interpreter.entry_leave_or_artifact_cast_token_context(
+                    self.stack[-1].source_card, self.stack[-1].oracle_fragment
+                )
+                is not None
+            ) or self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
@@ -7859,6 +7988,24 @@ class Game(
                 (permanent.object_id,),
                 source_id=source_id,
             )
+            if TriggerEffect.CREATE_TOKEN in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    if (
+                        self.interpreter.entry_leave_or_artifact_cast_token_context(
+                            permanent.card, fragment
+                        )
+                        == "entry_or_leave"
+                        and (
+                            coverage := self.interpreter.token_semantic_coverage(
+                                permanent.card, fragment
+                            )
+                        )
+                        is not None
+                        and coverage.fully_supported
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.CREATE_TOKEN
+                        )
             if TriggerEffect.ETB_MILL_DRAW_DISCARD in enabled:
                 for fragment in self.interpreter.fragments(permanent.rules_card):
                     if (
@@ -9406,6 +9553,7 @@ class Game(
             target_id=target.object_id,
             response=True,
         )
+        self._enqueue_artifact_cast_token_triggers(spell)
         self.log(
             "response_selected",
             player=self.players[player_index].name,
@@ -13361,6 +13509,7 @@ class Game(
             source_zone=source_zone,
             oracle_fragment=plan.oracle_fragment,
         )
+        self._enqueue_artifact_cast_token_triggers(spell)
         self.check_state_based_actions()
         self._begin_priority_window()
         assert self.priority_state is not None
@@ -13414,6 +13563,10 @@ class Game(
         )
         if spell is None:
             return False
+        if self.stack[-1] is not spell:
+            # A cast trigger sits above the spell; ordinary priority owns that stack.
+            self._begin_priority_window(priority_player=player_index)
+            return True
         self.resolve_top_of_stack()
         return True
 
@@ -13808,6 +13961,7 @@ class Game(
             source_target_id=spell.source_target_id,
             mode_fragment=spell.mode_fragment,
         )
+        self._enqueue_artifact_cast_token_triggers(spell)
         return spell
 
     def resolve_top_of_stack(self) -> CardObject | Permanent | None:
@@ -13819,41 +13973,52 @@ class Game(
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("top stack object is not authoritative")
         if isinstance(spell, TriggeredAbilityObject):
-            if spell.effect in {
-                TriggerEffect.LTB_MUTAGEN,
-                TriggerEffect.PARAMECIA_EXILE_CHOICE,
-                TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
-                TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
-                TriggerEffect.RAPHAEL_ATTACK_PLAY,
-                TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
-                TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
-                TriggerEffect.DISAPPEAR_END_STEP,
-                TriggerEffect.ETB_VIGILANTE,
-                TriggerEffect.VIGILANTE_DISCARD,
-                TriggerEffect.ETB_KRANG_REFILL,
-                TriggerEffect.ETB_MILL_THREE,
-                TriggerEffect.ETB_JURY_RIG,
-                TriggerEffect.ETB_FOOD_SEARCH,
-                TriggerEffect.ETB_DRAW_DISCARD,
-                TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
-                TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
-                TriggerEffect.UTILITY_TARGET,
-                TriggerEffect.ETB_MILL_DRAW_DISCARD,
-                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
-                TriggerEffect.DISCARD_DRAW,
-                TriggerEffect.DIES_DRAW,
-                TriggerEffect.SNEAK_ETB_CONDITION,
-                TriggerEffect.ETB_DRAIN_GAIN_SCRY,
-                TriggerEffect.ETB_SELF_LIFE_GAIN,
-                TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
-                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
-                TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
-                TriggerEffect.ETB_ARTIFACT_DRAW,
-                TriggerEffect.ETB_TAP_STUN,
-                TriggerEffect.ETB_ANY_TARGET_DAMAGE,
-                TriggerEffect.ETB_DESTROY_TARGET_CREATURE,
-            } and (
-                not self._priority_resolution_in_progress
+            if (
+                (
+                    (
+                        spell.effect is TriggerEffect.CREATE_TOKEN
+                        and self.interpreter.entry_leave_or_artifact_cast_token_context(
+                            spell.source_card, spell.oracle_fragment
+                        )
+                        is not None
+                    )
+                    or spell.effect
+                    in {
+                        TriggerEffect.LTB_MUTAGEN,
+                        TriggerEffect.PARAMECIA_EXILE_CHOICE,
+                        TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
+                        TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
+                        TriggerEffect.RAPHAEL_ATTACK_PLAY,
+                        TriggerEffect.COMBAT_DISCARD_OR_SACRIFICE,
+                        TriggerEffect.END_STEP_SPELL_TYPES_DRAW,
+                        TriggerEffect.DISAPPEAR_END_STEP,
+                        TriggerEffect.ETB_VIGILANTE,
+                        TriggerEffect.VIGILANTE_DISCARD,
+                        TriggerEffect.ETB_KRANG_REFILL,
+                        TriggerEffect.ETB_MILL_THREE,
+                        TriggerEffect.ETB_JURY_RIG,
+                        TriggerEffect.ETB_FOOD_SEARCH,
+                        TriggerEffect.ETB_DRAW_DISCARD,
+                        TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
+                        TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
+                        TriggerEffect.UTILITY_TARGET,
+                        TriggerEffect.ETB_MILL_DRAW_DISCARD,
+                        TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
+                        TriggerEffect.DISCARD_DRAW,
+                        TriggerEffect.DIES_DRAW,
+                        TriggerEffect.SNEAK_ETB_CONDITION,
+                        TriggerEffect.ETB_DRAIN_GAIN_SCRY,
+                        TriggerEffect.ETB_SELF_LIFE_GAIN,
+                        TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
+                        TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
+                        TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
+                        TriggerEffect.ETB_ARTIFACT_DRAW,
+                        TriggerEffect.ETB_TAP_STUN,
+                        TriggerEffect.ETB_ANY_TARGET_DAMAGE,
+                        TriggerEffect.ETB_DESTROY_TARGET_CREATURE,
+                    }
+                )
+                and not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
             ):
                 raise ValueError(
