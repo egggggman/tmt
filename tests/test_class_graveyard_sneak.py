@@ -114,9 +114,19 @@ def test_grant_source_in_hand_is_not_a_sneak_spell_and_graveyard_creature_still_
         game, source, attacker, grave = setup()
         card = game._create_card_object(replace(CLASS, name="Another Training Class"), 0, "hand")
         game.players[0].hand.append(card)
+        exile_card = game._create_card_object(
+            replace(CLASS, name="Exiled Training Class"), 0, "exile"
+        )
+        game.players[0].exile.append(exile_card)
+        grave_class = game._create_card_object(
+            replace(CLASS, name="Discarded Training Class"), 0, "graveyard"
+        )
+        game.players[0].graveyard.append(grave_class)
         blockers(game, attacker)
         options = game.legal_sneak_actions(0)
         assert not any(option.object_id == card.object_id for option in options)
+        assert not game._sneak_semantics(exile_card, 0)
+        assert not game._sneak_semantics(grave_class, 0)
         assert game.sneak_payment_plan(0, card, attacker) is None
         forged = ActionOption(
             ActionKind.CAST,
