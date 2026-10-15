@@ -2,8 +2,10 @@
 
 from dataclasses import replace
 
+import pytest
+
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
-from tmnt_design_studio.engine07 import CardFact, Game, RulesEventKind, TurnStep
+from tmnt_design_studio.engine07 import CardFact, Game, TriggeredAbilityObject, TurnStep
 
 LAND = CardFact("Swamp", "", 0, "Basic Land — Swamp")
 TOKEN_TEXT = (
@@ -62,14 +64,17 @@ def test_controller_at_departure_even_when_owner_differs_and_source_arrives_late
     result = game()
     stolen = result.create_permanent(LAND, 1, controller=0)
     result.move_object(stolen, "graveyard")
-    departure = [
-        e for e in result._rules_events.values() if e.kind is RulesEventKind.PERMANENT_LEFT
-    ]
-    assert len(departure) == 1 and departure[0].player_index == 0
+    departure = [e for e in result.events if e["event"] == "permanent_departed"]
+    assert len(departure) == 1 and departure[0]["controller"] == 0
     assert result._left_under_control_this_turn(0)
     assert not result._left_under_control_this_turn(1)
     source = enter(result, TOKEN_SOURCE)
     assert any(e["event"] == "trigger_stacked" for e in result.events)
+    assert len(result.stack) == 1 and isinstance(result.stack[-1], TriggeredAbilityObject)
+    assert not any(p.card.name == "Ninja" for p in result.players[0].battlefield)
+    with pytest.raises(ValueError, match="all players pass"):
+        result.resolve_top_of_stack()
+    pass_priority(result)
     assert source.zone == "battlefield"
     assert sum(p.card.name == "Ninja" for p in result.players[0].battlefield) == 1
     result.check_invariants()
@@ -87,6 +92,30 @@ def test_intervening_if_absent_at_entry_does_not_trigger_and_entry_counters_appl
     assert boosted.counters["+1/+1"] == 2
     assert boosted.power == 3
     result.check_invariants()
+
+
+def test_control_change_is_not_a_departure_but_later_hand_return_records_last_controller():
+    result = game()
+    foreign = result.create_permanent(LAND, 1)
+    result.change_controller(foreign, 0)
+    assert not result._left_under_control_this_turn(0)
+    result.move_object(foreign, "hand")
+    assert result._left_under_control_this_turn(0)
+    assert not result._left_under_control_this_turn(1)
+    result.check_invariants()
+
+
+def test_departure_provenance_rejects_mutated_controller_history():
+    result = game()
+    result.move_object(result.create_permanent(LAND, 0), "exile")
+    record = next(e for e in result.events if e["event"] == "permanent_departed")
+    record["controller"] = 1
+    try:
+        result.check_invariants()
+    except AssertionError as error:
+        assert "departure history" in str(error)
+    else:
+        raise AssertionError("forged departure controller passed invariants")
 
 
 def test_departure_history_expires_at_next_turn_and_trigger_survives_source_departure():

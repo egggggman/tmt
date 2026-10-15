@@ -347,6 +347,7 @@ class TriggerEffect(Enum):
     ATTACK_PT = "attack_pt"
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
+    CONDITIONAL_ENTRY_TOKEN = "conditional_entry_token"
     DEAL_DAMAGE = "deal_damage"
     ETB_ANY_TARGET_DAMAGE = "etb_any_target_damage"
     SCRY = "scry"
@@ -2037,6 +2038,14 @@ class Game(
             reason=reason,
             library_position=library_position,
         )
+        if departure_last_known is not None:
+            self.log(
+                "permanent_departed",
+                source_object_id=obj.object_id,
+                destination_object_id=replacement.object_id,
+                controller=departure_last_known[1],
+                type_line=departure_last_known[2],
+            )
         if destination == "battlefield" and isinstance(replacement, Permanent):
             for fragment in self.interpreter.fragments(replacement.rules_card):
                 if self.interpreter.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
@@ -2072,8 +2081,8 @@ class Game(
                 for watcher, fragment in departure_sources
                 if watcher.object_id != obj.object_id
             )
-            if departure_last_known is not None:
-                departure_record = tuple(self.events[-1].items())
+            if qualifying_sources or ltb_mutagen_fragments or ltb_utility_fragments:
+                departure_record = tuple(self.events[-2].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
                     departure_last_known[1],
@@ -2153,19 +2162,11 @@ class Game(
 
     def _left_under_control_this_turn(self, controller: int) -> bool:
         """Use departure-time control, including before the source entered this turn."""
-        for event in self._rules_events.values():
-            if (
-                event.kind is RulesEventKind.PERMANENT_LEFT
-                and event.turn == self.turn
-                and event.player_index == controller
-            ):
-                self._authenticate_original_rules_event(event)
-                if any(
-                    object_id == event.source_id and last_controller == controller
-                    for object_id, last_controller, _type, _creature in event.last_known_battlefield
-                ):
-                    return True
-        return False
+        return any(
+            record["turn"] == self.turn and record["controller"] == controller
+            for record in self.events
+            if record["event"] == "permanent_departed"
+        )
 
     def change_controller(self, permanent: Permanent, controller: int) -> None:
         """Change control without changing owner or runtime object identity."""
@@ -4394,6 +4395,17 @@ class Game(
                 event=event,
                 require_current_condition=False,
             )
+        if effect is TriggerEffect.CONDITIONAL_ENTRY_TOKEN:
+            self._authenticate_original_rules_event(event)
+            if (
+                event.kind is not RulesEventKind.CREATURE_ENTERED
+                or event.subject_ids != (source.object_id,)
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or not self.is_authoritative(source, "battlefield")
+                or not self.interpreter.DISAPPEAR_ETB_TOKEN.fullmatch(fragment)
+                or not self._left_under_control_this_turn(source.controller)
+            ):
+                raise ValueError("conditional entry trigger condition or provenance invalid")
         if effect is TriggerEffect.ETB_FOOD_SEARCH:
             self._authenticate_original_rules_event(event)
             if (
@@ -5740,7 +5752,10 @@ class Game(
                 )
         elif ability.effect is TriggerEffect.LTB_MUTAGEN:
             self._resolve_ltb_mutagen(ability)
-        elif ability.effect is TriggerEffect.CREATE_TOKEN:
+        elif ability.effect in {
+            TriggerEffect.CREATE_TOKEN,
+            TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
+        }:
             coverage = self.interpreter.token_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
             )
@@ -5750,9 +5765,7 @@ class Game(
                 or not coverage.parent_executable
             ):
                 raise AssertionError("stacked token trigger no longer has executable semantics")
-            conditional = bool(
-                self.interpreter.DISAPPEAR_ETB_TOKEN.fullmatch(ability.oracle_fragment)
-            )
+            conditional = ability.effect is TriggerEffect.CONDITIONAL_ENTRY_TOKEN
             if conditional:
                 self._authenticate_original_rules_event(ability.event)
                 trigger = self._triggers.get(ability.trigger_id)
@@ -6559,6 +6572,7 @@ class Game(
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.ETB_SELF_LIFE_GAIN,
+                TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -7349,7 +7363,7 @@ class Game(
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.SNEAK_ETB_CONDITION
                     )
-        if TriggerEffect.CREATE_TOKEN in enabled:
+        if {TriggerEffect.CREATE_TOKEN, TriggerEffect.CONDITIONAL_ENTRY_TOKEN} & enabled:
             for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.token_semantic_coverage(entering.card, fragment)
                 if (
@@ -7364,7 +7378,13 @@ class Game(
                         )
                     )
                 ):
-                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
+                    effect = (
+                        TriggerEffect.CONDITIONAL_ENTRY_TOKEN
+                        if self.interpreter.DISAPPEAR_ETB_TOKEN.fullmatch(fragment)
+                        else TriggerEffect.CREATE_TOKEN
+                    )
+                    if effect in enabled:
+                        self._enqueue_trigger(event, entering, fragment, effect)
         if TriggerEffect.SCRY in enabled:
             for fragment in self.interpreter.fragments(entering.rules_card):
                 coverage = self.interpreter.scry_semantic_coverage(entering.card, fragment)
@@ -7519,6 +7539,7 @@ class Game(
             TriggerEffect.ALLIANCE_MODAL,
             TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
             TriggerEffect.CREATE_TOKEN,
+            TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
             TriggerEffect.DEAL_DAMAGE,
             TriggerEffect.ETB_ANY_TARGET_DAMAGE,
             TriggerEffect.ETB_ATTACH_EQUIPMENT,
@@ -13384,6 +13405,7 @@ class Game(
                 TriggerEffect.SNEAK_ETB_CONDITION,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.ETB_SELF_LIFE_GAIN,
+                TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -14916,6 +14938,27 @@ class Game(
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        departures = [
+            (index, item)
+            for index, item in enumerate(self.events)
+            if item["event"] == "permanent_departed"
+        ]
+        for index, item in departures:
+            source = self._objects.get(item["source_object_id"])
+            preceding = self.events[index - 1] if index else {}
+            if (
+                not isinstance(source, Permanent)
+                or source.zone != "former"
+                or source.controller != item["controller"]
+                or source.type_line != item["type_line"]
+                or preceding.get("event") != "zone_changed"
+                or preceding.get("source_object_id") != item["source_object_id"]
+                or preceding.get("destination_object_id") != item["destination_object_id"]
+                or preceding.get("source_zone") != "battlefield"
+                or preceding.get("destination_zone") == "battlefield"
+                or preceding.get("turn") != item["turn"]
+            ):
+                raise AssertionError("departure history lacks zone and controller provenance")
         linked_grants = [grant for grants in self._linked_play_grants.values() for grant in grants]
         if len({grant.grant_id for grant in linked_grants}) != len(linked_grants) or any(
             grant.source_id != source_id
