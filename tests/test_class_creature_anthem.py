@@ -60,9 +60,11 @@ def test_complete_clause_and_incomplete_class_levels_are_distinct():
     unsupported = interpreter.unsupported_fragments(CLASS)
     assert ANTHEM not in {fragment for fragment, _ in unsupported}
     assert "{B}: Level 3" in {fragment for fragment, _ in unsupported}
-    assert interpreter.unsupported_fragments(
-        replace(CLASS, oracle_text=CLASS.oracle_text.replace(ANTHEM, ANTHEM + " Draw a card."))
+    incomplete = replace(
+        CLASS, oracle_text=CLASS.oracle_text.replace(ANTHEM, ANTHEM + " Draw a card.")
     )
+    assert interpreter.class_level_child(incomplete, 2) is None
+    assert not interpreter.activated_ability_semantics(incomplete, LEVEL).coverage.fully_supported
     assert interpreter.class_level_child(replace(CLASS, name="Renamed Class"), 2) == ANTHEM
 
 
@@ -166,3 +168,31 @@ def test_source_departure_before_level_resolution_and_repeatable_event_history()
         return game.snapshot(), game.events, game.rng.records
 
     assert run() == run()
+
+
+def test_later_level_does_not_retimestamp_earlier_static_keyword_grant():
+    third = replace(
+        CLASS,
+        oracle_text=CLASS.oracle_text.replace(
+            "Creature cards in your graveyard have sneak {3}{B}.\n"
+            "You may cast creature spells from your graveyard using their sneak abilities.",
+            "When this Class becomes level 3, search your library for a card, "
+            "put it into your hand, shuffle, then discard a card at random.",
+        ),
+    )
+    game, original, attacker = setup()
+    game.move_object(original, "graveyard")
+    source = game.create_permanent(third, 0)
+    level_two(game, source)
+    aura = game.create_permanent(AURA, 1)
+    game.attach_aura(aura, attacker)
+    assert not game._has_menace(attacker)
+    level_two_timestamp = source.class_level_timestamp
+    game.create_permanent(SWAMP, 0, summoning_sick=False)
+    assert game.activate_ability(0, source, "{B}: Level 3")
+    resolve(game)
+    assert source.class_level == 3
+    assert source.class_level_timestamp == level_two_timestamp
+    assert (attacker.power, attacker.toughness) == (1, 1)
+    assert not game._has_menace(attacker)
+    game.check_invariants()

@@ -12373,7 +12373,8 @@ class Game(
                 raise ValueError("Class level advancement no longer has valid progression")
             next_level = int(level_match["level"])
             source_permanent.class_level = next_level
-            source_permanent.class_level_timestamp = self._effect_timestamp()
+            if next_level == 2:
+                source_permanent.class_level_timestamp = self._effect_timestamp()
             self.refresh_static_pt_modifiers()
             event = self._new_rules_event(
                 RulesEventKind.CLASS_LEVEL_ADVANCED,
