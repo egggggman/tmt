@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from tmnt_design_studio.card_data import load_card_data
+from tmnt_design_studio.card_interpreter07 import CardInterpreter
 from tmnt_design_studio.engine07 import (
     ActionKind,
     ActionOption,
@@ -15,12 +16,28 @@ from tmnt_design_studio.engine07 import (
     TurnStep,
     load_facts,
 )
+from tmnt_design_studio.stage002 import _semantic_coverage
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
 FACTS = load_facts(
     load_card_data(CATALOG, CATALOG.with_suffix(".manifest.json")),
-    {"Mouser Attack!", "Raphael's Technique"},
+    {
+        "Casey Jones, Jury-Rig Justiciar",
+        "Raphael, Tough Turtle",
+        "Wingnut, Bat on the Belfry",
+        "Mutant Town Musicians",
+        "Null Group Biological Assets",
+        "Raphael, Most Attitude",
+        "Raphael, Ninja Destroyer",
+        "Raphael, the Nightwatcher",
+        "Skateboard",
+        "Spicy Oatmeal Pizza",
+        "Cool but Rude",
+        "Manhole Missile",
+        "Mouser Attack!",
+        "Raphael's Technique",
+    },
 )
 MOUNTAIN = CardFact("Mountain", "", 0, "Basic Land — Mountain")
 BEAR = CardFact("Ordinary Bear", "{1}{R}", 2, "Creature — Bear", power=2, toughness=2)
@@ -159,6 +176,34 @@ def test_linked_sneak_uses_alt_cost_and_consumes_exact_grant():
     assert run() == run()
 
 
+def test_linked_sneak_uses_priority_on_an_existing_stack():
+    current = game(seed=324)
+    source = current.create_permanent(BEAR, 0)
+    card = link(current, source, FACTS["Raphael's Technique"])
+    permission = grant(current, source)
+    attacker = current.create_permanent(BEAR, 0, summoning_sick=False)
+    current.advance_to(TurnStep.DECLARE_ATTACKERS)
+    current.execute_attack_action(
+        ActionOption(ActionKind.DECLARE_ATTACKERS, 0, attacker_ids=(attacker.object_id,))
+    )
+    current.execute_block_action(ActionOption(ActionKind.DECLARE_BLOCKERS, 1))
+    opposing = current.set_hand_for_testing(1, [BEAR])[0]
+    current.move_object(
+        opposing,
+        "stack",
+        controller=1,
+        cast_kind=current.interpreter.cast_program(BEAR).kind,
+        reason="test_spell",
+    )
+    current._begin_priority_window(priority_player=0)
+    option = next(o for o in current.legal_priority_actions(0) if o.object_id == card.object_id)
+    assert option.priority_epoch == current.priority_state.epoch
+    current.execute_priority_action(option)
+    assert current.stack[-1].cast_from_raphael and permission.remaining_plays == 0
+    drain(current)
+    current.check_invariants()
+
+
 def test_invalid_or_expired_linked_grant_cannot_pay_or_move_card():
     current = game(lands=0)
     source = current.create_permanent(BEAR, 0)
@@ -168,4 +213,109 @@ def test_invalid_or_expired_linked_grant_cannot_pay_or_move_card():
     assert current.payment_plan(0, exiled, allow_exile=True) is None
     assert current.announce_spell(0, exiled, cast_from_exile=True) is None
     assert permission.remaining_plays == 1 and exiled.zone == "exile"
+    current.check_invariants()
+
+
+def test_linked_coverage_is_generic_across_source_names():
+    card = CardFact(
+        "Unrelated Source",
+        "{2}{R}",
+        3,
+        "Creature — Ninja",
+        "Alliance — Whenever another creature you control enters, you may exile the top "
+        "card of your library.\n"
+        "Whenever this creature attacks, until end of turn, you may play a card "
+        "exiled with this creature.",
+        power=2,
+        toughness=2,
+    )
+    interpreter = CardInterpreter()
+    fragments = interpreter.fragments(card)
+    assert len(fragments) == 2
+    assert all(
+        _semantic_coverage(interpreter, card, fragment, ())["fully_supported"]
+        for fragment in fragments
+    )
+
+
+def test_linked_land_uses_one_play_at_main_sorcery_speed():
+    current = game(lands=0)
+    source = current.create_permanent(BEAR, 0)
+    exiled = link(current, source, MOUNTAIN)
+    permission = grant(current, source)
+    current._begin_priority_window(allow_empty=True, priority_player=0)
+    assert not current.play_land(0, exiled, from_raphael=True)
+    assert permission.remaining_plays == 1
+    drain(current)
+    assert current.play_land(0, exiled, from_raphael=True)
+    assert permission.remaining_plays == 0 and current.players[0].lands_played == 1
+    current.check_invariants()
+
+
+def test_link_uses_exile_object_identity_after_zone_changes():
+    current = game(lands=0)
+    source = current.create_permanent(BEAR, 0)
+    card = link(current, source, FREE)
+    grant(current, source)
+    moved = current.move_object(card, "graveyard", reason="test_departure")
+    returned = current.move_object(moved, "exile", reason="test_return")
+    assert returned.object_id != card.object_id
+    assert current._raphael_permission_for(0, returned) is None
+    assert not any(o.object_id == returned.object_id for o in current.legal_main_actions(0))
+    current.check_invariants()
+
+
+def test_linked_payment_obeys_each_floating_mana_unit_restriction():
+    source_mana = CardFact(
+        "Generic Restricted Producer",
+        "",
+        0,
+        "Creature — Rogue",
+        "{T}: Add {R}. Spend this mana only to cast an artifact spell or to activate an ability.",
+        power=1,
+        toughness=1,
+    )
+    current = game(lands=0)
+    producer = current.create_permanent(source_mana, 0, summoning_sick=False)
+    source = current.create_permanent(BEAR, 0)
+    creature = link(current, source, replace(BEAR, mana_cost="{R}", mana_value=1))
+    artifact = link(
+        current,
+        source,
+        CardFact("Unrelated Artifact", "{R}", 1, "Artifact Creature", power=1, toughness=1),
+    )
+    grant(current, source)
+    activation = next(
+        o
+        for o in current.legal_main_actions(0)
+        if o.kind is ActionKind.ACTIVATE_ABILITY and o.object_id == producer.object_id
+    )
+    current.execute_main_action(activation)
+    assert current.payment_plan(0, creature, allow_exile=True) is None
+    assert current.payment_plan(0, artifact, allow_exile=True) is not None
+    action = next(o for o in current.legal_main_actions(0) if o.object_id == artifact.object_id)
+    current.execute_main_action(action)
+    drain(current)
+    assert current._raphael_permission_for(0, creature) is None
+    current.check_invariants()
+
+
+@pytest.mark.parametrize("name", tuple(FACTS))
+def test_every_frozen_raphael_nonland_family_is_playable_from_linked_exile(name):
+    current = game(seed=323, lands=6)
+    source = current.create_permanent(BEAR, 0)
+    current.create_permanent(BEAR, 1)
+    exiled = link(current, source, FACTS[name])
+    permission = grant(current, source)
+    options = [o for o in current.legal_main_actions(0) if o.object_id == exiled.object_id]
+    assert options, f"missing linked legal action for {name}"
+    current.execute_main_action(options[0])
+    assert permission.remaining_plays == 0
+    drain(current)
+    assert any(
+        e["event"] == "zone_changed"
+        and e.get("source_object_id") == exiled.object_id
+        and e.get("source_zone") == "exile"
+        for e in current.events
+    )
     current.check_invariants()

@@ -9078,6 +9078,11 @@ class Game(
             *self._hand_temporary_type_base_pt_draw_options(player_index),
             *self._hand_targeted_library_return_options(player_index),
             *self._linked_exile_instant_options(player_index),
+            *(
+                option
+                for option in self.legal_sneak_actions(player_index)
+                if option.kind is ActionKind.CAST
+            ),
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_mana_ability_actions(player_index, priority=True),
             *self._counter_activation_options(player_index),
@@ -9428,6 +9433,10 @@ class Game(
         """Revalidate and apply one pilot-selected bounded priority decision."""
         if option not in self.legal_priority_actions(option.player_index):
             raise ValueError("priority action is not currently legal")
+        if option.kind is ActionKind.CAST and option in self.legal_sneak_actions(
+            option.player_index
+        ):
+            return self.execute_sneak_action(option)
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             source = self._objects.get(option.object_id or "")
             if isinstance(source, CardObject) and option.oracle_fragment is not None:
@@ -10010,8 +10019,14 @@ class Game(
             player_index != self.active_player
             or self.step is not TurnStep.DECLARE_BLOCKERS
             or not self._blockers_declared
-            or self.priority_state is not None
-            or self.stack
+            or (
+                self.priority_state is not None
+                and (
+                    self.priority_state.resolution_pending
+                    or self.priority_state.player_index != player_index
+                )
+            )
+            or (self.stack and self.priority_state is None)
             or not (
                 (self.is_authoritative(card, "hand") and card.owner == player_index)
                 or self._linked_play_grant_for(player_index, card) is not None
@@ -10061,8 +10076,14 @@ class Game(
             player_index != self.active_player
             or self.step is not TurnStep.DECLARE_BLOCKERS
             or not self._blockers_declared
-            or self.priority_state is not None
-            or self.stack
+            or (
+                self.priority_state is not None
+                and (
+                    self.priority_state.resolution_pending
+                    or self.priority_state.player_index != player_index
+                )
+            )
+            or (self.stack and self.priority_state is None)
         ):
             return ()
         options: list[ActionOption] = []
@@ -10089,6 +10110,9 @@ class Game(
                                 cost_object_id=attacker.object_id,
                                 oracle_fragment=fragment,
                                 choice_ids=tuple(target.object_id for target in targets),
+                                priority_epoch=(
+                                    self.priority_state.epoch if self.priority_state else None
+                                ),
                             )
                             for targets in self._graveyard_recursion_targets(player_index, card)
                         )
@@ -10112,10 +10136,14 @@ class Game(
                             target_id=target.object_id if target is not None else None,
                             cost_object_id=attacker.object_id,
                             oracle_fragment=fragment,
+                            priority_epoch=(
+                                self.priority_state.epoch if self.priority_state else None
+                            ),
                         )
                         for target in targets
                     )
-        options.append(ActionOption(ActionKind.PASS, player_index))
+        if self.priority_state is None:
+            options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
     def execute_attack_action(self, attack: ActionOption) -> None:
@@ -14827,6 +14855,17 @@ class Game(
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        linked_grants = [grant for grants in self._linked_play_grants.values() for grant in grants]
+        if len({grant.grant_id for grant in linked_grants}) != len(linked_grants) or any(
+            grant.source_id != source_id
+            or source_id not in self._objects
+            or grant.controller not in range(2)
+            or grant.expires_turn > self.turn
+            or grant.remaining_plays not in {0, 1}
+            for source_id, grants in self._linked_play_grants.items()
+            for grant in grants
+        ):
+            raise AssertionError("linked play grant provenance or consumption is malformed")
         try:
             self._validate_stun_history()
         except ValueError as error:
