@@ -1,0 +1,75 @@
+{
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "semantic_runtime_sha256": "f24a3c15bbe71ab2e1200bb0685f3dab1ba07908de320a28d49597c674e6ee90",
+  "game_count": 6,
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-class-departure-splinter-shredder",
+      "seed": 321,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "c1c4ede9bed241485af75448b709a06c3fc2f723f64a831cad310302645a604b",
+      "event_count": 1247,
+      "departures": 15,
+      "class_departure_life_loss": 4,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-departure-shredder-splinter",
+      "seed": 321,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "0b5d447756477e7a7802a937f6306315468a740a2b79635b81645451a0750391",
+      "event_count": 1504,
+      "departures": 18,
+      "class_departure_life_loss": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-departure-splinter-bebop_rocksteady",
+      "seed": 321,
+      "first_player": "splinter",
+      "replay_equal": true,
+      "result_digest": "546661e91ed6564fc5cc11c86658192d149c847b54d19452dabf3deac4262090",
+      "event_count": 785,
+      "departures": 3,
+      "class_departure_life_loss": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-departure-bebop_rocksteady-splinter",
+      "seed": 321,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "996a07c443117f9a3672c4b5c78bb620f7ceb6e654fcb927915f4745e79b9816",
+      "event_count": 751,
+      "departures": 4,
+      "class_departure_life_loss": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-departure-shredder-bebop_rocksteady",
+      "seed": 321,
+      "first_player": "shredder",
+      "replay_equal": true,
+      "result_digest": "f43ba114c66b6a898ced69757533fea2ef0df5c5186da4bf3b0fd9ac44fc7649",
+      "event_count": 1914,
+      "departures": 20,
+      "class_departure_life_loss": 0,
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-departure-bebop_rocksteady-shredder",
+      "seed": 321,
+      "first_player": "bebop_rocksteady",
+      "replay_equal": true,
+      "result_digest": "46bb25a90a06737c2421cbd2c15a4bf569ed41d05c2d243140cc10a311a86f5a",
+      "event_count": 679,
+      "departures": 3,
+      "class_departure_life_loss": 0,
+      "runtime_error": null
+    }
+  ]
+}
