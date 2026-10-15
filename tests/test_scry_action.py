@@ -23,7 +23,11 @@ RECOGNIZED_NAMES = {
     "Nobody",
     "Path of Ancestry",
 }
-FULL_NAMES = {"April O'Neil, Kunoichi Trainee", "Lita, Little Orphan Amphibian"}
+FULL_NAMES = {
+    "April O'Neil, Kunoichi Trainee",
+    "Insectoid Exterminator",
+    "Lita, Little Orphan Amphibian",
+}
 ROSTER_NAMES = {
     "April O'Neil, Kunoichi Trainee",
     "Dream Beavers",
@@ -251,12 +255,18 @@ def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, full = coverage_sets()
     assert len({member[0] for member in recognized}) == 7 and len(recognized) == 7
     assert executable == recognized
-    assert len(full) == 2
+    assert len(full) == 3
     assert {member[1] for member in recognized} == RECOGNIZED_NAMES
     assert {member[1] for member in full} == FULL_NAMES
     assert digest(recognized) == "e62415c25929c3022801aefbcec0a0f562bba372d9ed15f2021d536179ae71a2"
     assert digest(executable) == "e62415c25929c3022801aefbcec0a0f562bba372d9ed15f2021d536179ae71a2"
-    assert digest(full) == "8b1050d4ce183e29ad65f2a3b59346f2704db3bf7e5053990d732c86c5870f96"
+    # The earlier two-card fully supported projection remains an authenticated
+    # historical checkpoint; only the conditional parent gained execution.
+    previous_full = [member for member in full if member[1] != "Insectoid Exterminator"]
+    assert (
+        digest(previous_full) == "8b1050d4ce183e29ad65f2a3b59346f2704db3bf7e5053990d732c86c5870f96"
+    )
+    assert digest(full) == "716f24f35c5b9542e44cb81682252612163239c34a7771547483082036882708"
 
 
 def test_frozen_roster_membership_and_deck_exposure_are_locked():
