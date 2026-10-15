@@ -46,6 +46,10 @@ UNKNOWN_NAMES = {
 RECOGNIZED_DIGEST = "26381c11430f8ac5eeb277aba4a7296e4497d788c1dfebfed95d71ae5fc5f3c1"
 # Previous runtime: dfaf418f90e12257bec9b36233a8e2567d8ba3226ddf841e1223189bd013898d
 EXECUTABLE_DIGEST = "204be94d8df7b7447d56f271c30c9093aa6b4b45b80bba23e6d11d550a530d68"
+# Previous complete set before Class level-three activation: 46 entries,
+# 20a9b507e12b2a10deec0131a2e98f148a95107f853a78b9ddecc06bbf4d024a
+# with mana abilities excluded. Overall previous digest:
+# ce257aabd6302d21a3a5849db3e2d0a602b6c4d27e2b62788b4d8332bbb6a187.
 
 
 def game(seed=51):
@@ -573,7 +577,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    assert len({item[0] for item in executable}) == 44 and len(executable) == 46
+    assert len({item[0] for item in executable}) == 44 and len(executable) == 47
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -616,9 +620,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "20a9b507e12b2a10deec0131a2e98f148a95107f853a78b9ddecc06bbf4d024a"
+        == "2a9f3e07057dcee4adb998fcf48b897d325808d036a8312f255f9621556825e1"
     )
-    assert digest(executable) == "ce257aabd6302d21a3a5849db3e2d0a602b6c4d27e2b62788b4d8332bbb6a187"
+    assert digest(executable) == "2c1e17d392e691d9dd74799054445874ded964fde5e8e85ed4535520ec4102e1"
     assert digest(full) == digest(executable)
 
 
