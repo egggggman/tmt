@@ -1520,6 +1520,7 @@ class Game(
         self._stun_selections: dict[str, StunTargetSelection] = {}
         self._rock_soldiers_targets: dict[str, str | None] = {}
         self._etb_creature_destroy_targets: dict[str, tuple[Permanent, tuple[str, ...]]] = {}
+        self._attack_counter_targets: dict[str, tuple[str, str]] = {}
         self._shredder_targets: dict[
             str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
         ] = {}
@@ -4873,6 +4874,10 @@ class Game(
                     if selected not in offered:
                         raise ValueError("attack counter chooser must return an attacking creature")
                     ability.target_id = selected
+                    self._attack_counter_targets[ability.object_id] = (
+                        selected,
+                        trigger.trigger_id,
+                    )
                     self.log(
                         "attack_counter_target_selected",
                         event_id=trigger.event.event_id,
@@ -5731,6 +5736,10 @@ class Game(
                     ability.source_card, ability.oracle_fragment
                 )
                 or ability.target_id not in ability.event.subject_ids
+                or self._attack_counter_targets.get(ability.object_id)
+                != (ability.target_id, ability.trigger_id)
+                or self._triggers.get(ability.trigger_id) is None
+                or self._triggers[ability.trigger_id].event is not ability.event
             ):
                 raise ValueError("attack counter resolution lacks original provenance")
         if ability.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
@@ -7115,6 +7124,7 @@ class Game(
                 isinstance(target, Permanent)
                 and self.is_authoritative(target, "battlefield")
                 and target.object_id in self._combat_attackers
+                and target.controller == ability.controller
                 and self._legal_targeting_protection(target, ability.controller)
             )
             if valid:
