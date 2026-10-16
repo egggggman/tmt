@@ -49,14 +49,14 @@ def attack(game, ids):
     game.execute_attack_action(action)
 
 
-def test_parser_supports_complete_level_one_without_unlocking_later_levels():
+def test_parser_supports_complete_level_one_and_later_complete_levels():
     interpreter = CardInterpreter()
     assert interpreter.attack_target_counter(CLASS, FRAGMENT)
     assert FRAGMENT not in {fragment for fragment, _ in interpreter.unsupported_fragments(CLASS)}
     assert interpreter.activated_ability_semantics(
         CLASS, "{2}{W}: Level 2"
     ).coverage.fully_supported
-    assert not interpreter.activated_ability_semantics(
+    assert interpreter.activated_ability_semantics(
         CLASS, "{3}{W}: Level 3"
     ).coverage.fully_supported
     assert not interpreter.attack_target_counter(

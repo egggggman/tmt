@@ -580,8 +580,8 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    # Leader's Talent level two is the new complete activation and departure effect.
-    assert len({item[0] for item in executable}) == 45 and len(executable) == 49
+    # Both complete Leader's Talent level activations now execute.
+    assert len({item[0] for item in executable}) == 45 and len(executable) == 50
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -625,9 +625,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "95d501eeb89cb65595eeae044c8f2909806155bfe860ce7f4260a9ea02488424"
+        == "9fb0e75f27f05a1ca7d103dbf85bfea13ddf968095f4f0b3bd03ae89e39e3a7c"
     )
-    assert digest(executable) == "e809f262aa5481099f72fd69491629e234e78110a1b6f0490e21c8ad1ef9bcb4"
+    assert digest(executable) == "a036e302a38c976af0b2e2081d8adf528f4f628324032d8d2727241dfdb6864d"
     assert digest(full) == digest(executable)
 
 
