@@ -5922,7 +5922,7 @@ class Game(
             or ability.source_id == event.subject_ids[0]
             or not isinstance(source, Permanent)
             or source.card is not ability.source_card
-            or ability.oracle_fragment not in self.interpreter.fragments(source.rules_card)
+            or ability.oracle_fragment not in self.interpreter.fragments(source.card)
             or not (
                 (
                     coverage := self.interpreter.artifact_entry_self_counter_semantic_coverage(

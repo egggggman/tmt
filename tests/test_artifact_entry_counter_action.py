@@ -79,6 +79,9 @@ def test_entry_counter_uses_original_event_after_entering_artifact_leaves():
         assert g.stack[-1] is ability
         g.resolve_top_of_stack()
         assert source.counters == {"+1/+1": 1}
+        assert (source.power, source.toughness) == (3, 3)
+        g.check_state_based_actions()
+        assert g.is_authoritative(source, "battlefield")
         assert any(
             event["event"] == "artifact_entry_counter_resolved"
             and event["event_id"] == entry_id
@@ -117,8 +120,26 @@ def test_entry_counter_survives_control_and_type_changes_after_trigger():
     g._process_creature_entered_triggers(entering, defer_triggers=True)
     g.change_controller(source, 1)
     entering.type_line_override = "Enchantment"
+    g.change_controller(entering, 1)
     g.resolve_top_of_stack()
     assert source.controller == 1
+    assert source.counters == {"+1/+1": 1}
+
+
+def test_entry_counter_ability_loss_before_or_after_trigger():
+    g = Game(([SOURCE, ARTIFACT], [NONARTIFACT]), seed=339)
+    g.begin_turn()
+    source = g.create_permanent(SOURCE, 0)
+    source.ability_loss_timestamp = g._effect_timestamp()
+    first = g.create_permanent(ARTIFACT, 0)
+    g._process_creature_entered_triggers(first, defer_triggers=True)
+    assert not g.stack
+    source.ability_loss_timestamp = None
+    second = g.create_permanent(ARTIFACT, 0)
+    g._process_creature_entered_triggers(second, defer_triggers=True)
+    assert len(g.stack) == 1
+    source.ability_loss_timestamp = g._effect_timestamp()
+    g.resolve_top_of_stack()
     assert source.counters == {"+1/+1": 1}
 
 
