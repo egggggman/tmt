@@ -10948,6 +10948,16 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
+        for attacker in attackers:
+            for source_id, fragment in self._single_block_limit_sources(attacker):
+                self.log(
+                    "single_block_limit_applied",
+                    attacker_id=attacker.object_id,
+                    source_id=source_id,
+                    oracle_fragment=fragment,
+                    blockers=sum(aid == attacker.object_id for aid, _bid in blocks.blocks),
+                    attacker_controller=attacker.controller,
+                )
         if blocks.blocks:
             event = self._new_rules_event(
                 RulesEventKind.BLOCKERS_DECLARED,
@@ -15389,6 +15399,23 @@ class Game(
             for fragment in self.interpreter.fragments(attacker.rules_card)
         )
 
+    def _single_block_limit_sources(self, attacker: Permanent) -> tuple[tuple[str, str], ...]:
+        """Evaluate current self and controlled-subtype static restrictions."""
+        if not self.is_authoritative(attacker, "battlefield") or not attacker.is_creature:
+            return ()
+        subtype = set(attacker.type_line.partition(" — ")[2].split())
+        sources = []
+        for source in self.players[attacker.controller].battlefield:
+            if not self.is_authoritative(source, "battlefield"):
+                continue
+            for fragment in self.interpreter.fragments(source.rules_card):
+                affected = self.interpreter.single_block_limit(source.card, fragment)
+                if (affected == "self" and source is attacker) or (
+                    affected is not None and affected != "self" and affected in subtype
+                ):
+                    sources.append((source.object_id, fragment))
+        return tuple(sources)
+
     def _valid_block_assignment(
         self,
         attackers: list[Permanent],
@@ -15407,10 +15434,7 @@ class Game(
             blocker_ids = by_attacker.get(attacker.object_id, [])
             if self._has_menace(attacker) and blocker_ids and len(blocker_ids) < 2:
                 return False
-            if blocker_ids and any(
-                "can't be blocked by more than one creature" in fragment.casefold()
-                for fragment in self.interpreter.fragments(attacker.rules_card)
-            ):
+            if len(blocker_ids) > 1 and self._single_block_limit_sources(attacker):
                 return False
             for blocker_id in blocker_ids:
                 blocker = self._objects.get(blocker_id)

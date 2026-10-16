@@ -2052,6 +2052,23 @@ class CardInterpreter:
         match = re.fullmatch(r"(.+) must be blocked if able\.", fragment)
         return bool(match and self._self_reference(card, match.group(1)))
 
+    def single_block_limit(self, card: CardDefinition, fragment: str) -> str | None:
+        """Return the affected creature subtype, or 'self', for a full block limit."""
+        match = re.fullmatch(r"(.+) can't be blocked by more than one creature\.", fragment)
+        if match is not None and match.group(1).casefold() in {
+            card.name.casefold(),
+            card.name.split(",", 1)[0].casefold(),
+            "this creature",
+        }:
+            return "self"
+        team = re.fullmatch(
+            r"(?P<subtype>[A-Z][a-z]+)s you control can't be blocked by more than one creature\.",
+            fragment,
+        )
+        if team is not None:
+            return team.group("subtype")
+        return None
+
     def linked_top_exile(self, card: CardDefinition, fragment: str) -> bool:
         return fragment == (
             "Alliance — Whenever another creature you control enters, you may exile "
@@ -4003,6 +4020,7 @@ class CardInterpreter:
             if (
                 self.combat_discard_or_sacrifice(card, fragment)
                 or self.must_be_blocked(card, fragment)
+                or self.single_block_limit(card, fragment) is not None
                 or self.end_step_spell_types_draw(fragment)
             ):
                 continue
