@@ -376,6 +376,7 @@ class TriggerEffect(Enum):
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
     CLASS_DISCARD_DAMAGE = "class_discard_damage"
     CLASS_LEVEL_THREE_SEARCH = "class_level_three_search"
+    CLASS_SPELL_CAST_TEAM_COUNTER = "class_spell_cast_team_counter"
     CLASS_COMBAT_ARTIFACT_ANIMATION = "class_combat_artifact_animation"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
@@ -4503,10 +4504,8 @@ class Game(
         if not valid:
             raise ValueError("artifact token trigger has invalid cast or zone provenance")
 
-    def _enqueue_artifact_cast_token_triggers(self, spell: StackObject) -> None:
-        """Deliver artifact-spell triggers after complete announcement, before priority."""
-        if "Artifact" not in spell.card.type_line.split(" — ", 1)[0].split():
-            return
+    def _enqueue_spell_cast_triggers(self, spell: StackObject) -> None:
+        """Deliver spell-cast triggers after complete announcement, before priority."""
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("cast event requires an authoritative spell")
         event = self._new_rules_event(
@@ -4518,7 +4517,8 @@ class Game(
         for source in tuple(self.players[spell.controller].battlefield):
             for fragment in self.interpreter.fragments(source.rules_card):
                 if (
-                    self.interpreter.entry_leave_or_artifact_cast_token_context(
+                    "Artifact" in spell.card.type_line.split(" — ", 1)[0].split()
+                    and self.interpreter.entry_leave_or_artifact_cast_token_context(
                         source.card, fragment
                     )
                     == "artifact_cast"
@@ -4529,7 +4529,71 @@ class Game(
                     and coverage.fully_supported
                 ):
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.CREATE_TOKEN)
+                if (
+                    source.class_level is not None
+                    and source.class_level >= 3
+                    and (
+                        source.ability_loss_timestamp is None
+                        or source.class_level_timestamp > source.ability_loss_timestamp
+                    )
+                    and self.interpreter.class_spell_cast_team_counter(source.card, fragment)
+                ):
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER
+                    )
         self._put_pending_triggers_on_stack()
+
+    def _validate_class_spell_cast_team_counter(
+        self,
+        ability: TriggeredAbilityObject | None,
+        event: RulesEvent,
+        source: Permanent,
+        fragment: str,
+        controller: int,
+    ) -> None:
+        self._authenticate_original_rules_event(event)
+        spell = self._objects.get(event.source_id or "")
+        if (
+            event.kind is not RulesEventKind.SPELL_CAST
+            or event.subject_ids != (event.source_id,)
+            or event.player_index != controller
+            or not isinstance(spell, StackObject)
+            or spell.controller != controller
+            or (ability is None and source.controller != controller)
+            or (source.object_id, controller) not in event.battlefield_authority
+            or (ability is None and (source.class_level is None or source.class_level < 3))
+            or (
+                ability is None
+                and source.ability_loss_timestamp is not None
+                and source.class_level_timestamp <= source.ability_loss_timestamp
+            )
+            or not self.interpreter.class_spell_cast_team_counter(source.card, fragment)
+            or source.zone not in {"battlefield", "former"}
+            or self._objects.get(source.object_id) is not source
+            or not any(
+                record["event"] == "spell_cast"
+                and record.get("stack_object_id") == spell.object_id
+                and record.get("player_index") == controller
+                for record in self.events
+            )
+            or (
+                ability is not None
+                and (
+                    (trigger := self._triggers.get(ability.trigger_id)) is None
+                    or trigger.event is not event
+                    or trigger.effect is not TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER
+                    or trigger.source_id != source.object_id
+                    or trigger.source_card is not source.card
+                    or trigger.controller != controller
+                    or trigger.oracle_fragment != fragment
+                    or ability.source_id != source.object_id
+                    or ability.source_card is not source.card
+                    or ability.controller != controller
+                    or ability.oracle_fragment != fragment
+                )
+            )
+        ):
+            raise ValueError("Class spell-cast trigger has invalid provenance")
 
     def _enqueue_trigger(
         self,
@@ -4878,6 +4942,10 @@ class Game(
                 is None
             ):
                 raise ValueError("Class level recovery entry provenance is invalid")
+        if effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
+            self._validate_class_spell_cast_team_counter(
+                None, event, source, fragment, source.controller
+            )
         if effect is TriggerEffect.CLASS_DISCARD_DAMAGE:
             self._authenticate_original_rules_event(event)
             if (
@@ -5946,6 +6014,13 @@ class Game(
                 ability.controller,
                 trigger_id=ability.trigger_id,
             )
+        if ability.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
+            source = self._objects.get(ability.source_id)
+            if not isinstance(source, Permanent):
+                raise ValueError("Class spell-cast source is invalid")
+            self._validate_class_spell_cast_team_counter(
+                ability, ability.event, source, ability.oracle_fragment, ability.controller
+            )
         if ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             self._validate_etb_artifact_draw_provenance(
                 controller=ability.controller,
@@ -6615,6 +6690,29 @@ class Game(
                     life_after=self.players[opponent].life,
                 )
             self.check_life()
+        elif ability.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
+            recipients = tuple(
+                permanent
+                for permanent in self.players[ability.controller].battlefield
+                if permanent.is_creature and self.is_authoritative(permanent, "battlefield")
+            )
+            for permanent in recipients:
+                self.place_counters(
+                    permanent,
+                    "+1/+1",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                )
+            self.log(
+                "class_spell_cast_team_counters_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                spell_id=ability.event.source_id,
+                controller=ability.controller,
+                recipient_ids=[permanent.object_id for permanent in recipients],
+            )
         elif ability.effect is TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE:
             amount = self._validate_countered_creature_departure_life(
                 ability.event,
@@ -7383,6 +7481,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
+                TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ETB_ANY_TARGET_DAMAGE,
@@ -9949,7 +10048,7 @@ class Game(
             target_id=target.object_id,
             response=True,
         )
-        self._enqueue_artifact_cast_token_triggers(spell)
+        self._enqueue_spell_cast_triggers(spell)
         self.log(
             "response_selected",
             player=self.players[player_index].name,
@@ -13931,7 +14030,7 @@ class Game(
             source_zone=source_zone,
             oracle_fragment=plan.oracle_fragment,
         )
-        self._enqueue_artifact_cast_token_triggers(spell)
+        self._enqueue_spell_cast_triggers(spell)
         self.check_state_based_actions()
         self._begin_priority_window()
         assert self.priority_state is not None
@@ -14383,7 +14482,7 @@ class Game(
             source_target_id=spell.source_target_id,
             mode_fragment=spell.mode_fragment,
         )
-        self._enqueue_artifact_cast_token_triggers(spell)
+        self._enqueue_spell_cast_triggers(spell)
         return spell
 
     def resolve_top_of_stack(self) -> CardObject | Permanent | None:
@@ -14437,6 +14536,7 @@ class Game(
                         TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                         TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                         TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
+                        TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                         TriggerEffect.ETB_ARTIFACT_DRAW,
                         TriggerEffect.ETB_TAP_STUN,
                         TriggerEffect.ETB_ANY_TARGET_DAMAGE,
@@ -16461,6 +16561,16 @@ class Game(
                             obj.oracle_fragment,
                             obj.controller,
                             trigger_id=obj.trigger_id,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
+                    source = self._objects.get(obj.source_id)
+                    if not isinstance(source, Permanent):
+                        raise AssertionError("Class spell-cast source is invalid")
+                    try:
+                        self._validate_class_spell_cast_team_counter(
+                            obj, obj.event, source, obj.oracle_fragment, obj.controller
                         )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error

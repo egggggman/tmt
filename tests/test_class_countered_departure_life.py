@@ -64,7 +64,7 @@ def test_exact_frozen_oracle_and_complete_level_only():
     assert interpreter.countered_creature_left_life(frozen, EFFECT) == 2
     assert interpreter.class_level_child(frozen, 2) == EFFECT
     assert interpreter.activated_ability_semantics(frozen, LEVEL).coverage.fully_supported
-    assert not interpreter.activated_ability_semantics(
+    assert interpreter.activated_ability_semantics(
         frozen, "{3}{W}: Level 3"
     ).coverage.fully_supported
     for changed in (
@@ -197,7 +197,7 @@ def test_leave_history_rejects_counter_or_event_relink():
         drain(game)
 
 
-def test_level_up_is_sorcery_and_uncompleted_level_three_stays_unavailable():
+def test_level_up_is_sorcery_and_level_three_requires_progression():
     game, source = setup(293)
     game.advance_to(TurnStep.DECLARE_ATTACKERS)
     assert not game.activate_ability(0, source, LEVEL)
