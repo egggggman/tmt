@@ -863,6 +863,10 @@ class CardInterpreter:
     ATTACK_TARGET_COUNTER = re.compile(
         r"^Whenever you attack, put a \+1/\+1 counter on target attacking creature\.$"
     )
+    CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE = re.compile(
+        r"^Whenever a creature you control leaves the battlefield, if it had a counter "
+        r"on it, you gain (?P<amount>[1-9][0-9]*) life\.$"
+    )
     CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
         r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
     )
@@ -1917,6 +1921,11 @@ class CardInterpreter:
                         self.class_level_recovery_semantic_coverage(card, fragment) is not None
                         or self.CLASS_DISCARD_DAMAGE.fullmatch(fragment)
                         or self.class_creature_anthem(card, fragment) is not None
+                        or (
+                            self.countered_creature_left_life(card, fragment) is not None
+                            and fragments[activation_index + 1 : next_activation_index]
+                            == (fragment,)
+                        )
                     )
                 )
                 or (
@@ -1947,6 +1956,36 @@ class CardInterpreter:
             if (match := self.CLASS_LEVEL_UP.fullmatch(text)) is not None:
                 level = int(match["level"])
         return False
+
+    def countered_creature_left_life(self, card: CardDefinition, fragment: str) -> int | None:
+        """Parse a full printed departure trigger in its active Class section."""
+        match = self.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE.fullmatch(fragment)
+        if match is None or not any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES):
+            return None
+        if "Class" in card.type_line:
+            fragments = self.fragments(card)
+            level_two = next(
+                (
+                    index
+                    for index, text in enumerate(fragments)
+                    if (level := self.CLASS_LEVEL_UP.fullmatch(text)) is not None
+                    and int(level["level"]) == 2
+                ),
+                None,
+            )
+            if level_two is None:
+                return None
+            next_level = next(
+                (
+                    index
+                    for index in range(level_two + 1, len(fragments))
+                    if self.CLASS_LEVEL_UP.fullmatch(fragments[index])
+                ),
+                len(fragments),
+            )
+            if fragments[level_two + 1 : next_level] != (fragment,):
+                return None
+        return int(match["amount"])
 
     def class_level_recovery_semantic_coverage(self, card, fragment):
         if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
@@ -3967,6 +4006,8 @@ class CardInterpreter:
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
             if self.attack_target_counter(card, fragment):
+                continue
+            if self.countered_creature_left_life(card, fragment) is not None:
                 continue
             if self.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(fragment) and any(
                 kind in card.type_line for kind in self.PERMANENT_CARD_TYPES

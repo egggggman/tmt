@@ -53,8 +53,12 @@ def test_parser_supports_complete_level_one_without_unlocking_later_levels():
     interpreter = CardInterpreter()
     assert interpreter.attack_target_counter(CLASS, FRAGMENT)
     assert FRAGMENT not in {fragment for fragment, _ in interpreter.unsupported_fragments(CLASS)}
-    for level in ("{2}{W}: Level 2", "{3}{W}: Level 3"):
-        assert not interpreter.activated_ability_semantics(CLASS, level).coverage.fully_supported
+    assert interpreter.activated_ability_semantics(
+        CLASS, "{2}{W}: Level 2"
+    ).coverage.fully_supported
+    assert not interpreter.activated_ability_semantics(
+        CLASS, "{3}{W}: Level 3"
+    ).coverage.fully_supported
     assert not interpreter.attack_target_counter(
         replace(CLASS, oracle_text=CLASS.oracle_text.replace(FRAGMENT, FRAGMENT + " Draw a card.")),
         FRAGMENT + " Draw a card.",
