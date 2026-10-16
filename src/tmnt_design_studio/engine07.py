@@ -383,6 +383,7 @@ class TriggerEffect(Enum):
     ETB_SELF_LIFE_GAIN = "etb_self_life_gain"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS = "controlled_creature_left_opponent_loss"
+    CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE = "controlled_countered_creature_left_life"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
     ETB_ATTACH_EQUIPMENT = "etb_attach_equipment"
@@ -1521,6 +1522,7 @@ class Game(
         self._rock_soldiers_targets: dict[str, str | None] = {}
         self._etb_creature_destroy_targets: dict[str, tuple[Permanent, tuple[str, ...]]] = {}
         self._attack_counter_targets: dict[str, tuple[str, str]] = {}
+        self._countered_departure_anchors: dict[str, tuple[object, ...]] = {}
         self._shredder_targets: dict[
             str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
         ] = {}
@@ -1882,7 +1884,17 @@ class Game(
                     loss = self.interpreter.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(
                         fragment
                     )
-                    if (coverage is not None and coverage.fully_supported) or loss is not None:
+                    countered_life = self.interpreter.countered_creature_left_life(
+                        permanent.card, fragment
+                    )
+                    if (
+                        (coverage is not None and coverage.fully_supported)
+                        or loss is not None
+                        or (
+                            countered_life is not None
+                            and (permanent.class_level is None or permanent.class_level >= 2)
+                        )
+                    ):
                         sources.append((permanent, fragment))
         return tuple(sources)
 
@@ -1953,6 +1965,7 @@ class Game(
         departure_authority = None
         departure_sources = None
         departure_last_known = None
+        departure_counters: tuple[tuple[str, int], ...] = ()
         ltb_mutagen_fragments = ()
         ltb_utility_fragments = ()
         ltb_token_fragments = ()
@@ -1973,6 +1986,9 @@ class Game(
                 obj.controller,
                 obj.type_line,
                 obj.is_creature,
+            )
+            departure_counters = tuple(
+                sorted((kind, count) for kind, count in obj.counters.items() if count > 0)
             )
             ltb_mutagen_fragments = tuple(
                 fragment
@@ -2078,6 +2094,7 @@ class Game(
                 destination_object_id=replacement.object_id,
                 controller=departure_last_known[1],
                 type_line=departure_last_known[2],
+                counter_snapshot=[list(counter) for counter in departure_counters],
             )
         if destination == "battlefield" and isinstance(replacement, Permanent):
             for fragment in self.interpreter.fragments(replacement.rules_card):
@@ -2124,6 +2141,14 @@ class Game(
                     and watcher.controller == departure_last_known[1]
                     and self.interpreter.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(fragment)
                 )
+                or (
+                    departure_last_known[3]
+                    and bool(departure_counters)
+                    and watcher.controller == departure_last_known[1]
+                    and self.interpreter.countered_creature_left_life(watcher.card, fragment)
+                    is not None
+                    and (watcher.class_level is None or watcher.class_level >= 2)
+                )
             )
             if (
                 qualifying_sources
@@ -2132,6 +2157,7 @@ class Game(
                 or ltb_token_fragments
             ):
                 departure_record = tuple(self.events[-2].items())
+                departure_log_record = tuple(self.events[-1].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
                     departure_last_known[1],
@@ -2150,6 +2176,19 @@ class Game(
                         if watcher.object_id != obj.object_id
                     ),
                 )
+                countered_watchers = tuple(
+                    (watcher.object_id, watcher.controller, watcher.class_level, fragment)
+                    for watcher, fragment in qualifying_sources
+                    if self.interpreter.countered_creature_left_life(watcher.card, fragment)
+                    is not None
+                )
+                if countered_watchers:
+                    self._countered_departure_anchors[event.event_id] = (
+                        obj,
+                        departure_counters,
+                        departure_log_record,
+                        countered_watchers,
+                    )
                 for fragment in ltb_mutagen_fragments:
                     key = (obj.object_id, event.event_id, fragment)
                     self._ltb_mutagen_departures[key] = (
@@ -2170,6 +2209,9 @@ class Game(
                         if self.interpreter.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(
                             fragment
                         )
+                        else TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE
+                        if self.interpreter.countered_creature_left_life(watcher.card, fragment)
+                        is not None
                         else TriggerEffect.PERMANENT_LEFT_SELF_COUNTER
                     )
                     self._enqueue_trigger(
@@ -4323,6 +4365,88 @@ class Game(
             raise ValueError("controlled creature departure trigger provenance is invalid")
         return int(match["amount"])
 
+    def _validate_countered_creature_departure_life(
+        self,
+        event: RulesEvent,
+        source_id: str,
+        source_card: CardFact,
+        fragment: str,
+        controller: int,
+        *,
+        trigger_id: str | None = None,
+    ) -> int:
+        """Bind a countered creature's last-known state to its watcher and exit."""
+        self._authenticate_original_rules_event(event)
+        amount = self.interpreter.countered_creature_left_life(source_card, fragment)
+        anchor = self._countered_departure_anchors.get(event.event_id)
+        departed_id = event.subject_ids[0] if len(event.subject_ids) == 1 else None
+        departed_lki = next(
+            (record for record in event.last_known_battlefield if record[0] == departed_id),
+            None,
+        )
+        source_lki = next(
+            (record for record in event.last_known_battlefield if record[0] == source_id),
+            None,
+        )
+        source = self._objects.get(source_id)
+        trigger = self._triggers.get(trigger_id) if trigger_id is not None else None
+        if anchor is None:
+            raise ValueError("countered departure lacks frozen leave history")
+        departed, counters, original_departure, watchers = anchor
+        matches = [
+            record
+            for record in self.events
+            if record.get("event") == "permanent_departed"
+            and record.get("source_object_id") == departed_id
+        ]
+        if (
+            amount is None
+            or event.kind is not RulesEventKind.PERMANENT_LEFT
+            or event.source_id != departed_id
+            or event.player_index != controller
+            or departed_id is None
+            or departed is not self._objects.get(departed_id)
+            or not isinstance(departed, Permanent)
+            or departed.zone != "former"
+            or not counters
+            or tuple(sorted((kind, n) for kind, n in departed.counters.items() if n > 0))
+            != counters
+            or departed_lki is None
+            or not departed_lki[3]
+            or departed_lki[1] != controller
+            or source_lki is None
+            or source_lki[1] != controller
+            or (departed_id, controller) not in event.battlefield_authority
+            or (source_id, controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.zone not in {"battlefield", "former"}
+            or not any(
+                watcher_id == source_id
+                and watcher_controller == controller
+                and watcher_fragment == fragment
+                and (level is None or level >= 2)
+                for watcher_id, watcher_controller, level, watcher_fragment in watchers
+            )
+            or len(matches) != 1
+            or tuple(matches[0].items()) != original_departure
+            or matches[0].get("counter_snapshot") != [list(counter) for counter in counters]
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.effect is not TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE
+                    or trigger.source_id != source_id
+                    or trigger.source_card is not source_card
+                    or trigger.controller != controller
+                    or trigger.oracle_fragment != fragment
+                    or trigger.event is not event
+                )
+            )
+        ):
+            raise ValueError("countered creature departure has invalid event provenance")
+        return amount
+
     def _paramecia_fragment(self, card: CardFact) -> str | None:
         target = (
             "When this creature dies, you may exile it. When you do, put target creature card "
@@ -4613,6 +4737,10 @@ class Game(
                 source_card=source.card,
                 oracle_fragment=fragment,
                 event=event,
+            )
+        if effect is TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE:
+            self._validate_countered_creature_departure_life(
+                event, source.object_id, source.card, fragment, source.controller
             )
         if effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             self._validate_etb_artifact_draw_provenance(
@@ -5809,6 +5937,15 @@ class Game(
                 event=ability.event,
                 trigger_id=ability.trigger_id,
             )
+        if ability.effect is TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE:
+            self._validate_countered_creature_departure_life(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
         if ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             self._validate_etb_artifact_draw_provenance(
                 controller=ability.controller,
@@ -6478,6 +6615,35 @@ class Game(
                     life_after=self.players[opponent].life,
                 )
             self.check_life()
+        elif ability.effect is TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE:
+            amount = self._validate_countered_creature_departure_life(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
+            before = self.players[ability.controller].life
+            life_event = self.gain_life(
+                ability.controller,
+                amount,
+                source_card=ability.source_card.name,
+                oracle_fragment=ability.oracle_fragment,
+                defer_trigger_delivery=True,
+            )
+            self.log(
+                "countered_creature_departure_life_resolved",
+                event_id=ability.event.event_id,
+                life_gain_event_id=life_event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                departed_id=ability.event.source_id,
+                controller=ability.controller,
+                amount=amount,
+                life_before=before,
+                life_after=self.players[ability.controller].life,
+            )
         elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             source_before = self._validate_permanent_left_counter_provenance(
                 controller=ability.controller,
@@ -7216,6 +7382,7 @@ class Game(
                 TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
+                TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.ETB_ANY_TARGET_DAMAGE,
@@ -14269,6 +14436,7 @@ class Game(
                         TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
                         TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                         TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
+                        TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                         TriggerEffect.ETB_ARTIFACT_DRAW,
                         TriggerEffect.ETB_TAP_STUN,
                         TriggerEffect.ETB_ANY_TARGET_DAMAGE,
@@ -15819,6 +15987,7 @@ class Game(
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
+                TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.UTILITY_TARGET,
@@ -16279,6 +16448,18 @@ class Game(
                             source_card=obj.source_card,
                             oracle_fragment=obj.oracle_fragment,
                             event=obj.event,
+                            trigger_id=obj.trigger_id,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE:
+                    try:
+                        self._validate_countered_creature_departure_life(
+                            obj.event,
+                            obj.source_id,
+                            obj.source_card,
+                            obj.oracle_fragment,
+                            obj.controller,
                             trigger_id=obj.trigger_id,
                         )
                     except ValueError as error:
