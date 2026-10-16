@@ -1,0 +1,113 @@
+{
+  "schema": "issue289-class-attack-smoke-v1",
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_id": "OBL-BASELINE-005",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "checkpoint_overlay_sha256": "7043732b9d4d2baa7f1fea75fdb7766bbd6bdf94e98390c60e8033e47e3dcb19",
+  "semantic_runtime_sha256": "a117d25151d99eb19804e42a5873c3a59bf2be26ca49f9edfa63cdc50623e3cf",
+  "game_count": 6,
+  "deterministic_replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-class-attack-leonardo-splinter-333",
+      "first_player": "leonardo",
+      "second_player": "splinter",
+      "seed": 333,
+      "result_digest": "05a701c49812bb0f351f7e4eb521b3332cb8128a9325c0d929c738a9669fa1fd",
+      "replay_equal": true,
+      "ending_turn": 16,
+      "event_count": 808,
+      "class_casts": 2,
+      "attack_counter_triggers": 0,
+      "attack_counter_applied": 0,
+      "attack_counter_target_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-attack-splinter-leonardo-333",
+      "first_player": "splinter",
+      "second_player": "leonardo",
+      "seed": 333,
+      "result_digest": "2ddabf5ddf2da4097ffe04b5f492262a8f8fe50494ecadeba059c261ed0368e5",
+      "replay_equal": true,
+      "ending_turn": 25,
+      "event_count": 1214,
+      "class_casts": 0,
+      "attack_counter_triggers": 0,
+      "attack_counter_applied": 0,
+      "attack_counter_target_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-attack-leonardo-raphael-326",
+      "first_player": "leonardo",
+      "second_player": "raphael",
+      "seed": 326,
+      "result_digest": "50e321560921496d7555f0b338b3e77ee73eaab79c8504771536f2324e83e5b5",
+      "replay_equal": true,
+      "ending_turn": 18,
+      "event_count": 1065,
+      "class_casts": 1,
+      "attack_counter_triggers": 2,
+      "attack_counter_applied": 2,
+      "attack_counter_target_ids": [
+        "object-000156",
+        "object-000190"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-attack-raphael-leonardo-326",
+      "first_player": "raphael",
+      "second_player": "leonardo",
+      "seed": 326,
+      "result_digest": "d857977f41301c00c6b5989cbd6bbf7c8f5b501ceaf05eda88d5e7d83470a595",
+      "replay_equal": true,
+      "ending_turn": 19,
+      "event_count": 1031,
+      "class_casts": 1,
+      "attack_counter_triggers": 0,
+      "attack_counter_applied": 0,
+      "attack_counter_target_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-attack-leonardo-donatello-349",
+      "first_player": "leonardo",
+      "second_player": "donatello",
+      "seed": 349,
+      "result_digest": "b5f0f72357dfa97ba159acb23c0043655c0a57d87cd522da4c89cfae5d88bb94",
+      "replay_equal": true,
+      "ending_turn": 24,
+      "event_count": 1474,
+      "class_casts": 4,
+      "attack_counter_triggers": 5,
+      "attack_counter_applied": 5,
+      "attack_counter_target_ids": [
+        "object-000231",
+        "object-000231",
+        "object-000231",
+        "object-000231",
+        "object-000231"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-class-attack-donatello-leonardo-349",
+      "first_player": "donatello",
+      "second_player": "leonardo",
+      "seed": 349,
+      "result_digest": "ed10909c870a582d07b2b5f937ce3ece2d2514d1f46c9a785dc4cac00193dfda",
+      "replay_equal": true,
+      "ending_turn": 19,
+      "event_count": 1011,
+      "class_casts": 1,
+      "attack_counter_triggers": 0,
+      "attack_counter_applied": 0,
+      "attack_counter_target_ids": [],
+      "runtime_error": null
+    }
+  ],
+  "calibration_readiness": "BLOCKED"
+}

@@ -860,6 +860,9 @@ class CardInterpreter:
         r"^Whenever .+ attacks, each other attacking creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
     )
+    ATTACK_TARGET_COUNTER = re.compile(
+        r"^Whenever you attack, put a \+1/\+1 counter on target attacking creature\.$"
+    )
     CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
         r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
     )
@@ -1930,6 +1933,20 @@ class CardInterpreter:
             ),
             None,
         )
+
+    def attack_target_counter(self, card: CardDefinition, fragment: str) -> bool:
+        """A printed attack trigger is active only in its Class level section."""
+        if not self.ATTACK_TARGET_COUNTER.fullmatch(fragment):
+            return False
+        if "Class" not in card.type_line:
+            return True
+        level = 1
+        for text in self.fragments(card):
+            if text == fragment:
+                return level == 1
+            if (match := self.CLASS_LEVEL_UP.fullmatch(text)) is not None:
+                level = int(match["level"])
+        return False
 
     def class_level_recovery_semantic_coverage(self, card, fragment):
         if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
@@ -3949,6 +3966,8 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            if self.attack_target_counter(card, fragment):
+                continue
             if self.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS.fullmatch(fragment) and any(
                 kind in card.type_line for kind in self.PERMANENT_CARD_TYPES
             ):

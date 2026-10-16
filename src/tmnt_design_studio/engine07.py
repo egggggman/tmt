@@ -351,6 +351,7 @@ class TriggerEffect(Enum):
     ALLIANCE_MODAL = "alliance_modal"
     LIFE_GAIN_COUNTER = "life_gain_counter"
     ATTACK_PT = "attack_pt"
+    ATTACK_TARGET_COUNTER = "attack_target_counter"
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
     CONDITIONAL_ENTRY_TOKEN = "conditional_entry_token"
@@ -1519,6 +1520,7 @@ class Game(
         self._stun_selections: dict[str, StunTargetSelection] = {}
         self._rock_soldiers_targets: dict[str, str | None] = {}
         self._etb_creature_destroy_targets: dict[str, tuple[Permanent, tuple[str, ...]]] = {}
+        self._attack_counter_targets: dict[str, tuple[str, str]] = {}
         self._shredder_targets: dict[
             str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
         ] = {}
@@ -4414,6 +4416,19 @@ class Game(
         *,
         grant_source: Permanent | None = None,
     ) -> None:
+        if effect is TriggerEffect.ATTACK_TARGET_COUNTER:
+            self._authenticate_original_rules_event(event)
+            if (
+                event.kind is not RulesEventKind.ATTACKERS_DECLARED
+                or event.player_index != source.controller
+                or not event.subject_ids
+                or event.subject_ids != self._combat_attackers
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or not self.is_authoritative(source, "battlefield")
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or not self.interpreter.attack_target_counter(source.card, fragment)
+            ):
+                raise ValueError("attack counter trigger lacks attack provenance")
         if (
             effect is TriggerEffect.CREATE_TOKEN
             and self.interpreter.entry_leave_or_artifact_cast_token_context(source.card, fragment)
@@ -4836,6 +4851,41 @@ class Game(
                 )
                 if ability.effect is TriggerEffect.ETB_TAP_STUN:
                     self._select_stun_target(ability, trigger)
+                if ability.effect is TriggerEffect.ATTACK_TARGET_COUNTER:
+                    offered = tuple(
+                        sorted(
+                            attacker.object_id
+                            for attacker in self.players[trigger.controller].battlefield
+                            if attacker.object_id in trigger.event.subject_ids
+                            and self.is_authoritative(attacker, "battlefield")
+                            and self._legal_targeting_protection(attacker, trigger.controller)
+                        )
+                    )
+                    if not offered:
+                        self.log(
+                            "attack_counter_no_legal_target",
+                            event_id=trigger.event.event_id,
+                            source_id=trigger.source_id,
+                        )
+                        continue
+                    selected = self.counter_target_chooser(
+                        trigger.controller, trigger.source_id, offered
+                    )
+                    if selected not in offered:
+                        raise ValueError("attack counter chooser must return an attacking creature")
+                    ability.target_id = selected
+                    self._attack_counter_targets[ability.object_id] = (
+                        selected,
+                        trigger.trigger_id,
+                    )
+                    self.log(
+                        "attack_counter_target_selected",
+                        event_id=trigger.event.event_id,
+                        stack_object_id=ability.object_id,
+                        source_id=trigger.source_id,
+                        target_id=selected,
+                        offered_ids=list(offered),
+                    )
                 if ability.effect is TriggerEffect.ETB_ANY_TARGET_DAMAGE:
                     self._select_entry_damage_target(ability, trigger)
                 if ability.effect is TriggerEffect.ETB_ATTACH_EQUIPMENT:
@@ -5675,6 +5725,23 @@ class Game(
                 self._validate_stun_targeting_dependencies(selected)
         if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
             self._validate_rock_soldiers_trigger(ability)
+        if ability.effect is TriggerEffect.ATTACK_TARGET_COUNTER:
+            self._authenticate_original_rules_event(ability.event)
+            if (
+                ability.event.kind is not RulesEventKind.ATTACKERS_DECLARED
+                or ability.event.player_index != ability.controller
+                or (ability.source_id, ability.controller)
+                not in ability.event.battlefield_authority
+                or not self.interpreter.attack_target_counter(
+                    ability.source_card, ability.oracle_fragment
+                )
+                or ability.target_id not in ability.event.subject_ids
+                or self._attack_counter_targets.get(ability.object_id)
+                != (ability.target_id, ability.trigger_id)
+                or self._triggers.get(ability.trigger_id) is None
+                or self._triggers[ability.trigger_id].event is not ability.event
+            ):
+                raise ValueError("attack counter resolution lacks original provenance")
         if ability.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
             self._validate_etb_creature_destroy_trigger(ability)
         if ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
@@ -7051,6 +7118,31 @@ class Game(
                 source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.ATTACK_TARGET_COUNTER:
+            target = self._objects.get(ability.target_id or "")
+            valid = (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.object_id in self._combat_attackers
+                and target.controller == ability.controller
+                and self._legal_targeting_protection(target, ability.controller)
+            )
+            if valid:
+                self.place_counters(
+                    target,
+                    "+1/+1",
+                    1,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                )
+            self.log(
+                "attack_counter_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                target_id=ability.target_id,
+                applied=valid,
+            )
         elif ability.effect is TriggerEffect.ATTACK_PT and source_permanent is not None:
             match = self.interpreter.ATTACK_OTHER_ATTACKERS_UNTIL_EOT.fullmatch(
                 ability.oracle_fragment
@@ -7095,6 +7187,7 @@ class Game(
                 is not None
             ) or self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
+                TriggerEffect.ATTACK_TARGET_COUNTER,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                 TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
@@ -8767,9 +8860,13 @@ class Game(
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.DISCARD_DRAW)
         if attackers:
             for source in tuple(self.players[self.active_player].battlefield):
-                if source in attackers or "Class" not in source.card.type_line:
-                    continue
                 for fragment in self.interpreter.fragments(source.rules_card):
+                    if self.interpreter.attack_target_counter(source.card, fragment):
+                        self._enqueue_trigger(
+                            event, source, fragment, TriggerEffect.ATTACK_TARGET_COUNTER
+                        )
+                    if source in attackers or "Class" not in source.card.type_line:
+                        continue
                     discard_draw = self.interpreter.discard_draw_semantic_coverage(
                         source.card, fragment
                     )
@@ -14143,6 +14240,7 @@ class Game(
                     or spell.effect
                     in {
                         TriggerEffect.LTB_MUTAGEN,
+                        TriggerEffect.ATTACK_TARGET_COUNTER,
                         TriggerEffect.PARAMECIA_EXILE_CHOICE,
                         TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
                         TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
