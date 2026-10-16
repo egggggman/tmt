@@ -7,11 +7,29 @@ import pytest
 
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
-from tmnt_design_studio.engine07 import CardFact, Game, TriggerEffect, TurnStep, load_facts
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    CardFact,
+    Game,
+    TriggerEffect,
+    TurnStep,
+    load_facts,
+)
 
 LAND = CardFact("Plains", "", 0, "Basic Land — Plains")
 BEAR = CardFact("Example Bear", "{0}", 0, "Creature — Bear", power=2, toughness=2)
 ARTIFACT = CardFact("Example Cog", "{0}", 0, "Artifact")
+SNEAK = CardFact(
+    "Example Ninja",
+    "{2}{W}",
+    3,
+    "Creature — Ninja",
+    "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker "
+    "you control to hand during the declare blockers step. It enters tapped and attacking.)",
+    power=2,
+    toughness=2,
+)
 EFFECT = "Whenever you cast a spell, put a +1/+1 counter on each creature you control."
 CLASS = CardFact(
     "Example Leadership",
@@ -39,12 +57,12 @@ def drain(game):
             )
 
 
-def setup(seed=300, mana=7):
+def setup(seed=300, mana=7, class_card=CLASS):
     game = Game(([LAND] * 30, [LAND] * 30), seed=seed)
     game.begin_turn()
     for _ in range(mana):
         game.create_permanent(LAND, 0, summoning_sick=False)
-    source = game.create_permanent(CLASS, 0)
+    source = game.create_permanent(class_card, 0)
     assert game.activate_ability(0, source, "{2}{W}: Level 2")
     drain(game)
     return game, source
@@ -86,6 +104,29 @@ def test_frozen_oracle_complete_section_and_cost_timing():
     game.check_invariants()
 
 
+def test_authenticated_frozen_class_spell_cast_resolves_before_spell():
+    catalog = Path(__file__).resolve().parents[1] / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
+    frozen = load_facts(
+        load_card_data(catalog, catalog.with_suffix(".manifest.json")), {"Leader's Talent"}
+    )["Leader's Talent"]
+    game, source = setup(seed=305, class_card=frozen)
+    recipient = game.create_permanent(BEAR, 0)
+    advance(game, source)
+    hand = game.set_hand_for_testing(0, [BEAR])[0]
+    spell = game.announce_spell(0, hand)
+    assert spell is not None
+    assert game.stack[-1].effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER
+    game._begin_priority_window()
+    while game.priority_state is not None and not game.priority_state.resolution_pending:
+        state = game.priority_state
+        game.execute_priority_action(game.legal_priority_actions(state.player_index)[0])
+    game.process_priority_resolution()
+    assert recipient.counters["+1/+1"] == 1
+    assert game.stack == [spell]
+    drain(game)
+    game.check_invariants()
+
+
 def test_spell_cast_trigger_priority_current_team_source_departure_and_replay():
     def replay():
         game, source = setup()
@@ -103,6 +144,7 @@ def test_spell_cast_trigger_priority_current_team_source_departure_and_replay():
         with pytest.raises(ValueError, match="before all players pass"):
             game.resolve_top_of_stack()
         newcomer = game.create_permanent(BEAR, 0)
+        game.change_controller(source, 1)
         game.move_object(source, "graveyard", reason="response")
         drain(game)
         assert own.counters["+1/+1"] == newcomer.counters["+1/+1"] == 1
@@ -155,3 +197,37 @@ def test_level_two_remains_active_and_trigger_relink_fails_closed():
     game.stack[-1].source_id = "fabricated"
     with pytest.raises(ValueError, match="source is invalid"):
         drain(game)
+
+
+def test_sneak_cast_uses_same_event_and_does_not_counter_spell_before_entry():
+    game, source = setup(seed=306, mana=8)
+    attacker = game.create_permanent(BEAR, 0, summoning_sick=False)
+    staying = game.create_permanent(BEAR, 0)
+    advance(game, source)
+    game.set_hand_for_testing(0, [SNEAK])
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(
+        option
+        for option in game.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+    game.execute_attack_action(attack)
+    drain(game)
+    game.advance_to(TurnStep.DECLARE_BLOCKERS)
+    game.execute_block_action(ActionOption(ActionKind.DECLARE_BLOCKERS, 1))
+    options = [option for option in game.legal_sneak_actions(0) if option.kind is ActionKind.CAST]
+    assert len(options) == 1
+    game.execute_sneak_action(options[0])
+    assert game.stack[-1].effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER
+    spell = game.stack[0]
+    drain(game)
+    assert staying.counters["+1/+1"] == 1
+    assert attacker.zone == "former"
+    entered = next(p for p in game.players[0].battlefield if p.card is SNEAK)
+    assert entered.counters.get("+1/+1", 0) == 0
+    assert any(
+        record["event"] == "class_spell_cast_team_counters_resolved"
+        and record["spell_id"] == spell.object_id
+        for record in game.events
+    )
+    game.check_invariants()
