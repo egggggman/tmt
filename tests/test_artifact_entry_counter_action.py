@@ -1,4 +1,7 @@
+from dataclasses import replace
 from pathlib import Path
+
+import pytest
 
 from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
@@ -57,6 +60,100 @@ def test_artifact_entry_stacks_once_and_resolves_counter_on_source():
     assert source.counters.get("+1/+1", 0) == 0
     g.resolve_top_of_stack()
     assert source.counters.get("+1/+1", 0) == 1
+
+
+def test_entry_counter_uses_original_event_after_entering_artifact_leaves():
+    def trace():
+        g = Game(([SOURCE, ARTIFACT], [NONARTIFACT]), seed=334)
+        g.begin_turn()
+        source = g.create_permanent(SOURCE, 0)
+        entering = g.create_permanent(ARTIFACT, 0)
+        g._process_creature_entered_triggers(entering, defer_triggers=True)
+        ability = g.stack[-1]
+        assert isinstance(ability, TriggeredAbilityObject)
+        assert ability.target_id is None  # The entering artifact is not a target.
+        entry_id = ability.event.event_id
+        entered_id = entering.object_id
+        g.move_object(entering, "graveyard", reason="priority_response")
+        assert source.counters == {}
+        assert g.stack[-1] is ability
+        g.resolve_top_of_stack()
+        assert source.counters == {"+1/+1": 1}
+        assert any(
+            event["event"] == "artifact_entry_counter_resolved"
+            and event["event_id"] == entry_id
+            and event["entered_id"] == entered_id
+            and event["source_id"] == source.object_id
+            for event in g.events
+        )
+        return g.events
+
+    assert trace() == trace()
+
+
+def test_entry_counter_does_not_retarget_source_after_departure_or_reentry():
+    g = Game(([SOURCE, ARTIFACT], [NONARTIFACT]), seed=335)
+    g.begin_turn()
+    source = g.create_permanent(SOURCE, 0)
+    entering = g.create_permanent(ARTIFACT, 0)
+    g._process_creature_entered_triggers(entering, defer_triggers=True)
+    former = g.move_object(source, "graveyard", reason="priority_response")
+    replacement = g.move_object(former, "battlefield", controller=0, reason="reentry")
+    g.resolve_top_of_stack()
+    assert replacement.object_id != source.object_id
+    assert replacement.counters == {}
+    assert any(
+        event["event"] == "artifact_entry_counter_source_absent"
+        and event["source_id"] == source.object_id
+        for event in g.events
+    )
+
+
+def test_entry_counter_survives_control_and_type_changes_after_trigger():
+    g = Game(([SOURCE, ARTIFACT], [NONARTIFACT]), seed=336)
+    g.begin_turn()
+    source = g.create_permanent(SOURCE, 0)
+    entering = g.create_permanent(ARTIFACT, 0)
+    g._process_creature_entered_triggers(entering, defer_triggers=True)
+    g.change_controller(source, 1)
+    entering.type_line_override = "Enchantment"
+    g.resolve_top_of_stack()
+    assert source.controller == 1
+    assert source.counters == {"+1/+1": 1}
+
+
+def test_entry_counter_two_entries_keep_separate_original_provenance():
+    g = Game(([SOURCE, ARTIFACT], [NONARTIFACT]), seed=337)
+    g.begin_turn()
+    source = g.create_permanent(SOURCE, 0)
+    first, second = (g.create_permanent(ARTIFACT, 0) for _ in range(2))
+    g._process_creatures_entered_triggers((first, second), defer_triggers=True)
+    g.move_object(first, "graveyard", reason="priority_response")
+    g.move_object(second, "graveyard", reason="priority_response")
+    g.resolve_top_of_stack()
+    g.resolve_top_of_stack()
+    assert source.counters == {"+1/+1": 2}
+    resolved = [e for e in g.events if e["event"] == "artifact_entry_counter_resolved"]
+    assert {e["entered_id"] for e in resolved} == {first.object_id, second.object_id}
+    assert len({e["event_id"] for e in resolved}) == 2
+
+
+def test_entry_counter_rejects_relinked_event_without_consuming_stack():
+    g = Game(([SOURCE], [ARTIFACT]), seed=338)
+    g.begin_turn()
+    source = g.create_permanent(SOURCE, 0)
+    entering = g.create_permanent(ARTIFACT, 0)
+    g._process_creature_entered_triggers(entering, defer_triggers=True)
+    ability = g.stack[-1]
+    original = ability.event
+    ability.event = replace(original, subject_ids=(source.object_id,))
+    with pytest.raises(ValueError, match="original evidence"):
+        g.resolve_top_of_stack()
+    assert g.stack[-1] is ability
+    assert source.counters == {}
+    ability.event = original
+    g.resolve_top_of_stack()
+    assert source.counters == {"+1/+1": 1}
 
 
 def test_wrong_controller_entry_does_not_trigger():
