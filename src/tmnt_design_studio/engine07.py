@@ -2294,6 +2294,7 @@ class Game(
             old_controller=self.players[old_controller].name,
             controller=self.players[controller].name,
         )
+        self.refresh_static_pt_modifiers()
 
     def log(self, event: str, **details: object) -> None:
         self.events.append(
@@ -9023,6 +9024,11 @@ class Game(
                         if target is source or not target.is_creature:
                             continue
                         if program.quality == "artifact" and "Artifact" not in target.type_line:
+                            continue
+                        if (
+                            program.quality != "artifact"
+                            and program.quality not in target.type_line.partition(" — ")[2].split()
+                        ):
                             continue
                         self.apply_pt_modifier(
                             target,

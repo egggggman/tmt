@@ -848,6 +848,10 @@ class CardInterpreter:
         r"^Other (?P<quality>artifact) creatures you control get "
         r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
     )
+    STATIC_OTHER_SUBTYPE_CREATURES = re.compile(
+        r"^Other (?P<plural>[A-Z][A-Za-z]+s) you control get "
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
+    )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
         r"^Alliance — Whenever another creature you control enters, this creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
@@ -2197,16 +2201,27 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedStaticTeamModifierSemantics | None:
         match = self.STATIC_OTHER_QUALIFIED_CREATURES.fullmatch(fragment)
-        if match is None:
+        subtype = self.STATIC_OTHER_SUBTYPE_CREATURES.fullmatch(fragment)
+        if match is None and subtype is None:
             return None
+        if subtype is not None:
+            plural = subtype["plural"]
+            # Accept regular single-word creature subtypes; irregular plurals need
+            # explicit grammar, not a guessed type that silently buffs nothing.
+            if plural.endswith(("ies", "ves", "sses")):
+                return None
+            quality = plural[:-1]
+        else:
+            assert match is not None
+            quality = match["quality"]
         permanent_source = any(
             kind in card.type_line
             for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
         )
         limitations = () if permanent_source else ("static_modifier_source_is_not_permanent",)
-        program = StaticTeamModifierProgram(
-            match.group("quality"), int(match.group("power")), int(match.group("toughness"))
-        )
+        parsed = subtype if subtype is not None else match
+        assert parsed is not None
+        program = StaticTeamModifierProgram(quality, int(parsed["power"]), int(parsed["toughness"]))
         return InterpretedStaticTeamModifierSemantics(
             program,
             SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
