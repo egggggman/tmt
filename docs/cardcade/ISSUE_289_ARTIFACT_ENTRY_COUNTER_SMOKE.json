@@ -1,0 +1,120 @@
+{
+  "schema": "issue289-artifact-entry-counter-smoke-v1",
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_id": "OBL-BASELINE-005",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "checkpoint_overlay_sha256": "9afabf78cae20911d26f025f17b75c97d069351bf6a42adc0e03bf1dbcd13ece",
+  "semantic_runtime_sha256": "24441ed6387b01e0e1b26d6181b5d5879a2b20243eacb99078b94a4ae50af7f2",
+  "game_count": 6,
+  "deterministic_replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-artifact-entry-counter-donatello-shredder-3006",
+      "first_player": "donatello",
+      "second_player": "shredder",
+      "seed": 3006,
+      "result_digest": "a3a238671a6dc90a9fe343bb3ed0ed88eb89030e5a094f0bf3a2fd79ea3c0335",
+      "replay_equal": true,
+      "ending_turn": 17,
+      "event_count": 883,
+      "source_casts": 1,
+      "counter_resolutions": 2,
+      "entry_event_ids": [
+        "event-000046",
+        "event-000083"
+      ],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [
+        "object-000169"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-artifact-entry-counter-shredder-donatello-3006",
+      "first_player": "shredder",
+      "second_player": "donatello",
+      "seed": 3006,
+      "result_digest": "a201b9704313c03f9fcaa200f6ae0cfa44e29471e990e2e34eea4ebe71966627",
+      "replay_equal": true,
+      "ending_turn": 44,
+      "event_count": 2499,
+      "source_casts": 2,
+      "counter_resolutions": 2,
+      "entry_event_ids": [
+        "event-000255",
+        "event-000269"
+      ],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [
+        "object-000374"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-artifact-entry-counter-donatello-raphael-3021",
+      "first_player": "donatello",
+      "second_player": "raphael",
+      "seed": 3021,
+      "result_digest": "2b08607ec6d0ad70dd463abf4378d74ba221d67293037a2ddd1148006f5c3c4d",
+      "replay_equal": true,
+      "ending_turn": 17,
+      "event_count": 1013,
+      "source_casts": 1,
+      "counter_resolutions": 0,
+      "entry_event_ids": [],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-artifact-entry-counter-raphael-donatello-3021",
+      "first_player": "raphael",
+      "second_player": "donatello",
+      "seed": 3021,
+      "result_digest": "7560a572e7c3b3e40aa33cba65835fc1301a8df7fa53f93e1021ae84f1fc9dba",
+      "replay_equal": true,
+      "ending_turn": 13,
+      "event_count": 816,
+      "source_casts": 0,
+      "counter_resolutions": 0,
+      "entry_event_ids": [],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-artifact-entry-counter-donatello-leonardo-3034",
+      "first_player": "donatello",
+      "second_player": "leonardo",
+      "seed": 3034,
+      "result_digest": "da7fe7766bbd07f43df093365f55aa1edd8b1f641eb15bc8f49e3f72166762f8",
+      "replay_equal": true,
+      "ending_turn": 17,
+      "event_count": 844,
+      "source_casts": 0,
+      "counter_resolutions": 0,
+      "entry_event_ids": [],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-artifact-entry-counter-leonardo-donatello-3034",
+      "first_player": "leonardo",
+      "second_player": "donatello",
+      "seed": 3034,
+      "result_digest": "43d2f5d7790e04b9a77590155be05130c1b165c473c36aefbe43641bd1144c55",
+      "replay_equal": true,
+      "ending_turn": 24,
+      "event_count": 1593,
+      "source_casts": 0,
+      "counter_resolutions": 0,
+      "entry_event_ids": [],
+      "source_absent_resolutions": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    }
+  ],
+  "calibration_readiness": "BLOCKED"
+}

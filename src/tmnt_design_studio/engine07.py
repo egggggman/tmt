@@ -5899,6 +5899,50 @@ class Game(
         ):
             raise ValueError("combat graveyard target lacks selection provenance")
 
+    def _validate_artifact_entry_self_counter_trigger(
+        self, ability: TriggeredAbilityObject
+    ) -> None:
+        """Authenticate the entry snapshot, not the entering object's later zone."""
+        event = ability.event
+        self._authenticate_original_rules_event(event)
+        trigger = self._triggers.get(ability.trigger_id)
+        source = self._objects.get(ability.source_id)
+        if (
+            self._rules_events.get(event.event_id) is not event
+            or event.kind not in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
+            or len(event.subject_ids) != 1
+            or event.player_index != ability.controller
+            or not any(
+                object_id == event.subject_ids[0]
+                and controller == event.player_index
+                and "Artifact" in type_line
+                for object_id, controller, type_line in event.battlefield_characteristics
+            )
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or ability.source_id == event.subject_ids[0]
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or ability.oracle_fragment not in self.interpreter.fragments(source.card)
+            or not (
+                (
+                    coverage := self.interpreter.artifact_entry_self_counter_semantic_coverage(
+                        source.card, ability.oracle_fragment
+                    )
+                )
+                and coverage.fully_supported
+            )
+            or trigger is None
+            or trigger.event is not event
+            or trigger.effect is not ability.effect
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.controller != ability.controller
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or ability.target_id is not None
+            or ability.target_ids
+        ):
+            raise ValueError("artifact entry counter trigger lacks original event provenance")
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -6022,6 +6066,8 @@ class Game(
             self._validate_class_spell_cast_team_counter(
                 ability, ability.event, source, ability.oracle_fragment, ability.controller
             )
+        if ability.effect is TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER:
+            self._validate_artifact_entry_self_counter_trigger(ability)
         if ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             self._validate_etb_artifact_draw_provenance(
                 controller=ability.controller,
@@ -7141,23 +7187,8 @@ class Game(
                 oracle_fragment=ability.oracle_fragment,
                 applied=applied,
             )
-        elif (
-            ability.effect is TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER
-            and source_permanent is not None
-        ):
-            entering = (
-                self._objects.get(ability.event.subject_ids[0])
-                if ability.event.subject_ids
-                else None
-            )
-            valid = (
-                isinstance(entering, Permanent)
-                and self.is_authoritative(entering, "battlefield")
-                and entering.controller == ability.controller
-                and "Artifact" in entering.type_line
-                and self.is_authoritative(source_permanent, "battlefield")
-            )
-            if valid:
+        elif ability.effect is TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER:
+            if source_permanent is not None:
                 self.place_counters(
                     source_permanent,
                     "+1/+1",
@@ -7171,15 +7202,18 @@ class Game(
                     trigger_id=ability.trigger_id,
                     event_id=ability.event.event_id,
                     source_id=ability.source_id,
-                    entered_id=entering.object_id,
+                    entered_id=ability.event.subject_ids[0],
                     quantity=1,
                     counter_type="+1/+1",
                 )
             else:
                 self.log(
-                    "artifact_entry_counter_failed_closed",
+                    "artifact_entry_counter_source_absent",
                     stack_object_id=ability.object_id,
                     trigger_id=ability.trigger_id,
+                    event_id=ability.event.event_id,
+                    source_id=ability.source_id,
+                    entered_id=ability.event.subject_ids[0],
                 )
         elif ability.effect is TriggerEffect.RAPHAEL_ALLIANCE_EXILE:
             if not self.raphael_exile_chooser(ability.controller, ability.source_id):
