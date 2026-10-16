@@ -76,6 +76,20 @@ def test_exact_frozen_oracle_and_complete_level_only():
         assert not interpreter.activated_ability_semantics(changed, LEVEL).coverage.fully_supported
     assert interpreter.class_level_child(replace(CLASS, name="Another Class"), 2) == EFFECT
 
+    game = Game(([LAND] * 30, [LAND] * 30), seed=294)
+    game.begin_turn()
+    for _ in range(3):
+        game.create_permanent(LAND, 0, summoning_sick=False)
+    source = game.create_permanent(frozen, 0)
+    creature = game.create_permanent(BEAR, 0)
+    level_two(game, source)
+    game.place_counters(creature, "+1/+1", 1, source_card="Fixture", oracle_fragment="test")
+    game.move_object(creature, "graveyard")
+    game.check_state_based_actions()
+    drain(game)
+    assert game.players[0].life == 22
+    game.check_invariants()
+
 
 def test_cost_timing_stack_priority_and_countered_leave():
     game, source = setup()
@@ -151,6 +165,23 @@ def test_controller_history_source_independence_and_simultaneous_replay():
     first = replay()
     assert first == replay()
     assert first[0] == 24
+
+
+def test_any_counter_type_and_a_creature_class_departing_itself():
+    creature_class = replace(CLASS, type_line="Enchantment Creature — Class", power=2, toughness=2)
+    game = Game(([LAND] * 30, [LAND] * 30), seed=296)
+    game.begin_turn()
+    for _ in range(3):
+        game.create_permanent(LAND, 0, summoning_sick=False)
+    source = game.create_permanent(creature_class, 0)
+    level_two(game, source)
+    game.place_counters(source, "stun", 1, source_card="Fixture", oracle_fragment="test")
+    game.move_object(source, "exile")
+    game.check_state_based_actions()
+    assert len(game.stack) == 1
+    drain(game)
+    assert game.players[0].life == 22
+    game.check_invariants()
 
 
 def test_leave_history_rejects_counter_or_event_relink():
