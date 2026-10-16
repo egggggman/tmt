@@ -1,0 +1,118 @@
+{
+  "schema": "issue289-static-subtype-smoke-v1",
+  "kind": "diagnostic_only_not_balance_evidence",
+  "baseline_id": "OBL-BASELINE-005",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "checkpoint_overlay_sha256": "8cd7f803220bf3dd9d21cebe74271eede90d691bc61ecbaf06aa8dfe9033df1d",
+  "semantic_runtime_sha256": "bd3262a9787b5568ce6f9208d95c3e89eefbe5792319eab21e110c069eadb018",
+  "game_count": 6,
+  "deterministic_replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-static-subtype-splinter-leonardo-333",
+      "first_player": "splinter",
+      "second_player": "leonardo",
+      "seed": 333,
+      "result_digest": "16e56a7098044c5e2ecd3ab34e6e9b08041e3df2398c75d82b191e142ea76060",
+      "replay_equal": true,
+      "ending_turn": 25,
+      "event_count": 1248,
+      "source_casts": 0,
+      "modifier_applications": 0,
+      "modifier_removals": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-static-subtype-leonardo-splinter-333",
+      "first_player": "leonardo",
+      "second_player": "splinter",
+      "seed": 333,
+      "result_digest": "91ffcc38551a75404a9bc6b706df895465d2ccf1a5071205202c14de31ce1843",
+      "replay_equal": true,
+      "ending_turn": 16,
+      "event_count": 774,
+      "source_casts": 2,
+      "modifier_applications": 6,
+      "modifier_removals": 4,
+      "affected_creature_ids": [
+        "object-000163",
+        "object-000178",
+        "object-000187",
+        "object-000193"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-static-subtype-splinter-raphael-326",
+      "first_player": "splinter",
+      "second_player": "raphael",
+      "seed": 326,
+      "result_digest": "e631825dda1ae5ad655815d25584149aeffa17049ac8f9c9a9381ccd6c073996",
+      "replay_equal": true,
+      "ending_turn": 24,
+      "event_count": 1553,
+      "source_casts": 2,
+      "modifier_applications": 2,
+      "modifier_removals": 2,
+      "affected_creature_ids": [
+        "object-000269",
+        "object-000271"
+      ],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-static-subtype-raphael-splinter-326",
+      "first_player": "raphael",
+      "second_player": "splinter",
+      "seed": 326,
+      "result_digest": "28d4d02fd177f4b89df0d6b8eca9838b5b6c879459f2533e514e534ef3ce7112",
+      "replay_equal": true,
+      "ending_turn": 19,
+      "event_count": 1038,
+      "source_casts": 1,
+      "modifier_applications": 0,
+      "modifier_removals": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-static-subtype-splinter-donatello-349",
+      "first_player": "splinter",
+      "second_player": "donatello",
+      "seed": 349,
+      "result_digest": "e92e9d359d0f56ee7049419213a0eff81a3ccc31b76c4d32fd58456bc93e9436",
+      "replay_equal": true,
+      "ending_turn": 23,
+      "event_count": 1140,
+      "source_casts": 0,
+      "modifier_applications": 0,
+      "modifier_removals": 0,
+      "affected_creature_ids": [],
+      "runtime_error": null
+    },
+    {
+      "game_id": "issue289-static-subtype-donatello-splinter-349",
+      "first_player": "donatello",
+      "second_player": "splinter",
+      "seed": 349,
+      "result_digest": "e549b14341a160b0cbd334db6084021fdfb1f1940f842e891c2646805cd9872f",
+      "replay_equal": true,
+      "ending_turn": 18,
+      "event_count": 1074,
+      "source_casts": 3,
+      "modifier_applications": 5,
+      "modifier_removals": 3,
+      "affected_creature_ids": [
+        "object-000142",
+        "object-000170",
+        "object-000217",
+        "object-000234",
+        "object-000236"
+      ],
+      "runtime_error": null
+    }
+  ],
+  "calibration_readiness": "BLOCKED"
+}
