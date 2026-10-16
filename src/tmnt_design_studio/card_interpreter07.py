@@ -2847,6 +2847,25 @@ class CardInterpreter:
         loss = int(match["loss"])
         return (draw, loss) if draw > 0 and loss > 0 else None
 
+    def combat_damage_graveyard_attacker(self, card: CardDefinition, fragment: str) -> bool:
+        """Recognize the complete self-damage, optional targeted graveyard return."""
+        if "Creature" not in card.type_line:
+            return False
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = (
+            "(?:" + "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True)) + ")"
+        )
+        return (
+            re.fullmatch(
+                rf"Whenever {reference} deals combat damage to a player, "
+                r"put up to one target creature card from that player's graveyard onto the "
+                r"battlefield under your control\. It enters tapped and attacking that player\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            is not None
+        )
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -4104,6 +4123,8 @@ class CardInterpreter:
             if self.combat_damage_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.combat_damage_draw_lose_life(card, fragment) is not None:
+                continue
+            if self.combat_damage_graveyard_attacker(card, fragment):
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue

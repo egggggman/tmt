@@ -367,6 +367,7 @@ class TriggerEffect(Enum):
     ETB_DRAW_DISCARD = "etb_draw_discard"
     COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
     COMBAT_DAMAGE_DRAW_LOSE_LIFE = "combat_damage_draw_lose_life"
+    COMBAT_DAMAGE_GRAVEYARD_ATTACKER = "combat_damage_graveyard_attacker"
     GRANTED_COMBAT_UNTAP_GAIN = "granted_combat_untap_gain"
     EQUIPMENT_SUBTYPE_ENTRY_ATTACH = "equipment_subtype_entry_attach"
     UTILITY_TARGET = "utility_target"
@@ -4893,6 +4894,34 @@ class Game(
                         source,
                         source.card,
                     )
+                if ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
+                    self._validate_combat_graveyard_event(
+                        trigger.event,
+                        trigger.source_id,
+                        trigger.source_card,
+                        trigger.controller,
+                        trigger.oracle_fragment,
+                    )
+                    defender = trigger.event.target_player
+                    assert defender is not None
+                    choices = sorted(
+                        (
+                            card
+                            for card in self.players[defender].graveyard
+                            if card.card.is_creature and self.is_authoritative(card, "graveyard")
+                        ),
+                        key=lambda card: (-(card.card.power or 0), card.object_id),
+                    )
+                    if choices:
+                        ability.target_id = choices[0].object_id
+                    self.log(
+                        "combat_graveyard_target_selected",
+                        event_id=trigger.event.event_id,
+                        stack_object_id=ability.object_id,
+                        target_id=ability.target_id,
+                        offered_ids=[card.object_id for card in choices],
+                        defending_player=defender,
+                    )
                 if (
                     ability.effect is TriggerEffect.UTILITY_TARGET
                     and not self._select_utility_target(ability, trigger)
@@ -5552,6 +5581,77 @@ class Game(
         ):
             raise ValueError("combat draw/life trigger provenance is invalid")
 
+    def _validate_combat_graveyard_event(
+        self,
+        event: RulesEvent,
+        source_id: str,
+        source_card: CardFact,
+        controller: int,
+        fragment: str,
+    ) -> None:
+        self._authenticate_original_rules_event(event)
+        source = self._objects.get(source_id)
+        if (
+            not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.controller != controller
+            or event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or event.source_id != source_id
+            or event.subject_ids != (source_id,)
+            or event.player_index != controller
+            or event.target_player != 1 - controller
+            or event.amount is None
+            or event.amount <= 0
+            or (source_id, controller) not in event.battlefield_authority
+            or fragment not in self.interpreter.fragments(source_card)
+            or not self.interpreter.combat_damage_graveyard_attacker(source_card, fragment)
+        ):
+            raise ValueError("combat graveyard return lacks damage provenance")
+
+    def _validate_combat_graveyard_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        if (
+            trigger is None
+            or trigger.effect is not TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER
+            or trigger.event is not ability.event
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+        ):
+            raise ValueError("combat graveyard trigger identity is invalid")
+        self._validate_combat_graveyard_event(
+            ability.event,
+            ability.source_id,
+            ability.source_card,
+            ability.controller,
+            ability.oracle_fragment,
+        )
+        if ability.target_id is not None:
+            target = self._objects.get(ability.target_id)
+            if (
+                not isinstance(target, CardObject)
+                or target.owner != ability.event.target_player
+                or not target.card.is_creature
+            ):
+                raise ValueError("combat graveyard target identity is invalid")
+        selections = [
+            record
+            for record in self.events
+            if record.get("event") == "combat_graveyard_target_selected"
+            and record.get("stack_object_id") == ability.object_id
+        ]
+        if (
+            len(selections) != 1
+            or selections[0]["event_id"] != ability.event.event_id
+            or selections[0]["target_id"] != ability.target_id
+            or (
+                ability.target_id is not None
+                and ability.target_id not in selections[0]["offered_ids"]
+            )
+        ):
+            raise ValueError("combat graveyard target lacks selection provenance")
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -5579,6 +5679,8 @@ class Game(
             self._validate_etb_creature_destroy_trigger(ability)
         if ability.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
             self._validate_combat_draw_life_trigger(ability)
+        if ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
+            self._validate_combat_graveyard_trigger(ability)
         if ability.effect in {
             TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
             TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
@@ -6431,6 +6533,35 @@ class Game(
                 life_after=player.life,
                 life_lost=life_loss,
             )
+        elif ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
+            target = self._objects.get(ability.target_id or "")
+            valid = isinstance(target, CardObject) and self.is_authoritative(target, "graveyard")
+            entering = None
+            if valid:
+                assert isinstance(target, CardObject)
+                entering = self.move_object(
+                    target,
+                    "battlefield",
+                    controller=ability.controller,
+                    reason="combat_graveyard_return",
+                )
+                assert isinstance(entering, Permanent)
+                entering.tapped = True
+                self._combat_attackers += (entering.object_id,)
+                self._process_creature_entered_triggers(entering, defer_triggers=True)
+                self.check_state_based_actions()
+            self.log(
+                "combat_graveyard_attacker_resolved",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                target_id=ability.target_id,
+                permanent_id=entering.object_id if entering is not None else None,
+                defending_player=ability.event.target_player,
+                legal_target=valid,
+                attacking=entering is not None,
+            )
         elif ability.effect is TriggerEffect.UTILITY_TARGET:
             self._resolve_utility_trigger(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
@@ -6980,6 +7111,7 @@ class Game(
                 TriggerEffect.ETB_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
+                TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -10990,7 +11122,11 @@ class Game(
             and self.is_authoritative(obj, "battlefield")
             and StrikeKeyword.DOUBLE_STRIKE in self.evaluated_strike_keywords(obj)
         }
-        return set(self._regular_damage_initial_ids) | current_double
+        # A combatant put into combat after the first damage step began did not
+        # deal first-strike damage; even one with first strike can deal here.
+        initial = set(self._first_damage_qualified_ids) | set(self._regular_damage_initial_ids)
+        late = set(self._combat_attackers) - initial
+        return set(self._regular_damage_initial_ids) | current_double | late
 
     def _combat_assignment(
         self,
@@ -11327,6 +11463,18 @@ class Game(
                         if self.interpreter.combat_damage_draw_lose_life(source.card, fragment):
                             self._enqueue_trigger(
                                 event, source, fragment, TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE
+                            )
+                        if (
+                            source.ability_loss_timestamp is None
+                            and self.interpreter.combat_damage_graveyard_attacker(
+                                source.card, fragment
+                            )
+                        ):
+                            self._enqueue_trigger(
+                                event,
+                                source,
+                                fragment,
+                                TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
                             )
             else:
                 assert assignment.target_id is not None
@@ -14001,6 +14149,7 @@ class Game(
                         TriggerEffect.ETB_DRAW_DISCARD,
                         TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
                         TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
+                        TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
                         TriggerEffect.UTILITY_TARGET,
                         TriggerEffect.ETB_MILL_DRAW_DISCARD,
                         TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -16041,6 +16190,11 @@ class Game(
                 if obj.effect is TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE:
                     try:
                         self._validate_combat_draw_life_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
+                    try:
+                        self._validate_combat_graveyard_trigger(obj)
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
                 if obj.effect is TriggerEffect.ETB_DESTROY_TARGET_CREATURE:
