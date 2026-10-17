@@ -2,10 +2,10 @@
   "schema": "issue289-token-activation-discount-frozen-diagnostic-v1",
   "baseline_id": "OBL-BASELINE-005",
   "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
-  "semantic_runtime_sha256": "ddf1834e90630110a181ef097a88f5549867dc58ef739fdaeb36662d12690662",
+  "semantic_runtime_sha256": "2155923071528c685f84ba9c22431877a5959748b17246f11d5dfb64d43f09be",
   "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
   "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
-  "overlay_sha256": "a21028c9ad3296bd278d210ac7732ec84ce7d8ef0b643ee678a71e4436ddbd01",
+  "overlay_sha256": "61691b6294415c7d4dd254d987c8714277e556764015c61511475a5de139ff2f",
   "replay_count": 6,
   "games": [
     {

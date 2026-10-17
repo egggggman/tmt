@@ -1,8 +1,8 @@
 {
   "schema": "issue289-token-activation-discount-calibration-readiness-v1",
   "baseline_id": "OBL-BASELINE-005",
-  "checkpoint_overlay_sha256": "a21028c9ad3296bd278d210ac7732ec84ce7d8ef0b643ee678a71e4436ddbd01",
-  "semantic_runtime_sha256": "ddf1834e90630110a181ef097a88f5549867dc58ef739fdaeb36662d12690662",
+  "checkpoint_overlay_sha256": "61691b6294415c7d4dd254d987c8714277e556764015c61511475a5de139ff2f",
+  "semantic_runtime_sha256": "2155923071528c685f84ba9c22431877a5959748b17246f11d5dfb64d43f09be",
   "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
   "critical_remaining": 0,
   "important_remaining": 12,

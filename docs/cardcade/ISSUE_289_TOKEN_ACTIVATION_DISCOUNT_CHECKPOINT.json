@@ -4,7 +4,7 @@
   "base_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
   "previous_checkpoint_sha256": "f4e30ed5a22e6a2c148c7c301577b0b3bddcfa88d9fbbf2525af67b80958fcd7",
   "before_runtime_sha256": "d9b14f937f42d3074d9b39a2b211fdeee95daf5570641e94341b775f8ab233f1",
-  "semantic_runtime_sha256": "ddf1834e90630110a181ef097a88f5549867dc58ef739fdaeb36662d12690662",
+  "semantic_runtime_sha256": "2155923071528c685f84ba9c22431877a5959748b17246f11d5dfb64d43f09be",
   "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
   "frozen_deck_sha256": {
     "leonardo": "4d5db15f72595d5377c3cd2c6ee57374176fc211a1669ea99c74a8e75744a960",
