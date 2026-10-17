@@ -3,6 +3,8 @@
 from dataclasses import replace
 from pathlib import Path
 
+import pytest
+
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, DamageTargetKind
 from tmnt_design_studio.engine07 import (
@@ -225,3 +227,30 @@ def test_first_and_regular_damage_steps_retain_only_permitted_units():
         1,
     ]
     game.check_invariants()
+
+
+def test_lethal_damage_source_departure_forged_event_and_exact_replay():
+    def scenario():
+        game = Game(([LAND] * 60, [LAND] * 60), seed=2896)
+        game.begin_turn()
+        reactor = game.create_permanent(replace(REACTOR, toughness=1), 0)
+        source = game.create_permanent(SOURCE, 1)
+        event = damage(game, reactor, source, 2)
+        trigger = game.stack[-1]
+        with pytest.raises(ValueError, match="original evidence"):
+            game._validate_damage_to_self_mana(
+                replace(event, amount=9),
+                reactor.object_id,
+                reactor.card,
+                trigger.oracle_fragment,
+                0,
+                trigger_id=trigger.trigger_id,
+            )
+        game.check_state_based_actions()
+        assert reactor.zone == "former"
+        resolve(game)
+        assert game.floating_mana.snapshot(0) == {"R": 2}
+        game.check_invariants()
+        return game.events, game.floating_mana.productions(0), game.floating_mana.consumptions(0)
+
+    assert scenario() == scenario()
