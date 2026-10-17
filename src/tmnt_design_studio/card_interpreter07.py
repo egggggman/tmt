@@ -1636,7 +1636,8 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> ActivatedAbilityCostReductionProgram | None:
         """Parse a complete static activation discount, distinct from casting discounts."""
-        if fragment not in self.fragments(card) or "Land" in card.type_line.split(" — ")[0]:
+        types = card.type_line.split(" — ", 1)[0].split()
+        if fragment not in self.fragments(card) or not set(types) & self.PERMANENT_CARD_TYPES:
             return None
         match = self.ACTIVATED_TOKEN_COST_REDUCTION.fullmatch(fragment)
         if match is None:

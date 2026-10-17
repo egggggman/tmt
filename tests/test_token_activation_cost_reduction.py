@@ -61,6 +61,18 @@ def test_generic_oracle_parser_and_frozen_clause():
     ):
         variant = CardFact("Different Source", "{2}", 2, "Artifact", malformed)
         assert CardInterpreter().activated_token_cost_reduction_program(variant, malformed) is None
+    land_source = CardFact("Land Source", "", 0, "Land", FRAGMENT)
+    nonpermanent = CardFact("Nonpermanent", "{1}", 1, "Instant", FRAGMENT)
+    assert CardInterpreter().activated_token_cost_reduction_program(land_source, FRAGMENT)
+    assert CardInterpreter().activated_token_cost_reduction_program(nonpermanent, FRAGMENT) is None
+
+
+def test_static_discount_can_originate_from_a_land_permanent():
+    game, _reducers, token, _target = setup(reducers=0)
+    source = CardFact("Land Source", "", 0, "Land", FRAGMENT)
+    game.create_permanent(source, 0)
+    plan = game.activation_payment_plan(0, token, ABILITY)
+    assert plan is not None and plan.requirement.generic == 0
 
 
 @pytest.mark.parametrize("reducers,expected_generic", [(0, 1), (1, 0), (2, 0)])
