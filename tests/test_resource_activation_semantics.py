@@ -179,3 +179,37 @@ def test_insufficient_mana_tap_sickness_and_deterministic_replay():
         return current.events
 
     assert replay() == replay()
+
+
+def test_self_sacrifice_life_is_available_at_priority_and_resolves_independently():
+    game, source = setup(seed=3354, mana=2)
+    game.advance_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window(allow_empty=True, priority_player=0)
+    option = next(
+        option
+        for option in game.legal_priority_actions(0)
+        if option.kind is ActionKind.ACTIVATE_ABILITY and option.oracle_fragment == LIFE
+    )
+    assert game.execute_priority_action(option)
+    ability = game.stack[-1]
+    assert source.zone == "former" and ability.source_id == source.object_id
+    drain(game)
+    assert game.players[0].life == 23
+    game.check_invariants()
+
+
+def test_other_sacrifice_uses_original_owner_and_stack_controller():
+    game, source = setup(seed=3355, mana=2)
+    borrowed = game.create_permanent(CREATURE, 1)
+    game.change_controller(borrowed, 0)
+    before = len(game.players[0].hand)
+    ability = game.announce_activated_ability(
+        0, source, DRAW, other_sacrifice_id=borrowed.object_id
+    )
+    assert ability is not None
+    destination = game._objects[ability.other_sacrifice_destination_id]
+    assert destination.owner == 1 and destination in game.players[1].graveyard
+    game.change_controller(source, 1)
+    drain(game)
+    assert len(game.players[0].hand) == before + 1
+    game.check_invariants()
