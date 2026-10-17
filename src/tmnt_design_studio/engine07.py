@@ -163,7 +163,17 @@ class ActionOption:
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
     choice_ids: tuple[str, ...] = ()
-    x_value: int | None = None
+
+    @property
+    def x_value(self) -> int | None:
+        """An X announcement encoded in the existing immutable choice channel."""
+        if (
+            self.kind is ActionKind.CAST
+            and len(self.choice_ids) == 1
+            and self.choice_ids[0].isdecimal()
+        ):
+            return int(self.choice_ids[0])
+        return None
 
 
 @dataclass(frozen=True)
@@ -9610,7 +9620,7 @@ class Game(
                                     ActionKind.CAST,
                                     player_index,
                                     object_id=card.object_id,
-                                    x_value=chosen_x,
+                                    choice_ids=(str(chosen_x),),
                                 )
                             )
                 continue
