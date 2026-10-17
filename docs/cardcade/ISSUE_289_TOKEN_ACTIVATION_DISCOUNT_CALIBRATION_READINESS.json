@@ -11,9 +11,9 @@
   "calibration_readiness": "BLOCKED",
   "reason": "Eight material resource, combat and token gaps remain; four important impacts are still unbounded.",
   "pilot_execution_exposure": {
-    "status": "UNPROVEN_FOR_THIS_MECHANIC",
+    "status": "MEASURED_IN_AUTHENTICATED_DIAGNOSTIC",
     "diagnostic_path": "docs/cardcade/ISSUE_289_TOKEN_ACTIVATION_DISCOUNT_SMOKE.json",
-    "interpretation": "A printed artifact-token activation matters only when a token exists and the pilot selects a legal action; compare offerings, selections, paid costs, stack resolutions and placed counters."
+    "interpretation": "The companion authenticated frozen-deck diagnostic records offerings, selections, paid costs, stack resolutions and placed counters separately; its small sample does not establish balance."
   },
   "score_formula": "3*copies + 4*decks + 5*impact + 2*reuse - complexity",
   "score_scales": {

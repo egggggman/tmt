@@ -178,14 +178,14 @@ def reports() -> tuple[dict, dict]:
             "four important impacts are still unbounded."
         ),
         "pilot_execution_exposure": {
-            "status": "UNPROVEN_FOR_THIS_MECHANIC",
+            "status": "MEASURED_IN_AUTHENTICATED_DIAGNOSTIC",
             "diagnostic_path": str(
                 (DOCS / "ISSUE_289_TOKEN_ACTIVATION_DISCOUNT_SMOKE.json").relative_to(ROOT)
             ),
             "interpretation": (
-                "A printed artifact-token activation matters only when a token exists and the "
-                "pilot selects a legal action; compare offerings, selections, paid costs, "
-                "stack resolutions and placed counters."
+                "The companion authenticated frozen-deck diagnostic records offerings, "
+                "selections, paid costs, stack resolutions and placed counters separately; "
+                "its small sample does not establish balance."
             ),
         },
         "score_formula": assessment["score_formula"],
