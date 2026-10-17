@@ -286,6 +286,7 @@ class ActivationPaymentPlan:
     counter_target_id: str | None = None
     floating_event_ids: tuple[str, ...] = ()
     other_sacrifice_id: str | None = None
+    reduction_source_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -12475,6 +12476,27 @@ class Game(
                 return None
         return ManaRequirement(generic, tuple(colored))
 
+    def _activation_token_cost_reducers(
+        self, player_index: int, source: Permanent
+    ) -> tuple[tuple[Permanent, int, str], ...]:
+        """Live static effects applying to this controlled token's activated ability."""
+        if not source.is_token or source.controller != player_index:
+            return ()
+        types = source.type_line.split(" — ", 1)[0].split()
+        return tuple(
+            (reducer, program.amount, program.oracle_fragment)
+            for reducer in self.players[player_index].battlefield
+            if self.is_authoritative(reducer, "battlefield")
+            for fragment in self.interpreter.fragments(reducer.rules_card)
+            if (
+                program := self.interpreter.activated_token_cost_reduction_program(
+                    reducer.card, fragment
+                )
+            )
+            is not None
+            and program.permanent_type in types
+        )
+
     def activation_payment_plan(
         self,
         player_index: int,
@@ -12527,6 +12549,11 @@ class Game(
         requirement = self.activation_mana_requirement(cost.mana_cost)
         if requirement is None:
             return None
+        reducers = self._activation_token_cost_reducers(player_index, source)
+        requirement = ManaRequirement(
+            max(0, requirement.generic - sum(amount for _source, amount, _text in reducers)),
+            requirement.colored,
+        )
         if cost.tap_source and (
             source.tapped
             or (
@@ -12576,6 +12603,7 @@ class Game(
             counter_target_id,
             floating_event_ids,
             other_sacrifice_id,
+            tuple(reducer.object_id for reducer, _amount, _text in reducers),
         )
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -13333,6 +13361,19 @@ class Game(
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
             other_sacrifice_id=plan.other_sacrifice_id,
         )
+        printed_requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
+        assert printed_requirement is not None
+        if plan.requirement.generic < printed_requirement.generic:
+            self.log(
+                "activation_cost_reduced",
+                source_id=source.object_id,
+                stack_object_id=ability.object_id,
+                controller=player_index,
+                printed_generic=printed_requirement.generic,
+                paid_generic=plan.requirement.generic,
+                reduction_source_ids=list(plan.reduction_source_ids),
+                oracle_fragment=oracle_fragment,
+            )
         self.floating_mana.consume_events(
             player_index, plan.floating_event_ids, ability.object_id, "activate_ability"
         )
