@@ -3998,6 +3998,9 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        variable = self.x_entry_token_program(card, fragment)
+        if variable is not None:
+            return self._token_semantics(variable, True)
         if self.DISAPPEAR_ETB_TOKEN.fullmatch(fragment) and "Creature" in card.type_line:
             program = self.token_creation_program(fragment)
             if program is not None:
@@ -4072,6 +4075,31 @@ class CardInterpreter:
         else:
             reason = "token_spell_context_not_implemented"
         return self._token_semantics(program, False, reason)
+
+    def x_entry_token_program(
+        self, card: CardDefinition, fragment: str
+    ) -> TokenCreationProgram | None:
+        """Recognize a complete self-entry X token instruction with printed characteristics."""
+        if "Creature" not in card.type_line or card.mana_cost.count("{X}") != 1:
+            return None
+        match = re.fullmatch(
+            r"When (?P<source>.+) enters, create X (?P<token>[A-Za-z ]+) tokens\. "
+            r'\(They\'re artifacts with "(?P<ability>[^"]+)"\)',
+            fragment,
+        )
+        if match is None or not self._self_reference(card, match["source"]):
+            return None
+        definition = self.PREDEFINED_TOKENS.get(match["token"].casefold())
+        if (
+            definition is None
+            or definition.oracle_text != match["ability"]
+            or "Artifact" not in definition.type_line.split(" — ", 1)[0].split()
+            or not self.COUNTER_TOKEN_ACTIVATION.fullmatch(definition.oracle_text)
+        ):
+            return None
+        # The executable program is a template. The announced X replaces quantity
+        # at trigger resolution; other variable token instructions remain unsupported.
+        return TokenCreationProgram(definition, 1)
 
     def entry_leave_or_artifact_cast_token_context(
         self, card: CardDefinition, fragment: str

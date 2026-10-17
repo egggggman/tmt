@@ -95,7 +95,6 @@ EXPECTED_EXECUTABLE_NAMES = EXPECTED_RECOGNIZED_NAMES - {
     "Endless Foot Assault",
     "Here Comes a New Hero!",
     "Improvised Arsenal",
-    "Mutagen Man, Living Ooze",
     "Plague of Vermin",
     "Sally Pride, Lioness Leader",
     "Shellshock",
@@ -675,7 +674,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
         name for name, items in rows_by_name.items() if any(x[2].payload_executable for x in items)
     } == EXPECTED_EXECUTABLE_NAMES
     assert sum(map(len, rows_by_name.values())) == 71
-    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 51
+    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 52
     recognized_rows = {
         (oracle_id, fragment) for items in rows_by_name.values() for oracle_id, fragment, _ in items
     }
@@ -697,7 +696,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
     )
     assert (
         digest(executable_rows)
-        == "730328d8bed852b4dd429df58c976e50aec8f53d51b136de79e93d1f88fad84e"
+        == "7585bc6e2a62c3537031c472bc74163123046e13107bf3e34371f7d6887b1faa"
     )
 
     roster = json.loads((ROOT / "cardcade/roster-0.2.json").read_text(encoding="utf-8"))
@@ -720,7 +719,6 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
     assert exposed_names & EXPECTED_EXECUTABLE_NAMES == EXPECTED_ROSTER_NAMES - {
         "Donatello, Gadget Master",
         "Improvised Arsenal",
-        "Mutagen Man, Living Ooze",
     }
 
 
@@ -797,8 +795,9 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Foot Mystic",
         "Mouser Foundry",
         "Ravenous Robots",
+        "Mutagen Man, Living Ooze",
     }
-    assert len(fully_supported) == 24
+    assert len(fully_supported) == 25
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

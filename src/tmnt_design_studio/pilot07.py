@@ -272,7 +272,13 @@ class AcceptancePilot:
                 if (card := self._card(view, option.player_index, option.object_id)) and card[3]
             ]
             if creatures:
-                return min(creatures, key=lambda row: (row[1][2], row[1][1]))[0]
+                chosen = min(creatures, key=lambda row: (row[1][2], row[1][1]))[0]
+                # Once a creature is selected, commit the largest affordable X
+                # rather than the first (zero) legal announcement for that card.
+                return max(
+                    (option for option, _card in creatures if option.object_id == chosen.object_id),
+                    key=lambda option: option.x_value if option.x_value is not None else -1,
+                )
             # Engine-supplied playable actions outside the hand are still legal
             # opportunities; choose one after hand creature development.
             external = [

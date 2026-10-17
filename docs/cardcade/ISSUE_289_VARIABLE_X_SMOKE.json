@@ -1,0 +1,812 @@
+{
+  "schema": "issue289-variable-x-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "d9b14f937f42d3074d9b39a2b211fdeee95daf5570641e94341b775f8ab233f1",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "f4e30ed5a22e6a2c148c7c301577b0b3bddcfa88d9fbbf2525af67b80958fcd7",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-variable-x-bebop_rocksteady-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "result_sha256": "af37dc2f7f148c02066fda9ca932cb199c1b4e7fd726b5c3a75e5797fa9a4011",
+      "opportunities": [
+        [
+          5,
+          "activate",
+          "object-000124",
+          0
+        ],
+        [
+          5,
+          "activate",
+          "object-000124",
+          1
+        ],
+        [
+          5,
+          "activate",
+          "object-000125",
+          0
+        ],
+        [
+          5,
+          "activate",
+          "object-000125",
+          1
+        ],
+        [
+          5,
+          "creature",
+          "object-000124",
+          0
+        ],
+        [
+          5,
+          "creature",
+          "object-000124",
+          1
+        ],
+        [
+          5,
+          "creature",
+          "object-000125",
+          0
+        ],
+        [
+          5,
+          "creature",
+          "object-000125",
+          1
+        ],
+        [
+          5,
+          "damage",
+          "object-000124",
+          0
+        ],
+        [
+          5,
+          "damage",
+          "object-000124",
+          1
+        ],
+        [
+          5,
+          "damage",
+          "object-000125",
+          0
+        ],
+        [
+          5,
+          "damage",
+          "object-000125",
+          1
+        ],
+        [
+          5,
+          "destroy",
+          "object-000124",
+          0
+        ],
+        [
+          5,
+          "destroy",
+          "object-000124",
+          1
+        ],
+        [
+          5,
+          "destroy",
+          "object-000125",
+          0
+        ],
+        [
+          5,
+          "destroy",
+          "object-000125",
+          1
+        ],
+        [
+          7,
+          "activate",
+          "object-000125",
+          0
+        ],
+        [
+          7,
+          "activate",
+          "object-000125",
+          1
+        ],
+        [
+          7,
+          "activate",
+          "object-000125",
+          2
+        ],
+        [
+          7,
+          "creature",
+          "object-000125",
+          0
+        ],
+        [
+          7,
+          "creature",
+          "object-000125",
+          1
+        ],
+        [
+          7,
+          "damage",
+          "object-000125",
+          0
+        ],
+        [
+          7,
+          "damage",
+          "object-000125",
+          1
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125",
+          0
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125",
+          1
+        ],
+        [
+          7,
+          "land",
+          "object-000125",
+          0
+        ],
+        [
+          7,
+          "land",
+          "object-000125",
+          1
+        ]
+      ],
+      "selected": [
+        [
+          5,
+          "creature",
+          "object-000124",
+          1
+        ],
+        [
+          7,
+          "creature",
+          "object-000125",
+          1
+        ]
+      ],
+      "nonselected": [
+        [
+          5,
+          "activate",
+          "object-000124"
+        ],
+        [
+          5,
+          "damage",
+          "object-000124"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000124"
+        ],
+        [
+          7,
+          "activate",
+          "object-000125"
+        ],
+        [
+          7,
+          "damage",
+          "object-000125"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125"
+        ],
+        [
+          7,
+          "land",
+          "object-000125"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "generic": 1,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000135",
+            "object-000145",
+            "object-000139"
+          ],
+          "floating_event_ids": [],
+          "x_value": 1
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "generic": 1,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000145",
+            "object-000156",
+            "object-000139"
+          ],
+          "floating_event_ids": [],
+          "x_value": 1
+        }
+      ],
+      "casts": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Mutagen Man, Living Ooze",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000146",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": 1
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Mutagen Man, Living Ooze",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000159",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": 1
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "variable_x_entry_resolved",
+          "source_id": "object-000147",
+          "stack_object_id": "object-000148",
+          "event_id": "event-000016",
+          "controller": 0,
+          "x_value": 1
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "variable_x_entry_resolved",
+          "source_id": "object-000160",
+          "stack_object_id": "object-000161",
+          "event_id": "event-000033",
+          "controller": 0,
+          "x_value": 1
+        }
+      ],
+      "token_batches": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000017",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 1,
+          "object_ids": [
+            "object-000149"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000147",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000034",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 1,
+          "object_ids": [
+            "object-000162"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000160",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-variable-x-raphael-bebop_rocksteady-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "88ba29d676693b2fd91b6b8bba590f3f89f79f94fef35a4283c6f27ccab90ac0",
+      "opportunities": [
+        [
+          18,
+          "activate",
+          "object-000237",
+          0
+        ],
+        [
+          18,
+          "activate",
+          "object-000237",
+          1
+        ],
+        [
+          18,
+          "activate",
+          "object-000237",
+          2
+        ],
+        [
+          18,
+          "activate",
+          "object-000237",
+          3
+        ],
+        [
+          18,
+          "activate",
+          "object-000237",
+          4
+        ],
+        [
+          18,
+          "creature",
+          "object-000237",
+          0
+        ],
+        [
+          18,
+          "creature",
+          "object-000237",
+          1
+        ],
+        [
+          18,
+          "creature",
+          "object-000237",
+          2
+        ],
+        [
+          18,
+          "creature",
+          "object-000237",
+          3
+        ],
+        [
+          18,
+          "creature",
+          "object-000237",
+          4
+        ],
+        [
+          18,
+          "damage",
+          "object-000237",
+          0
+        ],
+        [
+          18,
+          "damage",
+          "object-000237",
+          1
+        ],
+        [
+          18,
+          "damage",
+          "object-000237",
+          2
+        ],
+        [
+          18,
+          "damage",
+          "object-000237",
+          3
+        ],
+        [
+          18,
+          "damage",
+          "object-000237",
+          4
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237",
+          0
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237",
+          1
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237",
+          2
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237",
+          3
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237",
+          4
+        ],
+        [
+          18,
+          "land",
+          "object-000237",
+          0
+        ],
+        [
+          18,
+          "land",
+          "object-000237",
+          1
+        ],
+        [
+          18,
+          "land",
+          "object-000237",
+          2
+        ],
+        [
+          18,
+          "land",
+          "object-000237",
+          3
+        ],
+        [
+          18,
+          "land",
+          "object-000237",
+          4
+        ]
+      ],
+      "selected": [
+        [
+          18,
+          "creature",
+          "object-000237",
+          4
+        ]
+      ],
+      "nonselected": [
+        [
+          18,
+          "activate",
+          "object-000237"
+        ],
+        [
+          18,
+          "damage",
+          "object-000237"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000237"
+        ],
+        [
+          18,
+          "land",
+          "object-000237"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "generic": 4,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000137",
+            "object-000161",
+            "object-000146",
+            "object-000171",
+            "object-000183",
+            "object-000205"
+          ],
+          "floating_event_ids": [],
+          "x_value": 4
+        }
+      ],
+      "casts": [
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Mutagen Man, Living Ooze",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000244",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": 4
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "variable_x_entry_resolved",
+          "source_id": "object-000245",
+          "stack_object_id": "object-000246",
+          "event_id": "event-000122",
+          "controller": 1,
+          "x_value": 4
+        }
+      ],
+      "token_batches": [
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000123",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 4,
+          "object_ids": [
+            "object-000247",
+            "object-000248",
+            "object-000249",
+            "object-000250"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000245",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-variable-x-bebop_rocksteady-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "donatello"
+      ],
+      "result_sha256": "80a4eb3325321665d5cfae90747a444b1b28d76e3000beb49091abdb743bb7df",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "payments": [],
+      "casts": [],
+      "resolutions": [],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-variable-x-donatello-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "5a6bc97b0a0d5efee517def73a61ceae5fd864176b75f35bcbb587cba18063cb",
+      "opportunities": [
+        [
+          4,
+          "activate",
+          "object-000134",
+          0
+        ],
+        [
+          4,
+          "creature",
+          "object-000134",
+          0
+        ],
+        [
+          4,
+          "damage",
+          "object-000134",
+          0
+        ],
+        [
+          4,
+          "destroy",
+          "object-000134",
+          0
+        ]
+      ],
+      "selected": [
+        [
+          4,
+          "creature",
+          "object-000134",
+          0
+        ]
+      ],
+      "nonselected": [
+        [
+          4,
+          "activate",
+          "object-000134"
+        ],
+        [
+          4,
+          "damage",
+          "object-000134"
+        ],
+        [
+          4,
+          "destroy",
+          "object-000134"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Mutagen Man, Living Ooze",
+          "generic": 0,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000139",
+            "object-000143"
+          ],
+          "floating_event_ids": [],
+          "x_value": 0
+        }
+      ],
+      "casts": [
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Mutagen Man, Living Ooze",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000144",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": 0
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "variable_x_entry_resolved",
+          "source_id": "object-000145",
+          "stack_object_id": "object-000146",
+          "event_id": "event-000014",
+          "controller": 1,
+          "x_value": 0
+        }
+      ],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-variable-x-bebop_rocksteady-krang-3006",
+      "seed": 3006,
+      "seats": [
+        "bebop_rocksteady",
+        "krang"
+      ],
+      "result_sha256": "5aa153ef3eb31d4e9f994f53db2bf6108d3ab6a891b729a77ed195e5356fed81",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "payments": [],
+      "casts": [],
+      "resolutions": [],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-variable-x-krang-bebop_rocksteady-3006",
+      "seed": 3006,
+      "seats": [
+        "krang",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "90d5f6fa384253407bfd8574aa38a21a89f990841fdd2bb2c4fe28d8b874ec8d",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "payments": [],
+      "casts": [],
+      "resolutions": [],
+      "token_batches": []
+    }
+  ]
+}
