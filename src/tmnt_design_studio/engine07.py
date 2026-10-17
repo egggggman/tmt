@@ -998,6 +998,8 @@ class ActivatedAbilityObject:
     sacrificed_destination_id: str | None = None
     departure_event_id: str | None = None
     discarded_destination_id: str | None = None
+    other_sacrifice_id: str | None = None
+    other_sacrifice_destination_id: str | None = None
     target_ids: tuple[str, ...] = ()
     choice_ids: tuple[str, ...] = ()
     cost_target_id: str | None = None
@@ -10201,6 +10203,32 @@ class Game(
             *self.legal_mana_ability_actions(player_index, priority=True),
             *self._counter_activation_options(player_index),
             *self._damage_activation_priority_options(player_index),
+            *self._non_target_activation_priority_options(player_index),
+        )
+
+    def _non_target_activation_priority_options(
+        self, player_index: int
+    ) -> tuple[ActionOption, ...]:
+        """Expose complete instant-speed, untargeted resource activations."""
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.ACTIVATE_ABILITY,
+                player_index,
+                object_id=source.object_id,
+                oracle_fragment=fragment,
+                priority_epoch=state.epoch,
+            )
+            for source in self.players[player_index].battlefield
+            for fragment in self.interpreter.fragments(source.rules_card)
+            for semantics in (self.interpreter.activated_ability_semantics(source.card, fragment),)
+            if semantics is not None
+            and semantics.coverage.fully_supported
+            and semantics.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE
+            and semantics.program.activation_instructions is None
+            and self.activation_payment_plan(player_index, source, fragment) is not None
         )
 
     def _legal_creature_power_source(self, source: object, controller: int) -> bool:
@@ -10572,6 +10600,8 @@ class Game(
             )
             if ability is None:
                 raise ValueError("counter activation option became illegal")
+            if ability.zone == "stack":
+                self._begin_priority_window(priority_player=option.player_index)
             return True
         if option.kind is ActionKind.CAST:
             card = self._objects.get(option.object_id or "")
@@ -12305,15 +12335,22 @@ class Game(
         ):
             return None
         cost = semantics.program.cost
-        if cost.sacrifice_other_nonland:
-            if source.once_per_turn_activations.get(oracle_fragment) == self.turn:
+        if cost.sacrifice_other_nonland or cost.sacrifice_other_creature_or_token:
+            if (
+                cost.sacrifice_other_nonland
+                and source.once_per_turn_activations.get(oracle_fragment) == self.turn
+            ):
                 return None
             eligible = tuple(
                 permanent.object_id
                 for permanent in self.players[player_index].battlefield
                 if permanent is not source
                 and self.is_authoritative(permanent, "battlefield")
-                and "Land" not in permanent.type_line.split(" — ")[0].split()
+                and (
+                    "Land" not in permanent.type_line.split(" — ")[0].split()
+                    if cost.sacrifice_other_nonland
+                    else permanent.is_creature or permanent.is_token
+                )
             )
             if other_sacrifice_id not in eligible:
                 return None
@@ -12392,9 +12429,14 @@ class Game(
                         permanent.object_id
                         for permanent in self.players[player_index].battlefield
                         if permanent is not source
-                        and "Land" not in permanent.type_line.split(" — ")[0].split()
+                        and (
+                            "Land" not in permanent.type_line.split(" — ")[0].split()
+                            if semantics.program.cost.sacrifice_other_nonland
+                            else permanent.is_creature or permanent.is_token
+                        )
                     )
                     if semantics.program.cost.sacrifice_other_nonland
+                    or semantics.program.cost.sacrifice_other_creature_or_token
                     else (None,)
                 )
                 first_cost = cost_options[0] if cost_options else None
@@ -12489,10 +12531,14 @@ class Game(
                             ActionKind.ACTIVATE_ABILITY,
                             player_index,
                             object_id=source.object_id,
+                            cost_object_id=first_cost,
                             oracle_fragment=fragment,
                         )
                     )
-                if semantics.program.cost.sacrifice_other_nonland:
+                if (
+                    semantics.program.cost.sacrifice_other_nonland
+                    or semantics.program.cost.sacrifice_other_creature_or_token
+                ):
                     chosen = tuple(options[first_option_index:])
                     for additional_cost in cost_options[1:]:
                         options.extend(
@@ -12800,7 +12846,7 @@ class Game(
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
         ):
             return None
-        if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER and (
+        if semantics.program.activation_instructions == "Activate only as a sorcery." and (
             player_index != self.active_player
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
             or self.stack
@@ -13020,9 +13066,18 @@ class Game(
         self.activation_evidence.append(evidence)
         if isinstance(other_sacrifice, Permanent):
             destination = self.move_object(
-                other_sacrifice, "graveyard", reason="equipment_activation_sacrifice_cost"
+                other_sacrifice,
+                "graveyard",
+                reason=(
+                    "equipment_activation_sacrifice_cost"
+                    if semantics.program.cost.sacrifice_other_nonland
+                    else "activation_other_sacrifice_cost"
+                ),
             )
-            source.once_per_turn_activations[oracle_fragment] = self.turn
+            ability.other_sacrifice_id = other_sacrifice.object_id
+            ability.other_sacrifice_destination_id = destination.object_id
+            if semantics.program.cost.sacrifice_other_nonland:
+                source.once_per_turn_activations[oracle_fragment] = self.turn
             self.log(
                 "activation_other_sacrifice_paid",
                 stack_object_id=ability.object_id,
@@ -13211,6 +13266,45 @@ class Game(
         ):
             raise ValueError("counter-cost target provenance is invalid")
 
+    def _validate_other_sacrifice_provenance(self, ability: ActivatedAbilityObject) -> None:
+        """The paid creature/token cost survives independently of its source."""
+        if not ability.program.cost.sacrifice_other_creature_or_token:
+            return
+        source = self._objects.get(ability.source_id)
+        paid = self._objects.get(ability.other_sacrifice_id or "")
+        destination = self._objects.get(ability.other_sacrifice_destination_id or "")
+        activations = [
+            item for item in self.activation_evidence if item.stack_object_id == ability.object_id
+        ]
+        witnesses = [
+            event
+            for event in self.events
+            if event["event"] == "activation_other_sacrifice_paid"
+            and event["stack_object_id"] == ability.object_id
+        ]
+        if (
+            len(activations) != 1
+            or activations[0].resolved
+            or activations[0].source_id != ability.source_id
+            or activations[0].controller != ability.controller
+            or activations[0].oracle_fragment != ability.oracle_fragment
+            or activations[0].mana_source_ids != ability.mana_source_ids
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or not isinstance(paid, Permanent)
+            or paid is source
+            or paid.zone != "former"
+            or paid.controller != ability.controller
+            or not (paid.is_creature or paid.is_token)
+            or not isinstance(destination, CardObject)
+            or destination.card is not paid.card
+            or destination.owner != paid.owner
+            or len(witnesses) != 1
+            or witnesses[0]["cost_object_id"] != paid.object_id
+            or witnesses[0]["destination_object_id"] != destination.object_id
+        ):
+            raise ValueError("other-sacrifice activation provenance is invalid")
+
     def _resolve_activated_ability(self, ability: ActivatedAbilityObject) -> None:
         if (
             not self.stack
@@ -13222,6 +13316,7 @@ class Game(
             self._validate_food_activation_linkage(ability)
         self._validate_counterspell_provenance(ability)
         self._validate_counter_cost_provenance(ability)
+        self._validate_other_sacrifice_provenance(ability)
         semantics = self.interpreter.activated_ability_semantics(
             ability.source_card, ability.oracle_fragment
         )
@@ -13415,12 +13510,13 @@ class Game(
             delivered = drew
         elif ability.program.effect_kind is ActivatedEffectKind.DRAW_CARDS:
             match = re.search(
-                r": Draw (?P<count>one|two|three|four|five|[1-9]\d*) cards?\.$",
-                ability.oracle_fragment,
+                r"^Draw (?P<count>a|one|two|three|four|five|[1-9]\d*) cards?\."
+                r"(?: Activate only as a sorcery\.)?$",
+                ability.program.effect_text,
                 re.I,
             )
             assert match is not None
-            quantity = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}.get(
+            quantity = {"a": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5}.get(
                 match.group("count").casefold()
             ) or int(match.group("count"))
             before = len(self.players[ability.controller].library)

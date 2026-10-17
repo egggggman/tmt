@@ -581,10 +581,11 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Weather Maker",
     }
     # Both complete Leader's Talent level activations now execute.
-    assert len({item[0] for item in executable}) == 45 and len(executable) == 50
+    assert len({item[0] for item in executable}) == 46 and len(executable) == 52
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
+        "Ice Cream Kitty",
         "Does Machines",
         "Ninja Teen",
         "Leonardo, Leader in Blue",
@@ -625,9 +626,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "9fb0e75f27f05a1ca7d103dbf85bfea13ddf968095f4f0b3bd03ae89e39e3a7c"
+        == "511f5ae37df614e2e5c48cb5e812774a5824480259102bdef2c656130bded58c"
     )
-    assert digest(executable) == "a036e302a38c976af0b2e2081d8adf528f4f628324032d8d2727241dfdb6864d"
+    assert digest(executable) == "91af0a5c56454d944b49df01941c6e92266daa0eb38383027a3ee8315ff1949d"
     assert digest(full) == digest(executable)
 
 
@@ -659,6 +660,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     assert {name for name, cards in decks.items() if cards & recognized_names} == set(decks)
     assert executable_names == {
         "Fugitive Droid",
+        "Ice Cream Kitty",
         "Does Machines",
         "Ninja Teen",
         "Leonardo, Leader in Blue",
