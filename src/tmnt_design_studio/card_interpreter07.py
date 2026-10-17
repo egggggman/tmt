@@ -683,6 +683,15 @@ class ActivatedAbilityProgram:
 
 
 @dataclass(frozen=True)
+class ActivatedAbilityCostReductionProgram:
+    """Static discount for activated abilities of controlled tokens of one type."""
+
+    permanent_type: str
+    amount: int
+    oracle_fragment: str
+
+
+@dataclass(frozen=True)
 class InterpretedActivatedAbilitySemantics:
     """Action-specific activation facts paired with generic coverage evidence."""
 
@@ -1615,6 +1624,26 @@ class CardInterpreter:
             return None
         return GenericCostReductionProgram(
             match["singular"].capitalize(), int(match["amount"]), True, fragment
+        )
+
+    ACTIVATED_TOKEN_COST_REDUCTION = re.compile(
+        r"^Activated abilities of (?P<type>artifact|creature|enchantment) tokens "
+        r"you control cost \{(?P<amount>[1-9]\d*)\} less to activate\.$",
+        re.I,
+    )
+
+    def activated_token_cost_reduction_program(
+        self, card: CardDefinition, fragment: str
+    ) -> ActivatedAbilityCostReductionProgram | None:
+        """Parse a complete static activation discount, distinct from casting discounts."""
+        types = card.type_line.split(" — ", 1)[0].split()
+        if fragment not in self.fragments(card) or not set(types) & self.PERMANENT_CARD_TYPES:
+            return None
+        match = self.ACTIVATED_TOKEN_COST_REDUCTION.fullmatch(fragment)
+        if match is None:
+            return None
+        return ActivatedAbilityCostReductionProgram(
+            match["type"].capitalize(), int(match["amount"]), fragment
         )
 
     def targeted_removal_program(self, card: CardDefinition) -> TargetedRemovalProgram | None:
@@ -4209,6 +4238,8 @@ class CardInterpreter:
             if self.modal_token_or_creature_pump_program(card) is not None:
                 continue
             if self.generic_cost_reduction_program(card, fragment) is not None:
+                continue
+            if self.activated_token_cost_reduction_program(card, fragment) is not None:
                 continue
             if self.targeted_removal_program(card) is not None and self.TARGETED_REMOVAL.fullmatch(
                 fragment
