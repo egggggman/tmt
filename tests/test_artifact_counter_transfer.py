@@ -1,11 +1,13 @@
 """Controlled countered-artifact departure transfers its frozen counters."""
 
 import copy
+from pathlib import Path
 
 import pytest
 
+from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
-from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, TriggerEffect
+from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, TriggerEffect, load_facts
 
 FRAGMENT = (
     "Whenever an artifact you control is put into a graveyard from the battlefield, "
@@ -78,7 +80,7 @@ def test_snapshot_optional_target_priority_source_departure_and_replay():
     assert run() == copy.deepcopy(run())
 
 
-@pytest.mark.parametrize("response", ["removed", "control", "protection", "declined"])
+@pytest.mark.parametrize("response", ["removed", "control", "type", "declined"])
 def test_optional_or_illegal_target_resolves_without_moving_counters(response):
     def choose(_controller, _source, offered):
         return None if response == "declined" else target.object_id
@@ -90,8 +92,7 @@ def test_optional_or_illegal_target_resolves_without_moving_counters(response):
         game.move_object(target, "graveyard")
     elif response == "control":
         game.change_controller(target, 1)
-    elif response == "protection":
-        target.ability_loss_timestamp = None
+    elif response == "type":
         target.type_line_override = "Land"
     resolve(game)
     assert target.counters == {}
@@ -99,6 +100,16 @@ def test_optional_or_illegal_target_resolves_without_moving_counters(response):
         "target_legal"
     ] is False
     game.check_invariants()
+
+
+def test_chooser_cannot_select_a_protected_artifact():
+    game, _watcher, departed, _target = setup(
+        chooser=lambda _controller, _source, _offered: protected.object_id
+    )
+    protected = game.create_permanent(CardFact("Hidden Relic", "{2}", 2, "Artifact", "Shroud"), 0)
+    game.move_object(departed, "graveyard")
+    with pytest.raises(ValueError, match="illegal target"):
+        game.check_state_based_actions()
 
 
 def test_no_trigger_without_counters_graveyard_or_controlled_artifact():
@@ -147,3 +158,23 @@ def test_frozen_departure_counter_provenance_rejects_tampering():
     departed.counters["charge"] = 7
     with pytest.raises(AssertionError, match="invalid event provenance"):
         game.check_invariants()
+
+
+def test_frozen_oracle_card_executes_through_same_generic_trigger():
+    catalog = Path(__file__).resolve().parents[1] / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
+    card = load_facts(
+        load_card_data(catalog, catalog.with_suffix(".manifest.json")),
+        {"Donatello, Mutant Mechanic"},
+    )["Donatello, Mutant Mechanic"]
+    assert FRAGMENT in CardInterpreter().fragments(card)
+    game = Game(([LAND] * 60, [LAND] * 60), seed=935)
+    game.begin_turn()
+    watcher = game.create_permanent(card, 0)
+    artifact = game.create_permanent(ARTIFACT, 0)
+    artifact.counters["+1/+1"] = 3
+    game.move_object(artifact, "graveyard")
+    game.check_state_based_actions()
+    assert game.stack[-1].source_id == watcher.object_id
+    resolve(game)
+    assert watcher.counters["+1/+1"] == 3
+    game.check_invariants()

@@ -1,0 +1,796 @@
+{
+  "schema": "issue289-artifact-counter-transfer-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "62a1f3a34e1cec41c33214e0b22cc8b4bc285218b07a4397bb56b5d370219776",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "1e44949f6e62084f6dd3256af1998be2d7368282dcc6555d8c2a6f96b455aef0",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-counter-transfer-donatello-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "donatello",
+        "raphael"
+      ],
+      "result_sha256": "54359c60113626888b69297a4d4f2418fe2aa55dd26f7983f0452ea99a4640e3",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "watcher_present": [],
+      "casts": [],
+      "departure_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    },
+    {
+      "game_id": "issue289-counter-transfer-raphael-donatello-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "donatello"
+      ],
+      "result_sha256": "88c8b782df12d1cb6c2b83fd7851f180a4648b0229d302b4198254febf3e055b",
+      "opportunities": [
+        [
+          8,
+          "activate",
+          "object-000177"
+        ],
+        [
+          10,
+          "activate",
+          "object-000177"
+        ],
+        [
+          10,
+          "creature",
+          "object-000177"
+        ],
+        [
+          10,
+          "damage",
+          "object-000177"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          10,
+          "land",
+          "object-000177"
+        ],
+        [
+          12,
+          "activate",
+          "object-000177"
+        ],
+        [
+          12,
+          "creature",
+          "object-000177"
+        ],
+        [
+          12,
+          "damage",
+          "object-000177"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          12,
+          "land",
+          "object-000177"
+        ]
+      ],
+      "selected": [],
+      "nonselected": [
+        [
+          8,
+          "activate",
+          "object-000177"
+        ],
+        [
+          10,
+          "activate",
+          "object-000177"
+        ],
+        [
+          10,
+          "creature",
+          "object-000177"
+        ],
+        [
+          10,
+          "damage",
+          "object-000177"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          10,
+          "land",
+          "object-000177"
+        ],
+        [
+          12,
+          "activate",
+          "object-000177"
+        ],
+        [
+          12,
+          "creature",
+          "object-000177"
+        ],
+        [
+          12,
+          "damage",
+          "object-000177"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          12,
+          "land",
+          "object-000177"
+        ]
+      ],
+      "watcher_present": [],
+      "casts": [],
+      "departure_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    },
+    {
+      "game_id": "issue289-counter-transfer-donatello-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "9316b2166d9ebc81cc62d4b7dabccdd2964451c1dd8570f4cbb4aed8b63f7654",
+      "opportunities": [
+        [
+          7,
+          "activate",
+          "object-000125"
+        ],
+        [
+          7,
+          "creature",
+          "object-000125"
+        ],
+        [
+          7,
+          "damage",
+          "object-000125"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125"
+        ]
+      ],
+      "selected": [
+        [
+          7,
+          "creature",
+          "object-000125"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "activate",
+          "object-000125"
+        ],
+        [
+          7,
+          "damage",
+          "object-000125"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125"
+        ]
+      ],
+      "watcher_present": [
+        [
+          7,
+          "object-000161"
+        ],
+        [
+          9,
+          "object-000161"
+        ],
+        [
+          11,
+          "object-000161"
+        ],
+        [
+          13,
+          "object-000161"
+        ],
+        [
+          15,
+          "object-000161"
+        ],
+        [
+          17,
+          "object-000161"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Donatello, Mutant Mechanic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000160",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "departure_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    },
+    {
+      "game_id": "issue289-counter-transfer-bebop_rocksteady-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "donatello"
+      ],
+      "result_sha256": "7b4b3e55091b14a8582bd534cdaa150dc14d747b071ac0f83305eb4f3418d6da",
+      "opportunities": [
+        [
+          12,
+          "activate",
+          "object-000206"
+        ],
+        [
+          12,
+          "creature",
+          "object-000206"
+        ],
+        [
+          12,
+          "damage",
+          "object-000206"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000206"
+        ],
+        [
+          12,
+          "land",
+          "object-000206"
+        ]
+      ],
+      "selected": [
+        [
+          12,
+          "creature",
+          "object-000206"
+        ]
+      ],
+      "nonselected": [
+        [
+          12,
+          "activate",
+          "object-000206"
+        ],
+        [
+          12,
+          "damage",
+          "object-000206"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000206"
+        ],
+        [
+          12,
+          "land",
+          "object-000206"
+        ]
+      ],
+      "watcher_present": [
+        [
+          12,
+          "object-000208"
+        ],
+        [
+          14,
+          "object-000208"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Donatello, Mutant Mechanic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000207",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "departure_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    },
+    {
+      "game_id": "issue289-counter-transfer-donatello-krang-3006",
+      "seed": 3006,
+      "seats": [
+        "donatello",
+        "krang"
+      ],
+      "result_sha256": "d7b129eb8a32d9e88c67fb306f54c29717a819abd848bce22a02e1a7ab240aea",
+      "opportunities": [
+        [
+          13,
+          "activate",
+          "object-000192"
+        ],
+        [
+          13,
+          "creature",
+          "object-000192"
+        ],
+        [
+          13,
+          "damage",
+          "object-000192"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000192"
+        ],
+        [
+          13,
+          "land",
+          "object-000192"
+        ]
+      ],
+      "selected": [
+        [
+          13,
+          "creature",
+          "object-000192"
+        ]
+      ],
+      "nonselected": [
+        [
+          13,
+          "activate",
+          "object-000192"
+        ],
+        [
+          13,
+          "damage",
+          "object-000192"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000192"
+        ],
+        [
+          13,
+          "land",
+          "object-000192"
+        ]
+      ],
+      "watcher_present": [
+        [
+          13,
+          "object-000195"
+        ],
+        [
+          15,
+          "object-000195"
+        ],
+        [
+          17,
+          "object-000195"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Donatello, Mutant Mechanic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000194",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "departure_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    },
+    {
+      "game_id": "issue289-counter-transfer-krang-donatello-3006",
+      "seed": 3006,
+      "seats": [
+        "krang",
+        "donatello"
+      ],
+      "result_sha256": "1515db8cddee545d5e6a380b4c4a642866cfb383e0dff1062f3ace67102cd3f0",
+      "opportunities": [
+        [
+          8,
+          "activate",
+          "object-000151"
+        ],
+        [
+          8,
+          "creature",
+          "object-000151"
+        ],
+        [
+          8,
+          "damage",
+          "object-000151"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          10,
+          "activate",
+          "object-000151"
+        ],
+        [
+          10,
+          "land",
+          "object-000151"
+        ],
+        [
+          12,
+          "activate",
+          "object-000151"
+        ],
+        [
+          12,
+          "creature",
+          "object-000151"
+        ],
+        [
+          12,
+          "damage",
+          "object-000151"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          12,
+          "land",
+          "object-000151"
+        ],
+        [
+          14,
+          "activate",
+          "object-000151"
+        ],
+        [
+          14,
+          "damage",
+          "object-000151"
+        ],
+        [
+          14,
+          "land",
+          "object-000151"
+        ],
+        [
+          16,
+          "activate",
+          "object-000151"
+        ],
+        [
+          16,
+          "creature",
+          "object-000151"
+        ],
+        [
+          16,
+          "damage",
+          "object-000151"
+        ],
+        [
+          16,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          16,
+          "land",
+          "object-000151"
+        ],
+        [
+          18,
+          "activate",
+          "object-000151"
+        ],
+        [
+          18,
+          "creature",
+          "object-000151"
+        ],
+        [
+          18,
+          "damage",
+          "object-000151"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          18,
+          "land",
+          "object-000151"
+        ]
+      ],
+      "selected": [
+        [
+          18,
+          "creature",
+          "object-000151"
+        ]
+      ],
+      "nonselected": [
+        [
+          8,
+          "activate",
+          "object-000151"
+        ],
+        [
+          8,
+          "creature",
+          "object-000151"
+        ],
+        [
+          8,
+          "damage",
+          "object-000151"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          10,
+          "activate",
+          "object-000151"
+        ],
+        [
+          10,
+          "land",
+          "object-000151"
+        ],
+        [
+          12,
+          "activate",
+          "object-000151"
+        ],
+        [
+          12,
+          "creature",
+          "object-000151"
+        ],
+        [
+          12,
+          "damage",
+          "object-000151"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          12,
+          "land",
+          "object-000151"
+        ],
+        [
+          14,
+          "activate",
+          "object-000151"
+        ],
+        [
+          14,
+          "damage",
+          "object-000151"
+        ],
+        [
+          14,
+          "land",
+          "object-000151"
+        ],
+        [
+          16,
+          "activate",
+          "object-000151"
+        ],
+        [
+          16,
+          "creature",
+          "object-000151"
+        ],
+        [
+          16,
+          "damage",
+          "object-000151"
+        ],
+        [
+          16,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          16,
+          "land",
+          "object-000151"
+        ],
+        [
+          18,
+          "activate",
+          "object-000151"
+        ],
+        [
+          18,
+          "creature",
+          "object-000151"
+        ],
+        [
+          18,
+          "damage",
+          "object-000151"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000151"
+        ],
+        [
+          18,
+          "land",
+          "object-000151"
+        ]
+      ],
+      "watcher_present": [
+        [
+          20,
+          "object-000265"
+        ],
+        [
+          22,
+          "object-000265"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Donatello, Mutant Mechanic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000264",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "departure_opportunities": [
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "permanent_departed",
+          "source_object_id": "object-000170",
+          "destination_object_id": "object-000215",
+          "controller": 0,
+          "type_line": "Artifact Creature \u2014 Utrom Robot Scientist",
+          "counter_snapshot": [
+            [
+              "+1/+1",
+              1
+            ]
+          ]
+        },
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "permanent_departed",
+          "source_object_id": "object-000241",
+          "destination_object_id": "object-000254",
+          "controller": 1,
+          "type_line": "Artifact Creature \u2014 Utrom Robot Scientist",
+          "counter_snapshot": [
+            [
+              "+1/+1",
+              3
+            ]
+          ]
+        }
+      ],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "counters_placed": []
+    }
+  ]
+}
