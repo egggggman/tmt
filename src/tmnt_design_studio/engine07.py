@@ -12236,6 +12236,16 @@ class Game(
         self._combat_attackers = attack.attacker_ids
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
+        for attacker in attackers:
+            for source_id, fragment in self._static_subtype_keyword_sources(attacker, "menace"):
+                self.log(
+                    "static_subtype_keyword_used",
+                    attacker_id=attacker.object_id,
+                    source_id=source_id,
+                    oracle_fragment=fragment,
+                    keyword="menace",
+                    attacker_controller=attacker.controller,
+                )
         self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
         if self.priority_state is None:
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
@@ -16969,7 +16979,38 @@ class Game(
             *self._equipment_keywords(permanent),
             *(effect.keyword.value for effect in permanent.active_temporary_keyword_effects),
             *class_keywords,
+            *(
+                keyword.casefold()
+                for _source_id, _fragment in self._static_subtype_keyword_sources(
+                    permanent, keyword
+                )
+            ),
         }
+
+    def _static_subtype_keyword_sources(
+        self, permanent: Permanent, keyword: str
+    ) -> tuple[tuple[str, str], ...]:
+        """Evaluate controlled subtype grants in layer six against current state."""
+        if not self.is_authoritative(permanent, "battlefield") or not permanent.is_creature:
+            return ()
+        subtypes = set(permanent.type_line.partition(" — ")[2].split())
+        sources: list[tuple[str, str]] = []
+        for source in self.players[permanent.controller].battlefield:
+            if not self.is_authoritative(source, "battlefield"):
+                continue
+            for fragment in self.interpreter.fragments(source.rules_card):
+                program = self.interpreter.static_subtype_keyword_grant(source.card, fragment)
+                if (
+                    program is not None
+                    and program.keyword == keyword.casefold()
+                    and program.creature_subtype in subtypes
+                    and (
+                        permanent.ability_loss_timestamp is None
+                        or source.entered_timestamp > permanent.ability_loss_timestamp
+                    )
+                ):
+                    sources.append((source.object_id, fragment))
+        return tuple(sources)
 
     def _has_flying(self, permanent: Permanent) -> bool:
         return self._has_keyword(permanent, "Flying") or any(

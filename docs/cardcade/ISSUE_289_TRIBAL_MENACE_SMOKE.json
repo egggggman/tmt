@@ -1,0 +1,442 @@
+{
+  "schema": "issue289-tribal-menace-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "9f75ba0e8da03bb13841dcf8d2b460dd200e3905fb7a70d910a315d5924f8b9f",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "632e82bfbfa418210f9daf2154d216061f4730efeaf731d373ad2764eb84c4c2",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-tribal-menace-bebop_rocksteady-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "result_sha256": "56879c7c452f9ae4b86d8dfe6f409acb62b1bd1a9c3573b5a7e890c28ca93b02",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "attacking_grants_used": []
+    },
+    {
+      "game_id": "issue289-tribal-menace-raphael-bebop_rocksteady-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "e964588fedeab65ed037ddd017455d1e7345a9e6d3e2a5bb5e466dd637b31035",
+      "opportunities": [
+        [
+          12,
+          "activate",
+          "object-000170"
+        ],
+        [
+          12,
+          "creature",
+          "object-000170"
+        ],
+        [
+          12,
+          "damage",
+          "object-000170"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000170"
+        ],
+        [
+          12,
+          "land",
+          "object-000170"
+        ]
+      ],
+      "selected": [
+        [
+          12,
+          "creature",
+          "object-000170"
+        ]
+      ],
+      "nonselected": [
+        [
+          12,
+          "activate",
+          "object-000170"
+        ],
+        [
+          12,
+          "damage",
+          "object-000170"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000170"
+        ],
+        [
+          12,
+          "land",
+          "object-000170"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Bebop, Warthog Warrior",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000209",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Bebop, Warthog Warrior",
+          "generic": 4,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000146",
+            "object-000161",
+            "object-000171",
+            "object-000183",
+            "object-000206"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Bebop, Warthog Warrior",
+          "owner": "bebop_rocksteady",
+          "source_object_id": "object-000209",
+          "destination_object_id": "object-000210",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "creature_resolved",
+          "library_position": null
+        }
+      ],
+      "attacking_grants_used": []
+    },
+    {
+      "game_id": "issue289-tribal-menace-bebop_rocksteady-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "donatello"
+      ],
+      "result_sha256": "27430a4562a52c38fbc817fdc68ceff5a1a5883d932abf088459dc82185fce3e",
+      "opportunities": [
+        [
+          7,
+          "creature",
+          "object-000125"
+        ],
+        [
+          7,
+          "damage",
+          "object-000125"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125"
+        ],
+        [
+          13,
+          "activate",
+          "object-000211"
+        ],
+        [
+          13,
+          "creature",
+          "object-000211"
+        ],
+        [
+          13,
+          "damage",
+          "object-000211"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000211"
+        ],
+        [
+          13,
+          "land",
+          "object-000211"
+        ]
+      ],
+      "selected": [
+        [
+          7,
+          "creature",
+          "object-000125"
+        ],
+        [
+          13,
+          "creature",
+          "object-000211"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "damage",
+          "object-000125"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000125"
+        ],
+        [
+          13,
+          "activate",
+          "object-000211"
+        ],
+        [
+          13,
+          "damage",
+          "object-000211"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000211"
+        ],
+        [
+          13,
+          "land",
+          "object-000211"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Bebop, Warthog Warrior",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000168",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Bebop, Warthog Warrior",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000214",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Bebop, Warthog Warrior",
+          "generic": 4,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000135",
+            "object-000142",
+            "object-000150",
+            "object-000166"
+          ],
+          "floating_event_ids": [
+            "object-000167"
+          ],
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "bebop_rocksteady",
+          "card": "Bebop, Warthog Warrior",
+          "generic": 4,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000135",
+            "object-000142",
+            "object-000150",
+            "object-000166"
+          ],
+          "floating_event_ids": [
+            "object-000213"
+          ],
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Bebop, Warthog Warrior",
+          "owner": "bebop_rocksteady",
+          "source_object_id": "object-000168",
+          "destination_object_id": "object-000169",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "creature_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Bebop, Warthog Warrior",
+          "owner": "bebop_rocksteady",
+          "source_object_id": "object-000214",
+          "destination_object_id": "object-000215",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "creature_resolved",
+          "library_position": null
+        }
+      ],
+      "attacking_grants_used": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "static_subtype_keyword_used",
+          "attacker_id": "object-000193",
+          "source_id": "object-000169",
+          "oracle_fragment": "Rhinos you control have menace.",
+          "keyword": "menace",
+          "attacker_controller": 0
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "static_subtype_keyword_used",
+          "attacker_id": "object-000193",
+          "source_id": "object-000169",
+          "oracle_fragment": "Rhinos you control have menace.",
+          "keyword": "menace",
+          "attacker_controller": 0
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "static_subtype_keyword_used",
+          "attacker_id": "object-000193",
+          "source_id": "object-000169",
+          "oracle_fragment": "Rhinos you control have menace.",
+          "keyword": "menace",
+          "attacker_controller": 0
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-tribal-menace-donatello-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "668ce88e43489628129f8ae79f2c730fe357d2c5d51b748319d67c2c3beefdab",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "attacking_grants_used": []
+    },
+    {
+      "game_id": "issue289-tribal-menace-bebop_rocksteady-casey_jones-3006",
+      "seed": 3006,
+      "seats": [
+        "bebop_rocksteady",
+        "casey_jones"
+      ],
+      "result_sha256": "c4f905402aff6a537df8b946325ae37bb33a9cc5b7c4cd274b742d58ea3cdcbd",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "attacking_grants_used": []
+    },
+    {
+      "game_id": "issue289-tribal-menace-casey_jones-bebop_rocksteady-3006",
+      "seed": 3006,
+      "seats": [
+        "casey_jones",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "304c3cfa458ccd534d7bf795528465ca539c1a9ae5c0d6ff3df5ed813edb4f27",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "attacking_grants_used": []
+    }
+  ]
+}
