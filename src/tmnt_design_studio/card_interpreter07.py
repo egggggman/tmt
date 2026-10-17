@@ -43,6 +43,7 @@ class CastKind(Enum):
     TARGETED_REMOVAL = "targeted_removal"
     MODAL_TOKEN_OR_CREATURE_PUMP = "modal_token_or_creature_pump"
     TARGETED_COUNTER_KEYWORD_GRANT = "targeted_counter_keyword_grant"
+    TEMPORARY_DEATH_RETURN_GRANT = "temporary_death_return_grant"
     TEMPORARY_TYPE_BASE_PT_DRAW = "temporary_type_base_pt_draw"
     TARGETED_LIBRARY_RETURN_AND_TOKEN = "targeted_library_return_and_token"
     LIBRARY_SEARCH_TO_HAND = "library_search_to_hand"
@@ -79,6 +80,14 @@ class TargetedCounterKeywordGrantProgram:
     quantity: int
     keywords: tuple[str, ...]
     cost_reduction: GenericCostReductionProgram | None
+
+
+@dataclass(frozen=True)
+class TemporaryDeathReturnGrantProgram:
+    """A complete temporary keyword and granted self-death trigger."""
+
+    effect_fragment: str
+    keyword: str
 
 
 @dataclass(frozen=True)
@@ -1280,6 +1289,8 @@ class CardInterpreter:
             return CastProgram(CastKind.TEMPORARY_TYPE_BASE_PT_DRAW)
         if self.targeted_counter_keyword_grant_program(card) is not None:
             return CastProgram(CastKind.TARGETED_COUNTER_KEYWORD_GRANT)
+        if self.temporary_death_return_grant_program(card) is not None:
+            return CastProgram(CastKind.TEMPORARY_DEATH_RETURN_GRANT)
         if self.modal_token_or_creature_pump_program(card) is not None:
             return CastProgram(CastKind.MODAL_TOKEN_OR_CREATURE_PUMP)
         if self.conditional_destroy_and_create_program(card) is not None:
@@ -1435,6 +1446,26 @@ class CardInterpreter:
         r"It gains (?P<keywords>[A-Za-z, ]+) until end of turn\.$",
         re.I,
     )
+
+    TEMPORARY_DEATH_RETURN_GRANT = re.compile(
+        r"^Until end of turn, target creature gains (?P<keyword>deathtouch) and "
+        r'"When this creature dies, return it to the battlefield tapped under its '
+        r'owner\'s control\."$',
+        re.I,
+    )
+
+    def temporary_death_return_grant_program(
+        self, card: CardDefinition
+    ) -> TemporaryDeathReturnGrantProgram | None:
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) != 1:
+            return None
+        match = self.TEMPORARY_DEATH_RETURN_GRANT.fullmatch(fragments[0])
+        if match is None:
+            return None
+        return TemporaryDeathReturnGrantProgram(fragments[0], match["keyword"].lower())
 
     TEMPORARY_TYPE_BASE_PT = re.compile(
         r"^Until end of turn, target (?P<targets>artifact or creature|creature or artifact) "
@@ -4291,6 +4322,8 @@ class CardInterpreter:
                     and fragment == grant.cost_reduction.oracle_fragment
                 )
             ):
+                continue
+            if self.temporary_death_return_grant_program(card) is not None:
                 continue
             if self.modal_token_or_creature_pump_program(card) is not None:
                 continue

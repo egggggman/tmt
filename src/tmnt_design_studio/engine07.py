@@ -393,6 +393,7 @@ class TriggerEffect(Enum):
     CLASS_COMBAT_ARTIFACT_ANIMATION = "class_combat_artifact_animation"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
+    GRANTED_DIES_RETURN = "granted_dies_return"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
     ETB_SELF_LIFE_GAIN = "etb_self_life_gain"
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
@@ -724,6 +725,16 @@ class TemporaryKeywordEffect:
 
 
 @dataclass(frozen=True)
+class TemporaryDeathReturnEffect:
+    """A bounded triggered ability granted to a creature by a resolving spell."""
+
+    duration: Literal["until_end_of_turn"]
+    source_id: str
+    oracle_fragment: str
+    timestamp: tuple[int, int]
+
+
+@dataclass(frozen=True)
 class TemporaryTypeEffect:
     """A layer-four addition to a permanent's card types for its stated duration."""
 
@@ -1046,6 +1057,7 @@ class Permanent:
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
     temporary_keyword_effects: list[TemporaryKeywordEffect] = field(default_factory=list)
+    temporary_death_return_effects: list[TemporaryDeathReturnEffect] = field(default_factory=list)
     temporary_type_effects: list[TemporaryTypeEffect] = field(default_factory=list)
     is_token: bool = False
     type_line_override: str | None = None
@@ -2132,6 +2144,30 @@ class Game(
                 type_line=departure_last_known[2],
                 counter_snapshot=[list(counter) for counter in departure_counters],
             )
+            if destination == "graveyard" and departure_last_known[3]:
+                grants = tuple(
+                    effect
+                    for effect in obj.temporary_death_return_effects
+                    if obj.ability_loss_timestamp is None
+                    or effect.timestamp > obj.ability_loss_timestamp
+                )
+                if grants:
+                    assert departure_authority is not None
+                    death = self._new_rules_event(
+                        RulesEventKind.CREATURE_DIED,
+                        obj.controller,
+                        (obj.object_id,),
+                        source_id=obj.object_id,
+                        battlefield_authority=departure_authority,
+                        last_known_battlefield=(departure_last_known,),
+                    )
+                    for grant in grants:
+                        self._enqueue_trigger(
+                            death,
+                            obj,
+                            grant.oracle_fragment,
+                            TriggerEffect.GRANTED_DIES_RETURN,
+                        )
         if destination == "battlefield" and isinstance(replacement, Permanent):
             for fragment in self.interpreter.fragments(replacement.rules_card):
                 if self.interpreter.DISAPPEAR_ENTRY_COUNTERS.fullmatch(fragment):
@@ -4785,6 +4821,81 @@ class Game(
             if self.interpreter.damage_to_self_mana(recipient.card, fragment) is not None:
                 self._enqueue_trigger(event, recipient, fragment, TriggerEffect.DAMAGE_TO_SELF_MANA)
 
+    def _validate_granted_death_return(
+        self,
+        event: RulesEvent,
+        source: Permanent,
+        fragment: str,
+        controller: int,
+        *,
+        trigger_id: str | None = None,
+    ) -> CardObject:
+        """Bind a granted death ability to the exact battlefield-to-graveyard move."""
+        self._authenticate_original_rules_event(event)
+        grants = tuple(
+            grant
+            for grant in source.temporary_death_return_effects
+            if grant.oracle_fragment == fragment
+            and (
+                source.ability_loss_timestamp is None
+                or grant.timestamp > source.ability_loss_timestamp
+            )
+            and isinstance(self._objects.get(grant.source_id), StackObject)
+            and self.interpreter.temporary_death_return_grant_program(
+                self._objects[grant.source_id].card
+            )
+            is not None
+            and any(
+                record.get("event") == "temporary_death_return_granted"
+                and record.get("stack_object_id") == grant.source_id
+                and record.get("target_id") == source.object_id
+                and record.get("oracle_fragment") == fragment
+                for record in self.events
+            )
+        )
+        moves = tuple(
+            record
+            for record in self.events
+            if record.get("event") == "zone_changed"
+            and record.get("source_object_id") == source.object_id
+            and record.get("source_zone") == "battlefield"
+            and record.get("destination_zone") == "graveyard"
+        )
+        destination = (
+            self._objects.get(moves[0]["destination_object_id"]) if len(moves) == 1 else None
+        )
+        trigger = self._triggers.get(trigger_id) if trigger_id is not None else None
+        if (
+            event.kind is not RulesEventKind.CREATURE_DIED
+            or self._rules_events.get(event.event_id) is not event
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != controller
+            or (source.object_id, controller) not in event.battlefield_authority
+            or len(event.last_known_battlefield) != 1
+            or event.last_known_battlefield[0][:2] != (source.object_id, controller)
+            or event.last_known_battlefield[0][3] is not True
+            or source.zone != "former"
+            or source.controller != controller
+            or not grants
+            or not isinstance(destination, CardObject)
+            or destination.card is not source.card
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.effect is not TriggerEffect.GRANTED_DIES_RETURN
+                    or trigger.event is not event
+                    or trigger.source_id != source.object_id
+                    or trigger.source_card is not source.card
+                    or trigger.controller != controller
+                    or trigger.oracle_fragment != fragment
+                )
+            )
+        ):
+            raise ValueError("granted death return lacks authenticated departure provenance")
+        return destination
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -4794,6 +4905,8 @@ class Game(
         *,
         grant_source: Permanent | None = None,
     ) -> None:
+        if effect is TriggerEffect.GRANTED_DIES_RETURN:
+            self._validate_granted_death_return(event, source, fragment, source.controller)
         if effect is TriggerEffect.ATTACK_TARGET_COUNTER:
             self._authenticate_original_rules_event(event)
             if (
@@ -7642,6 +7755,46 @@ class Game(
                 raise AssertionError("stacked dies/Draw trigger is no longer executable")
             self._validate_dies_draw_trigger(ability)
             self.draw(self.players[ability.controller], 1)
+        elif ability.effect is TriggerEffect.GRANTED_DIES_RETURN:
+            source = self._objects.get(ability.source_id)
+            if not isinstance(source, Permanent):
+                raise ValueError("granted death trigger source is invalid")
+            destination = self._validate_granted_death_return(
+                ability.event,
+                source,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
+            if self.is_authoritative(destination, "graveyard"):
+                entering = self.move_object(
+                    destination,
+                    "battlefield",
+                    controller=destination.owner,
+                    reason="granted_death_return",
+                )
+                assert isinstance(entering, Permanent)
+                entering.tapped = True
+                self.log(
+                    "granted_death_return_resolved",
+                    stack_object_id=ability.object_id,
+                    death_event_id=ability.event.event_id,
+                    departed_id=source.object_id,
+                    graveyard_id=destination.object_id,
+                    entering_id=entering.object_id,
+                    owner=entering.owner,
+                    controller=entering.controller,
+                )
+                self._process_creature_entered_triggers(entering, defer_triggers=True)
+                self.check_state_based_actions()
+            else:
+                self.log(
+                    "granted_death_return_no_effect",
+                    stack_object_id=ability.object_id,
+                    death_event_id=ability.event.event_id,
+                    departed_id=source.object_id,
+                    graveyard_id=destination.object_id,
+                )
         elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
             match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(ability.oracle_fragment)
             assert match is not None
@@ -8035,6 +8188,7 @@ class Game(
                 TriggerEffect.CLASS_COMBAT_ARTIFACT_ANIMATION,
                 TriggerEffect.DISCARD_DRAW,
                 TriggerEffect.DIES_DRAW,
+                TriggerEffect.GRANTED_DIES_RETURN,
                 TriggerEffect.ETB_DRAIN_GAIN_SCRY,
                 TriggerEffect.ETB_SELF_LIFE_GAIN,
                 TriggerEffect.CONDITIONAL_ENTRY_TOKEN,
@@ -9958,6 +10112,11 @@ class Game(
                     for effect in permanent.temporary_keyword_effects
                     if effect.duration != "until_end_of_turn"
                 ]
+                permanent.temporary_death_return_effects = [
+                    effect
+                    for effect in permanent.temporary_death_return_effects
+                    if effect.duration != "until_end_of_turn"
+                ]
                 permanent.temporary_type_effects = [
                     effect
                     for effect in permanent.temporary_type_effects
@@ -10193,6 +10352,8 @@ class Game(
                 options.extend(self._modal_spell_options(player_index, card))
             elif kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
                 options.extend(self._counter_keyword_grant_options(player_index, card))
+            elif kind is CastKind.TEMPORARY_DEATH_RETURN_GRANT:
+                options.extend(self._death_return_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
             elif kind in {
@@ -10422,6 +10583,40 @@ class Game(
             and target.controller == controller
             and target.is_creature
             and self._legal_targeting_protection(target, controller)
+        )
+
+    def _legal_death_return_grant_target(self, target: object, controller: int) -> bool:
+        return (
+            isinstance(target, Permanent)
+            and self.is_authoritative(target, "battlefield")
+            and target.is_creature
+            and self._legal_targeting_protection(target, controller)
+        )
+
+    def _death_return_grant_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.temporary_death_return_grant_program(card.card)
+        if (
+            program is None
+            or self.payment_plan(
+                player_index, card, allow_exile=self.is_authoritative(card, "exile")
+            )
+            is None
+        ):
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id,
+                oracle_fragment=program.effect_fragment,
+                priority_epoch=priority_epoch,
+            )
+            for side in self.players
+            for target in side.battlefield
+            if self._legal_death_return_grant_target(target, player_index)
         )
 
     def _temporary_type_base_pt_draw_options(
@@ -10835,6 +11030,7 @@ class Game(
             *self._hand_creature_power_damage_options(player_index),
             *self._hand_modal_spell_options(player_index),
             *self._hand_counter_keyword_grant_options(player_index),
+            *self._hand_death_return_grant_options(player_index),
             *self._hand_temporary_type_base_pt_draw_options(player_index),
             *self._hand_targeted_library_return_options(player_index),
             *self._linked_exile_instant_options(player_index),
@@ -10937,6 +11133,21 @@ class Game(
             is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
             and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
             for option in self._counter_keyword_grant_options(
+                player_index, card, priority_epoch=state.epoch
+            )
+        )
+
+    def _hand_death_return_grant_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        return tuple(
+            option
+            for card in self.players[player_index].hand
+            if self.interpreter.cast_program(card.card).kind
+            is CastKind.TEMPORARY_DEATH_RETURN_GRANT
+            and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+            for option in self._death_return_grant_options(
                 player_index, card, priority_epoch=state.epoch
             )
         )
@@ -11127,6 +11338,11 @@ class Game(
                     )
                 )
                 continue
+            if kind is CastKind.TEMPORARY_DEATH_RETURN_GRANT:
+                options.extend(
+                    self._death_return_grant_options(player_index, card, priority_epoch=state.epoch)
+                )
+                continue
             if kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(
                     self._temporary_type_base_pt_draw_options(
@@ -11288,6 +11504,19 @@ class Game(
                 )
                 if spell is None:
                     raise ValueError("counter-and-keyword response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
+                CastKind.TEMPORARY_DEATH_RETURN_GRANT
+            ):
+                spell = self.announce_spell(
+                    option.player_index,
+                    card,
+                    target if isinstance(target, Permanent) else None,
+                    cast_from_exile=self.is_authoritative(card, "exile"),
+                )
+                if spell is None:
+                    raise ValueError("death-return grant became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and self.interpreter.cast_program(card.card).kind is (
@@ -11646,6 +11875,7 @@ class Game(
                 CastKind.CREATURE_POWER_DAMAGE,
                 CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                 CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+                CastKind.TEMPORARY_DEATH_RETURN_GRANT,
                 CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
                 CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
             }:
@@ -15085,6 +15315,7 @@ class Game(
                         CastKind.TARGETED_REMOVAL,
                         CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
                         CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+                        CastKind.TEMPORARY_DEATH_RETURN_GRANT,
                         CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
                         CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN,
                     }
@@ -15110,6 +15341,12 @@ class Game(
                     not cast_from_exile
                     and self.interpreter.cast_program(card.card).kind
                     is CastKind.TARGETED_COUNTER_KEYWORD_GRANT
+                    and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
+                )
+                or (
+                    not cast_from_exile
+                    and self.interpreter.cast_program(card.card).kind
+                    is CastKind.TEMPORARY_DEATH_RETURN_GRANT
                     and "Instant" in card.card.type_line.split(" — ", 1)[0].split()
                 )
                 or (
@@ -15290,6 +15527,11 @@ class Game(
             target_id = target.object_id
         elif program.kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
             if not self._legal_counter_keyword_grant_target(target, player_index):
+                return None
+            assert isinstance(target, Permanent)
+            target_id = target.object_id
+        elif program.kind is CastKind.TEMPORARY_DEATH_RETURN_GRANT:
+            if not self._legal_death_return_grant_target(target, player_index):
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
@@ -15701,6 +15943,8 @@ class Game(
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
         elif spell.cast_kind is CastKind.TARGETED_COUNTER_KEYWORD_GRANT:
             legal_target = self._legal_counter_keyword_grant_target(target, spell.controller)
+        elif spell.cast_kind is CastKind.TEMPORARY_DEATH_RETURN_GRANT:
+            legal_target = self._legal_death_return_grant_target(target, spell.controller)
         elif spell.cast_kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
             animation = self.interpreter.temporary_type_base_pt_draw_program(spell.card)
             legal_target = animation is not None and self._legal_temporary_type_base_pt_target(
@@ -16018,6 +16262,33 @@ class Game(
                 keywords=list(program.keywords),
                 oracle_fragment=program.effect_fragment,
             )
+        elif spell.cast_kind is CastKind.TEMPORARY_DEATH_RETURN_GRANT:
+            program = self.interpreter.temporary_death_return_grant_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked temporary death return lost complete semantics")
+            assert isinstance(target, Permanent)
+            timestamp = self._effect_timestamp()
+            target.temporary_keyword_effects.append(
+                TemporaryKeywordEffect(
+                    TemporaryKeyword(program.keyword),
+                    "until_end_of_turn",
+                    spell.object_id,
+                    program.effect_fragment,
+                    timestamp=timestamp,
+                )
+            )
+            target.temporary_death_return_effects.append(
+                TemporaryDeathReturnEffect(
+                    "until_end_of_turn", spell.object_id, program.effect_fragment, timestamp
+                )
+            )
+            self.log(
+                "temporary_death_return_granted",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                keyword=program.keyword,
+                oracle_fragment=program.effect_fragment,
+            )
         elif spell.cast_kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
             program = self.interpreter.temporary_type_base_pt_draw_program(spell.card)
             if program is None:
@@ -16259,6 +16530,7 @@ class Game(
             CastKind.TARGETED_REMOVAL,
             CastKind.MODAL_TOKEN_OR_CREATURE_PUMP,
             CastKind.TARGETED_COUNTER_KEYWORD_GRANT,
+            CastKind.TEMPORARY_DEATH_RETURN_GRANT,
             CastKind.TEMPORARY_TYPE_BASE_PT_DRAW,
             CastKind.LIBRARY_SEARCH_TO_HAND,
             CastKind.OPTIONAL_HAND_RESET,
@@ -17037,6 +17309,7 @@ class Game(
         if not self.is_terminal and self._put_pending_triggers_on_stack(
             {
                 TriggerEffect.DIES_DRAW,
+                TriggerEffect.GRANTED_DIES_RETURN,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
@@ -17506,6 +17779,20 @@ class Game(
                 if obj.effect is TriggerEffect.DIES_DRAW:
                     try:
                         self._validate_dies_draw_trigger(obj)
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.GRANTED_DIES_RETURN:
+                    source = self._objects.get(obj.source_id)
+                    if not isinstance(source, Permanent):
+                        raise AssertionError("granted death trigger source is invalid")
+                    try:
+                        self._validate_granted_death_return(
+                            obj.event,
+                            source,
+                            obj.oracle_fragment,
+                            obj.controller,
+                            trigger_id=obj.trigger_id,
+                        )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
                 if obj.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
@@ -18637,6 +18924,15 @@ class Game(
                                     "oracle_fragment": effect.oracle_fragment,
                                 }
                                 for effect in x.temporary_keyword_effects
+                            ],
+                            "temporary_death_return_effects": [
+                                {
+                                    "timestamp": list(effect.timestamp),
+                                    "duration": effect.duration,
+                                    "source_id": effect.source_id,
+                                    "oracle_fragment": effect.oracle_fragment,
+                                }
+                                for effect in x.temporary_death_return_effects
                             ],
                         }
                         for x in p.battlefield
