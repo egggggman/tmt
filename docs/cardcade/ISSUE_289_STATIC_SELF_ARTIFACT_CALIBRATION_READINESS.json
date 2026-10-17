@@ -1,0 +1,490 @@
+{
+  "schema": "issue289-static-self-artifact-calibration-readiness-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "checkpoint_overlay_sha256": "8bf755adca9bc9f0433c0f4375e03d325c77248fb1ae481f34e9251f3229f6cc",
+  "semantic_runtime_sha256": "86dcde6d0ce1a0c81dd934f2861f8e389885f5d92da0eb793170d10d417ba991",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "critical_remaining": 0,
+  "important_remaining": 17,
+  "important_blockers": 13,
+  "unbounded_residual_important": 4,
+  "calibration_readiness": "BLOCKED",
+  "reason": "Thirteen material resource, combat and token gaps remain; four important impacts are still unbounded.",
+  "pilot_execution_exposure": {
+    "status": "UNPROVEN_FOR_THIS_MECHANIC",
+    "diagnostic_path": "docs/cardcade/ISSUE_289_STATIC_SELF_ARTIFACT_SMOKE.json",
+    "interpretation": "A supported static effect changes games only if the pilot casts its source; use the companion deterministic smoke to distinguish offered casts from selection."
+  },
+  "score_formula": "3*copies + 4*decks + 5*impact + 2*reuse - complexity",
+  "score_scales": {
+    "impact": "4=core deck identity/resource/combat; 3=consequential conditional or utility",
+    "reuse": "3=shared Class rules; 2=cross-deck; 1=single-deck",
+    "complexity": "4=linked copy/animation/recursion; 3=Class; 2=bounded rule"
+  },
+  "ranked_important_rows": [
+    {
+      "deck": "bebop_rocksteady",
+      "card": "Mutagen Man, Living Ooze",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "bebop_rocksteady"
+      ],
+      "oracle_fragment": "Activated abilities of artifact tokens you control cost {1} less to activate.",
+      "mechanic": "artifact_token_cost_and_creation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "bebop_rocksteady",
+      "card": "Mutagen Man, Living Ooze",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "bebop_rocksteady"
+      ],
+      "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+      "mechanic": "artifact_token_cost_and_creation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Mutant Mechanic",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "Whenever an artifact you control is put into a graveyard from the battlefield, if it had counters on it, put those counters on up to one target artifact or creature you control.",
+      "mechanic": "artifact_counters_and_animation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Mutant Mechanic",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+      "mechanic": "artifact_counters_and_animation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Mutant Mechanic",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+      "mechanic": "artifact_counters_and_animation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Mutant Mechanic",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "{T}: Put three +1/+1 counters on target artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature in addition to its other types. Activate only as a sorcery.",
+      "mechanic": "artifact_counters_and_animation",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "raphael",
+      "card": "Raphael, Ninja Destroyer",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "raphael"
+      ],
+      "oracle_fragment": "Enrage \u2014 Whenever Raphael is dealt damage, add that much {R}. Until end of turn, you don't lose this mana as steps and phases end.",
+      "mechanic": "damage_trigger_restricted_mana",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 30,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Gadget Master",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "Whenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "mechanic": "combat_damage_artifact_copy",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 4,
+      "priority_score": 28,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "donatello",
+      "card": "Donatello, Gadget Master",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "donatello"
+      ],
+      "oracle_fragment": "Whenever Donatello deals combat damage to a player, create a token that's a copy of target artifact you control.",
+      "mechanic": "combat_damage_artifact_copy",
+      "execution_review": "gap",
+      "impact_score": 4,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 4,
+      "priority_score": 28,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Guac & Marshmallow Pizza",
+      "copies_in_deck": 3,
+      "total_frozen_copies": 3,
+      "affected_decks": [
+        "michelangelo"
+      ],
+      "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it.",
+      "mechanic": "targeted_entry_combat_modifier",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 28,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "splinter",
+      "card": "Pain 101",
+      "copies_in_deck": 3,
+      "total_frozen_copies": 3,
+      "affected_decks": [
+        "splinter"
+      ],
+      "oracle_fragment": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\"",
+      "mechanic": "temporary_death_recursion",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 28,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "casey_jones",
+      "card": "Improvised Arsenal",
+      "copies_in_deck": 3,
+      "total_frozen_copies": 3,
+      "affected_decks": [
+        "casey_jones"
+      ],
+      "oracle_fragment": "{4}{R}: Create a token that's a copy of this Equipment.",
+      "mechanic": "equipment_token_copy",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 4,
+      "priority_score": 26,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "casey_jones",
+      "card": "Improvised Arsenal",
+      "copies_in_deck": 3,
+      "total_frozen_copies": 3,
+      "affected_decks": [
+        "casey_jones"
+      ],
+      "oracle_fragment": "{4}{R}: Create a token that's a copy of this Equipment.",
+      "mechanic": "equipment_token_copy",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 4,
+      "priority_score": 26,
+      "calibration_blocker": true,
+      "assessment": "Unexecuted clause changes material board, combat, resource or card-identity outcomes in repeated frozen copies."
+    },
+    {
+      "deck": "bebop_rocksteady",
+      "card": "Bebop, Warthog Warrior",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "bebop_rocksteady"
+      ],
+      "oracle_fragment": "Rhinos you control have menace.",
+      "mechanic": "tribal_combat_keyword",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    },
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "leonardo"
+      ],
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "mechanic": "temporary_combat_modifier_and_scry",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "michelangelo"
+      ],
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Mutant BFF",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "michelangelo"
+      ],
+      "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+      "mechanic": "combat_block_constraints",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    }
+  ],
+  "ranked_mechanic_families": [
+    {
+      "mechanic": "artifact_counters_and_animation",
+      "entries": 4,
+      "score": 30,
+      "cards": [
+        "Donatello, Mutant Mechanic"
+      ],
+      "decks": [
+        "donatello"
+      ]
+    },
+    {
+      "mechanic": "artifact_token_cost_and_creation",
+      "entries": 2,
+      "score": 30,
+      "cards": [
+        "Mutagen Man, Living Ooze"
+      ],
+      "decks": [
+        "bebop_rocksteady"
+      ]
+    },
+    {
+      "mechanic": "damage_trigger_restricted_mana",
+      "entries": 1,
+      "score": 30,
+      "cards": [
+        "Raphael, Ninja Destroyer"
+      ],
+      "decks": [
+        "raphael"
+      ]
+    },
+    {
+      "mechanic": "combat_damage_artifact_copy",
+      "entries": 2,
+      "score": 28,
+      "cards": [
+        "Donatello, Gadget Master"
+      ],
+      "decks": [
+        "donatello"
+      ]
+    },
+    {
+      "mechanic": "targeted_entry_combat_modifier",
+      "entries": 1,
+      "score": 28,
+      "cards": [
+        "Guac & Marshmallow Pizza"
+      ],
+      "decks": [
+        "michelangelo"
+      ]
+    },
+    {
+      "mechanic": "temporary_death_recursion",
+      "entries": 1,
+      "score": 28,
+      "cards": [
+        "Pain 101"
+      ],
+      "decks": [
+        "splinter"
+      ]
+    },
+    {
+      "mechanic": "equipment_token_copy",
+      "entries": 2,
+      "score": 26,
+      "cards": [
+        "Improvised Arsenal"
+      ],
+      "decks": [
+        "casey_jones"
+      ]
+    },
+    {
+      "mechanic": "combat_block_constraints",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Michelangelo, Mutant BFF"
+      ],
+      "decks": [
+        "michelangelo"
+      ]
+    },
+    {
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Michelangelo, Improviser"
+      ],
+      "decks": [
+        "michelangelo"
+      ]
+    },
+    {
+      "mechanic": "temporary_combat_modifier_and_scry",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Hamato Guardian Stance"
+      ],
+      "decks": [
+        "leonardo"
+      ]
+    },
+    {
+      "mechanic": "tribal_combat_keyword",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Bebop, Warthog Warrior"
+      ],
+      "decks": [
+        "bebop_rocksteady"
+      ]
+    }
+  ],
+  "ranked_family_order": [
+    "artifact_counters_and_animation",
+    "artifact_token_cost_and_creation",
+    "damage_trigger_restricted_mana",
+    "combat_damage_artifact_copy",
+    "targeted_entry_combat_modifier",
+    "temporary_death_recursion",
+    "equipment_token_copy",
+    "combat_block_constraints",
+    "combat_damage_hidden_hand_entry",
+    "temporary_combat_modifier_and_scry",
+    "tribal_combat_keyword"
+  ],
+  "separate_unbounded_rows_preserved": [
+    {
+      "deck": "bebop_rocksteady",
+      "card": "Bebop, Warthog Warrior",
+      "oracle_fragment": "Rhinos you control have menace."
+    },
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Mutant BFF",
+      "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature."
+    }
+  ]
+}
