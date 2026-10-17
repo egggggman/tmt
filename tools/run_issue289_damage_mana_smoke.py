@@ -33,6 +33,8 @@ class ObservedPilot(AcceptancePilot):
         self.selected: list[tuple[int, str, str]] = []
         self.nonselected: set[tuple[int, str, str]] = set()
         self.watcher_present: set[tuple[int, str]] = set()
+        self.legal_main: list[tuple[int, str, str, str, str | None]] = []
+        self.main_selected: list[tuple[int, str, str, str, str | None]] = []
 
     def choose_main_action(self, view, options, stage):
         active = view.active_player
@@ -48,6 +50,14 @@ class ObservedPilot(AcceptancePilot):
         for option in offered:
             self.opportunities.add((view.turn, stage, option.object_id))
         chosen = super().choose_main_action(view, options, stage)
+        for option in options:
+            if option.kind in {ActionKind.CAST, ActionKind.ACTIVATE_ABILITY}:
+                self.legal_main.append(
+                    (view.turn, view.step, stage, option.kind.value, option.object_id)
+                )
+        self.main_selected.append(
+            (view.turn, view.step, stage, chosen.kind.value, chosen.object_id)
+        )
         if chosen in offered:
             self.selected.append((view.turn, stage, chosen.object_id))
         elif offered:
@@ -103,6 +113,8 @@ def main() -> None:
                             pilot.selected,
                             sorted(pilot.nonselected),
                             sorted(pilot.watcher_present),
+                            pilot.legal_main,
+                            pilot.main_selected,
                         ),
                     )
                 )
@@ -129,6 +141,25 @@ def main() -> None:
                 )
                 or (e["event"] == "combat_damage_assignment" and e.get("target") == NAME)
             ]
+            resolutions = matching("damage_to_self_mana_resolved")
+            retained_ids = {e["stack_object_id"] for e in resolutions}
+            spending = [
+                e
+                for e in events
+                if e["event"] in {"cost_paid", "activation_cost_paid", "sneak_cost_paid"}
+                and retained_ids.intersection(e.get("floating_event_ids", ()))
+            ]
+            post_trigger_turns = {e["turn"] for e in resolutions}
+            legal_after_trigger = [
+                row
+                for row in observation[4]
+                if row[0] in post_trigger_turns and row[1] == "postcombat_main"
+            ]
+            selected_after_trigger = [
+                row
+                for row in observation[5]
+                if row[0] in post_trigger_turns and row[1] == "postcombat_main"
+            ]
             games.append(
                 {
                     "game_id": spec.game_id,
@@ -146,9 +177,12 @@ def main() -> None:
                         for e in matching("trigger_pending")
                         if "Whenever Raphael is dealt damage" in e.get("oracle_fragment", "")
                     ],
-                    "resolutions": matching("damage_to_self_mana_resolved"),
+                    "resolutions": resolutions,
                     "retention": matching("floating_mana_retained"),
                     "expiration": matching("floating_mana_emptied"),
+                    "retained_mana_spent": spending,
+                    "post_trigger_legal_actions": legal_after_trigger,
+                    "post_trigger_pilot_selections": selected_after_trigger,
                     "payment_actions": [
                         e
                         for e in events
@@ -184,6 +218,9 @@ def main() -> None:
                         "retention",
                         "expiration",
                         "payment_actions",
+                        "retained_mana_spent",
+                        "post_trigger_legal_actions",
+                        "post_trigger_pilot_selections",
                     )
                 },
             },

@@ -216,6 +216,206 @@
           }
         }
       ],
+      "retained_mana_spent": [
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "raphael",
+          "source_id": "object-000160",
+          "stack_object_id": "object-000206",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [
+            "object-000205"
+          ],
+          "tap_source": false,
+          "sacrifice_source": false,
+          "sacrificed_destination_id": null,
+          "other_sacrifice_id": null
+        }
+      ],
+      "post_trigger_legal_actions": [
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000199"
+        ]
+      ],
+      "post_trigger_pilot_selections": [
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "pass",
+          null
+        ]
+      ],
       "payment_actions": [
         {
           "turn": 2,
@@ -462,6 +662,9 @@
       "resolutions": [],
       "retention": [],
       "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
       "payment_actions": [
         {
           "turn": 1,
@@ -810,6 +1013,9 @@
       "resolutions": [],
       "retention": [],
       "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
       "payment_actions": [
         {
           "turn": 1,
@@ -1269,6 +1475,9 @@
       "resolutions": [],
       "retention": [],
       "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
       "payment_actions": [
         {
           "turn": 2,
@@ -1616,6 +1825,9 @@
       "resolutions": [],
       "retention": [],
       "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
       "payment_actions": [
         {
           "turn": 2,
@@ -2060,6 +2272,9 @@
       "resolutions": [],
       "retention": [],
       "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
       "payment_actions": [
         {
           "turn": 2,
