@@ -279,6 +279,15 @@ def _semantic_coverage(
             "fully_supported": True,
             "limitations": [],
         }
+    if interpreter.static_self_per_other_quality(card, fragment) is not None:
+        return {
+            "family": "static_self_per_other_quality",
+            "payload_executable": True,
+            "parent_executable": True,
+            "followup_executable": True,
+            "fully_supported": True,
+            "limitations": [],
+        }
     if fragment in card.keywords and not limitations:
         return {
             "family": "keyword_fact",

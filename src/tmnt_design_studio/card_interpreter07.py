@@ -845,6 +845,11 @@ class CardInterpreter:
     STATIC_OTHER_CREATURES = re.compile(
         r"^.+ gets \+(\d+)/\+(\d+) for each other creature you control\.$"
     )
+    STATIC_SELF_PER_OTHER_QUALITY = re.compile(
+        r"^(?P<recipient>.+?) gets (?P<power>[+-]\d+)/(?P<toughness>[+-]\d+) "
+        r"for each other (?P<quality>artifact|enchantment) you control\.$",
+        re.I,
+    )
     STATIC_OTHER_QUALIFIED_CREATURES = re.compile(
         r"^Other (?P<quality>artifact) creatures you control get "
         r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
@@ -2227,6 +2232,20 @@ class CardInterpreter:
             program,
             SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
         )
+
+    def static_self_per_other_quality(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int, str] | None:
+        """Derive a creature's complete self modifier from its controlled permanents."""
+        match = self.STATIC_SELF_PER_OTHER_QUALITY.fullmatch(fragment)
+        if (
+            match is None
+            or fragment not in self.fragments(card)
+            or "Creature" not in card.type_line.split(" — ", 1)[0].split()
+            or not self._self_reference(card, match["recipient"])
+        ):
+            return None
+        return int(match["power"]), int(match["toughness"]), match["quality"].capitalize()
 
     def supports_pt_fragment(self, fragment: str) -> bool:
         return any(
@@ -4159,6 +4178,8 @@ class CardInterpreter:
             if self.etb_destroy_target_creature(card, fragment):
                 continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
+                continue
+            if self.static_self_per_other_quality(card, fragment) is not None:
                 continue
             if self.utility_trigger_semantics(card, fragment) is not None:
                 continue

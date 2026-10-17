@@ -706,14 +706,14 @@ def test_two_instructions_on_one_resolution_keep_exact_occurrence_provenance():
 
 
 def test_source_specific_artifact_count_freezes_count_and_excludes_source():
+    # A noncreature bearing this P/T text remains unsupported and observable;
+    # the complete creature static effect is executed in its own rules tests.
     source_card = CardFact(
         "Adaptive Machine",
         "{2}",
         2,
-        "Artifact Creature — Robot",
+        "Artifact — Device",
         "Adaptive Machine gets +1/+0 for each other artifact you control.",
-        1,
-        2,
         oracle_id="adaptive-machine",
     )
     artifact = CardFact("Bot", "{1}", 1, "Artifact Creature — Robot", power=1, toughness=1)

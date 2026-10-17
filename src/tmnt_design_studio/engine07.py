@@ -8913,25 +8913,22 @@ class Game(
         if getattr(self, "_continuous_refresh_deferred", False):
             return
         self.refresh_aura_effects()
-        previous: dict[str, tuple[int, int]] = {}
+        previous: dict[tuple[str, str], tuple[int, int]] = {}
         previous_team = self._static_team_contributions
         for player in self.players:
             for permanent in player.battlefield:
-                previous[permanent.object_id] = (
-                    sum(
-                        x.power
-                        for x in permanent.pt_modifiers
-                        if x.derived_static and x.source_object_id is None
-                    ),
-                    sum(
-                        x.toughness
-                        for x in permanent.pt_modifiers
-                        if x.derived_static and x.source_object_id is None
-                    ),
-                )
+                for modifier in permanent.pt_modifiers:
+                    if modifier.derived_static and modifier.source_object_id is None:
+                        key = (permanent.object_id, modifier.oracle_fragment)
+                        old_power, old_toughness = previous.get(key, (0, 0))
+                        previous[key] = (
+                            old_power + modifier.power,
+                            old_toughness + modifier.toughness,
+                        )
                 permanent.pt_modifiers = [
                     modifier for modifier in permanent.pt_modifiers if not modifier.derived_static
                 ]
+        processed_self: set[tuple[str, str]] = set()
         for player in self.players:
             creatures = [permanent for permanent in player.battlefield if permanent.is_creature]
             for source in creatures:
@@ -8953,7 +8950,7 @@ class Game(
                             int(match.group(1)) * count,
                             int(match.group(2)) * count,
                         )
-                        if previous.get(source.object_id, (0, 0)) != current:
+                        if previous.get((source.object_id, fragment), (0, 0)) != current:
                             self.log(
                                 "pt_static_modifier_refreshed",
                                 target=source.card.name,
@@ -8962,6 +8959,74 @@ class Game(
                                 toughness=current[1],
                                 oracle_fragment=fragment,
                             )
+                    scaling = self.interpreter.static_self_per_other_quality(source.card, fragment)
+                    if scaling is None:
+                        continue
+                    processed_self.add((source.object_id, fragment))
+                    per_power, per_toughness, quality = scaling
+                    count = sum(
+                        permanent is not source
+                        and quality in permanent.type_line.split(" — ", 1)[0].split()
+                        for permanent in self.players[source.controller].battlefield
+                    )
+                    # Ability loss is applied in layer 6 before the 7c P/T modifier.
+                    current = (
+                        (per_power * count, per_toughness * count)
+                        if source.ability_loss_timestamp is None
+                        else (0, 0)
+                    )
+                    if current != (0, 0):
+                        self.apply_pt_modifier(
+                            source,
+                            *current,
+                            duration="persistent",
+                            source_card=source.card.name,
+                            oracle_fragment=fragment,
+                            derived_static=True,
+                            log_event=False,
+                        )
+                    old = previous.get((source.object_id, fragment), (0, 0))
+                    if old != current:
+                        self.log(
+                            "pt_static_self_quality_changed",
+                            source=source.card.name,
+                            source_id=source.object_id,
+                            oracle_fragment=fragment,
+                            quality=quality,
+                            qualifying_count=count,
+                            power=current[0],
+                            toughness=current[1],
+                            power_delta=current[0] - old[0],
+                            toughness_delta=current[1] - old[1],
+                        )
+        for (source_id, fragment), old in previous.items():
+            if (source_id, fragment) in processed_self or old == (0, 0):
+                continue
+            source = self._objects.get(source_id)
+            if not isinstance(source, Permanent) or not self.is_authoritative(
+                source, "battlefield"
+            ):
+                continue
+            scaling = self.interpreter.static_self_per_other_quality(source.card, fragment)
+            if scaling is None:
+                continue
+            quality = scaling[2]
+            self.log(
+                "pt_static_self_quality_changed",
+                source=source.card.name,
+                source_id=source_id,
+                oracle_fragment=fragment,
+                quality=quality,
+                qualifying_count=sum(
+                    permanent is not source
+                    and quality in permanent.type_line.split(" — ", 1)[0].split()
+                    for permanent in self.players[source.controller].battlefield
+                ),
+                power=0,
+                toughness=0,
+                power_delta=-old[0],
+                toughness_delta=-old[1],
+            )
         current_team: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
         for player in self.players:
             for source in player.battlefield:
