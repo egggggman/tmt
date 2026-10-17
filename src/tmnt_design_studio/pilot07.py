@@ -108,12 +108,33 @@ class AcceptancePilot:
                         option.target_id,
                     ),
                 )
+            resource_draw = [
+                option
+                for option in options
+                if option.kind is ActionKind.ACTIVATE_ABILITY
+                and option.oracle_fragment is not None
+                and "Sacrifice another creature or token: Draw a card." in option.oracle_fragment
+                and option.cost_object_id in battlefield
+                and battlefield[option.cost_object_id].is_token
+            ]
+            if resource_draw:
+                return resource_draw[0]
             return next(
                 (
                     option
                     for option in options
                     if option.kind is ActionKind.ACTIVATE_ABILITY
                     and not self._hand_cycling(view, option)
+                    and not (
+                        option.oracle_fragment is not None
+                        and "Sacrifice another creature or token: Draw a card."
+                        in option.oracle_fragment
+                    )
+                    and not (
+                        option.oracle_fragment is not None
+                        and "Sacrifice this creature: You gain 3 life." in option.oracle_fragment
+                        and view.life[option.player_index] > 5
+                    )
                     and not (
                         option.oracle_fragment is not None
                         and " damage to target creature." in option.oracle_fragment

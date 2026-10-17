@@ -438,20 +438,21 @@ def test_other_token_activations_and_arbitrary_sacrifice_costs_remain_unsupporte
 def test_food_corpus_memberships_and_digests_are_exact():
     recognized, executable, full = coverage_sets()
 
-    assert (len({row[0] for row in recognized}), len(recognized)) == (9, 9)
-    assert (len({row[0] for row in executable}), len(executable)) == (9, 9)
-    assert (len({row[0] for row in full}), len(full)) == (6, 6)
+    assert (len({row[0] for row in recognized}), len(recognized)) == (10, 10)
+    assert (len({row[0] for row in executable}), len(executable)) == (10, 10)
+    assert (len({row[0] for row in full}), len(full)) == (7, 7)
     assert {row[1] for row in full} == {
         "Anchovy & Banana Pizza",
         "Guac & Marshmallow Pizza",
+        "Ice Cream Kitty",
         "Lita, Little Orphan Amphibian",
         "Omni-Cheese Pizza",
         "Spicy Oatmeal Pizza",
         "Tainted Treats",
     }
-    assert digest(recognized) == "8872e3cfde38e497c714d41aee8e28a1d8840a03a763900c43867114ac891f0c"
-    assert digest(executable) == "8872e3cfde38e497c714d41aee8e28a1d8840a03a763900c43867114ac891f0c"
-    assert digest(full) == "562d38fe7549a3b0986e28da751ae967f744af7e27f822348fa697bb4f4ebe15"
+    assert digest(recognized) == "e9fc9a00cd6b44a5a4240e07901e096991fadc79127b82b29c7ef3c11c7128f5"
+    assert digest(executable) == digest(recognized)
+    assert digest(full) == "56c6af5226ba13d4f83ece02664d4a4c7190a920c65ad9940949befb2f0031e1"
     roster = frozen_names()
     frozen_recognized = [row for row in recognized if row[1] in roster]
     frozen_executable = [row for row in executable if row[1] in roster]
@@ -460,6 +461,7 @@ def test_food_corpus_memberships_and_digests_are_exact():
         "Anchovy & Banana Pizza",
         "Courier of Comestibles",
         "Guac & Marshmallow Pizza",
+        "Ice Cream Kitty",
         "Lita, Little Orphan Amphibian",
         "Spicy Oatmeal Pizza",
         "Tainted Treats",
@@ -468,13 +470,13 @@ def test_food_corpus_memberships_and_digests_are_exact():
     assert {row[1] for row in frozen_full} == {
         "Anchovy & Banana Pizza",
         "Guac & Marshmallow Pizza",
+        "Ice Cream Kitty",
         "Lita, Little Orphan Amphibian",
         "Spicy Oatmeal Pizza",
         "Tainted Treats",
     }
-    assert digest(frozen_full) == (
-        "ffe1e59b2702039cba4f6a96465483fe22bd22637e1bcd310afcb21d1ca0a9f1"
-    )
-    assert digest(frozen_recognized) == (
-        "97b3e9597f12377c143b59b43fbb28858b75d7d8db1dda25bc8fbfde74783c7e"
+    assert digest(frozen_full) == "e136524288b25761756d009771c941713d9bf4c0ae76e9a285e17c88f19228f6"
+    assert (
+        digest(frozen_recognized)
+        == "ad70f6cde6a8f77c5dc8e1bfe8063e83f1544520666a6fb1468042f4ba1ebcac"
     )

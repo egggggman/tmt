@@ -643,6 +643,7 @@ class ActivationCostProgram:
     limitations: tuple[str, ...] = ()
     discard_source: bool = False
     sacrifice_other_nonland: bool = False
+    sacrifice_other_creature_or_token: bool = False
 
 
 class ActivatedEffectKind(Enum):
@@ -1038,7 +1039,7 @@ class CardInterpreter:
     }
     CANONICAL_FOOD_ACTIVATION = "{2}, {T}, Sacrifice this token: You gain 3 life."
     FOOD_ACTIVATION = re.compile(
-        r"\{2\}, \{T\}, Sacrifice this (?:token|artifact): You gain 3 life\.", re.I
+        r"\{2\}, \{T\}, Sacrifice this (?:token|artifact|creature): You gain 3 life\.", re.I
     )
     EQUIP_ACTIVATION = re.compile(
         r"^Equip (?P<cost>\{(?:[0-9]+|[WUBRG])\})(?: \((?P<nested>"
@@ -3425,6 +3426,14 @@ class CardInterpreter:
                 re.IGNORECASE,
             )
         )
+        other_sacrifice_draw = bool(
+            re.fullmatch(
+                r"(?:\{(?:\d+|[WUBRG])\})+, Sacrifice another creature or token: "
+                r"Draw a card\. Activate only as a sorcery\.",
+                fragment.strip(),
+                re.IGNORECASE,
+            )
+        )
         activated_damage = bool(
             "Artifact" in card.type_line
             and "Creature" not in card.type_line.split(" — ", 1)[0].split()
@@ -3473,6 +3482,9 @@ class CardInterpreter:
                 remove_counter_target
                 and part.casefold() == "remove a +1/+1 counter from a creature you control"
             )
+            and not (
+                other_sacrifice_draw and part.casefold() == "sacrifice another creature or token"
+            )
         )
         mana_cost = "".join(mana_parts)
         fixed_mana = all(
@@ -3490,6 +3502,9 @@ class CardInterpreter:
             and not (
                 remove_counter_target
                 and part.casefold() == "remove a +1/+1 counter from a creature you control"
+            )
+            and not (
+                other_sacrifice_draw and part.casefold() == "sacrifice another creature or token"
             )
             and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
         )
@@ -3564,7 +3579,7 @@ class CardInterpreter:
         elif ray_fillets:
             effect_kind = ActivatedEffectKind.DRAW_CARD
             action_match = True
-        elif sacrifice_draw:
+        elif sacrifice_draw or other_sacrifice_draw:
             effect_kind = ActivatedEffectKind.DRAW_CARDS
             action_match = True
         elif activated_damage:
@@ -3587,7 +3602,7 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (mana_ability or frog_reach or mutagen_source)
+            (mana_ability or frog_reach or mutagen_source or other_sacrifice_draw)
             and instructions
             or (
                 targeted_return
@@ -3599,7 +3614,11 @@ class CardInterpreter:
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None or mana_ability or frog_reach or mutagen_source
+            else instructions is None
+            or mana_ability
+            or frog_reach
+            or mutagen_source
+            or other_sacrifice_draw
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -3617,6 +3636,7 @@ class CardInterpreter:
             or mutagen_source
             or ray_fillets
             or sacrifice_draw
+            or other_sacrifice_draw
             or activated_damage
             or token_haste
             or class_level
@@ -3656,6 +3676,7 @@ class CardInterpreter:
                 remove_counter_target,
                 costs_executable,
                 tuple(cost_limitations),
+                sacrifice_other_creature_or_token=other_sacrifice_draw,
             ),
             effect_kind,
             target_count,
