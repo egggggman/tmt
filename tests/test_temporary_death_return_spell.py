@@ -176,6 +176,29 @@ def test_target_departure_before_spell_resolution_fizzles_entire_grant():
     assert any(e["event"] == "spell_resolved_no_effect" for e in current.events)
 
 
+def test_instant_can_respond_to_a_spell_with_normal_priority_and_payment():
+    current, _ = game(seed=34)
+    for _ in range(2):
+        current.create_permanent(SWAMP, 0)
+    first, second = current.set_hand_for_testing(0, [PAIN, PAIN])
+    creature = current.create_permanent(BEAR, 1)
+    action = next(
+        a
+        for a in current.legal_main_actions(0)
+        if a.object_id == first.object_id and a.target_id == creature.object_id
+    )
+    current.execute_main_action(action)
+    response = next(
+        a
+        for a in current.legal_priority_actions(0)
+        if a.object_id == second.object_id and a.target_id == creature.object_id
+    )
+    current.execute_priority_action(response)
+    drain(current)
+    assert len(creature.temporary_death_return_effects) == 2
+    assert len([e for e in current.events if e["event"] == "cost_paid"]) == 2
+
+
 def test_deterministic_replay_and_blocking_damage():
     snapshots = []
     for _ in range(2):
