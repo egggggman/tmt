@@ -23,4 +23,4 @@ The machine overlay `ISSUE_289_VARIABLE_X_CHECKPOINT.json` preserves 172 identit
 
 ## Gates
 
-Checkpoint acceptance: pending final-head CI. Baseline 005 calibration: **BLOCKED**. Thirteen important entries remain; nine are identified calibration blockers and four have unbounded impact. The next high-priority bounded families are Donatello's counter transfer, Mutagen Man's separate artifact-token activation discount, and Raphael's damage-to-mana trigger. No 4,500-game control is authorized.
+Checkpoint acceptance: **READY** after full regression, structural checks, replay verification, and successful final-head CI. Baseline 005 calibration: **BLOCKED**. Thirteen important entries remain; nine are identified calibration blockers and four have unbounded impact. The next high-priority bounded families are Donatello's counter transfer, Mutagen Man's separate artifact-token activation discount, and Raphael's damage-to-mana trigger. No 4,500-game control is authorized.
