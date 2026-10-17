@@ -163,6 +163,7 @@ class ActionOption:
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
     choice_ids: tuple[str, ...] = ()
+    x_value: int | None = None
 
 
 @dataclass(frozen=True)
@@ -218,6 +219,7 @@ class PaymentPlan:
     source_ids: tuple[str, ...]
     floating_colors: tuple[str, ...] = ()
     floating_event_ids: tuple[str, ...] = ()
+    x_value: int | None = None
 
 
 @dataclass(frozen=True)
@@ -937,6 +939,7 @@ class StackObject:
     cast_from_raphael: bool = False
     sneak_mana_source_ids: tuple[str, ...] = ()
     zone: Zone = "stack"
+    x_value: int | None = None
 
     @property
     def rules_card(self):
@@ -1042,6 +1045,7 @@ class Permanent:
     aura_effect_ids: tuple[str, ...] = ()
     aura_attack_restrictions: tuple[tuple[str, str], ...] = ()
     once_per_turn_activations: dict[str, int] = field(default_factory=dict)
+    x_value: int | None = None
 
     @property
     def rules_card(self):
@@ -2033,6 +2037,7 @@ class Game(
                 entered_battlefield_turn=self.turn,
                 entered_under_controller=destination_controller,
                 is_token=getattr(obj, "is_token", False),
+                x_value=obj.x_value if isinstance(obj, StackObject) else None,
             )
             if replacement.is_creature and self._left_under_control_this_turn(
                 destination_controller
@@ -6496,13 +6501,45 @@ class Game(
                 ):
                     raise ValueError("conditional entry trigger provenance is invalid")
             if not conditional or self._left_under_control_this_turn(ability.controller):
-                self.create_tokens(
-                    ability.controller,
-                    coverage.program,
-                    source_card=ability.source_card.name,
-                    oracle_fragment=ability.oracle_fragment,
-                    source_id=ability.source_id,
+                x_entry = self.interpreter.x_entry_token_program(
+                    ability.source_card, ability.oracle_fragment
                 )
+                program = coverage.program
+                if x_entry is not None:
+                    self._authenticate_original_rules_event(ability.event)
+                    trigger = self._triggers.get(ability.trigger_id)
+                    source = self._objects.get(ability.source_id)
+                    if (
+                        trigger is None
+                        or trigger.event is not ability.event
+                        or trigger.source_id != ability.source_id
+                        or trigger.controller != ability.controller
+                        or ability.event.kind is not RulesEventKind.CREATURE_ENTERED
+                        or ability.event.subject_ids != (ability.source_id,)
+                        or not isinstance(source, Permanent)
+                        or source.card is not ability.source_card
+                        or source.zone not in {"battlefield", "former"}
+                        or source.x_value is None
+                        or source.x_value < 0
+                    ):
+                        raise ValueError("variable X entry trigger lost source provenance")
+                    program = replace(x_entry, quantity=source.x_value)
+                    self.log(
+                        "variable_x_entry_resolved",
+                        source_id=ability.source_id,
+                        stack_object_id=ability.object_id,
+                        event_id=ability.event.event_id,
+                        controller=ability.controller,
+                        x_value=source.x_value,
+                    )
+                if program.quantity:
+                    self.create_tokens(
+                        ability.controller,
+                        program,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=ability.oracle_fragment,
+                        source_id=ability.source_id,
+                    )
             else:
                 self.log("conditional_entry_trigger_condition_false", source_id=ability.source_id)
         elif ability.effect is TriggerEffect.DEAL_DAMAGE:
@@ -9549,6 +9586,34 @@ class Game(
             if self._raphael_permission_for(player_index, card) is not None
         )
         for card in (*player.hand, *playable_exile):
+            if "{X}" in card.mana_cost:
+                # Each affordable announcement is a distinct legal choice. Cap the
+                # search by actual available mana units, not by a card-specific X.
+                sources = sum(
+                    not permanent.tapped and permanent.card.is_land
+                    for permanent in player.battlefield
+                )
+                sources += len(self.floating_mana.eligible(player_index, "other_spell"))
+                if self.interpreter.cast_program(card.card).kind is CastKind.CREATURE:
+                    for chosen_x in range(sources + 1):
+                        if (
+                            self.payment_plan(
+                                player_index,
+                                card,
+                                allow_exile=card in playable_exile,
+                                x_value=chosen_x,
+                            )
+                            is not None
+                        ):
+                            options.append(
+                                ActionOption(
+                                    ActionKind.CAST,
+                                    player_index,
+                                    object_id=card.object_id,
+                                    x_value=chosen_x,
+                                )
+                            )
+                continue
             if self.payment_plan(player_index, card, allow_exile=card in playable_exile) is None:
                 continue
             kind = self.interpreter.cast_program(card.card).kind
@@ -11034,6 +11099,7 @@ class Game(
                     obj,
                     target,
                     cast_from_exile=True,
+                    x_value=option.x_value,
                     sacrifice_cost=(
                         self._objects.get(option.cost_object_id or "")
                         if option.cost_object_id is not None
@@ -11101,6 +11167,7 @@ class Game(
                     and option.oracle_fragment is not None
                     and self.is_authoritative(obj, "graveyard")
                 ),
+                x_value=option.x_value,
             )
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             if isinstance(obj, CardObject) and option.oracle_fragment is not None:
@@ -12298,29 +12365,48 @@ class Game(
         return tuple(colors), tuple(event_ids), lands
 
     @staticmethod
-    def mana_requirement(card: CardFact | CardObject) -> ManaRequirement | None:
-        """Construct a fixed generic/colored mana cost, including hybrid symbols."""
+    def mana_requirement(
+        card: CardFact | CardObject, x_value: int | None = None
+    ) -> ManaRequirement | None:
+        """Construct a cost with a legally announced nonnegative X, including hybrid."""
         symbols = re.findall(r"\{([^}]+)\}", card.mana_cost)
+        if "".join(f"{{{symbol}}}" for symbol in symbols) != card.mana_cost:
+            return None
+        if x_value is not None and "X" not in symbols:
+            return None
         generic = 0
         colored: list[str] = []
         for symbol in symbols:
             if symbol.isdecimal():
                 generic += int(symbol)
+            elif (
+                symbol == "X"
+                and isinstance(x_value, int)
+                and not isinstance(x_value, bool)
+                and x_value >= 0
+            ):
+                generic += x_value
             elif Game._mana_symbol_options(symbol) is not None:
                 colored.append(symbol)
             else:
                 return None
         requirement = ManaRequirement(generic, tuple(colored))
-        if requirement.total != card.mana_value:
+        variable_total = sum(x_value for symbol in symbols if symbol == "X")
+        if requirement.total != card.mana_value + variable_total:
             return None
         return requirement
 
     def casting_requirement(
-        self, player_index: int, card: CardFact | CardObject, *, alternative: str | None = None
+        self,
+        player_index: int,
+        card: CardFact | CardObject,
+        *,
+        alternative: str | None = None,
+        x_value: int | None = None,
     ) -> ManaRequirement | None:
         """Apply Oracle-derived generic discounts to the chosen spell cost."""
         base = (
-            self.mana_requirement(card)
+            self.mana_requirement(card, x_value=x_value)
             if alternative is None
             else self.activation_mana_requirement(alternative)
         )
@@ -14012,6 +14098,7 @@ class Game(
         *,
         allow_graveyard: bool = False,
         allow_exile: bool = False,
+        x_value: int | None = None,
     ) -> PaymentPlan | None:
         source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
         if (
@@ -14020,7 +14107,7 @@ class Game(
             or (card.owner != player_index and not allow_exile)
         ):
             return None
-        requirement = self.casting_requirement(player_index, card)
+        requirement = self.casting_requirement(player_index, card, x_value=x_value)
         if requirement is None:
             return None
         available = [
@@ -14039,6 +14126,7 @@ class Game(
             tuple(p.object_id for p in chosen),
             floating,
             event_ids,
+            x_value,
         )
 
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
@@ -14081,6 +14169,7 @@ class Game(
             card,
             allow_graveyard=cast_from_graveyard,
             allow_exile=cast_from_raphael,
+            x_value=plan.x_value,
         ):
             raise ValueError("payment plan is no longer legal")
         sources: list[Permanent] = []
@@ -14111,6 +14200,7 @@ class Game(
                 source.tapped = tapped
             raise
         assert isinstance(spell, StackObject)
+        spell.x_value = plan.x_value
         self.floating_mana.consume_events(
             plan.player_index,
             plan.floating_event_ids,
@@ -14127,6 +14217,7 @@ class Game(
             colored=list(plan.requirement.colored),
             source_ids=list(plan.source_ids),
             floating_event_ids=list(plan.floating_event_ids),
+            x_value=plan.x_value,
         )
         printed = self.mana_requirement(card)
         if printed is not None and plan.requirement.generic < printed.generic:
@@ -14360,6 +14451,7 @@ class Game(
         source_target: Permanent | None = None,
         mode_fragment: str | None = None,
         recursion_targets: tuple[CardObject, ...] = (),
+        x_value: int | None = None,
     ) -> bool:
         """Compatibility action: announce a represented spell, then resolve it immediately.
 
@@ -14375,6 +14467,7 @@ class Game(
             source_target=source_target,
             mode_fragment=mode_fragment,
             recursion_targets=recursion_targets,
+            x_value=x_value,
         )
         if spell is None:
             return False
@@ -14397,6 +14490,7 @@ class Game(
         source_target: Permanent | None = None,
         mode_fragment: str | None = None,
         recursion_targets: tuple[object, ...] = (),
+        x_value: int | None = None,
     ) -> StackObject | None:
         """Validate announcement, pay represented mana, and atomically move Hand -> Stack."""
         player = self.players[player_index]
@@ -14697,7 +14791,7 @@ class Game(
                 )
             return None
 
-        requirement = self.mana_requirement(card)
+        requirement = self.mana_requirement(card, x_value=x_value)
         if requirement is None:
             self.unsupported(
                 card.card,
@@ -14707,7 +14801,11 @@ class Game(
             )
             return None
         plan = self.payment_plan(
-            player_index, card, allow_graveyard=cast_from_graveyard, allow_exile=cast_from_exile
+            player_index,
+            card,
+            allow_graveyard=cast_from_graveyard,
+            allow_exile=cast_from_exile,
+            x_value=x_value,
         )
         if plan is None:
             return None
@@ -14775,6 +14873,7 @@ class Game(
             target_id=target_id,
             source_target_id=spell.source_target_id,
             mode_fragment=spell.mode_fragment,
+            x_value=spell.x_value,
         )
         self._enqueue_spell_cast_triggers(spell)
         return spell
