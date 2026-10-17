@@ -655,6 +655,7 @@ class ActivatedEffectKind(Enum):
     GAIN_THREE_LIFE = "gain_three_life"
     COUNTER_TARGET_SPELL = "counter_target_spell"
     MUTAGEN_COUNTER = "mutagen_counter"
+    COUNTER_AND_ANIMATE_ARTIFACT = "counter_and_animate_artifact"
     SEARCH_LAND_TYPE = "search_land_type"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
@@ -992,6 +993,30 @@ class CardInterpreter:
         r"a number of|one or more) (?P<body>.*?\btokens?)\b",
         re.IGNORECASE,
     )
+    COUNTER_AND_ANIMATE_ARTIFACT = re.compile(
+        r"\{T\}: Put (?P<count>[1-9][0-9]*|one|two|three|four|five) \+1/\+1 "
+        r"counters? on target artifact you control\. If it isn't a creature, "
+        r"it becomes a (?P<power>[0-9]+)/(?P<toughness>[0-9]+) "
+        r"(?P<subtype>[A-Z][A-Za-z]*) creature in addition to its other types\. "
+        r"Activate only as a sorcery\."
+    )
+
+    @classmethod
+    def counter_and_animate_artifact_program(
+        cls, fragment: str
+    ) -> tuple[int, int, int, str] | None:
+        """A complete targeted, persistent artifact animation activation."""
+        match = cls.COUNTER_AND_ANIMATE_ARTIFACT.fullmatch(fragment)
+        if match is None:
+            return None
+        count = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}.get(match["count"])
+        return (
+            count if count is not None else int(match["count"]),
+            int(match["power"]),
+            int(match["toughness"]),
+            match["subtype"],
+        )
+
     CONDITIONAL_SNEAK_TOKEN_ENTRY = re.compile(
         r"Create [^.]+ creature tokens\. If this spell's sneak cost was paid, "
         r"they enter tapped and attacking\."
@@ -3559,6 +3584,7 @@ class CardInterpreter:
         counter_target = self.FUGITIVE_COUNTER.fullmatch(fragment.strip())
         ray_fillets = self.RAY_FILLET_DRAW.fullmatch(fragment.strip())
         token_haste = self.TOKEN_HASTE.fullmatch(fragment.strip())
+        counter_and_animate = self.counter_and_animate_artifact_program(fragment.strip())
         first_strike = None
         if class_level:
             effect_kind = ActivatedEffectKind.ADVANCE_CLASS_LEVEL
@@ -3595,6 +3621,9 @@ class CardInterpreter:
         elif mutagen_source:
             effect_kind = ActivatedEffectKind.MUTAGEN_COUNTER
             action_match = True
+        elif counter_and_animate is not None:
+            effect_kind = ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT
+            action_match = True
         elif ray_fillets:
             effect_kind = ActivatedEffectKind.DRAW_CARD
             action_match = True
@@ -3621,7 +3650,13 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (mana_ability or frog_reach or mutagen_source or other_sacrifice_draw)
+            (
+                mana_ability
+                or frog_reach
+                or mutagen_source
+                or other_sacrifice_draw
+                or counter_and_animate is not None
+            )
             and instructions
             or (
                 targeted_return
@@ -3637,11 +3672,18 @@ class CardInterpreter:
             or mana_ability
             or frog_reach
             or mutagen_source
+            or counter_and_animate is not None
             or other_sacrifice_draw
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
-            or bool(targeted_return or counter_target or mutagen_source or activated_damage)
+            or bool(
+                targeted_return
+                or counter_target
+                or mutagen_source
+                or activated_damage
+                or counter_and_animate is not None
+            )
             and target_count == 1
         )
         if targeted_return and return_semantics is not None:
@@ -3653,6 +3695,7 @@ class CardInterpreter:
             or frog_reach
             or tunnel_rats_return
             or mutagen_source
+            or counter_and_animate is not None
             or ray_fillets
             or sacrifice_draw
             or other_sacrifice_draw

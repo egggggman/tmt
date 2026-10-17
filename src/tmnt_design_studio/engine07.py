@@ -12543,6 +12543,25 @@ class Game(
                             )
                 elif (
                     semantics.program.effect_kind
+                    is ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT
+                ):
+                    for target in self.players[player_index].battlefield:
+                        if (
+                            self.is_authoritative(target, "battlefield")
+                            and "Artifact" in target.type_line.split(" — ", 1)[0].split()
+                            and self._legal_targeting_protection(target, player_index)
+                        ):
+                            options.append(
+                                ActionOption(
+                                    ActionKind.ACTIVATE_ABILITY,
+                                    player_index,
+                                    object_id=source.object_id,
+                                    target_id=target.object_id,
+                                    oracle_fragment=fragment,
+                                )
+                            )
+                elif (
+                    semantics.program.effect_kind
                     is ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
                 ):
                     for player in self.players:
@@ -12927,6 +12946,9 @@ class Game(
             return None
         counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
         mutagen_counter = semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER
+        counter_and_animate = (
+            semantics.program.effect_kind is ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT
+        )
         targeted_return = (
             semantics.program.effect_kind
             is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
@@ -12956,6 +12978,18 @@ class Game(
                 not isinstance(target, Permanent)
                 or not self.is_authoritative(target, "battlefield")
                 or not target.is_creature
+            ):
+                return None
+        elif counter_and_animate:
+            if len(target_ids) != 1:
+                return None
+            target = self._objects.get(target_ids[0])
+            if (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or target.controller != player_index
+                or "Artifact" not in target.type_line.split(" — ", 1)[0].split()
+                or not self._legal_targeting_protection(target, player_index)
             ):
                 return None
         elif targeted_return:
@@ -13720,6 +13754,62 @@ class Game(
                     target_spell_id=(ability.target_ids[0] if ability.target_ids else None),
                     reason="counter_target_illegal_at_resolution",
                 )
+        elif ability.program.effect_kind is ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT:
+            program = self.interpreter.counter_and_animate_artifact_program(ability.oracle_fragment)
+            assert program is not None
+            target = self._objects.get(ability.target_ids[0]) if ability.target_ids else None
+            if (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and "Artifact" in target.type_line.split(" — ", 1)[0].split()
+                and self._legal_targeting_protection(target, ability.controller)
+            ):
+                count, power, toughness, subtype = program
+                was_creature = target.is_creature
+                self.place_counters(
+                    target,
+                    "+1/+1",
+                    count,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                    defer_post_placement=True,
+                )
+                if not was_creature:
+                    self.apply_temporary_type_and_base_pt(
+                        target,
+                        added_types=("Creature",),
+                        added_subtypes=(subtype,),
+                        power=power,
+                        toughness=toughness,
+                        source_id=ability.object_id,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=ability.oracle_fragment,
+                        duration="persistent",
+                    )
+                    self.refresh_static_pt_modifiers()
+                delivered = True
+                self.log(
+                    "activated_counter_artifact_animation_resolved",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=target.object_id,
+                    counters=count,
+                    animated=not was_creature,
+                    resulting_type_line=target.type_line,
+                    resulting_power=target.power,
+                    resulting_toughness=target.toughness,
+                )
+            else:
+                self.log(
+                    "activated_ability_resolved_no_effect",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    target_id=ability.target_ids[0] if ability.target_ids else None,
+                    reason="target_illegal_at_resolution",
+                )
         elif (
             ability.program.effect_kind is ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
             and source_permanent is not None
@@ -13869,7 +13959,10 @@ class Game(
         if ability.program.effect_kind in {
             ActivatedEffectKind.GAIN_THREE_LIFE,
             ActivatedEffectKind.ADVANCE_CLASS_LEVEL,
+            ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT,
         }:
+            if ability.program.effect_kind is ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT:
+                self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
 
     def _validate_food_activation_linkage(self, ability: ActivatedAbilityObject) -> None:

@@ -580,12 +580,13 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Turtle Lair",
         "Weather Maker",
     }
-    # Both complete Leader's Talent level activations now execute.
-    assert len({item[0] for item in executable}) == 46 and len(executable) == 52
+    # The complete targeted artifact counter/animation activation now executes.
+    assert len({item[0] for item in executable}) == 47 and len(executable) == 53
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
         "Ice Cream Kitty",
+        "Donatello, Mutant Mechanic",
         "Does Machines",
         "Ninja Teen",
         "Leonardo, Leader in Blue",
@@ -626,9 +627,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "511f5ae37df614e2e5c48cb5e812774a5824480259102bdef2c656130bded58c"
+        == "2f2cc12895c62e36ca8da74c4b8415bffc8c9c971a6caf54091b532ea084fa97"
     )
-    assert digest(executable) == "91af0a5c56454d944b49df01941c6e92266daa0eb38383027a3ee8315ff1949d"
+    assert digest(executable) == "b57457be357001fc2a2b9f8ff57cbfde28ecfcaf4cf74b56c5068fc06dc7bb0a"
     assert digest(full) == digest(executable)
 
 
@@ -661,6 +662,7 @@ def test_frozen_activation_memberships_and_unknown_universe_are_locked():
     assert executable_names == {
         "Fugitive Droid",
         "Ice Cream Kitty",
+        "Donatello, Mutant Mechanic",
         "Does Machines",
         "Ninja Teen",
         "Leonardo, Leader in Blue",
