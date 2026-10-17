@@ -1,0 +1,3614 @@
+{
+  "schema": "issue289-entry-pump-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "e666181f74589c2cabe40cfe0d9144aad9833067e1404e11e69b3b8b8dcb4f18",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "7c074a1bf7769a4f68653ee10729f3e4a556da552e6d00f1c113cf45cbc88789",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-entry-pump-michelangelo-donatello-3021",
+      "seed": 3021,
+      "seats": [
+        "michelangelo",
+        "donatello"
+      ],
+      "result_sha256": "1e0861981acfef873dcba2ee1a15458288b4715ecee398530e0fa70d487bec75",
+      "opportunities": [
+        [
+          5,
+          "activate",
+          "object-000145"
+        ],
+        [
+          5,
+          "activate",
+          "object-000157"
+        ],
+        [
+          5,
+          "creature",
+          "object-000145"
+        ],
+        [
+          5,
+          "creature",
+          "object-000157"
+        ],
+        [
+          5,
+          "damage",
+          "object-000145"
+        ],
+        [
+          5,
+          "damage",
+          "object-000157"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000145"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          5,
+          "land",
+          "object-000145"
+        ],
+        [
+          5,
+          "land",
+          "object-000157"
+        ],
+        [
+          7,
+          "activate",
+          "object-000157"
+        ],
+        [
+          7,
+          "creature",
+          "object-000157"
+        ],
+        [
+          7,
+          "damage",
+          "object-000157"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          7,
+          "land",
+          "object-000157"
+        ],
+        [
+          9,
+          "activate",
+          "object-000157"
+        ],
+        [
+          9,
+          "creature",
+          "object-000157"
+        ],
+        [
+          9,
+          "damage",
+          "object-000157"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          9,
+          "land",
+          "object-000157"
+        ],
+        [
+          11,
+          "activate",
+          "object-000157"
+        ],
+        [
+          11,
+          "creature",
+          "object-000157"
+        ],
+        [
+          11,
+          "damage",
+          "object-000157"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          11,
+          "land",
+          "object-000157"
+        ],
+        [
+          13,
+          "activate",
+          "object-000157"
+        ],
+        [
+          13,
+          "creature",
+          "object-000157"
+        ],
+        [
+          13,
+          "damage",
+          "object-000157"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          13,
+          "land",
+          "object-000157"
+        ]
+      ],
+      "selected": [
+        [
+          5,
+          "creature",
+          "object-000145"
+        ],
+        [
+          13,
+          "creature",
+          "object-000157"
+        ]
+      ],
+      "nonselected": [
+        [
+          5,
+          "activate",
+          "object-000145"
+        ],
+        [
+          5,
+          "creature",
+          "object-000145"
+        ],
+        [
+          5,
+          "damage",
+          "object-000145"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000145"
+        ],
+        [
+          5,
+          "land",
+          "object-000145"
+        ],
+        [
+          7,
+          "activate",
+          "object-000157"
+        ],
+        [
+          7,
+          "creature",
+          "object-000157"
+        ],
+        [
+          7,
+          "damage",
+          "object-000157"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          7,
+          "land",
+          "object-000157"
+        ],
+        [
+          9,
+          "activate",
+          "object-000157"
+        ],
+        [
+          9,
+          "creature",
+          "object-000157"
+        ],
+        [
+          9,
+          "damage",
+          "object-000157"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          9,
+          "land",
+          "object-000157"
+        ],
+        [
+          11,
+          "activate",
+          "object-000157"
+        ],
+        [
+          11,
+          "creature",
+          "object-000157"
+        ],
+        [
+          11,
+          "damage",
+          "object-000157"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          11,
+          "land",
+          "object-000157"
+        ],
+        [
+          13,
+          "activate",
+          "object-000157"
+        ],
+        [
+          13,
+          "creature",
+          "object-000157"
+        ],
+        [
+          13,
+          "damage",
+          "object-000157"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000157"
+        ],
+        [
+          13,
+          "land",
+          "object-000157"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000158",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000217",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000029",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000159"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 5,
+          "event_step": "postcombat_main",
+          "event_active_player": 0,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000151",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Food"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1,
+              "type_line": "Artifact Creature \u2014 Robot Scientist"
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1,
+              "type_line": "Creature \u2014 Crab Mutant Soldier"
+            },
+            {
+              "object_id": "object-000151",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Mutagen"
+            }
+          ],
+          "last_known_battlefield": []
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000115",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000218"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 13,
+          "event_step": "postcombat_main",
+          "event_active_player": 0,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000168",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000195",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000200",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000215",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000218",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000151",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000176",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000178",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000203",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000168",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000195",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000200",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000215",
+              "controller": 0,
+              "type_line": "Creature \u2014 Boar Rhino"
+            },
+            {
+              "object_id": "object-000218",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Food"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1,
+              "type_line": "Artifact Creature \u2014 Robot Scientist"
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1,
+              "type_line": "Creature \u2014 Crab Mutant Soldier"
+            },
+            {
+              "object_id": "object-000151",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Mutagen"
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1,
+              "type_line": "Creature \u2014 Crab Mutant Soldier"
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Mutagen"
+            },
+            {
+              "object_id": "object-000176",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000178",
+              "controller": 1,
+              "type_line": "Artifact Creature \u2014 Robot"
+            },
+            {
+              "object_id": "object-000203",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Island"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000004",
+          "event_id": "event-000029",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000012",
+          "event_id": "event-000115",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000160",
+          "trigger_id": "trigger-000004",
+          "event_id": "event-000029",
+          "source_id": "object-000159",
+          "target_id": "object-000139",
+          "offered_ids": [
+            "object-000139",
+            "object-000143",
+            "object-000149",
+            "object-000155"
+          ],
+          "controller": 0,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000219",
+          "trigger_id": "trigger-000012",
+          "event_id": "event-000115",
+          "source_id": "object-000218",
+          "target_id": "object-000139",
+          "offered_ids": [
+            "object-000139",
+            "object-000143",
+            "object-000149",
+            "object-000164",
+            "object-000178",
+            "object-000200",
+            "object-000215"
+          ],
+          "controller": 0,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [],
+      "resolutions": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000160",
+          "trigger_id": "trigger-000004",
+          "event_id": "event-000029",
+          "source_id": "object-000159",
+          "target_id": "object-000139",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000219",
+          "trigger_id": "trigger-000012",
+          "event_id": "event-000115",
+          "source_id": "object-000218",
+          "target_id": "object-000139",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Fugitive Droid",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Fugitive Droid",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-entry-pump-donatello-michelangelo-3021",
+      "seed": 3021,
+      "seats": [
+        "donatello",
+        "michelangelo"
+      ],
+      "result_sha256": "87b617981f1fb7dd932456ab1e17c47d0d720d58f83aacfe939f41bcb2ee7d22",
+      "opportunities": [
+        [
+          2,
+          "activate",
+          "object-000133"
+        ],
+        [
+          2,
+          "creature",
+          "object-000133"
+        ],
+        [
+          2,
+          "damage",
+          "object-000133"
+        ],
+        [
+          2,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          8,
+          "activate",
+          "object-000169"
+        ],
+        [
+          8,
+          "creature",
+          "object-000169"
+        ],
+        [
+          8,
+          "damage",
+          "object-000169"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000169"
+        ],
+        [
+          8,
+          "land",
+          "object-000169"
+        ]
+      ],
+      "selected": [
+        [
+          2,
+          "creature",
+          "object-000133"
+        ],
+        [
+          8,
+          "creature",
+          "object-000169"
+        ]
+      ],
+      "nonselected": [
+        [
+          2,
+          "activate",
+          "object-000133"
+        ],
+        [
+          2,
+          "damage",
+          "object-000133"
+        ],
+        [
+          2,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          8,
+          "activate",
+          "object-000169"
+        ],
+        [
+          8,
+          "damage",
+          "object-000169"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000169"
+        ],
+        [
+          8,
+          "land",
+          "object-000169"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000140",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000170",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "rules_event",
+          "event_id": "event-000007",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000141"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 2,
+          "event_step": "precombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 0,
+              "type_line": "Artifact Creature \u2014 Robot Scientist"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000141",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000046",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000171"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 8,
+          "event_step": "postcombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000144",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000146",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000156",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000167",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000171",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000144",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000146",
+              "controller": 0,
+              "type_line": "Artifact Creature \u2014 Robot Scientist"
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0,
+              "type_line": "Artifact Creature \u2014 Robot Insect"
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Island"
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000156",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000167",
+              "controller": 1,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000171",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000001",
+          "event_id": "event-000007",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000046",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000142",
+          "trigger_id": "trigger-000001",
+          "event_id": "event-000007",
+          "source_id": "object-000141",
+          "target_id": "object-000137",
+          "offered_ids": [
+            "object-000137"
+          ],
+          "controller": 1,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000172",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000046",
+          "source_id": "object-000171",
+          "target_id": "object-000146",
+          "offered_ids": [
+            "object-000146",
+            "object-000154",
+            "object-000164",
+            "object-000167"
+          ],
+          "controller": 1,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [],
+      "resolutions": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000142",
+          "trigger_id": "trigger-000001",
+          "event_id": "event-000007",
+          "source_id": "object-000141",
+          "target_id": "object-000137",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": false,
+          "untapped": false
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000172",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000046",
+          "source_id": "object-000171",
+          "target_id": "object-000146",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Fugitive Droid",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Fugitive Droid",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-entry-pump-michelangelo-splinter-3034",
+      "seed": 3034,
+      "seats": [
+        "michelangelo",
+        "splinter"
+      ],
+      "result_sha256": "3eec2efb93af1fa93845f0ac80446eb6a6348a32be58b8baadad129283b58cea",
+      "opportunities": [
+        [
+          5,
+          "activate",
+          "object-000146"
+        ],
+        [
+          5,
+          "creature",
+          "object-000146"
+        ],
+        [
+          5,
+          "damage",
+          "object-000146"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000146"
+        ],
+        [
+          5,
+          "land",
+          "object-000146"
+        ],
+        [
+          11,
+          "activate",
+          "object-000196"
+        ],
+        [
+          11,
+          "creature",
+          "object-000196"
+        ],
+        [
+          11,
+          "damage",
+          "object-000196"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000196"
+        ],
+        [
+          11,
+          "land",
+          "object-000196"
+        ],
+        [
+          13,
+          "activate",
+          "object-000196"
+        ],
+        [
+          13,
+          "creature",
+          "object-000196"
+        ],
+        [
+          13,
+          "damage",
+          "object-000196"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000196"
+        ],
+        [
+          13,
+          "land",
+          "object-000196"
+        ]
+      ],
+      "selected": [
+        [
+          5,
+          "creature",
+          "object-000146"
+        ],
+        [
+          13,
+          "creature",
+          "object-000196"
+        ]
+      ],
+      "nonselected": [
+        [
+          5,
+          "activate",
+          "object-000146"
+        ],
+        [
+          5,
+          "damage",
+          "object-000146"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000146"
+        ],
+        [
+          5,
+          "land",
+          "object-000146"
+        ],
+        [
+          11,
+          "activate",
+          "object-000196"
+        ],
+        [
+          11,
+          "creature",
+          "object-000196"
+        ],
+        [
+          11,
+          "damage",
+          "object-000196"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000196"
+        ],
+        [
+          11,
+          "land",
+          "object-000196"
+        ],
+        [
+          13,
+          "activate",
+          "object-000196"
+        ],
+        [
+          13,
+          "creature",
+          "object-000196"
+        ],
+        [
+          13,
+          "damage",
+          "object-000196"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000196"
+        ],
+        [
+          13,
+          "land",
+          "object-000196"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000216",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "rules_event",
+          "event_id": "event-000025",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000157"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 5,
+          "event_step": "precombat_main",
+          "event_active_player": 0,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000144",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000157",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000150",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000144",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000157",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Food"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000150",
+              "controller": 1,
+              "type_line": "Creature \u2014 Squirrel Mutant"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Rat"
+            }
+          ],
+          "last_known_battlefield": []
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000116",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000217"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 13,
+          "event_step": "postcombat_main",
+          "event_active_player": 0,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000171",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000173",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000209",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000211",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000217",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000189",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000191",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000206",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000171",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000173",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000209",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000211",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000217",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Food"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Rat"
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1,
+              "type_line": "Creature \u2014 Beaver Nightmare"
+            },
+            {
+              "object_id": "object-000189",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000191",
+              "controller": 1,
+              "type_line": "Creature \u2014 Human Ninja Warlock"
+            },
+            {
+              "object_id": "object-000206",
+              "controller": 1,
+              "type_line": "Creature \u2014 Human Ninja Warlock"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000025",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000010",
+          "event_id": "event-000116",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000158",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000025",
+          "source_id": "object-000157",
+          "target_id": "object-000144",
+          "offered_ids": [
+            "object-000144",
+            "object-000150",
+            "object-000153"
+          ],
+          "controller": 0,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000218",
+          "trigger_id": "trigger-000010",
+          "event_id": "event-000116",
+          "source_id": "object-000217",
+          "target_id": "object-000153",
+          "offered_ids": [
+            "object-000153",
+            "object-000166",
+            "object-000173",
+            "object-000182",
+            "object-000191",
+            "object-000206",
+            "object-000211"
+          ],
+          "controller": 0,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [],
+      "resolutions": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000158",
+          "trigger_id": "trigger-000003",
+          "event_id": "event-000025",
+          "source_id": "object-000157",
+          "target_id": "object-000144",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": false,
+          "untapped": false
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000218",
+          "trigger_id": "trigger-000010",
+          "event_id": "event-000116",
+          "source_id": "object-000217",
+          "target_id": "object-000153",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Courier of Comestibles",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Splinter, Hamato Yoshi",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-entry-pump-splinter-michelangelo-3034",
+      "seed": 3034,
+      "seats": [
+        "splinter",
+        "michelangelo"
+      ],
+      "result_sha256": "e1a31fec78b00b40dafc7622fee5e961c8f9ae651e755004dbe180f972ab1ccc",
+      "opportunities": [
+        [
+          6,
+          "activate",
+          "object-000152"
+        ],
+        [
+          6,
+          "damage",
+          "object-000152"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          6,
+          "land",
+          "object-000152"
+        ],
+        [
+          8,
+          "activate",
+          "object-000152"
+        ],
+        [
+          8,
+          "creature",
+          "object-000152"
+        ],
+        [
+          8,
+          "damage",
+          "object-000152"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          8,
+          "land",
+          "object-000152"
+        ],
+        [
+          10,
+          "activate",
+          "object-000152"
+        ],
+        [
+          10,
+          "creature",
+          "object-000152"
+        ],
+        [
+          10,
+          "damage",
+          "object-000152"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          10,
+          "land",
+          "object-000152"
+        ],
+        [
+          18,
+          "activate",
+          "object-000235"
+        ],
+        [
+          18,
+          "creature",
+          "object-000235"
+        ],
+        [
+          18,
+          "damage",
+          "object-000235"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000235"
+        ],
+        [
+          18,
+          "land",
+          "object-000235"
+        ]
+      ],
+      "selected": [
+        [
+          10,
+          "creature",
+          "object-000152"
+        ],
+        [
+          18,
+          "creature",
+          "object-000235"
+        ]
+      ],
+      "nonselected": [
+        [
+          6,
+          "activate",
+          "object-000152"
+        ],
+        [
+          6,
+          "damage",
+          "object-000152"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          6,
+          "land",
+          "object-000152"
+        ],
+        [
+          8,
+          "activate",
+          "object-000152"
+        ],
+        [
+          8,
+          "creature",
+          "object-000152"
+        ],
+        [
+          8,
+          "damage",
+          "object-000152"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          8,
+          "land",
+          "object-000152"
+        ],
+        [
+          10,
+          "activate",
+          "object-000152"
+        ],
+        [
+          10,
+          "creature",
+          "object-000152"
+        ],
+        [
+          10,
+          "damage",
+          "object-000152"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          10,
+          "land",
+          "object-000152"
+        ],
+        [
+          18,
+          "activate",
+          "object-000235"
+        ],
+        [
+          18,
+          "creature",
+          "object-000235"
+        ],
+        [
+          18,
+          "damage",
+          "object-000235"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000235"
+        ],
+        [
+          18,
+          "land",
+          "object-000235"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000188",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000241",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000066",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000189"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 10,
+          "event_step": "postcombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000167",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000169",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000186",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000189",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000167",
+              "controller": 0,
+              "type_line": "Creature \u2014 Insect Mutant"
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Ninja Warlock"
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000169",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000186",
+              "controller": 1,
+              "type_line": "Creature \u2014 Boar Rhino"
+            },
+            {
+              "object_id": "object-000189",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000144",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000242"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 18,
+          "event_step": "postcombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000208",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000230",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000232",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000169",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000218",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000224",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000239",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000242",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000180",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000182",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Ninja Warlock"
+            },
+            {
+              "object_id": "object-000208",
+              "controller": 0,
+              "type_line": "Creature \u2014 Insect Mutant"
+            },
+            {
+              "object_id": "object-000230",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000232",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Shark Octopus Ninja"
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000169",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000218",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000224",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000239",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000242",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000005",
+          "event_id": "event-000066",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000144",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000190",
+          "trigger_id": "trigger-000005",
+          "event_id": "event-000066",
+          "source_id": "object-000189",
+          "target_id": "object-000167",
+          "offered_ids": [
+            "object-000167",
+            "object-000182",
+            "object-000186"
+          ],
+          "controller": 1,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000243",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000144",
+          "source_id": "object-000242",
+          "target_id": "object-000182",
+          "offered_ids": [
+            "object-000182",
+            "object-000208",
+            "object-000224",
+            "object-000232",
+            "object-000239"
+          ],
+          "controller": 1,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [],
+      "resolutions": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000190",
+          "trigger_id": "trigger-000005",
+          "event_id": "event-000066",
+          "source_id": "object-000189",
+          "target_id": "object-000167",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000243",
+          "trigger_id": "trigger-000009",
+          "event_id": "event-000144",
+          "source_id": "object-000242",
+          "target_id": "object-000182",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Insectoid Exterminator",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Foot Mystic",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-entry-pump-michelangelo-casey_jones-3006",
+      "seed": 3006,
+      "seats": [
+        "michelangelo",
+        "casey_jones"
+      ],
+      "result_sha256": "fa6177aeb708c9a5195a09d0cab3f5dea30feaa8da025eb14b05419c83f87ab9",
+      "opportunities": [
+        [
+          17,
+          "activate",
+          "object-000241"
+        ],
+        [
+          17,
+          "creature",
+          "object-000241"
+        ],
+        [
+          17,
+          "damage",
+          "object-000241"
+        ],
+        [
+          17,
+          "destroy",
+          "object-000241"
+        ],
+        [
+          17,
+          "land",
+          "object-000241"
+        ]
+      ],
+      "selected": [
+        [
+          17,
+          "creature",
+          "object-000241"
+        ]
+      ],
+      "nonselected": [
+        [
+          17,
+          "activate",
+          "object-000241"
+        ],
+        [
+          17,
+          "damage",
+          "object-000241"
+        ],
+        [
+          17,
+          "destroy",
+          "object-000241"
+        ],
+        [
+          17,
+          "land",
+          "object-000241"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000250",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000132",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000251"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 17,
+          "event_step": "postcombat_main",
+          "event_active_player": 0,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000172",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000201",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000203",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000217",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000239",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000247",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000251",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000174",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000193",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000198",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000214",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000159",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000172",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000184",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000201",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000203",
+              "controller": 0,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000217",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000239",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Citizen"
+            },
+            {
+              "object_id": "object-000247",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Mutagen"
+            },
+            {
+              "object_id": "object-000251",
+              "controller": 0,
+              "type_line": "Artifact \u2014 Food"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000155",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000165",
+              "controller": 1,
+              "type_line": "Artifact Creature \u2014 Robot"
+            },
+            {
+              "object_id": "object-000174",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000193",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000198",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Equipment"
+            },
+            {
+              "object_id": "object-000214",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Equipment"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000132",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000252",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000132",
+          "source_id": "object-000251",
+          "target_id": "object-000165",
+          "offered_ids": [
+            "object-000165",
+            "object-000172",
+            "object-000203",
+            "object-000239"
+          ],
+          "controller": 0,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [],
+      "resolutions": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000252",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000132",
+          "source_id": "object-000251",
+          "target_id": "object-000165",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Ravenous Robots",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-entry-pump-casey_jones-michelangelo-3006",
+      "seed": 3006,
+      "seats": [
+        "casey_jones",
+        "michelangelo"
+      ],
+      "result_sha256": "5cb33e367f428866b92e75490ce5c7fa57187b8e5d098a81c3dc97a89f5250ff",
+      "opportunities": [
+        [
+          2,
+          "activate",
+          "object-000131"
+        ],
+        [
+          2,
+          "activate",
+          "object-000133"
+        ],
+        [
+          2,
+          "creature",
+          "object-000131"
+        ],
+        [
+          2,
+          "creature",
+          "object-000133"
+        ],
+        [
+          2,
+          "damage",
+          "object-000131"
+        ],
+        [
+          2,
+          "damage",
+          "object-000133"
+        ],
+        [
+          2,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          2,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          4,
+          "activate",
+          "object-000133"
+        ],
+        [
+          4,
+          "land",
+          "object-000133"
+        ],
+        [
+          6,
+          "activate",
+          "object-000133"
+        ],
+        [
+          6,
+          "damage",
+          "object-000133"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          6,
+          "land",
+          "object-000133"
+        ],
+        [
+          8,
+          "activate",
+          "object-000133"
+        ],
+        [
+          8,
+          "creature",
+          "object-000133"
+        ],
+        [
+          8,
+          "damage",
+          "object-000133"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          8,
+          "land",
+          "object-000133"
+        ],
+        [
+          10,
+          "activate",
+          "object-000133"
+        ],
+        [
+          10,
+          "activate",
+          "object-000177"
+        ],
+        [
+          10,
+          "creature",
+          "object-000133"
+        ],
+        [
+          10,
+          "creature",
+          "object-000177"
+        ],
+        [
+          10,
+          "damage",
+          "object-000133"
+        ],
+        [
+          10,
+          "damage",
+          "object-000177"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          10,
+          "land",
+          "object-000133"
+        ],
+        [
+          10,
+          "land",
+          "object-000177"
+        ],
+        [
+          12,
+          "activate",
+          "object-000133"
+        ],
+        [
+          12,
+          "activate",
+          "object-000177"
+        ],
+        [
+          12,
+          "creature",
+          "object-000133"
+        ],
+        [
+          12,
+          "creature",
+          "object-000177"
+        ],
+        [
+          12,
+          "damage",
+          "object-000133"
+        ],
+        [
+          12,
+          "damage",
+          "object-000177"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000177"
+        ],
+        [
+          12,
+          "land",
+          "object-000133"
+        ],
+        [
+          12,
+          "land",
+          "object-000177"
+        ]
+      ],
+      "selected": [
+        [
+          2,
+          "creature",
+          "object-000131"
+        ],
+        [
+          12,
+          "creature",
+          "object-000133"
+        ]
+      ],
+      "nonselected": [
+        [
+          2,
+          "activate",
+          "object-000131"
+        ],
+        [
+          2,
+          "damage",
+          "object-000131"
+        ],
+        [
+          2,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          4,
+          "activate",
+          "object-000133"
+        ],
+        [
+          4,
+          "land",
+          "object-000133"
+        ],
+        [
+          6,
+          "activate",
+          "object-000133"
+        ],
+        [
+          6,
+          "damage",
+          "object-000133"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          6,
+          "land",
+          "object-000133"
+        ],
+        [
+          8,
+          "activate",
+          "object-000133"
+        ],
+        [
+          8,
+          "creature",
+          "object-000133"
+        ],
+        [
+          8,
+          "damage",
+          "object-000133"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          8,
+          "land",
+          "object-000133"
+        ],
+        [
+          10,
+          "activate",
+          "object-000133"
+        ],
+        [
+          10,
+          "creature",
+          "object-000133"
+        ],
+        [
+          10,
+          "damage",
+          "object-000133"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          10,
+          "land",
+          "object-000133"
+        ],
+        [
+          12,
+          "activate",
+          "object-000133"
+        ],
+        [
+          12,
+          "creature",
+          "object-000133"
+        ],
+        [
+          12,
+          "damage",
+          "object-000133"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          12,
+          "land",
+          "object-000133"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000138",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 1,
+          "card": "Guac & Marshmallow Pizza",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000210",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "rules_event",
+          "event_id": "event-000005",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000139"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 2,
+          "event_step": "precombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000139",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "rules_event",
+          "event_id": "event-000093",
+          "rules_event": "permanent_entered",
+          "player": "michelangelo",
+          "subject_ids": [
+            "object-000211"
+          ],
+          "source_id": null,
+          "target_player": null,
+          "amount": null,
+          "event_turn": 12,
+          "event_step": "postcombat_main",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000185",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000198",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000156",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000192",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000205",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000211",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0,
+              "type_line": "Creature \u2014 Mutant Bard Performer"
+            },
+            {
+              "object_id": "object-000162",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 0,
+              "type_line": "Artifact Creature \u2014 Elemental Soldier"
+            },
+            {
+              "object_id": "object-000185",
+              "controller": 0,
+              "type_line": "Artifact Creature \u2014 Robot"
+            },
+            {
+              "object_id": "object-000198",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Mountain"
+            },
+            {
+              "object_id": "object-000137",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000156",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000192",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000205",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Turtle"
+            },
+            {
+              "object_id": "object-000211",
+              "controller": 1,
+              "type_line": "Artifact \u2014 Food"
+            }
+          ],
+          "last_known_battlefield": []
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000001",
+          "event_id": "event-000005",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000093",
+          "source": "Guac & Marshmallow Pizza",
+          "controller": "michelangelo",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "target_choices": [
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_target_selected",
+          "stack_object_id": "object-000212",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000093",
+          "source_id": "object-000211",
+          "target_id": "object-000154",
+          "offered_ids": [
+            "object-000154",
+            "object-000164",
+            "object-000185",
+            "object-000205"
+          ],
+          "controller": 1,
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ],
+      "no_legal_target": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "etb_pump_no_legal_target",
+          "source_id": "object-000139",
+          "event_id": "event-000005"
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "etb_pump_untap_resolved",
+          "stack_object_id": "object-000212",
+          "trigger_id": "trigger-000014",
+          "event_id": "event-000093",
+          "source_id": "object-000211",
+          "target_id": "object-000154",
+          "legal_target": true,
+          "power": 2,
+          "toughness": 2,
+          "was_tapped": true,
+          "untapped": true
+        }
+      ],
+      "modifiers": [
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "pt_modifier_applied",
+          "target": "Mutant Town Musicians",
+          "source": "Guac & Marshmallow Pizza",
+          "power": 2,
+          "toughness": 2,
+          "duration": "until_end_of_turn",
+          "oracle_fragment": "When this artifact enters, target creature gets +2/+2 until end of turn. Untap it."
+        }
+      ]
+    }
+  ]
+}

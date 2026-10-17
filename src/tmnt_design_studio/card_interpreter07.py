@@ -2406,6 +2406,23 @@ class CardInterpreter:
             or source.capitalize() in card.type_line.split(" — ", 1)[0].split()
         )
 
+    def etb_target_creature_pump_untap(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, int] | None:
+        """Complete targeted entry modifier and untap; require the printed duration."""
+        match = re.fullmatch(
+            r"When this (artifact|creature|permanent) enters, target creature "
+            r"gets \+([1-9]\d*)/\+([1-9]\d*) until end of turn\. Untap it\.",
+            fragment,
+            re.IGNORECASE,
+        )
+        if match is None or (
+            match.group(1).casefold() != "permanent"
+            and match.group(1).capitalize() not in card.type_line.split(" — ", 1)[0].split()
+        ):
+            return None
+        return int(match.group(2)), int(match.group(3))
+
     def etb_tap_stun_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
@@ -4318,6 +4335,8 @@ class CardInterpreter:
             if self.equipment_subtype_entry_attach(card, fragment) is not None:
                 continue
             if self.etb_destroy_target_creature(card, fragment):
+                continue
+            if self.etb_target_creature_pump_untap(card, fragment) is not None:
                 continue
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
