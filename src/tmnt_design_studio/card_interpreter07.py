@@ -242,6 +242,15 @@ class StaticTeamModifierProgram:
 
 
 @dataclass(frozen=True)
+class StaticSubtypeKeywordGrantProgram:
+    """A controller-scoped continuous keyword grant to one creature subtype."""
+
+    creature_subtype: str
+    keyword: str
+    oracle_fragment: str
+
+
+@dataclass(frozen=True)
 class InterpretedStaticTeamModifierSemantics:
     program: StaticTeamModifierProgram
     coverage: SemanticCoverage
@@ -876,6 +885,10 @@ class CardInterpreter:
     STATIC_OTHER_SUBTYPE_CREATURES = re.compile(
         r"^Other (?P<plural>[A-Z][A-Za-z]+s) you control get "
         r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
+    )
+    STATIC_CONTROLLED_SUBTYPE_KEYWORD = re.compile(
+        r"^(?P<plural>[A-Z][A-Za-z]+s) you control have (?P<keyword>menace)\.$",
+        re.I,
     )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
         r"^Alliance — Whenever another creature you control enters, this creature gets "
@@ -2353,6 +2366,18 @@ class CardInterpreter:
             program,
             SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
         )
+
+    def static_subtype_keyword_grant(
+        self, card: CardDefinition, fragment: str
+    ) -> StaticSubtypeKeywordGrantProgram | None:
+        """Parse one regular subtype plural and a currently executable keyword."""
+        match = self.STATIC_CONTROLLED_SUBTYPE_KEYWORD.fullmatch(fragment)
+        if match is None or not any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES):
+            return None
+        plural = match["plural"]
+        if plural.casefold().endswith(("ies", "ves", "sses")):
+            return None
+        return StaticSubtypeKeywordGrantProgram(plural[:-1], match["keyword"].casefold(), fragment)
 
     def static_self_per_other_quality(
         self, card: CardDefinition, fragment: str
@@ -4374,6 +4399,8 @@ class CardInterpreter:
             if self.equipment_scaled_static_semantics(card, fragment) is not None:
                 continue
             if self.static_self_per_other_quality(card, fragment) is not None:
+                continue
+            if self.static_subtype_keyword_grant(card, fragment) is not None:
                 continue
             if self.utility_trigger_semantics(card, fragment) is not None:
                 continue
