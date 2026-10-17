@@ -892,6 +892,11 @@ class CardInterpreter:
         r"if it had counters on it, put those counters on up to one target artifact or creature "
         r"you control\.$"
     )
+    DAMAGE_TO_SELF_MANA = re.compile(
+        r"^(?:Enrage — )?Whenever (?P<recipient>.+?) is dealt damage, add that much "
+        r"\{(?P<color>[WUBRG])\}\. Until end of turn, you don't lose this mana "
+        r"as steps and phases end\.$"
+    )
     SPELL_CAST_TEAM_COUNTER = re.compile(
         r"^Whenever you cast a spell, put a \+1/\+1 counter on each creature you control\.$"
     )
@@ -2038,6 +2043,23 @@ class CardInterpreter:
             and fragment in self.fragments(card)
             and self.CONTROLLED_ARTIFACT_COUNTER_TRANSFER.fullmatch(fragment)
         )
+
+    def damage_to_self_mana(self, card: CardDefinition, fragment: str) -> str | None:
+        """Require both the damage trigger and exact retained-mana duration."""
+        match = self.DAMAGE_TO_SELF_MANA.fullmatch(fragment)
+        if match is None or fragment not in self.fragments(card):
+            return None
+        types = card.type_line.split(" — ", 1)[0].split()
+        recipient = match["recipient"]
+        short_name = card.name.partition(",")[0]
+        if not set(types) & self.PERMANENT_CARD_TYPES or recipient not in {
+            short_name,
+            card.name,
+            "this creature",
+            "this permanent",
+        }:
+            return None
+        return match["color"]
 
     def countered_creature_left_life(self, card: CardDefinition, fragment: str) -> int | None:
         """Parse a full printed departure trigger in its active Class section."""
@@ -4197,6 +4219,8 @@ class CardInterpreter:
             if self.attack_target_counter(card, fragment):
                 continue
             if self.controlled_artifact_counter_transfer(card, fragment):
+                continue
+            if self.damage_to_self_mana(card, fragment) is not None:
                 continue
             if self.countered_creature_left_life(card, fragment) is not None:
                 continue

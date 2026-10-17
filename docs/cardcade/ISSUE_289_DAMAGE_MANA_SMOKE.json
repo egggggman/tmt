@@ -1,0 +1,2486 @@
+{
+  "schema": "issue289-damage-mana-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "982b9278f792838b01b1606c3bc434232b04d5c43973cb03f52126eb69ba972b",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "2a5240a9a84d526c26ddee460a7b529299964dd9127331eaf033223f950fa7f2",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-damage-mana-raphael-donatello-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "donatello"
+      ],
+      "result_sha256": "b5e8f1b2139ff2b80f26e25383618eeea34d7525d98770842afb6831d8210cdf",
+      "opportunities": [
+        [
+          7,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "creature",
+          "object-000126"
+        ],
+        [
+          9,
+          "damage",
+          "object-000126"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "land",
+          "object-000126"
+        ]
+      ],
+      "selected": [
+        [
+          9,
+          "creature",
+          "object-000126"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "damage",
+          "object-000126"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "land",
+          "object-000126"
+        ]
+      ],
+      "watcher_present": [
+        [
+          9,
+          "object-000187"
+        ],
+        [
+          11,
+          "object-000187"
+        ],
+        [
+          13,
+          "object-000187"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Ninja Destroyer",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000186",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "qualifying_damage": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_damage_assignment",
+          "source": "Utrom Scientists",
+          "source_id": "object-000193",
+          "target": "Raphael, Ninja Destroyer",
+          "target_id": "object-000187",
+          "damage": 2,
+          "damage_step": "regular",
+          "role": "regular"
+        }
+      ],
+      "triggers": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000011",
+          "event_id": "event-000079",
+          "source": "Raphael, Ninja Destroyer",
+          "controller": "raphael",
+          "oracle_fragment": "Enrage \u2014 Whenever Raphael is dealt damage, add that much {R}. Until end of turn, you don't lose this mana as steps and phases end."
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "damage_to_self_mana_resolved",
+          "event_id": "event-000079",
+          "stack_object_id": "object-000205",
+          "source_id": "object-000187",
+          "controller": 0,
+          "color": "R",
+          "quantity": 2,
+          "persists_until_turn_end": true
+        }
+      ],
+      "retention": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "floating_mana_retained",
+          "player": "raphael",
+          "mana": {
+            "R": 2
+          },
+          "through_step": "end_of_combat"
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "end_of_combat",
+          "event": "floating_mana_retained",
+          "player": "raphael",
+          "mana": {
+            "R": 2
+          },
+          "through_step": "postcombat_main"
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "floating_mana_retained",
+          "player": "raphael",
+          "mana": {
+            "R": 1
+          },
+          "through_step": "end_step"
+        },
+        {
+          "turn": 11,
+          "phase": "ending",
+          "step": "end_step",
+          "event": "floating_mana_retained",
+          "player": "raphael",
+          "mana": {
+            "R": 1
+          },
+          "through_step": "cleanup"
+        }
+      ],
+      "expiration": [
+        {
+          "turn": 12,
+          "phase": "ending",
+          "step": "cleanup",
+          "event": "floating_mana_emptied",
+          "player": "raphael",
+          "mana": {
+            "R": 1
+          }
+        }
+      ],
+      "retained_mana_spent": [
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "raphael",
+          "source_id": "object-000160",
+          "stack_object_id": "object-000206",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [
+            "object-000205"
+          ],
+          "tap_source": false,
+          "sacrifice_source": false,
+          "sacrificed_destination_id": null,
+          "other_sacrifice_id": null
+        }
+      ],
+      "post_trigger_legal_actions": [
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "activate_ability",
+          "object-000199"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "activate_ability",
+          "object-000199"
+        ]
+      ],
+      "post_trigger_pilot_selections": [
+        [
+          11,
+          "postcombat_main",
+          "land",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "activate",
+          "activate_ability",
+          "object-000160"
+        ],
+        [
+          11,
+          "postcombat_main",
+          "damage",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "destroy",
+          "pass",
+          null
+        ],
+        [
+          11,
+          "postcombat_main",
+          "creature",
+          "pass",
+          null
+        ]
+      ],
+      "payment_actions": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Fugitive Droid",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000138",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000142",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Crustacean Commando",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000150",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000159",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Crustacean Commando",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000166",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Wingnut, Bat on the Belfry",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000173",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Mouser Mark III",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000181",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Ninja Destroyer",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000186",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Utrom Scientists",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000192",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Cool but Rude",
+          "card_types": [
+            "Enchantment"
+          ],
+          "stack_object_id": "object-000198",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 1,
+          "card": "Utrom Scientists",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000209",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000215",
+          "target_id": "object-000210",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-damage-mana-donatello-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "donatello",
+        "raphael"
+      ],
+      "result_sha256": "54359c60113626888b69297a4d4f2418fe2aa55dd26f7983f0452ea99a4640e3",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "watcher_present": [],
+      "casts": [],
+      "qualifying_damage": [],
+      "triggers": [],
+      "resolutions": [],
+      "retention": [],
+      "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
+      "payment_actions": [
+        {
+          "turn": 1,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Fugitive Droid",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000136",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Fugitive Droid",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000142",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000146",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Buzz Bots",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000150",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Mutant Town Musicians",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000154",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Mouser Mark III",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000162",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Donatello, Gadget Master",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000165",
+          "source_zone": "hand",
+          "oracle_fragment": "Sneak {1}{U} (You may cast this spell for {1}{U} if you also return an unblocked attacker you control to hand during the declare blockers step. He enters tapped and attacking.)"
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Null Group Biological Assets",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000168",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Fugitive Droid",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000175",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Donatello, Turtle Techie",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000179",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000184",
+          "target_id": "object-000143",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000189",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Donatello, Way with Machines",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000196",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000200",
+          "target_id": "object-000176",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Fugitive Droid",
+          "card_types": [
+            "Artifact",
+            "Creature"
+          ],
+          "stack_object_id": "object-000208",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000212",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Crustacean Commando",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000220",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000228",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "donatello",
+          "player_index": 0,
+          "card": "Crustacean Commando",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000235",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-damage-mana-raphael-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "raphael",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "8d8ea5fcd643840e1680ddde06d641430ab92d9425ce184a5a3a7e6130d6c842",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "watcher_present": [],
+      "casts": [],
+      "qualifying_damage": [],
+      "triggers": [],
+      "resolutions": [],
+      "retention": [],
+      "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
+      "payment_actions": [
+        {
+          "turn": 1,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000136",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000143",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Mutagen Man, Living Ooze",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000147",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": 0
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Mutant Chain Reaction",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": "object-000137",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, the Nightwatcher",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000164",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Paramecia Coloniex",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000168",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Cowabunga!",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000174",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Null Group Biological Assets",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000179",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000187",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Zoo Escapees",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000192",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael's Technique",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000203",
+          "source_zone": "hand",
+          "oracle_fragment": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Mutant Chain Reaction",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000232",
+          "target_id": "object-000188",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000240",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael's Technique",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000243",
+          "source_zone": "hand",
+          "oracle_fragment": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000271",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Rocksteady, Crash Courser",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000277",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000281",
+          "target_id": "object-000278",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000285",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Null Group Biological Assets",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000290",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Tainted Treats",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000296",
+          "target_id": "object-000291",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 1,
+          "card": "Cowabunga!",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000300",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Null Group Biological Assets",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000306",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Mouser Attack!",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000309",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "x_value": null
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000317",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 19,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Mouser Attack!",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000321",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "x_value": null
+        },
+        {
+          "turn": 21,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Cool but Rude",
+          "card_types": [
+            "Enchantment"
+          ],
+          "stack_object_id": "object-000330",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-damage-mana-bebop_rocksteady-raphael-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "result_sha256": "7b6ab47211693489fe7ebba771271befcd201e9e9c1653c6a9e082dfac7d2507",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "watcher_present": [],
+      "casts": [],
+      "qualifying_damage": [],
+      "triggers": [],
+      "resolutions": [],
+      "retention": [],
+      "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
+      "payment_actions": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000139",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Frog Butler",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000144",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Casey Jones, Jury-Rig Justiciar",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000148",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Paramecia Coloniex",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Wingnut, Bat on the Belfry",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000164",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Mutant Town Musicians",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000180",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Frog Butler",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000185",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Mutant Town Musicians",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000190",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Null Group Biological Assets",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000199",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Stomped by the Foot",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000204",
+          "target_id": "object-000200",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000209",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000213",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "bebop_rocksteady",
+          "player_index": 0,
+          "card": "Cowabunga!",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000218",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Raphael, Most Attitude",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000224",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000231",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-damage-mana-raphael-shredder-3006",
+      "seed": 3006,
+      "seats": [
+        "raphael",
+        "shredder"
+      ],
+      "result_sha256": "9e25689315aa40ae2282f5f302d043f49b22c6d2e857441702a99420fcda5216",
+      "opportunities": [
+        [
+          21,
+          "activate",
+          "object-000291"
+        ],
+        [
+          21,
+          "creature",
+          "object-000291"
+        ],
+        [
+          21,
+          "damage",
+          "object-000291"
+        ],
+        [
+          21,
+          "destroy",
+          "object-000291"
+        ],
+        [
+          21,
+          "land",
+          "object-000291"
+        ]
+      ],
+      "selected": [
+        [
+          21,
+          "creature",
+          "object-000291"
+        ]
+      ],
+      "nonselected": [
+        [
+          21,
+          "activate",
+          "object-000291"
+        ],
+        [
+          21,
+          "damage",
+          "object-000291"
+        ],
+        [
+          21,
+          "destroy",
+          "object-000291"
+        ],
+        [
+          21,
+          "land",
+          "object-000291"
+        ]
+      ],
+      "watcher_present": [],
+      "casts": [
+        {
+          "turn": 21,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Ninja Destroyer",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000293",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "qualifying_damage": [],
+      "triggers": [],
+      "resolutions": [],
+      "retention": [],
+      "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
+      "payment_actions": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Dream Beavers",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000138",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Wingnut, Bat on the Belfry",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000143",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Tunnel Rats",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000147",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000151",
+          "target_id": "object-000139",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Shredder's Armor",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000162",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Mouser Attack!",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000169",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": "\u2022 Create a 1/1 colorless Robot artifact creature token.",
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Shredder's Armor",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000175",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael's Technique",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000183",
+          "source_zone": "hand",
+          "oracle_fragment": "Sneak {2}{R} (You may cast this spell for {2}{R} if you also return an unblocked attacker you control to hand during the declare blockers step.)"
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Shredder's Technique",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000208",
+          "target_id": "object-000170",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Wingnut, Bat on the Belfry",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000213",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000216",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Super Shredder",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000221",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Tunnel Rats",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000226",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000231",
+          "target_id": "object-000227",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000237",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Oroku Saki, Shredder Rising",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000247",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000251",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, the Nightwatcher",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000254",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Foot Mystic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000261",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Manhole Missile",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000268",
+          "target_id": "object-000264",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Shark Shredder, Killer Clone",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000275",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Cool but Rude",
+          "card_types": [
+            "Enchantment"
+          ],
+          "stack_object_id": "object-000281",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 20,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 1,
+          "card": "Super Shredder",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000287",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 21,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 0,
+          "card": "Raphael, Ninja Destroyer",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000293",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-damage-mana-shredder-raphael-3006",
+      "seed": 3006,
+      "seats": [
+        "shredder",
+        "raphael"
+      ],
+      "result_sha256": "53b41ad7e6ae96bf2ba2113f523e780247c2d9555ade851b940038df14914b6a",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "watcher_present": [],
+      "casts": [],
+      "qualifying_damage": [],
+      "triggers": [],
+      "resolutions": [],
+      "retention": [],
+      "expiration": [],
+      "retained_mana_spent": [],
+      "post_trigger_legal_actions": [],
+      "post_trigger_pilot_selections": [],
+      "payment_actions": [
+        {
+          "turn": 2,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000138",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 3,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Super Shredder",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000143",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Raphael, Tough Turtle",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000147",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Shredder's Technique",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000151",
+          "target_id": "object-000148",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000157",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Cool but Rude",
+          "card_types": [
+            "Enchantment"
+          ],
+          "stack_object_id": "object-000160",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Shredder's Technique",
+          "card_types": [
+            "Sorcery"
+          ],
+          "stack_object_id": "object-000164",
+          "target_id": "object-000161",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Cool but Rude",
+          "card_types": [
+            "Enchantment"
+          ],
+          "stack_object_id": "object-000169",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Foot Mystic",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000172",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "raphael",
+          "player_index": 1,
+          "card": "Skateboard",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000176",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Shredder, Unrelenting",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000181",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "shredder",
+          "player_index": 0,
+          "card": "Shredder, Unrelenting",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000192",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ]
+    }
+  ]
+}
