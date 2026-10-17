@@ -1,0 +1,5139 @@
+{
+  "schema": "issue289-token-activation-discount-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "ddf1834e90630110a181ef097a88f5549867dc58ef739fdaeb36662d12690662",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "a21028c9ad3296bd278d210ac7732ec84ce7d8ef0b643ee678a71e4436ddbd01",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-token-discount-bebop_rocksteady-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "bebop_rocksteady",
+        "raphael"
+      ],
+      "result_sha256": "503969119d74c2e5531b09db93fa99a9f5652d9490da7e2ae4f1d7cc1ff6af62",
+      "opportunities": [
+        [
+          5,
+          "activate",
+          "object-000149",
+          "object-000143"
+        ],
+        [
+          5,
+          "activate",
+          "object-000149",
+          "object-000147"
+        ],
+        [
+          5,
+          "land",
+          "object-000149",
+          "object-000143"
+        ],
+        [
+          5,
+          "land",
+          "object-000149",
+          "object-000147"
+        ],
+        [
+          7,
+          "activate",
+          "object-000163",
+          "object-000147"
+        ],
+        [
+          7,
+          "activate",
+          "object-000163",
+          "object-000155"
+        ],
+        [
+          7,
+          "activate",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          7,
+          "activate",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          7,
+          "creature",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          7,
+          "creature",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          7,
+          "damage",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          7,
+          "damage",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          7,
+          "land",
+          "object-000163",
+          "object-000147"
+        ],
+        [
+          7,
+          "land",
+          "object-000163",
+          "object-000155"
+        ],
+        [
+          7,
+          "land",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          7,
+          "land",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164",
+          "object-000170"
+        ],
+        [
+          9,
+          "land",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          9,
+          "land",
+          "object-000164",
+          "object-000155"
+        ],
+        [
+          9,
+          "land",
+          "object-000164",
+          "object-000170"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000176"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000212"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000176"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000212"
+        ]
+      ],
+      "selected": [
+        [
+          5,
+          "activate",
+          "object-000149",
+          "object-000147"
+        ],
+        [
+          7,
+          "activate",
+          "object-000163",
+          "object-000147"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164",
+          "object-000147"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000176"
+        ]
+      ],
+      "nonselected": [
+        [
+          5,
+          "land",
+          "object-000149"
+        ],
+        [
+          7,
+          "creature",
+          "object-000164"
+        ],
+        [
+          7,
+          "damage",
+          "object-000164"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          7,
+          "land",
+          "object-000163"
+        ],
+        [
+          9,
+          "land",
+          "object-000164"
+        ],
+        [
+          15,
+          "land",
+          "object-000217"
+        ]
+      ],
+      "reducer_present": [
+        [
+          5,
+          "object-000147"
+        ],
+        [
+          7,
+          "object-000147"
+        ],
+        [
+          9,
+          "object-000147"
+        ],
+        [
+          11,
+          "object-000147"
+        ]
+      ],
+      "mutagen_present": [
+        [
+          5,
+          "object-000149"
+        ],
+        [
+          7,
+          "object-000163"
+        ],
+        [
+          7,
+          "object-000164"
+        ],
+        [
+          9,
+          "object-000164"
+        ],
+        [
+          15,
+          "object-000217"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000149",
+          "stack_object_id": "object-000151",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000150",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 7,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000163",
+          "stack_object_id": "object-000167",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000166",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000164",
+          "stack_object_id": "object-000174",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000173",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000217",
+          "stack_object_id": "object-000219",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000135"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000218",
+          "other_sacrifice_id": null
+        }
+      ],
+      "discounts": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000149",
+          "stack_object_id": "object-000151",
+          "controller": 0,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000147"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        },
+        {
+          "turn": 7,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000163",
+          "stack_object_id": "object-000167",
+          "controller": 0,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000147"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000164",
+          "stack_object_id": "object-000174",
+          "controller": 0,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000147"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000149",
+          "target_id": "object-000147",
+          "stack_object_id": "object-000151"
+        },
+        {
+          "turn": 7,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000163",
+          "target_id": "object-000147",
+          "stack_object_id": "object-000167"
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000164",
+          "target_id": "object-000147",
+          "stack_object_id": "object-000174"
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000217",
+          "target_id": "object-000176",
+          "stack_object_id": "object-000219"
+        }
+      ],
+      "token_batches": [
+        {
+          "turn": 5,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000017",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 1,
+          "object_ids": [
+            "object-000149"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000147",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        },
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000034",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 2,
+          "object_ids": [
+            "object-000163",
+            "object-000164"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000161",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-token-discount-raphael-bebop_rocksteady-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "9252982217bd1bca6638572a5f23db5b6f8ea1c9be93057000d05af2ee021bff",
+      "opportunities": [
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "creature",
+          "object-000188",
+          "object-000179"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000188",
+          "object-000179"
+        ],
+        [
+          12,
+          "activate",
+          "object-000188",
+          "object-000179"
+        ],
+        [
+          12,
+          "activate",
+          "object-000202",
+          "object-000179"
+        ],
+        [
+          12,
+          "creature",
+          "object-000202",
+          "object-000179"
+        ],
+        [
+          12,
+          "damage",
+          "object-000202",
+          "object-000179"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000202",
+          "object-000179"
+        ],
+        [
+          12,
+          "land",
+          "object-000188",
+          "object-000179"
+        ],
+        [
+          12,
+          "land",
+          "object-000202",
+          "object-000179"
+        ],
+        [
+          16,
+          "activate",
+          "object-000202",
+          "object-000225"
+        ],
+        [
+          16,
+          "land",
+          "object-000202",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000247",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000247",
+          "object-000245"
+        ],
+        [
+          18,
+          "activate",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          18,
+          "activate",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          18,
+          "activate",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          18,
+          "creature",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          18,
+          "creature",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          18,
+          "creature",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          18,
+          "creature",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          18,
+          "creature",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          18,
+          "creature",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          18,
+          "damage",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          18,
+          "damage",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          18,
+          "damage",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          18,
+          "damage",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          18,
+          "damage",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          18,
+          "damage",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          18,
+          "land",
+          "object-000247",
+          "object-000225"
+        ],
+        [
+          18,
+          "land",
+          "object-000247",
+          "object-000245"
+        ],
+        [
+          18,
+          "land",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          18,
+          "land",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          18,
+          "land",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          18,
+          "land",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          18,
+          "land",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          18,
+          "land",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          20,
+          "activate",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          20,
+          "activate",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          20,
+          "activate",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          20,
+          "activate",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          20,
+          "activate",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          20,
+          "activate",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          20,
+          "creature",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          20,
+          "creature",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          20,
+          "creature",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          20,
+          "creature",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          20,
+          "damage",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          20,
+          "damage",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          20,
+          "damage",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          20,
+          "damage",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          20,
+          "destroy",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          20,
+          "destroy",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          20,
+          "destroy",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          20,
+          "destroy",
+          "object-000250",
+          "object-000245"
+        ],
+        [
+          20,
+          "land",
+          "object-000248",
+          "object-000225"
+        ],
+        [
+          20,
+          "land",
+          "object-000248",
+          "object-000245"
+        ],
+        [
+          20,
+          "land",
+          "object-000249",
+          "object-000225"
+        ],
+        [
+          20,
+          "land",
+          "object-000249",
+          "object-000245"
+        ],
+        [
+          20,
+          "land",
+          "object-000250",
+          "object-000225"
+        ],
+        [
+          20,
+          "land",
+          "object-000250",
+          "object-000245"
+        ]
+      ],
+      "selected": [
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "activate",
+          "object-000188",
+          "object-000179"
+        ],
+        [
+          16,
+          "activate",
+          "object-000202",
+          "object-000225"
+        ],
+        [
+          18,
+          "activate",
+          "object-000247",
+          "object-000225"
+        ],
+        [
+          20,
+          "activate",
+          "object-000248",
+          "object-000225"
+        ]
+      ],
+      "nonselected": [
+        [
+          8,
+          "land",
+          "object-000164"
+        ],
+        [
+          10,
+          "creature",
+          "object-000188"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000188"
+        ],
+        [
+          12,
+          "creature",
+          "object-000202"
+        ],
+        [
+          12,
+          "damage",
+          "object-000202"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000202"
+        ],
+        [
+          12,
+          "land",
+          "object-000188"
+        ],
+        [
+          16,
+          "land",
+          "object-000202"
+        ],
+        [
+          18,
+          "creature",
+          "object-000248"
+        ],
+        [
+          18,
+          "damage",
+          "object-000248"
+        ],
+        [
+          18,
+          "destroy",
+          "object-000248"
+        ],
+        [
+          18,
+          "land",
+          "object-000247"
+        ],
+        [
+          20,
+          "creature",
+          "object-000249"
+        ],
+        [
+          20,
+          "damage",
+          "object-000249"
+        ],
+        [
+          20,
+          "destroy",
+          "object-000249"
+        ],
+        [
+          20,
+          "land",
+          "object-000248"
+        ]
+      ],
+      "reducer_present": [
+        [
+          18,
+          "object-000245"
+        ],
+        [
+          20,
+          "object-000245"
+        ]
+      ],
+      "mutagen_present": [
+        [
+          6,
+          "object-000164"
+        ],
+        [
+          8,
+          "object-000164"
+        ],
+        [
+          10,
+          "object-000188"
+        ],
+        [
+          12,
+          "object-000188"
+        ],
+        [
+          12,
+          "object-000202"
+        ],
+        [
+          14,
+          "object-000202"
+        ],
+        [
+          16,
+          "object-000202"
+        ],
+        [
+          18,
+          "object-000247"
+        ],
+        [
+          18,
+          "object-000248"
+        ],
+        [
+          18,
+          "object-000249"
+        ],
+        [
+          18,
+          "object-000250"
+        ],
+        [
+          20,
+          "object-000248"
+        ],
+        [
+          20,
+          "object-000249"
+        ],
+        [
+          20,
+          "object-000250"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000164",
+          "stack_object_id": "object-000173",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000172",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000188",
+          "stack_object_id": "object-000207",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000206",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000202",
+          "stack_object_id": "object-000235",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000234",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000247",
+          "stack_object_id": "object-000252",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000251",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 20,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000248",
+          "stack_object_id": "object-000264",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000263",
+          "other_sacrifice_id": null
+        }
+      ],
+      "discounts": [
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000247",
+          "stack_object_id": "object-000252",
+          "controller": 1,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000245"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        },
+        {
+          "turn": 20,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000248",
+          "stack_object_id": "object-000264",
+          "controller": 1,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000245"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000164",
+          "target_id": "object-000169",
+          "stack_object_id": "object-000173"
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000188",
+          "target_id": "object-000179",
+          "stack_object_id": "object-000207"
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000202",
+          "target_id": "object-000225",
+          "stack_object_id": "object-000235"
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000247",
+          "target_id": "object-000225",
+          "stack_object_id": "object-000252"
+        },
+        {
+          "turn": 20,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000248",
+          "target_id": "object-000225",
+          "stack_object_id": "object-000264"
+        }
+      ],
+      "token_batches": [
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "tokens_created",
+          "event_id": "event-000123",
+          "creator": "bebop_rocksteady",
+          "controller": "bebop_rocksteady",
+          "token": "Mutagen",
+          "quantity": 4,
+          "object_ids": [
+            "object-000247",
+            "object-000248",
+            "object-000249",
+            "object-000250"
+          ],
+          "source_card": "Mutagen Man, Living Ooze",
+          "source_id": "object-000245",
+          "oracle_fragment": "When Mutagen Man enters, create X Mutagen tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.\")",
+          "attacking_defender": null,
+          "tapped": false
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-token-discount-bebop_rocksteady-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "donatello"
+      ],
+      "result_sha256": "80a4eb3325321665d5cfae90747a444b1b28d76e3000beb49091abdb743bb7df",
+      "opportunities": [
+        [
+          6,
+          "activate",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          6,
+          "activate",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          6,
+          "activate",
+          "object-000164",
+          "object-000148"
+        ],
+        [
+          6,
+          "activate",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          6,
+          "activate",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164",
+          "object-000148"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164",
+          "object-000148"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164",
+          "object-000148"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          6,
+          "land",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          6,
+          "land",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          6,
+          "land",
+          "object-000164",
+          "object-000148"
+        ],
+        [
+          6,
+          "land",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          6,
+          "land",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000162"
+        ],
+        [
+          8,
+          "land",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000193"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000193"
+        ],
+        [
+          10,
+          "activate",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000193"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000193"
+        ],
+        [
+          10,
+          "creature",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000193"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000193"
+        ],
+        [
+          10,
+          "damage",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000193"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000193"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000193"
+        ],
+        [
+          10,
+          "land",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000193"
+        ],
+        [
+          10,
+          "land",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          11,
+          "land",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          12,
+          "activate",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          12,
+          "creature",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          12,
+          "damage",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000153"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          12,
+          "land",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000153"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          12,
+          "land",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000153"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          13,
+          "land",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164",
+          "object-000221"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          14,
+          "activate",
+          "object-000187",
+          "object-000221"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164",
+          "object-000221"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          14,
+          "creature",
+          "object-000187",
+          "object-000221"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164",
+          "object-000221"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          14,
+          "damage",
+          "object-000187",
+          "object-000221"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164",
+          "object-000221"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000187",
+          "object-000221"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000140"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000144"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000169"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000185"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000198"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000208"
+        ],
+        [
+          14,
+          "land",
+          "object-000164",
+          "object-000221"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000140"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000144"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000169"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000185"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000198"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000208"
+        ],
+        [
+          14,
+          "land",
+          "object-000187",
+          "object-000221"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204",
+          "object-000221"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204",
+          "object-000221"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204",
+          "object-000221"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204",
+          "object-000221"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000140"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000144"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000169"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000185"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000198"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000208"
+        ],
+        [
+          15,
+          "land",
+          "object-000204",
+          "object-000221"
+        ]
+      ],
+      "selected": [],
+      "nonselected": [
+        [
+          6,
+          "activate",
+          "object-000164"
+        ],
+        [
+          6,
+          "creature",
+          "object-000164"
+        ],
+        [
+          6,
+          "damage",
+          "object-000164"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          6,
+          "land",
+          "object-000164"
+        ],
+        [
+          8,
+          "activate",
+          "object-000164"
+        ],
+        [
+          8,
+          "creature",
+          "object-000164"
+        ],
+        [
+          8,
+          "damage",
+          "object-000164"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          8,
+          "land",
+          "object-000164"
+        ],
+        [
+          10,
+          "activate",
+          "object-000164"
+        ],
+        [
+          10,
+          "creature",
+          "object-000164"
+        ],
+        [
+          10,
+          "damage",
+          "object-000164"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          10,
+          "land",
+          "object-000164"
+        ],
+        [
+          11,
+          "activate",
+          "object-000204"
+        ],
+        [
+          11,
+          "creature",
+          "object-000204"
+        ],
+        [
+          11,
+          "damage",
+          "object-000204"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000204"
+        ],
+        [
+          11,
+          "land",
+          "object-000204"
+        ],
+        [
+          12,
+          "activate",
+          "object-000164"
+        ],
+        [
+          12,
+          "creature",
+          "object-000164"
+        ],
+        [
+          12,
+          "damage",
+          "object-000164"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          12,
+          "land",
+          "object-000164"
+        ],
+        [
+          13,
+          "activate",
+          "object-000204"
+        ],
+        [
+          13,
+          "creature",
+          "object-000204"
+        ],
+        [
+          13,
+          "damage",
+          "object-000204"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000204"
+        ],
+        [
+          13,
+          "land",
+          "object-000204"
+        ],
+        [
+          14,
+          "activate",
+          "object-000164"
+        ],
+        [
+          14,
+          "creature",
+          "object-000164"
+        ],
+        [
+          14,
+          "damage",
+          "object-000164"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          14,
+          "land",
+          "object-000164"
+        ],
+        [
+          15,
+          "activate",
+          "object-000204"
+        ],
+        [
+          15,
+          "creature",
+          "object-000204"
+        ],
+        [
+          15,
+          "damage",
+          "object-000204"
+        ],
+        [
+          15,
+          "destroy",
+          "object-000204"
+        ],
+        [
+          15,
+          "land",
+          "object-000204"
+        ]
+      ],
+      "reducer_present": [],
+      "mutagen_present": [
+        [
+          6,
+          "object-000164"
+        ],
+        [
+          8,
+          "object-000164"
+        ],
+        [
+          8,
+          "object-000187"
+        ],
+        [
+          10,
+          "object-000164"
+        ],
+        [
+          10,
+          "object-000187"
+        ],
+        [
+          11,
+          "object-000204"
+        ],
+        [
+          12,
+          "object-000164"
+        ],
+        [
+          12,
+          "object-000187"
+        ],
+        [
+          13,
+          "object-000204"
+        ],
+        [
+          14,
+          "object-000164"
+        ],
+        [
+          14,
+          "object-000187"
+        ],
+        [
+          15,
+          "object-000204"
+        ]
+      ],
+      "payments": [],
+      "discounts": [],
+      "resolutions": [],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-token-discount-donatello-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "59145b7337e6a99feb870b04364f7cdbeb68fdf535bb57c43a23aafbe78feb54",
+      "opportunities": [
+        [
+          9,
+          "activate",
+          "object-000175",
+          "object-000145"
+        ],
+        [
+          9,
+          "activate",
+          "object-000175",
+          "object-000161"
+        ],
+        [
+          9,
+          "activate",
+          "object-000175",
+          "object-000173"
+        ],
+        [
+          9,
+          "land",
+          "object-000175",
+          "object-000145"
+        ],
+        [
+          9,
+          "land",
+          "object-000175",
+          "object-000161"
+        ],
+        [
+          9,
+          "land",
+          "object-000175",
+          "object-000173"
+        ],
+        [
+          10,
+          "activate",
+          "object-000178",
+          "object-000145"
+        ],
+        [
+          10,
+          "activate",
+          "object-000178",
+          "object-000161"
+        ],
+        [
+          10,
+          "activate",
+          "object-000178",
+          "object-000173"
+        ],
+        [
+          10,
+          "land",
+          "object-000178",
+          "object-000145"
+        ],
+        [
+          10,
+          "land",
+          "object-000178",
+          "object-000161"
+        ],
+        [
+          10,
+          "land",
+          "object-000178",
+          "object-000173"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000145"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000161"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000173"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000189"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000193"
+        ],
+        [
+          12,
+          "land",
+          "object-000197",
+          "object-000145"
+        ],
+        [
+          12,
+          "land",
+          "object-000197",
+          "object-000161"
+        ],
+        [
+          12,
+          "land",
+          "object-000197",
+          "object-000173"
+        ],
+        [
+          12,
+          "land",
+          "object-000197",
+          "object-000189"
+        ],
+        [
+          12,
+          "land",
+          "object-000197",
+          "object-000193"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000145"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000161"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000173"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000193"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000208"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000215"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000145"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000161"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000173"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000193"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000208"
+        ],
+        [
+          15,
+          "land",
+          "object-000217",
+          "object-000215"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000145"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000161"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000173"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000193"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000208"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000215"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000145"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000161"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000173"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000193"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000208"
+        ],
+        [
+          16,
+          "land",
+          "object-000223",
+          "object-000215"
+        ]
+      ],
+      "selected": [
+        [
+          9,
+          "activate",
+          "object-000175",
+          "object-000161"
+        ],
+        [
+          10,
+          "activate",
+          "object-000178",
+          "object-000161"
+        ],
+        [
+          12,
+          "activate",
+          "object-000197",
+          "object-000161"
+        ],
+        [
+          15,
+          "activate",
+          "object-000217",
+          "object-000161"
+        ],
+        [
+          16,
+          "activate",
+          "object-000223",
+          "object-000161"
+        ]
+      ],
+      "nonselected": [
+        [
+          9,
+          "land",
+          "object-000175"
+        ],
+        [
+          10,
+          "land",
+          "object-000178"
+        ],
+        [
+          12,
+          "land",
+          "object-000197"
+        ],
+        [
+          15,
+          "land",
+          "object-000217"
+        ],
+        [
+          16,
+          "land",
+          "object-000223"
+        ]
+      ],
+      "reducer_present": [
+        [
+          4,
+          "object-000145"
+        ],
+        [
+          6,
+          "object-000145"
+        ],
+        [
+          8,
+          "object-000145"
+        ],
+        [
+          10,
+          "object-000145"
+        ],
+        [
+          12,
+          "object-000145"
+        ],
+        [
+          14,
+          "object-000145"
+        ],
+        [
+          16,
+          "object-000145"
+        ]
+      ],
+      "mutagen_present": [
+        [
+          9,
+          "object-000175"
+        ],
+        [
+          10,
+          "object-000178"
+        ],
+        [
+          12,
+          "object-000197"
+        ],
+        [
+          15,
+          "object-000217"
+        ],
+        [
+          16,
+          "object-000223"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "donatello",
+          "source_id": "object-000175",
+          "stack_object_id": "object-000180",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000148"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000179",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000178",
+          "stack_object_id": "object-000183",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000182",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000197",
+          "stack_object_id": "object-000199",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000198",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "donatello",
+          "source_id": "object-000217",
+          "stack_object_id": "object-000219",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000148"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000218",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000223",
+          "stack_object_id": "object-000226",
+          "generic": 0,
+          "colored": [],
+          "mana_source_ids": [],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000225",
+          "other_sacrifice_id": null
+        }
+      ],
+      "discounts": [
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000178",
+          "stack_object_id": "object-000183",
+          "controller": 1,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000145"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000197",
+          "stack_object_id": "object-000199",
+          "controller": 1,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000145"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_reduced",
+          "source_id": "object-000223",
+          "stack_object_id": "object-000226",
+          "controller": 1,
+          "printed_generic": 1,
+          "paid_generic": 0,
+          "reduction_source_ids": [
+            "object-000145"
+          ],
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery."
+        }
+      ],
+      "resolutions": [
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000175",
+          "target_id": "object-000161",
+          "stack_object_id": "object-000180"
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000178",
+          "target_id": "object-000161",
+          "stack_object_id": "object-000183"
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000197",
+          "target_id": "object-000161",
+          "stack_object_id": "object-000199"
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000217",
+          "target_id": "object-000161",
+          "stack_object_id": "object-000219"
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000223",
+          "target_id": "object-000161",
+          "stack_object_id": "object-000226"
+        }
+      ],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-token-discount-bebop_rocksteady-krang-3006",
+      "seed": 3006,
+      "seats": [
+        "bebop_rocksteady",
+        "krang"
+      ],
+      "result_sha256": "5aa153ef3eb31d4e9f994f53db2bf6108d3ab6a891b729a77ed195e5356fed81",
+      "opportunities": [
+        [
+          7,
+          "activate",
+          "object-000160",
+          "object-000143"
+        ],
+        [
+          7,
+          "land",
+          "object-000160",
+          "object-000143"
+        ],
+        [
+          16,
+          "activate",
+          "object-000215",
+          "object-000143"
+        ],
+        [
+          16,
+          "activate",
+          "object-000215",
+          "object-000193"
+        ],
+        [
+          16,
+          "activate",
+          "object-000215",
+          "object-000213"
+        ],
+        [
+          16,
+          "land",
+          "object-000215",
+          "object-000143"
+        ],
+        [
+          16,
+          "land",
+          "object-000215",
+          "object-000193"
+        ],
+        [
+          16,
+          "land",
+          "object-000215",
+          "object-000213"
+        ],
+        [
+          18,
+          "activate",
+          "object-000221",
+          "object-000143"
+        ],
+        [
+          18,
+          "activate",
+          "object-000221",
+          "object-000193"
+        ],
+        [
+          18,
+          "activate",
+          "object-000221",
+          "object-000219"
+        ],
+        [
+          18,
+          "land",
+          "object-000221",
+          "object-000143"
+        ],
+        [
+          18,
+          "land",
+          "object-000221",
+          "object-000193"
+        ],
+        [
+          18,
+          "land",
+          "object-000221",
+          "object-000219"
+        ],
+        [
+          22,
+          "activate",
+          "object-000244",
+          "object-000143"
+        ],
+        [
+          22,
+          "activate",
+          "object-000244",
+          "object-000238"
+        ],
+        [
+          22,
+          "activate",
+          "object-000244",
+          "object-000249"
+        ],
+        [
+          22,
+          "land",
+          "object-000244",
+          "object-000143"
+        ],
+        [
+          22,
+          "land",
+          "object-000244",
+          "object-000238"
+        ],
+        [
+          22,
+          "land",
+          "object-000244",
+          "object-000249"
+        ],
+        [
+          24,
+          "activate",
+          "object-000274",
+          "object-000238"
+        ],
+        [
+          24,
+          "activate",
+          "object-000274",
+          "object-000249"
+        ],
+        [
+          24,
+          "activate",
+          "object-000274",
+          "object-000272"
+        ],
+        [
+          24,
+          "creature",
+          "object-000274",
+          "object-000238"
+        ],
+        [
+          24,
+          "creature",
+          "object-000274",
+          "object-000249"
+        ],
+        [
+          24,
+          "creature",
+          "object-000274",
+          "object-000272"
+        ],
+        [
+          24,
+          "damage",
+          "object-000274",
+          "object-000238"
+        ],
+        [
+          24,
+          "damage",
+          "object-000274",
+          "object-000249"
+        ],
+        [
+          24,
+          "damage",
+          "object-000274",
+          "object-000272"
+        ],
+        [
+          24,
+          "destroy",
+          "object-000274",
+          "object-000238"
+        ],
+        [
+          24,
+          "destroy",
+          "object-000274",
+          "object-000249"
+        ],
+        [
+          24,
+          "destroy",
+          "object-000274",
+          "object-000272"
+        ],
+        [
+          24,
+          "land",
+          "object-000274",
+          "object-000238"
+        ],
+        [
+          24,
+          "land",
+          "object-000274",
+          "object-000249"
+        ],
+        [
+          24,
+          "land",
+          "object-000274",
+          "object-000272"
+        ]
+      ],
+      "selected": [
+        [
+          7,
+          "activate",
+          "object-000160",
+          "object-000143"
+        ],
+        [
+          16,
+          "activate",
+          "object-000215",
+          "object-000143"
+        ],
+        [
+          18,
+          "activate",
+          "object-000221",
+          "object-000143"
+        ],
+        [
+          22,
+          "activate",
+          "object-000244",
+          "object-000143"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "land",
+          "object-000160"
+        ],
+        [
+          16,
+          "land",
+          "object-000215"
+        ],
+        [
+          18,
+          "land",
+          "object-000221"
+        ],
+        [
+          22,
+          "land",
+          "object-000244"
+        ],
+        [
+          24,
+          "activate",
+          "object-000274"
+        ],
+        [
+          24,
+          "creature",
+          "object-000274"
+        ],
+        [
+          24,
+          "damage",
+          "object-000274"
+        ],
+        [
+          24,
+          "destroy",
+          "object-000274"
+        ],
+        [
+          24,
+          "land",
+          "object-000274"
+        ]
+      ],
+      "reducer_present": [],
+      "mutagen_present": [
+        [
+          5,
+          "object-000160"
+        ],
+        [
+          7,
+          "object-000160"
+        ],
+        [
+          16,
+          "object-000215"
+        ],
+        [
+          18,
+          "object-000221"
+        ],
+        [
+          20,
+          "object-000244"
+        ],
+        [
+          22,
+          "object-000244"
+        ],
+        [
+          24,
+          "object-000274"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000160",
+          "stack_object_id": "object-000169",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000135"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000168",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "krang",
+          "source_id": "object-000215",
+          "stack_object_id": "object-000217",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000163"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000216",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "krang",
+          "source_id": "object-000221",
+          "stack_object_id": "object-000227",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000226",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 22,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "krang",
+          "source_id": "object-000244",
+          "stack_object_id": "object-000257",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000256",
+          "other_sacrifice_id": null
+        }
+      ],
+      "discounts": [],
+      "resolutions": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000160",
+          "target_id": "object-000143",
+          "stack_object_id": "object-000169"
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000215",
+          "target_id": "object-000143",
+          "stack_object_id": "object-000217"
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000221",
+          "target_id": "object-000143",
+          "stack_object_id": "object-000227"
+        },
+        {
+          "turn": 22,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000244",
+          "target_id": "object-000143",
+          "stack_object_id": "object-000257"
+        }
+      ],
+      "token_batches": []
+    },
+    {
+      "game_id": "issue289-token-discount-krang-bebop_rocksteady-3006",
+      "seed": 3006,
+      "seats": [
+        "krang",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "90d5f6fa384253407bfd8574aa38a21a89f990841fdd2bb2c4fe28d8b874ec8d",
+      "opportunities": [
+        [
+          8,
+          "activate",
+          "object-000155",
+          "object-000146"
+        ],
+        [
+          8,
+          "activate",
+          "object-000155",
+          "object-000162"
+        ],
+        [
+          8,
+          "land",
+          "object-000155",
+          "object-000146"
+        ],
+        [
+          8,
+          "land",
+          "object-000155",
+          "object-000162"
+        ],
+        [
+          9,
+          "activate",
+          "object-000179",
+          "object-000146"
+        ],
+        [
+          9,
+          "activate",
+          "object-000179",
+          "object-000162"
+        ],
+        [
+          9,
+          "activate",
+          "object-000179",
+          "object-000177"
+        ],
+        [
+          9,
+          "land",
+          "object-000179",
+          "object-000146"
+        ],
+        [
+          9,
+          "land",
+          "object-000179",
+          "object-000162"
+        ],
+        [
+          9,
+          "land",
+          "object-000179",
+          "object-000177"
+        ],
+        [
+          13,
+          "activate",
+          "object-000201",
+          "object-000162"
+        ],
+        [
+          13,
+          "activate",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          13,
+          "activate",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          13,
+          "creature",
+          "object-000201",
+          "object-000162"
+        ],
+        [
+          13,
+          "creature",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          13,
+          "creature",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          13,
+          "damage",
+          "object-000201",
+          "object-000162"
+        ],
+        [
+          13,
+          "damage",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          13,
+          "damage",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000201",
+          "object-000162"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          13,
+          "land",
+          "object-000201",
+          "object-000162"
+        ],
+        [
+          13,
+          "land",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          13,
+          "land",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          15,
+          "activate",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          15,
+          "activate",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          15,
+          "activate",
+          "object-000201",
+          "object-000219"
+        ],
+        [
+          15,
+          "land",
+          "object-000201",
+          "object-000177"
+        ],
+        [
+          15,
+          "land",
+          "object-000201",
+          "object-000213"
+        ],
+        [
+          15,
+          "land",
+          "object-000201",
+          "object-000219"
+        ]
+      ],
+      "selected": [
+        [
+          8,
+          "activate",
+          "object-000155",
+          "object-000162"
+        ],
+        [
+          9,
+          "activate",
+          "object-000179",
+          "object-000162"
+        ],
+        [
+          15,
+          "activate",
+          "object-000201",
+          "object-000177"
+        ]
+      ],
+      "nonselected": [
+        [
+          8,
+          "land",
+          "object-000155"
+        ],
+        [
+          9,
+          "land",
+          "object-000179"
+        ],
+        [
+          13,
+          "activate",
+          "object-000201"
+        ],
+        [
+          13,
+          "creature",
+          "object-000201"
+        ],
+        [
+          13,
+          "damage",
+          "object-000201"
+        ],
+        [
+          13,
+          "destroy",
+          "object-000201"
+        ],
+        [
+          13,
+          "land",
+          "object-000201"
+        ],
+        [
+          15,
+          "land",
+          "object-000201"
+        ]
+      ],
+      "reducer_present": [],
+      "mutagen_present": [
+        [
+          6,
+          "object-000155"
+        ],
+        [
+          8,
+          "object-000155"
+        ],
+        [
+          9,
+          "object-000179"
+        ],
+        [
+          11,
+          "object-000201"
+        ],
+        [
+          13,
+          "object-000201"
+        ],
+        [
+          15,
+          "object-000201"
+        ]
+      ],
+      "payments": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "bebop_rocksteady",
+          "source_id": "object-000155",
+          "stack_object_id": "object-000167",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000166",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activation_cost_paid",
+          "player": "krang",
+          "source_id": "object-000179",
+          "stack_object_id": "object-000181",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000175"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000180",
+          "other_sacrifice_id": null
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activation_cost_paid",
+          "player": "krang",
+          "source_id": "object-000201",
+          "stack_object_id": "object-000234",
+          "generic": 1,
+          "colored": [],
+          "mana_source_ids": [
+            "object-000135"
+          ],
+          "floating_event_ids": [],
+          "tap_source": true,
+          "sacrifice_source": true,
+          "sacrificed_destination_id": "object-000233",
+          "other_sacrifice_id": null
+        }
+      ],
+      "discounts": [],
+      "resolutions": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000155",
+          "target_id": "object-000162",
+          "stack_object_id": "object-000167"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000179",
+          "target_id": "object-000162",
+          "stack_object_id": "object-000181"
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "mutagen_counter_placed",
+          "source_id": "object-000201",
+          "target_id": "object-000177",
+          "stack_object_id": "object-000234"
+        }
+      ],
+      "token_batches": []
+    }
+  ]
+}
