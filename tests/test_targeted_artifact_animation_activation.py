@@ -144,3 +144,28 @@ def test_zone_change_and_deterministic_replay():
         return game.snapshot(), game.events
 
     assert replay() == replay()
+
+
+def test_different_quantity_base_and_subtype_use_the_same_rules_path():
+    fragment = (
+        "{T}: Put two +1/+1 counters on target artifact you control. "
+        "If it isn't a creature, it becomes a 1/2 Sentinel creature in addition "
+        "to its other types. Activate only as a sorcery."
+    )
+    source_card = CardFact("Fixture Artisan", "{2}", 2, "Creature — Artificer", fragment, 1, 1)
+    assert CardInterpreter().counter_and_animate_artifact_program(fragment) == (
+        2,
+        1,
+        2,
+        "Sentinel",
+    )
+    game = Game(([LAND] * 60, [LAND] * 60), seed=338)
+    game.begin_turn()
+    source = game.create_permanent(source_card, 0, summoning_sick=False)
+    target = game.create_permanent(ARTIFACT, 0)
+    assert game.activate_ability(0, source, fragment, target_ids=(target.object_id,))
+    resolve(game)
+    assert target.counters["+1/+1"] == 2
+    assert target.type_line == "Artifact Creature — Equipment Sentinel"
+    assert (target.power, target.toughness) == (3, 4)
+    game.check_invariants()
