@@ -22,6 +22,7 @@ PAIN = load_facts(load_card_data(CATALOG, CATALOG.with_suffix(".manifest.json"))
 ]
 SWAMP = CardFact("Swamp", "", 0, "Basic Land — Swamp")
 BEAR = CardFact("Quiet Bear", "{1}{G}", 2, "Creature — Bear", power=2, toughness=2)
+BRUTE = CardFact("Quiet Brute", "{2}{G}", 3, "Creature — Beast", power=3, toughness=3)
 
 
 def game(seed=1):
@@ -139,11 +140,47 @@ def test_sacrifice_death_and_cleanup_expiry_are_distinct():
     assert not current._has_keyword(returned, "Deathtouch")
 
 
+def test_grant_expires_and_ability_loss_suppresses_its_death_trigger():
+    current, card = game(seed=31)
+    creature = current.create_permanent(BEAR, 0)
+    grant(current, card, creature)
+    creature.ability_loss_timestamp = current._effect_timestamp()
+    assert not current._has_keyword(creature, "Deathtouch")
+    current.put_into_graveyard(creature)
+    assert not any(t.effect is TriggerEffect.GRANTED_DIES_RETURN for t in current.pending_triggers)
+
+    next_game, next_card = game(seed=32)
+    next_creature = next_game.create_permanent(BEAR, 0)
+    grant(next_game, next_card, next_creature)
+    next_game._perform_cleanup()
+    assert not next_creature.temporary_death_return_effects
+    next_game.put_into_graveyard(next_creature)
+    assert not any(
+        t.effect is TriggerEffect.GRANTED_DIES_RETURN for t in next_game.pending_triggers
+    )
+
+
+def test_target_departure_before_spell_resolution_fizzles_entire_grant():
+    current, card = game(seed=33)
+    creature = current.create_permanent(BEAR, 1)
+    action = next(
+        a
+        for a in current.legal_main_actions(0)
+        if a.object_id == card.object_id and a.target_id == creature.object_id
+    )
+    current.execute_main_action(action)
+    current.put_into_graveyard(creature)
+    drain(current)
+    assert not creature.temporary_keyword_effects
+    assert not creature.temporary_death_return_effects
+    assert any(e["event"] == "spell_resolved_no_effect" for e in current.events)
+
+
 def test_deterministic_replay_and_blocking_damage():
     snapshots = []
     for _ in range(2):
         current, card = game(seed=41)
-        attacker = current.create_permanent(BEAR, 0, summoning_sick=False)
+        attacker = current.create_permanent(BRUTE, 0, summoning_sick=False)
         blocker = current.create_permanent(BEAR, 1, summoning_sick=False)
         grant(current, card, blocker)
         current.advance_to(TurnStep.DECLARE_ATTACKERS)
@@ -163,6 +200,7 @@ def test_deterministic_replay_and_blocking_damage():
         )
         current.resolve_combat_damage()
         drain(current)
+        assert attacker.zone == "former"  # two damage is lethal only with deathtouch
         assert any(p.card is BEAR and p.tapped for p in current.players[1].battlefield)
         snapshots.append(current.snapshot())
     assert snapshots[0] == snapshots[1]

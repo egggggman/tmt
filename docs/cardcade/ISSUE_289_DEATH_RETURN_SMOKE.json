@@ -1,0 +1,1003 @@
+{
+  "schema": "issue289-death-return-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "4bf7ccf9b80a8bfa5e0b8df9d22862b8355d0aa3297329d138e725191bbb7e00",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "7d2351fc3191064f85919ac11ea4709a266ae5fc6eb4199da5eb885964ee3706",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-death-return-splinter-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "splinter",
+        "raphael"
+      ],
+      "result_sha256": "497d8350325debedcff5bbf24fcbabedb1413be69d2d25954b9d971d078f0cfd",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "triggers": [],
+      "grants": [],
+      "deaths": [],
+      "returns": [],
+      "no_effect": []
+    },
+    {
+      "game_id": "issue289-death-return-raphael-splinter-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "splinter"
+      ],
+      "result_sha256": "4dd9a41187c3ede2f3dcfbd12cb8cdb71e97701bde4493c6f52ab4b24c8a8306",
+      "opportunities": [
+        [
+          14,
+          "activate",
+          "object-000202"
+        ],
+        [
+          14,
+          "creature",
+          "object-000202"
+        ],
+        [
+          14,
+          "damage",
+          "object-000202"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000202"
+        ],
+        [
+          14,
+          "land",
+          "object-000202"
+        ]
+      ],
+      "selected": [
+        [
+          14,
+          "creature",
+          "object-000202"
+        ]
+      ],
+      "nonselected": [
+        [
+          14,
+          "activate",
+          "object-000202"
+        ],
+        [
+          14,
+          "damage",
+          "object-000202"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000202"
+        ],
+        [
+          14,
+          "land",
+          "object-000202"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "splinter",
+          "player_index": 1,
+          "card": "Pain 101",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000203",
+          "target_id": "object-000194",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "splinter",
+          "card": "Pain 101",
+          "generic": 1,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000137",
+            "object-000150"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "triggers": [],
+      "grants": [
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "temporary_death_return_granted",
+          "stack_object_id": "object-000203",
+          "target_id": "object-000194",
+          "keyword": "deathtouch",
+          "oracle_fragment": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\""
+        }
+      ],
+      "deaths": [],
+      "returns": [],
+      "no_effect": []
+    },
+    {
+      "game_id": "issue289-death-return-splinter-bebop_rocksteady-3034",
+      "seed": 3034,
+      "seats": [
+        "splinter",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "894aa59f9ae0fd5b79fc73393104c71c2b96c46793b5cfa7bc77305440ca2c68",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "triggers": [],
+      "grants": [],
+      "deaths": [
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "rules_event",
+          "event_id": "event-000064",
+          "rules_event": "creature_died",
+          "player": "bebop_rocksteady",
+          "subject_ids": [
+            "object-000171"
+          ],
+          "source_id": "object-000171",
+          "target_player": null,
+          "amount": null,
+          "event_turn": 10,
+          "event_step": "combat_damage",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000181",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000183",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000150",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000158",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000171",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000185",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000187",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000142",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000153",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000181",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000183",
+              "controller": 0,
+              "type_line": "Creature \u2014 Human Ninja Warlock"
+            },
+            {
+              "object_id": "object-000140",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000148",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Forest"
+            },
+            {
+              "object_id": "object-000150",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Ooze Mutant"
+            },
+            {
+              "object_id": "object-000158",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000185",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000187",
+              "controller": 1,
+              "type_line": "Creature \u2014 Boar Rhino"
+            }
+          ],
+          "last_known_battlefield": [
+            {
+              "object_id": "object-000171",
+              "controller": 1,
+              "type_line": "Creature \u2014 Zombie Worm",
+              "is_creature": true
+            }
+          ]
+        }
+      ],
+      "returns": [],
+      "no_effect": []
+    },
+    {
+      "game_id": "issue289-death-return-bebop_rocksteady-splinter-3034",
+      "seed": 3034,
+      "seats": [
+        "bebop_rocksteady",
+        "splinter"
+      ],
+      "result_sha256": "de4634272ced93bb5b55cd7805fff6e6f1cc957a756945ba270f67b135d3ebc1",
+      "opportunities": [
+        [
+          8,
+          "activate",
+          "object-000181"
+        ],
+        [
+          8,
+          "creature",
+          "object-000181"
+        ],
+        [
+          8,
+          "damage",
+          "object-000181"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          8,
+          "land",
+          "object-000181"
+        ],
+        [
+          10,
+          "activate",
+          "object-000181"
+        ],
+        [
+          10,
+          "creature",
+          "object-000181"
+        ],
+        [
+          10,
+          "damage",
+          "object-000181"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          10,
+          "land",
+          "object-000181"
+        ],
+        [
+          12,
+          "activate",
+          "object-000181"
+        ],
+        [
+          12,
+          "creature",
+          "object-000181"
+        ],
+        [
+          12,
+          "damage",
+          "object-000181"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          12,
+          "land",
+          "object-000181"
+        ],
+        [
+          14,
+          "activate",
+          "object-000181"
+        ],
+        [
+          14,
+          "creature",
+          "object-000181"
+        ],
+        [
+          14,
+          "damage",
+          "object-000181"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          14,
+          "land",
+          "object-000181"
+        ]
+      ],
+      "selected": [],
+      "nonselected": [
+        [
+          8,
+          "activate",
+          "object-000181"
+        ],
+        [
+          8,
+          "creature",
+          "object-000181"
+        ],
+        [
+          8,
+          "damage",
+          "object-000181"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          8,
+          "land",
+          "object-000181"
+        ],
+        [
+          10,
+          "activate",
+          "object-000181"
+        ],
+        [
+          10,
+          "creature",
+          "object-000181"
+        ],
+        [
+          10,
+          "damage",
+          "object-000181"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          10,
+          "land",
+          "object-000181"
+        ],
+        [
+          12,
+          "activate",
+          "object-000181"
+        ],
+        [
+          12,
+          "creature",
+          "object-000181"
+        ],
+        [
+          12,
+          "damage",
+          "object-000181"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          12,
+          "land",
+          "object-000181"
+        ],
+        [
+          14,
+          "activate",
+          "object-000181"
+        ],
+        [
+          14,
+          "creature",
+          "object-000181"
+        ],
+        [
+          14,
+          "damage",
+          "object-000181"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000181"
+        ],
+        [
+          14,
+          "land",
+          "object-000181"
+        ]
+      ],
+      "casts": [],
+      "payments": [],
+      "triggers": [],
+      "grants": [],
+      "deaths": [
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "rules_event",
+          "event_id": "event-000041",
+          "rules_event": "creature_died",
+          "player": "bebop_rocksteady",
+          "subject_ids": [
+            "object-000157"
+          ],
+          "source_id": "object-000157",
+          "target_player": null,
+          "amount": null,
+          "event_turn": 6,
+          "event_step": "combat_damage",
+          "event_active_player": 1,
+          "battlefield_authority": [
+            {
+              "object_id": "object-000135",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000145",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000157",
+              "controller": 0
+            },
+            {
+              "object_id": "object-000138",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1
+            }
+          ],
+          "battlefield_characteristics": [
+            {
+              "object_id": "object-000135",
+              "controller": 0,
+              "type_line": "Land"
+            },
+            {
+              "object_id": "object-000143",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000145",
+              "controller": 0,
+              "type_line": "Creature \u2014 Frog Spirit"
+            },
+            {
+              "object_id": "object-000154",
+              "controller": 0,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000138",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000147",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000149",
+              "controller": 1,
+              "type_line": "Creature \u2014 Squirrel Mutant"
+            },
+            {
+              "object_id": "object-000152",
+              "controller": 1,
+              "type_line": "Legendary Creature \u2014 Mutant Ninja Rat"
+            },
+            {
+              "object_id": "object-000164",
+              "controller": 1,
+              "type_line": "Basic Land \u2014 Swamp"
+            },
+            {
+              "object_id": "object-000166",
+              "controller": 1,
+              "type_line": "Creature \u2014 Beaver Nightmare"
+            }
+          ],
+          "last_known_battlefield": [
+            {
+              "object_id": "object-000157",
+              "controller": 0,
+              "type_line": "Creature \u2014 Zombie Worm",
+              "is_creature": true
+            }
+          ]
+        }
+      ],
+      "returns": [],
+      "no_effect": []
+    },
+    {
+      "game_id": "issue289-death-return-splinter-casey_jones-3006",
+      "seed": 3006,
+      "seats": [
+        "splinter",
+        "casey_jones"
+      ],
+      "result_sha256": "63376b2a6f9b3c60c9d556db97d26d4383a9033c9d9c40956cf9c77af769082c",
+      "opportunities": [
+        [
+          5,
+          "activate",
+          "object-000152"
+        ],
+        [
+          5,
+          "creature",
+          "object-000152"
+        ],
+        [
+          5,
+          "damage",
+          "object-000152"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          5,
+          "land",
+          "object-000152"
+        ],
+        [
+          7,
+          "activate",
+          "object-000164"
+        ],
+        [
+          7,
+          "creature",
+          "object-000164"
+        ],
+        [
+          7,
+          "damage",
+          "object-000164"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          7,
+          "land",
+          "object-000164"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164"
+        ],
+        [
+          9,
+          "creature",
+          "object-000164"
+        ],
+        [
+          9,
+          "damage",
+          "object-000164"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          9,
+          "land",
+          "object-000164"
+        ],
+        [
+          11,
+          "activate",
+          "object-000164"
+        ],
+        [
+          11,
+          "creature",
+          "object-000164"
+        ],
+        [
+          11,
+          "damage",
+          "object-000164"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          11,
+          "land",
+          "object-000164"
+        ]
+      ],
+      "selected": [
+        [
+          5,
+          "creature",
+          "object-000152"
+        ],
+        [
+          11,
+          "creature",
+          "object-000164"
+        ]
+      ],
+      "nonselected": [
+        [
+          5,
+          "activate",
+          "object-000152"
+        ],
+        [
+          5,
+          "creature",
+          "object-000152"
+        ],
+        [
+          5,
+          "damage",
+          "object-000152"
+        ],
+        [
+          5,
+          "destroy",
+          "object-000152"
+        ],
+        [
+          5,
+          "land",
+          "object-000152"
+        ],
+        [
+          7,
+          "activate",
+          "object-000164"
+        ],
+        [
+          7,
+          "creature",
+          "object-000164"
+        ],
+        [
+          7,
+          "damage",
+          "object-000164"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          7,
+          "land",
+          "object-000164"
+        ],
+        [
+          9,
+          "activate",
+          "object-000164"
+        ],
+        [
+          9,
+          "creature",
+          "object-000164"
+        ],
+        [
+          9,
+          "damage",
+          "object-000164"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          9,
+          "land",
+          "object-000164"
+        ],
+        [
+          11,
+          "activate",
+          "object-000164"
+        ],
+        [
+          11,
+          "creature",
+          "object-000164"
+        ],
+        [
+          11,
+          "damage",
+          "object-000164"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000164"
+        ],
+        [
+          11,
+          "land",
+          "object-000164"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "splinter",
+          "player_index": 0,
+          "card": "Pain 101",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000156",
+          "target_id": "object-000155",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "splinter",
+          "player_index": 0,
+          "card": "Pain 101",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000192",
+          "target_id": "object-000167",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "cost_paid",
+          "player": "splinter",
+          "card": "Pain 101",
+          "generic": 1,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000141",
+            "object-000153"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "cost_paid",
+          "player": "splinter",
+          "card": "Pain 101",
+          "generic": 1,
+          "colored": [
+            "B"
+          ],
+          "source_ids": [
+            "object-000153",
+            "object-000165"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "triggers": [],
+      "grants": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "temporary_death_return_granted",
+          "stack_object_id": "object-000156",
+          "target_id": "object-000155",
+          "keyword": "deathtouch",
+          "oracle_fragment": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\""
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "temporary_death_return_granted",
+          "stack_object_id": "object-000192",
+          "target_id": "object-000167",
+          "keyword": "deathtouch",
+          "oracle_fragment": "Until end of turn, target creature gains deathtouch and \"When this creature dies, return it to the battlefield tapped under its owner's control.\""
+        }
+      ],
+      "deaths": [],
+      "returns": [],
+      "no_effect": []
+    },
+    {
+      "game_id": "issue289-death-return-casey_jones-splinter-3006",
+      "seed": 3006,
+      "seats": [
+        "casey_jones",
+        "splinter"
+      ],
+      "result_sha256": "f54ad3c7227783b052645a3be1fe364804ee5ba66fd8d94fe50c6ae91bfd2cf3",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "triggers": [],
+      "grants": [],
+      "deaths": [],
+      "returns": [],
+      "no_effect": []
+    }
+  ]
+}

@@ -4845,6 +4845,13 @@ class Game(
                 self._objects[grant.source_id].card
             )
             is not None
+            and any(
+                record.get("event") == "temporary_death_return_granted"
+                and record.get("stack_object_id") == grant.source_id
+                and record.get("target_id") == source.object_id
+                and record.get("oracle_fragment") == fragment
+                for record in self.events
+            )
         )
         moves = tuple(
             record
