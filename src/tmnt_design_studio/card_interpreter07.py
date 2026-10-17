@@ -887,6 +887,11 @@ class CardInterpreter:
         r"^Whenever a creature you control leaves the battlefield, if it had a counter "
         r"on it, you gain (?P<amount>[1-9][0-9]*) life\.$"
     )
+    CONTROLLED_ARTIFACT_COUNTER_TRANSFER = re.compile(
+        r"^Whenever an artifact you control is put into a graveyard from the battlefield, "
+        r"if it had counters on it, put those counters on up to one target artifact or creature "
+        r"you control\.$"
+    )
     SPELL_CAST_TEAM_COUNTER = re.compile(
         r"^Whenever you cast a spell, put a \+1/\+1 counter on each creature you control\.$"
     )
@@ -2024,6 +2029,15 @@ class CardInterpreter:
             if (match := self.CLASS_LEVEL_UP.fullmatch(text)) is not None:
                 level = int(match["level"])
         return False
+
+    def controlled_artifact_counter_transfer(self, card: CardDefinition, fragment: str) -> bool:
+        """Recognize the complete optional targeted transfer on a permanent source."""
+        types = card.type_line.split(" — ", 1)[0].split()
+        return bool(
+            set(types) & self.PERMANENT_CARD_TYPES
+            and fragment in self.fragments(card)
+            and self.CONTROLLED_ARTIFACT_COUNTER_TRANSFER.fullmatch(fragment)
+        )
 
     def countered_creature_left_life(self, card: CardDefinition, fragment: str) -> int | None:
         """Parse a full printed departure trigger in its active Class section."""
@@ -4181,6 +4195,8 @@ class CardInterpreter:
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
             if self.attack_target_counter(card, fragment):
+                continue
+            if self.controlled_artifact_counter_transfer(card, fragment):
                 continue
             if self.countered_creature_left_life(card, fragment) is not None:
                 continue
