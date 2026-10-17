@@ -1716,6 +1716,7 @@ class Game(
             summoning_sick=summoning_sick,
             entered_battlefield_turn=self.turn,
             entered_under_controller=owner if controller is None else controller,
+            x_value=0 if "{X}" in card.mana_cost else None,
         )
         self._register(permanent)
         self.players[permanent.controller].battlefield.append(permanent)
@@ -2047,7 +2048,13 @@ class Game(
                 entered_battlefield_turn=self.turn,
                 entered_under_controller=destination_controller,
                 is_token=getattr(obj, "is_token", False),
-                x_value=obj.x_value if isinstance(obj, StackObject) else None,
+                x_value=(
+                    obj.x_value
+                    if isinstance(obj, StackObject)
+                    else 0
+                    if "{X}" in obj.card.mana_cost
+                    else None
+                ),
             )
             if replacement.is_creature and self._left_under_control_this_turn(
                 destination_controller

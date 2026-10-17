@@ -5,9 +5,10 @@ import copy
 import pytest
 
 from tmnt_design_studio.card_interpreter07 import CardInterpreter
-from tmnt_design_studio.engine07 import ActionKind, CardFact, Game, StackObject
+from tmnt_design_studio.engine07 import ActionKind, ActionOption, CardFact, Game, StackObject
 
 LAND = CardFact("Forest", "", 0, "Basic Land — Forest")
+PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains")
 OOZE = CardFact(
     "Renamed Ooze",
     "{X}{G}{G}",
@@ -86,6 +87,30 @@ def test_insufficient_mana_and_invalid_announcements_are_transactional():
     assert game.payment_plan(0, card, x_value=0) is not None
 
 
+def test_colored_payment_and_legal_choice_revalidation():
+    game, card = setup(0)
+    for _ in range(6):
+        game.create_permanent(PLAINS, 0)
+    assert not [o for o in game.legal_main_actions(0) if o.object_id == card.object_id]
+    assert game.announce_spell(0, card, x_value=0) is None
+    game.create_permanent(LAND, 0)
+    game.create_permanent(LAND, 0)
+    options = [o for o in game.legal_main_actions(0) if o.object_id == card.object_id]
+    assert set(o.x_value for o in options) == set(range(7))
+    forged = ActionOption(ActionKind.CAST, 0, object_id=card.object_id, choice_ids=("7",))
+    with pytest.raises(ValueError, match="not currently legal"):
+        game.execute_main_action(forged)
+    before = tuple(p.tapped for p in game.players[0].battlefield)
+    plan = game.payment_plan(0, card, x_value=6)
+    assert plan is not None
+    game.players[0].battlefield[-1].tapped = True
+    with pytest.raises(ValueError, match="no longer legal"):
+        game._commit_announcement_payment(
+            card, plan, cast_kind=game.interpreter.cast_program(card.card).kind, target_id=None
+        )
+    assert tuple(p.tapped for p in game.players[0].battlefield) == before[:-1] + (True,)
+
+
 def test_countered_spell_never_creates_tokens():
     game, card = setup()
     spell = game.announce_spell(0, card, x_value=3)
@@ -103,6 +128,17 @@ def test_entry_trigger_independent_of_source_departure():
     game.move_object(entered, "graveyard", reason="response_removed")
     drain(game)
     assert len([p for p in game.players[0].battlefield if p.is_token]) == 2
+    game.check_invariants()
+
+
+def test_put_onto_battlefield_without_cast_uses_zero_x():
+    game, card = setup(0)
+    entered = game.move_object(card, "battlefield", controller=0, reason="put_onto_battlefield")
+    assert entered.x_value == 0
+    game._process_creature_entered_triggers(entered)
+    drain(game)
+    assert not [p for p in game.players[0].battlefield if p.is_token]
+    assert any(e["event"] == "variable_x_entry_resolved" and e["x_value"] == 0 for e in game.events)
     game.check_invariants()
 
 
