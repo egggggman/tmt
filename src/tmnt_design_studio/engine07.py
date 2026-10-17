@@ -399,6 +399,7 @@ class TriggerEffect(Enum):
     CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS = "controlled_creature_left_opponent_loss"
     CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE = "controlled_countered_creature_left_life"
     CONTROLLED_ARTIFACT_COUNTER_TRANSFER = "controlled_artifact_counter_transfer"
+    DAMAGE_TO_SELF_MANA = "damage_to_self_mana"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
     ETB_ATTACH_EQUIPMENT = "etb_attach_equipment"
@@ -3440,6 +3441,8 @@ class Game(
             oracle_fragment=transaction.oracle_fragment,
             combat=False,
         )
+        if target is not None:
+            self._enqueue_damage_to_self_mana(event, target)
         lifelink_applied = self.evaluated_lifelink(source)
         if lifelink_applied:
             self._apply_lifelink_result(
@@ -4722,6 +4725,64 @@ class Game(
         ):
             raise ValueError("Class spell-cast trigger has invalid provenance")
 
+    def _validate_damage_to_self_mana(
+        self,
+        event: RulesEvent,
+        source_id: str,
+        source_card: CardFact,
+        fragment: str,
+        controller: int,
+        *,
+        trigger_id: str | None = None,
+    ) -> tuple[str, int]:
+        """Bind dealt damage to its original recipient and printed retained-mana trigger."""
+        self._authenticate_original_rules_event(event)
+        recipient_id = (
+            event.subject_ids[0]
+            if event.kind is RulesEventKind.DAMAGE_DEALT and len(event.subject_ids) == 1
+            else event.subject_ids[1]
+            if event.kind is RulesEventKind.COMBAT_DAMAGE_TO_CREATURE
+            and len(event.subject_ids) == 2
+            else None
+        )
+        source = self._objects.get(source_id)
+        trigger = self._triggers.get(trigger_id) if trigger_id is not None else None
+        color = self.interpreter.damage_to_self_mana(source_card, fragment)
+        if (
+            color is None
+            or recipient_id != source_id
+            or event.source_id is None
+            or event.source_id not in self._objects
+            or event.target_player is not None
+            or not isinstance(event.amount, int)
+            or isinstance(event.amount, bool)
+            or event.amount <= 0
+            or (source_id, controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.zone not in {"battlefield", "former"}
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.effect is not TriggerEffect.DAMAGE_TO_SELF_MANA
+                    or trigger.event is not event
+                    or trigger.source_id != source_id
+                    or trigger.source_card is not source_card
+                    or trigger.controller != controller
+                    or trigger.oracle_fragment != fragment
+                )
+            )
+        ):
+            raise ValueError("damage-to-self mana trigger has invalid event provenance")
+        return color, event.amount
+
+    def _enqueue_damage_to_self_mana(self, event: RulesEvent, recipient: Permanent) -> None:
+        """Detect printed self-damage abilities before state-based departures."""
+        for fragment in self.interpreter.fragments(recipient.rules_card):
+            if self.interpreter.damage_to_self_mana(recipient.card, fragment) is not None:
+                self._enqueue_trigger(event, recipient, fragment, TriggerEffect.DAMAGE_TO_SELF_MANA)
+
     def _enqueue_trigger(
         self,
         event: RulesEvent,
@@ -4935,6 +4996,10 @@ class Game(
             )
         if effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
             self._validate_artifact_counter_transfer(
+                event, source.object_id, source.card, fragment, source.controller
+            )
+        if effect is TriggerEffect.DAMAGE_TO_SELF_MANA:
+            self._validate_damage_to_self_mana(
                 event, source.object_id, source.card, fragment, source.controller
             )
         if effect is TriggerEffect.ETB_ARTIFACT_DRAW:
@@ -6250,6 +6315,15 @@ class Game(
                 )
             ):
                 raise ValueError("counter transfer target selection is unauthenticated")
+        if ability.effect is TriggerEffect.DAMAGE_TO_SELF_MANA:
+            self._validate_damage_to_self_mana(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
         if ability.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
             source = self._objects.get(ability.source_id)
             if not isinstance(source, Permanent):
@@ -7055,6 +7129,33 @@ class Game(
                 target_legal=bool(legal),
                 counter_snapshot=[list(item) for item in counters],
             )
+        elif ability.effect is TriggerEffect.DAMAGE_TO_SELF_MANA:
+            color, quantity = self._validate_damage_to_self_mana(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
+            self.floating_mana.add(
+                ability.controller,
+                ability.source_id,
+                color,
+                quantity,
+                ability.object_id,
+                persists_until_turn_end=True,
+            )
+            self.log(
+                "damage_to_self_mana_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                color=color,
+                quantity=quantity,
+                persists_until_turn_end=True,
+            )
         elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             source_before = self._validate_permanent_left_counter_provenance(
                 controller=ability.controller,
@@ -7783,6 +7884,7 @@ class Game(
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                 TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
+                TriggerEffect.DAMAGE_TO_SELF_MANA,
                 TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -9533,6 +9635,28 @@ class Game(
             )
         return True
 
+    def _clear_mana_at_boundary(self, through_step: str, *, preserve_turn_end: bool = True) -> None:
+        """Apply the same mana expiration at phase and split-damage-step boundaries."""
+        for index in range(len(self.players)):
+            before = self.floating_mana.snapshot(index)
+            if not before:
+                continue
+            expired = self.floating_mana.empty(index, preserve_turn_end=preserve_turn_end)
+            if expired:
+                self.log(
+                    "floating_mana_emptied",
+                    player=self.players[index].name,
+                    mana=expired,
+                )
+            retained = self.floating_mana.snapshot(index)
+            if retained:
+                self.log(
+                    "floating_mana_retained",
+                    player=self.players[index].name,
+                    mana=retained,
+                    through_step=through_step,
+                )
+
     def transition_to(self, step: TurnStep) -> None:
         """Perform the one legal deterministic CR 500-series step transition."""
         if self.stack:
@@ -9560,11 +9684,7 @@ class Game(
         elif previous is TurnStep.SETUP:
             self._turn = 1
             self._active_player = 0
-        for index in range(len(self.players)):
-            before = self.floating_mana.snapshot(index)
-            if before:
-                self.floating_mana.empty(index)
-                self.log("floating_mana_emptied", player=self.players[index].name, mana=before)
+        self._clear_mana_at_boundary(step.value, preserve_turn_end=previous is not TurnStep.CLEANUP)
         self._step = step
         self.log("step_started", step=step.value, previous_step=previous.value)
         self._on_enter_step(step)
@@ -11206,6 +11326,7 @@ class Game(
             self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
             and not self.is_terminal
         ):
+            self._clear_mana_at_boundary("regular_combat_damage")
             self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
         else:
             self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
@@ -12294,6 +12415,7 @@ class Game(
                         amount=assignment.amount,
                     )
                     self._enqueue_equipment_combat_triggers(event, source)
+                    self._enqueue_damage_to_self_mana(event, target)
                 self.log(
                     "combat_damage_assignment",
                     source=source.card.name,
@@ -15198,6 +15320,7 @@ class Game(
                         TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                         TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                         TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
+                        TriggerEffect.DAMAGE_TO_SELF_MANA,
                         TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                         TriggerEffect.ETB_ARTIFACT_DRAW,
                         TriggerEffect.ETB_TAP_STUN,
@@ -16751,6 +16874,7 @@ class Game(
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
                 TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
+                TriggerEffect.DAMAGE_TO_SELF_MANA,
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.UTILITY_TARGET,
@@ -16760,6 +16884,42 @@ class Game(
         self.check_invariants()
 
     def check_invariants(self) -> None:
+        retained_origins = {
+            event.get("stack_object_id"): event
+            for event in self.events
+            if event["event"] == "damage_to_self_mana_resolved"
+        }
+        for player_index in range(len(self.players)):
+            productions = self.floating_mana.productions(player_index)
+            consumptions = self.floating_mana.consumptions(player_index)
+            if len({unit.event_id for unit in productions}) != len(productions):
+                raise AssertionError("floating mana production IDs are not unique")
+            used_by_id: dict[str, int] = {}
+            for item in consumptions:
+                used_by_id[item.source_event_id] = (
+                    used_by_id.get(item.source_event_id, 0) + item.quantity
+                )
+            if set(used_by_id) - {unit.event_id for unit in productions}:
+                raise AssertionError("floating mana consumption lacks a production")
+            balance: dict[str, int] = {}
+            for unit in productions:
+                used = used_by_id.get(unit.event_id, 0)
+                if used > unit.quantity or used < 0:
+                    raise AssertionError("floating mana consumption exceeds production")
+                if unit.quantity > used:
+                    balance[unit.color] = balance.get(unit.color, 0) + unit.quantity - used
+                if unit.persists_until_turn_end:
+                    origin = retained_origins.get(unit.event_id)
+                    if (
+                        origin is None
+                        or origin.get("source_id") != unit.source_id
+                        or origin.get("controller") != player_index
+                        or origin.get("quantity") != unit.quantity
+                        or origin.get("color") != unit.color
+                    ):
+                        raise AssertionError("retained mana lacks source trigger provenance")
+            if self.floating_mana.snapshot(player_index) != dict(sorted(balance.items())):
+                raise AssertionError("floating mana pool differs from individual units")
         departures = [
             (index, item)
             for index, item in enumerate(self.events)
@@ -17239,6 +17399,18 @@ class Game(
                         )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.DAMAGE_TO_SELF_MANA:
+                    try:
+                        self._validate_damage_to_self_mana(
+                            obj.event,
+                            obj.source_id,
+                            obj.source_card,
+                            obj.oracle_fragment,
+                            obj.controller,
+                            trigger_id=obj.trigger_id,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
                 if obj.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
                     source = self._objects.get(obj.source_id)
                     if not isinstance(source, Permanent):
@@ -17301,6 +17473,18 @@ class Game(
         ):
             raise AssertionError("pending trigger IDs must be unique")
         for trigger in self.pending_triggers:
+            if trigger.effect is TriggerEffect.DAMAGE_TO_SELF_MANA:
+                try:
+                    self._validate_damage_to_self_mana(
+                        trigger.event,
+                        trigger.source_id,
+                        trigger.source_card,
+                        trigger.oracle_fragment,
+                        trigger.controller,
+                        trigger_id=trigger.trigger_id,
+                    )
+                except ValueError as error:
+                    raise AssertionError(str(error)) from error
             if trigger.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
                 try:
                     self._validate_artifact_counter_transfer(

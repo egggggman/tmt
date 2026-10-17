@@ -12,6 +12,7 @@ class ManaProduction:
     quantity: int
     event_id: str
     allowed_spending: tuple[str, ...] = ()
+    persists_until_turn_end: bool = False
 
 
 @dataclass(frozen=True)
@@ -38,6 +39,7 @@ class FloatingManaLedger:
         quantity: int,
         event_id: str,
         allowed_spending: tuple[str, ...] = (),
+        persists_until_turn_end: bool = False,
     ) -> None:
         if color not in MANA_COLORS or quantity <= 0 or not event_id or not source_id:
             raise ValueError("invalid mana production")
@@ -47,7 +49,14 @@ class FloatingManaLedger:
             raise ValueError("duplicate mana event")
         self._pools[player][color] = self._pools[player].get(color, 0) + quantity
         self._productions[player].append(
-            ManaProduction(source_id, color, quantity, event_id, allowed_spending)
+            ManaProduction(
+                source_id,
+                color,
+                quantity,
+                event_id,
+                allowed_spending,
+                persists_until_turn_end,
+            )
         )
 
     def eligible(self, player: int, context: str) -> tuple[ManaProduction, ...]:
@@ -101,22 +110,27 @@ class FloatingManaLedger:
             raise ValueError("floating mana unavailable")
         return self.consume_events(player, ids, payment_id, "unrestricted")[-1]
 
-    def empty(self, player: int) -> None:
-        for item in self.eligible(player, "unrestricted"):
-            self._consumptions[player].append(
-                ManaConsumption(item.event_id, item.color, 1, "mana_pool_emptied")
-            )
+    def empty(self, player: int, *, preserve_turn_end: bool = False) -> dict[str, int]:
+        """Expire ordinary units at each boundary and retained units after cleanup."""
+        retained: dict[str, int] = {}
+        expired: dict[str, int] = {}
         for item in self._productions[player]:
             remaining = item.quantity - sum(
                 used.quantity
                 for used in self._consumptions[player]
                 if used.source_event_id == item.event_id
             )
-            if remaining:
+            if not remaining:
+                continue
+            if preserve_turn_end and item.persists_until_turn_end:
+                retained[item.color] = retained.get(item.color, 0) + remaining
+            else:
                 self._consumptions[player].append(
                     ManaConsumption(item.event_id, item.color, remaining, "mana_pool_emptied")
                 )
-        self._pools[player].clear()
+                expired[item.color] = expired.get(item.color, 0) + remaining
+        self._pools[player] = retained
+        return dict(sorted(expired.items()))
 
     def snapshot(self, player: int) -> dict[str, int]:
         return dict(sorted(self._pools[player].items()))
