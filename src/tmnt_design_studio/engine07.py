@@ -398,6 +398,7 @@ class TriggerEffect(Enum):
     PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
     CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS = "controlled_creature_left_opponent_loss"
     CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE = "controlled_countered_creature_left_life"
+    CONTROLLED_ARTIFACT_COUNTER_TRANSFER = "controlled_artifact_counter_transfer"
     ETB_ARTIFACT_DRAW = "etb_artifact_draw"
     ETB_TAP_STUN = "etb_tap_stun"
     ETB_ATTACH_EQUIPMENT = "etb_attach_equipment"
@@ -1541,6 +1542,8 @@ class Game(
         self._etb_creature_destroy_targets: dict[str, tuple[Permanent, tuple[str, ...]]] = {}
         self._attack_counter_targets: dict[str, tuple[str, str]] = {}
         self._countered_departure_anchors: dict[str, tuple[object, ...]] = {}
+        self._artifact_counter_departures: dict[str, tuple[object, ...]] = {}
+        self._artifact_counter_targets: dict[str, tuple[Permanent | None, tuple[str, ...]]] = {}
         self._shredder_targets: dict[
             str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
         ] = {}
@@ -1906,9 +1909,13 @@ class Game(
                     countered_life = self.interpreter.countered_creature_left_life(
                         permanent.card, fragment
                     )
+                    counter_transfer = self.interpreter.controlled_artifact_counter_transfer(
+                        permanent.card, fragment
+                    )
                     if (
                         (coverage is not None and coverage.fully_supported)
                         or loss is not None
+                        or counter_transfer
                         or (
                             countered_life is not None
                             and (permanent.class_level is None or permanent.class_level >= 2)
@@ -2175,6 +2182,15 @@ class Game(
                     is not None
                     and (watcher.class_level is None or watcher.class_level >= 2)
                 )
+                or (
+                    destination == "graveyard"
+                    and "Artifact" in departure_last_known[2].split(" — ", 1)[0].split()
+                    and bool(departure_counters)
+                    and watcher.controller == departure_last_known[1]
+                    and self.interpreter.controlled_artifact_counter_transfer(
+                        watcher.card, fragment
+                    )
+                )
             )
             if (
                 qualifying_sources
@@ -2215,6 +2231,18 @@ class Game(
                         departure_log_record,
                         countered_watchers,
                     )
+                artifact_watchers = tuple(
+                    (watcher.object_id, watcher.controller, fragment)
+                    for watcher, fragment in qualifying_sources
+                    if self.interpreter.controlled_artifact_counter_transfer(watcher.card, fragment)
+                )
+                if artifact_watchers:
+                    self._artifact_counter_departures[event.event_id] = (
+                        obj,
+                        departure_counters,
+                        departure_log_record,
+                        artifact_watchers,
+                    )
                 for fragment in ltb_mutagen_fragments:
                     key = (obj.object_id, event.event_id, fragment)
                     self._ltb_mutagen_departures[key] = (
@@ -2238,6 +2266,10 @@ class Game(
                         else TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE
                         if self.interpreter.countered_creature_left_life(watcher.card, fragment)
                         is not None
+                        else TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER
+                        if self.interpreter.controlled_artifact_counter_transfer(
+                            watcher.card, fragment
+                        )
                         else TriggerEffect.PERMANENT_LEFT_SELF_COUNTER
                     )
                     self._enqueue_trigger(
@@ -4474,6 +4506,75 @@ class Game(
             raise ValueError("countered creature departure has invalid event provenance")
         return amount
 
+    def _validate_artifact_counter_transfer(
+        self,
+        event: RulesEvent,
+        source_id: str,
+        source_card: CardFact,
+        fragment: str,
+        controller: int,
+        *,
+        trigger_id: str | None = None,
+    ) -> tuple[tuple[str, int], ...]:
+        """Authenticate a countered artifact's departure-time state and watcher."""
+        self._authenticate_original_rules_event(event)
+        anchor = self._artifact_counter_departures.get(event.event_id)
+        if anchor is None:
+            raise ValueError("artifact counter transfer lacks departure snapshot")
+        departed, counters, original_departure, watchers = anchor
+        departed_id = event.subject_ids[0] if len(event.subject_ids) == 1 else None
+        source = self._objects.get(source_id)
+        departure_records = [
+            record
+            for record in self.events
+            if record.get("event") == "permanent_departed"
+            and record.get("source_object_id") == departed_id
+        ]
+        trigger = self._triggers.get(trigger_id) if trigger_id is not None else None
+        if (
+            not self.interpreter.controlled_artifact_counter_transfer(source_card, fragment)
+            or event.kind is not RulesEventKind.PERMANENT_LEFT
+            or event.source_id != departed_id
+            or event.player_index != controller
+            or departed_id is None
+            or departed is not self._objects.get(departed_id)
+            or not isinstance(departed, Permanent)
+            or departed.zone != "former"
+            or not counters
+            or tuple(sorted((kind, n) for kind, n in departed.counters.items() if n > 0))
+            != counters
+            or not any(
+                item[0] == departed_id
+                and item[1] == controller
+                and "Artifact" in item[2].split(" — ", 1)[0].split()
+                for item in event.last_known_battlefield
+            )
+            or (departed_id, controller) not in event.battlefield_authority
+            or (source_id, controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not source_card
+            or source.zone not in {"battlefield", "former"}
+            or (source_id, controller, fragment) not in watchers
+            or len(departure_records) != 1
+            or tuple(departure_records[0].items()) != original_departure
+            or departure_records[0].get("counter_snapshot")
+            != [list(counter) for counter in counters]
+            or (
+                trigger_id is not None
+                and (
+                    trigger is None
+                    or trigger.effect is not TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER
+                    or trigger.source_id != source_id
+                    or trigger.source_card is not source_card
+                    or trigger.controller != controller
+                    or trigger.oracle_fragment != fragment
+                    or trigger.event is not event
+                )
+            )
+        ):
+            raise ValueError("artifact counter transfer has invalid event provenance")
+        return counters
+
     def _paramecia_fragment(self, card: CardFact) -> str | None:
         target = (
             "When this creature dies, you may exile it. When you do, put target creature card "
@@ -4832,6 +4933,10 @@ class Game(
             self._validate_countered_creature_departure_life(
                 event, source.object_id, source.card, fragment, source.controller
             )
+        if effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+            self._validate_artifact_counter_transfer(
+                event, source.object_id, source.card, fragment, source.controller
+            )
         if effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             self._validate_etb_artifact_draw_provenance(
                 controller=source.controller,
@@ -5102,6 +5207,45 @@ class Game(
                     )
                     self.log(
                         "attack_counter_target_selected",
+                        event_id=trigger.event.event_id,
+                        stack_object_id=ability.object_id,
+                        source_id=trigger.source_id,
+                        target_id=selected,
+                        offered_ids=list(offered),
+                    )
+                if ability.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+                    self._validate_artifact_counter_transfer(
+                        trigger.event,
+                        trigger.source_id,
+                        trigger.source_card,
+                        trigger.oracle_fragment,
+                        trigger.controller,
+                        trigger_id=trigger.trigger_id,
+                    )
+                    offered = tuple(
+                        sorted(
+                            permanent.object_id
+                            for permanent in self.players[trigger.controller].battlefield
+                            if self.is_authoritative(permanent, "battlefield")
+                            and (
+                                {"Artifact", "Creature"}
+                                & set(permanent.type_line.split(" — ", 1)[0].split())
+                            )
+                            and self._legal_targeting_protection(permanent, trigger.controller)
+                        )
+                    )
+                    selected = (
+                        self.counter_target_chooser(trigger.controller, trigger.source_id, offered)
+                        if offered
+                        else None
+                    )
+                    if selected is not None and selected not in offered:
+                        raise ValueError("counter transfer chooser returned an illegal target")
+                    ability.target_id = selected
+                    target = self._objects.get(selected) if selected is not None else None
+                    self._artifact_counter_targets[ability.object_id] = (target, offered)
+                    self.log(
+                        "artifact_counter_transfer_target_selected",
                         event_id=trigger.event.event_id,
                         stack_object_id=ability.object_id,
                         source_id=trigger.source_id,
@@ -6084,6 +6228,28 @@ class Game(
                 ability.controller,
                 trigger_id=ability.trigger_id,
             )
+        if ability.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+            self._validate_artifact_counter_transfer(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
+            selection = self._artifact_counter_targets.get(ability.object_id)
+            if (
+                selection is None
+                or (selection[0] is None and ability.target_id is not None)
+                or (
+                    selection[0] is not None
+                    and (
+                        selection[0].object_id != ability.target_id
+                        or ability.target_id not in selection[1]
+                    )
+                )
+            ):
+                raise ValueError("counter transfer target selection is unauthenticated")
         if ability.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
             source = self._objects.get(ability.source_id)
             if not isinstance(source, Permanent):
@@ -6846,6 +7012,49 @@ class Game(
                 life_before=before,
                 life_after=self.players[ability.controller].life,
             )
+        elif ability.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+            counters = self._validate_artifact_counter_transfer(
+                ability.event,
+                ability.source_id,
+                ability.source_card,
+                ability.oracle_fragment,
+                ability.controller,
+                trigger_id=ability.trigger_id,
+            )
+            target, _offered = self._artifact_counter_targets[ability.object_id]
+            legal = (
+                isinstance(target, Permanent)
+                and self._objects.get(target.object_id) is target
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and bool(
+                    {"Artifact", "Creature"} & set(target.type_line.split(" — ", 1)[0].split())
+                )
+                and self._legal_targeting_protection(target, ability.controller)
+            )
+            if legal:
+                for kind, count in counters:
+                    self.place_counters(
+                        target,
+                        kind,
+                        count,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=ability.oracle_fragment,
+                        source_id=ability.source_id,
+                        stack_object_id=ability.object_id,
+                        defer_post_placement=True,
+                    )
+            self.log(
+                "artifact_counter_transfer_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                departed_id=ability.event.source_id,
+                controller=ability.controller,
+                target_id=target.object_id if target is not None else None,
+                target_legal=bool(legal),
+                counter_snapshot=[list(item) for item in counters],
+            )
         elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
             source_before = self._validate_permanent_left_counter_provenance(
                 controller=ability.controller,
@@ -7573,6 +7782,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
+                TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
                 TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
@@ -14987,6 +15197,7 @@ class Game(
                         TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                         TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                         TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
+                        TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
                         TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER,
                         TriggerEffect.ETB_ARTIFACT_DRAW,
                         TriggerEffect.ETB_TAP_STUN,
@@ -16539,6 +16750,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.CONTROLLED_CREATURE_LEFT_OPPONENT_LOSS,
                 TriggerEffect.CONTROLLED_COUNTERED_CREATURE_LEFT_LIFE,
+                TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER,
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
                 TriggerEffect.UTILITY_TARGET,
@@ -17015,6 +17227,18 @@ class Game(
                         )
                     except ValueError as error:
                         raise AssertionError(str(error)) from error
+                if obj.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+                    try:
+                        self._validate_artifact_counter_transfer(
+                            obj.event,
+                            obj.source_id,
+                            obj.source_card,
+                            obj.oracle_fragment,
+                            obj.controller,
+                            trigger_id=obj.trigger_id,
+                        )
+                    except ValueError as error:
+                        raise AssertionError(str(error)) from error
                 if obj.effect is TriggerEffect.CLASS_SPELL_CAST_TEAM_COUNTER:
                     source = self._objects.get(obj.source_id)
                     if not isinstance(source, Permanent):
@@ -17077,6 +17301,18 @@ class Game(
         ):
             raise AssertionError("pending trigger IDs must be unique")
         for trigger in self.pending_triggers:
+            if trigger.effect is TriggerEffect.CONTROLLED_ARTIFACT_COUNTER_TRANSFER:
+                try:
+                    self._validate_artifact_counter_transfer(
+                        trigger.event,
+                        trigger.source_id,
+                        trigger.source_card,
+                        trigger.oracle_fragment,
+                        trigger.controller,
+                        trigger_id=trigger.trigger_id,
+                    )
+                except ValueError as error:
+                    raise AssertionError(str(error)) from error
             if trigger.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
                 try:
                     self._validate_permanent_left_counter_provenance(
