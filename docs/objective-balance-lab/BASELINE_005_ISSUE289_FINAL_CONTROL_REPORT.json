@@ -1,0 +1,28 @@
+{
+  "schema": "obl-baseline005-final-control-report-v1",
+  "control_id": "OBL-BASELINE-005-FINAL-CONTROL-001",
+  "environment_id": "OBL-BASELINE-005",
+  "status": "BLOCKED",
+  "semantic_runtime_sha256": "69d09aa4e63bdbc05dc0d7c4ecc212b4739c088034d273548880838bcd5ab130",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "expected_games": 4500,
+  "completed_games": 0,
+  "runtime_errors": 1,
+  "replay_cells": 0,
+  "failure": {
+    "pair": ["leonardo", "raphael"],
+    "orientation": "reversed",
+    "block": 2,
+    "seed": 27530971794998924477319664755747869070209299252577545546345361737057440661833,
+    "seats": ["raphael", "leonardo"],
+    "error": "ValueError: damage-to-self mana trigger has invalid event provenance"
+  },
+  "machine_artifact": {
+    "path": "docs/objective-balance-lab/BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz",
+    "sha256": "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
+  },
+  "recommendation": "BLOCKED_BY_SIMULATOR_DEFECT",
+  "rerun_authorized": false,
+  "promotion_authorized": false
+}
+
