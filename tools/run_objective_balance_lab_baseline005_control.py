@@ -19,10 +19,13 @@ from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
 READINESS = ROOT / "docs/cardcade/ISSUE_289_MICHELANGELO_IMPROVISER_CALIBRATION_READINESS.json"
+REPAIR = ROOT / "docs/cardcade/ISSUE_289_DAMAGE_MANA_PROVENANCE_REPAIR.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
-RESULT = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
-RUNTIME = "69d09aa4e63bdbc05dc0d7c4ecc212b4739c088034d273548880838bcd5ab130"
+RESULT = OBL / "BASELINE_005_ISSUE289_REPAIRED_CONTROL.json.gz"
+CONTROL_ID = "OBL-BASELINE-005-REPAIRED-CONTROL-001"
+RUNTIME = "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
+PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
 
 
 def digest(value: object) -> str:
@@ -53,11 +56,21 @@ def preflight() -> tuple[dict, list[dict], dict[str, str]]:
     assert not RESULT.exists(), f"refusing to overwrite existing control: {RESULT}"
     manifest = json.loads(MANIFEST.read_text())
     readiness = json.loads(READINESS.read_text())
+    repair = json.loads(REPAIR.read_text())
     assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME
-    assert readiness["semantic_runtime_sha256"] == RUNTIME
+    # The final coverage/readiness ledger predates the provenance repair.  Its
+    # zero-gap result is retained as semantic evidence, while the repair report
+    # authenticates the runtime actually used by this control.
+    assert readiness["semantic_runtime_sha256"] != RUNTIME
     assert readiness["calibration_readiness"] == "READY"
     assert readiness["critical_remaining"] == readiness["important_remaining"] == 0
     assert readiness["unbounded_residual_important"] == 0
+    assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
+    assert repair["repaired_runtime_sha256"] == RUNTIME
+    assert repair["previous_control_id"] == "OBL-BASELINE-005-FINAL-CONTROL-001"
+    assert repair["previous_control_artifact_sha256"] == PRIOR_FAILED_CONTROL_SHA
+    failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
+    assert sha(failed) == PRIOR_FAILED_CONTROL_SHA
     assert len(list(__import__("csv").DictReader(LEDGER.open()))) == 172
     assert manifest["environment_id"] == "OBL-BASELINE-005"
     # The promoted Baseline 005 manifest records its historical promotion runtime;
@@ -93,9 +106,9 @@ def main() -> int:
         )
         return 0
     expected = {
-        "schema": "obl-baseline005-final-control-v1",
+        "schema": "obl-baseline005-repaired-control-v1",
         "environment_id": "OBL-BASELINE-005",
-        "evidence_id": "OBL-BASELINE-005-FINAL-CONTROL-001",
+        "evidence_id": CONTROL_ID,
         "baseline_manifest_sha256": sha(MANIFEST),
         "baseline_decks": manifest["decks"],
         "semantic_runtime_sha256": RUNTIME,
@@ -108,6 +121,9 @@ def main() -> int:
         "runtime_errors": 0,
         "status": "IN_PROGRESS",
         "promotion_authorized": False,
+        "prior_failed_control_id": "OBL-BASELINE-005-FINAL-CONTROL-001",
+        "prior_failed_control_sha256": PRIOR_FAILED_CONTROL_SHA,
+        "repair_diagnostics_excluded": True,
     }
     cards = r1.catalog()
     replay_pairs = (
