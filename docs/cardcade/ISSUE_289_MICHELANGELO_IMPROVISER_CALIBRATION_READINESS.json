@@ -1,0 +1,44 @@
+{
+  "schema": "issue289-michelangelo-improviser-calibration-readiness-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "checkpoint_overlay_sha256": "a73ec672bf1d9d4d85c1b852406bece2372b1f9c51c2c285da582ba50988265b",
+  "semantic_runtime_sha256": "69d09aa4e63bdbc05dc0d7c4ecc212b4739c088034d273548880838bcd5ab130",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "critical_remaining": 0,
+  "important_remaining": 0,
+  "important_blockers": 0,
+  "unbounded_residual_important": 0,
+  "calibration_readiness": "READY",
+  "control_authorized": false,
+  "recommendation": "READY_FOR_HQ_AUTHORIZATION",
+  "reason": "All 172 ledger rows are supported or explicitly annotated; the final combat-damage hand-entry family is executable and deterministic. HQ must separately authorize any 4,500-game Baseline 005 control.",
+  "engine_readiness_audit": {
+    "oracle_coverage": "0 critical, 0 important, 0 unbounded",
+    "pilot_quality": "Choices are legal, private-hand selection is deterministic, and no named-deck dispatch is used.",
+    "determinism": "Focused fixtures, frozen diagnostics, and full replay checks are required evidence below.",
+    "known_limitations": "No unsupported gameplay rows remain; diagnostic exposure is not balance evidence.",
+    "historical_preservation": "Baseline 005 deck hashes, 172 row identities, prior overlays and historical runtimes preserved."
+  },
+  "score_formula": "3*copies + 4*decks + 5*impact + 2*reuse - complexity",
+  "score_scales": {
+    "impact": "4=core deck identity/resource/combat; 3=consequential conditional or utility",
+    "reuse": "3=shared Class rules; 2=cross-deck; 1=single-deck",
+    "complexity": "4=linked copy/animation/recursion; 3=Class; 2=bounded rule"
+  },
+  "ranked_important_rows": [],
+  "ranked_mechanic_families": [],
+  "ranked_family_order": [],
+  "separate_unbounded_rows_preserved": [],
+  "original_unbounded_dispositions": [
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "disposition": "implemented"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "disposition": "implemented"
+    }
+  ]
+}

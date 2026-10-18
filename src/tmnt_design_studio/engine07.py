@@ -383,6 +383,7 @@ class TriggerEffect(Enum):
     COMBAT_DAMAGE_DRAW_LOSE_LIFE = "combat_damage_draw_lose_life"
     COMBAT_DAMAGE_GRAVEYARD_ATTACKER = "combat_damage_graveyard_attacker"
     COMBAT_DAMAGE_ARTIFACT_COPY = "combat_damage_artifact_copy"
+    COMBAT_DAMAGE_HAND_BATTLEFIELD = "combat_damage_hand_battlefield"
     GRANTED_COMBAT_UNTAP_GAIN = "granted_combat_untap_gain"
     EQUIPMENT_SUBTYPE_ENTRY_ATTACH = "equipment_subtype_entry_attach"
     UTILITY_TARGET = "utility_target"
@@ -581,6 +582,20 @@ class HandBottomDrawEvidence:
     post_hand_ids: tuple[str, ...]
     post_library_ids: tuple[str, ...]
     declined: bool
+
+
+@dataclass(frozen=True)
+class HandBattlefieldEntryOption:
+    """One legal optional creature/land pair selected from a private hand."""
+
+    creature_id: str | None
+    land_id: str | None
+
+
+@dataclass(frozen=True)
+class HandBattlefieldEntryView:
+    player_index: int
+    cards: tuple[tuple[str, str], ...]
 
 
 @dataclass(frozen=True)
@@ -1480,6 +1495,7 @@ class Game(
         library_search_chooser=None,
         hand_reset_chooser=None,
         hand_bottom_draw_chooser=None,
+        hand_battlefield_entry_chooser=None,
         library_position_chooser=None,
         discard_draw_chooser=None,
         draw_discard_chooser=None,
@@ -1653,6 +1669,10 @@ class Game(
         self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
             lambda _view, options: next(option for option in options if option.card_id is None)
         )
+        self.hand_battlefield_entry_chooser = hand_battlefield_entry_chooser or (
+            lambda _view, options: options[0]
+        )
+        self._hand_battlefield_entry_choice_active = False
         self.library_position_chooser = library_position_chooser or (
             lambda _owner, _source_id, _target_id, options: options[0]
         )
@@ -2027,6 +2047,8 @@ class Game(
             raise ValueError("library-search chooser cannot move authoritative objects")
         if self._top_creature_selection_choice_active:
             raise ValueError("top-creature chooser cannot move authoritative objects")
+        if self._hand_battlefield_entry_choice_active:
+            raise ValueError("hand-entry chooser cannot move authoritative objects")
         if self._hand_reset_choice_active:
             raise ValueError("hand-reset chooser cannot move authoritative objects")
         if self._objects.get(obj.object_id) is not obj:
@@ -3606,6 +3628,86 @@ class Game(
             library_before,
         )
 
+    def choose_hand_battlefield_entry(self, player_index: int) -> HandBattlefieldEntryOption:
+        """Choose zero, one, or one creature plus one land from a private hand."""
+        if player_index not in range(2):
+            raise ValueError("hand-entry player is invalid")
+        player = self.players[player_index]
+        creatures = tuple(card for card in player.hand if card.card.is_creature)
+        lands = tuple(card for card in player.hand if card.card.is_land)
+        options = [HandBattlefieldEntryOption(None, None)]
+        options.extend(HandBattlefieldEntryOption(card.object_id, None) for card in creatures)
+        options.extend(HandBattlefieldEntryOption(None, card.object_id) for card in lands)
+        options.extend(
+            HandBattlefieldEntryOption(creature.object_id, land.object_id)
+            for creature in creatures
+            for land in lands
+        )
+        view = HandBattlefieldEntryView(
+            player_index,
+            tuple((card.object_id, card.card.name) for card in player.hand),
+        )
+        before = tuple(player.hand)
+        self._hand_battlefield_entry_choice_active = True
+        try:
+            choice = self.hand_battlefield_entry_chooser(view, tuple(options))
+        finally:
+            self._hand_battlefield_entry_choice_active = False
+        if not isinstance(choice, HandBattlefieldEntryOption) or choice not in options:
+            raise ValueError("hand-entry chooser must return one listed option")
+        if tuple(player.hand) != before:
+            raise ValueError("hand-entry chooser mutated authoritative hand")
+        return choice
+
+    def commit_hand_battlefield_entry(
+        self,
+        player_index: int,
+        choice: HandBattlefieldEntryOption,
+        *,
+        source_id: str,
+        oracle_fragment: str,
+    ) -> tuple[Permanent, ...]:
+        if not isinstance(choice, HandBattlefieldEntryOption):
+            raise ValueError("hand-entry choice is invalid")
+        ids = tuple(x for x in (choice.creature_id, choice.land_id) if x is not None)
+        if len(set(ids)) != len(ids):
+            raise ValueError("hand-entry choice cannot select one card twice")
+        selected = []
+        for object_id in ids:
+            card = self._objects.get(object_id)
+            if (
+                not isinstance(card, CardObject)
+                or not self.is_authoritative(card, "hand")
+                or card.owner != player_index
+            ):
+                raise ValueError("hand-entry choice selected an unavailable card")
+            if choice.creature_id == object_id and not card.card.is_creature:
+                raise ValueError("hand-entry creature choice is not a creature")
+            if choice.land_id == object_id and not card.card.is_land:
+                raise ValueError("hand-entry land choice is not a land")
+            selected.append(card)
+        entered = []
+        for card in selected:
+            permanent = self.move_object(
+                card, "battlefield", controller=player_index, reason="combat_hand_entry"
+            )
+            assert isinstance(permanent, Permanent)
+            entered.append(permanent)
+            if permanent.is_creature:
+                self._process_creature_entered_triggers(permanent, defer_triggers=True)
+        self.check_state_based_actions()
+        self._put_pending_triggers_on_stack()
+        self._drain_triggered_abilities()
+        self.log(
+            "combat_hand_battlefield_entry_resolved",
+            source_id=source_id,
+            controller=player_index,
+            selected_ids=ids,
+            entered_ids=[item.object_id for item in entered],
+            oracle_fragment=oracle_fragment,
+        )
+        return tuple(entered)
+
     def commit_hand_bottom_draw(
         self,
         player_index: int,
@@ -4994,6 +5096,22 @@ class Game(
                 or not self.interpreter.combat_damage_artifact_copy(source.card, fragment)
             ):
                 raise ValueError("artifact copy trigger lacks combat-damage provenance")
+        if effect is TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD:
+            self._authenticate_original_rules_event(event)
+            if (
+                event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                or event.source_id != source.object_id
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or event.target_player != 1 - source.controller
+                or event.amount is None
+                or event.amount <= 0
+                or not self.is_authoritative(source, "battlefield")
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or not self.interpreter.combat_damage_hand_battlefield(source.card, fragment)
+            ):
+                raise ValueError("hand-entry trigger lacks combat-damage provenance")
         if (
             effect is TriggerEffect.CREATE_TOKEN
             and self.interpreter.entry_leave_or_artifact_cast_token_context(source.card, fragment)
@@ -5656,6 +5774,19 @@ class Game(
                         target_id=selected,
                         offered_ids=list(offered),
                     )
+                if ability.effect is TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD:
+                    self._authenticate_original_rules_event(trigger.event)
+                    source = self._objects.get(trigger.source_id)
+                    if (
+                        not isinstance(source, (Permanent, CardObject))
+                        or source.card is not trigger.source_card
+                        or trigger.event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                        or trigger.event.source_id != trigger.source_id
+                        or trigger.event.target_player != 1 - trigger.controller
+                    ):
+                        raise ValueError("hand-entry trigger lost combat provenance")
+                    # The choice is made on resolution, but the ability carries the
+                    # authenticated event and source identity independently of source departure.
                 if (
                     ability.effect is TriggerEffect.UTILITY_TARGET
                     and not self._select_utility_target(ability, trigger)
@@ -6518,6 +6649,35 @@ class Game(
         ):
             raise ValueError("combat artifact copy trigger provenance is invalid")
 
+    def _validate_combat_hand_battlefield_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        source = self._objects.get(ability.source_id)
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            trigger is None
+            or trigger.effect is not TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD
+            or trigger.event is not ability.event
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or ability.event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or ability.event.source_id != ability.source_id
+            or ability.event.subject_ids != (ability.source_id,)
+            or ability.event.player_index != ability.controller
+            or ability.event.target_player != 1 - ability.controller
+            or ability.event.amount is None
+            or ability.event.amount <= 0
+            or (ability.source_id, ability.controller) not in ability.event.battlefield_authority
+            or not self.interpreter.combat_damage_hand_battlefield(
+                ability.source_card, ability.oracle_fragment
+            )
+        ):
+            raise ValueError("combat hand-entry trigger provenance is invalid")
+
     def _validate_artifact_entry_self_counter_trigger(
         self, ability: TriggeredAbilityObject
     ) -> None:
@@ -6612,6 +6772,8 @@ class Game(
             self._validate_combat_graveyard_trigger(ability)
         if ability.effect is TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY:
             self._validate_combat_artifact_copy_trigger(ability)
+        if ability.effect is TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD:
+            self._validate_combat_hand_battlefield_trigger(ability)
         if ability.effect in {
             TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
             TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
@@ -7729,6 +7891,38 @@ class Game(
                 legal_target=legal,
                 token_id=None if token is None else token.object_id,
             )
+        elif ability.effect is TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD:
+            self._validate_combat_hand_battlefield_trigger(ability)
+            choice = self.choose_hand_battlefield_entry(ability.controller)
+            self.log(
+                "combat_hand_battlefield_entry_choice",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                creature_id=choice.creature_id,
+                land_id=choice.land_id,
+                oracle_fragment=ability.oracle_fragment,
+            )
+            entered = self.commit_hand_battlefield_entry(
+                ability.controller,
+                choice,
+                source_id=ability.source_id,
+                oracle_fragment=ability.oracle_fragment,
+            )
+            self.log(
+                "combat_hand_battlefield_entry_resolved",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                creature_id=choice.creature_id,
+                land_id=choice.land_id,
+                entered_ids=[item.object_id for item in entered],
+                oracle_fragment=ability.oracle_fragment,
+            )
         elif ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
             target = self._objects.get(ability.target_id or "")
             valid = isinstance(target, CardObject) and self.is_authoritative(target, "graveyard")
@@ -8363,6 +8557,7 @@ class Game(
                 TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
                 TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
                 TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY,
+                TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD,
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -13011,6 +13206,18 @@ class Game(
                                 source,
                                 fragment,
                                 TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY,
+                            )
+                        if (
+                            source.ability_loss_timestamp is None
+                            and self.interpreter.combat_damage_hand_battlefield(
+                                source.card, fragment
+                            )
+                        ):
+                            self._enqueue_trigger(
+                                event,
+                                source,
+                                fragment,
+                                TriggerEffect.COMBAT_DAMAGE_HAND_BATTLEFIELD,
                             )
             else:
                 assert assignment.target_id is not None
