@@ -1,0 +1,37 @@
+{
+  "schema": "issue289-damage-mana-provenance-repair-v1",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "previous_control_id": "OBL-BASELINE-005-FINAL-CONTROL-001",
+  "previous_control_artifact_sha256": "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352",
+  "previous_runtime_sha256": "69d09aa4e63bdbc05dc0d7c4ecc212b4739c088034d273548880838bcd5ab130",
+  "historical_runtime_sha256": "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924",
+  "repaired_runtime_sha256": "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401",
+  "failure": {
+    "preserved_pair": ["leonardo", "raphael"],
+    "preserved_orientation": "reversed",
+    "preserved_block": 2,
+    "preserved_seed": 27530971794998924477319664755747869070209299252577545546345361737057440661833,
+    "error": "ValueError: damage-to-self mana trigger has invalid event provenance"
+  },
+  "root_cause": {
+    "event_kind": "combat_damage_to_creature",
+    "recipient_object_id": "object-000175",
+    "recipient_zone_at_failure": "former",
+    "battlefield_authority_present": false,
+    "repair": "skip non-authoritative combat targets before damage event construction"
+  },
+  "validation": {
+    "focused_tests_passed": 77,
+    "full_tests_passed": 2103,
+    "full_tests_skipped": 10,
+    "exact_seed_replays": 4,
+    "exact_seed_errors": 0,
+    "diagnostic_cell_games": 100,
+    "diagnostic_cell_errors": 0,
+    "ruff": "pass"
+  },
+  "coverage_ledger_rows": 172,
+  "baseline_decks_unchanged": true,
+  "calibration_authorized": false,
+  "recommendation": "READY_FOR_REPAIR_ACCEPTANCE_BLOCKED_FOR_RENEWED_CALIBRATION_AUTHORIZATION"
+}

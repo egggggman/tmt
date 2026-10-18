@@ -2,6 +2,7 @@
 
 from dataclasses import replace
 from pathlib import Path
+from types import MethodType
 
 import pytest
 
@@ -254,3 +255,42 @@ def test_lethal_damage_source_departure_forged_event_and_exact_replay():
         return game.events, game.floating_mana.productions(0), game.floating_mana.consumptions(0)
 
     assert scenario() == scenario()
+
+
+def test_departed_combat_recipient_cannot_create_damage_mana_event():
+    """A stale combat assignment must fail closed before event construction."""
+    game = Game(([LAND] * 60, [LAND] * 60), seed=2897)
+    game.begin_turn()
+    attacker = game.create_permanent(SOURCE, 0, summoning_sick=False)
+    reactor = game.create_permanent(REACTOR, 1, summoning_sick=False)
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    game.execute_attack_action(
+        next(
+            option
+            for option in game.legal_attack_options(0)
+            if option.attacker_ids == (attacker.object_id,)
+        )
+    )
+    game.execute_block_action(
+        ActionOption(
+            ActionKind.DECLARE_BLOCKERS,
+            1,
+            blocks=((attacker.object_id, reactor.object_id),),
+        )
+    )
+    original = game._combat_permanent
+    departed = False
+
+    def depart_before_assignment(self, object_id, role):
+        nonlocal departed
+        if role == "damage source" and not departed:
+            departed = True
+            self.move_object(reactor, "graveyard", reason="stale_combat_fixture")
+        return original(object_id, role)
+
+    game._combat_permanent = MethodType(depart_before_assignment, game)
+    game.resolve_combat_damage()
+    assert reactor.zone == "former"
+    assert not game.stack
+    assert not game.floating_mana.snapshot(1)
+    game.check_invariants()
