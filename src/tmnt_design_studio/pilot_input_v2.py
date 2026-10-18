@@ -197,8 +197,12 @@ def decision_context(game: Game, observer_index: int) -> DecisionContextV2:
                     permanent.controller,
                     describe_card(permanent.object_id, permanent.card),
                     permanent.type_line,
-                    permanent.power if permanent.card.is_creature else None,
-                    permanent.toughness if permanent.card.is_creature else None,
+                    # Observation follows the permanent's current characteristics.
+                    # An artifact or other noncreature card can be animated into a
+                    # creature; exposing None for that legal creature caused pilot
+                    # scoring to perform arithmetic on an absent toughness.
+                    permanent.power if permanent.is_creature else None,
+                    permanent.toughness if permanent.is_creature else None,
                     permanent.tapped,
                     permanent.damage,
                     permanent.is_token,

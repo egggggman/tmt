@@ -275,6 +275,37 @@ def test_battlefield_copied_characteristics_and_payment_observations():
     assert decision_context(game, 0).battlefields[0][0].land_payment_untapped is False
 
 
+def test_animated_noncreature_exposes_current_effective_power_toughness():
+    game = Game(([LAND] * 20, [LAND] * 20), seed=402)
+    game.begin_turn()
+    artifact = CardFact("Fixture Equipment", "{2}", 2, "Artifact — Equipment")
+    permanent = game.create_permanent(artifact, 1)
+    game.apply_temporary_type_and_base_pt(
+        permanent,
+        added_types=("Creature",),
+        power=0,
+        toughness=0,
+        source_id="fixture-animation",
+        source_card="Fixture Animation",
+        oracle_fragment="It becomes a 0/0 creature.",
+        duration="persistent",
+    )
+    row = decision_context(game, 0).battlefields[1][0]
+    assert permanent.is_creature
+    assert row.type_line == "Artifact Creature — Equipment"
+    assert row.power == 0 and row.toughness == 0
+
+
+def test_malformed_animated_noncreature_fails_closed_without_base_power_toughness():
+    game = Game(([LAND] * 20, [LAND] * 20), seed=403)
+    game.begin_turn()
+    artifact = CardFact("Malformed Equipment", "{2}", 2, "Artifact — Equipment")
+    permanent = game.create_permanent(artifact, 1)
+    permanent.type_line_override = "Artifact Creature — Equipment"
+    with pytest.raises(ValueError, match="animated noncreature lacks a represented base P/T"):
+        decision_context(game, 0)
+
+
 @pytest.mark.parametrize("seat", [-1, 2, None, True])
 def test_invalid_recipients_fail_closed(seat):
     with pytest.raises(ValueError, match="explicit seat"):
