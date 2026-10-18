@@ -41,7 +41,11 @@ def sha(path: Path) -> str:
 
 def save(path: Path, payload: dict) -> None:
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_bytes(gzip.compress(json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode(), mtime=0))
+    tmp.write_bytes(
+        gzip.compress(
+            json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode(), mtime=0
+        )
+    )
     tmp.replace(path)
 
 
@@ -84,7 +88,9 @@ def main() -> int:
     args = parser.parse_args()
     manifest, schedule, paths = preflight()
     if not args.run:
-        print(json.dumps({"status": "PREFLIGHT_PASS", "games": 4500, "cells": 45, "runtime": RUNTIME}))
+        print(
+            json.dumps({"status": "PREFLIGHT_PASS", "games": 4500, "cells": 45, "runtime": RUNTIME})
+        )
         return 0
     expected = {
         "schema": "obl-baseline005-final-control-v1",
@@ -104,11 +110,26 @@ def main() -> int:
         "promotion_authorized": False,
     }
     cards = r1.catalog()
-    replay_pairs = (("leonardo", "raphael"), ("bebop_rocksteady", "raphael"), ("donatello", "michelangelo"), ("april_oneil", "casey_jones"), ("krang", "shredder"), ("splinter", "shredder"))
-    with ProcessPoolExecutor(max_workers=args.workers, initializer=r1._init_worker, initargs=(cards,)) as pool:
+    replay_pairs = (
+        ("leonardo", "raphael"),
+        ("bebop_rocksteady", "raphael"),
+        ("donatello", "michelangelo"),
+        ("april_oneil", "casey_jones"),
+        ("krang", "shredder"),
+        ("splinter", "shredder"),
+    )
+    with ProcessPoolExecutor(
+        max_workers=args.workers, initializer=r1._init_worker, initargs=(cards,)
+    ) as pool:
         for offset in range(0, len(schedule), 100):
             cell_rows = schedule[offset : offset + 100]
-            results = list(pool.map(r1._run_one, [(offset + i + 1, paths, row) for i, row in enumerate(cell_rows)], chunksize=1))
+            results = list(
+                pool.map(
+                    r1._run_one,
+                    [(offset + i + 1, paths, row) for i, row in enumerate(cell_rows)],
+                    chunksize=1,
+                )
+            )
             failures = [g for g in results if g.get("runtime_error")]
             if failures:
                 expected["status"] = "FAIL_CLOSED"
@@ -119,12 +140,21 @@ def main() -> int:
             key = "|".join(cell_rows[0]["pair"])
             expected["cell_hashes"][key] = digest(results)
             if any(set(cell_rows[0]["pair"]) == set(pair) for pair in replay_pairs):
-                replay = list(pool.map(r1._run_one, [(offset + 1, paths, cell_rows[0])], chunksize=1))
+                replay = list(
+                    pool.map(r1._run_one, [(offset + 1, paths, cell_rows[0])], chunksize=1)
+                )
                 assert digest(replay) == digest(results[:1])
                 expected["replays"][key] = digest(replay[0])
             save(RESULT, expected)
-            print(json.dumps({"phase": "control", "pair": key, "games": len(expected["games"]) }), flush=True)
-    assert len(expected["games"]) == 4500 and len(expected["cell_hashes"]) == 45 and len(expected["replays"]) == 6
+            print(
+                json.dumps({"phase": "control", "pair": key, "games": len(expected["games"])}),
+                flush=True,
+            )
+    assert (
+        len(expected["games"]) == 4500
+        and len(expected["cell_hashes"]) == 45
+        and len(expected["replays"]) == 6
+    )
     assert all(g["runtime_error"] is None and g["runtime_fingerprint"] for g in expected["games"])
     expected["status"] = "COMPLETE"
     save(RESULT, expected)
