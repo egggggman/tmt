@@ -3166,6 +3166,24 @@ class CardInterpreter:
             is not None
         )
 
+    def combat_damage_artifact_copy(self, card: CardDefinition, fragment: str) -> bool:
+        """Recognize a creature's generic combat-damage artifact-copy trigger."""
+        if "Creature" not in card.type_line:
+            return False
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = (
+            "(?:" + "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True)) + ")"
+        )
+        return (
+            re.fullmatch(
+                rf"Whenever {reference} deals combat damage to a player, create a token "
+                r"that's a copy of target artifact you control\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            is not None
+        )
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -4527,6 +4545,8 @@ class CardInterpreter:
             if self.combat_damage_draw_lose_life(card, fragment) is not None:
                 continue
             if self.combat_damage_graveyard_attacker(card, fragment):
+                continue
+            if self.combat_damage_artifact_copy(card, fragment):
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue

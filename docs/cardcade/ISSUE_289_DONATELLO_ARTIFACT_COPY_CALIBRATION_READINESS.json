@@ -1,0 +1,132 @@
+{
+  "schema": "issue289-donatello-artifact-copy-calibration-readiness-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "checkpoint_overlay_sha256": "1b554ed4429a0a2883c2f7a81614d54ff7d9b1842d29086033ac9caa67b78e44",
+  "semantic_runtime_sha256": "deeba684652abf2f0de958c97969bc3f6a5731a055d104f39ae789cf1e063a71",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "critical_remaining": 0,
+  "important_remaining": 2,
+  "important_blockers": 0,
+  "unbounded_residual_important": 2,
+  "calibration_readiness": "BLOCKED",
+  "reason": "Donatello's combat-damage artifact-copy rows are closed; two important effects remain unbounded.",
+  "pilot_execution_exposure": {
+    "status": "FROZEN_DIAGNOSTIC_RECORDED",
+    "diagnostic_path": "docs/cardcade/ISSUE_289_DONATELLO_ARTIFACT_COPY_SMOKE.json",
+    "interpretation": "Frozen-deck diagnostics record combat-damage opportunities, trigger target selections, resolutions and copied-token events. Mechanic fixtures establish resolution and invalidation behavior; no balance inference."
+  },
+  "score_formula": "3*copies + 4*decks + 5*impact + 2*reuse - complexity",
+  "score_scales": {
+    "impact": "4=core deck identity/resource/combat; 3=consequential conditional or utility",
+    "reuse": "3=shared Class rules; 2=cross-deck; 1=single-deck",
+    "complexity": "4=linked copy/animation/recursion; 3=Class; 2=bounded rule"
+  },
+  "ranked_important_rows": [
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "leonardo"
+      ],
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "mechanic": "temporary_combat_modifier_and_scry",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "michelangelo"
+      ],
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    }
+  ],
+  "ranked_mechanic_families": [
+    {
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Michelangelo, Improviser"
+      ],
+      "decks": [
+        "michelangelo"
+      ]
+    },
+    {
+      "mechanic": "temporary_combat_modifier_and_scry",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Hamato Guardian Stance"
+      ],
+      "decks": [
+        "leonardo"
+      ]
+    }
+  ],
+  "ranked_family_order": [
+    "combat_damage_hidden_hand_entry",
+    "temporary_combat_modifier_and_scry"
+  ],
+  "separate_unbounded_rows_preserved": [
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+    }
+  ],
+  "original_unbounded_dispositions": [
+    {
+      "deck": "bebop_rocksteady",
+      "card": "Bebop, Warthog Warrior",
+      "oracle_fragment": "Rhinos you control have menace.",
+      "disposition": "implemented",
+      "evidence": "Focused generic layer/combat fixtures and authenticated diagnostic replay"
+    },
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "disposition": "still_unresolved",
+      "evidence": "No complete execution or credible impact bound in this checkpoint"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "disposition": "still_unresolved",
+      "evidence": "No complete execution or credible impact bound in this checkpoint"
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Mutant BFF",
+      "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+      "disposition": "implemented",
+      "evidence": "Focused generic live-counter/combat fixtures and authenticated diagnostic replay"
+    }
+  ]
+}
