@@ -684,6 +684,7 @@ class ActivatedEffectKind(Enum):
     DRAW_CARDS = "draw_cards"
     ATTACH_EQUIPMENT = "attach_equipment"
     DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE = "deal_fixed_damage_to_target_creature"
+    COPY_THIS_EQUIPMENT = "copy_this_equipment"
     UNSUPPORTED = "unsupported"
 
 
@@ -753,6 +754,7 @@ class TokenDefinition:
     keywords: tuple[str, ...] = ()
     mana_cost: str = ""
     mana_value: int = 0
+    oracle_id: str = ""
 
     @property
     def is_land(self) -> bool:
@@ -2273,7 +2275,14 @@ class CardInterpreter:
         return bool(match and self._self_reference(card, match.group(1)))
 
     def single_block_limit(self, card: CardDefinition, fragment: str) -> str | None:
-        """Return the affected creature subtype, or 'self', for a full block limit."""
+        """Return a complete self, subtype, or counter-conditioned block limit."""
+        if (
+            fragment
+            == "Each creature you control with a counter on it can't be blocked "
+            "by more than one creature."
+            and any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES)
+        ):
+            return "controlled_with_counter"
         match = re.fullmatch(r"(.+) can't be blocked by more than one creature\.", fragment)
         if match is not None and match.group(1).casefold() in {
             card.name.casefold(),
@@ -3626,6 +3635,15 @@ class CardInterpreter:
                 re.IGNORECASE,
             )
         )
+        equipment_copy = bool(
+            "Artifact" in card.type_line
+            and "Equipment" in card.type_line
+            and re.fullmatch(
+                r"(?:\{(?:\d+|[WUBRG])\})+,?\s*: Create a token that's a copy of this Equipment\.",
+                fragment.strip(),
+                re.IGNORECASE,
+            )
+        )
         frog_reach = (
             card.name == "Frog Butler"
             and fragment.strip() == "{2}: This creature gains reach until end of turn."
@@ -3771,6 +3789,9 @@ class CardInterpreter:
         elif activated_damage:
             effect_kind = ActivatedEffectKind.DEAL_FIXED_DAMAGE_TO_TARGET_CREATURE
             action_match = True
+        elif equipment_copy:
+            effect_kind = ActivatedEffectKind.COPY_THIS_EQUIPMENT
+            action_match = True
         elif token_haste:
             effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
             action_match = True
@@ -3794,6 +3815,7 @@ class CardInterpreter:
                 or mutagen_source
                 or other_sacrifice_draw
                 or counter_and_animate is not None
+                or equipment_copy
             )
             and instructions
             or (
@@ -3812,6 +3834,7 @@ class CardInterpreter:
             or mutagen_source
             or counter_and_animate is not None
             or other_sacrifice_draw
+            or equipment_copy
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -3840,6 +3863,7 @@ class CardInterpreter:
             or activated_damage
             or token_haste
             or class_level
+            or equipment_copy
         ):
             followup_executable = bool(action_match)
         else:

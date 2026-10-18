@@ -1837,6 +1837,62 @@ class Game(
             self.check_state_based_actions()
         return tuple(created)
 
+    def create_copy_token(
+        self,
+        source: Permanent,
+        controller: int,
+        *,
+        source_card: str,
+        oracle_fragment: str,
+        source_id: str | None = None,
+        stack_object_id: str | None = None,
+    ) -> Permanent:
+        """Create one independent token with the source's copiable characteristics."""
+        if (
+            not isinstance(source, Permanent)
+            or not self.is_authoritative(source, "battlefield")
+            or controller not in range(2)
+            or source.controller != controller
+            or "Artifact" not in source.type_line.split(" — ", 1)[0].split()
+        ):
+            raise ValueError("copy source is not an authoritative controlled artifact")
+        if source_id is not None and source_id != source.object_id:
+            raise ValueError("copy source identity mismatch")
+        card = source.card
+        definition = TokenDefinition(
+            name=card.name,
+            type_line=card.type_line,
+            power=card.power,
+            toughness=card.toughness,
+            oracle_text=card.oracle_text,
+            keywords=card.keywords,
+            mana_cost=card.mana_cost,
+            mana_value=card.mana_value,
+            oracle_id=getattr(card, "oracle_id", ""),
+        )
+        created = self.create_tokens(
+            controller,
+            TokenCreationProgram(definition, 1),
+            controller=controller,
+            source_card=source_card,
+            oracle_fragment=oracle_fragment,
+            source_id=source.object_id,
+            defer_post_creation=True,
+        )[0]
+        self.log(
+            "copied_artifact_token_created",
+            stack_object_id=stack_object_id,
+            source_id=source.object_id,
+            token_id=created.object_id,
+            source_card=source_card,
+            oracle_fragment=oracle_fragment,
+            copied_name=definition.name,
+            copied_type_line=definition.type_line,
+            copied_oracle_text=definition.oracle_text,
+            attached_to=None,
+        )
+        return created
+
     def place_on_battlefield(self, permanent: Permanent) -> None:
         """Place a newly registered test/setup object in its authoritative battlefield zone."""
         if self._objects.get(permanent.object_id) is not permanent:
@@ -14358,7 +14414,25 @@ class Game(
         )
         delivered = False
         food_life_before: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
+        if ability.program.effect_kind is ActivatedEffectKind.COPY_THIS_EQUIPMENT:
+            if source_permanent is not None:
+                self.create_copy_token(
+                    source_permanent,
+                    ability.controller,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                )
+                delivered = True
+            else:
+                self.log(
+                    "activated_ability_resolved_no_effect",
+                    stack_object_id=ability.object_id,
+                    source_id=ability.source_id,
+                    reason="copy_source_left_battlefield",
+                )
+        elif ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
             land_type = self.interpreter.LANDCYCLING.fullmatch(ability.oracle_fragment)
             assert land_type is not None
             player = self.players[ability.controller]
@@ -14842,8 +14916,12 @@ class Game(
             ActivatedEffectKind.GAIN_THREE_LIFE,
             ActivatedEffectKind.ADVANCE_CLASS_LEVEL,
             ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT,
+            ActivatedEffectKind.COPY_THIS_EQUIPMENT,
         }:
-            if ability.program.effect_kind is ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT:
+            if ability.program.effect_kind in {
+                ActivatedEffectKind.COUNTER_AND_ANIMATE_ARTIFACT,
+                ActivatedEffectKind.COPY_THIS_EQUIPMENT,
+            }:
                 self.check_state_based_actions()
             self._put_pending_triggers_on_stack()
 
@@ -17041,8 +17119,17 @@ class Game(
                 continue
             for fragment in self.interpreter.fragments(source.rules_card):
                 affected = self.interpreter.single_block_limit(source.card, fragment)
-                if (affected == "self" and source is attacker) or (
-                    affected is not None and affected != "self" and affected in subtype
+                if (
+                    (affected == "self" and source is attacker)
+                    or (
+                        affected == "controlled_with_counter"
+                        and any(count > 0 for count in attacker.counters.values())
+                    )
+                    or (
+                        affected is not None
+                        and affected not in {"self", "controlled_with_counter"}
+                        and affected in subtype
+                    )
                 ):
                     sources.append((source.object_id, fragment))
         return tuple(sources)

@@ -1,0 +1,1786 @@
+{
+  "schema": "issue289-countered-block-limit-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "dfa80eaf604a11e041e5ad872aac1f8967150c27cad0db794c0ca0f0dd3851c2",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "276b891b7fb8b5b5866b3c244183f9f7bd0172662d866709b517a58546763688",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-countered-block-limit-michelangelo-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "michelangelo",
+        "raphael"
+      ],
+      "result_sha256": "a7c22fbe3a5a6f921e4252271677ca1025b7923654d5e5da9b9ad5626395cdb5",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "block_limit_applied": [],
+      "counter_placements": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Courier of Comestibles",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000141",
+          "source_id": "object-000169",
+          "stack_object_id": "object-000179"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Weirdness to 11",
+          "counter_type": "+1/+1",
+          "quantity": 2,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000181",
+          "source_id": "object-000183",
+          "stack_object_id": "object-000187"
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Game Master",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000204",
+          "source_id": "object-000213",
+          "stack_object_id": "object-000217"
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Game Master",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000204",
+          "source_id": "object-000232",
+          "stack_object_id": "object-000251"
+        },
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Game Master",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 3,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000204",
+          "source_id": "object-000254",
+          "stack_object_id": "object-000257"
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Game Master",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 4,
+          "source": "Saved by the Shell",
+          "oracle_fragment": "Put a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+          "target_id": "object-000204",
+          "source_id": "object-000264",
+          "stack_object_id": "object-000264"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000141"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147"
+          ]
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000141",
+            "object-000151"
+          ]
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160"
+          ]
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000141"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160"
+          ]
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160"
+          ]
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000204"
+          ]
+        },
+        {
+          "turn": 14,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160"
+          ]
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000204"
+          ]
+        },
+        {
+          "turn": 16,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160",
+            "object-000243"
+          ]
+        },
+        {
+          "turn": 17,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000204",
+            "object-000239"
+          ]
+        },
+        {
+          "turn": 18,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000147",
+            "object-000160"
+          ]
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000204",
+            "object-000239"
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-countered-block-limit-raphael-michelangelo-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "michelangelo"
+      ],
+      "result_sha256": "f7b5c954a86a7c1ee99f843556b4130a4888215b51392bae5cf05296c2aaf44a",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "block_limit_applied": [],
+      "counter_placements": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Casey Jones, Jury-Rig Justiciar",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000144",
+          "source_id": "object-000164",
+          "stack_object_id": "object-000172"
+        },
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Casey Jones, Jury-Rig Justiciar",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000144",
+          "source_id": "object-000189",
+          "stack_object_id": "object-000191"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144",
+            "object-000169"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144",
+            "object-000169",
+            "object-000180"
+          ]
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144",
+            "object-000169",
+            "object-000180"
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-countered-block-limit-michelangelo-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "michelangelo",
+        "donatello"
+      ],
+      "result_sha256": "dd44c61f6d6243d9a62bfc5d2e927362d8b7a2d1c984f5939b2f9374a76469c1",
+      "opportunities": [
+        [
+          7,
+          "activate",
+          "object-000126"
+        ],
+        [
+          7,
+          "creature",
+          "object-000126"
+        ],
+        [
+          7,
+          "damage",
+          "object-000126"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "creature",
+          "object-000126"
+        ],
+        [
+          9,
+          "damage",
+          "object-000126"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "land",
+          "object-000126"
+        ]
+      ],
+      "selected": [
+        [
+          9,
+          "creature",
+          "object-000126"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "activate",
+          "object-000126"
+        ],
+        [
+          7,
+          "creature",
+          "object-000126"
+        ],
+        [
+          7,
+          "damage",
+          "object-000126"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "activate",
+          "object-000126"
+        ],
+        [
+          9,
+          "damage",
+          "object-000126"
+        ],
+        [
+          9,
+          "destroy",
+          "object-000126"
+        ],
+        [
+          9,
+          "land",
+          "object-000126"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Michelangelo, Mutant BFF",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000186",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "michelangelo",
+          "card": "Michelangelo, Mutant BFF",
+          "generic": 2,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000135",
+            "object-000141",
+            "object-000151",
+            "object-000165"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Michelangelo, Mutant BFF",
+          "owner": "michelangelo",
+          "source_object_id": "object-000186",
+          "destination_object_id": "object-000187",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "creature_resolved",
+          "library_position": null
+        }
+      ],
+      "block_limit_applied": [
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000167",
+          "source_id": "object-000187",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000167",
+          "source_id": "object-000187",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000167",
+          "source_id": "object-000187",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        },
+        {
+          "turn": 17,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000167",
+          "source_id": "object-000187",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000187",
+          "source_id": "object-000187",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        }
+      ],
+      "counter_placements": [
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Improviser",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000167",
+          "source_id": "object-000189",
+          "stack_object_id": "object-000195"
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Improviser",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000167",
+          "source_id": "object-000209",
+          "stack_object_id": "object-000212"
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Improviser",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 3,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000167",
+          "source_id": "object-000225",
+          "stack_object_id": "object-000227"
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Improviser",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 4,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000167",
+          "source_id": "object-000249",
+          "stack_object_id": "object-000272"
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Mutant BFF",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000187",
+          "source_id": "object-000250",
+          "stack_object_id": "object-000297"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139"
+          ]
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000143"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000149"
+          ]
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000149",
+            "object-000161"
+          ]
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000167"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139"
+          ]
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000167",
+            "object-000187"
+          ]
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000202"
+          ]
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000167",
+            "object-000187"
+          ]
+        },
+        {
+          "turn": 14,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000202",
+            "object-000218"
+          ]
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000167",
+            "object-000187"
+          ]
+        },
+        {
+          "turn": 16,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000202",
+            "object-000218"
+          ]
+        },
+        {
+          "turn": 17,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000167",
+            "object-000187"
+          ]
+        },
+        {
+          "turn": 18,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000139",
+            "object-000202",
+            "object-000218"
+          ]
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000187",
+            "object-000282"
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-countered-block-limit-donatello-michelangelo-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "michelangelo"
+      ],
+      "result_sha256": "6c824de139d0c3c7fa70c33616aa857e8acb1bff4735eff13b531bc66eadf521",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "block_limit_applied": [],
+      "counter_placements": [
+        {
+          "turn": 6,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Courier of Comestibles",
+          "counter_type": "+1/+1",
+          "quantity": 2,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000145",
+          "source_id": "object-000156",
+          "stack_object_id": "object-000158"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Crustacean Commando",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000174",
+          "source_id": "object-000176",
+          "stack_object_id": "object-000179"
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Courier of Comestibles",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 3,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000145",
+          "source_id": "object-000195",
+          "stack_object_id": "object-000205"
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Courier of Comestibles",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 4,
+          "source": "Saved by the Shell",
+          "oracle_fragment": "Put a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+          "target_id": "object-000145",
+          "source_id": "object-000206",
+          "stack_object_id": "object-000206"
+        },
+        {
+          "turn": 14,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Courier of Comestibles",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 5,
+          "source": "Saved by the Shell",
+          "oracle_fragment": "Put a +1/+1 counter on target creature you control. It gains trample, hexproof, and indestructible until end of turn.",
+          "target_id": "object-000145",
+          "source_id": "object-000208",
+          "stack_object_id": "object-000208"
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Crustacean Commando",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000213",
+          "source_id": "object-000215",
+          "stack_object_id": "object-000217"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000137"
+          ]
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000137"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145"
+          ]
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145",
+            "object-000154"
+          ]
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000162"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145",
+            "object-000166"
+          ]
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145",
+            "object-000166"
+          ]
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000189"
+          ]
+        },
+        {
+          "turn": 14,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145",
+            "object-000192"
+          ]
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 16,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000145",
+            "object-000192"
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-countered-block-limit-michelangelo-bebop_rocksteady-3006",
+      "seed": 3006,
+      "seats": [
+        "michelangelo",
+        "bebop_rocksteady"
+      ],
+      "result_sha256": "026da55335b53ee3f523cc06d2585874e9581064c0ceb454eb394a61ec459298",
+      "opportunities": [
+        [
+          7,
+          "activate",
+          "object-000139"
+        ],
+        [
+          7,
+          "creature",
+          "object-000139"
+        ],
+        [
+          7,
+          "damage",
+          "object-000139"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000139"
+        ],
+        [
+          9,
+          "activate",
+          "object-000139"
+        ],
+        [
+          9,
+          "damage",
+          "object-000139"
+        ],
+        [
+          9,
+          "land",
+          "object-000139"
+        ],
+        [
+          11,
+          "activate",
+          "object-000139"
+        ],
+        [
+          11,
+          "creature",
+          "object-000139"
+        ],
+        [
+          11,
+          "damage",
+          "object-000139"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000139"
+        ],
+        [
+          11,
+          "land",
+          "object-000139"
+        ]
+      ],
+      "selected": [
+        [
+          11,
+          "creature",
+          "object-000139"
+        ]
+      ],
+      "nonselected": [
+        [
+          7,
+          "activate",
+          "object-000139"
+        ],
+        [
+          7,
+          "creature",
+          "object-000139"
+        ],
+        [
+          7,
+          "damage",
+          "object-000139"
+        ],
+        [
+          7,
+          "destroy",
+          "object-000139"
+        ],
+        [
+          9,
+          "activate",
+          "object-000139"
+        ],
+        [
+          9,
+          "damage",
+          "object-000139"
+        ],
+        [
+          9,
+          "land",
+          "object-000139"
+        ],
+        [
+          11,
+          "activate",
+          "object-000139"
+        ],
+        [
+          11,
+          "damage",
+          "object-000139"
+        ],
+        [
+          11,
+          "destroy",
+          "object-000139"
+        ],
+        [
+          11,
+          "land",
+          "object-000139"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "michelangelo",
+          "player_index": 0,
+          "card": "Michelangelo, Mutant BFF",
+          "card_types": [
+            "Creature"
+          ],
+          "stack_object_id": "object-000191",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "michelangelo",
+          "card": "Michelangelo, Mutant BFF",
+          "generic": 2,
+          "colored": [
+            "G",
+            "G"
+          ],
+          "source_ids": [
+            "object-000135",
+            "object-000140",
+            "object-000148",
+            "object-000161"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Michelangelo, Mutant BFF",
+          "owner": "michelangelo",
+          "source_object_id": "object-000191",
+          "destination_object_id": "object-000192",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "creature_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Michelangelo, Mutant BFF",
+          "owner": "michelangelo",
+          "source_object_id": "object-000041",
+          "destination_object_id": "object-000207",
+          "source_zone": "library",
+          "destination_zone": "battlefield",
+          "reason": "top_creature_selection_entry",
+          "library_position": null
+        }
+      ],
+      "block_limit_applied": [
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_blockers",
+          "event": "single_block_limit_applied",
+          "attacker_id": "object-000142",
+          "source_id": "object-000192",
+          "oracle_fragment": "Each creature you control with a counter on it can't be blocked by more than one creature.",
+          "blockers": 0,
+          "attacker_controller": 0
+        }
+      ],
+      "counter_placements": [
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Zoo Escapees",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000142",
+          "source_id": "object-000194",
+          "stack_object_id": "object-000198"
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Zoo Escapees",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000142",
+          "source_id": "object-000211",
+          "stack_object_id": "object-000217"
+        },
+        {
+          "turn": 14,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Zoo Escapees",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 3,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000142",
+          "source_id": "object-000222",
+          "stack_object_id": "object-000228"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142"
+          ]
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142",
+            "object-000163"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142",
+            "object-000163"
+          ]
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142",
+            "object-000192"
+          ]
+        },
+        {
+          "turn": 14,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000142",
+            "object-000206"
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-countered-block-limit-bebop_rocksteady-michelangelo-3006",
+      "seed": 3006,
+      "seats": [
+        "bebop_rocksteady",
+        "michelangelo"
+      ],
+      "result_sha256": "b45c3ab5d55b16dc8c8af183020ace2401cfdc2fce2205904b6f476009a776bb",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "block_limit_applied": [],
+      "counter_placements": [
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Paramecia Coloniex",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000144",
+          "source_id": "object-000162",
+          "stack_object_id": "object-000168"
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "counters_placed",
+          "target": "Michelangelo, Improviser",
+          "counter_type": "+1/+1",
+          "quantity": 2,
+          "total": 2,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000180",
+          "source_id": "object-000192",
+          "stack_object_id": "object-000194"
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "counters_placed",
+          "target": "Bebop, Warthog Warrior",
+          "counter_type": "+1/+1",
+          "quantity": 1,
+          "total": 1,
+          "source": "Mutagen",
+          "oracle_fragment": "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. Activate only as a sorcery.",
+          "target_id": "object-000201",
+          "source_id": "object-000226",
+          "stack_object_id": "object-000230"
+        }
+      ],
+      "attack_declarations": [
+        {
+          "turn": 1,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 2,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 3,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 4,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 5,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 6,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 7,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 8,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 9,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 10,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 11,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000144"
+          ]
+        },
+        {
+          "turn": 12,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000180"
+          ]
+        },
+        {
+          "turn": 13,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 14,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000180",
+            "object-000190"
+          ]
+        },
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000201"
+          ]
+        },
+        {
+          "turn": 16,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000180"
+          ]
+        },
+        {
+          "turn": 17,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000201",
+            "object-000215"
+          ]
+        },
+        {
+          "turn": 18,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": []
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "declare_attackers",
+          "event": "attackers_declared",
+          "attackers": [
+            "object-000201",
+            "object-000215"
+          ]
+        }
+      ]
+    }
+  ]
+}
