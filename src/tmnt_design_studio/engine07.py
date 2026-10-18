@@ -13222,6 +13222,13 @@ class Game(
             else:
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
+                # Combat assignments are built before the damage step resolves. A
+                # target can cease to occupy the authoritative battlefield between
+                # steps (or be retained by stale combat state); never manufacture a
+                # damage event for that departed object. This preserves the
+                # provenance invariant instead of weakening it at trigger validation.
+                if not self.is_authoritative(target, "battlefield"):
+                    continue
                 target.damage += assignment.amount
                 if assignment.amount > 0 and self.evaluated_deathtouch(source):
                     target.deathtouch_damage = True
