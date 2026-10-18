@@ -50,6 +50,7 @@ class CastKind(Enum):
     OPTIONAL_HAND_RESET = "optional_hand_reset"
     GRAVEYARD_RECURSION = "graveyard_recursion"
     CONDITIONAL_SNEAK_TOKENS = "conditional_sneak_tokens"
+    TARGETED_PUMP_FLYING_SCRY = "targeted_pump_flying_scry"
     UNSUPPORTED = "unsupported"
 
 
@@ -57,6 +58,17 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class TargetedPumpFlyingScryProgram:
+    """Targeted temporary pump/keyword grant followed by a fixed Scry."""
+
+    effect_fragment: str
+    power: int
+    toughness: int
+    keyword: str
+    scry: ScryProgram
 
 
 @dataclass(frozen=True)
@@ -1288,6 +1300,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.targeted_pump_flying_scry_program(card) is not None:
+            return CastProgram(CastKind.TARGETED_PUMP_FLYING_SCRY)
         if self.top_creature_selection_program(card) is not None:
             return CastProgram(CastKind.TOP_CREATURE_SELECTION)
         if self.conditional_sneak_tokens_program(card) is not None:
@@ -1461,6 +1475,32 @@ class CardInterpreter:
         r"It gains (?P<keywords>[A-Za-z, ]+) until end of turn\.$",
         re.I,
     )
+
+    TARGETED_PUMP_FLYING_SCRY = re.compile(
+        r"^Target creature gets \+(?P<power>[0-9]+)/\+(?P<toughness>[0-9]+) and gains "
+        r"(?P<keyword>flying) until end of turn\. Scry (?P<scry>[1-9][0-9]*)\."
+        r"(?:\s*\([^)]*\))?$",
+        re.I,
+    )
+
+    def targeted_pump_flying_scry_program(
+        self, card: CardDefinition
+    ) -> TargetedPumpFlyingScryProgram | None:
+        if card.type_line.split(" — ", 1)[0] not in {"Instant", "Sorcery"}:
+            return None
+        fragments = self.fragments(card)
+        if len(fragments) != 1:
+            return None
+        match = self.TARGETED_PUMP_FLYING_SCRY.fullmatch(fragments[0])
+        if match is None:
+            return None
+        return TargetedPumpFlyingScryProgram(
+            fragments[0],
+            int(match.group("power")),
+            int(match.group("toughness")),
+            match.group("keyword").lower(),
+            ScryProgram(int(match.group("scry"))),
+        )
 
     TEMPORARY_DEATH_RETURN_GRANT = re.compile(
         r"^Until end of turn, target creature gains (?P<keyword>deathtouch) and "
@@ -4379,6 +4419,8 @@ class CardInterpreter:
             }:
                 continue
             if self.targeted_library_return_and_token_program(card) is not None:
+                continue
+            if self.targeted_pump_flying_scry_program(card) is not None:
                 continue
             if self.temporary_type_base_pt_draw_program(card) is not None:
                 continue

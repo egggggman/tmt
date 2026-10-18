@@ -1,0 +1,542 @@
+{
+  "schema": "issue289-hamato-guardian-stance-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "939c0d0c3fc8a9bbbc80a6b6afa04b1b3b310c904797476d6b4c1d2e2653c5de",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "7fb59def0d2d1dc83a2cf5526928c42f7a543f4bc42589236e4e9282a600b555",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-hamato-leonardo-raphael-5011",
+      "seed": 5011,
+      "seats": [
+        "leonardo",
+        "raphael"
+      ],
+      "result_sha256": "0dbaeecdb507a4fdc989b006f205b3ed0f9d2ac105a759a5fae396f27fe39460",
+      "stance_casts": [],
+      "scry_resolutions": []
+    },
+    {
+      "game_id": "issue289-hamato-raphael-leonardo-5011",
+      "seed": 5011,
+      "seats": [
+        "raphael",
+        "leonardo"
+      ],
+      "result_sha256": "4046fcf1371ce503dc5a69630f263a536f16c13ca53e36a49d313975cfd963e1",
+      "stance_casts": [
+        {
+          "turn": 6,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000111",
+          "destination_object_id": "object-000156",
+          "source_zone": "library",
+          "destination_zone": "hand",
+          "reason": "draw",
+          "library_position": null
+        },
+        {
+          "turn": 6,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "card_drawn",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "setup": false
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000156",
+          "destination_object_id": "object-000158",
+          "source_zone": "hand",
+          "destination_zone": "stack",
+          "reason": "spell_cast",
+          "library_position": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "generic": 0,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000137"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "leonardo",
+          "player_index": 1,
+          "card": "Hamato Guardian Stance",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000158",
+          "target_id": "object-000143",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000158",
+          "destination_object_id": "object-000159",
+          "source_zone": "stack",
+          "destination_zone": "graveyard",
+          "reason": "spell_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_resolved",
+          "event_id": "spell:object-000158:resolved",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "source_id": "object-000159",
+          "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+          "target": "Raphael, Tough Turtle",
+          "target_source_id": "object-000143"
+        }
+      ],
+      "scry_resolutions": [
+        {
+          "turn": 6,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "targeted_pump_flying_scry_resolved",
+          "stack_object_id": "object-000158",
+          "target_id": "object-000143",
+          "power": 1,
+          "toughness": 3,
+          "keyword": "flying",
+          "scry": 1,
+          "top_ids": [
+            "object-000110"
+          ],
+          "bottom_ids": []
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-hamato-leonardo-shredder-5012",
+      "seed": 5012,
+      "seats": [
+        "leonardo",
+        "shredder"
+      ],
+      "result_sha256": "a0a53870fcd942422532ef96d05a08a890fb8bc5893bfdfce5b653146998e5d8",
+      "stance_casts": [],
+      "scry_resolutions": []
+    },
+    {
+      "game_id": "issue289-hamato-shredder-leonardo-5012",
+      "seed": 5012,
+      "seats": [
+        "shredder",
+        "leonardo"
+      ],
+      "result_sha256": "7fbbd0bf43247b9986ba2fbe26f616d6ff5fb2f88d289e8c05464fc27934292d",
+      "stance_casts": [
+        {
+          "turn": 18,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000105",
+          "destination_object_id": "object-000220",
+          "source_zone": "library",
+          "destination_zone": "hand",
+          "reason": "draw",
+          "library_position": null
+        },
+        {
+          "turn": 18,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "card_drawn",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "setup": false
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000220",
+          "destination_object_id": "object-000225",
+          "source_zone": "hand",
+          "destination_zone": "stack",
+          "reason": "spell_cast",
+          "library_position": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "cost_paid",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "generic": 0,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000188"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_cast",
+          "player": "leonardo",
+          "player_index": 1,
+          "card": "Hamato Guardian Stance",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000225",
+          "target_id": "object-000137",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000225",
+          "destination_object_id": "object-000226",
+          "source_zone": "stack",
+          "destination_zone": "graveyard",
+          "reason": "spell_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "spell_resolved",
+          "event_id": "spell:object-000225:resolved",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "source_id": "object-000226",
+          "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+          "target": "Squirrelanoids",
+          "target_source_id": "object-000137"
+        }
+      ],
+      "scry_resolutions": [
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "targeted_pump_flying_scry_resolved",
+          "stack_object_id": "object-000225",
+          "target_id": "object-000137",
+          "power": 1,
+          "toughness": 3,
+          "keyword": "flying",
+          "scry": 1,
+          "top_ids": [
+            "object-000104"
+          ],
+          "bottom_ids": []
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-hamato-leonardo-michelangelo-5013",
+      "seed": 5013,
+      "seats": [
+        "leonardo",
+        "michelangelo"
+      ],
+      "result_sha256": "816eee5ebed4411f6b6220677da1f96c2b3ebfb720569b322cfcf8184a8261bb",
+      "stance_casts": [
+        {
+          "turn": 0,
+          "phase": "setup",
+          "step": "setup",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000054",
+          "destination_object_id": "object-000127",
+          "source_zone": "library",
+          "destination_zone": "hand",
+          "reason": "draw",
+          "library_position": null
+        },
+        {
+          "turn": 0,
+          "phase": "setup",
+          "step": "setup",
+          "event": "card_drawn",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "setup": true
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000127",
+          "destination_object_id": "object-000162",
+          "source_zone": "hand",
+          "destination_zone": "stack",
+          "reason": "spell_cast",
+          "library_position": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "generic": 0,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000135"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "leonardo",
+          "player_index": 0,
+          "card": "Hamato Guardian Stance",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000162",
+          "target_id": "object-000149",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000162",
+          "destination_object_id": "object-000163",
+          "source_zone": "stack",
+          "destination_zone": "graveyard",
+          "reason": "spell_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_resolved",
+          "event_id": "spell:object-000162:resolved",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "source_id": "object-000163",
+          "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+          "target": "Michelangelo, Game Master",
+          "target_source_id": "object-000149"
+        }
+      ],
+      "scry_resolutions": [
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "targeted_pump_flying_scry_resolved",
+          "stack_object_id": "object-000162",
+          "target_id": "object-000149",
+          "power": 1,
+          "toughness": 3,
+          "keyword": "flying",
+          "scry": 1,
+          "top_ids": [
+            "object-000049"
+          ],
+          "bottom_ids": []
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-hamato-michelangelo-leonardo-5013",
+      "seed": 5013,
+      "seats": [
+        "michelangelo",
+        "leonardo"
+      ],
+      "result_sha256": "dc810601863a9074765330396002b8cfb57ad623f0bc537fd7e02676b5ee5bd9",
+      "stance_casts": [
+        {
+          "turn": 16,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000106",
+          "destination_object_id": "object-000227",
+          "source_zone": "library",
+          "destination_zone": "hand",
+          "reason": "draw",
+          "library_position": null
+        },
+        {
+          "turn": 16,
+          "phase": "beginning",
+          "step": "draw",
+          "event": "card_drawn",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "setup": false
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000227",
+          "destination_object_id": "object-000228",
+          "source_zone": "hand",
+          "destination_zone": "stack",
+          "reason": "spell_cast",
+          "library_position": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "generic": 0,
+          "colored": [
+            "W"
+          ],
+          "source_ids": [
+            "object-000140"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "leonardo",
+          "player_index": 1,
+          "card": "Hamato Guardian Stance",
+          "card_types": [
+            "Instant"
+          ],
+          "stack_object_id": "object-000228",
+          "target_id": "object-000220",
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Hamato Guardian Stance",
+          "owner": "leonardo",
+          "source_object_id": "object-000228",
+          "destination_object_id": "object-000230",
+          "source_zone": "stack",
+          "destination_zone": "graveyard",
+          "reason": "spell_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_resolved",
+          "event_id": "spell:object-000228:resolved",
+          "player": "leonardo",
+          "card": "Hamato Guardian Stance",
+          "source_id": "object-000230",
+          "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+          "target": "Zoo Escapees",
+          "target_source_id": "object-000220"
+        }
+      ],
+      "scry_resolutions": [
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "targeted_pump_flying_scry_resolved",
+          "stack_object_id": "object-000228",
+          "target_id": "object-000220",
+          "power": 1,
+          "toughness": 3,
+          "keyword": "flying",
+          "scry": 1,
+          "top_ids": [
+            "object-000105"
+          ],
+          "bottom_ids": []
+        }
+      ]
+    }
+  ]
+}
