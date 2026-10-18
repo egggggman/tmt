@@ -1,0 +1,78 @@
+{
+  "schema": "issue289-hamato-guardian-stance-calibration-readiness-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "checkpoint_overlay_sha256": "7fb59def0d2d1dc83a2cf5526928c42f7a543f4bc42589236e4e9282a600b555",
+  "semantic_runtime_sha256": "939c0d0c3fc8a9bbbc80a6b6afa04b1b3b310c904797476d6b4c1d2e2653c5de",
+  "original_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "critical_remaining": 0,
+  "important_remaining": 1,
+  "important_blockers": 0,
+  "unbounded_residual_important": 1,
+  "calibration_readiness": "BLOCKED",
+  "reason": "Hamato Guardian Stance is closed; Michelangelo Improviser remains unbounded and calibration is not authorized.",
+  "score_formula": "3*copies + 4*decks + 5*impact + 2*reuse - complexity",
+  "score_scales": {
+    "impact": "4=core deck identity/resource/combat; 3=consequential conditional or utility",
+    "reuse": "3=shared Class rules; 2=cross-deck; 1=single-deck",
+    "complexity": "4=linked copy/animation/recursion; 3=Class; 2=bounded rule"
+  },
+  "ranked_important_rows": [
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "copies_in_deck": 2,
+      "total_frozen_copies": 2,
+      "affected_decks": [
+        "michelangelo"
+      ],
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "execution_review": "gap",
+      "impact_score": 3,
+      "rules_reuse_score": 1,
+      "implementation_complexity_score": 2,
+      "priority_score": 25,
+      "calibration_blocker": false,
+      "assessment": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    }
+  ],
+  "ranked_mechanic_families": [
+    {
+      "mechanic": "combat_damage_hidden_hand_entry",
+      "entries": 1,
+      "score": 25,
+      "cards": [
+        "Michelangelo, Improviser"
+      ],
+      "decks": [
+        "michelangelo"
+      ]
+    }
+  ],
+  "ranked_family_order": [
+    "combat_damage_hidden_hand_entry"
+  ],
+  "separate_unbounded_rows_preserved": [
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+    }
+  ],
+  "original_unbounded_dispositions": [
+    {
+      "deck": "leonardo",
+      "card": "Hamato Guardian Stance",
+      "oracle_fragment": "Target creature gets +1/+3 and gains flying until end of turn. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+      "disposition": "implemented",
+      "evidence": "Focused generic spell fixtures and deterministic replay."
+    },
+    {
+      "deck": "michelangelo",
+      "card": "Michelangelo, Improviser",
+      "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield.",
+      "disposition": "still_unresolved",
+      "evidence": "Two-copy consequential clause; exposure remains unbounded and requires diagnostic measurement before it can be accepted as residual risk."
+    }
+  ]
+}

@@ -10537,6 +10537,21 @@ class Game(
                 options.extend(self._death_return_grant_options(player_index, card))
             elif kind is CastKind.TEMPORARY_TYPE_BASE_PT_DRAW:
                 options.extend(self._temporary_type_base_pt_draw_options(player_index, card))
+            elif kind is CastKind.TARGETED_PUMP_FLYING_SCRY:
+                stance = self.interpreter.targeted_pump_flying_scry_program(card.card)
+                if stance is not None and self.payment_plan(player_index, card) is not None:
+                    options.extend(
+                        ActionOption(
+                            ActionKind.CAST,
+                            player_index,
+                            object_id=card.object_id,
+                            target_id=target.object_id,
+                            oracle_fragment=stance.effect_fragment,
+                        )
+                        for side in self.players
+                        for target in side.battlefield
+                        if self._legal_modal_creature_target(target, player_index)
+                    )
             elif kind in {
                 CastKind.LIBRARY_SEARCH_TO_HAND,
                 CastKind.OPTIONAL_HAND_RESET,
@@ -15766,6 +15781,12 @@ class Game(
                 return None
             assert isinstance(target, Permanent)
             target_id = target.object_id
+        elif program.kind is CastKind.TARGETED_PUMP_FLYING_SCRY:
+            stance = self.interpreter.targeted_pump_flying_scry_program(card.card)
+            if stance is None or not self._legal_modal_creature_target(target, player_index):
+                return None
+            assert isinstance(target, Permanent)
+            target_id = target.object_id
         elif program.kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
             if not self._legal_targeted_library_return(target, player_index):
                 return None
@@ -16173,6 +16194,8 @@ class Game(
             legal_target = animation is not None and self._legal_temporary_type_base_pt_target(
                 target, spell.controller, animation.target_types
             )
+        elif spell.cast_kind is CastKind.TARGETED_PUMP_FLYING_SCRY:
+            legal_target = self._legal_modal_creature_target(target, spell.controller)
         elif spell.cast_kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
             legal_target = self._legal_targeted_library_return(target, spell.controller)
         elif spell.cast_kind is CastKind.MODAL_TOKEN_OR_CREATURE_PUMP:
@@ -16540,6 +16563,48 @@ class Game(
                 draw_succeeded=draw_succeeded,
                 drawn_fragment=program.draw_fragment,
             )
+        elif spell.cast_kind is CastKind.TARGETED_PUMP_FLYING_SCRY:
+            program = self.interpreter.targeted_pump_flying_scry_program(spell.card)
+            if program is None:
+                raise AssertionError("stacked pump/flying/Scry spell lost its semantics")
+            assert isinstance(target, Permanent)
+            self.apply_pt_modifier(
+                target,
+                program.power,
+                program.toughness,
+                duration="until_end_of_turn",
+                source_card=spell.name,
+                oracle_fragment=program.effect_fragment,
+                source_object_id=spell.object_id,
+            )
+            target.temporary_keyword_effects.append(
+                TemporaryKeywordEffect(
+                    TemporaryKeyword(program.keyword),
+                    "until_end_of_turn",
+                    spell.object_id,
+                    program.effect_fragment,
+                    timestamp=self._effect_timestamp(),
+                )
+            )
+            self.refresh_static_pt_modifiers()
+            choice = self.scry(
+                spell.controller,
+                program.scry,
+                source_card=spell.name,
+                oracle_fragment=program.effect_fragment,
+            )
+            self.log(
+                "targeted_pump_flying_scry_resolved",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                power=program.power,
+                toughness=program.toughness,
+                keyword=program.keyword,
+                scry=program.scry.amount,
+                top_ids=list(choice.top_ids),
+                bottom_ids=list(choice.bottom_ids),
+            )
+            self.check_state_based_actions()
         elif spell.cast_kind is CastKind.TARGETED_LIBRARY_RETURN_AND_TOKEN:
             program = self.interpreter.targeted_library_return_and_token_program(spell.card)
             if program is None:
