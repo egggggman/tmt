@@ -1,4 +1,4 @@
-"""Preserve 172 ledger rows while closing generic Equipment self-copy activation."""
+"""Preserve 172 ledger rows while closing generic combat-damage artifact copying."""
 
 from __future__ import annotations
 
@@ -15,21 +15,24 @@ from tmnt_design_studio.engine07 import load_facts
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs/cardcade"
-PREVIOUS = DOCS / "ISSUE_289_COUNTERED_BLOCK_LIMIT_CHECKPOINT.json"
-BEFORE = DOCS / "ISSUE_289_COUNTERED_BLOCK_LIMIT_CALIBRATION_READINESS.json"
+PREVIOUS = DOCS / "ISSUE_289_EQUIPMENT_COPY_CHECKPOINT.json"
+BEFORE = DOCS / "ISSUE_289_EQUIPMENT_COPY_CALIBRATION_READINESS.json"
 LEDGER = DOCS / "ISSUE_289_COVERAGE_LEDGER.csv"
 MANIFEST = ROOT / "docs/objective-balance-lab/baselines/OBL_BASELINE_005_MANIFEST.json"
 CATALOG = ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
-OVERLAY = DOCS / "ISSUE_289_EQUIPMENT_COPY_CHECKPOINT.json"
-READINESS = DOCS / "ISSUE_289_EQUIPMENT_COPY_CALIBRATION_READINESS.json"
+OVERLAY = DOCS / "ISSUE_289_DONATELLO_ARTIFACT_COPY_CHECKPOINT.json"
+READINESS = DOCS / "ISSUE_289_DONATELLO_ARTIFACT_COPY_CALIBRATION_READINESS.json"
 SHA = {
-    PREVIOUS: "276b891b7fb8b5b5866b3c244183f9f7bd0172662d866709b517a58546763688",
-    BEFORE: "44b3e58ba41d2c04d321a2eea23f983fb8a516fa3e10b14fb76e6f742c7d26d1",
+    PREVIOUS: "84f2146be3a2ed7b25feddfb29fd5101a8007a3d9cfeb6836312fab4d7590bda",
+    BEFORE: "10f3f3267c3bbc2199ea08079d2ac436090ce5a4bfd3cba9eb52e81320d87a5b",
     LEDGER: "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
     MANIFEST: "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
 }
-NAME = "Improvised Arsenal"
-EFFECT = "{4}{R}: Create a token that's a copy of this Equipment."
+NAME = "Donatello, Gadget Master"
+EFFECT = (
+    "Whenever Donatello deals combat damage to a player, create a token that's a copy of "
+    "target artifact you control."
+)
 KEYS = ("deck", "card", "oracle_fragment")
 
 
@@ -44,8 +47,8 @@ def reports() -> tuple[dict, dict]:
     before, assessment = (json.loads(path.read_text()) for path in (PREVIOUS, BEFORE))
     if (
         len(before["rows"]) != 172
-        or before["counts"]["priority"]["P1"] != 6
-        or assessment["important_blockers"] != 4
+        or before["counts"]["priority"]["P1"] != 4
+        or assessment["important_blockers"] != 2
         or assessment["unbounded_residual_important"] != 2
     ):
         raise ValueError("predecessor coverage changed")
@@ -71,16 +74,13 @@ def reports() -> tuple[dict, dict]:
     interpreter = CardInterpreter()
     if (
         EFFECT not in interpreter.fragments(card)
-        or (
-            (semantics := interpreter.activated_ability_semantics(card, EFFECT)) is None
-            or not semantics.coverage.fully_supported
-        )
+        or not interpreter.combat_damage_artifact_copy(card, EFFECT)
         or {
             reason
             for fragment, reason in interpreter.unsupported_fragments(card)
             if fragment == EFFECT
         }
-        - {"token_copy_not_implemented", "token_activation_context_not_implemented"}
+        - {"token_copy_not_implemented", "token_trigger_context_not_implemented"}
     ):
         raise ValueError("complete frozen entry modifier remains unsupported")
     rows = [dict(row) for row in before["rows"]]
@@ -89,19 +89,19 @@ def reports() -> tuple[dict, dict]:
         if row["card"] != NAME or row["oracle_fragment"] != EFFECT:
             continue
         if (
-            row["deck"] != "casey_jones"
+            row["deck"] != "donatello"
             or frozen[row["deck"]][NAME] != int(row["copies"])
-            or int(row["copies"]) != 3
+            or int(row["copies"]) != 2
             or row["impact_priority"] != "P1"
             or row["execution_review"] != "gap"
         ):
-            raise ValueError("targeted entry pump and untap row differs from the frozen gap")
+            raise ValueError("targeted combat artifact-copy row differs from the frozen gap")
         row["execution_review"] = "supported"
         row["impact_priority"] = "none"
         row["disposition"] = (
-            "Complete Oracle-derived Equipment self-copy activation; fixed mana payment, "
-            "source-independent stack resolution, copiable characteristics, independent "
-            "unattached token identity, source departure failure and deterministic replay verified."
+            "Complete Oracle-derived combat-damage artifact copy; combat event provenance, "
+            "legal target selection, resolution recheck, copiable characteristics, independent "
+            "token identity, source/target departure and deterministic replay verified."
         )
         closed.append({key: row[key] for key in KEYS})
     if Counter(tuple(row[k] for k in KEYS) for row in rows) != Counter(
@@ -114,8 +114,8 @@ def reports() -> tuple[dict, dict]:
     }
     if (
         len(closed) != 2
-        or counts["priority"] != {"none": 168, "P1": 4}
-        or counts["execution"] != {"covered": 33, "supported": 128, "annotation": 7, "gap": 4}
+        or counts["priority"] != {"none": 170, "P1": 2}
+        or counts["execution"] != {"covered": 33, "supported": 130, "annotation": 7, "gap": 2}
     ):
         raise ValueError("unexpected coverage closure")
     exclusions = Counter(tuple(row[k] for k in KEYS) for row in closed)
@@ -126,7 +126,7 @@ def reports() -> tuple[dict, dict]:
             exclusions[key] -= 1
         else:
             remaining.append(item)
-    if any(exclusions.values()) or len(remaining) != 4:
+    if any(exclusions.values()) or len(remaining) != 2:
         raise ValueError("ranked residual differs from overlay")
     families: dict[str, dict] = {}
     for item in remaining:
@@ -150,7 +150,7 @@ def reports() -> tuple[dict, dict]:
     ]
     runtime = identity()["aggregate_semantic_runtime_sha256"]
     overlay = {
-        "schema": "issue289-equipment-copy-checkpoint-v1",
+        "schema": "issue289-donatello-artifact-copy-checkpoint-v1",
         "baseline_id": "OBL-BASELINE-005",
         "base_ledger_sha256": sha(LEDGER),
         "previous_checkpoint_sha256": sha(PREVIOUS),
@@ -163,36 +163,36 @@ def reports() -> tuple[dict, dict]:
         "control_authorized": False,
         "before_counts": before["counts"],
         "counts": counts,
-        "closure_kind": "generic_equipment_self_copy_activation",
-        "new_semantic_families": ["copiable_characteristics", "equipment_token_copy_activation"],
+        "closure_kind": "generic_combat_damage_artifact_copy",
+        "new_semantic_families": ["combat_damage_trigger_targeting", "artifact_token_copy"],
         "closed_rows": closed,
         "corrected_existing_coverage_rows": [],
         "rows": rows,
     }
     readiness = {
-        "schema": "issue289-equipment-copy-calibration-readiness-v1",
+        "schema": "issue289-donatello-artifact-copy-calibration-readiness-v1",
         "baseline_id": "OBL-BASELINE-005",
         "checkpoint_overlay_sha256": None,
         "semantic_runtime_sha256": runtime,
         "original_ledger_sha256": sha(LEDGER),
         "critical_remaining": 0,
-        "important_remaining": 4,
-        "important_blockers": 2,
+        "important_remaining": 2,
+        "important_blockers": 0,
         "unbounded_residual_important": 2,
         "calibration_readiness": "BLOCKED",
         "reason": (
-            "Two Donatello artifact-copy gap entries remain; two important effects "
-            "are still unbounded."
+            "Donatello's combat-damage artifact-copy rows are closed; two important "
+            "effects remain unbounded."
         ),
         "pilot_execution_exposure": {
             "status": "FROZEN_DIAGNOSTIC_RECORDED",
             "diagnostic_path": str(
-                (DOCS / "ISSUE_289_EQUIPMENT_COPY_SMOKE.json").relative_to(ROOT)
+                (DOCS / "ISSUE_289_DONATELLO_ARTIFACT_COPY_SMOKE.json").relative_to(ROOT)
             ),
             "interpretation": (
-                "Frozen-deck diagnostics record activation opportunities, selections, payments, "
-                "entries and copied-token events. Mechanic fixtures establish copiable values "
-                "even if natural activations are absent; "
+                "Frozen-deck diagnostics record combat-damage opportunities, trigger target "
+                "selections, resolutions and copied-token events. Mechanic fixtures establish "
+                "resolution and invalidation behavior; "
                 "no balance inference."
             ),
         },
@@ -210,7 +210,7 @@ def reports() -> tuple[dict, dict]:
     previous_unbounded = assessment["separate_unbounded_rows_preserved"]
     expected_unbounded = [item for item in previous_unbounded if item["card"] != NAME]
     if (
-        sum(item["calibration_blocker"] for item in remaining) != 2
+        sum(item["calibration_blocker"] for item in remaining) != 0
         or readiness["separate_unbounded_rows_preserved"] != expected_unbounded
     ):
         raise ValueError("residual calibration risk changed unexpectedly")
@@ -219,7 +219,7 @@ def reports() -> tuple[dict, dict]:
             **{key: item[key] for key in KEYS},
             "disposition": "implemented" if item["card"] == NAME else "still_unresolved",
             "evidence": (
-                "Focused generic copy/Equipment fixtures and authenticated diagnostic replay"
+                "Focused generic combat-copy fixtures and authenticated diagnostic replay"
                 if item["card"] == NAME
                 else item["evidence"]
             ),

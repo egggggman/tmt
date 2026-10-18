@@ -382,6 +382,7 @@ class TriggerEffect(Enum):
     COMBAT_DAMAGE_DRAW_DISCARD = "combat_damage_draw_discard"
     COMBAT_DAMAGE_DRAW_LOSE_LIFE = "combat_damage_draw_lose_life"
     COMBAT_DAMAGE_GRAVEYARD_ATTACKER = "combat_damage_graveyard_attacker"
+    COMBAT_DAMAGE_ARTIFACT_COPY = "combat_damage_artifact_copy"
     GRANTED_COMBAT_UNTAP_GAIN = "granted_combat_untap_gain"
     EQUIPMENT_SUBTYPE_ENTRY_ATTACH = "equipment_subtype_entry_attach"
     UTILITY_TARGET = "utility_target"
@@ -1588,6 +1589,7 @@ class Game(
         self._draw_discard_consumed: set[str] = set()
         self._combat_draw_discard_anchors = {}
         self._combat_draw_discard_consumed: set[str] = set()
+        self._combat_artifact_copy_targets: dict[str, tuple[str | None, tuple[str, ...]]] = {}
         self._utility_trigger_anchors = {}
         self._utility_trigger_consumed: set[str] = set()
         self._mill_draw_discard_anchors = {}
@@ -4976,6 +4978,22 @@ class Game(
                 or not self.interpreter.attack_target_counter(source.card, fragment)
             ):
                 raise ValueError("attack counter trigger lacks attack provenance")
+        if effect is TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY:
+            self._authenticate_original_rules_event(event)
+            if (
+                event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                or event.source_id != source.object_id
+                or event.subject_ids != (source.object_id,)
+                or event.player_index != source.controller
+                or event.target_player != 1 - source.controller
+                or event.amount is None
+                or event.amount <= 0
+                or not self.is_authoritative(source, "battlefield")
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or not self.interpreter.combat_damage_artifact_copy(source.card, fragment)
+            ):
+                raise ValueError("artifact copy trigger lacks combat-damage provenance")
         if (
             effect is TriggerEffect.CREATE_TOKEN
             and self.interpreter.entry_leave_or_artifact_cast_token_context(source.card, fragment)
@@ -5594,6 +5612,49 @@ class Game(
                         target_id=ability.target_id,
                         offered_ids=[card.object_id for card in choices],
                         defending_player=defender,
+                    )
+                if ability.effect is TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY:
+                    self._authenticate_original_rules_event(trigger.event)
+                    source = self._objects.get(trigger.source_id)
+                    if (
+                        not isinstance(source, Permanent)
+                        or source.card is not trigger.source_card
+                        or trigger.event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+                        or trigger.event.source_id != trigger.source_id
+                        or trigger.event.target_player != 1 - trigger.controller
+                    ):
+                        raise ValueError("artifact copy trigger lost combat provenance")
+                    offered = tuple(
+                        sorted(
+                            permanent.object_id
+                            for permanent in self.players[trigger.controller].battlefield
+                            if self.is_authoritative(permanent, "battlefield")
+                            and "Artifact" in permanent.type_line.split(" — ", 1)[0].split()
+                            and self._legal_targeting_protection(permanent, trigger.controller)
+                        )
+                    )
+                    if not offered:
+                        self.log(
+                            "combat_artifact_copy_no_legal_target",
+                            event_id=trigger.event.event_id,
+                            source_id=trigger.source_id,
+                            offered_ids=[],
+                        )
+                        continue
+                    selected = self.counter_target_chooser(
+                        trigger.controller, trigger.source_id, offered
+                    )
+                    if selected not in offered:
+                        raise ValueError("artifact copy chooser returned an illegal target")
+                    ability.target_id = selected
+                    self._combat_artifact_copy_targets[ability.object_id] = (selected, offered)
+                    self.log(
+                        "combat_artifact_copy_target_selected",
+                        event_id=trigger.event.event_id,
+                        stack_object_id=ability.object_id,
+                        source_id=trigger.source_id,
+                        target_id=selected,
+                        offered_ids=list(offered),
                     )
                 if (
                     ability.effect is TriggerEffect.UTILITY_TARGET
@@ -6425,6 +6486,38 @@ class Game(
         ):
             raise ValueError("combat graveyard target lacks selection provenance")
 
+    def _validate_combat_artifact_copy_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id or "")
+        source = self._objects.get(ability.source_id)
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            trigger is None
+            or trigger.effect is not TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY
+            or trigger.event is not ability.event
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or ability.event.kind is not RulesEventKind.COMBAT_DAMAGE_TO_PLAYER
+            or ability.event.source_id != ability.source_id
+            or ability.event.subject_ids != (ability.source_id,)
+            or ability.event.player_index != ability.controller
+            or ability.event.target_player != 1 - ability.controller
+            or ability.event.amount is None
+            or ability.event.amount <= 0
+            or (ability.source_id, ability.controller) not in ability.event.battlefield_authority
+            or not self.interpreter.combat_damage_artifact_copy(
+                ability.source_card, ability.oracle_fragment
+            )
+            or ability.target_id is None
+            or self._combat_artifact_copy_targets.get(ability.object_id, (None, ()))[0]
+            != ability.target_id
+        ):
+            raise ValueError("combat artifact copy trigger provenance is invalid")
+
     def _validate_artifact_entry_self_counter_trigger(
         self, ability: TriggeredAbilityObject
     ) -> None:
@@ -6517,6 +6610,8 @@ class Game(
             self._validate_combat_draw_life_trigger(ability)
         if ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
             self._validate_combat_graveyard_trigger(ability)
+        if ability.effect is TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY:
+            self._validate_combat_artifact_copy_trigger(ability)
         if ability.effect in {
             TriggerEffect.GRANTED_COMBAT_UNTAP_GAIN,
             TriggerEffect.EQUIPMENT_SUBTYPE_ENTRY_ATTACH,
@@ -7605,6 +7700,35 @@ class Game(
                 life_after=player.life,
                 life_lost=life_loss,
             )
+        elif ability.effect is TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY:
+            target = self._objects.get(ability.target_id or "")
+            legal = (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and "Artifact" in target.type_line.split(" — ", 1)[0].split()
+            )
+            token = None
+            if legal:
+                token = self.create_copy_token(
+                    target,
+                    ability.controller,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=target.object_id,
+                    stack_object_id=ability.object_id,
+                )
+            self.log(
+                "combat_artifact_copy_resolved",
+                event_id=ability.event.event_id,
+                trigger_id=ability.trigger_id,
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                target_id=ability.target_id,
+                controller=ability.controller,
+                legal_target=legal,
+                token_id=None if token is None else token.object_id,
+            )
         elif ability.effect is TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER:
             target = self._objects.get(ability.target_id or "")
             valid = isinstance(target, CardObject) and self.is_authoritative(target, "graveyard")
@@ -8238,6 +8362,7 @@ class Game(
                 TriggerEffect.COMBAT_DAMAGE_DRAW_DISCARD,
                 TriggerEffect.COMBAT_DAMAGE_DRAW_LOSE_LIFE,
                 TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
+                TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY,
                 TriggerEffect.UTILITY_TARGET,
                 TriggerEffect.ETB_MILL_DRAW_DISCARD,
                 TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
@@ -12861,6 +12986,16 @@ class Game(
                                 source,
                                 fragment,
                                 TriggerEffect.COMBAT_DAMAGE_GRAVEYARD_ATTACKER,
+                            )
+                        if (
+                            source.ability_loss_timestamp is None
+                            and self.interpreter.combat_damage_artifact_copy(source.card, fragment)
+                        ):
+                            self._enqueue_trigger(
+                                event,
+                                source,
+                                fragment,
+                                TriggerEffect.COMBAT_DAMAGE_ARTIFACT_COPY,
                             )
             else:
                 assert assignment.target_id is not None

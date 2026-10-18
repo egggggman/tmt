@@ -1,0 +1,96 @@
+{
+  "schema": "issue289-donatello-artifact-copy-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "deeba684652abf2f0de958c97969bc3f6a5731a055d104f39ae789cf1e063a71",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "1b554ed4429a0a2883c2f7a81614d54ff7d9b1842d29086033ac9caa67b78e44",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-donatello-artifact-copy-donatello-raphael-4011",
+      "seed": 4011,
+      "seats": [
+        "donatello",
+        "raphael"
+      ],
+      "result_sha256": "e48289134b970d72900a9dfcdf102a73706d4a5ee00bfc5a3c3b1534e1b6bcee",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    },
+    {
+      "game_id": "issue289-donatello-artifact-copy-raphael-donatello-4011",
+      "seed": 4011,
+      "seats": [
+        "raphael",
+        "donatello"
+      ],
+      "result_sha256": "2388d8778bc61fcbe6a3d8880e92c70a2e8b2685236da6e0e06540315555800d",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    },
+    {
+      "game_id": "issue289-donatello-artifact-copy-donatello-shredder-4012",
+      "seed": 4012,
+      "seats": [
+        "donatello",
+        "shredder"
+      ],
+      "result_sha256": "a36def84a0b6ef22948166479a124e2cd701535f29f7f16e0be1861ea9c5e53d",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    },
+    {
+      "game_id": "issue289-donatello-artifact-copy-shredder-donatello-4012",
+      "seed": 4012,
+      "seats": [
+        "shredder",
+        "donatello"
+      ],
+      "result_sha256": "83faf9496a2f59cf3ef2d22d6d85ef7ce1d9deabceeebd8b60e924e78d5618af",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    },
+    {
+      "game_id": "issue289-donatello-artifact-copy-donatello-casey_jones-4013",
+      "seed": 4013,
+      "seats": [
+        "donatello",
+        "casey_jones"
+      ],
+      "result_sha256": "4b3be8c634611dfe3b6ea286ca48febb341b0a83837f9ad271314c837a67ed80",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    },
+    {
+      "game_id": "issue289-donatello-artifact-copy-casey_jones-donatello-4013",
+      "seed": 4013,
+      "seats": [
+        "casey_jones",
+        "donatello"
+      ],
+      "result_sha256": "820dee53ac05336bb415c39f87bd820079050650f079d7dc62b02e4f005b9ce1",
+      "damage_opportunities": [],
+      "triggers": [],
+      "target_choices": [],
+      "resolutions": [],
+      "copied_tokens": []
+    }
+  ]
+}
