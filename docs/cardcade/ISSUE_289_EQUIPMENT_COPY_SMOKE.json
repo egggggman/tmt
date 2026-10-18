@@ -1,0 +1,1137 @@
+{
+  "schema": "issue289-equipment-copy-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "b4690f9f5609d1b9ad2a99a2ad80469d6a9b86a8e7d621bd92e88ea7545087fe",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "84f2146be3a2ed7b25feddfb29fd5101a8007a3d9cfeb6836312fab4d7590bda",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-equipment-copy-michelangelo-donatello-3034",
+      "seed": 3034,
+      "seats": [
+        "michelangelo",
+        "donatello"
+      ],
+      "result_sha256": "dd44c61f6d6243d9a62bfc5d2e927362d8b7a2d1c984f5939b2f9374a76469c1",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 5,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000157",
+          "source_id": "object-000153",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000195",
+          "source_id": "object-000189",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000212",
+          "source_id": "object-000209",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000227",
+          "source_id": "object-000225",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000241",
+          "source_id": "object-000229",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000272",
+          "source_id": "object-000249",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000297",
+          "source_id": "object-000250",
+          "controller": "michelangelo"
+        }
+      ],
+      "activation_cost_paid": []
+    },
+    {
+      "game_id": "issue289-equipment-copy-donatello-michelangelo-3034",
+      "seed": 3034,
+      "seats": [
+        "donatello",
+        "michelangelo"
+      ],
+      "result_sha256": "6c824de139d0c3c7fa70c33616aa857e8acb1bff4735eff13b531bc66eadf521",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 6,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000158",
+          "source_id": "object-000156",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000179",
+          "source_id": "object-000176",
+          "controller": "donatello"
+        },
+        {
+          "turn": 10,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000182",
+          "source_id": "object-000169",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000205",
+          "source_id": "object-000195",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000217",
+          "source_id": "object-000215",
+          "controller": "donatello"
+        }
+      ],
+      "activation_cost_paid": []
+    },
+    {
+      "game_id": "issue289-equipment-copy-michelangelo-raphael-3021",
+      "seed": 3021,
+      "seats": [
+        "michelangelo",
+        "raphael"
+      ],
+      "result_sha256": "a7c22fbe3a5a6f921e4252271677ca1025b7923654d5e5da9b9ad5626395cdb5",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000165",
+          "source_id": "object-000155",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 9,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000179",
+          "source_id": "object-000169",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 9,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000187",
+          "source_id": "object-000183",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000198",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000206",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000214",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000217",
+          "source_id": "object-000213",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000224",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 14,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000233",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 15,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000237",
+          "source_id": "object-000221",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000241",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000248",
+          "source_id": "object-000195",
+          "controller": "raphael"
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000251",
+          "source_id": "object-000232",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000257",
+          "source_id": "object-000254",
+          "controller": "michelangelo"
+        }
+      ],
+      "activation_cost_paid": []
+    },
+    {
+      "game_id": "issue289-equipment-copy-raphael-michelangelo-3021",
+      "seed": 3021,
+      "seats": [
+        "raphael",
+        "michelangelo"
+      ],
+      "result_sha256": "f7b5c954a86a7c1ee99f843556b4130a4888215b51392bae5cf05296c2aaf44a",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000150",
+          "source_id": "object-000139",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000172",
+          "source_id": "object-000164",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 10,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000191",
+          "source_id": "object-000189",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 11,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000205",
+          "source_id": "object-000198",
+          "controller": "raphael"
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000208",
+          "source_id": "object-000193",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 13,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000215",
+          "source_id": "object-000198",
+          "controller": "raphael"
+        }
+      ],
+      "activation_cost_paid": []
+    },
+    {
+      "game_id": "issue289-equipment-copy-michelangelo-casey_jones-3006",
+      "seed": 3006,
+      "seats": [
+        "michelangelo",
+        "casey_jones"
+      ],
+      "result_sha256": "4697acb8ecc606333fb86717b1343a75d23bdb02c5ad05e8a90a184e9f3ee46f",
+      "opportunities": [
+        [
+          4,
+          "activate",
+          "object-000131"
+        ],
+        [
+          4,
+          "activate",
+          "object-000133"
+        ],
+        [
+          4,
+          "creature",
+          "object-000131"
+        ],
+        [
+          4,
+          "creature",
+          "object-000133"
+        ],
+        [
+          4,
+          "damage",
+          "object-000131"
+        ],
+        [
+          4,
+          "damage",
+          "object-000133"
+        ],
+        [
+          4,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          4,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          6,
+          "activate",
+          "object-000131"
+        ],
+        [
+          6,
+          "activate",
+          "object-000133"
+        ],
+        [
+          6,
+          "creature",
+          "object-000131"
+        ],
+        [
+          6,
+          "creature",
+          "object-000133"
+        ],
+        [
+          6,
+          "damage",
+          "object-000131"
+        ],
+        [
+          6,
+          "damage",
+          "object-000133"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          6,
+          "land",
+          "object-000131"
+        ],
+        [
+          6,
+          "land",
+          "object-000133"
+        ],
+        [
+          8,
+          "activate",
+          "object-000131"
+        ],
+        [
+          8,
+          "activate",
+          "object-000133"
+        ],
+        [
+          8,
+          "creature",
+          "object-000131"
+        ],
+        [
+          8,
+          "creature",
+          "object-000133"
+        ],
+        [
+          8,
+          "damage",
+          "object-000131"
+        ],
+        [
+          8,
+          "damage",
+          "object-000133"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          8,
+          "land",
+          "object-000131"
+        ],
+        [
+          8,
+          "land",
+          "object-000133"
+        ],
+        [
+          10,
+          "activate",
+          "object-000131"
+        ],
+        [
+          10,
+          "activate",
+          "object-000133"
+        ],
+        [
+          10,
+          "creature",
+          "object-000131"
+        ],
+        [
+          10,
+          "creature",
+          "object-000133"
+        ],
+        [
+          10,
+          "damage",
+          "object-000131"
+        ],
+        [
+          10,
+          "damage",
+          "object-000133"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          10,
+          "land",
+          "object-000131"
+        ],
+        [
+          10,
+          "land",
+          "object-000133"
+        ],
+        [
+          12,
+          "activate",
+          "object-000131"
+        ],
+        [
+          12,
+          "activate",
+          "object-000133"
+        ],
+        [
+          12,
+          "creature",
+          "object-000131"
+        ],
+        [
+          12,
+          "creature",
+          "object-000133"
+        ],
+        [
+          12,
+          "damage",
+          "object-000131"
+        ],
+        [
+          12,
+          "damage",
+          "object-000133"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          12,
+          "land",
+          "object-000131"
+        ],
+        [
+          12,
+          "land",
+          "object-000133"
+        ],
+        [
+          14,
+          "activate",
+          "object-000133"
+        ],
+        [
+          14,
+          "creature",
+          "object-000133"
+        ],
+        [
+          14,
+          "damage",
+          "object-000133"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          14,
+          "land",
+          "object-000133"
+        ]
+      ],
+      "selected": [
+        [
+          12,
+          "creature",
+          "object-000131"
+        ],
+        [
+          14,
+          "creature",
+          "object-000133"
+        ]
+      ],
+      "nonselected": [
+        [
+          4,
+          "activate",
+          "object-000131"
+        ],
+        [
+          4,
+          "creature",
+          "object-000131"
+        ],
+        [
+          4,
+          "damage",
+          "object-000131"
+        ],
+        [
+          4,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          6,
+          "activate",
+          "object-000131"
+        ],
+        [
+          6,
+          "creature",
+          "object-000131"
+        ],
+        [
+          6,
+          "damage",
+          "object-000131"
+        ],
+        [
+          6,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          6,
+          "land",
+          "object-000131"
+        ],
+        [
+          8,
+          "activate",
+          "object-000131"
+        ],
+        [
+          8,
+          "creature",
+          "object-000131"
+        ],
+        [
+          8,
+          "damage",
+          "object-000131"
+        ],
+        [
+          8,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          8,
+          "land",
+          "object-000131"
+        ],
+        [
+          10,
+          "activate",
+          "object-000131"
+        ],
+        [
+          10,
+          "creature",
+          "object-000131"
+        ],
+        [
+          10,
+          "damage",
+          "object-000131"
+        ],
+        [
+          10,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          10,
+          "land",
+          "object-000131"
+        ],
+        [
+          12,
+          "activate",
+          "object-000131"
+        ],
+        [
+          12,
+          "activate",
+          "object-000133"
+        ],
+        [
+          12,
+          "damage",
+          "object-000131"
+        ],
+        [
+          12,
+          "destroy",
+          "object-000131"
+        ],
+        [
+          12,
+          "land",
+          "object-000131"
+        ],
+        [
+          12,
+          "land",
+          "object-000133"
+        ],
+        [
+          14,
+          "activate",
+          "object-000133"
+        ],
+        [
+          14,
+          "damage",
+          "object-000133"
+        ],
+        [
+          14,
+          "destroy",
+          "object-000133"
+        ],
+        [
+          14,
+          "land",
+          "object-000133"
+        ]
+      ],
+      "casts": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "casey_jones",
+          "player_index": 1,
+          "card": "Improvised Arsenal",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000195",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "spell_cast",
+          "player": "casey_jones",
+          "player_index": 1,
+          "card": "Improvised Arsenal",
+          "card_types": [
+            "Artifact"
+          ],
+          "stack_object_id": "object-000211",
+          "target_id": null,
+          "source_target_id": null,
+          "mode_fragment": null,
+          "x_value": null
+        }
+      ],
+      "payments": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "casey_jones",
+          "card": "Improvised Arsenal",
+          "generic": 1,
+          "colored": [
+            "R"
+          ],
+          "source_ids": [
+            "object-000143",
+            "object-000155"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "casey_jones",
+          "card": "Improvised Arsenal",
+          "generic": 1,
+          "colored": [
+            "R"
+          ],
+          "source_ids": [
+            "object-000143",
+            "object-000155"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ],
+      "entries": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Improvised Arsenal",
+          "owner": "casey_jones",
+          "source_object_id": "object-000195",
+          "destination_object_id": "object-000198",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "permanent_resolved",
+          "library_position": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "zone_changed",
+          "card": "Improvised Arsenal",
+          "owner": "casey_jones",
+          "source_object_id": "object-000211",
+          "destination_object_id": "object-000214",
+          "source_zone": "stack",
+          "destination_zone": "battlefield",
+          "reason": "permanent_resolved",
+          "library_position": null
+        }
+      ],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 7,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000161",
+          "source_id": "object-000151",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000194",
+          "source_id": "object-000165",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000199",
+          "source_id": "object-000198",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 13,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000208",
+          "source_id": "object-000205",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000210",
+          "source_id": "object-000165",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 14,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000215",
+          "source_id": "object-000198",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 15,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000229",
+          "source_id": "object-000224",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 16,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000231",
+          "source_id": "object-000165",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 16,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000234",
+          "source_id": "object-000198",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 17,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000237",
+          "source_id": "object-000226",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 17,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000249",
+          "source_id": "object-000243",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 18,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000255",
+          "source_id": "object-000165",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 18,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000262",
+          "source_id": "object-000198",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 19,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000265",
+          "source_id": "object-000247",
+          "controller": "michelangelo"
+        }
+      ],
+      "activation_cost_paid": [
+        {
+          "turn": 12,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "casey_jones",
+          "card": "Improvised Arsenal",
+          "generic": 1,
+          "colored": [
+            "R"
+          ],
+          "source_ids": [
+            "object-000143",
+            "object-000155"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        },
+        {
+          "turn": 14,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "cost_paid",
+          "player": "casey_jones",
+          "card": "Improvised Arsenal",
+          "generic": 1,
+          "colored": [
+            "R"
+          ],
+          "source_ids": [
+            "object-000143",
+            "object-000155"
+          ],
+          "floating_event_ids": [],
+          "x_value": null
+        }
+      ]
+    },
+    {
+      "game_id": "issue289-equipment-copy-casey_jones-michelangelo-3006",
+      "seed": 3006,
+      "seats": [
+        "casey_jones",
+        "michelangelo"
+      ],
+      "result_sha256": "d3c8feb39f4fca8efa69d5cc5a207532079e8fa7b869ca67fda218f7bc5d7eb4",
+      "opportunities": [],
+      "selected": [],
+      "nonselected": [],
+      "casts": [],
+      "payments": [],
+      "entries": [],
+      "copied_tokens": [],
+      "activation_announced": [
+        {
+          "turn": 4,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000150",
+          "source_id": "object-000139",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 8,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000173",
+          "source_id": "object-000159",
+          "controller": "michelangelo"
+        },
+        {
+          "turn": 11,
+          "phase": "precombat_main",
+          "step": "precombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000200",
+          "source_id": "object-000187",
+          "controller": "casey_jones"
+        },
+        {
+          "turn": 12,
+          "phase": "postcombat_main",
+          "step": "postcombat_main",
+          "event": "activated_ability_stacked",
+          "stack_object_id": "object-000209",
+          "source_id": "object-000207",
+          "controller": "michelangelo"
+        }
+      ],
+      "activation_cost_paid": []
+    }
+  ]
+}

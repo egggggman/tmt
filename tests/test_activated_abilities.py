@@ -581,7 +581,7 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
         "Weather Maker",
     }
     # The complete targeted artifact counter/animation activation now executes.
-    assert len({item[0] for item in executable}) == 47 and len(executable) == 53
+    assert len({item[0] for item in executable}) == 47 and len(executable) == 54
     assert full == executable
     assert {item[1] for item in executable if item not in newly_executable_mana} == {
         "Fugitive Droid",
@@ -627,9 +627,9 @@ def test_authoritative_activation_memberships_and_digests_are_locked():
     assert digest(recognized) == RECOGNIZED_DIGEST
     assert (
         digest([item for item in executable if item not in newly_executable_mana])
-        == "2f2cc12895c62e36ca8da74c4b8415bffc8c9c971a6caf54091b532ea084fa97"
+        == "753cfe15cada1b6d2e84548413157e3ced1f38f3672c2cf851bbf5b16740f538"
     )
-    assert digest(executable) == "b57457be357001fc2a2b9f8ff57cbfde28ecfcaf4cf74b56c5068fc06dc7bb0a"
+    assert digest(executable) == "99596997a2d9c3ec9b172a6c32bf6356ef1c79a1c09ca85b4db42caed16ac55a"
     assert digest(full) == digest(executable)
 
 
