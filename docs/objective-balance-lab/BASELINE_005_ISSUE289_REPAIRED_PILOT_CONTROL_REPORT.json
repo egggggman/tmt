@@ -1,0 +1,64 @@
+{
+  "schema": "obl-baseline005-repaired-pilot-control-report-v1",
+  "control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
+  "environment_id": "OBL-BASELINE-005",
+  "status": "BLOCKED",
+  "semantic_runtime_sha256": "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "expected_games": 4500,
+  "completed_games": 1000,
+  "failed_games": 2,
+  "draws_completed": 0,
+  "completed_cells": 10,
+  "expected_cells": 45,
+  "replay_cells_completed": 1,
+  "artifact": {
+    "path": "docs/objective-balance-lab/BASELINE_005_ISSUE289_REPAIRED_PILOT_CONTROL.json.gz",
+    "sha256": "f42348030c56fa12bf5c8c380dd32cd5d8ba6baaefeaf61635a3befea8396eb8"
+  },
+  "failures": [
+    {
+      "pair": ["raphael", "michelangelo"],
+      "orientation": "reversed",
+      "block": 3,
+      "seed": 70854356032484108629752045553328311296264080222857296236996711926358961833742,
+      "seats": ["raphael", "michelangelo"],
+      "first_player": "raphael",
+      "error": "ValueError: ETB Food search evidence does not reconstruct"
+    },
+    {
+      "pair": ["raphael", "michelangelo"],
+      "orientation": "canonical",
+      "block": 41,
+      "seed": 61283485696731598188099450771387457581219000296206197647983307541613500950207,
+      "seats": ["michelangelo", "raphael"],
+      "first_player": "michelangelo",
+      "error": "ValueError: ETB Food search evidence does not reconstruct"
+    }
+  ],
+  "prior_evidence_excluded": {
+    "failed_control_ids": [
+      "OBL-BASELINE-005-FINAL-CONTROL-001",
+      "OBL-BASELINE-005-REPAIRED-CONTROL-001"
+    ],
+    "failed_control_sha256": "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352",
+    "repaired_control_sha256": "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7",
+    "repair_diagnostic_games": 100,
+    "included_in_matrix": false
+  },
+  "completed_cell_results": {
+    "leonardo|raphael": {"games": 100, "wins": {"leonardo": 30, "raphael": 70}, "mean_turn": 18.91},
+    "leonardo|donatello": {"games": 100, "wins": {"leonardo": 39, "donatello": 61}, "mean_turn": 19.23},
+    "leonardo|michelangelo": {"games": 100, "wins": {"leonardo": 45, "michelangelo": 55}, "mean_turn": 22.01},
+    "leonardo|splinter": {"games": 100, "wins": {"leonardo": 34, "splinter": 66}, "mean_turn": 20.90},
+    "leonardo|shredder": {"games": 100, "wins": {"leonardo": 62, "shredder": 38}, "mean_turn": 24.66},
+    "leonardo|krang": {"games": 100, "wins": {"leonardo": 48, "krang": 52}, "mean_turn": 22.16},
+    "leonardo|bebop_rocksteady": {"games": 100, "wins": {"leonardo": 63, "bebop_rocksteady": 37}, "mean_turn": 24.93},
+    "leonardo|april_oneil": {"games": 100, "wins": {"leonardo": 71, "april_oneil": 29}, "mean_turn": 24.70},
+    "leonardo|casey_jones": {"games": 100, "wins": {"leonardo": 37, "casey_jones": 63}, "mean_turn": 19.81},
+    "raphael|donatello": {"games": 100, "wins": {"raphael": 60, "donatello": 40}, "mean_turn": 15.70}
+  },
+  "recommendation": "BLOCKED_BY_SIMULATOR_EVIDENCE_DEFECT",
+  "rerun_authorized": false,
+  "promotion_authorized": false
+}
