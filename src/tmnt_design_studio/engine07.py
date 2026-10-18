@@ -17041,8 +17041,17 @@ class Game(
                 continue
             for fragment in self.interpreter.fragments(source.rules_card):
                 affected = self.interpreter.single_block_limit(source.card, fragment)
-                if (affected == "self" and source is attacker) or (
-                    affected is not None and affected != "self" and affected in subtype
+                if (
+                    (affected == "self" and source is attacker)
+                    or (
+                        affected == "controlled_with_counter"
+                        and any(count > 0 for count in attacker.counters.values())
+                    )
+                    or (
+                        affected is not None
+                        and affected not in {"self", "controlled_with_counter"}
+                        and affected in subtype
+                    )
                 ):
                     sources.append((source.object_id, fragment))
         return tuple(sources)

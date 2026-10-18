@@ -2273,7 +2273,14 @@ class CardInterpreter:
         return bool(match and self._self_reference(card, match.group(1)))
 
     def single_block_limit(self, card: CardDefinition, fragment: str) -> str | None:
-        """Return the affected creature subtype, or 'self', for a full block limit."""
+        """Return a complete self, subtype, or counter-conditioned block limit."""
+        if (
+            fragment
+            == "Each creature you control with a counter on it can't be blocked "
+            "by more than one creature."
+            and any(kind in card.type_line for kind in self.PERMANENT_CARD_TYPES)
+        ):
+            return "controlled_with_counter"
         match = re.fullmatch(r"(.+) can't be blocked by more than one creature\.", fragment)
         if match is not None and match.group(1).casefold() in {
             card.name.casefold(),
