@@ -69,7 +69,10 @@ def preflight() -> tuple[dict, list[dict], dict[str, str]]:
     assert readiness["critical_remaining"] == readiness["important_remaining"] == 0
     assert readiness["unbounded_residual_important"] == 0
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
-    assert repair["repaired_runtime_sha256"] == "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401"
+    assert (
+        repair["repaired_runtime_sha256"]
+        == "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401"
+    )
     assert repair["previous_control_id"] == "OBL-BASELINE-005-FINAL-CONTROL-001"
     assert repair["previous_control_artifact_sha256"] == PRIOR_FAILED_CONTROL_SHA
     failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
