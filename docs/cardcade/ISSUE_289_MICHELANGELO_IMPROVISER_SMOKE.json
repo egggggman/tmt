@@ -1,0 +1,213 @@
+{
+  "schema": "issue289-michelangelo-improviser-frozen-diagnostic-v1",
+  "baseline_id": "OBL-BASELINE-005",
+  "purpose": "mechanical_and_pilot_exposure_only_no_balance_inference",
+  "semantic_runtime_sha256": "69d09aa4e63bdbc05dc0d7c4ecc212b4739c088034d273548880838bcd5ab130",
+  "manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "overlay_sha256": "a73ec672bf1d9d4d85c1b852406bece2372b1f9c51c2c285da582ba50988265b",
+  "replay_count": 6,
+  "games": [
+    {
+      "game_id": "issue289-improviser-michelangelo-raphael-6011",
+      "seed": 6011,
+      "seats": [
+        "michelangelo",
+        "raphael"
+      ],
+      "result_sha256": "a2f9210bdb818d175ecbbb714d31e1db5f60bf4fdea90efe446a77f629125f5b",
+      "damage_opportunities": [
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_damage_player",
+          "source": "Michelangelo, Improviser",
+          "source_id": "object-000194",
+          "target_player": 1,
+          "damage": 6,
+          "damage_step": "regular",
+          "role": "regular"
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_damage_player",
+          "source": "Michelangelo, Improviser",
+          "source_id": "object-000313",
+          "target_player": 1,
+          "damage": 4,
+          "damage_step": "regular",
+          "role": "regular"
+        }
+      ],
+      "trigger_events": [
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000018",
+          "event_id": "event-000109",
+          "source": "Michelangelo, Improviser",
+          "controller": "michelangelo",
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000025",
+          "event_id": "event-000162",
+          "source": "Michelangelo, Improviser",
+          "controller": "michelangelo",
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        }
+      ],
+      "choices": [
+        {
+          "turn": 15,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_hand_battlefield_entry_choice",
+          "event_id": "event-000109",
+          "trigger_id": "trigger-000018",
+          "stack_object_id": "object-000265",
+          "source_id": "object-000194",
+          "controller": 0,
+          "creature_id": null,
+          "land_id": null,
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        },
+        {
+          "turn": 19,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_hand_battlefield_entry_choice",
+          "event_id": "event-000162",
+          "trigger_id": "trigger-000025",
+          "stack_object_id": "object-000315",
+          "source_id": "object-000313",
+          "controller": 0,
+          "creature_id": null,
+          "land_id": null,
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        }
+      ],
+      "creature_entries": [],
+      "land_entries": []
+    },
+    {
+      "game_id": "issue289-improviser-raphael-michelangelo-6011",
+      "seed": 6011,
+      "seats": [
+        "raphael",
+        "michelangelo"
+      ],
+      "result_sha256": "8054646936914e386799322bbf60ee3864809f8e82d30ec254e5c7c578ce2b34",
+      "damage_opportunities": [],
+      "trigger_events": [],
+      "choices": [],
+      "creature_entries": [],
+      "land_entries": []
+    },
+    {
+      "game_id": "issue289-improviser-michelangelo-shredder-6012",
+      "seed": 6012,
+      "seats": [
+        "michelangelo",
+        "shredder"
+      ],
+      "result_sha256": "99cb6ad6563a7a0375726cdeee39fcde455935e9b39e8994e19c3490b270b9de",
+      "damage_opportunities": [],
+      "trigger_events": [],
+      "choices": [],
+      "creature_entries": [],
+      "land_entries": []
+    },
+    {
+      "game_id": "issue289-improviser-shredder-michelangelo-6012",
+      "seed": 6012,
+      "seats": [
+        "shredder",
+        "michelangelo"
+      ],
+      "result_sha256": "f7b6f33f050eaf5e0333e91605f6cbb32d7066a08f31ab5030517fb056951adf",
+      "damage_opportunities": [],
+      "trigger_events": [],
+      "choices": [],
+      "creature_entries": [],
+      "land_entries": []
+    },
+    {
+      "game_id": "issue289-improviser-michelangelo-casey_jones-6013",
+      "seed": 6013,
+      "seats": [
+        "michelangelo",
+        "casey_jones"
+      ],
+      "result_sha256": "7b481169373a5af36dcff1f664cfa68fb6b2f363b180b7d50a068ca93c423b23",
+      "damage_opportunities": [
+        {
+          "turn": 25,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_damage_player",
+          "source": "Michelangelo, Improviser",
+          "source_id": "object-000327",
+          "target_player": 1,
+          "damage": 4,
+          "damage_step": "regular",
+          "role": "regular"
+        }
+      ],
+      "trigger_events": [
+        {
+          "turn": 25,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "trigger_pending",
+          "trigger_id": "trigger-000024",
+          "event_id": "event-000208",
+          "source": "Michelangelo, Improviser",
+          "controller": "michelangelo",
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        }
+      ],
+      "choices": [
+        {
+          "turn": 25,
+          "phase": "combat",
+          "step": "combat_damage",
+          "event": "combat_hand_battlefield_entry_choice",
+          "event_id": "event-000208",
+          "trigger_id": "trigger-000024",
+          "stack_object_id": "object-000328",
+          "source_id": "object-000327",
+          "controller": 0,
+          "creature_id": null,
+          "land_id": null,
+          "oracle_fragment": "Whenever Michelangelo deals combat damage to a player, you may put a creature card and/or a land card from your hand onto the battlefield."
+        }
+      ],
+      "creature_entries": [],
+      "land_entries": []
+    },
+    {
+      "game_id": "issue289-improviser-casey_jones-michelangelo-6013",
+      "seed": 6013,
+      "seats": [
+        "casey_jones",
+        "michelangelo"
+      ],
+      "result_sha256": "5a0c778c14e01640b366120413adbfc2b9a3046913649e3c5ac71f9987b2abb2",
+      "damage_opportunities": [],
+      "trigger_events": [],
+      "choices": [],
+      "creature_entries": [],
+      "land_entries": []
+    }
+  ]
+}

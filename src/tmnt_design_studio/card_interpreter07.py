@@ -3224,6 +3224,24 @@ class CardInterpreter:
             is not None
         )
 
+    def combat_damage_hand_battlefield(self, card: CardDefinition, fragment: str) -> bool:
+        """Recognize a self combat-damage hand-to-battlefield trigger."""
+        if "Creature" not in card.type_line:
+            return False
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = (
+            "(?:" + "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True)) + ")"
+        )
+        return (
+            re.fullmatch(
+                rf"Whenever {reference} deals combat damage to a player, you may put a "
+                r"creature card and/or a land card from your hand onto the battlefield\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            is not None
+        )
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -4589,6 +4607,8 @@ class CardInterpreter:
             if self.combat_damage_graveyard_attacker(card, fragment):
                 continue
             if self.combat_damage_artifact_copy(card, fragment):
+                continue
+            if self.combat_damage_hand_battlefield(card, fragment):
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
