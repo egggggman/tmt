@@ -1,0 +1,59 @@
+{
+  "schema": "cardcade-issue289-food-search-repair-v1",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "predecessor_pr": 355,
+  "predecessor_runtime_sha256": "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308",
+  "repaired_runtime_sha256": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+  "coverage_ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+  "coverage_ledger_rows": 172,
+  "root_cause": {
+    "gameplay": false,
+    "recording": false,
+    "reconstruction_validator": true,
+    "details": [
+      "An ETB resolution can cause a nested trigger before its outer committed event. The validator counted nested tokens_created, reveals, moves, or shuffles as belonging to the outer transaction instead of scoping them by authenticated source/stack identity.",
+      "The existing JSON serialization comparison remains canonical and was not weakened; live tuple/list differences are normalized by JSON encoding, while the repaired action checks remain strict."
+    ]
+  },
+  "failures_reproduced": [
+    {
+      "orientation": "reversed",
+      "block": 3,
+      "seed": "70854356032484108629752045553328311296264080222857296236996711926358961833742",
+      "seats": ["raphael", "michelangelo"],
+      "trace": "stage002.py:753 run_game -> engine07.py:19019 Game.snapshot -> engine07.py:18749 _executed_conformance_references -> food_search07.py:531 validate_food_search_snapshot_evidence -> food_search07.py:451 assertion"
+    },
+    {
+      "orientation": "canonical",
+      "block": 41,
+      "seed": "61283485696731598188099450771387457581219000296206197647983307541613500950207",
+      "seats": ["michelangelo", "raphael"],
+      "trace": "stage002.py:753 run_game -> engine07.py:19019 Game.snapshot -> engine07.py:18749 _executed_conformance_references -> food_search07.py:531 validate_food_search_snapshot_evidence -> food_search07.py:451 assertion"
+    }
+  ],
+  "repair": {
+    "canonical_serialization_comparison_preserved": true,
+    "nested_events_retained": true,
+    "authenticated_scoping": ["stack_object_id", "source_id", "selected_library_id", "food_search reason"],
+    "forged_evidence_rejected": true
+  },
+  "focused_tests": {"passed": 55},
+  "full_regression": {"passed": 2107, "skipped": 10},
+  "diagnostic": {
+    "artifact": "docs/objective-balance-lab/BASELINE_005_ISSUE289_FOOD_SEARCH_REPAIR_RAPHAEL_MICHELANGELO_DIAGNOSTIC.json",
+    "artifact_sha256": "fe843e16159f69ed73bfab0940b00d930af6c2eae78e6299e6d93ea12b26e8bf",
+    "games": 100,
+    "balanced_orientations": {"canonical": 50, "reversed": 50},
+    "runtime_errors": 0,
+    "draws": 0,
+    "wins": {"raphael": 49, "michelangelo": 51},
+    "mean_turn": 16.76,
+    "purpose": "repair diagnostic only; excluded from calibration and balance interpretation"
+  },
+  "immutable_predecessor_artifacts": {
+    "final_control_sha256": "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352",
+    "repaired_control_sha256": "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7",
+    "repaired_pilot_control_sha256": "f42348030c56fa12bf5c8c380dd32cd5d8ba6baaefeaf61635a3befea8396eb8"
+  },
+  "calibration_recommendation": "BLOCKED_REQUIRES_SEPARATE_HQ_AUTHORIZATION"
+}

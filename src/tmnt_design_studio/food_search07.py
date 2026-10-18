@@ -414,10 +414,32 @@ class FoodSearchMixin:
                 ]
                 assert candidates == decision["candidates"]
                 selected, hand = item["selected_library_id"], item["hand_id"]
-                reveals = [e for e in steps if e["event"] == "food_card_revealed"]
-                moves = [e for e in steps if e["event"] == "zone_changed"]
-                creations = [e for e in steps if e["event"] == "tokens_created"]
-                shuffles = [e for e in steps if e["event"] == "food_search_shuffled"]
+                # A resolution can cause another trigger to resolve before its
+                # committed event is recorded.  Keep nested events in the
+                # transaction evidence, but only authenticate this transaction's
+                # actions by their stack/source identity.
+                reveals = [
+                    e
+                    for e in steps
+                    if e["event"] == "food_card_revealed" and e.get("stack_object_id") == stack_id
+                ]
+                moves = [
+                    e
+                    for e in steps
+                    if e["event"] == "zone_changed"
+                    and e.get("reason") == "food_search"
+                    and e.get("source_object_id") == selected
+                ]
+                creations = [
+                    e
+                    for e in steps
+                    if e["event"] == "tokens_created" and e.get("source_id") == source_id
+                ]
+                shuffles = [
+                    e
+                    for e in steps
+                    if e["event"] == "food_search_shuffled" and e.get("stack_object_id") == stack_id
+                ]
                 if selected is not None:
                     assert item["search"] is True
                     candidate = next(obj for obj in candidates if obj["object_id"] == selected)
