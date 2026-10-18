@@ -296,6 +296,16 @@ def test_animated_noncreature_exposes_current_effective_power_toughness():
     assert row.power == 0 and row.toughness == 0
 
 
+def test_malformed_animated_noncreature_fails_closed_without_base_power_toughness():
+    game = Game(([LAND] * 20, [LAND] * 20), seed=403)
+    game.begin_turn()
+    artifact = CardFact("Malformed Equipment", "{2}", 2, "Artifact — Equipment")
+    permanent = game.create_permanent(artifact, 1)
+    permanent.type_line_override = "Artifact Creature — Equipment"
+    with pytest.raises(ValueError, match="animated noncreature lacks a represented base P/T"):
+        decision_context(game, 0)
+
+
 @pytest.mark.parametrize("seat", [-1, 2, None, True])
 def test_invalid_recipients_fail_closed(seat):
     with pytest.raises(ValueError, match="explicit seat"):
