@@ -79,7 +79,8 @@ def reports() -> tuple[dict, dict]:
             reason
             for fragment, reason in interpreter.unsupported_fragments(card)
             if fragment == EFFECT
-        } - {"token_copy_not_implemented", "token_activation_context_not_implemented"}
+        }
+        - {"token_copy_not_implemented", "token_activation_context_not_implemented"}
     ):
         raise ValueError("complete frozen entry modifier remains unsupported")
     rows = [dict(row) for row in before["rows"]]

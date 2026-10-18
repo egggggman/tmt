@@ -55,8 +55,7 @@ class ObservedPilot(AcceptancePilot):
         offered = tuple(
             option
             for option in options
-            if option.kind is ActionKind.ACTIVATE_ABILITY
-            and option.oracle_fragment == FRAGMENT
+            if option.kind is ActionKind.ACTIVATE_ABILITY and option.oracle_fragment == FRAGMENT
         )
         for option in offered:
             self.opportunities.add((view.turn, "priority", option.object_id))
@@ -146,16 +145,13 @@ def main() -> None:
                         and e.get("destination_zone") == "battlefield"
                     ],
                     "copied_tokens": [
-                        e
-                        for e in events
-                        if e["event"] == "copied_artifact_token_created"
+                        e for e in events if e["event"] == "copied_artifact_token_created"
                     ],
                     "activation_announced": [
                         e for e in events if e["event"] == "activated_ability_stacked"
                     ],
                     "activation_cost_paid": [
-                        e for e in events if e["event"] == "cost_paid"
-                        and e.get("card") == NAME
+                        e for e in events if e["event"] == "cost_paid" and e.get("card") == NAME
                     ],
                 }
             )
