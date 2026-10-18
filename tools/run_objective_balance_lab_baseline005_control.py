@@ -20,12 +20,14 @@ from objective_balance_lab_semantic_identity import identity  # noqa: E402
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
 READINESS = ROOT / "docs/cardcade/ISSUE_289_MICHELANGELO_IMPROVISER_CALIBRATION_READINESS.json"
 REPAIR = ROOT / "docs/cardcade/ISSUE_289_DAMAGE_MANA_PROVENANCE_REPAIR.json"
+PILOT_REPAIR = ROOT / "docs/cardcade/ISSUE_289_PILOT_NONE_T_REPAIR.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
-RESULT = OBL / "BASELINE_005_ISSUE289_REPAIRED_CONTROL.json.gz"
-CONTROL_ID = "OBL-BASELINE-005-REPAIRED-CONTROL-001"
-RUNTIME = "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401"
+RESULT = OBL / "BASELINE_005_ISSUE289_REPAIRED_PILOT_CONTROL.json.gz"
+CONTROL_ID = "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001"
+RUNTIME = "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
 PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
+PRIOR_REPAIRED_CONTROL_SHA = "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7"
 
 
 def digest(value: object) -> str:
@@ -57,6 +59,7 @@ def preflight() -> tuple[dict, list[dict], dict[str, str]]:
     manifest = json.loads(MANIFEST.read_text())
     readiness = json.loads(READINESS.read_text())
     repair = json.loads(REPAIR.read_text())
+    pilot_repair = json.loads(PILOT_REPAIR.read_text())
     assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME
     # The final coverage/readiness ledger predates the provenance repair.  Its
     # zero-gap result is retained as semantic evidence, while the repair report
@@ -66,11 +69,17 @@ def preflight() -> tuple[dict, list[dict], dict[str, str]]:
     assert readiness["critical_remaining"] == readiness["important_remaining"] == 0
     assert readiness["unbounded_residual_important"] == 0
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
-    assert repair["repaired_runtime_sha256"] == RUNTIME
+    assert repair["repaired_runtime_sha256"] == "a86708257c54495cb3d3a71c578b86f41931184542542bbe676dacb924b1d401"
     assert repair["previous_control_id"] == "OBL-BASELINE-005-FINAL-CONTROL-001"
     assert repair["previous_control_artifact_sha256"] == PRIOR_FAILED_CONTROL_SHA
     failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
     assert sha(failed) == PRIOR_FAILED_CONTROL_SHA
+    assert pilot_repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
+    assert pilot_repair["repaired_runtime_sha256"] == RUNTIME
+    assert pilot_repair["previous_control_id"] == "OBL-BASELINE-005-REPAIRED-CONTROL-001"
+    assert pilot_repair["previous_control_artifact_sha256"] == PRIOR_REPAIRED_CONTROL_SHA
+    previous_repaired = OBL / "BASELINE_005_ISSUE289_REPAIRED_CONTROL.json.gz"
+    assert sha(previous_repaired) == PRIOR_REPAIRED_CONTROL_SHA
     assert len(list(__import__("csv").DictReader(LEDGER.open()))) == 172
     assert manifest["environment_id"] == "OBL-BASELINE-005"
     # The promoted Baseline 005 manifest records its historical promotion runtime;
@@ -106,7 +115,7 @@ def main() -> int:
         )
         return 0
     expected = {
-        "schema": "obl-baseline005-repaired-control-v1",
+        "schema": "obl-baseline005-repaired-pilot-control-v1",
         "environment_id": "OBL-BASELINE-005",
         "evidence_id": CONTROL_ID,
         "baseline_manifest_sha256": sha(MANIFEST),
@@ -123,6 +132,8 @@ def main() -> int:
         "promotion_authorized": False,
         "prior_failed_control_id": "OBL-BASELINE-005-FINAL-CONTROL-001",
         "prior_failed_control_sha256": PRIOR_FAILED_CONTROL_SHA,
+        "prior_repaired_control_id": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
+        "prior_repaired_control_sha256": PRIOR_REPAIRED_CONTROL_SHA,
         "repair_diagnostics_excluded": True,
     }
     cards = r1.catalog()
