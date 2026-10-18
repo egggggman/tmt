@@ -21,6 +21,8 @@ food_search07.py:451 assertion
 ValueError: ETB Food search evidence does not reconstruct
 ```
 
+The complete pre-failure event-boundary summaries (including outer transaction cursors, source/stack identities, zone counts, and the nested action that was misclassified) are preserved in [the root-cause forensics artifact](ISSUE_289_FOOD_SEARCH_ROOT_CAUSE_FORENSICS.json), SHA-256 `6a191e2928203311c898c9908a9ff478f8a74281b803f01581f35a12aa777c6a`.
+
 ## Reproduction and validation
 
 | Fixture | Result after repair |

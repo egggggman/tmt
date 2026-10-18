@@ -37,6 +37,13 @@
     "authenticated_scoping": ["stack_object_id", "source_id", "selected_library_id", "food_search reason"],
     "forged_evidence_rejected": true
   },
+  "root_cause_forensics": {
+    "artifact": "docs/cardcade/ISSUE_289_FOOD_SEARCH_ROOT_CAUSE_FORENSICS.json",
+    "artifact_sha256": "6a191e2928203311c898c9908a9ff478f8a74281b803f01581f35a12aa777c6a",
+    "reversed_block_3_event_count": 1415,
+    "canonical_block_41_event_count": 1650,
+    "outer_transaction_nested_action_counts": {"reversed_block_3": 1, "canonical_block_41": 1}
+  },
   "focused_tests": {"passed": 55},
   "full_regression": {"passed": 2107, "skipped": 10},
   "diagnostic": {
