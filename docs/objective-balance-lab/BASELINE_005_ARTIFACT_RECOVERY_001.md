@@ -2,6 +2,8 @@
 
 Status: **BLOCKED — exact historical recovery unavailable**
 
+HQ governance classification: **`HISTORICAL_CORRUPT_EXCLUDED`**. This exception applies only to these two unrecoverable artifacts as mandatory prerequisites for a new independent control. It does not authenticate them, admit their game results, or weaken validation of newly produced evidence.
+
 The two repaired-control artifacts recorded by the historical reports cannot be authenticated in the current repository. Their tracked Git blobs are the same bytes as the workspace copies, but both byte streams fail gzip validation. The recorded hashes are preserved unchanged; no simulation was regenerated and no historical file was overwritten.
 
 | Control | Recorded SHA-256 | Current SHA-256 | Size | Gzip |
@@ -24,3 +26,9 @@ Corrupted bytes are preserved separately under `forensics/BASELINE_005_ARTIFACT_
 The historical failure records and report metadata remain useful for narrative and failure-signature review. The raw compressed telemetry and reproducibility-critical control artifacts are not independently verifiable. Exact recovery is unresolved; these files must not be regenerated and relabeled as historical originals.
 
 Recommendation: **BLOCKED for calibration preflight.** HQ must separately decide whether a narrowly documented provenance exception or superseding evidence package is acceptable. No calibration run, deck change, hash replacement, merge, or promotion was performed.
+
+## New-artifact safeguards
+
+`tools/artifact_integrity.py` now requires every new artifact to be written to a unique temporary path, flushed and fsynced, fully decompressed and parsed, independently hashed, atomically published, and read back from the published path. Manifest fields are checked on every write. Failed writes are quarantined and cannot be reported as finalized controls. The `HISTORICAL_CORRUPT_EXCLUDED` classification is rejected for new controls.
+
+Focused integrity tests: **5 passed**. Full regression: **2112 passed, 10 skipped**. Ruff and format checks passed. Baseline 005's ten deck hashes and the 172-row ledger remain unchanged.

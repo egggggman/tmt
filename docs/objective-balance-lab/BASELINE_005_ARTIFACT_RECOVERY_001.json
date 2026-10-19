@@ -4,6 +4,13 @@
   "status": "BLOCKED_EXACT_RECOVERY_UNAVAILABLE",
   "environment_id": "OBL-BASELINE-005",
   "historical_hashes_unchanged": true,
+  "hq_governance_decision": {
+    "classification": "HISTORICAL_CORRUPT_EXCLUDED",
+    "scope": "mandatory preflight prerequisites for a new independent control only",
+    "does_not_authenticate_artifacts": true,
+    "does_not_admit_historical_game_results": true,
+    "does_not_weaken_new_evidence_validation": true
+  },
   "artifacts": [
     {
       "control_id": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
@@ -15,7 +22,8 @@
       "git_blob_sha": "6c1d1254632301f55d12b1a6369e10b2179353b9",
       "gzip_valid": false,
       "gzip_error": "invalid compressed data--format violated",
-      "recovery": "not recovered"
+      "recovery": "not recovered",
+      "historical_classification": "HISTORICAL_CORRUPT_EXCLUDED"
     },
     {
       "control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
@@ -27,7 +35,8 @@
       "git_blob_sha": "a471e14dc03878818cbc793e929cf92c6287a75d",
       "gzip_valid": false,
       "gzip_error": "invalid compressed data--format violated",
-      "recovery": "not recovered"
+      "recovery": "not recovered",
+      "historical_classification": "HISTORICAL_CORRUPT_EXCLUDED"
     }
   ],
   "sources_examined": {
@@ -51,5 +60,27 @@
     "docs/objective-balance-lab/forensics/BASELINE_005_ARTIFACT_RECOVERY_001/REPAIRED_PILOT_CONTROL.corrupt.json.gz"
   ],
   "recommendation": "BLOCKED_FOR_CALIBRATION_PREFLIGHT",
-  "next_decision_required": "HQ must decide whether a documented provenance exception or superseding evidence package is acceptable; no historical hash replacement or regenerated substitute is authorized by this checkpoint."
+  "next_decision_required": "HQ must decide whether a documented provenance exception or superseding evidence package is acceptable; no historical hash replacement or regenerated substitute is authorized by this checkpoint.",
+  "artifact_persistence_safeguards": {
+    "module": "tools/artifact_integrity.py",
+    "module_sha256": "f55d601541c6a2ee1c9bbc5726dfb36555b824ae3659af99b1707db6b5644c0a",
+    "runner_sha256": "d3f2cbaaf228dc35544e81010e3656585dfe088e8d3933b2c44a11c93b23627d",
+    "temporary_atomic_write": true,
+    "fsync_before_publish": true,
+    "gzip_full_decompression": true,
+    "independent_sha256_readback": true,
+    "manifest_validation": true,
+    "quarantine_failed_writes": true,
+    "post_publication_readback": true,
+    "historical_exception_rejected_for_new_controls": true
+  },
+  "validation": {
+    "focused_artifact_tests": "5 passed",
+    "full_regression": "2112 passed, 10 skipped",
+    "ruff": "passed",
+    "ruff_format": "passed",
+    "ledger_sha256": "56660440820f130bb5582cbe4b2aa46df983950aa0978a171ec7ee95cfe00100",
+    "ledger_rows": 172,
+    "baseline_deck_hashes": "all ten authenticated"
+  }
 }

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import gzip
 import hashlib
 import json
 import sys
@@ -15,6 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "tools"))
 import run_objective_balance_lab_round1 as r1  # noqa: E402
+from artifact_integrity import (  # noqa: E402
+    assert_new_control_classification,
+    write_validated_artifact,
+)
 from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
@@ -44,14 +47,18 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def save(path: Path, payload: dict) -> None:
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_bytes(
-        gzip.compress(
-            json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode(), mtime=0
-        )
+def save(path: Path, payload: dict, expected_manifest: dict | None = None) -> None:
+    assert_new_control_classification(payload)
+    write_validated_artifact(
+        path,
+        payload,
+        expected_manifest=expected_manifest
+        or {
+            key: payload[key]
+            for key in ("schema", "evidence_id", "semantic_runtime_sha256", "schedule_sha256")
+            if key in payload
+        },
     )
-    tmp.replace(path)
 
 
 def preflight() -> tuple[dict, list[dict], dict[str, str]]:
@@ -139,6 +146,15 @@ def main() -> int:
         "prior_repaired_control_sha256": PRIOR_REPAIRED_CONTROL_SHA,
         "repair_diagnostics_excluded": True,
     }
+    artifact_manifest = {
+        "schema": expected["schema"],
+        "evidence_id": CONTROL_ID,
+        "semantic_runtime_sha256": RUNTIME,
+        "schedule_sha256": SCHEDULE_SHA,
+        "required_games": 4500,
+        "baseline_manifest_sha256": sha(MANIFEST),
+        "baseline_decks": manifest["decks"],
+    }
     cards = r1.catalog()
     replay_pairs = (
         ("leonardo", "raphael"),
@@ -164,7 +180,7 @@ def main() -> int:
             if failures:
                 expected["status"] = "FAIL_CLOSED"
                 expected["failure"] = failures
-                save(RESULT, expected)
+                save(RESULT, expected, artifact_manifest)
                 raise RuntimeError(f"runtime failure in cell {cell_rows[0]['pair']}")
             expected["games"].extend(results)
             key = "|".join(cell_rows[0]["pair"])
@@ -175,7 +191,7 @@ def main() -> int:
                 )
                 assert digest(replay) == digest(results[:1])
                 expected["replays"][key] = digest(replay[0])
-            save(RESULT, expected)
+            save(RESULT, expected, artifact_manifest)
             print(
                 json.dumps({"phase": "control", "pair": key, "games": len(expected["games"])}),
                 flush=True,
@@ -187,7 +203,7 @@ def main() -> int:
     )
     assert all(g["runtime_error"] is None and g["runtime_fingerprint"] for g in expected["games"])
     expected["status"] = "COMPLETE"
-    save(RESULT, expected)
+    save(RESULT, expected, artifact_manifest)
     print(json.dumps({"status": "COMPLETE", "games": 4500, "replay_cells": 6}))
     return 0
 
