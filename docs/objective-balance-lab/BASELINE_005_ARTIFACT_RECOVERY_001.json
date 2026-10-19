@@ -1,0 +1,55 @@
+{
+  "schema": "obl-baseline005-artifact-recovery-v1",
+  "recovery_id": "OBL-BASELINE-005-ARTIFACT-RECOVERY-001",
+  "status": "BLOCKED_EXACT_RECOVERY_UNAVAILABLE",
+  "environment_id": "OBL-BASELINE-005",
+  "historical_hashes_unchanged": true,
+  "artifacts": [
+    {
+      "control_id": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
+      "path": "docs/objective-balance-lab/BASELINE_005_ISSUE289_REPAIRED_CONTROL.json.gz",
+      "recorded_sha256": "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7",
+      "current_sha256": "a9dda16f7f65ff2aeb7e48445a86e825c716a2e777b5b575fd2e1fafec56d253",
+      "size_bytes": 786444,
+      "mtime": "2026-10-18T12:40:36.801569064-04:00",
+      "git_blob_sha": "6c1d1254632301f55d12b1a6369e10b2179353b9",
+      "gzip_valid": false,
+      "gzip_error": "invalid compressed data--format violated",
+      "recovery": "not recovered"
+    },
+    {
+      "control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
+      "path": "docs/objective-balance-lab/BASELINE_005_ISSUE289_REPAIRED_PILOT_CONTROL.json.gz",
+      "recorded_sha256": "f42348030c56fa12bf5c8c380dd32cd5d8ba6baaefeaf61635a3befea8396eb8",
+      "current_sha256": "8a528dd479351687dae307dfd88b3236ae9df058ecfcce0de4dda468e18a3809",
+      "size_bytes": 786444,
+      "mtime": "2026-10-18T12:40:36.805569142-04:00",
+      "git_blob_sha": "a471e14dc03878818cbc793e929cf92c6287a75d",
+      "gzip_valid": false,
+      "gzip_error": "invalid compressed data--format violated",
+      "recovery": "not recovered"
+    }
+  ],
+  "sources_examined": {
+    "git_history": "one tracked blob per artifact; both blobs match the invalid current bytes",
+    "pull_requests": [351, 352, 353, 354, 355, 356],
+    "actions_run": 39098482115,
+    "actions_run_conclusion": "success",
+    "actions_artifacts": [],
+    "pr_comments_or_attachments": "none found",
+    "previous_workspaces": "none available in the workspace filesystem"
+  },
+  "independent_authentication": false,
+  "historical_claims": {
+    "reports_and_failure_records_survive": true,
+    "raw_telemetry_survives_as_valid_gzip": false,
+    "reproducibility_critical_artifact_survives": false,
+    "reports_are_not_byte_authentication": true
+  },
+  "forensic_copies": [
+    "docs/objective-balance-lab/forensics/BASELINE_005_ARTIFACT_RECOVERY_001/REPAIRED_CONTROL.corrupt.json.gz",
+    "docs/objective-balance-lab/forensics/BASELINE_005_ARTIFACT_RECOVERY_001/REPAIRED_PILOT_CONTROL.corrupt.json.gz"
+  ],
+  "recommendation": "BLOCKED_FOR_CALIBRATION_PREFLIGHT",
+  "next_decision_required": "HQ must decide whether a documented provenance exception or superseding evidence package is acceptable; no historical hash replacement or regenerated substitute is authorized by this checkpoint."
+}
