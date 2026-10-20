@@ -5,7 +5,12 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.card_interpreter07 import ActivatedEffectKind, CardInterpreter
+from tmnt_design_studio.card_interpreter07 import (
+    ActivatedEffectKind,
+    CardInterpreter,
+    TokenCreationProgram,
+    TokenDefinition,
+)
 from tmnt_design_studio.engine07 import (
     ActionKind,
     CardFact,
@@ -31,6 +36,14 @@ FUGITIVE = CardFact(
 FRAGMENT = FUGITIVE.oracle_text
 SPELL = CardFact("Bolt", "{R}", 1, "Instant", "Deal 3 damage to any target.", oracle_id="bolt")
 NON_TARGET = CardFact("Concentrate", "{3}{U}", 4, "Sorcery", "Draw three cards.", oracle_id="draw")
+TOKEN_FUGITIVE = TokenDefinition(
+    "Fugitive Droid",
+    "Artifact Creature — Robot",
+    mana_cost="{U}",
+    oracle_text=FRAGMENT,
+    power=1,
+    toughness=1,
+)
 
 
 def setup(*, protected=CREATURE, spell=SPELL, spell_target=True):
@@ -141,6 +154,71 @@ def test_payment_sacrifice_target_and_resolution_counter_spell():
     assert any(e["event"] == "activation_cost_paid" and e["sacrifice_source"] for e in game.events)
     assert any(e["event"] == "activated_ability_resolved" and e["delivered"] for e in game.events)
     game.check_invariants()
+
+
+def test_token_counter_source_remains_valid_after_token_ceases():
+    game = Game(([LAND] * 30, [LAND] * 30), seed=2020)
+    game.begin_turn()
+    mana = game.create_permanent(LAND, 1, summoning_sick=False)
+    target = game.create_permanent(CREATURE, 1, summoning_sick=False)
+    source = game.create_tokens(
+        1,
+        TokenCreationProgram(TOKEN_FUGITIVE, 1),
+        source_card="test",
+        oracle_fragment="create token",
+    )[0]
+    spell = StackObject(
+        game._allocate_object_id(), SPELL, 0, 0, CastKind.DEAL_DAMAGE, target.object_id
+    )
+    game._register(spell)
+    game.stack.append(spell)
+    game._begin_priority_window(priority_player=1)
+
+    ability = game.announce_activated_ability(1, source, FRAGMENT, target_ids=(spell.object_id,))
+    assert ability is not None
+    assert any(
+        event["event"] == "token_ceased" and event["object_id"] == ability.sacrificed_destination_id
+        for event in game.events
+    )
+    pass_all(game)
+
+    assert spell.zone == "former"
+    assert any(
+        event["event"] == "activated_ability_resolved" and event["delivered"]
+        for event in game.events
+    )
+    assert mana.tapped is True
+
+
+def test_token_counter_provenance_rejects_missing_cease_event():
+    game = Game(([LAND] * 30, [LAND] * 30), seed=2020)
+    game.begin_turn()
+    game.create_permanent(LAND, 1, summoning_sick=False)
+    target = game.create_permanent(CREATURE, 1, summoning_sick=False)
+    source = game.create_tokens(
+        1,
+        TokenCreationProgram(TOKEN_FUGITIVE, 1),
+        source_card="test",
+        oracle_fragment="create token",
+    )[0]
+    spell = StackObject(
+        game._allocate_object_id(), SPELL, 0, 0, CastKind.DEAL_DAMAGE, target.object_id
+    )
+    game._register(spell)
+    game.stack.append(spell)
+    game._begin_priority_window(priority_player=1)
+    ability = game.announce_activated_ability(1, source, FRAGMENT, target_ids=(spell.object_id,))
+    assert ability is not None
+    game.events[:] = [
+        event
+        for event in game.events
+        if not (
+            event["event"] == "token_ceased"
+            and event["object_id"] == ability.sacrificed_destination_id
+        )
+    ]
+    with pytest.raises(ValueError, match="counter activation provenance"):
+        pass_all(game)
 
 
 @pytest.mark.parametrize("protected", [ARTIFACT, CREATURE])

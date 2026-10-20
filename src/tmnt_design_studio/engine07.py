@@ -14631,6 +14631,17 @@ class Game(
             None,
         )
         sacrificed = self._objects.get(ability.sacrificed_destination_id or "")
+        sacrificed_token_ceased = (
+            isinstance(sacrificed, CardObject)
+            and sacrificed.is_token
+            and sacrificed.zone == "former"
+            and any(
+                event["event"] == "token_ceased"
+                and event.get("object_id") == sacrificed.object_id
+                and event.get("previous_zone") == "graveyard"
+                for event in self.events
+            )
+        )
         if (
             semantics is None
             or not semantics.coverage.fully_supported
@@ -14647,7 +14658,7 @@ class Game(
             or source.zone != "former"
             or not isinstance(sacrificed, CardObject)
             or sacrificed.card is not ability.source_card
-            or sacrificed.zone != "graveyard"
+            or not (sacrificed.zone == "graveyard" or sacrificed_token_ceased)
             or len(ability.target_ids) != 1
             or not isinstance(self._objects.get(ability.target_ids[0]), StackObject)
             or self._objects.get(ability.target_ids[0]).object_id != ability.target_ids[0]
