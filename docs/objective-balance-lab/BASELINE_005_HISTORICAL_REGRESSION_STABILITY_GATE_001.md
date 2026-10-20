@@ -12,7 +12,7 @@ The published focused-test count of 25 is historical. The final focused run is 2
 
 ## Deterministic replay gate
 
-All seven registered seeds completed deterministically. Focused negative fixtures reject forged or malformed provenance and invalid actions. Full regression passed with 2,117 tests and 10 skips; Ruff, formatting, structural checks, and terminology validation passed.
+All seven registered seeds completed deterministically. Focused negative fixtures reject forged or malformed provenance and invalid actions. Full regression passed with 2,118 tests and 10 skips; Ruff, formatting, structural checks, and terminology validation passed.
 
 ## Bounded diagnostic stress batch
 

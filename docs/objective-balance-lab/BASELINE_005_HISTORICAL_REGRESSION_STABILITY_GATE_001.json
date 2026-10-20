@@ -15,7 +15,7 @@
     "final_count": 26,
     "passed": 26,
     "reconciliation": "additional negative token-provenance regression test; no failure",
-    "full_regression_passed": 2117,
+    "full_regression_passed": 2118,
     "full_regression_skipped": 10,
     "ruff": "passed",
     "format": "passed",
