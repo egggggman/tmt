@@ -1,0 +1,46 @@
+{
+  "schema": "obl-baseline005-historical-regression-stability-gate-v1",
+  "status": "READY_STABILITY_BLOCKED_CALIBRATION",
+  "semantic_runtime_sha256": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+  "registry": {
+    "path": "docs/objective-balance-lab/BASELINE_005_HISTORICAL_FAILURE_REGISTRY_001.json",
+    "sha256": "01f0ab52b26b9479941826ed9adc08a9a6e12b8a4f59136daa51b4276c3d159c",
+    "entries": 7,
+    "replayed_twice": 7,
+    "deterministic": 7,
+    "exceptions": 0
+  },
+  "focused_tests": {
+    "historical_published_count": 25,
+    "final_count": 26,
+    "passed": 26,
+    "reconciliation": "additional negative token-provenance regression test; no failure",
+    "full_regression_passed": 2118,
+    "full_regression_skipped": 10,
+    "ruff": "passed",
+    "format": "passed",
+    "structural": "passed",
+    "terminology": "passed"
+  },
+  "stress_diagnostic": {
+    "evidence_id": "OBL-BASELINE-005-STABILITY-STRESS-DIAGNOSTIC-001",
+    "artifact": "docs/objective-balance-lab/BASELINE_005_STABILITY_STRESS_DIAGNOSTIC_001.json.gz",
+    "artifact_sha256": "8178a591f3febf38cb084fa2fd852b46bdb39368b5ac0c01686751b92d38b7ea",
+    "schedule_sha256": "2cd41ed03d447bb534ac2a16532636c6eba345e1180697c16f62a45ea64ffa8b",
+    "games": 80,
+    "cells": 4,
+    "canonical_games": 40,
+    "reversed_games": 40,
+    "completed": 80,
+    "errors": 0,
+    "draws": 0,
+    "interpretation": "stability diagnostic only; excluded from balance evidence"
+  },
+  "preservation": {
+    "baseline005_decks": "unchanged",
+    "oracle_ledger_rows": 172,
+    "prior_controls": "immutable and excluded",
+    "calibration_attempt_7_started": false
+  },
+  "recommendation": "READY_FOR_STABILITY_ACCEPTANCE_BLOCKED_FOR_CALIBRATION_ATTEMPT_7"
+}

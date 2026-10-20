@@ -1,0 +1,235 @@
+{
+  "schema": "cardcade-issue289-food-search-root-cause-forensics-v1",
+  "runtime": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+  "predecessor_runtime": "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308",
+  "fixtures": [
+    {
+      "orientation": "reversed",
+      "block": 3,
+      "seed": "70854356032484108629752045553328311296264080222857296236996711926358961833742",
+      "seats": [
+        "raphael",
+        "michelangelo"
+      ],
+      "event_count": 1415,
+      "food_search_committed_count": 4,
+      "transactions": [
+        {
+          "cursor": 216,
+          "start": 212,
+          "stack_object_id": "object-000151",
+          "source_id": "object-000150",
+          "selected_library_id": "object-000071",
+          "token_ids": [],
+          "event_names": [
+            "food_search_decided",
+            "food_card_revealed",
+            "zone_changed",
+            "food_search_shuffled"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 50,
+          "pre_hand_count": 5,
+          "post_library_count": 49,
+          "post_hand_count": 6
+        },
+        {
+          "cursor": 514,
+          "start": 510,
+          "stack_object_id": "object-000184",
+          "source_id": "object-000183",
+          "selected_library_id": "object-000096",
+          "token_ids": [],
+          "event_names": [
+            "food_search_decided",
+            "food_card_revealed",
+            "zone_changed",
+            "food_search_shuffled"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 46,
+          "pre_hand_count": 4,
+          "post_library_count": 45,
+          "post_hand_count": 5
+        },
+        {
+          "cursor": 1064,
+          "start": 1060,
+          "stack_object_id": "object-000243",
+          "source_id": "object-000242",
+          "selected_library_id": null,
+          "token_ids": [
+            "object-000244"
+          ],
+          "event_names": [
+            "food_search_decided",
+            "rules_event",
+            "tokens_created",
+            "rules_event"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 41,
+          "pre_hand_count": 3,
+          "post_library_count": 41,
+          "post_hand_count": 3
+        },
+        {
+          "cursor": 1256,
+          "start": 1248,
+          "stack_object_id": "object-000263",
+          "source_id": "object-000260",
+          "selected_library_id": null,
+          "token_ids": [
+            "object-000265"
+          ],
+          "event_names": [
+            "food_search_decided",
+            "rules_event",
+            "tokens_created",
+            "rules_event",
+            "rules_event",
+            "tokens_created",
+            "rules_event",
+            "trigger_resolved"
+          ],
+          "nested_action_events": [
+            {
+              "index": 1253,
+              "event": "tokens_created",
+              "source_id": "object-000261",
+              "stack_object_id": null,
+              "object_ids": [
+                "object-000266"
+              ]
+            }
+          ],
+          "pre_library_count": 38,
+          "pre_hand_count": 3,
+          "post_library_count": 38,
+          "post_hand_count": 3
+        }
+      ],
+      "pre_repair_trace": [
+        "stage002.py:753 run_game",
+        "engine07.py:19019 Game.snapshot",
+        "engine07.py:18749 _executed_conformance_references",
+        "food_search07.py:531 validate_food_search_snapshot_evidence",
+        "food_search07.py:451 assertion",
+        "ValueError: ETB Food search evidence does not reconstruct"
+      ]
+    },
+    {
+      "orientation": "canonical",
+      "block": 41,
+      "seed": "61283485696731598188099450771387457581219000296206197647983307541613500950207",
+      "seats": [
+        "michelangelo",
+        "raphael"
+      ],
+      "event_count": 1650,
+      "food_search_committed_count": 4,
+      "transactions": [
+        {
+          "cursor": 217,
+          "start": 213,
+          "stack_object_id": "object-000151",
+          "source_id": "object-000150",
+          "selected_library_id": "object-000036",
+          "token_ids": [],
+          "event_names": [
+            "food_search_decided",
+            "food_card_revealed",
+            "zone_changed",
+            "food_search_shuffled"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 51,
+          "pre_hand_count": 6,
+          "post_library_count": 50,
+          "post_hand_count": 7
+        },
+        {
+          "cursor": 355,
+          "start": 351,
+          "stack_object_id": "object-000164",
+          "source_id": "object-000163",
+          "selected_library_id": "object-000043",
+          "token_ids": [],
+          "event_names": [
+            "food_search_decided",
+            "food_card_revealed",
+            "zone_changed",
+            "food_search_shuffled"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 49,
+          "pre_hand_count": 6,
+          "post_library_count": 48,
+          "post_hand_count": 7
+        },
+        {
+          "cursor": 1180,
+          "start": 1176,
+          "stack_object_id": "object-000248",
+          "source_id": "object-000247",
+          "selected_library_id": "object-000041",
+          "token_ids": [],
+          "event_names": [
+            "food_search_decided",
+            "food_card_revealed",
+            "zone_changed",
+            "food_search_shuffled"
+          ],
+          "nested_action_events": [],
+          "pre_library_count": 41,
+          "pre_hand_count": 3,
+          "post_library_count": 40,
+          "post_hand_count": 4
+        },
+        {
+          "cursor": 1230,
+          "start": 1222,
+          "stack_object_id": "object-000255",
+          "source_id": "object-000252",
+          "selected_library_id": null,
+          "token_ids": [
+            "object-000257"
+          ],
+          "event_names": [
+            "food_search_decided",
+            "rules_event",
+            "tokens_created",
+            "rules_event",
+            "rules_event",
+            "tokens_created",
+            "rules_event",
+            "trigger_resolved"
+          ],
+          "nested_action_events": [
+            {
+              "index": 1227,
+              "event": "tokens_created",
+              "source_id": "object-000253",
+              "stack_object_id": null,
+              "object_ids": [
+                "object-000258"
+              ]
+            }
+          ],
+          "pre_library_count": 38,
+          "pre_hand_count": 4,
+          "post_library_count": 38,
+          "post_hand_count": 4
+        }
+      ],
+      "pre_repair_trace": [
+        "stage002.py:753 run_game",
+        "engine07.py:19019 Game.snapshot",
+        "engine07.py:18749 _executed_conformance_references",
+        "food_search07.py:531 validate_food_search_snapshot_evidence",
+        "food_search07.py:451 assertion",
+        "ValueError: ETB Food search evidence does not reconstruct"
+      ]
+    }
+  ]
+}

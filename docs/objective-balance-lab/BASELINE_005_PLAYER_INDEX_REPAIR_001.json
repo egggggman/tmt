@@ -1,0 +1,36 @@
+{
+  "schema": "obl-baseline005-player-index-repair-v1",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "runtime_before_sha256": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+  "runtime_after_sha256": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+  "attempt7_control_id": "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007",
+  "attempt7_artifact_sha256": "5e3ade2c11f9b2be9444dd6680072f15e10930e4cf359b7426f5d1b81f986590",
+  "failure": {
+    "pair": ["donatello", "april_oneil"],
+    "orientation": "canonical",
+    "block": 45,
+    "seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929",
+    "exception": "KeyError: 'player_index'",
+    "failing_consumer": "Game._resolve_triggered_ability end_step_spell_types_draw",
+    "producer": "Game._announce_hand_response",
+    "record_contract": ["player_index", "card_types"]
+  },
+  "repair": "Emit the shared spell_cast telemetry contract for hand-response casts and reject malformed records explicitly.",
+  "registry": {
+    "path": "docs/objective-balance-lab/BASELINE_005_HISTORICAL_FAILURE_REGISTRY_001.json",
+    "sha256": "1bfef3e859aff38d486068c1f53c08203aa44d8898e3fed4c4bcefc46eac1933",
+    "entries": 8
+  },
+  "focused_tests": 60,
+  "full_regression": {"passed": 2121, "skipped": 10},
+  "diagnostic": {
+    "artifact": "docs/objective-balance-lab/BASELINE_005_DONATELLO_APRIL_DIAGNOSTIC_001.json.gz",
+    "artifact_sha256": "6ecd704af19dc3c19eb40817c80de17cfadc7f52d1be784bdd0b06578e7258aa",
+    "games": 100,
+    "canonical": 50,
+    "reversed": 50,
+    "errors": 0,
+    "excluded_from_balance": true
+  },
+  "recommendation": "READY_FOR_INDEPENDENT_REPAIR_ACCEPTANCE_BLOCKED_FOR_CALIBRATION_ATTEMPT_8"
+}

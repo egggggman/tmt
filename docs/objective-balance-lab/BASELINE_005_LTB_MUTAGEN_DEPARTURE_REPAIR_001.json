@@ -1,0 +1,54 @@
+{
+  "schema": "obl-baseline005-ltb-mutagen-departure-repair-v1",
+  "repair_id": "OBL-BASELINE-005-LTB-MUTAGEN-DEPARTURE-REPAIR-001",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "runtime_before_sha256": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+  "runtime_after_sha256": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+  "failure_control_id": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+  "failure_artifact_sha256": "3ac2dacfea88bddb0152ec90b394ac52157522f4149d7cf44c92cadef7b584e7",
+  "failure": {
+    "pair": ["michelangelo", "splinter"],
+    "orientation": "canonical",
+    "seeds": [
+      "52602875548163369144134008259635487845293317286481406726252498296187974632476",
+      "106006273492101665316000105358704653692902405446975804566779680826804429635677",
+      "96991309514714145862924378877563814471441266842137307947311233243287635527631"
+    ],
+    "source_card": "Zoo Escapees",
+    "source_type": "Creature — Boar Rhino",
+    "source_controller": 0,
+    "exception": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+    "root_cause": "move_object captured events[-2] as the departure record after a creature-died rules event had been appended; this stored the death rules event instead of the zone_changed record. The validator then correctly rejected the mismatched provenance.",
+    "rules_classification": "event-ordering capture defect; no illegal transition or stale object identity"
+  },
+  "repair": "Capture zone_changed and permanent_departed records by their event contracts and source object identity, rather than positional event indices. Preserve strict identity, controller, zone, object, event, and fragment checks.",
+  "tests": {
+    "focused_ltb": 4,
+    "full_regression_passed": 2121,
+    "full_regression_skipped": 10,
+    "negative_forged_evidence": true
+  },
+  "historical_registry": {
+    "entries": 11,
+    "sha256": "eb19ce0c479fab32436bcdf16100c269e25d024b61116456e4a15016299f6854",
+    "all_replayed_twice": true,
+    "exceptions": 0
+  },
+  "diagnostic": {
+    "artifact": "BASELINE_005_LTB_MUTAGEN_DIAGNOSTIC_001.json.gz",
+    "artifact_sha256": "a60fd0735abee6dec8ae1212fbae959c4898c426f62fe721338a9190aae71cc2",
+    "schedule_sha256": "36d5794c026c5f6a1b5c395e48ae17e7f985a3209e126859c3cc98a10ba71b62",
+    "games": 100,
+    "errors": 0,
+    "balanced_orientations": {"canonical": 50, "reversed": 50},
+    "wins": {"michelangelo": 37, "splinter": 63},
+    "balance_interpretation": "excluded repair diagnostic"
+  },
+  "preservation": {
+    "baseline005_decks_unchanged": true,
+    "coverage_ledger_rows": 172,
+    "attempt8_artifact_unchanged": true,
+    "historical_artifacts_unchanged": true
+  },
+  "recommendation": "READY_FOR_INDEPENDENT_REPAIR_ACCEPTANCE_BLOCKED_FOR_CALIBRATION_ATTEMPT_9"
+}

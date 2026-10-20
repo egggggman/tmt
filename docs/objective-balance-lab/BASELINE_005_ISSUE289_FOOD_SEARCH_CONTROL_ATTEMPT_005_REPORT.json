@@ -1,0 +1,59 @@
+{
+  "schema": "obl-baseline005-food-search-control-attempt-report-v1",
+  "control_id": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
+  "environment_id": "OBL-BASELINE-005",
+  "status": "FAIL_CLOSED",
+  "recommendation": "BLOCKED_BY_SIMULATOR_DEFECT",
+  "semantic_runtime_sha256": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "required_games": 4500,
+  "completed_games": 1300,
+  "completed_cells": 13,
+  "expected_cells": 45,
+  "runtime_errors": 2,
+  "draws_completed": 0,
+  "replay_cells_completed": 1,
+  "artifact": {
+    "path": "docs/objective-balance-lab/BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz",
+    "sha256": "93ad17ed91bf5b7c1f0dd1c32414767f2a5a8ffe2806466ebb811fc06c1ab5e7",
+    "gzip_validated": true,
+    "readback_validated": true
+  },
+  "failures": [
+    {
+      "pair": ["raphael", "krang"],
+      "orientation": "canonical",
+      "block": 6,
+      "seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082",
+      "seats": ["krang", "raphael"],
+      "first_player": "krang",
+      "error": "ValueError: damage creature target is invalid"
+    },
+    {
+      "pair": ["raphael", "krang"],
+      "orientation": "canonical",
+      "block": 40,
+      "seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047",
+      "seats": ["krang", "raphael"],
+      "first_player": "krang",
+      "error": "ValueError: damage creature target is invalid"
+    }
+  ],
+  "execution_policy": {
+    "games_retried": false,
+    "schedule_changed": false,
+    "historical_artifacts_overwritten": false,
+    "partial_results_admissible_as_balance_baseline": false
+  },
+  "prior_controls_excluded": [
+    "OBL-BASELINE-005-FINAL-CONTROL-001",
+    "OBL-BASELINE-005-REPAIRED-CONTROL-001",
+    "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001"
+  ],
+  "interpretation": {
+    "simulator_confidence": "blocked: generic damage-target legality defect remains",
+    "pilot_confidence": "not assessable as a calibration baseline",
+    "balance_findings": "none; partial outcomes are diagnostic only"
+  }
+}

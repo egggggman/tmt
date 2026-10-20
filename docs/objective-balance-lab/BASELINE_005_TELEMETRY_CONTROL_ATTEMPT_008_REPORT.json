@@ -1,0 +1,48 @@
+{
+  "schema": "obl-baseline005-telemetry-control-attempt-008-report-v1",
+  "control_id": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+  "status": "FAIL_CLOSED",
+  "recommendation": "BLOCKED_BY_SIMULATOR_DEFECT",
+  "semantic_runtime_sha256": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "artifact": {
+    "path": "docs/objective-balance-lab/BASELINE_005_TELEMETRY_CONTROL_ATTEMPT_008.json.gz",
+    "sha256": "3ac2dacfea88bddb0152ec90b394ac52157522f4149d7cf44c92cadef7b584e7",
+    "durable_readback": true,
+    "gzip_valid": true
+  },
+  "schedule": {
+    "required_games": 4500,
+    "completed_games": 2400,
+    "completed_cells": 24,
+    "expected_cells": 45,
+    "balanced_starting_assignments": true,
+    "games_retried": 0
+  },
+  "failure": {
+    "failed_cell": ["michelangelo", "splinter"],
+    "failed_game_count": 3,
+    "seeds": [
+      "52602875548163369144134008259635487845293317286481406726252498296187974632476",
+      "106006273492101665316000105358704653692902405446975804566779680826804429635677",
+      "96991309514714145862924378877563814471441266842137307947311233243287635527631"
+    ],
+    "exception": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+    "traceback_location": "engine07.py: _resolve_combat_damage_steps -> check_state_based_actions -> put_into_graveyard -> _enqueue_trigger -> _validate_ltb_mutagen_departure",
+    "classification": "generic simulator provenance defect; calibration evidence invalid"
+  },
+  "preflight": {
+    "runtime_authenticated": true,
+    "ten_deck_hashes_authenticated": true,
+    "coverage_ledger_rows": 172,
+    "historical_failure_seeds_replayed": 8,
+    "historical_failure_replays_deterministic": true,
+    "focused_tests_passed": 65,
+    "full_regression_passed": 2121,
+    "full_regression_skipped": 10,
+    "ruff_and_structural_checks_passed": true,
+    "excluded_historical_corrupt_artifacts_preserved": true
+  },
+  "balance_interpretation": "excluded; partial control is not balance evidence",
+  "next_gate": "repair LTB Mutagen departure provenance before requesting another calibration authorization"
+}

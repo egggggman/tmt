@@ -1,0 +1,42 @@
+{
+  "schema": "obl-baseline005-ltb-repair-control-attempt-009-report-v1",
+  "control_id": "OBL-BASELINE-005-LTB-REPAIR-CONTROL-ATTEMPT-009",
+  "status": "COMPLETE",
+  "recommendation": "READY_FOR_DESIGN_STUDIO_BALANCE_INTERPRETATION",
+  "semantic_runtime_sha256": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "artifact_sha256": "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09",
+  "games": 4500,
+  "cells": 45,
+  "errors": 0,
+  "draws": 1,
+  "replay_cells": 6,
+  "replay_integrity": "PASS",
+  "game_length": {"mean_turn": 19.8156,"median_turn":18,"min_turn":9,"max_turn":71,"buckets":{"<=10":7,"11-20":2887,"21-30":1299,"31-40":236,"41+":71}},
+  "first_player": {"games_each": 450,"first_player_wins":2594,"first_player_win_rate":0.576444},
+  "aggregate": {
+    "leonardo":{"games":900,"wins":429,"win_rate":0.476667,"wilson95":[0.4442,0.5093]},
+    "raphael":{"games":900,"wins":555,"win_rate":0.616667,"wilson95":[0.5845,0.6479]},
+    "donatello":{"games":900,"wins":521,"win_rate":0.578889,"wilson95":[0.5464,0.6107]},
+    "michelangelo":{"games":900,"wins":453,"win_rate":0.503333,"wilson95":[0.4707,0.5359]},
+    "splinter":{"games":900,"wins":608,"win_rate":0.675556,"wilson95":[0.6443,0.7053]},
+    "shredder":{"games":900,"wins":329,"win_rate":0.365556,"wilson95":[0.3347,0.3975]},
+    "krang":{"games":900,"wins":433,"win_rate":0.481111,"wilson95":[0.4486,0.5138]},
+    "bebop_rocksteady":{"games":900,"wins":316,"win_rate":0.351111,"wilson95":[0.3206,0.3829]},
+    "april_oneil":{"games":900,"wins":325,"win_rate":0.361111,"wilson95":[0.3304,0.393]},
+    "casey_jones":{"games":900,"wins":530,"win_rate":0.588889,"wilson95":[0.5564,0.6206]}
+  },
+  "matchups": {
+    "leonardo|raphael":{"leonardo":30,"raphael":70},"leonardo|donatello":{"leonardo":39,"donatello":61},"leonardo|michelangelo":{"leonardo":45,"michelangelo":55},"leonardo|splinter":{"leonardo":34,"splinter":66},"leonardo|shredder":{"leonardo":62,"shredder":38},"leonardo|krang":{"leonardo":48,"krang":52},"leonardo|bebop_rocksteady":{"leonardo":63,"bebop_rocksteady":37},"leonardo|april_oneil":{"leonardo":71,"april_oneil":29},"leonardo|casey_jones":{"leonardo":37,"casey_jones":63},
+    "raphael|donatello":{"raphael":60,"donatello":40},"raphael|michelangelo":{"raphael":49,"michelangelo":51},"raphael|splinter":{"raphael":52,"splinter":48},"raphael|shredder":{"raphael":67,"shredder":33},"raphael|krang":{"raphael":64,"krang":36},"raphael|bebop_rocksteady":{"raphael":71,"bebop_rocksteady":29},"raphael|april_oneil":{"raphael":80,"april_oneil":20},"raphael|casey_jones":{"raphael":42,"casey_jones":58},
+    "donatello|michelangelo":{"donatello":54,"michelangelo":46},"donatello|splinter":{"donatello":38,"splinter":62},"donatello|shredder":{"donatello":77,"shredder":23},"donatello|krang":{"donatello":70,"krang":30},"donatello|bebop_rocksteady":{"donatello":59,"bebop_rocksteady":41},"donatello|april_oneil":{"donatello":73,"april_oneil":27},"donatello|casey_jones":{"donatello":49,"casey_jones":51},
+    "michelangelo|splinter":{"michelangelo":37,"splinter":63},"michelangelo|shredder":{"michelangelo":48,"shredder":52},"michelangelo|krang":{"michelangelo":48,"krang":52},"michelangelo|bebop_rocksteady":{"michelangelo":58,"bebop_rocksteady":42},"michelangelo|april_oneil":{"michelangelo":59,"april_oneil":41},"michelangelo|casey_jones":{"michelangelo":51,"casey_jones":49},
+    "splinter|shredder":{"splinter":75,"shredder":25},"splinter|krang":{"splinter":67,"krang":33},"splinter|bebop_rocksteady":{"splinter":84,"bebop_rocksteady":16},"splinter|april_oneil":{"splinter":82,"april_oneil":18},"splinter|casey_jones":{"splinter":61,"casey_jones":39},
+    "shredder|krang":{"shredder":38,"krang":62},"shredder|bebop_rocksteady":{"shredder":57,"bebop_rocksteady":43},"shredder|april_oneil":{"shredder":29,"april_oneil":71},"shredder|casey_jones":{"shredder":34,"casey_jones":65},
+    "krang|bebop_rocksteady":{"krang":66,"bebop_rocksteady":34},"krang|april_oneil":{"krang":62,"april_oneil":38},"krang|casey_jones":{"krang":40,"casey_jones":60},"bebop_rocksteady|april_oneil":{"bebop_rocksteady":45,"april_oneil":55},"bebop_rocksteady|casey_jones":{"bebop_rocksteady":29,"casey_jones":71},"april_oneil|casey_jones":{"april_oneil":26,"casey_jones":74}
+  },
+  "telemetry": {"casts_total":87966,"activation_events":205729,"aura_events":4984,"etb_life_gain_events":942,"pilot_land_miss_events":0},
+  "limitations": ["Fixed AcceptancePilot decisions are not human-play quality evidence.","One draw occurred; aggregate win rates use completed games and preserve the draw in the artifact.","Mechanic exposure telemetry describes execution, not causal balance effects."],
+  "prior_controls_excluded": true,
+  "promotion_authorized": false
+}

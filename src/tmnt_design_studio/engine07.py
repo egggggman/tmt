@@ -2317,8 +2317,28 @@ class Game(
                 or ltb_utility_fragments
                 or ltb_token_fragments
             ):
-                departure_record = tuple(self.events[-2].items())
-                departure_log_record = tuple(self.events[-1].items())
+                # Capture the records by their event contracts, not by relative
+                # positions.  A creature's death trigger may append a rules event
+                # between the zone-change/permanent-departed logs and this leave
+                # event.  Positional capture therefore authenticated the death
+                # rules event as the departure record and rejected valid LTB
+                # Mutagen provenance during combat SBA processing.
+                departure_records = [
+                    record
+                    for record in self.events
+                    if record.get("event") == "zone_changed"
+                    and record.get("source_object_id") == obj.object_id
+                ]
+                departure_log_records = [
+                    record
+                    for record in self.events
+                    if record.get("event") == "permanent_departed"
+                    and record.get("source_object_id") == obj.object_id
+                ]
+                if len(departure_records) != 1 or len(departure_log_records) != 1:
+                    raise ValueError("permanent departure evidence is not unique")
+                departure_record = tuple(departure_records[0].items())
+                departure_log_record = tuple(departure_log_records[0].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
                     departure_last_known[1],
@@ -3391,6 +3411,14 @@ class Game(
                         )
         return event
 
+    @staticmethod
+    def _validate_spell_cast_record(record: dict[str, object]) -> None:
+        """Require the common telemetry contract for every spell-cast record."""
+        if not isinstance(record.get("player_index"), int):
+            raise ValueError("spell_cast record lacks player_index")
+        if not isinstance(record.get("card_types"), (list, tuple)):
+            raise ValueError("spell_cast record lacks card_types")
+
     def _authenticate_original_rules_event(self, event: RulesEvent) -> RulesEventEvidence:
         """Join one derived typed event back to its independent creation-time evidence."""
         records = [item for item in self._rules_event_evidence if item.event_id == event.event_id]
@@ -3523,7 +3551,7 @@ class Game(
             if (
                 not isinstance(candidate, Permanent)
                 or not self.is_authoritative(candidate, "battlefield")
-                or not candidate.card.is_creature
+                or not candidate.is_creature
                 or target_player is not None
             ):
                 raise ValueError("damage creature target is invalid")
@@ -4880,6 +4908,9 @@ class Game(
         controller: int,
     ) -> None:
         self._authenticate_original_rules_event(event)
+        for record in self.events:
+            if record.get("event") == "spell_cast":
+                self._validate_spell_cast_record(record)
         spell = self._objects.get(event.source_id or "")
         if (
             event.kind is not RulesEventKind.SPELL_CAST
@@ -8328,6 +8359,9 @@ class Game(
             )
             self.check_state_based_actions()
         elif ability.effect is TriggerEffect.END_STEP_SPELL_TYPES_DRAW:
+            for record in self.events:
+                if record.get("event") == "spell_cast":
+                    self._validate_spell_cast_record(record)
             types = sorted(
                 {
                     card_type
@@ -11315,7 +11349,22 @@ class Game(
         self.log(
             "spell_cast",
             player=self.players[player_index].name,
+            player_index=player_index,
             card=spell.name,
+            card_types=tuple(
+                kind
+                for kind in (
+                    "Artifact",
+                    "Battle",
+                    "Creature",
+                    "Enchantment",
+                    "Instant",
+                    "Planeswalker",
+                    "Sorcery",
+                    "Tribal",
+                )
+                if kind in spell.card.type_line.split(" — ", 1)[0].split()
+            ),
             stack_object_id=spell.object_id,
             target_id=target.object_id,
             response=True,
@@ -14631,6 +14680,17 @@ class Game(
             None,
         )
         sacrificed = self._objects.get(ability.sacrificed_destination_id or "")
+        sacrificed_token_ceased = (
+            isinstance(sacrificed, CardObject)
+            and sacrificed.is_token
+            and sacrificed.zone == "former"
+            and any(
+                event["event"] == "token_ceased"
+                and event.get("object_id") == sacrificed.object_id
+                and event.get("previous_zone") == "graveyard"
+                for event in self.events
+            )
+        )
         if (
             semantics is None
             or not semantics.coverage.fully_supported
@@ -14647,7 +14707,7 @@ class Game(
             or source.zone != "former"
             or not isinstance(sacrificed, CardObject)
             or sacrificed.card is not ability.source_card
-            or sacrificed.zone != "graveyard"
+            or not (sacrificed.zone == "graveyard" or sacrificed_token_ceased)
             or len(ability.target_ids) != 1
             or not isinstance(self._objects.get(ability.target_ids[0]), StackObject)
             or self._objects.get(ability.target_ids[0]).object_id != ability.target_ids[0]

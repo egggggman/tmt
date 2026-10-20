@@ -1,0 +1,46 @@
+{
+  "schema": "obl-baseline005-counter-activation-provenance-repair-v1",
+  "repair_id": "OBL-BASELINE-005-COUNTER-ACTIVATION-PROVENANCE-REPAIR-001",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "runtime_before_sha256": "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194",
+  "runtime_after_sha256": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+  "attempt6_control_id": "OBL-BASELINE-005-DAMAGE-TARGET-CONTROL-ATTEMPT-006",
+  "attempt6_artifact_sha256": "6f950648b1edd20052bb30c0982faf9bb82a1a979fd69271d2b6a97b8eac169a",
+  "failure": {
+    "pair": ["donatello", "bebop_rocksteady"],
+    "orientation": "canonical",
+    "block": 47,
+    "seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783",
+    "exception": "ValueError: counter activation provenance is invalid",
+    "source_id": "object-000175",
+    "stack_object_id": "object-000199",
+    "sacrifice_destination_id": "object-000198",
+    "target_spell_id": "object-000197",
+    "mana_source_id": "object-000185",
+    "source_card": "Fugitive Droid",
+    "source_token": true,
+    "destination_after_sba": "former",
+    "required_by_old_invariant": "graveyard"
+  },
+  "root_cause": "The validator rejected a valid token sacrifice after the token ceased via state-based action; it required the destination object to remain in graveyard.",
+  "repair": "Accept former-zone token destinations only with an exact authenticated token_ceased event from graveyard; retain all other provenance checks.",
+  "focused_tests": {"passed": 25},
+  "full_regression": {"passed": 2117, "skipped": 10},
+  "diagnostic": {
+    "artifact": "BASELINE_005_DAMAGE_TARGET_PROVENANCE_DONATELLO_BEBOP_DIAGNOSTIC_001.json.gz",
+    "artifact_sha256": "96b024012c202a1d64ce4a949c00c25594c3db7b549892f86c65c9a15c341307",
+    "games": 100,
+    "errors": 0,
+    "draws": 0,
+    "balanced_orientations": {"canonical": 50, "reversed": 50},
+    "wins": {"donatello": 59, "bebop_rocksteady": 41},
+    "balance_interpretation": "excluded repair diagnostic"
+  },
+  "preservation": {
+    "baseline005_decks_unchanged": true,
+    "coverage_ledger_rows": 172,
+    "attempt6_artifact_unchanged": true,
+    "historical_artifacts_unchanged": true
+  },
+  "recommendation": "READY_FOR_INDEPENDENT_REPAIR_ACCEPTANCE_BLOCKED_FOR_RENEWED_CALIBRATION"
+}

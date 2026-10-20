@@ -1,0 +1,37 @@
+{
+  "schema": "obl-baseline005-historical-stability-control-attempt-v1",
+  "status": "FAIL_CLOSED",
+  "recommendation": "BLOCKED_BY_SIMULATOR_OR_PILOT_DEFECT",
+  "control_id": "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007",
+  "runtime": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+  "artifact": "docs/objective-balance-lab/BASELINE_005_HISTORICAL_STABILITY_CONTROL_ATTEMPT_007.json.gz",
+  "artifact_sha256": "5e3ade2c11f9b2be9444dd6680072f15e10930e4cf359b7426f5d1b81f986590",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "baseline_manifest_sha256": "c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac",
+  "required_games": 4500,
+  "completed_games": 2200,
+  "completed_cells": 22,
+  "replay_cells": 3,
+  "runtime_errors": 1,
+  "draws": 0,
+  "failure": {
+    "pair": ["donatello", "april_oneil"],
+    "orientation": "canonical",
+    "block": 45,
+    "seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929",
+    "seats": ["april_oneil", "donatello"],
+    "exception": "KeyError: 'player_index'"
+  },
+  "preflight": {
+    "historical_registry_entries": 7,
+    "historical_replays_deterministic": true,
+    "negative_tests_passed": true,
+    "deck_hashes_unchanged": true,
+    "coverage_ledger_rows": 172,
+    "historical_exception_scope": "HISTORICAL_CORRUPT_EXCLUDED only for two named artifacts"
+  },
+  "interpretation": "partial control is excluded from balance evidence; preserve for defect investigation",
+  "no_retry": true,
+  "no_schedule_change": true,
+  "promotion_authorized": false
+}

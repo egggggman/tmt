@@ -299,6 +299,34 @@ def test_fixed_damage_spell_uses_stack_transaction_and_retains_followup_limitati
     ]
 
 
+def test_damage_spell_fizzles_when_target_loses_creature_status_before_resolution():
+    spell = CardFact(
+        "Renamed Missile",
+        "{1}{R}",
+        2,
+        "Instant",
+        "Renamed Missile deals 3 damage to target creature.",
+    )
+    artifact = CardFact("Animated Artifact", "{1}", 1, "Artifact")
+    current = game()
+    current.create_permanent(MOUNTAIN, 0, summoning_sick=False)
+    current.create_permanent(PLAINS, 0, summoning_sick=False)
+    card = current.set_hand_for_testing(0, [spell])[0]
+    target = current.create_permanent(artifact, 1, summoning_sick=False)
+    target.type_line_override = "Artifact Creature — Construct"
+    announced = current.announce_spell(0, card, target)
+    assert announced is not None
+    target.type_line_override = "Artifact"
+
+    current.resolve_top_of_stack()
+
+    assert target.damage == 0
+    assert any(
+        event["event"] == "spell_resolved_no_effect" and event["reason"] == "all_targets_illegal"
+        for event in current.events
+    )
+
+
 def test_player_damage_is_transactional_and_emits_typed_evidence():
     current = game()
     source = current.create_permanent(SOURCE, 0, summoning_sick=False)
@@ -355,6 +383,20 @@ def test_creature_damage_is_marked_and_lethal_is_applied_only_by_sba():
         if item["event"] == "zone_changed" and item.get("reason") == "lethal_damage"
     )
     assert moved["reason"] == "lethal_damage"
+
+
+def test_damage_resolves_against_an_artifact_that_is_currently_a_creature():
+    current = game()
+    source = current.create_permanent(SOURCE, 0, summoning_sick=False)
+    printed_artifact = CardFact("Animated Artifact", "{1}", 1, "Artifact")
+    target = current.create_permanent(printed_artifact, 1, summoning_sick=False)
+    target.type_line_override = "Artifact Creature — Construct"
+
+    current.deal_damage(transaction(source, target=target))
+
+    assert target.damage == 1
+    assert target.card.is_creature is False
+    assert target.is_creature is True
 
 
 def test_nonlethal_damage_persists_until_cleanup():

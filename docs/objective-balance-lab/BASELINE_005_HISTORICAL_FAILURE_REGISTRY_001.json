@@ -1,0 +1,130 @@
+{
+  "schema": "obl-baseline005-historical-failure-registry-v1",
+  "runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+  "entries": [
+    {
+      "family": "pilot_pt",
+      "original_control": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
+      "seed": "110127092095985089794094274391071537768831682357719713359846607269436624903",
+      "orientation": "reversed",
+      "seats": ["raphael", "donatello"],
+      "failure_signature": "TypeError: NoneType - int during pilot P/T projection",
+      "repair_runtime": "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308",
+      "regression_test": "tests/test_pilot_input_v2.py; docs/cardcade/ISSUE_289_PILOT_NONE_T_REPAIR.json"
+    },
+    {
+      "family": "pilot_pt",
+      "original_control": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
+      "seed": "14531251592110549889095900528423591910809154711277454234709141390939740757152",
+      "orientation": "reversed",
+      "seats": ["raphael", "donatello"],
+      "failure_signature": "TypeError: NoneType - int during pilot P/T projection",
+      "repair_runtime": "dc80bc679e2c0d118f543d12ae4a95661033039058b1525f32e8d076dae8d308",
+      "regression_test": "tests/test_pilot_input_v2.py; docs/cardcade/ISSUE_289_PILOT_NONE_T_REPAIR.json"
+    },
+    {
+      "family": "food_search",
+      "original_control": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
+      "seed": "70854356032484108629752045553328311296264080222857296236996711926358961833742",
+      "orientation": "reversed",
+      "seats": ["raphael", "michelangelo"],
+      "failure_signature": "ValueError: ETB Food search evidence does not reconstruct",
+      "repair_runtime": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+      "regression_test": "tests/test_food_search_failure_repair.py"
+    },
+    {
+      "family": "food_search",
+      "original_control": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
+      "seed": "61283485696731598188099450771387457581219000296206197647983307541613500950207",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "raphael"],
+      "failure_signature": "ValueError: ETB Food search evidence does not reconstruct",
+      "repair_runtime": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+      "regression_test": "tests/test_food_search_failure_repair.py"
+    },
+    {
+      "family": "damage_target",
+      "original_control": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
+      "seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082",
+      "orientation": "canonical",
+      "seats": ["krang", "raphael"],
+      "failure_signature": "ValueError: damage creature target is invalid",
+      "repair_runtime": "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194",
+      "regression_test": "tests/test_baseline005_damage_target_repair.py"
+    },
+    {
+      "family": "damage_target",
+      "original_control": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
+      "seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047",
+      "orientation": "canonical",
+      "seats": ["krang", "raphael"],
+      "failure_signature": "ValueError: damage creature target is invalid",
+      "repair_runtime": "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194",
+      "regression_test": "tests/test_baseline005_damage_target_repair.py"
+    },
+    {
+      "family": "counter_activation",
+      "original_control": "OBL-BASELINE-005-DAMAGE-TARGET-CONTROL-ATTEMPT-006",
+      "seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783",
+      "orientation": "canonical",
+      "seats": ["bebop_rocksteady", "donatello"],
+      "failure_signature": "ValueError: counter activation provenance is invalid",
+      "repair_runtime": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+      "regression_test": "tests/test_counter_activation_provenance_repair.py; tests/test_counter_target_spell_action.py"
+    },
+    {
+      "family": "spell_cast_record_contract",
+      "original_control": "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007",
+      "seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929",
+      "orientation": "canonical",
+      "seats": ["april_oneil", "donatello"],
+      "failure_signature": "KeyError: 'player_index' while resolving April end-step spell-type draw",
+      "repair_runtime": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+      "regression_test": "tests/test_spell_cast_record_contract.py"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "52602875548163369144134008259635487845293317286481406726252498296187974632476",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[1-52602875548163369144134008259635487845293317286481406726252498296187974632476]"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "106006273492101665316000105358704653692902405446975804566779680826804429635677",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[2-106006273492101665316000105358704653692902405446975804566779680826804429635677]"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "96991309514714145862924378877563814471441266842137307947311233243287635527631",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[3-96991309514714145862924378877563814471441266842137307947311233243287635527631]"
+    }
+  ],
+  "replay_results": [
+    {"seed": "110127092095985089794094274391071537768831682357719713359846607269436624903", "completed": true, "deterministic": true, "digest": "082b721b4fdc046612b1a7d70c36dd3c7f4b4faa0f65b76191c006c6236e2127"},
+    {"seed": "14531251592110549889095900528423591910809154711277454234709141390939740757152", "completed": true, "deterministic": true, "digest": "fa8b9412f3a6e3c07a122ee54e4e70a529a9c45b74be896f71b10557d94050b1"},
+    {"seed": "70854356032484108629752045553328311296264080222857296236996711926358961833742", "completed": true, "deterministic": true, "digest": "095303ba520a98ba7ae8e17d05b83ef94c8369a9d8a5321937769f219edbd8a3"},
+    {"seed": "61283485696731598188099450771387457581219000296206197647983307541613500950207", "completed": true, "deterministic": true, "digest": "ef3b329c6abc35d62b75c8842e7ee7ee720a36f17502141ad84fd6c3e8da8f24"},
+    {"seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082", "completed": true, "deterministic": true, "digest": "16cf95d01d08250115095435e08e554d0b276e1e55f79e5d521819c5d75c3d6f"},
+    {"seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047", "completed": true, "deterministic": true, "digest": "4fea3b478c429a152a694e069979693e6151b7ac9dc7bb0d235718082e327e1f"},
+    {"seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783", "completed": true, "deterministic": true, "digest": "1c6fde231e7d23d6b1a22216b2f011c593506d6083221a18bde1f623a85f326f"},
+    {"seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929", "completed": true, "deterministic": true, "digest": "06891372bf9ad2d41245d4f8e9ab48947547799395b4f2eccc7e43077f4c8fc0"},
+    {"seed": "52602875548163369144134008259635487845293317286481406726252498296187974632476", "completed": true, "deterministic": true, "digest": "be9e873ff3ebd423ed6fda8e3c32a02cd8ea909ea086e80a6ac712c6f71f0aff"},
+    {"seed": "106006273492101665316000105358704653692902405446975804566779680826804429635677", "completed": true, "deterministic": true, "digest": "5a737d7fe53bd8ff093cdb61fe1b8dc3a3c198f848aa31f0c6c92cb79220a4fb"},
+    {"seed": "96991309514714145862924378877563814471441266842137307947311233243287635527631", "completed": true, "deterministic": true, "digest": "e6e4ff41265ccd93003a92b8611e4eb2b291b711aa35791b9acecbde8edb074d"}
+  ],
+  "raw_artifact_status": "The historical control artifacts remain unchanged; two are unrecoverable gzip copies classified HISTORICAL_CORRUPT_EXCLUDED. The failure records above are independently reproducible and are not substituted for those raw artifacts."
+}

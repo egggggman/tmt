@@ -1,0 +1,30 @@
+{
+  "schema": "obl-baseline005-damage-target-control-attempt-report-v1",
+  "control_id": "OBL-BASELINE-005-DAMAGE-TARGET-CONTROL-ATTEMPT-006",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "semantic_runtime_sha256": "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194",
+  "schedule_sha256": "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27",
+  "required_games": 4500,
+  "completed_games": 2100,
+  "completed_cells": 21,
+  "runtime_errors_in_completed_records": 0,
+  "failure": {
+    "pair": ["donatello", "bebop_rocksteady"],
+    "orientation": "canonical",
+    "block": 47,
+    "seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783",
+    "exception": "ValueError: counter activation provenance is invalid"
+  },
+  "artifact": {
+    "path": "BASELINE_005_ISSUE289_DAMAGE_TARGET_CONTROL_ATTEMPT_006.json.gz",
+    "sha256": "6f950648b1edd20052bb30c0982faf9bb82a1a979fd69271d2b6a97b8eac169a",
+    "bytes": 1848963,
+    "gzip_validated": true,
+    "durable_readback_validated": true,
+    "artifact_status": "FAIL_CLOSED"
+  },
+  "replays_before_failure": 3,
+  "historical_corrupt_excluded_applied_only_to_documented_artifacts": true,
+  "balance_interpretation": "excluded",
+  "recommendation": "BLOCKED_PENDING_GENERIC_COUNTER_ACTIVATION_PROVENANCE_REPAIR"
+}

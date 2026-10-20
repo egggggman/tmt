@@ -1,0 +1,49 @@
+{
+  "schema": "obl-baseline005-damage-target-repair-v1",
+  "repair_id": "OBL-BASELINE-005-DAMAGE-TARGET-REPAIR-001",
+  "status": "READY_REPAIR_BLOCKED_CALIBRATION",
+  "predecessor_control_id": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
+  "predecessor_artifact_sha256": "93ad17ed91bf5b7c1f0dd1c32414767f2a5a8ffe2806466ebb811fc06c1ab5e7",
+  "runtime_before_sha256": "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972",
+  "runtime_after_sha256": "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194",
+  "root_cause": {
+    "shared_by_both_failures": true,
+    "exception": "ValueError: damage creature target is invalid",
+    "location": "src/tmnt_design_studio/engine07.py:3529",
+    "cause": "deal_damage validated candidate.card.is_creature instead of the permanent's current effective is_creature characteristic",
+    "affected_card": "Sewer-veillance Cam",
+    "printed_is_creature": false,
+    "effective_is_creature": true,
+    "why_action_was_legal": "Action generation already used current permanent legality and the artifact had a live Creature type-changing effect",
+    "rules_effect": "An artifact animated into a creature is a legal creature-damage target; a target that loses creature status before resolution is illegal and the spell resolves with no effect"
+  },
+  "failures_reproduced": [
+    {"block": 6, "seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082", "target": "Sewer-veillance Cam", "source": "Manhole Missile"},
+    {"block": 40, "seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047", "target": "Sewer-veillance Cam", "source": "Manhole Missile"}
+  ],
+  "focused_validation": {
+    "exact_seed_replays": "both seeds completed twice with identical snapshots",
+    "legality_tests": "32 passed",
+    "invalid_target_resolution": "target losing Creature status fizzles without damage",
+    "malformed_target_rejection": "preserved"
+  },
+  "diagnostic": {
+    "artifact": "docs/objective-balance-lab/BASELINE_005_DAMAGE_TARGET_REPAIR_RAPHAEL_KRANG_DIAGNOSTIC.json.gz",
+    "artifact_sha256": "3d9b0b4620787460674416ddfc8bf4af70e66044193e8e85619d6f3f8e7dd921",
+    "games": 100,
+    "errors": 0,
+    "draws": 0,
+    "balanced_starting_players": true,
+    "wins": {"raphael": 64, "krang": 36},
+    "mean_turn": 17.64,
+    "balance_interpretation": "excluded diagnostic only"
+  },
+  "preservation": {
+    "food_search_repair_preserved": true,
+    "attempt5_failed_artifact_unchanged": true,
+    "historical_controls_unchanged": true,
+    "deck_hashes_unchanged": true,
+    "coverage_ledger_rows": 172
+  },
+  "recommendation": "READY_FOR_INDEPENDENT_REPAIR_ACCEPTANCE_BLOCKED_FOR_RENEWED_CALIBRATION"
+}
