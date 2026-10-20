@@ -22,14 +22,15 @@ from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
 READINESS = ROOT / "docs/cardcade/ISSUE_289_MICHELANGELO_IMPROVISER_CALIBRATION_READINESS.json"
-REPAIR = (
+COUNTER_REPAIR = (
     ROOT / "docs/objective-balance-lab/BASELINE_005_COUNTER_ACTIVATION_PROVENANCE_REPAIR_001.json"
 )
+REPAIR = ROOT / "docs/objective-balance-lab/BASELINE_005_PLAYER_INDEX_REPAIR_001.json"
 RECOVERY = OBL / "BASELINE_005_ARTIFACT_RECOVERY_001.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
-RESULT = OBL / "BASELINE_005_HISTORICAL_STABILITY_CONTROL_ATTEMPT_007.json.gz"
-CONTROL_ID = "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007"
-RUNTIME = "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933"
+RESULT = OBL / "BASELINE_005_TELEMETRY_CONTROL_ATTEMPT_008.json.gz"
+CONTROL_ID = "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008"
+RUNTIME = "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
 PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
 PRIOR_REPAIRED_CONTROL_SHA = "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7"
@@ -67,11 +68,42 @@ def save(path: Path, payload: dict, expected_manifest: dict | None = None) -> No
     )
 
 
+def replay_historical_failures(
+    paths: dict[str, str], cards: dict[str, dict[str, object]], registry: dict
+) -> list[dict]:
+    """Replay every preserved failure seed before permitting a new control."""
+    r1._init_worker(cards)
+    results = []
+    for index, row in enumerate(registry["entries"], 1):
+        item = {
+            "pair": row["seats"],
+            "decks": row["seats"],
+            "orientation": row["orientation"],
+            "block": index,
+            "seed": int(row["seed"]),
+            "pair_index": index,
+        }
+        first = r1._run_one((100000 + index, paths, item))
+        replay = r1._run_one((200000 + index, paths, item))
+        if first.get("runtime_error") or replay.get("runtime_error"):
+            raise RuntimeError(f"historical replay failed for seed {row['seed']}")
+        first_digest = digest(first)
+        replay_digest = digest(replay)
+        if first_digest != replay_digest:
+            raise RuntimeError(f"historical replay mismatch for seed {row['seed']}")
+        # Historical digests were produced under predecessor repair runtimes.  The
+        # gate requires deterministic completion under the current runtime; it does
+        # not pretend a semantic repair preserves predecessor byte-for-byte output.
+        results.append({"seed": row["seed"], "deterministic": True, "digest": first_digest})
+    return results
+
+
 def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert not RESULT.exists(), f"refusing to overwrite existing control: {RESULT}"
     manifest = json.loads(MANIFEST.read_text())
     readiness = json.loads(READINESS.read_text())
     repair = json.loads(REPAIR.read_text())
+    counter_repair = json.loads(COUNTER_REPAIR.read_text())
     recovery = json.loads(RECOVERY.read_text())
     assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME
     # The final coverage/readiness ledger predates the provenance repair.  Its
@@ -83,8 +115,8 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert readiness["unbounded_residual_important"] == 0
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
     assert repair["runtime_after_sha256"] == RUNTIME
-    assert repair["preservation"]["coverage_ledger_rows"] == 172
-    assert repair["attempt6_artifact_sha256"] == PRIOR_ATTEMPT6_CONTROL_SHA
+    assert counter_repair["preservation"]["coverage_ledger_rows"] == 172
+    assert counter_repair["attempt6_artifact_sha256"] == PRIOR_ATTEMPT6_CONTROL_SHA
     assert (
         sha(OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz")
         == PRIOR_FOOD_SEARCH_CONTROL_SHA
@@ -94,7 +126,7 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
         == PRIOR_ATTEMPT6_CONTROL_SHA
     )
     registry = json.loads(REGISTRY.read_text())
-    assert registry["runtime"] == RUNTIME and len(registry["entries"]) == 7
+    assert registry["runtime"] == RUNTIME and len(registry["entries"]) == 8
     gate = json.loads(STABILITY_GATE.read_text())
     assert gate["status"] == "READY_STABILITY_BLOCKED_CALIBRATION"
     assert gate["registry"]["entries"] == 7 and gate["registry"]["exceptions"] == 0
@@ -131,7 +163,8 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert schedule_digest(schedule) == SCHEDULE_SHA == manifest["schedule_identity"]
     assert Counter(row["orientation"] for row in schedule) == {"canonical": 2250, "reversed": 2250}
     assert len({tuple(row["pair"]) for row in schedule}) == 45
-    return manifest, schedule, paths, recovery
+    historical_replays = replay_historical_failures(paths, cards, registry)
+    return manifest, schedule, paths, recovery, historical_replays
 
 
 def main() -> int:
@@ -148,7 +181,7 @@ def main() -> int:
         RESULT = OBL / output
     if args.control_id:
         CONTROL_ID = args.control_id
-    manifest, schedule, paths, recovery = preflight()
+    manifest, schedule, paths, recovery, historical_replays = preflight()
     if not args.run:
         print(
             json.dumps({"status": "PREFLIGHT_PASS", "games": 4500, "cells": 45, "runtime": RUNTIME})
@@ -185,6 +218,7 @@ def main() -> int:
             "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
         ],
         "repair_diagnostics_excluded": True,
+        "historical_failure_replays": historical_replays,
     }
     artifact_manifest = {
         "schema": expected["schema"],
