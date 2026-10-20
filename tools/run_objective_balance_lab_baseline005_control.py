@@ -26,16 +26,18 @@ COUNTER_REPAIR = (
     ROOT / "docs/objective-balance-lab/BASELINE_005_COUNTER_ACTIVATION_PROVENANCE_REPAIR_001.json"
 )
 REPAIR = ROOT / "docs/objective-balance-lab/BASELINE_005_PLAYER_INDEX_REPAIR_001.json"
+LTB_REPAIR = ROOT / "docs/objective-balance-lab/BASELINE_005_LTB_MUTAGEN_DEPARTURE_REPAIR_001.json"
 RECOVERY = OBL / "BASELINE_005_ARTIFACT_RECOVERY_001.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
-RESULT = OBL / "BASELINE_005_TELEMETRY_CONTROL_ATTEMPT_008.json.gz"
-CONTROL_ID = "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008"
-RUNTIME = "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a"
+RESULT = OBL / "BASELINE_005_LTB_REPAIR_CONTROL_ATTEMPT_009.json.gz"
+CONTROL_ID = "OBL-BASELINE-005-LTB-REPAIR-CONTROL-ATTEMPT-009"
+RUNTIME = "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
 PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
 PRIOR_REPAIRED_CONTROL_SHA = "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7"
 PRIOR_FOOD_SEARCH_CONTROL_SHA = "93ad17ed91bf5b7c1f0dd1c32414767f2a5a8ffe2806466ebb811fc06c1ab5e7"
 PRIOR_ATTEMPT6_CONTROL_SHA = "6f950648b1edd20052bb30c0982faf9bb82a1a979fd69271d2b6a97b8eac169a"
+PRIOR_ATTEMPT8_CONTROL_SHA = "3ac2dacfea88bddb0152ec90b394ac52157522f4149d7cf44c92cadef7b584e7"
 REGISTRY = OBL / "BASELINE_005_HISTORICAL_FAILURE_REGISTRY_001.json"
 STABILITY_GATE = OBL / "BASELINE_005_HISTORICAL_REGRESSION_STABILITY_GATE_001.json"
 
@@ -104,6 +106,7 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     readiness = json.loads(READINESS.read_text())
     repair = json.loads(REPAIR.read_text())
     counter_repair = json.loads(COUNTER_REPAIR.read_text())
+    ltb_repair = json.loads(LTB_REPAIR.read_text())
     recovery = json.loads(RECOVERY.read_text())
     assert identity()["aggregate_semantic_runtime_sha256"] == RUNTIME
     # The final coverage/readiness ledger predates the provenance repair.  Its
@@ -114,8 +117,8 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert readiness["critical_remaining"] == readiness["important_remaining"] == 0
     assert readiness["unbounded_residual_important"] == 0
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
-    assert repair["runtime_after_sha256"] == RUNTIME
-    assert counter_repair["preservation"]["coverage_ledger_rows"] == 172
+    assert ltb_repair["runtime_after_sha256"] == RUNTIME
+    assert ltb_repair["preservation"]["coverage_ledger_rows"] == 172
     assert counter_repair["attempt6_artifact_sha256"] == PRIOR_ATTEMPT6_CONTROL_SHA
     assert (
         sha(OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz")
@@ -126,10 +129,14 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
         == PRIOR_ATTEMPT6_CONTROL_SHA
     )
     registry = json.loads(REGISTRY.read_text())
-    assert registry["runtime"] == RUNTIME and len(registry["entries"]) == 8
+    assert registry["runtime"] == RUNTIME and len(registry["entries"]) == 11
     gate = json.loads(STABILITY_GATE.read_text())
     assert gate["status"] == "READY_STABILITY_BLOCKED_CALIBRATION"
     assert gate["registry"]["entries"] == 7 and gate["registry"]["exceptions"] == 0
+    assert (
+        sha(OBL / "BASELINE_005_TELEMETRY_CONTROL_ATTEMPT_008.json.gz")
+        == PRIOR_ATTEMPT8_CONTROL_SHA
+    )
     assert recovery["hq_governance_decision"]["classification"] == "HISTORICAL_CORRUPT_EXCLUDED"
     failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
     assert sha(failed) == PRIOR_FAILED_CONTROL_SHA
@@ -211,6 +218,8 @@ def main() -> int:
         "prior_food_search_control_sha256": PRIOR_FOOD_SEARCH_CONTROL_SHA,
         "prior_attempt6_control_id": "OBL-BASELINE-005-DAMAGE-TARGET-CONTROL-ATTEMPT-006",
         "prior_attempt6_control_sha256": PRIOR_ATTEMPT6_CONTROL_SHA,
+        "prior_attempt8_control_id": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+        "prior_attempt8_control_sha256": PRIOR_ATTEMPT8_CONTROL_SHA,
         "prior_repaired_pilot_control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
         "prior_repaired_pilot_control_sha256": recovery["artifacts"][1]["recorded_sha256"],
         "historical_corrupt_excluded": [
