@@ -22,16 +22,21 @@ from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
 READINESS = ROOT / "docs/cardcade/ISSUE_289_MICHELANGELO_IMPROVISER_CALIBRATION_READINESS.json"
-REPAIR = ROOT / "docs/objective-balance-lab/BASELINE_005_DAMAGE_TARGET_REPAIR_001.json"
+REPAIR = (
+    ROOT / "docs/objective-balance-lab/BASELINE_005_COUNTER_ACTIVATION_PROVENANCE_REPAIR_001.json"
+)
 RECOVERY = OBL / "BASELINE_005_ARTIFACT_RECOVERY_001.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
-RESULT = OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz"
-CONTROL_ID = "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005"
-RUNTIME = "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194"
+RESULT = OBL / "BASELINE_005_HISTORICAL_STABILITY_CONTROL_ATTEMPT_007.json.gz"
+CONTROL_ID = "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007"
+RUNTIME = "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
 PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
 PRIOR_REPAIRED_CONTROL_SHA = "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7"
 PRIOR_FOOD_SEARCH_CONTROL_SHA = "93ad17ed91bf5b7c1f0dd1c32414767f2a5a8ffe2806466ebb811fc06c1ab5e7"
+PRIOR_ATTEMPT6_CONTROL_SHA = "6f950648b1edd20052bb30c0982faf9bb82a1a979fd69271d2b6a97b8eac169a"
+REGISTRY = OBL / "BASELINE_005_HISTORICAL_FAILURE_REGISTRY_001.json"
+STABILITY_GATE = OBL / "BASELINE_005_HISTORICAL_REGRESSION_STABILITY_GATE_001.json"
 
 
 def digest(value: object) -> str:
@@ -79,11 +84,20 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
     assert repair["runtime_after_sha256"] == RUNTIME
     assert repair["preservation"]["coverage_ledger_rows"] == 172
-    assert repair["predecessor_artifact_sha256"] == PRIOR_FOOD_SEARCH_CONTROL_SHA
+    assert repair["attempt6_artifact_sha256"] == PRIOR_ATTEMPT6_CONTROL_SHA
     assert (
         sha(OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz")
         == PRIOR_FOOD_SEARCH_CONTROL_SHA
     )
+    assert (
+        sha(OBL / "BASELINE_005_ISSUE289_DAMAGE_TARGET_CONTROL_ATTEMPT_006.json.gz")
+        == PRIOR_ATTEMPT6_CONTROL_SHA
+    )
+    registry = json.loads(REGISTRY.read_text())
+    assert registry["runtime"] == RUNTIME and len(registry["entries"]) == 7
+    gate = json.loads(STABILITY_GATE.read_text())
+    assert gate["status"] == "READY_STABILITY_BLOCKED_CALIBRATION"
+    assert gate["registry"]["entries"] == 7 and gate["registry"]["exceptions"] == 0
     assert recovery["hq_governance_decision"]["classification"] == "HISTORICAL_CORRUPT_EXCLUDED"
     failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
     assert sha(failed) == PRIOR_FAILED_CONTROL_SHA
@@ -141,7 +155,7 @@ def main() -> int:
         )
         return 0
     expected = {
-        "schema": "obl-baseline005-food-search-control-attempt-v1",
+        "schema": "obl-baseline005-historical-stability-control-attempt-v1",
         "environment_id": "OBL-BASELINE-005",
         "evidence_id": CONTROL_ID,
         "baseline_manifest_sha256": sha(MANIFEST),
@@ -162,6 +176,8 @@ def main() -> int:
         "prior_repaired_control_sha256": PRIOR_REPAIRED_CONTROL_SHA,
         "prior_food_search_control_id": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
         "prior_food_search_control_sha256": PRIOR_FOOD_SEARCH_CONTROL_SHA,
+        "prior_attempt6_control_id": "OBL-BASELINE-005-DAMAGE-TARGET-CONTROL-ATTEMPT-006",
+        "prior_attempt6_control_sha256": PRIOR_ATTEMPT6_CONTROL_SHA,
         "prior_repaired_pilot_control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
         "prior_repaired_pilot_control_sha256": recovery["artifacts"][1]["recorded_sha256"],
         "historical_corrupt_excluded": [
