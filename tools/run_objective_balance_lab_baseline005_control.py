@@ -22,15 +22,16 @@ from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 MANIFEST = OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"
 READINESS = ROOT / "docs/cardcade/ISSUE_289_MICHELANGELO_IMPROVISER_CALIBRATION_READINESS.json"
-REPAIR = ROOT / "docs/cardcade/ISSUE_289_FOOD_SEARCH_REPAIR.json"
+REPAIR = ROOT / "docs/objective-balance-lab/BASELINE_005_DAMAGE_TARGET_REPAIR_001.json"
 RECOVERY = OBL / "BASELINE_005_ARTIFACT_RECOVERY_001.json"
 LEDGER = ROOT / "docs/cardcade/ISSUE_289_COVERAGE_LEDGER.csv"
 RESULT = OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz"
 CONTROL_ID = "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005"
-RUNTIME = "8d873b6ae9527a9274c0d783c90c71f26f5c1302d161e43998eee8c9cd559972"
+RUNTIME = "ee8d37b192a6eb37526283a458e54fb243e17d5e4dad68bd60cd863bfcf1a194"
 SCHEDULE_SHA = "b5fd8ab57016b15662fca420d508c9aab3633ad14b7f7515d667492b0f8abf27"
 PRIOR_FAILED_CONTROL_SHA = "1f2442ad5c3f716913c4ee9c5dad84137b75232b15664745e2b722d8bef7a352"
 PRIOR_REPAIRED_CONTROL_SHA = "45c4cdcd95708bb5974620b543fb50ee4dfb43b2a0d09c288e01ceb9dfeb15d7"
+PRIOR_FOOD_SEARCH_CONTROL_SHA = "93ad17ed91bf5b7c1f0dd1c32414767f2a5a8ffe2806466ebb811fc06c1ab5e7"
 
 
 def digest(value: object) -> str:
@@ -76,8 +77,13 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
     assert readiness["critical_remaining"] == readiness["important_remaining"] == 0
     assert readiness["unbounded_residual_important"] == 0
     assert repair["status"] == "READY_REPAIR_BLOCKED_CALIBRATION"
-    assert repair["repaired_runtime_sha256"] == RUNTIME
-    assert repair["coverage_ledger_rows"] == 172
+    assert repair["runtime_after_sha256"] == RUNTIME
+    assert repair["preservation"]["coverage_ledger_rows"] == 172
+    assert repair["predecessor_artifact_sha256"] == PRIOR_FOOD_SEARCH_CONTROL_SHA
+    assert (
+        sha(OBL / "BASELINE_005_ISSUE289_FOOD_SEARCH_CONTROL_ATTEMPT_005.json.gz")
+        == PRIOR_FOOD_SEARCH_CONTROL_SHA
+    )
     assert recovery["hq_governance_decision"]["classification"] == "HISTORICAL_CORRUPT_EXCLUDED"
     failed = OBL / "BASELINE_005_ISSUE289_FINAL_CONTROL.json.gz"
     assert sha(failed) == PRIOR_FAILED_CONTROL_SHA
@@ -115,10 +121,19 @@ def preflight() -> tuple[dict, list[dict], dict[str, str], dict]:
 
 
 def main() -> int:
+    global RESULT, CONTROL_ID
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", action="store_true")
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--output", help="new control artifact filename under the OBL directory")
+    parser.add_argument("--control-id", help="new unique control evidence ID")
     args = parser.parse_args()
+    if args.output:
+        output = Path(args.output)
+        assert not output.is_absolute() and output.name == args.output
+        RESULT = OBL / output
+    if args.control_id:
+        CONTROL_ID = args.control_id
     manifest, schedule, paths, recovery = preflight()
     if not args.run:
         print(
@@ -145,6 +160,8 @@ def main() -> int:
         "prior_failed_control_sha256": PRIOR_FAILED_CONTROL_SHA,
         "prior_repaired_control_id": "OBL-BASELINE-005-REPAIRED-CONTROL-001",
         "prior_repaired_control_sha256": PRIOR_REPAIRED_CONTROL_SHA,
+        "prior_food_search_control_id": "OBL-BASELINE-005-FOOD-SEARCH-CONTROL-ATTEMPT-005",
+        "prior_food_search_control_sha256": PRIOR_FOOD_SEARCH_CONTROL_SHA,
         "prior_repaired_pilot_control_id": "OBL-BASELINE-005-REPAIRED-PILOT-CONTROL-001",
         "prior_repaired_pilot_control_sha256": recovery["artifacts"][1]["recorded_sha256"],
         "historical_corrupt_excluded": [
