@@ -2317,8 +2317,28 @@ class Game(
                 or ltb_utility_fragments
                 or ltb_token_fragments
             ):
-                departure_record = tuple(self.events[-2].items())
-                departure_log_record = tuple(self.events[-1].items())
+                # Capture the records by their event contracts, not by relative
+                # positions.  A creature's death trigger may append a rules event
+                # between the zone-change/permanent-departed logs and this leave
+                # event.  Positional capture therefore authenticated the death
+                # rules event as the departure record and rejected valid LTB
+                # Mutagen provenance during combat SBA processing.
+                departure_records = [
+                    record
+                    for record in self.events
+                    if record.get("event") == "zone_changed"
+                    and record.get("source_object_id") == obj.object_id
+                ]
+                departure_log_records = [
+                    record
+                    for record in self.events
+                    if record.get("event") == "permanent_departed"
+                    and record.get("source_object_id") == obj.object_id
+                ]
+                if len(departure_records) != 1 or len(departure_log_records) != 1:
+                    raise ValueError("permanent departure evidence is not unique")
+                departure_record = tuple(departure_records[0].items())
+                departure_log_record = tuple(departure_log_records[0].items())
                 event = self._new_rules_event(
                     RulesEventKind.PERMANENT_LEFT,
                     departure_last_known[1],

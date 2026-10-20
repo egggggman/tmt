@@ -1,6 +1,6 @@
 {
   "schema": "obl-baseline005-historical-failure-registry-v1",
-  "runtime": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+  "runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
   "entries": [
     {
       "family": "pilot_pt",
@@ -81,6 +81,36 @@
       "failure_signature": "KeyError: 'player_index' while resolving April end-step spell-type draw",
       "repair_runtime": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
       "regression_test": "tests/test_spell_cast_record_contract.py"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "52602875548163369144134008259635487845293317286481406726252498296187974632476",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[1-52602875548163369144134008259635487845293317286481406726252498296187974632476]"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "106006273492101665316000105358704653692902405446975804566779680826804429635677",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[2-106006273492101665316000105358704653692902405446975804566779680826804429635677]"
+    },
+    {
+      "family": "ltb_mutagen_departure_provenance",
+      "original_control": "OBL-BASELINE-005-TELEMETRY-CONTROL-ATTEMPT-008",
+      "seed": "96991309514714145862924378877563814471441266842137307947311233243287635527631",
+      "orientation": "canonical",
+      "seats": ["michelangelo", "splinter"],
+      "failure_signature": "ValueError: LTB Mutagen departure provenance is stale or relinked",
+      "repair_runtime": "defefdce8a716ceef6dcedad1a6f50e2abc367bd3cb772a369853506d2f5398d",
+      "regression_test": "tests/test_ltb_mutagen_departure_provenance_repair.py::test_preserved_ltb_mutagen_failures_replay_deterministically[3-96991309514714145862924378877563814471441266842137307947311233243287635527631]"
     }
   ],
   "replay_results": [
@@ -91,7 +121,10 @@
     {"seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082", "completed": true, "deterministic": true, "digest": "16cf95d01d08250115095435e08e554d0b276e1e55f79e5d521819c5d75c3d6f"},
     {"seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047", "completed": true, "deterministic": true, "digest": "4fea3b478c429a152a694e069979693e6151b7ac9dc7bb0d235718082e327e1f"},
     {"seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783", "completed": true, "deterministic": true, "digest": "1c6fde231e7d23d6b1a22216b2f011c593506d6083221a18bde1f623a85f326f"},
-    {"seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929", "completed": true, "deterministic": true, "digest": "004167902e7a633dd802cf66aa0f0ac2fff2fbe9f8a408fd2e3e56bdfe3a34b1"}
+    {"seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929", "completed": true, "deterministic": true, "digest": "06891372bf9ad2d41245d4f8e9ab48947547799395b4f2eccc7e43077f4c8fc0"},
+    {"seed": "52602875548163369144134008259635487845293317286481406726252498296187974632476", "completed": true, "deterministic": true, "digest": "be9e873ff3ebd423ed6fda8e3c32a02cd8ea909ea086e80a6ac712c6f71f0aff"},
+    {"seed": "106006273492101665316000105358704653692902405446975804566779680826804429635677", "completed": true, "deterministic": true, "digest": "5a737d7fe53bd8ff093cdb61fe1b8dc3a3c198f848aa31f0c6c92cb79220a4fb"},
+    {"seed": "96991309514714145862924378877563814471441266842137307947311233243287635527631", "completed": true, "deterministic": true, "digest": "e6e4ff41265ccd93003a92b8611e4eb2b291b711aa35791b9acecbde8edb074d"}
   ],
   "raw_artifact_status": "The historical control artifacts remain unchanged; two are unrecoverable gzip copies classified HISTORICAL_CORRUPT_EXCLUDED. The failure records above are independently reproducible and are not substituted for those raw artifacts."
 }
