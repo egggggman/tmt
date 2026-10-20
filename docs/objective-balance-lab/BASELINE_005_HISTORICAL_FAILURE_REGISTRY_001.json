@@ -1,6 +1,6 @@
 {
   "schema": "obl-baseline005-historical-failure-registry-v1",
-  "runtime": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
+  "runtime": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
   "entries": [
     {
       "family": "pilot_pt",
@@ -71,6 +71,16 @@
       "failure_signature": "ValueError: counter activation provenance is invalid",
       "repair_runtime": "4978cdaa3c78d4e1f90498444d92850736c325df59c772e4bfaf8cc27ab27933",
       "regression_test": "tests/test_counter_activation_provenance_repair.py; tests/test_counter_target_spell_action.py"
+    },
+    {
+      "family": "spell_cast_record_contract",
+      "original_control": "OBL-BASELINE-005-HISTORICAL-STABILITY-CONTROL-ATTEMPT-007",
+      "seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929",
+      "orientation": "canonical",
+      "seats": ["april_oneil", "donatello"],
+      "failure_signature": "KeyError: 'player_index' while resolving April end-step spell-type draw",
+      "repair_runtime": "0b73c2283aaa28f013867d2b3c1e2b3aa287f326dfcddb22f81f05505370169a",
+      "regression_test": "tests/test_spell_cast_record_contract.py"
     }
   ],
   "replay_results": [
@@ -80,7 +90,8 @@
     {"seed": "61283485696731598188099450771387457581219000296206197647983307541613500950207", "completed": true, "deterministic": true, "digest": "ef3b329c6abc35d62b75c8842e7ee7ee720a36f17502141ad84fd6c3e8da8f24"},
     {"seed": "108687052940046901150408742631474974084904382487031619852802729825648363318082", "completed": true, "deterministic": true, "digest": "16cf95d01d08250115095435e08e554d0b276e1e55f79e5d521819c5d75c3d6f"},
     {"seed": "63960804773867057066244079686420048244385109677095274722534118927427377020047", "completed": true, "deterministic": true, "digest": "4fea3b478c429a152a694e069979693e6151b7ac9dc7bb0d235718082e327e1f"},
-    {"seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783", "completed": true, "deterministic": true, "digest": "1c6fde231e7d23d6b1a22216b2f011c593506d6083221a18bde1f623a85f326f"}
+    {"seed": "12506277166433065153407346632076121278501225696392466898823914761107207299783", "completed": true, "deterministic": true, "digest": "1c6fde231e7d23d6b1a22216b2f011c593506d6083221a18bde1f623a85f326f"},
+    {"seed": "90856440471641210079667413299657723063525178810879778610267403494681052196929", "completed": true, "deterministic": true, "digest": "004167902e7a633dd802cf66aa0f0ac2fff2fbe9f8a408fd2e3e56bdfe3a34b1"}
   ],
   "raw_artifact_status": "The historical control artifacts remain unchanged; two are unrecoverable gzip copies classified HISTORICAL_CORRUPT_EXCLUDED. The failure records above are independently reproducible and are not substituted for those raw artifacts."
 }
