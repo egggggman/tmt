@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import gzip
 import hashlib
 import json
 import statistics
@@ -95,7 +94,7 @@ def summarize(games: list[dict]) -> dict:
     ]
     by_opponent = {}
     for opponent in sorted(set(opponents)):
-        own = [game for game, opp in zip(games, opponents) if opp == opponent]
+        own = [game for game, opp in zip(games, opponents, strict=True) if opp == opponent]
         wins = sum(game["winner"] == "bebop_rocksteady" for game in own)
         draws = sum(game["draw"] for game in own)
         starts = [game for game in own if game["first_player"] == "bebop_rocksteady"]
@@ -176,7 +175,9 @@ def main() -> None:
         "summary": summarize(games),
         "combined_validation_run": False,
         "promotion_authorized": False,
-        "prior_control_artifact_sha256": "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09",
+        "prior_control_artifact_sha256": (
+            "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09"
+        ),
         "prior_control_raw_artifact_verified": False,
         "prior_control_reference": "Preserved Attempt 9 machine-readable control report",
         "prior_control_evidence_limitation": (
@@ -199,16 +200,18 @@ def main() -> None:
         f"Candidate `{EXPERIMENT_ID}`: −1 Frog Butler / +1 Stomped by the Foot.",
         f"Control: `{CONTROL_ID}`. Runtime: `{RUNTIME}`.",
         "",
-        f"**900/900 games completed; zero runtime errors; nine full-cell replays matched.**",
+        "**900/900 games completed; zero runtime errors; nine full-cell replays matched.**",
         "",
-        f"Bebop & Rocksteady: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**, mean ending turn {s['mean_turn']}, median {s['median_turn']}.",
+        f"Bebop & Rocksteady: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**,"
+        f"mean ending turn {s['mean_turn']}, median {s['median_turn']}.",
         "",
         "| Opponent | Wins | Games | Bebop & Rocksteady WR | Mean turn |",
         "| --- | ---: | ---: | ---: | ---: |",
     ]
     for opp, row in s["by_opponent"].items():
         lines.append(
-            f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} | {row['mean_turn']:.2f} |"
+            f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} "
+            f"| {row['mean_turn']:.2f} |"
         )
     lines += [
         "",

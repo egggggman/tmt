@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import gzip
 import hashlib
 import json
 import statistics
@@ -93,7 +92,7 @@ def summarize(games: list[dict]) -> dict:
     opponents = [next(deck for deck in game["seats"] if deck != "splinter") for game in games]
     by_opponent = {}
     for opponent in sorted(set(opponents)):
-        own = [game for game, opp in zip(games, opponents) if opp == opponent]
+        own = [game for game, opp in zip(games, opponents, strict=True) if opp == opponent]
         wins = sum(game["winner"] == "splinter" for game in own)
         draws = sum(game["draw"] for game in own)
         starts = [game for game in own if game["first_player"] == "splinter"]
@@ -174,7 +173,9 @@ def main() -> None:
         "summary": summarize(games),
         "combined_validation_run": False,
         "promotion_authorized": False,
-        "prior_control_artifact_sha256": "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09",
+        "prior_control_artifact_sha256": (
+            "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09"
+        ),
     }
     expected = {
         "schema": evidence["schema"],
@@ -190,20 +191,23 @@ def main() -> None:
         f"Candidate `{EXPERIMENT_ID}`: −1 Splinter, Hamato Yoshi / +1 Stomped by the Foot.",
         f"Control: `{CONTROL_ID}`. Runtime: `{RUNTIME}`.",
         "",
-        f"**900/900 games completed; zero runtime errors; nine full-cell replays matched.**",
+        "**900/900 games completed; zero runtime errors; nine full-cell replays matched.**",
         "",
-        f"Splinter: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**, mean ending turn {s['mean_turn']}, median {s['median_turn']}.",
+        f"Splinter: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**,"
+        f"mean ending turn {s['mean_turn']}, median {s['median_turn']}.",
         "",
         "| Opponent | Wins | Games | Splinter WR | Mean turn |",
         "| --- | ---: | ---: | ---: | ---: |",
     ]
     for opp, row in s["by_opponent"].items():
         lines.append(
-            f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} | {row['mean_turn']:.2f} |"
+            f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} "
+            f"| {row['mean_turn']:.2f} |"
         )
     lines += [
         "",
-        "Mechanic counts are execution telemetry, not causal evidence. This isolated result does not promote a baseline or authorize combined validation.",
+        "Mechanic counts are execution telemetry, not causal evidence."
+        " This isolated result does not promote a baseline or authorize combined validation.",
     ]
     REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(
