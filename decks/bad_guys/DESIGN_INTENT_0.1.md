@@ -22,9 +22,10 @@ Card names, mana values, Oracle text and snapshot Standard legality checked agai
 - **2 Shredder's Armor:** equipment grants +2/+1 and has an equip cost involving sacrifice, another possible expendable-resource outlet; verify pilot/equipment semantic coverage.
 - **2 Mutant Chain Reaction:** situational artifact/enchantment/flying-creature removal that also makes Mutagen; not generic creature removal.
 
-## Changes vs Baseline 005
-New package: +4 Foot Elite, +4 Foot Mystic, +2 Foot Ninjas, +3 Tokka & Rahzar, +1 Super Shredder, +2 Shredder's Armor.
-Reduced/removed: -2 Mutagen Man, -2 Frog Butler, -2 Ice Cream Kitty, -3 Putrid Pals, -2 Paramecia Coloniex, -3 Cowabunga!, -1 Mutant Chain Reaction, -2 Illegitimate Business, -2 Primordial Pachyderm. Recheck the exact arithmetic mechanically before any runner preflight; this section is a design summary, not an authenticated candidate diff.
+## Exact changes vs Baseline 005
+Additions: +4 Foot Elite; +3 Tokka & Rahzar, Terrible Twos; +1 Super Shredder; +4 Foot Mystic; +2 Foot Ninjas; +2 Shredder's Armor; +2 Tainted Treats.
+Removals: -2 Mutagen Man, Living Ooze; -2 Frog Butler; -1 Ice Cream Kitty; -1 Putrid Pals; -2 Paramecia Coloniex; -2 Rocksteady, Crash Courser; -3 Cowabunga!; -1 Mutant Chain Reaction; -2 Illegitimate Business; -2 Primordial Pachyderm.
+Totals: 18 additions and 18 removals; 60 cards retained, including the original 20 lands.
 
 ## Risks and limitations
 1. Historical Attempt 9 B&R results: 35.11% aggregate, vs Splinter 16%, Casey 29%, Raphael 29%. R9-B candidate: 35.89%, vs Splinter 17%, Casey 28%, Raphael 31%. Original Attempt 9 raw control artifact remains unavailable; use only the preserved report with its limitation stated.
