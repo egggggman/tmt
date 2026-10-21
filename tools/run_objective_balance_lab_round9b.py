@@ -53,7 +53,9 @@ def preflight() -> tuple[list[dict], dict[str, str], dict]:
     assert manifest["environment_id"] == "OBL-BASELINE-005"
     assert len(manifest["decks"]) == 10
     cards = r1.catalog()
-    parent_path = ROOT / next(row["source_path"] for row in manifest["decks"] if row["deck_key"] == "bebop_rocksteady")
+    parent_path = ROOT / next(
+        row["source_path"] for row in manifest["decks"] if row["deck_key"] == "bebop_rocksteady"
+    )
     parent = r1.validate_deck(parent_path, cards)
     candidate = r1.validate_deck(CANDIDATE, cards)
     assert sum(candidate["cards"].values()) == 60
@@ -68,21 +70,29 @@ def preflight() -> tuple[list[dict], dict[str, str], dict]:
     for offset in range(0, 900, 100):
         cell = selected[offset : offset + 100]
         assert Counter(row["orientation"] for row in cell) == {"canonical": 50, "reversed": 50}
-        assert sum(
-            row["decks"][0] == "bebop_rocksteady" for row in cell
-        ) == 50
+        assert sum(row["decks"][0] == "bebop_rocksteady" for row in cell) == 50
     return selected, deck_paths(), manifest
 
 
 def run_rows(rows: list[dict], paths: dict[str, str], workers: int, offset: int) -> list[dict]:
-    with ProcessPoolExecutor(max_workers=workers, initializer=r1._init_worker, initargs=(r1.catalog(),)) as pool:
-        results = list(pool.map(r1._run_one, [(offset + i + 1, paths, row) for i, row in enumerate(rows)], chunksize=1))
+    with ProcessPoolExecutor(
+        max_workers=workers, initializer=r1._init_worker, initargs=(r1.catalog(),)
+    ) as pool:
+        results = list(
+            pool.map(
+                r1._run_one,
+                [(offset + i + 1, paths, row) for i, row in enumerate(rows)],
+                chunksize=1,
+            )
+        )
     assert all(result.get("runtime_error") is None for result in results), "runtime failure"
     return results
 
 
 def summarize(games: list[dict]) -> dict:
-    opponents = [next(deck for deck in game["seats"] if deck != "bebop_rocksteady") for game in games]
+    opponents = [
+        next(deck for deck in game["seats"] if deck != "bebop_rocksteady") for game in games
+    ]
     by_opponent = {}
     for opponent in sorted(set(opponents)):
         own = [game for game, opp in zip(games, opponents) if opp == opponent]
@@ -90,7 +100,9 @@ def summarize(games: list[dict]) -> dict:
         draws = sum(game["draw"] for game in own)
         starts = [game for game in own if game["first_player"] == "bebop_rocksteady"]
         by_opponent[opponent] = {
-            "games": len(own), "wins": wins, "draws": draws,
+            "games": len(own),
+            "wins": wins,
+            "draws": draws,
             "win_rate": round((wins + draws / 2) / len(own), 6),
             "first_player_games": len(starts),
             "first_player_wins": sum(game["winner"] == "bebop_rocksteady" for game in starts),
@@ -99,7 +111,8 @@ def summarize(games: list[dict]) -> dict:
         }
     all_wins = sum(game["winner"] == "bebop_rocksteady" for game in games)
     return {
-        "games": len(games), "wins": all_wins,
+        "games": len(games),
+        "wins": all_wins,
         "draws": sum(game["draw"] for game in games),
         "win_rate": round((all_wins + sum(game["draw"] for game in games) / 2) / len(games), 6),
         "mean_turn": round(statistics.mean(game["turn"] for game in games), 4),
@@ -107,10 +120,15 @@ def summarize(games: list[dict]) -> dict:
         "by_opponent": by_opponent,
         "first_player": {
             "games": sum(game["first_player"] == "bebop_rocksteady" for game in games),
-            "wins": sum(game["first_player"] == "bebop_rocksteady" and game["winner"] == "bebop_rocksteady" for game in games),
+            "wins": sum(
+                game["first_player"] == "bebop_rocksteady" and game["winner"] == "bebop_rocksteady"
+                for game in games
+            ),
         },
         "casts": sum(sum(game.get("casts", {}).values()) for game in games),
-        "interaction_casts": sum(game.get("interaction_casts", {}).get("bebop_rocksteady", 0) for game in games),
+        "interaction_casts": sum(
+            game.get("interaction_casts", {}).get("bebop_rocksteady", 0) for game in games
+        ),
         "activation_events": sum(len(game.get("activation_events", [])) for game in games),
         "aura_events": sum(len(game.get("aura_events", [])) for game in games),
         "etb_life_gain_events": sum(len(game.get("etb_life_gain_events", [])) for game in games),
@@ -119,6 +137,7 @@ def summarize(games: list[dict]) -> dict:
 
 def main() -> None:
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
@@ -137,14 +156,26 @@ def main() -> None:
         replays[key] = digest(replay)
         print(json.dumps({"cell": key, "games": len(games)}), flush=True)
     evidence = {
-        "schema": "obl-round9b-isolated-v1", "status": "COMPLETE", "experiment_id": EXPERIMENT_ID,
-        "control_id": CONTROL_ID, "semantic_runtime_sha256": RUNTIME,
-        "schedule_sha256": SCHEDULE_SHA, "selected_schedule_sha256": digest(selected),
+        "schema": "obl-round9b-isolated-v1",
+        "status": "COMPLETE",
+        "experiment_id": EXPERIMENT_ID,
+        "control_id": CONTROL_ID,
+        "semantic_runtime_sha256": RUNTIME,
+        "schedule_sha256": SCHEDULE_SHA,
+        "selected_schedule_sha256": digest(selected),
         "baseline_manifest_sha256": sha(OBL / "baselines/OBL_BASELINE_005_MANIFEST.json"),
-        "candidate_path": CANDIDATE.relative_to(ROOT).as_posix(), "candidate_sha256": sha(CANDIDATE),
-        "candidate_diff": {"Frog Butler": {"parent": 2, "candidate": 1}, "Stomped by the Foot": {"parent": 3, "candidate": 4}},
-        "required_games": 900, "games": games, "replays": replays, "summary": summarize(games),
-        "combined_validation_run": False, "promotion_authorized": False,
+        "candidate_path": CANDIDATE.relative_to(ROOT).as_posix(),
+        "candidate_sha256": sha(CANDIDATE),
+        "candidate_diff": {
+            "Frog Butler": {"parent": 2, "candidate": 1},
+            "Stomped by the Foot": {"parent": 3, "candidate": 4},
+        },
+        "required_games": 900,
+        "games": games,
+        "replays": replays,
+        "summary": summarize(games),
+        "combined_validation_run": False,
+        "promotion_authorized": False,
         "prior_control_artifact_sha256": "55a1f0074e5c61548744ed78421ade014ea04627ac01a6f772dfce5daad19c09",
         "prior_control_raw_artifact_verified": False,
         "prior_control_reference": "Preserved Attempt 9 machine-readable control report",
@@ -153,21 +184,32 @@ def main() -> None:
             "HQ explicitly authorized the preserved machine-readable control "
             "report as the historical comparison reference."
         ),
-
     }
-    expected = {"schema": evidence["schema"], "experiment_id": EXPERIMENT_ID, "semantic_runtime_sha256": RUNTIME, "schedule_sha256": SCHEDULE_SHA}
+    expected = {
+        "schema": evidence["schema"],
+        "experiment_id": EXPERIMENT_ID,
+        "semantic_runtime_sha256": RUNTIME,
+        "schedule_sha256": SCHEDULE_SHA,
+    }
     write_validated_artifact(OUTPUT, evidence, expected_manifest=expected)
     s = evidence["summary"]
     lines = [
-        "# Round 9-B — Bebop & Rocksteady isolated balance probe", "",
+        "# Round 9-B — Bebop & Rocksteady isolated balance probe",
+        "",
         f"Candidate `{EXPERIMENT_ID}`: −1 Frog Butler / +1 Stomped by the Foot.",
-        f"Control: `{CONTROL_ID}`. Runtime: `{RUNTIME}`.", "",
-        f"**900/900 games completed; zero runtime errors; nine full-cell replays matched.**", "",
-        f"Bebop & Rocksteady: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**, mean ending turn {s['mean_turn']}, median {s['median_turn']}.", "",
-        "| Opponent | Wins | Games | Bebop & Rocksteady WR | Mean turn |", "| --- | ---: | ---: | ---: | ---: |",
+        f"Control: `{CONTROL_ID}`. Runtime: `{RUNTIME}`.",
+        "",
+        f"**900/900 games completed; zero runtime errors; nine full-cell replays matched.**",
+        "",
+        f"Bebop & Rocksteady: **{s['wins']}/{s['games']} ({s['win_rate']:.2%})**, mean ending turn {s['mean_turn']}, median {s['median_turn']}.",
+        "",
+        "| Opponent | Wins | Games | Bebop & Rocksteady WR | Mean turn |",
+        "| --- | ---: | ---: | ---: | ---: |",
     ]
     for opp, row in s["by_opponent"].items():
-        lines.append(f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} | {row['mean_turn']:.2f} |")
+        lines.append(
+            f"| {opp} | {row['wins']} | {row['games']} | {row['win_rate']:.2%} | {row['mean_turn']:.2f} |"
+        )
     lines += [
         "",
         "## Historical control evidence limitation",
@@ -183,7 +225,17 @@ def main() -> None:
         "combined validation.",
     ]
     REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(json.dumps({"status": "COMPLETE", "artifact": str(OUTPUT), "report": str(REPORT), "games": 900, "candidate_sha256": sha(CANDIDATE)}))
+    print(
+        json.dumps(
+            {
+                "status": "COMPLETE",
+                "artifact": str(OUTPUT),
+                "report": str(REPORT),
+                "games": 900,
+                "candidate_sha256": sha(CANDIDATE),
+            }
+        )
+    )
 
 
 if __name__ == "__main__":
