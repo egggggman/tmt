@@ -1,27 +1,231 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ôˆˆ‰	½Õ¹‘•°É•¥Á¥•¹ÐµÍÁ•¥™¥Œ½‰Í•ÉÙ…Ñ¥½¹Ìì¹¼±•…±¥Ñä½È•á•ÕÑ¥½¸…ÕÑ¡½É¥Ñä¸()=¹±äÑ¡”ÕÉÉ•¹Ð™…”µÕÀ‰…ÑÑ±•™¥•±…¹MÑ…¬°Ñ¡”É•¥Á¥•¹ÐÌ¡…¹°…¹Ñ¡”)•¹¥¹”µÍÕÁÁ±¥•MÉä¥¹ÍÁ•Ñ¥½¸…É”‘•ÍÉ¥‰•¸9¼É•¥ÍÑÉä½È¡¥ÍÑ½Éä±½½­ÕÀ¥Ì)ÕÍ•Ñ¼É•½Ù•È‘•Á…ÉÑ•Ñ…É•ÑÌ¸U¹ÍÕÁÁ½ÉÑ•½‰Í•ÉÙ…Ñ¥½¸­¥¹‘Ì™…¥°±½Í•¸(ˆˆˆ()™É½´}}™ÕÑÕÉ•}|¥µÁ½ÉÐ…¹¹½Ñ…Ñ¥½¹Ì()™É½´‘…Ñ…±…ÍÍ•Ì¥µÁ½ÉÐ‘…Ñ…±…ÍÌ°™¥•±)™É½´ÑåÁ¥¹œ¥µÁ½ÉÐQeA}!-%9°1¥Ñ•É…°()¥˜QeA}!-%9è(€€€™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹•¹¥¹”ÀÜ¥µÁ½ÉÐ…É‘…Ð°…µ”(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”°Í±½ÑÌõQÉÕ”¤)±…ÍÌ…É‘•ÍÉ¥ÁÑ¥½¸è(€€€½‰©•Ñ}¥èÍÑÈ(€€€¹…µ”èÍÑÈ(€€€µ…¹…}½ÍÐèÍÑÈ(€€€µ…¹…}Ù…±Õ”è¥¹Ð(€€€ÑåÁ•}±¥¹”èÍÑÈ(€€€½É…±•}Ñ•áÐèÍÑÈ(€€€Á½Ý•Èè¥¹Ðð9½¹”(€€€Ñ½Õ¡¹•ÍÌè¥¹Ðð9½¹”(€€€­•åÝ½É‘ÌèÑÕÁ±•mÍÑÈ°€¸¸¹t(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”°Í±½ÑÌõQÉÕ”¤)±…ÍÌ	…ÑÑ±•™¥•±‘Y¥•ÝXÈè(€€€½‰©•Ñ}¥èÍÑÈ(€€€¹…µ”èÍÑÈ(€€€½Ý¹•Èè¥¹Ð(€€€½¹ÑÉ½±±•Èè¥¹Ð(€€€…Éè…É‘•ÍÉ¥ÁÑ¥½¸(€€€ÑåÁ•}±¥¹”èÍÑÈ(€€€Á½Ý•Èè¥¹Ðð9½¹”(€€€Ñ½Õ¡¹•ÍÌè¥¹Ðð9½¹”(€€€Ñ…ÁÁ•è‰½½°(€€€‘…µ…”è¥¹Ð(€€€¥Í}Ñ½­•¸è‰½½°(€€€½Õ¹Ñ•ÉÌèÑÕÁ±•mÑÕÁ±•mÍÑÈ°¥¹Ñt°€¸¸¹t(€€€ÍÕµµ½¹¥¹}Í¥¬è‰½½°(€€€É•ÁÉ•Í•¹Ñ•‘}­•åÝ½É‘}ÍÑ…ÑÕÌèÑÕÁ±•mÑÕÁ±•mÍÑÈ°‰½½±t°€¸¸¹t(€€€É•ÁÉ•Í•¹Ñ•‘}±…¹‘}Á…åµ•¹Ñ}½±½ÈèÍÑÈð9½¹”(€€€±…¹‘}Á…åµ•¹Ñ}Õ¹Ñ…ÁÁ•è‰½½°ð9½¹”(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”°Í±½ÑÌõQÉÕ”¤)±…ÍÌ•¥Í¥½¹½¹Ñ•áÑXÈè(€€€½‰Í•ÉÙ•É}¥¹‘•àè¥¹Ð(€€€ÑÕÉ¸è¥¹Ð(€€€…Ñ¥Ù•}Á±…å•Èè¥¹Ð(€€€Á¡…Í”èÍÑÈ(€€€ÍÑ•ÀèÍÑÈ(€€€±¥™”èÑÕÁ±•m¥¹Ð°€¸¸¹t(€€€¡…¹‘}Í¥é•ÌèÑÕÁ±•m¥¹Ð°€¸¸¹t(€€€±¥‰É…Éå}Í¥é•ÌèÑÕÁ±•m¥¹Ð°€¸¸¹t(€€€½Ý¹}¡…¹èÑÕÁ±•m…É‘•ÍÉ¥ÁÑ¥½¸°€¸¸¹t(€€€‰…ÑÑ±•™¥•±‘ÌèÑÕÁ±•mÑÕÁ±•m	…ÑÑ±•™¥•±‘Y¥•ÝXÈ°€¸¸¹t°€¸¸¹t(€€€½Ý¹}±…¹‘Í}Á±…å•è¥¹Ð(€€€Í¡•µ…}Ù•ÉÍ¥½¸è¥¹Ð€ô™¥•±¡‘•™…Õ±ÐôÈ°¥¹¥Ðõ…±Í”¤(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”°Í±½ÑÌõQÉÕ”¤)±…ÍÌMÉåY¥•ÝXÈè(€€€Á±…å•É}¥¹‘•àè¥¹Ð(€€€É•ÅÕ•ÍÑ•è¥¹Ð(€€€…É‘ÌèÑÕÃ}5¶‰žËkºwµçc ¢ö&¦V7Eö–C¢7G ¢¶–æC¢Æ—FW&Å²'7VÆÂ"Â&7F—fFVB"Â'G&–vvW&VB%Ð¢6öçG&öÆÆW#¢–ç@¢7VÆÅö6&C¢6&DFW67&—F–öâÂæöæP¢6÷W&6Uö6&C¢6&DFW67&—F–öâÂæöæP¢6÷W&6Uö–C¢7G"ÂæöæP¢V&Æ–5öVffV7E÷FW‡C¢7G ¢&W&W6VçFVEöVffV7E÷Fs¢7G"ÂæöæP¢F&vWG3¢GWÆUµV&Æ–5F&vWEc"ÂââåÐ  ¤FF6Æ72†g&÷¦VãÕG'VRÂ6Æ÷G3ÕG'VR¦6Æ72&–÷&—G•f–Wuc# ¢6öçFW‡C¢FV6—6–öä6öçFW‡Ec ¢&–÷&—G•÷Æ–W#¢–ç@¢&–÷&—G•öWö6ƒ¢–ç@¢6öç6V7WF—fU÷76W3¢GWÆU¶–çBÂââåÐ¢7F6µö&÷GFöÕ÷Fõ÷F÷¢GWÆUµV&Æ–57F6´—FVÕc"ÂââåÐ¢66†VÖ÷fW'6–öã¢–çBÒf–VÆB†FVfVÇCÓ"Â–æ—CÔfÇ6R  ¤FF6Æ72†g&÷¦VãÕG'VRÂ6Æ÷G3ÕG'VR¦6Æ72vÖUf–Wuc# ¢ö'6W'fW%ö–æFWƒ¢–ç@¢GW&ã¢–ç@¢7F—fU÷Æ–W#¢–ç@¢†6S¢7G ¢7FW¢7G ¢Æ–fS¢GWÆU¶–çBÂââåÐ¢†æG3¢GWÆU·GWÆU·GWÆU·7G"Â7G"Â–çBÂ&ööÅÒÂââåÒÂââåÐ¢&GFÆVf–VÆG3¢GWÆU·GWÆU´&GFÆVf–VÆEf–Wuc"ÂââåÒÂââåÐ¢†æE÷6—¦W3¢GWÆU¶–çBÂââåÐ¢66†VÖ÷fW'6–öã¢–çBÒf–VÆB†FVfVÇCÓ"Â–æ—CÔfÇ6R  ¦FVbFW67&–&Uö6&B†ö&¦V7Eö–C¢7G"Â6&C¢6&Df7B’Óâ6&DFW67&—F–öã ¢&WGW&â6&DFW67&—F–öâ€¢ö&¦V7Eö–BÀ¢6&BææÖRÀ¢6&BæÖæö6÷7BÀ¢6&BæÖæ÷fÇVRÀ¢6&BçG—UöÆ–æRÀ¢6&Bæ÷&6ÆU÷FW‡BÀ¢6&Bç÷vW"À¢6&BçF÷Vv†æW72À¢GWÆR†6&Bæ¶W—v÷&G2’À¢  ¦FVbFV6—6–öåö6öçFW‡B†vÖS¢vÖRÂö'6W'fW%ö–æFWƒ¢–çB’ÓâFV6—6–öä6öçFW‡Ec# ¢g&öÒFÖçEöFW6–vå÷7GVF–òæVæv–æSr–×÷'B7G&–¶T¶W—v÷&BÂFV×÷&'”¶W—v÷&@ ¢–bG—R†ö'6W'fW%ö–æFW‚’—2æ÷B–çB÷"ö'6W'fW%ö–æFW‚æ÷B–âƒÂ“ ¢&—6RfÇVTW'&÷"‚%c"ö'6W'fF–öâ&WV—&W2âW‡Æ–6—B6VB÷""¢&ö&G2ÒµÐ¢f÷"Æ–W"–âvÖRçÆ–W'3 ¢&÷w2ÒµÐ¢f÷"W&ÖæVçB–âÆ–W"æ&GFÆVf–VÆC ¢7G&–¶RÒvÖRæWfÇVFVE÷7G&–¶Uö¶W—v÷&G2‡W&ÖæVçB¢2F†W6RFw2FW5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.žÝyÓTèµ©hºÚn¶X§zÍXÜšX™H^XÝHH^\Ý[™È›Ý[™Y]Y\šY\ËˆÝ\‚ˆÈš[YÙ^]ÛÜ™È™[XZ[ˆ^Ú]›È[™™\œ™Y^XÝ]X›HÝ]\Ë‚ˆÝ]\ÈH\J
-YË˜[YKYÈ[ˆÝšZÙJH›ÜˆYÈ[ˆÝšZÙRÙ^]ÛÜ™
-BˆÝ]\È
-ÏH
-ˆ
-˜[\H‹Ø[YK™]˜[X]YÝ˜[\J\›X[™[
-JKˆ
-›Y™[[šÈ‹Ø[YK™]˜[X]YÛY™[[šÊ\›X[™[
-JKˆ
-BˆÝ]\È
-ÏH\Jˆ
-[\Ü˜\žWÈˆ
-ÈYË˜[YKØ[YKš\×Ý[\Ü˜\žWÚÙ^]ÛÜ™
-\›X[™[YÊJBˆ›ÜˆYÈ[ˆ[\Ü˜\žRÙ^]ÛÜ™ˆYˆYÈ›Ý[ˆÕ[\Ü˜\žRÙ^]ÛÜ™”‘PPÒ[\Ü˜\žRÙ^]ÛÜ™’S‘TÕ•PÕP“_Bˆ
-Bˆ›ÝÜË˜\[™
-ˆ˜]YšY[šY]ÕŒŠˆ\›X[™[›Øš™XÝÚYˆ\›X[™[˜Ø\™›˜[YKˆ\›X[™[›ÝÛ™\‹ˆ\›X[™[˜ÛÛ›Û\‹ˆ\ØÜšX™WØØ\™
-\›X[™[›Øš™XÝÚY\›X[™[˜Ø\™
-Kˆ\›X[™[\WÛ[™Kˆ\›X[™[œÝÙ\ˆYˆ\›X[™[˜Ø\™š\×ØÜ™X]\™H[ÙH›Û™Kˆ\›X[™[ÝYÚ™\ÜÈYˆ\›X[™[˜Ø\™š\×ØÜ™X]\™H[ÙH›Û™Kˆ\›X[™[\Yˆ\›X[™[™[XYÙKˆ\›X[™[š\×ÝÚÙ[‹ˆ\JÛÜY
-\›X[™[˜ÛÝ[\œËš][\Ê
-JJKˆ\›X[™[œÝ[[[Ûš[™×ÜÚXÚËˆÝ]\ËˆØ[YK—ÛX[˜WØÛÛÜŠ\›X[™[
-HYˆ\›X[™[˜Ø\™š\×Û[™[ÙH›Û™Kˆ›Ý\›X[™[\YYˆ\›X[™[˜Ø\™š\×Û[™[ÙH›Û™Kˆ
-Bˆ
-Bˆ›Ø\™Ë˜\[™
-\J›ÝÜÊJBˆ™]\›ˆXÚ\Ú[ÛÛÛ^ŒŠˆØœÙ\™\—Ú[™^ˆØ[YK\›‹ˆØ[YK˜XÝ]™WÜ^Y\‹ˆØ[YKœ\ÙKˆØ[YKœÝ\˜[YKˆ\J›Y™H›Üˆ[ˆØ[YKœ^wÓ[h‘éì¶»§q«^v:
+"""Bounded, recipient-specific observations; no legality or execution authority.
+
+Only the current face-up battlefield and Stack, the recipient's hand, and the
+engine-supplied Scry inspection are described. No registry or history lookup is
+used to recover departed targets. Unsupported observation kinds fail closed.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Literal
+
+if TYPE_CHECKING:
+    from tmnt_design_studio.engine07 import CardFact, Game
+
+
+@dataclass(frozen=True, slots=True)
+class CardDescription:
+    object_id: str
+    name: str
+    mana_cost: str
+    mana_value: int
+    type_line: str
+    oracle_text: str
+    power: int | None
+    toughness: int | None
+    keywords: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class BattlefieldViewV2:
+    object_id: str
+    name: str
+    owner: int
+    controller: int
+    card: CardDescription
+    type_line: str
+    power: int | None
+    toughness: int | None
+    tapped: bool
+    damage: int
+    is_token: bool
+    counters: tuple[tuple[str, int], ...]
+    summoning_sick: bool
+    represented_keyword_status: tuple[tuple[str, bool], ...]
+    represented_land_payment_color: str | None
+    land_payment_untapped: bool | None
+
+
+@dataclass(frozen=True, slots=True)
+class DecisionContextV2:
+    observer_index: int
+    turn: int
+    active_player: int
+    phase: str
+    step: str
+    life: tuple[int, ...]
+    hand_sizes: tuple[int, ...]
+    library_sizes: tuple[int, ...]
+    own_hand: tuple[CardDescription, ...]
+    battlefields: tuple[tuple[BattlefieldViewV2, ...], ...]
+    own_lands_played: int
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class ScryViewV2:
+    player_index: int
+    requested: int
+    cards: tuple[tuple[str, str], ...]
+    context: DecisionContextV2
+    inspected_cards: tuple[CardDescription, ...]
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class HandBottomDrawViewV2:
+    player_index: int
+    cards: tuple[tuple[str, str], ...]
+    context: DecisionContextV2
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class DiscardDrawViewV2:
+    player_index: int
+    cards: tuple[tuple[str, str], ...]
+    context: DecisionContextV2
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class PublicTargetV2:
+    object_id: str
+    announcement_zone: None
+    current_public_zone: Literal["battlefield", "stack"] | None
+    status: Literal["resolved", "unresolved"]
+    description: CardDescription | None
+
+
+@dataclass(frozen=True, slots=True)
+class PublicStackItemV2:
+    object_id: str
+    kind: Literal["spell", "activated", "triggered"]
+    controller: int
+    spell_card: CardDescription | None
+    source_card: CardDescription | None
+    source_id: str | None
+    public_effect_text: str
+    represented_effect_tag: str | None
+    targets: tuple[PublicTargetV2, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class PriorityViewV2:
+    context: DecisionContextV2
+    priority_player: int
+    priority_epoch: int
+    consecutive_passes: tuple[int, ...]
+    stack_bottom_to_top: tuple[PublicStackItemV2, ...]
+    schema_version: int = field(default=2, init=False)
+
+
+@dataclass(frozen=True, slots=True)
+class GameViewV2:
+    observer_index: int
+    turn: int
+    active_player: int
+    phase: str
+    step: str
+    life: tuple[int, ...]
+    hands: tuple[tuple[tuple[str, str, int, bool], ...], ...]
+    battlefields: tuple[tuple[BattlefieldViewV2, ...], ...]
+    hand_sizes: tuple[int, ...]
+    schema_version: int = field(default=2, init=False)
+
+
+def describe_card(object_id: str, card: CardFact) -> CardDescription:
+    return CardDescription(
+        object_id,
+        card.name,
+        card.mana_cost,
+        card.mana_value,
+        card.type_line,
+        card.oracle_text,
+        card.power,
+        card.toughness,
+        tuple(card.keywords),
+    )
+
+
+def decision_context(game: Game, observer_index: int) -> DecisionContextV2:
+    from tmnt_design_studio.engine07 import StrikeKeyword, TemporaryKeyword
+
+    if type(observer_index) is not int or observer_index not in (0, 1):
+        raise ValueError("V2 observation requires an explicit seat 0 or 1")
+    boards = []
+    for player in game.players:
+        rows = []
+        for permanent in player.battlefield:
+            strike = game.evaluated_strike_keywords(permanent)
+            # These tags describe exactly the existing bounded queries. Other
+            # printed keywords remain text, with no inferred executable status.
+            status = tuple((tag.value, tag in strike) for tag in StrikeKeyword)
+            status += (
+                ("trample", game.evaluated_trample(permanent)),
+                ("lifelink", game.evaluated_lifelink(permanent)),
+            )
+            status += tuple(
+                ("temporary_" + tag.value, game.has_temporary_keyword(permanent, tag))
+                for tag in TemporaryKeyword
+                if tag not in {TemporaryKeyword.REACH, TemporaryKeyword.INDESTRUCTIBLE}
+            )
+            rows.append(
+                BattlefieldViewV2(
+                    permanent.object_id,
+                    permanent.card.name,
+                    permanent.owner,
+                    permanent.controller,
+                    describe_card(permanent.object_id, permanent.card),
+                    permanent.type_line,
+                    permanent.power if permanent.card.is_creature else None,
+                    permanent.toughness if permanent.card.is_creature else None,
+                    permanent.tapped,
+                    permanent.damage,
+                    permanent.is_token,
+                    tuple(sorted(permanent.counters.items())),
+                    permanent.summoning_sick,
+                    status,
+                    game._mana_color(permanent) if permanent.card.is_land else None,
+                    not permanent.tapped if permanent.card.is_land else None,
+                )
+            )
+        boards.append(tuple(rows))
+    return DecisionContextV2(
+        observer_index,
+        game.turn,
+        game.active_player,
+        game.phase,
+        game.step.value,
+        tuple(p.life for p in game.players),
+        tuple(len(p.hand) for p in game.players),
+        tuple(len(p.library) for p in game.players),
+        tuple(describe_card(c.object_id, c.card) for c in game.players[observer_index].hand),
+        tuple(boards),
+        game.players[observer_index].lands_played,
+    )
+
+
+def pilot_view(game: Game, observer_index: int) -> GameViewV2:
+    context = decision_context(game, observer_index)
+    own_rows = tuple(
+        (c.object_id, c.name, c.mana_value, "Creature" in c.type_line) for c in context.own_hand
+    )
+    return GameViewV2(
+        observer_index,
+        context.turn,
+        context.active_player,
+        context.phase,
+        context.step,
+        context.life,
+        tuple(own_rows if i == observer_index else () for i in range(2)),
+        context.battlefields,
+        context.hand_sizes,
+    )
+
+
+def priority_view(game: Game, observer_index: int) -> PriorityViewV2:
     from tmnt_design_studio.engine07 import (
         ActivatedAbilityObject,
         StackObject,

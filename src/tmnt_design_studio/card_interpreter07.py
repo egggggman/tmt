@@ -1,9 +1,290 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ôˆˆ‰AÕÉ”=É…±”µÑ¼µÉÕ±•Ìµ½¹ÍÑÉÕĞ¥¹Ñ•ÉÁÉ•Ñ…Ñ¥½¸™½È…É‘…‘”¹¥¹”€À¸áˆ¸ˆˆˆ()™É½´}}™ÕÑÕÉ•}|¥µÁ½ÉĞ…¹¹½Ñ…Ñ¥½¹Ì()¥µÁ½ÉĞÉ”)™É½´‘…Ñ…±…ÍÍ•Ì¥µÁ½ÉĞ‘…Ñ…±…ÍÌ)™É½´•¹Õ´¥µÁ½ÉĞ¹Õ´)™É½´ÑåÁ¥¹œ¥µÁ½ÉĞAÉ½Ñ½½°()™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹Í•µ…¹Ñ¥}½Ù•É…”¥µÁ½ÉĞM•µ…¹Ñ¥½Ù•É…”(()±…ÍÌ…É‘•™¥¹¥Ñ¥½¸¡AÉ½Ñ½½°¤è(€€€¹…µ”èÍÑÈ(€€€½É…±•}Ñ•áĞèÍÑÈ(€€€ÑåÁ•}±¥¹”èÍÑÈ(€€€Á½İ•Èè¥¹Ğğ9½¹”(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğğ9½¹”(€€€­•åİ½É‘ÌèÑÕÁ±•mÍÑÈ°€¸¸¹t((€€€ÁÉ½Á•ÉÑä(€€€‘•˜¥Í}É•…ÑÕÉ”¡Í•±˜¤€´ø‰½½°è€¸¸¸(()±…ÍÌ…ÍÑ-¥¹¡¹Õ´¤è(€€€UI€ô€‰…ÕÉ„ˆ(€€€IQUI€ô€‰É•…ÑÕÉ”ˆ(€€€AI599P€ô€‰Á•Éµ…¹•¹Ğˆ(€€€I]}IL€ô€‰‘É…İ}…É‘Ìˆ(€€€5|Í}=AA=M%9}IQUI€ô€‰‘…µ…•|Í}½ÁÁ½Í¥¹}É•…ÑÕÉ”ˆ(€€€1}5€ô€‰‘•…±}‘…µ…”ˆ(€€€==i}MA%10€ô€‰½½é•}ÍÁ¥±°ˆ(€€€MQI=e}IQ%Q}9!9Q59Q}=I}A=]I|Ñ}IQUI€ô€ (€€€€€€€€‰‘•ÍÑÉ½å}…ÉÑ¥™…Ñ}•¹¡…¹Ñµ•¹Ñ}½É}Á½İ•É|Ñ}É•…ÑÕÉ”ˆ(€€€€¤(€€€U9MUAA=IQ€ô€‰Õ¹ÍÕÁÁ½ÉÑ•ˆ(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ…ÍÑAÉ½É…´è(€€€­¥¹è…ÍÑ-¥¹(€€€‘É…İ}ÅÕ…¹Ñ¥Ñäè¥¹Ğğ9½¹”€ô9½¹”(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌÕÉ…MÕÁÁÉ•ÍÍ¥½¹AÉ½É…´è(€€€€ˆˆ‰	½Õ¹‘•=É…±”µ‘•É¥Ù•É•…ÑÕÉ”ÕÉ„ì¹¼…Éµ¹…µ”‘¥ÍÁ…Ñ ¸ˆˆˆ((€€€É•…ÑÕÉ•}ÑåÁ”èÍÑÈ(€€€Á½İ•Èè¥¹Ğ(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğ(€€€…¹Ñ}…ÑÑ…¬è‰½½°(€€€±½Í•Í}…‰¥±¥Ñ¥•Ìè‰½½°(€€€½É…±•}™É…µ•¹ĞèÍÑÈ(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌMÑ…Ñ¥Q•…µ5½‘¥™¥•ÉAÉ½É…´è(€€€€ˆˆ‰	½Õ¹‘•½¹ÑÉ½±±•ÈµÍ½Á•µ½‘¥™¥•È™½È½Ñ¡•ÈÅÕ…±¥™¥•É•…ÑÕÉ•Ì¸ˆˆˆ((€€€ÅÕ…±¥ÑäèÍÑÈ(€€€Á½İ•Èè¥¹Ğ(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğ(€€€½Ñ¡•Èè‰½½°€ôQÉÕ”(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ%¹Ñ•ÉÁÉ•Ñ•‘MÑ…Ñ¥Q•…µ5½‘¥™¥•ÉM•µ…¹Ñ¥Ìè(€€€ÁÉ½É…´èMÑ…Ñ¥Q•…µ5½‘¥™¥•ÉAÉ½É…´(€€€½Ù•É…”èM•µ…¹Ñ¥½Ù•É…”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜±¥µ¥Ñ…Ñ¥½¹Ì¡Í•±˜¤€´øÑÕÁ±•mÍÑÈ°€¸¸¹tè(€€€€€€€É•ÑÕÉ¸Í•±˜¹½Ù•É…”¹±¥µ¥Ñ…Ñ¥½¹Ì(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌÑÑ…­Q…É•ÑAQAÉ½É…´è(€€€Á½İ•Èè¥¹Ğ(€€€Ñ½Õ¡¹•ÍÌè¥»}5¶‰Ëkºwµçr‡6VÆb’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&â6VÆbæ6÷fW&vRæÆ–Ö—FF–öç0  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72FW7G&÷•W&ÖæVçE&öw&Ó ¢""%F†R&÷VæFVBF&vWB6Æ76W2&W&W6VçFVB'’vÖWÆ’6¶WBâ""  ¢'F–f7C¢&ööÀ¢Væ6†çFÖVçC¢&ööÀ¢7&VGW&UöÖ–æ–×VÕ÷÷vW#¢–çBÂæöæP ¢&÷W'G¢FVbW†V7WF&ÆR‡6VÆb’Óâ&ööÃ ¢&WGW&â6VÆbæ'F–f7BæB6VÆbæVæ6†çFÖVçBæB6VÆbæ7&VGW&UöÖ–æ–×VÕ÷÷vW"ÓÒ@  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72–çFW'&WFVDFW7G&÷•W&ÖæVçE6VÖçF–73 ¢""$FW7G&÷’×W&ÖæVçBf7G2—&VBv—F‚vVæW&–26÷fW&vRWf–FVæ6Râ""  ¢&öw&Ó¢FW7G&÷•W&ÖæVçE&öw&Ğ¢6÷fW&vS¢6VÖçF–46÷fW&vP ¢&÷W'G¢FVbÆ–Ö—FF–öç2‡6VÆb’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&â6VÆbæ6÷fW&vRæÆ–Ö—FF–öç0  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72FV×÷&'”¶W—v÷&D6†ö–6U&öw&Ó ¢""$öæR&÷VæFVBÆÆ–æ6R6†ö–6RÖöærFV×÷&'’7&VGW&R¶W—v÷&G2â""  ¢6†ö–6W3¢GWÆU·7G"ÂââåĞ¢GW&F–öã¢7G ¢6VÆe÷&VfW&Væ6S¢&ööÀ ¢&÷W'G¢FVbW†V7WF&ÆR‡6VÆb’Óâ&ööÃ ¢&WGW&â€¢6VÆbæ6†ö–6W2ÓÒ‚&fÇ––ær"Â&ÖVæ6R"Â&†7FR"¢æB6VÆbæGW&F–öâÓÒ'VçF–ÅöVæEööe÷GW&â ¢æB6VÆbç6VÆe÷&VfW&Væ6P¢  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72–çFW'&WFVEFV×÷&'”¶W—v÷&D6†ö–6U6VÖçF–73 ¢&öw&Ó¢FV×÷&'”¶W—v÷&D6†ö–6U&öw&Ğ¢6÷fW&vS¢6VÖçF–46÷fW&vP ¢&÷W'G¢FVbÆ–Ö—FF–öç2‡6VÆb’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&â6VÆbæ6÷fW&vRæÆ–Ö—FF–öç0  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ726æVµ&öw&Ó ¢""$öæR÷&6ÆRÖFW&—fVB&÷VæFVB6æV²ÇFW&æF—fRÖ6÷7B–ç7G'V7F–öââ""  ¢Öæö6÷7C¢7G"ÂæöæP¢7&VGW&U÷7VÆÃ¢&ööÀ¢F—&V7Eö¶W—v÷&Eö&–Æ—G“¢&ööÀ¢f—†VE÷7W÷'FVEö6÷7C¢&ööÀ¢æöæ7&VGW&UöG&u÷VçF—G“¢–çBÂæöæRÒæöæP ¢&÷W'G¢FVbW†V7WF&ÆR‡6VÆb’Óâ&ööÃ ¢&WGW&â€¢6VÆbæÖæö6÷7B—2æ÷BæöæUš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍBˆ[™Ù[‹™\™XİÚÙ^]ÛÜ™ØXš[]Bˆ[™Ù[‹™š^YÜİ\ÜYØÛÜİˆ[™
-Ù[‹˜Ü™X]\™WÜÜ[ÜˆÙ[‹››Û˜Ü™X]\™WÙ˜]×Ü]X[]H\È›İ›Û™JBˆ
-B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[\œ™]YÛ™XZÔÙ[X[XÜÎ‚ˆˆˆ”Û™XZË\ÜXÚYšXÈ˜XİÈZ\™YÚ]Xİ[Û‹YÙ[™\šXÈÛİ™\˜YÙH]šY[˜ÙKˆˆˆ‚‚ˆ›ÙÜ˜[NˆÛ™XZÔ›ÙÜ˜[BˆÛİ™\˜YÙNˆÙ[X[XĞÛİ™\˜YÙB‚ˆ›Ü\BˆYˆ[Z]][ÛœÊÙ[ŠHOˆ\VÜİ‹‹‹—N‚ˆ™]\›ˆÙ[‹˜Ûİ™\˜YÙK›[Z]][ÛœÂ‚‚˜Û\ÜÈ[XYÙU\™Ù]Ú[™
-[[JN‚ˆˆˆ•H›İ[™Y™XÚ\Y[Û\ÜÙ\È™\™\Ù[YHX[[XYÙKˆˆˆ‚‚ˆVQTˆHœ^Y\ˆ‚ˆÔ‘PUT‘HH˜Ü™X]\™H‚‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[XYÙT›ÙÜ˜[N‚ˆˆˆ“Û™HÜ˜XÛKY\š]™Y[XYÙH^[ØY[™\[™[Ùˆ[]™\H[™]]][Û‹ˆˆˆ‚‚ˆ[[İ[ˆ[›Û™Bˆ\™Ù]ÚÚ[™ˆ[XYÙU\™Ù]Ú[™›Û™Bˆ\™Ù]ÜØÛÜNˆİˆ›Û™Bˆ[œİ\ÜYÜ™X\ÛÛˆİˆ›Û™HH›Û™Bˆ™]Z[™YÛ[Z]][Ûˆİˆ›Û™HH›Û™BˆY][Û˜[Û[Z]][Ûˆİˆ›Û™HH›Û™B‚ˆ›Ü\BˆYˆ^Xİ]X›JÙ[ŠHOˆ›ÛÛ‚ˆ™]\›ˆ
-ˆÙ[‹˜[[İ[\È›İ›Û™Bˆ[™Ù[‹˜[[İ[ˆˆ[™Ù[‹\™Ù]ÚÚ[™\È›İ›Û™Bˆ[™Ù[‹\™Ù]ÜØÛÜH[ˆÈ\™Ù]ÛÜÛ™[‹™XXÚÛÜÛ™[‹[İH‹\™Ù]ØÜ™X]\™HŸBˆ[™Ù[‹[œİ\ÜYÜ™X\ÛÛˆ\È›Û™Bˆ[™Ù[‹˜Y][Û˜[Û[Z]][Ûˆ\È›Û™Bˆ
-B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[\œ™]Y[XYÙTÙ[X[XÜÎ‚ˆˆˆ[ˆXİ[Û‹\ÜXÚYšXÈ[XYÙH›ÙÜ˜[HZ\™YÚ]Ù[™\šXÈÛİ™\˜YÙH]šY[˜ÙKˆˆˆ‚‚ˆ›ÙÜ˜[Nˆ[XYÙT›ÙÜ˜[BˆÛİ™\˜YÙNˆÙ[X[XĞÛİ™\˜YÙBˆ\™[Û[Z]][Ûˆİˆ›Û™HH›Û™B‚ˆ›Ü\BˆYˆ[Z]][ÛœÊÙ[ŠHOˆ\VÜİ‹‹‹—N‚ˆ™]\›ˆÙ[‹˜Ûİ™\˜YÙK›[Z]][ÛœÂ‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ™]\›•Ò[™›ÙÜ˜[N‚ˆˆˆ“Û™HÜ˜XÛKY\š]™Y™]\›ˆ7Ó[h‘éì¶»§q«^v        return self.coverage.limitations
+"""Pure Oracle-to-rules-construct interpretation for Cardcade Engine 0.8b."""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+from enum import Enum
+from typing import Protocol
+
+from tmnt_design_studio.semantic_coverage import SemanticCoverage
+
+
+class CardDefinition(Protocol):
+    name: str
+    oracle_text: str
+    type_line: str
+    power: int | None
+    toughness: int | None
+    keywords: tuple[str, ...]
+
+    @property
+    def is_creature(self) -> bool: ...
+
+
+class CastKind(Enum):
+    AURA = "aura"
+    CREATURE = "creature"
+    PERMANENT = "permanent"
+    DRAW_CARDS = "draw_cards"
+    DAMAGE_3_OPPOSING_CREATURE = "damage_3_opposing_creature"
+    DEAL_DAMAGE = "deal_damage"
+    OOZE_SPILL = "ooze_spill"
+    DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
+        "destroy_artifact_enchantment_or_power_4_creature"
+    )
+    UNSUPPORTED = "unsupported"
+
+
+@dataclass(frozen=True)
+class CastProgram:
+    kind: CastKind
+    draw_quantity: int | None = None
+
+
+@dataclass(frozen=True)
+class AuraSuppressionProgram:
+    """Bounded Oracle-derived creature Aura; no card-name dispatch."""
+
+    creature_type: str
+    power: int
+    toughness: int
+    cant_attack: bool
+    loses_abilities: bool
+    oracle_fragment: str
+
+
+@dataclass(frozen=True)
+class StaticTeamModifierProgram:
+    """Bounded controller-scoped modifier for other qualified creatures."""
+
+    quality: str
+    power: int
+    toughness: int
+    other: bool = True
+
+
+@dataclass(frozen=True)
+class InterpretedStaticTeamModifierSemantics:
+    program: StaticTeamModifierProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class AttackTargetPTProgram:
+    power: int
+    toughness: int
+    duration: str
+    grants_indestructible: bool
+    source_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.duration == "until_end_of_turn"
+            and self.grants_indestructible
+            and self.source_reference
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedAttackTargetPTSemantics:
+    program: AttackTargetPTProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class DrawCardsProgram:
+    """Oracle-derived draw quantity for a directly executable spell effect."""
+
+    quantity: int
+
+
+@dataclass(frozen=True)
+class InterpretedDrawCardsSemantics:
+    """Draw-card facts paired with reusable spell and Sneak coverage."""
+
+    program: DrawCardsProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class DestroyPermanentProgram:
+    """The bounded target classes represented by Gameplay Packet 1."""
+
+    artifact: bool
+    enchantment: bool
+    creature_minimum_power: int | None
+
+    @property
+    def executable(self) -> bool:
+        return self.artifact and self.enchantment and self.creature_minimum_power == 4
+
+
+@dataclass(frozen=True)
+class InterpretedDestroyPermanentSemantics:
+    """Destroy-permanent facts paired with generic coverage evidence."""
+
+    program: DestroyPermanentProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class TemporaryKeywordChoiceProgram:
+    """One bounded Alliance choice among temporary creature keywords."""
+
+    choices: tuple[str, ...]
+    duration: str
+    self_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.choices == ("flying", "menace", "haste")
+            and self.duration == "until_end_of_turn"
+            and self.self_reference
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedTemporaryKeywordChoiceSemantics:
+    program: TemporaryKeywordChoiceProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class SneakProgram:
+    """One Oracle-derived bounded Sneak alternative-cost instruction."""
+
+    mana_cost: str | None
+    creature_spell: bool
+    direct_keyword_ability: bool
+    fixed_supported_cost: bool
+    noncreature_draw_quantity: int | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.mana_cost is not None
+            and self.direct_keyword_ability
+            and self.fixed_supported_cost
+            and (self.creature_spell or self.noncreature_draw_quantity is not None)
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedSneakSemantics:
+    """Sneak-specific facts paired with Action-generic coverage evidence."""
+
+    program: SneakProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+class DamageTargetKind(Enum):
+    """The bounded recipient classes represented by Deal Damage."""
+
+    PLAYER = "player"
+    CREATURE = "creature"
+
+
+@dataclass(frozen=True)
+class DamageProgram:
+    """One Oracle-derived damage payload, independent of delivery and mutation."""
+
+    amount: int | None
+    target_kind: DamageTargetKind | None
+    target_scope: str | None
+    unsupported_reason: str | None = None
+    retained_limitation: str | None = None
+    additional_limitation: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.amount is not None
+            and self.amount > 0
+            and self.target_kind is not None
+            and self.target_scope in {"target_opponent", "each_opponent", "you", "target_creature"}
+            and self.unsupported_reason is None
+            and self.additional_limitation is None
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedDamageSemantics:
+    """An Action-specific damage program paired with generic coverage evidence."""
+
+    program: DamageProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class ReturnToHandProgram:
+    """One Oracle-derived return payload, independent of delivery and mutation."""
+
+    another_target_creature_you_control: bool
+    destination_owners_hand: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.another_target_creature_you_control and self.destination_owners_hand
+
+
+@dataclass(frozen=True)
+class ReturnClause:
+    """The authoritative textual boundary of one recognized Return instruction."""
+
+    text: str
+    start: int
+    end: int
+    preceding_text: str
+    following_text: str
+
+
+@dataclass(frozen=True)
+class InterpretedReturnToHandSemantics:
+    """Return payload facts paired with Action-generic semantic coverage."""
+
+    program: ReturnToHandProgram
+    coverage: SemanticCoverage
+    clause: ReturnClause
+    preceding_semantics: str
+    following_semantics: str
+    preceding_executable: bool
+    followup_executable: bool
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
 
 
 @dataclass(frozen=True)
@@ -74,12 +355,267 @@ class TrampleProgram:
     self_static: bool
     deathtouch_modified: bool = False
 
-    @propYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ•ÉÑä(€€€‘•˜•á•ÕÑ…‰±”¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸Í•±˜¹Í•±™}ÍÑ…Ñ¥Œ…¹¹½ĞÍ•±˜¹‘•…Ñ¡Ñ½Õ¡}µ½‘¥™¥•(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ%¹Ñ•ÉÁÉ•Ñ•‘QÉ…µÁ±•M•µ…¹Ñ¥Ìè(€€€€ˆˆ‰QÉ…µÁ±”ÁÉ½É…´Á…¥É•İ¥Ñ Ñ¥½¸µ•¹•É¥ŒÍ•µ…¹Ñ¥Œ½Ù•É…”¸ˆˆˆ((€€€ÁÉ½É…´èQÉ…µÁ±•AÉ½É…´(€€€½Ù•É…”èM•µ…¹Ñ¥½Ù•É…”(€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸èÍÑÈğ9½¹”€ô9½¹”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜±¥µ¥Ñ…Ñ¥½¹Ì¡Í•±˜¤€´øÑÕÁ±•mÍÑÈ°€¸¸¹tè(€€€€€€€É•ÑÕÉ¸Í•±˜¹½Ù•É…”¹±¥µ¥Ñ…Ñ¥½¹Ì(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ1¥™•±¥¹­AÉ½É…´è(€€€€ˆˆ‰=¹”=É…±”µ‘•É¥Ù•¥¹ÑÉ¥¹Í¥Œ1¥™•±¥¹¬¡…É…Ñ•É¥ÍÑ¥Œ¸ˆˆˆ((€€€Í•±™}ÍÑ…Ñ¥Œè‰½½°((€€€ÁÉ½Á•ÉÑä(€€€‘•˜•á•ÕÑ…‰±”¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸Í•±˜¹Í•±™}ÍÑ…Ñ¥Œ(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ%¹Ñ•ÉÁÉ•Ñ•‘1¥™•±¥¹­M•µ…¹Ñ¥Ìè(€€€€ˆˆ‰1¥™•±¥¹¬ÁÉ½É…´Á…¥É•İ¥Ñ Ñ¥½¸µ•¹•É¥ŒÍ•µ…¹Ñ¥Œ½Ù•É…”¸ˆˆˆ((€€€ÁÉ½É…´è1¥™•±¥¹­AÉ½É…´(€€€½Ù•É…”èM•µ…¹Ñ¥½Ù•É…”(€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸èÍÑÈğ9½¹”€ô9½¹”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜±¥µ¥Ñ…Ñ¥½¹Ì¡Í•±˜¤€´øÑÕÁ±•mÍÑÈ°€¸¸¹tè(€€€€€€€É•ÑÕÉ¸Í•±˜¹½Ù•É…”¹±¥µ¥Ñ…Ñ¥½¹Ì(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ!…¹‘	½ÑÑ½µÉ…İAÉ½É…´è(€€€€ˆˆ‰=¹”‰½Õ¹‘•½ÁÑ¥½¹…°!…¹€´ø1¥‰É…Éäµ‰½ÑÑ½´µ½Ù”™½±±½İ•‰ä™¥á•É…Ü¸ˆˆˆ((€€€¡…¹‘}ÅÕ…¹Ñ¥Ñäè¥¹Ğğ9½¹”(€€€‘É…İ}ÅÕ…¹Ñ¥Ñäè¥¹Ğğ9½¹”(€€€½ÁÑ¥½¹…°è‰½½°(€€€‘É…İ}½¹‘¥Ñ¥½¹…±}½¹}µ½Ù”è‰½½°(€€€Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸èÍÑÈğ9½¹”€ô9½¹”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜•á•ÕÑ…‰±”¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸€ (€€€€€€€€€€€Í•±˜¹¡…¹‘}ÅÕ…¹Ñ¥Ñä€ôô€Ä(€€€€€€€€€€€…¹Í•±˜¹‘É…İ}ÅÕ…¹Ñ¥Ñä€ôô€Ä(€€€€€€€€€€€…¹Í•±˜¹½ÁÑ¥½¹…°(€€€€€€€€€€€…¹Í•±˜¹‘É…İ}½¹‘¥Ñ¥½¹…±}½¹}µ½Ù”(€€€€€€€€€€€…¹Í•±˜¹Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸¥Ì9½¹”(€€€€€€€€¤(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ%¹Ñ•ÉÁÉ•Ñ•‘!…¹‘	½ÑÑ½µÉ…İM•µ…¹Ñ¥Ìè(€€€€ˆˆ‰Ñ¥½¸µÍÁ•¥™¥Œ™¥±Ñ•È½É…Ü™…ÑÌÁ…¥É•İ¥Ñ •¹•É¥ŒÍ•µ…¹Ñ¥Œ½Ù•É…”¸ˆˆˆ((€€€ÁÉ½É…´è!…¹‘	½ÑÑ½µÉ…İAÉ½É…´(€€€½Ù•É…”èM•µ…¹Ñ¥½Ù•É…”(€€€±…ÕÍ•}5¶‰ËkºwµçVæBæ÷B6VÆbæ÷F–öæÂæBæ÷B6VÆbæG&uö6öæF—F–öæÅööåöF—66&B¢¢  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72–çFW'&WFVDF—66&DG&u6VÖçF–73 ¢""$F—66&BôG&rf7G2—&VBv—F‚7F–öâÖvVæW&–26VÖçF–26÷fW&vRâ""  ¢&öw&Ó¢F—66&DG&u&öw&Ğ¢6÷fW&vS¢6VÖçF–46÷fW&vP¢6ÆW6U÷FW‡C¢7G ¢6ÆW6U÷7F'C¢–ç@¢6ÆW6UöVæC¢–ç@ ¢&÷W'G¢FVbÆ–Ö—FF–öç2‡6VÆb’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&â6VÆbæ6÷fW&vRæÆ–Ö—FF–öç0  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ727F—fF–öä6÷7E&öw&Ó ¢""$÷&6ÆRÖFW&—fVB7F—fF–öâ6÷7G2Â&Vf÷&RWF†÷&—FF—fR–ÖVçBâ""  ¢Öæö6÷7C¢7G ¢F÷6÷W&6S¢&ööÀ¢67&–f–6U÷6÷W&6S¢&ööÀ¢&VÖ÷fUö6÷VçFW%÷F&vWC¢&ööÀ¢W†V7WF&ÆS¢&ööÀ¢Æ–Ö—FF–öç3¢GWÆU·7G"ÂââåÒÒ‚¢F—66&E÷6÷W&6S¢&ööÂÒfÇ6P  ¦6Æ727F—fFVDVffV7D¶–æB„VçVÒ“ ¢Edä4Uô4Ä55ôÄUdTÂÒ&Gfæ6Uö6Æ75öÆWfVÂ ¢u$åEõ4TÄeôd•%5Eõ5E$”´UõTåD”ÅôTõBÒ&w&çE÷6VÆeöf—'7E÷7G&–¶U÷VçF–ÅöV÷B ¢$UEU$åôäõD„U%ô5$TEU$Uõ”õUô4ôåE$ôÅõDõôõtäU%5ô„äBÒ€¢'&WGW&åöæ÷F†W%ö7&VGW&U÷–÷Uö6öçG&öÅ÷Fõö÷væW'5ö†æB ¢¢t”åõD…$TUôÄ”dRÒ&v–å÷F‡&VUöÆ–fR ¢4õTåDU%õD$tUEõ5TÄÂÒ&6÷VçFW%÷F&vWE÷7VÆÂ ¢ÕUDtTåô4õTåDU"Ò&×WFvVåö6÷VçFW" ¢4T$4…ôÄäEõE•RÒ'6V&6…öÆæE÷G—R ¢$UEU$åõ4TÄeôe$ôÕôu$dU”$EõDTBÒ'&WGW&å÷6VÆeög&öÕöw&fW–&E÷FVB ¢DEôå•ô4ôÄõ%ôÔäÒ&FEöç•ö6öÆ÷%öÖæ ¢u$åEõ$T4…õTåD”ÅôTõBÒ&w&çE÷&V6…÷VçF–ÅöV÷B ¢u$åEõDô´Tåô„5DUõTåD”ÅôTõBÒ&w&çE÷Fö¶Våö†7FU÷VçF–ÅöV÷B ¢E$uô4$BÒ&G&uö6&B ¢ED4…ôUT•ÔTåBÒ&GF6…öWV—ÖVçB ¢Tå5Uõ%DTBÒ'Vç7W÷'FVB   ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ727F—fFVD&–Æ—G•&öw&Ó ¢""$öæR7F—fFVB&–Æ—G’Â6W&FRg&öÒVæv–æRÆVvÆ—G’æB×WFF–öââ""  ¢6÷7E÷FW‡C¢7G ¢VffV7E÷FW‡C¢7G ¢6÷7C¢7F—fF–öä6÷7E&öw&Ğ¢VffV7Eö¶–æC¢5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ]]˜]YY™™XİÚ[™ˆ\™Ù]ØÛİ[ˆ[ˆÚÚXÙ\×Ü™\]Z\™Yˆ›ÛÛˆXİ]˜][Û—Ú[œİXİ[ÛœÎˆİˆ›Û™HH›Û™B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[\œ™]YXİ]˜]YXš[]TÙ[X[XÜÎ‚ˆˆˆXİ[Û‹\ÜXÚYšXÈXİ]˜][Ûˆ˜XİÈZ\™YÚ]Ù[™\šXÈÛİ™\˜YÙH]šY[˜ÙKˆˆˆ‚‚ˆ›ÙÜ˜[NˆXİ]˜]YXš[]T›ÙÜ˜[BˆÛİ™\˜YÙNˆÙ[X[XĞÛİ™\˜YÙBˆXİ]˜][Û—Ü™XÛÙÛš^™Yˆ›ÛÛˆXİ]˜][Û—Ü\™[Ù^Xİ]X›Nˆ›ÛÛˆÛÜİ×Ù^Xİ]X›Nˆ›ÛÛˆ\™Ù]×ØÚÚXÙ\×Ù^Xİ]X›Nˆ›ÛÛˆÚ[Ü^[ØYÙ^Xİ]X›Nˆ›ÛÛˆ›Ûİİ\Ù^Xİ]X›Nˆ›ÛÛ‚ˆ›Ü\BˆYˆ[Z]][ÛœÊÙ[ŠHOˆ\VÜİ‹‹‹—N‚ˆ™]\›ˆÙ[‹˜Ûİ™\˜YÙK›[Z]][ÛœÂ‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[\œ™]Y›ÛÙXİ]˜][Û”Ù[X[XÜÎ‚ˆˆˆØ[›ÛšXØ[›ÛÙXİ]˜][ÛˆZ\™YÚ]Xİ[Û‹YÙ[™\šXÈÛİ™\˜YÙKˆˆˆ‚‚ˆ›ÙÜ˜[NˆXİ]˜]YXš[]T›ÙÜ˜[BˆÛİ™\˜YÙNˆÙ[X[XĞÛİ™\˜YÙBˆÛ]\ÙWİ^ˆİ‚‚ˆ›Ü\BˆYˆ[Z]][ÛœÊÙ[ŠHOˆ\VÜİ‹‹‹—N‚ˆ™]\›ˆÙ[‹˜Ûİ™\˜YÙK›[Z]][ÛœÂ‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈÚÙ[‘Yš[š][Û‚ˆˆˆ’[[]]X›HÚ\˜Xİ\š\İXÜÈ›ÜˆÛ™HÜ˜XÛKY\š]™YÚÙ[ˆÚ[™ˆˆˆ‚‚ˆ˜[YNˆİ‚ˆ\WÛ[™Nˆİ‚ˆÛÛÜœÎˆ\VÜİ‹‹‹—HH
+    @property
+    def executable(self) -> bool:
+        return self.self_static and not self.deathtouch_modified
 
-BˆİÙ\ˆ[›Û™HH›Û™BˆİYÚ™\ÜÎˆ[›Û™HH›Û™BˆÜ˜XÛWİ^ˆİˆHˆ‚ˆÙ^]ÛÜ™Îˆ\VÜİ‹‹‹—HH
 
-BˆX[˜WØÛÜİˆİˆHˆ‚ˆX[˜Wİ˜[YNˆ[H‚ˆ›Ü\BˆYˆ\×Û[™
-Ù[ŠHOˆ›ÛÛ‚ˆ™]\›ˆ“[™ˆ[ˆÙ[‹\WÛ[™B‚ˆ›Ü\BˆYˆ\×ØÜ™X]\™JÙ[ŠHOˆ›ÛÛ‚ˆ™]\›ˆÜ™X]\™Hˆ[ˆÙ[‹\WÛ[™B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈÚÙ[Ü™X][Û”›ÙÜ˜[N‚ˆˆˆ“Û™H™XÛÙÛš^™YÚÙ[‹XÜ™X][Ûˆ[œİXİ[Û‹^Xİ]X›HÛ›HÚ[ˆ[H›İ[™Yˆˆˆ‚‚ˆYš[š][ÛˆÚÙ[‘Yš[š][Ûˆ›Û™Bˆ]X[]Nˆ[›Û™Bˆ\Yˆ›ÛÛH˜[ÙBˆ[œİ\ÜYÜ™X\ÛÛˆİˆ›Û™HH›Û™Bˆ™]Z[™YÛ[ZwÓ[h‘éì¶»§q«^uturn self.coverage.fully_supported
+@dataclass(frozen=True)
+class InterpretedTrampleSemantics:
+    """A Trample program paired with Action-generic semantic coverage."""
+
+    program: TrampleProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class LifelinkProgram:
+    """One Oracle-derived intrinsic Lifelink characteristic."""
+
+    self_static: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.self_static
+
+
+@dataclass(frozen=True)
+class InterpretedLifelinkSemantics:
+    """A Lifelink program paired with Action-generic semantic coverage."""
+
+    program: LifelinkProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class HandBottomDrawProgram:
+    """One bounded optional Hand -> Library-bottom move followed by fixed Draw."""
+
+    hand_quantity: int | None
+    draw_quantity: int | None
+    optional: bool
+    draw_conditional_on_move: bool
+    unsupported_reason: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.hand_quantity == 1
+            and self.draw_quantity == 1
+            and self.optional
+            and self.draw_conditional_on_move
+            and self.unsupported_reason is None
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedHandBottomDrawSemantics:
+    """Action-specific filter/Draw facts paired with generic semantic coverage."""
+
+    program: HandBottomDrawProgram
+    coverage: SemanticCoverage
+    clause_text: str
+    clause_start: int
+    clause_end: int
+    parent_limitation: str | None = None
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class DiscardDrawProgram:
+    """Either optional discard then conditional Draw, or mandatory Draw then discard."""
+
+    discard_quantity: int | None
+    draw_quantity: int | None
+    optional: bool
+    draw_conditional_on_discard: bool
+    draw_first: bool = False
+    mill_quantity: int = 0
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.discard_quantity is not None
+            and self.draw_quantity is not None
+            and self.discard_quantity > 0
+            and self.draw_quantity > 0
+            and (
+                (self.optional and self.draw_conditional_on_discard and not self.draw_first)
+                or (self.draw_first and not self.optional and not self.draw_conditional_on_discard)
+            )
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedDiscardDrawSemantics:
+    """Discard/Draw facts paired with Action-generic semantic coverage."""
+
+    program: DiscardDrawProgram
+    coverage: SemanticCoverage
+    clause_text: str
+    clause_start: int
+    clause_end: int
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class ActivationCostProgram:
+    """Oracle-derived activation costs, before authoritative payment."""
+
+    mana_cost: str
+    tap_source: bool
+    sacrifice_source: bool
+    remove_counter_target: bool
+    executable: bool
+    limitations: tuple[str, ...] = ()
+    discard_source: bool = False
+
+
+class ActivatedEffectKind(Enum):
+    ADVANCE_CLASS_LEVEL = "advance_class_level"
+    GRANT_SELF_FIRST_STRIKE_UNTIL_EOT = "grant_self_first_strike_until_eot"
+    RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND = (
+        "return_another_creature_you_control_to_owners_hand"
+    )
+    GAIN_THREE_LIFE = "gain_three_life"
+    COUNTER_TARGET_SPELL = "counter_target_spell"
+    MUTAGEN_COUNTER = "mutagen_counter"
+    SEARCH_LAND_TYPE = "search_land_type"
+    RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
+    ADD_ANY_COLOR_MANA = "add_any_color_mana"
+    GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
+    GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
+    DRAW_CARD = "draw_card"
+    ATTACH_EQUIPMENT = "attach_equipment"
+    UNSUPPORTED = "unsupported"
+
+
+@dataclass(frozen=True)
+class ActivatedAbilityProgram:
+    """One activated ability, separate from engine legality and mutation."""
+
+    cost_text: str
+    effect_text: str
+    cost: ActivationCostProgram
+    effect_kind: ActivatedEffectKind
+    target_count: int
+    choices_required: bool
+    activation_instructions: str | None = None
+
+
+@dataclass(frozen=True)
+class InterpretedActivatedAbilitySemantics:
+    """Action-specific activation facts paired with generic coverage evidence."""
+
+    program: ActivatedAbilityProgram
+    coverage: SemanticCoverage
+    activation_recognized: bool
+    activation_parent_executable: bool
+    costs_executable: bool
+    targets_choices_executable: bool
+    child_payload_executable: bool
+    followup_executable: bool
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class InterpretedFoodActivationSemantics:
+    """Canonical Food activation paired with Action-generic coverage."""
+
+    program: ActivatedAbilityProgram
+    coverage: SemanticCoverage
+    clause_text: str
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class TokenDefinition:
+    """Immutable characteristics for one Oracle-derived token kind."""
+
+    name: str
+    type_line: str
+    colors: tuple[str, ...] = ()
+    power: int | None = None
+    toughness: int | None = None
+    oracle_text: str = ""
+    keywords: tuple[str, ...] = ()
+    mana_cost: str = ""
+    mana_value: int = 0
+
+    @property
+    def is_land(self) -> bool:
+        return "Land" in self.type_line
+
+    @property
+    def is_creature(self) -> bool:
+        return "Creature" in self.type_line
+
+
+@dataclass(frozen=True)
+class TokenCreationProgram:
+    """One recognized token-creation instruction, executable only when fully bounded."""
+
+    definition: TokenDefinition | None
+    quantity: int | None
+    tapped: bool = False
+    unsupported_reason: str | None = None
+    retained_limitation: str | None = None
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.definition is not None
+            and self.quantity is not None
+            and self.quantity > 0
+            and self.unsupported_reason is None
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedTokenSemantics:
+    """An Action-specific token program paired with Action-agnostic coverage evidence."""
+
+    program: TokenCreationProgram
+    coverage: SemanticCoverage
+    parent_limitation: str | None = None
+
+    @property
+    def payload_executable(self) -> bool:
+        return self.coverage.payload_executable
+
+    @property
+    def parent_executable(self) -> bool:
+        return self.coverage.parent_executable
+
+    @property
+    def followup_executable(self) -> bool:
+        return self.coverage.followup_executable
+
+    @property
+    def fully_supported(self) -> bool:
+        return self.coverage.fully_supported
 
     @property
     def limitations(self) -> tuple[str, ...]:
@@ -123,18 +659,182 @@ class CardInterpreter:
     )
     STATIC_OTHER_QUALIFIED_CREATURES = re.compile(
         r"^Other (?P<quality>artifact) creatures you control get "
-        YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÈ‰p¬ ı@ñÁ½İ•Èùq¬¤½p¬ ı@ñÑ½Õ¡¹•ÍÌùq¬¥p¸ˆ(€€€€¤(€€€11%9}Q!%M}U9Q%1}=P€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y±±¥…¹”ƒŠP]¡•¹•Ù•È…¹½Ñ¡•ÈÉ•…ÑÕÉ”å½Ô½¹ÑÉ½°•¹Ñ•ÉÌ°Ñ¡¥ÌÉ•…ÑÕÉ”•ÑÌ€ˆ(€€€€€€€È‰p¬¡q¬¤½p¬¡q¬¤Õ¹Ñ¥°•¹½˜ÑÕÉ¹p¸ˆ(€€€€¤(€€€M9-}Q	}Q5}U9Q%1}=P€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y]¡•¸€¸¬•¹Ñ•ÉÌ°¥˜€ üé¡¥Íñ¡•Éñ¥ÑÌ¤Í¹•…¬½ÍĞİ…ÌÁ…¥°É•…ÑÕÉ•Ìå½Ô½¹ÑÉ½°•Ğ€ˆ(€€€€€€€È‰p¬¡q¬¤½p¬¡q¬¤Õ¹Ñ¥°•¹½˜ÑÕÉ¹p¸ˆ(€€€€¤(€€€QQ-}=Q!I}QQ-IM}U9Q%1}=P€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y]¡•¹•Ù•È€¸¬…ÑÑ…­Ì°•… ½Ñ¡•È…ÑÑ…­¥¹œÉ•…ÑÕÉ”•ÑÌ€ˆ(€€€€€€€È‰p¬¡q¬¤½p¬¡q¬¤Õ¹Ñ¥°•¹½˜ÑÕÉ¹p¸ˆ(€€€€¤(€€€QQ-}QIQ}IQUI}U9Q%1}=P€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y]¡•¹•Ù•È€ ı@ñÍ½ÕÉ”ø¸¬¤…ÑÑ…­Ì°…¹½Ñ¡•ÈÑ…É•ĞÉ•…ÑÕÉ”å½Ô½¹ÑÉ½°•ÑÌ€ˆ(€€€€€€€È‰p¬ ı@ñÁ½İ•Èùq¬¤½p¬ ı@ñÑ½Õ¡¹•ÍÌùq¬¤…¹…¥¹Ì¥¹‘•ÍÑÉÕÑ¥‰±”Õ¹Ñ¥°•¹½˜ÑÕÉ¹p¸€ˆ(€€€€€€€È‰p¡…µ…”…¹•™™•ÑÌÑ¡…ĞÍ…äp‰‘•ÍÑÉ½åpˆ‘½¸Ğ‘•ÍÑÉ½ä¥Ñp¹p¤ˆ(€€€€¤(€€€9Q}	}	1=-}	e}A=]I}=I}IQH€ôÉ”¹½µÁ¥±” (€€€€€€€È‰x¸¬…¸Ğ‰”‰±½­•‰äÉ•…ÑÕÉ•Ìİ¥Ñ Á½İ•È€¡q¬¤½ÈÉ•…Ñ•Ép¸ˆ(€€€€¤(€€€9Q}	}	1=-}	e}IQI}A=]H€ôÉ”¹½µÁ¥±” (€€€€€€€È‰yQ¡¥ÌÉ•…ÑÕÉ”…¸Ğ‰”‰±½­•‰äÉ•…ÑÕÉ•Ìİ¥Ñ É•…Ñ•ÈÁ½İ•Ép¸ˆ(€€€€¤(€€€11%9}QIQ}A1UM}=U9QH€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y±±¥…¹”ƒŠP]¡•¹•Ù•È…¹½Ñ¡•ÈÉ•…ÑÕÉ”å½Ô½¹ÑÉ½°•¹Ñ•ÉÌ°ÁÕĞ€ˆ(€€€€€€€Èˆ üé…ñ½¹•ğ¡lÀ´åt¬¤¤p¬Ä½p¬Ä½Õ¹Ñ•ÉÌü½¸Ñ…É•ĞÉ•…ÑÕÉ”å½Ô½¹ÑÉ½±p¸ˆ(€€€€¤(€€€%9}1%}M1}A1UM}=U9QH€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y]¡•¹•Ù•Èå½Ô…¥¸±¥™”°ÁÕĞ„p¬Ä½p¬Ä½Õ¹Ñ•È½¸€¸­p¸ˆ(€€€€¤(€€€11%9}5=1}!H€ôÉ”¹½µÁ¥±” (€€€€€€€È‰y±±¥…¹”ƒŠP]¡•¹•Ù•È…¹½Ñ¡•ÈÉ•…ÑÕÉ”å½Ô½¹ÑÉ½°•¹Ñ•ÉÌ°¡½½Í”½¹”Ñ¡…Ğ¡…Í¸Ğ€ˆ(€€€€€€€È‰‰••¸¡½Í•¸Ñ¡¥ÌÑÕÉ¹p¸ˆ(€€€€¤(€€€M!II}Q!Q=U €ôÉ”¹½µÁ¥±” (€€€€€€€È‰y]¡•¹•Ù•È€ ı@ñÍ½ÕÉ”ø¸¬¤•¹Ñ•ÉÌ½È…ÑÑ…­Ì°…¹½Ñ¡•ÈÑ…É—}5¶‰ËkºwµçGW&Rƒó¢â÷öæVçB6öçG&öÇ2“÷ÆV6‚7&VGW&WÂ ¢"&V6‚æöâÕvÆÂ7&VGW&WÆç’F&vWGÆç’÷F†W"F&vWGÆöæR÷"GvòF&vWG7Â ¢"&V6‚öbF†÷6R7&VGW&W2•Æ""À¢&Rä”täõ$T44RÀ¢¢45%’Ò&Ræ6ö×–ÆR‡"%Æ'67'’ƒõÆÖ÷VçCå³Ó•Ò·Å‡ÇF†BÖç’•Æ""Â&Rä”täõ$T44R¢5E$”´Uô´U•tõ$BÒ&Ræ6ö×–ÆR‡"%Æ"ƒõÆ¶W—v÷&Cæf—'7B7G&–¶WÆF÷V&ÆR7G&–¶R•Æ""Â&Rä”täõ$T44R¢E$ÕÄUô´U•tõ$BÒ&Ræ6ö×–ÆR‡"%Æ'G&×ÆUÆ""Â&Rä”täõ$T44R¢Ä”dTÄ”äµô´U•tõ$BÒ&Ræ6ö×–ÆR‡"%Æ&Æ–fVÆ–æµÆ""Â&Rä”täõ$T44R¢„äEô$õEDôÕôE$rÒ&Ræ6ö×–ÆR€¢""ƒõÆ6ÆW6Så–÷RÖ’WB6&Bg&öÒ–÷W"†æBöâF†R&÷GFöÒöb–÷W"Æ–'&'•Ââ ¢"$–b–÷RFòÂG&r6&EÂâ’"À¢&Rä”täõ$T44RÀ¢¢D•44$EôE$rÒ&Ræ6ö×–ÆR€¢""ƒõÆ6ÆW6Sç–÷RÖ’F—66&B6&EÂâ–b–÷RFòÂG&r6&EÂâ’"À¢&Rä”täõ$T44RÀ¢¢D”U5ôE$uôôäRÒ&Ræ6ö×–ÆR€¢"%åv†VâF†—27&VGW&RF–W2ÂG&r6&EÂâB"À¢&Rä”täõ$T44RÀ¢¢UD%ôE$”åôt”åõ45%•ôôäRÒ&Ræ6ö×–ÆR€¢"%åv†VâƒõÇ6÷W&6SçF†—27&VGW&WÅµâÅÒ²’VçFW'2ÂV6‚÷öæVçBÆ÷6W2Æ–fR ¢"&æB–÷Rv–âÆ–fUÂâ67'’Ââ ¢""ƒó¢Â„Æöö²BF†RF÷6&Böb–÷W"Æ–'&'•Ââ–÷RÖ’WBF†B6&BöâF†R&÷GFöÕÂåÂ’“òB"À¢&Rä”täõ$T44RÀ¢¢UD%õ4TÄeôÄ”dUôt”âÒ&Ræ6ö×–ÆR€¢"%åv†VâƒõÇ6÷W&6SçF†—27&VGW&WÅµâÅÒ²’VçFW'2Â–÷Rv–â ¢""ƒõÆÖ÷VçCå³Ó•Õ³Ó•Ò¢’Æ–fUÂâB"À¢&Rä”täõ$T44RÀ¢¢UD%ô%D”d5EôE$uôôäRÒ&Ræ6ö×–ÆR€¢"%åv†VâƒõÇ6÷W&6SçF†—26÷W&6WÅµâÅÒ²’VçFW'2Â–b ¢""ƒõÆ6öæF—F–öãæ—G26öçG&öÆÆW"6öçG&öÇ7Ç–÷R6öçG&öÂ’â'F–f7BÂG&r6&EÂâB"À¢&Rä”täõ$T44RÀ¢¢äõD„U%õU$ÔäTåEôÄTeEõ4TÄeô4õTåDU"Ò&Ræ6ö×–ÆR€¢"%åv†VæWfW"æ÷F†W"W&ÖæVçBÆVfW2F†R&GFÆVf–VÆBÂWBÂ³õÂ³6÷VçFW"öâ ¢""ƒõÇ6÷W&6Såš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍV×‹—JÊW‰‹ˆ™K’QÓ“Ô‘PĞTÑKˆ
-BˆÕUP×ÒÑVUÓÔ‘ÓSQTÈHœ›Ş™[œÙ]
-ˆÂˆ™X]İXÚ‹ˆ™İX›HİšZÙH‹ˆ™š\œİİšZÙH‹ˆ™›Z[™È‹ˆš\İH‹ˆš^›ÛÙˆ‹ˆš[™\İXİX›H‹ˆ›Y™[[šÈ‹ˆ›Y[˜XÙH‹ˆœ™XXÚ‹ˆ˜[\H‹ˆšYÚ[[˜ÙH‹ˆBˆ
-BˆT“PS‘S•ĞĞT‘ÕTTÈHœ›Ş™[œÙ]
-ˆÈ\Y˜Xİ‹˜]H‹Ü™X]\™H‹‘[˜Ú[Y[‹“[™‹”[™\İØ[Ù\ˆŸBˆ
-BˆPÕUUSÓ—ÓPSWÔÖSP“ÓH™K˜ÛÛ\[Jˆ—ÊÎ–ÌNWJßÕÕP”‘×JWH‹™K’QÓ“Ô‘PĞTÑJBˆTÕ“ÖWĞT•QPÕÑSÒS•QS•ÓÔ—ÔÕÑT—ÍĞÔ‘PUT‘HH™K˜ÛÛ\[Jˆˆ—‘\İ›ŞH\™Ù]\Y˜Xİ[˜Ú[Y[ÜˆÜ™X]\™HÚ]İÙ\ˆÜˆÜ™X]\—‰‚ˆ
-BˆÔ‘PUWÕÒÑSˆH™K˜ÛÛ\[Jˆˆ—˜Ü™X]\ÏÈ
-Ô]X[]O˜_[ŸÛ™_Ûß™Y_›İ\Ÿš]™_ÌNWJß]X[_‚ˆˆ˜H[X™\ˆÙŸÛ™HÜˆ[Ü™JH
-Ô›ÙO‹Š×ÚÙ[œÏÊWˆ‹ˆ™K’QÓ“Ô‘PĞTÑKˆ
-BˆVPÒUĞÔ‘PUT‘WÕÒÑSˆH™K˜ÛÛ\[JˆˆŠÔİÙ\–ÌNWJÊKÊÔİYÚ™\ÜÏ–ÌNWJÊWÊÈ‚ˆˆŠÔ\ØÜš\Ü‹ŠÏÊWÊØÜ™X]\™HÚÙ[œÏ×ˆ‹ˆ™K’QÓ“Ô‘PĞTÑKˆ
-BˆÒÑS—ĞÓÓÔ”ÈHÂˆÚ]Hˆ•È‹ˆ˜›YHˆ•H‹ˆ˜›XÚÈˆˆ‹ˆœ™Yˆ”ˆ‹ˆ™Ü™Y[ˆˆ‘È‹ˆBˆÒÑS—ÔUPS•UQTÈHÂˆ˜HˆKˆ˜[ˆˆKˆ›Û™HˆKˆÛÈˆ‹ˆ™YHˆËˆ™›İ\ˆˆˆ™š]™HˆKˆBˆ‘QQ’S‘QÕÒÑS”ÈHÂˆ™›ÛÙˆÚÙ[‘Yš[š][ÛŠˆ‘›ÛÙ‹ˆ\Y˜Xİ8 %›ÛÙ‹ˆÜ˜XÛWİ^HÌŸKÕKØXÜšYšXÙH\ÈÚÙ[ˆ[İHØZ[ˆÈY™Kˆ‹ˆ
-Kˆ›]]YÙ[ˆˆÚÙ[‘Yš[š][ÛŠˆ“]]YÙ[ˆ‹ˆ\Y˜Xİ8 %]]YÙ[ˆ‹ˆÜ˜XÛWİ^JˆÌ_KÕKØXÜšYšwÓ[h‘éì¶»§q«^tsorcery\.)\))?$",
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
+    )
+    ALLIANCE_THIS_UNTIL_EOT = re.compile(
+        r"^Alliance â€” Whenever another creature you control enters, this creature gets "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+    SNEAK_ETB_TEAM_UNTIL_EOT = re.compile(
+        r"^When .+ enters, if (?:his|her|its) sneak cost was paid, creatures you control get "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+    ATTACK_OTHER_ATTACKERS_UNTIL_EOT = re.compile(
+        r"^Whenever .+ attacks, each other attacking creature gets "
+        r"\+(\d+)/\+(\d+) until end of turn\.$"
+    )
+    ATTACK_TARGET_CREATURE_UNTIL_EOT = re.compile(
+        r"^Whenever (?P<source>.+) attacks, another target creature you control gets "
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+) and gains indestructible until end of turn\. "
+        r"\(Damage and effects that say \"destroy\" don't destroy it\.\)$"
+    )
+    CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
+        r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
+    )
+    CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
+        r"^This creature can't be blocked by creatures with greater power\.$"
+    )
+    ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
+        r"^Alliance â€” Whenever another creature you control enters, put "
+        r"(?:a|one|([0-9]+)) \+1/\+1 counters? on target creature you control\.$"
+    )
+    GAIN_LIFE_SELF_PLUS_COUNTER = re.compile(
+        r"^Whenever you gain life, put a \+1/\+1 counter on .+\.$"
+    )
+    ALLIANCE_MODAL_HEADER = re.compile(
+        r"^Alliance â€” Whenever another creature you control enters, choose one that hasn't "
+        r"been chosen this turn\.$"
+    )
+    SHREDDER_DEATHTOUCH = re.compile(
+        r"^Whenever (?P<source>.+) enters or attacks, another target creature "
+        r"you control gains deathtouch until end of turn\.$"
+    )
+    ALLIANCE_TEMPORARY_KEYWORD_CHOICE = re.compile(
+        r"^Alliance â€” Whenever another creature you control enters, (?P<source>.+) gains "
+        r"your choice of flying, menace, or haste until end of turn\.$"
+    )
+    SELF_PLUS_COUNTER_MODE = re.compile(r"^â€¢ Put a \+1/\+1 counter on .+\.$")
+    DAMAGE_3_TARGET_CREATURE = re.compile(r"^.+ deals 3 damage to target creature\.")
+    DEAL_DAMAGE = re.compile(
+        r"\bdeals? (?:(?P<amount>[0-9]+|X|that much) damage|damage equal to "
+        r"(?P<dynamic_amount>.+?)) to (?P<target>target opponent, creature an opponent "
+        r"controls, or planeswalker an opponent controls|each of (?:one or two|up to [0-9]+) "
+        r"targets|each opponent|target opponent|you|that player|target player|target attacking "
+        r"or blocking creature|target creature(?: an opponent controls)?|each creature|"
+        r"each non-Wall creature|any target|any other target|one or two targets|"
+        r"each of those creatures)\b",
+        re.IGNORECASE,
+    )
+    SCRY = re.compile(r"\bscry (?P<amount>[0-9]+|X|that many)\b", re.IGNORECASE)
+    STRIKE_KEYWORD = re.compile(r"\b(?P<keyword>first strike|double strike)\b", re.IGNORECASE)
+    TRAMPLE_KEYWORD = re.compile(r"\btrample\b", re.IGNORECASE)
+    LIFELINK_KEYWORD = re.compile(r"\blifelink\b", re.IGNORECASE)
+    HAND_BOTTOM_DRAW = re.compile(
+        r"(?P<clause>You may put a card from your hand on the bottom of your library\. "
+        r"If you do, draw a card\.)",
+        re.IGNORECASE,
+    )
+    DISCARD_DRAW = re.compile(
+        r"(?P<clause>you may discard a card\. If you do, draw a card\.)",
+        re.IGNORECASE,
+    )
+    DIES_DRAW_ONE = re.compile(
+        r"^When this creature dies, draw a card\.$",
+        re.IGNORECASE,
+    )
+    ETB_DRAIN_GAIN_SCRY_ONE = re.compile(
+        r"^When (?P<source>this creature|[^,]+) enters, each opponent loses 1 life "
+        r"and you gain 1 life\. Scry 1\."
+        r"(?: \(Look at the top card of your library\. You may put that card on the bottom\.\))?$",
+        re.IGNORECASE,
+    )
+    ETB_SELF_LIFE_GAIN = re.compile(
+        r"^When (?P<source>this creature|[^,]+) enters, you gain "
+        r"(?P<amount>[1-9][0-9]*) life\.$",
+        re.IGNORECASE,
+    )
+    ETB_ARTIFACT_DRAW_ONE = re.compile(
+        r"^When (?P<source>this source|[^,]+) enters, if "
+        r"(?P<condition>its controller controls|you control) an artifact, draw a card\.$",
+        re.IGNORECASE,
+    )
+    ANOTHER_PERMANENT_LEFT_SELF_COUNTER = re.compile(
+        r"^Whenever another permanent leaves the battlefield, put a \+1/\+1 counter on "
+        r"(?P<source>[^.]+)\.$",
+        re.IGNORECASE,
+    )
+    STATIC_KEYWORD_NAMES = frozenset(
+        {
+            "deathtouch",
+            "double strike",
+            "first strike",
+            "flying",
+            "haste",
+            "hexproof",
+            "indestructible",
+            "lifelink",
+            "menace",
+            "reach",
+            "trample",
+            "vigilance",
+        }
+    )
+    PERMANENT_CARD_TYPES = frozenset(
+        {"Artifact", "Battle", "Creature", "Enchantment", "Land", "Planeswalker"}
+    )
+    ACTIVATION_MANA_SYMBOL = re.compile(r"\{(?:[0-9]+|[WUBRG])\}", re.IGNORECASE)
+    DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = re.compile(
+        r"^Destroy target artifact, enchantment, or creature with power 4 or greater\.$"
+    )
+    CREATE_TOKEN = re.compile(
+        r"\bcreates? (?P<quantity>a|an|one|two|three|four|five|[0-9]+|x|that many|"
+        r"a number of|one or more) (?P<body>.*?\btokens?)\b",
+        re.IGNORECASE,
+    )
+    EXPLICIT_CREATURE_TOKEN = re.compile(
+        r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\s+"
+        r"(?P<descriptor>.+?)\s+creature tokens?\b",
+        re.IGNORECASE,
+    )
+    TOKEN_COLORS = {
+        "white": "W",
+        "blue": "U",
+        "black": "B",
+        "red": "R",
+        "green": "G",
+    }
+    TOKEN_QUANTITIES = {
+        "a": 1,
+        "an": 1,
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+    }
+    PREDEFINED_TOKENS = {
+        "food": TokenDefinition(
+            "Food",
+            "Artifact â€” Food",
+            oracle_text="{2}, {T}, Sacrifice this token: You gain 3 life.",
+        ),
+        "mutagen": TokenDefinition(
+            "Mutagen",
+            "Artifact â€” Mutagen",
+            oracle_text=(
+                "{1}, {T}, Sacrifice this token: Put a +1/+1 counter on target creature. "
+                "Activate only as a sorcery."
+            ),
+        ),
+        "treasure": TokenDefinition(
+            "Treasure",
+            "Artifact â€” Treasure",
+            oracle_text="{T}, Sacrifice this token: Add one mana of any color.",
+        ),
+        "clue": TokenDefinition(
+            "Clue",
+            "Artifact â€” Clue",
+            oracle_text="{2}, Sacrifice this token: Draw a card.",
+        ),
+    }
+    CANONICAL_FOOD_ACTIVATION = "{2}, {T}, Sacrifice this token: You gain 3 life."
+    FOOD_ACTIVATION = re.compile(
+        r"\{2\}, \{T\}, Sacrifice this (?:token|artifact): You gain 3 life\.", re.I
+    )
+    EQUIP_ACTIVATION = re.compile(
+        r"^Equip (?P<cost>\{(?:[0-9]+|[WUBRG])\})(?: \((?P<nested>"
+        r"\{(?:[0-9]+|[WUBRG])\}: Attach to target creature you control\. "
+        r"Equip only as a sorcery\.)\))?$",
         re.I,
     )
 
@@ -175,27 +875,180 @@ Kˆ›]]YÙ[ˆˆÚÙ[‘Yš[š][ÛŠˆ“]]YÙ[ˆ‹ˆ\Y˜
         program = SneakProgram(mana_cost, creature, direct, fixed, draw_quantity)
         limitations: list[str] = []
         if not direct:
-            limitations.append("sneak_YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÉ•™•É•¹•}½É}É…¹Ñ•‘}…‰¥±¥Ñå}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€•±¥˜¹½Ğ™¥á•è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰Í¹•…­}½ÍÑ}Í¡…Á•}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€•±¥˜¹½ĞÉ•…ÑÕÉ”…¹‘É…İ}ÅÕ…¹Ñ¥Ñä¥Ì9½¹”è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰Í¹•…­}¹½¹É•…ÑÕÉ•}ÍÁ•±±}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€½Ù•É…”€ôM•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€Á…å±½…‘}•á•ÕÑ…‰±”õÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”õÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€™½±±½İÕÁ}•á•ÕÑ…‰±”õÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹ÌõÑÕÁ±”¡±¥µ¥Ñ…Ñ¥½¹Ì¤°(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸%¹Ñ•ÉÁÉ•Ñ•‘M¹•…­M•µ…¹Ñ¥Ì¡ÁÉ½É…´°½Ù•É…”¤((€€€I]}IL€ôÉ”¹½µÁ¥±” (€€€€€€€È‰yÉ…Ü€ ı@ñÅÕ…¹Ñ¥ÑäùlÄ´åulÀ´åt©ñ½¹•ñÑİ½ñÑ¡É••ñ™½ÕÉñ™¥Ù•ñÍ¥áñÍ•Ù•¹ñ•¥¡Ññ¹¥¹•ñÑ•¸¤€ˆ(€€€€€€€È‰…É‘Ìıp¸ˆ°(€€€€€€€É”¹$°(€€€€¤(€€€I]}EU9Q%Q%L€ôì(€€€€€€€€‰½¹”ˆè€Ä°(€€€€€€€€‰Ñİ¼ˆè€È°(€€€€€€€€‰Ñ¡É•”ˆè€Ì°(€€€€€€€€‰™½ÕÈˆè€Ğ°(€€€€€€€€‰™¥Ù”ˆè€Ô°(€€€€€€€€‰Í¥àˆè€Ø°(€€€€€€€€‰Í•Ù•¸ˆè€Ü°(€€€€€€€€‰•¥¡Ğˆè€à°(€€€€€€€€‰¹¥¹”ˆè€ä°(€€€€€€€€‰Ñ•¸ˆè€ÄÀ°(€€€ô((€€€‘•˜‘É…İ}…É‘Í}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘É…İ…É‘ÍM•µ…¹Ñ¥Ìğ9½¹”è(€€€€€€€€ˆˆ‰I•½¹¥é”„‘¥É•ĞÍÁ•±°‘É…Ü±…ÕÍ”İ¥Ñ „‘•Ñ•Éµ¥¹¥ÍÑ¥ŒÅÕ…¹Ñ¥Ñä¸ˆˆˆ(€€€€€€€µ…Ñ €ôÍ•±˜¹I]}IL¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¹ÍÑÉ¥À ¤¤(€€€€€€€¥˜µ…Ñ ¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€ÍÁ•±±}Í½ÕÉ”€ô…¹ä (€€€€€€€€€€€…É‘}ÑåÁ”¥¸…É¹ÑåÁ•}±¥¹”¹ÍÁ±¥Ğ ˆƒ‹Š
-³Št€ˆ°€Ä¥lÁt¹ÍÁ±¥Ğ ¤(€€€€€€€€€€€™½È…É‘}ÑåÁ”¥¸€ ‰%¹ÍÑ…¹Ğˆ°€‰M½É•Éäˆ¤(€€€€€€€€¤(€€€€€€€ÍÁ•±±}Í½ÕÉ”€ô…É¹ÑåÁ•}±¥¹”¹ÍÁ±¥Ğ¡µ…áÍÁ±¥ĞôÄ¥lÁt¥¸ì‰%¹ÍÑ…¹Ğˆ°€‰M½É•Éä‰ô(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ô€ ¤¥˜ÍÁ•±±}Í½ÕÉ”•±Í”€ ‰‘É…İ}¹½¹ÍÁ•±±}Í½ÕÉ•}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ°¤(€€€€€€€ÅÕ…¹Ñ¥Ñå}Ñ•áĞ€ôµ…Ñ ¹É½ÕÀ ‰ÅÕ…¹Ñ¥Ñäˆ¤¹±½İ•È ¤(€€€€€€€ÅÕ…¹Ñ¥Ñä€ôÍ•±˜¹I]}EU9Q%Q%L¹•Ğ¡ÅÕ…¹Ñ¥Ñå}Ñ•áĞ¤(€€€€€€€¥˜ÅÕ…¹Ñ¥Ñä¥Ì9½¹”è(€€€€€€€€€€€ÅÕ…¹Ñ¥Ñä€ô¥¹Ğ¡ÅÕ…¹Ñ¥Ñå}Ó}5¶‰ËkºwµçVvRÒ6VÆbæFÖvU÷6VÖçF–5ö6÷fW&vR†6&BÂ6&Bæ÷&6ÆU÷FW‡B¢–b€¢FÖvR—2æ÷BæöæP¢æBFÖvRæ6÷fW&vRç–ÆöEöW†V7WF&ÆP¢æBFÖvRæ6÷fW&vRç&VçEöW†V7WF&ÆP¢æBFÖvRç&öw&ÒçF&vWEö¶–æB—2FÖvUF&vWD¶–æBä5$TEU$P¢“ ¢&WGW&â67E&öw&Ò„67D¶–æBäDTÅôDÔtR¢FW7G&÷’Ò6VÆbæFW7G&÷•÷W&ÖæVçE÷6VÖçF–5ö6÷fW&vR†6&BÂ6&Bæ÷&6ÆU÷FW‡B¢–bFW7G&÷’—2æ÷BæöæRæBFW7G&÷’æ6÷fW&vRægVÆÇ•÷7W÷'FVC ¢&WGW&â67E&öw&Ò„67D¶–æBäDU5E$õ•ô%D”d5EôTä4„åDÔTåEôõ%õõtU%óEô5$TEU$R¢f÷"g&vÖVçB–â6VÆbæg&vÖVçG2†6&B“ ¢G&rÒ6VÆbæG&uö6&G5÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–bG&r—2æ÷BæöæRæBG&ræ6÷fW&vRægVÆÇ•÷7W÷'FVC ¢&WGW&â67E&öw&Ò„67D¶–æBäE$uô4$E2ÂG&rç&öw&ÒçVçF—G’¢–bç’€¢6VÆbæWF%öÖ–ÆÅöG&uöF—66&E÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB’—2æ÷BæöæP¢f÷"g&vÖVçB–â6VÆbæg&vÖVçG2†6&B¢“ ¢&WGW&â67E&öw&Ò„67D¶–æBåU$ÔäTåB¢–bç’€¢6&E÷G—R–â6&BçG—UöÆ–æP¢f÷"6&E÷G—R–â‚$'F–f7B"Â$&GFÆR"Â$Væ6†çFÖVçB"Â%ÆæW7vÆ¶W""¢“ ¢&WGW&â67E&öw&Ò„67D¶–æBåU$ÔäTåB¢–b6&Bæ—5ö7&VGW&RæB6&Bç÷vW"—2æ÷BæöæRæB6&BçF÷Vv†æW72—2æ÷BæöæS ¢&WGW&â67E&öw&Ò„67D¶–æBä5$TEU$R¢&WGW&â67E&öw&Ò„67D¶–æBåTå5Uõ%DTB ¢U$õ5U$U54”ôâÒ&Ræ6ö×–ÆR€¢"%äVæ6†çFVB7&VGW&R—2ƒõÇG—Så´Õ¥Õ¶×¥Ò²’v—F‚&6R÷vW"æBF÷Vv†æW72 ¢""ƒõÇ÷vW#âÓõÆB²’òƒõÇF÷Vv†æW73åÆB²•Ââ—B6âwBGF6²æBÆ÷6W2ÆÂ&–Æ—F–W5Ââ ¢""ƒó¢Â„—BÇ6òÆ÷6W2ÆÂ÷F†W"7&VGW&RG—W5ÂåÂ’“òB ¢ ¢FVbW&÷&öw&Ò‡6VÆbÂ6&C¢6&DFVf–æ—F–öâ’ÓâW&7W&W76–öå&öuš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ\˜[H›Û™N‚ˆYˆ]\˜Hˆ›İ[ˆØ\™\WÛ[™HÜˆ‘[˜Ú[Ü™X]\™Hˆ›İ[ˆÙ[‹™œ˜YÛY[ÊØ\™
-N‚ˆ™]\›ˆ›Û™Bˆ›Üˆœ˜YÛY[[ˆÙ[‹™œ˜YÛY[ÊØ\™
-N‚ˆX]ÚHÙ[‹UTWÔÕT‘TÔÒSÓ‹™[X]Ú
-œ˜YÛY[
-BˆYˆX]Ú‚ˆ™]\›ˆ]\˜Tİ\™\ÜÚ[Û”›ÙÜ˜[JˆX]ÚÈ\H—Kˆ[
-X]ÚÈœİÙ\ˆ—JKˆ[
-X]ÚÈİYÚ™\ÜÈ—JKˆYKˆYKˆœ˜YÛY[ˆ
-Bˆ™]\›ˆ›Û™B‚ˆYˆ]\˜WÜÙ[X[X×ØÛİ™\˜YÙJÙ[‹Ø\™œ˜YÛY[
-N‚ˆ›ÙÜ˜[HHÙ[‹˜]\˜WÜ›ÙÜ˜[JØ\™
-BˆYˆ›ÙÜ˜[H\È›İ›Û™H[™œ˜YÛY[[ˆÂˆ‘›\Ú‹ˆ‘[˜Ú[Ü™X]\™H‹ˆ›ÙÜ˜[K›Ü˜XÛWÙœ˜YÛY[ˆN‚ˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+            limitations.append("sneak_reference_or_granted_ability_not_implemented")
+        elif not fixed:
+            limitations.append("sneak_cost_shape_not_implemented")
+        elif not creature and draw_quantity is None:
+            limitations.append("sneak_noncreature_spell_not_implemented")
+        coverage = SemanticCoverage(
+            payload_executable=program.executable,
+            parent_executable=program.executable,
+            followup_executable=program.executable,
+            limitations=tuple(limitations),
+        )
+        return InterpretedSneakSemantics(program, coverage)
 
-JBˆ™]\›ˆ›Û™B‚ˆU—ÓRSÑU×ÑTĞĞT‘H™K˜ÛÛ\[Jˆˆ—•Ú[ˆ\ÈÛ\ÜÈ[\œËZ[
-ÔZ[–ÌKNWVÌNWJŸÛ™_Ûß™Y_›İ\Ÿš]™JHØ\™ÏË˜]È‚ˆˆŠÔ˜]Ï–ÌKNWVÌNWJŸÛ™_Ûß™Y_›İ\Ÿš]™JHØ\™ÏË[ˆ\ØØ\™‚ˆˆŠÔ\ØØ\™–ÌKNWVÌNWJŸÛ™_Ûß™Y_›İ\Ÿš]™JHØ\™Ï×‰‹ˆ™K’Kˆ
-BˆÓTÔ×ÓU‘SÕTH™K˜ÛÛ\[Jˆ——ÌWWÕWNˆ]™[‰ŠBˆÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–HH
-ˆ•Ú[ˆ\ÈÛ\ÜÈ™XÛÛY\È]™[‹™]\›ˆ\ÈÛÈ\™Ù]\Y˜XİØ\™È‚ˆ™œ›ÛH[İ\ˆÜ˜]™^X\™È[İ\ˆ[™ˆ‚ˆ
-B‚ˆYˆÛ\Ü×Û]™[Ü™XÛİ™\WÜÙ[X[X×ØÛİ™\˜YÙJÙ[‹Ø\™œ˜YÛY[
-N‚ˆYˆÛ\ÜÈˆ›İ[ˆØ\™\WÛ[™HÜˆœ˜YÛY[OHÙ[‹ÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–N‚ˆ™]\›ˆ›Û™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+    DRAW_CARDS = re.compile(
+        r"^Draw (?P<quantity>[1-9][0-9]*|one|two|three|four|five|six|seven|eight|nine|ten) "
+        r"cards?\.$",
+        re.I,
+    )
+    DRAW_QUANTITIES = {
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five": 5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+        "ten": 10,
+    }
 
-JB‚ˆYˆ]—ÛZ[Ù˜]×Ù\ØØ\™ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]Y\ØØ\™˜]ÔÙ[X[XÜÈ›Û™N‚ˆ·Ó[h‘éì¶»§q«^t  def destroy_permanent_semantic_coverage(
+    def draw_cards_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDrawCardsSemantics | None:
+        """Recognize a direct spell draw clause with a deterministic quantity."""
+        match = self.DRAW_CARDS.fullmatch(fragment.strip())
+        if match is None:
+            return None
+        spell_source = any(
+            card_type in card.type_line.split(" Ã¢â‚¬â€ ", 1)[0].split()
+            for card_type in ("Instant", "Sorcery")
+        )
+        spell_source = card.type_line.split(maxsplit=1)[0] in {"Instant", "Sorcery"}
+        limitations = () if spell_source else ("draw_nonspell_source_not_implemented",)
+        quantity_text = match.group("quantity").lower()
+        quantity = self.DRAW_QUANTITIES.get(quantity_text)
+        if quantity is None:
+            quantity = int(quantity_text)
+        coverage = SemanticCoverage(
+            payload_executable=spell_source,
+            parent_executable=spell_source,
+            followup_executable=spell_source,
+            limitations=limitations,
+        )
+        return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
+
+    def cast_program(self, card: CardDefinition) -> CastProgram:
+        if "Aura" in card.type_line:
+            return CastProgram(
+                CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
+            )
+        if card.type_line.startswith("Instant") and card.oracle_text.startswith(
+            "Counter target spell. Create a Mutagen token."
+        ):
+            return CastProgram(CastKind.OOZE_SPILL)
+        if self.DAMAGE_3_TARGET_CREATURE.match(card.oracle_text):
+            return CastProgram(CastKind.DAMAGE_3_OPPOSING_CREATURE)
+        damage = self.damage_semantic_coverage(card, card.oracle_text)
+        if (
+            damage is not None
+            and damage.coverage.payload_executable
+            and damage.coverage.parent_executable
+            and damage.program.target_kind is DamageTargetKind.CREATURE
+        ):
+            return CastProgram(CastKind.DEAL_DAMAGE)
+        destroy = self.destroy_permanent_semantic_coverage(card, card.oracle_text)
+        if destroy is not None and destroy.coverage.fully_supported:
+            return CastProgram(CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE)
+        for fragment in self.fragments(card):
+            draw = self.draw_cards_semantic_coverage(card, fragment)
+            if draw is not None and draw.coverage.fully_supported:
+                return CastProgram(CastKind.DRAW_CARDS, draw.program.quantity)
+        if any(
+            self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None
+            for fragment in self.fragments(card)
+        ):
+            return CastProgram(CastKind.PERMANENT)
+        if any(
+            card_type in card.type_line
+            for card_type in ("Artifact", "Battle", "Enchantment", "Planeswalker")
+        ):
+            return CastProgram(CastKind.PERMANENT)
+        if card.is_creature and card.power is not None and card.toughness is not None:
+            return CastProgram(CastKind.CREATURE)
+        return CastProgram(CastKind.UNSUPPORTED)
+
+    AURA_SUPPRESSION = re.compile(
+        r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
+        r"(?P<power>-?\d+)/(?P<toughness>\d+)\. It can't attack and loses all abilities\."
+        r"(?: \(It also loses all other creature types\.\))?$"
+    )
+
+    def aura_program(self, card: CardDefinition) -> AuraSuppressionProgram | None:
+        if "Aura" not in card.type_line or "Enchant creature" not in self.fragments(card):
+            return None
+        for fragment in self.fragments(card):
+            match = self.AURA_SUPPRESSION.fullmatch(fragment)
+            if match:
+                return AuraSuppressionProgram(
+                    match["type"],
+                    int(match["power"]),
+                    int(match["toughness"]),
+                    True,
+                    True,
+                    fragment,
+                )
+        return None
+
+    def aura_semantic_coverage(self, card, fragment):
+        program = self.aura_program(card)
+        if program is not None and fragment in {
+            "Flash",
+            "Enchant creature",
+            program.oracle_fragment,
+        }:
+            return SemanticCoverage(True, True, True, ())
+        return None
+
+    ETB_MILL_DRAW_DISCARD = re.compile(
+        r"^When this Class enters, mill (?P<mill>[1-9][0-9]*|one|two|three|four|five) cards?, draw "
+        r"(?P<draw>[1-9][0-9]*|one|two|three|four|five) cards?, then discard "
+        r"(?P<discard>[1-9][0-9]*|one|two|three|four|five) cards?\.$",
+        re.I,
+    )
+    CLASS_LEVEL_UP = re.compile(r"^\{1\}\{U\}: Level 2$")
+    CLASS_LEVEL_TWO_RECOVERY = (
+        "When this Class becomes level 2, return up to two target artifact cards "
+        "from your graveyard to your hand."
+    )
+
+    def class_level_recovery_semantic_coverage(self, card, fragment):
+        if "Class" not in card.type_line or fragment != self.CLASS_LEVEL_TWO_RECOVERY:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    def etb_mill_draw_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Recognize the bounded Class enter setup sequence used by Does Machines."""
+        match = self.ETB_MILL_DRAW_DISCARD.fullmatch(fragment.strip())
+        if match is None or "Class" not in card.type_line:
+            return None
+        quantities = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+
+        def quantity(value: str) -> int:
+            return quantities[value.lower()] if value.lower() in quantities else int(value)
+
+        program = DiscardDrawProgram(
+            quantity(match.group("discard")),
+            quantity(match.group("draw")),
+            False,
+            False,
+            draw_first=True,
+            mill_quantity=quantity(match.group("mill")),
+        )
+        return InterpretedDiscardDrawSemantics(
+            program,
+            SemanticCoverage(True, True, True, ()),
+            fragment,
+            0,
+            len(fragment),
+        )
+
+    def destroy_permanent_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDestroyPermanentSemantics | None:
         """Recognize only the exact bounded artifact/enchantment/large-creature spell."""
@@ -233,37 +1086,181 @@ HOˆ[\œ™]Y\ØØ\™˜]ÔÙ[X[XÜÈ›Û™N‚ˆ·Ó[h‘éì¶»§q«^t  def destroy
             executable,
             executable,
             () if executable else ("shredder_deathtouch_source_mismatch",),
-     YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€¤((€€€‘•˜Ñ•µÁ½É…Éå}­•åİ½É‘}¡½¥•}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘Q•µÁ½É…Éå-•åİ½É‘¡½¥•M•µ…¹Ñ¥Ìğ9½¹”è(€€€€€€€€ˆˆ‰I•½¹¥é”½¹±äÑ¡”™É½é•¸±±¥…¹”™±å¥¹œ½µ•¹…”½¡…ÍÑ”¡½¥”É…µµ…È¸ˆˆˆ(€€€€€€€µ…Ñ €ôÍ•±˜¹11%9}Q5A=IIe}-e]=I}!=%¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¤(€€€€€€€¥˜µ…Ñ ¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€Í½ÕÉ•}¹…µ•Ì€ôí…É¹¹…µ”¹…Í•™½± ¤°…É¹¹…µ”¹ÍÁ±¥Ğ ˆ°ˆ°€Ä¥lÁt¹…Í•™½± ¥ô(€€€€€€€Í•±™}É•™•É•¹”€ôµ…Ñ ¹É½ÕÀ ‰Í½ÕÉ”ˆ¤¹…Í•™½± ¤¥¸Í½ÕÉ•}¹…µ•Ì(€€€€€€€ÁÉ½É…´€ôQ•µÁ½É…Éå-•åİ½É‘¡½¥•AÉ½É…´ (€€€€€€€€€€€€ ‰™±å¥¹œˆ°€‰µ•¹…”ˆ°€‰¡…ÍÑ”ˆ¤°€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸ˆ°Í•±™}É•™•É•¹”(€€€€€€€€¤(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ô€ ¤¥˜Í•±™}É•™•É•¹”•±Í”€ ‰Ñ•µÁ½É…Éå}­•åİ½É‘}¡½¥•}Í½ÕÉ•}µ¥Íµ…Ñ ˆ°¤(€€€€€€€•á•ÕÑ…‰±”€ôÁÉ½É…´¹•á•ÕÑ…‰±”(€€€€€€€É•ÑÕÉ¸%¹Ñ•ÉÁÉ•Ñ•‘Q•µÁ½É…Éå-•åİ½É‘¡½¥•M•µ…¹Ñ¥Ì (€€€€€€€€€€€ÁÉ½É…´°(€€€€€€€€€€€M•µ…¹Ñ¥½Ù•É…”¡•á•ÕÑ…‰±”°•á•ÕÑ…‰±”°•á•ÕÑ…‰±”°±¥µ¥Ñ…Ñ¥½¹Ì¤°(€€€€€€€€¤((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜™É…µ•¹ÑÌ¡…Éè…É‘•™¥¹¥Ñ¥½¸¤€´øÑÕÁ±•mÍÑÈ°€¸¸¹tè(€€€€€€€É•ÑÕÉ¸ÑÕÁ±”¡±¥¹”¹ÍÑÉ¥À ¤™½È±¥¹”¥¸…É¹½É…±•}Ñ•áĞ¹ÍÁ±¥Ñ±¥¹•Ì ¤¥˜±¥¹”¹ÍÑÉ¥À ¤¤((€€€‘•˜ÍÑ…Ñ¥}Ñ•…µ}µ½‘¥™¥•É}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘MÑ…Ñ¥Q•…µ5½‘¥™¥•ÉM•µ…¹Ñ¥Ìğ9½¹”è(€€€€€€€µ…Ñ €ôÍ•±˜¹MQQ%}=Q!I}EU1%%}IQUIL¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¤(€€€€€€€¥˜µ…Ñ ¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€Á•Éµ…¹•¹Ñ}Í½ÕÉ”€ô…¹ä (€€€€€€€€€€€­¥¹¥¸…É¹ÑåÁ•}±¥¹”(€€€€€€€€€€€™½È­¥¹¥¸€ ‰ÉÑ¥™…Ğˆ°€‰É•…ÑÕÉ”ˆ°€‰¹¡…¹Ñµ•¹Ğˆ°€‰1…¹ˆ°€‰A±…¹•Íİ…±­•Èˆ°€‰	…ÑÑ±”ˆ¤(€€€€€€€€¤(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ô€ ¤¥˜Á•Éµ…¹•¹Ñ}Í½ÕÉ”•±Í”€ ‰ÍÑ…Ñ¥}µ½‘¥™¥•É}Í½ÕÉ•}¥Í}¹½Ñ}Á•Éµ…¹•¹Ğˆ°¤(€€€€€€€ÁÉ½É…´€ôMÑ…Ñ¥Q•…µ5½‘¥™¥•ÉAÉ½É…´ (€€€€€€€€€€€µ…Ñ ¹É½ÕÀ ‰ÅÕ…±¥Ñäˆ¤°¥¹Ğ¡µ…Ñ ¹É½ÕÀ ‰Á½ß}5¶‰ËkºwµçBæÖW2Ò¶6&BææÖRæ66VföÆB‚’Â6&BææÖRç7Æ—B‚"Â"Â•³Òæ66VföÆB‚—Ğ¢6÷W&6U÷&VfW&Væ6RÒ€¢ÖF6‚æw&÷W‚'6÷W&6R"’æ66VföÆB‚’–âæÖW0¢÷"ÖF6‚æw&÷W‚'6÷W&6R"’æ66VföÆB‚’ÓÒ'F†—27&VGW&R ¢¢&öw&ÒÒGF6µF&vWEE&öw&Ò€¢–çB†ÖF6‚æw&÷W‚'÷vW""’’À¢–çB†ÖF6‚æw&÷W‚'F÷Vv†æW72"’’À¢'VçF–ÅöVæEööe÷GW&â"À¢G'VRÀ¢6÷W&6U÷&VfW&Væ6RÀ¢¢6÷W&6Uö—5ö7&VGW&RÒ$7&VGW&R"–â6&BçG—UöÆ–æP¢Æ–Ö—FF–öç2Ò€¢‚¢–b6÷W&6U÷&VfW&Væ6RæB6÷W&6Uö—5ö7&VGW&P¢VÇ6R€¢&GF6µ÷F&vWE÷E÷6÷W&6UöÖ—6ÖF6‚ ¢–bæ÷B6÷W&6U÷&VfW&Væ6P¢VÇ6R&GF6µ÷F&vWE÷E÷6÷W&6Uöæ÷Eö7&VGW&R"À¢¢¢W†V7WF&ÆRÒ&öw&ÒæW†V7WF&ÆRæB6÷W&6Uö—5ö7&VGW&P¢&WGW&â–çFW'&WFVDGF6µF&vWEE6VÖçF–72€¢&öw&ÒÂ6VÖçF–46÷fW&vR†W†V7WF&ÆRÂW†V7WF&ÆRÂW†V7WF&ÆRÂÆ–Ö—FF–öç2¢ ¢FVb7W÷'G5ö&Æö6¶–æuög&vÖVçB‡6VÆbÂg&vÖVçC¢7G"’Óâ&ööÃ ¢&WGW&âç’€¢GFW&âægVÆÆÖF6‚†g&vÖVçB¢f÷"GFW&â–â€¢6VÆbä4åEô$Uô$Äô4´TEô%•õõtU%ôõ%ôu$TDU"À¢6VÆbä4åEô$Uô$Äô4´TEô%•ôu$TDU%õõtU"À¢¢ ¢FVbF–W5öG&u÷6VÖçF–5ö6÷fW&vR€¢6VÆbÂ6&C¢6&DFVf–æ—F–öâÂg&vÖVçC¢7G ¢’Óâ6VÖçF–46÷fW&vRÂæöæS ¢""%&V6övæ—¦RöæÇ’F†R&÷VæFVB6VÆbÖFVF‚G&–vvW"v†÷6R6ö×ÆWFRVffV7B—2G&röæRâ"" ¢–b6VÆbäD”U5ôE$uôôäRægVÆÆÖF6‚†g&vÖVçB’—2æöæS ¢&WGW&âæöæP¢7&VGW&U÷6÷W&6RÒ$7&VGW&R"–â6&BçG—UöÆ–æP¢&WGW&â6VÖçF–46÷fW&vR€¢–ÆöEöW†V7WF&ÆSÖ7&VGW&U÷6÷W&6RÀ¢&VçEöW†V7WF&ÆSÖ7&VGW&U÷6÷W&6RÀ¢föÆÆ÷uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ]\Ù^Xİ]X›OXÜ™X]\™WÜÛİ\˜ÙKˆ[Z]][ÛœÏJ
+        )
 
-HYˆÜ™X]\™WÜÛİ\˜ÙH[ÙH
-™Y\×Ù˜]×ÜÛİ\˜ÙWÚ\×Û›İØWØÜ™X]\™H‹
-JKˆ
-B‚ˆU—ÕTÔÕSˆH
-ˆ•Ú[ˆ\ÈÜ™X]\™H[\œË\\ÈÛ™H\™Ù]Ü™X]\™H[™]Hİ[ˆÛİ[\ˆÛˆ]ˆ‚ˆŠYˆH\›X[™[Ú]Hİ[ˆÛİ[\ˆÛİ[™XÛÛYH[\Y™[[İ™HÛ™Hœ›ÛH][œİXYŠH‚ˆ
-B‚ˆYˆ›ØÚ×ÜÛÛY\œ×Ù]—ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆÙ[X[XĞÛİ™\˜YÙH›Û™N‚ˆYˆœ˜YÛY[OHÙ[‹”“ĞÒ×ÔÓÓQT”×ÑU‚ˆ™]\›ˆ›Û™Bˆİ\ÜYHÜ™X]\™Hˆ[ˆØ\™\WÛ[™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJˆİ\ÜYˆİ\ÜYˆİ\ÜYˆ
+    def temporary_keyword_choice_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTemporaryKeywordChoiceSemantics | None:
+        """Recognize only the frozen Alliance flying/menace/haste choice grammar."""
+        match = self.ALLIANCE_TEMPORARY_KEYWORD_CHOICE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        self_reference = match.group("source").casefold() in source_names
+        program = TemporaryKeywordChoiceProgram(
+            ("flying", "menace", "haste"), "until_end_of_turn", self_reference
+        )
+        limitations = () if self_reference else ("temporary_keyword_choice_source_mismatch",)
+        executable = program.executable
+        return InterpretedTemporaryKeywordChoiceSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
+        )
 
-HYˆİ\ÜY[ÙH
-œ›ØÚ×ÜÛÛY\œ×ÜÛİ\˜ÙWÛ›İØÜ™X]\™H‹
-Kˆ
-B‚ˆYˆ]—İ\Üİ[—ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆÙ[X[XĞÛİ™\˜YÙH›Û™N‚ˆˆˆ“Û›HHœ›Ş™[ˆÜ[Û˜[Ù[‹QUˆ\X[™[Û™K\İ[ˆÜ˜[[X\ˆ\È^Xİ]X›Kˆˆˆ‚ˆYˆœ˜YÛY[OHÙ[‹‘U—ÕTÔÕS‚ˆ™]\›ˆ›Û™BˆÜ™X]\™HHØ\™š\×ØÜ™X]\™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJˆÜ™X]\™KˆÜ™X]\™KˆÜ™X]\™Kˆ
+    @staticmethod
+    def fragments(card: CardDefinition) -> tuple[str, ...]:
+        return tuple(line.strip() for line in card.oracle_text.splitlines() if line.strip())
 
-HYˆÜ™X]\™H[ÙH
-™]—İ\Üİ[—ÜÛİ\˜ÙWÚ\×Û›İØWØÜ™X]\™H‹
-Kˆ
-B‚ˆYˆ]—Ù˜Z[—ÙØZ[—ÜØÜWÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆÙ[X[XĞÛİ™\˜YÙH›Û™N‚ˆˆˆ”™XÛÙÛš^™HÛ›HH›İ[™YÙ[‹QUˆ˜Z[‹ÙØZ[ˆ›ÛİÙYHØÜHÛ™Kˆˆˆ‚ˆX]ÚHÙ[‹‘U—ÑRS—ÑĞRS—ÔĞÔ–WÓÓ‘K™[X]Ú
-œ˜YÛY[
-BˆYˆX]Ú\È›Û™N‚ˆ™]\›ˆ›Û™BˆÛİ\˜ÙWİ^HX]Ú™Ü›İ\
-œÛİ\˜ÙHŠBˆÙ[—Ü™Y™\™[˜ÙHHÛİ\˜ÙWİ^˜Ø\ÙY›Û
+    def static_team_modifier_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticTeamModifierSemantics | None:
+        match = self.STATIC_OTHER_QUALIFIED_CREATURES.fullmatch(fragment)
+        if match is None:
+            return None
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        limitations = () if permanent_source else ("static_modifier_source_is_not_permanent",)
+        program = StaticTeamModifierProgram(
+            match.group("quality"), int(match.group("power")), int(match.group("toughness"))
+        )
+        return InterpretedStaticTeamModifierSemantics(
+            program,
+            SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
+        )
 
-HOH\ÈÜ™X]\™HˆÜˆ
-ˆÛİ\˜ÙWİ^˜Ø\ÙY›Û
+    def supports_pt_fragment(self, fragment: str) -> bool:
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self.STATIC_OTHER_CREATURES,
+                self.STATIC_OTHER_QUALIFIED_CREATURES,
+                self.ALLIANCE_THIS_UNTIL_EOT,
+                self.SNEAK_ETB_TEAM_UNTIL_EOT,
+                self.ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
+                self.ATTACK_TARGET_CREATURE_UNTIL_EOT,
+            )
+        )
 
-HOHØ\™›˜[YK˜Ø\ÙY›Û
+    def attack_target_pt_semantic_coverage(self, card, fragment):
+        match = self.ATTACK_TARGET_CREATURE_UNTIL_EOT.fullmatch(fragment)
+        if match is None:
+            return None
+        names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = (
+            match.group("source").casefold() in names
+            or match.group("source").casefold() == "this creature"
+        )
+        program = AttackTargetPTProgram(
+            int(match.group("power")),
+            int(match.group("toughness")),
+            "until_end_of_turn",
+            True,
+            source_reference,
+        )
+        source_is_creature = "Creature" in card.type_line
+        limitations = (
+            ()
+            if source_reference and source_is_creature
+            else (
+                "attack_target_pt_source_mismatch"
+                if not source_reference
+                else "attack_target_pt_source_not_creature",
+            )
+        )
+        executable = program.executable and source_is_creature
+        return InterpretedAttackTargetPTSemantics(
+            program, SemanticCoverage(executable, executable, executable, limitations)
+        )
 
-Bˆ7Ó[h‘éì¶»§q«^veature",
+    def supports_blocking_fragment(self, fragment: str) -> bool:
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
+                self.CANT_BE_BLOCKED_BY_GREATER_POWER,
+            )
+        )
+
+    def dies_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the bounded self-death trigger whose complete effect is Draw one."""
+        if self.DIES_DRAW_ONE.fullmatch(fragment) is None:
+            return None
+        creature_source = "Creature" in card.type_line
+        return SemanticCoverage(
+            payload_executable=creature_source,
+            parent_executable=creature_source,
+            followup_executable=creature_source,
+            limitations=(() if creature_source else ("dies_draw_source_is_not_a_creature",)),
+        )
+
+    ETB_TAP_STUN = (
+        "When this creature enters, tap up to one target creature and put a stun counter on it. "
+        "(If a permanent with a stun counter would become untapped, remove one from it instead.)"
+    )
+
+    def rock_soldiers_etb_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        if fragment != self.ROCK_SOLDIERS_ETB:
+            return None
+        supported = "Creature" in card.type_line
+        return SemanticCoverage(
+            supported,
+            supported,
+            supported,
+            () if supported else ("rock_soldiers_source_not_creature",),
+        )
+
+    def etb_tap_stun_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Only the frozen optional self-ETB tap-and-one-stun grammar is executable."""
+        if fragment != self.ETB_TAP_STUN:
+            return None
+        creature = card.is_creature
+        return SemanticCoverage(
+            creature,
+            creature,
+            creature,
+            () if creature else ("etb_tap_stun_source_is_not_a_creature",),
+        )
+
+    def etb_drain_gain_scry_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the bounded self-ETB drain/gain followed by Scry one."""
+        match = self.ETB_DRAIN_GAIN_SCRY_ONE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_text = match.group("source")
+        self_reference = source_text.casefold() == "this creature" or (
+            source_text.casefold() == card.name.casefold()
+        )
+        creature_source = "Creature" in card.type_line
+        executable = self_reference and creature_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "etb_drain_gain_scry_source_mismatch"),
+                (creature_source, "etb_drain_gain_scry_source_is_not_a_creature"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(executable, executable, executable, limitations)
+
+    def etb_self_life_gain_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> tuple[int, SemanticCoverage] | None:
+        """A creature's own entry gains a fixed positive amount of life."""
+        match = self.ETB_SELF_LIFE_GAIN.fullmatch(fragment)
+        if match is None:
+            return None
+        self_reference = match.group("source").casefold() in {
+            "this creature",
             card.name.casefold(),
         }
         creature = "Creature" in card.type_line
@@ -310,36 +1307,175 @@ Bˆ7Ó[h‘éì¶»§q«^veature",
         if match is None:
             return None
         source_text = match.group("source")
-        if source_text.casefold() == "thiYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÌÁ•Éµ…¹•¹Ğˆè(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€Í•±™}É•™•É•¹”€ôÍ½ÕÉ•}Ñ•áĞ¹…Í•™½± ¤€ôô€‰Ñ¡¥ÌÍ½ÕÉ”ˆ½È€ (€€€€€€€€€€€Í½ÕÉ•}Ñ•áĞ¹…Í•™½± ¤€ôô…É¹¹…µ”¹…Í•™½± ¤(€€€€€€€€¤(€€€€€€€Á•Éµ…¹•¹Ñ}Í½ÕÉ”€ô…¹ä (€€€€€€€€€€€É”¹Í•…É ¡É˜‰q‰í…É‘}ÑåÁ•õqˆˆ°…É¹ÑåÁ•}±¥¹”¤(€€€€€€€€€€€™½È…É‘}ÑåÁ”¥¸Í•±˜¹AI599Q}I}QeAL(€€€€€€€€¤(€€€€€€€•á•ÕÑ…‰±”€ôÍ•±™}É•™•É•¹”…¹Á•Éµ…¹•¹Ñ}Í½ÕÉ”(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ôÑÕÁ±” (€€€€€€€€€€€É•…Í½¸(€€€€€€€€€€€™½È½¹‘¥Ñ¥½¸°É•…Í½¸¥¸€ (€€€€€€€€€€€€€€€€¡Í•±™}É•™•É•¹”°€‰Á•Éµ…¹•¹Ñ}±•™Ñ}½Õ¹Ñ•É}Í½ÕÉ•}µ¥Íµ…Ñ ˆ¤°(€€€€€€€€€€€€€€€€¡Á•Éµ…¹•¹Ñ}Í½ÕÉ”°€‰Á•Éµ…¹•¹Ñ}±•™Ñ}½Õ¹Ñ•É}Í½ÕÉ•}¥Í}¹½Ñ}…}Á•Éµ…¹•¹Ğˆ¤°(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜¹½Ğ½¹‘¥Ñ¥½¸(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸M•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€•á•ÕÑ…‰±”°(€€€€€€€€€€€•á•ÕÑ…‰±”°(€€€€€€€€€€€•á•ÕÑ…‰±”°(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì°(€€€€€€€€¤((€€€‘•˜•Ñ‰}…ÉÑ¥™…Ñ}‘É…İ}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´øM•µ…¹Ñ¥½Ù•É…”ğ9½¹”è(€€€€€€€€ˆˆ‰I•½¹¥é”½¹”Í•±˜µQ¥¹Ñ•ÉÙ•¹¥¹œµ¥˜…ÉÑ¥™…Ğ½¹‘¥Ñ¥½¸™½±±½İ•‰äÉ…Ü½¹”¸ˆˆˆ(€€€€€€€µ…Ñ €ôÍ•±˜¹Q	}IQ%Q}I]}=9¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¤(€€€€€€€¥˜µ…Ñ ¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€Í½ÕÉ•}Ñ•áĞ€ôµ…Ñ ¹É½ÕÀ ‰Í½ÕÉ”ˆ¤(€€€€€€€½¹‘¥Ñ¥½¹}Ñ•áĞ€ôµ…Ñ ¹É½ÕÀ ‰½¹‘¥Ñ¥½¸ˆ¤¹…Í•™½± ¤(€€€€€€€•¹•É¥}™½É´€ô€ (€€€€€€€€€€€Í½ÕÉ•}Ñ•áĞ¹…Í•™½± ¤€ôô€‰Ñ¡¥ÌÍ½ÕÉ”ˆ…¹½¹‘¥Ñ¥½¹}Ñ•áĞ€ôô€‰¥ÑÌ½¹ÑÉ½±±•È½¹ÑÉ½±Ìˆ(€€€€€€€€¤(€€€€€€€Í½ÕÉ•}¹…µ•Ì€ôí…É¹¹…µ”¹…Í•™½± ¤°…É¹¹…µ”¹ÍÁ±¥Ğ ˆ°ˆ°€Ä¥lÁt¹…Í•™½± ¥ô(€€€€€€€ÁÉ¥¹Ñ•‘}™½É´€ôÍ½ÕÉ•}Ñ•áĞ¹…Í•™½± ¤¥¸Í½ÕÉ•}¹…µ•Ì…¹½¹‘¥Ñ¥½¹}Ñ•áĞ€ôô€‰å½Ô½¹ÑÉ½°ˆ(€€€€€€€Í•±™}É•™•É•¹”€ô•¹•É¥}™½É´½ÈÁÉ¥¹Ñ•‘}™½É´(€€€€€€€É•…ÑÕÉ•}Í½ÕÉ”€ô€‰É•…ÑÕÉ”ˆ¥¸…É¹ÑåÁ•}±¥¹”(€€€€€€€•á•ÕÑ…‰±”€ôÍ•±™}É•™•É•¹”…¹É•…ÑÕÉ•}Í½ÕÉ”(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ôÑÕÁ±” (€€€€€€€€€€€Ë}5¶‰ËkºwµçB ¢FVbFö¶Våö7&VF–öå÷&öw&Ò‡6VÆbÂg&vÖVçC¢7G"’ÓâFö¶Vä7&VF–öå&öw&ÒÂæöæS ¢""%&V6övæ—¦R&WW6&ÆRFö¶Vâ7&VF–öâv—F†÷WBF—7F6†–æröâ6÷W&6R6&BæÖRâ"" ¢ÖF6‚Ò6VÆbä5$TDUõDô´Tâç6V&6‚†g&vÖVçB¢–bÖF6‚—2æöæS ¢&WGW&âæöæP¢VçF—G•÷FW‡BÒÖF6‚æw&÷W‚'VçF—G’"’æ66VföÆB‚¢VçF—G’Ò6VÆbåDô´TåõTåD•D”U2ævWB‡VçF—G•÷FW‡B¢–bVçF—G’—2æöæRæBVçF—G•÷FW‡Bæ—6FV6–ÖÂ‚“ ¢VçF—G’Ò–çB‡VçF—G•÷FW‡B¢f&–&ÆU÷VçF—G’ÒVçF—G’—2æöæR÷"&ööÂ€¢&Rç6V&6‚€¢"%Æ"ƒó¦f÷"V6‡ÆWVÂF÷ÇGv–6RF†BÖç—Çv†W&R‡ÇF†BÖç’•Æ""Âg&vÖVçBÂ&Rä¢¢¢–b&Rç6V&6‚€¢"%Æ'Fö¶Vâƒó§2“òƒó§F†B&WÇF†Bw7ÇF†B—2’ƒó¦“ö6÷ƒó§—Æ–W2•Æ""Âg&vÖVçBÂ&Rä¢“ ¢&WGW&âFö¶Vä7&VF–öå&öw&Ò€¢æöæRÂVçF—G’ÂVç7W÷'FVE÷&V6öãÒ'Fö¶Våö6÷•öæ÷Eö–×ÆVÖVçFVB ¢¢–b&Rç6V&6‚‡"%Æ'v÷VÆB7&VFUÆ'ÅÆ&–ç7FVEÆ""Âg&vÖVçBÂ&Rä’“ ¢&WGW&âFö¶Vä7&VF–öå&öw&Ò€¢æöæRÀ¢VçF—G’À¢Vç7W÷'FVE÷&V6öãÒ'Fö¶Vå÷&WÆ6VÖVçEöVffV7Eöæ÷Eö–×ÆVÖVçFVB"À¢ ¢&öG’ÒÖF6‚æw&÷W‚&&öG’"¢FVf–æ—F–öâÒæW‡B€¢€¢Fö¶Và¢f÷"æÖRÂFö¶Vâ–â6VÆbå$TDTd”äTEõDô´Tå2æ—FV×2‚¢–b&Rç6V&6‚‡&b%Æ'·&RæW66R†æÖR—ÒFö¶Vç3õÆ""Â&öG’Â&Rä’¢’À¢æöæRÀ¢¢W‡Æ–6—BÒ6VÆbäU…Ä”4•Eô5$TEU$UõDô´Tâç6V&6‚†&öG’¢–bFVf–æ—F–öâ—2æöæRæBW‡Æ–6—B—2æ÷BæöæS ¢FW67&—F÷"ÒW‡Æ–6—Bæw&÷W‚&FW67&—F÷""’ç7Æ—B‚¢6öÆ÷'3¢Æ—7E·7G%ÒÒµĞ¢–bFW67&—F÷"æBFW67&—F÷%³Òæ66VföÆB‚’ÓÒ&6öÆ÷&ÆW72# ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍY\ØÜš\Ü‹œÜ
-
-BˆÚ[H\ØÜš\Üˆ[™\ØÜš\Ü–ÌK˜Ø\ÙY›Û
+        if source_text.casefold() == "this permanent":
+            return None
+        self_reference = source_text.casefold() == "this source" or (
+            source_text.casefold() == card.name.casefold()
+        )
+        permanent_source = any(
+            re.search(rf"\b{card_type}\b", card.type_line)
+            for card_type in self.PERMANENT_CARD_TYPES
+        )
+        executable = self_reference and permanent_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "permanent_left_counter_source_mismatch"),
+                (permanent_source, "permanent_left_counter_source_is_not_a_permanent"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(
+            executable,
+            executable,
+            executable,
+            limitations,
+        )
 
-H[ˆÙ[‹•ÒÑS—ĞÓÓÔ”Î‚ˆÛÛÜœË˜\[™
-Ù[‹•ÒÑS—ĞÓÓÔ”ÖÙ\ØÜš\Ü‹œÜ
-
-K˜Ø\ÙY›Û
+    def etb_artifact_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize one self-ETB intervening-if artifact condition followed by Draw one."""
+        match = self.ETB_ARTIFACT_DRAW_ONE.fullmatch(fragment)
+        if match is None:
+            return None
+        source_text = match.group("source")
+        condition_text = match.group("condition").casefold()
+        generic_form = (
+            source_text.casefold() == "this source" and condition_text == "its controller controls"
+        )
+        source_names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        printed_form = source_text.casefold() in source_names and condition_text == "you control"
+        self_reference = generic_form or printed_form
+        creature_source = "Creature" in card.type_line
+        executable = self_reference and creature_source
+        limitations = tuple(
+            reason
+            for condition, reason in (
+                (self_reference, "etb_artifact_draw_source_or_condition_mismatch"),
+                (creature_source, "etb_artifact_draw_source_is_not_a_creature"),
+            )
+            if not condition
+        )
+        return SemanticCoverage(executable, executable, executable, limitations)
 
-WJBˆ\Y˜XİH[JÛÜ™˜Ø\ÙY›Û
+    def supports_counter_fragment(self, card: CardDefinition, fragment: str) -> bool:
+        if self.ALLIANCE_MODAL_HEADER.fullmatch(fragment):
+            return any(
+                self.SELF_PLUS_COUNTER_MODE.fullmatch(candidate)
+                for candidate in self.fragments(card)
+            )
+        return any(
+            pattern.fullmatch(fragment)
+            for pattern in (
+                self.ALLIANCE_TARGET_PLUS_COUNTER,
+                self.GAIN_LIFE_SELF_PLUS_COUNTER,
+                self.SELF_PLUS_COUNTER_MODE,
+            )
+        )
 
-HOH˜\Y˜Xİˆ›ÜˆÛÜ™[ˆ\ØÜš\ÜŠBˆ\ØÜš\ÜˆHİÛÜ™›ÜˆÛÜ™[ˆ\ØÜš\ÜˆYˆÛÜ™˜Ø\ÙY›Û
+    def token_creation_program(self, fragment: str) -> TokenCreationProgram | None:
+        """Recognize reusable token creation without dispatching on a source card name."""
+        match = self.CREATE_TOKEN.search(fragment)
+        if match is None:
+            return None
+        quantity_text = match.group("quantity").casefold()
+        quantity = self.TOKEN_QUANTITIES.get(quantity_text)
+        if quantity is None and quantity_text.isdecimal():
+            quantity = int(quantity_text)
+        variable_quantity = quantity is None or bool(
+            re.search(
+                r"\b(?:for each|equal to|twice that many|where X|that many)\b", fragment, re.I
+            )
+        )
+        if re.search(
+            r"\btoken(?:s)? (?:that are|that's|that is) (?:a )?cop(?:y|ies)\b", fragment, re.I
+        ):
+            return TokenCreationProgram(
+                None, quantity, unsupported_reason="token_copy_not_implemented"
+            )
+        if re.search(r"\bwould create\b|\binstead\b", fragment, re.I):
+            return TokenCreationProgram(
+                None,
+                quantity,
+                unsupported_reason="token_replacement_effect_not_implemented",
+            )
 
-HOH˜\Y˜Xİ—BˆÚÙ[—Û˜[YHHˆ‹š›Ú[Š\ØÜš\ÜŠHÜˆÜ™X]\™H‚ˆ\WÛ[™HHˆÉĞ\Y˜Xİ	ÈYˆ\Y˜Xİ[ÙH	ÉßPÜ™X]\™H‚ˆYˆ\ØÜš\Ü‚ˆ\WÛ[™H
-ÏHˆˆ8 %İÚÙ[—Û˜[Y_H‚ˆÙ^]ÛÜ™ÈH\JˆÙ^]ÛÜ™ˆ›ÜˆÙ^]ÛÜ™[ˆ
-‘›Z[™È‹’\İH‹•šYÚ[[˜ÙH‹•˜[\H‹“Y[˜XÙHŠBˆYˆ™KœÙX\˜Ú
-™ˆ—Ú]ÚÙ^]ÛÜ™˜Ø\ÙY›Û
+        body = match.group("body")
+        definition = next(
+            (
+                token
+                for name, token in self.PREDEFINED_TOKENS.items()
+                if re.search(rf"\b{re.escape(name)} tokens?\b", body, re.I)
+            ),
+            None,
+        )
+        explicit = self.EXPLICIT_CREATURE_TOKEN.search(body)
+        if definition is None and explicit is not None:
+            descriptor = explicit.group("descriptor").split()
+            colors: list[str] = []
+            if descriptor and descriptor[0].casefold() == "colorless":
+                descriptor.pop(0)
+            while descriptor and descriptor[0].casefold() in self.TOKEN_COLORS:
+                colors.append(self.TOKEN_COLORS[descriptor.pop(0).casefold()])
+            artifact = any(word.casefold() == "artifact" for word in descriptor)
+            descriptor = [word for word in descriptor if word.casefold() != "artifact"]
+            token_name = " ".join(descriptor) or "Creature"
+            type_line = f"{'Artifact ' if artifact else ''}Creature"
+            if descriptor:
+                type_line += f" â€” {token_name}"
+            keywords = tuple(
+                keyword
+                for keyword in ("Flying", "Haste", "Vigilance", "Trample", "Menace")
+                if re.search(rf"\bwith {keyword.casefold()}\b", fragment, re.I)
+            )
+            definition = TokenDefinition(
+                token_name,
+                type_line,
+                tuple(colors),
+                int(explicit.group("power")),
+                int(explicit.group("toughness")),
+                keywords=keywords,
+            )
 
-_Wˆ‹œ˜YÛY[™K’JBˆ
-BˆYš[š][ÛˆHÚÙ[‘Yš[š][ÛŠˆÚÙ[—Û˜[YKˆ\WÛ[™Kˆ\JÛÛÜœÊKˆ[
-^XÚ]™Ü›İ\
-œİÙ\ˆŠJKˆ[
-^XÚ]™Ü›İ\
-İYÚ™\ÜÈŠJKˆÙ^]ÛÜ™ÏZÙ^]ÛÜ™Ëˆ
-B‚ˆ[œİ\ÜYÜ™X\ÛÛˆH›Û™BˆYˆYš[š][Ûˆ\È›Û™N‚ˆ[œİ\ÜYÜ™X\ÛÛˆHÚÙ[—ØÚ\˜Xİ\š\İXÜ×Û›İÜØY™[WÙ\š]™Y‚ˆ[Yˆ˜\šXX›WÜ]X[]N‚ˆ[œİ\ÜYÜ™X\ÛÛˆH˜\šXX›WİÚÙ[—Ü]X[]WÛ›İÚ[\[Y[Y‚ˆ[Yˆ™KœÙX\˜Ú
-ˆ—ŠÎ\Y[™]XÚÚ[™ß]XÚÚ[™È]^Y\ŠWˆ‹œ˜YÛY[™K’JN‚ˆ[œİ\ÜYÜ™X\ÛÛˆHÚÙ[—Ø]XÚÚ[™×ØÛÛ^Û›İÚ[\[Y[Y‚‚ˆ\YH›ÛÛ
-™KœÙX\˜Ú
-ˆ—ŠÎ˜Ü™X]_[\œÏÊW–×‹—J—\Yˆ‹œ˜YÛY[™K’JJBˆ™]Z[™YÛ[Z]][ÛˆH›Û™BˆYˆ
-ˆYš[š][Ûˆ\È›İ›Û™Bˆ[™Yš[š][Û‹›Ü˜XÛWİ^ˆ[™›İÙ[‹—Ú\×ØØ[›ÛšXØ[Ù›ÛÙÜÛİ\˜ÙJYš[š][ÛŠBˆ[™›İ
-ˆ\Y˜X÷Ó[h‘éì¶»§q«^t match = self.DEAL_DAMAGE.search(fragment)
+        unsupported_reason = None
+        if definition is None:
+            unsupported_reason = "token_characteristics_not_safely_derived"
+        elif variable_quantity:
+            unsupported_reason = "variable_token_quantity_not_implemented"
+        elif re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I):
+            unsupported_reason = "token_attacking_context_not_implemented"
+
+        tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
+        retained_limitation = None
+        if (
+            definition is not None
+            and definition.oracle_text
+            and not self._is_canonical_food_source(definition)
+            and not (
+                "Artifact" in definition.type_line
+                and self.COUNTER_TOKEN_ACTIVATION.fullmatch(definition.oracle_text)
+            )
+        ):
+            retained_limitation = "token_activated_ability_not_implemented"
+        elif re.search(
+            r"\b(?:attach (?:this|that)|destroy it|sacrifice it|gains? haste until end of turn|"
+            r"then if|and put)\b",
+            fragment[match.end() :],
+            re.I,
+        ):
+            retained_limitation = "token_followup_semantics_not_implemented"
+        return TokenCreationProgram(
+            definition,
+            quantity,
+            tapped=tapped,
+            unsupported_reason=unsupported_reason,
+            retained_limitation=retained_limitation,
+        )
+
+    def damage_program(self, fragment: str) -> DamageProgram | None:
+        """Recognize damage payloads without confusing damage with adjacent outcomes."""
+        match = self.DEAL_DAMAGE.search(fragment)
         if match is None:
             return None
         amount_text = (match.group("amount") or match.group("dynamic_amount")).casefold()
@@ -374,35 +1510,189 @@ B‚ˆ[œİ\ÜYÜ™X\ÛÛˆH›Û™BˆYˆYš[š][Ûˆ\È›Û™N‚ˆ
             targeting_limitation = "multiple_damage_targets_not_implemented"
         elif re.fullmatch(r"each of (?:one or two|up to [0-9]+) targets", target_text):
             targeting_limitation = "variable_count_multiple_damage_targets_not_implemented"
-        eYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ±¥˜Ñ…É•Ñ}Ñ•áĞ¹ÍÑ…ÉÑÍİ¥Ñ  ‰Ñ…É•Ğ½ÁÁ½¹•¹Ğ°ˆ¤è(€€€€€€€€€€€Ñ…É•Ñ¥¹}±¥µ¥Ñ…Ñ¥½¸€ô€‰‘…µ…•}µÕ±Ñ¥}­¥¹‘}Ñ…É•Ñ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±Í”è(€€€€€€€€€€€Ñ…É•Ñ¥¹}±¥µ¥Ñ…Ñ¥½¸€ô€‰‘…µ…•}…¹å}Ñ…É•Ñ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ((€€€€€€€ÍÕ™™¥à€ô™É…µ•¹Ñmµ…Ñ ¹•¹ ¤€ét(€€€€€€€É•Ñ…¥¹•€ô9½¹”(€€€€€€€¡…¹‘}‰½ÑÑ½µ}‘É…Ü€ôÍ•±˜¹!9}	=QQ=5}I\¹™Õ±±µ…Ñ ¡ÍÕ™™¥à¹ÍÑÉ¥À ¤¹±ÍÑÉ¥À ˆ¸€ˆ¤¤(€€€€€€€¥˜¡…¹‘}‰½ÑÑ½µ}‘É…Ü¥Ì9½¹”…¹€ (€€€€€€€€€€€ÍÕ™™¥à¹ÍÑÉ¥À ˆ€¸ˆ¤(€€€€€€€€€€€½ÈÉ”¹Í•…É  (€€€€€€€€€€€€€€€È‰qˆ üé¥˜Ñ¡…ĞÉ•…ÑÕÉ”İ½Õ±‘¥•ñÑ¡•¹ñ…¹mx¹t¨ üé‘É…İñÉ•…Ñ•ñÁÕÑñ‘•ÍÑÉ½åğˆ(€€€€€€€€€€€€€€€È‰•á¥±•ñÍ…É¥™¥”¤¥qˆˆ°(€€€€€€€€€€€€€€€ÍÕ™™¥à°(€€€€€€€€€€€€€€€É”¹$°(€€€€€€€€€€€€¤(€€€€€€€€¤è(€€€€€€€€€€€É•Ñ…¥¹•€ô€‰‘…µ…•}™½±±½İÕÁ}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸€ô…µ½Õ¹Ñ}±¥µ¥Ñ…Ñ¥½¸½ÈÑ…É•Ñ¥¹}±¥µ¥Ñ…Ñ¥½¸(€€€€€€€…‘‘¥Ñ¥½¹…±}±¥µ¥Ñ…Ñ¥½¸€ô€ (€€€€€€€€€€€Ñ…É•Ñ¥¹}±¥µ¥Ñ…Ñ¥½¸¥˜…µ½Õ¹Ñ}±¥µ¥Ñ…Ñ¥½¸…¹Ñ…É•Ñ¥¹}±¥µ¥Ñ…Ñ¥½¸•±Í”9½¹”(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸…µ…•AÉ½É…´ (€€€€€€€€€€€…µ½Õ¹Ğ°(€€€€€€€€€€€Ñ…É•Ñ}­¥¹°(€€€€€€€€€€€Ñ…É•Ñ}Í½Á”°(€€€€€€€€€€€Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸°(€€€€€€€€€€€É•Ñ…¥¹•°(€€€€€€€€€€€…‘‘¥Ñ¥½¹…±}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€¤((€€€‘•˜‘…µ…•}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘…µ…•M•µ…¹Ñ¥Ìğ9½¹”è(€€€€€€€€ˆˆ‰±…ÍÍ¥™ä„‘…µ…”Á…å±½…Í•Á…É…Ñ•±ä™É½´¥ÑÌÁ…É•¹Ğ…¹™½±±½ÜµÕÀ¸ˆˆˆ(€€€€€€€ÁÉ½É…´€ôÍ•±˜¹‘…µ…•}ÁÉ½É…´¡™É…µ•¹Ğ¤(€€€€€€€¥˜ÁÉ½É…´¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€µ…Ñ €ôÍ•±˜¹1}5¹Í•…É ¡™É…µ•¹Ğ¤(€€€€€€€…ÍÍ•ÉĞµ…Ñ ¥Ì¹½Ğ9½¹”(€€€€€€€ÁÉ•™¥à€ô™É…µ•¹Ñlèµ…Ñ ¹ÍÑ…ÉĞ ¥t(€€€€€€€…±±¥…¹”€ô‰½½° (€€€€€€€€€€€É”¹µ…Ñ ¡È‰y±±¥…¹”ƒŠP]¡•¹•Ù•È…¹½Ñ¡•ÈÉ•…ÑÕÉ”å½Ô½¹ÑÉ½°•¹Ñ•ÉÌ°ˆ°™É…µ•¹Ğ¤(€€€€€€€€¤(€€€€€€€‘¥É•Ñ}ÍÁ•±°€ô¹½ĞÁÉ•™¥à¹ÍÑÉ¥À ¤½È‰½½° (€€€€€€€€€€€É”¹µ…Ñ ¡È‰x üëŠˆ€¤ımx°¹t¬‘•‡}5¶‰ËkºwµçV6öà¢f÷"&V6öâ–â€¢&öw&ÒçVç7W÷'FVE÷&V6öâÀ¢&öw&ÒæFF—F–öæÅöÆ–Ö—FF–öâÀ¢&VçEöÆ–Ö—FF–öâÀ¢&öw&Òç&WF–æVEöÆ–Ö—FF–öâÀ¢¢–b&V6öâ—2æ÷BæöæP¢¢¢6÷fW&vRÒ6VÖçF–46÷fW&vR€¢&öw&ÒæW†V7WF&ÆRÀ¢&VçEöW†V7WF&ÆRÀ¢&öw&Òç&WF–æVEöÆ–Ö—FF–öâ—2æöæRÀ¢Æ–Ö—FF–öç2À¢¢&WGW&â–çFW'&WFVDFÖvU6VÖçF–72‡&öw&ÒÂ6÷fW&vRÂ&VçEöÆ–Ö—FF–öâ ¢FVb†æEö&÷GFöÕöG&u÷6VÖçF–5ö6÷fW&vR€¢6VÆbÂ6&C¢6&DFVf–æ—F–öâÂg&vÖVçC¢7G ¢’Óâ–çFW'&WFVD†æD&÷GFöÔG&u6VÖçF–72ÂæöæS ¢""%&V6övæ—¦RöæR÷F–öæÂ†æBÖ&÷GFöÒÖ÷fRv—F‚—G2FWVæFVçBf—†VBG&râ"" ¢FVÂ6&@¢ÖF6‚Ò6VÆbä„äEô$õEDôÕôE$rç6V&6‚†g&vÖVçB¢–bÖF6‚—2æöæS ¢&WGW&âæöæP¢&Vf—‚Òg&vÖVçE³¢ÖF6‚ç7F'B‚•Òç7G&—‚¢7Vff—‚Òg&vÖVçE¶ÖF6‚æVæB‚’¥Òç7G&—‚¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒæöæP¢–b&Vf—ƒ ¢FÖvRÒ6VÆbæFÖvU÷&öw&Ò‡&Vf—‚¢–bFÖvR—2æ÷BæöæRæBFÖvRæW†V7WF&ÆS ¢&VçEöW†V7WF&ÆRÒG'VP¢VÇ6S ¢&VçEöÆ–Ö—FF–öâÒ&†æEö&÷GFöÕöG&u÷&VçEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB ¢VÇ6S ¢&VçEöW†V7WF&ÆRÒG'VP¢föÆÆ÷wWöÆ–Ö—FF–öâÒ€¢&†æEö&÷GFöÕöG&uöföÆÆ÷wW÷6VÖçF–75öæ÷Eö–×ÆVÖVçFVB"–b7Vff—‚VÇ6RæöæP¢¢&öw&ÒÒ†æD&÷GFöÔG&u&öw&ÒƒÂÂG'VRÂG'VR¢Æ–Ö—FF–öç2ÒGWÆR€¢&V6öâf÷"&V6öâ–â‡&VçEöÆ–Ö—FF–öâÂföÆÆ÷wWöÆ–Ö—FF–öâ’–b&V6öâ—2æ÷BæöæP¢¢&WGW&â–çFW'&WFVD†æD&÷GFöÔG&u6VÖçF–72€¢&öw%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍX[KˆÙ[X[XĞÛİ™\˜YÙJˆ^[ØYÙ^Xİ]X›O\›ÙÜ˜[K™^Xİ]X›Kˆ\™[Ù^Xİ]X›O\\™[Ù^Xİ]X›Kˆ›Ûİİ\Ù^Xİ]X›OY›Ûİİ\Û[Z]][Ûˆ\È›Û™Kˆ[Z]][ÛœÏ[[Z]][ÛœËˆ
-KˆX]Ú™Ü›İ\
-˜Û]\ÙHŠKˆX]Úœİ\
+        elif target_text.startswith("target opponent,"):
+            targeting_limitation = "damage_multi_kind_target_not_implemented"
+        else:
+            targeting_limitation = "damage_any_target_not_implemented"
 
-KˆX]Ú™[™
+        suffix = fragment[match.end() :]
+        retained = None
+        hand_bottom_draw = self.HAND_BOTTOM_DRAW.fullmatch(suffix.strip().lstrip(". "))
+        if hand_bottom_draw is None and (
+            suffix.strip(" .")
+            or re.search(
+                r"\b(?:if that creature would die|then|and [^.]*(?:draw|create|put|destroy|"
+                r"exile|sacrifice))\b",
+                suffix,
+                re.I,
+            )
+        ):
+            retained = "damage_followup_semantics_not_implemented"
+        unsupported_reason = amount_limitation or targeting_limitation
+        additional_limitation = (
+            targeting_limitation if amount_limitation and targeting_limitation else None
+        )
+        return DamageProgram(
+            amount,
+            target_kind,
+            target_scope,
+            unsupported_reason,
+            retained,
+            additional_limitation,
+        )
 
-Kˆ\™[Û[Z]][Û‹ˆ
-B‚ˆYˆ]—Ù˜]×Ù\ØØ\™ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]Y\ØØ\™˜]ÔÙ[X[XÜÈ›Û™N‚ˆˆˆ“Û›HÙ[‹QU‹X[™]ÜH˜]ÈÛ™H[ˆ\ØØ\™Û™NÈ›È\˜š]˜\HÙ\]Y[˜ÙKˆˆˆ‚ˆ˜[Y\ÈHØØ\™›˜[YKØ\™›˜[YKœÜ]
-‹‹JVÌK\ÈÜ™X]\™HŸBˆ™Y™\™[˜ÙHHŠÎˆˆ
-ÈŸ‹š›Ú[Š™K™\ØØ\J˜[YJH›Üˆ˜[YH[ˆÛÜY
-˜[Y\ÊJH
-ÈŠH‚ˆYˆ
-ˆ›İ™K™[X]Ú
-ˆ™ˆ•Ú[ˆÜ™Y™\™[˜Ù_H[\œË˜]ÈHØ\™[ˆ\ØØ\™HØ\™ˆ‹ˆœ˜YÛY[ˆ™K’QÓ“Ô‘PĞTÑKˆ
-BˆÜˆÜ™X]\™Hˆ›İ[ˆØ\™\WÛ[™Bˆ
-N‚ˆ™]\›ˆ›Û™Bˆ™]\›ˆ[\œ™]Y\ØØ\™˜]ÔÙ[X[XÜÊˆ\ØØ\™˜]Ô›ÙÜ˜[JKK˜[ÙK˜[ÙK˜]×Ùš\œİUYJKˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+    def damage_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDamageSemantics | None:
+        """Classify a damage payload separately from its parent and follow-up."""
+        program = self.damage_program(fragment)
+        if program is None:
+            return None
+        match = self.DEAL_DAMAGE.search(fragment)
+        assert match is not None
+        prefix = fragment[: match.start()]
+        alliance = bool(
+            re.match(r"^Alliance â€” Whenever another creature you control enters,", fragment)
+        )
+        direct_spell = not prefix.strip() or bool(
+            re.match(r"^(?:â€¢ )?[^,.]+ deals?\b", fragment, re.I)
+        )
+        if alliance:
+            parent_executable = True
+            parent_limitation = None
+        elif fragment.startswith("â€¢ "):
+            parent_executable = False
+            parent_limitation = "damage_choice_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "damage_trigger_context_not_implemented"
+        elif ":" in prefix:
+            parent_executable = False
+            parent_limitation = "damage_activation_context_not_implemented"
+        elif direct_spell:
+            parent_executable = True
+            parent_limitation = None
+        else:
+            parent_executable = False
+            parent_limitation = "damage_preceding_effect_not_implemented"
+        limitations = tuple(
+            dict.fromkeys(
+                reason
+                for reason in (
+                    program.unsupported_reason,
+                    program.additional_limitation,
+                    parent_limitation,
+                    program.retained_limitation,
+                )
+                if reason is not None
+            )
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            program.retained_limitation is None,
+            limitations,
+        )
+        return InterpretedDamageSemantics(program, coverage, parent_limitation)
 
-JKˆœ˜YÛY[ˆˆ[Šœ˜YÛY[
-Kˆ
-B‚ˆYˆ\ØØ\™Ù˜]×ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]Y\ØØ\™˜]ÔÙ[X[XÜÈ›Û™N‚ˆˆˆ”™XÛÙÛš^™HH›İ[™YÜ[Û˜[\ØØ\™ØÛÛ™][Û˜[˜]È[œİXİ[Û‹ˆˆˆ‚ˆX]ÚHÙ[‹‘TĞĞT‘ÑUËœÙX\˜Ú
-œ˜YÛY[
-BˆYˆX]Ú\È›Û™N‚ˆ™]\›ˆ›Û™Bˆ™Yš^Hœ˜YÛY[ÎˆX]Úœİ\
+    def hand_bottom_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedHandBottomDrawSemantics | None:
+        """Recognize one optional Hand-bottom move with its dependent fixed Draw."""
+        del card
+        match = self.HAND_BOTTOM_DRAW.search(fragment)
+        if match is None:
+            return None
+        prefix = fragment[: match.start()].strip()
+        suffix = fragment[match.end() :].strip()
+        parent_executable = False
+        parent_limitation = None
+        if prefix:
+            damage = self.damage_program(prefix)
+            if damage is not None and damage.executable:
+                parent_executable = True
+            else:
+                parent_limitation = "hand_bottom_draw_parent_context_not_implemented"
+        else:
+            parent_executable = True
+        followup_limitation = (
+            "hand_bottom_draw_followup_semantics_not_implemented" if suffix else None
+        )
+        program = HandBottomDrawProgram(1, 1, True, True)
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        return InterpretedHandBottomDrawSemantics(
+            program,
+            SemanticCoverage(
+                payload_executable=program.executable,
+                parent_executable=parent_executable,
+                followup_executable=followup_limitation is None,
+                limitations=limitations,
+            ),
+            match.group("clause"),
+            match.start(),
+            match.end(),
+            parent_limitation,
+        )
 
-WBˆİY™š^Hœ˜YÛY[ÛX]Ú™[™
+    def etb_draw_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Only self-ETB, mandatory Draw one then discard one; no arbitrary sequence."""
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = "(?:" + "|".join(re.escape(name) for name in sorted(names)) + ")"
+        if (
+            not re.fullmatch(
+                rf"When {reference} enters, draw a card, then discard a card\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            or "Creature" not in card.type_line
+        ):
+            return None
+        return InterpretedDiscardDrawSemantics(
+            DiscardDrawProgram(1, 1, False, False, draw_first=True),
+            SemanticCoverage(True, True, True, ()),
+            fragment,
+            0,
+            len(fragment),
+        )
 
-H—BˆÛİ\˜ÙWÛ˜[Y\ÈHØØ\™›˜[YKØ\™›˜[YKœÜ]
-‹‹JVÌ_BˆÙ[—Ü™Y™\™[˜ÙHH7Ó[h‘éì¶»§q«^t)
+    def discard_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Recognize the bounded optional discard/conditional Draw instruction."""
+        match = self.DISCARD_DRAW.search(fragment)
+        if match is None:
+            return None
+        prefix = fragment[: match.start()]
+        suffix = fragment[match.end() :]
+        source_names = {card.name, card.name.split(",", 1)[0]}
+        self_reference = (
+            "(?:"
+            + "|".join(
+                [
+                    "this creature",
+                    *(re.escape(name) for name in sorted(source_names, key=len, reverse=True)),
+                ]
+            )
+            + ")"
+        )
+        parent_executable = bool(
+            re.fullmatch(rf"Whenever {self_reference} attacks,\s*", prefix, re.IGNORECASE)
+        )
+        parent_limitation = (
+            None if parent_executable else "discard_draw_attack_trigger_context_not_implemented"
+        )
+        followup_executable = not suffix.strip()
+        followup_limitation = (
+            None if followup_executable else "discard_draw_followup_semantics_not_implemented"
+        )
+        program = DiscardDrawProgram(1, 1, True, True)
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
         return InterpretedDiscardDrawSemantics(
             program,
             SemanticCoverage(
@@ -446,38 +1736,166 @@ H—BˆÛİ\˜ÙWÛ˜[Y\ÈHØØ\™›˜[YKØ\™›˜[YKœÜ]
             re.match(r"^When .+ enters, scry\b", fragment, re.I)
         )
         prefix = fragment[: match.start()]
-        if alliance_YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õµ½‘”½È‘¥É•Ñ}É•…ÑÕÉ•}•Ñˆè(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ôQÉÕ”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô9½¹”(€€€€€€€•±¥˜É”¹Í•…É ¡È‰q‰¥™qˆˆ°ÁÉ•™¥à°É”¹$¤è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}½¹‘¥Ñ¥½¹}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±¥˜É”¹Í•…É ¡Èˆ üéyñp¹qÌ¬¤ üé]¡•¹ñ]¡•¹•Ù•ÉñĞ¥qˆˆ°ÁÉ•™¥à°É”¹$¤è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}ÁÉ••‘¥¹}½É}ÑÉ¥•É}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±¥˜€ˆèˆ¥¸ÁÉ•™¥àè(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}…Ñ¥Ù…Ñ¥½¹}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±¥˜É”¹µ…Ñ ¡È‰x üé]¡•¹ñ]¡•¹•Ù•ÉñĞñ¥Í…ÁÁ•…È¤ˆ°™É…µ•¹Ğ°É”¹$¤è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}ÁÉ••‘¥¹}½É}ÑÉ¥•É}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±¥˜™É…µ•¹Ğ¹ÍÑ…ÉÑÍİ¥Ñ  ‹Šˆ€ˆ¤è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}¡½¥•}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±¥˜ÁÉ•™¥à¹ÍÑÉ¥À ¤è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…±Í”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰ÍÉå}ÁÉ••‘¥¹}•™™•Ñ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€•±Í”è(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ôQÉÕ”(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô9½¹”((€€€€€€€ÍÕ™™¥à€ô™É…µ•¹Ñmµ…Ñ ¹•¹ ¤€ét(€€€€€€€ÍÕ™™¥á}İ¥Ñ¡½ÕÑ}É•µ¥¹‘•È€ôÉ”¹ÍÕˆ (€€€€€€€€€€€È‰yp¸ü üéqÌ©p  üé1½½¬…Ññe½Ôµ…äÁÕĞ¥mqÍqMt©p¤¤ıp¸üˆ°€ˆˆ°ÍÕ™™¥à°™±…ÌõÉ”¹$(€€€€€€€€¤(€€€€€€€™½±±½İÕÁ}±¥µ¥Ñ…Ñ¥½¸€ô€ (€€€€€€€€€€€€‰ÍÉå}™½±±½İÕÁ}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¥˜ÍÕ™™¥á}İ¥Ñ¡½ÕÑ}É•µ¥¹‘•È¹ÍÑÉ¥À ¤•±Í”9½¹”(€€€€€€€€¤(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ôÑÕÁ±” (€€€€€€€€€€€É•…Í½¸(€€€€€€€€€€€™½ÈÉ•…Í½¸¥¸€ (€€€€€€€€€€€€€€€ÁÉ½É…´¹Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸°(€€€€€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€€€€€€€€™½±±½İÕÁ}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜É•…Í½¸¥Ì¹½Ğ9½¹”(€€€€€€€€¤(€€€€€€€½Ù•É…”€ôM•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€ƒ}5¶‰ËkºwµçG¶ÖF6‚æw&÷W‚v¶W—v÷&Br—ÕÂâ"Âg&vÖVçBÂ&Rä¢“ ¢Æ–6&–Æ—G’Ò7G&–¶TÆ–6&–Æ—G’å4TÄeôEU$”äuô4ôåE$ôÄÄU%õEU$à¢VÆ–b&RægVÆÆÖF6‚€¢&b$GF6¶–ær7&VGW&W2–÷R6öçG&öÂ†fR¶ÖF6‚æw&÷W‚v¶W—v÷&Br—ÕÂâ"Âg&vÖVçBÂ&Rä¢“ ¢Æ–6&–Æ—G’Ò7G&–¶TÆ–6&–Æ—G’äED4´”äuô5$TEU$U5õ”õUô4ôåE$ôÀ¢VÇ6S ¢Æ–6&–Æ—G’ÒæöæP¢&WGW&â7G&–¶U&öw&Ò†¶W—v÷&BÂÆ–6&–Æ—G’ ¢FVb7G&–¶U÷6VÖçF–5ö6÷fW&vR€¢6VÆbÂ6&C¢6&DFVf–æ—F–öâÂg&vÖVçC¢7G ¢’Óâ–çFW'&WFVE7G&–¶U6VÖçF–72ÂæöæS ¢""$¶VW6öÖ&B×7FWÖV6†æ–726W&FRg&öÒw&çG2æB7W'&÷VæF–ær6VÖçF–72â"" ¢&öw&ÒÒ6VÆbç7G&–¶U÷&öw&Ò†g&vÖVçB¢–b&öw&Ò—2æöæS ¢&WGW&âæöæP¢ÖF6‚Ò6VÆbå5E$”´Uô´U•tõ$Bç6V&6‚†g&vÖVçB¢76W'BÖF6‚—2æ÷BæöæP¢–b&öw&ÒæÆ–6&–Æ—G’—2æ÷BæöæS ¢&VçEöW†V7WF&ÆRÒG'VP¢&VçEöÆ–Ö—FF–öâÒæöæP¢VÆ–b&Rç6V&6‚‡"%Æ$WV—VB7&VGW&UÆ""Âg&vÖVçBÂ&Rä’“ ¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒ'7G&–¶UöGF6†ÖVçEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB ¢VÆ–b#¢"–âg&vÖVçE³¢ÖF6‚ç7F'B‚•Ó ¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒ'7G&–¶Uö7F—fF–öåö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB ¢VÆ–b&RæÖF6‚‡"%âƒó¥v†VçÅv†VæWfW'ÄB’"Âg&vÖVçBÂ&Rä’“ ¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒ'7G&–¶U÷G&–vvW%ö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB ¢VÆ–b&RæÖF6‚‡"%âƒó¤6†ö÷6RöæWÎ(
-'ÅF&vWB’"Âg&vÖVçBÂ&Rä’“ ¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒ'7G&–¶U÷FV×÷&'•öw&çEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB ¢VÇ6S ¢&VçEöW†V7WF&ÆRÒfÇ6P¢&VçEöÆ–Ö—FF–öâÒ'7G&–¶U÷&VçEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVEš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH‚‚ˆİY™š^Hœ˜YÛY[ÛX]Ú™[™
+        if alliance_mode or direct_creature_etb:
+            parent_executable = True
+            parent_limitation = None
+        elif re.search(r"\bif\b", prefix, re.I):
+            parent_executable = False
+            parent_limitation = "scry_condition_context_not_implemented"
+        elif re.search(r"(?:^|\.\s+)(?:When|Whenever|At)\b", prefix, re.I):
+            parent_executable = False
+            parent_limitation = "scry_preceding_or_trigger_context_not_implemented"
+        elif ":" in prefix:
+            parent_executable = False
+            parent_limitation = "scry_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At |Disappear)", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "scry_preceding_or_trigger_context_not_implemented"
+        elif fragment.startswith("â€¢ "):
+            parent_executable = False
+            parent_limitation = "scry_choice_context_not_implemented"
+        elif prefix.strip():
+            parent_executable = False
+            parent_limitation = "scry_preceding_effect_not_implemented"
+        else:
+            parent_executable = True
+            parent_limitation = None
 
-H—BˆİY™š^İÚ]İ]Ü™[Z[™\—ÛÜ—Ù\˜][ÛˆH™KœİXŠˆˆ—ŠÎˆ[[[™Ùˆ\›ŠO×ÊÎ—Ê—
-×ŠWJ—
-JO×É‹ˆ‹İY™š^›YÜÏ\™K’Bˆ
-Bˆ›Ûİİ\Û[Z]][ÛˆH
-ˆœİšZÙWÙ›Ûİİ\ÜÙ[X[XÜ×Û›İÚ[\[Y[Y‚ˆYˆİY™š^İÚ]İ]Ü™[Z[™\—ÛÜ—Ù\˜][Û‹œİš\
+        suffix = fragment[match.end() :]
+        suffix_without_reminder = re.sub(
+            r"^\.?(?:\s*\((?:Look at|You may put)[\s\S]*\))?\.?$", "", suffix, flags=re.I
+        )
+        followup_limitation = (
+            "scry_followup_semantics_not_implemented" if suffix_without_reminder.strip() else None
+        )
+        limitations = tuple(
+            reason
+            for reason in (
+                program.unsupported_reason,
+                parent_limitation,
+                followup_limitation,
+            )
+            if reason is not None
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_limitation is None,
+            limitations,
+        )
+        return InterpretedScrySemantics(program, coverage, parent_limitation)
 
-Bˆ[ÙH›Û™Bˆ
-Bˆ[Z]][ÛœÈH\Jˆ™X\ÛÛˆ›Üˆ™X\ÛÛˆ[ˆ
-\™[Û[Z]][Û‹›Ûİİ\Û[Z]][ÛŠHYˆ™X\ÛÛˆ\È›İ›Û™Bˆ
-BˆÛİ™\˜YÙHHÙ[X[XĞÛİ™\˜YÙJˆ›ÙÜ˜[K™^Xİ]X›Kˆ\™[Ù^Xİ]X›Kˆ›Ûİİ\Û[Z]][Ûˆ\È›Û™Kˆ[Z]][ÛœËˆ
-Bˆ™]\›ˆ[\œ™]YİšZÙTÙ[X[XÜÊ›ÙÜ˜[KÛİ™\˜YÙK\™[Û[Z]][ÛŠB‚ˆYˆ˜[\WÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]Y˜[\TÙ[X[XÜÈ›Û™N‚ˆˆˆ”™XÛÙÛš^™H˜[\HÚ[HÙY\[™ÈÜ˜[È[™\™[[]™\H[œİ\ÜYˆˆˆ‚ˆ[Ø\™ˆX]ÚHÙ[‹•STWÒÑVUÓÔ‘œÙX\˜Ú
-œ˜YÛY[
-BˆYˆX]Ú\È›Û™N‚ˆ™]\›ˆ›Û™Bˆ™[Z[™\ˆH™KœİXŠˆ—Ê—
-×ŠWJ—
-WÉ‹ˆ‹œ˜YÛY[
-Kœİš\
+    def strike_program(self, fragment: str) -> StrikeProgram | None:
+        """Recognize First/Double Strike without treating its parent as executable."""
+        match = self.STRIKE_KEYWORD.search(fragment)
+        if match is None:
+            return None
+        keyword = (
+            StrikeKeyword.FIRST_STRIKE
+            if match.group("keyword").casefold() == "first strike"
+            else StrikeKeyword.DOUBLE_STRIKE
+        )
+        reminder = r"(?:\s*\([^)]*\))?\.?"
+        if re.fullmatch(rf"{match.group('keyword')}{reminder}", fragment, re.I):
+            applicability = StrikeApplicability.SELF
+        elif re.fullmatch(
+            rf"During your turn, this creature has {match.group('keyword')}\.", fragment, re.I
+        ):
+            applicability = StrikeApplicability.SELF_DURING_CONTROLLER_TURN
+        elif re.fullmatch(
+            rf"Attacking creatures you control have {match.group('keyword')}\.", fragment, re.I
+        ):
+            applicability = StrikeApplicability.ATTACKING_CREATURES_YOU_CONTROL
+        else:
+            applicability = None
+        return StrikeProgram(keyword, applicability)
 
-Kœœİš\
-‹ˆŠBˆÙ^]ÛÜ™Ü\ÈH\Jˆ\œİš\
+    def strike_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStrikeSemantics | None:
+        """Keep combat-step mechanics separate from grants and surrounding semantics."""
+        program = self.strike_program(fragment)
+        if program is None:
+            return None
+        match = self.STRIKE_KEYWORD.search(fragment)
+        assert match is not None
+        if program.applicability is not None:
+            parent_executable = True
+            parent_limitation = None
+        elif re.search(r"\bEquipped creature\b", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_attachment_context_not_implemented"
+        elif ":" in fragment[: match.start()]:
+            parent_executable = False
+            parent_limitation = "strike_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_trigger_context_not_implemented"
+        elif re.match(r"^(?:Choose one|â€¢|Target )", fragment, re.I):
+            parent_executable = False
+            parent_limitation = "strike_temporary_grant_context_not_implemented"
+        else:
+            parent_executable = False
+            parent_limitation = "strike_parent_context_not_implemented"
 
-K˜Ø\ÙY›Û
+        suffix = fragment[match.end() :]
+        suffix_without_reminder_or_duration = re.sub(
+            r"^(?: until end of turn)?\.?(?:\s*\([^)]*\))?\.?$", "", suffix, flags=re.I
+        )
+        followup_limitation = (
+            "strike_followup_semantics_not_implemented"
+            if suffix_without_reminder_or_duration.strip()
+            else None
+        )
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_limitation is None,
+            limitations,
+        )
+        return InterpretedStrikeSemantics(program, coverage, parent_limitation)
 
-H›Üˆ\[ˆ™KœÜ]
-ˆ‹ÊŠÎ˜[™ÊÊOßÊØ[™ÊÈ‹™[Z[™\ŠBˆ
-BˆÙ[—Üİ]XÈH˜[\Hˆ[ˆÙ^]ÛÜ™Ü\È[™[
-ˆ\[ˆÙ[‹”ÕUP×ÒÑVUÓÔ‘ÓSQTÈ›Üˆ\[ˆÙ^]ÛÜ™Ü\Âˆ
-BˆX]İXÚÛ[ÙYšYYHÙ[—Üİ]XÈ[™™X]İXÚˆ[ˆÙ^]ÛÜ™Ü\ÂˆYˆÙ[—Üİ]XÎ‚ˆ\™[Û[Z]][ÛˆH›Û™Bˆ[Yˆ™KœÙX\˜Ú
-ˆ—‘\]Z\YÜ™X]\™WŸ™[˜Ú[YÜ™X]\™Wˆ‹œ˜YÛY[™K’JN‚ˆ\™[Û[Z]][ÛˆH˜[\WØ]XÚY[ØÛÛ^Û›İÚ[\[Y[Y‚ˆ[Yˆˆˆ[ˆœ˜YÛY[ÎˆX]7Ó[h‘éì¶»§q«^t else None,
+    def trample_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTrampleSemantics | None:
+        """Recognize Trample while keeping grants and parent delivery unsupported."""
+        del card
+        match = self.TRAMPLE_KEYWORD.search(fragment)
+        if match is None:
+            return None
+        reminder = re.sub(r"\s*\([^)]*\)\.?$", "", fragment).strip().rstrip(".")
+        keyword_parts = tuple(
+            part.strip().casefold() for part in re.split(r",\s*(?:and\s+)?|\s+and\s+", reminder)
+        )
+        self_static = "trample" in keyword_parts and all(
+            part in self.STATIC_KEYWORD_NAMES for part in keyword_parts
+        )
+        deathtouch_modified = self_static and "deathtouch" in keyword_parts
+        if self_static:
+            parent_limitation = None
+        elif re.search(r"\bEquipped creature\b|\benchanted creature\b", fragment, re.I):
+            parent_limitation = "trample_attachment_context_not_implemented"
+        elif ":" in fragment[: match.start()]:
+            parent_limitation = "trample_activation_context_not_implemented"
+        elif re.match(r"^(?:When|Whenever|At |Alliance)", fragment, re.I):
+            parent_limitation = "trample_trigger_context_not_implemented"
+        elif re.match(r"^(?:Choose one|â€¢|Target )", fragment, re.I):
+            parent_limitation = "trample_choice_or_grant_context_not_implemented"
+        else:
+            parent_limitation = "trample_parent_context_not_implemented"
+        unsupported_companions = tuple(
+            part for part in keyword_parts if part not in {"trample", "haste"}
+        )
+        followup_limitation = (
+            "trample_followup_semantics_not_implemented" if unsupported_companions else None
+        )
+        limitations = tuple(
+            reason
+            for reason in (
+                "trample_deathtouch_lethal_not_implemented" if deathtouch_modified else None,
                 parent_limitation,
                 followup_limitation,
             )
@@ -519,55 +1937,182 @@ BˆX]İXÚÛ[ÙYšYYHÙ[—Üİ]XÈ[™™X]İXÚˆ[ˆÙ^]ÛÜ™Ü\Âˆ
         elif re.search(r"\b(?:gains?|has)\b", fragment[: match.start()], re.I):
             parent_limitation = "lifelink_grant_context_not_implemented"
         else:
-   YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸€ô€‰±¥™•±¥¹­}Á…É•¹Ñ}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€™½±±½İÕÁ}±¥µ¥Ñ…Ñ¥½¸€ô9½¹”¥˜Í•±™}ÍÑ…Ñ¥Œ•±Í”€‰±¥™•±¥¹­}½µÁ½Õ¹‘}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ôÑÕÁ±” (€€€€€€€€€€€É•…Í½¸™½ÈÉ•…Í½¸¥¸€¡Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸°™½±±½İÕÁ}±¥µ¥Ñ…Ñ¥½¸¤¥˜É•…Í½¸¥Ì¹½Ğ9½¹”(€€€€€€€€¤(€€€€€€€ÁÉ½É…´€ô1¥™•±¥¹­AÉ½É…´¡Í•±™}ÍÑ…Ñ¥Œ¤(€€€€€€€É•ÑÕÉ¸%¹Ñ•ÉÁÉ•Ñ•‘1¥™•±¥¹­M•µ…¹Ñ¥Ì (€€€€€€€€€€€ÁÉ½É…´°(€€€€€€€€€€€M•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€€€€€Á…å±½…‘}•á•ÕÑ…‰±”õÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”õÍ•±™}ÍÑ…Ñ¥Œ°(€€€€€€€€€€€€€€€™½±±½İÕÁ}•á•ÕÑ…‰±”õ™½±±½İÕÁ}±¥µ¥Ñ…Ñ¥½¸¥Ì9½¹”°(€€€€€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ìõ±¥µ¥Ñ…Ñ¥½¹Ì°(€€€€€€€€€€€€¤°(€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€¤((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}Ñ½Á}±•Ù•±}½±½¸¡™É…µ•¹ĞèÍÑÈ¤€´ø¥¹Ğğ9½¹”è(€€€€€€€‘•ÁÑ €ô€À(€€€€€€€ÅÕ½Ñ•€ô…±Í”(€€€€€€€™½È¥¹‘•à°¡…É…Ñ•È¥¸•¹Õµ•É…Ñ”¡™É…µ•¹Ğ¤è(€€€€€€€€€€€¥˜¡…É…Ñ•È€ôô€œˆœè(€€€€€€€€€€€€€€€ÅÕ½Ñ•€ô¹½ĞÅÕ½Ñ•(€€€€€€€€€€€•±¥˜¹½ĞÅÕ½Ñ•…¹¡…É…Ñ•È€ôô€ˆ ˆè(€€€€€€€€€€€€€€€‘•ÁÑ €¬ô€Ä(€€€€€€€€€€€•±¥˜¹½ĞÅÕ½Ñ•…¹¡…É…Ñ•È€ôô€ˆ¤ˆè(€€€€€€€€€€€€€€€‘•ÁÑ €ôµ…à À°‘•ÁÑ €´€Ä¤(€€€€€€€€€€€•±¥˜¡…É…Ñ•È€ôô€ˆèˆ…¹¹½ĞÅÕ½Ñ•…¹‘•ÁÑ €ôô€Àè(€€€€€€€€€€€€€€€É•ÑÕÉ¸¥¹‘•à(€€€€€€€É•ÑÕÉ¸9½¹”((€€€‘•˜…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}Í•µ…¹Ñ¥Ì (€€€€€€€Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸°™É…µ•¹ĞèÍÑÈ(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘Ñ¥Ù…Ñ•‘‰¥±¥ÑåM•µ…¹Ñ¥Ìğ9½¹”è(€€€€€€€€ˆˆ‰I•½¹¥é”…Ñ¥Ù…Ñ•Íå¹Ñ…àİ¥Ñ¡½ÕĞÕÁÉ…‘¥¹œÕ¹ÍÕÁÁ½ÉÑ•½ÍÑÌ½È¡¥±‘É•¸¸ˆˆˆ(€€€€€€€±…¹‘å±¥¹œ€ôÍ•±˜¹19e1%9¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¹ÍÑÉ¥À ¤¤(€€€€€€€¥˜±…¹‘å±¥¹œ¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€½ÍĞ€ô±…¹‘å±¥¹œ¹É½ÕÀ ‰½ÍĞˆ¤(€€€€€€€€€€€±…¹€ô±…¹‘å±¥¹œ¹É½ÕÀ ‰±…¹ˆ¤(€€€€€€€€€€€…ÉÑ¥±”€ô€‰…¸ˆ¥˜±…¹‘lÁt¹…Í•™½± ¤¥¸€‰…•¥½Ôˆ•±Í”€‰„ˆ(€€€€€€€€€€€ÁÉ½É…´€ôÑ¥Ù…Ñ•‘‰¥±¥ÑåAÉ½É…´ (€€€€€€€€€€€€€€€˜‰í½ÍÑô³}5¶‰ËkºwµçBÆ–Ö—FF–öç2Ò‚’–bW†V7WF&ÆRVÇ6R‚&WV—ÖVçE÷6÷W&6Uö÷%÷6†Uöæ÷E÷7W÷'FVB"Â¢&öw&ÒÒ7F—fFVD&–Æ—G•&öw&Ò€¢6÷7E÷FW‡BÀ¢$GF6‚FòF&vWB7&VGW&R–÷R6öçG&öÂâ"À¢7F—fF–öä6÷7E&öw&Ò†6÷7E÷FW‡BÂfÇ6RÂfÇ6RÂfÇ6RÂW†V7WF&ÆRÂÆ–Ö—FF–öç2’À¢7F—fFVDVffV7D¶–æBäED4…ôUT•ÔTåBÀ¢À¢fÇ6RÀ¢$WV—öæÇ’26÷&6W'’â"À¢¢&WGW&â–çFW'&WFVD7F—fFVD&–Æ—G•6VÖçF–72€¢&öw&ÒÀ¢6VÖçF–46÷fW&vR†W†V7WF&ÆRÂW†V7WF&ÆRÂW†V7WF&ÆRÂÆ–Ö—FF–öç2’À¢G'VRÀ¢W†V7WF&ÆRÀ¢W†V7WF&ÆRÀ¢W†V7WF&ÆRÀ¢W†V7WF&ÆRÀ¢W†V7WF&ÆRÀ¢¢–b#¢"æ÷B–âg&vÖVçC ¢&WGW&âæöæP¢6öÆöâÒ6VÆbå÷F÷öÆWfVÅö6öÆöâ†g&vÖVçB¢–b6öÆöâ—2æöæS ¢&öw&ÒÒ7F—fFVD&–Æ—G•&öw&Ò€¢""À¢g&vÖVçBÀ¢7F—fF–öä6÷7E&öw&Ò€¢""ÂfÇ6RÂfÇ6RÂfÇ6RÂfÇ6RÂ‚&7F—fF–öåöæW7FVEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB"Â¢’À¢7F—fFVDVffV7D¶–æBåTå5Uõ%DTBÀ¢À¢fÇ6RÀ¢¢6÷fW&vRÒ6VÖçF–46÷fW&vR€¢fÇ6RÀ¢fÇ6RÀ¢fÇ6RÀ¢‚&7F—fF–öåöæW7FVEö6öçFW‡Eöæ÷Eö–×ÆVÖVçFVB"Â’À¢¢&WGW&â–çFW'&WFVD7F—fFVD&–Æ—G•6VÖçF–72€¢&öw&ÒÂ6÷fW&vRÂG'VRÂfÇ6RÂfÇ6RÂfÇ6RÂfÇ6RÂfÇ6P¢ ¢6÷7E÷FW‡BÒg&vÖVçE³¦6öÆöåÒç7G&—‚¢VffV7E÷FW‡BÒg&vÖVçE¶6öÆöâ²¥Òç7G&—‚¢6Æ75öÆWfVÂÒ€¢$6Æ72"–â6&BçG—UöÆ–æRæB6VÆbä5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍSTÔ×ÓU‘SÕT™[X]Ú
-œ˜YÛY[
-H\È›İ›Û™Bˆ
-BˆÛÜİÜ\ÈH\J\œİš\
+            parent_limitation = "lifelink_parent_context_not_implemented"
+        followup_limitation = None if self_static else "lifelink_compound_semantics_not_implemented"
+        limitations = tuple(
+            reason for reason in (parent_limitation, followup_limitation) if reason is not None
+        )
+        program = LifelinkProgram(self_static)
+        return InterpretedLifelinkSemantics(
+            program,
+            SemanticCoverage(
+                payload_executable=program.executable,
+                parent_executable=self_static,
+                followup_executable=followup_limitation is None,
+                limitations=limitations,
+            ),
+            parent_limitation,
+        )
 
-H›Üˆ\[ˆÛÜİİ^œÜ]
-‹ŠHYˆ\œİš\
+    @staticmethod
+    def _top_level_colon(fragment: str) -> int | None:
+        depth = 0
+        quoted = False
+        for index, character in enumerate(fragment):
+            if character == '"':
+                quoted = not quoted
+            elif not quoted and character == "(":
+                depth += 1
+            elif not quoted and character == ")":
+                depth = max(0, depth - 1)
+            elif character == ":" and not quoted and depth == 0:
+                return index
+        return None
 
-JBˆ\ÜÛİ\˜ÙHHÕHˆ[ˆÜ\\\Š
-H›Üˆ\[ˆÛÜİÜ\ßBˆØ[›ÛšXØ[Ù›ÛÙH›ÛÛ
-ˆÙ[‹—Ú\×ØØ[›ÛšXØ[Ù›ÛÙÜÛİ\˜ÙJØ\™
-Bˆ[™Ù[‹‘“ÓÑĞPÕUUSÓ‹™[X]Ú
-œ˜YÛY[œİš\
+    def activated_ability_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedActivatedAbilitySemantics | None:
+        """Recognize activated syntax without upgrading unsupported costs or children."""
+        landcycling = self.LANDCYCLING.fullmatch(fragment.strip())
+        if landcycling is not None:
+            cost = landcycling.group("cost")
+            land = landcycling.group("land")
+            article = "an" if land[0].casefold() in "aeiou" else "a"
+            program = ActivatedAbilityProgram(
+                f"{cost}, Discard this card",
+                f"Search your library for {article} {land} card, reveal it, "
+                "put it into your hand, then shuffle.",
+                ActivationCostProgram(cost, False, False, False, True, discard_source=True),
+                ActivatedEffectKind.SEARCH_LAND_TYPE,
+                0,
+                False,
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program, SemanticCoverage(True, True, True), True, True, True, True, True, True
+            )
+        equip = self.EQUIP_ACTIVATION.fullmatch(fragment.strip())
+        if equip is not None:
+            cost_text = equip.group("cost")
+            requirement = bool(re.fullmatch(r"\{(?:[0-9]+|[WUBRG])\}", cost_text, re.I))
+            executable = (
+                "Equipment" in card.type_line and requirement and equip.group("nested") is not None
+            )
+            limitations = () if executable else ("equipment_source_or_shape_not_supported",)
+            program = ActivatedAbilityProgram(
+                cost_text,
+                "Attach to target creature you control.",
+                ActivationCostProgram(cost_text, False, False, False, executable, limitations),
+                ActivatedEffectKind.ATTACH_EQUIPMENT,
+                1,
+                False,
+                "Equip only as a sorcery.",
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program,
+                SemanticCoverage(executable, executable, executable, limitations),
+                True,
+                executable,
+                executable,
+                executable,
+                executable,
+                executable,
+            )
+        if ":" not in fragment:
+            return None
+        colon = self._top_level_colon(fragment)
+        if colon is None:
+            program = ActivatedAbilityProgram(
+                "",
+                fragment,
+                ActivationCostProgram(
+                    "", False, False, False, False, ("activation_nested_context_not_implemented",)
+                ),
+                ActivatedEffectKind.UNSUPPORTED,
+                0,
+                False,
+            )
+            coverage = SemanticCoverage(
+                False,
+                False,
+                False,
+                ("activation_nested_context_not_implemented",),
+            )
+            return InterpretedActivatedAbilitySemantics(
+                program, coverage, True, False, False, False, False, False
+            )
 
-JBˆ
-Bˆ]]YÙ[—ÜÛİ\˜ÙHH›ÛÛ
-ˆ\Y˜Xİˆ[ˆØ\™\WÛ[™Bˆ[™Ù[‹ÓÕS•T—ÕÒÑS—ĞPÕUUSÓ‹™[X]Ú
-œ˜YÛY[œİš\
-
-JBˆ
-Bˆœ›Ù×Ü™XXÚH
-ˆØ\™›˜[YHOH‘œ›ÙÈ]\ˆ‚ˆ[™œ˜YÛY[œİš\
-
-HOHÌŸNˆ\ÈÜ™X]\™HØZ[œÈ™XXÚ[[[™Ùˆ\›‹ˆ‚ˆ
-Bˆœ›Ù×ÛX[˜HH
-ˆØ\™›˜[YHOH‘œ›ÙÈ]\ˆˆ[™œ˜YÛY[œİš\
-
-HOHÕNˆYÛ™HX[˜HÙˆ[HÛÛÜ‹ˆ‚ˆ
-Bˆ[›™[Ü˜]×Ü™]\›ˆH
-ˆØ\™›˜[YHOH•[›™[˜]È‚ˆ[™œ˜YÛY[œİš\
-
-BˆOHÍ^ĞŸNˆ™]\›ˆ\ÈØ\™œ›ÛH[İ\ˆÜ˜]™^X\™ÈH˜]YšY[\Yˆ‚ˆ
-Bˆ™[[İ™WØÛİ[\—İ\™Ù]H[Jˆ\˜Ø\ÙY›Û
-
-HOHœ™[[İ™HH
-ÌKÊÌHÛİ[\ˆœ›ÛHHÜ™X]\™H[İHÛÛ›Û‚ˆ›Üˆ\[ˆÛÜİÜ\Âˆ
-BˆØXÜšYšXÙWÜÛİ\˜ÙHH[Jˆ\˜Ø\ÙY›Û
-
-Bˆ[ˆÈœØXÜšYšXÙH\ÈÚÙ[ˆ‹œØXÜšYšXÙH\ÈÜ™X]\™H‹œØXÜšYšXÙH\È\Y˜XİŸBˆ›Üˆ\[ˆÛÜİÜ\Âˆ
-H[™
-ˆØ[›ÛšXØ[Ù›ÛÙˆÜˆ]]YÙ[—ÜÛİ\˜ÙBˆÜˆÙ[‹‘•QÒUU‘WĞÓÕS•T‹™[X]Ú
-œ˜YÛY[œİš\
-
-JH\È›İ›Û™Bˆ
-BˆX[˜WÜ\ÈH\Jˆ\ˆ›Üˆ\[ˆÛÜİÜ\ÂˆYˆ\\\Š
-HOHÕH‚ˆ[™›İ
-ˆØXÜšYšXÙWÜÛİ\˜ÙBˆ[™\˜Ø\ÙY›Û
-
-Bˆ[ˆÈœØXÜšYšXÙH\ÈÚÙ[ˆ‹œØXÜšYšXÙH\È÷Ó[h‘éì¶»§q«^t      and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
+        cost_text = fragment[:colon].strip()
+        effect_text = fragment[colon + 1 :].strip()
+        class_level = (
+            "Class" in card.type_line and self.CLASS_LEVEL_UP.fullmatch(fragment) is not None
+        )
+        cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
+        tap_source = "{T}" in {part.upper() for part in cost_parts}
+        canonical_food = bool(
+            self._is_canonical_food_source(card)
+            and self.FOOD_ACTIVATION.fullmatch(fragment.strip())
+        )
+        mutagen_source = bool(
+            "Artifact" in card.type_line
+            and self.COUNTER_TOKEN_ACTIVATION.fullmatch(fragment.strip())
+        )
+        frog_reach = (
+            card.name == "Frog Butler"
+            and fragment.strip() == "{2}: This creature gains reach until end of turn."
+        )
+        frog_mana = (
+            card.name == "Frog Butler" and fragment.strip() == "{T}: Add one mana of any color."
+        )
+        tunnel_rats_return = (
+            card.name == "Tunnel Rats"
+            and fragment.strip()
+            == "{4}{B}: Return this card from your graveyard to the battlefield tapped."
+        )
+        remove_counter_target = any(
+            part.casefold() == "remove a +1/+1 counter from a creature you control"
+            for part in cost_parts
+        )
+        sacrifice_source = any(
+            part.casefold()
+            in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
+            for part in cost_parts
+        ) and (
+            canonical_food
+            or mutagen_source
+            or self.FUGITIVE_COUNTER.fullmatch(fragment.strip()) is not None
+        )
+        mana_parts = tuple(
+            part
+            for part in cost_parts
+            if part.upper() != "{T}"
+            and not (
+                sacrifice_source
+                and part.casefold()
+                in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
+            )
+            and not (
+                remove_counter_target
+                and part.casefold() == "remove a +1/+1 counter from a creature you control"
+            )
+        )
+        mana_cost = "".join(mana_parts)
+        fixed_mana = all(
+            "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) == part for part in mana_parts
+        )
+        unsupported_cost_parts = tuple(
+            part
+            for part in cost_parts
+            if part.upper() != "{T}"
+            and not (
+                sacrifice_source
+                and part.casefold()
+                in {"sacrifice this token", "sacrifice this creature", "sacrifice this artifact"}
+            )
+            and not (
+                remove_counter_target
+                and part.casefold() == "remove a +1/+1 counter from a creature you control"
+            )
+            and "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) != part
         )
         cost_limitations: list[str] = []
         if unsupported_cost_parts:
@@ -606,23 +2151,180 @@ Bˆ[ˆÈœØXÜšYšXÙH\ÈÚÙ[ˆ‹œØXÜšYšXÙH\È÷Ó[h‘éì¶»§q«^t    
             effect_kind = ActivatedEffectKind.ADVANCE_CLASS_LEVEL
             action_match = True
         elif counter_target:
-            self_reference = "sacrifice this creYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ…ÑÕÉ”ˆ¥¸½ÍÑ}Ñ•áĞ¹…Í•™½± ¤(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹=U9QI}QIQ}MA10(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±Í”è(€€€€€€€€€€€™¥ÉÍÑ}ÍÑÉ¥­”€ôÉ”¹µ…Ñ  (€€€€€€€€€€€€€€€É˜‰yíÍ•±™}É•™•É•¹•ô…¥¹Ì™¥ÉÍĞÍÑÉ¥­”Õ¹Ñ¥°•¹½˜ÑÕÉ¹p¸ ı@ñ™½±±½İÕÀø¸¨¤ˆ°(€€€€€€€€€€€€€€€Í•µ…¹Ñ¥}•™™•Ğ°(€€€€€€€€€€€€€€€É”¹$°(€€€€€€€€€€€€¤(€€€€€€€É•ÑÕÉ¹}Í•µ…¹Ñ¥Ì€ôÍ•±˜¹É•ÑÕÉ¹}Ñ½}¡…¹‘}Í•µ…¹Ñ¥Ì¡…É°™É…µ•¹Ğ¤(€€€€€€€Ñ…É•Ñ•‘}É•ÑÕÉ¸€ô‰½½° (€€€€€€€€€€€É•ÑÕÉ¹}Í•µ…¹Ñ¥Ì¥Ì¹½Ğ9½¹”…¹É•ÑÕÉ¹}Í•µ…¹Ñ¥Ì¹½Ù•É…”¹Á…å±½…‘}•á•ÕÑ…‰±”(€€€€€€€€¤(€€€€€€€¥˜±…ÍÍ}±•Ù•°è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹Y9}1MM}1Y0(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜½Õ¹Ñ•É}Ñ…É•Ğè(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹=U9QI}QIQ}MA10(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜™É½}É•… è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I9Q}I!}U9Q%1}=P(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜™É½}µ…¹„è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹}9e}=1=I}59(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜ÑÕ¹¹•±}É…ÑÍ}É•ÑÕÉ¸è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹IQUI9}M1}I=5}IYeI}QAA(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜µÕÑ…•¹}Í½ÕÉ”è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹5UQ9}=U9QH(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜É…å}™¥±±•ÑÌè(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I]}I(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜Ñ½­•¹}¡…ÍÑ”è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I9Q}Q=-9}!MQ}U9Q%1}=P(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ôQÉÕ”(€€€€€€€•±¥˜™¥ÉÍÑ}ÍÑÉ¥­”è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I9Q}M1}%IMQ}MQI%-}U9Q%1}=P(€€€€€€€€€€€…Ñ¥½¹}µ…Ñ €ô™¥ÉÍÑ}ÍÑÉ¥­”(€€€€€€€•±¥˜Ñ…É•Ñ•‘}É•ÑÕÉ¸è(€€€€€€€€€€€•™™•Ñ}­¥¹€ôÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹IQUI9}9=Q!I}K}5¶‰ËkºwµçfvWFVE÷&WGW&âæB&WGW&å÷6VÖçF–72—2æ÷BæöæP¢VÇ6R–ç7G'V7F–öç2—2æöæR÷"g&öuöÖæ÷"g&öu÷&V6‚÷"×WFvVå÷6÷W&6P¢¢F&vWG5ö6†ö–6W5öW†V7WF&ÆRÒæ÷B6†ö–6W5÷&WV—&VBæB€¢F&vWEö6÷VçBÓÒ ¢÷"&ööÂ‡F&vWFVE÷&WGW&â÷"6÷VçFW%÷F&vWB÷"×WFvVå÷6÷W&6R¢æBF&vWEö6÷VçBÓÒ¢¢–bF&vWFVE÷&WGW&âæB&WGW&å÷6VÖçF–72—2æ÷BæöæS ¢föÆÆ÷wWöW†V7WF&ÆRÒ&WGW&å÷6VÖçF–72æ6÷fW&vRæföÆÆ÷wWöW†V7WF&ÆP¢VÆ–b€¢6æöæ–6Åöföö@¢÷"6÷VçFW%÷F&vW@¢÷"g&öuöÖæ¢÷"g&öu÷&V6€¢÷"GVææVÅ÷&G5÷&WGW&à¢÷"×WFvVå÷6÷W&6P¢÷"&•öf–ÆÆWG0¢÷"Fö¶Våö†7FP¢÷"6Æ75öÆWfVÀ¢“ ¢föÆÆ÷wWöW†V7WF&ÆRÒ&ööÂ†7F–öåöÖF6‚¢VÇ6S ¢föÆÆ÷wWöW†V7WF&ÆRÒ&ööÂ†7F–öåöÖF6‚’æBæ÷B7F–öåöÖF6‚æw&÷W‚&föÆÆ÷wW"’ç7G&—‚ ¢Æ–Ö—FF–öç2ÒÆ—7B†6÷7EöÆ–Ö—FF–öç2¢–bF&vWFVE÷&WGW&âæB&WGW&å÷6VÖçF–72—2æ÷BæöæS ¢Æ–Ö—FF–öç2æW‡FVæB‡&WGW&å÷6VÖçF–72æÆ–Ö—FF–öç2¢–bæ÷BF&vWG5ö6†ö–6W5öW†V7WF&ÆS ¢Æ–Ö—FF–öç2æVæB‚&7F—fF–öå÷F&vWG5ö6†ö–6W5öæ÷Eö–×ÆVÖVçFVB"¢–bæ÷B6†–ÆE÷–ÆöEöW†V7WF&ÆS ¢Æ–Ö—FF–öç2æVæB‚&7F—fF–öåö6†–ÆE÷6VÖçF–75öæ÷Eö–×ÆVÖVçFVB"¢VÆ–bæ÷BföÆÆ÷wWöW†V7WF&ÆRæBæ÷BF&vWFVE÷&WGW&ã ¢Æ–Ö—FF–öç2æVæB‚&7F—fF–öåöföÆÆ÷wW÷6VÖçF–75öæ÷Eö–×ÆVÖVçFVB"¢–b–ç7G'V7F–öç2—2æ÷BæöæRæBæ÷B7W÷'FVE÷GW&åö–ç7G'V7F–öâæBæ÷BF&vWFVE÷&WGW&ã ¢Æ–Ö—FF–öç2æVæB‚&7F—fF–öå÷F–Ö–æu÷&W7G&–7F–öåöæ÷Eö–×ÆVÖVçFVB"¢Æ–Ö—FF–öç2ÒÆ—7B†F–7Bæg&öÖ¶W—2†Æ–Ö—FF–öç2’¢&VçEöW†V7WF&ÆRÒ€¢7F—fF–öå÷&VçEöW†V7WF&ÆRæB6÷7G5öW…š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYXİ]X›H[™\™Ù]×ØÚÚXÙ\×Ù^Xİ]X›Bˆ
-BˆÛİ™\˜YÙHHÙ[X[XĞÛİ™\˜YÙJˆÚ[Ü^[ØYÙ^Xİ]X›Kˆ\™[Ù^Xİ]X›Kˆ›Ûİİ\Ù^Xİ]X›Kˆ\J[Z]][ÛœÊKˆ
-Bˆ›ÙÜ˜[HHXİ]˜]YXš[]T›ÙÜ˜[JˆÛÜİİ^ˆY™™Xİİ^ˆXİ]˜][ÛÛÜİ›ÙÜ˜[JˆX[˜WØÛÜİˆ\ÜÛİ\˜ÙKˆØXÜšYšXÙWÜÛİ\˜ÙKˆ™[[İ™WØÛİ[\—İ\™Ù]ˆÛÜİ×Ù^Xİ]X›Kˆ\JÛÜİÛ[Z]][ÛœÊKˆ
-KˆY™™XİÚÚ[™ˆ\™Ù]ØÛİ[ˆÚÚXÙ\×Ü™\]Z\™Yˆ[œİXİ[ÛœËˆ
-Bˆ™]\›ˆ[\œ™]YXİ]˜]YXš[]TÙ[X[XÜÊˆ›ÙÜ˜[KˆÛİ™\˜YÙKˆYKˆXİ]˜][Û—Ü\™[Ù^Xİ]X›KˆÛÜİ×Ù^Xİ]X›Kˆ\™Ù]×ØÚÚXÙ\×Ù^Xİ]X›KˆÚ[Ü^[ØYÙ^Xİ]X›Kˆ›Ûİİ\Ù^Xİ]X›Kˆ
-B‚ˆYˆ›ÛÙØXİ]˜][Û—ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]Y›ÛÙXİ]˜][Û”Ù[X[XÜÈ›Û™N‚ˆˆˆ”™XÛÙÛš^™HØ[›ÛšXØ[›ÛÙ\ÙHÚ]İ]\Ü˜Y[™È]Èİ\œ›İ[™[™ÈÛÛ^ˆˆˆ‚ˆX]ÚHÙ[‹‘“ÓÑĞPÕUUSÓ‹œÙX\˜Ú
-œ˜YÛY[
-BˆYˆX]Ú\È›Û™N‚ˆ™]\›ˆ›Û™BˆÚÙ[ˆHÙ[‹”‘QQ’S‘QÕÒÑS”ÖÈ™›ÛÙ—BˆXİ]˜][ÛˆHÙ[‹˜Xİ]˜]YØXš[]WÜÙ[X[XÜÊÚÙ[‹X]Ú™Ü›İ\
-
-JBˆ\ÜÙ\Xİ]˜][Ûˆ\È›İ›Û™BˆÚÙ[—ØÛÛ^HÙ[‹ÚÙ[—ÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆÚÙ[—ØÛÛ^\È›Û™H[™›İÙ[‹—Ú\×ØØ[›ÛšXØ[Ù›ÛÙÜÛİ\˜ÙJØ\™
-N‚ˆ™]\›ˆ›Û™BˆYˆÚÙ[—ØÛÛ^\È›Û™N‚ˆ\™[Ù^Xİ]X›HHœ˜YÛY[œİš\
+            self_reference = "sacrifice this creature" in cost_text.casefold()
+            effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        else:
+            first_strike = re.match(
+                rf"^{self_reference} gains first strike until end of turn\.(?P<followup>.*)$",
+                semantic_effect,
+                re.I,
+            )
+        return_semantics = self.return_to_hand_semantics(card, fragment)
+        targeted_return = bool(
+            return_semantics is not None and return_semantics.coverage.payload_executable
+        )
+        if class_level:
+            effect_kind = ActivatedEffectKind.ADVANCE_CLASS_LEVEL
+            action_match = True
+        elif counter_target:
+            effect_kind = ActivatedEffectKind.COUNTER_TARGET_SPELL
+            action_match = True
+        elif frog_reach:
+            effect_kind = ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
+            action_match = True
+        elif frog_mana:
+            effect_kind = ActivatedEffectKind.ADD_ANY_COLOR_MANA
+            action_match = True
+        elif tunnel_rats_return:
+            effect_kind = ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+            action_match = True
+        elif mutagen_source:
+            effect_kind = ActivatedEffectKind.MUTAGEN_COUNTER
+            action_match = True
+        elif ray_fillets:
+            effect_kind = ActivatedEffectKind.DRAW_CARD
+            action_match = True
+        elif token_haste:
+            effect_kind = ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT
+            action_match = True
+        elif first_strike:
+            effect_kind = ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
+            action_match = first_strike
+        elif targeted_return:
+            effect_kind = ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+            action_match = targeted_return
+        elif canonical_food and effect_text.casefold() == "you gain 3 life.":
+            effect_kind = ActivatedEffectKind.GAIN_THREE_LIFE
+            action_match = True
+        else:
+            effect_kind = ActivatedEffectKind.UNSUPPORTED
+            action_match = None
+        child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
+        supported_turn_instruction = bool(
+            (frog_mana or frog_reach or mutagen_source)
+            and instructions
+            or (
+                targeted_return
+                and instructions
+                and return_semantics is not None
+                and return_semantics.coverage.parent_executable
+            )
+        )
+        activation_parent_executable = (
+            return_semantics.coverage.parent_executable
+            if targeted_return and return_semantics is not None
+            else instructions is None or frog_mana or frog_reach or mutagen_source
+        )
+        targets_choices_executable = not choices_required and (
+            target_count == 0
+            or bool(targeted_return or counter_target or mutagen_source)
+            and target_count == 1
+        )
+        if targeted_return and return_semantics is not None:
+            followup_executable = return_semantics.coverage.followup_executable
+        elif (
+            canonical_food
+            or counter_target
+            or frog_mana
+            or frog_reach
+            or tunnel_rats_return
+            or mutagen_source
+            or ray_fillets
+            or token_haste
+            or class_level
+        ):
+            followup_executable = bool(action_match)
+        else:
+            followup_executable = bool(action_match) and not action_match.group("followup").strip()
 
-HOHX]Ú™Ü›İ\
-
-Bˆ›Ûİİ\Ù^Xİ]X›7Ó[h‘éì¶»§q«^u while bounding executable targets."""
+        limitations = list(cost_limitations)
+        if targeted_return and return_semantics is not None:
+            limitations.extend(return_semantics.limitations)
+        if not targets_choices_executable:
+            limitations.append("activation_targets_choices_not_implemented")
+        if not child_payload_executable:
+            limitations.append("activation_child_semantics_not_implemented")
+        elif not followup_executable and not targeted_return:
+            limitations.append("activation_followup_semantics_not_implemented")
+        if instructions is not None and not supported_turn_instruction and not targeted_return:
+            limitations.append("activation_timing_restriction_not_implemented")
+        limitations = list(dict.fromkeys(limitations))
+        parent_executable = (
+            activation_parent_executable and costs_executable and targets_choices_executable
+        )
+        coverage = SemanticCoverage(
+            child_payload_executable,
+            parent_executable,
+            followup_executable,
+            tuple(limitations),
+        )
+        program = ActivatedAbilityProgram(
+            cost_text,
+            effect_text,
+            ActivationCostProgram(
+                mana_cost,
+                tap_source,
+                sacrifice_source,
+                remove_counter_target,
+                costs_executable,
+                tuple(cost_limitations),
+            ),
+            effect_kind,
+            target_count,
+            choices_required,
+            instructions,
+        )
+        return InterpretedActivatedAbilitySemantics(
+            program,
+            coverage,
+            True,
+            activation_parent_executable,
+            costs_executable,
+            targets_choices_executable,
+            child_payload_executable,
+            followup_executable,
+        )
+
+    def food_activation_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedFoodActivationSemantics | None:
+        """Recognize canonical Food use without upgrading its surrounding context."""
+        match = self.FOOD_ACTIVATION.search(fragment)
+        if match is None:
+            return None
+        token = self.PREDEFINED_TOKENS["food"]
+        activation = self.activated_ability_semantics(token, match.group(0))
+        assert activation is not None
+        token_context = self.token_semantic_coverage(card, fragment)
+        if token_context is None and not self._is_canonical_food_source(card):
+            return None
+        if token_context is None:
+            parent_executable = fragment.strip() == match.group(0)
+            followup_executable = parent_executable
+            limitations: tuple[str, ...] = (
+                () if parent_executable else ("food_activation_context_not_implemented",)
+            )
+        else:
+            parent_executable = token_context.coverage.parent_executable
+            followup_executable = token_context.coverage.followup_executable
+            limitations = token_context.limitations
+        coverage = SemanticCoverage(
+            activation.coverage.payload_executable,
+            parent_executable,
+            followup_executable,
+            limitations,
+        )
+        return InterpretedFoodActivationSemantics(
+            activation.program,
+            coverage,
+            match.group(0),
+        )
+
+    def return_to_hand_semantics(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedReturnToHandSemantics | None:
+        """Recognize return-to-hand text broadly while bounding executable targets."""
         del card
         payload_pattern = re.compile(
             r"Return another target creature you control to (?:its|their) owner's hand",
@@ -661,26 +2363,183 @@ Bˆ›Ûİİ\Ù^Xİ]X›7Ó[h‘éì¶»§q«^u while bounding executable targets.
         following_semantics = semantic_clause.following_text
         preceding_executable = not self._meaningful_semantic_text(preceding_semantics)
         followup_executable = not self._meaningful_semantic_text(following_semantics)
-        cost_executYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ…‰±”€ô…±Í”(€€€€€€€¥˜½±½¸¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€½ÍÑ}Á…ÉÑÌ€ôÑÕÁ±”¡Á…ÉĞ¹ÍÑÉ¥À ¤™½ÈÁ…ÉĞ¥¸™É…µ•¹Ñlé½±½¹t¹ÍÁ±¥Ğ ˆ°ˆ¤¥˜Á…ÉĞ¹ÍÑÉ¥À ¤¤(€€€€€€€€€€€½ÍÑ}•á•ÕÑ…‰±”€ô…±° (€€€€€€€€€€€€€€€Á…ÉĞ¹ÕÁÁ•È ¤€ôô€‰íQôˆ½È€ˆˆ¹©½¥¸¡Í•±˜¹Q%YQ%=9}59}Me5	=0¹™¥¹‘…±°¡Á…ÉĞ¤¤€ôôÁ…ÉĞ(€€€€€€€€€€€€€€€™½ÈÁ…ÉĞ¥¸½ÍÑ}Á…ÉÑÌ(€€€€€€€€€€€€¤(€€€€€€€…Ñ¥Ù…Ñ¥½¹}½¹Ñ•áÑ}•á•ÕÑ…‰±”€ô‰½½° (€€€€€€€€€€€Á…å±½…(€€€€€€€€€€€…¹½±½¸¥Ì¹½Ğ9½¹”(€€€€€€€€€€€…¹½ÍÑ}•á•ÕÑ…‰±”(€€€€€€€€€€€…¹€ (€€€€€€€€€€€€€€€¥¹ÍÑÉÕÑ¥½¹Ì¥Ì9½¹”(€€€€€€€€€€€€€€€½ÈÉ”¹™Õ±±µ…Ñ ¡È‰Ñ¥Ù…Ñ”½¹±ä‘ÕÉ¥¹œå½ÕÈÑÕÉ¹p¸ˆ°¥¹ÍÑÉÕÑ¥½¹Ì°É”¹$¤(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ìè±¥ÍÑmÍÑÉt€ômt(€€€€€€€¥˜¹½ĞÁÉ½É…´¹•á•ÕÑ…‰±”è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰É•ÑÕÉ¹}Ñ…É•Ñ}Í¡…Á•}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€¥˜¹½Ğ…Ñ¥Ù…Ñ¥½¹}½¹Ñ•áÑ}•á•ÕÑ…‰±”è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰É•ÑÕÉ¹}Á…É•¹Ñ}½¹Ñ•áÑ}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€¥˜¹½ĞÁÉ••‘¥¹}•á•ÕÑ…‰±”è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰É•ÑÕÉ¹}ÁÉ••‘¥¹}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€¥˜¹½Ğ™½±±½İÕÁ}•á•ÕÑ…‰±”è(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì¹…ÁÁ•¹ ‰É•ÑÕÉ¹}™½±±½İÕÁ}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ¤(€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”€ô…Ñ¥Ù…Ñ¥½¹}½¹Ñ•áÑ}•á•ÕÑ…‰±”…¹ÁÉ••‘¥¹}•á•ÕÑ…‰±”(€€€€€€€½Ù•É…”€ôM•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€ÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”°(€€€€€€€€€€€™½±±½İÕÁ}•á•ÕÑ…‰±”°(€€€€€€€€€€€ÑÕÁ±”¡±¥µ¥Ñ…Ñ¥½¹Ì¤°(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸%¹Ñ•ÉÁÉ•Ñ•‘I•ÑÕÉ¹Q½!…¹‘M•µ…¹Ñ¥Ì (€€€€€€€€€€€ÁÉ½É…´°(€€€€€€€€€€€½Ù•É…”°(€€€€€€€€€€€±…ÕÍ”°(€€€€€€€€€€€ÁÉ••‘¥¹}Í•µ…¹Ñ¥Ì°(€€€€€€€€€€€™½±±½İ¥¹}Í•µ…¹Ñ¥Ì°(€€€€€€€€€€€ÁÉ••‘¥¹}•á•ÕÑ…‰±”°(€€€€€€€€€€€™½±±½İÕÁ}•á•ÕÑ…‰±”°(€€€€€€€€¤((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}µ•…¹¥¹™Õ±}Í•µ…¹Ñ¥}Ñ•áĞ¡Ñ•áĞèÍÑÈ¤€´ø‰½½°è(€€€€€€€€ˆˆ‰¥ÍÑ¥¹Õ¥Í ÁÕ¹ÑÕ…Ñ¥½¸ÍÕÉÉ½Õ¹‘¥¹œ„±…ÕÍ”™É½´Õ¹±…ÍÍ¥™¥•¥¹ÍÑÉÕÑ¥½¹Ì¸ˆˆˆ(€€€€€ƒ}5¶‰Ëkºwµçb&WGW&ä6ÆW6R€¢FW‡E¶ÖF6‚ç7F'B‚’¢VæEÒÀ¢ÖF6‚ç7F'B‚’À¢VæBÀ¢FW‡E³¢ÖF6‚ç7F'B‚•ÒÀ¢FW‡E¶VæC¥ÒÀ¢¢&WGW&âæöæP ¢µ$äuõ$Td”ÄÅôe$tÔTåBÒ€¢%v†Vâ·&ærVçFW'2Â–b–÷R†fRfWvW"F†âf÷W"6&G2–â†æBÂ ¢&G&r6&G2WVÂFòF†RF–ffW&Væ6Râ ¢ ¢7FF–6ÖWF†ö@¢FVb—5ö·&æu÷&Vf–ÆÅög&vÖVçB†g&vÖVçB“ ¢&WGW&â€¢—6–ç7Fæ6R†g&vÖVçBÂ7G"¢æB&RægVÆÆÖF6‚€¢"%v†Vââ²VçFW'2Â–b–÷R†fRfWvW"F†âf÷W"6&G2–â†æBÂ ¢"&G&r6&G2WVÂFòF†RF–ffW&Væ6UÂâ"À¢g&vÖVçBÀ¢¢—2æ÷BæöæP¢ ¢FVb·&æu÷&Vf–ÆÅ÷6VÖçF–5ö6÷fW&vR‡6VÆbÂ6&BÂg&vÖVçB“ ¢–bæ÷B6VÆbæ—5ö·&æu÷&Vf–ÆÅög&vÖVçB†g&vÖVçB’÷"æ÷B6&Bæ—5ö7&VGW&S ¢&WGW&âæöæP¢6÷W&6RÒg&vÖVçBç&VÖ÷fW&Vf—‚‚%v†Vâ"’ç7Æ—B‚"VçFW'2Â"Â•³Ğ¢–b6÷W&6Ræ÷B–â¶6&BææÖRÂ6&BææÖRç7Æ—B‚"Â"Â•³×Ó ¢&WGW&âæöæP¢&WGW&â6VÖçF–46÷fW&vR…G'VRÂG'VRÂG'VRÂ‚’ ¢Ô”ÄÅõD…$TUôe$tÔTåBÒ€¢%v†VâF†—27&VGW&RVçFW'2ÂÖ–ÆÂF‡&VR6&G2â ¢"…WBF†RF÷F‡&VR6&G2öb–÷W"Æ–'&'’–çFò–÷W"w&fW–&Bâ’ ¢ ¢FVbÖ–ÆÅ÷F‡&VU÷6VÖçF–5ö6÷fW&vR‡6VÆbÂ6&BÂg&vÖVçB“ ¢–b€¢g&vÖVçBÒ6VÆbäÔ”ÄÅõD…$TUôe$tÔTå@¢÷"$7&VGW&R"æ÷B–â6&BçG—UöÆ–æRç7Æ—B‚%ÇS#B"Â•³Òç7Æ—B‚¢“ ¢&WGW&âæöæP¢&WGW&â6VÖçF–46÷fW&vR…G'VRÂG'VRÂG'VRÂ‚’ ¢¥U%•õ$”uôe$tÔTåBÒ€¢%v†Vâ66W’¦öæW2VçFW'2ÂÆöö²BF†RF÷f÷W"6&G2öb–÷W"Æ–'&'’â ¢%–÷RÖ’&WfVÂâ'F–f7B6&Bg&öÒÖöærF†VÒæBWB—B–çFò–÷W"†æBâ ¢%WBF†R&W7BöâF†R&÷GFöÒöb–÷W"š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[Xœ˜\H[ˆH˜[™ÛHÜ™\‹ˆ‚ˆ
-B‚ˆYˆ\WÜšY×ÜÙ[X[X×ØÛİ™\˜YÙJÙ[‹Ø\™œ˜YÛY[
-N‚ˆYˆœ˜YÛY[OHÙ[‹’•T–WÔ’Q×Ñ”QÓQS•ÜˆÜ™X]\™Hˆ›İ[ˆØ\™\WÛ[™N‚ˆ™]\›ˆ›Û™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+        cost_executable = False
+        if colon is not None:
+            cost_parts = tuple(part.strip() for part in fragment[:colon].split(",") if part.strip())
+            cost_executable = all(
+                part.upper() == "{T}" or "".join(self.ACTIVATION_MANA_SYMBOL.findall(part)) == part
+                for part in cost_parts
+            )
+        activation_context_executable = bool(
+            payload
+            and colon is not None
+            and cost_executable
+            and (
+                instructions is None
+                or re.fullmatch(r"Activate only during your turn\.", instructions, re.I)
+            )
+        )
+        limitations: list[str] = []
+        if not program.executable:
+            limitations.append("return_target_shape_not_implemented")
+        if not activation_context_executable:
+            limitations.append("return_parent_context_not_implemented")
+        if not preceding_executable:
+            limitations.append("return_preceding_semantics_not_implemented")
+        if not followup_executable:
+            limitations.append("return_followup_semantics_not_implemented")
+        parent_executable = activation_context_executable and preceding_executable
+        coverage = SemanticCoverage(
+            program.executable,
+            parent_executable,
+            followup_executable,
+            tuple(limitations),
+        )
+        return InterpretedReturnToHandSemantics(
+            program,
+            coverage,
+            clause,
+            preceding_semantics,
+            following_semantics,
+            preceding_executable,
+            followup_executable,
+        )
 
-JB‚ˆ’QÒSS•WÑ”QÓQS•H
-ˆ•Ú[ˆØ\Ù^H›Û™\È[\œË˜]È™YHØ\™Ëˆ]H™YÚ[›š[™ÈÙˆ[İ\ˆ™^\ÙY\‚ˆ™\ØØ\™™YHØ\™È]˜[™ÛKˆ‚ˆ
-B‚ˆYˆšYÚ[[WÜÙ[X[X×ØÛİ™\˜YÙJÙ[‹Ø\™œ˜YÛY[
-N‚ˆYˆœ˜YÛY[OHÙ[‹•’QÒSS•WÑ”QÓQS•ÜˆÜ™X]\™Hˆ›İ[ˆØ\™\WÛ[™N‚ˆ™]\›ˆ›Û™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+    @staticmethod
+    def _meaningful_semantic_text(text: str) -> bool:
+        """Distinguish punctuation surrounding a clause from unclassified instructions."""
+        return bool(re.sub(r"[\s.;,:â€”â€“-]+", "", text))
 
-JB‚ˆU—Ñ“ÓÑÔÑPTÒÑ”QÓQS•H
-ˆ•Ú[ˆ\ÈÜ™X]\™H[\œË[İHX^HÙX\˜Ú[İ\ˆXœ˜\H›ÜˆH›ÛÙØ\™™]™X[]‚ˆœ]][È[İ\ˆ[™[ˆÚY™›KˆYˆ[İHÛ‰İ]HØ\™[È[İ\ˆ[™\ÈØ^K‚ˆ˜Ü™X]HH›ÛÙÚÙ[‹ˆ
-]	ÜÈ[ˆ\Y˜XİÚ]ÌŸKÕKØXÜšYšXÙH\ÈÚÙ[ˆ‚ˆ	Ö[İHØZ[ˆÈY™KˆŠIÂˆ
-B‚ˆYˆ]—Ù›ÛÙÜÙX\˜ÚÜÙ[X[X×ØÛİ™\˜YÙJÙ[‹Ø\™œ˜YÛY[
-N‚ˆˆˆ“Û›HHœ›Ş™[ˆÙ[‹QUˆ›ÛÙÙX\˜ÚÙ˜[˜XÚÈ[œİXİ[Û‹ˆˆˆ‚ˆYˆœ˜YÛY[OHÙ[‹‘U—Ñ“ÓÑÔÑPTÒÑ”QÓQS•ÜˆÜ™X]\™Hˆ›İ[ˆØ\™\WÛ[™N‚ˆ™]\›ˆ›Û™Bˆ™]\›ˆÙ[X[XĞÛİ™\˜YÙJYKYKYK
+    @staticmethod
+    def _return_clause(text: str) -> ReturnClause | None:
+        """Locate a Return-to-hand clause without claiming that its payload is executable."""
+        returns = tuple(re.finditer(r"\breturn\b", text, re.I))
+        for match in returns:
+            sentence_end = text.find(".", match.end())
+            if sentence_end < 0:
+                sentence_end = len(text)
+            next_return = next(
+                (candidate.start() for candidate in returns if candidate.start() > match.start()),
+                len(text),
+            )
+            search_end = min(sentence_end, next_return)
+            destination = re.search(r"\b(?:hand|hands)\b", text[match.end() : search_end], re.I)
+            if destination is None:
+                continue
+            end = match.end() + destination.end()
+            return ReturnClause(
+                text[match.start() : end],
+                match.start(),
+                end,
+                text[: match.start()],
+                text[end:],
+            )
+        return None
 
-JB‚ˆ—ÓUUQÑS—Ñ”QÓQS•H
-ˆ•Ú[ˆ\ÈÜ™X]\™HX]™\ÈH˜]YšY[Ü™X]HH]]YÙ[ˆÚÙ[‹ˆ‚ˆŠ]	ÜÈ[ˆ\Y˜XİÚ]Ì_KÕKØXÜšYšXÙH\ÈÚÙ[ˆ]H
-ÌKÊÌHÛİ[\ˆ‚ˆ	ÛÛˆ\™Ù]Ü™X]\™KˆXİ]˜]HÛ›H\ÈHÛÜ˜Ù\KˆŠIÂˆ
-B‚ˆYˆ—Û]]YÙ[—ÜÙ[X[X×ØÛİ™\˜YÙJˆÙ[‹Ø\™ˆØ\™Yš[š][Û‹œ˜YÛY[ˆİ‚ˆ
-HOˆ[\œ™]YÚÙ[”Ù[X[XÜÈ›Û™N‚ˆˆˆ‘[]™\ˆÛ›HH^XİÙ[‹[X]™H^[ØYÈ™]Z[ˆ[œİ\ÜYÚÙ[ˆXİ]˜][Û‹ˆˆˆ‚ˆYˆ·Ó[h‘éì¶»§q«^urt match is not None
+    KRANG_REFILL_FRAGMENT = (
+        "When Krang enters, if you have fewer than four cards in hand, "
+        "draw cards equal to the difference."
+    )
+
+    @staticmethod
+    def is_krang_refill_fragment(fragment):
+        return (
+            isinstance(fragment, str)
+            and re.fullmatch(
+                r"When .+ enters, if you have fewer than four cards in hand, "
+                r"draw cards equal to the difference\.",
+                fragment,
+            )
+            is not None
+        )
+
+    def krang_refill_semantic_coverage(self, card, fragment):
+        if not self.is_krang_refill_fragment(fragment) or not card.is_creature:
+            return None
+        source = fragment.removeprefix("When ").split(" enters,", 1)[0]
+        if source not in {card.name, card.name.split(",", 1)[0]}:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    MILL_THREE_FRAGMENT = (
+        "When this creature enters, mill three cards. "
+        "(Put the top three cards of your library into your graveyard.)"
+    )
+
+    def mill_three_semantic_coverage(self, card, fragment):
+        if (
+            fragment != self.MILL_THREE_FRAGMENT
+            or "Creature" not in card.type_line.split("\u2014", 1)[0].split()
+        ):
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    JURY_RIG_FRAGMENT = (
+        "When Casey Jones enters, look at the top four cards of your library. "
+        "You may reveal an artifact card from among them and put it into your hand. "
+        "Put the rest on the bottom of your library in a random order."
+    )
+
+    def jury_rig_semantic_coverage(self, card, fragment):
+        if fragment != self.JURY_RIG_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    VIGILANTE_FRAGMENT = (
+        "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, "
+        "discard three cards at random."
+    )
+
+    def vigilante_semantic_coverage(self, card, fragment):
+        if fragment != self.VIGILANTE_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    ETB_FOOD_SEARCH_FRAGMENT = (
+        "When this creature enters, you may search your library for a Food card, reveal it, "
+        "put it into your hand, then shuffle. If you don't put a card into your hand this way, "
+        "create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: "
+        'You gain 3 life.")'
+    )
+
+    def etb_food_search_semantic_coverage(self, card, fragment):
+        """Only the frozen self-ETB Food search/fallback instruction."""
+        if fragment != self.ETB_FOOD_SEARCH_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    LTB_MUTAGEN_FRAGMENT = (
+        "When this creature leaves the battlefield, create a Mutagen token. "
+        "(It's an artifact with \"{1}, {T}, Sacrifice this token: Put a +1/+1 counter "
+        'on target creature. Activate only as a sorcery.")'
+    )
+
+    def ltb_mutagen_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTokenSemantics | None:
+        """Deliver only the exact self-leave payload; retain unsupported token activation."""
+        if fragment != self.LTB_MUTAGEN_FRAGMENT or "Creature" not in card.type_line:
+            return None
+        program = self.token_creation_program(fragment)
+        assert program is not None
+        return self._token_semantics(program, True)
+
+    def token_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedTokenSemantics | None:
+        """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
+        if ltb is not None:
+            return ltb
+        conditional = self.conditional_etb_token_semantic_coverage(card, fragment)
+        if conditional is not None:
+            return conditional
+        program = self.token_creation_program(fragment)
+        if program is None:
+            return None
+
+        match = self.CREATE_TOKEN.search(fragment)
+        assert match is not None
         fragments = self.fragments(card)
         alliance_mode = fragment.startswith("â€¢ ") and any(
             self.ALLIANCE_MODAL_HEADER.fullmatch(candidate) for candidate in fragments
@@ -722,28 +2581,151 @@ HOˆ[\œ™]YÚÙ[”Ù[X[XÜÈ›Û™N‚ˆˆˆ‘[]™\ˆÛ›HH^XİÙ[‹[X
             reason = "token_preceding_effect_not_implemented"
         else:
             reason = "token_spell_context_not_implemented"
-        return self._token_YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÍ•µ…¹Ñ¥Ì¡ÁÉ½É…´°…±Í”°É•…Í½¸¤((€€€‘•˜½¹‘¥Ñ¥½¹…±}•Ñ‰}Ñ½­•¹}Í•µ…¹Ñ¥}½Ù•É…”¡Í•±˜°…É°™É…µ•¹Ğ¤è(€€€€€€€¥˜¹½ĞÉ”¹µ…Ñ  (€€€€€€€€€€€È‰x üé¥Í…ÁÁ•…ÈƒŠP€¤ı]¡•¸€¸¬•¹Ñ•ÉÌ°¥˜„Á•Éµ…¹•¹Ğ±•™ĞÑ¡”‰…ÑÑ±•™¥•±€ˆ(€€€€€€€€€€€È‰Õ¹‘•Èå½ÕÈ½¹ÑÉ½°Ñ¡¥ÌÑÕÉ¸°€ˆ°(€€€€€€€€€€€™É…µ•¹Ğ°(€€€€€€€€¤è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€ÁÉ½É…´€ôÍ•±˜¹Ñ½­•¹}É•…Ñ¥½¹}ÁÉ½É…´¡™É…µ•¹Ğ¤(€€€€€€€¥˜ÁÉ½É…´¥Ì9½¹”½È€‰É•…ÑÕÉ”ˆ¹½Ğ¥¸…É¹ÑåÁ•}±¥¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€É•ÑÕÉ¸Í•±˜¹}Ñ½­•¹}Í•µ…¹Ñ¥Ì¡ÁÉ½É…´°QÉÕ”¤((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}Ñ½­•¹}Í•µ…¹Ñ¥Ì (€€€€€€€ÁÉ½É…´èQ½­•¹É•…Ñ¥½¹AÉ½É…´°(€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”è‰½½°°(€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸èÍÑÈğ9½¹”€ô9½¹”°(€€€€¤€´ø%¹Ñ•ÉÁÉ•Ñ•‘Q½­•¹M•µ…¹Ñ¥Ìè(€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ì€ôÑÕÁ±” (€€€€€€€€€€€‘¥Ğ¹™É½µ­•åÌ (€€€€€€€€€€€€€€€É•…Í½¸(€€€€€€€€€€€€€€€™½ÈÉ•…Í½¸¥¸€ (€€€€€€€€€€€€€€€€€€€ÁÉ½É…´¹Õ¹ÍÕÁÁ½ÉÑ•‘}É•…Í½¸°(€€€€€€€€€€€€€€€€€€€Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€€€€€€€€€€€€ÁÉ½É…´¹É•Ñ…¥¹•‘}±¥µ¥Ñ…Ñ¥½¸°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜É•…Í½¸¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€½Ù•É…”€ôM•µ…¹Ñ¥½Ù•É…” (€€€€€€€€€€€Á…å±½…‘}•á•ÕÑ…‰±”õÁÉ½É…´¹•á•ÕÑ…‰±”°(€€€€€€€€€€€Á…É•¹Ñ}•á•ÕÑ…‰±”õÁ…É•¹Ñ}•á•ÕÑ…‰±”°(€€€€€€€€€€€™½±±½İÕÁ}•á•ÕÑ…‰±”õÁÉ½É…´¹É•Ñ…¥¹•‘}±¥µ¥Ñ…Ñ¥½¸¥Ì9½¹”°(€€€€€€€€€€€±¥µ¥Ñ…Ñ¥½¹Ìõ±¥µ¥Ñ…Ñ¥½¹Ì°(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸%¹Ñ•ÉÁÉ•Ñ•‘Q½­•¹M•µ…¹Ñ¥Ì¡ÁÉ½É…´°½Ù•É…”°Á…É•¹Ñ}±¥µ¥Ñ…Ñ¥½¸¤((€€€‘•˜Õ¹ÍÕÁÁ½ÉÑ•‘}™É…µ•¹ÑÌ¡Í•±˜°…Éè…É‘•™¥¹¥Ñ¥½¸¤€´øÑÕÁ±•mÑÕÁ±•mÍÑÈ°ÍÑÉt°€¸¸¹tè(€€€€€€€™É…µ•¹ÑÌ€ôÍ•±˜¹™É…µ•¹ÑÌ¡…É¤(€€€€€€€Õ¹ÍÕÁÁ½ÉÑ•è±¥ÍÑmÑÕÁ±•mÍÑÈ°ÍÑÉut€ômt(€€€€€€€™½È­•åİ½É¥¸Í½ÉÑ•¡Í•Ğ¡…É¹­•åİ½É‘Ì¤€´ì‰!…ÍÑ”ˆ°€‰QÉ…µÁ±”‰ô¤è(€€€€€€€€€€€¥˜¹½Ğ…¹ä¡É”¹Í•…É ¡É˜‰q‰íÉ”¹•Í…Á”¡­•åİ½É¥õqˆˆ°±¥¹”°É”¹$¤™½È±¥¹”¥¸™É…µ•¹ÑÌ¤è(€€€€€€€€€€€€€€€Õ¹ÍÕÁÁ½ÉÑ•¹…ÁÁ•¹ ¡­•åİ½É°€‰­•åİ½É‘}¹½Ñ}¥µÁ±•µ•¹Ñ•‹}5¶‰ËkºwµçVÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–b¶W—v÷&Eö6†ö–6R—2æ÷BæöæS ¢f÷"&V6öâ–â¶W—v÷&Eö6†ö–6RæÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢FW7G&÷•÷W&ÖæVçBÒ6VÆbæFW7G&÷•÷W&ÖæVçE÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–bFW7G&÷•÷W&ÖæVçB—2æ÷BæöæS ¢f÷"&V6öâ–âFW7G&÷•÷W&ÖæVçBæÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢WF%ö'F–f7EöG&rÒ6VÆbæWF%ö'F–f7EöG&u÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–bWF%ö'F–f7EöG&r—2æ÷BæöæS ¢f÷"&V6öâ–âWF%ö'F–f7EöG&ræÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢W&ÖæVçEöÆVgEö6÷VçFW"Ò6VÆbçW&ÖæVçEöÆVgE÷6VÆeö6÷VçFW%÷6VÖçF–5ö6÷fW&vR€¢6&BÂg&vÖVç@¢¢–bW&ÖæVçEöÆVgEö6÷VçFW"—2æ÷BæöæS ¢f÷"&V6öâ–âW&ÖæVçEöÆVgEö6÷VçFW"æÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢WF%öG&–åöv–å÷67'’Ò6VÆbæWF%öG&–åöv–å÷67'•÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–bWF%öG&–åöv–å÷67'’—2æ÷BæöæS ¢f÷"&V6öâ–âWF%öG&–åöv–å÷67'’æÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢WF%öÆ–fUöv–âÒ6VÆbæWF%÷6VÆeöÆ–fUöv–å÷6VÖçF–72†6&BÂg&vÖVçB¢–bWF%öÆ–fUöv–â—2æ÷BæöæS ¢f÷"&V6öâ–âWF%öÆ–fUöv–å³ÒæÆ–Ö—FF–öç3 ¢Vç7W÷'FVBæVæB‚†g&vÖVçBÂ&V6öâ’¢6öçF–çVP¢F–W5öG&rÒ6VÆbæF–W5öG&u÷6VÖçF–5ö6÷fW&vR†6&BÂg&vÖVçB¢–bF–W5öG&r—2æ÷BæöæS ¢f÷"&V5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[Ûˆ[ˆY\×Ù˜]Ë›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
+        return self._token_semantics(program, False, reason)
 
-œ˜YÛY[™X\ÛÛŠJBˆÛÛ[YBˆÛ™XZ×ØÛİ™\˜YÙHHÙ[‹œÛ™XZ×ÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆÛ™XZ×ØÛİ™\˜YÙH\È›İ›Û™H[™Û™XZ×ØÛİ™\˜YÙKœ›ÙÜ˜[K™\™XİÚÙ^]ÛÜ™ØXš[]N‚ˆYˆÙ[‹œİ\Ü×ÜÙœ˜YÛY[
-œ˜YÛY[
-N‚ˆÛÛ[YBˆ›Üˆ™X\ÛÛˆ[ˆÛ™XZ×ØÛİ™\˜YÙK›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
+    def conditional_etb_token_semantic_coverage(self, card, fragment):
+        if not re.match(
+            r"^(?:Disappear â€” )?When .+ enters, if a permanent left the battlefield "
+            r"under your control this turn, ",
+            fragment,
+        ):
+            return None
+        program = self.token_creation_program(fragment)
+        if program is None or "Creature" not in card.type_line:
+            return None
+        return self._token_semantics(program, True)
 
-œ˜YÛY[™X\ÛÛŠJBˆÛÛ[YBˆ˜]×ØØ\™ÈHÙ[‹™˜]×ØØ\™×ÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆ˜]×ØØ\™È\È›İ›Û™N‚ˆ›Üˆ™X\ÛÛˆ[ˆ˜]×ØØ\™Ë›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
+    @staticmethod
+    def _token_semantics(
+        program: TokenCreationProgram,
+        parent_executable: bool,
+        parent_limitation: str | None = None,
+    ) -> InterpretedTokenSemantics:
+        limitations = tuple(
+            dict.fromkeys(
+                reason
+                for reason in (
+                    program.unsupported_reason,
+                    parent_limitation,
+                    program.retained_limitation,
+                )
+                if reason is not None
+            )
+        )
+        coverage = SemanticCoverage(
+            payload_executable=program.executable,
+            parent_executable=parent_executable,
+            followup_executable=program.retained_limitation is None,
+            limitations=limitations,
+        )
+        return InterpretedTokenSemantics(program, coverage, parent_limitation)
 
-œ˜YÛY[™X\ÛÛŠJBˆÛÛ[YBˆÚÙ[—ØÛİ™\˜YÙHHÙ[‹ÚÙ[—ÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆÚÙ[—ØÛİ™\˜YÙH\È›İ›Û™N‚ˆ›Üˆ™X\ÛÛˆ[ˆÚÙ[—ØÛİ™\˜YÙK›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
-
-œ˜YÛY[™X\ÛÛŠJBˆÛÛ[YBˆ[XYÙWØÛİ™\˜YÙHHÙ[‹™[XYÙWÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆ[XYÙWØÛİ™\˜YÙH\È›İ›Û™N‚ˆ›Üˆ™X\ÛÛˆ[ˆ[XYÙWØÛİ™\˜YÙK›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
-
-œ˜YÛY[™X\ÛÛŠJBˆYˆ[XYÙWØÛİ™\˜YÙK˜Ûİ™\˜YÙK™[WÜİ\ÜY‚ˆÛÛ[YBˆYˆ›İ[XYÙWØÛİ™\˜YÙK›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
-
-œ˜YÛY[™[XYÙWÜÙ[X[XÜ×Û›İÚ[\[Y[YŠJBˆÛÛ[YBˆ[™Ø›İÛWÙ˜]ÈHÙ[‹š[™Ø›İÛWÙ˜]×ÜÙ[X[X×ØÛİ™\˜YÙJØ\™œ˜YÛY[
-BˆYˆ[™Ø›İÛWÙ˜]È\È›İ›Û™N‚ˆ›Üˆ™X\ÛÛˆ[ˆ[™Ø›İÛWÙ˜]Ë›[Z]][ÛœÎ‚ˆ[œİ\ÜY˜\[™
-
-œ˜YÛY[™X\ÛÛŠJBˆÛÛ[YBˆY·Ó[h‘éì¶»§q«^uge(card, fragment)
+    def unsupported_fragments(self, card: CardDefinition) -> tuple[tuple[str, str], ...]:
+        fragments = self.fragments(card)
+        unsupported: list[tuple[str, str]] = []
+        for keyword in sorted(set(card.keywords) - {"Haste", "Trample"}):
+            if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
+                unsupported.append((keyword, "keyword_not_implemented"))
+        for fragment in fragments:
+            if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
+            attack_target = self.attack_target_pt_semantic_coverage(card, fragment)
+            if attack_target is not None:
+                unsupported.extend((fragment, reason) for reason in attack_target.limitations)
+                continue
+            static_team = self.static_team_modifier_semantic_coverage(card, fragment)
+            if static_team is not None:
+                unsupported.extend((fragment, reason) for reason in static_team.limitations)
+                continue
+            stun = self.etb_tap_stun_semantic_coverage(card, fragment)
+            if stun is not None:
+                unsupported.extend((fragment, reason) for reason in stun.limitations)
+                continue
+            keyword_choice = self.temporary_keyword_choice_semantic_coverage(card, fragment)
+            if keyword_choice is not None:
+                for reason in keyword_choice.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            destroy_permanent = self.destroy_permanent_semantic_coverage(card, fragment)
+            if destroy_permanent is not None:
+                for reason in destroy_permanent.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            etb_artifact_draw = self.etb_artifact_draw_semantic_coverage(card, fragment)
+            if etb_artifact_draw is not None:
+                for reason in etb_artifact_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            permanent_left_counter = self.permanent_left_self_counter_semantic_coverage(
+                card, fragment
+            )
+            if permanent_left_counter is not None:
+                for reason in permanent_left_counter.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            etb_drain_gain_scry = self.etb_drain_gain_scry_semantic_coverage(card, fragment)
+            if etb_drain_gain_scry is not None:
+                for reason in etb_drain_gain_scry.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            etb_life_gain = self.etb_self_life_gain_semantics(card, fragment)
+            if etb_life_gain is not None:
+                for reason in etb_life_gain[1].limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            dies_draw = self.dies_draw_semantic_coverage(card, fragment)
+            if dies_draw is not None:
+                for reason in dies_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            sneak_coverage = self.sneak_semantic_coverage(card, fragment)
+            if sneak_coverage is not None and sneak_coverage.program.direct_keyword_ability:
+                if self.supports_pt_fragment(fragment):
+                    continue
+                for reason in sneak_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            draw_cards = self.draw_cards_semantic_coverage(card, fragment)
+            if draw_cards is not None:
+                for reason in draw_cards.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            token_coverage = self.token_semantic_coverage(card, fragment)
+            if token_coverage is not None:
+                for reason in token_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            damage_coverage = self.damage_semantic_coverage(card, fragment)
+            if damage_coverage is not None:
+                for reason in damage_coverage.limitations:
+                    unsupported.append((fragment, reason))
+                if damage_coverage.coverage.fully_supported:
+                    continue
+                if not damage_coverage.limitations:
+                    unsupported.append((fragment, "damage_semantics_not_implemented"))
+                continue
+            hand_bottom_draw = self.hand_bottom_draw_semantic_coverage(card, fragment)
+            if hand_bottom_draw is not None:
+                for reason in hand_bottom_draw.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            if self.krang_refill_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.mill_three_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.jury_rig_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.vigilante_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.etb_food_search_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
+                continue
+            discard_draw = self.discard_draw_semantic_coverage(card, fragment)
             if discard_draw is not None:
                 for reason in discard_draw.limitations:
                     unsupported.append((fragment, reason))
