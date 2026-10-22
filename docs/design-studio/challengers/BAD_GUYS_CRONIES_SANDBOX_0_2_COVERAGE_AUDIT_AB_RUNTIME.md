@@ -16,6 +16,7 @@ regenerated against the accepted Work Packets A/B runtime.
 | Pinned card snapshot | `56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402` |
 | Pre-A/B semantic runtime | `d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924` |
 | Accepted A/B semantic runtime | `00fc49eb47d9ffd3d0243564cc7c9763d11738ca9698811306102747a060d374` |
+| C1 semantic runtime | `960df6898bcfa765a572f6128391dba735d322f9ce579e2866dcc3d1874bca4b` |
 | Candidate change | −4 Zoo Escapees, −3 Putrid Pals, +4 Foot Elite, +3 Foot Mystic |
 
 The candidate remains 60 cards (28 creatures, 10 noncreature/nonland spells, 22
@@ -29,7 +30,7 @@ lands). Baseline 005 and all historical evidence remain byte-for-byte unchanged.
 | Foot Mystic lifelink | **SUPPORTED** | Existing lifelink path remains green. |
 | Foot Mystic conditional Disappear ETB and Ninja token | **SUPPORTED** | Typed permanent-left history, controller and turn identity, intervening-if creation, resolution recheck, and generic token entry execute. |
 | Rocksteady Forestcycling `{2}` | **SUPPORTED** | Generic cycling/search/reveal/shuffle path is covered. |
-| Rocksteady/Boar single-block restriction | **UNSUPPORTED** | Changes legal block declarations and combat outcomes. |
+| Rocksteady/Boar single-block restriction | **SUPPORTED** | Generic direct and controller-scoped quality restrictions filter declarations live, including source departure and control changes. |
 | Bebop & Rocksteady mandatory attack/block sacrifice-or-discard | **UNSUPPORTED** | Changes combat legality and resource/board attrition. |
 | Mutagen Man variable-X token creation | **UNSUPPORTED** | Changes casting payment, X persistence, and token quantity. |
 | Mutagen artifact-token activation discount | **UNSUPPORTED** | Changes activated-ability payment legality and token value. |
@@ -46,10 +47,8 @@ lands). Baseline 005 and all historical evidence remain byte-for-byte unchanged.
 Priority is based on candidate copies, gameplay consequence, cross-card reuse,
 and bounded implementation risk—not on row count alone.
 
-1. **Combat restriction family:** single-block restrictions plus menace/Rhino
-   grants (Rocksteady, Boar, Bebop). Shared block-legality and continuous-effect
-   machinery has the broadest immediate combat impact and can be reviewed as two
-   small packets: (a) restriction predicates, (b) keyword grants.
+1. **Menace/Rhino grant family:** continuous keyword grants and block legality
+   remain unsupported; keep separate from the completed single-block predicate.
 2. **Mandatory combat payment family:** Bebop & Rocksteady's attack/block
    sacrifice-or-discard obligations. This is a bounded declaration-time choice
    and payment packet, dependent on legal action generation and state-based
@@ -73,7 +72,7 @@ and bounded implementation risk—not on row count alone.
 
 | Batch | Scope | Acceptance boundary |
 |---|---|---|
-| C1 | Generic block-restriction predicates | Valid/invalid block declarations, combinations with menace, control changes, source departure, and deterministic replay. |
+| C1 | Generic block-restriction predicates | **COMPLETE** — valid/invalid declarations, quality grants, control changes, source departure, combat resolution, and deterministic replay. |
 | C2 | Mandatory sacrifice/discard at attack/block declaration | Legal payment choices, refusal when no legal payment exists, state-based actions, and replay. |
 | C3 | Variable-X announcement and token quantity | X=0, insufficient mana, countered spell, exact X tokens, and no partial resolution. |
 | C4 | Stomped modal/kicker removal | Kicker payment, target legality, resolution-time recheck, −2/−2 versus −5/−5, and cleanup. |

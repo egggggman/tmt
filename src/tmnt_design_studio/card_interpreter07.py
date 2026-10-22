@@ -684,6 +684,9 @@ class CardInterpreter:
     CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
         r"^This creature can't be blocked by creatures with greater power\.$"
     )
+    CANT_BE_BLOCKED_BY_MORE_THAN_ONE = re.compile(
+        r"^(?P<subject>.+) can't be blocked by more than one creature\."
+    )
     ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
         r"^Alliance — Whenever another creature you control enters, put "
         r"(?:a|one|([0-9]+)) \+1/\+1 counters? on target creature you control\.$"
@@ -1180,6 +1183,7 @@ class CardInterpreter:
             for pattern in (
                 self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
                 self.CANT_BE_BLOCKED_BY_GREATER_POWER,
+                self.CANT_BE_BLOCKED_BY_MORE_THAN_ONE,
             )
         )
 
