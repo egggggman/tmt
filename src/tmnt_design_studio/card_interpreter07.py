@@ -75,6 +75,33 @@ class InterpretedStaticTeamModifierSemantics:
 
 
 @dataclass(frozen=True)
+class AttackTargetPTProgram:
+    power: int
+    toughness: int
+    duration: str
+    grants_indestructible: bool
+    source_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.duration == "until_end_of_turn"
+            and self.grants_indestructible
+            and self.source_reference
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedAttackTargetPTSemantics:
+    program: AttackTargetPTProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class DrawCardsProgram:
     """Oracle-derived draw quantity for a directly executable spell effect."""
 
@@ -646,6 +673,11 @@ class CardInterpreter:
         r"^Whenever .+ attacks, each other attacking creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
     )
+    ATTACK_TARGET_CREATURE_UNTIL_EOT = re.compile(
+        r"^Whenever (?P<source>.+) attacks, another target creature you control gets "
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+) and gains indestructible until end of turn\. "
+        r"\(Damage and effects that say \"destroy\" don't destroy it\.\)$"
+    )
     CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
         r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
     )
@@ -1107,7 +1139,39 @@ class CardInterpreter:
                 self.ALLIANCE_THIS_UNTIL_EOT,
                 self.SNEAK_ETB_TEAM_UNTIL_EOT,
                 self.ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
+                self.ATTACK_TARGET_CREATURE_UNTIL_EOT,
             )
+        )
+
+    def attack_target_pt_semantic_coverage(self, card, fragment):
+        match = self.ATTACK_TARGET_CREATURE_UNTIL_EOT.fullmatch(fragment)
+        if match is None:
+            return None
+        names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = (
+            match.group("source").casefold() in names
+            or match.group("source").casefold() == "this creature"
+        )
+        program = AttackTargetPTProgram(
+            int(match.group("power")),
+            int(match.group("toughness")),
+            "until_end_of_turn",
+            True,
+            source_reference,
+        )
+        source_is_creature = "Creature" in card.type_line
+        limitations = (
+            ()
+            if source_reference and source_is_creature
+            else (
+                "attack_target_pt_source_mismatch"
+                if not source_reference
+                else "attack_target_pt_source_not_creature",
+            )
+        )
+        executable = program.executable and source_is_creature
+        return InterpretedAttackTargetPTSemantics(
+            program, SemanticCoverage(executable, executable, executable, limitations)
         )
 
     def supports_blocking_fragment(self, fragment: str) -> bool:
@@ -2467,6 +2531,9 @@ class CardInterpreter:
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
+        conditional = self.conditional_etb_token_semantic_coverage(card, fragment)
+        if conditional is not None:
+            return conditional
         program = self.token_creation_program(fragment)
         if program is None:
             return None
@@ -2516,6 +2583,18 @@ class CardInterpreter:
             reason = "token_spell_context_not_implemented"
         return self._token_semantics(program, False, reason)
 
+    def conditional_etb_token_semantic_coverage(self, card, fragment):
+        if not re.match(
+            r"^(?:Disappear — )?When .+ enters, if a permanent left the battlefield "
+            r"under your control this turn, ",
+            fragment,
+        ):
+            return None
+        program = self.token_creation_program(fragment)
+        if program is None or "Creature" not in card.type_line:
+            return None
+        return self._token_semantics(program, True)
+
     @staticmethod
     def _token_semantics(
         program: TokenCreationProgram,
@@ -2549,6 +2628,10 @@ class CardInterpreter:
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
             if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
+            attack_target = self.attack_target_pt_semantic_coverage(card, fragment)
+            if attack_target is not None:
+                unsupported.extend((fragment, reason) for reason in attack_target.limitations)
                 continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
