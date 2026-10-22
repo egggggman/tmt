@@ -1,11 +1,11 @@
 # Bad Guys — Shredder's Cronies Sandbox 0.2
-## Refreshed Oracle-to-engine coverage audit (C5 runtime)
+## Refreshed Oracle-to-engine coverage audit (C6 runtime)
 
 **Decision: BLOCKED for gameplay testing and further remediation packets pending HQ review.**
 
 This is a coverage-only checkpoint. No gameplay simulation, matchup batch, deck
 change, Baseline 005 change, or R9-B evidence change was made. The audit is
-regenerated after generic C5 compound removal and token-resolution support.
+regenerated after generic C6 mana-value-gated Food creation support.
 
 ### Provenance
 
@@ -21,12 +21,13 @@ regenerated after generic C5 compound removal and token-resolution support.
 | C3 semantic runtime | `ab38515951c7faa1b1006a3e03ec4620c03a646538c2a3e54e44733716f44a37` |
 | C4 semantic runtime | `6b2f86bf1834aece9dc1b3bc3817451601fb5c88e8581f1c7f6ba2a1d50d63a0` |
 | C5 semantic runtime | `5860e357c084973aac2eae3f4b5f27b9948caa866bad3bf3d5c48cc8d5db4cf8` |
+| C6 semantic runtime | `f195ce9aaa0bfd6e45c1aced07305d15e06b4b448c993e264640a34f75a50e10` |
 | Candidate change | −4 Zoo Escapees, −3 Putrid Pals, +4 Foot Elite, +3 Foot Mystic |
 
 The candidate remains 60 cards (28 creatures, 10 noncreature/nonland spells, 22
 lands). Baseline 005 and all historical evidence remain byte-for-byte unchanged.
 
-### Coverage overlay (C4 runtime)
+### Coverage overlay (C6 runtime)
 
 | Mechanic family | Status after A/B | Accuracy consequence |
 |---|---|---|
@@ -40,7 +41,7 @@ lands). Baseline 005 and all historical evidence remain byte-for-byte unchanged.
 | Generic kicker sacrifice payment and conditional temporary creature removal | **SUPPORTED** | Complete kicker choice, artifact/creature sacrifice payment, legal target selection, resolution-time recheck, −2/−2 versus −5/−5, lethal state-based actions, and cleanup execute generically. |
 | Mutagen artifact-token activation discount | **UNSUPPORTED** | Changes activated-ability payment legality and token value. |
 | Mutant Chain Reaction optional removal then Mutagen creation | **SUPPORTED** | Generic optional target selection, resolution-time target recheck, removal-before-token ordering, token entry, and independent source provenance execute. |
-| Tainted Treats conditional Food creation | **UNSUPPORTED** | Conditional token creation remains unavailable. |
+| Tainted Treats conditional Food creation | **SUPPORTED** | Generic artifact-or-creature targeting, resolution-time legality, last-known mana value threshold, removal, conditional Food entry, and provenance execute. |
 | Cowabunga! top-four selection and randomized bottom order | **UNSUPPORTED** | Hidden-zone choices and library ordering are unavailable. |
 | Paramecia Coloniex death/exile recursion | **UNSUPPORTED** | Graveyard/exile identity and permission effects are unavailable. |
 | Menace and Rhino-wide menace grants | **UNSUPPORTED** | Continuous keyword grants and block legality remain incomplete. |
@@ -53,12 +54,10 @@ and bounded implementation risk—not on row count alone.
 
 1. **Menace/Rhino grant family:** continuous keyword grants and block legality
    remain unsupported; keep separate from the completed single-block predicate.
-2. **Conditional token family:** Tainted Treats. Reuse condition-context and token
-   machinery only after its full mana-value condition is represented.
-3. **Hidden-zone selection family:** Cowabunga! top-four selection and bottom
+2. **Hidden-zone selection family:** Cowabunga! top-four selection and bottom
    ordering. High identity value but higher choice/replay risk; bounded after the
    combat/resource packets.
-4. **Recursion family:** Paramecia Coloniex. Requires zone identity and permission
+3. **Recursion family:** Paramecia Coloniex. Requires zone identity and permission
    duration; isolate from ordinary graveyard recursion.
 
 ### Suggested independently reviewable batches
@@ -70,7 +69,7 @@ and bounded implementation risk—not on row count alone.
 | C3 | Variable-X announcement and token quantity | **COMPLETE** — X=0, insufficient/malformed payment, countered spell, exact X tokens, source departure, independent X values, and no partial resolution. |
 | C4 | Stomped modal/kicker removal | **COMPLETE** — Kicker payment, target legality, resolution-time recheck, −2/−2 versus −5/−5, lethal state-based actions, and cleanup. |
 | C5 | Mutant Chain Reaction compound resolution | **COMPLETE** — Optional removal, target recheck, token creation ordering, simultaneous lethal handling, and strict provenance. |
-| C6 | Tainted Treats conditional Food | Condition context, trigger/resolution rechecks, token entry, and negative cases. |
+| C6 | Tainted Treats conditional Food | **COMPLETE** — mana-value condition, target recheck, removal, Food entry, negative cases, and deterministic replay. |
 | C7 | Cowabunga hidden-zone choice | Top-four information boundary, eligible selection, random bottom ordering, and exact replay. |
 | C8 | Paramecia recursion | Death/exile identity, permissions, timing, costs, source independence, and cleanup. |
 
@@ -84,9 +83,10 @@ The accepted A/B checkpoint recorded three focused Work Packet A/B tests, 86
 focused existing semantic/permanent-left/Mutagen-related tests, and a full
 regression of 1,629 passed, 10 skipped. C2 adds eight focused tests, C3 adds
 five focused variable-X tests, C4 adds four focused tests, and C5 adds five
-focused compound-resolution tests. The final C5 regression result is recorded
-with the published checkpoint; no simulations are authorized or run.
+focused compound-resolution tests, and C6 adds seven focused conditional-Food
+tests. The final C6 regression result is recorded with this checkpoint; no
+simulations are authorized or run.
 
 **Recommendation to HQ:** accept this refreshed audit as the current coverage
-reference; keep gameplay testing and C6 **BLOCKED** until HQ independently
+reference; keep gameplay testing and C7 **BLOCKED** until HQ independently
 reviews this checkpoint.

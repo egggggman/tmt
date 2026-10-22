@@ -440,17 +440,18 @@ def test_food_corpus_memberships_and_digests_are_exact():
 
     assert (len({row[0] for row in recognized}), len(recognized)) == (9, 9)
     assert (len({row[0] for row in executable}), len(executable)) == (9, 9)
-    assert (len({row[0] for row in full}), len(full)) == (5, 5)
+    assert (len({row[0] for row in full}), len(full)) == (6, 6)
     assert {row[1] for row in full} == {
         "Anchovy & Banana Pizza",
         "Guac & Marshmallow Pizza",
         "Lita, Little Orphan Amphibian",
         "Omni-Cheese Pizza",
         "Spicy Oatmeal Pizza",
+        "Tainted Treats",
     }
     assert digest(recognized) == "8872e3cfde38e497c714d41aee8e28a1d8840a03a763900c43867114ac891f0c"
     assert digest(executable) == "8872e3cfde38e497c714d41aee8e28a1d8840a03a763900c43867114ac891f0c"
-    assert digest(full) == "7109331179268f89d469fed917e29549d4e490ea87df3d1c0ee4fa35aa259265"
+    assert digest(full) == "562d38fe7549a3b0986e28da751ae967f744af7e27f822348fa697bb4f4ebe15"
     roster = frozen_names()
     frozen_recognized = [row for row in recognized if row[1] in roster]
     frozen_executable = [row for row in executable if row[1] in roster]
@@ -469,9 +470,10 @@ def test_food_corpus_memberships_and_digests_are_exact():
         "Guac & Marshmallow Pizza",
         "Lita, Little Orphan Amphibian",
         "Spicy Oatmeal Pizza",
+        "Tainted Treats",
     }
     assert digest(frozen_full) == (
-        "56cdb1156d13d38a66b20882d228ce3d7b3e6dd39006d6c1f726bed30453ad07"
+        "ffe1e59b2702039cba4f6a96465483fe22bd22637e1bcd310afcb21d1ca0a9f1"
     )
     assert digest(frozen_recognized) == (
         "97b3e9597f12377c143b59b43fbb28858b75d7d8db1dda25bc8fbfde74783c7e"

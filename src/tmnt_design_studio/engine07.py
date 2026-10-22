@@ -24,6 +24,7 @@ from tmnt_design_studio.card_interpreter07 import (
     CardInterpreter,
     CastKind,
     CompoundRemovalTokenProgram,
+    ConditionalRemovalTokenProgram,
     DamageTargetKind,
     DiscardDrawProgram,
     HandBottomDrawProgram,
@@ -7171,6 +7172,8 @@ class Game(
                 options.extend(self._kicked_creature_pt_options(player_index, card))
             elif kind is CastKind.COMPOUND_REMOVAL_TOKEN:
                 options.extend(self._compound_removal_token_options(player_index, card))
+            elif kind is CastKind.CONDITIONAL_REMOVAL_TOKEN:
+                options.extend(self._conditional_removal_token_options(player_index, card))
             elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 options.extend(
                     ActionOption(
@@ -7271,6 +7274,35 @@ class Game(
                 and "Creature" in types
                 and self._has_keyword(target, "Flying")
             )
+        )
+
+    def _conditional_removal_token_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        program = self.interpreter.conditional_removal_token_program(card.card)
+        if program is None or self.payment_plan(player_index, card) is None:
+            return ()
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=permanent.object_id,
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=priority_epoch,
+            )
+            for side in self.players
+            for permanent in side.battlefield
+            if self._is_conditional_removal_target(permanent, program)
+        )
+
+    @staticmethod
+    def _is_conditional_removal_target(
+        target: Permanent, program: ConditionalRemovalTokenProgram
+    ) -> bool:
+        types = set(target.type_line.split(" — ", 1)[0].split())
+        return ("artifact" in program.target_kinds and "Artifact" in types) or (
+            "creature" in program.target_kinds and "Creature" in types
         )
 
     def _legal_kicker_sacrifice(
@@ -7594,6 +7626,14 @@ class Game(
                     player_index, card, priority_epoch=state.epoch
                 )
             ),
+            *(
+                option
+                for card in self.players[player_index].hand
+                if self.interpreter.conditional_removal_token_program(card.card) is not None
+                for option in self._conditional_removal_token_options(
+                    player_index, card, priority_epoch=state.epoch
+                )
+            ),
             *self._aura_cast_options(player_index, priority=True),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
@@ -7648,6 +7688,17 @@ class Game(
                 spell = self.announce_spell(option.player_index, card, target)
                 if spell is None:
                     raise ValueError("compound spell response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if (
+                isinstance(card, CardObject)
+                and self.interpreter.conditional_removal_token_program(card.card) is not None
+            ):
+                if not isinstance(target, Permanent):
+                    raise ValueError("conditional removal target is invalid")
+                spell = self.announce_spell(option.player_index, card, target)
+                if spell is None:
+                    raise ValueError("conditional removal response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
@@ -7872,6 +7923,8 @@ class Game(
                     sacrifice_cost=kicker_cost if isinstance(kicker_cost, Permanent) else None,
                 )
             if self.interpreter.compound_removal_token_program(obj.card) is not None:
+                return self.cast(option.player_index, obj, target)
+            if self.interpreter.conditional_removal_token_program(obj.card) is not None:
                 return self.cast(option.player_index, obj, target)
             return self.cast(
                 option.player_index,
@@ -10399,6 +10452,19 @@ class Game(
             ):
                 return None
             target_id = target.object_id if target is not None else None
+        elif program.kind is CastKind.CONDITIONAL_REMOVAL_TOKEN:
+            conditional = self.interpreter.conditional_removal_token_program(card.card)
+            if (
+                conditional is None
+                or not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or not self._is_conditional_removal_target(target, conditional)
+            ):
+                self.log(
+                    "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
+                )
+                return None
+            target_id = target.object_id
         elif program.kind is CastKind.UNSUPPORTED:
             fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
             for fragment in fragments or [card.type_line]:
@@ -10642,6 +10708,14 @@ class Game(
             # "up to one" permits no target, and an illegal selected target does
             # not prevent the independent token instruction from resolving.
             legal_target = True
+        elif spell.cast_kind is CastKind.CONDITIONAL_REMOVAL_TOKEN:
+            conditional = self.interpreter.conditional_removal_token_program(spell.card)
+            legal_target = (
+                legal_target
+                and isinstance(target, Permanent)
+                and conditional is not None
+                and self._is_conditional_removal_target(target, conditional)
+            )
         if not legal_target:
             resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
             assert isinstance(resolved_card, CardObject)
@@ -10743,6 +10817,35 @@ class Game(
                 removal_applied=removed,
                 token_ids=[token.object_id for token in mutagen],
                 ordering=("removal", "token_creation"),
+            )
+        elif spell.cast_kind is CastKind.CONDITIONAL_REMOVAL_TOKEN:
+            program = self.interpreter.conditional_removal_token_program(spell.card)
+            if program is None or not program.executable or not isinstance(target, Permanent):
+                raise AssertionError("stacked conditional removal spell lacks executable semantics")
+            # The condition uses the target's last known mana value at resolution,
+            # before the destroy operation can move it to another zone.
+            mana_value = target.card.mana_value
+            self.destroy(target)
+            food_created = mana_value <= program.mana_value_at_most
+            created = ()
+            if food_created:
+                created = self.create_tokens(
+                    spell.controller,
+                    program.token_program,
+                    source_card=spell.card.name,
+                    oracle_fragment=spell.card.oracle_text,
+                    source_id=spell.object_id,
+                )
+            self.log(
+                "conditional_removal_token_resolved",
+                stack_object_id=spell.object_id,
+                target_id=target.object_id,
+                target_mana_value=mana_value,
+                threshold=program.mana_value_at_most,
+                removal_applied=True,
+                token_created=food_created,
+                token_ids=[token.object_id for token in created],
+                ordering=("removal", "conditional_token_creation"),
             )
         elif spell.cast_kind is CastKind.DRAW_CARDS:
             draw_semantics = next(

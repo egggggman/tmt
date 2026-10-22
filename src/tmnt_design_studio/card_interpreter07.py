@@ -35,6 +35,7 @@ class CastKind(Enum):
     )
     KICKED_CREATURE_PT = "kicked_creature_pt"
     COMPOUND_REMOVAL_TOKEN = "compound_removal_token"
+    CONDITIONAL_REMOVAL_TOKEN = "conditional_removal_token"
     UNSUPPORTED = "unsupported"
 
 
@@ -64,6 +65,23 @@ class CompoundRemovalTokenProgram:
     @property
     def executable(self) -> bool:
         return bool(self.target_kinds) and self.token_program.executable
+
+
+@dataclass(frozen=True)
+class ConditionalRemovalTokenProgram:
+    """Destroy one artifact/creature, then conditionally create a token."""
+
+    target_kinds: tuple[str, ...]
+    mana_value_at_most: int
+    token_program: TokenCreationProgram
+
+    @property
+    def executable(self) -> bool:
+        return (
+            bool(self.target_kinds)
+            and self.mana_value_at_most >= 0
+            and self.token_program.executable
+        )
 
 
 @dataclass(frozen=True)
@@ -986,6 +1004,8 @@ class CardInterpreter:
     def cast_program(self, card: CardDefinition) -> CastProgram:
         if self.kicked_creature_pt_program(card) is not None:
             return CastProgram(CastKind.KICKED_CREATURE_PT)
+        if self.conditional_removal_token_program(card) is not None:
+            return CastProgram(CastKind.CONDITIONAL_REMOVAL_TOKEN)
         if self.compound_removal_token_program(card) is not None:
             return CastProgram(CastKind.COMPOUND_REMOVAL_TOKEN)
         if "Aura" in card.type_line:
@@ -1088,6 +1108,36 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> SemanticCoverage | None:
         program = self.compound_removal_token_program(card)
+        if program is None or fragment not in self.fragments(card):
+            return None
+        return SemanticCoverage(program.executable, True, True, ())
+
+    CONDITIONAL_REMOVAL_TOKEN = re.compile(
+        r"^Destroy target artifact or creature\. If its mana value was (?P<threshold>[0-9]+) "
+        r'or less, (?P<token>Create (?:a|an|one) [^.]+ token\. \(It.s an artifact with "[^"]+"\))$',
+        re.I,
+    )
+
+    def conditional_removal_token_program(
+        self, card: CardDefinition
+    ) -> ConditionalRemovalTokenProgram | None:
+        """Recognize a complete destroy-then-mana-value-gated token spell."""
+        if not card.type_line.startswith("Instant"):
+            return None
+        match = self.CONDITIONAL_REMOVAL_TOKEN.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token_program = self.token_creation_program(match.group("token"))
+        if token_program is None or not token_program.executable:
+            return None
+        return ConditionalRemovalTokenProgram(
+            ("artifact", "creature"), int(match.group("threshold")), token_program
+        )
+
+    def conditional_removal_token_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.conditional_removal_token_program(card)
         if program is None or fragment not in self.fragments(card):
             return None
         return SemanticCoverage(program.executable, True, True, ())
@@ -2692,6 +2742,9 @@ class CardInterpreter:
         compound = self.compound_removal_token_program(card)
         if compound is not None and fragment == card.oracle_text:
             return self._token_semantics(compound.token_program, True)
+        conditional_removal = self.conditional_removal_token_program(card)
+        if conditional_removal is not None and fragment == card.oracle_text:
+            return self._token_semantics(conditional_removal.token_program, True)
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
@@ -2806,6 +2859,11 @@ class CardInterpreter:
         for fragment in fragments:
             kicker = self.shared_kicker_semantic_coverage(card, fragment)
             if kicker is not None:
+                continue
+            conditional = self.conditional_removal_token_semantic_coverage(card, fragment)
+            if conditional is not None:
+                for reason in conditional.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             compound = self.compound_removal_token_semantic_coverage(card, fragment)
             if compound is not None:
