@@ -33,6 +33,7 @@ class CastKind(Enum):
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
         "destroy_artifact_enchantment_or_power_4_creature"
     )
+    KICKED_CREATURE_PT = "kicked_creature_pt"
     UNSUPPORTED = "unsupported"
 
 
@@ -41,6 +42,15 @@ class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
     variable_x: bool = False
+
+
+@dataclass(frozen=True)
+class KickedCreaturePTProgram:
+    """Complete generic kicker cost and conditional temporary P/T effect."""
+
+    sacrifice_types: tuple[str, ...]
+    ordinary: tuple[int, int]
+    kicked: tuple[int, int]
 
 
 @dataclass(frozen=True)
@@ -961,6 +971,8 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.kicked_creature_pt_program(card) is not None:
+            return CastProgram(CastKind.KICKED_CREATURE_PT)
         if "Aura" in card.type_line:
             return CastProgram(
                 CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
@@ -1005,6 +1017,35 @@ class CardInterpreter:
             )
             return CastProgram(CastKind.CREATURE, variable_x=variable_x)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    KICKED_CREATURE_PT = re.compile(
+        r"Kicker—Sacrifice an artifact or creature\. \(You may sacrifice an artifact or creature "
+        r"in addition to any other costs as you cast this spell\.\)\n"
+        r"Target creature gets (?P<base_p>-?\d+)/(?P<base_t>-?\d+) until end of turn\. "
+        r"If this spell was kicked, that creature gets (?P<kick_p>-?\d+)/(?P<kick_t>-?\d+) "
+        r"until end of turn instead\."
+    )
+
+    def kicked_creature_pt_program(self, card: CardDefinition) -> KickedCreaturePTProgram | None:
+        """Recognize a complete kicker cost plus conditional temporary P/T spell."""
+        if "Instant" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.KICKED_CREATURE_PT.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        return KickedCreaturePTProgram(
+            ("Artifact", "Creature"),
+            (int(match["base_p"]), int(match["base_t"])),
+            (int(match["kick_p"]), int(match["kick_t"])),
+        )
+
+    def shared_kicker_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.kicked_creature_pt_program(card)
+        if program is not None and fragment in self.fragments(card):
+            return SemanticCoverage(True, True, True, ())
+        return None
 
     AURA_SUPPRESSION = re.compile(
         r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
@@ -2715,6 +2756,9 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            kicker = self.shared_kicker_semantic_coverage(card, fragment)
+            if kicker is not None:
+                continue
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
             attack_target = self.attack_target_pt_semantic_coverage(card, fragment)
