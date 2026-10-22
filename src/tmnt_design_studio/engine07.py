@@ -297,6 +297,7 @@ class RulesEventKind(Enum):
     TOKENS_CREATED = "tokens_created"
     LIFE_GAINED = "life_gained"
     ATTACKERS_DECLARED = "attackers_declared"
+    BLOCKERS_DECLARED = "blockers_declared"
     DAMAGE_DEALT = "damage_dealt"
     SCRIED = "scried"
     HAND_BOTTOM_DRAW = "hand_bottom_draw"
@@ -343,6 +344,7 @@ class TriggerEffect(Enum):
     PARAMECIA_REFLEXIVE_RETURN = "paramecia_reflexive_return"
     RAPHAEL_ALLIANCE_EXILE = "raphael_alliance_exile"
     RAPHAEL_ATTACK_PLAY = "raphael_attack_play"
+    COMBAT_SACRIFICE_OR_DISCARD = "combat_sacrifice_or_discard"
 
 
 class TemporaryKeyword(Enum):
@@ -1315,6 +1317,7 @@ class Game(
         scry_chooser=None,
         hand_bottom_draw_chooser=None,
         discard_draw_chooser=None,
+        combat_obligation_chooser=None,
         draw_discard_chooser=None,
         class_recovery_chooser=None,
         food_search_chooser=None,
@@ -1418,6 +1421,15 @@ class Game(
         )
         self._mandatory_discard_choice_active = False
         self.draw_discard_chooser = draw_discard_chooser or (lambda _view, options: options[0])
+        self.combat_obligation_chooser = combat_obligation_chooser or (
+            lambda _controller, _source_id, sacrifices, discards: (
+                ("discard", discards[0])
+                if discards
+                else ("sacrifice", sacrifices[0])
+                if sacrifices
+                else ("none", None)
+            )
+        )
         self.combat_damage_evidence: list[CombatDamageStepEvidence] = []
         self.lifelink_evidence: list[LifelinkEvidence] = []
         self.activation_evidence: list[ActivationEvidence] = []
@@ -4321,6 +4333,102 @@ class Game(
         ):
             raise ValueError("Rock Soldiers trigger has invalid source provenance")
 
+    def _validate_combat_obligation_trigger(self, ability: TriggeredAbilityObject) -> None:
+        trigger = self._triggers.get(ability.trigger_id)
+        source = self._objects.get(ability.source_id)
+        coverage = self.interpreter.combat_sacrifice_discard_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        self._authenticate_original_rules_event(ability.event)
+        if (
+            trigger is None
+            or trigger.event is not ability.event
+            or trigger.effect is not TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.controller != ability.controller
+            or coverage is None
+            or not coverage.coverage.fully_supported
+            or ability.event.kind
+            not in {RulesEventKind.ATTACKERS_DECLARED, RulesEventKind.BLOCKERS_DECLARED}
+            or ability.source_id not in ability.event.subject_ids
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+        ):
+            raise ValueError("combat obligation trigger has invalid provenance")
+
+    def _resolve_combat_obligation(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_combat_obligation_trigger(ability)
+        sacrifices = tuple(
+            permanent.object_id
+            for permanent in self.players[ability.controller].battlefield
+            if self.is_authoritative(permanent, "battlefield")
+        )
+        discards = tuple(
+            card.object_id
+            for card in self.players[ability.controller].hand
+            if self.is_authoritative(card, "hand")
+        )
+        choice = self.combat_obligation_chooser(
+            ability.controller, ability.source_id, sacrifices, discards
+        )
+        if not isinstance(choice, tuple) or len(choice) != 2:
+            raise ValueError("combat obligation chooser must return an action and object id")
+        action, object_id = choice
+        if action not in {"sacrifice", "discard", "none"}:
+            raise ValueError("combat obligation chooser returned an unknown action")
+        if action == "none":
+            if sacrifices or discards:
+                raise ValueError("combat obligation chooser may decline only when no option exists")
+        elif action == "sacrifice":
+            if object_id not in sacrifices:
+                raise ValueError("combat obligation sacrifice choice is illegal")
+            moved = self.move_object(
+                self._objects[object_id], "graveyard", reason="combat_obligation_sacrifice"
+            )
+            self.log(
+                "combat_obligation_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                action="sacrifice",
+                object_id=moved.object_id,
+                destination_zone="graveyard",
+                oracle_fragment=ability.oracle_fragment,
+            )
+        else:
+            if object_id not in discards:
+                raise ValueError("combat obligation discard choice is illegal")
+            moved = self.move_object(
+                self._objects[object_id], "graveyard", reason="combat_obligation_discard"
+            )
+            self.log(
+                "combat_obligation_resolved",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                action="discard",
+                object_id=moved.object_id,
+                destination_zone="graveyard",
+                oracle_fragment=ability.oracle_fragment,
+            )
+        if action == "none":
+            self.log(
+                "combat_obligation_no_option",
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                controller=ability.controller,
+                oracle_fragment=ability.oracle_fragment,
+            )
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -4346,6 +4454,8 @@ class Game(
             self._validate_rock_soldiers_trigger(ability)
         if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
             self._validate_shredder_trigger(ability)
+        if ability.effect is TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD:
+            self._validate_combat_obligation_trigger(ability)
         if ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
             ability.event.kind is not RulesEventKind.CREATURE_DIED
             or ability.source_id not in self._paramecia_departures
@@ -4615,6 +4725,8 @@ class Game(
                 )
         elif ability.effect is TriggerEffect.LTB_MUTAGEN:
             self._resolve_ltb_mutagen(ability)
+        elif ability.effect is TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD:
+            self._resolve_combat_obligation(ability)
         elif ability.effect is TriggerEffect.CREATE_TOKEN:
             coverage = self.interpreter.token_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -5294,6 +5406,7 @@ class Game(
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
+                TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD,
             }:
                 self._begin_priority_window()
                 return
@@ -6722,6 +6835,39 @@ class Game(
                 )
                 if discard_draw is not None and discard_draw.coverage.fully_supported:
                     self._enqueue_trigger(event, source, fragment, TriggerEffect.DISCARD_DRAW)
+                combat_obligation = self.interpreter.combat_sacrifice_discard_semantic_coverage(
+                    source.card, fragment
+                )
+                if combat_obligation is not None and combat_obligation.coverage.fully_supported:
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD
+                    )
+        self._put_pending_triggers_on_stack()
+        self._drain_triggered_abilities()
+
+    def resolve_block_pt_effects(self, blockers: list[Permanent]) -> None:
+        """Deliver generic triggers caused by declaring blockers."""
+        if any(
+            not isinstance(blocker, Permanent)
+            or not self.is_authoritative(blocker, "battlefield")
+            or blocker.controller != 1 - self.active_player
+            for blocker in blockers
+        ):
+            raise ValueError("block trigger delivery requires authoritative defending blockers")
+        event = self._new_rules_event(
+            RulesEventKind.BLOCKERS_DECLARED,
+            1 - self.active_player,
+            tuple(blocker.object_id for blocker in blockers),
+        )
+        for source in blockers:
+            for fragment in self.interpreter.fragments(source.rules_card):
+                coverage = self.interpreter.combat_sacrifice_discard_semantic_coverage(
+                    source.card, fragment
+                )
+                if coverage is not None and coverage.coverage.fully_supported:
+                    self._enqueue_trigger(
+                        event, source, fragment, TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD
+                    )
         self._put_pending_triggers_on_stack()
         self._drain_triggered_abilities()
 
@@ -7784,6 +7930,11 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
+        blocker_ids = tuple(blocker_id for _attacker_id, blocker_id in blocks.blocks)
+        blockers = [self._objects[object_id] for object_id in blocker_ids]
+        if not all(isinstance(blocker, Permanent) for blocker in blockers):
+            raise ValueError("block option references a nonpermanent blocker")
+        self.resolve_block_pt_effects(blockers)  # type: ignore[arg-type]
         if not any(
             option.kind is ActionKind.CAST
             for option in self.legal_sneak_actions(self.active_player)
@@ -10082,6 +10233,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.COMBAT_SACRIFICE_OR_DISCARD,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)

@@ -475,6 +475,27 @@ class InterpretedDiscardDrawSemantics:
 
 
 @dataclass(frozen=True)
+class CombatSacrificeDiscardProgram:
+    """Resolution-time choice: discard a card or sacrifice a permanent."""
+
+    source_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.source_reference
+
+
+@dataclass(frozen=True)
+class InterpretedCombatSacrificeDiscardSemantics:
+    program: CombatSacrificeDiscardProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -686,6 +707,10 @@ class CardInterpreter:
     )
     CANT_BE_BLOCKED_BY_MORE_THAN_ONE = re.compile(
         r"^(?P<subject>.+) can't be blocked by more than one creature\."
+    )
+    COMBAT_SACRIFICE_UNLESS_DISCARD = re.compile(
+        r"^Whenever (?P<source>.+) attack or block, sacrifice a permanent unless you "
+        r"discard a card\.$"
     )
     ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
         r"^Alliance — Whenever another creature you control enters, put "
@@ -1661,6 +1686,34 @@ class CardInterpreter:
             fragment,
             0,
             len(fragment),
+        )
+
+    def combat_sacrifice_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedCombatSacrificeDiscardSemantics | None:
+        """Recognize the generic attack-or-block sacrifice/unless-discard trigger."""
+        match = self.COMBAT_SACRIFICE_UNLESS_DISCARD.fullmatch(fragment)
+        if match is None:
+            return None
+        names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = (
+            match.group("source").casefold() in names
+            or match.group("source").casefold() == "this creature"
+        )
+        source_is_permanent = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        limitations = []
+        if not source_reference:
+            limitations.append("combat_obligation_source_mismatch")
+        if not source_is_permanent:
+            limitations.append("combat_obligation_source_not_permanent")
+        program = CombatSacrificeDiscardProgram(source_reference and source_is_permanent)
+        executable = program.executable
+        return InterpretedCombatSacrificeDiscardSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, tuple(limitations)),
         )
 
     def discard_draw_semantic_coverage(
@@ -2726,6 +2779,11 @@ class CardInterpreter:
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            combat_obligation = self.combat_sacrifice_discard_semantic_coverage(card, fragment)
+            if combat_obligation is not None:
+                for reason in combat_obligation.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
                 continue
