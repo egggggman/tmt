@@ -106,3 +106,34 @@ def test_obligation_chooser_rejects_illegal_object():
     game.resolve_attack_pt_effects([source])
     with pytest.raises(ValueError, match="discard choice is illegal"):
         resolve_all(game)
+
+
+def test_multiple_attackers_create_independent_obligations_and_keep_original_controller():
+    chosen = []
+
+    def choose(controller, source_id, sacrifices, discards):
+        chosen.append((controller, source_id))
+        return ("discard", discards[-1])
+
+    game = Game(([LAND] * 20, [LAND] * 20), seed=44003, combat_obligation_chooser=choose)
+    game.begin_turn()
+    first = game.create_permanent(OBLIGATION, 0, summoning_sick=False)
+    second = game.create_permanent(OBLIGATION, 0, summoning_sick=False)
+    game.resolve_attack_pt_effects([first, second])
+    resolve_all(game)
+    assert len(chosen) == 2
+    assert {source_id for _controller, source_id in chosen} == {first.object_id, second.object_id}
+
+
+def test_control_change_does_not_reassign_already_created_obligation():
+    seen = []
+
+    def choose(controller, source_id, sacrifices, discards):
+        seen.append(controller)
+        return ("discard", discards[-1])
+
+    game, source, _permanent, _card = fixture(chooser=choose)
+    game.resolve_attack_pt_effects([source])
+    game.change_controller(source, 1)
+    resolve_all(game)
+    assert seen == [0]

@@ -46,9 +46,9 @@ Focused command:
 uv run pytest -q tests/test_combat_obligation_c2.py tests/test_block_restriction_c1.py
 ```
 
-Result: **10 passed**.
+Result: **12 passed** (8 C2 tests plus 4 C1 tests).
 
-The full regression completed with **1,639 passed, 10 skipped**.
+The full regression completed with **1,641 passed, 10 skipped**.
 
 ### Coverage disposition
 

@@ -87,7 +87,7 @@ this report.
 The accepted A/B checkpoint recorded three focused Work Packet A/B tests, 86
 focused existing semantic/permanent-left/Mutagen-related tests, and a full
 regression of 1,629 passed, 10 skipped. C2 adds six focused tests; the C2 full
-regression is **1,639 passed, 10 skipped**, with Ruff, formatting, diff, and the
+regression is **1,641 passed, 10 skipped**, with Ruff, formatting, diff, and the
 Baseline 005 structural validator green. These results establish the C2 runtime
 but do not authorize simulations or close any unsupported family listed above.
 

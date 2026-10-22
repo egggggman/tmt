@@ -15,5 +15,5 @@
   },
   "completed_batch": "C2 mandatory combat payment",
   "recommended_batches": ["C3 variable-X tokens", "C4 Stomped kicker/removal", "C5 Mutant Chain Reaction", "C6 Tainted Treats", "C7 Cowabunga hidden-zone selection", "C8 Paramecia recursion"],
-  "tests": {"focused_c1": 4, "focused_c2": 6, "combat_regression": 18, "full_passed": 1639, "full_skipped": 10}
+  "tests": {"focused_c1": 4, "focused_c2": 8, "combat_regression": 18, "full_passed": 1641, "full_skipped": 10}
 }
