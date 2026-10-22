@@ -36,6 +36,7 @@ class CastKind(Enum):
     KICKED_CREATURE_PT = "kicked_creature_pt"
     COMPOUND_REMOVAL_TOKEN = "compound_removal_token"
     CONDITIONAL_REMOVAL_TOKEN = "conditional_removal_token"
+    TOP_LIBRARY_SELECTION = "top_library_selection"
     UNSUPPORTED = "unsupported"
 
 
@@ -44,6 +45,25 @@ class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
     variable_x: bool = False
+
+
+@dataclass(frozen=True)
+class TopLibrarySelectionProgram:
+    """Look at a bounded library prefix, optionally reveal one qualifying card."""
+
+    quantity: int
+    eligible_types: tuple[str, ...]
+    destination: str = "hand"
+    random_bottom: bool = True
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.quantity > 0
+            and bool(self.eligible_types)
+            and self.destination == "hand"
+            and self.random_bottom
+        )
 
 
 @dataclass(frozen=True)
@@ -1008,6 +1028,8 @@ class CardInterpreter:
             return CastProgram(CastKind.CONDITIONAL_REMOVAL_TOKEN)
         if self.compound_removal_token_program(card) is not None:
             return CastProgram(CastKind.COMPOUND_REMOVAL_TOKEN)
+        if self.top_library_selection_program(card) is not None:
+            return CastProgram(CastKind.TOP_LIBRARY_SELECTION)
         if "Aura" in card.type_line:
             return CastProgram(
                 CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
@@ -1052,6 +1074,48 @@ class CardInterpreter:
             )
             return CastProgram(CastKind.CREATURE, variable_x=variable_x)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    TOP_LIBRARY_SELECTION = re.compile(
+        r"^Look at the top (?P<quantity>"
+        r"[1-9][0-9]*|one|two|three|four|five|six|seven|eight|nine|ten"
+        r") cards? of your library\. "
+        r"You may reveal a (?P<types>.+?) card from among them and put it into your hand\. "
+        r"Put the rest on the bottom of your library in a random order\.$",
+        re.I,
+    )
+
+    def top_library_selection_program(
+        self, card: CardDefinition
+    ) -> TopLibrarySelectionProgram | None:
+        """Recognize the generic optional top-library reveal/hand transaction."""
+        if card.type_line.split(" — ", 1)[0].strip() not in {"Sorcery", "Instant"}:
+            return None
+        match = self.TOP_LIBRARY_SELECTION.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        types = tuple(
+            value.strip().casefold()
+            for value in re.split(r",|\bor\b", match.group("types"), flags=re.I)
+            if value.strip()
+        )
+        if not types or any(value not in {"mutant", "ninja", "turtle", "land"} for value in types):
+            return None
+        quantity_text = match.group("quantity").casefold()
+        quantity = self.DRAW_QUANTITIES.get(
+            quantity_text, int(quantity_text) if quantity_text.isdigit() else None
+        )
+        if quantity is None:
+            return None
+        program = TopLibrarySelectionProgram(quantity, types)
+        return program if program.executable else None
+
+    def top_library_selection_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.top_library_selection_program(card)
+        if program is None or fragment.strip() != card.oracle_text.strip():
+            return None
+        return SemanticCoverage(True, True, True, ())
 
     KICKED_CREATURE_PT = re.compile(
         r"Kicker—Sacrifice an artifact or creature\. \(You may sacrifice an artifact or creature "
