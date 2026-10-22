@@ -19,5 +19,5 @@
   },
   "completed_batch": "C7 Cowabunga hidden-zone selection",
   "recommended_batches": ["C8 Paramecia recursion", "C9 Menace/Rhino grants"],
-  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "focused_c4": 4, "focused_c5": 5, "focused_c6": 7, "focused_c7": 10, "combat_regression": 18, "full_passed": 1662, "full_skipped": 10}
+  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "focused_c4": 4, "focused_c5": 5, "focused_c6": 7, "focused_c7": 10, "combat_regression": 18, "full_passed": 1672, "full_skipped": 10}
 }
