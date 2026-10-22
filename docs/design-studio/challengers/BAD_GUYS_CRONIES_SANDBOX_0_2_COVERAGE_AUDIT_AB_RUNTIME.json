@@ -1,7 +1,8 @@
 {
   "audit": "BAD_GUYS_CRONIES_SANDBOX_0_2_COVERAGE_AUDIT_AB_RUNTIME",
   "status": "BLOCKED",
-  "runtime": "c95426fe7baba7794884782e781df1deda0c8d162cf70df03f0a8da1528a6691",
+  "runtime": "ab38515951c7faa1b1006a3e03ec4620c03a646538c2a3e54e44733716f44a37",
+  "pre_c3_runtime": "c95426fe7baba7794884782e781df1deda0c8d162cf70df03f0a8da1528a6691",
   "pre_c1_runtime": "00fc49eb47d9ffd3d0243564cc7c9763d11738ca9698811306102747a060d374",
   "predecessor_runtime": "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924",
   "candidate_sha256": "cacc77648a4d1659b8ae640d95ac2672694e6951553980246e6d001e5152bfb4",
@@ -9,11 +10,11 @@
   "snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
   "simulations_run": false,
   "coverage": {
-    "supported": ["Foot Elite attack trigger", "Foot Mystic lifelink", "Foot Mystic conditional Disappear ETB/token", "Rocksteady Forestcycling", "Bebop & Rocksteady mandatory sacrifice/discard"],
+    "supported": ["Foot Elite attack trigger", "Foot Mystic lifelink", "Foot Mystic conditional Disappear ETB/token", "Rocksteady Forestcycling", "Bebop & Rocksteady mandatory sacrifice/discard", "Generic variable-X announcement/payment and ETB token creation"],
     "partial": ["Intrinsic deathtouch/trample/reach/ordinary land entry"],
-    "unsupported": ["Mutagen variable-X token creation", "Mutagen artifact-token activation discount", "Stomped by the Foot kicker/removal", "Mutant Chain Reaction removal/token compound", "Tainted Treats conditional Food", "Cowabunga top-four selection", "Paramecia Coloniex recursion", "Menace/Rhino grants"]
+    "unsupported": ["Mutagen artifact-token activation discount", "Stomped by the Foot kicker/removal", "Mutant Chain Reaction removal/token compound", "Tainted Treats conditional Food", "Cowabunga top-four selection", "Paramecia Coloniex recursion", "Menace/Rhino grants"]
   },
-  "completed_batch": "C2 mandatory combat payment",
-  "recommended_batches": ["C3 variable-X tokens", "C4 Stomped kicker/removal", "C5 Mutant Chain Reaction", "C6 Tainted Treats", "C7 Cowabunga hidden-zone selection", "C8 Paramecia recursion"],
-  "tests": {"focused_c1": 4, "focused_c2": 8, "combat_regression": 18, "full_passed": 1641, "full_skipped": 10}
+  "completed_batch": "C3 generic variable-X token creation",
+  "recommended_batches": ["C4 Stomped kicker/removal", "C5 Mutant Chain Reaction", "C6 Tainted Treats", "C7 Cowabunga hidden-zone selection", "C8 Paramecia recursion"],
+  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "combat_regression": 18, "full_passed": 1646, "full_skipped": 10}
 }

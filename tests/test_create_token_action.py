@@ -51,7 +51,6 @@ EXPECTED_RECOGNIZED_NAMES = {
     "Mona Lisa, Ever Adaptable",
     "Mouser Attack!",
     "Mouser Foundry",
-    "Mutagen Man, Living Ooze",
     "Mutant Chain Reaction",
     "Ninja Pizza",
     "Old Hob, Alleycat Blues",
@@ -79,12 +78,13 @@ EXPECTED_RECOGNIZED_NAMES = {
     "The Last Ronin's Technique",
     "The Ooze",
     "Tokka & Rahzar, Unsupervised",
-    "Triceraton Commander",
     "Turtle Blimp",
     "Uneasy Alliance",
     "Waste Not",
     "Wooden Cane",
     "Zoo Escapees",
+    "Triceraton Commander",
+    "Mutagen Man, Living Ooze",
 }
 EXPECTED_EXECUTABLE_NAMES = EXPECTED_RECOGNIZED_NAMES - {
     "Big Apple, 3 a.m.",
@@ -95,7 +95,6 @@ EXPECTED_EXECUTABLE_NAMES = EXPECTED_RECOGNIZED_NAMES - {
     "Endless Foot Assault",
     "Here Comes a New Hero!",
     "Improvised Arsenal",
-    "Mutagen Man, Living Ooze",
     "Plague of Vermin",
     "Sally Pride, Lioness Leader",
     "Shellshock",
@@ -103,7 +102,6 @@ EXPECTED_EXECUTABLE_NAMES = EXPECTED_RECOGNIZED_NAMES - {
     "Tempestra, Dame of Games",
     "The Cloning of Shredder",
     "The Last Ronin's Technique",
-    "Triceraton Commander",
 }
 EXPECTED_ROSTER_NAMES = {
     "Courier of Comestibles",
@@ -683,7 +681,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
         name for name, items in rows_by_name.items() if any(x[2].payload_executable for x in items)
     } == EXPECTED_EXECUTABLE_NAMES
     assert sum(map(len, rows_by_name.values())) == 71
-    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 50
+    assert sum(x[2].payload_executable for items in rows_by_name.values() for x in items) == 52
     recognized_rows = {
         (oracle_id, fragment) for items in rows_by_name.values() for oracle_id, fragment, _ in items
     }
@@ -705,7 +703,7 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
     )
     assert (
         digest(executable_rows)
-        == "3fdec6260d5627e3e2c0e57b9a8e56b71ea35e59c51efcbb574de10f67254d55"
+        == "e0c0cac391a89c5fddc87c7ff525776cad63d3e5b40af805719d9188a4a66df5"
     )
 
     roster = json.loads((ROOT / "cardcade/roster-0.2.json").read_text(encoding="utf-8"))
@@ -728,7 +726,6 @@ def test_authoritative_snapshot_and_frozen_roster_recognition_contract():
     assert exposed_names & EXPECTED_EXECUTABLE_NAMES == EXPECTED_ROSTER_NAMES - {
         "Donatello, Gadget Master",
         "Improvised Arsenal",
-        "Mutagen Man, Living Ooze",
         "The Last Ronin's Technique",
     }
 
@@ -755,6 +752,7 @@ def test_every_bounded_full_pool_program_executes_the_same_authoritative_action(
             candidate,
             source_card=card_name,
             oracle_fragment=fragment,
+            quantity_override=1 if candidate.quantity == "X" else None,
         )
         for card_name, fragment, candidate in executable
     ]
@@ -799,8 +797,10 @@ def test_every_nonfully_supported_full_pool_fragment_retains_explicit_limitation
         "Michelangelo, Weirdness to 11",
         "Slithering Cryptid",
         "Foot Mystic",
+        "Mutagen Man, Living Ooze",
+        "Triceraton Commander",
     }
-    assert len(fully_supported) == 17
+    assert len(fully_supported) == 19
     for card, fragment, coverage in rows:
         reported_reasons = {
             reason

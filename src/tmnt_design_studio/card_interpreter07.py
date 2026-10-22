@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from typing import Protocol
 
@@ -40,6 +40,7 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+    variable_x: bool = False
 
 
 @dataclass(frozen=True)
@@ -599,7 +600,7 @@ class TokenCreationProgram:
     """One recognized token-creation instruction, executable only when fully bounded."""
 
     definition: TokenDefinition | None
-    quantity: int | None
+    quantity: int | str | None
     tapped: bool = False
     unsupported_reason: str | None = None
     retained_limitation: str | None = None
@@ -609,7 +610,7 @@ class TokenCreationProgram:
         return (
             self.definition is not None
             and self.quantity is not None
-            and self.quantity > 0
+            and (self.quantity == "X" or self.quantity > 0)
             and self.unsupported_reason is None
         )
 
@@ -996,7 +997,13 @@ class CardInterpreter:
         ):
             return CastProgram(CastKind.PERMANENT)
         if card.is_creature and card.power is not None and card.toughness is not None:
-            return CastProgram(CastKind.CREATURE)
+            variable_x = "{X}" in card.mana_cost and any(
+                (semantics := self.token_semantic_coverage(card, fragment)) is not None
+                and semantics.coverage.fully_supported
+                and semantics.program.quantity == "X"
+                for fragment in self.fragments(card)
+            )
+            return CastProgram(CastKind.CREATURE, variable_x=variable_x)
         return CastProgram(CastKind.UNSUPPORTED)
 
     AURA_SUPPRESSION = re.compile(
@@ -1412,9 +1419,20 @@ class CardInterpreter:
         quantity = self.TOKEN_QUANTITIES.get(quantity_text)
         if quantity is None and quantity_text.isdecimal():
             quantity = int(quantity_text)
-        variable_quantity = quantity is None or bool(
-            re.search(
-                r"\b(?:for each|equal to|twice that many|where X|that many)\b", fragment, re.I
+        if quantity is None and quantity_text == "x":
+            quantity = "X"
+        variable_quantity = (
+            quantity is None
+            or (
+                quantity == "X"
+                and not re.search(
+                    r"\bwhere X is the amount of mana spent to cast it\b", fragment, re.I
+                )
+            )
+            or bool(
+                re.search(
+                    r"\b(?:for each|equal to|twice that many|where X|that many)\b", fragment, re.I
+                )
             )
         )
         if re.search(
@@ -2594,6 +2612,19 @@ class CardInterpreter:
         program = self.token_creation_program(fragment)
         if program is None:
             return None
+
+        # A variable token quantity is bounded when the same permanent has an X
+        # mana cost and the Oracle clause creates X tokens on entry.  X is then
+        # the announcement-time amount, retained by the spell/permanent object;
+        # no card identity is consulted here.
+        if (
+            program.quantity == "X"
+            and program.unsupported_reason == "variable_token_quantity_not_implemented"
+            and "{X}" in card.mana_cost
+            and "Creature" in card.type_line
+            and re.match(r"^When .+ enters, (?:you )?create X .+ tokens?\.", fragment, re.I)
+        ):
+            program = replace(program, unsupported_reason=None)
 
         match = self.CREATE_TOKEN.search(fragment)
         assert match is not None
