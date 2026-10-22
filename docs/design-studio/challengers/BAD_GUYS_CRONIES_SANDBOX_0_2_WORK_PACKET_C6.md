@@ -48,7 +48,7 @@ Menace/Rhino grants.
 ## Runtime and validation
 
 - Parent C5 runtime: `5860e357c084973aac2eae3f4b5f27b9948caa866bad3bf3d5c48cc8d5db4cf8`
-- C6 runtime: `f195ce9aaa0bfd6e45c1aced07305d15e06b4b448c993e264640a34f75a50e10`
+- C6 runtime: `7bfaa315f3c54a184be1b49dddaad7b598211f91c0f66d47fd0aaafe8af2d3b8`
 - Focused C6 tests: **7 passed**.
 - Full pytest: **1,662 passed, 10 skipped**.
 - Ruff, formatting, structural validation, and terminology checks: **passed**.

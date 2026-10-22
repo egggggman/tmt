@@ -21,7 +21,7 @@ regenerated after generic C6 mana-value-gated Food creation support.
 | C3 semantic runtime | `ab38515951c7faa1b1006a3e03ec4620c03a646538c2a3e54e44733716f44a37` |
 | C4 semantic runtime | `6b2f86bf1834aece9dc1b3bc3817451601fb5c88e8581f1c7f6ba2a1d50d63a0` |
 | C5 semantic runtime | `5860e357c084973aac2eae3f4b5f27b9948caa866bad3bf3d5c48cc8d5db4cf8` |
-| C6 semantic runtime | `f195ce9aaa0bfd6e45c1aced07305d15e06b4b448c993e264640a34f75a50e10` |
+| C6 semantic runtime | `7bfaa315f3c54a184be1b49dddaad7b598211f91c0f66d47fd0aaafe8af2d3b8` |
 | Candidate change | −4 Zoo Escapees, −3 Putrid Pals, +4 Foot Elite, +3 Foot Mystic |
 
 The candidate remains 60 cards (28 creatures, 10 noncreature/nonland spells, 22

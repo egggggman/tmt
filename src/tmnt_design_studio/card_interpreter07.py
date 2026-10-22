@@ -1114,7 +1114,8 @@ class CardInterpreter:
 
     CONDITIONAL_REMOVAL_TOKEN = re.compile(
         r"^Destroy target artifact or creature\. If its mana value was (?P<threshold>[0-9]+) "
-        r'or less, (?P<token>Create (?:a|an|one) [^.]+ token\. \(It.s an artifact with "[^"]+"\))$',
+        r"or less, (?P<token>Create (?:a|an|one) [^.]+ token\. "
+        r'\(It(?:\'|’)s an artifact with "[^"]+"\))$',
         re.I,
     )
 
