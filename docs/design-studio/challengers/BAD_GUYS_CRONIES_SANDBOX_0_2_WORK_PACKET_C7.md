@@ -43,10 +43,10 @@ cover exact grammar, 4+ cards, short and empty libraries, eligible and ineligibl
 cards, decline, hidden private views, identity preservation, random-bottom
 ordering, invalid choices, and exact repeated snapshots.
 
-The complete regression was launched from the accepted C6 branch and is required
-to remain green before publication. Ruff, formatting, structural validation, and
-the coverage audit are required publication gates. No gameplay simulations were
-authorized or run.
+The complete regression passed: **1,672 passed, 10 skipped**. Ruff formatting and
+lint checks, structural validation, terminology checks, and the coverage audit
+also passed in CI run **39844249949** (job **120053195281**). No gameplay
+simulations were authorized or run.
 
 ## Remaining unsupported families
 
