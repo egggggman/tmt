@@ -23,6 +23,7 @@ from tmnt_design_studio.card_interpreter07 import (
     ActivatedEffectKind,
     CardInterpreter,
     CastKind,
+    CompoundRemovalTokenProgram,
     DamageTargetKind,
     DiscardDrawProgram,
     HandBottomDrawProgram,
@@ -7168,6 +7169,8 @@ class Game(
                 )
             elif kind is CastKind.KICKED_CREATURE_PT:
                 options.extend(self._kicked_creature_pt_options(player_index, card))
+            elif kind is CastKind.COMPOUND_REMOVAL_TOKEN:
+                options.extend(self._compound_removal_token_options(player_index, card))
             elif kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
                 options.extend(
                     ActionOption(
@@ -7229,6 +7232,45 @@ class Game(
             for target in side.battlefield
             if target.is_creature
             for cost in (None, *sacrifices)
+        )
+
+    def _compound_removal_token_options(
+        self, player_index: int, card: CardObject, *, priority_epoch: int | None = None
+    ) -> tuple[ActionOption, ...]:
+        """Offer the optional no-target choice and each currently legal target."""
+        program = self.interpreter.compound_removal_token_program(card.card)
+        if program is None or self.payment_plan(player_index, card) is None:
+            return ()
+        targets = tuple(
+            permanent
+            for side in self.players
+            for permanent in side.battlefield
+            if self._is_compound_removal_target(permanent, program)
+        )
+        return tuple(
+            ActionOption(
+                ActionKind.CAST,
+                player_index,
+                object_id=card.object_id,
+                target_id=target.object_id if target is not None else None,
+                oracle_fragment=card.card.oracle_text,
+                priority_epoch=priority_epoch,
+            )
+            for target in (None, *targets)
+        )
+
+    def _is_compound_removal_target(
+        self, target: Permanent, program: CompoundRemovalTokenProgram
+    ) -> bool:
+        types = set(target.type_line.split(" — ", 1)[0].split())
+        return (
+            ("artifact" in program.target_kinds and "Artifact" in types)
+            or ("enchantment" in program.target_kinds and "Enchantment" in types)
+            or (
+                "creature_flying" in program.target_kinds
+                and "Creature" in types
+                and self._has_keyword(target, "Flying")
+            )
         )
 
     def _legal_kicker_sacrifice(
@@ -7544,6 +7586,14 @@ class Game(
                     player_index, card, priority_epoch=state.epoch
                 )
             ),
+            *(
+                option
+                for card in self.players[player_index].hand
+                if self.interpreter.compound_removal_token_program(card.card) is not None
+                for option in self._compound_removal_token_options(
+                    player_index, card, priority_epoch=state.epoch
+                )
+            ),
             *self._aura_cast_options(player_index, priority=True),
             *self.legal_hand_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
@@ -7589,6 +7639,15 @@ class Game(
                 )
                 if spell is None:
                     raise ValueError("instant response became illegal")
+                self._begin_priority_window(priority_player=option.player_index)
+                return True
+            if (
+                isinstance(card, CardObject)
+                and self.interpreter.compound_removal_token_program(card.card) is not None
+            ):
+                spell = self.announce_spell(option.player_index, card, target)
+                if spell is None:
+                    raise ValueError("compound spell response became illegal")
                 self._begin_priority_window(priority_player=option.player_index)
                 return True
             if isinstance(card, CardObject) and self.interpreter.aura_program(card.card):
@@ -7812,6 +7871,8 @@ class Game(
                     target if isinstance(target, Permanent) else None,
                     sacrifice_cost=kicker_cost if isinstance(kicker_cost, Permanent) else None,
                 )
+            if self.interpreter.compound_removal_token_program(obj.card) is not None:
+                return self.cast(option.player_index, obj, target)
             return self.cast(
                 option.player_index,
                 obj,
@@ -10327,6 +10388,17 @@ class Game(
             ):
                 return None
             target_id = target.object_id
+        elif program.kind is CastKind.COMPOUND_REMOVAL_TOKEN:
+            compound = self.interpreter.compound_removal_token_program(card.card)
+            if compound is None:
+                return None
+            if target is not None and (
+                not isinstance(target, Permanent)
+                or not self.is_authoritative(target, "battlefield")
+                or not self._is_compound_removal_target(target, compound)
+            ):
+                return None
+            target_id = target.object_id if target is not None else None
         elif program.kind is CastKind.UNSUPPORTED:
             fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
             for fragment in fragments or [card.type_line]:
@@ -10566,6 +10638,10 @@ class Game(
             )
         elif spell.cast_kind is CastKind.KICKED_CREATURE_PT:
             legal_target = legal_target and isinstance(target, Permanent) and target.is_creature
+        elif spell.cast_kind is CastKind.COMPOUND_REMOVAL_TOKEN:
+            # "up to one" permits no target, and an illegal selected target does
+            # not prevent the independent token instruction from resolving.
+            legal_target = True
         if not legal_target:
             resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
             assert isinstance(resolved_card, CardObject)
@@ -10580,7 +10656,11 @@ class Game(
                 reason="all_targets_illegal",
             )
             return resolved_card
-        if spell.cast_kind not in {CastKind.OOZE_SPILL, CastKind.DRAW_CARDS}:
+        if spell.cast_kind not in {
+            CastKind.OOZE_SPILL,
+            CastKind.DRAW_CARDS,
+            CastKind.COMPOUND_REMOVAL_TOKEN,
+        }:
             assert isinstance(target, Permanent)
         filter_plan = None
         filter_semantics = None
@@ -10637,6 +10717,33 @@ class Game(
                 toughness=modifier[1],
             )
             self.check_state_based_actions()
+        elif spell.cast_kind is CastKind.COMPOUND_REMOVAL_TOKEN:
+            program = self.interpreter.compound_removal_token_program(spell.card)
+            if program is None or not program.executable:
+                raise AssertionError("stacked compound spell no longer has executable semantics")
+            removed = False
+            if (
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and self._is_compound_removal_target(target, program)
+            ):
+                self.destroy(target)
+                removed = True
+            mutagen = self.create_tokens(
+                spell.controller,
+                program.token_program,
+                source_card=spell.card.name,
+                oracle_fragment=spell.card.oracle_text,
+                source_id=spell.object_id,
+            )
+            self.log(
+                "compound_removal_token_resolved",
+                stack_object_id=spell.object_id,
+                target_id=spell.target_id,
+                removal_applied=removed,
+                token_ids=[token.object_id for token in mutagen],
+                ordering=("removal", "token_creation"),
+            )
         elif spell.cast_kind is CastKind.DRAW_CARDS:
             draw_semantics = next(
                 (

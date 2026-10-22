@@ -34,6 +34,7 @@ class CastKind(Enum):
         "destroy_artifact_enchantment_or_power_4_creature"
     )
     KICKED_CREATURE_PT = "kicked_creature_pt"
+    COMPOUND_REMOVAL_TOKEN = "compound_removal_token"
     UNSUPPORTED = "unsupported"
 
 
@@ -51,6 +52,18 @@ class KickedCreaturePTProgram:
     sacrifice_types: tuple[str, ...]
     ordinary: tuple[int, int]
     kicked: tuple[int, int]
+
+
+@dataclass(frozen=True)
+class CompoundRemovalTokenProgram:
+    """Optional permanent removal followed by one token creation."""
+
+    target_kinds: tuple[str, ...]
+    token_program: TokenCreationProgram
+
+    @property
+    def executable(self) -> bool:
+        return bool(self.target_kinds) and self.token_program.executable
 
 
 @dataclass(frozen=True)
@@ -973,6 +986,8 @@ class CardInterpreter:
     def cast_program(self, card: CardDefinition) -> CastProgram:
         if self.kicked_creature_pt_program(card) is not None:
             return CastProgram(CastKind.KICKED_CREATURE_PT)
+        if self.compound_removal_token_program(card) is not None:
+            return CastProgram(CastKind.COMPOUND_REMOVAL_TOKEN)
         if "Aura" in card.type_line:
             return CastProgram(
                 CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
@@ -1046,6 +1061,36 @@ class CardInterpreter:
         if program is not None and fragment in self.fragments(card):
             return SemanticCoverage(True, True, True, ())
         return None
+
+    COMPOUND_REMOVAL_TOKEN = re.compile(
+        r"^Destroy up to one target artifact, enchantment, or creature with flying\. "
+        r'(?P<token>Create (?:a|an|one) [^.]+ token\. \(It.s an artifact with "[^\"]+"\))$',
+        re.I,
+    )
+
+    def compound_removal_token_program(
+        self, card: CardDefinition
+    ) -> CompoundRemovalTokenProgram | None:
+        """Recognize optional artifact/enchantment/flying-creature removal plus a token."""
+        if not card.type_line.startswith("Sorcery"):
+            return None
+        match = self.COMPOUND_REMOVAL_TOKEN.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token_program = self.token_creation_program(match.group("token"))
+        if token_program is None or not token_program.executable:
+            return None
+        return CompoundRemovalTokenProgram(
+            ("artifact", "enchantment", "creature_flying"), token_program
+        )
+
+    def compound_removal_token_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.compound_removal_token_program(card)
+        if program is None or fragment not in self.fragments(card):
+            return None
+        return SemanticCoverage(program.executable, True, True, ())
 
     AURA_SUPPRESSION = re.compile(
         r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
@@ -2644,6 +2689,9 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        compound = self.compound_removal_token_program(card)
+        if compound is not None and fragment == card.oracle_text:
+            return self._token_semantics(compound.token_program, True)
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
@@ -2758,6 +2806,11 @@ class CardInterpreter:
         for fragment in fragments:
             kicker = self.shared_kicker_semantic_coverage(card, fragment)
             if kicker is not None:
+                continue
+            compound = self.compound_removal_token_semantic_coverage(card, fragment)
+            if compound is not None:
+                for reason in compound.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
