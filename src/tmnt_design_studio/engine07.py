@@ -1,262 +1,15 @@
-Warning: truncated output (original token count: 134566)
-Total output lines: 12126
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ôˆˆ‰Mµ…±°°‘•Ñ•Éµ¥¹¥ÍÑ¥Œ°ÉÕ±•ÌµÉ½Õ¹‘•…É‘…‘”¹¥¹”€À¸Ü™½Õ¹‘…Ñ¥½¸¸()Q¡¥Ìµ½‘Õ±”‘•±¥‰•É…Ñ•±ä¥µÁ±•µ•¹ÑÌ½¹±äÑ¡”ÉÕ±•ÌÍÕÉ™…”¥Ğ…¸É•ÁÉ•Í•¹Ğ¡½¹•ÍÑ±ä¸€%Ğ¥Ì)Í•Á…É…Ñ”™É½´Ñ¡”ÁÉ•Í•ÉÙ•¹¥¹”€À¸Ä´´À¸Ø¡•ÕÉ¥ÍÑ¥ŒÍ¥µÕ±…Ñ½È¸(ˆˆˆ()™É½´}}™ÕÑÕÉ•}|¥µÁ½ÉĞ…¹¹½Ñ…Ñ¥½¹Ì()¥µÁ½ÉĞÉ…¹‘½´)¥µÁ½ÉĞÉ”)™É½´½±±•Ñ¥½¹Ì¹…‰Œ¥µÁ½ÉĞ…±±…‰±”)™É½´‘…Ñ…±…ÍÍ•Ì¥µÁ½ÉĞ‘…Ñ…±…ÍÌ°™¥•±°É•Á±…”)™É½´•¹Õ´¥µÁ½ÉĞ¹Õ´)™É½´¡…Í¡±¥ˆ¥µÁ½ÉĞÍ¡„ÈÔØ)™É½´¥Ñ•ÉÑ½½±Ì¥µÁ½ÉĞÁ•ÉµÕÑ…Ñ¥½¹Ì)™É½´Á…Ñ¡±¥ˆ¥µÁ½ÉĞA…Ñ )™É½´ÑåÁ¥¹œ¥µÁ½ÉĞ1¥Ñ•É…°°AÉ½Ñ½½°()™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹…ÕÉ„ÀÜ¥µÁ½ÉĞÕÉ…5¥á¥¸)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹…É‘}‘…Ñ„¥µÁ½ÉĞ…É‘…Ñ……Ñ…±½œ)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹…É‘}¥¹Ñ•ÉÁÉ•Ñ•ÈÀÜ¥µÁ½ÉĞ€ (€€€Ñ¥Ù…Ñ•‘‰¥±¥ÑåAÉ½É…´°(€€€Ñ¥Ù…Ñ•‘™™•Ñ-¥¹°(€€€…É‘%¹Ñ•ÉÁÉ•Ñ•È°(€€€…ÍÑ-¥¹°(€€€…µ…•Q…É•Ñ-¥¹°(€€€¥Í…É‘É…İAÉ½É…´°(€€€!…¹‘	½ÑÑ½µÉ…İAÉ½É…´°(€€€MÉåAÉ½É…´°(€€€M¹•…­AÉ½É…´°(€€€MÑÉ¥­•ÁÁ±¥…‰¥±¥Ñä°(€€€MÑÉ¥­•-•åİ½É°(€€€Q½­•¹É•…Ñ¥½¹AÉ½É…´°(€€€Q½­•¹•™¥¹¥Ñ¥½¸°(¤)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹½¹™½Éµ…¹”ÀÜ¥µÁ½ÉĞ€ (€€€ÕÑ¡½É¥Ñ…Ñ¥Ù•=ÁÁ½ÉÑÕ¹¥Ñå½¹Ñ•áĞ°(€€€½¹™½Éµ…¹•MÑ½ÁI•½É°(€€€=ÁÁ½ÉÑÕ¹¥Ñå]¥Ñ¹•ÍÌ°(€€€M•µ…¹Ñ¥=ÕÉÉ•¹”°(€€€™É…µ•¹Ñ}‘¥•ÍĞ°(€€€½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áÑ}­•ä°(€€€Í•µ…¹Ñ¥}­•ä°(¤)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹™½½‘}Í•…É ÀÜ¥µÁ½ÉĞ½½‘M•…É¡5¥á¥¸)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹©ÕÉå}É¥œÀÜ¥µÁ½ÉĞ)ÕÉåI¥5¥á¥¸)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹­É…¹}É•™¥±°ÀÜ¥µÁ½ÉĞ-É…¹I•™¥±±5¥á¥¸)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹µ…¹…}±•‘•ÈÀÜ¥µÁ½ÉĞ±½…Ñ¥¹5…¹…1•‘•È)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹µ¥±±}Ñ¡É•”ÀÜ¥µÁ½ÉĞ5¥±±Q¡É••5¥á¥¸)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹Á¥±½Ñ}¥¹ÁÕÑ}ØÈ¥µÁ½ÉĞ€ (€€€¥Í…É‘É…İY¥•İXÈ°(€€€…µ•Y¥•İXÈ°(€€€!…¹‘	½ÑÑ½µÉ…İY¥•İXÈ°(€€€AÉ¥½É¥ÑåY¥•İXÈ°(€€€MÉåY¥•İXÈ°(€€€‘•¥Í¥½¹}½¹Ñ•áĞ°(€€€‘•ÍÉ¥‰•}…É°(€€€Á¥±½Ñ}Ù¥•Ü°(€€€ÁÉ¥½É¥Ñå}Ù¥•Ü°(¤)™É½´Ñµ¹Ñ}‘•Í¥¹}ÍÑÕ‘¥¼¹Ù¥¥±…¹Ñ”ÀÜ¥µÁ½ÉĞY¥¥±…¹Ñ•5¥á¥¸()9%9}5¶‰ËkºwµçuDUõ„4RÒ°¢GW&å7FWå4UEU¢GW&å†6Rå4UEUÀ¢GW&å7FWåTåD¢GW&å†6Rä$Tt”ää”ärÀ¢GW&å7FWåU´TU¢GW&å†6Rä$Tt”ää”ärÀ¢GW&å7FWäE$s¢GW&å†6Rä$Tt”ää”ärÀ¢GW&å7FWå$T4ôÔ$EôÔ”ã¢GW&å†6Rå$T4ôÔ$EôÔ”âÀ¢GW&å7FWä$Tt”ää”äuôôeô4ôÔ$C¢GW&å†6Rä4ôÔ$BÀ¢GW&å7FWäDT4Ä$UôED4´U%3¢GW&å†6Rä4ôÔ$BÀ¢GW&å7FWäDT4Ä$Uô$Äô4´U%3¢GW&å†6Rä4ôÔ$BÀ¢GW&å7FWä4ôÔ$EôDÔtS¢GW&å†6Rä4ôÔ$BÀ¢GW&å7FWäTäEôôeô4ôÔ$C¢GW&å†6Rä4ôÔ$BÀ¢GW&å7FWåõ5D4ôÔ$EôÔ”ã¢GW&å†6Råõ5D4ôÔ$EôÔ”âÀ¢GW&å7FWäTäEõ5DU¢GW&å†6RäTäD”ärÀ¢GW&å7FWä4ÄTåU¢GW&å†6RäTäD”ärÀ§Ğ  ¦FVb†6Uöf÷%÷7FW‡7FW¢GW&å7FWÂ7G"’Óâ7G# ¢""%&WGW&âF†RVæv–æRw26æöæ–6Â†6Rf÷"öæRWF†VçF–6FVBGW&â7FWâ"" ¢&W6öÇfVBÒ7FW–b—6–ç7Fæ6R‡7FWÂGW&å7FW’VÇ6RGW&å7FW‡7FW¢&WGW&â5DUõ„4U·&W6öÇfVEÒçfÇVP  ¤äU…Eõ5DUÒ°¢GW&å7FWå4UEU¢GW&å7FWåTåDÀ¢GW&å7FWåTåD¢GW&å7FWåU´TUÀ¢GW&å7FWåU´TU¢GW&å7FWäE$rÀ¢GW&å7FWäE$s¢GW&å7FWå$T4ôÔ$EôÔ”âÀ¢GW&å7FWå$T4ôÔ$EôÔ”ã¢GW&å7FWä$Tt”ää”äuôôeô4ôÔ$BÀ¢GW&å7FWä$Tt”ää”äuôôeô4ôÔ$C¢GW&å7FWäDT4Ä$UôED4´U%2À¢GW&å7FWäDT4Ä$UôED4´U%3¢GW&å7FWäDT4Ä$Uô$Äô4´U%2À¢GW&å7FWäDT4Ä$Uô$Äô4´U%3¢GW&å7FWä4ôÔ$EôDÔtRÀ¢GW&å7FWä4ôÔ$EôDÔtS¢GW&å7FWäTäEôôeô4ôÔ$BÀ¢GW&å7FWäTäEôôeô4ôÔ$C¢GW&å7FWåõ5D4ôÔ$EôÔ”âÀ¢GW&å7FWåõ5D4ôÔ$EôÔ”ã¢GW&å7FWäTäEõ5DUÀ¢GW&å7FWäTäEõ5DU¢GW&å7FWä4ÄTåUÀ¢GW&å7FWä4ÄTåU¢GW&å7FWåTåDÀ§Ğ  ¦6Æ727F–öä¶–æB„VçVÒ“ ¢Ä•ôÄäBÒ'Æ•öÆæB ¢45BÒ&67B ¢5D•dDUô$”Ä•E’Ò&7F—fFUö&–Æ—G’ ¢55õ$”õ$•E’Ò'75÷&–÷&—G’ ¢DT4Ä$UôED4´U%2Ò&FV6Æ&UöGF6¶W'2 ¢DT4Ä$Uô$Äô4´U%2Ò&FV6Æ&Uö&Æö6¶W'2 ¢52Ò'72   ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ727F–öä÷F–öã ¢""$–Õš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[]]X›KY[]K[Û›H[œ]H[İX^HÙ[Xİ]™]™\ˆ^Xİ]H]Ù[‹ˆˆˆ‚‚ˆÚ[™ˆXİ[Û’Ú[™ˆ^Y\—Ú[™^ˆ[ˆØš™XİÚYˆİˆ›Û™HH›Û™Bˆ\™Ù]ÚYˆİˆ›Û™HH›Û™BˆÛÜİÛØš™XİÚYˆİˆ›Û™HH›Û™BˆÜ˜XÛWÙœ˜YÛY[ˆİˆ›Û™HH›Û™Bˆ]XÚÙ\—ÚYÎˆ\VÜİ‹‹‹—HH
 
-"""Small, deterministic, rules-grounded Cardcade Engine 0.7 foundation.
+Bˆ›ØÚÜÎˆ\Vİ\VÜİ‹İ—K‹‹—HH
 
-This module deliberately implements only the rules surface it can represent honestly.  It is
-separate from the preserved Engine 0.1--0.6 heuristic simulator.
-"""
+Bˆš[Üš]WÙ\ØÚˆ[›Û™HH›Û™B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈš[Üš]Tİ]N‚ˆˆˆ]]Üš]]]™H›İ[™Y]ŒHš[Üš]Hİ]H›ÜˆH›Û™[\HİXÚËˆˆˆ‚‚ˆ\ØÚˆ[ˆ^Y\—Ú[™^ˆ[ˆÛÛœÙXİ]]™WÜ\ÜÙ\Îˆ\VÚ[‹‹—HH
 
-from __future__ import annotations
+Bˆ™\ÛÛ][Û—Ü[™[™Îˆ›ÛÛH˜[ÙB‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈX[˜T™\]Z\™[Y[‚ˆˆˆ•H™\™\Ù[Yİ[X[˜HÛÜİY\ˆÛÛœİXİ[Û‹™Y›Ü™H^[Y[ˆˆˆ‚‚ˆÙ[™\šXÎˆ[ˆÛÛÜ™Yˆ\VÜİ‹‹‹—B‚ˆ›Ü\BˆYˆİ[
+Ù[ŠHOˆ[‚ˆ™]\›ˆÙ[‹™Ù[™\šXÈ
+È[ŠÙ[‹˜ÛÛÜ™Y
+B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ^[Y[[‚ˆˆˆ[ˆ[[]]X›H›ÜÜÙY^[Y[\Ú[™È]]Üš]]]™HX[˜K\Ûİ\˜ÙH[[YHQËˆˆˆ‚‚ˆ^Y\—Ú[™^ˆ[ˆØ\™ÛØš™XİÚYˆİ‚ˆ™\]Z\™[Y[ˆX[˜T™\]Z\™[Y[ˆÛİ\˜ÙWÚYÎˆ\VÜİ‹‹‹—Bˆ›Ø][™×ØÛÛÜœÎˆ\VÜİ‹‹‹—HH
 
-import random
-import re
-from collections.abc import Callable
-from dataclasses import dataclass, field, replace
-from enum import Enum
-from hashlib import sha256
-from itertools import permutations
-from pathlib import Path
-from typing import Literal, Protocol
-
-from tmnt_design_studio.aura07 import AuraMixin
-from tmnt_design_studio.card_data import CardDataCatalog
-from tmnt_design_studio.card_interpreter07 import (
-    ActivatedAbilityProgram,
-    ActivatedEffectKind,
-    CardInterpreter,
-    CastKind,
-    DamageTargetKind,
-    DiscardDrawProgram,
-    HandBottomDrawProgram,
-    ScryProgram,
-    SneakProgram,
-    StrikeApplicability,
-    StrikeKeyword,
-    TokenCreationProgram,
-    TokenDefinition,
-)
-from tmnt_design_studio.conformance07 import (
-    AuthoritativeOpportunityContext,
-    ConformanceStopRecord,
-    OpportunityWitness,
-    SemanticOccurrence,
-    fragment_digest,
-    opportunity_context_key,
-    semantic_key,
-)
-from tmnt_design_studio.food_search07 import FoodSearchMixin
-from tmnt_design_studio.jury_rig07 import JuryRigMixin
-from tmnt_design_studio.krang_refill07 import KrangRefillMixin
-from tmnt_design_studio.mana_ledger07 import FloatingManaLedger
-from tmnt_design_studio.mill_three07 import MillThreeMixin
-from tmnt_design_studio.pilot_input_v2 import (
-    DiscardDrawViewV2,
-    GameViewV2,
-    HandBottomDrawViewV2,
-    PriorityViewV2,
-    ScryViewV2,
-    decision_context,
-    describe_card,
-    pilot_view,
-    priority_view,
-)
-from tmnt_design_studio.vigilante07 import VigilanteMixin
-
-ENGINE_VERSION = "cardcade-0.9.0-alpha.1"
-
-Zone = Literal["library", "hand", "stack", "battlefield", "graveyard", "exile", "former"]
-
-
-class TurnStep(Enum):
-    SETUP = "setup"
-    UNTAP = "untap"
-    UPKEEP = "upkeep"
-    DRAW = "draw"
-    PRECOMBAT_MAIN = "precombat_main"
-    BEGINNING_OF_COMBAT = "beginning_of_combat"
-    DECLARE_ATTACKERS = "declare_attackers"
-    DECLARE_BLOCKERS = "declare_blockers"
-    COMBAT_DAMAGE = "combat_damage"
-    END_OF_COMBAT = "end_of_combat"
-    POSTCOMBAT_MAIN = "postcombat_main"
-    END_STEP = "end_step"
-    CLEANUP = "cleanup"
-
-
-class TurnPhase(Enum):
-    SETUP = "setup"
-    BEGINNING = "beginning"
-    PRECOMBAT_MAIN = "precombat_main"
-    COMBAT = "combat"
-    POSTCOMBAT_MAIN = "postcombat_main"
-    ENDING = "ending"
-
-
-class CombatDamageStepKind(Enum):
-    NONE = "none"
-    FIRST_STRIKE = "first_strike"
-    REGULAR = "regular"
-    COMPLETE = "complete"
-
-
-STEP_PHASE = {
-    TurnStep.SETUP: TurnPhase.SETUP,
-    TurnStep.UNTAP: TurnPhase.BEGINNING,
-    TurnStep.UPKEEP: TurnPhase.BEGINNING,
-    TurnStep.DRAW: TurnPhase.BEGINNING,
-    TurnStep.PRECOMBAT_MAIN: TurnPhase.PRECOMBAT_MAIN,
-    TurnStep.BEGINNING_OF_COMBAT: TurnPhase.COMBAT,
-    TurnStep.DECLARE_ATTACKERS: TurnPhase.COMBAT,
-    TurnStep.DECLARE_BLOCKERS: TurnPhase.COMBAT,
-    TurnStep.COMBAT_DAMAGE: TurnPhase.COMBAT,
-    TurnStep.END_OF_COMBAT: TurnPhase.COMBAT,
-    TurnStep.POSTCOMBAT_MAIN: TurnPhase.POSTCOMBAT_MAIN,
-    TurnStep.END_STEP: TurnPhase.ENDING,
-    TurnStep.CLEANUP: TurnPhase.ENDING,
-}
-
-
-def phase_for_step(step: TurnStep | str) -> str:
-    """Return the engine's canonical phase for one authenticated turn step."""
-    resolved = step if isinstance(step, TurnStep) else TurnStep(step)
-    return STEP_PHASE[resolved].value
-
-
-NEXT_STEP = {
-    TurnStep.SETUP: TurnStep.UNTAP,
-    TurnStep.UNTAP: TurnStep.UPKEEP,
-    TurnStep.UPKEEP: TurnStep.DRAW,
-    TurnStep.DRAW: TurnStep.PRECOMBAT_MAIN,
-    TurnStep.PRECOMBAT_MAIN: TurnStep.BEGINNING_OF_COMBAT,
-    TurnStep.BEGINNING_OF_COMBAT: TurnStep.DECLARE_ATTACKERS,
-    TurnStep.DECLARE_ATTACKERS: TurnStep.DECLARE_BLOCKERS,
-    TurnStep.DECLARE_BLOCKERS: TurnStep.COMBAT_DAMAGE,
-    TurnStep.COMBAT_DAMAGE: TurnStep.END_OF_COMBAT,
-    TurnStep.END_OF_COMBAT: TurnStep.POSTCOMBAT_MAIN,
-    TurnStep.POSTCOMBAT_MAIN: TurnStep.END_STEP,
-    TurnStep.END_STEP: TurnStep.CLEANUP,
-    TurnStep.CLEANUP: TurnStep.UNTAP,
-}
-
-
-class ActionKind(Enum):
-    PLAY_LAND = "play_land"
-    CAST = "cast"
-    ACTIVATE_ABILITY = "activate_ability"
-    PASS_PRIORITY = "pass_priority"
-    DECLARE_ATTACKERS = "declare_attackers"
-    DECLARE_BLOCKERS = "declare_blockers"
-    PASS = "pass"
-
-
-@dataclass(frozen=True)
-class ActionOption:
-    """Immutable, identity-only input a pilot may select but never execute itself."""
-
-    kind: ActionKind
-    player_index: int
-    object_id: str | None = None
-    target_id: str | None = None
-    cost_object_id: str | None = None
-    oracle_fragment: str | None = None
-    attacker_ids: tuple[str, ...] = ()
-    blocks: tuple[tuple[str, str], ...] = ()
-    priority_epoch: int | None = None
-
-
-@dataclass(frozen=True)
-class PriorityState:
-    """Authoritative bounded 1v1 priority state for a nonempty stack."""
-
-    epoch: int
-    player_index: int
-    consecutive_passes: tuple[int, ...] = ()
-    resolution_pending: bool = False
-
-
-@dataclass(frozen=True)
-class ManaRequirement:
-    """The represented total mana cost after construction, before payment."""
-
-    generic: int
-    colored: tuple[str, ...]
-
-    @property
-    def total(self) -> int:
-        return self.generic + len(self.colored)
-
-
-@dataclass(frozen=True)
-class PaymentPlan:
-    """An immutable proposed payment using authoritative mana-source runtime IDs."""
-
-    player_index: int
-    card_object_id: str
-    requirement: ManaRequirement
-    source_ids: tuple[str, ...]
-    floating_colors: tuple[str, ...] = ()
-
-
-@dataclass(frozen=True)
-class SneakPaymentPlan:
-    """A proposed fixed Sneak payment using only authoritative runtime IDs."""
-
-    player_index: int
-    card_object_id: str
-    returned_attacker_id: str
-    requirement: ManaRequirement
-    mana_source_ids: tuple[str, ...]
-    defending_player: int
-    oracle_fragment: str
-
-
-@dataclass(frozen=True)
-class SneakEvidence:
-    """Immutable announcement-through-resolution evidence for one Sneak spell."""
-
-    card_name: str
-    hand_object_id: str
-    controller: int
-    turn: int
-    step: str
-    oracle_fragment: str
-    mana_requirement: ManaRequirement
-    mana_source_ids: tuple[str, ...]
-    returned_attacker_id: str
-    returned_hand_id: str
-    defending_player: int
-    stack_object_id: str
-    priority_epoch: int
-    resolved_object_id: str | None = None
-    entered_tapped: bool | None = None
-    entered_attacking: bool | None = None
-
-
-@dataclass(frozen=True)
-class ActivationPaymentPlan:
-    """A proposed bounded activation payment using authoritative IDs."""
-
-    player_index: int
-    source_id: str
-    oracle_fragment: str
-    requirement: ManaRequirement
-    mana_source_ids: tuple[str, ...]
-    tap_source: bool
-    sacrifice_source: bool
-    counter_target_id: str | None = None
-
-
-@dataclass(frozen=True)
-class ActivationEvidence:
-    """Immutable evidence for one announced and resolved activated ability."""
-
-    stack_object_id: str
-    source_id: str
-    controller: int
-    oracle_fragment: str
-    mana_source_ids: tuple[str, ...]
-    tap_source: bool
+B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈÛ™XZÔ^[Y[[‚ˆˆˆH›ÜÜÙYš^YÛ™XZÈ^[Y[\Ú[™ÈÛ›H]]Üš]]]™H[[YHQËˆˆˆ‚‚ˆ^Y\—Ú[™^ˆ[ˆØ\™ÛØš™XİÚYˆİ‚ˆ™]\›™YØ]XÚÙ\—ÚYˆİ‚ˆ™\]Z\™[Y[ˆX[˜T™\]Z\™[Y[ˆX[˜WÜÛİ\˜ÙWÚYÎˆ\VÜİ‹‹‹—BˆY™[™[™×Ü^Y\ˆ[ˆÜ˜XÛWÙœ˜YÛY[ˆİ‚‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈÛ™XZÑ]šY[˜ÙN‚ˆˆˆ’[[]]X›H[››İ[˜Ù[Y[]›İYÚ\™\ÛÛ][Ûˆ]šY[˜ÙH›ÜˆÛ™HÛ™XZÈÜ[ˆˆˆ‚‚ˆØ\™Û˜[YNˆİ‚ˆ[™ÛØš™XİÚYˆİ‚ˆÛÛ›Û\ˆ[ˆ\›ˆ[ˆİ\ˆİ‚ˆÜ˜XÛWÙœ˜YÛY[ˆİ‚ˆX[˜WÜ™\]Z\™[Y[ˆX[˜T™\]Z\™[Y[ˆX[˜WÜÛİ\˜÷Ó[h‘éì¶»§q«^vce: bool
     resolved: bool
     cost_target_id: str | None = None
 
@@ -317,260 +70,7 @@ class TriggerEffect(Enum):
     ATTACK_PT = "attack_pt"
     ATTACK_TARGET_PT = "attack_target_pt"
     ETB_CONDITIONAL_TOKEN = "etb_conditional_token"
-    SNEAK_ETB_CONDITION = "sneak_etb_condition"
-    CREATE_TOKEN = "create_token"
-    DEAL_DAMAGE = "deal_damage"
-    SCRY = "scry"
-    DISCARD_DRAW = "discard_draw"
-    ETB_KRANG_REFILL = "etb_krang_refill"
-    ETB_MILL_THREE = "etb_mill_three"
-    ETB_JURY_RIG = "etb_jury_rig"
-    ETB_VIGILANTE = "etb_vigilante"
-    VIGILANTE_DISCARD = "vigilante_discard"
-    ETB_FOOD_SEARCH = "etb_food_search"
-    ETB_DRAW_DISCARD = "etb_draw_discard"
-    ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
-    CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
-    LTB_MUTAGEN = "ltb_mutagen"
-    DIES_DRAW = "dies_draw"
-    ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
-    ETB_SELF_LIFE_GAIN = "etb_self_life_gain"
-    PERMANENT_LEFT_SELF_COUNTER = "permanent_left_self_counter"
-    ETB_ARTIFACT_DRAW = "etb_artifact_draw"
-    ETB_TAP_STUN = "etb_tap_stun"
-    ALLIANCE_TEMPORARY_KEYWORD_CHOICE = "alliance_temporary_keyword_choice"
-    ROCK_SOLDIERS_ETB_DESTROY = "rock_soldiers_etb_destroy"
-    ARTIFACT_ENTRY_SELF_COUNTER = "artifact_entry_self_counter"
-    SHREDDER_DEATHTOUCH = "shredder_deathtouch"
-    PARAMECIA_EXILE_CHOICE = "paramecia_exile_choice"
-    PARAMECIA_REFLEXIVE_RETURN = "paramecia_reflexive_return"
-    RAPHAEL_ALLIANCE_EXILE = "raphael_alliance_exile"
-    RAPHAEL_ATTACK_PLAY = "raphael_attack_play"
-
-
-class TemporaryKeyword(Enum):
-    FLYING = "flying"
-    MENACE = "menace"
-    HASTE = "haste"
-    DEATHTOUCH = "deathtouch"
-    REACH = "reach"
-    INDESTRUCTIBLE = "indestructible"
-
-
-@dataclass(frozen=True)
-class RulesEvent:
-    event_id: str
-    kind: RulesEventKind
-    player_index: int
-    subject_ids: tuple[str, ...]
-    source_id: str | None = None
-    target_player: int | None = None
-    amount: int | None = None
-    turn: int = 0
-    step: str = "setup"
-    active_player: int = 0
-    battlefield_authority: tuple[tuple[str, int], ...] = ()
-    battlefield_characteristics: tuple[tuple[str, int, str], ...] = ()
-    last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = ()
-
-
-@dataclass(frozen=True)
-class RulesEventEvidence:
-    """Independent immutable trust anchor for one original authoritative rules event."""
-
-    event_id: str
-    event_cursor: int
-    kind: RulesEventKind
-    player_index: int
-    subject_ids: tuple[str, ...]
-    source_id: str | None
-    target_player: int | None
-    amount: int | None
-    turn: int
-    step: str
-    active_player: int
-    battlefield_authority: tuple[tuple[str, int], ...]
-    battlefield_characteristics: tuple[tuple[str, int, str], ...]
-    last_known_battlefield: tuple[tuple[str, int, str, bool], ...]
-
-
-@dataclass(frozen=True)
-class DamageTransaction:
-    """A fully specified proposal validated before authoritative damage mutation."""
-
-    controller: int
-    source: CardObject | StackObject | Permanent
-    target_kind: DamageTargetKind
-    amount: int
-    oracle_fragment: str
-    target: Permanent | None = None
-    target_player: int | None = None
-
-
-@dataclass(frozen=True)
-class ScryOption:
-    """One immutable legal ordering; IDs are top-first and bottom-first respectively."""
-
-    top_ids: tuple[str, ...]
-    bottom_ids: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class ScryView:
-    """Private immutable choice view, separate from the public game view and library."""
-
-    player_index: int
-    requested: int
-    cards: tuple[tuple[str, str], ...]
-
-
-@dataclass(frozen=True)
-class ScryEvidence:
-    """Typed committed Scry evidence; ordering uses the same top/bottom convention."""
-
-    event_id: str
-    player_index: int
-    requested: int
-    inspected_ids: tuple[str, ...]
-    top_ids: tuple[str, ...]
-    bottom_ids: tuple[str, ...]
-    source_card: str
-    oracle_fragment: str
-    source_id: str | None = None
-
-
-@dataclass(frozen=True)
-class EtbDrainGainScryEvidence:
-    """Immutable facts for the bounded ETB drain/gain followed by Scry transaction."""
-
-    event_id: str
-    stack_object_id: str
-    source_id: str
-    source_card: str
-    controller: int
-    opponent: int
-    oracle_fragment: str
-    turn: int
-    step: str
-    opponent_life_before: int
-    opponent_life_after: int
-    controller_life_before: int
-    controller_life_after: int
-    scry_event_id: str | None
-    terminal_after_life_loss: bool
-
-
-@dataclass(frozen=True)
-class HandBottomDrawOption:
-    """One immutable optional hand-card selection; ``None`` declines the action."""
-
-    card_id: str | None
-
-
-@dataclass(frozen=True)
-class HandBottomDrawView:
-    """Private immutable hand view for the bounded filtering choice."""
-
-    player_index: int
-    cards: tuple[tuple[str, str], ...]
-
-
-@dataclass(frozen=True)
-class HandBottomDrawPlan:
-    """Validated instruction-point choice plus immutable authoritative pre-state."""
-
-    choice: HandBottomDrawOption
-    selected: CardObject | None
-    offered_choice_ids: tuple[str | None, ...]
-    pre_hand_ids: tuple[str, ...]
-    pre_library_ids: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class HandBottomDrawEvidence:
-    """Immutable before/after facts for one resolved optional filter instruction."""
-
-    event_id: str
-    player_index: int
-    source_id: str
-    oracle_fragment: str
-    offered_choice_ids: tuple[str | None, ...]
-    pre_hand_ids: tuple[str, ...]
-    pre_library_ids: tuple[str, ...]
-    selected_hand_id: str | None
-    library_bottom_id: str | None
-    movement_succeeded: bool
-    conditional_draw_performed: bool
-    drawn_library_id: str | None
-    drawn_hand_id: str | None
-    post_hand_ids: tuple[str, ...]
-    post_library_ids: tuple[str, ...]
-    declined: bool
-
-
-@dataclass(frozen=True)
-class DiscardDrawOption:
-    """One immutable optional discard selection; ``None`` declines."""
-
-    card_id: str | None
-
-
-@dataclass(frozen=True)
-class DiscardDrawView:
-    """Private immutable hand view at triggered-ability resolution."""
-
-    player_index: int
-    cards: tuple[tuple[str, str], ...]
-
-
-@dataclass(frozen=True)
-class DiscardDrawPlan:
-    choice: DiscardDrawOption
-    selected: CardObject | None
-    offered_choice_ids: tuple[str | None, ...]
-    pre_hand_ids: tuple[str, ...]
-    pre_library_ids: tuple[str, ...]
-    pre_graveyard_ids: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class DiscardDrawEvidence:
-    """Immutable evidence for optional Discard followed by conditional Draw."""
-
-    event_id: str
-    player_index: int
-    attack_provenance: AttackTriggerProvenance
-    stack_object_id: str
-    source_id: str
-    oracle_fragment: str
-    offered_choice_ids: tuple[str | None, ...]
-    pre_hand_ids: tuple[str, ...]
-    pre_library_ids: tuple[str, ...]
-    pre_graveyard_ids: tuple[str, ...]
-    selected_hand_id: str | None
-    discarded_graveyard_id: str | None
-    movement_succeeded: bool
-    conditional_draw_performed: bool
-    pre_draw_top_id: str | None
-    drawn_hand_id: str | None
-    post_hand_ids: tuple[str, ...]
-    post_library_ids: tuple[str, ...]
-    post_graveyard_ids: tuple[str, ...]
-    declined: bool
-
-
-@dataclass(frozen=True)
-class AttackTriggerProvenance:
-    """Immutable attack-event facts carried by one Action #10 transaction."""
-
-    event_id: str
-    event_kind: RulesEventKind
-    event_player_index: int
-    subject_ids: tuple[str, ...]
-    attacker_id: str
-    controller: int
-    turn: int
-    step: str
+    SNEAK_ETBYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ}=9%Q%=8€ô€‰Í¹•…­}•Ñ‰}½¹‘¥Ñ¥½¸ˆ(€€€IQ}Q=-8€ô€‰É•…Ñ•}Ñ½­•¸ˆ(€€€1}5€ô€‰‘•…±}‘…µ…”ˆ(€€€MId€ô€‰ÍÉäˆ(€€€%MI}I\€ô€‰‘¥Í…É‘}‘É…Üˆ(€€€Q	}-I9}I%10€ô€‰•Ñ‰}­É…¹}É•™¥±°ˆ(€€€Q	}5%11}Q!I€ô€‰•Ñ‰}µ¥±±}Ñ¡É•”ˆ(€€€Q	})UIe}I%€ô€‰•Ñ‰}©ÕÉå}É¥œˆ(€€€Q	}Y%%19Q€ô€‰•Ñ‰}Ù¥¥±…¹Ñ”ˆ(€€€Y%%19Q}%MI€ô€‰Ù¥¥±…¹Ñ•}‘¥Í…Éˆ(€€€Q	}==}MI €ô€‰•Ñ‰}™½½‘}Í•…É ˆ(€€€Q	}I]}%MI€ô€‰•Ñ‰}‘É…İ}‘¥Í…Éˆ(€€€Q	}5%11}I]}%MI€ô€‰•Ñ‰}µ¥±±}‘É…İ}‘¥Í…Éˆ(€€€1MM}1Y1}Q]=}I=YId€ô€‰±…ÍÍ}±•Ù•±}Ñİ½}É•½Ù•Éäˆ(€€€1Q	}5UQ8€ô€‰±Ñ‰}µÕÑ…•¸ˆ(€€€%M}I\€ô€‰‘¥•Í}‘É…Üˆ(€€€Q	}I%9}%9}MId€ô€‰•Ñ‰}‘É…¥¹}…¥¹}ÍÉäˆ(€€€Q	}M1}1%}%8€ô€‰•Ñ‰}Í•±™}±¥™•}…¥¸ˆ(€€€AI599Q}1Q}M1}=U9QH€ô€‰Á•Éµ…¹•¹Ñ}±•™Ñ}Í•±™}½Õ¹Ñ•Èˆ(€€€Q	}IQ%Q}I\€ô€‰•Ñ‰}…ÉÑ¥™…Ñ}‘É…Üˆ(€€€Q	}QA}MQU8€ô€‰•Ñ‰}Ñ…Á}ÍÑÕ¸ˆ(€€€11%9}Q5A=IIe}-e]=I}!=%€ô€‰…±±¥…¹•}Ñ•µÁ½É…Éå}­•åİ½É‘}¡½¥”ˆ(€€€I=-}M=1%IM}Q	}MQI=d€ô€‰É½­}Í½±‘¥•ÉÍ}•Ñ‰}‘•ÍÑÉ½äˆ(€€€IQ%Q}9QIe}M1}=U9QH€ô€‰…ÉÑ¥™…Ñ}•¹ÑÉå}Í•±™}½Õ¹Ñ•Èˆ(€€€M!II}Q!Q=U €ô€‰Í¡É•‘‘•É}‘•…Ñ¡Ñ½Õ ˆ(€€€AI5%}a%1}!=%€ô€‰Á…É…µ•¥…}•á¥±•}¡½¥”ˆ(€€€AI5%}I1a%Y}IQUI8€ô€‰Á…É…µ•¥…}É•™±•á¥Ù•}É•ÑÕÉ¸ˆ(€€€IA!1}11%9}a%1€ô€‰É…Á¡…•±}…±±¥…¹•}•á¥±”ˆ(€€€IA!1}QQ-}A1d€ô€‰É…Á¡…•±}…ÑÑ…­}Á±…äˆ(()±…ÍÌQ•µÁ½É…Éå-•åİ½É¡¹Õ´¤è(€€€1e%9€ô€‰™±å¥¹œˆ(€€€59€ô€‰µ•¹…”ˆ(€€€!MQ€ô€‰¡…ÍÑ”ˆ(€€€Q!Q=U €ô€‰‘•…Ñ¡Ñ½Õ ˆ(€€€I €ô€‰É•… ˆ(€€€%9MQIUQ%	1€ô€‰¥¹‘•ÍÑÉÕÑ¥‰±”ˆ(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌIÕ±•ÍÙ•¹Ğè(€€€•Ù•¹Ñ}¥èÍÑÈ(€€€­¥¹èIÕ±•ÍÙ•¹Ñ-¥¹(€€€Á±…å•É}¥¹‘•àè¥¹Ğ(€€€ÍÕ‰©•Ñ}¥‘ÌèÑÕÁ±•mÍÑÈ°€¸¸¹t(€€€Í½ÕÉ•}¥èÍÑÈğ9½¹”€ô9½¹”(€€€Ñ…É•Ñ}Á±…å•Èè¥¹Ğğ9½¹”€ô9½¹”(€€€…µ½Õ¹Ğè¥¹Ğğ9½¹”€ô9½¹”(€€€ÑÕÉ¸è¥¹Ğ€ô€À(€€€ÍÑ•ÀèÍÑÈ€ô€‰Í•ÑÕÀˆ(€€€…Ñ¥Ù•}Á±…å•Èè¥¹Ğ€ô€À(€€€ƒ}5¶‰ËkºwµçR×WFF–öââ""  ¢6öçG&öÆÆW#¢–ç@¢6÷W&6S¢6&Dö&¦V7BÂ7F6´ö&¦V7BÂW&ÖæVç@¢F&vWEö¶–æC¢FÖvUF&vWD¶–æ@¢Ö÷VçC¢–ç@¢÷&6ÆUög&vÖVçC¢7G ¢F&vWC¢W&ÖæVçBÂæöæRÒæöæP¢F&vWE÷Æ–W#¢–çBÂæöæRÒæöæP  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ7267'”÷F–öã ¢""$öæR–Ö×WF&ÆRÆVvÂ÷&FW&–æs²”G2&RF÷Öf—'7BæB&÷GFöÒÖf—'7B&W7V7F—fVÇ’â""  ¢F÷ö–G3¢GWÆU·7G"ÂââåĞ¢&÷GFöÕö–G3¢GWÆU·7G"ÂââåĞ  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ7267'•f–Ws ¢""%&—fFR–Ö×WF&ÆR6†ö–6Rf–WrÂ6W&FRg&öÒF†RV&Æ–2vÖRf–WræBÆ–'&'’â""  ¢Æ–W%ö–æFWƒ¢–ç@¢&WVW7FVC¢–ç@¢6&G3¢GWÆU·GWÆU·7G"Â7G%ÒÂââåĞ  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ7267'”Wf–FVæ6S ¢""%G—VB6öÖÖ—GFVB67'’Wf–FVæ6S²÷&FW&–ærW6W2F†R6ÖRF÷ö&÷GFöÒ6öçfVçF–öââ""  ¢WfVçEö–C¢7G ¢Æ–W%ö–æFWƒ¢–ç@¢&WVW7FVC¢–ç@¢–ç7V7FVEö–G3¢GWÆU·7G"ÂââåĞ¢F÷ö–G3¢GWÆU·7G"ÂââåĞ¢&÷GFöÕö–G3¢GWÆU·7G"ÂââåĞ¢6÷W&6Uö6&C¢7G ¢÷&6ÆUög&vÖVçC¢7G ¢6÷W&6Uö–C¢7G"ÂæöæRÒæöæP  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72WF$G&–äv–å67'”Wf–FVæ6S ¢""$–Ö×WF&ÆRf7G2f÷"F†R&÷VæFVBUD"G&–âöv–âföÆÆ÷vVB'’67'’G&ç67F–öââ""  ¢WfVçEö–C¢7G ¢7F6µöö&¦V7Eö–C¢7G ¢6÷W&6Uö–C¢7G ¢6÷W&6Uö6&C¢7G ¢6öçG&öÆÆW#¢–ç@¢÷öæVçC¢–ç@¢÷&6ÆUög&vÖVçC¢7G ¢GW&ã¢–ç@¢7FW¢7G ¢÷öæVçEöÆ–fUö&Vf÷&S¢–ç@¢÷öæVçEöÆ–fUögFW#¢–ç@¢6öçG&öÆÆW%öÆ–fUö&Vf÷&S¢–ç@¢6öçG&öÆÆW%öÆ–fUögFW#¢–ç@¢67'•öWfVçEö–C¢7G"ÂæöæP¢FW&Ö–æÅögFW%öÆ–fUöÆ÷73¢&ööÀ  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72†æD&÷GFöÔG&t÷F–öã ¢""$öæR–Ö×WF&ÆR÷F–öæÂ†æBÖ6&B6VÆV7F–öã²æöæVFV6Æ–æW2F†R7F–öââ""  ¢6&Eö–C¢7G"ÂæöæP  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72†æD&÷GFöÔG&uf–Ws ¢""%&—fFR–Ö×WF&ÆR†æBf–Wrf÷"F†R&÷VæFVBf–ÇFW&–ær6†ö–6Râ"%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH‚‚ˆ^Y\—Ú[™^ˆ[ˆØ\™Îˆ\Vİ\VÜİ‹İ—K‹‹—B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[™›İÛQ˜]Ô[‚ˆˆˆ•˜[Y]Y[œİXİ[Û‹\Ú[ÚÚXÙH\È[[]]X›H]]Üš]]]™H™K\İ]Kˆˆˆ‚‚ˆÚÚXÙNˆ[™›İÛQ˜]ÓÜ[Û‚ˆÙ[XİYˆØ\™Øš™Xİ›Û™BˆÙ™™\™YØÚÚXÙWÚYÎˆ\VÜİˆ›Û™K‹‹—Bˆ™WÚ[™ÚYÎˆ\VÜİ‹‹‹—Bˆ™WÛXœ˜\WÚYÎˆ\VÜİ‹‹‹—B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ[™›İÛQ˜]Ñ]šY[˜ÙN‚ˆˆˆ’[[]]X›H™Y›Ü™KØY\ˆ˜XİÈ›ÜˆÛ™H™\ÛÛ™YÜ[Û˜[š[\ˆ[œİXİ[Û‹ˆˆˆ‚‚ˆ]™[ÚYˆİ‚ˆ^Y\—Ú[™^ˆ[ˆÛİ\˜ÙWÚYˆİ‚ˆÜ˜XÛWÙœ˜YÛY[ˆİ‚ˆÙ™™\™YØÚÚXÙWÚYÎˆ\VÜİˆ›Û™K‹‹—Bˆ™WÚ[™ÚYÎˆ\VÜİ‹‹‹—Bˆ™WÛXœ˜\WÚYÎˆ\VÜİ‹‹‹—BˆÙ[XİYÚ[™ÚYˆİˆ›Û™BˆXœ˜\WØ›İÛWÚYˆİˆ›Û™Bˆ[İ™[Y[ÜİXØÙYYYˆ›ÛÛˆÛÛ™][Û˜[Ù˜]×Ü\™›Ü›YYˆ›ÛÛˆ˜]Û—ÛXœ˜\WÚYˆİˆ›Û™Bˆ˜]Û—Ú[™ÚYˆİˆ›Û™BˆÜİÚ[™ÚYÎˆ\VÜİ‹‹‹—BˆÜİÛXœ˜\WÚYÎˆ\VÜİ‹‹‹—BˆXÛ[™Yˆ›ÛÛ‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ\ØØ\™˜]ÓÜ[Û‚ˆˆˆ“Û™H[[]]X›HÜ[Û˜[\ØØ\™Ù[Xİ[ÛÈ›Û™XXÛ[™\Ëˆˆˆ‚‚ˆØ\™ÚYˆİˆ›Û™B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ\ØØ\™˜]ÕšY]Î‚ˆˆˆ”š]˜]H[[]]X›H[™šY]È]šYÙÙ\™YXXš[]H™\ÛÛ][Û‹ˆˆˆ‚‚ˆ^Y\—Ú[™^ˆ[ˆØ\™Îˆ\Vİ\VÜİ‹İ—K‹‹—B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ\ØØ\™˜]Ô[‚ˆÚÚXÙNˆ\ØØ\™˜]ÓÜ[Û‚ˆÙ[XİYˆØ\™Øš™Xİ›Û™BˆÙ™™\™YØÚÚXÙWÚYÎˆ\VÜİˆ›Û™K‹‹—Bˆ™WÚ[™ÚYÎˆ\VÜİ‹‹‹—Bˆ™WÛXœ˜\WÚYÎˆ\VÜİ‹‹‹—Bˆ™WÙÜ˜]™^X\™ÚYÎˆ\VÜİ‹‹‹—B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ\ØØ\™˜]Ñ]šY[˜ÙN‚ˆˆˆ’[[]]X›H]šY[˜ÙH›ÜˆÜ[Û˜[\ØØ\™›ÛİÙYHÛÛ™][Û˜[˜]Ëˆˆˆ‚‚ˆ]™[ÚYˆİ‚ˆ^Y\—Ú[™^ˆ[ˆ]XÚ×Ü7Ó[h‘éì¶»§q«^up: str
     active_player: int
 
 
@@ -640,295 +140,12 @@ class CombatDamageStepEvidence:
     trample_results: tuple[TrampleDamageEvidence, ...] = ()
 
 
-@dataclass(frozen=True)
-class TemporaryKeywordEffect:
-    keyword: StrikeKeyword | TemporaryKeyword
-    duration: Literal["until_end_of_turn"]
-    source_id: str
-    oracle_fragment: str
-    timestamp: tuple[int, int] = (0, 0)
+@dataclass(frozen=True)YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô)±…ÍÌQ•µÁ½É…Éå-•åİ½É‘™™•Ğè(€€€­•åİ½ÉèMÑÉ¥­•-•åİ½ÉğQ•µÁ½É…Éå-•åİ½É(€€€‘ÕÉ…Ñ¥½¸è1¥Ñ•É…±l‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸‰t(€€€Í½ÕÉ•}¥èÍÑÈ(€€€½É…±•}™É…µ•¹ĞèÍÑÈ(€€€Ñ¥µ•ÍÑ…µÀèÑÕÁ±•m¥¹Ğ°¥¹Ñt€ô€ À°€À¤(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌQÉ¥•É%¹ÍÑ…¹”è(€€€ÑÉ¥•É}¥èÍÑÈ(€€€½¹ÑÉ½±±•Èè¥¹Ğ(€€€Í½ÕÉ•}¥èÍÑÈ(€€€Í½ÕÉ•}…Éè…É‘…Ğ(€€€½É…±•}™É…µ•¹ĞèÍÑÈ(€€€•™™•ĞèQÉ¥•É™™•Ğ(€€€•Ù•¹ĞèIÕ±•ÍÙ•¹Ğ(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌAÕ‰±¥=‰©•ÑY¥•Üè(€€€½‰©•Ñ}¥èÍÑÈ(€€€¹…µ”èÍÑÈ(€€€½¹ÑÉ½±±•Èè¥¹Ğ(€€€Á½İ•Èè¥¹Ğğ9½¹”(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğğ9½¹”(€€€Ñ…ÁÁ•è‰½½°(€€€‘…µ…”è¥¹Ğ(€€€¥Í}Ñ½­•¸è‰½½°€ô…±Í”(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ…µ•Y¥•Üè(€€€ÑÕÉ¸è¥¹Ğ(€€€…Ñ¥Ù•}Á±…å•Èè¥¹Ğ(€€€Á¡…Í”èÍÑÈ(€€€ÍÑ•ÀèÍÑÈ(€€€±¥™”èÑÕÁ±•m¥¹Ğ°¥¹Ñt(€€€¡…¹‘ÌèÑÕÁ±•mÑÕÁ±•mÑÕÁ±•mÍÑÈ°ÍÑÈ°¥¹Ğ°‰½½±t°€¸¸¹t°€¸¸¹t(€€€‰…ÑÑ±•™¥•±‘ÌèÑÕÁ±•mÑÕÁ±•mAÕ‰±¥=‰©•ÑY¥•Ü°€¸¸¹t°€¸¸¹t(()‘…Ñ…±…ÍÌ¡™É½é•¸õQÉÕ”¤)±…ÍÌ…É‘…Ğè(€€€¹…µ”èÍÑÈ(€€€µ…¹…}½ÍĞèÍÑÈ(€€€µ…¹…}Ù…±Õ”è¥¹Ğ(€€€ÑåÁ•}±¥¹”èÍÑÈ(€€€½É…±•}Ñ•áĞèÍÑÈ€ô€ˆˆ(€€€Á½İ•Èè¥¹Ğğ9½¹”€ô9½¹”(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğğ9½¹”€ô9½¹”(€€€­•åİ½É‘ÌèÑÕÁ±•mÍÑÈ°€¸¸¹t€ô€ ¤(€€€½É…±•}¥èÍÑÈ€ô€ˆˆ((€€€ÁÉ½Á•ÉÑä(€€€‘•˜¥Í}±…¹¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸€‰1…¹ˆ¥¸Í•±˜¹ÑåÁ•}±¥¹”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜¥Í}É•…ÑÕÉ”¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸€‰É•…ÑÕÉ”ˆ¥¸Í•±˜¹ÑåÁ•}±¥¹”(()‘…Ñ…±…ÍÌ)±…ÍÌA½İ•ÉQ½Õ¡¹•ÍÍ5½‘¥™¥•Èè(€€€Á½İ•Èè¥¹Ğ(€€€Ñ½Õ¡¹•ÍÌè¥¹Ğ(€€€‘ÕÉ…Ñ¥½¸è1¥Ñ•É…±l‰Á•ÉÍ¥ÍÑ•¹Ğˆ°€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸‰t(€€€Í½ÕÉ•}…ÉèÍÑÈ(€€€½É…±•}™É…µ•¹ĞèÍÑÈ(€€€É•…Ñ•‘}ÑÕÉ¸è¥¹Ğ(€€€É•…Ñ•‘}½É‘•Èè¥¹Ğ€ô€À(€€€‘•É¥Ù•‘}ÍÑ…Ñ¥Œè‰½½°€ô…±Í”(€€€Í½ÕÉ•}½‰©•Ñ}¥èÍÑÈğ9½¹”€ô9½¹”(()±…ÍÌ¡…É…Ñ•É¥ÍÑ¥1…å•È¡¹Õ´¤è(€€€=Ad€ô€Ä(€€€=9QI=0€ô€È(€€€QaP€ô€Ì(€€€QeA€ô€Ğ(€€€=1=H€ô€Ô(€€€	%1%Qd€ô€Ø(€€€A=]I}Q=U!9ML€ô€Ü(()±…ÍÌA½İ•ÉQ½Õ¡¹•ÍÍMÕ‰1…å•È¡¹Õ´§}5¶‰ËkºwµçB¶W’Ò€¢VffV7BæÆ–W"çfÇVRÀ¢Ó–bVffV7Bç7V&Æ–W"—2æöæRVÇ6R7V&Æ–W%ö÷&FW%¶VffV7Bç7V&Æ–W%ÒÀ¢¢w&÷W2ç6WFFVfVÇB†¶W’ÂµÒ’æVæB†VffV7B¢÷&FW&VC¢Æ—7E´6†&7FW&—7F–4VffV7EÒÒµĞ¢f÷"¶W’–â6÷'FVB†w&÷W2“ ¢&VÖ–æ–ærÒÆ—7B†w&÷W5¶¶W•Ò¢&W6öÇfVC¢6WE·7G%ÒÒ6WB‚¢w&÷Wö–G2Ò¶VffV7BæVffV7Eö–Bf÷"VffV7B–â&VÖ–æ–æwĞ¢v†–ÆR&VÖ–æ–æs ¢&VG’Ò°¢VffV7@¢f÷"VffV7B–â&VÖ–æ–æp¢–bæ÷B‡6WB†VffV7BæFWVæG5ööâ’bw&÷Wö–G2’Ò&W6öÇfV@¢Ğ¢–bæ÷B&VG“ ¢&—6RfÇVTW'&÷"‚&7–6Æ–26†&7FW&—7F–2ÖVffV7BFWVæFVæ7’"¢&VG’ç6÷'B†¶W“ÖÆÖ&FVffV7C¢†VffV7BçF–ÖW7F×ÂVffV7BæVffV7Eö–B’¢VffV7BÒ&VG•³Ğ¢÷&FW&VBæVæB†VffV7B¢&W6öÇfVBæFB†VffV7BæVffV7Eö–B¢&VÖ–æ–ærç&VÖ÷fR†VffV7B¢&WGW&â÷&FW&V@  ¤FF6Æ72†WÔfÇ6R¦6Æ726&Dö&¦V7C ¢""$öæRWF†÷&—FF—fR'VçF–ÖR–æ6&æF–öâöbâ–Ö×WF&ÆR6&BFVf–æ—F–öââ""  ¢ö&¦V7Eö–C¢7G ¢6&C¢6&Df7BÂFö¶VäFVf–æ—F–öà¢÷væW#¢–ç@¢6öçG&öÆÆW#¢–ç@¢¦öæS¢¦öæP¢—5÷Fö¶Vã¢&ööÂÒfÇ6P ¢&÷W'G¢FVb'VÆW5ö6&B‡6VÆb“ ¢&WGW&â6VÆbæ6&@ ¢&÷W'G¢FVbæÖR‡6VÆb’Óâ7G# ¢&WGW&â6VÆbæ6&BææÖP ¢&÷W'G¢FVbÖæö6÷7B‡6VÆb’Óâ7G# ¢&WGW&â6VÆbæ6&BæÖæö6÷7@ ¢&÷W'G¢FVbÖæ÷fÇVR‡6VÆb’Óâ–çC ¢&WGW&â6VÆbæ6&BæÖæ÷fÇVP ¢&÷W'G¢FVbG—UöÆ–æR‡6VÆb’Óâ7G# ¢&WGW&â6VÆbæ6&BçG—UöÆ–æP ¢&÷W'G¢FVb÷&6ÆU÷FW‡B‡6VÆb’Óâ7G# ¢&WGW&â6VÆbæ6&Bæ÷&6ÆU÷FW‡@ ¢&÷W'G¢FVb¶W—v÷&G2‡6VÆb’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&â6VÆbæ6&Bæ¶W—v÷&G0 ¢&÷W'G¢FVb—5öÆæB‡6VÆb’Óåš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›ÛÛ‚ˆ™]\›ˆÙ[‹˜Ø\™š\×Û[™‚ˆ›Ü\BˆYˆ\×ØÜ™X]\™JÙ[ŠHOˆ›ÛÛ‚ˆ™]\›ˆÙ[‹˜Ø\™š\×ØÜ™X]\™B‚ˆ›Ü\BˆYˆİÙ\ŠÙ[ŠHOˆ[›Û™N‚ˆ™]\›ˆÙ[‹˜Ø\™œİÙ\‚‚ˆ›Ü\BˆYˆİYÚ™\ÜÊÙ[ŠHOˆ[›Û™N‚ˆ™]\›ˆÙ[‹˜Ø\™İYÚ™\ÜÂ‚‚]XÛ\ÜÊ\OQ˜[ÙJB˜Û\ÜÈİXÚÓØš™Xİ‚ˆˆˆ“Û™H]]Üš]]]™HÜ[[˜Ø\›˜][ÛˆÚ][››İ[˜Ù[Y[][YHÚÚXÙ\ÈØÚÙY[‹ˆˆˆ‚‚ˆØš™XİÚYˆİ‚ˆØ\™ˆØ\™˜XİˆİÛ™\ˆ[ˆÛÛ›Û\ˆ[ˆØ\İÚÚ[™ˆØ\İÚ[™ˆ\™Ù]ÚYˆİˆ›Û™HH›Û™BˆÛ™XZ×Ü™]\›™YØ]XÚÙ\—ÚYˆİˆ›Û™HH›Û™BˆÛ™XZ×Ü™]\›™YÚ[™ÚYˆİˆ›Û™HH›Û™BˆÛ™XZ×ÙY™[™[™×Ü^Y\ˆ[›Û™HH›Û™BˆÛ™XZ×ÛÜ˜XÛWÙœ˜YÛY[ˆİˆ›Û™HH›Û™BˆØ\İÙœ›ÛWÙÜ˜]™^X\™ˆ›ÛÛH˜[ÙBˆš[˜[]WÛÛ—Ù[Nˆ›ÛÛH˜[ÙBˆØ\İÙœ›ÛWÜ˜\Y[ˆ›ÛÛH˜[ÙBˆÛ™XZ×ÛX[˜WÜÛİ\˜ÙWÚYÎˆ\VÜİ‹‹‹—HH
 
+Bˆ›Û™Nˆ›Û™HHœİXÚÈ‚‚ˆ›Ü\BˆYˆ[\×ØØ\™
+Ù[ŠN‚ˆ™]\›ˆÙ[‹˜Ø\™‚ˆ›Ü\BˆYˆ˜[YJÙ[ŠHOˆİ‚ˆ™]\›ˆÙ[‹˜Ø\™›˜[YB‚‚]XÛ\ÜÊ\OQ˜[ÙJB˜Û\ÜÈšYÙÙ\™YXš[]SØš™Xİ‚ˆˆˆ“Û™H]]Üš]]]™HšYÙÙ\™YXš[]HÛˆHİXÚË[™\[™[Ùˆ]ÈÛİ\˜ÙKˆˆˆ‚‚ˆØš™XİÚYˆİ‚ˆÛÛ›Û\ˆ[ˆÛİ\˜ÙWÚYˆİ‚ˆÛİ\˜ÙWØØ\™ˆØ\™˜XİˆÜ˜XÛWÙœ˜YÛY[ˆİ‚ˆY™™XİˆšYÙÙ\‘Y™™Xİˆ]™[ˆ[\Ñ]™[ˆšYÙÙ\—ÚYˆİˆ›Û™HH›Û™Bˆ›Û™Nˆ›Û™HHœİXÚÈ‚ˆ\™Ù]ÚYˆİˆ›Û™HH›Û™Bˆ\™Ù]ÚYÎˆ\VÜİ‹‹‹—HH
 
-@dataclass(frozen=True)
-class TriggerInstance:
-    trigger_id: str
-    controller: int
-    source_id: str
-    source_card: CardFact
-    oracle_fragment: str
-    effect: TriggerEffect
-    event: RulesEvent
-
-
-@dataclass(frozen=True)
-class PublicObjectView:
-    object_id: str
-    name: str
-    controller: int
-    power: int | None
-    toughness: int | None
-    tapped: bool
-    damage: int
-    is_token: bool = False
-
-
-@dataclass(frozen=True)
-class GameView:
-    turn: int
-    active_player: int
-    phase: str
-    step: str
-    life: tuple[int, int]
-    hands: tuple[tuple[tuple[str, str, int, bool], ...], ...]
-    battlefields: tuple[tuple[PublicObjectView, ...], ...]
-
-
-@dataclass(frozen=True)
-class CardFact:
-    name: str
-    mana_cost: str
-    mana_value: int
-    type_line: str
-    oracle_text: str = ""
-    power: int | None = None
-    toughness: int | None = None
-    keywords: tuple[str, ...] = ()
-    oracle_id: str = ""
-
-    @property
-    def is_land(self) -> bool:
-        return "Land" in self.type_line
-
-    @property
-    def is_creature(self) -> bool:
-        return "Creature" in self.type_line
-
-
-@dataclass
-class PowerToughnessModifier:
-    power: int
-    toughness: int
-    duration: Literal["persistent", "until_end_of_turn"]
-    source_card: str
-    oracle_fragment: str
-    created_turn: int
-    created_order: int = 0
-    derived_static: bool = False
-    source_object_id: str | None = None
-
-
-class CharacteristicLayer(Enum):
-    COPY = 1
-    CONTROL = 2
-    TEXT = 3
-    TYPE = 4
-    COLOR = 5
-    ABILITY = 6
-    POWER_TOUGHNESS = 7
-
-
-class PowerToughnessSubLayer(Enum):
-    CHARACTERISTIC_DEFINING = "7a"
-    SET_BASE = "7b"
-    MODIFY = "7c"
-    SWITCH = "7d"
-
-
-class CharacteristicOperation(Enum):
-    SET = "set"
-    ADD = "add"
-    SWITCH = "switch"
-
-
-@dataclass(frozen=True)
-class CharacteristicEffect:
-    effect_id: str
-    layer: CharacteristicLayer
-    sublayer: PowerToughnessSubLayer | None
-    operation: CharacteristicOperation
-    power: int = 0
-    toughness: int = 0
-    timestamp: tuple[int, int] = (0, 0)
-    depends_on: tuple[str, ...] = ()
-    source_card: str = ""
-
-
-def _ordered_characteristic_effects(
-    effects: list[CharacteristicEffect],
-) -> list[CharacteristicEffect]:
-    """Order by layer/sublayer, then declared dependencies and stable timestamps."""
-    sublayer_order = {value: index for index, value in enumerate(PowerToughnessSubLayer)}
-    groups: dict[tuple[int, int], list[CharacteristicEffect]] = {}
-    for effect in effects:
-        key = (
-            effect.layer.value,
-            -1 if effect.sublayer is None else sublayer_order[effect.sublayer],
-        )
-        groups.setdefault(key, []).append(effect)
-    ordered: list[CharacteristicEffect] = []
-    for key in sorted(groups):
-        remaining = list(groups[key])
-        resolved: set[str] = set()
-        group_ids = {effect.effect_id for effect in remaining}
-        while remaining:
-            ready = [
-                effect
-                for effect in remaining
-                if not (set(effect.depends_on) & group_ids) - resolved
-            ]
-            if not ready:
-                raise ValueError("cyclic characteristic-effect dependency")
-            ready.sort(key=lambda effect: (effect.timestamp, effect.effect_id))
-            effect = ready[0]
-            ordered.append(effect)
-            resolved.add(effect.effect_id)
-            remaining.remove(effect)
-    return ordered
-
-
-@dataclass(eq=False)
-class CardObject:
-    """One authoritative runtime incarnation of an immutable card definition."""
-
-    object_id: str
-    card: CardFact | TokenDefinition
-    owner: int
-    controller: int
-    zone: Zone
-    is_token: bool = False
-
-    @property
-    def rules_card(self):
-        return self.card
-
-    @property
-    def name(self) -> str:
-        return self.card.name
-
-    @property
-    def mana_cost(self) -> str:
-        return self.card.mana_cost
-
-    @property
-    def mana_value(self) -> int:
-        return self.card.mana_value
-
-    @property
-    def type_line(self) -> str:
-        return self.card.type_line
-
-    @property
-    def oracle_text(self) -> str:
-        return self.card.oracle_text
-
-    @property
-    def keywords(self) -> tuple[str, ...]:
-        return self.card.keywords
-
-    @property
-    def is_land(self) -> bool:
-        return self.card.is_land
-
-    @property
-    def is_creature(self) -> bool:
-        return self.card.is_creature
-
-    @property
-    def power(self) -> int | None:
-        return self.card.power
-
-    @property
-    def toughness(self) -> int | None:
-        return self.card.toughness
-
-
-@dataclass(eq=False)
-class StackObject:
-    """One authoritative spell incarnation with announcement-time choices locked in."""
-
-    object_id: str
-    card: CardFact
-    owner: int
-    controller: int
-    cast_kind: CastKind
-    target_id: str | None = None
-    sneak_returned_attacker_id: str | None = None
-    sneak_returned_hand_id: str | None = None
-    sneak_defending_player: int | None = None
-    sneak_oracle_fragment: str | None = None
-    cast_from_graveyard: bool = False
-    finality_on_entry: bool = False
-    cast_from_raphael: bool = False
-    sneak_mana_source_ids: tuple[str, ...] = ()
-    zone: Zone = "stack"
-
-    @property
-    def rules_card(self):
-        return self.card
-
-    @property
-    def name(self) -> str:
-        return self.card.name
-
-
-@dataclass(eq=False)
-class TriggeredAbilityObject:
-    """One authoritative triggered ability on the stack, independent of its source."""
-
-    object_id: str
-    controller: int
-    source_id: str
-    source_card: CardFact
-    oracle_fragment: str
-    effect: TriggerEffect
-    event: RulesEvent
-    trigger_id: str | None = None
-    zone: Zone = "stack"
-    target_id: str | None = None
-    target_ids: tuple[str, ...] = ()
-
-    @property
-    def owner(self) -> int:
-        return self.controller
-
-
-@dataclass(frozen=True)
-class StunTargetSelection:
-    """Frozen trigger, source, and target incarnation anchors at stack placement."""
-
-    ability: TriggeredAbilityObject
-    trigger: TriggerInstance
-    source: Permanent
-    target: Permanent | None
-    target_id: str | None
-    offered_ids: tuple[str, ...]
-    target_card: CardFact | TokenDefinition | None
-    event_cursor: int
-
-
-@dataclass(eq=False)
-class ActivatedAbilityObject:
-    """An authoritative activated ability on the stack, independent of its source."""
-
-    object_id: str
-    controller: int
-    source_id: str
-    source_card: CardFact | TokenDefinition
-    oracle_fragment: str
-    program: ActivatedAbilityProgram
-    mana_source_ids: tuple[str, ...]
-    tap_source: bool
-    sacrifice_source: bool = False
-    sacrificed_destination_id: str | None = None
-    discarded_destination_id: str | None = None
-    target_ids: tuple[str, ...] = ()
-    choice_ids: tuple[str, ...] = ()
-    cost_target_id: str | None = None
-    cost_target_card: CardFact | TokenDefinition | None = None
-    cost_target_object: Permanent | None = None
-    zone: Zone = "stack"
-
-    @property
+B‚ˆ›Ü\BˆYˆİÛ™\ŠÙ[ŠHOˆ[‚ˆ™]\›ˆÙ[‹˜ÛÛ›Û\‚‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈİ[•\™Ù]Ù[Xİ[Û‚ˆˆˆ‘œ›Ş™[ˆšYÙÙ\‹Ûİ\˜ÙK[™\™Ù][˜Ø\›˜][Ûˆ[˜ÚÜœÈ]İXÚÈXÙ[Y[ˆˆˆ‚‚ˆXš[]NˆšYÙÙ\™YXš[]SØš™XİˆšYÙÙ\ˆšYÙÙ\’[œİ[˜ÙBˆÛİ\˜ÙNˆ\›X[™[ˆ\·Ó[h‘éì¶»§q«^t@property
     def owner(self) -> int:
         return self.controller
 
@@ -978,204 +195,19 @@ class Permanent:
         if self.class_level is None and "Class" in self.card.type_line:
             self.class_level = 1
 
-    @property
-    def type_line(self) -> str:
-        """The permanent's current authoritative type line on the battlefield."""
-        current = (
-            self.card.type_line if self.type_line_override is None else self.type_line_override
-        )
-        if self.aura_creature_type is not None and "Creature" in current:
-            types, _, subtypes = current.partition(" â€” ")
-            # Preserve represented noncreature subtypes on multi-type permanents.
-            retained = [
-                s
-                for s in subtypes.split()
-                if s
-                in {
-                    "Equipment",
-                    "Vehicle",
-                    "Fortification",
-                    "Food",
-                    "Clue",
-                    "Treasure",
-                    "Mutagen",
-                    "Blood",
-                    "Map",
-                    "Powerstone",
-                }
-            ]
-            return types + " â€” " + " ".join([*retained, self.aura_creature_type])
-        return current
-
-    @property
-    def is_creature(self) -> bool:
-        return "Creature" in self.type_line
-
-    @property
-    def printed_power(self) -> int:
-        assert self.card.power is not None
-        return self.card.power
-
-    @property
-    def printed_toughness(self) -> int:
-        assert self.card.toughness is not None
-        return self.card.toughness
-
-    def counter_delta(self) -> tuple[int, int]:
-        plus = self.counters.get("+1/+1", 0)
-        minus = self.counters.get("-1/-1", 0)
-        return plus - minus, plus - minus
-
-    @property
-    def power(self) -> int:
-        return self.evaluate_power_toughness()[0]
-
-    @property
-    def toughness(self) -> int:
-        return self.evaluate_power_toughness()[1]
-
-    def evaluate_power_toughness(self) -> tuple[int, int]:
-        counter_power, counter_toughness = self.counter_delta()
-        effects = list(self.characteristic_effects)
-        if counter_power or counter_toughness:
-            effects.append(
-                CharacteristicEffect(
-                    f"{self.object_id}:counters",
-                    CharacteristicLayer.POWER_TOUGHNESS,
-                    PowerToughnessSubLayer.MODIFY,
-                    CharacteristicOperation.ADD,
-                    counter_power,
-                    counter_toughness,
-                    (-1, -1),
-                    source_card="counters",
-                )
-            )
-        effects.extend(
-            CharacteristicEffect(
-                f"{self.object_id}:modifier:{index}",
-                CharacteristicLayer.POWER_TOUGHNESS,
-                PowerToughnessSubLayer.MODIFY,
-                CharacteristicOperation.ADD,
-                modifier.power,
-                modifier.toughness,
-                (modifier.created_turn, modifier.created_order),
-                source_card=modifier.source_card,
-            )
-            for index, modifier in enumerate(self.pt_modifiers)
-        )
-        power, toughness = self.printed_power, self.printed_toughness
-        for effect in _ordered_characteristic_effects(effects):
-            if effect.layer is not CharacteristicLayer.POWER_TOUGHNESS:
-                continue
-            if effect.operation is CharacteristicOperation.SET:
-                power, toughness = effect.power, effect.toughness
-            elif effect.operation is CharacteristicOperation.ADD:
-                power += effect.power
-                toughness += effect.toughness
-            elif effect.operation is CharacteristicOperation.SWITCH:
-                power, toughness = toughness, power
-        return power, toughness
-
-
-@dataclass
-class PlayerState:
-    name: str
-    library: list[CardObject]
-    hand: list[CardObject] = field(default_factory=list)
-    battlefield: list[Permanent] = field(default_factory=list)
-    graveyard: list[CardObject] = field(default_factory=list)
-    exile: list[CardObject] = field(default_factory=list)
-    life: int = 20
-    lands_played: int = 0
-    lost: bool = False
-    loss_reason: str | None = None
-    failed_draw_pending: bool = False
-
-
-class StateBasedAction(Protocol):
-    """One reusable state-based check applied until the game state stabilizes."""
-
-    name: str
-
-    def apply(self, game: Game) -> bool: ...
-
-
-@dataclass(frozen=True)
-class LethalDamageStateBasedAction:
-    name: str = "lethal_damage"
-
-    def apply(self, game: Game) -> bool:
-        lethal = tuple(
-            permanent
-            for player in game.players
-            for permanent in player.battlefield
-            if (
-                permanent.card.is_creature
-                and permanent.damage >= permanent.toughness
-                and not game._has_indestructible(permanent)
-            )
-        )
-        if lethal:
-            game.put_permanents_into_graveyard(lethal, state_based_action=self.name)
-        return bool(lethal)
-
-
-@dataclass(frozen=True)
-class FailedDrawStateBasedAction:
-    """CR 704.5b: lose after failing to draw since the previous SBA check."""
-
-    name: str = "failed_draw"
-
-    def apply(self, game: Game) -> bool:
-        changed = False
-        for index, player in enumerate(game.players):
-            if not player.failed_draw_pending:
-                continue
-            player.failed_draw_pending = False
-            if not player.lost:
-                player.lost = True
-                player.loss_reason = "draw_from_empty_library"
-                game.winner = 1 - index
-                game.log(
-                    "player_lost",
-                    player=player.name,
-                    reason=player.loss_reason,
-                    state_based_action=self.name,
-                )
-            changed = True
-        return changed
-
-
-@dataclass(frozen=True)
-class LegendRuleStateBasedAction:
-    name: str = "legend_rule"
-
-    def apply(self, game: Game) -> bool:
-        changed = False
-        for player_index, player in enumerate(game.players):
-            groups: dict[str, list[Permanent]] = {}
-            for permanent in player.battlefield:
-                if "Legendary" in permanent.card.type_line:
-                    groups.setdefault(permanent.card.name, []).append(permanent)
-            for name, permanents in groups.items():
-                if len(permanents) < 2:
-                    continue
-                choices = tuple(permanent.object_id for permanent in permanents)
-                keep_id = game.legend_rule_chooser(player_index, choices)
-                keep = next(
-                    (permanent for permanent in permanents if permanent.object_id == keep_id), None
-                )
-                if keep is None:
-                    raise ValueError("legend-rule chooser must return one of the listed permanents")
-                game.log(
-                    "legend_rule_choice",
-                    player=player.name,
-                    card=name,
-                    kept_battlefield_index=player.battlefield.index(keep),
-                    moved_to_graveyard=len(permanents) - 1,
-                )
-                leaving = tuple(permanent for permanent in permanents if permanent is not keep)
-                game.put_permanents_into_graveyard(leaving, state_based_action=self.name)
+    @proYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÁ•ÉÑä(€€€‘•˜ÑåÁ•}±¥¹”¡Í•±˜¤€´øÍÑÈè(€€€€€€€€ˆˆ‰Q¡”Á•Éµ…¹•¹ĞÌÕÉÉ•¹Ğ…ÕÑ¡½É¥Ñ…Ñ¥Ù”ÑåÁ”±¥¹”½¸Ñ¡”‰…ÑÑ±•™¥•±¸ˆˆˆ(€€€€€€€ÕÉÉ•¹Ğ€ô€ (€€€€€€€€€€€Í•±˜¹…É¹ÑåÁ•}±¥¹”¥˜Í•±˜¹ÑåÁ•}±¥¹•}½Ù•ÉÉ¥‘”¥Ì9½¹”•±Í”Í•±˜¹ÑåÁ•}±¥¹•}½Ù•ÉÉ¥‘”(€€€€€€€€¤(€€€€€€€¥˜Í•±˜¹…ÕÉ…}É•…ÑÕÉ•}ÑåÁ”¥Ì¹½Ğ9½¹”…¹€‰É•…ÑÕÉ”ˆ¥¸ÕÉÉ•¹Ğè(€€€€€€€€€€€ÑåÁ•Ì°|°ÍÕ‰ÑåÁ•Ì€ôÕÉÉ•¹Ğ¹Á…ÉÑ¥Ñ¥½¸ ˆƒŠP€ˆ¤(€€€€€€€€€€€€ŒAÉ•Í•ÉÙ”É•ÁÉ•Í•¹Ñ•¹½¹É•…ÑÕÉ”ÍÕ‰ÑåÁ•Ì½¸µÕ±Ñ¤µÑåÁ”Á•Éµ…¹•¹ÑÌ¸(€€€€€€€€€€€É•Ñ…¥¹•€ôl(€€€€€€€€€€€€€€€Ì(€€€€€€€€€€€€€€€™½ÈÌ¥¸ÍÕ‰ÑåÁ•Ì¹ÍÁ±¥Ğ ¤(€€€€€€€€€€€€€€€¥˜Ì(€€€€€€€€€€€€€€€¥¸ì(€€€€€€€€€€€€€€€€€€€€‰ÅÕ¥Áµ•¹Ğˆ°(€€€€€€€€€€€€€€€€€€€€‰Y•¡¥±”ˆ°(€€€€€€€€€€€€€€€€€€€€‰½ÉÑ¥™¥…Ñ¥½¸ˆ°(€€€€€€€€€€€€€€€€€€€€‰½½ˆ°(€€€€€€€€€€€€€€€€€€€€‰±Õ”ˆ°(€€€€€€€€€€€€€€€€€€€€‰QÉ•…ÍÕÉ”ˆ°(€€€€€€€€€€€€€€€€€€€€‰5ÕÑ…•¸ˆ°(€€€€€€€€€€€€€€€€€€€€‰	±½½ˆ°(€€€€€€€€€€€€€€€€€€€€‰5…Àˆ°(€€€€€€€€€€€€€€€€€€€€‰A½İ•ÉÍÑ½¹”ˆ°(€€€€€€€€€€€€€€€ô(€€€€€€€€€€€t(€€€€€€€€€€€É•ÑÕÉ¸ÑåÁ•Ì€¬€ˆƒŠP€ˆ€¬€ˆ€ˆ¹©½¥¸¡l©É•Ñ…¥¹•°Í•±˜¹…ÕÉ…}É•…ÑÕÉ•}ÑåÁ•t¤(€€€€€€€É•ÑÕÉ¸ÕÉÉ•¹Ğ((€€€ÁÉ½Á•ÉÑä(€€€‘•˜¥Í}É•…ÑÕÉ”¡Í•±˜¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸€‰É•…ÑÕÉ”ˆ¥¸Í•±˜¹ÑåÁ•}±¥¹”((€€€ÁÉ½Á•ÉÑä(€€€‘•˜ÁÉ¥¹Ñ•‘}Á½İ•È¡Í•±˜¤€´ø¥¹Ğè(€€€€€€€…ÍÍ•ÉĞÍ•±˜¹…É¹Á½İ•È¥Ì¹½Ğ9½¹”(€€€€€€€É•ÑÕÉ¸Í•±˜¹…É¹Á½İ•È((€€€ÁÉ½Á•ÉÑä(€€€‘•˜ÁÉ¥¹Ñ•‘}Ñ½Õ¡¹•ÍÌ¡Í•±˜¤€´ø¥¹Ğè(€€€€€€€…ÍÍ•ÉĞÍ•±˜¹…É¹Ñ½Õ¡¹•ÍÌ¥Ì¹½Ğ9½¹”(€€€€€€€É•ÑÕÉ¸Í•±˜¹…É¹Ñ½Õ¡¹•ÍÌ((€€€‘•˜½Õ¹Ñ•É}‘•±Ñ„¡Í•±˜¤€´øÑÕÁ±•m¥¹Ğ°¥¹Ñtè(€€€€€€€Á±ÕÌ€ôÍ•±˜¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ¬Ä¼¬Äˆ°€À¤(€€€€€€€µ¥¹ÕÌ€ôÍ•±˜¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ´Ä¼´Äˆ°€À¤(€€€€€€€É•ÑÕÉ¸Á±ÕÌ€´µ¥¹ÕÌ°Á±ÕÌ€´µ¥¹ÕÌ((€€€ÁÉ½Á•ÉÑä(€€€‘•˜Á½İ•È¡Í•±˜¤€´ø¥¹Ğè(€€€€€€€É•ÑÕÉ¸Í•±˜¹•Ù…±Õ…Ñ•}Á½İ•É}Ñ½Õ¡¹•ÍÌ ¥lÁt((€€€ÁÉ½Á•ÉÑä(€€€‘•˜Ñ½Õ¡¹•ÍÌ¡Í•±˜¤€´ø¥¹Ğè(€€€€€€€É•ÑÕÉ¸Í•±˜¹•Ù…±Õ…Ñ•}Á½İ•É}Ñ½Õ¡¹•ÍÌ ¥lÅt((€€€‘•˜•Ù…±Õ…Ñ•}Á½İ•É}Ñ½Õ¡¹•ÍÌ£}5¶‰ËkºwµçBÖöF–f–W"ç÷vW"À¢ÖöF–f–W"çF÷Vv†æW72À¢†ÖöF–f–W"æ7&VFVE÷GW&âÂÖöF–f–W"æ7&VFVEö÷&FW"’À¢6÷W&6Uö6&CÖÖöF–f–W"ç6÷W&6Uö6&BÀ¢¢f÷"–æFW‚ÂÖöF–f–W"–âVçVÖW&FR‡6VÆbçEöÖöF–f–W'2¢¢÷vW"ÂF÷Vv†æW72Ò6VÆbç&–çFVE÷÷vW"Â6VÆbç&–çFVE÷F÷Vv†æW70¢f÷"VffV7B–âö÷&FW&VEö6†&7FW&—7F–5öVffV7G2†VffV7G2“ ¢–bVffV7BæÆ–W"—2æ÷B6†&7FW&—7F–4Æ–W"åõtU%õDõTt„äU53 ¢6öçF–çVP¢–bVffV7Bæ÷W&F–öâ—26†&7FW&—7F–4÷W&F–öâå4UC ¢÷vW"ÂF÷Vv†æW72ÒVffV7Bç÷vW"ÂVffV7BçF÷Vv†æW70¢VÆ–bVffV7Bæ÷W&F–öâ—26†&7FW&—7F–4÷W&F–öâäDC ¢÷vW"³ÒVffV7Bç÷vW ¢F÷Vv†æW72³ÒVffV7BçF÷Vv†æW70¢VÆ–bVffV7Bæ÷W&F–öâ—26†&7FW&—7F–4÷W&F–öâå5t•D4ƒ ¢÷vW"ÂF÷Vv†æW72ÒF÷Vv†æW72Â÷vW ¢&WGW&â÷vW"ÂF÷Vv†æW70  ¤FF6Æ70¦6Æ72Æ–W%7FFS ¢æÖS¢7G ¢Æ–'&'“¢Æ—7E´6&Dö&¦V7EĞ¢†æC¢Æ—7E´6&Dö&¦V7EÒÒf–VÆB†FVfVÇEöf7F÷'“ÖÆ—7B¢&GFÆVf–VÆC¢Æ—7EµW&ÖæVçEÒÒf–VÆB†FVfVÇEöf7F÷'“ÖÆ—7B¢w&fW–&C¢Æ—7E´6&Dö&¦V7EÒÒf–VÆB†FVfVÇEöf7F÷'“ÖÆ—7B¢W†–ÆS¢Æ—7E´6&Dö&¦V7EÒÒf–VÆB†FVfVÇEöf7F÷'“ÖÆ—7B¢Æ–fS¢–çBÒ# ¢ÆæG5÷Æ–VC¢–çBÒ ¢Æ÷7C¢&ööÂÒfÇ6P¢Æ÷75÷&V6öã¢7G"ÂæöæRÒæöæP¢f–ÆVEöG&u÷VæF–æs¢&ööÂÒfÇ6P  ¦6Æ727FFT&6VD7F–öâ…&÷Fö6öÂ“ ¢""$öæR&WW6&ÆR7FFRÖ&6VB6†V6²Æ–VBVçF–ÂF†RvÖR7FFR7F&–Æ—¦W2â""  ¢æÖS¢7G  ¢FVbÇ’‡6VÆbÂvÖS¢vÖR’Óâ&ööÃ¢ââà  ¤FF6Æ72†g&÷¦VãÕG'VR¦6Æ72ÆWF†ÄFÖvU7FFT&6VD7F–öã ¢æÖS¢7G"Ò&ÆWF†ÅöFÖvR  ¢FVbÇ’‡6VÆbÂvÖS¢vÖR’Óâ&ööÃ ¢ÆWF†ÂÒGWÆR€¢W&ÖæVç@¢f÷"Æ–W"–âvÖRçÆ–W'0¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[ˆYˆ
+ˆ\›X[™[˜Ø\™š\×ØÜ™X]\™Bˆ[™\›X[™[™[XYÙHH\›X[™[İYÚ™\ÜÂˆ[™›İØ[YK—Ú\×Ú[™\İXİX›J\›X[™[
+Bˆ
+Bˆ
+BˆYˆ][‚ˆØ[YKœ]Ü\›X[™[×Ú[×ÙÜ˜]™^X\™
+][İ]WØ˜\ÙYØXİ[Û\Ù[‹›˜[YJBˆ™]\›ˆ›ÛÛ
+][
+B‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈ˜Z[Y˜]Ôİ]P˜\ÙYXİ[Û‚ˆˆˆÔˆÌXˆÜÙHY\ˆ˜Z[[™ÈÈ˜]ÈÚ[˜ÙHH™]š[İ\ÈĞHÚXÚËˆˆˆ‚‚ˆ˜[YNˆİˆH™˜Z[YÙ˜]È‚‚ˆYˆ\JÙ[‹Ø[YNˆØ[YJHOˆ›ÛÛ‚ˆÚ[™ÙYH˜[ÙBˆ›Üˆ[™^^Y\ˆ[ˆ[[Y\˜]JØ[YKœ^Y\œÊN‚ˆYˆ›İ^Y\‹™˜Z[YÙ˜]×Ü[™[™Î‚ˆÛÛ[YBˆ^Y\‹™˜Z[YÙ˜]×Ü[™[™ÈH˜[ÙBˆYˆ›İ^Y\‹›Üİ‚ˆ^Y\‹›ÜİHYBˆ^Y\‹›ÜÜ×Ü™X\ÛÛˆH™˜]×Ùœ›ÛWÙ[\WÛXœ˜\H‚ˆØ[YKÚ[›™\ˆHHH[™^ˆØ[YK›ÙÊˆœ^Y\—ÛÜİ‹ˆ^Y\\^Y\‹›˜[YKˆ™X\ÛÛ\^Y\‹›ÜÜ×Ü™X\ÛÛ‹ˆİ]WØ˜\ÙYØXİ[Û\Ù[‹›˜[YKˆ
+BˆÚ[™ÙYHYBˆ™]\›ˆÚ[™ÙY‚‚]XÛ\ÜÊœ›Ş™[UYJB˜Û\ÜÈYÙ[™[Tİ]P˜\ÙYXİ[Û‚ˆ˜[YNˆİˆH›YÙ[™Ü[H‚‚ˆYˆ\JÙ[‹Ø[YNˆØ[YJHOˆ›ÛÛ‚ˆÚ[™ÙYH˜[ÙBˆ›Üˆ^Y\—Ú[™^^Y\ˆ[ˆ[[Y\˜]JØ[YKœ^Y\œÊN‚ˆÜ›İ\ÎˆXİÜİ‹\İÔ\›X[™[WHHßBˆ›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[‚ˆYˆ“YÙ[™\Hˆ[ˆ\›X[™[˜Ø\™\WÛ[™N‚ˆÜ›İ\ËœÙ]Y˜][
+\›X[™[˜Ø\™›˜[YK×JK˜\[™
+\›X[™[
+Bˆ›Üˆ˜[YK\›X[™[È[ˆÜ›İ\Ëš][\Ê
+N‚ˆYˆ[Š\›X[™[ÊH‚ˆÛÛ[YBˆ7Ó[h‘éì¶»§q«^v=self.name)
                 changed = True
         return changed
 
@@ -1235,167 +267,26 @@ class DeterministicRNG:
 
     @staticmethod
     def _digest(state: object) -> str:
-        return sha256(repr(state).encode("utf-8")).hexdigest()
+        YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÉ•ÑÕÉ¸Í¡„ÈÔØ¡É•ÁÈ¡ÍÑ…Ñ”¤¹•¹½‘” ‰ÕÑ˜´àˆ¤¤¹¡•á‘¥•ÍĞ ¤((€€€ÁÉ½Á•ÉÑä(€€€‘•˜ÍÑ…Ñ•}‘¥•ÍĞ¡Í•±˜¤€´øÍÑÈè(€€€€€€€É•ÑÕÉ¸Í•±˜¹}‘¥•ÍĞ¡Í•±˜¹}É…¹‘½´¹•ÑÍÑ…Ñ” ¤¤((€€€‘•˜•áÁ½ÉÑ}ÍÑ…Ñ”¡Í•±˜¤€´øÑÕÁ±”è(€€€€€€€€ˆˆ‰I•ÑÕÉ¸Ñ¡”)M=8µÍ•É¥…±¥é…‰±”AåÑ¡½¸I9ÍÑ…Ñ”…•ÁÑ•‰äÉ•ÍÑ½É•}ÍÑ…Ñ•€¸ˆˆˆ(€€€€€€€É•ÑÕÉ¸Í•±˜¹}É…¹‘½´¹•ÑÍÑ…Ñ” ¤((€€€‘•˜É•ÍÑ½É•}ÍÑ…Ñ”¡Í•±˜°ÍÑ…Ñ”èÑÕÁ±”ğ±¥ÍĞ¤€´ø9½¹”è(€€€€€€€€ˆˆ‰I•ÍÑ½É”…¸•áÁ½ÉÑ•ÍÑ…Ñ”İ¥Ñ¡½ÕĞ¥¹Ù•¹Ñ¥¹œ„É…¹‘½µ¹•ÍÌ½¹ÍÕµÁÑ¥½¸¸ˆˆˆ(€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡ÍÑ…Ñ”°€¡ÑÕÁ±”°±¥ÍĞ¤¤½È±•¸¡ÍÑ…Ñ”¤€„ô€Ìè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¥¹Ù…±¥‘•Ñ•Éµ¥¹¥ÍÑ¥ŒI9ÍÑ…Ñ”ˆ¤((€€€€€€€‘•˜ÑÕÁ±•Ì¡Ù…±Õ”¤è(€€€€€€€€€€€¥˜¥Í¥¹ÍÑ…¹”¡Ù…±Õ”°±¥ÍĞ¤è(€€€€€€€€€€€€€€€É•ÑÕÉ¸ÑÕÁ±”¡ÑÕÁ±•Ì¡¥Ñ•´¤™½È¥Ñ•´¥¸Ù…±Õ”¤(€€€€€€€€€€€¥˜¥Í¥¹ÍÑ…¹”¡Ù…±Õ”°ÑÕÁ±”¤è(€€€€€€€€€€€€€€€É•ÑÕÉ¸ÑÕÁ±”¡ÑÕÁ±•Ì¡¥Ñ•´¤™½È¥Ñ•´¥¸Ù…±Õ”¤(€€€€€€€€€€€É•ÑÕÉ¸Ù…±Õ”((€€€€€€€ÑÉäè(€€€€€€€€€€€Í•±˜¹}É…¹‘½´¹Í•ÑÍÑ…Ñ”¡ÑÕÁ±•Ì¡ÍÑ…Ñ”¤¤(€€€€€€€•á•ÁĞ€¡QåÁ•ÉÉ½È°Y…±Õ•ÉÉ½È¤…Ì•ÉÉ½Èè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¥¹Ù…±¥‘•Ñ•Éµ¥¹¥ÍÑ¥ŒI9ÍÑ…Ñ”ˆ¤™É½´•ÉÉ½È(€€€€€€€Í•±˜¹É•½É‘Ì¹±•…È ¤((€€€‘•˜Í¡Õ™™±•¡Í•±˜°Ù…±Õ•Ìè±¥ÍĞ°€¨°‘½µ…¥¸èÍÑÈ¤€´ø±¥ÍĞè(€€€€€€€€ˆˆ‰I•ÑÕÉ¸Ñ¡”•á…ĞÉ…¹‘½´¹Í¡Õ™™±•€Á•ÉµÕÑ…Ñ¥½¸…¹É•½É¥ÑÌÍÑ…Ñ”ÑÉ…¹Í¥Ñ¥½¸¸ˆˆˆ(€€€€€€€¥˜¹½Ğ‘½µ…¥¸è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰I9½¹ÍÕµÁÑ¥½¸É•ÅÕ¥É•Ì„‘½µ…¥¸ˆ¤(€€€€€€€¥¹‘•á•€ô±¥ÍĞ¡•¹Õµ•É…Ñ”¡Ù…±Õ•Ì¤¤(€€€€€€€‰•™½É”€ôÍ•±˜¹ÍÑ…Ñ•}‘¥•ÍĞ(€€€€€€€Í•±˜¹}É…¹‘½´¹Í¡Õ™™±”¡¥¹‘•á•¤(€€€€€€€…™Ñ•È€ôÍ•±˜¹ÍÑ…Ñ•}‘¥•ÍĞ(€€€€€€€Á•ÉµÕÑ…Ñ¥½¸€ôÑÕÁ±”¡¥¹‘•à™½È¥¹‘•à°}Ù…±Õ”¥¸¥¹‘•á•¤(€€€€€€€Í•±˜¹É•½É‘Ì¹…ÁÁ•¹ (€€€€€€€€€€€I9I•½É (€€€€€€€€€€€€€€€±•¸¡Í•±˜¹É•½É‘Ì¤€¬€Ä°(€€€€€€€€€€€€€€€‘½µ…¥¸°(€€€€€€€€€€€€€€€€‰Í¡Õ™™±”ˆ°(€€€€€€€€€€€€€€€Á•ÉµÕÑ…Ñ¥½¸°(€€€€€€€€€€€€€€€‰•™½É”°(€€€€€€€€€€€€€€€…™Ñ•È°(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸mÙ…±Õ”™½È}¥»}5¶‰ËkºwµçR"Â$""’À¢6VVCÓÀ¢¢À¢7FFUö&6VEö7F–öç3¢GWÆUµ7FFT&6VD7F–öâÂââåÒÒDTdTÅEõ5DDUô$4TEô5D”ôå2À¢ÆVvVæE÷'VÆUö6†ö÷6W#ÔæöæRÀ¢6÷VçFW%÷F&vWEö6†ö÷6W#ÔæöæRÀ¢GF6µ÷F&vWEö6†ö÷6W#ÔæöæRÀ¢ÆÆ–æ6UöÖöFUö6†ö÷6W#ÔæöæRÀ¢FV×÷&'•ö¶W—v÷&Eö6†ö÷6W#ÔæöæRÀ¢7GVå÷F&vWEö6†ö÷6W#ÔæöæRÀ¢67'•ö6†ö÷6W#ÔæöæRÀ¢†æEö&÷GFöÕöG&uö6†ö÷6W#ÔæöæRÀ¢F—66&EöG&uö6†ö÷6W#ÔæöæRÀ¢G&uöF—66&Eö6†ö÷6W#ÔæöæRÀ¢6Æ75÷&V6÷fW'•ö6†ö÷6W#ÔæöæRÀ¢fööE÷6V&6…ö6†ö÷6W#ÔæöæRÀ¢§W'•÷&–uö6†ö÷6W#ÔæöæRÀ¢&ÖV6–öW†–ÆUö6†ö÷6W#ÔæöæRÀ¢&ÖV6–÷F&vWEö6†ö÷6W#ÔæöæRÀ¢&†VÅöW†–ÆUö6†ö÷6W#ÔæöæRÀ¢&†VÅ÷Æ•ö6†ö÷6W#ÔæöæRÀ¢–çFW'&WFW#¢6&D–çFW'&WFW"ÂæöæRÒæöæRÀ¢“ ¢6VÆbç&ærÒFWFW&Ö–æ—7F–5$är‡6VVB¢6‡VffÆVC¢Æ—7E¶Æ—7E´6&Df7EÕÒÒµĞ¢f÷"÷væW"ÂFV6²–âVçVÖW&FR†FV6·2“ ¢6‡VffÆVBæVæB‡6VÆbç&ærç6‡VffÆVB†Æ—7B†FV6²’ÂFöÖ–ãÖb&÷Væ–æuöÆ–'&'“§¶÷væW'Ò"’¢6VÆbåöæW‡Eöö&¦V7EöçVÖ&W"Ò¢6VÆbåöö&¦V7G3¢F–7E°¢7G"À¢6&Dö&¦V7BÂ7F6´ö&¦V7BÂG&–vvW&VD&–Æ—G”ö&¦V7BÂ7F—fFVD&–Æ—G”ö&¦V7BÂW&ÖæVçBÀ¢ÒÒ·Ğ¢6VÆbç7F6³¢Æ—7Eµ7F6´ö&¦V7BÂG&–vvW&VD&–Æ—G”ö&¦V7BÂ7F—fFVD&–Æ—G”ö&¦V7EÒÒµĞ¢6VÆbç&–÷&—G•÷7FFS¢&–÷&—G•7FFRÂæöæRÒæöæP¢6VÆbå÷&–÷&—G•÷&W6öÇWF–öåö–å÷&öw&W72ÒfÇ6P¢6VÆbåöæW‡E÷&–÷&—G•öWö6‚Ò¢6VÆbå÷&W7öç6UöW‡÷7W&Uö¶W—3¢6WE·GWÆU¶–çBÂ7G"Â7G%ÕÒÒ6WB‚¢6VÆbçVæF–æu÷G&–vvW'3¢Æ—7EµG&–vvW$–ç7Fæ6UÒÒµĞ¢6VÆbå÷G&–vvW'3¢F–7E·7G"ÂG&–vvW$–ç7Fæ6UÒÒ·Ğ¢6VÆbåöæW‡EöWfVçEöçVÖ&W"Ò¢6VÆbå÷'VÆW5öWfVçG3¢F–7E·7G"Â'VÆW4WfVçEÒÒ·Ğ¢6VÆbå÷W&ÖæVçEöÆVgEö†—7F÷'“¢Æ—7Eµ'VÆW4WfVçEÒÒµĞ¢6Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[‹—Ü[\×Ù]™[Ù]šY[˜ÙNˆ\İÔ[\Ñ]™[]šY[˜ÙWHH×BˆÙ[‹—Û™^ÜÙ[X[X×ÛØØİ\œ™[˜ÙWÛ[X™\ˆHBˆÙ[‹—Û™^ÛÜÜ[š]WİÚ]™\Ü×Û[X™\ˆHBˆÙ[‹—Û™^ÛÜÜ[š]WØÛÛ^Û[X™\ˆHBˆÙ[‹œÙ[X[X×ÛØØİ\œ™[˜Ù\Îˆ\İÔÙ[X[XÓØØİ\œ™[˜ÙWHH×BˆÙ[‹›ÜÜ[š]WİÚ]™\ÜÙ\Îˆ\İÓÜÜ[š]UÚ]™\Ü×HH×BˆÙ[‹›ÜÜ[š]WØÛÛ^Îˆ\İĞ]]Üš]]]™SÜÜ[š]PÛÛ^HH×BˆÙ[‹˜ÛÛ™›Ü›X[˜ÙWÜİÜÜ™XÛÜ™Îˆ\İĞÛÛ™›Ü›X[˜ÙTİÜ™XÛÜ™HH×BˆÙ[‹—Û™^İšYÙÙ\—Û[X™\ˆHBˆÙ[‹—Û™^ÙY™™XİÛ[X™\ˆHBˆÙ[‹—Üİ]X×İX[WØÛÛšX][ÛœÎˆXİİ\VÜİ‹İ‹İ—K\VÚ[[İ‹İ—WHHßBˆÙ[‹—Ú[š]ÛZ[İ™YJ
+BˆÙ[‹—Ú[š]ÚÜ˜[™×Ü™Yš[
 
-    @property
-    def state_digest(self) -> str:
-        return self._digest(self._random.getstate())
+BˆÙ[‹œ^Y\œÈHÔ^Y\”İ]J˜[Y\ÖÚWK×JH›ÜˆH[ˆ˜[™ÙJŠWBˆÙ[‹—ÚÜ˜[™×Ü™Yš[Ş›Û™\ÈH\J
+›Xœ˜\Kš[™
+H›Üˆ[ˆÙ[‹œ^Y\œÊBˆÙ[‹—ÛZ[İ™YWŞ›Û™\ÈH\J
+›Xœ˜\K™Ü˜]™^X\™
+H›Üˆ[ˆÙ[‹œ^Y\œÊBˆ›ÜˆİÛ™\‹Ø\™È[ˆ[[Y\˜]JÚY™›Y
+N‚ˆÙ[‹œ^Y\œÖÛİÛ™\—K›Xœ˜\K™^[™
+ˆÙ[‹—ØÜ™X]WØØ\™ÛØš™Xİ
+Ø\™İÛ™\‹›Xœ˜\HŠH›ÜˆØ\™[ˆØ\™Âˆ
+BˆÙ[‹—İ\›ˆHˆÙ[‹—ØXİ]™WÜ^Y\ˆHˆÙ[‹—Üİ\H\›”İ\”ÑUTˆÙ[‹—ØÛÛX˜]Ø]XÚÙ\œÎˆ\VÜİ‹‹‹—HH
 
-    def export_state(self) -> tuple:
-        """Return the JSON-serializable Python RNG state accepted by `restore_state`."""
-        return self._random.getstate()
+BˆÙ[‹—ØÛÛX˜]Ø›ØÚÜÎˆ\Vİ\VÜİ‹İ—K‹‹—HH
 
-    def restore_state(self, state: tuple | list) -> None:
-        """Restore an exported state without inventing a randomness consumption."""
-        if not isinstance(state, (tuple, list)) or len(state) != 3:
-            raise ValueError("invalid deterministic RNG state")
+BˆÙ[‹—Ø]XÚÙ\œ×ÙXÛ\™YH˜[ÙBˆÙ[‹—Ø›ØÚÙ\œ×ÙXÛ\™YH˜[ÙBˆÙ[‹—ØÛÛX˜]Ù[XYÙWÜ™\ÛÛ™YH˜[ÙBˆÙ[‹—ØÛÛX˜]Ù[XYÙWÜİ\ÚÚ[™HÛÛX˜][XYÙTİ\Ú[™““Ó‘BˆÙ[‹—ØÛÛX˜]Ù[XYÙWÜİ\Û[X™\ˆHˆÙ[‹—ØÛÛX˜]Ù[XYÙWİİ[Üİ\ÈHˆÙ[‹—Ùš\œİÙ[XYÙWÜ]X[YšYYÚYÎˆ\VÜİ‹‹‹—HH
 
-        def tuples(value):
-            if isinstance(value, list):
-                return tuple(tuples(item) for item in value)
-            if isinstance(value, tuple):
-                return tuple(tuples(item) for item in value)
-            return value
+BˆÙ[‹—Ùš\œİÙİX›WÜİšZÙWÚYÎˆ\VÜİ‹‹‹—HH
 
-        try:
-            self._random.setstate(tuples(state))
-        except (TypeError, ValueError) as error:
-            raise ValueError("invalid deterministic RNG state") from error
-        self.records.clear()
-
-    def shuffled(self, values: list, *, domain: str) -> list:
-        """Return the exact `random.shuffle` permutation and record its state transition."""
-        if not domain:
-            raise ValueError("RNG consumption requires a domain")
-        indexed = list(enumerate(values))
-        before = self.state_digest
-        self._random.shuffle(indexed)
-        after = self.state_digest
-        permutation = tuple(index for index, _value in indexed)
-        self.records.append(
-            RNGRecord(
-                len(self.records) + 1,
-                domain,
-                "shuffle",
-                permutation,
-                before,
-                after,
-            )
-        )
-        return [value for _index, value in indexed]
-
-    def randrange(self, stop: int, *, domain: str) -> int:
-        """Consume one bounded random integer with auditable state evidence."""
-        if not domain or not isinstance(stop, int) or isinstance(stop, bool) or stop <= 0:
-            raise ValueError("RNG randrange requires a positive bound and domain")
-        before = self.state_digest
-        result = self._random.randrange(stop)
-        after = self.state_digest
-        self.records.append(
-            RNGRecord(len(self.records) + 1, domain, "randrange", result, before, after)
-        )
-        return result
-
-
-class Game(
-    AuraMixin, FoodSearchMixin, VigilanteMixin, JuryRigMixin, MillThreeMixin, KrangRefillMixin
-):
-    """Two-player deterministic game state and the supported legal transitions."""
-
-    def __init__(
-        self,
-        decks: tuple[list[CardFact], list[CardFact]],
-        names=("A", "B"),
-        seed=1,
-        *,
-        state_based_actions: tuple[StateBasedAction, ...] = DEFAULT_STATE_BASED_ACTIONS,
-        legend_rule_chooser=None,
-        counter_target_chooser=None,
-        attack_target_chooser=None,
-        alliance_mode_chooser=None,
-        temporary_keyword_chooser=None,
-        stun_target_chooser=None,
-        scry_chooser=None,
-        hand_bottom_draw_chooser=None,
-        discard_draw_chooser=None,
-        draw_discard_chooser=None,
-        class_recovery_chooser=None,
-        food_search_chooser=None,
-        jury_rig_chooser=None,
-        paramecia_exile_chooser=None,
-        paramecia_target_chooser=None,
-        raphael_exile_chooser=None,
-        raphael_play_chooser=None,
-        interpreter: CardInterpreter | None = None,
-    ):
-        self.rng = DeterministicRNG(seed)
-        shuffled: list[list[CardFact]] = []
-        for owner, deck in enumerate(decks):
-            shuffled.append(self.rng.shuffled(list(deck), domain=f"opening_library:{owner}"))
-        self._next_object_number = 1
-        self._objects: dict[
-            str,
-            CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
-        ] = {}
-        self.stack: list[StackObject | TriggeredAbilityObject | ActivatedAbilityObject] = []
-        self.priority_state: PriorityState | None = None
-        self._priority_resolution_in_progress = False
-        self._next_priority_epoch = 1
-        self._response_exposure_keys: set[tuple[int, str, str]] = set()
-        self.pending_triggers: list[TriggerInstance] = []
-        self._triggers: dict[str, TriggerInstance] = {}
-        self._next_event_number = 1
-        self._rules_events: dict[str, RulesEvent] = {}
-        self._permanent_left_history: list[RulesEvent] = []
-        self._rules_event_evidence: list[RulesEventEvidence] = []
-        self._next_semantic_occurrence_number = 1
-        self._next_opportunity_witness_number = 1
-        self._next_opportunity_context_number = 1
-        self.semantic_occurrences: list[SemanticOccurrence] = []
-        self.opportunity_witnesses: list[OpportunityWitness] = []
-        self.opportunity_contexts: list[AuthoritativeOpportunityContext] = []
-        self.conformance_stop_records: list[ConformanceStopRecord] = []
-        self._next_trigger_number = 1
-        self._next_effect_number = 1
-        self._static_team_contributions: dict[tuple[str, str, str], tuple[int, int, str, str]] = {}
-        self._init_mill_three()
-        self._init_krang_refill()
-        self.players = [PlayerState(names[i], []) for i in range(2)]
-        self._krang_refill_zones = tuple((p, p.library, p.hand) for p in self.players)
-        self._mill_three_zones = tuple((p, p.library, p.graveyard) for p in self.players)
-        for owner, cards in enumerate(shuffled):
-            self.players[owner].library.extend(
-                self._create_card_object(card, owner, "library") for card in cards
-            )
-        self._turn = 0
-        self._active_player = 0
-        self._step = TurnStep.SETUP
-        self._combat_attackers: tuple[str, ...] = ()
-        self._combat_blocks: tuple[tuple[str, str], ...] = ()
-        self._attackers_declared = False
-        self._blockers_declared = False
-        self._combat_damage_resolved = False
-        self._combat_damage_step_kind = CombatDamageStepKind.NONE
-        self._combat_damage_step_number = 0
-        self._combat_damage_total_steps = 0
-        self._first_damage_qualified_ids: tuple[str, ...] = ()
-        self._first_double_strike_ids: tuple[str, ...] = ()
-        self._regular_damage_initial_ids: tuple[str, ...] = ()
-        self.winner: int | None = None
-        self.events: list[dict[str, object]] = []
-        self.floating_mana = FloatingManaLedger()
-        self.scry_evidence: list[ScryEvidence] = []
-        self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
-        self._stun_selections: dict[str, StunTargetSelection] = {}
-        self._rock_soldiers_targets: dict[str, str | None] = {}
-        self._shredder_targets: dict[
-            str, tuple[Permanent | None, CardFact | None, tuple[str, ...]]
-        ] = {}
-        self._stun_history: list[tuple[int, tuple[tuple[str, object], ...]]] = []
-        self.hand_bottom_draw_evidence: list[HandBottomDrawEvidence] = []
-        self.discard_draw_evidence: list[DiscardDrawEvidence] = []
-        self._ltb_mutagen_departures = {}
-        self._ltb_mutagen_enqueued: set[tuple[str, str, str]] = set()
+BˆÙ[‹—Ü™Yİ[\—Ù7Ó[h‘éì¶»§q«^t()
         self._ltb_mutagen_anchors = {}
         self._ltb_mutagen_consumed: set[str] = set()
         self._paramecia_departures = {}
@@ -1430,172 +321,16 @@ class Game(
         self.state_based_actions = state_based_actions
         self.interpreter = interpreter or CardInterpreter()
         self.legend_rule_chooser = legend_rule_chooser or (
-            lambda _player_index, object_ids: object_ids[0]
-        )
-        self.counter_target_chooser = counter_target_chooser or (
-            lambda _player_index, _source_id, object_ids: object_ids[0]
-        )
-        self.attack_target_chooser = attack_target_chooser or (
-            lambda _player_index, _source_id, object_ids: object_ids[0] if object_ids else None
-        )
-        self.counter_spell_target_chooser = lambda _player_index, _source_id, object_ids: (
-            object_ids[0]
-        )
-        self.alliance_mode_chooser = alliance_mode_chooser or (
-            lambda _player_index, _source_id, modes: modes[0]
-        )
-        self.temporary_keyword_chooser = temporary_keyword_chooser or (
-            lambda _player_index, _source_id, choices: choices[0]
-        )
-        self.stun_target_chooser = stun_target_chooser or (
-            lambda _controller, _source_id, options: options[0]
-        )
-        self.scry_chooser = scry_chooser or (
-            lambda view, options: next(
-                option
-                for option in options
-                if option.top_ids == tuple(object_id for object_id, _name in view.cards)
-                and not option.bottom_ids
-            )
-        )
-        self.hand_bottom_draw_chooser = hand_bottom_draw_chooser or (
-            lambda _view, options: next(option for option in options if option.card_id is None)
-        )
-        self.discard_draw_chooser = discard_draw_chooser or (
-            lambda _view, options: next(option for option in options if option.card_id is None)
-        )
-        self.paramecia_exile_chooser = paramecia_exile_chooser or (
-            lambda _controller, _source_id: True
-        )
-        self.paramecia_target_chooser = paramecia_target_chooser or (
-            lambda _controller, _source_id, options: options[0] if options else None
-        )
-        self.raphael_exile_chooser = raphael_exile_chooser or (lambda _controller, _source_id: True)
-        self.raphael_play_chooser = raphael_play_chooser or (
-            lambda _controller, _source_id, options: options[0] if options else None
-        )
-        self.alliance_modes_chosen: dict[str, set[str]] = {}
-        for player in self.players:
-            self.draw(player, 7, setup=True)
-        self.log("game_started", seed=seed, starting_player=names[0])
-
-    @property
-    def turn(self) -> int:
-        return self._turn
-
-    @property
-    def active_player(self) -> int:
-        return self._active_player
-
-    @property
-    def step(self) -> TurnStep:
-        return self._step
-
-    @property
-    def phase(self) -> str:
-        return phase_for_step(self._step)
-
-    def _allocate_object_id(self) -> str:
-        object_id = f"object-{self._next_object_number:06d}"
-        self._next_object_number += 1
-        return object_id
-
-    def _register(
-        self,
-        obj: CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
-    ) -> CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent:
-        if getattr(self, "_jury_rig_choice_active", False):
-            raise ValueError("Jury-Rig chooser cannot register authoritative objects")
-        if getattr(self, "_food_search_choice_active", False):
-            raise ValueError("Food search chooser cannot register authoritative objects")
-        if obj.object_id in self._objects:
-            raise ValueError(f"duplicate runtime object ID: {obj.object_id}")
-        self._objects[obj.object_id] = obj
-        if isinstance(obj, Permanent):
-            obj.entered_timestamp = self._effect_timestamp()
-        self._mill_three_register(obj)
-        self._krang_refill_register(obj)
-        return obj
-
-    def _create_card_object(self, card: CardFact, owner: int, zone: Zone) -> CardObject:
-        if zone not in {"library", "hand", "graveyard", "exile"}:
-            raise ValueError(f"card object cannot be created in {zone}")
-        return self._register(CardObject(self._allocate_object_id(), card, owner, owner, zone))  # type: ignore[return-value]
-
-    def create_permanent(
-        self,
-        card: CardFact,
-        owner: int,
-        *,
-        controller: int | None = None,
-        tapped: bool = False,
-        summoning_sick: bool = True,
-    ) -> Permanent:
-        """Create, register, and authoritatively place a setup battlefield object."""
-        permanent = Permanent(
-            self._allocate_object_id(),
-            card,
-            owner,
-            owner if controller is None else controller,
-            tapped=tapped,
-            summoning_sick=summoning_sick,
-            entered_battlefield_turn=self.turn,
-        )
-        self._register(permanent)
-        self.players[permanent.controller].battlefield.append(permanent)
-        return permanent
-
-    def create_tokens(
-        self,
-        creator_index: int,
-        program: TokenCreationProgram,
-        *,
-        controller: int | None = None,
-        source_card: str,
-        oracle_fragment: str,
-        source_id: str | None = None,
-    ) -> tuple[Permanent, ...]:
-        """Atomically create one deterministic batch of Oracle-derived token permanents."""
-        if creator_index not in range(2):
-            raise ValueError("token creator is invalid")
-        destination_controller = creator_index if controller is None else controller
-        if destination_controller not in range(2):
-            raise ValueError("token controller is invalid")
-        if source_id is not None and source_id not in self._objects:
-            raise ValueError("token source identity is not authoritative")
-        if not isinstance(program, TokenCreationProgram) or not program.executable:
-            raise ValueError("token creation program is not executable")
-        assert program.definition is not None and program.quantity is not None
-        definition = program.definition
-        if definition.is_creature and (definition.power is None or definition.toughness is None):
-            raise ValueError("creature token definition requires power and toughness")
-        if not definition.is_creature and (
-            definition.power is not None or definition.toughness is not None
-        ):
-            raise ValueError("noncreature token definition cannot have power or toughness")
-
-        starting_number = self._next_object_number
-        created: list[Permanent] = []
-        try:
-            for _ in range(program.quantity):
-                token = Permanent(
-                    self._allocate_object_id(),
-                    definition,
-                    destination_controller,
-                    destination_controller,
-                    tapped=program.tapped,
-                    summoning_sick=definition.is_creature,
-                    entered_battlefield_turn=self.turn,
-                    is_token=True,
-                )
-                self._register(token)
-                self.players[destination_controller].battlefield.append(token)
-                created.append(token)
-        except Exception:
-            for token in created:
-                if token in self.players[destination_controller].battlefield:
-                    self.players[destination_controller].battlefield.remove(token)
-                self._objects.pop(token.object_id, None)
+            lambda _player_index, objecYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ}¥‘Ìè½‰©•Ñ}¥‘ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹½Õ¹Ñ•É}Ñ…É•Ñ}¡½½Í•È€ô½Õ¹Ñ•É}Ñ…É•Ñ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Á±…å•É}¥¹‘•à°}Í½ÕÉ•}¥°½‰©•Ñ}¥‘Ìè½‰©•Ñ}¥‘ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹…ÑÑ…­}Ñ…É•Ñ}¡½½Í•È€ô…ÑÑ…­}Ñ…É•Ñ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Á±…å•É}¥¹‘•à°}Í½ÕÉ•}¥°½‰©•Ñ}¥‘Ìè½‰©•Ñ}¥‘ÍlÁt¥˜½‰©•Ñ}¥‘Ì•±Í”9½¹”(€€€€€€€€¤(€€€€€€€Í•±˜¹½Õ¹Ñ•É}ÍÁ•±±}Ñ…É•Ñ}¡½½Í•È€ô±…µ‰‘„}Á±…å•É}¥¹‘•à°}Í½ÕÉ•}¥°½‰©•Ñ}¥‘Ìè€ (€€€€€€€€€€€½‰©•Ñ}¥‘ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹…±±¥…¹•}µ½‘•}¡½½Í•È€ô…±±¥…¹•}µ½‘•}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Á±…å•É}¥¹‘•à°}Í½ÕÉ•}¥°µ½‘•Ìèµ½‘•ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹Ñ•µÁ½É…Éå}­•åİ½É‘}¡½½Í•È€ôÑ•µÁ½É…Éå}­•åİ½É‘}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Á±…å•É}¥¹‘•à°}Í½ÕÉ•}¥°¡½¥•Ìè¡½¥•ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹ÍÑÕ¹}Ñ…É•Ñ}¡½½Í•È€ôÍÑÕ¹}Ñ…É•Ñ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}½¹ÑÉ½±±•È°}Í½ÕÉ•}¥°½ÁÑ¥½¹Ìè½ÁÑ¥½¹ÍlÁt(€€€€€€€€¤(€€€€€€€Í•±˜¹ÍÉå}¡½½Í•È€ôÍÉå}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„Ù¥•Ü°½ÁÑ¥½¹Ìè¹•áĞ (€€€€€€€€€€€€€€€½ÁÑ¥½¸(€€€€€€€€€€€€€€€™½È½ÁÑ¥½¸¥¸½ÁÑ¥½¹Ì(€€€€€€€€€€€€€€€¥˜½ÁÑ¥½¸¹Ñ½Á}¥‘Ì€ôôÑÕÁ±”¡½‰©•Ñ}¥™½È½‰©•Ñ}¥°}¹…µ”¥¸Ù¥•Ü¹…É‘Ì¤(€€€€€€€€€€€€€€€…¹¹½Ğ½ÁÑ¥½¸¹‰½ÑÑ½µ}¥‘Ì(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€Í•±˜¹¡…¹‘}‰½ÑÑ½µ}‘É…İ}¡½½Í•È€ô¡…¹‘}‰½ÑÑ½µ}‘É…İ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Ù¥•Ü°½ÁÑ¥½¹Ìè¹•áĞ¡½ÁÑ¥½¸™½È½ÁÑ¥½¸¥¸½ÁÑ¥½¹Ì¥˜½ÁÑ¥½¸¹…É‘}¥¥Ì9½¹”¤(€€€€€€€€¤(€€€€€€€Í•±˜¹‘¥Í…É‘}‘É…İ}¡½½Í•È€ô‘¥Í…É‘}‘É…İ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}Ù¥•Ü°½ÁÑ¥½¹Ìè¹•áĞ¡½ÁÑ¥½¸™½È½ÁÑ¥½¸¥¸½ÁÑ¥½¹Ì¥˜½ÁÑ¥½¸¹…É‘}¥¥Ì9½¹”¤(€€€€€€€€¤(€€€€€€€Í•±˜¹Á…É…µ•¥…}•á¥±•}¡½½Í•È€ôÁ…É…µ•¥…}•á¥±•}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}½¹ÑÉ½±±•È°}Í½ÕÉ•}¥èQÉÕ”(€€€€€€€€¤(€€€€€€€Í•±˜¹Á…É…µ•¥…}Ñ…É•Ñ}¡½½Í•È€ôÁ…É…µ•¥…}Ñ…É•Ñ}¡½½Í•È½È€ (€€€€€€€€€€€±…µ‰‘„}½¹ÑÉ½±±•È°}Í½ÕÉ•}¥°½ÁÑ¥½¹Ìè½ÁÑ¥½¹ÍlÃ}5¶‰Ëkºwµçf¦V7EöçVÖ&W#£fGÒ ¢6VÆbåöæW‡Eöö&¦V7EöçVÖ&W"³Ò¢&WGW&âö&¦V7Eö–@ ¢FVb÷&Vv—7FW"€¢6VÆbÀ¢ö&£¢6&Dö&¦V7BÂ7F6´ö&¦V7BÂG&–vvW&VD&–Æ—G”ö&¦V7BÂ7F—fFVD&–Æ—G”ö&¦V7BÂW&ÖæVçBÀ¢’Óâ6&Dö&¦V7BÂ7F6´ö&¦V7BÂG&–vvW&VD&–Æ—G”ö&¦V7BÂ7F—fFVD&–Æ—G”ö&¦V7BÂW&ÖæVçC ¢–bvWFGG"‡6VÆbÂ%ö§W'•÷&–uö6†ö–6Uö7F—fR"ÂfÇ6R“ ¢&—6RfÇVTW'&÷"‚$§W'’Õ&–r6†ö÷6W"6ææ÷B&Vv—7FW"WF†÷&—FF—fRö&¦V7G2"¢–bvWFGG"‡6VÆbÂ%öfööE÷6V&6…ö6†ö–6Uö7F—fR"ÂfÇ6R“ ¢&—6RfÇVTW'&÷"‚$fööB6V&6‚6†ö÷6W"6ææ÷B&Vv—7FW"WF†÷&—FF—fRö&¦V7G2"¢–bö&¢æö&¦V7Eö–B–â6VÆbåöö&¦V7G3 ¢&—6RfÇVTW'&÷"†b&GWÆ–6FR'VçF–ÖRö&¦V7B”C¢¶ö&¢æö&¦V7Eö–GÒ"¢6VÆbåöö&¦V7G5¶ö&¢æö&¦V7Eö–EÒÒö& ¢–b—6–ç7Fæ6R†ö&¢ÂW&ÖæVçB“ ¢ö&¢æVçFW&VE÷F–ÖW7F×Ò6VÆbåöVffV7E÷F–ÖW7F×‚¢6VÆbåöÖ–ÆÅ÷F‡&VU÷&Vv—7FW"†ö&¢¢6VÆbåö·&æu÷&Vf–ÆÅ÷&Vv—7FW"†ö&¢¢&WGW&âö&  ¢FVbö7&VFUö6&Eöö&¦V7B‡6VÆbÂ6&C¢6&Df7BÂ÷væW#¢–çBÂ¦öæS¢¦öæR’Óâ6&Dö&¦V7C ¢–b¦öæRæ÷B–â²&Æ–'&'’"Â&†æB"Â&w&fW–&B"Â&W†–ÆR'Ó ¢&—6RfÇVTW'&÷"†b&6&Bö&¦V7B6ææ÷B&R7&VFVB–â·¦öæWÒ"¢&WGW&â6VÆbå÷&Vv—7FW"„6&Dö&¦V7B‡6VÆbåöÆÆö6FUöö&¦V7Eö–B‚’Â6&BÂ÷væW"Â÷væW"Â¦öæR’’2G—S¢–væ÷&U·&WGW&â×fÇVUĞ ¢FVb7&VFU÷W&ÖæVçB€¢6VÆbÀ¢6&C¢6&Df7BÀ¢÷væW#¢–çBÀ¢¢À¢6öçG&öÆÆW#¢–çBÂæöæRÒæöæRÀ¢FVC¢&ööÂÒfÇ6RÀ¢7VÖÖöæ–æu÷6–6³¢&ööÂÒG'VRÀ¢’ÓâW&ÖæVçC ¢""$7&VFRÂ&Vv—7FW"ÂæBWF†÷&—FF—fVÇ’Æ6R6WGW&GFÆVf–VÆBö&¦V7Bâ"" ¢W&ÖæVçBÒW&ÖæVçB€¢6VÆbåöÆÆö6FUöö&¦V7Eö–B‚’À¢6&BÀ¢÷væW"À¢÷væW"–b6öçG&öÆÆW"—2æöæRVÇ6R6öçG&öÅš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[\‹ˆ\Y]\Yˆİ[[[Ûš[™×ÜÚXÚÏ\İ[[[Ûš[™×ÜÚXÚËˆ[\™YØ˜]YšY[İ\›\Ù[‹\›‹ˆ
+BˆÙ[‹—Ü™YÚ\İ\Š\›X[™[
+BˆÙ[‹œ^Y\œÖÜ\›X[™[˜ÛÛ›Û\—K˜˜]YšY[˜\[™
+\›X[™[
+Bˆ™]\›ˆ\›X[™[‚ˆYˆÜ™X]WİÚÙ[œÊˆÙ[‹ˆÜ™X]Ü—Ú[™^ˆ[ˆ›ÙÜ˜[NˆÚÙ[Ü™X][Û”›ÙÜ˜[Kˆ
+‹ˆÛÛ›Û\ˆ[›Û™HH›Û™KˆÛİ\˜ÙWØØ\™ˆİ‹ˆÜ˜XÛWÙœ˜YÛY[ˆİ‹ˆÛİ\˜ÙWÚYˆİˆ›Û™HH›Û™Kˆ
+HOˆ\VÔ\›X[™[‹‹—N‚ˆˆˆ]ÛZXØ[HÜ™X]HÛ™H]\›Z[š\İXÈ˜]ÚÙˆÜ˜XÛKY\š]™YÚÙ[ˆ\›X[™[Ëˆˆˆ‚ˆYˆÜ™X]Ü—Ú[™^›İ[ˆ˜[™ÙJŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠÚÙ[ˆÜ™X]Üˆ\È[˜[YŠBˆ\İ[˜][Û—ØÛÛ›Û\ˆHÜ™X]Ü—Ú[™^YˆÛÛ›Û\ˆ\È›Û™H[ÙHÛÛ›Û\‚ˆYˆ\İ[˜][Û—ØÛÛ›Û\ˆ›İ[ˆ˜[™ÙJŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠÚÙ[ˆÛÛ›Û\ˆ\È[˜[YŠBˆYˆÛİ\˜ÙWÚY\È›İ›Û™H[™Ûİ\˜ÙWÚY›İ[ˆÙ[‹—ÛØš™XİÎ‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠÚÙ[ˆÛİ\˜ÙHY[]H\È›İ]]Üš]]]™HŠBˆYˆ›İ\Ú[œİ[˜ÙJ›ÙÜ˜[KÚÙ[Ü™X][Û”›ÙÜ˜[JHÜˆ›İ›ÙÜ˜[K™^Xİ]X›N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠÚÙ[ˆÜ™X][Ûˆ›ÙÜ˜[H\È›İ^Xİ]X›HŠBˆ\ÜÙ\›ÙÜ˜[K™Yš[š][Ûˆ\È›İ›Û™H[™›ÙÜ˜[Kœ]X[]H\È›İ›Û™BˆYš[š][ÛˆH›ÙÜ˜[K™Yš[š][Û‚ˆYˆYš[š][Û‹š\×ØÜ™X]\™H[™
+Yš[š][Û‹œİÙ\ˆ\È›Û™HÜˆYš[š][Û‹İYÚ™\ÜÈ\È›Û™JN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜Ü™X]\™HÚÙ[ˆYš[š][Ûˆ™\]Z\™\ÈİÙ\ˆ[™İYÚ™\ÜÈŠBˆYˆ›İYš[š][Û‹š\×ØÜ™X]\™H[™
+ˆYš[š][Û‹œİÙ\ˆ\È›İ›Û™HÜˆYš[š][Û‹İYÚ™\ÜÈ\È›İ›Û™Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ››Û˜Ü™X]\™HÚÙ[ˆYš[š][ÛˆØ[››İ]™HİÙ\ˆÜˆİYÚ™\ÜÈŠB‚ˆİ\[™×Û[X™\ˆHÙ[‹—Û™^÷Ó[h‘éì¶»§q«^v                self._objects.pop(token.object_id, None)
             self._next_object_number = starting_number
             raise
 
@@ -1634,169 +369,16 @@ class Game(
             raise ValueError("runtime object already occupies a zone")
         self.players[permanent.controller].battlefield.append(permanent)
 
-    def set_hand_for_testing(self, owner: int, cards: list[CardFact]) -> list[CardObject]:
-        """Replace a hand for deterministic rule-test setup, outside gameplay transitions."""
-        player = self.players[owner]
-        for obj in player.hand:
-            obj.zone = "former"
-        player.hand.clear()
-        player.hand.extend(self._create_card_object(card, owner, "hand") for card in cards)
-        return player.hand
-
-    @staticmethod
-    def _identity_contains(zone: list, obj: object) -> bool:
-        return any(candidate is obj for candidate in zone)
-
-    def _all_zone_lists(self) -> list[list]:
-        return [self.stack] + [
-            zone
-            for player in self.players
-            for zone in (
-                player.library,
-                player.hand,
-                player.battlefield,
-                player.graveyard,
-                player.exile,
-            )
-        ]
-
-    def _authoritative_container(
-        self,
-        obj: CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
-    ) -> list:
-        if obj.zone == "stack":
-            return self.stack
-        holder = obj.controller if obj.zone == "battlefield" else obj.owner
-        if obj.zone == "former":
-            raise ValueError("former object no longer occupies an authoritative zone")
-        return getattr(self.players[holder], obj.zone)
-
-    def is_authoritative(
-        self,
-        obj: CardObject | StackObject | TriggeredAbilityObject | ActivatedAbilityObject | Permanent,
-        zone: Zone,
-    ) -> bool:
-        if zone == "former" or self._objects.get(obj.object_id) is not obj or obj.zone != zone:
-            return False
-        return self._identity_contains(self._authoritative_container(obj), obj)
-
-    def _battlefield_authority_snapshot(self) -> tuple[tuple[str, int], ...]:
-        return tuple(
-            (permanent.object_id, permanent.controller)
-            for player in self.players
-            for permanent in player.battlefield
-        )
-
-    def _battlefield_characteristics_snapshot(self) -> tuple[tuple[str, int, str], ...]:
-        """Freeze evaluated type/controller facts for authoritative battlefield permanents."""
-        return tuple(
-            (permanent.object_id, permanent.controller, permanent.type_line)
-            for player in self.players
-            for permanent in player.battlefield
-        )
-
-    def _permanent_left_trigger_sources(
-        self,
-    ) -> tuple[tuple[Permanent, str], ...]:
-        sources: list[tuple[Permanent, str]] = []
-        for player in self.players:
-            for permanent in player.battlefield:
-                for fragment in self.interpreter.fragments(permanent.rules_card):
-                    coverage = self.interpreter.permanent_left_self_counter_semantic_coverage(
-                        permanent.card, fragment
-                    )
-                    if coverage is not None and coverage.fully_supported:
-                        sources.append((permanent, fragment))
-        return tuple(sources)
-
-    def _permanent_left_this_turn(self, controller: int) -> bool:
-        return any(
-            event.turn == self.turn
-            and event.player_index == controller
-            and event.kind is RulesEventKind.PERMANENT_LEFT
-            and bool(event.subject_ids)
-            for event in self._permanent_left_history
-        )
-
-    def move_object(
-        self,
-        obj: CardObject | StackObject | Permanent,
-        destination: Literal["library", "hand", "stack", "battlefield", "graveyard", "exile"],
-        *,
-        controller: int | None = None,
-        cast_kind: CastKind | None = None,
-        target_id: str | None = None,
-        summoning_sick: bool = True,
-        cast_from_graveyard: bool = False,
-        finality_on_entry: bool = False,
-        cast_from_raphael: bool = False,
-        reason: str | None = None,
-        library_position: Literal["top", "bottom"] | None = None,
-        _departure_authority: tuple[tuple[str, int], ...] | None = None,
-        _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
-    ) -> CardObject | StackObject | Permanent:
-        """Validate then atomically create the destination-zone incarnation of ``obj``."""
-        if self._jury_rig_choice_active:
-            raise ValueError("Jury-Rig chooser cannot move authoritative objects")
-        if self._food_search_choice_active:
-            raise ValueError("Food search chooser cannot move authoritative objects")
-        if self._mandatory_discard_choice_active:
-            raise ValueError("discard/Draw chooser cannot move authoritative objects")
-        if self._objects.get(obj.object_id) is not obj:
-            raise ValueError("unregistered runtime object")
-        if obj.zone == "former":
-            raise ValueError("former object cannot move")
-        source = self._authoritative_container(obj)
-        if not self._identity_contains(source, obj):
-            raise ValueError("object is not in its declared source zone")
-        if sum(self._identity_contains(zone, obj) for zone in self._all_zone_lists()) != 1:
-            raise ValueError("object must occupy exactly one authoritative zone")
-        if destination == obj.zone:
-            raise ValueError("same-zone movement is not supported")
-        if isinstance(obj, CardObject) and obj.is_token and obj.zone != "battlefield":
-            raise ValueError("a nonbattlefield token must cease before it can move again")
-        if destination == "stack" and getattr(obj, "is_token", False):
-            raise ValueError("a token cannot move to the stack")
-        if controller is not None and (
-            destination not in {"battlefield", "stack"} or controller not in range(2)
-        ):
-            raise ValueError("destination controller is invalid")
-        if destination == "stack" and (controller is None or cast_kind is None):
-            raise ValueError("stack movement requires controller and cast program")
-        if destination != "stack" and (
-            cast_kind is not None
-            or target_id is not None
-            or cast_from_graveyard
-            or finality_on_entry
-        ):
-            raise ValueError("stack metadata is valid only for stack movement")
-        if library_position is not None and destination != "library":
-            raise ValueError("library position is valid only for library movement")
-
-        source_zone = obj.zone
-        departure_authority = None
-        departure_sources = None
-        departure_last_known = None
-        ltb_mutagen_fragments = ()
-        if source_zone == "battlefield" and destination != "battlefield":
-            assert isinstance(obj, Permanent)
-            departure_authority = (
-                self._battlefield_authority_snapshot()
-                if _departure_authority is None
-                else _departure_authority
-            )
-            departure_sources = (
-                self._permanent_left_trigger_sources()
-                if _departure_sources is None
-                else _departure_sources
-            )
-            departure_last_known = (
-                obj.object_id,
-                obj.controller,
-                obj.type_line,
-                obj.is_creature,
-            )
-            ltb_mutagen_fragments = tuple(
+    def set_hand_for_testing(self, owner: int, cards: list[CardFact]) -> list[CardOYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ‰©•Ñtè(€€€€€€€€ˆˆ‰I•Á±…”„¡…¹™½È‘•Ñ•Éµ¥¹¥ÍÑ¥ŒÉÕ±”µÑ•ÍĞÍ•ÑÕÀ°½ÕÑÍ¥‘”…µ•Á±…äÑÉ…¹Í¥Ñ¥½¹Ì¸ˆˆˆ(€€€€€€€Á±…å•È€ôÍ•±˜¹Á±…å•ÉÍm½İ¹•Ét(€€€€€€€™½È½‰¨¥¸Á±…å•È¹¡…¹è(€€€€€€€€€€€½‰¨¹é½¹”€ô€‰™½Éµ•Èˆ(€€€€€€€Á±…å•È¹¡…¹¹±•…È ¤(€€€€€€€Á±…å•È¹¡…¹¹•áÑ•¹¡Í•±˜¹}É•…Ñ•}…É‘}½‰©•Ğ¡…É°½İ¹•È°€‰¡…¹ˆ¤™½È…É¥¸…É‘Ì¤(€€€€€€€É•ÑÕÉ¸Á±…å•È¹¡…¹((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}¥‘•¹Ñ¥Ñå}½¹Ñ…¥¹Ì¡é½¹”è±¥ÍĞ°½‰¨è½‰©•Ğ¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸…¹ä¡…¹‘¥‘…Ñ”¥Ì½‰¨™½È…¹‘¥‘…Ñ”¥¸é½¹”¤((€€€‘•˜}…±±}é½¹•}±¥ÍÑÌ¡Í•±˜¤€´ø±¥ÍÑm±¥ÍÑtè(€€€€€€€É•ÑÕÉ¸mÍ•±˜¹ÍÑ…­t€¬l(€€€€€€€€€€€é½¹”(€€€€€€€€€€€™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ(€€€€€€€€€€€™½Èé½¹”¥¸€ (€€€€€€€€€€€€€€€Á±…å•È¹±¥‰É…Éä°(€€€€€€€€€€€€€€€Á±…å•È¹¡…¹°(€€€€€€€€€€€€€€€Á±…å•È¹‰…ÑÑ±•™¥•±°(€€€€€€€€€€€€€€€Á±…å•È¹É…Ù•å…É°(€€€€€€€€€€€€€€€Á±…å•È¹•á¥±”°(€€€€€€€€€€€€¤(€€€€€€€t((€€€‘•˜}…ÕÑ¡½É¥Ñ…Ñ¥Ù•}½¹Ñ…¥¹•È (€€€€€€€Í•±˜°(€€€€€€€½‰¨è…É‘=‰©•ĞğMÑ…­=‰©•ĞğQÉ¥•É•‘‰¥±¥Ñå=‰©•ĞğÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•ĞğA•Éµ…¹•¹Ğ°(€€€€¤€´ø±¥ÍĞè(€€€€€€€¥˜½‰¨¹é½¹”€ôô€‰ÍÑ…¬ˆè(€€€€€€€€€€€É•ÑÕÉ¸Í•±˜¹ÍÑ…¬(€€€€€€€¡½±‘•È€ô½‰¨¹½¹ÑÉ½±±•È¥˜½‰¨¹é½¹”€ôô€‰‰…ÑÑ±•™¥•±ˆ•±Í”½‰¨¹½İ¹•È(€€€€€€€¥˜½‰¨¹é½¹”€ôô€‰™½Éµ•Èˆè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰™½Éµ•È½‰©•Ğ¹¼±½¹•È½ÕÁ¥•Ì…¸…ÕÑ¡½É¥Ñ…Ñ¥Ù”é½¹”ˆ¤(€€€€€€€É•ÑÕÉ¸•Ñ…ÑÑÈ¡Í•±˜¹Á±…å•ÉÍm¡½±‘•Ét°½‰¨¹é½¹”¤((€€€‘•˜¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù” (€€€€€€€Í•±˜°(€€€€€€€½‰¨è…É‘=‰©•ĞğMÑ…­=‰©•ĞğQÉ¥•É•‘‰¥±¥Ñå=‰©•ĞğÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•ĞğA•Éµ…¹•¹Ğ°(€€€€€€€é½¹”èi½¹”°(€€€€¤€´ø‰½½°è(€€€€€€€¥˜é½¹”€ôô€‰™½Éµ•Èˆ½ÈÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½‰¨¹½‰©•Ñ}¥¤¥Ì¹½Ğ½‰¨½È½‰¨¹é½¹”€„ôé½¹”è(€€€€€€€€€€€É•ÑÕÉ¸…±Í”(€€€€€€€É•ÑÕÉ¸Í•±˜¹}¥‘•¹Ñ¥Ñå}½¹Ñ…¥¹Ì¡Í•±˜¹}…ÕÑ¡½É¥Ñ…Ñ¥Ù•}½¹Ñ…¥¹•È¡½‰¨¤°½‰¨¤((€€€‘•˜}‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñå}Í¹…ÁÍ¡½Ğ¡Í•±˜¤€´øÑÕÁ±•mÑÕÁ±•mÍÑÈ°¥¹Ñt°€¸¸¹tè(€€€€€€€É•ÑÕÉ¸ÑÕÁ±” (€€€€€€€€ƒ}5¶‰ËkºwµçFVgE÷6VÆeö6÷VçFW%÷6VÖçF–5ö6÷fW&vR€¢W&ÖæVçBæ6&BÂg&vÖVç@¢¢–b6÷fW&vR—2æ÷BæöæRæB6÷fW&vRægVÆÇ•÷7W÷'FVC ¢6÷W&6W2æVæB‚‡W&ÖæVçBÂg&vÖVçB’¢&WGW&âGWÆR‡6÷W&6W2 ¢FVb÷W&ÖæVçEöÆVgE÷F†—5÷GW&â‡6VÆbÂ6öçG&öÆÆW#¢–çB’Óâ&ööÃ ¢&WGW&âç’€¢WfVçBçGW&âÓÒ6VÆbçGW&à¢æBWfVçBçÆ–W%ö–æFW‚ÓÒ6öçG&öÆÆW ¢æBWfVçBæ¶–æB—2'VÆW4WfVçD¶–æBåU$ÔäTåEôÄTe@¢æB&ööÂ†WfVçBç7V&¦V7Eö–G2¢f÷"WfVçB–â6VÆbå÷W&ÖæVçEöÆVgEö†—7F÷'¢ ¢FVbÖ÷fUöö&¦V7B€¢6VÆbÀ¢ö&£¢6&Dö&¦V7BÂ7F6´ö&¦V7BÂW&ÖæVçBÀ¢FW7F–æF–öã¢Æ—FW&Å²&Æ–'&'’"Â&†æB"Â'7F6²"Â&&GFÆVf–VÆB"Â&w&fW–&B"Â&W†–ÆR%ÒÀ¢¢À¢6öçG&öÆÆW#¢–çBÂæöæRÒæöæRÀ¢67Eö¶–æC¢67D¶–æBÂæöæRÒæöæRÀ¢F&vWEö–C¢7G"ÂæöæRÒæöæRÀ¢7VÖÖöæ–æu÷6–6³¢&ööÂÒG'VRÀ¢67Eög&öÕöw&fW–&C¢&ööÂÒfÇ6RÀ¢f–æÆ—G•ööåöVçG'“¢&ööÂÒfÇ6RÀ¢67Eög&öÕ÷&†VÃ¢&ööÂÒfÇ6RÀ¢&V6öã¢7G"ÂæöæRÒæöæRÀ¢Æ–'&'•÷÷6—F–öã¢Æ—FW&Å²'F÷"Â&&÷GFöÒ%ÒÂæöæRÒæöæRÀ¢öFW'GW&UöWF†÷&—G“¢GWÆU·GWÆU·7G"Â–çEÒÂââåÒÂæöæRÒæöæRÀ¢öFW'GW&U÷6÷W&6W3¢GWÆU·GWÆUµW&ÖæVçBÂ7G%ÒÂââåÒÂæöæRÒæöæRÀ¢’Óâ6&Dö&¦V7BÂ7F6´ö&¦V7BÂW&ÖæVçC ¢""%fÆ–FFRF†VâFöÖ–6ÆÇ’7&VFRF†RFW7F–æF–öâ×¦öæR–æ6&æF–öâöbö&¦â"" ¢–b6VÆbåö§W'•÷&–uö6†ö–6Uö7F—fS ¢&—6RfÇVTW'&÷"‚$§W'’Õ&–r6†ö÷6W"6ææ÷BÖ÷fRWF†÷&—FF—fRö&¦V7G2"¢–b6VÆbåöfööE÷6V&6…ö6†ö–6Uö7F—fS ¢&—6RfÇVTW'&÷"‚$fööB6V&6‚6†ö÷6W"6ææ÷BÖ÷fRWF†÷&—FF—fRö&¦V7G2"¢–b6VÆbåöÖæFF÷'•öF—66&Eö6†ö–6Uö7F—fS ¢&—6RfÇUš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYQ\œ›ÜŠ™\ØØ\™Ñ˜]ÈÚÛÜÙ\ˆØ[››İ[İ™H]]Üš]]]™HØš™XİÈŠBˆYˆÙ[‹—ÛØš™XİË™Ù]
+Øš‹›Øš™XİÚY
+H\È›İØš‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ[œ™YÚ\İ\™Y[[YHØš™XİŠBˆYˆØš‹›Û™HOH™›Ü›Y\ˆ‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ™›Ü›Y\ˆØš™XİØ[››İ[İ™HŠBˆÛİ\˜ÙHHÙ[‹—Ø]]Üš]]]™WØÛÛZ[™\ŠØšŠBˆYˆ›İÙ[‹—ÚY[]WØÛÛZ[œÊÛİ\˜ÙKØšŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›Øš™Xİ\È›İ[ˆ]ÈXÛ\™YÛİ\˜ÙH›Û™HŠBˆYˆİ[JÙ[‹—ÚY[]WØÛÛZ[œÊ›Û™KØšŠH›Üˆ›Û™H[ˆÙ[‹—Ø[Ş›Û™WÛ\İÊ
+JHOHN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›Øš™Xİ]\İØØİ\H^XİHÛ™H]]Üš]]]™H›Û™HŠBˆYˆ\İ[˜][ÛˆOHØš‹›Û™N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœØ[YK^›Û™H[İ™[Y[\È›İİ\ÜYŠBˆYˆ\Ú[œİ[˜ÙJØš‹Ø\™Øš™Xİ
+H[™Øš‹š\×İÚÙ[ˆ[™Øš‹›Û™HOH˜˜]YšY[‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜H›Û˜˜]YšY[ÚÙ[ˆ]\İÙX\ÙH™Y›Ü™H]Ø[ˆ[İ™HYØZ[ˆŠBˆYˆ\İ[˜][ÛˆOHœİXÚÈˆ[™Ù]]ŠØš‹š\×İÚÙ[ˆ‹˜[ÙJN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜HÚÙ[ˆØ[››İ[İ™HÈHİXÚÈŠBˆYˆÛÛ›Û\ˆ\È›İ›Û™H[™
+ˆ\İ[˜][Ûˆ›İ[ˆÈ˜˜]YšY[‹œİXÚÈŸHÜˆÛÛ›Û\ˆ›İ[ˆ˜[™ÙJŠBˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ™\İ[˜][ÛˆÛÛ›Û\ˆ\È[˜[YŠBˆYˆ\İ[˜][ÛˆOHœİXÚÈˆ[™
+ÛÛ›Û\ˆ\È›Û™HÜˆØ\İÚÚ[™\È›Û™JN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİXÚÈ[İ™[Y[™\]Z\™\ÈÛÛ›Û\ˆ[™Ø\İ›ÙÜ˜[HŠBˆYˆ\İ[˜][ÛˆOHœİXÚÈˆ[™
+ˆØ\İÚÚ[™\È›İ›Û™BˆÜˆ\™Ù]ÚY\È›İ›Û™BˆÜˆØ\İÙœ›ÛWÙÜ˜]™^X\™ˆÜˆš[˜[]WÛÛ—Ù[Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİXÚÈY]Y]H\È˜[YÛ›H›ÜˆİXÚÈ[İ™[Y[ŠBˆYˆXœ˜\WÜÜÚ][Ûˆ\È›İ›Û™H[™\İ[˜][ÛˆOH›Xœ˜\H‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›Xœ˜\HÜÚ][Ûˆ\÷Ó[h‘éì¶»§q«^ttb_mutagen_fragments = tuple(
                 fragment
                 for fragment in self.interpreter.fragments(obj.rules_card)
                 if self.interpreter.ltb_mutagen_semantic_coverage(obj.card, fragment) is not None
@@ -1837,166 +419,24 @@ class Game(
         else:
             replacement = CardObject(
                 new_id,
-                obj.card,
-                obj.owner,
-                obj.owner,
-                destination,
-                is_token=getattr(obj, "is_token", False),
-            )
-            destination_container = getattr(self.players[obj.owner], destination)
-
-        # No mutation occurs before every validation and destination construction succeeds.
-        source_index = next(index for index, candidate in enumerate(source) if candidate is obj)
-        source.pop(source_index)
-        if destination == "library" and library_position == "bottom":
-            destination_container.insert(0, replacement)
-        else:
-            destination_container.append(replacement)
-        obj.zone = "former"
-        self._register(replacement)
-        self.log(
-            "zone_changed",
-            card=obj.card.name,
-            owner=self.players[obj.owner].name,
-            source_object_id=obj.object_id,
-            destination_object_id=replacement.object_id,
-            source_zone=source_zone,
-            destination_zone=destination,
-            reason=reason,
-            library_position=library_position,
-        )
-        if departure_authority is not None:
-            assert departure_sources is not None and departure_last_known is not None
-            qualifying_sources = tuple(
-                (watcher, fragment)
-                for watcher, fragment in departure_sources
-                if watcher.object_id != obj.object_id
-            )
-            departure_record = tuple(self.events[-1].items())
-            last_known = (departure_last_known,) + tuple(
-                (watcher.object_id, watcher.controller, watcher.type_line, watcher.is_creature)
-                for watcher, _fragment in qualifying_sources
-            )
-            if qualifying_sources or ltb_mutagen_fragments:
-                event = self._new_rules_event(
-                    RulesEventKind.PERMANENT_LEFT,
-                    departure_last_known[1],
-                    (obj.object_id,),
-                    source_id=obj.object_id,
-                    battlefield_authority=departure_authority,
-                    last_known_battlefield=last_known,
-                )
-            else:
-                event = RulesEvent(
-                    f"history-permanent-left-{len(self._permanent_left_history) + 1:06d}",
-                    RulesEventKind.PERMANENT_LEFT,
-                    departure_last_known[1],
-                    (obj.object_id,),
-                    obj.object_id,
-                    turn=self.turn,
-                    step=self.step.value,
-                    active_player=self.active_player,
-                    battlefield_authority=departure_authority,
-                    last_known_battlefield=last_known,
-                )
-            self._permanent_left_history.append(event)
-            if qualifying_sources or ltb_mutagen_fragments:
-                for fragment in ltb_mutagen_fragments:
-                    key = (obj.object_id, event.event_id, fragment)
-                    self._ltb_mutagen_departures[key] = (
-                        obj,
-                        obj.card,
-                        event,
-                        replacement,
-                        departure_record,
-                    )
-                    self._enqueue_trigger(event, obj, fragment, TriggerEffect.LTB_MUTAGEN)
-                for watcher, fragment in qualifying_sources:
-                    self._enqueue_trigger(
-                        event,
-                        watcher,
-                        fragment,
-                        TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
-                    )
-        if source_zone == "battlefield" and destination != "battlefield":
-            for occurrence in tuple(self.semantic_occurrences):
-                watcher = self._objects.get(occurrence.object_id)
-                fragment = occurrence.oracle_fragment
-                self_departure = occurrence.object_id == obj.object_id and bool(
-                    re.search(r"leaves the battlefield|\bdies\b", fragment)
-                )
-                controlled_departure = (
-                    isinstance(watcher, Permanent)
-                    and self.is_authoritative(watcher, "battlefield")
-                    and watcher.controller == obj.controller
-                    and bool(
-                        re.search(
-                            r"Whenever (?:a|another) (?:creature|permanent|artifact) you control "
-                            r"(?:leaves the battlefield|is put into a graveyard from the "
-                            r"battlefield)",
-                            fragment,
-                        )
-                    )
-                )
-                another_departure = (
-                    isinstance(watcher, Permanent)
-                    and self.is_authoritative(watcher, "battlefield")
-                    and watcher.object_id != obj.object_id
-                    and fragment.startswith("Whenever another permanent leaves the battlefield,")
-                )
-                if self_departure or controlled_departure or another_departure:
-                    self._new_opportunity_context(
-                        "permanent_departed",
-                        controller=occurrence.controller,
-                        source_id=occurrence.object_id,
-                        subject_ids=(obj.object_id,),
-                        facts=(
-                            ("destination_zone", destination),
-                            ("source_zone", source_zone),
-                        ),
-                    )
-        if source_zone == "battlefield":
-            self.refresh_static_pt_modifiers()
-        return replacement
-
-    def change_controller(self, permanent: Permanent, controller: int) -> None:
-        """Change control without changing owner or runtime object identity."""
-        if controller not in range(2):
-            raise ValueError("controller is invalid")
-        if not self.is_authoritative(permanent, "battlefield"):
-            raise ValueError("permanent is not on the battlefield")
-        if controller == permanent.controller:
-            return
-        source = self.players[permanent.controller].battlefield
-        source_index = next(
-            index for index, candidate in enumerate(source) if candidate is permanent
-        )
-        source.pop(source_index)
-        self.players[controller].battlefield.append(permanent)
-        old_controller = permanent.controller
-        permanent.controller = controller
-        self.log(
-            "controller_changed",
-            object_id=permanent.object_id,
-            card=permanent.card.name,
-            owner=self.players[permanent.owner].name,
-            old_controller=self.players[old_controller].name,
-            controller=self.players[controller].name,
-        )
-
-    def log(self, event: str, **details: object) -> None:
-        self.events.append(
-            {
-                "turn": self.turn,
-                "phase": self.phase,
-                "step": self.step.value,
-                "event": event,
-                **details,
-            }
-        )
-
-    def unsupported(
-        self, card: CardFact, reason: str, *, player_index: int, oracle_fragment: str
+         YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€½‰¨¹…É°(€€€€€€€€€€€€€€€½‰¨¹½İ¹•È°(€€€€€€€€€€€€€€€½‰¨¹½İ¹•È°(€€€€€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¸°(€€€€€€€€€€€€€€€¥Í}Ñ½­•¸õ•Ñ…ÑÑÈ¡½‰¨°€‰¥Í}Ñ½­•¸ˆ°…±Í”¤°(€€€€€€€€€€€€¤(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½¹Ñ…¥¹•È€ô•Ñ…ÑÑÈ¡Í•±˜¹Á±…å•ÉÍm½‰¨¹½İ¹•Ét°‘•ÍÑ¥¹…Ñ¥½¸¤((€€€€€€€€Œ9¼µÕÑ…Ñ¥½¸½ÕÉÌ‰•™½É”•Ù•ÉäÙ…±¥‘…Ñ¥½¸…¹‘•ÍÑ¥¹…Ñ¥½¸½¹ÍÑÉÕÑ¥½¸ÍÕ••‘Ì¸(€€€€€€€Í½ÕÉ•}¥¹‘•à€ô¹•áĞ¡¥¹‘•à™½È¥¹‘•à°…¹‘¥‘…Ñ”¥¸•¹Õµ•É…Ñ”¡Í½ÕÉ”¤¥˜…¹‘¥‘…Ñ”¥Ì½‰¨¤(€€€€€€€Í½ÕÉ”¹Á½À¡Í½ÕÉ•}¥¹‘•à¤(€€€€€€€¥˜‘•ÍÑ¥¹…Ñ¥½¸€ôô€‰±¥‰É…Éäˆ…¹±¥‰É…Éå}Á½Í¥Ñ¥½¸€ôô€‰‰½ÑÑ½´ˆè(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½¹Ñ…¥¹•È¹¥¹Í•ÉĞ À°É•Á±…•µ•¹Ğ¤(€€€€€€€•±Í”è(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½¹Ñ…¥¹•È¹…ÁÁ•¹¡É•Á±…•µ•¹Ğ¤(€€€€€€€½‰¨¹é½¹”€ô€‰™½Éµ•Èˆ(€€€€€€€Í•±˜¹}É•¥ÍÑ•È¡É•Á±…•µ•¹Ğ¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰é½¹•}¡…¹•ˆ°(€€€€€€€€€€€…Éõ½‰¨¹…É¹¹…µ”°(€€€€€€€€€€€½İ¹•ÈõÍ•±˜¹Á±…å•ÉÍm½‰¨¹½İ¹•Ét¹¹…µ”°(€€€€€€€€€€€Í½ÕÉ•}½‰©•Ñ}¥õ½‰¨¹½‰©•Ñ}¥°(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½‰©•Ñ}¥õÉ•Á±…•µ•¹Ğ¹½‰©•Ñ}¥°(€€€€€€€€€€€Í½ÕÉ•}é½¹”õÍ½ÕÉ•}é½¹”°(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}é½¹”õ‘•ÍÑ¥¹…Ñ¥½¸°(€€€€€€€€€€€É•…Í½¸õÉ•…Í½¸°(€€€€€€€€€€€±¥‰É…Éå}Á½Í¥Ñ¥½¸õ±¥‰É…Éå}Á½Í¥Ñ¥½¸°(€€€€€€€€¤(€€€€€€€¥˜‘•Á…ÉÑÕÉ•}…ÕÑ¡½É¥Ñä¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€…ÍÍ•ÉĞ‘•Á…ÉÑÕÉ•}Í½ÕÉ•Ì¥Ì¹½Ğ9½¹”…¹‘•Á…ÉÑÕÉ•}±…ÍÑ}­¹½İ¸¥Ì¹½Ğ9½¹”(€€€€€€€€€€€ÅÕ…±¥™å¥¹}Í½ÕÉ•Ì€ôÑÕÁ±” (€€€€€€€€€€€€€€€€¡İ…Ñ¡•È°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€™½Èİ…Ñ¡•È°™É…µ•¹Ğ¥¸‘•Á…ÉÑÕÉ•}Í½ÕÉ•Ì(€€€€€€€€€€€€€€€¥˜İ…Ñ¡•È¹½‰©•Ñ}¥€„ô½‰¨¹½‰©•Ñ}¥(€€€€€€€€€€€€¤(€€€€€€€€€€€‘•Á…ÉÑÕÉ•}É•½É€ôÑÕÁ±”¡Í•±˜¹•Ù•¹ÑÍl´Åt¹¥Ñ•µÌ ¤¤(€€€€€€€€€€€±…ÍÑ}­¹½İ¸€ô€¡‘•Á…ÉÑÕÉ•}±…ÍÑ}­¹½İ¸°¤€¬ÑÕÁ±” (€€€€€€€€€€€€€€€€¡İ…Ñ¡•È¹½‰©•Ñ}¥°İ…Ñ¡•È¹½¹ÑÉ½±±•È°İ…Ñ¡•È¹ÑåÁ•}±¥¹”°İ…Ñ¡•È¹¥Í}É•…ÑÕÉ”¤(€€€€€€€€€€€€€€€™½Èİ…Ñ¡•È°}™É…µ•¹Ğ¥¸ÅÕ…±¥™å¥¹}Í½ÕÉ•Ì(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜ÅÕ…±¥™å¥¹}Í½ÕÉ•Ì½È±Ñ‰}µÕÑ…•¹}›}5¶‰ËkºwµçFÆ7Eö¶æ÷våö&GFÆVf–VÆCÖÆ7Eö¶æ÷vâÀ¢¢6VÆbå÷W&ÖæVçEöÆVgEö†—7F÷'’æVæB†WfVçB¢–bVÆ–g––æu÷6÷W&6W2÷"ÇF%ö×WFvVåög&vÖVçG3 ¢f÷"g&vÖVçB–âÇF%ö×WFvVåög&vÖVçG3 ¢¶W’Ò†ö&¢æö&¦V7Eö–BÂWfVçBæWfVçEö–BÂg&vÖVçB¢6VÆbåöÇF%ö×WFvVåöFW'GW&W5¶¶W•ÒÒ€¢ö&¢À¢ö&¢æ6&BÀ¢WfVçBÀ¢&WÆ6VÖVçBÀ¢FW'GW&U÷&V6÷&BÀ¢¢6VÆbåöVçVWVU÷G&–vvW"†WfVçBÂö&¢Âg&vÖVçBÂG&–vvW$VffV7BäÅD%ôÕUDtTâ¢f÷"vF6†W"Âg&vÖVçB–âVÆ–g––æu÷6÷W&6W3 ¢6VÆbåöVçVWVU÷G&–vvW"€¢WfVçBÀ¢vF6†W"À¢g&vÖVçBÀ¢G&–vvW$VffV7BåU$ÔäTåEôÄTeEõ4TÄeô4õTåDU"À¢¢–b6÷W&6U÷¦öæRÓÒ&&GFÆVf–VÆB"æBFW7F–æF–öâÒ&&GFÆVf–VÆB# ¢f÷"ö67W'&Væ6R–âGWÆR‡6VÆbç6VÖçF–5öö67W'&Væ6W2“ ¢vF6†W"Ò6VÆbåöö&¦V7G2ævWB†ö67W'&Væ6Ræö&¦V7Eö–B¢g&vÖVçBÒö67W'&Væ6Ræ÷&6ÆUög&vÖVç@¢6VÆeöFW'GW&RÒö67W'&Væ6Ræö&¦V7Eö–BÓÒö&¢æö&¦V7Eö–BæB&ööÂ€¢&Rç6V&6‚‡"&ÆVfW2F†R&GFÆVf–VÆGÅÆ&F–W5Æ""Âg&vÖVçB¢¢6öçG&öÆÆVEöFW'GW&RÒ€¢—6–ç7Fæ6R‡vF6†W"ÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡vF6†W"Â&&GFÆVf–VÆB"¢æBvF6†W"æ6öçG&öÆÆW"ÓÒö&¢æ6öçG&öÆÆW ¢æB&ööÂ€¢&Rç6V&6‚€¢"%v†VæWfW"ƒó¦Ææ÷F†W"’ƒó¦7&VGW&WÇW&ÖæVçGÆ'F–f7B’–÷R6öçG&öÂ ¢""ƒó¦ÆVfW2F†R&GFÆVf–Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[\È][ÈHÜ˜]™^X\™œ›ÛHH‚ˆˆ˜˜]YšY[
+H‹ˆœ˜YÛY[ˆ
+Bˆ
+Bˆ
+Bˆ[›İ\—Ù\\\™HH
+ˆ\Ú[œİ[˜ÙJØ]Ú\‹\›X[™[
+Bˆ[™Ù[‹š\×Ø]]Üš]]]™JØ]Ú\‹˜˜]YšY[ŠBˆ[™Ø]Ú\‹›Øš™XİÚYOHØš‹›Øš™XİÚYˆ[™œ˜YÛY[œİ\İÚ]
+•Ú[™]™\ˆ[›İ\ˆ\›X[™[X]™\ÈH˜]YšY[ŠBˆ
+BˆYˆÙ[—Ù\\\™HÜˆÛÛ›ÛYÙ\\\™HÜˆ[›İ\—Ù\\\™N‚ˆÙ[‹—Û™]×ÛÜÜ[š]WØÛÛ^
+ˆœ\›X[™[Ù\\Y‹ˆÛÛ›Û\[ØØİ\œ™[˜ÙK˜ÛÛ›Û\‹ˆÛİ\˜ÙWÚY[ØØİ\œ™[˜ÙK›Øš™XİÚYˆİXš™XİÚYÏJØš‹›Øš™XİÚY
+Kˆ˜XİÏJˆ
+™\İ[˜][Û—Ş›Û™H‹\İ[˜][ÛŠKˆ
+œÛİ\˜ÙWŞ›Û™H‹Ûİ\˜ÙWŞ›Û™JKˆ
+Kˆ
+BˆYˆÛİ\˜ÙWŞ›Û™HOH˜˜]YšY[‚ˆÙ[‹œ™Yœ™\ÚÜİ]X×ÜÛ[ÙYšY\œÊ
+Bˆ™]\›ˆ™\XÙ[Y[‚ˆYˆÚ[™ÙWØÛÛ›Û\ŠÙ[‹\›X[™[ˆ\›X[™[ÛÛ›Û\ˆ[
+HOˆ›Û™N‚ˆˆˆÚ[™ÙHÛÛ›ÛÚ]İ]Ú[™Ú[™ÈİÛ™\ˆÜˆ[[YHØš™XİY[]Kˆˆˆ‚ˆYˆÛÛ›Û\ˆ›İ[ˆ˜[™ÙJŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜ÛÛ›Û\ˆ\È[˜[YŠBˆYˆ›İÙ[‹š\×Ø]]Üš]]]™J\›X[™[˜˜]YšY[ŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœ\›X[™[\È›İÛˆH˜]YšY[ŠBˆYˆÛÛ›Û\ˆOH\›X[™[˜ÛÛ›Û\‚ˆ™]\›‚ˆÛİ\˜ÙHHÙ[‹œ^Y\œÖÜ\›X[™[˜ÛÛ›Û\—K˜˜]YšY[ˆÛİ\˜ÙWÚ[™^H™^
+ˆ[™^›Üˆ[™^Ø[™Y]H[ˆ[[Y\˜]JÛİ\˜ÙJHYˆØ[™Y]wÓ[h‘éì¶»§q«^unt, oracle_fragment: str
     ) -> None:
         player = self.players[player_index]
         message = f"{card.name}: {oracle_fragment}: {reason}"
@@ -2040,186 +480,10 @@ class Game(
             if occurrence.object_id != source.object_id:
                 continue
             instruction_context = self._new_opportunity_context(
-                "instruction_reached",
-                controller=source.controller,
-                source_id=source.object_id,
-                subject_ids=(source.object_id,),
-                facts=(
-                    ("fragment_hash", occurrence.fragment_hash),
-                    ("fragment_index", str(occurrence.fragment_index)),
-                    ("instruction_source_zone", "graveyard"),
-                    ("occurrence_id", occurrence.occurrence_id),
-                    ("semantic_key", occurrence.semantic_key),
-                ),
-            )
-            if self._unconstrained_creature_target_shape(occurrence.oracle_fragment):
-                candidates = tuple(
-                    permanent.object_id
-                    for player in self.players
-                    for permanent in player.battlefield
-                    if permanent.card.is_creature
-                )
-                if candidates:
-                    self._new_opportunity_context(
-                        "target_choice_available",
-                        controller=source.controller,
-                        source_id=source.object_id,
-                        subject_ids=candidates,
-                        facts=(
-                            ("candidate_kind", "battlefield_creature"),
-                            ("instruction_context_id", instruction_context.context_id),
-                            ("instruction_occurrence_id", occurrence.occurrence_id),
-                        ),
-                    )
-
-    def _register_semantic_occurrence(
-        self,
-        source: CardObject | Permanent,
-        controller: int,
-        fragment: str,
-        limitations: tuple[str, ...],
-    ) -> SemanticOccurrence:
-        if not self.is_authoritative(source, source.zone):
-            raise ValueError("semantic presence requires an authoritative runtime object")
-        fragments = self._semantic_fragments(source.card)
-        try:
-            fragment_index = fragments.index(fragment)
-        except ValueError as error:
-            raise ValueError("semantic presence fragment is not authoritative") from error
-        key = semantic_key(source.card.oracle_id, 0, fragment_index, fragment)
-        prior = next(
-            (
-                item
-                for item in self.semantic_occurrences
-                if item.object_id == source.object_id and item.semantic_key == key
-            ),
-            None,
-        )
-        if prior is not None:
-            return prior
-        occurrence = SemanticOccurrence(
-            f"semantic-{self._next_semantic_occurrence_number:06d}",
-            key,
-            source.card.oracle_id,
-            0,
-            fragment_index,
-            fragment_digest(fragment),
-            source.object_id,
-            controller,
-            source.zone,
-            fragment,
-            limitations,
-            self.turn,
-            self.phase,
-            self.step.value,
-            self._next_event_number - 1,
-        )
-        self._next_semantic_occurrence_number += 1
-        self.semantic_occurrences.append(occurrence)
-        self.log(
-            "semantic_present",
-            occurrence_id=occurrence.occurrence_id,
-            semantic_key=key,
-            object_id=source.object_id,
-            oracle_fragment=fragment,
-            limitations=list(limitations),
-        )
-        return occurrence
-
-    def _semantic_fragments(self, card: CardFact) -> tuple[str, ...]:
-        """Authoritative Oracle lines plus normalized keyword facts absent from the text."""
-        fragments = self.interpreter.fragments(card)
-        return fragments + tuple(keyword for keyword in card.keywords if keyword not in fragments)
-
-    def _new_opportunity_context(
-        self,
-        context_kind: str,
-        *,
-        controller: int,
-        source_id: str,
-        subject_ids: tuple[str, ...],
-        facts: tuple[tuple[str, str], ...] = (),
-        event_id: str | None = None,
-        stack_object_id: str | None = None,
-    ) -> AuthoritativeOpportunityContext:
-        """Freeze one bounded rules context without executing its unsupported semantic."""
-        if controller not in range(2) or source_id not in self._objects:
-            raise ValueError("opportunity context source/controller is invalid")
-        if any(subject_id not in self._objects for subject_id in subject_ids):
-            raise ValueError("opportunity context contains a fabricated subject")
-        if tuple(sorted(facts)) != facts or len({key for key, _value in facts}) != len(facts):
-            raise ValueError("opportunity context facts must be unique and sorted")
-        required_facts = {
-            "activation_available": {
-                "mana_required",
-                "source_tap_required",
-                "source_tapped",
-                "timing",
-            },
-            "permanent_departed": {"destination_zone", "source_zone"},
-            "artifact_dependency": {
-                "affected_object_id",
-                "artifact_count",
-                "counted_artifact_ids",
-                "excluded_source_id",
-                "predicate",
-            },
-            "stack_response": {"response_cost", "target_is_creature"},
-            "target_choice_available": {
-                "candidate_kind",
-                "instruction_context_id",
-                "instruction_occurrence_id",
-            },
-            "replacement_evaluation": {"counter_type", "quantity"},
-            "instruction_reached": {
-                "fragment_hash",
-                "fragment_index",
-                "instruction_source_zone",
-                "occurrence_id",
-                "semantic_key",
-            },
-        }
-        if (
-            context_kind not in required_facts
-            or {key for key, _value in facts} != required_facts[context_kind]
-        ):
-            raise ValueError("opportunity context lacks its required reconstructive facts")
-        if event_id is not None and event_id not in self._rules_events:
-            raise ValueError("opportunity context event is not authoritative")
-        if stack_object_id is not None and not any(
-            item.object_id == stack_object_id for item in self.stack
-        ):
-            raise ValueError("opportunity context stack object is not authoritative")
-        prior = next(
-            (
-                item
-                for item in self.opportunity_contexts
-                if (
-                    item.context_kind,
-                    item.turn,
-                    item.step,
-                    item.source_id,
-                    item.subject_ids,
-                    item.facts,
-                    item.event_id,
-                    item.stack_object_id,
-                )
-                == (
-                    context_kind,
-                    self.turn,
-                    self.step.value,
-                    source_id,
-                    subject_ids,
-                    facts,
-                    event_id,
-                    stack_object_id,
-                )
-            ),
-            None,
-        )
-        if prior is not None:
-            return prior
-        context_id = f"context-{self._next_opportunity_context_number:06d}"
+       YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€‰¥¹ÍÑÉÕÑ¥½¹}É•…¡•ˆ°(€€€€€€€€€€€€€€€½¹ÑÉ½±±•ÈõÍ½ÕÉ”¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õÍ½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€ÍÕ‰©•Ñ}¥‘Ìô¡Í½ÕÉ”¹½‰©•Ñ}¥°¤°(€€€€€€€€€€€€€€€™…ÑÌô (€€€€€€€€€€€€€€€€€€€€ ‰™É…µ•¹Ñ}¡…Í ˆ°½ÕÉÉ•¹”¹™É…µ•¹Ñ}¡…Í ¤°(€€€€€€€€€€€€€€€€€€€€ ‰™É…µ•¹Ñ}¥¹‘•àˆ°ÍÑÈ¡½ÕÉÉ•¹”¹™É…µ•¹Ñ}¥¹‘•à¤¤°(€€€€€€€€€€€€€€€€€€€€ ‰¥¹ÍÑÉÕÑ¥½¹}Í½ÕÉ•}é½¹”ˆ°€‰É…Ù•å…Éˆ¤°(€€€€€€€€€€€€€€€€€€€€ ‰½ÕÉÉ•¹•}¥ˆ°½ÕÉÉ•¹”¹½ÕÉÉ•¹•}¥¤°(€€€€€€€€€€€€€€€€€€€€ ‰Í•µ…¹Ñ¥}­•äˆ°½ÕÉÉ•¹”¹Í•µ…¹Ñ¥}­•ä¤°(€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜Í•±˜¹}Õ¹½¹ÍÑÉ…¥¹•‘}É•…ÑÕÉ•}Ñ…É•Ñ}Í¡…Á”¡½ÕÉÉ•¹”¹½É…±•}™É…µ•¹Ğ¤è(€€€€€€€€€€€€€€€…¹‘¥‘…Ñ•Ì€ôÑÕÁ±” (€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥(€€€€€€€€€€€€€€€€€€€™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ(€€€€€€€€€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Á±…å•È¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜…¹‘¥‘…Ñ•Ìè(€€€€€€€€€€€€€€€€€€€Í•±˜¹}¹•İ}½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áĞ (€€€€€€€€€€€€€€€€€€€€€€€€‰Ñ…É•Ñ}¡½¥•}…Ù…¥±…‰±”ˆ°(€€€€€€€€€€€€€€€€€€€€€€€½¹ÑÉ½±±•ÈõÍ½ÕÉ”¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õÍ½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€ÍÕ‰©•Ñ}¥‘Ìõ…¹‘¥‘…Ñ•Ì°(€€€€€€€€€€€€€€€€€€€€€€€™…ÑÌô (€€€€€€€€€€€€€€€€€€€€€€€€€€€€ ‰…¹‘¥‘…Ñ•}­¥¹ˆ°€‰‰…ÑÑ±•™¥•±‘}É•…ÑÕÉ”ˆ¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€ ‰¥¹ÍÑÉÕÑ¥½¹}½¹Ñ•áÑ}¥ˆ°¥¹ÍÑÉÕÑ¥½¹}½¹Ñ•áĞ¹½¹Ñ•áÑ}¥¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€ ‰¥¹ÍÑÉÕÑ¥½¹}½ÕÉÉ•¹•}¥ˆ°½ÕÉÉ•¹”¹½ÕÉÉ•¹•}¥¤°(€€€€€€€€€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€€€€€€€€€¤((€€€‘•˜}É•¥ÍÑ•É}Í•µ…¹Ñ¥}½ÕÉÉ•¹” (€€€€€€€Í•±˜°(€€€€€€€Í½ÕÉ”è…É‘=‰©•ĞğA•Éµ…¹•¹Ğ°(€€€€€€€½¹ÑÉ½±±•Èè¥¹Ğ°(€€€€€€€™É…µ•¹ĞèÍÑÈ°(€€€€€€€±¥µ¥Ñ…Ñ¥½¹ÌèÑÕÁ±•mÍÑÈ°€¸¸¹t°(€€€€¤€´øM•µ…¹Ñ¥=ÕÉÉ•¹”è(€€€€€€€¥˜¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í½ÕÉ”°Í½ÕÉ”¹é½¹”¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Ï}5¶‰ËkºwµçFg&vÖVçEöF–vW7B†g&vÖVçB’À¢6÷W&6Ræö&¦V7Eö–BÀ¢6öçG&öÆÆW"À¢6÷W&6Rç¦öæRÀ¢g&vÖVçBÀ¢Æ–Ö—FF–öç2À¢6VÆbçGW&âÀ¢6VÆbç†6RÀ¢6VÆbç7FWçfÇVRÀ¢6VÆbåöæW‡EöWfVçEöçVÖ&W"ÒÀ¢¢6VÆbåöæW‡E÷6VÖçF–5öö67W'&Væ6UöçVÖ&W"³Ò¢6VÆbç6VÖçF–5öö67W'&Væ6W2æVæB†ö67W'&Væ6R¢6VÆbæÆör€¢'6VÖçF–5÷&W6VçB"À¢ö67W'&Væ6Uö–CÖö67W'&Væ6Ræö67W'&Væ6Uö–BÀ¢6VÖçF–5ö¶W“Ö¶W’À¢ö&¦V7Eö–C×6÷W&6Ræö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢Æ–Ö—FF–öç3ÖÆ—7B†Æ–Ö—FF–öç2’À¢¢&WGW&âö67W'&Væ6P ¢FVb÷6VÖçF–5ög&vÖVçG2‡6VÆbÂ6&C¢6&Df7B’ÓâGWÆU·7G"ÂââåÓ ¢""$WF†÷&—FF—fR÷&6ÆRÆ–æW2ÇW2æ÷&ÖÆ—¦VB¶W—v÷&Bf7G2'6VçBg&öÒF†RFW‡Bâ"" ¢g&vÖVçG2Ò6VÆbæ–çFW'&WFW"æg&vÖVçG2†6&B¢&WGW&âg&vÖVçG2²GWÆR†¶W—v÷&Bf÷"¶W—v÷&B–â6&Bæ¶W—v÷&G2–b¶W—v÷&Bæ÷B–âg&vÖVçG2 ¢FVböæWuö÷÷'GVæ—G•ö6öçFW‡B€¢6VÆbÀ¢6öçFW‡Eö¶–æC¢7G"À¢¢À¢6öçG&öÆÆW#¢–çBÀ¢6÷W&6Uö–C¢7G"À¢7V&¦V7Eö–G3¢GWÆU·7G"ÂââåÒÀ¢f7G3¢GWÆU·GWÆU·7G"Â7G%ÒÂââåÒÒ‚’À¢WfVçEö–C¢7G"ÂæöæRÒæöæRÀ¢7F6µöö&¦V7Eö–C¢7G"ÂæöæRÒæöæRÀ¢’ÓâWF†÷&—FF—fT÷÷'GVæ—G”6öçFW‡C ¢""$g&VW¦RöæR&÷VæFVB'VÆW26öçFW‡Bv—F†÷WBW†V7WF–ær—G2Vç7W÷'FVB6VÖçF–2â"" ¢–b6öçG&öÆÆW"æ÷B–â&ævRƒ"’÷"6÷W&6Uö–Bæ÷B–â6VÆbåöö&¦V7G3 ¢&—6RfÇVTW'&÷"‚&÷÷'GVæ—G’6öçFW‡B6÷W&6Rö6öçG&öÆÆW"—2–çfÆ–B"¢–bç’‡7V&¦V7Eö–Bæ÷B–â6VÆbåöö&¦V7G2f÷"7V&¦V7Eö–B–â7V&¦V7Eö–G2“ ¢&—6RfÇVTW'&÷"‚&÷÷'GVæ—G’6öçFW‡B6öçF–ç2f'&–6FVB7V&¦V7B"¢–bGWÆR‡6÷'FVB†f7G2’’Òf7G2÷"ÆVâ‡¶¶W’f÷"µš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍY^Kİ˜[YH[ˆ˜XİßJHOH[Š˜XİÊN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^˜XİÈ]\İ™H[š\]YH[™ÛÜYŠBˆ™\]Z\™YÙ˜XİÈHÂˆ˜Xİ]˜][Û—Ø]˜Z[X›HˆÂˆ›X[˜WÜ™\]Z\™Y‹ˆœÛİ\˜ÙWİ\Ü™\]Z\™Y‹ˆœÛİ\˜ÙWİ\Y‹ˆ[Z[™È‹ˆKˆœ\›X[™[Ù\\YˆÈ™\İ[˜][Û—Ş›Û™H‹œÛİ\˜ÙWŞ›Û™HŸKˆ˜\Y˜XİÙ\[™[˜ŞHˆÂˆ˜Y™™XİYÛØš™XİÚY‹ˆ˜\Y˜XİØÛİ[‹ˆ˜Ûİ[YØ\Y˜XİÚYÈ‹ˆ™^ÛYYÜÛİ\˜ÙWÚY‹ˆœ™YXØ]H‹ˆKˆœİXÚ×Ü™\ÜÛœÙHˆÈœ™\ÜÛœÙWØÛÜİ‹\™Ù]Ú\×ØÜ™X]\™HŸKˆ\™Ù]ØÚÚXÙWØ]˜Z[X›HˆÂˆ˜Ø[™Y]WÚÚ[™‹ˆš[œİXİ[Û—ØÛÛ^ÚY‹ˆš[œİXİ[Û—ÛØØİ\œ™[˜ÙWÚY‹ˆKˆœ™\XÙ[Y[Ù]˜[X][ÛˆˆÈ˜Ûİ[\—İ\H‹œ]X[]HŸKˆš[œİXİ[Û—Ü™XXÚYˆÂˆ™œ˜YÛY[Ú\Ú‹ˆ™œ˜YÛY[Ú[™^‹ˆš[œİXİ[Û—ÜÛİ\˜ÙWŞ›Û™H‹ˆ›ØØİ\œ™[˜ÙWÚY‹ˆœÙ[X[X×ÚÙ^H‹ˆKˆBˆYˆ
+ˆÛÛ^ÚÚ[™›İ[ˆ™\]Z\™YÙ˜XİÂˆÜˆÚÙ^H›ÜˆÙ^Kİ˜[YH[ˆ˜XİßHOH™\]Z\™YÙ˜XİÖØÛÛ^ÚÚ[™Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^XÚÜÈ]È™\]Z\™Y™XÛÛœİXİ]™H˜XİÈŠBˆYˆ]™[ÚY\È›İ›Û™H[™]™[ÚY›İ[ˆÙ[‹—Ü[\×Ù]™[Î‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^]™[\È›İ]]Üš]]]™HŠBˆYˆİXÚ×ÛØš™XİÚY\È›İ›Û™H[™›İ[Jˆ][K›Øš™XİÚYOHİXÚ×ÛØš™XİÚY›Üˆ][H[ˆÙ[‹œİXÚÂˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^İXÚÈØš™Xİ\È›İ]]Üš]]]™HŠBˆ7Ó[h‘éì¶»§q«^t}"
         state_fingerprint = self.authoritative_state_fingerprint()
         subject_zones = tuple(self._objects[item].zone for item in subject_ids)
         context = AuthoritativeOpportunityContext(
@@ -2267,193 +531,24 @@ class Game(
         return context
 
     def _witness_from_context(
-        self, occurrence: SemanticOccurrence, context: AuthoritativeOpportunityContext
-    ) -> None:
-        fragment = occurrence.oracle_fragment
-        matches = {
-            "activation_available": ":" in fragment,
-            "permanent_departed": bool(
-                re.search(r"leaves the battlefield|\bdies\b|put into a graveyard", fragment)
-            ),
-            "artifact_dependency": self._artifact_entry_dependency_shape(
-                fragment, self._objects[occurrence.object_id].card.name
-            ),
-            "stack_response": bool(re.match(r"^Counter target (?:noncreature )?spell", fragment)),
-            "target_choice_available": self._unconstrained_creature_target_shape(fragment),
-            "replacement_evaluation": bool(
-                re.search(r"\bwould\b|\binstead\b", fragment, re.IGNORECASE)
-            ),
-            "instruction_reached": occurrence.object_id in context.subject_ids,
-        }
-        if matches.get(context.context_kind, False):
-            self._record_opportunity(
-                occurrence,
-                cause_kind="authoritative_context",
-                cause_id=context.context_id,
-                cause_subject_ids=context.subject_ids,
-            )
-
-    @staticmethod
-    def _artifact_entry_dependency_shape(fragment: str, source_name: str) -> bool:
-        """Return only artifact predicates reconstructed by one controlled artifact entry."""
-        return Game._artifact_dependency_mode(fragment, source_name) is not None
-
-    @staticmethod
-    def _artifact_dependency_mode(fragment: str, source_name: str) -> str | None:
-        if re.match(r"^Whenever an artifact you control enters,", fragment):
-            return "artifact_entry_trigger"
-        if re.fullmatch(
-            re.escape(source_name) + r" gets [^.]+ for each other artifact you control\.",
-            fragment,
-        ):
-            return "self_other_artifact_count"
-        return None
-
-    @staticmethod
-    def _unconstrained_creature_target_shape(fragment: str) -> bool:
-        """Return only one unconstrained battlefield-creature target instruction."""
-        lowered = fragment.lower()
-        if len(re.findall(r"\btarget\b", lowered)) != 1 or "target creature" not in lowered:
-            return False
-        incompatible = (
-            "when ",
-            "whenever ",
-            "at the beginning",
-            "if ",
-            "artifact",
-            "enchantment",
-            "player",
-            "spell",
-            "target card",
-            "creature card",
-            "graveyard",
-            "you control",
-            "opponent controls",
-            "with flying",
-            "mana value",
-            "power ",
-            "toughness",
-            "another target",
-            "other target",
-            "up to",
-            "one or more",
-            "and/or",
-            "two target",
-            "target permanent",
-            "any target",
-            "choose a ",
-            ":",
-        )
-        return not any(marker in lowered for marker in incompatible)
-
-    def _record_opportunity(
-        self,
-        occurrence: SemanticOccurrence,
-        *,
-        cause_kind: str,
-        cause_id: str,
-        cause_subject_ids: tuple[str, ...],
-    ) -> OpportunityWitness:
-        facts = self._validate_opportunity_applicability(
-            occurrence,
-            cause_kind=cause_kind,
-            cause_id=cause_id,
-            cause_subject_ids=cause_subject_ids,
-        )
-        opportunity_key = fragment_digest(
-            "|".join((occurrence.occurrence_id, cause_kind, cause_id))
-        )
-        prior = next(
-            (
-                item
-                for item in self.opportunity_witnesses
-                if item.opportunity_key == opportunity_key
-            ),
-            None,
-        )
-        if prior is not None:
-            return prior
-        witness = OpportunityWitness(
-            f"opportunity-{self._next_opportunity_witness_number:06d}",
-            opportunity_key,
-            occurrence.occurrence_id,
-            occurrence.semantic_key,
-            occurrence.object_id,
-            facts[1],
-            occurrence.oracle_fragment,
-            self.turn,
-            self.phase,
-            self.step.value,
-            cause_kind,
-            cause_id,
-            cause_subject_ids,
-            facts[0],
-            facts[1],
-            facts[2],
-            facts[3],
-        )
-        self._next_opportunity_witness_number += 1
-        self.opportunity_witnesses.append(witness)
-        self.log(
-            "unsupported_opportunity_witnessed",
-            witness_id=witness.witness_id,
-            opportunity_key=opportunity_key,
-            occurrence_id=occurrence.occurrence_id,
-            semantic_key=occurrence.semantic_key,
-            object_id=occurrence.object_id,
-            oracle_fragment=occurrence.oracle_fragment,
-            cause_kind=cause_kind,
-            cause_id=cause_id,
-            cause_subject_ids=list(cause_subject_ids),
-        )
-        return witness
-
-    @staticmethod
-    def _event_number(event_id: str) -> int:
-        try:
-            prefix, number = event_id.split("-", 1)
-            if prefix != "event":
-                raise ValueError
-            return int(number)
-        except (TypeError, ValueError) as error:
-            raise ValueError("opportunity event identity is malformed") from error
-
-    def _validate_opportunity_applicability(
-        self,
-        occurrence: SemanticOccurrence,
-        *,
-        cause_kind: str,
-        cause_id: str,
-        cause_subject_ids: tuple[str, ...],
-        historical: OpportunityWitness | None = None,
-    ) -> tuple[str, int, tuple[str, ...], str | None]:
-        """Validate source and cause applicability for one supported witness shape."""
-        source = self._objects.get(occurrence.object_id)
-        if not isinstance(source, (CardObject, Permanent)):
-            raise ValueError("opportunity source identity is not registered")
-        fragments = self._semantic_fragments(source.card)
-        if (
-            occurrence.fragment_index >= len(fragments)
-            or fragments[occurrence.fragment_index] != occurrence.oracle_fragment
-            or fragment_digest(occurrence.oracle_fragment) != occurrence.fragment_hash
-        ):
-            raise ValueError("opportunity fragment does not match authoritative card data")
-
-        live = historical is None
-        if live and occurrence.controller != source.controller:
-            raise ValueError("opportunity source controller is not authoritative")
-        source_zone = source.zone if live else historical.source_zone
-        source_controller = source.controller if live else historical.source_controller
-        subject_zones = (
-            tuple(self._objects[subject_id].zone for subject_id in cause_subject_ids)
-            if live and all(subject_id in self._objects for subject_id in cause_subject_ids)
-            else (() if live else historical.cause_subject_zones)
-        )
-        if len(subject_zones) != len(cause_subject_ids):
-            raise ValueError("opportunity references a nonexistent subject")
-
-        fragment = occurrence.oracle_fragment
-        event_kind: str | None = None
+        self, occurrenceYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÔèM•µ…¹Ñ¥=ÕÉÉ•¹”°½¹Ñ•áĞèÕÑ¡½É¥Ñ…Ñ¥Ù•=ÁÁ½ÉÑÕ¹¥Ñå½¹Ñ•áĞ(€€€€¤€´ø9½¹”è(€€€€€€€™É…µ•¹Ğ€ô½ÕÉÉ•¹”¹½É…±•}™É…µ•¹Ğ(€€€€€€€µ…Ñ¡•Ì€ôì(€€€€€€€€€€€€‰…Ñ¥Ù…Ñ¥½¹}…Ù…¥±…‰±”ˆè€ˆèˆ¥¸™É…µ•¹Ğ°(€€€€€€€€€€€€‰Á•Éµ…¹•¹Ñ}‘•Á…ÉÑ•ˆè‰½½° (€€€€€€€€€€€€€€€É”¹Í•…É ¡È‰±•…Ù•ÌÑ¡”‰…ÑÑ±•™¥•±‘ñq‰‘¥•Íq‰ñÁÕĞ¥¹Ñ¼„É…Ù•å…Éˆ°™É…µ•¹Ğ¤(€€€€€€€€€€€€¤°(€€€€€€€€€€€€‰…ÉÑ¥™…Ñ}‘•Á•¹‘•¹äˆèÍ•±˜¹}…ÉÑ¥™…Ñ}•¹ÑÉå}‘•Á•¹‘•¹å}Í¡…Á” (€€€€€€€€€€€€€€€™É…µ•¹Ğ°Í•±˜¹}½‰©•ÑÍm½ÕÉÉ•¹”¹½‰©•Ñ}¥‘t¹…É¹¹…µ”(€€€€€€€€€€€€¤°(€€€€€€€€€€€€‰ÍÑ…­}É•ÍÁ½¹Í”ˆè‰½½°¡É”¹µ…Ñ ¡È‰y½Õ¹Ñ•ÈÑ…É•Ğ€ üé¹½¹É•…ÑÕÉ”€¤ıÍÁ•±°ˆ°™É…µ•¹Ğ¤¤°(€€€€€€€€€€€€‰Ñ…É•Ñ}¡½¥•}…Ù…¥±…‰±”ˆèÍ•±˜¹}Õ¹½¹ÍÑÉ…¥¹•‘}É•…ÑÕÉ•}Ñ…É•Ñ}Í¡…Á”¡™É…µ•¹Ğ¤°(€€€€€€€€€€€€‰É•Á±…•µ•¹Ñ}•Ù…±Õ…Ñ¥½¸ˆè‰½½° (€€€€€€€€€€€€€€€É”¹Í•…É ¡È‰q‰İ½Õ±‘q‰ñq‰¥¹ÍÑ•…‘qˆˆ°™É…µ•¹Ğ°É”¹%9=IM¤(€€€€€€€€€€€€¤°(€€€€€€€€€€€€‰¥¹ÍÑÉÕÑ¥½¹}É•…¡•ˆè½ÕÉÉ•¹”¹½‰©•Ñ}¥¥¸½¹Ñ•áĞ¹ÍÕ‰©•Ñ}¥‘Ì°(€€€€€€€ô(€€€€€€€¥˜µ…Ñ¡•Ì¹•Ğ¡½¹Ñ•áĞ¹½¹Ñ•áÑ}­¥¹°…±Í”¤è(€€€€€€€€€€€Í•±˜¹}É•½É‘}½ÁÁ½ÉÑÕ¹¥Ñä (€€€€€€€€€€€€€€€½ÕÉÉ•¹”°(€€€€€€€€€€€€€€€…ÕÍ•}­¥¹ô‰…ÕÑ¡½É¥Ñ…Ñ¥Ù•}½¹Ñ•áĞˆ°(€€€€€€€€€€€€€€€…ÕÍ•}¥õ½¹Ñ•áĞ¹½¹Ñ•áÑ}¥°(€€€€€€€€€€€€€€€…ÕÍ•}ÍÕ‰©•Ñ}¥‘Ìõ½¹Ñ•áĞ¹ÍÕ‰©•Ñ}¥‘Ì°(€€€€€€€€€€€€¤((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}…ÉÑ¥™…Ñ}•¹ÑÉå}‘•Á•¹‘•¹å}Í¡…Á”¡™É…µ•¹ĞèÍÑÈ°Í½ÕÉ•}¹…µ”èÍÑÈ¤€´ø‰½½°è(€€€€€€€€ˆˆ‰I•ÑÕÉ¸½¹±ä…ÉÑ¥™…ĞÁÉ•‘¥…Ñ•ÌÉ•½¹ÍÑÉÕÑ•‰ä½¹”½¹ÑÉ½±±•…ÉÑ¥™…Ğ•¹ÑÉä¸ˆˆˆ(€€€€€€€É•ÑÕÉ¸…µ”¹}…ÉÑ¥™…Ñ}‘•Á•¹‘•¹å}µ½‘”¡™É…µ•¹Ğ°Í½ÕÉ•}¹…µ”¤¥Ì¹½Ğ9½¹”((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}…ÉÑ¥™…Ñ}‘•Á•¹‘•¹å}µ½‘”¡™É…µ•¹ĞèÍÑÈ°Í½ÕÉ•}¹…µ”èÍÑÈ¤€´øÍÑÈğ9½¹”è(€€€€€€€¥˜É”¹µ…Ñ ¡È‰y]¡•¹•Ù•È…¸…ÉÑ¥™…Ğå½Ô½¹ÑÉ½°•¹Ñ•ÉÌ°ˆ°™É…µ•¹Ğ¤è(€€€€€€€€€€€É•ÑÕÉ¸€‰…ÉÑ¥™…Ñ}•¹ÑÉå}ÑÉ¥•Èˆ(€€€€€€€¥˜É”¹™Õ±±µ…Ñ  (€€€€€€€€€€€É”¹•Í…Á”¡Í½ÕÉ•}¹…µ”¤€¬Èˆ•ÑÌmx¹t¬™½È•… ½Ñ¡•È…Ë}5¶‰ËkºwµçW72"À¢&æ÷F†W"F&vWB"À¢&÷F†W"F&vWB"À¢'WFò"À¢&öæR÷"Ö÷&R"À¢&æBö÷""À¢'GvòF&vWB"À¢'F&vWBW&ÖæVçB"À¢&ç’F&vWB"À¢&6†ö÷6R"À¢#¢"À¢¢&WGW&âæ÷Bç’†Ö&¶W"–âÆ÷vW&VBf÷"Ö&¶W"–â–æ6ö×F–&ÆR ¢FVb÷&V6÷&Eö÷÷'GVæ—G’€¢6VÆbÀ¢ö67W'&Væ6S¢6VÖçF–4ö67W'&Væ6RÀ¢¢À¢6W6Uö¶–æC¢7G"À¢6W6Uö–C¢7G"À¢6W6U÷7V&¦V7Eö–G3¢GWÆU·7G"ÂââåÒÀ¢’Óâ÷÷'GVæ—G•v—FæW73 ¢f7G2Ò6VÆbå÷fÆ–FFUö÷÷'GVæ—G•öÆ–6&–Æ—G’€¢ö67W'&Væ6RÀ¢6W6Uö¶–æCÖ6W6Uö¶–æBÀ¢6W6Uö–CÖ6W6Uö–BÀ¢6W6U÷7V&¦V7Eö–G3Ö6W6U÷7V&¦V7Eö–G2À¢¢÷÷'GVæ—G•ö¶W’Òg&vÖVçEöF–vW7B€¢'Â"æ¦ö–â‚†ö67W'&Væ6Ræö67W'&Væ6Uö–BÂ6W6Uö¶–æBÂ6W6Uö–B’¢¢&–÷"ÒæW‡B€¢€¢—FVĞ¢f÷"—FVÒ–â6VÆbæ÷÷'GVæ—G•÷v—FæW76W0¢–b—FVÒæ÷÷'GVæ—G•ö¶W’ÓÒ÷÷'GVæ—G•ö¶W¢’À¢æöæRÀ¢¢–b&–÷"—2æ÷BæöæS ¢&WGW&â&–÷ ¢v—FæW72Ò÷÷'GVæ—G•v—FæW72€¢b&÷÷'GVæ—G’×·6VÆbåöæW‡Eö÷÷'GVæ—G•÷v—FæW75öçVÖ&W#£fGÒ"À¢÷÷'GVæ—G•ö¶W’À¢ö67W'&Væ6Ræö67W'&Væ6Uö–BÀ¢ö67W'&Væ6Rç6VÖçF–5ö¶W’À¢ö67W'&Væ6Ræö&¦V7Eö–BÀ¢f7G5³ÒÀ¢ö67W'&Væ6Ræ÷&6ÆUög&vÖVçBÀ¢6VÆbçGW&âÀ¢6VÆbç†6RÀ¢6VÆbç7FWçfÇVRÀ¢6W6Uö¶–æBÀ¢6W6Uö–BÀ¢6W6U÷7V&¦V7Eö–G2À¢f7G5³ÒÀ¢f7G5³ÒÀ¢f7G5³%ÒÀ¢f7G5³5ÒÀ¢¢6VÆbåöæW‡Eö÷÷'GVæ—G•÷v—FæW75öçVÖ&W"³Ò¢6VÆbæ÷÷'GVæ—G•÷v—FæW76Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ\Ë˜\[™
+Ú]™\ÜÊBˆÙ[‹›ÙÊˆ[œİ\ÜYÛÜÜ[š]WİÚ]™\ÜÙY‹ˆÚ]™\Ü×ÚY]Ú]™\ÜËÚ]™\Ü×ÚYˆÜÜ[š]WÚÙ^O[ÜÜ[š]WÚÙ^KˆØØİ\œ™[˜ÙWÚY[ØØİ\œ™[˜ÙK›ØØİ\œ™[˜ÙWÚYˆÙ[X[X×ÚÙ^O[ØØİ\œ™[˜ÙKœÙ[X[X×ÚÙ^KˆØš™XİÚY[ØØİ\œ™[˜ÙK›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[[ØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[ˆØ]\ÙWÚÚ[™XØ]\ÙWÚÚ[™ˆØ]\ÙWÚYXØ]\ÙWÚYˆØ]\ÙWÜİXš™XİÚYÏ[\İ
+Ø]\ÙWÜİXš™XİÚYÊKˆ
+Bˆ™]\›ˆÚ]™\ÜÂ‚ˆİ]XÛY]ÙˆYˆÙ]™[Û[X™\Š]™[ÚYˆİŠHOˆ[‚ˆN‚ˆ™Yš^[X™\ˆH]™[ÚYœÜ]
+‹H‹JBˆYˆ™Yš^OH™]™[‚ˆ˜Z\ÙH˜[YQ\œ›Ü‚ˆ™]\›ˆ[
+[X™\ŠBˆ^Ù\
+\Q\œ›Ü‹˜[YQ\œ›ÜŠH\È\œ›Ü‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]H]™[Y[]H\ÈX[›Ü›YYŠHœ›ÛH\œ›Ü‚‚ˆYˆİ˜[Y]WÛÜÜ[š]WØ\XØXš[]JˆÙ[‹ˆØØİ\œ™[˜ÙNˆÙ[X[XÓØØİ\œ™[˜ÙKˆ
+‹ˆØ]\ÙWÚÚ[™ˆİ‹ˆØ]\ÙWÚYˆİ‹ˆØ]\ÙWÜİXš™XİÚYÎˆ\VÜİ‹‹‹—Kˆ\İÜšXØ[ˆÜÜ[š]UÚ]™\ÜÈ›Û™HH›Û™Kˆ
+HOˆ\VÜİ‹[\VÜİ‹‹‹—Kİˆ›Û™WN‚ˆˆˆ•˜[Y]HÛİ\˜ÙH[™Ø]\ÙH\XØXš[]H›ÜˆÛ™Hİ\ÜYÚ]™\ÜÈÚ\Kˆˆˆ‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+ØØİ\œ™[˜ÙK›Øš™XİÚY
+BˆYˆ›İ\Ú[œİ[˜ÙJÛİ\˜ÙK
+Ø\™Øš™Xİ\›X[™[
+JN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛİ\˜ÙHY[]H\È›İ™YÚ\İ\™YŠBˆœ˜YÛY[ÈHÙ[‹—ÜÙ[X[X×Ùœ˜YÛY[ÊÛİ\˜ÙK˜Ø\™
+BˆYˆ
+ˆØØİ\œ™[˜ÙK™œ˜YÛY[Ú[™^H[Šœ˜YÛY[ÊBˆÜˆœ˜YÛY[ÖÛØØİ\œ™[˜ÙK™œ˜YÛY[Ú[™^HOHØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[ˆÜˆœ˜YÛY[ÙYÙ\İ
+ØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[
+HOHØØİ\œ™[˜ÙK™œ˜YÛY[Ú\Úˆ
+N‚ˆ7Ó[h‘éì¶»§q«^t: str | None = None
         if cause_kind == "rules_event":
             event = self._rules_events.get(cause_id)
             if event is None or event.subject_ids != cause_subject_ids:
@@ -2484,138 +579,29 @@ class Game(
             attacks = (
                 event.kind is RulesEventKind.ATTACKERS_DECLARED
                 and bool(re.match(r"^Whenever .+ attacks,", fragment))
-                and occurrence.object_id in event.subject_ids
-                and event.player_index == source_controller
-                and event.step == TurnStep.DECLARE_ATTACKERS.value
-                and self._event_number(event.event_id) > occurrence.registration_event_cursor
-            )
-            if not (self_etb or alliance or attacks):
-                raise ValueError("event does not establish semantic applicability")
-            if source_zone != "battlefield":
-                raise ValueError("event opportunity source was not on the battlefield")
-        elif cause_kind == "legal_action_context":
-            match = re.match(
-                r"^During your turn, you may cast creature spells with power or toughness "
-                r"(?P<limit>\d+) or less from your graveyard\.",
-                fragment,
-            )
-            step = self.step.value if live else historical.step
-            turn = self.turn if live else historical.turn
-            expected_id = f"legal-main:{turn}:{step}:{source_controller}:" + ",".join(
-                cause_subject_ids
-            )
-            if (
-                match is None
-                or source_zone != "battlefield"
-                or step not in {TurnStep.PRECOMBAT_MAIN.value, TurnStep.POSTCOMBAT_MAIN.value}
-                or cause_id != expected_id
-                or any(zone != "graveyard" for zone in subject_zones)
-            ):
-                raise ValueError("legal-action context does not establish applicability")
-            if live:
-                limit = int(match.group("limit"))
-                if source_controller != self.active_player or any(
-                    not isinstance(self._objects.get(subject_id), CardObject)
-                    or not self._objects[subject_id].card.is_creature
-                    or self._objects[subject_id].card.power is None
-                    or self._objects[subject_id].card.toughness is None
-                    or (
-                        self._objects[subject_id].card.power > limit
-                        and self._objects[subject_id].card.toughness > limit
-                    )
-                    for subject_id in cause_subject_ids
-                ):
-                    raise ValueError("graveyard subject does not satisfy the permission")
-        elif cause_kind == "legal_block_context":
-            step = self.step.value if live else historical.step
-            expected_id = (
-                f"block:{historical.turn if historical else self.turn}:{step}:"
-                + ":".join(cause_subject_ids)
-            )
-            if (
-                not fragment.startswith("Menace ")
-                or len(cause_subject_ids) != 2
-                or cause_subject_ids[0] != occurrence.object_id
-                or source_zone != "battlefield"
-                or any(zone != "battlefield" for zone in subject_zones)
-                or step != TurnStep.DECLARE_BLOCKERS.value
-                or cause_id != expected_id
-            ):
-                raise ValueError("block context does not establish applicability")
-            if live and occurrence.object_id not in self._combat_attackers:
-                raise ValueError("block context attacker is not in authoritative combat")
-        elif cause_kind == "authoritative_context":
-            context = next(
-                (item for item in self.opportunity_contexts if item.context_id == cause_id), None
-            )
-            if context is None or context.source_id != occurrence.object_id:
-                raise ValueError("opportunity context does not authenticate its source")
-            if context.subject_ids != cause_subject_ids:
-                raise ValueError("opportunity context subjects are mismatched")
-            if historical is not None and (
-                historical.turn != context.turn
-                or historical.step != context.step
-                or historical.controller != context.controller
-            ):
-                raise ValueError("opportunity context provenance is inconsistent")
-            source_zone = occurrence.zone
-            source_controller = context.controller
-            subject_zones = context.subject_zones
-            allowed = {
-                "activation_available": ":" in fragment,
-                "permanent_departed": bool(
-                    re.search(r"leaves the battlefield|\bdies\b|put into a graveyard", fragment)
-                ),
-                "artifact_dependency": self._artifact_entry_dependency_shape(
-                    fragment, source.card.name
-                ),
-                "stack_response": bool(
-                    re.match(r"^Counter target (?:noncreature )?spell", fragment)
-                ),
-                "target_choice_available": self._unconstrained_creature_target_shape(fragment),
-                "replacement_evaluation": bool(
-                    re.search(r"\bwould\b|\binstead\b", fragment, re.IGNORECASE)
-                ),
-                "instruction_reached": occurrence.object_id in context.subject_ids,
-            }
-            if not allowed.get(context.context_kind, False):
-                raise ValueError("opportunity context does not establish fragment applicability")
-            if context.event_id is not None and context.event_id not in self._rules_events:
-                raise ValueError("opportunity context event provenance is missing")
-            if context.stack_object_id is not None and context.stack_object_id not in self._objects:
-                raise ValueError("opportunity context stack provenance is missing")
-            context_facts = dict(context.facts)
-            if context.context_kind == "activation_available" and not (
-                context.step in {TurnStep.PRECOMBAT_MAIN.value, TurnStep.POSTCOMBAT_MAIN.value}
-                and context.source_id == context.subject_ids[0]
-                and context.subject_zones
-                and all(zone == "battlefield" for zone in context.subject_zones)
-                and context_facts.get("timing") == context.step
-                and (
-                    context_facts.get("source_tap_required") == "false"
-                    or context_facts.get("source_tapped") == "false"
-                )
-                and context_facts.get("mana_required") == str(len(context.subject_ids) - 1)
-            ):
-                raise ValueError("activation context facts do not prove availability")
-            if context.context_kind == "permanent_departed" and not (
-                context_facts.get("source_zone") == "battlefield"
-                and context_facts.get("destination_zone")
-                in {
-                    "hand",
-                    "library",
-                    "graveyard",
-                    "exile",
-                }
-                and context.subject_zones == ("former",)
-            ):
-                raise ValueError("departure context facts do not prove zone movement")
-            if context.context_kind == "artifact_dependency":
-                event = self._rules_events.get(context.event_id or "")
-                mode = self._artifact_dependency_mode(fragment, source.card.name)
-                event_artifacts = (
-                    ()
-                    if event is None
+                and occurrence.objecYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ}¥¥¸•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘Ì(€€€€€€€€€€€€€€€…¹•Ù•¹Ğ¹Á±…å•É}¥¹‘•à€ôôÍ½ÕÉ•}½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€…¹•Ù•¹Ğ¹ÍÑ•À€ôôQÕÉ¹MÑ•À¹1I}QQ-IL¹Ù…±Õ”(€€€€€€€€€€€€€€€…¹Í•±˜¹}•Ù•¹Ñ}¹Õµ‰•È¡•Ù•¹Ğ¹•Ù•¹Ñ}¥¤€ø½ÕÉÉ•¹”¹É•¥ÍÑÉ…Ñ¥½¹}•Ù•¹Ñ}ÕÉÍ½È(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜¹½Ğ€¡Í•±™}•Ñˆ½È…±±¥…¹”½È…ÑÑ…­Ì¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰•Ù•¹Ğ‘½•Ì¹½Ğ•ÍÑ…‰±¥Í Í•µ…¹Ñ¥Œ…ÁÁ±¥…‰¥±¥Ñäˆ¤(€€€€€€€€€€€¥˜Í½ÕÉ•}é½¹”€„ô€‰‰…ÑÑ±•™¥•±ˆè(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰•Ù•¹Ğ½ÁÁ½ÉÑÕ¹¥ÑäÍ½ÕÉ”İ…Ì¹½Ğ½¸Ñ¡”‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€•±¥˜…ÕÍ•}­¥¹€ôô€‰±•…±}…Ñ¥½¹}½¹Ñ•áĞˆè(€€€€€€€€€€€µ…Ñ €ôÉ”¹µ…Ñ  (€€€€€€€€€€€€€€€È‰yÕÉ¥¹œå½ÕÈÑÕÉ¸°å½Ôµ…ä…ÍĞÉ•…ÑÕÉ”ÍÁ•±±Ìİ¥Ñ Á½İ•È½ÈÑ½Õ¡¹•ÍÌ€ˆ(€€€€€€€€€€€€€€€Èˆ ı@ñ±¥µ¥Ğùq¬¤½È±•ÍÌ™É½´å½ÕÈÉ…Ù•å…É‘p¸ˆ°(€€€€€€€€€€€€€€€™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€€€€€ÍÑ•À€ôÍ•±˜¹ÍÑ•À¹Ù…±Õ”¥˜±¥Ù”•±Í”¡¥ÍÑ½É¥…°¹ÍÑ•À(€€€€€€€€€€€ÑÕÉ¸€ôÍ•±˜¹ÑÕÉ¸¥˜±¥Ù”•±Í”¡¥ÍÑ½É¥…°¹ÑÕÉ¸(€€€€€€€€€€€•áÁ•Ñ•‘}¥€ô˜‰±•…°µµ…¥¸éíÑÕÉ¹ôéíÍÑ•ÁôéíÍ½ÕÉ•}½¹ÑÉ½±±•Éôèˆ€¬€ˆ°ˆ¹©½¥¸ (€€€€€€€€€€€€€€€…ÕÍ•}ÍÕ‰©•Ñ}¥‘Ì(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€µ…Ñ ¥Ì9½¹”(€€€€€€€€€€€€€€€½ÈÍ½ÕÉ•}é½¹”€„ô€‰‰…ÑÑ±•™¥•±ˆ(€€€€€€€€€€€€€€€½ÈÍÑ•À¹½Ğ¥¸íQÕÉ¹MÑ•À¹AI=5	Q}5%8¹Ù…±Õ”°QÕÉ¹MÑ•À¹A=MQ=5	Q}5%8¹Ù…±Õ•ô(€€€€€€€€€€€€€€€½È…ÕÍ•}¥€„ô•áÁ•Ñ•‘}¥(€€€€€€€€€€€€€€€½È…¹ä¡é½¹”€„ô€‰É…Ù•å…Éˆ™½Èé½¹”¥¸ÍÕ‰©•Ñ}é½¹•Ì¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰±•…°µ…Ñ¥½¸½¹Ñ•áĞ‘½•Ì¹½Ğ•ÍÑ…‰±¥Í …ÁÁ±¥…‰¥±¥Ñäˆ¤(€€€€€€€€€€€¥˜±¥Ù”è(€€€€€€€€€€€€€€€±¥µ¥Ğ€ô¥¹Ğ¡µ…Ñ ¹É½ÕÀ ‰±¥µ¥Ğˆ¤¤(€€€€€€€€€€€€€€€¥˜Í½ÕÉ•}½¹ÑÉ½±±•È€„ôÍ•±˜¹…Ñ¥Ù•}Á±…å•È½È…¹ä (€€€€€€€€€€€€€€€€€€€¹½Ğ¥Í¥¹ÍÑ…¹”¡Í•±˜¹}½‰©•ÑÌ¹•Ğ¡ÍÕ‰©•Ñ}¥¤°…É‘=‰©•Ğ¤(€€€€€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹}½‰©•ÑÍmÍÕ‰©•Ñ}¥‘t¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€€€€€€€€€½ÈÍ•±˜¹}½‰©•ÑÍmÍ×}5¶‰Ëkºwµçv7W'&Væ6Ræö&¦V7Eö–@¢÷"6÷W&6U÷¦öæRÒ&&GFÆVf–VÆB ¢÷"ç’‡¦öæRÒ&&GFÆVf–VÆB"f÷"¦öæR–â7V&¦V7E÷¦öæW2¢÷"7FWÒGW&å7FWäDT4Ä$Uô$Äô4´U%2çfÇVP¢÷"6W6Uö–BÒW‡V7FVEö–@¢“ ¢&—6RfÇVTW'&÷"‚&&Æö6²6öçFW‡BFöW2æ÷BW7F&Æ—6‚Æ–6&–Æ—G’"¢–bÆ—fRæBö67W'&Væ6Ræö&¦V7Eö–Bæ÷B–â6VÆbåö6öÖ&EöGF6¶W'3 ¢&—6RfÇVTW'&÷"‚&&Æö6²6öçFW‡BGF6¶W"—2æ÷B–âWF†÷&—FF—fR6öÖ&B"¢VÆ–b6W6Uö¶–æBÓÒ&WF†÷&—FF—fUö6öçFW‡B# ¢6öçFW‡BÒæW‡B€¢†—FVÒf÷"—FVÒ–â6VÆbæ÷÷'GVæ—G•ö6öçFW‡G2–b—FVÒæ6öçFW‡Eö–BÓÒ6W6Uö–B’ÂæöæP¢¢–b6öçFW‡B—2æöæR÷"6öçFW‡Bç6÷W&6Uö–BÒö67W'&Væ6Ræö&¦V7Eö–C ¢&—6RfÇVTW'&÷"‚&÷÷'GVæ—G’6öçFW‡BFöW2æ÷BWF†VçF–6FR—G26÷W&6R"¢–b6öçFW‡Bç7V&¦V7Eö–G2Ò6W6U÷7V&¦V7Eö–G3 ¢&—6RfÇVTW'&÷"‚&÷÷'GVæ—G’6öçFW‡B7V&¦V7G2&RÖ—6ÖF6†VB"¢–b†—7F÷&–6Â—2æ÷BæöæRæB€¢†—7F÷&–6ÂçGW&âÒ6öçFW‡BçGW&à¢÷"†—7F÷&–6Âç7FWÒ6öçFW‡Bç7FW ¢÷"†—7F÷&–6Âæ6öçG&öÆÆW"Ò6öçFW‡Bæ6öçG&öÆÆW ¢“ ¢&—6RfÇVTW'&÷"‚&÷÷'GVæ—G’6öçFW‡B&÷fVææ6R—2–æ6öç6—7FVçB"¢6÷W&6U÷¦öæRÒö67W'&Væ6Rç¦öæP¢6÷W&6Uö6öçG&öÆÆW"Ò6öçFW‡Bæ6öçG&öÆÆW ¢7V&¦V7E÷¦öæW2Ò6öçFW‡Bç7V&¦V7E÷¦öæW0¢ÆÆ÷vVBÒ°¢&7F—fF–öåöf–Æ&ÆR#¢#¢"–âg&vÖVçBÀ¢'W&ÖæVçEöFW'FVB#¢&ööÂ€¢&Rç6V&6‚‡"&ÆVfW2F†R&GFÆVf–VÆGÅÆ&F–W5Æ'ÇWB–çFòw&fW–&B"Âg&vÖVçB¢’À¢&'F–f7EöFWVæFVæ7’#¢6VÆbåö'F–f7EöVçG'•öFWVæFVæ7•÷6†R€¢g&vÖVçBÂ6÷Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ\˜ÙK˜Ø\™›˜[YBˆ
+KˆœİXÚ×Ü™\ÜÛœÙHˆ›ÛÛ
+ˆ™K›X]Ú
+ˆ—Ûİ[\ˆ\™Ù]
+Î››Û˜Ü™X]\™H
+OÜÜ[‹œ˜YÛY[
+Bˆ
+Kˆ\™Ù]ØÚÚXÙWØ]˜Z[X›HˆÙ[‹—İ[˜ÛÛœİ˜Z[™YØÜ™X]\™Wİ\™Ù]ÜÚ\Jœ˜YÛY[
+Kˆœ™\XÙ[Y[Ù]˜[X][Ûˆˆ›ÛÛ
+ˆ™KœÙX\˜Ú
+ˆ—Ûİ[Ÿš[œİXYˆ‹œ˜YÛY[™K’QÓ“Ô‘PĞTÑJBˆ
+Kˆš[œİXİ[Û—Ü™XXÚYˆØØİ\œ™[˜ÙK›Øš™XİÚY[ˆÛÛ^œİXš™XİÚYËˆBˆYˆ›İ[İÙY™Ù]
+ÛÛ^˜ÛÛ^ÚÚ[™˜[ÙJN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^Ù\È›İ\İX›\Úœ˜YÛY[\XØXš[]HŠBˆYˆÛÛ^™]™[ÚY\È›İ›Û™H[™ÛÛ^™]™[ÚY›İ[ˆÙ[‹—Ü[\×Ù]™[Î‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^]™[›İ™[˜[˜ÙH\ÈZ\ÜÚ[™ÈŠBˆYˆÛÛ^œİXÚ×ÛØš™XİÚY\È›İ›Û™H[™ÛÛ^œİXÚ×ÛØš™XİÚY›İ[ˆÙ[‹—ÛØš™XİÎ‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ›ÜÜ[š]HÛÛ^İXÚÈ›İ™[˜[˜ÙH\ÈZ\ÜÚ[™ÈŠBˆÛÛ^Ù˜XİÈHXİ
+ÛÛ^™˜XİÊBˆYˆÛÛ^˜ÛÛ^ÚÚ[™OH˜Xİ]˜][Û—Ø]˜Z[X›Hˆ[™›İ
+ˆÛÛ^œİ\[ˆÕ\›”İ\”‘PÓÓPUÓPRS‹˜[YK\›”İ\”ÔÕÓÓPUÓPRS‹˜[Y_Bˆ[™ÛÛ^œÛİ\˜ÙWÚYOHÛÛ^œİXš™XİÚYÖÌBˆ[™ÛÛ^œİXš™XİŞ›Û™\Âˆ[™[
+›Û™HOH˜˜]YšY[ˆ›Üˆ›Û™H[ˆÛÛ^œİXš™XİŞ›Û™\ÊBˆ[™ÛÛ^Ù˜XİË™Ù]
+[Z[™ÈŠHOHÛÛ^œİ\ˆ[™
+ˆÛÛ^Ù˜XİË™Ù]
+œÛİ\˜ÙWİ\Ü™\]Z\™YŠHOH™˜[ÙH‚ˆÜˆÛÛ^Ù˜XİË™Ù]
+œÛİ\˜ÙWİ\YŠHOH™˜[ÙH‚ˆ
+Bˆ[™ÛÛ^Ù˜XİË™Ù]
+›X[˜WÜ™\]Z\™YŠHOHİŠ[ŠÛÛ^œİXš™XİÚYÊHHJBˆ
+N‚ˆ7Ó[h‘éì¶»§q«^u
                     else tuple(
                         sorted(
                             object_id
@@ -2647,167 +633,29 @@ class Game(
                     == (context.source_id if mode == "self_other_artifact_count" else "")
                 ):
                     raise ValueError("artifact context facts do not prove its predicate")
-            if context.context_kind == "stack_response" and not (
-                source_zone == "hand"
-                and context.stack_object_id in context.subject_ids
-                and context.subject_zones == ("stack",)
-                and context_facts.get("response_cost") == source.card.mana_cost
-                and context_facts.get("target_is_creature") in {"true", "false"}
-            ):
-                raise ValueError("response context facts do not prove Stack availability")
-            if context.context_kind == "target_choice_available" and not (
-                context_facts.get("candidate_kind") == "battlefield_creature"
-                and source_zone == "graveyard"
-                and context.subject_ids
-                and all(zone == "battlefield" for zone in context.subject_zones)
-                and any(
-                    prior.context_id == context_facts.get("instruction_context_id")
-                    and prior.context_kind == "instruction_reached"
-                    and prior.source_id == context.source_id
-                    and prior.turn == context.turn
-                    and prior.step == context.step
-                    and dict(prior.facts).get("occurrence_id")
-                    == context_facts.get("instruction_occurrence_id")
-                    == occurrence.occurrence_id
-                    for prior in self.opportunity_contexts
-                )
-            ):
-                raise ValueError("target/choice context facts do not prove candidates")
-            if context.context_kind == "replacement_evaluation" and not (
-                context_facts.get("counter_type")
-                and context_facts.get("quantity", "").isdecimal()
-                and int(context_facts["quantity"]) > 0
-                and context.subject_zones == ("battlefield",)
-            ):
-                raise ValueError("replacement context facts do not prove evaluation")
-            if context.context_kind == "instruction_reached" and not (
-                context_facts.get("instruction_source_zone") == "graveyard"
-                and context.subject_ids == (context.source_id,)
-                and context.subject_zones == ("graveyard",)
-                and context_facts.get("occurrence_id") == occurrence.occurrence_id
-                and context_facts.get("semantic_key") == occurrence.semantic_key
-                and context_facts.get("fragment_hash") == occurrence.fragment_hash
-                and context_facts.get("fragment_index") == str(occurrence.fragment_index)
-            ):
-                raise ValueError("instruction context facts do not prove resolution reach")
-        else:
-            raise ValueError("opportunity cause kind is unsupported")
-        return source_zone, source_controller, subject_zones, event_kind
+      YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€¥˜½¹Ñ•áĞ¹½¹Ñ•áÑ}­¥¹€ôô€‰ÍÑ…­}É•ÍÁ½¹Í”ˆ…¹¹½Ğ€ (€€€€€€€€€€€€€€€Í½ÕÉ•}é½¹”€ôô€‰¡…¹ˆ(€€€€€€€€€€€€€€€…¹½¹Ñ•áĞ¹ÍÑ…­}½‰©•Ñ}¥¥¸½¹Ñ•áĞ¹ÍÕ‰©•Ñ}¥‘Ì(€€€€€€€€€€€€€€€…¹½¹Ñ•áĞ¹ÍÕ‰©•Ñ}é½¹•Ì€ôô€ ‰ÍÑ…¬ˆ°¤(€€€€€€€€€€€€€€€…¹½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰É•ÍÁ½¹Í•}½ÍĞˆ¤€ôôÍ½ÕÉ”¹…É¹µ…¹…}½ÍĞ(€€€€€€€€€€€€€€€…¹½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰Ñ…É•Ñ}¥Í}É•…ÑÕÉ”ˆ¤¥¸ì‰ÑÉÕ”ˆ°€‰™…±Í”‰ô(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰É•ÍÁ½¹Í”½¹Ñ•áĞ™…ÑÌ‘¼¹½ĞÁÉ½Ù”MÑ…¬…Ù…¥±…‰¥±¥Ñäˆ¤(€€€€€€€€€€€¥˜½¹Ñ•áĞ¹½¹Ñ•áÑ}­¥¹€ôô€‰Ñ…É•Ñ}¡½¥•}…Ù…¥±…‰±”ˆ…¹¹½Ğ€ (€€€€€€€€€€€€€€€½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰…¹‘¥‘…Ñ•}­¥¹ˆ¤€ôô€‰‰…ÑÑ±•™¥•±‘}É•…ÑÕÉ”ˆ(€€€€€€€€€€€€€€€…¹Í½ÕÉ•}é½¹”€ôô€‰É…Ù•å…Éˆ(€€€€€€€€€€€€€€€…¹½¹Ñ•áĞ¹ÍÕ‰©•Ñ}¥‘Ì(€€€€€€€€€€€€€€€…¹…±°¡é½¹”€ôô€‰‰…ÑÑ±•™¥•±ˆ™½Èé½¹”¥¸½¹Ñ•áĞ¹ÍÕ‰©•Ñ}é½¹•Ì¤(€€€€€€€€€€€€€€€…¹…¹ä (€€€€€€€€€€€€€€€€€€€ÁÉ¥½È¹½¹Ñ•áÑ}¥€ôô½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰¥¹ÍÑÉÕÑ¥½¹}½¹Ñ•áÑ}¥ˆ¤(€€€€€€€€€€€€€€€€€€€…¹ÁÉ¥½È¹½¹Ñ•áÑ}­¥¹€ôô€‰¥¹ÍÑÉÕÑ¥½¹}É•…¡•ˆ(€€€€€€€€€€€€€€€€€€€…¹ÁÉ¥½È¹Í½ÕÉ•}¥€ôô½¹Ñ•áĞ¹Í½ÕÉ•}¥(€€€€€€€€€€€€€€€€€€€…¹ÁÉ¥½È¹ÑÕÉ¸€ôô½¹Ñ•áĞ¹ÑÕÉ¸(€€€€€€€€€€€€€€€€€€€…¹ÁÉ¥½È¹ÍÑ•À€ôô½¹Ñ•áĞ¹ÍÑ•À(€€€€€€€€€€€€€€€€€€€…¹‘¥Ğ¡ÁÉ¥½È¹™…ÑÌ¤¹•Ğ ‰½ÕÉÉ•¹•}¥ˆ¤(€€€€€€€€€€€€€€€€€€€€ôô½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰¥¹ÍÑÉÕÑ¥½¹}½ÕÉÉ•¹•}¥ˆ¤(€€€€€€€€€€€€€€€€€€€€ôô½ÕÉÉ•¹”¹½ÕÉÉ•¹•}¥(€€€€€€€€€€€€€€€€€€€™½ÈÁÉ¥½È¥¸Í•±˜¹½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áÑÌ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Ñ…É•Ğ½¡½¥”½¹Ñ•áĞ™…ÑÌ‘¼¹½ĞÁÉ½Ù”…¹‘¥‘…Ñ•Ìˆ¤(€€€€€€€€€€€¥˜½¹Ñ•áĞ¹½¹Ñ•áÑ}­¥¹€ôô€‰É•Á±…•µ•¹Ñ}•Ù…±Õ…Ñ¥½¸ˆ…¹¹½Ğ€ (€€€€€€€€€€€€€€€½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰½Õ¹Ñ•É}ÑåÁ”ˆ¤(€€€€€€€€€€€€€€€…¹½¹Ñ•áÑ}™…ÑÌ¹•Ğ ‰ÅÕ…¹Ñ¥Ñäˆ°€ˆˆ¤¹¥Í‘•¥µ…° ¤(€€€€€€€€€€€€€€€…¹¥¹Ğ¡½¹Ñ•áÑ}™…ÑÍl‰ÅÕ…¹Ñ¥Ñä‰t¤€ø€À(€€€€€€€€€€€€€€€…¹½¹Ñ•áĞ¹ÍÕ‰©•Ñ}é½¹•Ì€ôôƒ}5¶‰ËkºwµçW2Vç7W÷'FVB"¢&WGW&â6÷W&6U÷¦öæRÂ6÷W&6Uö6öçG&öÆÆW"Â7V&¦V7E÷¦öæW2ÂWfVçEö¶–æ@ ¢FVb÷v—FæW75ög&öÕöWfVçB‡6VÆbÂö67W'&Væ6S¢6VÖçF–4ö67W'&Væ6RÂWfVçC¢'VÆW4WfVçB’ÓâæöæS ¢g&vÖVçBÒö67W'&Væ6Ræ÷&6ÆUög&vÖVç@¢6÷W&6Uö–BÒö67W'&Væ6Ræö&¦V7Eö–@¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB‡6÷W&6Uö–B¢6÷W&6Uö—5öÆ—fRÒ—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB’æB6VÆbæ—5öWF†÷&—FF—fR€¢6÷W&6RÂ&&GFÆVf–VÆB ¢¢–bWfVçBæ¶–æB—2'VÆW4WfVçD¶–æBä5$TEU$UôTåDU$TC ¢6VÆeöVçFW'2Ò€¢&ööÂ‡&RæÖF6‚‡"%åv†Vââ²VçFW'2Â"Âg&vÖVçB’’æB6÷W&6Uö–B–âWfVçBç7V&¦V7Eö–G0¢¢ÆÆ–æ6RÒg&vÖVçBç7F'G7v—F‚€¢$ÆÆ–æ6R(	Bv†VæWfW"æ÷F†W"7&VGW&R–÷R6öçG&öÂVçFW'2Â ¢¢–b6VÆeöVçFW'2÷"€¢ÆÆ–æ6P¢æB6÷W&6Uö—5öÆ—fP¢æBWfVçBçÆ–W%ö–æFW‚ÓÒ6÷W&6Ræ6öçG&öÆÆW ¢æB6÷W&6Uö–Bæ÷B–âWfVçBç7V&¦V7Eö–G0¢“ ¢6VÆbå÷&V6÷&Eö÷÷'GVæ—G’€¢ö67W'&Væ6RÀ¢6W6Uö¶–æCÒ''VÆW5öWfVçB"À¢6W6Uö–CÖWfVçBæWfVçEö–BÀ¢6W6U÷7V&¦V7Eö–G3ÖWfVçBç7V&¦V7Eö–G2À¢¢VÆ–b€¢WfVçBæ¶–æB—2'VÆW4WfVçD¶–æBäED4´U%5ôDT4Ä$T@¢æB&ööÂ‡&RæÖF6‚‡"%åv†VæWfW"â²GF6·2Â"Âg&vÖVçB’¢æB6÷W&6Uö—5öÆ—fP¢æB6÷W&6Uö–B–âWfVçBç7V&¦V7Eö–G0¢“ ¢6VÆbå÷&V6÷&Eö÷÷'GVæ—G’€¢ö67W'&Væ6RÀ¢6W6Uö¶–æCÒ''VÆW5öWfVçB"À¢6W6Uö–CÖWfVçBæWfVçEö–BÀ¢6W6U÷7V&¦V7Eö–G3ÖWfVçBç7V&¦V7Eö–G2À¢ ¢FVb÷v—FæW75ög&öÕöW†—7F–æuöWfVçG2‡6VÆbÂö67W'&Væ6S¢6VÖçF–4ö67W'&Væ6R’ÓâæöæS ¢""$¦ö–âöæÇ’F†R6÷W%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXÙIÜÈİÛˆ\İXÛÛ\]YUÈ™]™\ˆ™]›ØXİ]™[H[™™\ˆ™XXÚˆˆˆ‚ˆ›Üˆ]™[[ˆÙ[‹—Ü[\×Ù]™[Ë˜[Y\Ê
+N‚ˆYˆ
+ˆ]™[šÚ[™\È[\Ñ]™[Ú[™Ô‘PUT‘WÑS•T‘Qˆ[™ØØİ\œ™[˜ÙK›Øš™XİÚY[ˆ]™[œİXš™XİÚYÂˆ[™›ÛÛ
+™K›X]Ú
+ˆ—•Ú[ˆŠÈ[\œË‹ØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[
+JBˆ[™Ù[‹—Ù]™[Û[X™\Š]™[™]™[ÚY
+HOHØØİ\œ™[˜ÙKœ™YÚ\İ˜][Û—Ù]™[Øİ\œÛÜ‚ˆ
+N‚ˆÙ[‹—İÚ]™\Ü×Ùœ›ÛWÙ]™[
+ØØİ\œ™[˜ÙK]™[
+B‚ˆYˆÛ™]×Ü[\×Ù]™[
+ˆÙ[‹ˆÚ[™ˆ[\Ñ]™[Ú[™ˆ^Y\—Ú[™^ˆ[ˆİXš™XİÚYÎˆ\VÜİ‹‹‹—Kˆ
+‹ˆÛİ\˜ÙWÚYˆİˆ›Û™HH›Û™Kˆ\™Ù]Ü^Y\ˆ[›Û™HH›Û™Kˆ[[İ[ˆ[›Û™HH›Û™Kˆ˜]YšY[Ø]]Üš]Nˆ\Vİ\VÜİ‹[K‹‹—H›Û™HH›Û™Kˆ˜]YšY[ØÚ\˜Xİ\š\İXÜÎˆ\Vİ\VÜİ‹[İ—K‹‹—H›Û™HH›Û™Kˆ\İÚÛ›İÛ—Ø˜]YšY[ˆ\Vİ\VÜİ‹[İ‹›ÛÛK‹‹—HH
 
-    def _witness_from_event(self, occurrence: SemanticOccurrence, event: RulesEvent) -> None:
-        fragment = occurrence.oracle_fragment
-        source_id = occurrence.object_id
-        source = self._objects.get(source_id)
-        source_is_live = isinstance(source, Permanent) and self.is_authoritative(
-            source, "battlefield"
-        )
-        if event.kind is RulesEventKind.CREATURE_ENTERED:
-            self_enters = (
-                bool(re.match(r"^When .+ enters,", fragment)) and source_id in event.subject_ids
-            )
-            alliance = fragment.startswith(
-                "Alliance â€” Whenever another creature you control enters,"
-            )
-            if self_enters or (
-                alliance
-                and source_is_live
-                and event.player_index == source.controller
-                and source_id not in event.subject_ids
-            ):
-                self._record_opportunity(
-                    occurrence,
-                    cause_kind="rules_event",
-                    cause_id=event.event_id,
-                    cause_subject_ids=event.subject_ids,
-                )
-        elif (
-            event.kind is RulesEventKind.ATTACKERS_DECLARED
-            and bool(re.match(r"^Whenever .+ attacks,", fragment))
-            and source_is_live
-            and source_id in event.subject_ids
-        ):
-            self._record_opportunity(
-                occurrence,
-                cause_kind="rules_event",
-                cause_id=event.event_id,
-                cause_subject_ids=event.subject_ids,
-            )
+Kˆ
+HOˆ[\Ñ]™[‚ˆ]™[H[\Ñ]™[
+ˆˆ™]™[^ÜÙ[‹—Û™^Ù]™[Û[X™\Œ™H‹ˆÚ[™ˆ^Y\—Ú[™^ˆİXš™XİÚYËˆÛİ\˜ÙWÚYˆ\™Ù]Ü^Y\‹ˆ[[İ[ˆÙ[‹\›‹ˆÙ[‹œİ\˜[YKˆÙ[‹˜Xİ]™WÜ^Y\‹ˆ
+ˆ\Jˆ
+\›X[™[›Øš™XİÚY\›X[™[˜ÛÛ›Û\ŠBˆ›Üˆ^Y\ˆ[ˆÙ[‹œ^Y\œÂˆ›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[ˆ
+BˆYˆ˜]YšY[Ø]]Üš]H\È›Û™Bˆ[ÙH˜]YšY[Ø]]Üš]Bˆ
+Kˆ
+ˆÙ[‹—Ø˜]YšY[ØÚ\˜Xİ\š\İXÜ×ÜÛ˜\Úİ
 
-    def _witness_from_existing_events(self, occurrence: SemanticOccurrence) -> None:
-        """Join only the source's own just-completed ETB; never retroactively infer reach."""
-        for event in self._rules_events.values():
-            if (
-                event.kind is RulesEventKind.CREATURE_ENTERED
-                and occurrence.object_id in event.subject_ids
-                and bool(re.match(r"^When .+ enters,", occurrence.oracle_fragment))
-                and self._event_number(event.event_id) == occurrence.registration_event_cursor
-            ):
-                self._witness_from_event(occurrence, event)
-
-    def _new_rules_event(
-        self,
-        kind: RulesEventKind,
-        player_index: int,
-        subject_ids: tuple[str, ...],
-        *,
-        source_id: str | None = None,
-        target_player: int | None = None,
-        amount: int | None = None,
-        battlefield_authority: tuple[tuple[str, int], ...] | None = None,
-        battlefield_characteristics: tuple[tuple[str, int, str], ...] | None = None,
-        last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = (),
-    ) -> RulesEvent:
-        event = RulesEvent(
-            f"event-{self._next_event_number:06d}",
-            kind,
-            player_index,
-            subject_ids,
-            source_id,
-            target_player,
-            amount,
-            self.turn,
-            self.step.value,
-            self.active_player,
-            (
-                tuple(
-                    (permanent.object_id, permanent.controller)
-                    for player in self.players
-                    for permanent in player.battlefield
-                )
-                if battlefield_authority is None
-                else battlefield_authority
-            ),
-            (
-                self._battlefield_characteristics_snapshot()
-                if battlefield_characteristics is None
-                else battlefield_characteristics
-            ),
-            last_known_battlefield,
-        )
-        self._next_event_number += 1
-        self._rules_events[event.event_id] = event
-        self._rules_event_evidence.append(
-            RulesEventEvidence(
-                event.event_id,
-                self._event_number(event.event_id),
-                event.kind,
-                event.player_index,
-                event.subject_ids,
-                event.source_id,
-                event.target_player,
-                event.amount,
-                event.turn,
-                event.step,
-                event.active_player,
-                event.battlefield_authority,
-                event.battlefield_characteristics,
-                event.last_known_battlefield,
-            )
-        )
-        self.log(
-            "rules_event",
-            event_id=event.event_id,
-            rules_event=event.kind.value,
+BˆYˆ˜]YšY[ØÚ\˜Xİ\š\İXÜÈ\È›Û™Bˆ7Ó[h‘éì¶»§q«^vules_event=event.kind.value,
             player=self.players[player_index].name,
             subject_ids=list(subject_ids),
             source_id=source_id,
@@ -2849,166 +697,33 @@ class Game(
                 subject_id
                 for subject_id in subject_ids
                 if subject_id in event_characteristics
-                and "Artifact" in event_characteristics[subject_id][1]
-            )
-            if artifact_ids:
-                for occurrence in tuple(self.semantic_occurrences):
-                    source = self._objects.get(occurrence.object_id)
-                    mode = (
-                        None
-                        if source is None
-                        else self._artifact_dependency_mode(
-                            occurrence.oracle_fragment, source.card.name
-                        )
-                    )
-                    if (
-                        mode is not None
-                        and isinstance(source, Permanent)
-                        and self.is_authoritative(source, "battlefield")
-                        and source.controller == player_index
-                        and (
-                            mode != "self_other_artifact_count"
-                            or "Artifact" in event_characteristics[source.object_id][1]
-                        )
-                    ):
-                        counted_ids = tuple(
-                            sorted(
-                                object_id
-                                for object_id, controller in event.battlefield_authority
-                                if controller == player_index
-                                and object_id in event_characteristics
-                                and "Artifact" in event_characteristics[object_id][1]
-                                and not (
-                                    mode == "self_other_artifact_count"
-                                    and object_id == source.object_id
-                                )
-                            )
-                        )
-                        self._new_opportunity_context(
-                            "artifact_dependency",
-                            controller=source.controller,
-                            source_id=source.object_id,
-                            subject_ids=artifact_ids,
-                            facts=(
-                                ("affected_object_id", source.object_id),
-                                ("artifact_count", str(len(counted_ids))),
-                                ("counted_artifact_ids", ",".join(counted_ids)),
-                                (
-                                    "excluded_source_id",
-                                    source.object_id if mode == "self_other_artifact_count" else "",
-                                ),
-                                ("predicate", mode),
-                            ),
-                            event_id=event.event_id,
-                        )
-        return event
-
-    def _authenticate_original_rules_event(self, event: RulesEvent) -> RulesEventEvidence:
-        """Join one derived typed event back to its independent creation-time evidence."""
-        records = [item for item in self._rules_event_evidence if item.event_id == event.event_id]
-        ledger = [
-            item
-            for item in self.events
-            if item.get("event") == "rules_event" and item.get("event_id") == event.event_id
-        ]
-        if len(records) != 1 or len(ledger) != 1:
-            raise ValueError("rules event lacks unique original evidence")
-        evidence = records[0]
-        expected = (
-            evidence.event_id,
-            evidence.kind,
-            evidence.player_index,
-            evidence.subject_ids,
-            evidence.source_id,
-            evidence.target_player,
-            evidence.amount,
-            evidence.turn,
-            evidence.step,
-            evidence.active_player,
-            evidence.battlefield_authority,
-            evidence.battlefield_characteristics,
-            evidence.last_known_battlefield,
-        )
-        actual = (
-            event.event_id,
-            event.kind,
-            event.player_index,
-            event.subject_ids,
-            event.source_id,
-            event.target_player,
-            event.amount,
-            event.turn,
-            event.step,
-            event.active_player,
-            event.battlefield_authority,
-            event.battlefield_characteristics,
-            event.last_known_battlefield,
-        )
-        log = ledger[0]
-        serialized_authority = tuple(
-            (item.get("object_id"), item.get("controller"))
-            for item in log.get("battlefield_authority", [])
-        )
-        serialized_characteristics = tuple(
-            (
-                item.get("object_id"),
-                item.get("controller"),
-                item.get("type_line"),
-            )
-            for item in log.get("battlefield_characteristics", [])
-        )
-        serialized_last_known = tuple(
-            (
-                item.get("object_id"),
-                item.get("controller"),
-                item.get("type_line"),
-                item.get("is_creature"),
-            )
-            for item in log.get("last_known_battlefield", [])
-        )
-        if (
-            expected != actual
-            or evidence.event_cursor != self._event_number(event.event_id)
-            or log.get("rules_event") != evidence.kind.value
-            or log.get("subject_ids") != list(evidence.subject_ids)
-            or log.get("source_id") != evidence.source_id
-            or log.get("target_player") != evidence.target_player
-            or log.get("amount") != evidence.amount
-            or log.get("event_turn") != evidence.turn
-            or log.get("event_step") != evidence.step
-            or log.get("event_active_player") != evidence.active_player
-            or serialized_authority != evidence.battlefield_authority
-            or serialized_characteristics != evidence.battlefield_characteristics
-            or serialized_last_known != evidence.last_known_battlefield
-        ):
-            raise ValueError("rules event disagrees with immutable original evidence")
-        return evidence
-
-    def deal_damage(
-        self, transaction: DamageTransaction, *, defer_post_damage: bool = False
-    ) -> RulesEvent:
-        """Validate and atomically apply one bounded noncombat damage transaction."""
-        if not isinstance(transaction, DamageTransaction):
-            raise ValueError("damage requires a typed transaction")
-        if transaction.controller not in range(2):
-            raise ValueError("damage controller is invalid")
-        if not isinstance(transaction.amount, int) or isinstance(transaction.amount, bool):
-            raise ValueError("damage amount must be an integer")
-        if transaction.amount <= 0:
-            raise ValueError("damage amount must be positive")
-        source = transaction.source
-        source_authoritative = self.is_authoritative(
-            source, "battlefield"
-        ) or self.is_authoritative(source, "stack")
-        if not source_authoritative:
-            raise ValueError("damage source is not authoritative")
-        if transaction.controller != source.controller:
-            raise ValueError("damage controller does not control its source")
-
-        target: Permanent | None = None
-        target_player = transaction.target_player
-        if transaction.target_kind is DamageTargetKind.PLAYER:
-            if target_player not in range(2) or transaction.target is not None:
+                and "Artifact" in event_chYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ…É…Ñ•É¥ÍÑ¥ÍmÍÕ‰©•Ñ}¥‘ulÅt(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜…ÉÑ¥™…Ñ}¥‘Ìè(€€€€€€€€€€€€€€€™½È½ÕÉÉ•¹”¥¸ÑÕÁ±”¡Í•±˜¹Í•µ…¹Ñ¥}½ÕÉÉ•¹•Ì¤è(€€€€€€€€€€€€€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½ÕÉÉ•¹”¹½‰©•Ñ}¥¤(€€€€€€€€€€€€€€€€€€€µ½‘”€ô€ (€€€€€€€€€€€€€€€€€€€€€€€9½¹”(€€€€€€€€€€€€€€€€€€€€€€€¥˜Í½ÕÉ”¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€€€€€•±Í”Í•±˜¹}…ÉÑ¥™…Ñ}‘•Á•¹‘•¹å}µ½‘” (€€€€€€€€€€€€€€€€€€€€€€€€€€€½ÕÉÉ•¹”¹½É…±•}™É…µ•¹Ğ°Í½ÕÉ”¹…É¹¹…µ”(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€µ½‘”¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€€€€€€€€…¹¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€€€€€€€€€€€€€…¹Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í½ÕÉ”°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€€€€€€€€€…¹Í½ÕÉ”¹½¹ÑÉ½±±•È€ôôÁ±…å•É}¥¹‘•à(€€€€€€€€€€€€€€€€€€€€€€€…¹€ (€€€€€€€€€€€€€€€€€€€€€€€€€€€µ½‘”€„ô€‰Í•±™}½Ñ¡•É}…ÉÑ¥™…Ñ}½Õ¹Ğˆ(€€€€€€€€€€€€€€€€€€€€€€€€€€€½È€‰ÉÑ¥™…Ğˆ¥¸•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥ÍmÍ½ÕÉ”¹½‰©•Ñ}¥‘ulÅt(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€€€€€½Õ¹Ñ•‘}¥‘Ì€ôÑÕÁ±” (€€€€€€€€€€€€€€€€€€€€€€€€€€€Í½ÉÑ• (€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€½‰©•Ñ}¥(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€™½È½‰©•Ñ}¥°½¹ÑÉ½±±•È¥¸•Ù•¹Ğ¹‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñä(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€¥˜½¹ÑÉ½±±•È€ôôÁ±…å•É}¥¹‘•à(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€…¹½‰©•Ñ}¥¥¸•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥Ì(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€…¹€‰ÉÑ¥™…Ğˆ¥¸•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥Ím½‰©•Ñ}¥‘ulÅt(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€…¹¹½Ğ€ (€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€µ½‘”€ôô€‰Í•±™}½Ñ¡•É}…ÉÑ¥™…Ñ}½Õ¹Ğˆ(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€…¹½‰©•Ñ}¥€ôôÍ½ÕÉ”¹½‰©•Ñ}¥(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}¹•İ}½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áĞ (€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰…ÉÑ¥™…Ñ}‘•Á•¹‘•¹äˆ°(€€€€€€€ƒ}5¶‰ËkºwµçWfVçB’Óâ'VÆW4WfVçDWf–FVæ6S ¢""$¦ö–âöæRFW&—fVBG—VBWfVçB&6²Fò—G2–æFWVæFVçB7&VF–öâ×F–ÖRWf–FVæ6Râ"" ¢&V6÷&G2Ò¶—FVÒf÷"—FVÒ–â6VÆbå÷'VÆW5öWfVçEöWf–FVæ6R–b—FVÒæWfVçEö–BÓÒWfVçBæWfVçEö–EĞ¢ÆVFvW"Ò°¢—FVĞ¢f÷"—FVÒ–â6VÆbæWfVçG0¢–b—FVÒævWB‚&WfVçB"’ÓÒ''VÆW5öWfVçB"æB—FVÒævWB‚&WfVçEö–B"’ÓÒWfVçBæWfVçEö–@¢Ğ¢–bÆVâ‡&V6÷&G2’Ò÷"ÆVâ†ÆVFvW"’Ò ¢&—6RfÇVTW'&÷"‚''VÆW2WfVçBÆ6·2Væ—VR÷&–v–æÂWf–FVæ6R"¢Wf–FVæ6RÒ&V6÷&G5³Ğ¢W‡V7FVBÒ€¢Wf–FVæ6RæWfVçEö–BÀ¢Wf–FVæ6Ræ¶–æBÀ¢Wf–FVæ6RçÆ–W%ö–æFW‚À¢Wf–FVæ6Rç7V&¦V7Eö–G2À¢Wf–FVæ6Rç6÷W&6Uö–BÀ¢Wf–FVæ6RçF&vWE÷Æ–W"À¢Wf–FVæ6RæÖ÷VçBÀ¢Wf–FVæ6RçGW&âÀ¢Wf–FVæ6Rç7FWÀ¢Wf–FVæ6Ræ7F—fU÷Æ–W"À¢Wf–FVæ6Ræ&GFÆVf–VÆEöWF†÷&—G’À¢Wf–FVæ6Ræ&GFÆVf–VÆEö6†&7FW&—7F–72À¢Wf–FVæ6RæÆ7Eö¶æ÷våö&GFÆVf–VÆBÀ¢¢7GVÂÒ€¢WfVçBæWfVçEö–BÀ¢WfVçBæ¶–æBÀ¢WfVçBçÆ–W%ö–æFW‚À¢WfVçBç7V&¦V7Eö–G2À¢WfVçBç6÷W&6Uö–BÀ¢WfVçBçF&vWE÷Æ–W"À¢WfVçBæÖ÷VçBÀ¢WfVçBçGW&âÀ¢WfVçBç7FWÀ¢WfVçBæ7F—fU÷Æ–W"À¢WfVçBæ&GFÆVf–VÆEöWF†÷&—G’À¢WfVçBæ&GFÆVf–VÆEö6†&7FW&—7F–72À¢WfVçBæÆ7Eö¶æ÷våö&GFÆVf–VÆBÀ¢¢ÆörÒÆVFvW%³Ğ¢6W&–Æ—¦VEöWF†÷&—G’ÒGWÆR€¢†—FVÒævWB‚&ö&¦V7Eö–B"’Â—FVÒævWB‚&6öçG&öÆÆW""’¢f÷"—FVÒ–âÆörævWB‚&&GFÆVf–VÆEöWF†÷&—G’"ÂµÒ¢¢6W&–Æ—¦VEö6†&7FW&—7F–72ÒGWÆR€¢€¢—FVÒævWB‚&ö&¦V7Eö–B"’À¢—FVÒævWB‚&6öçG&öÅš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[\ˆŠKˆ][K™Ù]
+\WÛ[™HŠKˆ
+Bˆ›Üˆ][H[ˆÙË™Ù]
+˜˜]YšY[ØÚ\˜Xİ\š\İXÜÈ‹×JBˆ
+BˆÙ\šX[^™YÛ\İÚÛ›İÛˆH\Jˆ
+ˆ][K™Ù]
+›Øš™XİÚYŠKˆ][K™Ù]
+˜ÛÛ›Û\ˆŠKˆ][K™Ù]
+\WÛ[™HŠKˆ][K™Ù]
+š\×ØÜ™X]\™HŠKˆ
+Bˆ›Üˆ][H[ˆÙË™Ù]
+›\İÚÛ›İÛ—Ø˜]YšY[‹×JBˆ
+BˆYˆ
+ˆ^XİYOHXİX[ˆÜˆ]šY[˜ÙK™]™[Øİ\œÛÜˆOHÙ[‹—Ù]™[Û[X™\Š]™[™]™[ÚY
+BˆÜˆÙË™Ù]
+œ[\×Ù]™[ŠHOH]šY[˜ÙKšÚ[™˜[YBˆÜˆÙË™Ù]
+œİXš™XİÚYÈŠHOH\İ
+]šY[˜ÙKœİXš™XİÚYÊBˆÜˆÙË™Ù]
+œÛİ\˜ÙWÚYŠHOH]šY[˜ÙKœÛİ\˜ÙWÚYˆÜˆÙË™Ù]
+\™Ù]Ü^Y\ˆŠHOH]šY[˜ÙK\™Ù]Ü^Y\‚ˆÜˆÙË™Ù]
+˜[[İ[ŠHOH]šY[˜ÙK˜[[İ[ˆÜˆÙË™Ù]
+™]™[İ\›ˆŠHOH]šY[˜ÙK\›‚ˆÜˆÙË™Ù]
+™]™[Üİ\ŠHOH]šY[˜ÙKœİ\ˆÜˆÙË™Ù]
+™]™[ØXİ]™WÜ^Y\ˆŠHOH]šY[˜ÙK˜Xİ]™WÜ^Y\‚ˆÜˆÙ\šX[^™YØ]]Üš]HOH]šY[˜ÙK˜˜]YšY[Ø]]Üš]BˆÜˆÙ\šX[^™YØÚ\˜Xİ\š\İXÜÈOH]šY[˜ÙK˜˜]YšY[ØÚ\˜Xİ\š\İXÜÂˆÜˆÙ\šX[^™YÛ\İÚÛ›İÛˆOH]šY[˜ÙK›\İÚÛ›İÛ—Ø˜]YšY[ˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœ[\È]™[\ØYÜ™Y\ÈÚ][[]]X›HÜšYÚ[˜[]šY[˜ÙHŠBˆ™]\›ˆ]šY[˜ÙB‚ˆYˆX[Ù[XYÙJˆÙ[‹˜[œØXİ[Ûˆ[XYÙU˜[œØXİ[Û‹
+‹Y™\—ÜÜİÙ[XYÙNˆ›ÛÛH˜[ÙBˆ
+HOˆ[\Ñ]™[‚ˆˆˆ•˜[Y]H[™]ÛZXØ[H\HÛ™H›İ[™Y›Û˜ÛÛX˜][XYÙH˜[œØXİ[Û‹ˆˆˆ‚ˆYˆ›İ\Ú[œİ[˜ÙJ˜[œØXİ[Û‹[XYÙU˜[œØXİ[ÛŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ™[XYÙH™\]Z\™\ÈH\Y˜[œØXİ[ÛˆŠBˆYˆ˜[œØXİ[Û‹˜ÛÛ›Û\ˆ›İ[ˆ˜[™ÙJŠN‚ˆ˜Z\ÙH˜[YQ\œ›÷Ó[h‘éì¶»§q«^v) or transaction.target is not None:
                 raise ValueError("damage player target is invalid")
         elif transaction.target_kind is DamageTargetKind.CREATURE:
             candidate = transaction.target
@@ -3052,177 +767,19 @@ class Game(
         lifelink_applied = self.evaluated_lifelink(source)
         if lifelink_applied:
             self._apply_lifelink_result(
-                source,
-                transaction.amount,
-                combat=False,
-                damage_step=None,
-                target_ids=subject_ids,
-                target_players=(() if target_player is None else (target_player,)),
-            )
-        if not defer_post_damage:
-            self.check_state_based_actions()
-            self.check_life()
-            if lifelink_applied:
-                self._put_pending_triggers_on_stack()
-                self._drain_triggered_abilities()
-        return event
-
-    def choose_hand_bottom_draw(
-        self, player_index: int, program: HandBottomDrawProgram
-    ) -> HandBottomDrawPlan:
-        """Validate a private optional choice without mutating authoritative state."""
-        if player_index not in range(2) or not isinstance(program, HandBottomDrawProgram):
-            raise ValueError("hand-bottom Draw program is invalid")
-        if not program.executable:
-            raise ValueError("hand-bottom Draw program is not executable")
-        player = self.players[player_index]
-        hand_objects_before = tuple(player.hand)
-        library_objects_before = tuple(player.library)
-        hand_before = tuple(card.object_id for card in player.hand)
-        library_before = tuple(card.object_id for card in player.library)
-        view = HandBottomDrawViewV2(
-            player_index,
-            tuple((card.object_id, card.card.name) for card in player.hand),
-            decision_context(self, player_index),
-        )
-        options = (HandBottomDrawOption(None),) + tuple(
-            HandBottomDrawOption(card.object_id) for card in player.hand
-        )
-        try:
-            choice = self.hand_bottom_draw_chooser(view, options)
-            if not isinstance(choice, HandBottomDrawOption) or choice not in options:
-                raise ValueError("hand-bottom Draw chooser must return one listed option")
-            if (
-                tuple(card.object_id for card in player.hand) != hand_before
-                or tuple(card.object_id for card in player.library) != library_before
-            ):
-                raise ValueError("hand-bottom Draw choice mutated authoritative zones")
-        except Exception:
-            player.hand[:] = hand_objects_before
-            player.library[:] = library_objects_before
-            raise
-        selected = None
-        if choice.card_id is not None:
-            selected = next(
-                (card for card in player.hand if card.object_id == choice.card_id), None
-            )
-            if selected is None or not self.is_authoritative(selected, "hand"):
-                raise ValueError("hand-bottom Draw selection is stale")
-        return HandBottomDrawPlan(
-            choice,
-            selected,
-            tuple(option.card_id for option in options),
-            hand_before,
-            library_before,
-        )
-
-    def commit_hand_bottom_draw(
-        self,
-        player_index: int,
-        program: HandBottomDrawProgram,
-        plan: HandBottomDrawPlan,
-        *,
-        source_id: str,
-        oracle_fragment: str,
-    ) -> HandBottomDrawEvidence:
-        """Commit the selected move, then its conditional draw, in Oracle order."""
-        if not isinstance(plan, HandBottomDrawPlan):
-            raise ValueError("hand-bottom Draw plan is invalid")
-        choice = plan.choice
-        selected = plan.selected
-        player = self.players[player_index]
-        if (
-            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids
-            or tuple(card.object_id for card in player.library) != plan.pre_library_ids
-        ):
-            raise ValueError("hand-bottom Draw plan became stale")
-        if choice.card_id is None:
-            event = self._new_rules_event(RulesEventKind.HAND_BOTTOM_DRAW, player_index, ())
-            evidence = HandBottomDrawEvidence(
-                event.event_id,
-                player_index,
-                source_id,
-                oracle_fragment,
-                plan.offered_choice_ids,
-                plan.pre_hand_ids,
-                plan.pre_library_ids,
-                None,
-                None,
-                False,
-                False,
-                None,
-                None,
-                plan.pre_hand_ids,
-                plan.pre_library_ids,
-                True,
-            )
-        else:
-            if selected is None or not self.is_authoritative(selected, "hand"):
-                raise ValueError("hand-bottom Draw selected card became stale")
-            bottom = self.move_object(
-                selected,
-                "library",
-                reason="optional_hand_bottom_filter",
-                library_position="bottom",
-            )
-            assert isinstance(bottom, CardObject)
-            draw_source_id = player.library[-1].object_id
-            assert program.draw_quantity is not None
-            if not self.draw(player, program.draw_quantity):
-                raise AssertionError("selected card guarantees a nonempty library")
-            drawn = player.hand[-1]
-            event = self._new_rules_event(
-                RulesEventKind.HAND_BOTTOM_DRAW,
-                player_index,
-                (bottom.object_id, drawn.object_id),
-                source_id=source_id,
-            )
-            evidence = HandBottomDrawEvidence(
-                event.event_id,
-                player_index,
-                source_id,
-                oracle_fragment,
-                plan.offered_choice_ids,
-                plan.pre_hand_ids,
-                plan.pre_library_ids,
-                choice.card_id,
-                bottom.object_id,
-                True,
-                True,
-                draw_source_id,
-                drawn.object_id,
-                tuple(card.object_id for card in player.hand),
-                tuple(card.object_id for card in player.library),
-                False,
-            )
-        self.hand_bottom_draw_evidence.append(evidence)
-        self.log(
-            "hand_bottom_draw_committed",
-            event_id=evidence.event_id,
-            player=player.name,
-            source_id=source_id,
-            oracle_fragment=oracle_fragment,
-            offered_choice_ids=list(evidence.offered_choice_ids),
-            pre_hand_ids=list(evidence.pre_hand_ids),
-            pre_library_ids=list(evidence.pre_library_ids),
-            selected_hand_id=evidence.selected_hand_id,
-            library_bottom_id=evidence.library_bottom_id,
-            movement_succeeded=evidence.movement_succeeded,
-            conditional_draw_performed=evidence.conditional_draw_performed,
-            drawn_library_id=evidence.drawn_library_id,
-            drawn_hand_id=evidence.drawn_hand_id,
-            post_hand_ids=list(evidence.post_hand_ids),
-            post_library_ids=list(evidence.post_library_ids),
-            declined=evidence.declined,
-        )
-        return evidence
-
-    def choose_discard_draw(
-        self, player_index: int, program: DiscardDrawProgram
-    ) -> DiscardDrawPlan:
-        """Obtain and validate the optional discard at resolution time."""
-        if player_index not in range(2) or not isinstance(program, DiscardDrawProgram):
-            raise ValueError("discard/Draw program is invalid")
+         YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€Í½ÕÉ”°(€€€€€€€€€€€€€€€ÑÉ…¹Í…Ñ¥½¸¹…µ½Õ¹Ğ°(€€€€€€€€€€€€€€€½µ‰…Ğõ…±Í”°(€€€€€€€€€€€€€€€‘…µ…•}ÍÑ•Àõ9½¹”°(€€€€€€€€€€€€€€€Ñ…É•Ñ}¥‘ÌõÍÕ‰©•Ñ}¥‘Ì°(€€€€€€€€€€€€€€€Ñ…É•Ñ}Á±…å•ÉÌô  ¤¥˜Ñ…É•Ñ}Á±…å•È¥Ì9½¹”•±Í”€¡Ñ…É•Ñ}Á±…å•È°¤¤°(€€€€€€€€€€€€¤(€€€€€€€¥˜¹½Ğ‘•™•É}Á½ÍÑ}‘…µ…”è(€€€€€€€€€€€Í•±˜¹¡•­}ÍÑ…Ñ•}‰…Í•‘}…Ñ¥½¹Ì ¤(€€€€€€€€€€€Í•±˜¹¡•­}±¥™” ¤(€€€€€€€€€€€¥˜±¥™•±¥¹­}…ÁÁ±¥•è(€€€€€€€€€€€€€€€Í•±˜¹}ÁÕÑ}Á•¹‘¥¹}ÑÉ¥•ÉÍ}½¹}ÍÑ…¬ ¤(€€€€€€€€€€€€€€€Í•±˜¹}‘É…¥¹}ÑÉ¥•É•‘}…‰¥±¥Ñ¥•Ì ¤(€€€€€€€É•ÑÕÉ¸•Ù•¹Ğ((€€€‘•˜¡½½Í•}¡…¹‘}‰½ÑÑ½µ}‘É…Ü (€€€€€€€Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ°ÁÉ½É…´è!…¹‘	½ÑÑ½µÉ…İAÉ½É…´(€€€€¤€´ø!…¹‘	½ÑÑ½µÉ…İA±…¸è(€€€€€€€€ˆˆ‰Y…±¥‘…Ñ”„ÁÉ¥Ù…Ñ”½ÁÑ¥½¹…°¡½¥”İ¥Ñ¡½ÕĞµÕÑ…Ñ¥¹œ…ÕÑ¡½É¥Ñ…Ñ¥Ù”ÍÑ…Ñ”¸ˆˆˆ(€€€€€€€¥˜Á±…å•É}¥¹‘•à¹½Ğ¥¸É…¹” È¤½È¹½Ğ¥Í¥¹ÍÑ…¹”¡ÁÉ½É…´°!…¹‘	½ÑÑ½µÉ…İAÉ½É…´¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¡…¹µ‰½ÑÑ½´É…ÜÁÉ½É…´¥Ì¥¹Ù…±¥ˆ¤(€€€€€€€¥˜¹½ĞÁÉ½É…´¹•á•ÕÑ…‰±”è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¡…¹µ‰½ÑÑ½´É…ÜÁÉ½É…´¥Ì¹½Ğ•á•ÕÑ…‰±”ˆ¤(€€€€€€€Á±…å•È€ôÍ•±˜¹Á±…å•ÉÍmÁ±…å•É}¥¹‘•át(€€€€€€€¡…¹‘}½‰©•ÑÍ}‰•™½É”€ôÑÕÁ±”¡Á±…å•È¹¡…¹¤(€€€€€€€±¥‰É…Éå}½‰©•ÑÍ}‰•™½É”€ôÑÕÁ±”¡Á±…å•È¹±¥‰É…Éä¤(€€€€€€€¡…¹‘}‰•™½É”€ôÑÕÁ±”¡…É¹½‰©•Ñ}¥™½È…É¥¸Á±…å•È¹¡…¹¤(€€€€€€€±¥‰É…Éå}‰•™½É”€ôÑÕÁ±”¡…É¹½‰©•Ñ}¥™½È…É¥¸Á±…å•È¹±¥‰É…Éä¤(€€€€€€€Ù¥•Ü€ô!…¹‘	½ÑÑ½µÉ…İY¥•İXÈ (€€€€€€€€€€€Á±…å•É}¥¹‘•à°(€€€€€€€€€€€ÑÕÁ±” ¡…É¹½‰©•Ñ}¥°…É¹…É¹¹…µ”¤™½È…É¥¸Á±…å•È¹¡…¹¤°(€€€€€€€€€€€‘•¥Í¥½¹}½¹Ñ•áĞ¡Í•±˜°Á±…å•É}¥¹‘•à¤°(€€€€€€€€¤(€€€€€€€½ÁÑ¥½¹Ì€ô€¡!…¹‘	½ÑÑ½µÉ…İ=ÁÑ¥½¸¡9½¹”¤°¤€¬ÑÕÁ±” (€€€€€€€€€€€!…¹‘	½ÑÑ½µÉ…İ=ÁÑ¥½¸¡…É¹½‰©•Ñ}¥¤™½È…É¥¸Á±…å•È¹¡…¹(€€€€€€€€¤(€€€€€€€ÑÉäè(€€€€€€€€€€€¡½¥”€ôÍ•±˜¹¡…¹‘}‰½ÑÑ½µ}‘É…İ}¡½½Í•È¡Ù¥•Ü°½ÁÑ¥½¹Ì¤(€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡¡½¥”°!…¹‘	½ÑÑ½µÉ…İ=ÁÑ¥½¸¤½È¡½¥”¹½Ğ¥¸½ÁÑ¥½¹Ìè(€ƒ}5¶‰Ëkºwµç@¢6†ö–6RÀ¢6VÆV7FVBÀ¢GWÆR†÷F–öâæ6&Eö–Bf÷"÷F–öâ–â÷F–öç2’À¢†æEö&Vf÷&RÀ¢Æ–'&'•ö&Vf÷&RÀ¢ ¢FVb6öÖÖ—Eö†æEö&÷GFöÕöG&r€¢6VÆbÀ¢Æ–W%ö–æFWƒ¢–çBÀ¢&öw&Ó¢†æD&÷GFöÔG&u&öw&ÒÀ¢Æã¢†æD&÷GFöÔG&uÆâÀ¢¢À¢6÷W&6Uö–C¢7G"À¢÷&6ÆUög&vÖVçC¢7G"À¢’Óâ†æD&÷GFöÔG&tWf–FVæ6S ¢""$6öÖÖ—BF†R6VÆV7FVBÖ÷fRÂF†Vâ—G26öæF—F–öæÂG&rÂ–â÷&6ÆR÷&FW"â"" ¢–bæ÷B—6–ç7Fæ6R‡ÆâÂ†æD&÷GFöÔG&uÆâ“ ¢&—6RfÇVTW'&÷"‚&†æBÖ&÷GFöÒG&rÆâ—2–çfÆ–B"¢6†ö–6RÒÆâæ6†ö–6P¢6VÆV7FVBÒÆâç6VÆV7FV@¢Æ–W"Ò6VÆbçÆ–W'5·Æ–W%ö–æFW…Ğ¢–b€¢GWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æ†æB’ÒÆâç&Uö†æEö–G0¢÷"GWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æÆ–'&'’’ÒÆâç&UöÆ–'&'•ö–G0¢“ ¢&—6RfÇVTW'&÷"‚&†æBÖ&÷GFöÒG&rÆâ&V6ÖR7FÆR"¢–b6†ö–6Ræ6&Eö–B—2æöæS ¢WfVçBÒ6VÆbåöæWu÷'VÆW5öWfVçB…'VÆW4WfVçD¶–æBä„äEô$õEDôÕôE$rÂÆ–W%ö–æFW‚Â‚’¢Wf–FVæ6RÒ†æD&÷GFöÔG&tWf–FVæ6R€¢WfVçBæWfVçEö–BÀ¢Æ–W%ö–æFW‚À¢6÷W&6Uö–BÀ¢÷&6ÆUög&vÖVçBÀ¢ÆâæöffW&VEö6†ö–6Uö–G2À¢Æâç&Uö†æEö–G2À¢Æâç&UöÆ–'&'•ö–G2À¢æöæRÀ¢æöæRÀ¢fÇ6RÀ¢fÇ6RÀ¢æöæRÀ¢æöæRÀ¢Æâç&Uö†æEö–G2À¢Æâç&UöÆ–'&'•ö–G2À¢G'VRÀ¢¢VÇ6S ¢–b6VÆV7FVB—2æöæR÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR‡6VÆV7FVBÂ&†æB"“ ¢&—6RfÇVTW'&÷"‚&†æBÖ&÷GFöÒG&r6VÆV7FVB6&B&V6ÖR7Fš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[HŠBˆ›İÛHHÙ[‹›[İ™WÛØš™Xİ
+ˆÙ[XİYˆ›Xœ˜\H‹ˆ™X\ÛÛH›Ü[Û˜[Ú[™Ø›İÛWÙš[\ˆ‹ˆXœ˜\WÜÜÚ][ÛH˜›İÛH‹ˆ
+Bˆ\ÜÙ\\Ú[œİ[˜ÙJ›İÛKØ\™Øš™Xİ
+Bˆ˜]×ÜÛİ\˜ÙWÚYH^Y\‹›Xœ˜\VËLWK›Øš™XİÚYˆ\ÜÙ\›ÙÜ˜[K™˜]×Ü]X[]H\È›İ›Û™BˆYˆ›İÙ[‹™˜]Ê^Y\‹›ÙÜ˜[K™˜]×Ü]X[]JN‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠœÙ[XİYØ\™İX\˜[Y\ÈH›Û™[\HXœ˜\HŠBˆ˜]ÛˆH^Y\‹š[™ËLWBˆ]™[HÙ[‹—Û™]×Ü[\×Ù]™[
+ˆ[\Ñ]™[Ú[™’S‘Ğ“ÕÓWÑUËˆ^Y\—Ú[™^ˆ
+›İÛK›Øš™XİÚY˜]Û‹›Øš™XİÚY
+KˆÛİ\˜ÙWÚY\Ûİ\˜ÙWÚYˆ
+Bˆ]šY[˜ÙHH[™›İÛQ˜]Ñ]šY[˜ÙJˆ]™[™]™[ÚYˆ^Y\—Ú[™^ˆÛİ\˜ÙWÚYˆÜ˜XÛWÙœ˜YÛY[ˆ[‹›Ù™™\™YØÚÚXÙWÚYËˆ[‹œ™WÚ[™ÚYËˆ[‹œ™WÛXœ˜\WÚYËˆÚÚXÙK˜Ø\™ÚYˆ›İÛK›Øš™XİÚYˆYKˆYKˆ˜]×ÜÛİ\˜ÙWÚYˆ˜]Û‹›Øš™XİÚYˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹š[™
+Kˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹›Xœ˜\JKˆ˜[ÙKˆ
+BˆÙ[‹š[™Ø›İÛWÙ˜]×Ù]šY[˜ÙK˜\[™
+]šY[˜ÙJBˆÙ[‹›ÙÊˆš[™Ø›İÛWÙ˜]×ØÛÛ[Z]Y‹ˆ]™[ÚYY]šY[˜ÙK™]™[ÚYˆ^Y\\^Y\‹›˜[YKˆÛİ\˜ÙWÚY\Ûİ\˜ÙWÚYˆÜ˜XÛWÙœ˜YÛY[[Ü˜XÛWÙœ˜YÛY[ˆÙ™™\™YØÚÚXÙWÚYÏ[\İ
+]šY[˜ÙK›Ù™™\™YØÚÚXÙWÚYÊKˆ™WÚ[™ÚYÏ[\İ
+]šY[˜ÙKœ™WÚ[™ÚYÊKˆ·Ó[h‘éì¶»§q«^wr("discard/Draw program is invalid")
         if not program.executable:
             raise ValueError("discard/Draw program is not executable")
         player = self.players[player_index]
@@ -3257,167 +814,23 @@ class Game(
                 or tuple(player.graveyard) != graveyard_objects
             ):
                 raise ValueError("discard/Draw choice mutated authoritative zones")
-            if program.draw_first and (
-                self._objects != registry
-                or any(
-                    vars(obj) != state or obj.card is not state["card"] for obj, state in anchors
-                )
-                or any(not self.is_authoritative(obj, "hand") for obj in hand_objects)
-            ):
-                raise ValueError("discard/Draw choice changed authoritative identity")
-        except Exception:
-            player.hand[:] = hand_objects
-            player.library[:] = library_objects
-            player.graveyard[:] = graveyard_objects
-            if program.draw_first:
-                self._objects.clear()
-                self._objects.update(registry)
-                for obj, state in anchors:
-                    vars(obj).clear()
-                    vars(obj).update(state)
-            raise
-        finally:
-            self._mandatory_discard_choice_active = False
-        selected = (
-            None
-            if choice.card_id is None
-            else next((card for card in player.hand if card.object_id == choice.card_id), None)
-        )
-        if choice.card_id is not None and (
-            selected is None or not self.is_authoritative(selected, "hand")
-        ):
-            raise ValueError("discard/Draw selection is stale")
-        return DiscardDrawPlan(
-            choice,
-            selected,
-            tuple(option.card_id for option in options),
-            hand_ids,
-            library_ids,
-            graveyard_ids,
-        )
-
-    def commit_discard_draw(
-        self,
-        player_index: int,
-        program: DiscardDrawProgram,
-        plan: DiscardDrawPlan,
-        *,
-        trigger: TriggeredAbilityObject,
-    ) -> DiscardDrawEvidence:
-        """Commit Discard then its dependent Draw in authoritative instruction order."""
-        if not isinstance(plan, DiscardDrawPlan) or not program.executable or program.draw_first:
-            raise ValueError("discard/Draw plan is invalid")
-        provenance = self._discard_draw_attack_provenance(trigger)
-        if trigger.controller != player_index:
-            raise ValueError("discard/Draw trigger controller is mismatched")
-        player = self.players[player_index]
-        if (
-            tuple(card.object_id for card in player.hand) != plan.pre_hand_ids
-            or tuple(card.object_id for card in player.library) != plan.pre_library_ids
-            or tuple(card.object_id for card in player.graveyard) != plan.pre_graveyard_ids
-        ):
-            raise ValueError("discard/Draw plan became stale")
-        selected = plan.selected
-        discarded_id = None
-        pre_draw_top = None
-        drawn_id = None
-        movement_succeeded = False
-        draw_performed = False
-        if plan.choice.card_id is not None:
-            if selected is None or not self.is_authoritative(selected, "hand"):
-                raise ValueError("discard/Draw selected card became stale")
-            discarded = self.move_object(selected, "graveyard", reason="optional_discard")
-            assert isinstance(discarded, CardObject)
-            discarded_id = discarded.object_id
-            movement_succeeded = True
-            pre_draw_top = player.library[-1].object_id if player.library else None
-            assert program.draw_quantity is not None
-            draw_performed = self.draw(player, program.draw_quantity)
-            if draw_performed:
-                drawn_id = player.hand[-1].object_id
-        event = self._new_rules_event(
-            RulesEventKind.DISCARD_DRAW,
-            player_index,
-            tuple(object_id for object_id in (discarded_id, drawn_id) if object_id is not None),
-            source_id=trigger.source_id,
-        )
-        evidence = DiscardDrawEvidence(
-            event.event_id,
-            player_index,
-            provenance,
-            trigger.object_id,
-            trigger.source_id,
-            trigger.oracle_fragment,
-            plan.offered_choice_ids,
-            plan.pre_hand_ids,
-            plan.pre_library_ids,
-            plan.pre_graveyard_ids,
-            plan.choice.card_id,
-            discarded_id,
-            movement_succeeded,
-            draw_performed,
-            pre_draw_top,
-            drawn_id,
-            tuple(card.object_id for card in player.hand),
-            tuple(card.object_id for card in player.library),
-            tuple(card.object_id for card in player.graveyard),
-            plan.choice.card_id is None,
-        )
-        self.discard_draw_evidence.append(evidence)
-        self.log(
-            "discard_draw_committed",
-            event_id=evidence.event_id,
-            attack_event_id=provenance.event_id,
-            attack_event_kind=provenance.event_kind.value,
-            attack_subject_ids=list(provenance.subject_ids),
-            attack_turn=provenance.turn,
-            attack_step=provenance.step,
-            stack_object_id=trigger.object_id,
-            source_id=trigger.source_id,
-            player=player.name,
-            oracle_fragment=trigger.oracle_fragment,
-            selected_hand_id=evidence.selected_hand_id,
-            discarded_graveyard_id=evidence.discarded_graveyard_id,
-            movement_succeeded=evidence.movement_succeeded,
-            conditional_draw_performed=evidence.conditional_draw_performed,
-            pre_draw_top_id=evidence.pre_draw_top_id,
-            drawn_hand_id=evidence.drawn_hand_id,
-            declined=evidence.declined,
-        )
-        return evidence
-
-    def _validate_etb_draw_discard_trigger(self, ability: TriggeredAbilityObject) -> None:
-        if not self._priority_resolution_in_progress and (
-            self.priority_state is None or not self.priority_state.resolution_pending
-        ):
-            raise ValueError("ETB Draw/discard requires Priority resolution")
-        anchor = self._draw_discard_anchors.get(ability.object_id)
-        if anchor is None:
-            raise ValueError("ETB Draw/discard lacks Stack provenance")
-        original, trigger, source, card = anchor
-        self._authenticate_original_rules_event(ability.event)
-        if (
-            ability is not original
-            or self._objects.get(ability.object_id) is not ability
-            or self._triggers.get(ability.trigger_id) is not trigger
-            or self._objects.get(trigger.source_id) is not source
-            or source.card is not card
-            or source.object_id != trigger.source_id
-            or source.zone not in {"battlefield", "former"}
-            or ability.source_card is not card
-            or ability.source_id != trigger.source_id
-            or ability.controller != trigger.controller
-            or ability.oracle_fragment != trigger.oracle_fragment
-            or ability.effect is not TriggerEffect.ETB_DRAW_DISCARD
-            or ability.event is not trigger.event
-            or self._rules_events.get(trigger.event.event_id) is not trigger.event
-            or ability.trigger_id in self._draw_discard_consumed
-            or self.interpreter.etb_draw_discard_semantic_coverage(card, ability.oracle_fragment)
-            is None
-        ):
-            raise ValueError("ETB Draw/discard trigger provenance is invalid or consumed")
-
-    def _resolve_etb_draw_discard(self, ability: TriggeredAbilityObject) -> None:
+            if prograYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ´¹‘É…İ}™¥ÉÍĞ…¹€ (€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ€„ôÉ•¥ÍÑÉä(€€€€€€€€€€€€€€€½È…¹ä (€€€€€€€€€€€€€€€€€€€Ù…ÉÌ¡½‰¨¤€„ôÍÑ…Ñ”½È½‰¨¹…É¥Ì¹½ĞÍÑ…Ñ•l‰…É‰t™½È½‰¨°ÍÑ…Ñ”¥¸…¹¡½ÉÌ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€½È…¹ä¡¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡½‰¨°€‰¡…¹ˆ¤™½È½‰¨¥¸¡…¹‘}½‰©•ÑÌ¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰‘¥Í…É½É…Ü¡½¥”¡…¹•…ÕÑ¡½É¥Ñ…Ñ¥Ù”¥‘•¹Ñ¥Ñäˆ¤(€€€€€€€•á•ÁĞá•ÁÑ¥½¸è(€€€€€€€€€€€Á±…å•È¹¡…¹‘lét€ô¡…¹‘}½‰©•ÑÌ(€€€€€€€€€€€Á±…å•È¹±¥‰É…Éålét€ô±¥‰É…Éå}½‰©•ÑÌ(€€€€€€€€€€€Á±…å•È¹É…Ù•å…É‘lét€ôÉ…Ù•å…É‘}½‰©•ÑÌ(€€€€€€€€€€€¥˜ÁÉ½É…´¹‘É…İ}™¥ÉÍĞè(€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ¹±•…È ¤(€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ¹ÕÁ‘…Ñ”¡É•¥ÍÑÉä¤(€€€€€€€€€€€€€€€™½È½‰¨°ÍÑ…Ñ”¥¸…¹¡½ÉÌè(€€€€€€€€€€€€€€€€€€€Ù…ÉÌ¡½‰¨¤¹±•…È ¤(€€€€€€€€€€€€€€€€€€€Ù…ÉÌ¡½‰¨¤¹ÕÁ‘…Ñ”¡ÍÑ…Ñ”¤(€€€€€€€€€€€É…¥Í”(€€€€€€€™¥¹…±±äè(€€€€€€€€€€€Í•±˜¹}µ…¹‘…Ñ½Éå}‘¥Í…É‘}¡½¥•}…Ñ¥Ù”€ô…±Í”(€€€€€€€Í•±•Ñ•€ô€ (€€€€€€€€€€€9½¹”(€€€€€€€€€€€¥˜¡½¥”¹…É‘}¥¥Ì9½¹”(€€€€€€€€€€€•±Í”¹•áĞ ¡…É™½È…É¥¸Á±…å•È¹¡…¹¥˜…É¹½‰©•Ñ}¥€ôô¡½¥”¹…É‘}¥¤°9½¹”¤(€€€€€€€€¤(€€€€€€€¥˜¡½¥”¹…É‘}¥¥Ì¹½Ğ9½¹”…¹€ (€€€€€€€€€€€Í•±•Ñ•¥Ì9½¹”½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í•±•Ñ•°€‰¡…¹ˆ¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰‘¥Í…É½É…ÜÍ•±•Ñ¥½¸¥ÌÍÑ…±”ˆ¤(€€€€€€€É•ÑÕÉ¸¥Í…É‘É…İA±…¸ (€€€€€€€€€€€¡½¥”°(€€€€€€€€€€€Í•±•Ñ•°(€€€€€€€€€€€ÑÕÁ±”¡½ÁÑ¥½¸¹…É‘}¥™½È½ÁÑ¥½¸¥¸½ÁÑ¥½¹Ì¤°(€€€€€€€€€€€¡…¹‘}¥‘Ì°(€€€€€€€€€€€±¥‰É…Éå}¥‘Ì°(€€€€€€€€€€€É…Ù•å…É‘}¥‘Ì°(€€€€€€€€¤((€€€‘•˜½µµ¥Ñ}‘¥Í…É‘}‘É…Ü (€€€€€€€Í•±˜°(€€€€€€€Á±…å•É}¥¹‘•àè¥¹Ğ°(€€€€€€€ÁÉ½É…´è¥Í…É‘É…İAÉ½É…´°(€€€€€€€Á±…¸è¥Í…É‘É…İA±…¸°(€€€€€€€€¨°(€€€€€€€ÑÉ¥•ÈèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ°(€€€€¤€´ø¥Í…É‘É…İÙ¥‘•¹”è(€€€€€€€€ˆˆ‰½µµ¥Ğ¥Í…ÉÑ¡•¸¥ÑÌ‘•Á•¹‘•¹ĞÉ…Ü¥¸…ÕÑ¡½É¥Ñ…Ñ¥Ù”¥¹ÍÑÉÕÑ¥½¸½É‘•È¸ˆˆˆ(€ƒ}5¶‰ËkºwµçFW&f÷&ÖVBÒfÇ6P¢–bÆâæ6†ö–6Ræ6&Eö–B—2æ÷BæöæS ¢–b6VÆV7FVB—2æöæR÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR‡6VÆV7FVBÂ&†æB"“ ¢&—6RfÇVTW'&÷"‚&F—66&BôG&r6VÆV7FVB6&B&V6ÖR7FÆR"¢F—66&FVBÒ6VÆbæÖ÷fUöö&¦V7B‡6VÆV7FVBÂ&w&fW–&B"Â&V6öãÒ&÷F–öæÅöF—66&B"¢76W'B—6–ç7Fæ6R†F—66&FVBÂ6&Dö&¦V7B¢F—66&FVEö–BÒF—66&FVBæö&¦V7Eö–@¢Ö÷fVÖVçE÷7V66VVFVBÒG'VP¢&UöG&u÷F÷ÒÆ–W"æÆ–'&'•²ÓÒæö&¦V7Eö–B–bÆ–W"æÆ–'&'’VÇ6RæöæP¢76W'B&öw&ÒæG&u÷VçF—G’—2æ÷BæöæP¢G&u÷W&f÷&ÖVBÒ6VÆbæG&r‡Æ–W"Â&öw&ÒæG&u÷VçF—G’¢–bG&u÷W&f÷&ÖVC ¢G&våö–BÒÆ–W"æ†æE²ÓÒæö&¦V7Eö–@¢WfVçBÒ6VÆbåöæWu÷'VÆW5öWfVçB€¢'VÆW4WfVçD¶–æBäD•44$EôE$rÀ¢Æ–W%ö–æFW‚À¢GWÆR†ö&¦V7Eö–Bf÷"ö&¦V7Eö–B–â†F—66&FVEö–BÂG&våö–B’–bö&¦V7Eö–B—2æ÷BæöæR’À¢6÷W&6Uö–C×G&–vvW"ç6÷W&6Uö–BÀ¢¢Wf–FVæ6RÒF—66&DG&tWf–FVæ6R€¢WfVçBæWfVçEö–BÀ¢Æ–W%ö–æFW‚À¢&÷fVææ6RÀ¢G&–vvW"æö&¦V7Eö–BÀ¢G&–vvW"ç6÷W&6Uö–BÀ¢G&–vvW"æ÷&6ÆUög&vÖVçBÀ¢ÆâæöffW&VEö6†ö–6Uö–G2À¢Æâç&Uö†æEö–G2À¢Æâç&UöÆ–'&'•ö–G2À¢Æâç&Uöw&fW–&Eö–G2À¢Æâæ6†ö–6Ræ6&Eö–BÀ¢F—66&FVEö–BÀ¢Ö÷fVÖVçE÷7V66VVFVBÀ¢G&u÷W&f÷&ÖVBÀ¢&UöG&u÷F÷À¢G&våö–BÀ¢GWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æ†æB’À¢GWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æÆ–'&'’’À¢GWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æw&fW–&B’À¢Æâæ6†ö–6Ræ6&Eö–B—2æöæRÀ¢¢6VÆbæF—66&EöG&uöWf–FVæ6RæVæB†Wf–FVæ6Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍJBˆÙ[‹›ÙÊˆ™\ØØ\™Ù˜]×ØÛÛ[Z]Y‹ˆ]™[ÚYY]šY[˜ÙK™]™[ÚYˆ]XÚ×Ù]™[ÚY\›İ™[˜[˜ÙK™]™[ÚYˆ]XÚ×Ù]™[ÚÚ[™\›İ™[˜[˜ÙK™]™[ÚÚ[™˜[YKˆ]XÚ×ÜİXš™XİÚYÏ[\İ
+›İ™[˜[˜ÙKœİXš™XİÚYÊKˆ]XÚ×İ\›\›İ™[˜[˜ÙK\›‹ˆ]XÚ×Üİ\\›İ™[˜[˜ÙKœİ\ˆİXÚ×ÛØš™XİÚY]šYÙÙ\‹›Øš™XİÚYˆÛİ\˜ÙWÚY]šYÙÙ\‹œÛİ\˜ÙWÚYˆ^Y\\^Y\‹›˜[YKˆÜ˜XÛWÙœ˜YÛY[]šYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[ˆÙ[XİYÚ[™ÚYY]šY[˜ÙKœÙ[XİYÚ[™ÚYˆ\ØØ\™YÙÜ˜]™^X\™ÚYY]šY[˜ÙK™\ØØ\™YÙÜ˜]™^X\™ÚYˆ[İ™[Y[ÜİXØÙYYYY]šY[˜ÙK›[İ™[Y[ÜİXØÙYYYˆÛÛ™][Û˜[Ù˜]×Ü\™›Ü›YYY]šY[˜ÙK˜ÛÛ™][Û˜[Ù˜]×Ü\™›Ü›YYˆ™WÙ˜]×İÜÚYY]šY[˜ÙKœ™WÙ˜]×İÜÚYˆ˜]Û—Ú[™ÚYY]šY[˜ÙK™˜]Û—Ú[™ÚYˆXÛ[™YY]šY[˜ÙK™XÛ[™Yˆ
+Bˆ™]\›ˆ]šY[˜ÙB‚ˆYˆİ˜[Y]WÙ]—Ù˜]×Ù\ØØ\™İšYÙÙ\ŠÙ[‹Xš[]NˆšYÙÙ\™YXš[]SØš™Xİ
+HOˆ›Û™N‚ˆYˆ›İÙ[‹—Üš[Üš]WÜ™\ÛÛ][Û—Ú[—Ü›ÙÜ™\ÜÈ[™
+ˆÙ[‹œš[Üš]WÜİ]H\È›Û™HÜˆ›İÙ[‹œš[Üš]WÜİ]Kœ™\ÛÛ][Û—Ü[™[™Âˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ‘Uˆ˜]ËÙ\ØØ\™™\]Z\™\Èš[Üš]H™\ÛÛ][ÛˆŠBˆ[˜ÚÜˆHÙ[‹—Ù˜]×Ù\ØØ\™Ø[˜ÚÜœË™Ù]
+Xš[]K›Øš™XİÚY
+BˆYˆ[˜ÚÜˆ\È›Û™N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ‘Uˆ˜]ËÙ\ØØ\™XÚÜÈİXÚÈ›İ™[˜[˜ÙHŠBˆÜšYÚ[˜[šYÙÙ\‹Ûİ\˜ÙKØ\™H[˜ÚÜ‚ˆÙ[‹—Ø]][XØ]WÛÜšYÚ[˜[Ü[\×Ù]™[
+Xš[]K™]™[
+BˆYˆ
+ˆXš[]H\È›İÜšYÚ[˜[ˆÜˆÙ[‹—ÛØš™XİË™Ù]
+Xš[]K›Øš™XİÚY
+H\È›İXš[]BˆÜˆÙ[‹—İšYÙÙ\œË™Ù]
+Xš[]KšYÙÙ\—ÚY
+H\È›İšYÙÙ\‚ˆÜˆÙ[‹—ÛØš™XİË™Ù]
+šYÙÙ\‹œÛİ\˜ÙWÚY
+wÓ[h‘éì¶»§q«^uw_discard(self, ability: TriggeredAbilityObject) -> None:
         self._validate_etb_draw_discard_trigger(ability)
         if ability.zone != "former":
             raise ValueError("ETB Draw/discard requires Priority resolution")
@@ -3451,152 +864,22 @@ class Game(
             pre_library_ids=list(library_before),
             pre_graveyard_ids=list(graveyard_before),
             draw_succeeded=draw_succeeded,
-            drawn_library_id=library_before[-1] if library_before else None,
-            drawn_hand_id=drawn_id,
-            post_draw_hand_ids=list(plan.pre_hand_ids),
-            offered_choice_ids=list(plan.offered_choice_ids),
-            selected_hand_id=plan.choice.card_id,
-            discarded_graveyard_id=discarded_id,
-            post_hand_ids=[obj.object_id for obj in player.hand],
-            post_library_ids=[obj.object_id for obj in player.library],
-            post_graveyard_ids=[obj.object_id for obj in player.graveyard],
-            failed_draw_pending=player.failed_draw_pending,
-        )
-
-    def _resolve_etb_mill_draw_discard(self, ability: TriggeredAbilityObject) -> None:
-        anchor = self._mill_draw_discard_anchors.get(ability.object_id)
-        semantics = self.interpreter.etb_mill_draw_discard_semantic_coverage(
-            ability.source_card, ability.oracle_fragment
-        )
-        if (
-            anchor is None
-            or ability.zone != "former"
-            or ability.trigger_id in self._mill_draw_discard_consumed
-            or semantics is None
-            or not semantics.coverage.fully_supported
-        ):
-            raise ValueError("ETB mill/draw/discard trigger provenance is invalid or consumed")
-        source, trigger = anchor
-        if source.card is not ability.source_card or trigger.event is not ability.event:
-            raise ValueError("ETB mill/draw/discard source was relinked")
-        self._mill_draw_discard_consumed.add(ability.trigger_id)
-        player = self.players[ability.controller]
-        library_before = tuple(card.object_id for card in player.library)
-        hand_before = tuple(card.object_id for card in player.hand)
-        graveyard_before = tuple(card.object_id for card in player.graveyard)
-        milled = []
-        for _ in range(min(semantics.program.mill_quantity, len(player.library))):
-            moved = self.move_object(player.library[-1], "graveyard", reason="etb_mill")
-            milled.append(moved.object_id)
-        draw_count = semantics.program.draw_quantity or 0
-        draw_succeeded = self.draw(player, draw_count)
-        discard_count = min(semantics.program.discard_quantity or 0, len(player.hand))
-        discarded = []
-        for card in tuple(player.hand[:discard_count]):
-            moved = self.move_object(card, "graveyard", reason="etb_mandatory_discard")
-            discarded.append(moved.object_id)
-        self.log(
-            "etb_mill_draw_discard_committed",
-            event_id=ability.event.event_id,
-            trigger_id=ability.trigger_id,
-            stack_object_id=ability.object_id,
-            source_id=ability.source_id,
-            controller=ability.controller,
-            oracle_fragment=ability.oracle_fragment,
-            library_before=list(library_before),
-            hand_before=list(hand_before),
-            graveyard_before=list(graveyard_before),
-            milled_ids=milled,
-            draw_count=draw_count,
-            draw_succeeded=draw_succeeded,
-            discarded_ids=discarded,
-            library_after=[card.object_id for card in player.library],
-            hand_after=[card.object_id for card in player.hand],
-            graveyard_after=[card.object_id for card in player.graveyard],
-        )
-
-    @staticmethod
-    def validate_draw_discard_snapshot_evidence(snapshot: dict[str, object]) -> None:
-        """Reconstruct the bounded ETB transaction from independent event records."""
-        events = snapshot.get("events", [])
-        committed = [
-            (i, e) for i, e in enumerate(events) if e.get("event") == "etb_draw_discard_committed"
-        ]
-        resolutions = [
-            e
-            for e in events
-            if e.get("event") == "trigger_resolved" and e.get("effect") == "etb_draw_discard"
-        ]
-        if len(committed) != len(resolutions):
-            raise ValueError("ETB Draw/discard evidence lacks a unique resolution")
-        seen = set()
-        for cursor, item in committed:
-            try:
-                stack_id = item["stack_object_id"]
-                assert stack_id not in seen
-                seen.add(stack_id)
-                source_id, event_id = item["source_id"], item["event_id"]
-                controller = item["controller"]
-                assert controller in (0, 1)
-                entry = [
-                    (i, e)
-                    for i, e in enumerate(events[:cursor])
-                    if e.get("event") == "rules_event" and e.get("event_id") == event_id
-                ]
-                assert len(entry) == 1
-                entry_cursor, entry_event = entry[0]
-                assert entry_event["rules_event"] == "creature_entered"
-                assert entry_event["subject_ids"] == [source_id]
-                assert {"object_id": source_id, "controller": controller} in entry_event[
-                    "battlefield_authority"
-                ]
-                pending = [
-                    (i, e)
-                    for i, e in enumerate(events[:cursor])
-                    if e.get("event") == "trigger_pending"
-                    and e.get("trigger_id") == item["trigger_id"]
-                ]
-                stacked = [
-                    (i, e)
-                    for i, e in enumerate(events[:cursor])
-                    if e.get("event") == "trigger_stacked" and e.get("stack_object_id") == stack_id
-                ]
-                permitted = [
-                    (i, e)
-                    for i, e in enumerate(events[:cursor])
-                    if e.get("event") == "stack_resolution_permitted"
-                    and e.get("stack_object_id") == stack_id
-                ]
-                resolved = [
-                    (i, e)
-                    for i, e in enumerate(events)
-                    if e.get("event") == "trigger_resolved" and e.get("stack_object_id") == stack_id
-                ]
-                assert len(pending) == len(stacked) == len(permitted) == len(resolved) == 1
-                pending_cursor, pending_event = pending[0]
-                stacked_cursor, stacked_event = stacked[0]
-                permitted_cursor, permission = permitted[0]
-                resolved_cursor, resolution = resolved[0]
-                assert pending_event["event_id"] == stacked_event["event_id"] == event_id
-                assert stacked_event["trigger_id"] == item["trigger_id"]
-                assert pending_event["oracle_fragment"] == item["oracle_fragment"]
-                assert (
-                    pending_event["controller"]
-                    == stacked_event["controller"]
-                    == entry_event["player"]
-                )
-                assert resolution["event_id"] == event_id and resolution["source_id"] == source_id
-                assert resolution["trigger_id"] == item["trigger_id"]
-                assert resolution["oracle_fragment"] == item["oracle_fragment"]
-                assert resolution["effect"] == "etb_draw_discard"
-                start = item["start_event_cursor"]
-                assert (
-                    entry_cursor
-                    < pending_cursor
-                    < stacked_cursor
-                    < permitted_cursor
-                    < start
-                    <= cursor
+            drawn_library_id=library_before[-1] if lYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ¥‰É…Éå}‰•™½É”•±Í”9½¹”°(€€€€€€€€€€€‘É…İ¹}¡…¹‘}¥õ‘É…İ¹}¥°(€€€€€€€€€€€Á½ÍÑ}‘É…İ}¡…¹‘}¥‘Ìõ±¥ÍĞ¡Á±…¸¹ÁÉ•}¡…¹‘}¥‘Ì¤°(€€€€€€€€€€€½™™•É•‘}¡½¥•}¥‘Ìõ±¥ÍĞ¡Á±…¸¹½™™•É•‘}¡½¥•}¥‘Ì¤°(€€€€€€€€€€€Í•±•Ñ•‘}¡…¹‘}¥õÁ±…¸¹¡½¥”¹…É‘}¥°(€€€€€€€€€€€‘¥Í…É‘•‘}É…Ù•å…É‘}¥õ‘¥Í…É‘•‘}¥°(€€€€€€€€€€€Á½ÍÑ}¡…¹‘}¥‘Ìõm½‰¨¹½‰©•Ñ}¥™½È½‰¨¥¸Á±…å•È¹¡…¹‘t°(€€€€€€€€€€€Á½ÍÑ}±¥‰É…Éå}¥‘Ìõm½‰¨¹½‰©•Ñ}¥™½È½‰¨¥¸Á±…å•È¹±¥‰É…Éåt°(€€€€€€€€€€€Á½ÍÑ}É…Ù•å…É‘}¥‘Ìõm½‰¨¹½‰©•Ñ}¥™½È½‰¨¥¸Á±…å•È¹É…Ù•å…É‘t°(€€€€€€€€€€€™…¥±•‘}‘É…İ}Á•¹‘¥¹œõÁ±…å•È¹™…¥±•‘}‘É…İ}Á•¹‘¥¹œ°(€€€€€€€€¤((€€€‘•˜}É•Í½±Ù•}•Ñ‰}µ¥±±}‘É…İ}‘¥Í…É¡Í•±˜°…‰¥±¥ÑäèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ¤€´ø9½¹”è(€€€€€€€…¹¡½È€ôÍ•±˜¹}µ¥±±}‘É…İ}‘¥Í…É‘}…¹¡½ÉÌ¹•Ğ¡…‰¥±¥Ñä¹½‰©•Ñ}¥¤(€€€€€€€Í•µ…¹Ñ¥Ì€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹•Ñ‰}µ¥±±}‘É…İ}‘¥Í…É‘}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€¤(€€€€€€€¥˜€ (€€€€€€€€€€€…¹¡½È¥Ì9½¹”(€€€€€€€€€€€½È…‰¥±¥Ñä¹é½¹”€„ô€‰™½Éµ•Èˆ(€€€€€€€€€€€½È…‰¥±¥Ñä¹ÑÉ¥•É}¥¥¸Í•±˜¹}µ¥±±}‘É…İ}‘¥Í…É‘}½¹ÍÕµ•(€€€€€€€€€€€½ÈÍ•µ…¹Ñ¥Ì¥Ì9½¹”(€€€€€€€€€€€½È¹½ĞÍ•µ…¹Ñ¥Ì¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Qµ¥±°½‘É…Ü½‘¥Í…ÉÑÉ¥•ÈÁÉ½Ù•¹…¹”¥Ì¥¹Ù…±¥½È½¹ÍÕµ•ˆ¤(€€€€€€€Í½ÕÉ”°ÑÉ¥•È€ô…¹¡½È(€€€€€€€¥˜Í½ÕÉ”¹…É¥Ì¹½Ğ…‰¥±¥Ñä¹Í½ÕÉ•}…É½ÈÑÉ¥•È¹•Ù•¹Ğ¥Ì¹½Ğ…‰¥±¥Ñä¹•Ù•¹Ğè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Qµ¥±°½‘É…Ü½‘¥Í…ÉÍ½ÕÉ”İ…ÌÉ•±¥¹­•ˆ¤(€€€€€€€Í•±˜¹}µ¥±±}‘É…İ}‘¥Í…É‘}½¹ÍÕµ•¹…‘¡…‰¥±¥Ñä¹ÑÉ¥•É}¥¤(€€€€€€€Á±…å•È€ôÍ•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét(€€€€€€€±¥‰É…Éå}‰•™½É”€ôÑÕÁ±”¡…É¹½‰©•Ñ}¥™½È…É¥¸Á±…å•È¹±¥‰É…Éä¤(€€€€€€€¡…¹‘}‰•™½É”€ôÑÕÁ±”¡…É¹½‰©•Ñ}¥™½È…É¥¸Á±…å•È¹¡…¹¤(€€€€€€€É…Ù•å…É‘}‰•™½É”€ôÑÕÁ±”¡…É¹½‰©•Ñ}¥™½È…É¥¸Á±…å•È¹É…Ù•å…É¤(€€€€€€€µ¥±±•€ômt(€€€€€€€™½È|¥¸É…¹”¡µ¥¸¡Í•µ…¹Ñ¥Ì¹Ã}5¶‰ËkºwµçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢Æ–'&'•ö&Vf÷&SÖÆ—7B†Æ–'&'•ö&Vf÷&R’À¢†æEö&Vf÷&SÖÆ—7B††æEö&Vf÷&R’À¢w&fW–&Eö&Vf÷&SÖÆ—7B†w&fW–&Eö&Vf÷&R’À¢Ö–ÆÆVEö–G3ÖÖ–ÆÆVBÀ¢G&uö6÷VçCÖG&uö6÷VçBÀ¢G&u÷7V66VVFVCÖG&u÷7V66VVFVBÀ¢F—66&FVEö–G3ÖF—66&FVBÀ¢Æ–'&'•ögFW#Õ¶6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æÆ–'&'•ÒÀ¢†æEögFW#Õ¶6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æ†æEÒÀ¢w&fW–&EögFW#Õ¶6&Bæö&¦V7Eö–Bf÷"6&B–âÆ–W"æw&fW–&EÒÀ¢ ¢7FF–6ÖWF†ö@¢FVbfÆ–FFUöG&uöF—66&E÷6æ6†÷EöWf–FVæ6R‡6æ6†÷C¢F–7E·7G"Âö&¦V7EÒ’ÓâæöæS ¢""%&V6öç7G'V7BF†R&÷VæFVBUD"G&ç67F–öâg&öÒ–æFWVæFVçBWfVçB&V6÷&G2â"" ¢WfVçG2Ò6æ6†÷BævWB‚&WfVçG2"ÂµÒ¢6öÖÖ—GFVBÒ°¢†’ÂR’f÷"’ÂR–âVçVÖW&FR†WfVçG2’–bRævWB‚&WfVçB"’ÓÒ&WF%öG&uöF—66&Eö6öÖÖ—GFVB ¢Ğ¢&W6öÇWF–öç2Ò°¢P¢f÷"R–âWfVçG0¢–bRævWB‚&WfVçB"’ÓÒ'G&–vvW%÷&W6öÇfVB"æBRævWB‚&VffV7B"’ÓÒ&WF%öG&uöF—66&B ¢Ğ¢–bÆVâ†6öÖÖ—GFVB’ÒÆVâ‡&W6öÇWF–öç2“ ¢&—6RfÇVTW'&÷"‚$UD"G&röF—66&BWf–FVæ6RÆ6·2Væ—VR&W6öÇWF–öâ"¢6VVâÒ6WB‚¢f÷"7W'6÷"Â—FVÒ–â6öÖÖ—GFVC ¢G'“ ¢7F6µö–BÒ—FVÕ²'7F6µöö&¦V7Eö–B%Ğ¢76W'B7F6µö–Bæ÷B–â6VVà¢6VVâæFB‡7F6µö–B¢6÷W&6Uö–BÂWfVçEö–BÒ—FVÕ²'6÷W&6Uö–B%ÒÂ—FVÕ²&WfVçEö–B%Ğ¢6öçG&öÆÆW"Ò—FVÕ²&6öçG&öÆÆW"%Ğ¢76W'B6öçG&öÆÆW"–âƒÂ¢VçG'’Ò°¢†’ÂR¢f÷"’ÂR–âVçVÖW&FR†WfVçG5³¦7W'6÷%Ò¢–bRævWB‚&WfVçB"’ÓÒ''VÆW5öWfVçB"æBRævWB‚&WfVçEö–B"’ÓÒWfVçEö–@¢Ğ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH\ÜÙ\[Š[JHOHBˆ[WØİ\œÛÜ‹[WÙ]™[H[VÌBˆ\ÜÙ\[WÙ]™[Èœ[\×Ù]™[—HOH˜Ü™X]\™WÙ[\™Y‚ˆ\ÜÙ\[WÙ]™[ÈœİXš™XİÚYÈ—HOHÜÛİ\˜ÙWÚYBˆ\ÜÙ\È›Øš™XİÚYˆÛİ\˜ÙWÚY˜ÛÛ›Û\ˆˆÛÛ›Û\ŸH[ˆ[WÙ]™[Âˆ˜˜]YšY[Ø]]Üš]H‚ˆBˆ[™[™ÈHÂˆ
+KJBˆ›ÜˆKH[ˆ[[Y\˜]J]™[ÖÎ˜İ\œÛÜ—JBˆYˆK™Ù]
+™]™[ŠHOHšYÙÙ\—Ü[™[™È‚ˆ[™K™Ù]
+šYÙÙ\—ÚYŠHOH][VÈšYÙÙ\—ÚY—BˆBˆİXÚÙYHÂˆ
+KJBˆ›ÜˆKH[ˆ[[Y\˜]J]™[ÖÎ˜İ\œÛÜ—JBˆYˆK™Ù]
+™]™[ŠHOHšYÙÙ\—ÜİXÚÙYˆ[™K™Ù]
+œİXÚ×ÛØš™XİÚYŠHOHİXÚ×ÚYˆBˆ\›Z]YHÂˆ
+KJBˆ›ÜˆKH[ˆ[[Y\˜]J]™[ÖÎ˜İ\œÛÜ—JBˆYˆK™Ù]
+™]™[ŠHOHœİXÚ×Ü™\ÛÛ][Û—Ü\›Z]Y‚ˆ[™K™Ù]
+œİXÚ×ÛØš™XİÚYŠHOHİXÚ×ÚYˆBˆ™\ÛÛ™YHÂˆ
+KJBˆ›ÜˆKH[ˆ[[Y\˜]J]™[ÊBˆYˆK™Ù]
+™]™[ŠHOHšYÙÙ\—Ü™\ÛÛ™Yˆ[™K™Ù]
+œİXÚ×ÛØš™XİÚYŠHOHİXÚ×ÚYˆBˆ\ÜÙ\[Š[™[™ÊHOH[ŠİXÚÙY
+HOH[Š\›Z]Y
+HOH[Š™\ÛÛ™Y
+HOHBˆ[™[™×Øİ\œÛÜ‹[™[™×Ù]™[H[™[™ÖÌBˆİXÚÙYØİ\œÛÜ‹İXÚÙYÙ]™[HİXÚÙYÌBˆ\›Z]YØİ\œÛÜ‹\›Z\ÜÚ[ÛˆH\›Z]YÌBˆ™\ÛÛ™YØİ\œÛÜ‹™\ÛÛ][ÛˆH™\ÛÛ™YÌBˆ\ÜÙ\[™[™×Ù]™[È™]™[ÚY—HOHİXÚÙYÙ]™[È™]™[ÚY—HOH]™[ÚYˆ\ÜÙ\÷Ó[h‘éì¶»§q«^t   <= cursor
                     < resolved_cursor
                 )
                 passes = [
@@ -3628,158 +911,29 @@ class Game(
                     )
                     assert steps[1]["event"] == "card_drawn"
                     assert steps[1]["player"] == entry_event["player"]
-                    post_draw = before_hand + [drawn]
-                    assert item["post_library_ids"] == before_library[:-1]
-                    draw_end = 2
-                else:
-                    assert item["draw_succeeded"] is False
-                    assert item["drawn_library_id"] is None and item["drawn_hand_id"] is None
-                    assert steps[0]["event"] == "draw_failed"
-                    assert steps[0]["player"] == entry_event["player"]
-                    assert steps[0]["state_based_action_pending"] is True
-                    assert item["failed_draw_pending"] is True
-                    assert item["post_library_ids"] == []
-                    post_draw = before_hand
-                    draw_end = 1
-                assert item["post_draw_hand_ids"] == post_draw
-                selected, discarded = item["selected_hand_id"], item["discarded_graveyard_id"]
-                if post_draw:
-                    assert item["offered_choice_ids"] == post_draw and selected in post_draw
-                    assert (
-                        discarded
-                        and discarded
-                        not in before_hand + before_library + before_graveyard + post_draw
-                    )
-                    movement = steps[draw_end]
-                    assert (
-                        movement["event"] == "zone_changed"
-                        and movement["reason"] == "mandatory_discard"
-                    )
-                    assert (
-                        movement["source_zone"] == "hand"
-                        and movement["destination_zone"] == "graveyard"
-                    )
-                    assert (
-                        movement["source_object_id"] == selected
-                        and movement["destination_object_id"] == discarded
-                    )
-                    assert item["post_hand_ids"] == [x for x in post_draw if x != selected]
-                    assert item["post_graveyard_ids"] == before_graveyard + [discarded]
-                    assert len(steps) == draw_end + 1
-                else:
-                    assert selected is None and discarded is None
-                    assert item["offered_choice_ids"] == [None]
-                    assert item["post_hand_ids"] == []
-                    assert item["post_graveyard_ids"] == before_graveyard
-                    assert len(steps) == draw_end
-            except (AssertionError, KeyError, IndexError, TypeError) as error:
-                raise ValueError("ETB Draw/discard evidence does not reconstruct") from error
+                    pYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ½ÍÑ}‘É…Ü€ô‰•™½É•}¡…¹€¬m‘É…İ¹t(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰Á½ÍÑ}±¥‰É…Éå}¥‘Ì‰t€ôô‰•™½É•}±¥‰É…Éålè´Åt(€€€€€€€€€€€€€€€€€€€‘É…İ}•¹€ô€È(€€€€€€€€€€€€€€€•±Í”è(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰‘É…İ}ÍÕ••‘•‰t¥Ì…±Í”(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰‘É…İ¹}±¥‰É…Éå}¥‰t¥Ì9½¹”…¹¥Ñ•µl‰‘É…İ¹}¡…¹‘}¥‰t¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞÍÑ•ÁÍlÁul‰•Ù•¹Ğ‰t€ôô€‰‘É…İ}™…¥±•ˆ(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞÍÑ•ÁÍlÁul‰Á±…å•È‰t€ôô•¹ÑÉå}•Ù•¹Ñl‰Á±…å•È‰t(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞÍÑ•ÁÍlÁul‰ÍÑ…Ñ•}‰…Í•‘}…Ñ¥½¹}Á•¹‘¥¹œ‰t¥ÌQÉÕ”(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰™…¥±•‘}‘É…İ}Á•¹‘¥¹œ‰t¥ÌQÉÕ”(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰Á½ÍÑ}±¥‰É…Éå}¥‘Ì‰t€ôômt(€€€€€€€€€€€€€€€€€€€Á½ÍÑ}‘É…Ü€ô‰•™½É•}¡…¹(€€€€€€€€€€€€€€€€€€€‘É…İ}•¹€ô€Ä(€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰Á½ÍÑ}‘É…İ}¡…¹‘}¥‘Ì‰t€ôôÁ½ÍÑ}‘É…Ü(€€€€€€€€€€€€€€€Í•±•Ñ•°‘¥Í…É‘•€ô¥Ñ•µl‰Í•±•Ñ•‘}¡…¹‘}¥‰t°¥Ñ•µl‰‘¥Í…É‘•‘}É…Ù•å…É‘}¥‰t(€€€€€€€€€€€€€€€¥˜Á½ÍÑ}‘É…Üè(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ¥Ñ•µl‰½™™•É•‘}¡½¥•}¥‘Ì‰t€ôôÁ½ÍÑ}‘É…Ü…¹Í•±•Ñ•¥¸Á½ÍÑ}‘É…Ü(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€€€€€‘¥Í…É‘•(€€€€€€€€€€€€€€€€€€€€€€€…¹‘¥Í…É‘•(€€€€€€€€€€€€€€€€€€€€€€€¹½Ğ¥¸‰•™½É•}¡…¹€¬‰•™½É•}±¥‰É…Éä€¬‰•™½É•}É…Ù•å…É€¬Á½ÍÑ}‘É…Ü(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€µ½Ù•µ•¹Ğ€ôÍÑ•ÁÍm‘É…İ}•¹‘t(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€€€€€µ½Ù•µ•¹Ñl‰•Ù•¹Ğ‰t€ôô€‰é½¹•}¡…¹•ˆ(€€€€€€€€€€€€€€€€€€€€€€€…¹µ½Ù•µ•¹Ñl‰É•…Í½¸‰t€ôô€‰µ…¹‘…Ñ½Éå}‘¥Í…Éˆ(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€€€€€µ½Ù•µ•¹Ñl‰Í½ÕÉ•}é½¹”‰t€ôô€‰¡…¹ˆ(€€€€€€€€€€€€€€€€€€€€€€€…¹µ½Ù•µ•¹Ñl‰‘•ÍÑ¥¹…Ñ¥½¹}é½¹”‰t€ôô€‰É…Ù•å…Éˆ(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€€€€€µ½Ù•µ•¹Ñl‰Í½ÕÉ•}½‰©•Ñ}¥‰t€ôôÍ•±•Ñ•(€€€€€€€€€€€€€€€€€€€€€€€…¹µ½Ù•µ•¹Ñl‰‘•ÍÑ¥¹…Ñ¥½¹}½‰©•Ñ}¥‰t€ôô‘¥Í…É‘•(€€€€€ƒ}5¶‰Ëkºwµçg&VW¦RF†RGF6²WfVçB6'&–VB'’öæRWF†÷&—FF—fRG&–vvW"â"" ¢–b€¢æ÷B—6–ç7Fæ6R‡G&–vvW"ÂG&–vvW&VD&–Æ—G”ö&¦V7B¢÷"6VÆbåöö&¦V7G2ævWB‡G&–vvW"æö&¦V7Eö–B’—2æ÷BG&–vvW ¢÷"G&–vvW"ç¦öæRÒ&f÷&ÖW" ¢÷"G&–vvW"æVffV7B—2æ÷BG&–vvW$VffV7BäD•44$EôE$p¢÷"ç’€¢Wf–FVæ6Rç7F6µöö&¦V7Eö–BÓÒG&–vvW"æö&¦V7Eö–@¢f÷"Wf–FVæ6R–â6VÆbæF—66&EöG&uöWf–FVæ6P¢¢“ ¢&—6RfÇVTW'&÷"‚&F—66&BôG&r&÷fVææ6R&WV—&W2—G2&W6öÇf–ærG&–vvW"ö&¦V7B"¢WfVçBÒG&–vvW"æWfVç@¢–b€¢WfVçBæ¶–æB—2æ÷B'VÆW4WfVçD¶–æBäED4´U%5ôDT4Ä$T@¢÷"WfVçBç7FWÒGW&å7FWäDT4Ä$UôED4´U%2çfÇVP¢÷"WfVçBçÆ–W%ö–æFW‚ÒG&–vvW"æ6öçG&öÆÆW ¢÷"WfVçBæ7F—fU÷Æ–W"ÒG&–vvW"æ6öçG&öÆÆW ¢÷"WfVçBç7V&¦V7Eö–G2æ6÷VçB‡G&–vvW"ç6÷W&6Uö–B’Ò¢“ ¢&—6RfÇVTW'&÷"‚&F—66&BôG&rG&–vvW"†2Ö—6ÖF6†VBGF6²&÷fVææ6R"¢&WGW&âGF6µG&–vvW%&÷fVææ6R€¢WfVçBæWfVçEö–BÀ¢WfVçBæ¶–æBÀ¢WfVçBçÆ–W%ö–æFW‚À¢WfVçBç7V&¦V7Eö–G2À¢G&–vvW"ç6÷W&6Uö–BÀ¢G&–vvW"æ6öçG&öÆÆW"À¢WfVçBçGW&âÀ¢WfVçBç7FWÀ¢WfVçBæ7F—fU÷Æ–W"À¢ ¢7FF–6ÖWF†ö@¢FVbÆVvÅ÷67'•ö÷F–öç2†–ç7V7FVC¢GWÆU´6&Dö&¦V7BÂââåÒ’ÓâGWÆUµ67'”÷F–öâÂââåÓ ¢""$VçVÖW&FRWfW'’'F—F–öâæB÷&FW&–ærv—F†÷WBW‡÷6–ærWF†÷&—FF—fRö&¦V7G2â"" ¢ö&¦V7Eö–G2ÒGWÆR†6&Bæö&¦V7Eö–Bf÷"6&B–â–ç7V7FVB¢÷F–öç2Ò°¢67'”÷F–öâ†÷&FW%³§F÷ö6÷VçEÒÂ÷&FW%·F÷ö6÷VçC¥Ò¢f÷"÷&FW"–âW&×WFF–öç2†ö&¦V7Eö–G2¢f÷"F÷ö6÷VçB–â&ævR†ÆVâ†ö&¦V7Eö–G2’²¢Ğ¢–bæ÷Bö%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍZ™XİÚYÎ‚ˆÜ[ÛœË˜Y
+ØÜSÜ[ÛŠ
 
-    def _discard_draw_attack_provenance(
-        self, trigger: TriggeredAbilityObject
-    ) -> AttackTriggerProvenance:
-        """Validate and freeze the attack event carried by one authoritative trigger."""
-        if (
-            not isinstance(trigger, TriggeredAbilityObject)
-            or self._objects.get(trigger.object_id) is not trigger
-            or trigger.zone != "former"
-            or trigger.effect is not TriggerEffect.DISCARD_DRAW
-            or any(
-                evidence.stack_object_id == trigger.object_id
-                for evidence in self.discard_draw_evidence
-            )
-        ):
-            raise ValueError("discard/Draw provenance requires its resolving trigger object")
-        event = trigger.event
-        if (
-            event.kind is not RulesEventKind.ATTACKERS_DECLARED
-            or event.step != TurnStep.DECLARE_ATTACKERS.value
-            or event.player_index != trigger.controller
-            or event.active_player != trigger.controller
-            or event.subject_ids.count(trigger.source_id) != 1
-        ):
-            raise ValueError("discard/Draw trigger has mismatched attack provenance")
-        return AttackTriggerProvenance(
-            event.event_id,
-            event.kind,
-            event.player_index,
-            event.subject_ids,
-            trigger.source_id,
-            trigger.controller,
-            event.turn,
-            event.step,
-            event.active_player,
-        )
+K
 
-    @staticmethod
-    def legal_scry_options(inspected: tuple[CardObject, ...]) -> tuple[ScryOption, ...]:
-        """Enumerate every partition and ordering without exposing authoritative objects."""
-        object_ids = tuple(card.object_id for card in inspected)
-        options = {
-            ScryOption(order[:top_count], order[top_count:])
-            for order in permutations(object_ids)
-            for top_count in range(len(object_ids) + 1)
-        }
-        if not object_ids:
-            options.add(ScryOption((), ()))
-        return tuple(sorted(options, key=lambda option: (option.top_ids, option.bottom_ids)))
-
-    def scry(
-        self,
-        player_index: int,
-        program: ScryProgram,
-        *,
-        source_card: str,
-        oracle_fragment: str,
-        source_id: str | None = None,
-    ) -> ScryOption:
-        """Transactionally perform one fixed-number Scry using authoritative library objects."""
-        if player_index not in range(2):
-            raise ValueError("Scry player is invalid")
-        if not isinstance(program, ScryProgram) or not program.executable:
-            raise ValueError("Scry program is not executable")
-        assert program.amount is not None
-        library = self.players[player_index].library
-        inspected = tuple(reversed(library[-min(program.amount, len(library)) :]))
-        before = tuple(library)
-        view = ScryViewV2(
-            player_index,
-            program.amount,
-            tuple((card.object_id, card.card.name) for card in inspected),
-            decision_context(self, player_index),
-            tuple(describe_card(card.object_id, card.card) for card in inspected),
-        )
-        options = self.legal_scry_options(inspected)
-        try:
-            choice = self.scry_chooser(view, options)
-
-            if not isinstance(choice, ScryOption) or choice not in options:
-                raise ValueError("Scry chooser must return one listed option")
-            if tuple(library) != before or any(
-                self._objects.get(card.object_id) is not card
-                or not self.is_authoritative(card, "library")
-                for card in inspected
-            ):
-                raise ValueError("Scry library or inspected identity became stale")
-            selected_ids = choice.top_ids + choice.bottom_ids
-            if len(set(selected_ids)) != len(inspected) or set(selected_ids) != {
-                card.object_id for card in inspected
-            }:
-                raise ValueError("Scry choice must contain each inspected card exactly once")
-        except Exception:
-            library[:] = before
-            raise
-
-        by_id = {card.object_id: card for card in inspected}
-        inspected_identities = {id(card) for card in inspected}
-        uninspected = [card for card in library if id(card) not in inspected_identities]
-        replacement = (
-            [by_id[object_id] for object_id in choice.bottom_ids]
-            + uninspected
-            + [by_id[object_id] for object_id in reversed(choice.top_ids)]
-        )
-        if len(replacement) != len(before) or {id(card) for card in replacement} != {
-            id(card) for card in before
+JJBˆ™]\›ˆ\JÛÜY
+Ü[ÛœËÙ^O[[X™HÜ[Ûˆ
+Ü[Û‹ÜÚYËÜ[Û‹˜›İÛWÚYÊJJB‚ˆYˆØÜJˆÙ[‹ˆ^Y\—Ú[™^ˆ[ˆ›ÙÜ˜[NˆØÜT›ÙÜ˜[Kˆ
+‹ˆÛİ\˜ÙWØØ\™ˆİ‹ˆÜ˜XÛWÙœ˜YÛY[ˆİ‹ˆÛİ\˜ÙWÚYˆİˆ›Û™HH›Û™Kˆ
+HOˆØÜSÜ[Û‚ˆˆˆ•˜[œØXİ[Û˜[H\™›Ü›HÛ™Hš^Y[[X™\ˆØÜH\Ú[™È]]Üš]]]™HXœ˜\HØš™XİËˆˆˆ‚ˆYˆ^Y\—Ú[™^›İ[ˆ˜[™ÙJŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”ØÜH^Y\ˆ\È[˜[YŠBˆYˆ›İ\Ú[œİ[˜ÙJ›ÙÜ˜[KØÜT›ÙÜ˜[JHÜˆ›İ›ÙÜ˜[K™^Xİ]X›N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”ØÜH›ÙÜ˜[H\È›İ^Xİ]X›HŠBˆ\ÜÙ\›ÙÜ˜[K˜[[İ[\È›İ›Û™BˆXœ˜\HHÙ[‹œ^Y\œÖÜ^Y\—Ú[™^K›Xœ˜\Bˆ[œÜXİYH\J™]™\œÙY
+Xœ˜\VË[Z[Š›ÙÜ˜[K˜[[İ[[ŠXœ˜\JJH—JJBˆ™Y›Ü™HH\JXœ˜\JBˆšY]ÈHØÜUšY]ÕŒŠˆ^Y\—Ú[™^ˆ›ÙÜ˜[K˜[[İ[ˆ\J
+Ø\™›Øš™XİÚYØ\™˜Ø\™›˜[YJH›ÜˆØ\™[ˆ[œÜXİY
+KˆXÚ\Ú[Û—ØÛÛ^
+Ù[‹^Y\—Ú[™^
+Kˆ\J\ØÜšX™WØØ\™
+Ø\™›Øš™XİÚYØ\™˜Ø\™
+H›ÜˆØ\™[ˆ[œÜXİY
+Kˆ
+BˆÜ[ÛœÈHÙ[‹›YØ[ÜØÜWÛÜ[ÛœÊ[œÜXİY
+BˆN‚ˆÚÚXÙHHÙ[‹œØÜWØÚÛÜÙ\ŠšY]ËÜ[ÛœÊB‚ˆYˆ›İ\Ú[œİ[˜ÙJÚÚXÙKØÜSÜ[ÛŠHÜˆÚÚXÙH›İ[ˆÜ[ÛœÎ‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”ØÜHÚÛÜÙ\ˆ]\İ™]\›ˆÛ™H\İYÜ[ÛˆŠBˆYˆ\JXœ˜\JHOH™Y›Ü™HÜˆ[JˆÙ[‹—ÛØš™XİË™Ù]
+Ø\™›Øš™XİÚY
+H\È›İØ\™ˆÜˆ›İÙ[‹š\×Ø]]Üš]]]™JØ\™›Xœ˜\HŠBˆ›ÜˆØ\™[ˆ[œÜXİYˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”ØÜHXœ˜\HÜˆ[œÜXİYY[]H™XØ[YHİ[HŠBˆÙ[7Ó[h‘éì¶»§q«^v before
         }:
             raise AssertionError("Scry transaction changed library membership")
         library[:] = replacement
@@ -3831,150 +985,29 @@ class Game(
         coverage = self.interpreter.permanent_left_self_counter_semantic_coverage(
             source_card, oracle_fragment
         )
-        last_known = {item[0]: item for item in event.last_known_battlefield}
-        departed_id = event.subject_ids[0] if len(event.subject_ids) == 1 else None
-        departure_records = [
-            item
-            for item in self.events
-            if item.get("event") == "zone_changed"
-            and item.get("source_object_id") == departed_id
-            and item.get("source_zone") == "battlefield"
-            and item.get("destination_zone") != "battlefield"
-        ]
-        source_lki = last_known.get(source_id)
-        departed_lki = last_known.get(departed_id or "")
-        trigger = None if trigger_id is None else self._triggers.get(trigger_id)
-        if (
-            coverage is None
-            or not coverage.fully_supported
-            or event.kind is not RulesEventKind.PERMANENT_LEFT
-            or self._rules_events.get(event.event_id) is not event
-            or event.source_id != departed_id
-            or departed_id is None
-            or departed_id == source_id
-            or len(departure_records) != 1
-            or source_lki is None
-            or departed_lki is None
-            or source_lki[1] != controller
-            or not source_lki[2]
-            or not departed_lki[2]
-            or (source_id, controller) not in event.battlefield_authority
-            or (departed_id, departed_lki[1]) not in event.battlefield_authority
-            or not isinstance(source, Permanent)
-            or source.card is not source_card
-            or source.zone not in {"battlefield", "former"}
-            or (
-                trigger_id is not None
-                and (
-                    trigger is None
-                    or trigger.controller != controller
-                    or trigger.source_id != source_id
-                    or trigger.source_card is not source_card
-                    or trigger.oracle_fragment != oracle_fragment
-                    or trigger.effect is not TriggerEffect.PERMANENT_LEFT_SELF_COUNTER
-                    or trigger.event is not event
-                )
-            )
-        ):
-            raise ValueError("permanent-left counter trigger has mismatched provenance")
-        return source if self.is_authoritative(source, "battlefield") else None
+        last_known = {iYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ•µlÁtè¥Ñ•´™½È¥Ñ•´¥¸•Ù•¹Ğ¹±…ÍÑ}­¹½İ¹}‰…ÑÑ±•™¥•±‘ô(€€€€€€€‘•Á…ÉÑ•‘}¥€ô•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘ÍlÁt¥˜±•¸¡•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘Ì¤€ôô€Ä•±Í”9½¹”(€€€€€€€‘•Á…ÉÑÕÉ•}É•½É‘Ì€ôl(€€€€€€€€€€€¥Ñ•´(€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹•Ù•¹ÑÌ(€€€€€€€€€€€¥˜¥Ñ•´¹•Ğ ‰•Ù•¹Ğˆ¤€ôô€‰é½¹•}¡…¹•ˆ(€€€€€€€€€€€…¹¥Ñ•´¹•Ğ ‰Í½ÕÉ•}½‰©•Ñ}¥ˆ¤€ôô‘•Á…ÉÑ•‘}¥(€€€€€€€€€€€…¹¥Ñ•´¹•Ğ ‰Í½ÕÉ•}é½¹”ˆ¤€ôô€‰‰…ÑÑ±•™¥•±ˆ(€€€€€€€€€€€…¹¥Ñ•´¹•Ğ ‰‘•ÍÑ¥¹…Ñ¥½¹}é½¹”ˆ¤€„ô€‰‰…ÑÑ±•™¥•±ˆ(€€€€€€€t(€€€€€€€Í½ÕÉ•}±­¤€ô±…ÍÑ}­¹½İ¸¹•Ğ¡Í½ÕÉ•}¥¤(€€€€€€€‘•Á…ÉÑ•‘}±­¤€ô±…ÍÑ}­¹½İ¸¹•Ğ¡‘•Á…ÉÑ•‘}¥½È€ˆˆ¤(€€€€€€€ÑÉ¥•È€ô9½¹”¥˜ÑÉ¥•É}¥¥Ì9½¹”•±Í”Í•±˜¹}ÑÉ¥•ÉÌ¹•Ğ¡ÑÉ¥•É}¥¤(€€€€€€€¥˜€ (€€€€€€€€€€€½Ù•É…”¥Ì9½¹”(€€€€€€€€€€€½È¹½Ğ½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•(€€€€€€€€€€€½È•Ù•¹Ğ¹­¥¹¥Ì¹½ĞIÕ±•ÍÙ•¹Ñ-¥¹¹AI599Q}1P(€€€€€€€€€€€½ÈÍ•±˜¹}ÉÕ±•Í}•Ù•¹ÑÌ¹•Ğ¡•Ù•¹Ğ¹•Ù•¹Ñ}¥¤¥Ì¹½Ğ•Ù•¹Ğ(€€€€€€€€€€€½È•Ù•¹Ğ¹Í½ÕÉ•}¥€„ô‘•Á…ÉÑ•‘}¥(€€€€€€€€€€€½È‘•Á…ÉÑ•‘}¥¥Ì9½¹”(€€€€€€€€€€€½È‘•Á…ÉÑ•‘}¥€ôôÍ½ÕÉ•}¥(€€€€€€€€€€€½È±•¸¡‘•Á…ÉÑÕÉ•}É•½É‘Ì¤€„ô€Ä(€€€€€€€€€€€½ÈÍ½ÕÉ•}±­¤¥Ì9½¹”(€€€€€€€€€€€½È‘•Á…ÉÑ•‘}±­¤¥Ì9½¹”(€€€€€€€€€€€½ÈÍ½ÕÉ•}±­¥lÅt€„ô½¹ÑÉ½±±•È(€€€€€€€€€€€½È¹½ĞÍ½ÕÉ•}±­¥lÉt(€€€€€€€€€€€½È¹½Ğ‘•Á…ÉÑ•‘}±­¥lÉt(€€€€€€€€€€€½È€¡Í½ÕÉ•}¥°½¹ÑÉ½±±•È¤¹½Ğ¥¸•Ù•¹Ğ¹‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñä(€€€€€€€€€€€½È€¡‘•Á…ÉÑ•‘}¥°‘•Á…ÉÑ•‘}±­¥lÅt¤¹½Ğ¥¸•Ù•¹Ğ¹‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñä(€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€½ÈÍ½ÕÉ”¹…É¥Ì¹½ĞÍ½ÕÉ•}…É(€€€€€€€€€€€½ÈÍ½ÕÉ”¹é½¹”¹½Ğ¥¸ì‰‰…ÑÑ±•™¥•±ˆ°€‰™½Éµ•È‰ô(€€€€€€€€€€€½È€ (€€€€€€€€€€€€€€€ÑÉ¥•É}¥¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€…¹€ (€€€€€€€€€€€€€€€€€€€ÑÉ¥•È¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹½¹ÑÉ½±±•È€„ô½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹Í½ÕÉ•}¥€„ôÍ½ÕÉ•}¥(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹Í½ÕÉ•}…É¥Ì¹½ĞÍ½ÕÉ•}}5¶‰ËkºwµçBg&vÖVçC¢7G"À¢VffV7C¢G&–vvW$VffV7BÀ¢’ÓâæöæS ¢–bVffV7B—2G&–vvW$VffV7BäUD%ôµ$äuõ$Td”ÄÃ ¢6VÆbåöVçVWVUö·&æu÷&Vf–ÆÂ†WfVçBÂ6÷W&6RÂg&vÖVçB¢&WGW&à¢–bVffV7B—2G&–vvW$VffV7BäUD%ôÔ”ÄÅõD…$TS ¢6VÆbåöVçVWVUöÖ–ÆÅ÷F‡&VR†WfVçBÂ6÷W&6RÂg&vÖVçB¢&WGW&à¢–bVffV7B—2G&–vvW$VffV7BäUD%ô¥U%•õ$”s ¢6VÆbåöVçVWVUö§W'•÷&–r†WfVçBÂ6÷W&6RÂg&vÖVçB¢&WGW&à¢–bVffV7B—2G&–vvW$VffV7BäUD%õd”t”ÄåDS ¢6VÆbåöVçVWVU÷f–v–ÆçFR†WfVçBÂ6÷W&6RÂg&vÖVçB¢&WGW&à¢–bVffV7B—2G&–vvW$VffV7Båd”t”ÄåDUôD•44$C ¢&—6RfÇVTW'&÷"‚%f–v–ÆçFRFVÆ–VBFVÆ—fW'’&WV—&W266†VGVÆ–ær&V6÷&B"¢–bVffV7B—2G&–vvW$VffV7BäUD%õDõ5ETâæBæ÷B6VÆbæ—5öWF†÷&—FF—fR€¢6÷W&6RÂ&&GFÆVf–VÆB ¢“ ¢&—6RfÇVTW'&÷"‚'7GVâ6÷W&6R×W7B&RâWF†÷&—FF—fR&GFÆVf–VÆB–æ6&æF–öâ"¢–bVffV7B—2G&–vvW$VffV7BåU$ÔäTåEôÄTeEõ4TÄeô4õTåDU# ¢6VÆbå÷fÆ–FFU÷W&ÖæVçEöÆVgEö6÷VçFW%÷&÷fVææ6R€¢6öçG&öÆÆW#×6÷W&6Ræ6öçG&öÆÆW"À¢6÷W&6Uö–C×6÷W&6Ræö&¦V7Eö–BÀ¢6÷W&6Uö6&C×6÷W&6Ræ6&BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢WfVçCÖWfVçBÀ¢¢–bVffV7B—2G&–vvW$VffV7BäUD%ô%D”d5EôE$s ¢6VÆbå÷fÆ–FFUöWF%ö'F–f7EöG&u÷&÷fVææ6R€¢6öçG&öÆÆW#×6÷W&6Ræ6öçG&öÆÆW"À¢6÷W&6Uö–C×6÷W&6Ræö&¦V7Eö–BÀ¢6÷W&6Uö6&C×6÷W&6Ræ6&BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢WfVçCÖWfVçBÀ¢&WV—&Uö7W'&VçEö6öæF—F–öãÔfÇ6RÀ¢¢–bVffV7B—2G&–vvW$VffV7BäUD%ôdôôEõ4T$4ƒ ¢6VÆbåöWF†VçF–6FUö÷&–v–æÅ÷'VÆW5öWfVçB†WfVçB¢–b€¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›İÙ[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆÜˆÙ[‹—Ü[\×Ù]™[Ë™Ù]
+]™[™]™[ÚY
+H\È›İ]™[ˆÜˆ]™[šÚ[™\È›İ[\Ñ]™[Ú[™Ô‘PUT‘WÑS•T‘QˆÜˆ]™[œİXš™XİÚYÈOH
+Ûİ\˜ÙK›Øš™XİÚY
+BˆÜˆ]™[œ^Y\—Ú[™^OHÛİ\˜ÙK˜ÛÛ›Û\‚ˆÜˆ
+Ûİ\˜ÙK›Øš™XİÚYÛİ\˜ÙK˜ÛÛ›Û\ŠH›İ[ˆ]™[˜˜]YšY[Ø]]Üš]BˆÜˆœ˜YÛY[›İ[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÛİ\˜ÙKœ[\×ØØ\™
+BˆÜˆÙ[‹š[\œ™]\‹™]—Ù›ÛÙÜÙX\˜ÚÜÙ[X[X×ØÛİ™\˜YÙJÛİ\˜ÙK˜Ø\™œ˜YÛY[
+H\È›Û™Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ‘Uˆ›ÛÙÙX\˜Ú[H›İ™[˜[˜ÙH\È[˜[YŠBˆÙ^HH
+Ûİ\˜ÙK›Øš™XİÚYœ˜YÛY[
+BˆYˆÙ^H[ˆÙ[‹—Ù›ÛÙÜÙX\˜ÚÜÛİ\˜Ù\Î‚ˆÜšYÚ[˜[ÜÛİ\˜ÙKÜšYÚ[˜[ØØ\™HÙ[‹—Ù›ÛÙÜÙX\˜ÚÜÛİ\˜Ù\ÖÚÙ^WBˆYˆÜšYÚ[˜[ÜÛİ\˜ÙH\È›İÛİ\˜ÙHÜˆÜšYÚ[˜[ØØ\™\È›İÛİ\˜ÙK˜Ø\™‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ‘Uˆ›ÛÙÙX\˜ÚÛİ\˜ÙHØ\È™[[šÙYŠBˆ™]\›‚ˆØØİ\œ™[˜ÙHHÙ[‹—Ü™YÚ\İ\—ÜÙ[X[X×ÛØØİ\œ™[˜ÙJÛİ\˜ÙKÛİ\˜ÙK˜ÛÛ›Û\‹œ˜YÛY[
 
-    def _paramecia_fragment(self, card: CardFact) -> str | None:
-        target = (
-            "When this creature dies, you may exile it. When you do, put target creature card "
-            "from your graveyard on top of your library."
-        )
-        return next(
-            (fragment for fragment in self.interpreter.fragments(card) if fragment == target), None
-        )
-
-    def _enqueue_trigger(
-        self,
-        event: RulesEvent,
-        source: Permanent,
-        fragment: str,
-        effect: TriggerEffect,
-    ) -> None:
-        if effect is TriggerEffect.ETB_KRANG_REFILL:
-            self._enqueue_krang_refill(event, source, fragment)
-            return
-        if effect is TriggerEffect.ETB_MILL_THREE:
-            self._enqueue_mill_three(event, source, fragment)
-            return
-        if effect is TriggerEffect.ETB_JURY_RIG:
-            self._enqueue_jury_rig(event, source, fragment)
-            return
-        if effect is TriggerEffect.ETB_VIGILANTE:
-            self._enqueue_vigilante(event, source, fragment)
-            return
-        if effect is TriggerEffect.VIGILANTE_DISCARD:
-            raise ValueError("Vigilante delayed delivery requires a scheduling record")
-        if effect is TriggerEffect.ETB_TAP_STUN and not self.is_authoritative(
-            source, "battlefield"
-        ):
-            raise ValueError("stun source must be an authoritative battlefield incarnation")
-        if effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
-            self._validate_permanent_left_counter_provenance(
-                controller=source.controller,
-                source_id=source.object_id,
-                source_card=source.card,
-                oracle_fragment=fragment,
-                event=event,
-            )
-        if effect is TriggerEffect.ETB_ARTIFACT_DRAW:
-            self._validate_etb_artifact_draw_provenance(
-                controller=source.controller,
-                source_id=source.object_id,
-                source_card=source.card,
-                oracle_fragment=fragment,
-                event=event,
-                require_current_condition=False,
-            )
-        if effect is TriggerEffect.ETB_FOOD_SEARCH:
-            self._authenticate_original_rules_event(event)
-            if (
-                not self.is_authoritative(source, "battlefield")
-                or self._rules_events.get(event.event_id) is not event
-                or event.kind is not RulesEventKind.CREATURE_ENTERED
-                or event.subject_ids != (source.object_id,)
-                or event.player_index != source.controller
-                or (source.object_id, source.controller) not in event.battlefield_authority
-                or fragment not in self.interpreter.fragments(source.rules_card)
-                or self.interpreter.etb_food_search_semantic_coverage(source.card, fragment) is None
-            ):
-                raise ValueError("ETB Food search entry provenance is invalid")
-            key = (source.object_id, fragment)
-            if key in self._food_search_sources:
-                original_source, original_card = self._food_search_sources[key]
-                if original_source is not source or original_card is not source.card:
-                    raise ValueError("ETB Food search source was relinked")
-                return
-            occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
-            self._witness_from_existing_events(occurrence)
-            self._food_search_sources[key] = (source, source.card)
-        if effect is TriggerEffect.ETB_DRAW_DISCARD:
-            self._authenticate_original_rules_event(event)
-            if (
-                not self.is_authoritative(source, "battlefield")
-                or self._rules_events.get(event.event_id) is not event
-                or event.kind is not RulesEventKind.CREATURE_ENTERED
-                or event.subject_ids != (source.object_id,)
-                or event.player_index != source.controller
-                or (source.object_id, source.controller) not in event.battlefield_authority
-                or fragment not in self.interpreter.fragments(source.rules_card)
-                or self.interpreter.etb_draw_discard_semantic_coverage(source.card, fragment)
-                is None
-            ):
-                raise ValueError("ETB Draw/discard entry provenance is invalid")
-            key = (source.object_id, fragment)
-            if key in self._draw_discard_sources:
-                original_source, original_card = self._draw_discard_sources[key]
-                if original_source is not source or original_card is not source.card:
-                    raise ValueError("ETB Draw/discard source was relinked")
-                return
-            occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
-            self._witness_from_existing_events(occurrence)
-            self._draw_discard_sources[key] = (source, source.card)
+JBˆÙ[‹—İÚ]™\Ü×Ùœ›ÛWÙ^\İ[™×Ù]™[ÊØØİ\œ™[˜ÙJBˆÙ[‹—Ù›ÛÙÜÙX\˜ÚÜÛİ\˜Ù\ÖÚÙ^WHH
+Ûİ\˜ÙKÛİ\˜ÙK˜Ø\™
+BˆYˆY™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÑU×ÑTĞĞT‘‚ˆÙ[‹—Ø]][XØ]WÛÜšYÚ[˜[Ü[\×Ù]™[
+]™[
+BˆYˆ
+ˆ›İÙ[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆÜˆÙ[‹—Ü[\×Ù]™[Ë™Ù]
+]™[™]™[ÚY
+H\È›İ]™[ˆÜˆ]™[šÚ[™\È›İ[\Ñ]™[Ú[™Ô‘PUT‘WÑS•T‘QˆÜˆ]™[œİXš™XİÚYÈOH
+Ûİ\˜ÙK›Øš™XİÚY
+BˆÜˆ]™[œ^Y\—Ú[™^OHÛİ\˜ÙK˜ÛÛ›Û\‚ˆÜˆ
+Ûİ\˜ÙK›Øš™XİÚYÛİ\˜ÙK˜ÛÛ›Û\ŠH›İ[ˆ]™[˜˜wÓ[h‘éì¶»§q«^vcard)
         if effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._authenticate_original_rules_event(event)
             if (
@@ -4006,160 +1039,23 @@ class Game(
                 or self.interpreter.class_level_recovery_semantic_coverage(source.card, fragment)
                 is None
             ):
-                raise ValueError("Class level recovery entry provenance is invalid")
-        if effect is TriggerEffect.LTB_MUTAGEN:
-            self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
-            key = (source.object_id, event.event_id, fragment)
-            if key in self._ltb_mutagen_enqueued:
-                return
-            self._ltb_mutagen_enqueued.add(key)
-        if effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
-            event.kind is not RulesEventKind.CREATURE_DIED
-            or event.subject_ids != (source.object_id,)
-            or source.zone != "former"
-            or fragment != self._paramecia_fragment(source.card)
-        ):
-            raise ValueError("Paramecia death provenance is invalid")
-        trigger = TriggerInstance(
-            f"trigger-{self._next_trigger_number:06d}",
-            source.controller,
-            source.object_id,
-            source.card,
-            fragment,
-            effect,
-            event,
-        )
-        self._next_trigger_number += 1
-        self._triggers[trigger.trigger_id] = trigger
-        self.pending_triggers.append(trigger)
-        self.log(
-            "trigger_pending",
-            trigger_id=trigger.trigger_id,
-            event_id=event.event_id,
-            source=source.card.name,
-            controller=self.players[source.controller].name,
-            oracle_fragment=fragment,
-        )
-
-    def _select_attack_target(
-        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
-    ) -> None:
-        source = self._objects.get(trigger.source_id)
-        offered = tuple(
-            permanent.object_id
-            for permanent in self.players[trigger.controller].battlefield
-            if permanent is not source
-            and permanent.card.is_creature
-            and self.is_authoritative(permanent, "battlefield")
-        )
-        choice = self.attack_target_chooser(trigger.controller, trigger.source_id, offered)
-        if choice is not None and choice not in offered:
-            raise ValueError("attack target chooser must return a listed creature")
-        ability.target_id = choice
-        self.log(
-            "attack_trigger_target_selected",
-            trigger_id=trigger.trigger_id,
-            source_id=trigger.source_id,
-            target_id=choice,
-            offered_ids=list(offered),
-        )
-
-    def _put_pending_triggers_on_stack(self, effects: set[TriggerEffect] | None = None) -> bool:
-        """Put one detected batch on the stack in deterministic APNAP/source order."""
-        batch = [
-            trigger
-            for trigger in self.pending_triggers
-            if effects is None or trigger.effect in effects
-        ]
-        if not batch:
-            return False
-        self.pending_triggers[:] = [
-            trigger for trigger in self.pending_triggers if trigger not in batch
-        ]
-        for controller in (self.active_player, 1 - self.active_player):
-            controlled = [trigger for trigger in batch if trigger.controller == controller]
-            for trigger in reversed(controlled):
-                ability = TriggeredAbilityObject(
-                    self._allocate_object_id(),
-                    trigger.controller,
-                    trigger.source_id,
-                    trigger.source_card,
-                    trigger.oracle_fragment,
-                    trigger.effect,
-                    trigger.event,
-                    trigger.trigger_id,
-                )
-                if ability.effect is TriggerEffect.ETB_TAP_STUN:
-                    self._select_stun_target(ability, trigger)
-                if ability.effect is TriggerEffect.ATTACK_TARGET_PT:
-                    self._select_attack_target(ability, trigger)
-                if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
-                    self._select_rock_soldiers_target(ability, trigger)
-                if (
-                    ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH
-                    and not self._select_shredder_target(ability, trigger)
-                ):
-                    continue
-                if ability.effect is TriggerEffect.ETB_FOOD_SEARCH:
-                    source, card = self._food_search_sources[
-                        (trigger.source_id, trigger.oracle_fragment)
-                    ]
-                    self._food_search_anchors[ability.object_id] = (ability, trigger, source, card)
-                if ability.effect is TriggerEffect.ETB_DRAW_DISCARD:
-                    source, card = self._draw_discard_sources[
-                        (trigger.source_id, trigger.oracle_fragment)
-                    ]
-                    self._draw_discard_anchors[ability.object_id] = (ability, trigger, source, card)
-                if ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
-                    source, _card = self._mill_draw_discard_sources[
-                        (trigger.source_id, trigger.oracle_fragment)
-                    ]
-                    self._mill_draw_discard_anchors[ability.object_id] = (source, trigger)
-                if ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
-                    self._select_class_recovery_targets(ability, trigger)
-                if ability.effect is TriggerEffect.LTB_MUTAGEN:
-                    self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
-                self._anchor_mill_three(ability, trigger)
-                self._anchor_krang_refill(ability, trigger)
-                self._anchor_jury_rig(ability, trigger)
-                self._anchor_vigilante(ability, trigger)
-                self._register(ability)
-                self.stack.append(ability)
-                self.log(
-                    "trigger_stacked",
-                    trigger_id=trigger.trigger_id,
-                    stack_object_id=ability.object_id,
-                    event_id=trigger.event.event_id,
-                    source=trigger.source_card.name,
-                    controller=self.players[trigger.controller].name,
-                )
-        return True
-
-    def _select_class_recovery_targets(
-        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
-    ) -> None:
-        source = self._objects.get(trigger.source_id)
-        if (
-            not isinstance(source, Permanent)
-            or not self.is_authoritative(source, "battlefield")
-            or source.card is not trigger.source_card
-            or source.class_level != 2
-            or trigger.event.kind is not RulesEventKind.CLASS_LEVEL_ADVANCED
-            or self.interpreter.class_level_recovery_semantic_coverage(
-                source.card, trigger.oracle_fragment
-            )
-            is None
-        ):
-            raise ValueError("Class level recovery trigger has invalid provenance")
-        candidates = tuple(
-            card
-            for card in self.players[trigger.controller].graveyard
-            if self.is_authoritative(card, "graveyard")
-            and card.card.type_line.startswith("Artifact")
-        )
-        offered = tuple(sorted(card.object_id for card in candidates))
-        selected = self.class_recovery_chooser(trigger.controller, trigger.source_id, offered)
-        if not isinstance(selected, (tuple, list)) or len(selected) > 2:
+                raise ValueError("Class level recovery entry YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÁÉ½Ù•¹…¹”¥Ì¥¹Ù…±¥ˆ¤(€€€€€€€¥˜•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹1Q	}5UQ8è(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}±Ñ‰}µÕÑ…•¹}‘•Á…ÉÑÕÉ”¡Í½ÕÉ”°™É…µ•¹Ğ°•Ù•¹Ğ°Í½ÕÉ”¹½¹ÑÉ½±±•È¤(€€€€€€€€€€€­•ä€ô€¡Í½ÕÉ”¹½‰©•Ñ}¥°•Ù•¹Ğ¹•Ù•¹Ñ}¥°™É…µ•¹Ğ¤(€€€€€€€€€€€¥˜­•ä¥¸Í•±˜¹}±Ñ‰}µÕÑ…•¹}•¹ÅÕ•Õ•è(€€€€€€€€€€€€€€€É•ÑÕÉ¸(€€€€€€€€€€€Í•±˜¹}±Ñ‰}µÕÑ…•¹}•¹ÅÕ•Õ•¹…‘¡­•ä¤(€€€€€€€¥˜•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹AI5%}a%1}!=%…¹€ (€€€€€€€€€€€•Ù•¹Ğ¹­¥¹¥Ì¹½ĞIÕ±•ÍÙ•¹Ñ-¥¹¹IQUI}%(€€€€€€€€€€€½È•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘Ì€„ô€¡Í½ÕÉ”¹½‰©•Ñ}¥°¤(€€€€€€€€€€€½ÈÍ½ÕÉ”¹é½¹”€„ô€‰™½Éµ•Èˆ(€€€€€€€€€€€½È™É…µ•¹Ğ€„ôÍ•±˜¹}Á…É…µ•¥…}™É…µ•¹Ğ¡Í½ÕÉ”¹…É¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰A…É…µ•¥„‘•…Ñ ÁÉ½Ù•¹…¹”¥Ì¥¹Ù…±¥ˆ¤(€€€€€€€ÑÉ¥•È€ôQÉ¥•É%¹ÍÑ…¹” (€€€€€€€€€€€˜‰ÑÉ¥•ÈµíÍ•±˜¹}¹•áÑ}ÑÉ¥•É}¹Õµ‰•ÈèÀÙ‘ôˆ°(€€€€€€€€€€€Í½ÕÉ”¹½¹ÑÉ½±±•È°(€€€€€€€€€€€Í½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€Í½ÕÉ”¹…É°(€€€€€€€€€€€™É…µ•¹Ğ°(€€€€€€€€€€€•™™•Ğ°(€€€€€€€€€€€•Ù•¹Ğ°(€€€€€€€€¤(€€€€€€€Í•±˜¹}¹•áÑ}ÑÉ¥•É}¹Õµ‰•È€¬ô€Ä(€€€€€€€Í•±˜¹}ÑÉ¥•ÉÍmÑÉ¥•È¹ÑÉ¥•É}¥‘t€ôÑÉ¥•È(€€€€€€€Í•±˜¹Á•¹‘¥¹}ÑÉ¥•ÉÌ¹…ÁÁ•¹¡ÑÉ¥•È¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰ÑÉ¥•É}Á•¹‘¥¹œˆ°(€€€€€€€€€€€ÑÉ¥•É}¥õÑÉ¥•È¹ÑÉ¥•É}¥°(€€€€€€€€€€€•Ù•¹Ñ}¥õ•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€Í½ÕÉ”õÍ½ÕÉ”¹…É¹¹…µ”°(€€€€€€€€€€€½¹ÑÉ½±±•ÈõÍ•±˜¹Á±…å•ÉÍmÍ½ÕÉ”¹½¹ÑÉ½±±•Ét¹¹…µ”°(€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ™É…µ•¹Ğ°(€€€€€€€€¤((€€€‘•˜}Í•±•Ñ}…ÑÑ…­}Ñ…É•Ğ (€€€€€€€Í•±˜°…‰¥±¥ÑäèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ°ÑÉ¥•ÈèQÉ¥•É%¹ÍÑ…¹”(€€€€¤€´ø9½¹”è(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡ÑÉ¥•È¹Í½ÕÉ•}¥¤(€€€€€€€½™™•É•€ôÑÕÁ±” (€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Í•±˜¹Á±…å•ÉÍmÑÉ¥•È¹½¹ÑÉ½±±•Ét¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¥Ì¹½ĞÍ½ÕÉ”(€€€€€€€€€€€…¹Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€…¹Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Á—}5¶‰ËkºwµçB&WGW&âfÇ6P¢6VÆbçVæF–æu÷G&–vvW'5³¥ÒÒ°¢G&–vvW"f÷"G&–vvW"–â6VÆbçVæF–æu÷G&–vvW'2–bG&–vvW"æ÷B–â&F6€¢Ğ¢f÷"6öçG&öÆÆW"–â‡6VÆbæ7F—fU÷Æ–W"ÂÒ6VÆbæ7F—fU÷Æ–W"“ ¢6öçG&öÆÆVBÒ·G&–vvW"f÷"G&–vvW"–â&F6‚–bG&–vvW"æ6öçG&öÆÆW"ÓÒ6öçG&öÆÆW%Ğ¢f÷"G&–vvW"–â&WfW'6VB†6öçG&öÆÆVB“ ¢&–Æ—G’ÒG&–vvW&VD&–Æ—G”ö&¦V7B€¢6VÆbåöÆÆö6FUöö&¦V7Eö–B‚’À¢G&–vvW"æ6öçG&öÆÆW"À¢G&–vvW"ç6÷W&6Uö–BÀ¢G&–vvW"ç6÷W&6Uö6&BÀ¢G&–vvW"æ÷&6ÆUög&vÖVçBÀ¢G&–vvW"æVffV7BÀ¢G&–vvW"æWfVçBÀ¢G&–vvW"çG&–vvW%ö–BÀ¢¢–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäUD%õDõ5ETã ¢6VÆbå÷6VÆV7E÷7GVå÷F&vWB†&–Æ—G’ÂG&–vvW"¢–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäED4µõD$tUEõC ¢6VÆbå÷6VÆV7EöGF6µ÷F&vWB†&–Æ—G’ÂG&–vvW"¢–b&–Æ—G’æVffV7B—2G&–vvW$VffV7Bå$ô4µõ4ôÄD”U%5ôUD%ôDU5E$õ“ ¢6VÆbå÷6VÆV7E÷&ö6µ÷6öÆF–W'5÷F&vWB†&–Æ—G’ÂG&–vvW"¢–b€¢&–Æ—G’æVffV7B—2G&–vvW$VffV7Bå4…$TDDU%ôDTD…DõT4€¢æBæ÷B6VÆbå÷6VÆV7E÷6‡&VFFW%÷F&vWB†&–Æ—G’ÂG&–vvW"¢“ ¢6öçF–çVP¢–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäUD%ôdôôEõ4T$4ƒ ¢6÷W&6RÂ6&BÒ6VÆbåöfööE÷6V&6…÷6÷W&6W5°¢‡G&–vvW"ç6÷W&6Uö–BÂG&–vvW"æ÷&6ÆUög&vÖVçB¢Ğ¢6VÆbåöfööE÷6V&6…öæ6†÷'5¶&–Æ—G’æö&¦V7Eö–EÒÒ†&–Æ—G’ÂG&–vvW"Â6÷W&6RÂ6&B¢–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäUD%ôE$uôD•44$C ¢6÷W&6RÂ6%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYHÙ[‹—Ù˜]×Ù\ØØ\™ÜÛİ\˜Ù\ÖÂˆ
+šYÙÙ\‹œÛİ\˜ÙWÚYšYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[
+BˆBˆÙ[‹—Ù˜]×Ù\ØØ\™Ø[˜ÚÜœÖØXš[]K›Øš™XİÚYHH
+Xš[]KšYÙÙ\‹Ûİ\˜ÙKØ\™
+BˆYˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÓRSÑU×ÑTĞĞT‘‚ˆÛİ\˜ÙKØØ\™HÙ[‹—ÛZ[Ù˜]×Ù\ØØ\™ÜÛİ\˜Ù\ÖÂˆ
+šYÙÙ\‹œÛİ\˜ÙWÚYšYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[
+BˆBˆÙ[‹—ÛZ[Ù˜]×Ù\ØØ\™Ø[˜ÚÜœÖØXš[]K›Øš™XİÚYHH
+Ûİ\˜ÙKšYÙÙ\ŠBˆYˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™XİÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–N‚ˆÙ[‹—ÜÙ[XİØÛ\Ü×Ü™XÛİ™\Wİ\™Ù]ÊXš[]KšYÙÙ\ŠBˆYˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ“—ÓUUQÑS‚ˆÙ[‹—Û—Û]]YÙ[—Ø[˜ÚÜœÖØXš[]K›Øš™XİÚYHH
+Xš[]KšYÙÙ\ŠBˆÙ[‹—Ø[˜ÚÜ—ÛZ[İ™YJXš[]KšYÙÙ\ŠBˆÙ[‹—Ø[˜ÚÜ—ÚÜ˜[™×Ü™Yš[
+Xš[]KšYÙÙ\ŠBˆÙ[‹—Ø[˜ÚÜ—Ú\WÜšYÊXš[]KšYÙÙ\ŠBˆÙ[‹—Ø[˜ÚÜ—İšYÚ[[JXš[]KšYÙÙ\ŠBˆÙ[‹—Ü™YÚ\İ\ŠXš[]JBˆÙ[‹œİXÚË˜\[™
+Xš[]JBˆÙ[‹›ÙÊˆšYÙÙ\—ÜİXÚÙY‹ˆšYÙÙ\—ÚY]šYÙÙ\‹šYÙÙ\—ÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆ]™[ÚY]šYÙÙ\‹™]™[™]™[ÚYˆÛİ\˜ÙO]šYÙÙ\‹œÛİ\˜ÙWØØ\™›˜[YKˆÛÛ›Û\\Ù[‹œ^Y\œÖİšYÙÙ\‹˜ÛÛ›Û\—K›˜[YKˆ
+Bˆ™]\›ˆYB‚ˆYˆÜÙ[XİØÛ\Ü×Ü™XÛİ™\Wİ\™Ù]ÊˆÙ[‹Xš[]NˆšYÙÙ\™YXš[]SØš™XİšYÙÙ\ˆšYÙÙ\’[œİ[˜ÙBˆ
+HOˆ›Û™N‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+šYÙÙ\‹œÛİ\˜ÙWÚY
+BˆYˆ
+ˆ›İ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+Bˆ7Ó[h‘éì¶»§q«^wtance(selected, (tuple, list)) or len(selected) > 2:
             raise ValueError("Class recovery chooser must select up to two listed artifacts")
         selected = tuple(selected)
         if len(set(selected)) != len(selected) or any(item not in offered for item in selected):
@@ -4194,162 +1090,30 @@ class Game(
                 trigger.source_card, trigger.oracle_fragment
             ).fully_supported
         ):
-            raise ValueError("Rock Soldiers trigger has invalid entry provenance")
-        candidates = tuple(
-            permanent
-            for player in self.players
-            for permanent in player.battlefield
-            if self.is_authoritative(permanent, "battlefield")
-            and "Artifact" in permanent.type_line
-            and "Creature" not in permanent.type_line
-        )
-        offered = tuple(sorted(target.object_id for target in candidates))
-        choice = self.stun_target_chooser(trigger.controller, trigger.source_id, (*offered, None))
-        if choice is not None and (not isinstance(choice, str) or choice not in offered):
-            raise ValueError("Rock Soldiers target chooser must return a listed artifact or None")
-        self._rock_soldiers_targets[ability.object_id] = choice
-        self.log(
-            "rock_soldiers_target_selected",
-            stack_object_id=ability.object_id,
-            trigger_id=trigger.trigger_id,
-            event_id=trigger.event.event_id,
-            source_id=trigger.source_id,
-            target_id=choice,
-            offered_ids=offered,
-            controller=trigger.controller,
-            oracle_fragment=trigger.oracle_fragment,
-        )
-
-    def _select_shredder_target(
-        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
-    ) -> bool:
-        self._authenticate_original_rules_event(trigger.event)
-        source = self._objects.get(trigger.source_id)
-        coverage = self.interpreter.shredder_deathtouch_semantic_coverage(
-            trigger.source_card, trigger.oracle_fragment
-        )
-        if (
-            not isinstance(source, Permanent)
-            or source.card is not trigger.source_card
-            or not self.is_authoritative(source, "battlefield")
-            or trigger.event.kind
-            not in {
-                RulesEventKind.CREATURE_ENTERED,
-                RulesEventKind.ATTACKERS_DECLARED,
-            }
-            or trigger.oracle_fragment not in self.interpreter.fragments(trigger.source_card)
-            or coverage is None
-            or not coverage.fully_supported
-        ):
-            raise ValueError("Shredder trigger has invalid source provenance")
-        candidates = tuple(
-            permanent
-            for permanent in self.players[trigger.controller].battlefield
-            if self.is_authoritative(permanent, "battlefield")
-            and permanent is not source
-            and permanent.card.is_creature
-        )
-        offered = tuple(sorted(permanent.object_id for permanent in candidates))
-        if not offered:
-            return False
-        choice = self.counter_target_chooser(trigger.controller, trigger.source_id, offered)
-        if not isinstance(choice, str) or choice not in offered:
-            raise ValueError("Shredder target chooser must return a listed creature")
-        target = next(permanent for permanent in candidates if permanent.object_id == choice)
-        ability.target_id = choice
-        self._shredder_targets[ability.object_id] = (target, target.card, offered)
-        self.log(
-            "shredder_target_selected",
-            stack_object_id=ability.object_id,
-            trigger_id=trigger.trigger_id,
-            event_id=trigger.event.event_id,
-            source_id=trigger.source_id,
-            target_id=choice,
-            offered_ids=offered,
-            controller=trigger.controller,
-            oracle_fragment=trigger.oracle_fragment,
-        )
-        return True
-
-    def _validate_shredder_trigger(self, ability: TriggeredAbilityObject) -> None:
-        trigger = self._triggers.get(ability.trigger_id)
-        source = self._objects.get(ability.source_id)
-        target, target_card, offered = self._shredder_targets.get(
-            ability.object_id, (None, None, ())
-        )
-        self._authenticate_original_rules_event(ability.event)
-        if (
-            trigger is None
-            or trigger.event is not ability.event
-            or trigger.effect is not TriggerEffect.SHREDDER_DEATHTOUCH
-            or trigger.source_id != ability.source_id
-            or trigger.source_card is not ability.source_card
-            or trigger.oracle_fragment != ability.oracle_fragment
-            or trigger.controller != ability.controller
-            or (
-                source is not None
-                and (
-                    not isinstance(source, Permanent)
-                    or source.card is not ability.source_card
-                    or source.zone not in {"battlefield", "former"}
-                )
-            )
-            or (
-                offered
-                and (
-                    ability.target_id not in offered
-                    or target is None
-                    or target.object_id != ability.target_id
-                    or self._objects.get(target.object_id) is not target
-                    or target.card is not target_card
-                )
-            )
-        ):
-            raise ValueError("Shredder trigger has invalid target provenance")
-
-    def _validate_rock_soldiers_trigger(self, ability: TriggeredAbilityObject) -> None:
-        trigger = self._triggers.get(ability.trigger_id)
-        source = self._objects.get(ability.source_id)
-        self._authenticate_original_rules_event(ability.event)
-        if (
-            trigger is None
-            or trigger.event is not ability.event
-            or trigger.source_id != ability.source_id
-            or trigger.source_card is not ability.source_card
-            or trigger.oracle_fragment != ability.oracle_fragment
-            or trigger.controller != ability.controller
-            or not isinstance(source, Permanent)
-            or source.card is not ability.source_card
-            or source.zone not in {"battlefield", "former"}
-        ):
-            raise ValueError("Rock Soldiers trigger has invalid source provenance")
-
-    def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
-        if (
-            not self.stack
-            or self.stack[-1] is not ability
-            or not self.is_authoritative(ability, "stack")
-        ):
-            raise ValueError("triggered ability must be the authoritative top stack object")
-        if (
-            ability.effect is TriggerEffect.ETB_TAP_STUN
-            or ability.object_id in self._stun_selections
-        ):
-            self._validate_stun_trigger(ability)
-            if any(
-                dict(record).get("event") == "stun_etb_resolved"
-                and dict(record).get("stack_object_id") == ability.object_id
-                for _cursor, record in self._stun_history
-            ):
-                raise ValueError("stun trigger has already resolved")
-            selected = self._stun_selections[ability.object_id].target
-            if selected is not None and self.is_authoritative(selected, "battlefield"):
-                self._validate_stun_targeting_dependencies(selected)
-        if ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
-            self._validate_rock_soldiers_trigger(ability)
-        if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
-            self._validate_shredder_trigger(ability)
-        if ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
+       YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰I½¬M½±‘¥•ÉÌÑÉ¥•È¡…Ì¥¹Ù…±¥•¹ÑÉäÁÉ½Ù•¹…¹”ˆ¤(€€€€€€€…¹‘¥‘…Ñ•Ì€ôÑÕÁ±” (€€€€€€€€€€€Á•Éµ…¹•¹Ğ(€€€€€€€€€€€™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Á±…å•È¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€¥˜Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Á•Éµ…¹•¹Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€…¹€‰ÉÑ¥™…Ğˆ¥¸Á•Éµ…¹•¹Ğ¹ÑåÁ•}±¥¹”(€€€€€€€€€€€…¹€‰É•…ÑÕÉ”ˆ¹½Ğ¥¸Á•Éµ…¹•¹Ğ¹ÑåÁ•}±¥¹”(€€€€€€€€¤(€€€€€€€½™™•É•€ôÑÕÁ±”¡Í½ÉÑ•¡Ñ…É•Ğ¹½‰©•Ñ}¥™½ÈÑ…É•Ğ¥¸…¹‘¥‘…Ñ•Ì¤¤(€€€€€€€¡½¥”€ôÍ•±˜¹ÍÑÕ¹}Ñ…É•Ñ}¡½½Í•È¡ÑÉ¥•È¹½¹ÑÉ½±±•È°ÑÉ¥•È¹Í½ÕÉ•}¥°€ ©½™™•É•°9½¹”¤¤(€€€€€€€¥˜¡½¥”¥Ì¹½Ğ9½¹”…¹€¡¹½Ğ¥Í¥¹ÍÑ…¹”¡¡½¥”°ÍÑÈ¤½È¡½¥”¹½Ğ¥¸½™™•É•¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰I½¬M½±‘¥•ÉÌÑ…É•Ğ¡½½Í•ÈµÕÍĞÉ•ÑÕÉ¸„±¥ÍÑ•…ÉÑ¥™…Ğ½È9½¹”ˆ¤(€€€€€€€Í•±˜¹}É½­}Í½±‘¥•ÉÍ}Ñ…É•ÑÍm…‰¥±¥Ñä¹½‰©•Ñ}¥‘t€ô¡½¥”(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰É½­}Í½±‘¥•ÉÍ}Ñ…É•Ñ}Í•±•Ñ•ˆ°(€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õ…‰¥±¥Ñä¹½‰©•Ñ}¥°(€€€€€€€€€€€ÑÉ¥•É}¥õÑÉ¥•È¹ÑÉ¥•É}¥°(€€€€€€€€€€€•Ù•¹Ñ}¥õÑÉ¥•È¹•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€Í½ÕÉ•}¥õÑÉ¥•È¹Í½ÕÉ•}¥°(€€€€€€€€€€€Ñ…É•Ñ}¥õ¡½¥”°(€€€€€€€€€€€½™™•É•‘}¥‘Ìõ½™™•É•°(€€€€€€€€€€€½¹ÑÉ½±±•ÈõÑÉ¥•È¹½¹ÑÉ½±±•È°(€€€€€€€€€€€½É…±•}™É…µ•¹ĞõÑÉ¥•È¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€¤((€€€‘•˜}Í•±•Ñ}Í¡É•‘‘•É}Ñ…É•Ğ (€€€€€€€Í•±˜°…‰¥±¥ÑäèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ°ÑÉ¥•ÈèQÉ¥•É%¹ÍÑ…¹”(€€€€¤€´ø‰½½°è(€€€€€€€Í•±˜¹}…ÕÑ¡•¹Ñ¥…Ñ•}½É¥¥¹…±}ÉÕ±•Í}•Ù•¹Ğ¡ÑÉ¥•È¹•Ù•¹Ğ¤(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡ÑÉ¥•È¹Í½ÕÉ•}¥¤(€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Í¡É•‘‘•É}‘•…Ñ¡Ñ½Õ¡}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€ÑÉ¥•È¹Í½ÕÉ•}…É°ÑÉ¥•È¹½É…±•}™É…µ•¹Ğ(€€€€€€€€¤(€€€€€€€¥˜€ (€€€€€€€€€€€¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€½ÈÍ½ÕÉ”¹…É¥Ì¹½ĞÑÉ¥•È¹Í½ÕÉ•}…É(€€€€€€€€€€€½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í½ÕÉ”°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€½ÈÑÉ§}5¶‰Ëkºwµçv–BÂöffW&VB¢–bæ÷B—6–ç7Fæ6R†6†ö–6RÂ7G"’÷"6†ö–6Ræ÷B–âöffW&VC ¢&—6RfÇVTW'&÷"‚%6‡&VFFW"F&vWB6†ö÷6W"×W7B&WGW&âÆ—7FVB7&VGW&R"¢F&vWBÒæW‡B‡W&ÖæVçBf÷"W&ÖæVçB–â6æF–FFW2–bW&ÖæVçBæö&¦V7Eö–BÓÒ6†ö–6R¢&–Æ—G’çF&vWEö–BÒ6†ö–6P¢6VÆbå÷6‡&VFFW%÷F&vWG5¶&–Æ—G’æö&¦V7Eö–EÒÒ‡F&vWBÂF&vWBæ6&BÂöffW&VB¢6VÆbæÆör€¢'6‡&VFFW%÷F&vWE÷6VÆV7FVB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–C×G&–vvW"çG&–vvW%ö–BÀ¢WfVçEö–C×G&–vvW"æWfVçBæWfVçEö–BÀ¢6÷W&6Uö–C×G&–vvW"ç6÷W&6Uö–BÀ¢F&vWEö–CÖ6†ö–6RÀ¢öffW&VEö–G3ÖöffW&VBÀ¢6öçG&öÆÆW#×G&–vvW"æ6öçG&öÆÆW"À¢÷&6ÆUög&vÖVçC×G&–vvW"æ÷&6ÆUög&vÖVçBÀ¢¢&WGW&âG'VP ¢FVb÷fÆ–FFU÷6‡&VFFW%÷G&–vvW"‡6VÆbÂ&–Æ—G“¢G&–vvW&VD&–Æ—G”ö&¦V7B’ÓâæöæS ¢G&–vvW"Ò6VÆbå÷G&–vvW'2ævWB†&–Æ—G’çG&–vvW%ö–B¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’ç6÷W&6Uö–B¢F&vWBÂF&vWEö6&BÂöffW&VBÒ6VÆbå÷6‡&VFFW%÷F&vWG2ævWB€¢&–Æ—G’æö&¦V7Eö–BÂ„æöæRÂæöæRÂ‚’¢¢6VÆbåöWF†VçF–6FUö÷&–v–æÅ÷'VÆW5öWfVçB†&–Æ—G’æWfVçB¢–b€¢G&–vvW"—2æöæP¢÷"G&–vvW"æWfVçB—2æ÷B&–Æ—G’æWfVç@¢÷"G&–vvW"æVffV7B—2æ÷BG&–vvW$VffV7Bå4…$TDDU%ôDTD…DõT4€¢÷"G&–vvW"ç6÷W&6Uö–BÒ&–Æ—G’ç6÷W&6Uö–@¢÷"G&–vvW"ç6÷W&6Uö6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢÷"G&–vvW"æ÷&6ÆUög&vÖVçBÒ&–Æ—G’æ÷&6ÆUög&vÖVç@¢÷"G&–vvW"æ6öçG&öÆÆW"Ò&–Æ—G’æ6öçG&öÆÆW ¢÷"€¢6÷W&6R—2æ÷BæöæP¢æB€¢æ÷B—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB¢÷"6÷W&6Ræ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢÷"6÷W%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXÙK›Û™H›İ[ˆÈ˜˜]YšY[‹™›Ü›Y\ˆŸBˆ
+Bˆ
+BˆÜˆ
+ˆÙ™™\™Yˆ[™
+ˆXš[]K\™Ù]ÚY›İ[ˆÙ™™\™YˆÜˆ\™Ù]\È›Û™BˆÜˆ\™Ù]›Øš™XİÚYOHXš[]K\™Ù]ÚYˆÜˆÙ[‹—ÛØš™XİË™Ù]
+\™Ù]›Øš™XİÚY
+H\È›İ\™Ù]ˆÜˆ\™Ù]˜Ø\™\È›İ\™Ù]ØØ\™ˆ
+Bˆ
+Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”Ú™Y\ˆšYÙÙ\ˆ\È[˜[Y\™Ù]›İ™[˜[˜ÙHŠB‚ˆYˆİ˜[Y]WÜ›ØÚ×ÜÛÛY\œ×İšYÙÙ\ŠÙ[‹Xš[]NˆšYÙÙ\™YXš[]SØš™Xİ
+HOˆ›Û™N‚ˆšYÙÙ\ˆHÙ[‹—İšYÙÙ\œË™Ù]
+Xš[]KšYÙÙ\—ÚY
+BˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+Xš[]KœÛİ\˜ÙWÚY
+BˆÙ[‹—Ø]][XØ]WÛÜšYÚ[˜[Ü[\×Ù]™[
+Xš[]K™]™[
+BˆYˆ
+ˆšYÙÙ\ˆ\È›Û™BˆÜˆšYÙÙ\‹™]™[\È›İXš[]K™]™[ˆÜˆšYÙÙ\‹œÛİ\˜ÙWÚYOHXš[]KœÛİ\˜ÙWÚYˆÜˆšYÙÙ\‹œÛİ\˜ÙWØØ\™\È›İXš[]KœÛİ\˜ÙWØØ\™ˆÜˆšYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[OHXš[]K›Ü˜XÛWÙœ˜YÛY[ˆÜˆšYÙÙ\‹˜ÛÛ›Û\ˆOHXš[]K˜ÛÛ›Û\‚ˆÜˆ›İ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+BˆÜˆÛİ\˜ÙK˜Ø\™\È›İXš[]KœÛİ\˜ÙWØØ\™ˆÜˆÛİ\˜ÙK›Û™H›İ[ˆÈ˜˜]YšY[‹™›Ü›Y\ˆŸBˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”›ØÚÈÛÛY\œÈšYÙÙ\ˆ\È[˜[YÛİ\˜ÙH›İ™[˜[˜ÙHŠB‚ˆYˆÜ™\ÛÛ™WİšYÙÙ\™YØXš[]JÙ[‹Xš[]NˆšYÙÙ\™YXš[]SØš™Xİ
+HOˆ›Û™N‚ˆYˆ
+ˆ›İÙ[‹œİXÚÂˆÜˆÙ[‹œİXÚÖËLWH\È›İXš[]BˆÜˆ›İÙ[‹š\×Ø]]Üš]]]™JXš[]KœİXÚÈŠBˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠšYÙÙ\™YXš[]H]\İ™HH]]Üš]]]™HÜİXÚÈØš™XİŠBˆYˆ
+ˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÕTÔÕS‚ˆ7Ó[h‘éì¶»§q«^uty.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE and (
             ability.event.kind is not RulesEventKind.CREATURE_DIED
             or ability.source_id not in self._paramecia_departures
         ):
@@ -4385,167 +1149,16 @@ class Game(
         ):
             self._validate_etb_food_search_trigger(ability)
         if (
-            ability.effect is TriggerEffect.ETB_DRAW_DISCARD
-            or ability.object_id in self._draw_discard_anchors
-        ):
-            self._validate_etb_draw_discard_trigger(ability)
-        if (
-            ability.effect is TriggerEffect.LTB_MUTAGEN
-            or ability.object_id in self._ltb_mutagen_anchors
-        ):
-            self._validate_ltb_mutagen_trigger(ability)
-        if (
-            ability.effect in {TriggerEffect.ETB_VIGILANTE, TriggerEffect.VIGILANTE_DISCARD}
-            or ability.object_id in self._vigilante_stack
-        ):
-            self._validate_vigilante_trigger(ability)
-        if (
-            ability.effect is TriggerEffect.ETB_JURY_RIG
-            or ability.object_id in self._jury_rig_anchors
-        ):
-            self._validate_jury_rig_trigger(ability)
-        if (
-            ability.effect is TriggerEffect.ETB_KRANG_REFILL
-            or ability.object_id in self._krang_refill_anchors
-        ):
-            self._preflight_krang_refill(ability)
-        if (
-            ability.effect is TriggerEffect.ETB_MILL_THREE
-            or ability.object_id in self._mill_three_anchors
-        ):
-            self._preflight_mill_three(ability)
-        self.stack.pop()
-        ability.zone = "former"
-        for index, evidence in enumerate(self.activation_evidence):
-            if evidence.stack_object_id == ability.object_id:
-                self.activation_evidence[index] = replace(evidence, resolved=True)
-                break
-        source = self._objects.get(ability.source_id)
-        source_permanent = (
-            source
-            if isinstance(source, Permanent) and self.is_authoritative(source, "battlefield")
-            else None
-        )
-        subjects = [self._objects.get(object_id) for object_id in ability.event.subject_ids]
-
-        if ability.effect is TriggerEffect.SHREDDER_DEATHTOUCH:
-            target, target_card, _offered = self._shredder_targets.get(
-                ability.object_id, (None, None, ())
-            )
-            legal = (
-                target is not None
-                and self._objects.get(target.object_id) is target
-                and self.is_authoritative(target, "battlefield")
-                and target.controller == ability.controller
-                and target.card is target_card
-                and target.card.is_creature
-                and target.object_id != ability.source_id
-            )
-            if legal:
-                target.temporary_keyword_effects.append(
-                    TemporaryKeywordEffect(
-                        TemporaryKeyword.DEATHTOUCH,
-                        "until_end_of_turn",
-                        ability.source_id,
-                        ability.oracle_fragment,
-                        timestamp=self._effect_timestamp(),
-                    )
-                )
-                self.log(
-                    "shredder_deathtouch_granted",
-                    stack_object_id=ability.object_id,
-                    trigger_id=ability.trigger_id,
-                    event_id=ability.event.event_id,
-                    source_id=ability.source_id,
-                    target_id=target.object_id,
-                    duration="until_end_of_turn",
-                )
-            else:
-                self.log(
-                    "shredder_deathtouch_failed_closed",
-                    stack_object_id=ability.object_id,
-                    trigger_id=ability.trigger_id,
-                    source_id=ability.source_id,
-                    target_id=target.object_id if target is not None else None,
-                )
-        elif ability.effect is TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY:
-            target_id = self._rock_soldiers_targets.get(ability.object_id)
-            target = self._objects.get(target_id) if target_id else None
-            legal = (
-                isinstance(target, Permanent)
-                and self.is_authoritative(target, "battlefield")
-                and "Artifact" in target.type_line
-                and "Creature" not in target.type_line
-            )
-            if legal:
-                self.destroy(target)
-                self.log(
-                    "rock_soldiers_destroyed",
-                    stack_object_id=ability.object_id,
-                    source_id=ability.source_id,
-                    target_id=target.object_id,
-                )
-            else:
-                self.log(
-                    "rock_soldiers_no_target",
-                    stack_object_id=ability.object_id,
-                    source_id=ability.source_id,
-                )
-        if ability.effect is TriggerEffect.ETB_TAP_STUN:
-            selection = self._stun_selections[ability.object_id]
-            target = selection.target
-            legal = target is not None and self.is_authoritative(target, "battlefield")
-            legal = legal and "Creature" in target.type_line
-            before = target.counters.get("stun", 0) if legal else None
-            tapped_before = target.tapped if legal else None
-            placement_cursor = None
-            if legal:
-                target.tapped = True
-                self._record_stun_event(
-                    "stun_target_tapped",
-                    target_id=target.object_id,
-                    source_id=ability.source_id,
-                    stack_object_id=ability.object_id,
-                    tapped_before=tapped_before,
-                    tapped_after=True,
-                )
-                placement_cursor = len(self.events)
-                self.place_counters(
-                    target,
-                    "stun",
-                    1,
-                    source_card=ability.source_card.name,
-                    oracle_fragment=ability.oracle_fragment,
-                    source_id=ability.source_id,
-                    stack_object_id=ability.object_id,
-                )
-                # Counter replacement opportunity records may precede placement.
-                placement_cursor = next(
-                    index
-                    for index in range(placement_cursor, len(self.events))
-                    if self.events[index]["event"] == "counters_placed"
-                )
-            self._record_stun_event(
-                "stun_etb_resolved",
-                stack_object_id=ability.object_id,
-                trigger_id=ability.trigger_id,
-                event_id=ability.event.event_id,
-                source_id=ability.source_id,
-                target_id=selection.target_id,
-                controller=ability.controller,
-                oracle_fragment=ability.oracle_fragment,
-                applied=bool(legal),
-                tapped_before=tapped_before,
-                tapped_after=True if legal else None,
-                counters_before=before,
-                counters_after=before + 1 if legal else None,
-                placement_cursor=placement_cursor,
-            )
-        elif ability.effect is TriggerEffect.PARAMECIA_EXILE_CHOICE:
-            departure = self._paramecia_departures.get(ability.source_id)
-            if departure is None:
-                raise ValueError("Paramecia departure is missing")
-            _original, grave, _event, fragment = departure
+  YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹Q	}I]}%MI(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}‘É…İ}‘¥Í…É‘}…¹¡½ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}•Ñ‰}‘É…İ}‘¥Í…É‘}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹1Q	}5UQ8(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}±Ñ‰}µÕÑ…•¹}…¹¡½ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}±Ñ‰}µÕÑ…•¹}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥¸íQÉ¥•É™™•Ğ¹Q	}Y%%19Q°QÉ¥•É™™•Ğ¹Y%%19Q}%MIô(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}Ù¥¥±…¹Ñ•}ÍÑ…¬(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}Ù¥¥±…¹Ñ•}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹Q	})UIe}I%(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}©ÕÉå}É¥}…¹¡½ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}©ÕÉå}É¥}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹Q	}-I9}I%10(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}­É…¹}É•™¥±±}…¹¡½ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}ÁÉ•™±¥¡Ñ}­É…¹}É•™¥±°¡…‰¥±¥Ñä¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹Q	}5%11}Q!I(€€€€€€€€€€€½È…‰¥±¥Ñä¹½‰©•Ñ}¥¥¸Í•±˜¹}µ¥±±}Ñ¡É••}…¹¡½ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}ÁÉ•™±¥¡Ñ}µ¥±±}Ñ¡É•”¡…‰¥±¥Ñä¤(€€€€€€€Í•±˜¹ÍÑ…¬¹Á½À ¤(€€€€€€€…‰¥±¥Ñä¹é½¹”€ô€‰™½Éµ•Èˆ(€€€€€€€™½È¥¹‘•à°•Ù¥‘•¹”¥¸•¹Õµ•É…Ñ”¡Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹”¤è(€€€€€€€€€€€¥˜•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥€ôô…‰¥±¥Ñä¹½‰©•Ñ}¥è(€€€€€€€€€€€€€€€Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹•m¥¹‘•át€ôÉ•Á±…”¡•Ù¥‘•¹”°É•Í½±Ù•õQÉÕ”¤(€€€€€€€€€€€€€€€‰É•…¬(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹Í½ÕÉ•}¥¤(€€€€€€€Í½ÕÉ•}Á•Éµ…¹•¹Ğ€ô€ (€€€€€€€€€€€Í½ÕÉ”(€€€€€€€€€€€¥˜¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤…¹Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í½ÕÉ”°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€•±Í”9½¹”(€€€€€€€€¤(€€€€€€€ÍÕ‰©•ÑÌ€ômÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½‰©•Ñ}¥¤™½È½‰©•Ñ}¥¥¸…‰¥±¥Ñä¹•Û}5¶‰ËkºwµçB&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢F–ÖW7F××6VÆbåöVffV7E÷F–ÖW7F×‚’À¢¢¢6VÆbæÆör€¢'6‡&VFFW%öFVF‡F÷V6…öw&çFVB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢WfVçEö–CÖ&–Æ—G’æWfVçBæWfVçEö–BÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–BÀ¢GW&F–öãÒ'VçF–ÅöVæEööe÷GW&â"À¢¢VÇ6S ¢6VÆbæÆör€¢'6‡&VFFW%öFVF‡F÷V6…öf–ÆVEö6Æ÷6VB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–B–bF&vWB—2æ÷BæöæRVÇ6RæöæRÀ¢¢VÆ–b&–Æ—G’æVffV7B—2G&–vvW$VffV7Bå$ô4µõ4ôÄD”U%5ôUD%ôDU5E$õ“ ¢F&vWEö–BÒ6VÆbå÷&ö6µ÷6öÆF–W'5÷F&vWG2ævWB†&–Æ—G’æö&¦V7Eö–B¢F&vWBÒ6VÆbåöö&¦V7G2ævWB‡F&vWEö–B’–bF&vWEö–BVÇ6RæöæP¢ÆVvÂÒ€¢—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ&&GFÆVf–VÆB"¢æB$'F–f7B"–âF&vWBçG—UöÆ–æP¢æB$7&VGW&R"æ÷B–âF&vWBçG—UöÆ–æP¢¢–bÆVvÃ ¢6VÆbæFW7G&÷’‡F&vWB¢6VÆbæÆör€¢'&ö6µ÷6öÆF–W'5öFW7G&÷–VB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–BÀ¢¢VÇ6S ¢6VÆbæÆör€¢'&ö6µ÷6öÆF–W'5öæõ÷F&vWB"À¢7F6µöö&¦V7Eö–Eš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍOXXš[]K›Øš™XİÚYˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ
+BˆYˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÕTÔÕS‚ˆÙ[Xİ[ÛˆHÙ[‹—Üİ[—ÜÙ[Xİ[ÛœÖØXš[]K›Øš™XİÚYBˆ\™Ù]HÙ[Xİ[Û‹\™Ù]ˆYØ[H\™Ù]\È›İ›Û™H[™Ù[‹š\×Ø]]Üš]]]™J\™Ù]˜˜]YšY[ŠBˆYØ[HYØ[[™Ü™X]\™Hˆ[ˆ\™Ù]\WÛ[™Bˆ™Y›Ü™HH\™Ù]˜Ûİ[\œË™Ù]
+œİ[ˆ‹
+HYˆYØ[[ÙH›Û™Bˆ\YØ™Y›Ü™HH\™Ù]\YYˆYØ[[ÙH›Û™BˆXÙ[Y[Øİ\œÛÜˆH›Û™BˆYˆYØ[‚ˆ\™Ù]\YHYBˆÙ[‹—Ü™XÛÜ™Üİ[—Ù]™[
+ˆœİ[—İ\™Ù]İ\Y‹ˆ\™Ù]ÚY]\™Ù]›Øš™XİÚYˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆ\YØ™Y›Ü™O]\YØ™Y›Ü™Kˆ\YØY\UYKˆ
+BˆXÙ[Y[Øİ\œÛÜˆH[ŠÙ[‹™]™[ÊBˆÙ[‹œXÙWØÛİ[\œÊˆ\™Ù]ˆœİ[ˆ‹ˆKˆÛİ\˜ÙWØØ\™XXš[]KœÛİ\˜ÙWØØ\™›˜[YKˆÜ˜XÛWÙœ˜YÛY[XXš[]K›Ü˜XÛWÙœ˜YÛY[ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆ
+BˆÈÛİ[\ˆ™\XÙ[Y[ÜÜ[š]H™XÛÜ™ÈX^H™XÙYHXÙ[Y[‚ˆXÙ[Y[Øİ\œÛÜˆH™^
+ˆ[™^ˆ›Üˆ[™^[ˆ˜[™ÙJXÙ[Y[Øİ\œÛÜ‹[ŠÙ[‹™]™[ÊJBˆYˆÙ[‹™]™[ÖÚ[™^VÈ™]™[—HOH˜Ûİ[\œ×ÜXÙY‚ˆ
+BˆÙ[‹—Ü™XÛÜ™Üİ[—Ù]™[
+ˆœİ[—Ù]—Ü™\ÛÛ™Y‹ˆİXÚ×ÛØš™XİÚYXXš[]K·Ó[h‘éì¶»§q«^uparture
             chosen = bool(self.paramecia_exile_chooser(ability.controller, ability.source_id))
             if (
                 chosen
@@ -4585,168 +1198,11 @@ class Game(
                 )
             else:
                 self.log(
-                    "paramecia_exile_declined" if not chosen else "paramecia_terminal_or_invalid",
-                    source_id=ability.source_id,
-                    event_id=ability.event.event_id,
-                )
-        elif ability.effect is TriggerEffect.PARAMECIA_REFLEXIVE_RETURN:
-            target = self._objects.get(ability.target_id or "")
-            legal = (
-                isinstance(target, CardObject)
-                and target.zone == "graveyard"
-                and target.owner == ability.controller
-                and target.card.is_creature
-                and self.is_authoritative(target, "graveyard")
-            )
-            if legal:
-                moved = self.move_object(
-                    target, "library", library_position="top", reason="paramecia_reflexive_return"
-                )
-                self.log(
-                    "paramecia_reflexive_return",
-                    source_id=ability.source_id,
-                    target_id=target.object_id,
-                    destination_object_id=moved.object_id,
-                    event_id=ability.event.event_id,
-                )
-            else:
-                self.log(
-                    "paramecia_target_invalidated",
-                    source_id=ability.source_id,
-                    target_id=ability.target_id,
-                    event_id=ability.event.event_id,
-                )
-        elif ability.effect is TriggerEffect.LTB_MUTAGEN:
-            self._resolve_ltb_mutagen(ability)
-        elif ability.effect is TriggerEffect.CREATE_TOKEN:
-            coverage = self.interpreter.token_semantic_coverage(
-                ability.source_card, ability.oracle_fragment
-            )
-            if (
-                coverage is None
-                or not coverage.payload_executable
-                or not coverage.parent_executable
-            ):
-                raise AssertionError("stacked token trigger no longer has executable semantics")
-            self.create_tokens(
-                ability.controller,
-                coverage.program,
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                source_id=ability.source_id,
-            )
-        elif ability.effect is TriggerEffect.DEAL_DAMAGE:
-            semantics = self.interpreter.damage_semantic_coverage(
-                ability.source_card, ability.oracle_fragment
-            )
-            if (
-                semantics is None
-                or not semantics.coverage.payload_executable
-                or not semantics.coverage.parent_executable
-            ):
-                raise AssertionError("stacked damage trigger no longer has executable semantics")
-            program = semantics.program
-            assert program.amount is not None and program.target_kind is DamageTargetKind.PLAYER
-            if source_permanent is None:
-                raise AssertionError("represented damage source must remain authoritative")
-            if program.target_scope == "you":
-                targets = (ability.controller,)
-            else:
-                targets = tuple(index for index in range(2) if index != ability.controller)
-            for target_player in targets:
-                self.deal_damage(
-                    DamageTransaction(
-                        ability.controller,
-                        source_permanent,
-                        program.target_kind,
-                        program.amount,
-                        ability.oracle_fragment,
-                        target_player=target_player,
-                    )
-                )
-        elif ability.effect is TriggerEffect.SCRY:
-            semantics = self.interpreter.scry_semantic_coverage(
-                ability.source_card, ability.oracle_fragment
-            )
-            if (
-                semantics is None
-                or not semantics.coverage.payload_executable
-                or not semantics.coverage.parent_executable
-            ):
-                raise AssertionError("stacked Scry trigger no longer has executable semantics")
-            self.scry(
-                ability.controller,
-                semantics.program,
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                source_id=ability.source_id,
-            )
-        elif ability.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
-            coverage = self.interpreter.etb_drain_gain_scry_semantic_coverage(
-                ability.source_card, ability.oracle_fragment
-            )
-            if coverage is None or not coverage.fully_supported:
-                raise AssertionError("stacked ETB drain/gain/Scry trigger is no longer executable")
-            self._validate_etb_drain_gain_scry_trigger(ability)
-            opponent = 1 - ability.controller
-            opponent_life_before = self.players[opponent].life
-            controller_life_before = self.players[ability.controller].life
-            self.players[opponent].life -= 1
-            self.log(
-                "life_lost",
-                player=self.players[opponent].name,
-                amount=1,
-                source=ability.source_card.name,
-                source_id=ability.source_id,
-                stack_object_id=ability.object_id,
-                oracle_fragment=ability.oracle_fragment,
-            )
-            self.check_life()
-            if self.winner is not None:
-                evidence = EtbDrainGainScryEvidence(
-                    ability.event.event_id,
-                    ability.object_id,
-                    ability.source_id,
-                    ability.source_card.name,
-                    ability.controller,
-                    opponent,
-                    ability.oracle_fragment,
-                    ability.event.turn,
-                    ability.event.step,
-                    opponent_life_before,
-                    self.players[opponent].life,
-                    controller_life_before,
-                    self.players[ability.controller].life,
-                    None,
-                    True,
-                )
-                self.etb_drain_gain_scry_evidence.append(evidence)
-                self.log(
-                    "etb_drain_gain_scry_terminal",
-                    event_id=evidence.event_id,
-                    stack_object_id=evidence.stack_object_id,
-                    source_id=evidence.source_id,
-                    oracle_fragment=evidence.oracle_fragment,
-                )
-                return
-            self.gain_life(
-                ability.controller,
-                1,
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                defer_trigger_delivery=True,
-            )
-            scry_count_before = len(self.scry_evidence)
-            self.scry(
-                ability.controller,
-                ScryProgram(1),
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                source_id=ability.source_id,
-            )
-            if len(self.scry_evidence) != scry_count_before + 1:
-                raise AssertionError(
-                    "ETB drain/gain/Scry transaction lacks committed Scry evidence"
+                    "paramecia_exile_declined" if not chosen else "paramecia_terminal_or_invalid"YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€•Ù•¹Ñ}¥õ…‰¥±¥Ñä¹•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹AI5%}I1a%Y}IQUI8è(€€€€€€€€€€€Ñ…É•Ğ€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹Ñ…É•Ñ}¥½È€ˆˆ¤(€€€€€€€€€€€±•…°€ô€ (€€€€€€€€€€€€€€€¥Í¥¹ÍÑ…¹”¡Ñ…É•Ğ°…É‘=‰©•Ğ¤(€€€€€€€€€€€€€€€…¹Ñ…É•Ğ¹é½¹”€ôô€‰É…Ù•å…Éˆ(€€€€€€€€€€€€€€€…¹Ñ…É•Ğ¹½İ¹•È€ôô…‰¥±¥Ñä¹½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€…¹Ñ…É•Ğ¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€€€€€…¹Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Ñ…É•Ğ°€‰É…Ù•å…Éˆ¤(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜±•…°è(€€€€€€€€€€€€€€€µ½Ù•€ôÍ•±˜¹µ½Ù•}½‰©•Ğ (€€€€€€€€€€€€€€€€€€€Ñ…É•Ğ°€‰±¥‰É…Éäˆ°±¥‰É…Éå}Á½Í¥Ñ¥½¸ô‰Ñ½Àˆ°É•…Í½¸ô‰Á…É…µ•¥…}É•™±•á¥Ù•}É•ÑÕÉ¸ˆ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€€€€€‰Á…É…µ•¥…}É•™±•á¥Ù•}É•ÑÕÉ¸ˆ°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€Ñ…É•Ñ}¥õÑ…É•Ğ¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½‰©•Ñ}¥õµ½Ù•¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€•Ù•¹Ñ}¥õ…‰¥±¥Ñä¹•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€•±Í”è(€€€€€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€€€€€‰Á…É…µ•¥…}Ñ…É•Ñ}¥¹Ù…±¥‘…Ñ•ˆ°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€Ñ…É•Ñ}¥õ…‰¥±¥Ñä¹Ñ…É•Ñ}¥°(€€€€€€€€€€€€€€€€€€€•Ù•¹Ñ}¥õ…‰¥±¥Ñä¹•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹1Q	}5UQ8è(€€€€€€€€€€€Í•±˜¹}É•Í½±Ù•}±Ñ‰}µÕÑ…•¸¡…‰¥±¥Ñä¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹IQ}Q=-8è(€€€€€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Ñ½­•¹}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€½Ù•É…”¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½Ğ½Ù•É…”¹Á…å±½…‘}•á•ÕÑ…‰±”(€€€€€€€€€€€€€€€½È¹½Ğ½Ù•É…”¹Á…É•¹Ñ}•á•ÕÑ…‰±”(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥¿}5¶‰ËkºwµçFæ÷BæöæRæB&öw&ÒçF&vWEö¶–æB—2FÖvUF&vWD¶–æBåÄ”U ¢–b6÷W&6U÷W&ÖæVçB—2æöæS ¢&—6R76W'F–öäW'&÷"‚'&W&W6VçFVBFÖvR6÷W&6R×W7B&VÖ–âWF†÷&—FF—fR"¢–b&öw&ÒçF&vWE÷66÷RÓÒ'–÷R# ¢F&vWG2Ò†&–Æ—G’æ6öçG&öÆÆW"Â¢VÇ6S ¢F&vWG2ÒGWÆR†–æFW‚f÷"–æFW‚–â&ævRƒ"’–b–æFW‚Ò&–Æ—G’æ6öçG&öÆÆW"¢f÷"F&vWE÷Æ–W"–âF&vWG3 ¢6VÆbæFVÅöFÖvR€¢FÖvUG&ç67F–öâ€¢&–Æ—G’æ6öçG&öÆÆW"À¢6÷W&6U÷W&ÖæVçBÀ¢&öw&ÒçF&vWEö¶–æBÀ¢&öw&ÒæÖ÷VçBÀ¢&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢F&vWE÷Æ–W#×F&vWE÷Æ–W"À¢¢¢VÆ–b&–Æ—G’æVffV7B—2G&–vvW$VffV7Bå45%“ ¢6VÖçF–72Ò6VÆbæ–çFW'&WFW"ç67'•÷6VÖçF–5ö6÷fW&vR€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢–b€¢6VÖçF–72—2æöæP¢÷"æ÷B6VÖçF–72æ6÷fW&vRç–ÆöEöW†V7WF&ÆP¢÷"æ÷B6VÖçF–72æ6÷fW&vRç&VçEöW†V7WF&ÆP¢“ ¢&—6R76W'F–öäW'&÷"‚'7F6¶VB67'’G&–vvW"æòÆöævW"†2W†V7WF&ÆR6VÖçF–72"¢6VÆbç67'’€¢&–Æ—G’æ6öçG&öÆÆW"À¢6VÖçF–72ç&öw&ÒÀ¢6÷W&6Uö6&CÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢¢VÆ–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäUD%ôE$”åôt”åõ45%“ ¢6÷fW&vRÒ6VÆbæ–çFW'&WFW"æWF%öG&–åöv–å÷67'•÷6VÖçF–5ö6÷fW&vR€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢–b5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[İ™\˜YÙH\È›Û™HÜˆ›İÛİ™\˜YÙK™[WÜİ\ÜY‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠœİXÚÙYUˆ˜Z[‹ÙØZ[‹ÔØÜHšYÙÙ\ˆ\È›ÈÛ™Ù\ˆ^Xİ]X›HŠBˆÙ[‹—İ˜[Y]WÙ]—Ù˜Z[—ÙØZ[—ÜØÜWİšYÙÙ\ŠXš[]JBˆÜÛ™[HHHXš[]K˜ÛÛ›Û\‚ˆÜÛ™[ÛY™WØ™Y›Ü™HHÙ[‹œ^Y\œÖÛÜÛ™[K›Y™BˆÛÛ›Û\—ÛY™WØ™Y›Ü™HHÙ[‹œ^Y\œÖØXš[]K˜ÛÛ›Û\—K›Y™BˆÙ[‹œ^Y\œÖÛÜÛ™[K›Y™HOHBˆÙ[‹›ÙÊˆ›Y™WÛÜİ‹ˆ^Y\\Ù[‹œ^Y\œÖÛÜÛ™[K›˜[YKˆ[[İ[LKˆÛİ\˜ÙOXXš[]KœÛİ\˜ÙWØØ\™›˜[YKˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[XXš[]K›Ü˜XÛWÙœ˜YÛY[ˆ
+BˆÙ[‹˜ÚXÚ×ÛY™J
+BˆYˆÙ[‹Ú[›™\ˆ\È›İ›Û™N‚ˆ]šY[˜ÙHH]‘˜Z[‘ØZ[”ØÜQ]šY[˜ÙJˆXš[]K™]™[™]™[ÚYˆXš[]K›Øš™XİÚYˆXš[]KœÛİ\˜ÙWÚYˆXš[]KœÛİ\˜ÙWØØ\™›˜[YKˆXš[]K˜ÛÛ›Û\‹ˆÜÛ™[ˆXš[]K›Ü˜XÛWÙœ˜YÛY[ˆXš[]K™]™[\›‹ˆXš[]K™]™[œİ\ˆÜÛ™[ÛY™WØ™Y›Ü™KˆÙ[‹œ^Y\œÖÛÜÛ™[K›Y™KˆÛÛ›Û\—ÛY™WØ™Y›Ü™KˆÙ[‹œ^Y\œÖØXš[]K˜ÛÛ›Û\—K›Y™Kˆ›Û™KˆYKˆ
+BˆÙ[‹™]—Ù˜Z[—ÙØZ[—ÜØÜWÙ]šY[˜ÙK˜\[™
+]šY[˜ÙJBˆÙ[‹›ÙÊˆ™]—Ù˜Z[—ÙØZ[—ÜØÜWİ\›Z[˜[‹ˆ]™[ÚYY]šY[˜ÙK™]™[ÚYˆİXÚ×ÛØš™XİÚYY]šY[˜ÙKœİXÚ×ÛØš™XİÚYˆ7Ó[h‘éì¶»§q«^v
                 )
             scry_event_id = self.scry_evidence[-1].event_id
             self.etb_drain_gain_scry_evidence.append(
@@ -4788,88 +1244,848 @@ class Game(
                 controller=self.players[ability.controller].name,
                 amount=amount,
                 life_before=life_before,
-                life_after=self.players[ability.controller].life,
-                oracle_fragment=ability.oracle_fragment,
+                life_after=self.players[ability.controYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ±±•Ét¹±¥™”°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹AI599Q}1Q}M1}=U9QHè(€€€€€€€€€€€Í½ÕÉ•}‰•™½É”€ôÍ•±˜¹}Ù…±¥‘…Ñ•}Á•Éµ…¹•¹Ñ}±•™Ñ}½Õ¹Ñ•É}ÁÉ½Ù•¹…¹” (€€€€€€€€€€€€€€€½¹ÑÉ½±±•Èõ…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€•Ù•¹Ğõ…‰¥±¥Ñä¹•Ù•¹Ğ°(€€€€€€€€€€€€€€€ÑÉ¥•É}¥õ…‰¥±¥Ñä¹ÑÉ¥•É}¥°(€€€€€€€€€€€€¤(€€€€€€€€€€€½Õ¹Ñ•ÉÍ}‰•™½É”€ô€ (€€€€€€€€€€€€€€€9½¹”¥˜Í½ÕÉ•}‰•™½É”¥Ì9½¹”•±Í”Í½ÕÉ•}‰•™½É”¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ¬Ä¼¬Äˆ°€À¤(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜Í½ÕÉ•}‰•™½É”¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€Í•±˜¹Á±…•}½Õ¹Ñ•ÉÌ (€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}‰•™½É”°(€€€€€€€€€€€€€€€€€€€€ˆ¬Ä¼¬Äˆ°(€€€€€€€€€€€€€€€€€€€€Ä°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€‰Á•Éµ…¹•¹Ñ}±•™Ñ}Í•±™}½Õ¹Ñ•É}É•Í½±Ù•ˆ°(€€€€€€€€€€€€€€€•Ù•¹Ñ}¥õ…‰¥±¥Ñä¹•Ù•¹Ğ¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õ…‰¥±¥Ñä¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Í½ÕÉ”õ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€‘•Á…ÉÑ•‘}½‰©•Ñ}¥õ…‰¥±¥Ñä¹•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘ÍlÁt°(€€€€€€€€€€€€€€€½¹ÑÉ½±±•Èõ…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€½Õ¹Ñ•É}…ÁÁ±¥•õÍ½ÕÉ•}‰•™½É”¥Ì¹½Ğ9½¹”°(€€€€€€€€€€€€€€€½Õ¹Ñ•ÉÍ}‰•™½É”õ½Õ¹Ñ•ÉÍ}‰•™½É”°(€€€€€€€€€€€€€€€½Õ¹Ñ•ÉÍ}…™Ñ•Èô (€€€€€€€€€€€€€€€€€€€9½¹”¥˜Í½ÕÉ•}‰•™½É”¥Ì9½¹”•±Í”Í½ÕÉ•}‰•™½É”¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ¬Ä¼¬Äˆ°€À¤(€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹Q	}IQ%Q}I\è(€€€€€€€€€€€½¹‘¥Ñ¥½¹}µ•Ğ€ôÍ•±˜¹}Ù…±¥‘…Ñ•}•Ñ‰}…ÉÑ¥™…Ñ}“}5¶‰ËkºwµçVgFW"ÒGWÆR€¢6&Bæö&¦V7Eö–Bf÷"6&B–â6VÆbçÆ–W'5¶&–Æ—G’æ6öçG&öÆÆW%ÒæÆ–'&'¢¢6VÆbæÆör€¢&WF%ö'F–f7EöG&u÷&W6öÇfVB"À¢WfVçEö–CÖ&–Æ—G’æWfVçBæWfVçEö–BÀ¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢6÷W&6SÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢6öçG&öÆÆW#Ö&–Æ—G’æ6öçG&öÆÆW"À¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢6öæF—F–öåöÖWCÖ6öæF—F–öåöÖWBÀ¢G&u÷7V66VVFVCÖG&u÷7V66VVFVBÀ¢†æEö&Vf÷&SÖÆ—7B††æEö&Vf÷&R’À¢†æEögFW#ÖÆ—7B††æEögFW"’À¢Æ–'&'•ö&Vf÷&SÖÆ—7B†Æ–'&'•ö&Vf÷&R’À¢Æ–'&'•ögFW#ÖÆ—7B†Æ–'&'•ögFW"’À¢¢VÆ–b&–Æ—G’æVffV7B—2G&–vvW$VffV7BäUD%ô4ôäD•D”ôäÅõDô´Tã ¢6÷fW&vRÒ6VÆbæ–çFW'&WFW"æ6öæF—F–öæÅöWF%÷Fö¶Vå÷6VÖçF–5ö6÷fW&vR€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢fÆ–BÒ€¢6÷fW&vR—2æ÷BæöæP¢æB6÷fW&vRæ6÷fW&vRægVÆÇ•÷7W÷'FV@¢æB&–Æ—G’æWfVçBæ¶–æB—2'VÆW4WfVçD¶–æBä5$TEU$UôTåDU$T@¢æB&–Æ—G’æWfVçBç7V&¦V7Eö–G2ÓÒ†&–Æ—G’ç6÷W&6Uö–BÂ¢æB&–Æ—G’æWfVçBçÆ–W%ö–æFW‚ÓÒ&–Æ—G’æ6öçG&öÆÆW ¢æB6VÆbå÷'VÆW5öWfVçG2ævWB†&–Æ—G’æWfVçBæWfVçEö–B’—2&–Æ—G’æWfVç@¢æB6VÆbå÷W&ÖæVçEöÆVgE÷F†—5÷GW&â†&–Æ—G’æ6öçG&öÆÆW"¢¢–bfÆ–C ¢6VÆbæ7&VFU÷Fö¶Vç2€¢&–Æ—G’æ6öçG&öÆÆW"À¢6÷fW&vRç&öw&ÒÀ¢6÷W&6Uö6&CÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçEš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍKˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ
+Bˆ[ÙN‚ˆÙ[‹›ÙÊˆ˜ÛÛ™][Û˜[Ù]—İÚÙ[—Ù˜Z[YØÛÜÙY‹ˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆšYÙÙ\—ÚYXXš[]KšYÙÙ\—ÚYˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ
+Bˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÒÔS‘×Ô‘Q’S‚ˆÙ[‹—Ü™\ÛÛ™WÚÜ˜[™×Ü™Yš[
+Xš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÓRSÕ‘QN‚ˆÙ[‹—Ü™\ÛÛ™WÛZ[İ™YJXš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—Ò•T–WÔ’QÎ‚ˆÙ[‹—Ü™\ÛÛ™WÚ\WÜšYÊXš[]JBˆ[YˆXš[]K™Y™™Xİ[ˆÕšYÙÙ\‘Y™™Xİ‘U—Õ’QÒSS•KšYÙÙ\‘Y™™Xİ•’QÒSS•WÑTĞĞT‘N‚ˆÙ[‹—Ü™\ÛÛ™WİšYÚ[[JXš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—Ñ“ÓÑÔÑPTÒ‚ˆÙ[‹—Ü™\ÛÛ™WÙ]—Ù›ÛÙÜÙX\˜Ú
+Xš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÑU×ÑTĞĞT‘‚ˆÙ[‹—Ü™\ÛÛ™WÙ]—Ù˜]×Ù\ØØ\™
+Xš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÓRSÑU×ÑTĞĞT‘‚ˆÙ[‹—Ü™\ÛÛ™WÙ]—ÛZ[Ù˜]×Ù\ØØ\™
+Xš[]JBˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™XİÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–N‚ˆÙ[XİYHÙ[‹—ØÛ\Ü×Ü™XÛİ™\Wİ\™Ù]Ë™Ù]
+Xš[]K›Øš™XİÚY
+
+
+K
+
+JJVÌBˆ™XÛİ™\™YH×Bˆ›ÜˆØš™XİÚY[ˆÙ[XİY‚ˆØ\™HÙ[‹—ÛØš™XİË™Ù]
+Øš™XİÚY
+BˆYˆ
+ˆ\Ú[œİ[˜ÙJØ\™Ø\™Øš™Xİ
+Bˆ[™Ù[‹š\×Ø]]Üš]]]™JØ\™™Ü˜]™^X\™ŠBˆ[™Ø\™›İÛ™\ˆOHXš[]K˜ÛÛ›Û\‚ˆ[™Ø\™˜Ø\™\WÛ[™Kœİ\İÚ]
+\Y˜XİŠBˆ
+N‚ˆ[İ™YHÙ[‹›[İ™WÛØš™Xİ
+Ø\™š[™‹™X\ÛÛH˜Û\Ü×Û]™[Ø\Y˜X÷Ó[h‘éì¶»§q«^wdiscard_draw(ability.controller, semantics.program)
+            self.commit_discard_draw(
+                ability.controller,
+                semantics.program,
+                plan,
+                trigger=ability,
             )
-        elif ability.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
-            source_before = self._validate_permanent_left_counter_provenance(
-                controller=ability.controller,
-                source_id=ability.source_id,
-                source_card=ability.source_card,
-                oracle_fragment=ability.oracle_fragment,
-                event=ability.event,
-                trigger_id=ability.trigger_id,
+        elif ability.effect is TriggerEffect.DIES_DRAW:
+            coverage = self.interpreter.dies_draw_semantic_coverage(
+                ability.source_card, ability.oracle_fragment
             )
-            counters_before = (
-                None if source_before is None else source_before.counters.get("+1/+1", 0)
-            )
-            if source_before is not None:
-                self.place_counters(
-                    source_before,
-                    "+1/+1",
-                    1,
-                    source_card=ability.source_card.name,
+            if coverage is None or not coverage.fully_supported:
+                raise AssertionError("stacked dies/Draw trigger is no longer executable")
+            self._validate_dies_draw_trigger(ability)
+            self.draw(self.players[ability.controller], 1)
+        elif ability.effect is TriggerEffect.SNEAK_ETB_CONDITION:
+            match = self.interpreter.SNEAK_ETB_TEAM_UNTIL_EOT.fullmatch(ability.oracle_fragment)
+            assert match is not None
+            if ability.event.source_id is None:
+                self.log(
+                    "pt_effect_condition_not_met",
+                    source=ability.source_card.name,
+                    condition="sneak_cost_paid",
                     oracle_fragment=ability.oracle_fragment,
                 )
-            self.log(
-                "permanent_left_self_counter_resolved",
-                event_id=ability.event.event_id,
-                stack_object_id=ability.object_id,
-                source=ability.source_card.name,
-                source_id=ability.source_id,
-                departed_object_id=ability.event.subject_ids[0],
-                controller=ability.controller,
-                counter_applied=source_before is not None,
-                counters_before=counters_before,
-                counters_after=(
-                    None if source_before is None else source_before.counters.get("+1/+1", 0)
-                ),
+            else:
+                for permanent in tuple(self.players[ability.controller].battlefield):
+                    if permanent.card.is_creature:
+                        self.apply_pt_modifier(
+                            permanent,
+                            int(match.group(1)),
+                            int(match.group(2)),
+                            duration="until_end_of_turn",
+                            source_card=ability.source_card.name,
+                            oracle_fragment=ability.oracle_fragment,
+                        )
+        elif ability.effect is TriggYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ•É™™•Ğ¹11%9}AP…¹Í½ÕÉ•}Á•Éµ…¹•¹Ğ¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€µ…Ñ €ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹11%9}Q!%M}U9Q%1}=P¹™Õ±±µ…Ñ ¡…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ¤(€€€€€€€€€€€…ÍÍ•ÉĞµ…Ñ ¥Ì¹½Ğ9½¹”(€€€€€€€€€€€Í•±˜¹…ÁÁ±å}ÁÑ}µ½‘¥™¥•È (€€€€€€€€€€€€€€€Í½ÕÉ•}Á•Éµ…¹•¹Ğ°(€€€€€€€€€€€€€€€¥¹Ğ¡µ…Ñ ¹É½ÕÀ Ä¤¤°(€€€€€€€€€€€€€€€¥¹Ğ¡µ…Ñ ¹É½ÕÀ È¤¤°(€€€€€€€€€€€€€€€‘ÕÉ…Ñ¥½¸ô‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸ˆ°(€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹11%9}Q5A=IIe}-e]=I}!=%è(€€€€€€€€€€€Í•µ…¹Ñ¥Ì€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Ñ•µÁ½É…Éå}­•åİ½É‘}¡½¥•}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜Í•µ…¹Ñ¥Ì¥Ì9½¹”½È¹½ĞÍ•µ…¹Ñ¥Ì¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÍÑ…­•Ñ•µÁ½É…Éäµ­•åİ½É¡½¥”¥Ì¹¼±½¹•È•á•ÕÑ…‰±”ˆ¤(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}…±±¥…¹•}Ñ•µÁ½É…Éå}­•åİ½É‘}¡½¥•}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€€€€€¡½¥•Ì€ôÍ•µ…¹Ñ¥Ì¹ÁÉ½É…´¹¡½¥•Ì(€€€€€€€€€€€Í•±•Ñ•€ôÍ•±˜¹Ñ•µÁ½É…Éå}­•åİ½É‘}¡½½Í•È (€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½¹ÑÉ½±±•È°…‰¥±¥Ñä¹Í½ÕÉ•}¥°¡½¥•Ì(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜Í•±•Ñ•¹½Ğ¥¸¡½¥•Ìè(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Ñ•µÁ½É…Éä­•åİ½É¡½½Í•ÈµÕÍĞÉ•ÑÕÉ¸…¸…Ù…¥±…‰±”­•åİ½Éˆ¤(€€€€€€€€€€€…ÁÁ±¥•€ôÍ½ÕÉ•}Á•Éµ…¹•¹Ğ¥Ì¹½Ğ9½¹”(€€€€€€€€€€€¥˜Í½ÕÉ•}Á•Éµ…¹•¹Ğ¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€Í½ÕÉ•}Á•Éµ…¹•¹Ğ¹Ñ•µÁ½É…Éå}­•åİ½É‘}•™™•ÑÌ¹…ÁÁ•¹ (€€€€€€€€€€€€€€€€€€€Q•µÁ½É…Éå-•åİ½É‘™™•Ğ (€€€€€€€€€€€€€€€€€€€€€€€Q•µÁ½É…Éå-•åİ½É¡Í•±•Ñ•¤°(€€€€€€€€€€€€€€€€€€€€€€€€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸ˆ°(€€€€€€€€€€€€€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€€€€€€€€€Ñ¥µ•ÍÑ…µÀõÍ•±˜¹}•™™•Ñ}Ñ¥µ•ÍÑ…µÀ ¤°(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€ƒ}5¶‰ËkºwµçB¢fÆ–BÒ€¢—6–ç7Fæ6R†VçFW&–ærÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR†VçFW&–ærÂ&&GFÆVf–VÆB"¢æBVçFW&–æræ6öçG&öÆÆW"ÓÒ&–Æ—G’æ6öçG&öÆÆW ¢æB$'F–f7B"–âVçFW&–ærçG—UöÆ–æP¢æB6VÆbæ—5öWF†÷&—FF—fR‡6÷W&6U÷W&ÖæVçBÂ&&GFÆVf–VÆB"¢¢–bfÆ–C ¢6VÆbçÆ6Uö6÷VçFW'2€¢6÷W&6U÷W&ÖæVçBÀ¢"³ò³"À¢À¢6÷W&6Uö6&CÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢¢6VÆbæÆör€¢&'F–f7EöVçG'•ö6÷VçFW%÷&W6öÇfVB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢WfVçEö–CÖ&–Æ—G’æWfVçBæWfVçEö–BÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢VçFW&VEö–CÖVçFW&–æræö&¦V7Eö–BÀ¢VçF—G“ÓÀ¢6÷VçFW%÷G—SÒ"³ò³"À¢¢VÇ6S ¢6VÆbæÆör€¢&'F–f7EöVçG'•ö6÷VçFW%öf–ÆVEö6Æ÷6VB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢¢VÆ–b&–Æ—G’æVffV7B—2G&–vvW$VffV7Bå$„TÅôÄÄ”ä4UôU„”ÄS ¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’ç6÷W&6Uö–B¢–b€¢æ÷B—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB¢÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR‡6÷W&6RÂ&&GFÆVf–VÆB"¢÷"æ÷B6VÆbç&†VÅöW†–ÆUö6†ö÷6W"†&–Æ—G’æ6öçG&öÆÆW"Â&–Æ—G’ç6÷W&6Uö–B¢“ ¢6VÆbæÆör‚'&†VÅöÆÆ–æ6UöW†–ÆUöFV6Æ–æVB"Â6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–B¢VÆ–b6VÆbçÆ–W'5¶&–Æ—G’æ6öçG&öÅš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[\—K›Xœ˜\N‚ˆÜHÙ[‹œ^Y\œÖØXš[]K˜ÛÛ›Û\—K›Xœ˜\VËLWBˆ[İ™YHÙ[‹›[İ™WÛØš™Xİ
+Ü™^[H‹™X\ÛÛHœ˜\Y[Ø[X[˜ÙWÙ^[HŠBˆÙ[‹—Ü˜\Y[Û[šÙYÙ^[KœÙ]Y˜][
+Xš[]KœÛİ\˜ÙWÚY×JK˜\[™
+ˆ
+[İ™Y›Øš™XİÚY[İ™Y˜Ø\™Ûİ\˜ÙK›Øš™XİÚY
+Bˆ
+BˆÙ[‹›ÙÊˆœ˜\Y[Û[šÙYÙ^[H‹ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ^[YÛØš™XİÚY[[İ™Y›Øš™XİÚYˆØ\™[[İ™Y˜Ø\™›˜[YKˆ]™[ÚYXXš[]K™]™[™]™[ÚYˆ
+Bˆ[ÙN‚ˆÙ[‹›ÙÊœ˜\Y[Ø[X[˜ÙWÙ^[WÙ[\H‹Ûİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚY
+Bˆ[YˆXš[]K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ”TQSĞUPÒ×ÔVN‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+Xš[]KœÛİ\˜ÙWÚY
+Bˆ[šÜÈH\JÙ[‹—Ü˜\Y[Û[šÙYÙ^[K™Ù]
+Xš[]KœÛİ\˜ÙWÚY
+
+JJBˆYˆ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+H[™Ù[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠN‚ˆÜ[ÛœÈH\Jˆ][VÌBˆ›Üˆ][H[ˆ[šÜÂˆYˆÙ[‹—ÛØš™XİË™Ù]
+][VÌJH\È›İ›Û™Bˆ[™Ù[‹š\×Ø]]Üš]]]™JÙ[‹—ÛØš™XİÖÚ][VÌWK™^[HŠBˆ
+BˆÚÜÙ[ˆHÙ[‹œ˜\Y[Ü^WØÚÛÜÙ\ŠXš[]K˜ÛÛ›Û\‹Xš[]KœÛİ\˜ÙWÚYÜ[ÛœÊBˆÙ[‹—Ü˜\Y[Ü\›Z\ÜÚ[ÛœÖØXš[]KœÛİ\˜ÙWÚYHH
+ˆÙ[‹\›‹ˆÚÜÙ[ˆYˆÚÜÙ[ˆ[ˆÜ[ÛœÈ[ÙH›Û™Kˆ
+BˆÙ[‹›ÙÊˆœ˜\Y[Ü^WÜ\›Z\ÜÚ[Û—ØÜ™X]Y‹ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ^[YÛØš™XİÚYÏ[\İ
+Ü[ÛœÊKˆÚÜÙ[—ÛØš™XİÚYXÚÜÙ[ˆYˆÚÜÙ[ˆ[ˆ7Ó[h‘éì¶»§q«^vdidates if candidate.object_id == target_id), None
+            )
+            if target is None:
+                raise ValueError("counter target chooser must return a listed creature")
+            self.place_counters(
+                target,
+                "+1/+1",
+                int(match.group(1) or 1),
+                source_card=ability.source_card.name,
                 oracle_fragment=ability.oracle_fragment,
             )
-        elif ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
-            condition_met = self._validate_etb_artifact_draw_provenance(
-                controller=ability.controller,
-                source_id=ability.source_id,
-                source_card=ability.source_card,
-                oracle_fragment=ability.oraâ€¦34566 tokens truncatedâ€¦ = blocks.blocks
-        self._blockers_declared = True
-        self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
-        if not any(
-            option.kind is ActionKind.CAST
-            for option in self.legal_sneak_actions(self.active_player)
+        elif ability.effect is TriggerEffect.ALLIANCE_MODAL and source_permanent is not None:
+            fragments = self.interpreter.fragments(ability.source_card)
+            modes = tuple(fragment for fragment in fragments if fragment.startswith("â€¢ "))
+            chosen = self.alliance_modes_chosen.setdefault(ability.source_id, set())
+            available = tuple(mode for mode in modes if mode not in chosen)
+            if not available:
+                self.log("alliance_no_available_mode", source=ability.source_card.name)
+            else:
+                mode = self.alliance_mode_chooser(ability.controller, ability.source_id, available)
+                if mode not in available:
+                    raise ValueError("Alliance mode chooser must return an available mode")
+                chosen.add(mode)
+                token_coverage = self.interpreter.token_semantic_coverage(ability.source_card, mode)
+                if self.interpreter.SELF_PLUS_COUNTER_MODE.fullmatch(mode):
+                    self.place_counters(
+                        source_permanent,
+                        "+1/+1",
+                        1,
+                        source_card=ability.source_card.name,
+                        oracle_fragment=mode,
+                    )
+                elif (
+                    token_coverage is not None
+                    anYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ½­•¹}½Ù•É…”¹Á…å±½…‘}•á•ÕÑ…‰±”(€€€€€€€€€€€€€€€€€€€…¹Ñ½­•¹}½Ù•É…”¹Á…É•¹Ñ}•á•ÕÑ…‰±”(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€Í•±˜¹É•…Ñ•}Ñ½­•¹Ì (€€€€€€€€€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€Ñ½­•¹}½Ù•É…”¹ÁÉ½É…´°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõµ½‘”°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€•±¥˜€ (€€€€€€€€€€€€€€€€€€€€ (€€€€€€€€€€€€€€€€€€€€€€€ÍÉå}½Ù•É…”€èôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹ÍÉå}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€€€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°µ½‘”(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€€€€…¹ÍÉå}½Ù•É…”¹½Ù•É…”¹Á…å±½…‘}•á•ÕÑ…‰±”(€€€€€€€€€€€€€€€€€€€…¹ÍÉå}½Ù•É…”¹½Ù•É…”¹Á…É•¹Ñ}•á•ÕÑ…‰±”(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€Í•±˜¹ÍÉä (€€€€€€€€€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€ÍÉå}½Ù•É…”¹ÁÉ½É…´°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõµ½‘”°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€•±Í”è(€€€€€€€€€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€€€€€€€€€‰…±±¥…¹•}µ½‘•}¹½Ñ}•á•ÕÑ•ˆ°(€€€€€€€€€€€€€€€€€€€€€€€Í½ÕÉ”õ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõµ½‘”°(€€€€€€€€€€€€€€€€€€€€€€€É•…Í½¸ô‰¡½Í•¹}µ½‘•}Í•µ…¹Ñ¥Í}¹½Ñ}¥µÁ±•µ•¹Ñ•ˆ°(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹•™™•Ğ¥ÌQÉ¥•É™™•Ğ¹1%}%9}=U9QH…¹Í½ÕÉ•}Á•Éµ…¹•¹Ğ¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€Í•±˜¹Á±…•}½Õ¹Ñ•ÉÌ (€€€€€€€€€€€€€€€Í½ÕÉ•}Á•Éµ…¹•¹Ğ°(€€€€€€€€€€€€€€€€ˆ¬Ä¼¬Äˆ°(€€€€€€€€€€€€€€€€Ä°(€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä»}5¶‰ËkºwµçW$VffV7BäED4µõD$tUEõC ¢6VÖçF–72Ò6VÆbæ–çFW'&WFW"æGF6µ÷F&vWE÷E÷6VÖçF–5ö6÷fW&vR€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢F&vWBÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’çF&vWEö–B’–b&–Æ—G’çF&vWEö–BVÇ6RæöæP¢fÆ–BÒ€¢6VÖçF–72—2æ÷BæöæP¢æB6VÖçF–72æ6÷fW&vRægVÆÇ•÷7W÷'FV@¢æB—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ&&GFÆVf–VÆB"¢æBF&vWBæ6&Bæ—5ö7&VGW&P¢æBF&vWBæ6öçG&öÆÆW"ÓÒ&–Æ—G’æ6öçG&öÆÆW ¢æBF&vWBæö&¦V7Eö–BÒ&–Æ—G’ç6÷W&6Uö–@¢¢–bfÆ–C ¢6VÆbæÇ•÷EöÖöF–f–W"€¢F&vWBÀ¢6VÖçF–72ç&öw&Òç÷vW"À¢6VÖçF–72ç&öw&ÒçF÷Vv†æW72À¢GW&F–öãÒ'VçF–ÅöVæEööe÷GW&â"À¢6÷W&6Uö6&CÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢¢F&vWBçFV×÷&'•ö¶W—v÷&EöVffV7G2æVæB€¢FV×÷&'”¶W—v÷&DVffV7B€¢FV×÷&'”¶W—v÷&Bä”äDU5E%T5D”$ÄRÀ¢'VçF–ÅöVæEööe÷GW&â"À¢&–Æ—G’ç6÷W&6Uö–BÀ¢&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢F–ÖW7F××6VÆbåöVffV7E÷F–ÖW7F×‚’À¢¢¢VÇ6S ¢6VÆbæÆör€¢&GF6µ÷F&vWE÷Eöf–ÆVEö6Æ÷6VB"À¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢G&–vvW%ö–CÖ&–Æ—G’çG&–vvW%ö–BÀ¢F&vWEö–CÖ&–Æ—G’çF&vWEö–BÀ¢¢&V6÷&E÷&W6öÇWF–öâÒ€¢6VÆbå÷&V6÷&E÷7GVåöWfVçB–b&–Æ—G’æVffV7B—2G%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍZYÙÙ\‘Y™™Xİ‘U—ÕTÔÕSˆ[ÙHÙ[‹›ÙÂˆ
+Bˆ™XÛÜ™Ü™\ÛÛ][ÛŠˆšYÙÙ\—Ü™\ÛÛ™Y‹ˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆ]™[ÚYXXš[]K™]™[™]™[ÚYˆÛİ\˜ÙOXXš[]KœÛİ\˜ÙWØØ\™›˜[YKˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆÜ˜XÛWÙœ˜YÛY[XXš[]K›Ü˜XÛWÙœ˜YÛY[ˆY™™XİXXš[]K™Y™™Xİ˜[YKˆšYÙÙ\—ÚYXXš[]KšYÙÙ\—ÚYˆ
+B‚ˆYˆÙ˜Z[—İšYÙÙ\™YØXš[]Y\ÊÙ[ŠHOˆ›Û™N‚ˆˆˆ’[[YYX]HÛÛ\]Xš[]H˜Z[ˆ[[š[Üš]HİÛœÈ[\\ÜÈ™\ÛÛ][Û‹ˆˆˆ‚ˆÚ[HÙ[‹œİXÚÈ[™\Ú[œİ[˜ÙJÙ[‹œİXÚÖËLWKšYÙÙ\™YXš[]SØš™Xİ
+N‚ˆYˆÙ[‹œİXÚÖËLWK™Y™™Xİ[ˆÂˆšYÙÙ\‘Y™™Xİ“—ÓUUQÑS‹ˆšYÙÙ\‘Y™™Xİ”TSQPÒPWÑVSWĞÒÒPÑKˆšYÙÙ\‘Y™™Xİ”TSQPÒPWÔ‘Q“VU‘WÔ‘UT“‹ˆšYÙÙ\‘Y™™Xİ”TQSĞSPSÑWÑVSKˆšYÙÙ\‘Y™™Xİ”TQSĞUPÒ×ÔVKˆšYÙÙ\‘Y™™Xİ‘U—Õ’QÒSS•KˆšYÙÙ\‘Y™™Xİ•’QÒSS•WÑTĞĞT‘ˆšYÙÙ\‘Y™™Xİ‘U—ÒÔS‘×Ô‘Q’SˆšYÙÙ\‘Y™™Xİ‘U—ÓRSÕ‘QKˆšYÙÙ\‘Y™™Xİ‘U—Ò•T–WÔ’QËˆšYÙÙ\‘Y™™Xİ‘U—Ñ“ÓÑÔÑPTÒˆšYÙÙ\‘Y™™Xİ‘U—ÑU×ÑTĞĞT‘ˆšYÙÙ\‘Y™™Xİ‘U—ÓRSÑU×ÑTĞĞT‘ˆšYÙÙ\‘Y™™XİÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–KˆšYÙÙ\‘Y™™Xİ‘TĞĞT‘ÑUËˆšYÙÙ\‘Y™™Xİ‘QT×ÑUËˆšYÙÙ\‘Y™™Xİ‘U—ÑRS—ÑĞRS—ÔĞÔ–KˆšYÙÙ\‘Y™™Xİ‘U—ÔÑS—ÓQ‘WÑĞRS‹ˆšYÙÙ\‘Y™™Xİ”T“PS‘S•ÓQ•ÔÑS—ĞÓÕS•T‹ˆšYÙÙ\‘Y™™Xİ‘U—ĞT•QPÕÑUËˆšYÙÙ\‘Y™™Xİ‘U—ÕTÔÕS‹ˆšYÙÙ\‘Y™™Xİ”“ĞÒ×ÔÓÓQT”×ÑU—ÑTÕ“ÖKˆ7Ó[h‘éì¶»§q«^u= source.object_id
+        ]
+        if (
+            source is not original
+            or self._objects.get(source.object_id) is not source
+            or source.card is not card
+            or source.zone != "former"
+            or source.controller != controller
+            or self._objects.get(replacement.object_id) is not replacement
+            or replacement.card is not card
+            or event is not original_event
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind is not RulesEventKind.PERMANENT_LEFT
+            or event.source_id != source.object_id
+            or event.subject_ids != (source.object_id,)
+            or event.player_index != controller
+            or (source.object_id, controller) not in event.battlefield_authority
+            or (source.object_id, controller, source.type_line, True)
+            not in event.last_known_battlefield
+            or len(records) != 1
+            or tuple(records[0].items()) != departure
+            or records[0]["source_zone"] != "battlefield"
+            or records[0]["destination_zone"] == "battlefield"
+            or records[0]["destination_object_id"] != replacement.object_id
+            or fragment not in self.interpreter.fragments(card)
+            or self.interpreter.ltb_mutagen_semantic_coverage(card, fragment) is None
         ):
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
+            raise ValueError("LTB Mutagen departure provenance is stale or relinked")
 
-    def execute_sneak_action(self, option: ActionOption) -> bool:
-        """Revalidate and execute one engine-generated Sneak action or decline."""
-        if option not in self.legal_sneak_actions(option.player_index):
-            raise ValueError("Sneak action is not currently legal")
-        if option.kind is ActionKind.PASS:
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
-            return True
-        card = self._objects.get(option.object_id or "")
-        attacker = self._objects.get(option.cost_object_id or "")
-        if not isinstance(card, CardObject) or not isinstance(attacker, Permanent):
-            raise ValueError("Sneak option references an invalid runtime object")
-        plan = self.sneak_payment_plan(option.player_index, card, attacker)
-        if plan is None or plan.oracle_fragment != option.oracle_fragment:
-            raise ValueError("Sneak option became stale or illegal")
-        self._commit_sneak_announcement(card, attacker, plan)
-        return True
+    def _validate_ltb_mutagen_trigger(self, ability: TriggeredAbilityObject) -> None:
+        if not self._priority_resolution_in_progress and (
+            self.priority_state is None or not self.priority_state.resolution_pending
+        ):
+            raise ValueError("LTB Mutagen requires Priority resolution")
+        anchor = self._ltb_mutagen_anchYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ½ÉÌ¹•Ğ¡…‰¥±¥Ñä¹½‰©•Ñ}¥¤(€€€€€€€¥˜…¹¡½È¥Ì9½¹”è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰1Q5ÕÑ…•¸±…­Ì½É¥¥¹…°MÑ…¬ÁÉ½Ù•¹…¹”ˆ¤(€€€€€€€½É¥¥¹…°°ÑÉ¥•È€ô…¹¡½È(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡ÑÉ¥•È¹Í½ÕÉ•}¥¤(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¥Ì¹½Ğ½É¥¥¹…°(€€€€€€€€€€€½ÈÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹½‰©•Ñ}¥¤¥Ì¹½Ğ…‰¥±¥Ñä(€€€€€€€€€€€½ÈÍ•±˜¹}ÑÉ¥•ÉÌ¹•Ğ¡…‰¥±¥Ñä¹ÑÉ¥•É}¥¤¥Ì¹½ĞÑÉ¥•È(€€€€€€€€€€€½È…‰¥±¥Ñä¹•Ù•¹Ğ¥Ì¹½ĞÑÉ¥•È¹•Ù•¹Ğ(€€€€€€€€€€€½È…‰¥±¥Ñä¹½¹ÑÉ½±±•È€„ôÑÉ¥•È¹½¹ÑÉ½±±•È(€€€€€€€€€€€½È…‰¥±¥Ñä¹Í½ÕÉ•}¥€„ôÑÉ¥•È¹Í½ÕÉ•}¥(€€€€€€€€€€€½È…‰¥±¥Ñä¹Í½ÕÉ•}…É¥Ì¹½ĞÑÉ¥•È¹Í½ÕÉ•}…É(€€€€€€€€€€€½È…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ€„ôÑÉ¥•È¹½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€½È…‰¥±¥Ñä¹•™™•Ğ¥Ì¹½ĞQÉ¥•É™™•Ğ¹1Q	}5UQ8(€€€€€€€€€€€½È…‰¥±¥Ñä¹ÑÉ¥•É}¥¥¸Í•±˜¹}±Ñ‰}µÕÑ…•¹}½¹ÍÕµ•(€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰1Q5ÕÑ…•¸ÑÉ¥•ÈÁÉ½Ù•¹…¹”¥ÌÍÑ…±”°É•±¥¹­•½È½¹ÍÕµ•ˆ¤(€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}±Ñ‰}µÕÑ…•¹}‘•Á…ÉÑÕÉ” (€€€€€€€€€€€Í½ÕÉ”°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°…‰¥±¥Ñä¹•Ù•¹Ğ°…‰¥±¥Ñä¹½¹ÑÉ½±±•È(€€€€€€€€¤((€€€‘•˜}É•Í½±Ù•}±Ñ‰}µÕÑ…•¸¡Í•±˜°…‰¥±¥ÑäèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ¤€´ø9½¹”è(€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}±Ñ‰}µÕÑ…•¹}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€¥˜…‰¥±¥Ñä¹é½¹”€„ô€‰™½Éµ•Èˆè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰1Q5ÕÑ…•¸É•ÅÕ¥É•Ì¥ÑÌÉ•Í½±Ù¥¹œMÑ…¬½‰©•Ğˆ¤(€€€€€€€Í•±˜¹}±Ñ‰}µÕÑ…•¹}½¹ÍÕµ•¹…‘¡…‰¥±¥Ñä¹ÑÉ¥•É}¥¤(€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹±Ñ‰}µÕÑ…•¹}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€¤(€€€€€€€…ÍÍ•ÉĞ½Ù•É…”¥Ì¹½Ğ9½¹”(€€€€€€€Ñ½­•¹Ì€ôÍ•±˜¹É•…Ñ•}Ñ½­•¹Ì (€€€€€€€€€€€…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€½Ù•É…”¹ÁÉ½É…´°(€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€½É…±•}™É…µ•»}5¶‰Ëkºwµçvµöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢6öçG&öÆÆW#Ö&–Æ—G’æ6öçG&öÆÆW"À¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢7&VF–öåöWfVçEö–CÖ7&VF–öå³Õ²&WfVçEö–B%ÒÀ¢Fö¶Våö–C×Fö¶Vç5³Òæö&¦V7Eö–BÀ¢Fö¶Våö÷væW#×Fö¶Vç5³Òæ÷væW"À¢Fö¶Våö6öçG&öÆÆW#×Fö¶Vç5³Òæ6öçG&öÆÆW"À¢Fö¶Vå÷G—UöÆ–æS×Fö¶Vç5³ÒçG—UöÆ–æRÀ¢Fö¶Våö÷&6ÆU÷FW‡C×Fö¶Vç5³Òæ6&Bæ÷&6ÆU÷FW‡BÀ¢7F—fF–öå÷7W÷'FVCÔfÇ6RÀ¢ ¢7FF–6ÖWF†ö@¢FVbfÆ–FFUöÇF%ö×WFvVå÷6æ6†÷EöWf–FVæ6R‡6æ6†÷C¢F–7E·7G"Âö&¦V7EÒ’ÓâæöæS ¢""%&V6öç7G'V7BöæÇ’F†R&÷VæFVBÆVfRô×WFvVâ7&VF–öâ6†–âÂæ÷B7F—fF–öââ"" ¢WfVçG2Ò6æ6†÷BævWB‚&WfVçG2"ÂµÒ¢FVÆ—fW&–W2Ò°¢†’ÂR’f÷"’ÂR–âVçVÖW&FR†WfVçG2’–bRævWB‚&WfVçB"’ÓÒ&ÇF%ö×WFvVå÷&W6öÇfVB ¢Ğ¢&W6öÇWF–öç2Ò°¢P¢f÷"R–âWfVçG0¢–bRævWB‚&WfVçB"’ÓÒ'G&–vvW%÷&W6öÇfVB"æBRævWB‚&VffV7B"’ÓÒ&ÇF%ö×WFvVâ ¢Ğ¢–bÆVâ†FVÆ—fW&–W2’ÒÆVâ‡&W6öÇWF–öç2“ ¢&—6RfÇVTW'&÷"‚$ÅD"×WFvVâWf–FVæ6RÆ6·2Væ—VR&W6öÇWF–öâ"¢6VVåöÆVfW2Â6VVå÷Fö¶Vç2Ò6WB‚’Â6WB‚¢FVf–æ—F–öâÒ6&D–çFW'&WFW"å$TDTd”äTEõDô´Tå5²&×WFvVâ%Ğ¢f÷"FVÆ—fW'•ö7W'6÷"Â—FVÒ–âFVÆ—fW&–W3 ¢G'“ ¢6÷W&6RÂÆVfUö–BÂFö¶VâÒ—FVÕ²'6÷W&6Uö–B%ÒÂ—FVÕ²&WfVçEö–B%ÒÂ—FVÕ²'Fö¶Våö–B%Ğ¢6öçG&öÆÆW"Ò—FVÕ²&6öçG&öÆÆW"%Ğ¢76W'B6öçG&öÆÆW"–âƒÂ¢76W'B‡6÷W&6RÂÆVfUö–B’æ÷B–â6VVåöÆVfW2æBFö¶Vâæ÷B–â6VVå÷Fö¶Vç0¢6VVåöÆVfW2æFB‚‡6÷W&6RÂÆVfUö–B’¢6VVå÷Fö¶Vç2æFB‡Fö¶Vâ¢76W'B—FVÕ²&÷&6ÆUög&vÖVçB%ÒÓÒ6&D–çFW'&WFW"äÅD%ôÕUDtTåôe$tÕš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍQS•ˆ\ÜÙ\][VÈÚÙ[—ÛİÛ™\ˆ—HOH][VÈÚÙ[—ØÛÛ›Û\ˆ—HOHÛÛ›Û\‚ˆ\ÜÙ\][VÈÚÙ[—İ\WÛ[™H—HOHYš[š][Û‹\WÛ[™Bˆ\ÜÙ\][VÈÚÙ[—ÛÜ˜XÛWİ^—HOHYš[š][Û‹›Ü˜XÛWİ^ˆ\ÜÙ\][VÈ˜Xİ]˜][Û—Üİ\ÜY—H\È˜[ÙB‚ˆYˆ[š\]YJÚ[™Ù^K˜[YJN‚ˆX]Ú\ÈHÂˆ
+KJBˆ›ÜˆKH[ˆ[[Y\˜]J]™[ÊBˆYˆK™Ù]
+™]™[ŠHOHÚ[™[™K™Ù]
+Ù^JHOH˜[YBˆBˆ\ÜÙ\[ŠX]Ú\ÊHOHBˆ™]\›ˆX]Ú\ÖÌB‚ˆ\\\™WØİ\œÛÜ‹\\\™HH[š\]YJ›Û™WØÚ[™ÙY‹œÛİ\˜ÙWÛØš™XİÚY‹Ûİ\˜ÙJBˆX]™WØİ\œÛÜ‹X]™HH[š\]YJœ[\×Ù]™[‹™]™[ÚY‹X]™WÚY
+Bˆ[™[™×Øİ\œÛÜ‹[™[™ÈH[š\]YJˆšYÙÙ\—Ü[™[™È‹šYÙÙ\—ÚY‹][VÈšYÙÙ\—ÚY—Bˆ
+BˆİXÚ×Øİ\œÛÜ‹İXÚÙYH[š\]YJˆšYÙÙ\—ÜİXÚÙY‹œİXÚ×ÛØš™XİÚY‹][VÈœİXÚ×ÛØš™XİÚY—Bˆ
+Bˆ\›Z]Øİ\œÛÜ‹\›Z]H[š\]YJˆœİXÚ×Ü™\ÛÛ][Û—Ü\›Z]Y‹œİXÚ×ÛØš™XİÚY‹][VÈœİXÚ×ÛØš™XİÚY—Bˆ
+BˆÜ™X][Û—Øİ\œÛÜ‹Ü™X][ÛˆH[š\]YJˆœ[\×Ù]™[‹™]™[ÚY‹][VÈ˜Ü™X][Û—Ù]™[ÚY—Bˆ
+Bˆ^[ØYØİ\œÛÜ‹^[ØYH[š\]YJˆÚÙ[œ×ØÜ™X]Y‹™]™[ÚY‹][VÈ˜Ü™X][Û—Ù]™[ÚY—Bˆ
+Bˆ™\ÛÛ™YØİ\œÛÜ‹™\ÛÛ™YH[š\]YJˆšYÙÙ\—Ü™\ÛÛ™Y‹œİXÚ×ÛØš™XİÚY‹][VÈœİXÚ×ÛØš™XİÚY—Bˆ
+Bˆ\ÜÙ\
+ˆ\\\™WØİ\œÛÜ‚ˆX]™WØİ\œ÷Ó[h‘éì¶»§q«^t            and x["controller"] == controller
+                    and x["is_creature"] is True
+                    for x in leave["last_known_battlefield"]
+                )
+                assert (
+                    pending["event_id"] == stacked["event_id"] == resolved["event_id"] == leave_id
+                )
+                assert stacked["trigger_id"] == resolved["trigger_id"] == item["trigger_id"]
+                assert (
+                    pending["oracle_fragment"]
+                    == resolved["oracle_fragment"]
+                    == item["oracle_fragment"]
+                )
+                assert resolved["source_id"] == source and resolved["effect"] == "ltb_mutagen"
+                passes = [
+                    e
+                    for e in events[stack_cursor:permit_cursor]
+                    if e.get("event") == "priority_passed"
+                    and e.get("priority_epoch") == permit["priority_epoch"]
+                ]
+                assert len(passes) >= 2 and passes[-1]["resolution_pending"] is True
+                assert {passes[-1]["player_index"], passes[-2]["player_index"]} == {0, 1}
+                assert creation["rules_event"] == "tokens_created" and creation["subject_ids"] == [
+                    token
+                ]
+                assert {"object_id": token, "controller": controller} in creation[
+                    "battlefield_authority"
+                ]
+                assert {
+                    "object_id": token,
+                    "controller": controller,
+                    "type_line": definition.type_line,
+                } in creation["battlefield_characteristics"]
+                assert (
+                    payload["source_id"] == source
+                    and payload["oracle_fragment"] == item["oracle_fragmenYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕĞ‰t(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€Á…å±½…‘l‰ÅÕ…¹Ñ¥Ñä‰t€ôô€Ä(€€€€€€€€€€€€€€€€€€€…¹Á…å±½…‘l‰½‰©•Ñ}¥‘Ì‰t€ôômÑ½­•¹t(€€€€€€€€€€€€€€€€€€€…¹Á…å±½…‘l‰Ñ½­•¸‰t€ôô‘•™¥¹¥Ñ¥½¸¹¹…µ”(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€…ÍÍ•ÉĞ€ (€€€€€€€€€€€€€€€€€€€Á•¹‘¥¹l‰½¹ÑÉ½±±•È‰t(€€€€€€€€€€€€€€€€€€€€ôôÍÑ…­•‘l‰½¹ÑÉ½±±•È‰t(€€€€€€€€€€€€€€€€€€€€ôô±•…Ù•l‰Á±…å•È‰t(€€€€€€€€€€€€€€€€€€€€ôôÉ•…Ñ¥½¹l‰Á±…å•È‰t(€€€€€€€€€€€€€€€€€€€€ôôÁ…å±½…‘l‰É•…Ñ½È‰t(€€€€€€€€€€€€€€€€€€€€ôôÁ…å±½…‘l‰½¹ÑÉ½±±•È‰t(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€½É¥¥¹…±Ì€ôÍ¹…ÁÍ¡½Ğ¹•Ğ ‰ÉÕ±•Í}•Ù•¹Ñ}•Ù¥‘•¹”ˆ°mt¤(€€€€€€€€€€€€€€€™½È•Ù•¹Ñ}¥°±•‘•È¥¸€ ¡±•…Ù•}¥°±•…Ù”¤°€¡¥Ñ•µl‰É•…Ñ¥½¹}•Ù•¹Ñ}¥‰t°É•…Ñ¥½¸¤¤è(€€€€€€€€€€€€€€€€€€€µ…Ñ¡•Ì€ôm”™½È”¥¸½É¥¥¹…±Ì¥˜•l‰•Ù•¹Ñ}¥‰t€ôô•Ù•¹Ñ}¥‘t(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ±•¸¡µ…Ñ¡•Ì¤€ôô€Ä(€€€€€€€€€€€€€€€€€€€½É¥¥¹…°€ôµ…Ñ¡•ÍlÁt(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ½É¥¥¹…±l‰­¥¹‰t€ôô±•‘•Él‰ÉÕ±•Í}•Ù•¹Ğ‰t(€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ½É¥¥¹…±l‰Á±…å•É}¥¹‘•à‰t€ôô½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€€€€€™½È­•ä¥¸€ (€€€€€€€€€€€€€€€€€€€€€€€€‰Í½ÕÉ•}¥ˆ°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÕ‰©•Ñ}¥‘Ìˆ°(€€€€€€€€€€€€€€€€€€€€€€€€‰‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñäˆ°(€€€€€€€€€€€€€€€€€€€€€€€€‰‰…ÑÑ±•™¥•±‘}¡…É…Ñ•É¥ÍÑ¥Ìˆ°(€€€€€€€€€€€€€€€€€€€€€€€€‰±…ÍÑ}­¹½İ¹}‰…ÑÑ±•™¥•±ˆ°(€€€€€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€€€€€…ÍÍ•ÉĞ½É¥¥¹…±m­•åt€ôô±•‘•Ém­•åt(€€€€€€€€€€€•á•ÁĞ€¡ÍÍ•ÉÑ¥½¹ÉÉ½È°-•åÉÉ½È°%¹‘•áÉÉ½È°QåÁ•ÉÉ½È¤…Ì•ÉÉ½Èè(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰1Q5ÕÑ…•¸•Ù¥‘•¹”‘½•Ì¹½ĞÉ•½¹ÍÑÉÕĞˆ¤™É½´•ÉÉ½È((€€€‘•˜}Ù…±¥‘…Ñ•}‘¥•Í}‘É…İ}ÑÉ¥•È¡Í•±˜°…‰¥±¥ÑäèQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ¤€´ø9½¹”è(€€€€€€€€ˆˆ‰ÕÑ¡•¹Ñ¥…Ñ”½¹”Í•±˜µ‘•…Ñ ÑÉ¥•È™É½´™É½é•¸•Ù•¹Ğ…¹é½¹”µ¡…¹”ÁÉ½Ù•¹…¹”¸ˆˆˆ(€€€€€€€•Ù•¹Ğ€ô…‰¥±¥Ñä¹•Ù•¹Ğ(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹Í½ÕÉ•}¥¤(€€€€€€€±…ÍÑ}­¹½İ¸€ô•Û}5¶‰ËkºwµçwBÆ7Eö¶æ÷vå³Õ³%Ğ¢÷"Æ7Eö¶æ÷vå³Õ³5Ò—2æ÷BG'VP¢÷"‚$7&VGW&R"–âÆ7Eö¶æ÷vå³Õ³%Ò’—2æ÷BÆ7Eö¶æ÷vå³Õ³5Ğ¢÷"ÆVâ†FW'GW&W2’Ò¢÷"æ÷B—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB¢÷"6÷W&6Rç¦öæRÒ&f÷&ÖW" ¢÷"6÷W&6Ræ6öçG&öÆÆW"Ò&–Æ—G’æ6öçG&öÆÆW ¢÷"6÷W&6Ræ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢“ ¢&—6RfÇVTW'&÷"‚&F–W2ôG&rG&–vvW"†2Ö—6ÖF6†VBFVF‚&÷fVææ6R" ¢FVbö6öçG&öÆÆVEö'F–f7Eö–G2‡6VÆbÂ6öçG&öÆÆW#¢–çB’ÓâGWÆU·7G"ÂââåÓ ¢""%&WGW&âWF†÷&—FF—fR&GFÆVf–VÆB'F–f7G26öçG&öÆÆVB'’öæRÆ–W"â"" ¢&WGW&âGWÆR€¢6÷'FVB€¢W&ÖæVçBæö&¦V7Eö–@¢f÷"W&ÖæVçB–â6VÆbçÆ–W'5¶6öçG&öÆÆW%Òæ&GFÆVf–VÆ@¢–b6VÆbæ—5öWF†÷&—FF—fR‡W&ÖæVçBÂ&&GFÆVf–VÆB"¢æB$'F–f7B"–âW&ÖæVçBçG—UöÆ–æP¢¢ ¢FVb÷&V6÷&E÷7GVåöWfVçB‡6VÆbÂ¶–æC¢7G"Â¢¦FWF–Ç3¢ö&¦V7B’ÓâæöæS ¢7W'6÷"ÒÆVâ‡6VÆbæWfVçG2¢6VÆbæÆör†¶–æBÂ¢¦FWF–Ç2¢6VÆbå÷7GVåö†—7F÷'’æVæB‚†7W'6÷"ÂGWÆR‡6VÆbæWfVçG5¶7W'6÷%Òæ—FV×2‚’’’ ¢7FF–6ÖWF†ö@¢FVb÷fÆ–FFU÷7GVå÷F&vWF–æuöFWVæFVæ6–W2‡F&vWC¢W&ÖæVçB’ÓâæöæS ¢2F†W6R¶W—v÷&Bö6÷7B7—7FV×2&R'6VçBâFòæ÷B6–ÆVçFÇ’F&vWBF‡&÷Vv‚F†VÒà¢FW‡BÒ""æ¦ö–â‚‚§F&vWBç'VÆW5ö6&Bæ¶W—v÷&G2ÂF&vWBç'VÆW5ö6&Bæ÷&6ÆU÷FW‡B’¢–b&Rç6V&6‚€¢"%Æ"ƒó¦†W‡&öögÇ6‡&÷VGÇv&GÇ&÷FV7F–öâ•Æ'Æ6âwB&Rƒó§F†R“÷F&vWB"ÂFW‡BÂ&Rä¢“ ¢&—6RfÇVTW'&÷"‚'7GVâF&vWF–ærFWVæFVæ7’—2æ÷B–×ÆVÖVçFVB" ¢FVb÷6VÆV7E÷7GVå÷F&vWB€¢6VÆbÂ&–Æ—G“¢G&–vvW&VD&–Æ—G”ö&¦V7BÂG&–vvW#¢G&–vvW$–ç7Fæ6P¢’ÓâæöæS ¢6VÆbåöWF†VçF–6FUö÷&–v–æÅ÷'VÆW5öWfVçB‡G&–vvW"æWfVçB¢6÷W&6RÒš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ\Ù[‹—ÛØš™XİË™Ù]
+šYÙÙ\‹œÛİ\˜ÙWÚY
+BˆYˆ
+ˆ›İ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+BˆÜˆÛİ\˜ÙK˜Ø\™\È›İšYÙÙ\‹œÛİ\˜ÙWØØ\™ˆÜˆšYÙÙ\‹™]™[šÚ[™\È›İ[\Ñ]™[Ú[™Ô‘PUT‘WÑS•T‘QˆÜˆšYÙÙ\‹™]™[œİXš™XİÚYÈOH
+šYÙÙ\‹œÛİ\˜ÙWÚY
+BˆÜˆšYÙÙ\‹™]™[œ^Y\—Ú[™^OHšYÙÙ\‹˜ÛÛ›Û\‚ˆÜˆ
+šYÙÙ\‹œÛİ\˜ÙWÚYšYÙÙ\‹˜ÛÛ›Û\ŠH›İ[ˆšYÙÙ\‹™]™[˜˜]YšY[Ø]]Üš]BˆÜˆšYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[›İ[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊšYÙÙ\‹œÛİ\˜ÙWØØ\™
+BˆÜˆ›İÙ[‹š[\œ™]\‹™]—İ\Üİ[—ÜÙ[X[X×ØÛİ™\˜YÙJˆšYÙÙ\‹œÛİ\˜ÙWØØ\™šYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[ˆ
+K™[WÜİ\ÜYˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆšYÙÙ\ˆ\È[˜[Y[H›İ™[˜[˜ÙHŠBˆ\™Ù]ÈH\Jˆ\›X[™[ˆ›Üˆ^Y\ˆ[ˆÙ[‹œ^Y\œÂˆ›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[ˆYˆÙ[‹š\×Ø]]Üš]]]™J\›X[™[˜˜]YšY[ŠH[™Ü™X]\™Hˆ[ˆ\›X[™[\WÛ[™Bˆ
+BˆÙ™™\™YH\JÛÜY
+\™Ù]›Øš™XİÚY›Üˆ\™Ù][ˆ\™Ù]ÊJBˆÚÚXÙHHÙ[‹œİ[—İ\™Ù]ØÚÛÜÙ\ŠšYÙÙ\‹˜ÛÛ›Û\‹šYÙÙ\‹œÛİ\˜ÙWÚY
 
-    def evaluated_strike_keywords(self, permanent: Permanent) -> frozenset[StrikeKeyword]:
-        """Evaluate the represented printed and static combat-step keyword characteristics."""
-        if not self.is_authoritative(permanent, "battlefield"):
-            return frozenset()
-        keywords = {
-            keyword
-            for keyword in StrikeKeyword
-            if keyword.value.replace("_", " ").casefold()
-            in {value.casefold() for value in permanent.rules_card.keywords}
+›Ù™™\™Y›Û™JJBˆYˆÚÚXÙH\È›İ›Û™H[™
+›İ\Ú[œİ[˜ÙJÚÚXÙKİŠHÜˆÚÚXÙH›İ[ˆÙ™™\™Y
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ\™Ù]ÚÛÜÙ\ˆ]\İ™]\›ˆH\İYÜ™X]\™HÜˆ›Û™HŠBˆ\™Ù]H™^
+
+\™Ù]›Üˆ\™Ù][ˆ\™Ù]ÈYˆ\™Ù]›Øš™XİÚYOHÚÚXÙJK›Û™JBˆYˆ\™Ù]\È›İ›Û™H[™
+ˆ›İÙ[‹š\×Ø]]Üš]]]™J\™Ù]˜˜]YšY[ŠHÜˆÜ™X]\™Hˆ›İ[ˆ\™Ù]\WÛ[™Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ\™Ù]™XØ[YHİ[H\š[™ÈÙ[Xİ[ÛˆŠBˆYˆ\™Ù]\È›İ›Û™N‚ˆÙ[‹—İ˜[Y]WÜİ[—İ\™Ù][™×Ù\[™[˜ÚY\Ê\™Ù]
+BˆXš[7Ó[h‘éì¶»§q«^t if selection is None or selection.ability is not ability:
+            raise ValueError("stun trigger lacks authoritative selection provenance")
+        trigger = selection.trigger
+        self._authenticate_original_rules_event(trigger.event)
+        if (
+            self._objects.get(ability.object_id) is not ability
+            or self._triggers.get(trigger.trigger_id) is not trigger
+            or ability.trigger_id != trigger.trigger_id
+            or ability.effect is not TriggerEffect.ETB_TAP_STUN
+            or ability.source_id != trigger.source_id
+            or ability.controller != trigger.controller
+            or ability.source_card is not trigger.source_card
+            or ability.oracle_fragment != trigger.oracle_fragment
+            or ability.event is not trigger.event
+            or ability.target_id != selection.target_id
+            or self._objects.get(trigger.source_id) is not selection.source
+            or selection.source.object_id != trigger.source_id
+            or selection.source.card is not trigger.source_card
+            or selection.source.zone not in {"battlefield", "former"}
+            or (
+                selection.source.zone == "battlefield"
+                and not self.is_authoritative(selection.source, "battlefield")
+            )
+            or (
+                selection.target is not None
+                and (
+                    self._objects.get(selection.target_id) is not selection.target
+                    or selection.target.object_id != selection.target_id
+                    or selection.target.card is not selection.target_card
+                )
+            )
+        ):
+            raise ValueError("stun trigger has mismatched source/target incarnation provenance")
+
+    @staticmethod
+    def validate_stun_snapshot_eviYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ‘•¹”¡Í¹…ÁÍ¡½Ğè‘¥ÑmÍÑÈ°½‰©•Ñt¤€´ø9½¹”è(€€€€€€€€ˆˆ‰É½ÍÌµ¡•¬Ñ¡”‰½Õ¹‘•Í•É¥…±¥é•±•‘•È……¥¹ÍĞÑ…À½½Õ¹Ñ•È½ÑÉ¥•È¡¥ÍÑ½Éä¸ˆˆˆ(€€€€€€€•Ù•¹ÑÌ€ôÍ¹…ÁÍ¡½Ğ¹•Ğ ‰•Ù•¹ÑÌˆ°mt¤(€€€€€€€¡¥ÍÑ½Éä€ôÍ¹…ÁÍ¡½Ğ¹•Ğ ‰ÍÑÕ¹}¡¥ÍÑ½Éäˆ¤½Èmt(€€€€€€€¥¹‘•á•€ôíô(€€€€€€€Í•±•Ñ¥½¹Ì€ôíô(€€€€€€€É•Í½±ÕÑ¥½¹Ì€ôíô(€€€€€€€½Õ¹ÑÌ€ôíô(€€€€€€€™½È¥Ñ•´¥¸¡¥ÍÑ½Éäè(€€€€€€€€€€€ÕÉÍ½È°É•½É€ô¥Ñ•µl‰•Ù•¹Ñ}ÕÉÍ½È‰t°¥Ñ•µl‰É•½É‰t(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€¹½Ğ¥Í¥¹ÍÑ…¹”¡ÕÉÍ½È°¥¹Ğ¤(€€€€€€€€€€€€€€€½È¥Í¥¹ÍÑ…¹”¡ÕÉÍ½È°‰½½°¤(€€€€€€€€€€€€€€€½ÈÕÉÍ½È€ğ€À(€€€€€€€€€€€€€€€½ÈÕÉÍ½È€øô±•¸¡•Ù•¹ÑÌ¤(€€€€€€€€€€€€€€€½ÈÕÉÍ½È¥¸¥¹‘•á•(€€€€€€€€€€€€€€€½È•Ù•¹ÑÍmÕÉÍ½Ét€„ôÉ•½É(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰ÍÑÕ¸…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡¥ÍÑ½Éäİ…Ìµ½‘¥™¥•ˆ¤(€€€€€€€€€€€¥¹‘•á•‘mÕÉÍ½Ét€ôÉ•½É(€€€€€€€€€€€­¥¹€ôÉ•½É¹•Ğ ‰•Ù•¹Ğˆ¤(€€€€€€€€€€€ÍÑ…­}¥€ôÉ•½É¹•Ğ ‰ÍÑ…­}½‰©•Ñ}¥ˆ¤(€€€€€€€€€€€Ñ…É•Ñ}¥€ôÉ•½É¹•Ğ ‰Ñ…É•Ñ}¥ˆ¤(€€€€€€€€€€€¥˜­¥¹€ôô€‰ÍÑÕ¹}Ñ…É•Ñ}Í•±•Ñ•ˆè(€€€€€€€€€€€€€€€¥˜ÍÑ…­}¥¥¸Í•±•Ñ¥½¹Ì½È€ (€€€€€€€€€€€€€€€€€€€Ñ…É•Ñ}¥¥Ì¹½Ğ9½¹”…¹Ñ…É•Ñ}¥¹½Ğ¥¸É•½É‘l‰½™™•É•‘}¥‘Ì‰t(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰ÍÑÕ¸Ñ…É•ĞÍ•±•Ñ¥½¸¡¥ÍÑ½Éä¥Ì¥¹Ù…±¥ˆ¤(€€€€€€€€€€€€€€€Í•±•Ñ¥½¹ÍmÍÑ…­}¥‘t€ôÉ•½É(€€€€€€€€€€€•±¥˜­¥¹€ôô€‰½Õ¹Ñ•ÉÍ}Á±…•ˆè(€€€€€€€€€€€€€€€‰•™½É”€ô½Õ¹ÑÌ¹•Ğ¡Ñ…É•Ñ}¥°€À¤(€€€€€€€€€€€€€€€ÅÕ…¹Ñ¥Ñä€ôÉ•½É¹•Ğ ‰ÅÕ…¹Ñ¥Ñäˆ¤(€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€É•½É¹•Ğ ‰½Õ¹Ñ•É}ÑåÁ”ˆ¤€„ô€‰ÍÑÕ¸ˆ(€€€€€€€€€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡ÅÕ…¹Ñ¥Ñä°¥¹Ğ¤(€€€€€€€€€€€€€€€€€€€½È¥Í¥¹ÍÑ…¹”¡ÅÕ…¹Ñ¥Ñä°‰½½°¤(€€€€€€€€€€€€€€€€€€€½ÈÅÕ…¹Ñ¥Ñä€ğô€À(€€€€€€€€€€€€€€€€€€€½ÈÉ•½É¹•Ğ ‰Ñ½Ñ…°ˆ¤€„ô‰•™½É”€¬ÅÕ…¹Ñ¥Ñä(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰ÍÑÕ¸½Õ¹Ñ•ÈÁ±…•µ•¹Ğ¡¥ÍÑ½Éä¥Ì¥¹Ù…±¥ˆ¤(€€€ƒ}5¶‰ËkºwµçB&V6÷&BævWB†¶W’’Ò6VÆV7F–öâævWB†¶W’¢f÷"¶W’–â€¢'6÷W&6Uö–B"À¢'F&vWEö–B"À¢'G&–vvW%ö–B"À¢&WfVçEö–B"À¢&6öçG&öÆÆW""À¢&÷&6ÆUög&vÖVçB"À¢¢¢“ ¢&—6RfÇVTW'&÷"‚'7GVâ&W6öÇWF–öâ†2–çfÆ–BF&vWB÷6÷W&6R†—7F÷'’"¢–b&V6÷&BævWB‚&Æ–VB"’—2G'VS ¢Æ6VÖVçBÒ–æFW†VBævWB‡&V6÷&BævWB‚'Æ6VÖVçEö7W'6÷""’Â·Ò¢F2Ò°¢WfVç@¢f÷"WfVçB–â–æFW†VBçfÇVW2‚¢–bWfVçBævWB‚&WfVçB"’ÓÒ'7GVå÷F&vWE÷FVB ¢æBWfVçBævWB‚'7F6µöö&¦V7Eö–B"’ÓÒ7F6µö–@¢Ğ¢–b€¢F&vWEö–B—2æöæP¢÷"ÆVâ‡F2’Ò¢÷"F5³ÒævWB‚'F&vWEö–B"’ÒF&vWEö–@¢÷"F5³ÒævWB‚'6÷W&6Uö–B"’Ò&V6÷&BævWB‚'6÷W&6Uö–B"¢÷"F5³ÒævWB‚'FVEö&Vf÷&R"’Ò&V6÷&BævWB‚'FVEö&Vf÷&R"¢÷"F5³ÒævWB‚'FVEögFW""’—2æ÷BG'VP¢÷"&V6÷&BævWB‚'FVEögFW""’—2æ÷BG'VP¢÷"Æ6VÖVçBævWB‚&WfVçB"’Ò&6÷VçFW'5÷Æ6VB ¢÷"Æ6VÖVçBævWB‚'VçF—G’"’Ò¢÷"Æ6VÖVçBævWB‚'F÷FÂ"’Ò&V6÷&BævWB‚&6÷VçFW'5ögFW""¢÷"&V6÷&BævWB‚&6÷VçFW'5ögFW""’Ò&V6÷&BævWB‚&6÷VçFW'5ö&Vf÷&R"’²¢÷"ç’€¢Æ6VÖVçBævWB†¶W’’Ò&V6÷&BævWB†¶W’¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›ÜˆÙ^H[ˆ
+ˆ\™Ù]ÚY‹ˆœÛİ\˜ÙWÚY‹ˆœİXÚ×ÛØš™XİÚY‹ˆ›Ü˜XÛWÙœ˜YÛY[‹ˆ
+Bˆ
+Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ™\ÛÛ][ÛˆXÚÜÈ]]Üš]]]™H\ØÛİ[\ˆ\İÜHŠBˆ[Yˆ
+ˆ™XÛÜ™™Ù]
+˜\YYŠH\È›İ˜[ÙHÜˆ™XÛÜ™™Ù]
+œXÙ[Y[Øİ\œÛÜˆŠH\È›İ›Û™Bˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ›ËYY™™Xİ\İÜH\È[˜[YŠBˆ™\ÛÛ][ÛœÖÜİXÚ×ÚYHH™XÛÜ™ˆ[YˆÚ[™OHšYÙÙ\—Ü™\ÛÛ™Y‚ˆ™\ÛÛ™YH™\ÛÛ][ÛœË™Ù]
+İXÚ×ÚY
+BˆYˆ™\ÛÛ™Y\È›Û™HÜˆ[Jˆ™\ÛÛ™Y™Ù]
+Ù^JHOH™XÛÜ™™Ù]
+Ù^JBˆ›ÜˆÙ^H[ˆ
+œÛİ\˜ÙWÚY‹šYÙÙ\—ÚY‹™]™[ÚY‹›Ü˜XÛWÙœ˜YÛY[ŠBˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ^Xİ][ÛˆXÚÜÈ]]Üš]]]™H™\ÛÛ][Ûˆ\İÜHŠBˆ›Üˆİ\œÛÜ‹]™[[ˆ[[Y\˜]J]™[ÊN‚ˆYˆ
+ˆ]™[™Ù]
+™]™[ŠHOHšYÙÙ\—Ü™\ÛÛ™Y‚ˆ[™]™[™Ù]
+›Ü˜XÛWÙœ˜YÛY[ŠHOHØ\™[\œ™]\‹‘U—ÕTÔÕS‚ˆ[™İ\œÛÜˆ›İ[ˆ[™^Yˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİ[ˆ^Xİ][ÛˆXÚÜÈ]]Üš]]]™H™\ÛÛ][Ûˆ\İÜHŠB‚ˆYˆİ˜[Y]WÜİ[—Ú\İÜJÙ[ŠHOˆ›Û™N‚ˆ›ÜˆÙ[Xİ[Ûˆ[ˆÙ[‹—Üİ[—ÜÙ[Xİ[ÛœË˜[Y\Ê
+N‚ˆÙ[‹—İ˜[Y]WÜİ[—İšYÙÙ\ŠÙ[Xİ[Û‹˜Xš[]JBˆÙ[‹˜[Y]WÜİ[—ÜÛ˜\ÚİÙ]šY[˜ÙJˆÂˆ™]™[ÈˆÙ[‹™]™[Ëˆœİ[—Ú\İÜHˆÂˆÈ™]™[Øİ\œÛÜˆˆİ\œÛÜ‹œ™XÛÜ™ˆXİ
+™XÛÜ™
+_Bˆ›Üˆ÷Ó[h‘éì¶»§q«^v    def untap_permanent(self, permanent: Permanent) -> None:
+        """Apply the single stun replacement to an authoritative untap attempt."""
+        if not isinstance(permanent, Permanent) or not self.is_authoritative(
+            permanent, "battlefield"
+        ):
+            raise ValueError("untap requires an authoritative battlefield permanent")
+        if not permanent.tapped:
+            return
+        count = permanent.counters.get("stun", 0)
+        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+            raise ValueError("invalid stun counter state")
+        if count:
+            if count == 1:
+                del permanent.counters["stun"]
+            else:
+                permanent.counters["stun"] = count - 1
+            self._record_stun_event(
+                "stun_untap_replaced",
+                target_id=permanent.object_id,
+                controller=permanent.controller,
+                counters_before=count,
+                counters_after=count - 1,
+                quantity_removed=1,
+                tapped_before=True,
+                tapped_after=True,
+            )
+        else:
+            permanent.tapped = False
+            self.log("permanent_untapped", target_id=permanent.object_id)
+
+    def _validate_etb_artifact_draw_provenance(
+        self,
+        *,
+        controller: int,
+        source_id: str,
+        source_card: CardFact,
+        oracle_fragment: str,
+        event: RulesEvent,
+        trigger_id: str | None = None,
+        require_current_condition: bool,
+        allow_condition_failure: bool = False,
+    ) -> bool:
+        """Authenticate the self-ETB event and both intervening-if artifact checks."""
+        self._authenticate_original_rules_event(event)
+        coverage = self.interpreter.etb_artiYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ™…Ñ}‘É…İ}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€Í½ÕÉ•}…É°½É…±•}™É…µ•¹Ğ(€€€€€€€€¤(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡Í½ÕÉ•}¥¤(€€€€€€€ÑÉ¥•È€ô9½¹”¥˜ÑÉ¥•É}¥¥Ì9½¹”•±Í”Í•±˜¹}ÑÉ¥•ÉÌ¹•Ğ¡ÑÉ¥•É}¥¤(€€€€€€€•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥Ì€ôì(€€€€€€€€€€€½‰©•Ñ}¥è€¡•Ù•¹Ñ}½¹ÑÉ½±±•È°ÑåÁ•}±¥¹”¤(€€€€€€€€€€€™½È½‰©•Ñ}¥°•Ù•¹Ñ}½¹ÑÉ½±±•È°ÑåÁ•}±¥¹”¥¸•Ù•¹Ğ¹‰…ÑÑ±•™¥•±‘}¡…É…Ñ•É¥ÍÑ¥Ì(€€€€€€€ô(€€€€€€€•Ù•¹Ñ}…ÉÑ¥™…Ñ}¥‘Ì€ôÑÕÁ±” (€€€€€€€€€€€Í½ÉÑ• (€€€€€€€€€€€€€€€½‰©•Ñ}¥(€€€€€€€€€€€€€€€™½È½‰©•Ñ}¥°€¡•Ù•¹Ñ}½¹ÑÉ½±±•È°ÑåÁ•}±¥¹”¤¥¸•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥Ì¹¥Ñ•µÌ ¤(€€€€€€€€€€€€€€€¥˜•Ù•¹Ñ}½¹ÑÉ½±±•È€ôô½¹ÑÉ½±±•È…¹€‰ÉÑ¥™…Ğˆ¥¸ÑåÁ•}±¥¹”(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€¥˜€ (€€€€€€€€€€€½Ù•É…”¥Ì9½¹”(€€€€€€€€€€€½È¹½Ğ½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•(€€€€€€€€€€€½È•Ù•¹Ğ¹­¥¹¥Ì¹½ĞIÕ±•ÍÙ•¹Ñ-¥¹¹IQUI}9QI(€€€€€€€€€€€½ÈÍ•±˜¹}ÉÕ±•Í}•Ù•¹ÑÌ¹•Ğ¡•Ù•¹Ğ¹•Ù•¹Ñ}¥¤¥Ì¹½Ğ•Ù•¹Ğ(€€€€€€€€€€€½È•Ù•¹Ğ¹ÍÕ‰©•Ñ}¥‘Ì€„ô€¡Í½ÕÉ•}¥°¤(€€€€€€€€€€€½È•Ù•¹Ğ¹Á±…å•É}¥¹‘•à€„ô½¹ÑÉ½±±•È(€€€€€€€€€€€½È€¡Í½ÕÉ•}¥°½¹ÑÉ½±±•È¤¹½Ğ¥¸•Ù•¹Ğ¹‰…ÑÑ±•™¥•±‘}…ÕÑ¡½É¥Ñä(€€€€€€€€€€€½È•Ù•¹Ñ}¡…É…Ñ•É¥ÍÑ¥Ì¹•Ğ¡Í½ÕÉ•}¥°€¡9½¹”°€ˆˆ¤¥lÁt€„ô½¹ÑÉ½±±•È(€€€€€€€€€€€½È¹½Ğ•Ù•¹Ñ}…ÉÑ¥™…Ñ}¥‘Ì(€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€½ÈÍ½ÕÉ”¹…É¥Ì¹½ĞÍ½ÕÉ•}…É(€€€€€€€€€€€½ÈÍ½ÕÉ”¹é½¹”¹½Ğ¥¸ì‰‰…ÑÑ±•™¥•±ˆ°€‰™½Éµ•È‰ô(€€€€€€€€€€€½È€ (€€€€€€€€€€€€€€€ÑÉ¥•É}¥¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€…¹€ (€€€€€€€€€€€€€€€€€€€ÑÉ¥•È¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹½¹ÑÉ½±±•È€„ô½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹Í½ÕÉ•}¥€„ôÍ½ÕÉ•}¥(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹Í½ÕÉ•}…É¥Ì¹½ĞÍ½ÕÉ•}…É(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹½É…±•}™É…µ•¹Ğ€„ô½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹•™™•Ğ¥Ì¹½ĞQÉ¥•É™™•Ğ¹Q	}IQ%Q}I\(€€€€€€€€€€€€€€€€€€€½ÈÑÉ¥•È¹•Ù—}5¶‰ËkºwµçB&–Æ—G’æVffV7B—2æ÷BG&–vvW$VffV7BäUD%ôE$”åôt”åõ45%¢÷"6÷fW&vR—2æöæP¢÷"æ÷B6÷fW&vRægVÆÇ•÷7W÷'FV@¢÷"WfVçBæ¶–æB—2æ÷B'VÆW4WfVçD¶–æBä5$TEU$UôTåDU$T@¢÷"6VÆbå÷'VÆW5öWfVçG2ævWB†WfVçBæWfVçEö–B’—2æ÷BWfVç@¢÷"WfVçBç7V&¦V7Eö–G2Ò†&–Æ—G’ç6÷W&6Uö–BÂ¢÷"WfVçBçÆ–W%ö–æFW‚Ò&–Æ—G’æ6öçG&öÆÆW ¢÷"†&–Æ—G’ç6÷W&6Uö–BÂ&–Æ—G’æ6öçG&öÆÆW"’æ÷B–âWfVçBæ&GFÆVf–VÆEöWF†÷&—G¢÷"æ÷B—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB¢÷"6÷W&6Ræ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢÷"6÷W&6Rç¦öæRæ÷B–â²&&GFÆVf–VÆB"Â&f÷&ÖW"'Ğ¢“ ¢&—6RfÇVTW'&÷"‚$UD"G&–âöv–âõ67'’G&–vvW"†2Ö—6ÖF6†VBVçG'’&÷fVææ6R" ¢FVb÷fÆ–FFUöWF%÷6VÆeöÆ–fUöv–å÷G&–vvW"‡6VÆbÂ&–Æ—G“¢G&–vvW&VD&–Æ—G”ö&¦V7B’Óâ–çC ¢""$WF†VçF–6FRF†R6VÆbÖVçG'’WfVçBWfVâ–b—G26÷W&6R†26–æ6RÆVgBÆ’â"" ¢WfVçBÒ&–Æ—G’æWfVç@¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’ç6÷W&6Uö–B¢6VÖçF–72Ò6VÆbæ–çFW'&WFW"æWF%÷6VÆeöÆ–fUöv–å÷6VÖçF–72€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢G&–vvW"Ò6VÆbå÷G&–vvW'2ævWB†&–Æ—G’çG&–vvW%ö–B¢–b€¢&–Æ—G’æVffV7B—2æ÷BG&–vvW$VffV7BäUD%õ4TÄeôÄ”dUôt”à¢÷"6VÖçF–72—2æöæP¢÷"æ÷B6VÖçF–75³ÒægVÆÇ•÷7W÷'FV@¢÷"WfVçBæ¶–æB—2æ÷B'VÆW4WfVçD¶–æBä5$TEU$UôTåDU$T@¢÷"6VÆbå÷'VÆW5öWfVçG2ævWB†WfVçBæWfVçEö–B’—2æ÷BWfVç@¢÷"WfVçBç7V&¦V7Eö–G2Ò†&–Æ—G’ç6÷W&6Uö–BÂ¢÷"WfVçBçÆ–W%ö–æFW‚Ò&–Æ—G’æ6öçG&öÆÆW ¢÷"†&–Æ—G’ç6÷W&6Uö–BÂ&–Æ—G’æ6öçG&öÆÆW"’æ÷B–âWfVçBæ&GFÆVf–VÆEöWF†÷&—G¢÷"æ÷B—6–ç7Fæ6R‡6÷W&6RÂW&ÖæVçB¢÷"6÷W&6Ræ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHÜˆÛİ\˜ÙK›Û™H›İ[ˆÈ˜˜]YšY[‹™›Ü›Y\ˆŸBˆÜˆšYÙÙ\ˆ\È›Û™BˆÜˆšYÙÙ\‹˜ÛÛ›Û\ˆOHXš[]K˜ÛÛ›Û\‚ˆÜˆšYÙÙ\‹œÛİ\˜ÙWÚYOHXš[]KœÛİ\˜ÙWÚYˆÜˆšYÙÙ\‹œÛİ\˜ÙWØØ\™\È›İXš[]KœÛİ\˜ÙWØØ\™ˆÜˆšYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[OHXš[]K›Ü˜XÛWÙœ˜YÛY[ˆÜˆšYÙÙ\‹™Y™™Xİ\È›İXš[]K™Y™™XİˆÜˆšYÙÙ\‹™]™[\È›İ]™[ˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ‘UˆY™KYØZ[ˆšYÙÙ\ˆ\ÈZ\ÛX]ÚY[H›İ™[˜[˜ÙHŠBˆ™]\›ˆÙ[X[XÜÖÌB‚ˆYˆİ˜[Y]WØ[X[˜ÙWİ[\Ü˜\WÚÙ^]ÛÜ™ØÚÚXÙWİšYÙÙ\ŠˆÙ[‹Xš[]NˆšYÙÙ\™YXš[]SØš™Xİˆ
+HOˆ›Û™N‚ˆˆˆ]][XØ]HXİ[ÛˆÌNYØZ[œİ]È^Xİ[X[˜ÙH[H]™[[™šYÙÙ\‹ˆˆˆ‚ˆ]™[HXš[]K™]™[ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+Xš[]KœÛİ\˜ÙWÚY
+BˆšYÙÙ\ˆHÙ[‹—İšYÙÙ\œË™Ù]
+Xš[]KšYÙÙ\—ÚY
+BˆÙ[X[XÜÈHÙ[‹š[\œ™]\‹[\Ü˜\WÚÙ^]ÛÜ™ØÚÚXÙWÜÙ[X[X×ØÛİ™\˜YÙJˆXš[]KœÛİ\˜ÙWØØ\™Xš[]K›Ü˜XÛWÙœ˜YÛY[ˆ
+BˆYˆ
+ˆXš[]K™Y™™Xİ\È›İšYÙÙ\‘Y™™XİSPSÑWÕSTÔT–WÒÑVUÓÔ‘ĞÒÒPÑBˆÜˆÙ[X[XÜÈ\È›Û™BˆÜˆ›İÙ[X[XÜË˜Ûİ™\˜YÙK™[WÜİ\ÜYˆÜˆ]™[šÚ[™\È›İ[\Ñ]™[Ú[™Ô‘PUT‘WÑS•T‘QˆÜˆÙ[‹—Ü[\×Ù]™[Ë™Ù]
+]™[™]™[ÚY
+H\È›İ]™[ˆÜˆ[Š]™[œİXš™XİÚYÊHOHBˆÜˆ]™[œİXš™XİÚYÖÌHOHXš[]KœÛİ\˜ÙWÚYˆÜˆ]™[œ^Y\—Ú[™^OHXš[]K˜ÛÛ›Û\‚ˆÜˆ
+Xš[]KœÛİ\˜ÙWÚYXš[]K˜ÛÛ›Û\ŠH›İ[ˆ]™[˜˜]YšY[Ø]]Üš]BˆÜˆ›İ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+BˆÜˆÛİ\˜ÙK˜Ø\™\È›İXš[]KœÛİ\˜ÙWØØ\™ˆÜˆÛİ\˜ÙK›Û™H›İ[ˆÈ˜˜]YšY[‹™›Ü›Y\ˆŸBˆÜˆšYÙÙ\ˆ\È›Û™wÓ[h‘éì¶»§q«^tch(fragment):
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.SNEAK_ETB_CONDITION
+                    )
+        if TriggerEffect.ETB_CONDITIONAL_TOKEN in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                coverage = self.interpreter.conditional_etb_token_semantic_coverage(
+                    entering.card, fragment
+                )
+                if (
+                    coverage is not None
+                    and coverage.coverage.fully_supported
+                    and self._permanent_left_this_turn(entering.controller)
+                ):
+                    self._enqueue_trigger(
+                        event, entering, fragment, TriggerEffect.ETB_CONDITIONAL_TOKEN
+                    )
+        if TriggerEffect.CREATE_TOKEN in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                coverage = self.interpreter.token_semantic_coverage(entering.card, fragment)
+                if (
+                    coverage is not None
+                    and coverage.payload_executable
+                    and coverage.parent_executable
+                    and re.match(r"^(?:When|Whenever) .+ enters(?: or attacks)?,", fragment)
+                ):
+                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.CREATE_TOKEN)
+        if TriggerEffect.SCRY in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                coverage = self.interpreter.scry_semantic_coverage(entering.card, fragment)
+                if (
+                    coverage is not None
+                    and coverage.coverage.payload_executable
+                    and coverage.coverage.parent_executabYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ±”(€€€€€€€€€€€€€€€€€€€…¹É”¹µ…Ñ ¡È‰y]¡•¸€¸¬•¹Ñ•ÉÌ°ÍÉåqˆˆ°™É…µ•¹Ğ°É”¹$¤(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È¡•Ù•¹Ğ°•¹Ñ•É¥¹œ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹MId¤(€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}I%9}%9}MId¥¸•¹…‰±•è(€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡•¹Ñ•É¥¹œ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹•Ñ‰}‘É…¥¹}…¥¹}ÍÉå}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€€€€€•¹Ñ•É¥¹œ¹…É°™É…µ•¹Ğ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜½Ù•É…”¥Ì¹½Ğ9½¹”…¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°•¹Ñ•É¥¹œ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	}I%9}%9}MId(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}M1}1%}%8¥¸•¹…‰±•è(€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡•¹Ñ•É¥¹œ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€Í•µ…¹Ñ¥Ì€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹•Ñ‰}Í•±™}±¥™•}…¥¹}Í•µ…¹Ñ¥Ì¡•¹Ñ•É¥¹œ¹…É°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€¥˜Í•µ…¹Ñ¥Ì¥Ì¹½Ğ9½¹”…¹Í•µ…¹Ñ¥ÍlÅt¹™Õ±±å}ÍÕÁÁ½ÉÑ•è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°•¹Ñ•É¥¹œ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	}M1}1%}%8(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€¥˜QÉ¥•É™™•Ğ¹I=-}M=1%IM}Q	}MQI=d¥¸•¹…‰±•è(€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡•¹Ñ•É¥¹œ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹É½­}Í½±‘¥•ÉÍ}•Ñ‰}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€€€€€•¹Ñ•É¥¹œ¹…É°™É…µ•¹Ğ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜½Ù•É…”¥Ì¹½Ğ9½¹”…¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°•¹Ñ•É¥¹œ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹I=-}M=1%IM}Q	}MQI=d(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}QA}MQU8¥¸•¹…‰±•è(€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡•¹Ñ•É¥¹œ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€½Ù•Ë}5¶‰ËkºwµçBWfVçBÂ6÷W&6RÂg&vÖVçBÂG&–vvW$VffV7Bä%D”d5EôTåE%•õ4TÄeô4õTåDU ¢¢–bG&–vvW$VffV7BäUD%ô%D”d5EôE$r–âVæ&ÆVC ¢f÷"g&vÖVçB–â6VÆbæ–çFW'&WFW"æg&vÖVçG2†VçFW&–ærç'VÆW5ö6&B“ ¢6÷fW&vRÒ6VÆbæ–çFW'&WFW"æWF%ö'F–f7EöG&u÷6VÖçF–5ö6÷fW&vR€¢VçFW&–æræ6&BÂg&vÖVç@¢¢–b€¢6÷fW&vR—2æ÷BæöæP¢æB6÷fW&vRægVÆÇ•÷7W÷'FV@¢æB6VÆbåö6öçG&öÆÆVEö'F–f7Eö–G2†VçFW&–æræ6öçG&öÆÆW"¢“ ¢6VÆbåöVçVWVU÷G&–vvW"€¢WfVçBÂVçFW&–ærÂg&vÖVçBÂG&–vvW$VffV7BäUD%ô%D”d5EôE$p¢¢–b$'F–f7B"–âVçFW&–ærçG—UöÆ–æRæBæ÷BVçFW&–æræ6&Bæ—5ö7&VGW&S ¢&WGW&à¢f÷"6÷W&6R–âÆ—7B‡6VÆbçÆ–W'5¶VçFW&–æræ6öçG&öÆÆW%Òæ&GFÆVf–VÆB“ ¢–b6÷W&6R—2VçFW&–æs ¢6öçF–çVP¢g&vÖVçG2Ò6VÆbæ–çFW'&WFW"æg&vÖVçG2‡6÷W&6Rç'VÆW5ö6&B¢f÷"g&vÖVçB–âg&vÖVçG3 ¢–b€¢G&–vvW$VffV7BäÄÄ”ä4UõB–âVæ&ÆV@¢æB6VÆbæ–çFW'&WFW"äÄÄ”ä4UõD„•5õTåD”ÅôTõBægVÆÆÖF6‚†g&vÖVçB¢“ ¢6VÆbåöVçVWVU÷G&–vvW"†WfVçBÂ6÷W&6RÂg&vÖVçBÂG&–vvW$VffV7BäÄÄ”ä4UõB¢–b€¢G&–vvW$VffV7BäÄÄ”ä4Uô4õTåDU"–âVæ&ÆV@¢æB6VÆbæ–çFW'&WFW"äÄÄ”ä4UõD$tUEõÅU5ô4õTåDU"ægVÆÆÖF6‚†g&vÖVçB¢“ ¢6VÆbåöVçVWVU÷G&–vvW"†WfVçBÂ6÷W&6RÂg&vÖVçBÂG&–vvW$VffV7BäÄÄ”ä4Uô4õTåDU"¢–b€¢G&–vvW$VffV7Bå$„TÅôÄÄ”ä4UôU„”ÄR–âVæ&ÆV@¢æBg&vÖVçBç7F'G7v—F‚‚$ÆÆ–æ6R"¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH[™›X^H^[HHÜØ\™Ùˆ[İ\ˆXœ˜\Hˆ[ˆœ˜YÛY[ˆ
+N‚ˆÙ[‹—Ù[œ]Y]YWİšYÙÙ\Šˆ]™[Ûİ\˜ÙKœ˜YÛY[šYÙÙ\‘Y™™Xİ”TQSĞSPSÑWÑVSBˆ
+BˆYˆšYÙÙ\‘Y™™XİSPSÑWÕSTÔT–WÒÑVUÓÔ‘ĞÒÒPÑH[ˆ[˜X›Y‚ˆÙ[X[XÜÈHÙ[‹š[\œ™]\‹[\Ü˜\WÚÙ^]ÛÜ™ØÚÚXÙWÜÙ[X[X×ØÛİ™\˜YÙJˆÛİ\˜ÙK˜Ø\™œ˜YÛY[ˆ
+BˆYˆÙ[X[XÜÈ\È›İ›Û™H[™Ù[X[XÜË˜Ûİ™\˜YÙK™[WÜİ\ÜY‚ˆÙ[‹—Ù[œ]Y]YWİšYÙÙ\Šˆ]™[ˆÛİ\˜ÙKˆœ˜YÛY[ˆšYÙÙ\‘Y™™XİSPSÑWÕSTÔT–WÒÑVUÓÔ‘ĞÒÒPÑKˆ
+BˆYˆšYÙÙ\‘Y™™Xİ‘PSÑSPQÑH[ˆ[˜X›Y‚ˆÙ[X[XÜÈHÙ[‹š[\œ™]\‹™[XYÙWÜÙ[X[X×ØÛİ™\˜YÙJÛİ\˜ÙK˜Ø\™œ˜YÛY[
+BˆYˆ
+ˆÙ[X[XÜÈ\È›İ›Û™Bˆ[™Ù[X[XÜË˜Ûİ™\˜YÙKœ^[ØYÙ^Xİ]X›Bˆ[™Ù[X[XÜË˜Ûİ™\˜YÙKœ\™[Ù^Xİ]X›Bˆ[™œ˜YÛY[œİ\İÚ]
+[X[˜ÙH8 %ŠBˆ
+N‚ˆÙ[‹—Ù[œ]Y]YWİšYÙÙ\Š]™[Ûİ\˜ÙKœ˜YÛY[šYÙÙ\‘Y™™Xİ‘PSÑSPQÑJBˆYˆšYÙÙ\‘Y™™XİSPSÑWÓSÑS[ˆ[˜X›Y[™[JˆÙ[‹š[\œ™]\‹SPSÑWÓSÑSÒPQT‹™[X]Ú
+œ˜YÛY[
+H›Üˆœ˜YÛY[[ˆœ˜YÛY[Âˆ
+N‚ˆXY\ˆH™^
+ˆœ˜YÛY[ˆ›Üˆœ˜YÛY[[ˆœ˜YÛY[ÂˆYˆÙ[‹š[\œ™]\‹SPSÑWÓSÑSÒPQT‹™[X]Ú
+œ˜YÛY[
+Bˆ
+BˆÙ[‹—Ù[œ]Y]YWİšYÙÙ\Š]™[7Ó[h‘éì¶»§q«^t         TriggerEffect.ETB_SELF_LIFE_GAIN,
+            TriggerEffect.ETB_ARTIFACT_DRAW,
+            TriggerEffect.ETB_TAP_STUN,
+            TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
+            TriggerEffect.SHREDDER_DEATHTOUCH,
+            TriggerEffect.ETB_KRANG_REFILL,
+            TriggerEffect.ETB_MILL_THREE,
+            TriggerEffect.ETB_JURY_RIG,
+            TriggerEffect.ETB_VIGILANTE,
+            TriggerEffect.ETB_FOOD_SEARCH,
+            TriggerEffect.ETB_DRAW_DISCARD,
+            TriggerEffect.ETB_MILL_DRAW_DISCARD,
+            TriggerEffect.ARTIFACT_ENTRY_SELF_COUNTER,
         }
-        keywords.update(
-            effect.keyword
-            for effect in permanent.active_temporary_keyword_effects
+        for permanent in entering:
+            event = self._new_rules_event(
+                RulesEventKind.CREATURE_ENTERED
+                if permanent.card.is_creature
+                else RulesEventKind.PERMANENT_ENTERED,
+                permanent.controller,
+                (permanent.object_id,),
+                source_id=source_id,
+            )
+            if TriggerEffect.ETB_MILL_DRAW_DISCARD in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    if (
+                        self.interpreter.etb_mill_draw_discard_semantic_coverage(
+                            permanent.card, fragment
+                        )
+                        is not None
+                    ):
+                        self._enqueue_trigger(
+                            event, permanent, fragment, TriggerEffect.ETB_MILL_DRAW_DISCARD
+                        )
+            if TriggerEffect.ETB_KRANG_REFILL in enabled:
+                for fragment in self.interpreter.fragments(permanent.rules_card):
+                    if self.interpreter.krang_refill_semantic_coverage(permanent.card, fragment):
+                        self._enqueue_trigger(
+       YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°Á•Éµ…¹•¹Ğ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	}-I9}I%10(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}5%11}Q!I¥¸•¹…‰±•è(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Á•Éµ…¹•¹Ğ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹µ¥±±}Ñ¡É••}Í•µ…¹Ñ¥}½Ù•É…”¡Á•Éµ…¹•¹Ğ¹…É°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€€€€€€€€€¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°Á•Éµ…¹•¹Ğ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	}5%11}Q!I(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	})UIe}I%¥¸•¹…‰±•è(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Á•Éµ…¹•¹Ğ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹©ÕÉå}É¥}Í•µ…¹Ñ¥}½Ù•É…”¡Á•Éµ…¹•¹Ğ¹…É°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€€€€€€€€€¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°Á•Éµ…¹•¹Ğ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	})UIe}I%(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}Y%%19Q¥¸•¹…‰±•è(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Á•Éµ…¹•¹Ğ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Ù¥¥±…¹Ñ•}Í•µ…¹Ñ¥}½Ù•É…”¡Á•Éµ…¹•¹Ğ¹…É°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€€€€€€€€€¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°Á•Éµ…¹•¹Ğ°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹Q	}Y%%19Q(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜QÉ¥•É™™•Ğ¹Q	}==}MI ¥¸•¹…‰±•è(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Á•Éµ…¹•¹Ğ¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹•Ñ‰}™½½‘}Í•…É¡}Í•µ…¹Ñ¥}½Ù•É…”¡Á•Éµ…¹•¹Ğ¹…É°™É…µ•¹Ğ¤(€€€€€€€€€ƒ}5¶‰ËkºwµçB6÷fW&vRÒ6VÆbæ–çFW'&WFW"ç6‡&VFFW%öFVF‡F÷V6…÷6VÖçF–5ö6÷fW&vR€¢W&ÖæVçBæ6&BÂg&vÖVç@¢¢–b6÷fW&vR—2æ÷BæöæRæB6÷fW&vRægVÆÇ•÷7W÷'FVC ¢6VÆbåöVçVWVU÷G&–vvW"€¢WfVçBÂW&ÖæVçBÂg&vÖVçBÂG&–vvW$VffV7Bå4…$TDDU%ôDTD…DõT4€¢¢–bgFW%öWfVçB—2æ÷BæöæS ¢gFW%öWfVçB‡W&ÖæVçBÂWfVçB¢6VÆbåöFWFV7Eö7&VGW&UöVçFW&VE÷G&–vvW'2‡W&ÖæVçBÂWfVçBÂVæ&ÆVB¢6VÆbå÷WE÷VæF–æu÷G&–vvW'5ööå÷7F6²‚¢–bæ÷BFVfW%÷G&–vvW'3 ¢6VÆbåöG&–å÷G&–vvW&VEö&–Æ—F–W2‚ ¢FVb÷&ö6W75ö7&VGW&UöVçFW&VE÷G&–vvW'2€¢6VÆbÀ¢VçFW&–æs¢W&ÖæVçBÀ¢VffV7G3¢6WEµG&–vvW$VffV7EÒÂæöæRÒæöæRÀ¢¢À¢6÷W&6Uö–C¢7G"ÂæöæRÒæöæRÀ¢FVfW%÷G&–vvW'3¢&ööÂÒfÇ6RÀ¢gFW%öWfVçC¢6ÆÆ&ÆUµµW&ÖæVçBÂ'VÆW4WfVçEÒÂæöæUÒÂæöæRÒæöæRÀ¢’ÓâæöæS ¢6VÆbå÷&ö6W75ö7&VGW&W5öVçFW&VE÷G&–vvW'2€¢†VçFW&–ærÂ’À¢VffV7G2À¢6÷W&6Uö–C×6÷W&6Uö–BÀ¢FVfW%÷G&–vvW'3ÖFVfW%÷G&–vvW'2À¢gFW%öWfVçCÖgFW%öWfVçBÀ¢ ¢FVbÆ6Uö6÷VçFW'2€¢6VÆbÀ¢F&vWC¢W&ÖæVçBÀ¢6÷VçFW%÷G—S¢7G"À¢VçF—G“¢–çBÀ¢¢À¢6÷W&6Uö6&C¢7G"À¢÷&6ÆUög&vÖVçC¢7G"À¢6÷W&6Uö–C¢7G"ÂæöæRÒæöæRÀ¢7F6µöö&¦V7Eö–C¢7G"ÂæöæRÒæöæRÀ¢’ÓâæöæS ¢–bæ÷B6÷VçFW%÷G—R÷"æ÷B—6–ç7Fæ6R‡VçF—G’Â–çB’÷"—6–ç7Fæ6R‡VçF—G’Â&ööÂ“ ¢&—6RfÇVTW'&÷"‚&6÷VçFW"Æ6VÖVçB&WV—&W2æÖVB6÷VçFW"æB–çFVvW"VçF—G’"¢–bVçF—G’ÃÒ ¢&—6RfÇVTW'&÷"‚&6÷VçFW"Æ6VÖVçBVçF—G’×W7B&R÷6—F—fR"¢–bæ÷B6VÆbæ•š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ\×Ø]]Üš]]]™J\™Ù]˜˜]YšY[ŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜Ûİ[\ˆ\™Ù]]\İ™HH˜]YšY[\›X[™[ŠBˆ›ÜˆØØİ\œ™[˜ÙH[ˆ\JÙ[‹œÙ[X[X×ÛØØİ\œ™[˜Ù\ÊN‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+ØØİ\œ™[˜ÙK›Øš™XİÚY
+BˆYˆ
+ˆ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+Bˆ[™Ù[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆ[™Ûİ\˜ÙK˜ÛÛ›Û\ˆOH\™Ù]˜ÛÛ›Û\‚ˆ[™™KœÙX\˜Ú
+ˆˆ˜Ûİ[\œÈÛİ[™H]Ûİ[\œÈ\™H]Ûˆ][œİXY‹ˆØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[ˆ
+Bˆ
+N‚ˆÙ[‹—Û™]×ÛÜÜ[š]WØÛÛ^
+ˆœ™\XÙ[Y[Ù]˜[X][Ûˆ‹ˆÛÛ›Û\\Ûİ\˜ÙK˜ÛÛ›Û\‹ˆÛİ\˜ÙWÚY\Ûİ\˜ÙK›Øš™XİÚYˆİXš™XİÚYÏJ\™Ù]›Øš™XİÚY
+Kˆ˜XİÏJˆ
+˜Ûİ[\—İ\H‹Ûİ[\—İ\JKˆ
+œ]X[]H‹İŠ]X[]JJKˆ
+Kˆ
+BˆYˆÛİ[\—İ\HOHŠÌKÊÌH‚ˆ›ÜˆØØİ\œ™[˜ÙH[ˆ\JÙ[‹œÙ[X[X×ÛØØİ\œ™[˜Ù\ÊN‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+ØØİ\œ™[˜ÙK›Øš™XİÚY
+BˆYˆ
+ˆ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+Bˆ[™Ù[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆ[™Ûİ\˜ÙK˜ÛÛ›Û\ˆOH\™Ù]˜ÛÛ›Û\‚ˆ[™ØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[œİ\İÚ]
+ˆ’YˆÛ™HÜˆ[Ü™H
+ÌKÊÌHÛİ[\œÈÛİ[™H]ÛˆHÜ™X]\™H[İHÛÛ›Û‚ˆ
+Bˆ
+N‚ˆ™Y›Ü™WÜ]X[]HH]X[]Bˆ]X[]H
+ÏHBˆÙ[‹›ÙÊˆ˜Ûİ[\—Ü™\XÙ[Y[Ø\YY‹ˆÛİ\·Ó[h‘éì¶»§q«^urce_id": source_id,
+                    "stack_object_id": stack_object_id,
+                }
+                if counter_type == "stun"
+                else {}
+            ),
+        )
+        if not self._priority_resolution_in_progress:
+            self.check_state_based_actions()
+
+    def resolve_creature_entered_counter_effects(self, entering: Permanent) -> None:
+        self._process_creature_entered_triggers(
+            entering, {TriggerEffect.ALLIANCE_COUNTER, TriggerEffect.ALLIANCE_MODAL}
+        )
+
+    def gain_life(
+        self,
+        player_index: int,
+        amount: int,
+        *,
+        source_card: str,
+        oracle_fragment: str,
+        defer_trigger_delivery: bool = False,
+    ) -> RulesEvent:
+        if not isinstance(amount, int) or isinstance(amount, bool) or amount <= 0:
+            raise ValueError("life gain amount must be a positive integer")
+        player = self.players[player_index]
+        player.life += amount
+        self.log(
+            "life_gained",
+            player=player.name,
+            amount=amount,
+            source=source_card,
+            oracle_fragment=oracle_fragment,
+        )
+        event = self._new_rules_event(RulesEventKind.LIFE_GAINED, player_index, ())
+        for permanent in list(player.battlefield):
+            for fragment in self.interpreter.fragments(permanent.rules_card):
+                if self.interpreter.GAIN_LIFE_SELF_PLUS_COUNTER.fullmatch(fragment):
+                    self._enqueue_trigger(
+                        event, permanent, fragment, TriggerEffect.LIFE_GAIN_COUNTER
+                    )
+        if not defer_trigger_delivery:
+            self._put_pending_triggers_on_stack()
+            self._drain_triggered_abilities()
+        return event
+
+    def apply_pt_modifier(
+        self,
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€Ñ…É•ĞèA•Éµ…¹•¹Ğ°(€€€€€€€Á½İ•Èè¥¹Ğ°(€€€€€€€Ñ½Õ¡¹•ÍÌè¥¹Ğ°(€€€€€€€€¨°(€€€€€€€‘ÕÉ…Ñ¥½¸è1¥Ñ•É…±l‰Á•ÉÍ¥ÍÑ•¹Ğˆ°€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸‰t°(€€€€€€€Í½ÕÉ•}…ÉèÍÑÈ°(€€€€€€€½É…±•}™É…µ•¹ĞèÍÑÈ°(€€€€€€€‘•É¥Ù•‘}ÍÑ…Ñ¥Œè‰½½°€ô…±Í”°(€€€€€€€Í½ÕÉ•}½‰©•Ñ}¥èÍÑÈğ9½¹”€ô9½¹”°(€€€€€€€±½}•Ù•¹Ğè‰½½°€ôQÉÕ”°(€€€€¤€´ø9½¹”è(€€€€€€€¥˜¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Ñ…É•Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰@½Pµ½‘¥™¥•ÈÑ…É•ĞµÕÍĞ‰”„‰…ÑÑ±•™¥•±Á•Éµ…¹•¹Ğˆ¤(€€€€€€€Ñ…É•Ğ¹ÁÑ}µ½‘¥™¥•ÉÌ¹…ÁÁ•¹ (€€€€€€€€€€€A½İ•ÉQ½Õ¡¹•ÍÍ5½‘¥™¥•È (€€€€€€€€€€€€€€€Á½İ•ÈõÁ½İ•È°(€€€€€€€€€€€€€€€Ñ½Õ¡¹•ÍÌõÑ½Õ¡¹•ÍÌ°(€€€€€€€€€€€€€€€‘ÕÉ…Ñ¥½¸õ‘ÕÉ…Ñ¥½¸°(€€€€€€€€€€€€€€€Í½ÕÉ•}…ÉõÍ½ÕÉ•}…É°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€É•…Ñ•‘}ÑÕÉ¸õÍ•±˜¹ÑÕÉ¸°(€€€€€€€€€€€€€€€É•…Ñ•‘}½É‘•ÈõÍ•±˜¹}¹•áÑ}•™™•Ñ}¹Õµ‰•È°(€€€€€€€€€€€€€€€‘•É¥Ù•‘}ÍÑ…Ñ¥Œõ‘•É¥Ù•‘}ÍÑ…Ñ¥Œ°(€€€€€€€€€€€€€€€Í½ÕÉ•}½‰©•Ñ}¥õÍ½ÕÉ•}½‰©•Ñ}¥°(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€Í•±˜¹}¹•áÑ}•™™•Ñ}¹Õµ‰•È€¬ô€Ä(€€€€€€€¥˜±½}•Ù•¹Ğè(€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€‰ÁÑ}µ½‘¥™¥•É}…ÁÁ±¥•ˆ°(€€€€€€€€€€€€€€€Ñ…É•ĞõÑ…É•Ğ¹…É¹¹…µ”°(€€€€€€€€€€€€€€€Í½ÕÉ”õÍ½ÕÉ•}…É°(€€€€€€€€€€€€€€€Á½İ•ÈõÁ½İ•È°(€€€€€€€€€€€€€€€Ñ½Õ¡¹•ÍÌõÑ½Õ¡¹•ÍÌ°(€€€€€€€€€€€€€€€‘ÕÉ…Ñ¥½¸õ‘ÕÉ…Ñ¥½¸°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤((€€€‘•˜…‘‘}¡…É…Ñ•É¥ÍÑ¥}•™™•Ğ¡Í•±˜°Ñ…É•ĞèA•Éµ…¹•¹Ğ°•™™•Ğè¡…É…Ñ•É¥ÍÑ¥™™•Ğ¤€´ø9½¹”è(€€€€€€€€ˆˆ‰I•¥ÍÑ•È„ÑåÁ•½¹Ñ¥¹Õ½ÕÌ•™™•Ğ™½È½É‘•É•¡…É…Ñ•É¥ÍÑ¥Œ•Ù…±Õ…Ñ¥½¸¸ˆˆˆ(€€€€€€€¥˜¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Ñ…É•Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¡…É…Ñ•É¥ÍÑ¥Œ•™™•ĞÑ…É•ĞµÕÍĞ‰”½¸Ñ¡”‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€¥˜…¹ä (€€€€€€€€€€€•á¥ÍÑ¥¹œ¹•™™•Ñ}¥€ôô•™™•Ğ¹•™™•Ñ}¥™½È•á¥ÍÑ¥¹œ¥¸Ñ…É•Ğ¹¡…É…Ñ•É¥ÍÑ¥}•™™•ÑÌ(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±×}5¶‰ËkºwµçF–âVffV7BæFWVæG5ööâ“ ¢&—6RfÇVTW'&÷"‚&6†&7FW&—7F–2VffV7BFWVæFVæ7’×W7BÇ&VG’W†—7B"¢F&vWBæ6†&7FW&—7F–5öVffV7G2æVæB†VffV7B¢2WfÇVFR–ÖÖVF–FVÇ’6ò7–6ÆW2æBÖÆf÷&ÖVBFWVæFVæ6–W2æWfW"VçFW"WF†÷&—FF—fR7FFRà¢G'“ ¢F&vWBæWfÇVFU÷÷vW%÷F÷Vv†æW72‚¢W†6WBW†6WF–öã ¢F&vWBæ6†&7FW&—7F–5öVffV7G2ç&VÖ÷fR†VffV7B¢&—6P¢6VÆbæÆör€¢&6†&7FW&—7F–5öVffV7EöFFVB"À¢F&vWC×F&vWBæ6&BææÖRÀ¢VffV7Eö–CÖVffV7BæVffV7Eö–BÀ¢Æ–W#ÖVffV7BæÆ–W"çfÇVRÀ¢7V&Æ–W#ÖVffV7Bç7V&Æ–W"çfÇVRÀ¢÷W&F–öãÖVffV7Bæ÷W&F–öâçfÇVRÀ¢6÷W&6SÖVffV7Bç6÷W&6Uö6&BÀ¢ ¢FVb&Vg&W6…÷7FF–5÷EöÖöF–f–W'2‡6VÆb’ÓâæöæS ¢–bvWFGG"‡6VÆbÂ%ö6öçF–çV÷W5÷&Vg&W6…öFVfW'&VB"ÂfÇ6R“ ¢&WGW&à¢6VÆbç&Vg&W6…öW&öVffV7G2‚¢&Wf–÷W3¢F–7E·7G"ÂGWÆU¶–çBÂ–çEÕÒÒ·Ğ¢&Wf–÷W5÷FVÒÒ6VÆbå÷7FF–5÷FVÕö6öçG&–'WF–öç0¢f÷"Æ–W"–â6VÆbçÆ–W'3 ¢f÷"W&ÖæVçB–âÆ–W"æ&GFÆVf–VÆC ¢&Wf–÷W5·W&ÖæVçBæö&¦V7Eö–EÒÒ€¢7VÒ€¢‚ç÷vW ¢f÷"‚–âW&ÖæVçBçEöÖöF–f–W'0¢–b‚æFW&—fVE÷7FF–2æB‚ç6÷W&6Uöö&¦V7Eö–B—2æöæP¢’À¢7VÒ€¢‚çF÷Vv†æW70¢f÷"‚–âW&ÖæVçBçEöÖöF–f–W'0¢–b‚æFW&—fVE÷7FF–2æB‚ç6÷W&6Uöö&¦V7Eö–B—2æöæP¢’À¢¢W&ÖæVçBçEöÖöF–f–W'2Ò°¢ÖöF–f–W"f÷"ÖöF–f–W"–âW&ÖæVçBçEöÖöF–f–W'2–bæ÷BÖöF–f–W"æFW&—fVE÷7FF–0¢Ğ¢f÷"Æ–W"–â6VÆbçÆ–W'3 ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHÜ™X]\™\ÈHÂˆ\›X[™[›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[Yˆ\›X[™[˜Ø\™š\×ØÜ™X]\™BˆBˆ›ÜˆÛİ\˜ÙH[ˆÜ™X]\™\Î‚ˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÛİ\˜ÙKœ[\×ØØ\™
+N‚ˆX]ÚHÙ[‹š[\œ™]\‹”ÕUP×ÓÕT—ĞÔ‘PUT‘TË™[X]Ú
+œ˜YÛY[
+BˆYˆX]Ú‚ˆÛİ[H[ŠÜ™X]\™\ÊHHBˆÙ[‹˜\WÜÛ[ÙYšY\ŠˆÛİ\˜ÙKˆ[
+X]Ú™Ü›İ\
+JJH
+ˆÛİ[ˆ[
+X]Ú™Ü›İ\
+ŠJH
+ˆÛİ[ˆ\˜][ÛHœ\œÚ\İ[‹ˆÛİ\˜ÙWØØ\™\Ûİ\˜ÙK˜Ø\™›˜[YKˆÜ˜XÛWÙœ˜YÛY[Yœ˜YÛY[ˆ\š]™YÜİ]XÏUYKˆÙ×Ù]™[Q˜[ÙKˆ
+Bˆİ\œ™[H
+ˆ[
+X]Ú™Ü›İ\
+JJH
+ˆÛİ[ˆ[
+X]Ú™Ü›İ\
+ŠJH
+ˆÛİ[ˆ
+BˆYˆ™]š[İ\Ë™Ù]
+Ûİ\˜ÙK›Øš™XİÚY
+
+JHOHİ\œ™[‚ˆÙ[‹›ÙÊˆœÜİ]X×Û[ÙYšY\—Ü™Yœ™\ÚY‹ˆ\™Ù]\Ûİ\˜ÙK˜Ø\™›˜[YKˆÛİ\˜ÙO\Ûİ\˜ÙK˜Ø\™›˜[YKˆİÙ\Xİ\œ™[ÌKˆİYÚ™\ÜÏXİ\œ™[ÌWKˆÜ˜XÛWÙœ˜YÛY[Yœ˜YÛY[ˆ
+Bˆİ\œ™[İX[NˆXİİ\VÜİ‹İ‹İ—K\VÚ[[İ‹İ—WHHßBˆ›Üˆ^Y\ˆ[ˆÙ[‹œ^Y\œÎ‚ˆ›ÜˆÛİ\˜ÙH[ˆ^Y\‹˜˜]YšY[‚ˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÛİ\˜ÙKœ[\×ØØ\™
+N‚ˆ7Ó[h‘éì¶»§q«^t                    oracle_fragment=fragment,
+                            derived_static=True,
+                            source_object_id=source.object_id,
+                            log_event=False,
+                        )
+                        current_team[(source.object_id, target.object_id, fragment)] = (
+                            program.power,
+                            program.toughness,
+                            source.card.name,
+                            target.card.name,
+                        )
+        qualifying_counts: dict[str, int] = {}
+        for source_id, _target_id, _fragment in current_team:
+            qualifying_counts[source_id] = qualifying_counts.get(source_id, 0) + 1
+        self._static_team_contributions = current_team
+        for key in dict.fromkeys((*previous_team, *current_team)):
+            before = previous_team.get(key)
+            after = current_team.get(key)
+            if before == after:
+                continue
+            source_id, target_id, fragment = key
+            before_power, before_toughness = (0, 0) if before is None else before[:2]
+            after_power, after_toughness = (0, 0) if after is None else after[:2]
+            source_card, target_card = (after or before)[2:]
+            self.log(
+                "pt_static_team_modifier_changed",
+                action="applied" if before is None else "removed" if after is None else "updated",
+                source=source_card,
+                source_object_id=source_id,
+                target=target_card,
+                target_object_id=target_id,
+                power_delta=after_power - before_power,
+                toughness_delta=after_toughness - before_toughness,
+                power=after_power,
+                toughness=after_toughness,
+    YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€ÅÕ…±¥™å¥¹}Ñ…É•ÑÌõÅÕ…±¥™å¥¹}½Õ¹ÑÌ¹•Ğ¡Í½ÕÉ•}¥°€À¤°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ™É…µ•¹Ğ°(€€€€€€€€€€€€¤((€€€‘•˜É•Í½±Ù•}É•…ÑÕÉ•}•¹Ñ•É•‘}ÁÑ}•™™•ÑÌ¡Í•±˜°•¹Ñ•É¥¹œèA•Éµ…¹•¹Ğ¤€´ø9½¹”è(€€€€€€€Í•±˜¹}ÁÉ½•ÍÍ}É•…ÑÕÉ•}•¹Ñ•É•‘}ÑÉ¥•ÉÌ (€€€€€€€€€€€•¹Ñ•É¥¹œ°íQÉ¥•É™™•Ğ¹M9-}Q	}=9%Q%=8°QÉ¥•É™™•Ğ¹11%9}AQô(€€€€€€€€¤((€€€‘•˜É•Í½±Ù•}…ÑÑ…­}ÁÑ}•™™•ÑÌ¡Í•±˜°…ÑÑ…­•ÉÌè±¥ÍÑmA•Éµ…¹•¹Ñt¤€´ø9½¹”è(€€€€€€€¥˜…¹ä (€€€€€€€€€€€¹½Ğ¥Í¥¹ÍÑ…¹”¡…ÑÑ…­•È°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡…ÑÑ…­•È°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€½È…ÑÑ…­•È¹½¹ÑÉ½±±•È€„ôÍ•±˜¹…Ñ¥Ù•}Á±…å•È(€€€€€€€€€€€™½È…ÑÑ…­•È¥¸…ÑÑ…­•ÉÌ(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È (€€€€€€€€€€€€€€€€‰…ÑÑ…¬ÑÉ¥•È‘•±¥Ù•ÉäÉ•ÅÕ¥É•Ì…ÕÑ¡½É¥Ñ…Ñ¥Ù”…Ñ¥Ù”µÁ±…å•È…ÑÑ…­•ÉÌˆ(€€€€€€€€€€€€¤(€€€€€€€•Ù•¹Ğ€ôÍ•±˜¹}¹•İ}ÉÕ±•Í}•Ù•¹Ğ (€€€€€€€€€€€IÕ±•ÍÙ•¹Ñ-¥¹¹QQ-IM}1I°(€€€€€€€€€€€Í•±˜¹…Ñ¥Ù•}Á±…å•È°(€€€€€€€€€€€ÑÕÁ±”¡…ÑÑ…­•È¹½‰©•Ñ}¥™½È…ÑÑ…­•È¥¸…ÑÑ…­•ÉÌ¤°(€€€€€€€€¤(€€€€€€€™½ÈÍ½ÕÉ”¥¸…ÑÑ…­•ÉÌè(€€€€€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Í½ÕÉ”¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€½Ù•É…”€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Í¡É•‘‘•É}‘•…Ñ¡Ñ½Õ¡}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€€€€€Í½ÕÉ”¹…É°™É…µ•¹Ğ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜½Ù•É…”¥Ì¹½Ğ9½¹”…¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È (€€€€€€€€€€€€€€€€€€€€€€€•Ù•¹Ğ°Í½ÕÉ”°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹M!II}Q!Q=U (€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹QQ-}=Q!I}QQ-IM}U9Q%1}=P¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¤è(€€€€€€€€€€€€€€€€€€€Í•±˜¹}•¹ÅÕ•Õ•}ÑÉ¥•È¡•Ù•¹Ğ°Í½ÕÉ”°™É…µ•¹Ğ°QÉ¥•É™™•Ğ¹QQ-}AP¤(€€€€€€€€€€€€€€€…ÑÑ…­}Ñ…É•Ğ€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹…ÑÑ…­}Ñ…É•Ñ}ÁÑ}Í•µ…¹Ñ¥}½Ù•É…” (€€€€€€€€€€€€€€€€€€€Í½ÕÉ”¹…É°™É…µ•¹Ğ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€ƒ}5¶‰ËkºwµçG"%åv†VæWfW"â²ƒó¦GF6·7ÆVçFW'2÷"GF6·2’Â"À¢g&vÖVçBÀ¢¢“ ¢6VÆbåöVçVWVU÷G&–vvW"†WfVçBÂ6÷W&6RÂg&vÖVçBÂG&–vvW$VffV7Bä5$TDUõDô´Tâ¢F—66&EöG&rÒ6VÆbæ–çFW'&WFW"æF—66&EöG&u÷6VÖçF–5ö6÷fW&vR€¢6÷W&6Ræ6&BÂg&vÖVç@¢¢–bF—66&EöG&r—2æ÷BæöæRæBF—66&EöG&ræ6÷fW&vRægVÆÇ•÷7W÷'FVC ¢6VÆbåöVçVWVU÷G&–vvW"†WfVçBÂ6÷W&6RÂg&vÖVçBÂG&–vvW$VffV7BäD•44$EôE$r¢6VÆbå÷WE÷VæF–æu÷G&–vvW'5ööå÷7F6²‚¢6VÆbåöG&–å÷G&–vvW&VEö&–Æ—F–W2‚ ¢FVbG&r‡6VÆbÂÆ–W#¢Æ–W%7FFRÂ6÷VçC¢–çBÒÂ¢Â6WGW¢&ööÂÒfÇ6R’Óâ&ööÃ ¢f÷"ò–â&ævR†6÷VçB“ ¢–bæ÷BÆ–W"æÆ–'&'“ ¢Æ–W"æf–ÆVEöG&u÷VæF–ærÒG'VP¢6VÆbæÆör€¢&G&uöf–ÆVB"À¢Æ–W#×Æ–W"ææÖRÀ¢&V6öãÒ&V×G•öÆ–'&'’"À¢7FFUö&6VEö7F–öå÷VæF–æsÕG'VRÀ¢¢&WGW&âfÇ6P¢6VÆbæÖ÷fUöö&¦V7B‡Æ–W"æÆ–'&'•²ÓÒÂ&†æB"Â&V6öãÒ&G&r"¢6VÆbæÆör€¢&6&EöG&vâ"À¢Æ–W#×Æ–W"ææÖRÀ¢6&C×Æ–W"æ†æE²ÓÒæ6&BææÖRÀ¢6WGW×6WGWÀ¢¢&WGW&âG'VP ¢FVbG&ç6—F–öå÷Fò‡6VÆbÂ7FW¢GW&å7FW’ÓâæöæS ¢""%W&f÷&ÒF†RöæRÆVvÂFWFW&Ö–æ—7F–25"S×6W&–W27FWG&ç6—F–öââ"" ¢–b6VÆbç7F6³ ¢&—6RfÇVTW'&÷"‚&6ææ÷BGfæ6RF†RGW&âv—F‚âVç&W6öÇfVB7F6²"¢W‡V7FVBÒäU…Eõ5DU·6VÆbå÷7FWĞ¢–b7FW—2æ÷BW‡V7FVC ¢&—6RfÇVTW'&÷"€¢b&–ÆÆVvÂGW&âG&ç6—F–öã¢·6VÆbå÷7FWçfÇVWÒÓâ·7FWçfÇVWÓ² ¢b&W‡V7FUš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYÙ^XİY˜[Y_H‚ˆ
+BˆYˆÙ[‹—Üİ\\È\›”İ\ÓÓPUÑSPQÑH[™›İÙ[‹—ØÛÛX˜]Ù[XYÙWÜ™\ÛÛ™Y‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜ÛÛX˜][XYÙHİ\]\İ™H™\ÛÛ™Y™Y›Ü™H]Ø[ˆ[™ŠBˆYˆÙ[‹—Üİ\\È\›”İ\‘PÓT‘WĞUPÒÑT”È[™›İÙ[‹—Ø]XÚÙ\œ×ÙXÛ\™Y‚ˆÙ[‹—Ø]XÚÙ\œ×ÙXÛ\™YHYBˆÙ[‹—ØÛÛX˜]Ø]XÚÙ\œÈH
+
+BˆÙ[‹›ÙÊ˜]XÚÙ\œ×ÙXÛ\™Y‹]XÚÙ\œÏV×JBˆYˆÙ[‹—Üİ\\È\›”İ\‘PÓT‘WĞ“ĞÒÑT”È[™›İÙ[‹—Ø›ØÚÙ\œ×ÙXÛ\™Y‚ˆÙ[‹—Ø›ØÚÙ\œ×ÙXÛ\™YHYBˆÙ[‹—ØÛÛX˜]Ø›ØÚÜÈH
+
+BˆÙ[‹›ÙÊ˜›ØÚÙ\œ×ÙXÛ\™Y‹›ØÚÜÏV×JBˆ™]š[İ\ÈHÙ[‹—Üİ\ˆYˆ™]š[İ\È\È\›”İ\ÓPS•T‚ˆÙ[‹—İ\›ˆ
+ÏHBˆÙ[‹—ØXİ]™WÜ^Y\ˆH
+Ù[‹—İ\›ˆHJH	H[ŠÙ[‹œ^Y\œÊBˆ[Yˆ™]š[İ\È\È\›”İ\”ÑUT‚ˆÙ[‹—İ\›ˆHBˆÙ[‹—ØXİ]™WÜ^Y\ˆHˆÙ[‹—Üİ\Hİ\ˆÙ[‹›ÙÊœİ\Üİ\Y‹İ\\İ\˜[YK™]š[İ\×Üİ\\™]š[İ\Ë˜[YJBˆÙ[‹—ÛÛ—Ù[\—Üİ\
+İ\
+B‚ˆYˆY˜[˜ÙWÜİ\
+Ù[ŠHOˆ›Û™N‚ˆÙ[‹˜[œÚ][Û—İÊ‘VÔÕTÜÙ[‹—Üİ\JB‚ˆYˆY˜[˜ÙWİÊÙ[‹İ\ˆ\›”İ\
+HOˆ›Û™N‚ˆˆˆY˜[˜ÙH›İYÚ™]™\ˆ\›İ[™XXÚ[\›YYX]H[\Èİ\ˆˆˆ‚ˆš\Ú]YHˆÚ[HÙ[‹—Üİ\\È›İİ\‚ˆÙ[‹˜Y˜[˜ÙWÜİ\
+
+Bˆš\Ú]Y
+ÏHBˆYˆš\Ú]Yˆ[Š\›”İ\
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠˆ˜Ø[››İ™XXÚÜİ\˜[Y_Hœ›ÛHİ\œ™[\›ˆİ]HŠB‚ˆYˆÛÛ—Ù[\—Üİ\
+Ù[‹İ\ˆ\›”İ\
+HOˆ›Û™N‚ˆ^Y\ˆHÙ[‹œ^Y\œÖÜÙ[‹˜Xİ]™WÜ^Y\—BˆYˆİ\\È\›”İ\•S•T‚ˆ^Y\‹›[™×Ü^YYHˆ›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[‚ˆÙ[‹[\Ü\›X[™[
+\›X[™[
+Bˆ7Ó[h‘éì¶»§q«^v            self._reset_current_combat_state()
+        elif step is TurnStep.CLEANUP:
+            self._perform_cleanup()
+
+    def _reset_current_combat_state(self) -> None:
+        """End the semantic lifetime of mutable state for the current combat."""
+        self._combat_attackers = ()
+        self._combat_blocks = ()
+        self._attackers_declared = False
+        self._blockers_declared = False
+        self._combat_damage_resolved = False
+        self._combat_damage_step_kind = CombatDamageStepKind.NONE
+        self._combat_damage_step_number = 0
+        self._combat_damage_total_steps = 0
+        self._first_damage_qualified_ids = ()
+        self._first_double_strike_ids = ()
+        self._regular_damage_initial_ids = ()
+
+    def _perform_cleanup(self) -> None:
+        expired = 0
+        for current in self.players:
+            for permanent in current.battlefield:
+                before = len(permanent.pt_modifiers)
+                permanent.pt_modifiers = [
+                    modifier
+                    for modifier in permanent.pt_modifiers
+                    if modifier.duration != "until_end_of_turn"
+                ]
+                permanent.temporary_keyword_effects = [
+                    effect
+                    for effect in permanent.temporary_keyword_effects
+                    if effect.duration != "until_end_of_turn"
+                ]
+                expired += before - len(permanent.pt_modifiers)
+                permanent.damage = 0
+        self._reset_current_combat_state()
+        self.refresh_static_pt_modifiers()
+        self.alliance_modes_chosen.clear()
+        self.log("cleanup_completed", expired_pt_modifiers=expired)
+        self.check_state_based_actions()
+        self.log("turn_ended", player=self.players[self.active_player].namYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ”¤((€€€‘•˜‰•¥¹}ÑÕÉ¸¡Í•±˜¤€´ø9½¹”è(€€€€€€€€ˆˆ‰½µÁ…Ñ¥‰¥±¥Ñä¡•±Á•Èè™½±±½Ü±•…°ÑÉ…¹Í¥Ñ¥½¹ÌÑ¼ÁÉ•½µ‰…Ğµ…¥¸¸ˆˆˆ(€€€€€€€¥˜Í•±˜¹ÍÑ•À¹½Ğ¥¸íQÕÉ¹MÑ•À¹MQU@°QÕÉ¹MÑ•À¹19UAôè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰‰•¥¹}ÑÕÉ¸¥Ì±•…°½¹±ä‰•™½É”„ÑÕÉ¸ÍÑ…ÉÑÌˆ¤(€€€€€€€Í•±˜¹…‘Ù…¹•}Ñ¼¡QÕÉ¹MÑ•À¹AI=5	Q}5%8¤((€€€‘•˜Á¥±½Ñ}Ù¥•Ü¡Í•±˜°½‰Í•ÉÙ•É}¥¹‘•àè¥¹Ğ¤€´ø…µ•Y¥•İXÈè(€€€€€€€€ˆˆ‰½ÁäÑ¡”XÈÉ•¥Á¥•¹ĞÁÉ½©•Ñ¥½¸…ĞÑ¡”•á¥ÍÑ¥¹œ‘•¥Í¥½¸Á½¥¹Ğ¸ˆˆˆ(€€€€€€€É•ÑÕÉ¸Á¥±½Ñ}Ù¥•Ü¡Í•±˜°½‰Í•ÉÙ•É}¥¹‘•à¤((€€€‘•˜ÁÉ¥½É¥Ñå}Ù¥•Ü¡Í•±˜°½‰Í•ÉÙ•É}¥¹‘•àè¥¹Ğ¤€´øAÉ¥½É¥ÑåY¥•İXÈè(€€€€€€€€ˆˆ‰½ÁäÑ¡”‰½Õ¹‘•ÁÕ‰±¥ŒMÑ…¬™½È¥ÑÌ•á…ĞAÉ¥½É¥Ñä‘•¥Í¥½¸½İ¹•È¸ˆˆˆ(€€€€€€€É•ÑÕÉ¸ÁÉ¥½É¥Ñå}Ù¥•Ü¡Í•±˜°½‰Í•ÉÙ•É}¥¹‘•à¤((€€€‘•˜ÁÕ‰±¥}Ù¥•Ü¡Í•±˜¤€´ø…µ•Y¥•Üè(€€€€€€€€ˆˆ‰1•…äXÄ‘¥…¹½ÍÑ¥ŒÙ¥•Üì™½É‰¥‘‘•¸™½ÈA¥±½Ğ‘¥ÍÁ…Ñ €¡½¹Ñ…¥¹Ì‰½Ñ ¡…¹‘Ì¤¸ˆˆˆ(€€€€€€€É•ÑÕÉ¸…µ•Y¥•Ü (€€€€€€€€€€€ÑÕÉ¸õÍ•±˜¹ÑÕÉ¸°(€€€€€€€€€€€…Ñ¥Ù•}Á±…å•ÈõÍ•±˜¹…Ñ¥Ù•}Á±…å•È°(€€€€€€€€€€€Á¡…Í”õÍ•±˜¹Á¡…Í”°(€€€€€€€€€€€ÍÑ•ÀõÍ•±˜¹ÍÑ•À¹Ù…±Õ”°(€€€€€€€€€€€±¥™”õÑÕÁ±”¡Á±…å•È¹±¥™”™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ¤°€€ŒÑåÁ”è¥¹½É•m…ÉœµÑåÁ•t(€€€€€€€€€€€¡…¹‘ÌõÑÕÁ±” (€€€€€€€€€€€€€€€ÑÕÁ±” (€€€€€€€€€€€€€€€€€€€€¡…É¹½‰©•Ñ}¥°…É¹¹…µ”°…É¹µ…¹…}Ù…±Õ”°…É¹¥Í}É•…ÑÕÉ”¤(€€€€€€€€€€€€€€€€€€€™½È…É¥¸Á±…å•È¹¡…¹(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ(€€€€€€€€€€€€¤°€€ŒÑåÁ”è¥¹½É•m…ÉœµÑåÁ•t(€€€€€€€€€€€‰…ÑÑ±•™¥•±‘ÌõÑÕÁ±” (€€€€€€€€€€€€€€€ÑÕÁ±” (€€€€€€€€€€€€€€€€€€€AÕ‰±¥=‰©•ÑY¥•Ü (€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹Á½İ•È¥˜Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”•±Í”9½¹”°(€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹Ñ½Õ¡¹•ÍÌ¥˜Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”•±Í”9½¹”°(€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹Ñ…ÁÁ•³}5¶‰ËkºwµçW÷'FVEö7F—fF–öåö6öçFW‡G2‡Æ–W%ö–æFW‚¢÷F–öç3¢Æ—7E´7F–öä÷F–öåÒÒµĞ¢–bÆ–W"æÆæG5÷Æ–VBÂ ¢÷F–öç2æW‡FVæB€¢7F–öä÷F–öâ„7F–öä¶–æBåÄ•ôÄäBÂÆ–W%ö–æFW‚Âö&¦V7Eö–CÖ6&Bæö&¦V7Eö–B¢f÷"6&B–âÆ–W"æ†æ@¢–b6&Bæ—5öÆæ@¢¢f÷"6&B–âÆ–W"æ†æC ¢–bæ÷B6VÆbæ6åöff÷&B‡Æ–W%ö–æFW‚Â6&B“ ¢6öçF–çVP¢¶–æBÒ6VÆbæ–çFW'&WFW"æ67E÷&öw&Ò†6&Bæ6&B’æ¶–æ@¢–b¶–æB—267D¶–æBä5$TEU$S ¢÷F–öç2æVæB€¢7F–öä÷F–öâ„7F–öä¶–æBä45BÂÆ–W%ö–æFW‚Âö&¦V7Eö–CÖ6&Bæö&¦V7Eö–B¢¢VÆ–b¶–æB—267D¶–æBåU$ÔäTåC ¢g&vÖVçBÒæW‡B€¢€¢g&vÖVç@¢f÷"g&vÖVçB–â6VÆbæ–çFW'&WFW"æg&vÖVçG2†6&Bæ6&B¢–b6VÆbæ–çFW'&WFW"æWF%öÖ–ÆÅöG&uöF—66&E÷6VÖçF–5ö6÷fW&vR€¢6&Bæ6&BÂg&vÖVç@¢¢—2æ÷BæöæP¢’À¢æöæRÀ¢¢–b6&BææÖR–â²%6¶FV&ö&B"Â%7–7’öFÖVÂ—§¦'Ó ¢6VÆbæÆör€¢'WF–Æ—G•ö'F–f7EöÆVvÅö÷÷'GVæ—G’"À¢Æ–W#×6VÆbçÆ–W'5·Æ–W%ö–æFW…ÒææÖRÀ¢6&CÖ6&BææÖRÀ¢ö&¦V7Eö–CÖ6&Bæö&¦V7Eö–BÀ¢Öæ÷fÇVSÖ6&BæÖæ÷fÇVRÀ¢¢÷F–öç2æVæB€¢7F–öä÷F–öâ€¢7F–öä¶–æBä45BÀ¢Æ–W%ö–æFW‚À¢ö&¦V7Eö–CÖ6&Bæö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH
+Bˆ
+Bˆ[YˆÚ[™[ˆĞØ\İÚ[™‘SPQÑWÌ×ÓÔÔÒS‘×ĞÔ‘PUT‘KØ\İÚ[™‘PSÑSPQÑ_N‚ˆÜ[ÛœË™^[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™ĞTÕˆ^Y\—Ú[™^ˆØš™XİÚYXØ\™›Øš™XİÚYˆ\™Ù]ÚY]\™Ù]›Øš™XİÚYˆ
+Bˆ›Üˆ\™Ù][ˆÜÛ™[˜˜]YšY[ˆYˆ\™Ù]˜Ø\™š\×ØÜ™X]\™Bˆ
+Bˆ[YˆÚ[™\ÈØ\İÚ[™‘U×ĞĞT‘Î‚ˆ˜]×Ùœ˜YÛY[H™^
+ˆœ˜YÛY[ˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊØ\™˜Ø\™
+BˆYˆÙ[‹š[\œ™]\‹™˜]×ØØ\™×ÜÙ[X[X×ØÛİ™\˜YÙJØ\™˜Ø\™œ˜YÛY[
+Bˆ\È›İ›Û™Bˆ
+BˆÜ[ÛœË˜\[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™ĞTÕˆ^Y\—Ú[™^ˆØš™XİÚYXØ\™›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[Y˜]×Ùœ˜YÛY[ˆ
+Bˆ
+Bˆ[YˆÚ[™\ÈØ\İÚ[™‘TÕ“ÖWĞT•QPÕÑSÒS•QS•ÓÔ—ÔÕÑT—ÍĞÔ‘PUT‘N‚ˆÜ[ÛœË™^[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™ĞTÕˆ^Y\—Ú[™^ˆØš™XİÚYXØ\™›Øš™XİÚYˆ\™Ù]ÚY]\™Ù]›Øš™XİÚYˆ
+Bˆ›Üˆ\™Ù]Ü^Y\ˆ[ˆÙ[‹œ^Y\œÂˆ›Üˆ\™Ù][ˆ\™Ù]Ü^Y\‹˜˜]YšY[ˆYˆÙ[‹—Ú\×Ù\İ›ŞWØ\Y˜XİÙ[˜Ú[Y[ÛÜ—ÜİÙ\—ÍØÜ™X]\™Wİ\™Ù]
+\™Ù]
+Bˆ
+Bˆ›ÜˆÛİ\˜ÙH[ˆ^Y\‹˜˜]YšY[‚ˆ\›Z\ÜÚ[ÛˆHÙ[‹—ÙÜ˜]™^X\™ØØ\İÜ\›wÓ[h‘éì¶»§q«^tlayer_index))
+        options.append(ActionOption(ActionKind.PASS, player_index))
+        return tuple(options)
+
+    def _witness_unsupported_activation_contexts(self, player_index: int) -> None:
+        """Witness only fixed-cost unsupported activations provably available now."""
+        for occurrence in tuple(self.semantic_occurrences):
+            source = self._objects.get(occurrence.object_id)
+            if (
+                not isinstance(source, Permanent)
+                or not self.is_authoritative(source, "battlefield")
+                or source.controller != player_index
+            ):
+                continue
+            fragment = occurrence.oracle_fragment
+            match = re.match(
+                r"^(?P<cost>(?:\{[0-9WUBRG]+\})+)(?P<rest>(?:, \{T\})?[^:]*):", fragment
+            )
+            if match is None:
+                continue
+            requirement = self.activation_mana_requirement(match.group("cost"))
+            needs_tap = "{T}" in match.group("rest")
+            if requirement is None or (needs_tap and source.tapped):
+                continue
+            available = tuple(
+                permanent
+                for permanent in self.players[player_index].battlefield
+                if permanent.card.is_land and not permanent.tapped and permanent is not source
+            )
+            if len(available) < requirement.total:
+                continue
+            subjects = (source.object_id,) + tuple(
+                permanent.object_id for permanent in available[: requirement.total]
+            )
+            self._new_opportunity_context(
+                "activation_available",
+                controller=player_index,
+                source_id=source.object_id,
+                subject_ids=subjects,
+                facts=(
+         YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€ ‰µ…¹…}É•ÅÕ¥É•ˆ°ÍÑÈ¡É•ÅÕ¥É•µ•¹Ğ¹Ñ½Ñ…°¤¤°(€€€€€€€€€€€€€€€€€€€€ ‰Í½ÕÉ•}Ñ…Á}É•ÅÕ¥É•ˆ°ÍÑÈ¡¹••‘Í}Ñ…À¤¹±½İ•È ¤¤°(€€€€€€€€€€€€€€€€€€€€ ‰Í½ÕÉ•}Ñ…ÁÁ•ˆ°ÍÑÈ¡Í½ÕÉ”¹Ñ…ÁÁ•¤¹±½İ•È ¤¤°(€€€€€€€€€€€€€€€€€€€€ ‰Ñ¥µ¥¹œˆ°Í•±˜¹ÍÑ•À¹Ù…±Õ”¤°(€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€¤((€€€‘•˜}É…Ù•å…É‘}…ÍÑ}Á•Éµ¥ÍÍ¥½¸¡Í•±˜°Í½ÕÉ”èA•Éµ…¹•¹Ğ¤€´øÑÕÁ±•m¥¹Ğ°ÍÑÉtğ9½¹”è(€€€€€€€¥˜¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Í½ÕÉ”°€‰‰…ÑÑ±•™¥•±ˆ¤è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Í½ÕÉ”¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€µ…Ñ €ôÉ”¹µ…Ñ  (€€€€€€€€€€€€€€€È‰yÕÉ¥¹œå½ÕÈÑÕÉ¸°å½Ôµ…ä…ÍĞÉ•…ÑÕÉ”ÍÁ•±±Ìİ¥Ñ Á½İ•È½ÈÑ½Õ¡¹•ÍÌ€ˆ(€€€€€€€€€€€€€€€Èˆ ı@ñ±¥µ¥Ğùq¬¤½È±•ÍÌ™É½´å½ÕÈÉ…Ù•å…É‘p¸ˆ°(€€€€€€€€€€€€€€€™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜µ…Ñ ¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€É•ÑÕÉ¸¥¹Ğ¡µ…Ñ ¹É½ÕÀ ‰±¥µ¥Ğˆ¤¤°™É…µ•¹Ğ(€€€€€€€É•ÑÕÉ¸9½¹”((€€€ÍÑ…Ñ¥µ•Ñ¡½(€€€‘•˜}É…Ù•å…É‘}…É‘}ÅÕ…±¥™¥•Ì¡…Éè…É‘…Ğ°±¥µ¥Ğè¥¹Ğ¤€´ø‰½½°è(€€€€€€€É•ÑÕÉ¸€ (€€€€€€€€€€€…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€…¹…É¹Á½İ•È¥Ì¹½Ğ9½¹”(€€€€€€€€€€€…¹…É¹Ñ½Õ¡¹•ÍÌ¥Ì¹½Ğ9½¹”(€€€€€€€€€€€…¹€¡…É¹Á½İ•È€ğô±¥µ¥Ğ½È…É¹Ñ½Õ¡¹•ÍÌ€ğô±¥µ¥Ğ¤(€€€€€€€€¤((€€€‘•˜}İ¥Ñ¹•ÍÍ}É…Ù•å…É‘}…ÍÑ}Á•Éµ¥ÍÍ¥½¹Ì¡Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ¤€´ø9½¹”è(€€€€€€€€ˆˆ‰]¥Ñ¹•ÍÌ½¹±äÁ•Éµ¥ÍÍ¥½¹Ìİ¡½Í”É•ÁÉ•Í•¹Ñ•@½P…¹Ñ¥µ¥¹œÁÉ•‘¥…Ñ•Ì…É”ÑÉÕ”¸ˆˆˆ(€€€€€€€Á…ÑÑ•É¸€ôÉ”¹½µÁ¥±” (€€€€€€€€€€€È‰yÕÉ¥¹œå½ÕÈÑÕÉ¸°å½Ôµ…ä…ÍĞÉ•…ÑÕÉ”ÍÁ•±±Ìİ¥Ñ Á½İ•È½ÈÑ½Õ¡¹•ÍÌ€ˆ(€€€€€€€€€€€Èˆ ı@ñ±¥µ¥Ğùq¬¤½È±•ÍÌ™É½´å½ÕÈÉ…Ù•å…É‘p¸ˆ(€€€€€€€€¤(€€€€€€€™½È½ÕÉÉ•¹”¥¸ÑÕÁ±”¡Í•±˜¹Í•µ…¹Ñ¥}½ÕÉÉ•¹•Ì¤è(€€€€€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½ÕÉÉ•¹”¹½‰©•Ñ}¥¤(€€€€€€€€€€€µ…Ñ €ôÁ…ÑÑ•É¸¹µ…Ñ ¡½ÕÉÉ•¹”¹½É…±•}™É…µ•¹Ğ¤(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€µ…Ñ ¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€ƒ}5¶‰Ëkºwµç@¢6W6U÷7V&¦V7Eö–G3Ö6æF–FFW2À¢ ¢FVbö—5öÆVvÅö6÷VçFW%÷F&vWB‡6VÆbÂF&vWC¢ö&¦V7BÂ6öçG&öÆÆW#¢–çB’Óâ&ööÃ ¢–bæ÷B—6–ç7Fæ6R‡F&vWBÂ7F6´ö&¦V7B’÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ'7F6²"“ ¢&WGW&âfÇ6P¢–bF&vWBçF&vWEö–B—2æöæS ¢&WGW&âfÇ6P¢&÷FV7FVBÒ6VÆbåöö&¦V7G2ævWB‡F&vWBçF&vWEö–B¢&WGW&â€¢—6–ç7Fæ6R‡&÷FV7FVBÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡&÷FV7FVBÂ&&GFÆVf–VÆB"¢æB&÷FV7FVBæ6öçG&öÆÆW"ÓÒ6öçG&öÆÆW ¢æB&÷FV7FVBæ6&Bæ—5ö7&VGW&P¢÷"€¢—6–ç7Fæ6R‡&÷FV7FVBÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡&÷FV7FVBÂ&&GFÆVf–VÆB"¢æB&÷FV7FVBæ6öçG&öÆÆW"ÓÒ6öçG&öÆÆW ¢æB$'F–f7B"–â&÷FV7FVBçG—UöÆ–æP¢¢ ¢FVbö—5öÆVvÅöö÷¦U÷F&vWB‡6VÆbÂF&vWC¢ö&¦V7BÂ6öçG&öÆÆW#¢–çB’Óâ&ööÃ ¢&WGW&â€¢—6–ç7Fæ6R‡F&vWBÂ7F6´ö&¦V7B¢æB6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ'7F6²"¢æBF&vWBæ6öçG&öÆÆW"Ò6öçG&öÆÆW ¢ ¢FVböÆVvÅö6÷VçFW%÷F&vWEö–G2‡6VÆbÂ6öçG&öÆÆW#¢–çB’ÓâGWÆU·7G"ÂââåÓ ¢&WGW&âGWÆR€¢7VÆÂæö&¦V7Eö–@¢f÷"7VÆÂ–â6VÆbç7F6°¢–b—6–ç7Fæ6R‡7VÆÂÂ7F6´ö&¦V7B¢æB7VÆÂæ6öçG&öÆÆW"Ò6öçG&öÆÆW ¢æB6VÆbåö—5öÆVvÅö6÷VçFW%÷F&vWB‡7VÆÂÂ6öçG&öÆÆW"¢ ¢FVbö†æE÷&W7öç6Uö÷F–öç2‡6VÆbÂÆ–W%ö–æFWƒ¢–çB’ÓâGWÆU´7F–öä÷F–öâÂââåÓ ¢""$W‡÷6RöæR&÷VæFVB6Æ72öb7W÷'FVB†æBÖ–ç7FçG2f÷"â÷öæVçB7VÆÂà ¢F†—2FVÆ–&W&FVÇ’6÷fW'2öæÇ’F†R7W'&VçB7W÷'FVB6÷VçFW'7VÆÂF‚æBöæÇ’F†P¢÷&–v–æÂVæF–ær7VÆÂâ—B—2æ÷BvVæW&ÂæW7FVB×&–÷&—G’÷"6÷Våš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ]\‹]Ø\ˆİ\™˜XÙK‚ˆˆˆ‚ˆİ]HHÙ[‹œš[Üš]WÜİ]BˆYˆ
+ˆİ]H\È›Û™BˆÜˆİ]Kœ™\ÛÛ][Û—Ü[™[™ÂˆÜˆİ]Kœ^Y\—Ú[™^OH^Y\—Ú[™^ˆÜˆ[ŠÙ[‹œİXÚÊHOHBˆÜˆ›İ\Ú[œİ[˜ÙJÙ[‹œİXÚÖËLWKİXÚÓØš™Xİ
+Bˆ
+N‚ˆ™]\›ˆ
+
+Bˆ\™Ù]HÙ[‹œİXÚÖËLWBˆYˆ\™Ù]˜ÛÛ›Û\ˆOH^Y\—Ú[™^‚ˆ™]\›ˆ
+
+BˆÜ[ÛœÈH×Bˆ›ÜˆØ\™[ˆÙ[‹œ^Y\œÖÜ^Y\—Ú[™^Kš[™‚ˆ›ÙÜ˜[HHÙ[‹š[\œ™]\‹˜Ø\İÜ›ÙÜ˜[JØ\™˜Ø\™
+BˆYˆ
+ˆ’[œİ[ˆ›İ[ˆØ\™˜Ø\™\WÛ[™BˆÜˆ›ÙÜ˜[KšÚ[™\È›İØ\İÚ[™“ÓÖ‘WÔÔSˆÜˆÙ[‹œ^[Y[Ü[Š^Y\—Ú[™^Ø\™
+H\È›Û™BˆÜˆ›İÙ[‹—Ú\×ÛYØ[ÛÛŞ™Wİ\™Ù]
+\™Ù]^Y\—Ú[™^
+Bˆ
+N‚ˆÛÛ[YBˆÜ[ÛœË˜\[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™ĞTÕˆ^Y\—Ú[™^ˆØš™XİÚYXØ\™›Øš™XİÚYˆ\™Ù]ÚY]\™Ù]›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[XØ\™˜Ø\™›Ü˜XÛWİ^ˆš[Üš]WÙ\ØÚ\İ]K™\ØÚˆ
+Bˆ
+Bˆ™]\›ˆ\JÜ[ÛœÊB‚ˆYˆØ[››İ[˜ÙWÚ[™Ü™\ÜÛœÙJˆÙ[‹^Y\—Ú[™^ˆ[Ø\™ˆØ\™Øš™Xİ\™Ù]ˆİXÚÓØš™Xİˆ
+HOˆİXÚÓØš™Xİ›Û™N‚ˆˆˆ[››İ[˜ÙHÛ™Hİ\ÜY[™[œİ[YØZ[œİHİ\œ™[ÜÛ™[Ü[ˆˆˆ‚ˆİ]HHÙ[‹œš[Üš]WÜİ]BˆYˆ
+ˆİ]H\È›Û™BˆÜˆİ]Kœ™\ÛÛ][Û—Ü[™[™ÂˆÜˆİ]Kœ^Y\—Ú[™^OH^Y\—Ú[™^ˆÜˆ[ŠÙ[‹œİXÚÊHOHBˆÜˆÙ[‹œİXÚÖËLWH\È›İ\™Ù]ˆÜˆ\™Ù]˜ÛÛ›Û\ˆOH^Y\—Ú[™^ˆÜˆ›İÙ[‹š\×Ø]wÓ[h‘éì¶»§q«^t  player=self.players[player_index].name,
+            player_index=player_index,
+            response_card=spell.name,
+            response_object_id=spell.object_id,
+            target_spell_id=target.object_id,
+            priority_epoch=state.epoch,
+        )
+        self.log(
+            "response_target_selected",
+            response_object_id=spell.object_id,
+            target_spell_id=target.object_id,
+            target_card=target.card.name,
+        )
+        self._begin_priority_window()
+        return spell
+
+    def _log_supported_hand_responses(self) -> None:
+        state = self.priority_state
+        if state is None:
+            return
+        for option in self._hand_response_options(state.player_index):
+            key = (state.epoch, option.object_id or "", option.target_id or "")
+            if key in self._response_exposure_keys:
+                continue
+            self._response_exposure_keys.add(key)
+            self.log(
+                "legal_response_exposed",
+                player=self.players[state.player_index].name,
+                player_index=state.player_index,
+                response_object_id=option.object_id,
+                target_spell_id=option.target_id,
+                priority_epoch=state.epoch,
+            )
+
+    def _counter_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or not self.stack
+        ):
+            return ()
+        target_ids = self._legal_counter_target_ids(player_index)
+        if not target_ids:
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+       YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡Í½ÕÉ”¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€€€€€Í•µ…¹Ñ¥Ì€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}Í•µ…¹Ñ¥Ì¡Í½ÕÉ”¹…É°™É…µ•¹Ğ¤(€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€Í•µ…¹Ñ¥Ì¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€½È¹½ĞÍ•µ…¹Ñ¥Ì¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•(€€€€€€€€€€€€€€€€€€€½ÈÍ•µ…¹Ñ¥Ì¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥Ì¹½ĞÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹=U9QI}QIQ}MA10(€€€€€€€€€€€€€€€€€€€½ÈÍ•±˜¹…Ñ¥Ù…Ñ¥½¹}Á…åµ•¹Ñ}Á±…¸¡Á±…å•É}¥¹‘•à°Í½ÕÉ”°™É…µ•¹Ğ¤¥Ì9½¹”(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€€€€€™½ÈÑ…É•Ñ}¥¥¸Ñ…É•Ñ}¥‘Ìè(€€€€€€€€€€€€€€€€€€€½ÁÑ¥½¹Ì¹…ÁÁ•¹ (€€€€€€€€€€€€€€€€€€€€€€€Ñ¥½¹=ÁÑ¥½¸ (€€€€€€€€€€€€€€€€€€€€€€€€€€€Ñ¥½¹-¥¹¹Q%YQ}	%1%Qd°(€€€€€€€€€€€€€€€€€€€€€€€€€€€Á±…å•É}¥¹‘•à°(€€€€€€€€€€€€€€€€€€€€€€€€€€€½‰©•Ñ}¥õÍ½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€Ñ…É•Ñ}¥õÑ…É•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ™É…µ•¹Ğ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€ÁÉ¥½É¥Ñå}•Á½ õÍÑ…Ñ”¹•Á½ °(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸ÑÕÁ±”¡½ÁÑ¥½¹Ì¤((€€€‘•˜±•…±}ÁÉ¥½É¥Ñå}…Ñ¥½¹Ì¡Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ¤€´øÑÕÁ±•mÑ¥½¹=ÁÑ¥½¸°€¸¸¹tè(€€€€€€€€ˆˆ‰áÁ½Í”½¹±ä¥µµÕÑ…‰±”•¹¥¹”µ•¹•É…Ñ•¡½¥•Ì™½ÈÑ¡”‰½Õ¹‘•ÁÉ¥½É¥Ñäİ¥¹‘½Ü¸ˆˆˆ(€€€€€€€ÍÑ…Ñ”€ôÍ•±˜¹ÁÉ¥½É¥Ñå}ÍÑ…Ñ”(€€€€€€€¥˜ÍÑ…Ñ”¥Ì9½¹”½ÈÍÑ…Ñ”¹É•Í½±ÕÑ¥½¹}Á•¹‘¥¹œ½ÈÁ±…å•É}¥¹‘•à€„ôÍÑ…Ñ”¹Á±…å•É}¥¹‘•àè(€€€€€€€€€€€É•ÑÕÉ¸€ ¤(€€€€€€€É•ÑÕÉ¸€ (€€€€€€€€€€€Ñ¥½¹=ÁÑ¥½¸ (€€€€€€€€€€€€€€€Ñ¥½¹-¥¹¹AMM}AI%=I%Qd°(€€€€€€€€€€€€€€€Á±…å•É}¥¹‘•à°(€€€€€€€€€€€€€€€ÁÉ¥½É¥Ñå}•Á½ õÍÑ…Ñ”¹•Á½ °(€€€€€€€€€€€€¤°(€€€€€€€€€€€€©Í•±˜¹}¡…¹‘}É•ÍÁ½¹Í•}½ÁÑ¥½¹Ì¡Á±…å•É}¥¹‘•à¤°(€€€€€€€€€€€€©Í•±˜¹}…ÕÉ…}…ÍÑ}½ÁÑ¥½¹Ì¡Á±…å•É}¥¹‘•à°ÁÉ¥½É¥ÑäõQÉÕ”¤°(€€€€€€€€€€€€©Í•±˜¹±•…±}¡…¹‘}…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}…Ñ¥½¹Ì¡Á±…å•É}¥¹‘•à¤°(€€€€€€€€€€€€©Í•±˜¹}½Õ¹Ñ•É}…Ñ¥Ù…Ñ¥½¹}½ÁÑ¥½¹Ì¡Á±…å•É}¥¹‘•à¤°(€€€€ƒ}5¶‰ËkºwµçBF&vWEö–G2Ò‚’–b÷F–öâçF&vWEö–B—2æöæRVÇ6R†÷F–öâçF&vWEö–BÂ¢&–Æ—G’Ò6VÆbæææ÷Væ6Uö7F—fFVEö&–Æ—G’€¢÷F–öâçÆ–W%ö–æFW‚Â6÷W&6RÂ÷F–öâæ÷&6ÆUög&vÖVçBÂF&vWEö–G3×F&vWEö–G0¢¢–b&–Æ—G’—2æöæS ¢&—6RfÇVTW'&÷"‚&6÷VçFW"7F—fF–öâ÷F–öâ&V6ÖR–ÆÆVvÂ"¢&WGW&âG'VP¢–b÷F–öâæ¶–æB—27F–öä¶–æBä45C ¢6&BÒ6VÆbåöö&¦V7G2ævWB†÷F–öâæö&¦V7Eö–B÷"""¢F&vWBÒ6VÆbåöö&¦V7G2ævWB†÷F–öâçF&vWEö–B÷"""¢–b—6–ç7Fæ6R†6&BÂ6&Dö&¦V7B’æB6VÆbæ–çFW'&WFW"æW&÷&öw&Ò†6&Bæ6&B“ ¢7VÆÂÒ6VÆbæææ÷Væ6U÷7VÆÂ†÷F–öâçÆ–W%ö–æFW‚Â6&BÂF&vWB¢–b7VÆÂ—2æöæS ¢&—6RfÇVTW'&÷"‚$W&&W7öç6R&V6ÖR–ÆÆVvÂ"¢6VÆbåö&Vv–å÷&–÷&—G•÷v–æF÷r‡&–÷&—G•÷Æ–W#Ö÷F–öâçÆ–W%ö–æFW‚¢&WGW&âG'VP¢–bæ÷B—6–ç7Fæ6R†6&BÂ6&Dö&¦V7B’÷"æ÷B—6–ç7Fæ6R‡F&vWBÂ7F6´ö&¦V7B“ ¢&—6RfÇVTW'&÷"‚&†æB&W7öç6R÷F–öâ—2ÖÆf÷&ÖVB"¢7VÆÂÒ6VÆbåöææ÷Væ6Uö†æE÷&W7öç6R†÷F–öâçÆ–W%ö–æFW‚Â6&BÂF&vWB¢–b7VÆÂ—2æöæS ¢&—6RfÇVTW'&÷"‚&†æB&W7öç6R÷F–öâ&V6ÖR–ÆÆVvÂ"¢&WGW&âG'VP¢–b÷F–öâæ¶–æB—2æ÷B7F–öä¶–æBå55õ$”õ$•E“ ¢&—6RfÇVTW'&÷"‚'Vç7W÷'FVB&–÷&—G’7F–öâ¶–æB"¢7FFRÒ6VÆbç&–÷&—G•÷7FFP¢76W'B7FFR—2æ÷BæöæP¢76W2Ò7FFRæ6öç6V7WF—fU÷76W2²†÷F–öâçÆ–W%ö–æFW‚Â¢VæF–ærÒÆVâ‡76W2’ÓÒ ¢æW‡E÷Æ–W"Ò÷F–öâçÆ–W%ö–æFW‚–bVæF–ærVÇ6RÒ÷F–öâçÆ–W%ö–æFW€¢6VÆbç&–÷&—G•÷7FFRÒ&–÷&—G•7FFR‡7FFRæWö6‚ÂæW‡E÷Æ–W"Â76W2ÂVæF–ær¢–b6VÆbç7F6²æB—6–ç7Fæ6R‡6VÆbç7F6µ²ÓÒÂš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍPXİ]˜]YXš[]SØš™Xİ
+N‚ˆİXÚ×ÛØš™XİÚYHÙ[‹œİXÚÖËLWK›Øš™XİÚYˆ›Üˆ[™^]šY[˜ÙH[ˆ[[Y\˜]JÙ[‹™›ÛÙØXİ]˜][Û—Ù]šY[˜ÙJN‚ˆYˆ]šY[˜ÙKœİXÚ×ÛØš™XİÚYOHİXÚ×ÛØš™XİÚY‚ˆÙ[‹™›ÛÙØXİ]˜][Û—Ù]šY[˜ÙVÚ[™^HH™\XÙJˆ]šY[˜ÙKˆš[Üš]WÜ\ÜÙ\Ï\\ÜÙ\Ëˆ™\ÛÛ][Û—Ü\›Z]Y\[™[™Ëˆ
+Bˆœ™XZÂˆÙ[‹›ÙÊˆœš[Üš]WÜ\ÜÙY‹ˆ^Y\\Ù[‹œ^Y\œÖÛÜ[Û‹œ^Y\—Ú[™^K›˜[YKˆ^Y\—Ú[™^[Ü[Û‹œ^Y\—Ú[™^ˆš[Üš]WÙ\ØÚ\İ]K™\ØÚˆÛÛœÙXİ]]™WÜ\ÜÙ\Ï[[Š\ÜÙ\ÊKˆ™\ÛÛ][Û—Ü[™[™Ï\[™[™Ëˆ
+BˆYˆ›İ[™[™Î‚ˆÙ[‹›ÙÊˆœš[Üš]WÙÜ˜[Y‹ˆ^Y\\Ù[‹œ^Y\œÖÛ™^Ü^Y\—K›˜[YKˆ^Y\—Ú[™^[™^Ü^Y\‹ˆš[Üš]WÙ\ØÚ\İ]K™\ØÚˆ
+Bˆ[ÙN‚ˆÙ[‹›ÙÊˆœİXÚ×Ü™\ÛÛ][Û—Ü\›Z]YˆYˆÙ[‹œİXÚÈ[ÙHœš[Üš]WİÚ[™İ×Ü\ÜÙY‹ˆİXÚ×ÛØš™XİÚY\Ù[‹œİXÚÖËLWK›Øš™XİÚYYˆÙ[‹œİXÚÈ[ÙH›Û™Kˆš[Üš]WÙ\ØÚ\İ]K™\ØÚˆ
+Bˆ™]\›ˆYB‚ˆYˆ›ØÙ\Ü×Üš[Üš]WÜ™\ÛÛ][ÛŠÙ[ŠHOˆ›ÛÛ‚ˆˆˆ”\™›Ü›H[ˆ[™Ú[™K\\›Z]Y™\ÛÛ][ÛˆY\ˆH™\™\Ù[Y[\\ÜÈÙ\]Y[˜ÙKˆˆˆ‚ˆİ]HHÙ[‹œš[Üš]WÜİ]BˆYˆİ]H\È›Û™HÜˆ›İİ]Kœ™\ÛÛ][Û—Ü[™[™Î‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœİXÚÈ™\ÛÛ][Ûˆ\È›İ\›Z]YŠBˆYˆ›İÙ[‹œİXÚÎ‚ˆÙ[‹œš[Üš]WÜİ]HH›Û™Bˆ™]\›ˆYBˆÙ[‹œš[Üš]WÜİ]HH›Û™BˆÙ[‹—Üš[Üš]WÜ™\ÛÛ][Û—Ú[—Ü›ÙÜ™\ÜÈHYBˆN‚ˆÙ[‹œ™wÓ[h‘éì¶»§q«^tcomplete."""
+        if self.step is not TurnStep.COMBAT_DAMAGE or not self._combat_damage_resolved:
+            raise ValueError("combat damage is not ready to advance")
+        if self.stack or self.priority_state is not None:
+            return
+        if (
+            self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
+            and self.winner is None
+        ):
+            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
+        else:
+            self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
+            self.transition_to(TurnStep.END_OF_COMBAT)
+
+    def _record_represented_priority_action(self, player_index: int) -> None:
+        """Reset passes after an engine-validated response; no such response exists yet."""
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or not self.stack
+        ):
+            raise ValueError("represented priority action is not currently legal")
+        self.priority_state = PriorityState(state.epoch, player_index)
+        self.log(
+            "priority_action_taken",
+            player=self.players[player_index].name,
+            player_index=player_index,
+            priority_epoch=state.epoch,
+        )
+
+    def _begin_priority_window(
+        self, *, allow_empty: bool = False, priority_player: int | None = None
+    ) -> None:
+        if not self.stack and not allow_empty:
+            raise ValueError("priority requires a nonempty stack")
+        if allow_empty and self.step in {TurnStep.SETUP, TurnStep.UNTAP, TurnStep.CLEANUP}:
+            raise ValueError("this step has no ordinary priority window")
+        epoch = self._next_priority_epoch
+        self._YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ¹•áÑ}ÁÉ¥½É¥Ñå}•Á½ €¬ô€Ä(€€€€€€€¡½±‘•È€ôÍ•±˜¹…Ñ¥Ù•}Á±…å•È¥˜ÁÉ¥½É¥Ñå}Á±…å•È¥Ì9½¹”•±Í”ÁÉ¥½É¥Ñå}Á±…å•È(€€€€€€€Í•±˜¹ÁÉ¥½É¥Ñå}ÍÑ…Ñ”€ôAÉ¥½É¥ÑåMÑ…Ñ”¡•Á½ °¡½±‘•È¤(€€€€€€€Ñ½À€ôÍ•±˜¹ÍÑ…­l´Åt¥˜Í•±˜¹ÍÑ…¬•±Í”9½¹”(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰É•ÍÁ½¹Í•}İ¥¹‘½İ}½Á•¹•ˆ°(€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õÑ½À¹½‰©•Ñ}¥¥˜Ñ½À¥Ì¹½Ğ9½¹”•±Í”9½¹”°(€€€€€€€€€€€ÍÑ…­}…ÉõÑ½À¹¹…µ”¥˜¥Í¥¹ÍÑ…¹”¡Ñ½À°MÑ…­=‰©•Ğ¤•±Í”9½¹”°(€€€€€€€€€€€ÁÉ¥½É¥Ñå}•Á½ õ•Á½ °(€€€€€€€€¤(€€€€€€€Í•±˜¹}İ¥Ñ¹•ÍÍ}Õ¹ÍÕÁÁ½ÉÑ•‘}ÍÑ…­}É•ÍÁ½¹Í•Ì ¤(€€€€€€€Í•±˜¹}±½}ÍÕÁÁ½ÉÑ•‘}¡…¹‘}É•ÍÁ½¹Í•Ì ¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰ÁÉ¥½É¥Ñå}É…¹Ñ•ˆ°(€€€€€€€€€€€Á±…å•ÈõÍ•±˜¹Á±…å•ÉÍm¡½±‘•Ét¹¹…µ”°(€€€€€€€€€€€Á±…å•É}¥¹‘•àõ¡½±‘•È°(€€€€€€€€€€€ÁÉ¥½É¥Ñå}•Á½ õ•Á½ °(€€€€€€€€¤((€€€‘•˜}İ¥Ñ¹•ÍÍ}Õ¹ÍÕÁÁ½ÉÑ•‘}ÍÑ…­}É•ÍÁ½¹Í•Ì¡Í•±˜¤€´ø9½¹”è(€€€€€€€€ˆˆ‰É••é”„½Õ¹Ñ•ÉÍÁ•±°½ÁÁ½ÉÑÕ¹¥Ñä½¹±äİ¡•¸ÍÁ•±°°…É°…¹µ…¹„…±°•á¥ÍĞ¸ˆˆˆ(€€€€€€€¥˜¹½ĞÍ•±˜¹ÍÑ…¬½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í•±˜¹ÍÑ…­l´Åt°MÑ…­=‰©•Ğ¤è(€€€€€€€€€€€É•ÑÕÉ¸(€€€€€€€Ñ…É•Ğ€ôÍ•±˜¹ÍÑ…­l´Åt(€€€€€€€™½ÈÁ±…å•É}¥¹‘•à°Á±…å•È¥¸•¹Õµ•É…Ñ”¡Í•±˜¹Á±…å•ÉÌ¤è(€€€€€€€€€€€¥˜Á±…å•É}¥¹‘•à€ôôÑ…É•Ğ¹½¹ÑÉ½±±•Èè(€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€™½È…É¥¸ÑÕÁ±”¡Á±…å•È¹¡…¹¤è(€€€€€€€€€€€€€€€É½ÕÁ•è‘¥ÑmÍÑÈ°±¥ÍÑmÍÑÉut€ôíô(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ°É•…Í½¸¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹Õ¹ÍÕÁÁ½ÉÑ•‘}™É…µ•¹ÑÌ¡…É¹…É¤è(€€€€€€€€€€€€€€€€€€€É½ÕÁ•¹Í•Ñ‘•™…Õ±Ğ¡™É…µ•¹Ğ°mt¤¹…ÁÁ•¹¡É•…Í½¸¤(€€€€€€€€€€€€€€€™½È™É…µ•¹Ğ°É•…Í½¹Ì¥¸É½ÕÁ•¹¥Ñ•µÌ ¤è(€€€€€€€€€€€€€€€€€€€µ…Ñ €ôÉ”¹µ…Ñ  (€€€€€€€€€€€€€€€€€€€€€€€È‰y½Õ¹Ñ•ÈÑ…É•Ğ€ ı@ñ¹½¹É•…ÑÕÉ”ù¹½¹É•…ÑÕÉ”€¤ıÍÁ•±±p¸ˆ°™É…µ•¹Ğ(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€€€€€µ…Ñ ¥Ì9½¹”(€€€€€€€€€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹…¹}…™™½É¡Á±…å•É}¥¹‘•à°…É¤(€€€€€€€€€€€€€€€€€€€€€€€½È€¡µ…Ñ ¹É½ÕÀ ‰¹½¹É•…ÑÕÉ”ˆ¤‡}5¶‰ËkºwµçVBÖ–â×†6R÷F–öââ"" ¢–b÷F–öâæ÷B–â6VÆbæÆVvÅöÖ–åö7F–öç2†÷F–öâçÆ–W%ö–æFW‚“ ¢&—6RfÇVTW'&÷"‚&7F–öâ—2æ÷B7W'&VçFÇ’ÆVvÂ"¢–b÷F–öâæ¶–æB—27F–öä¶–æBå53 ¢&WGW&âG'VP¢ö&¢Ò6VÆbåöö&¦V7G2ævWB†÷F–öâæö&¦V7Eö–B÷"""¢–b÷F–öâæ¶–æB—27F–öä¶–æBåÄ•ôÄäC ¢–bæ÷B—6–ç7Fæ6R†ö&¢Â6&Dö&¦V7B“ ¢&—6RfÇVTW'&÷"‚&ÆæB÷F–öâFöW2æ÷B–FVçF–g’6&Bö&¦V7B"¢&WGW&â6VÆbçÆ•öÆæB†÷F–öâçÆ–W%ö–æFW‚Âö&¢¢–b÷F–öâæ¶–æB—27F–öä¶–æBä45C ¢–bæ÷B—6–ç7Fæ6R†ö&¢Â6&Dö&¦V7B“ ¢&—6RfÇVTW'&÷"‚&67B÷F–öâFöW2æ÷B–FVçF–g’6&Bö&¦V7B"¢F&vWBÒ6VÆbåöö&¦V7G2ævWB†÷F–öâçF&vWEö–B÷"""¢–bF&vWB—2æ÷BæöæRæBæ÷B—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB“ ¢&—6RfÇVTW'&÷"‚'F&vWB÷F–öâFöW2æ÷B–FVçF–g’W&ÖæVçB"¢–bö&¢ææÖR–â²%6¶FV&ö&B"Â%7–7’öFÖVÂ—§¦'Ó ¢6VÆbæÆör€¢'WF–Æ—G•ö'F–f7Eö7F–öå÷6VÆV7FVB"À¢Æ–W#×6VÆbçÆ–W'5¶÷F–öâçÆ–W%ö–æFW…ÒææÖRÀ¢6&CÖö&¢ææÖRÀ¢ö&¦V7Eö–CÖö&¢æö&¦V7Eö–BÀ¢¢&WGW&â6VÆbæ67B€¢÷F–öâçÆ–W%ö–æFW‚À¢ö&¢À¢F&vWBÀ¢67Eög&öÕöw&fW–&CÒ€¢—6–ç7Fæ6R†ö&¢Â6&Dö&¦V7B¢æB÷F–öâæ÷&6ÆUög&vÖVçB—2æ÷BæöæP¢æB6VÆbæ—5öWF†÷&—FF—fR†ö&¢Â&w&fW–&B"¢’À¢¢–b÷F–öâæ¶–æB—27F–öä¶–æBä5D•dDUô$”Ä•E“ ¢–b—6–ç7Fæ6R†ö&¢Â6&Dö&¦V7B’æB÷F–öâæ÷&6ÆUög&vÖVçB—2æ÷BæöæS ¢&WGW&â€¢6VÆbæææ÷Væ6Uö†æEö7F—fFVEö&–Æ—G’€¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHÜ[Û‹œ^Y\—Ú[™^Øš‹Ü[Û‹›Ü˜XÛWÙœ˜YÛY[ˆ
+Bˆ\È›İ›Û™Bˆ
+BˆYˆ›İ\Ú[œİ[˜ÙJØš‹\›X[™[
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜Xİ]˜][ÛˆÜ[ÛˆÙ\È›İY[YHH\›X[™[ŠBˆYˆÜ[Û‹›Ü˜XÛWÙœ˜YÛY[\È›Û™N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜Xİ]˜][ÛˆÜ[ÛˆXÚÜÈ[ˆÜ˜XÛHœ˜YÛY[ŠBˆ\™Ù]ÚYÈH
+
+HYˆÜ[Û‹\™Ù]ÚY\È›Û™H[ÙH
+Ü[Û‹\™Ù]ÚY
+Bˆ™]\›ˆÙ[‹˜Xİ]˜]WØXš[]JˆÜ[Û‹œ^Y\—Ú[™^Øš‹Ü[Û‹›Ü˜XÛWÙœ˜YÛY[\™Ù]ÚYÏ]\™Ù]ÚYÂˆ
+Bˆ˜Z\ÙH˜[YQ\œ›ÜŠ[œİ\ÜYXZ[ˆXİ[ÛˆÚ[™ŠB‚ˆYˆYØ[Ø]XÚ×ÛÜ[ÛœÊÙ[‹^Y\—Ú[™^ˆ[
+HOˆ\VĞXİ[Û“Ü[Û‹‹‹—N‚ˆYˆ^Y\—Ú[™^OHÙ[‹˜Xİ]™WÜ^Y\ˆÜˆÙ[‹œİ\\È›İ\›”İ\‘PÓT‘WĞUPÒÑT”Î‚ˆ™]\›ˆ
+
+Bˆ]XÚÙ\—ÚYÈH\JØš‹›Øš™XİÚY›ÜˆØšˆ[ˆÙ[‹›YØ[Ø]XÚÙ\œÊ^Y\—Ú[™^
+JBˆÜ[ÛœÈHĞXİ[Û“Ü[ÛŠXİ[Û’Ú[™‘PÓT‘WĞUPÒÑT”Ë^Y\—Ú[™^
+WBˆYˆ]XÚÙ\—ÚYÎ‚ˆÜ[ÛœË˜\[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™‘PÓT‘WĞUPÒÑT”Ëˆ^Y\—Ú[™^ˆ]XÚÙ\—ÚYÏX]XÚÙ\—ÚYËˆ
+Bˆ
+Bˆ™]\›ˆ\JÜ[ÛœÊB‚ˆYˆYØ[Ø›ØÚ×ÛÜ[ÛœÊˆÙ[‹]XÚÎˆXİ[Û“Ü[Û‹Y™[™\—Ú[™^ˆ[ˆ
+HOˆ\VĞXİ[Û“Ü[Û‹‹‹—N‚ˆYˆÙ[‹œİ\\È›İ\›”İ\‘PÓT‘WĞ“ĞÒÑT”Î‚ˆ™]\›ˆ
+
+BˆYˆ]XÚË˜]XÚÙ\—ÚYÈOHÙ[‹—ØÛÛX˜]Ø]XÚÙ\œÎ‚ˆ™]\›ˆ
+
+Bˆ]XÚÙ\œÈHÜÙ[‹—ÛØš™XİÖÛØš™XİÚYH›ÜˆØš™XİÚY[ˆ]XÚË˜]XÚÙ\—ÚY×BˆYˆ›İ[
+\Ú[œİ[˜ÙJØš‹\›X[™[
+H›ÜˆØšˆ[ˆ]XÚÙ\œÊN‚ˆ™]\›ˆ
+
+Bˆ]˜Z[X›HHÂˆ7Ó[h‘éì¶»§q«^t       used = {blocker.object_id for blocker in group}
+                    visit(
+                        index + 1,
+                        tuple(blocker for blocker in remaining if blocker.object_id not in used),
+                        assignment + blocks,
+                    )
+
+        # The old Cartesian product validated only at the leaves. Removing used
+        # blockers and illegal per-attacker groups early preserves its exact
+        # surviving option order, including the pilot's first-max tie break.
+        visit(0, tuple(available), ())
+        return tuple(options)
+
+    def _sneak_semantics(self, card: CardObject):
+        for fragment in self.interpreter.fragments(card.card):
+            semantics = self.interpreter.sneak_semantic_coverage(card.card, fragment)
+            if semantics is not None and semantics.coverage.fully_supported:
+                return fragment, semantics
+        return None
+
+    def _unblocked_attackers(self, player_index: int) -> tuple[Permanent, ...]:
+        blocked = {attacker_id for attacker_id, _blocker_id in self._combat_blocks}
+        result: list[Permanent] = []
+        for object_id in self._combat_attackers:
+            attacker = self._objects.get(object_id)
+            if (
+                object_id not in blocked
+                and isinstance(attacker, Permanent)
+                and self.is_authoritative(attacker, "battlefield")
+                and attacker.controller == player_index
+            ):
+                result.append(attacker)
+        return tuple(result)
+
+    def sneak_payment_plan(
+        self, player_index: int, card: CardObject, attacker: Permanent
+    ) -> SneakPaymentPlan | None:
+        """Build one immutable fixed-cost Sneak plan without mutating game state."""
+        if (
+            player_inYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ‘•à€„ôÍ•±˜¹…Ñ¥Ù•}Á±…å•È(€€€€€€€€€€€½ÈÍ•±˜¹ÍÑ•À¥Ì¹½ĞQÕÉ¹MÑ•À¹1I}	1=-IL(€€€€€€€€€€€½È¹½ĞÍ•±˜¹}‰±½­•ÉÍ}‘•±…É•(€€€€€€€€€€€½ÈÍ•±˜¹ÁÉ¥½É¥Ñå}ÍÑ…Ñ”¥Ì¹½Ğ9½¹”(€€€€€€€€€€€½ÈÍ•±˜¹ÍÑ…¬(€€€€€€€€€€€½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡…É°€‰¡…¹ˆ¤(€€€€€€€€€€€½È…É¹½İ¹•È€„ôÁ±…å•É}¥¹‘•à(€€€€€€€€€€€½È…ÑÑ…­•È¹½Ğ¥¸Í•±˜¹}Õ¹‰±½­•‘}…ÑÑ…­•ÉÌ¡Á±…å•É}¥¹‘•à¤(€€€€€€€€¤è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€¥¹Ñ•ÉÁÉ•Ñ•€ôÍ•±˜¹}Í¹•…­}Í•µ…¹Ñ¥Ì¡…É¤(€€€€€€€¥˜¥¹Ñ•ÉÁÉ•Ñ•¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€™É…µ•¹Ğ°Í•µ…¹Ñ¥Ì€ô¥¹Ñ•ÉÁÉ•Ñ•(€€€€€€€ÁÉ½É…´èM¹•…­AÉ½É…´€ôÍ•µ…¹Ñ¥Ì¹ÁÉ½É…´(€€€€€€€…ÍÍ•ÉĞÁÉ½É…´¹µ…¹…}½ÍĞ¥Ì¹½Ğ9½¹”(€€€€€€€É•ÅÕ¥É•µ•¹Ğ€ôÍ•±˜¹…Ñ¥Ù…Ñ¥½¹}µ…¹…}É•ÅÕ¥É•µ•¹Ğ¡ÁÉ½É…´¹µ…¹…}½ÍĞ¤(€€€€€€€¥˜É•ÅÕ¥É•µ•¹Ğ¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€…Ù…¥±…‰±”€ôl(€€€€€€€€€€€Á•Éµ…¹•¹Ğ(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Í•±˜¹Á±…å•ÉÍmÁ±…å•É}¥¹‘•át¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹…É¹¥Í}±…¹…¹¹½ĞÁ•Éµ…¹•¹Ğ¹Ñ…ÁÁ•…¹Á•Éµ…¹•¹Ğ¥Ì¹½Ğ…ÑÑ…­•È(€€€€€€€t(€€€€€€€¥˜…¹ä ˆ¼ˆ¥¸Íåµ‰½°™½ÈÍåµ‰½°¥¸É•ÅÕ¥É•µ•¹Ğ¹½±½É•¤è(€€€€€€€€€€€Í•±•Ñ•€ôÍ•±˜¹}Í•±•Ñ}µ…¹…}Í½ÕÉ•Ì¡É•ÅÕ¥É•µ•¹Ğ°…Ù…¥±…‰±”¤(€€€€€€€€€€€¥˜Í•±•Ñ•¥Ì9½¹”è(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€}™±½…Ñ¥¹}½±½ÉÌ°¡½Í•¸€ôÍ•±•Ñ•(€€€€€€€•±Í”è(€€€€€€€€€€€¡½Í•¸€ômt(€€€€€€€€€€€™½È½±½È¥¸É•ÅÕ¥É•µ•¹Ğ¹½±½É•è(€€€€€€€€€€€€€€€µ…¹…}Í½ÕÉ”€ô¹•áĞ (€€€€€€€€€€€€€€€€€€€€¡Á•Éµ…¹•¹Ğ™½ÈÁ•Éµ…¹•¹Ğ¥¸…Ù…¥±…‰±”¥˜Í•±˜¹}µ…¹…}½±½È¡Á•Éµ…¹•¹Ğ¤€ôô½±½È¤°(€€€€€€€€€€€€€€€€€€€9½¹”°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜µ…¹…}Í½ÕÉ”¥Ì9½¹”è(€€€€€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€€€€€¡½Í•¸¹…ÁÁ•¹¡µ…¹…}Í½ÕÉ”¤(€€€€€€€€€€€€€€€…Ù…¥±…‰±”¹É•µ½Ù”¡µ…¹…}Í½ÕÉ”¤(€€€€€€€€€€€¥˜±•¸¡…Ù…¥±…‰±”¤€ğÉ•ÅÕ¥É•µ•¹Ğ¹•¹•É¥Œè(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€¡½Í•¸¹•áÑ•¹¡…Ù…¥±…‰±•lèÉ•ÅÕ¥É•µ•¹Ğ¹•¹•É§}5¶‰ËkºwµçB6öçF–çVP¢g&vÖVçBÂ÷6VÖçF–72Ò–çFW'&WFV@¢f÷"GF6¶W"–â6VÆbå÷Væ&Æö6¶VEöGF6¶W'2‡Æ–W%ö–æFW‚“ ¢–b6VÆbç6æVµ÷–ÖVçE÷Æâ‡Æ–W%ö–æFW‚Â6&BÂGF6¶W"’—2æ÷BæöæS ¢÷F–öç2æVæB€¢7F–öä÷F–öâ€¢7F–öä¶–æBä45BÀ¢Æ–W%ö–æFW‚À¢ö&¦V7Eö–CÖ6&Bæö&¦V7Eö–BÀ¢6÷7Eöö&¦V7Eö–CÖGF6¶W"æö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢¢¢÷F–öç2æVæB„7F–öä÷F–öâ„7F–öä¶–æBå52ÂÆ–W%ö–æFW‚’¢&WGW&âGWÆR†÷F–öç2 ¢FVbW†V7WFUöGF6µö7F–öâ‡6VÆbÂGF6³¢7F–öä÷F–öâ’ÓâæöæS ¢""%&WfÆ–FFRæBW†V7WFRF†RFV6Æ&RÖGF6¶W'2GW&âÖ&6VB7F–öââ"" ¢–bGF6²æ÷B–â6VÆbæÆVvÅöGF6µö÷F–öç2†GF6²çÆ–W%ö–æFW‚“ ¢&—6RfÇVTW'&÷"‚&GF6²÷F–öâ—2æ÷B7W'&VçFÇ’ÆVvÂ"¢GF6¶W'2Ò·6VÆbåöö&¦V7G5¶ö&¦V7Eö–EÒf÷"ö&¦V7Eö–B–âGF6²æGF6¶W%ö–G5Ğ¢–bæ÷BÆÂ†—6–ç7Fæ6R†ö&¢ÂW&ÖæVçB’f÷"ö&¢–âGF6¶W'2“ ¢&—6RfÇVTW'&÷"‚&6öÖ&B÷F–öâ&VfW&Væ6W2æöçW&ÖæVçB"¢f÷"GF6¶W"–âGF6¶W'3 ¢GF6¶W"çFVBÒG'VR2G—S¢–væ÷&U·Væ–öâÖGG%Ğ¢6VÆbåö6öÖ&EöGF6¶W'2ÒGF6²æGF6¶W%ö–G0¢6VÆbåöGF6¶W'5öFV6Æ&VBÒG'VP¢6VÆbæÆör‚&GF6¶W'5öFV6Æ&VB"ÂGF6¶W'3ÖÆ—7B†GF6²æGF6¶W%ö–G2’¢6VÆbç&W6öÇfUöGF6µ÷EöVffV7G2†GF6¶W'2’2G—S¢–væ÷&U¶&r×G—UĞ¢–b6VÆbç&–÷&—G•÷7FFR—2æöæS ¢6VÆbçG&ç6—F–öå÷Fò…GW&å7FWäDT4Ä$Uô$Äô4´U%2 ¢FVbW†V7WFUö&Æö6µö7F–öâ‡6VÆbÂ&Æö6·3¢7F–öä÷F–öâ’ÓâæöæS ¢""%&WfÆ–FFRæBW†V7WFRF†RFV6Æ&RÖ&Æö6¶W'2GW&âÖ&6VB7F–öââ"" ¢GEš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXXÚÈHXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™‘PÓT‘WĞUPÒÑT”ËˆÙ[‹˜Xİ]™WÜ^Y\‹ˆ]XÚÙ\—ÚYÏ\Ù[‹—ØÛÛX˜]Ø]XÚÙ\œËˆ
+BˆY™[™\ˆHHHÙ[‹˜Xİ]™WÜ^Y\‚ˆYˆ›ØÚÜÈ›İ[ˆÙ[‹›YØ[Ø›ØÚ×ÛÜ[ÛœÊ]XÚËY™[™\ŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜›ØÚÈÜ[Ûˆ\È›İİ\œ™[HYØ[ŠBˆ]XÚÙ\œÈHÜÙ[‹—ÛØš™XİÖÛØš™XİÚYH›ÜˆØš™XİÚY[ˆÙ[‹—ØÛÛX˜]Ø]XÚÙ\œ×BˆYˆ›İ[
+\Ú[œİ[˜ÙJØš‹\›X[™[
+H›ÜˆØšˆ[ˆ]XÚÙ\œÊN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜ÛÛX˜]İ]H™Y™\™[˜Ù\ÈH›Ûœ\›X[™[]XÚÙ\ˆŠBˆYˆ›ØÚÜË˜›ØÚÜÈ[™›İÙ[‹—İ˜[YØ›ØÚ×Ø\ÜÚYÛ›Y[
+]XÚÙ\œË›ØÚÜË˜›ØÚÜËY™[™\ŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜›ØÚÈÜ[Ûˆ™XØ[YHİ[HÜˆ[YØ[ŠBˆÙ[‹—ØÛÛX˜]Ø›ØÚÜÈH›ØÚÜË˜›ØÚÜÂˆÙ[‹—Ø›ØÚÙ\œ×ÙXÛ\™YHYBˆÙ[‹›ÙÊ˜›ØÚÙ\œ×ÙXÛ\™Y‹›ØÚÜÏVÛ\İ
+Z\ŠH›ÜˆZ\ˆ[ˆ›ØÚÜË˜›ØÚÜ×JBˆYˆ›İ[JˆÜ[Û‹šÚ[™\ÈXİ[Û’Ú[™ĞTÕˆ›ÜˆÜ[Ûˆ[ˆÙ[‹›YØ[ÜÛ™XZ×ØXİ[ÛœÊÙ[‹˜Xİ]™WÜ^Y\ŠBˆ
+N‚ˆÙ[‹˜[œÚ][Û—İÊ\›”İ\ÓÓPUÑSPQÑJB‚ˆYˆ^Xİ]WÜÛ™XZ×ØXİ[ÛŠÙ[‹Ü[ÛˆXİ[Û“Ü[ÛŠHOˆ›ÛÛ‚ˆˆˆ”™]˜[Y]H[™^Xİ]HÛ™H[™Ú[™KYÙ[™\˜]YÛ™XZÈXİ[ÛˆÜˆXÛ[™Kˆˆˆ‚ˆYˆÜ[Ûˆ›İ[ˆÙ[‹›YØ[ÜÛ™XZ×ØXİ[ÛœÊÜ[Û‹œ^Y\—Ú[™^
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”Û™XZÈXİ[Ûˆ\È›İİ\œ™[HYØ[ŠBˆYˆÜ[Û‹šÚ[™\ÈXİ[Û’Ú[™”TÔÎ‚ˆÙ[‹˜[œÚ][Û—İÊ\›”İ\ÓÓPUÑSPQÑJBˆ™]\›ˆYBˆØ\™HÙ[‹—ÛØš™XİË™Ù]
+Ü[Û‹›Øš™XİÚYÜˆˆŠBˆ]XÚÙ\ˆHÙ[‹—ÛØš™XİË™Ù]
+Ü[Û‹˜ÛÜİÛØš™XİÚYÜˆˆŠBˆYˆ›İ\Ú[œİ[˜ÙJØ\™Ø\™Øš™Xİ
+HÜˆ›İ\Ú[œİ[˜ÙJ]XÚÙ\‹\›X[™[
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ”Û™XZÈÜ[Ûˆ™Y™\™[˜Ù\È[ˆ[˜[Y[[YHØš™wÓ[h‘éì¶»§q«^unt.active_temporary_keyword_effects
             if isinstance(effect.keyword, StrikeKeyword)
         )
         for fragment in self.interpreter.fragments(permanent.rules_card):
@@ -4901,187 +2117,23 @@ class Game(
     def _combat_permanent(self, object_id: str, role: str) -> Permanent:
         obj = self._objects.get(object_id)
         if not isinstance(obj, Permanent):
-            raise ValueError(f"combat state references a fabricated or nonpermanent {role}")
-        return obj
+            raise ValueError(f"combatYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÔÍÑ…Ñ”É•™•É•¹•Ì„™…‰É¥…Ñ•½È¹½¹Á•Éµ…¹•¹ĞíÉ½±•ôˆ¤(€€€€€€€É•ÑÕÉ¸½‰¨((€€€‘•˜}ÍÑ…ÉÑ}½µ‰…Ñ}‘…µ…•}ÍÑ•À (€€€€€€€Í•±˜°­¥¹è½µ‰…Ñ…µ…•MÑ•Á-¥¹°Í•ÅÕ•¹”è¥¹Ğ°Ñ½Ñ…±}ÍÑ•ÁÌè¥¹Ğ(€€€€¤€´ø9½¹”è(€€€€€€€Í•±˜¹}½µ‰…Ñ}‘…µ…•}ÍÑ•Á}­¥¹€ô­¥¹(€€€€€€€Í•±˜¹}½µ‰…Ñ}‘…µ…•}ÍÑ•Á}¹Õµ‰•È€ôÍ•ÅÕ•¹”(€€€€€€€Í•±˜¹}½µ‰…Ñ}‘…µ…•}Ñ½Ñ…±}ÍÑ•ÁÌ€ôÑ½Ñ…±}ÍÑ•ÁÌ(€€€€€€€Í•±˜¹}½µ‰…Ñ}‘…µ…•}É•Í½±Ù•€ô…±Í”(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰½µ‰…Ñ}‘…µ…•}ÍÑ•Á}ÍÑ…ÉÑ•ˆ°(€€€€€€€€€€€‘…µ…•}ÍÑ•Àõ­¥¹¹Ù…±Õ”°(€€€€€€€€€€€Í•ÅÕ•¹”õÍ•ÅÕ•¹”°(€€€€€€€€€€€Ñ½Ñ…±}ÍÑ•ÁÌõÑ½Ñ…±}ÍÑ•ÁÌ°(€€€€€€€€¤((€€€‘•˜}‰•¥¹}½µ‰…Ñ}‘…µ…•}ÍÑ•ÁÌ¡Í•±˜¤€´ø9½¹”è(€€€€€€€€ˆˆ‰•Ñ•Éµ¥¹”Ñ¡”H€ÔÄÀ¸Ğ½¹”´½ÈÑİ¼µÍÑ•À½µ‰…Ğµ‘…µ…”Í•ÅÕ•¹”¸ˆˆˆ(€€€€€€€½µ‰…Ñ…¹Ñ}¥‘Ì€ôÑÕÁ±” (€€€€€€€€€€€‘¥Ğ¹™É½µ­•åÌ (€€€€€€€€€€€€€€€Í•±˜¹}½µ‰…Ñ}…ÑÑ…­•ÉÌ(€€€€€€€€€€€€€€€€¬ÑÕÁ±”¡‰±½­•É}¥™½È}…ÑÑ…­•É}¥°‰±½­•É}¥¥¸Í•±˜¹}½µ‰…Ñ}‰±½­Ì¤(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€½µ‰…Ñ…¹ÑÌ€ôÑÕÁ±” (€€€€€€€€€€€Í•±˜¹}½µ‰…Ñ}Á•Éµ…¹•¹Ğ¡½‰©•Ñ}¥°€‰½µ‰…Ñ…¹Ğˆ¤™½È½‰©•Ñ}¥¥¸½µ‰…Ñ…¹Ñ}¥‘Ì(€€€€€€€€¤(€€€€€€€É•µ…¥¹¥¹œ€ôÑÕÁ±” (€€€€€€€€€€€Á•Éµ…¹•¹Ğ™½ÈÁ•Éµ…¹•¹Ğ¥¸½µ‰…Ñ…¹ÑÌ¥˜Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Á•Éµ…¹•¹Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€¤(€€€€€€€•Ù…±Õ…Ñ•€ôì(€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥èÍ•±˜¹•Ù…±Õ…Ñ•‘}ÍÑÉ¥­•}­•åİ½É‘Ì¡Á•Éµ…¹•¹Ğ¤(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸É•µ…¥¹¥¹œ(€€€€€€€ô(€€€€€€€Í•±˜¹}™¥ÉÍÑ}‘…µ…•}ÅÕ…±¥™¥•‘}¥‘Ì€ôÑÕÁ±” (€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸É•µ…¥¹¥¹œ(€€€€€€€€€€€¥˜•Ù…±Õ…Ñ•‘mÁ•Éµ…¹•¹Ğ¹½‰©•Ñ}¥‘t(€€€€€€€€€€€€˜íMÑÉ¥­•-•åİ½É¹%IMQ}MQI%-°MÑÉ¥­•-•åİ½É¹=U	1}MQI%-ô(€€€€€€€€¤(€€€€€€€Í•±˜¹}™¥ÉÍÑ}‘½Õ‰±•}ÍÑÉ¥­•}¥‘Ì€ôÑÕÁ±” (€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥(€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸É•µ…¥¹¥¹œ(€€€€€€€€€€€¥˜MÑÉ¥­•-•åİ½É¹=U	1}MQI%-¥¸•Ù…±Õ…Ñ•‘mÁ•Éµ…¹•¹Ğ¹½‰©•Ñ}¥‘t(€€€€€€€€¤(€€€€€€€Í•±˜¹}É•Õ±…É}‘…µ…Ÿ}5¶‰ËkºwµçR†&Æö6¶W%ö–Bf÷"öGF6¶W%ö–BÂ&Æö6¶W%ö–B–â6VÆbåö6öÖ&Eö&Æö6·2¢–b—6–ç7Fæ6R‚†ö&¢£Ò6VÆbåöö&¦V7G2ævWB†ö&¦V7Eö–B’’ÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR†ö&¢Â&&GFÆVf–VÆB"¢æB7G&–¶T¶W—v÷&BäDõT$ÄUõ5E$”´R–â6VÆbæWfÇVFVE÷7G&–¶Uö¶W—v÷&G2†ö&¢¢Ğ¢&WGW&â6WB‡6VÆbå÷&VwVÆ%öFÖvUö–æ—F–Åö–G2’Â7W'&VçEöF÷V&ÆP ¢FVbö6öÖ&Eö76–væÖVçB€¢6VÆbÀ¢6÷W&6S¢W&ÖæVçBÀ¢¢À¢F&vWC¢W&ÖæVçBÂæöæRÒæöæRÀ¢F&vWE÷Æ–W#¢–çBÂæöæRÒæöæRÀ¢Ö÷VçC¢–çBÂæöæRÒæöæRÀ¢G&×ÆS¢&ööÂÒfÇ6RÀ¢ÆWF†Å÷&WV—&VC¢–çBÂæöæRÒæöæRÀ¢’Óâ6öÖ&DFÖvT76–væÖVçC ¢–b6VÆbåö6öÖ&EöFÖvU÷7FWö¶–æB—26öÖ&DFÖvU7FW¶–æBäd•%5Eõ5E$”´S ¢&öÆRÒ€¢&F÷V&ÆU÷7G&–¶Uöf—'7B ¢–b6÷W&6Ræö&¦V7Eö–B–â6VÆbåöf—'7EöF÷V&ÆU÷7G&–¶Uö–G0¢VÇ6R&f—'7E÷7G&–¶R ¢¢VÇ6S ¢&öÆRÒ€¢&F÷V&ÆU÷7G&–¶U÷6V6öæB ¢–b7G&–¶T¶W—v÷&BäDõT$ÄUõ5E$”´R–â6VÆbæWfÇVFVE÷7G&–¶Uö¶W—v÷&G2‡6÷W&6R¢VÇ6R'&VwVÆ" ¢¢&WGW&â6öÖ&DFÖvT76–væÖVçB€¢6÷W&6Ræö&¦V7Eö–BÀ¢æöæR–bF&vWB—2æöæRVÇ6RF&vWBæö&¦V7Eö–BÀ¢F&vWE÷Æ–W"À¢Ö‚ƒÂ6÷W&6Rç÷vW"’–bÖ÷VçB—2æöæRVÇ6RÖ÷VçBÀ¢&öÆRÀ¢G&×ÆRÀ¢ÆWF†Å÷&WV—&VBÀ¢ ¢FVbWfÇVFVE÷G&×ÆR‡6VÆbÂW&ÖæVçC¢W&ÖæVçB’Óâ&ööÃ ¢""$WfÇVFRöæÇ’WF†÷&—FF—fRÂgVÆÇ’7W÷'FVBG&×ÆR6†&7FW&—7F–72â"" ¢–bæ÷B6VÆbæ—5öWF†÷&—FF—fR‡W&ÖæVçBÂ&&GFÆVf–VÆB"“ ¢&WGW&âfÇ6P¢–b—6–ç7Fæ6R‡W&ÖæVçBæ6&BÂFö¶VäFVf–æ—F–öâ’æB'G&×ÆR"–â°¢¶W—v÷&Bæ66VföÆB‚’f÷"¶W—v÷&B–âW&ÖæVçBç'Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[\×ØØ\™šÙ^]ÛÜ™ÂˆN‚ˆ™]\›ˆYBˆ™]\›ˆ[JˆÙ[X[XÜÈ\È›İ›Û™Bˆ[™Ù[X[XÜË˜Ûİ™\˜YÙKœ^[ØYÙ^Xİ]X›Bˆ[™Ù[X[XÜË˜Ûİ™\˜YÙKœ\™[Ù^Xİ]X›Bˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[Ê\›X[™[œ[\×ØØ\™
+BˆYˆ
+Ù[X[XÜÈHÙ[‹š[\œ™]\‹˜[\WÜÙ[X[X×ØÛİ™\˜YÙJ\›X[™[˜Ø\™œ˜YÛY[
+JBˆ\È›İ›Û™Bˆ
+B‚ˆYˆ]˜[X]YÛY™[[šÊÙ[‹Ûİ\˜ÙNˆØ\™Øš™XİİXÚÓØš™Xİ\›X[™[
+HOˆ›ÛÛ‚ˆˆˆ‘]˜[X]HÛ›H]]Üš]]]™H[š[œÚXÈY™[[šÈÛˆH[XYÙHÛİ\˜ÙKˆˆˆ‚ˆYˆ›İ
+ˆÙ[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠHÜˆÙ[‹š\×Ø]]Üš]]]™JÛİ\˜ÙKœİXÚÈŠBˆ
+N‚ˆ™]\›ˆ˜[ÙBˆYˆ\Ú[œİ[˜ÙJÛİ\˜ÙK˜Ø\™ÚÙ[‘Yš[š][ÛŠH[™›Y™[[šÈˆ[ˆÂˆÙ^]ÛÜ™˜Ø\ÙY›Û
 
-    def _start_combat_damage_step(
-        self, kind: CombatDamageStepKind, sequence: int, total_steps: int
-    ) -> None:
-        self._combat_damage_step_kind = kind
-        self._combat_damage_step_number = sequence
-        self._combat_damage_total_steps = total_steps
-        self._combat_damage_resolved = False
-        self.log(
-            "combat_damage_step_started",
-            damage_step=kind.value,
-            sequence=sequence,
-            total_steps=total_steps,
-        )
-
-    def _begin_combat_damage_steps(self) -> None:
-        """Determine the CR 510.4 one- or two-step combat-damage sequence."""
-        combatant_ids = tuple(
-            dict.fromkeys(
-                self._combat_attackers
-                + tuple(blocker_id for _attacker_id, blocker_id in self._combat_blocks)
-            )
-        )
-        combatants = tuple(
-            self._combat_permanent(object_id, "combatant") for object_id in combatant_ids
-        )
-        remaining = tuple(
-            permanent for permanent in combatants if self.is_authoritative(permanent, "battlefield")
-        )
-        evaluated = {
-            permanent.object_id: self.evaluated_strike_keywords(permanent)
-            for permanent in remaining
-        }
-        self._first_damage_qualified_ids = tuple(
-            permanent.object_id
-            for permanent in remaining
-            if evaluated[permanent.object_id]
-            & {StrikeKeyword.FIRST_STRIKE, StrikeKeyword.DOUBLE_STRIKE}
-        )
-        self._first_double_strike_ids = tuple(
-            permanent.object_id
-            for permanent in remaining
-            if StrikeKeyword.DOUBLE_STRIKE in evaluated[permanent.object_id]
-        )
-        self._regular_damage_initial_ids = tuple(
-            permanent.object_id
-            for permanent in remaining
-            if not evaluated[permanent.object_id]
-            & {StrikeKeyword.FIRST_STRIKE, StrikeKeyword.DOUBLE_STRIKE}
-        )
-        if self._first_damage_qualified_ids:
-            self._start_combat_damage_step(CombatDamageStepKind.FIRST_STRIKE, 1, 2)
-        else:
-            self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 1, 1)
-
-    def _damage_step_eligible_ids(self) -> set[str]:
-        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
-            return set(self._first_damage_qualified_ids)
-        if self._combat_damage_step_kind is not CombatDamageStepKind.REGULAR:
-            raise ValueError("combat damage step is not active")
-        current_double = {
-            object_id
-            for object_id in self._combat_attackers
-            + tuple(blocker_id for _attacker_id, blocker_id in self._combat_blocks)
-            if isinstance((obj := self._objects.get(object_id)), Permanent)
-            and self.is_authoritative(obj, "battlefield")
-            and StrikeKeyword.DOUBLE_STRIKE in self.evaluated_strike_keywords(obj)
-        }
-        return set(self._regular_damage_initial_ids) | current_double
-
-    def _combat_assignment(
-        self,
-        source: Permanent,
-        *,
-        target: Permanent | None = None,
-        target_player: int | None = None,
-        amount: int | None = None,
-        trample: bool = False,
-        lethal_required: int | None = None,
-    ) -> CombatDamageAssignment:
-        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
-            role = (
-                "double_strike_first"
-                if source.object_id in self._first_double_strike_ids
-                else "first_strike"
-            )
-        else:
-            role = (
-                "double_strike_second"
-                if StrikeKeyword.DOUBLE_STRIKE in self.evaluated_strike_keywords(source)
-                else "regular"
-            )
-        return CombatDamageAssignment(
-            source.object_id,
-            None if target is None else target.object_id,
-            target_player,
-            max(0, source.power) if amount is None else amount,
-            role,
-            trample,
-            lethal_required,
-        )
-
-    def evaluated_trample(self, permanent: Permanent) -> bool:
-        """Evaluate only authoritative, fully supported Trample characteristics."""
-        if not self.is_authoritative(permanent, "battlefield"):
-            return False
-        if isinstance(permanent.card, TokenDefinition) and "trample" in {
-            keyword.casefold() for keyword in permanent.rules_card.keywords
-        }:
-            return True
-        return any(
-            semantics is not None
-            and semantics.coverage.payload_executable
-            and semantics.coverage.parent_executable
-            for fragment in self.interpreter.fragments(permanent.rules_card)
-            if (semantics := self.interpreter.trample_semantic_coverage(permanent.card, fragment))
-            is not None
-        )
-
-    def evaluated_lifelink(self, source: CardObject | StackObject | Permanent) -> bool:
-        """Evaluate only authoritative intrinsic Lifelink on the damage source."""
-        if not (
-            self.is_authoritative(source, "battlefield") or self.is_authoritative(source, "stack")
-        ):
-            return False
-        if isinstance(source.card, TokenDefinition) and "lifelink" in {
-            keyword.casefold() for keyword in source.rules_card.keywords
-        }:
-            return True
-        return any(
-            semantics.coverage.fully_supported
-            for fragment in self.interpreter.fragments(source.rules_card)
-            if (semantics := self.interpreter.lifelink_semantic_coverage(source.card, fragment))
-            is not None
-        )
-
-    def _apply_lifelink_result(
-        self,
-        source: CardObject | StackObject | Permanent,
-        amount: int,
-        *,
-        combat: bool,
-        damage_step: CombatDamageStepKind | None,
-        target_ids: tuple[str, ...],
-        target_players: tuple[int, ...],
-    ) -> LifelinkEvidence:
-        """Apply CR 120.3f once for one authoritative source's damage event."""
-        if not self.evaluated_lifelink(source):
-            raise ValueError("Lifelink result requires an authoritative source with lifelink")
-        if amount <= 0:
-            raise ValueError("Lifelink result requires positive damage")
-        controller = source.controller
-        life_before = self.players[controller].life
-        event = self.gain_life(
-            controller,
-            amount,
-            source_card=source.card.name,
-            oracle_fragment="Lifelink",
-            defer_trigger_delivery=True,
-        )
-        evidence = LifelinkEvidence(
-            event.event_id,
-            source.object_id,
-            controller,
-            amount,
-            combat,
-            damage_step,
-            target_ids,
-            target_players,
-            life_before,
-            self.players[controller].life,
-        )
-        self.lifelink_evidence.append(evidence)
-        self.log(
-            "lifelink_result",
-            event_id=event.event_id,
-            source_id=source.object_id,
-            source_card=source.card.name,
-            controller=self.players[controller].name,
+H›ÜˆÙ^]ÛÜ™[ˆÛİ\˜ÙKœ[\×ØØ\™šÙ^]ÛÜ™ÂˆN‚ˆ™]\›ˆYBˆ™]\›ˆ[JˆÙ[X[XÜË˜Ûİ™\˜YÙK™[WÜİ\ÜYˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÛİ\˜ÙKœ[\×ØØ\™
+BˆYˆ
+Ù[X[XÜÈHÙ[‹š[\œ™]\‹›Y™[[š×ÜÙ[X[X×ØÛİ™\˜YÙJÛİ\˜ÙK˜Ø\™œ˜YÛY[
+JBˆ\È›İ›Û™Bˆ
+B‚ˆYˆØ\WÛY™[[š×Ü™\İ[
+ˆÙ[‹ˆÛİ\˜ÙNˆØ\™Øš™XİİXÚÓØš™Xİ\›X[™[ˆ[[İ[ˆ[ˆ
+‹ˆÛÛX˜]ˆ›ÛÛˆ[XYÙWÜİ\ˆÛÛX˜][XYÙTİ\Ú[™›Û™Kˆ\™Ù]ÚYÎˆ\VÜİ‹‹‹—Kˆ\™Ù]Ü^Y\œÎˆ\VÚ[‹‹—Kˆ
+HOˆY™[[šÑ]šY[˜ÙN‚ˆˆˆ\HÔˆLŒŒÙˆÛ˜ÙH›ÜˆÛ™H]]Üš]]]™HÛİ\˜ÙIÜÈ[XYÙH]™[ˆˆˆ‚ˆYˆ›İÙ[‹™]˜[X]YÛY™[[šÊÛİ\˜ÙJN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ“Y™[[šÈ™\İ[™\]Z\™\È[ˆ]]Üš]]]™HÛİ\˜ÙHÚ]Y™[[šÈŠBˆYˆ[[İ[H‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ“Y™[[šÈ™\İwÓ[h‘éì¶»§q«^voller].name,
             amount=amount,
             combat=combat,
             damage_step=None if damage_step is None else damage_step.value,
@@ -5118,152 +2170,23 @@ class Game(
             blocker = self._combat_permanent(blocker_id, "blocker")
             blocks[attacker_id] = blocks.get(attacker_id, ()) + (blocker,)
         if any(attacker_id not in attackers for attacker_id in blocks):
-            raise ValueError("combat state assigns a blocker to a nonattacker")
-        eligible = self._damage_step_eligible_ids()
-        assignments: list[CombatDamageAssignment] = []
-        damaged_pairs: list[tuple[Permanent, Permanent]] = []
-        trample_inputs: dict[
-            str, tuple[str | None, int, int | None, int | None, int, int, int]
-        ] = {}
-        for attacker_id, attacker in attackers.items():
-            attacker_present = self.is_authoritative(attacker, "battlefield")
-            blockers = blocks.get(attacker_id, ())
-            present = tuple(
-                blocker for blocker in blockers if self.is_authoritative(blocker, "battlefield")
-            )
-            if not blockers:
-                if attacker_present and attacker_id in eligible and attacker.power > 0:
-                    assignments.append(
-                        self._combat_assignment(attacker, target_player=defender_index)
-                    )
-                continue
-            if attacker_present and attacker_id in eligible and attacker.power > 0:
-                power = max(0, attacker.power)
-                remaining = power
-                first = present[0] if present else None
-                first_any = blockers[0] if blockers else None
-                for index, blocker in enumerate(present):
-                    if remaining <= 0:
-                        break
-                    lethal = max(0, blocker.toughness - blocker.damage)
-                    is_last = index == len(present) - 1
-                    amount = (
-                        min(remaining, lethal)
-                        if self.evaluated_trample(attacker) or not is_last
-                        else remaining
-                    )
-                    assignments.append(
-                        self._combat_assignment(
-                            attacker,
-                            target=blocker,
-                            amount=amount,
-                            trample=self.evaluated_trample(attacker),
-                            lethal_required=lethal if self.evaluated_trample(attacker) else None,
-                        )
-                    )
-                    remaining -= amount
-                    damaged_pairs.append((attacker, blocker))
-                if self.evaluated_trample(attacker):
-                    trample_inputs[attacker_id] = (
-                        first_any.object_id if first_any else None,
-                        power,
-                        first.toughness if first else None,
-                        first.damage if first else None,
-                        max(0, first.toughness - first.damage) if first else 0,
-                        power - remaining,
-                        remaining,
-                    )
-                    if remaining:
-                        assignments.append(
-                            self._combat_assignment(
-                                attacker,
-                                target_player=defender_index,
-                                amount=remaining,
-                                trample=True,
-                                lethal_required=0,
-                            )
-                        )
-            for blocker in present:
-                if blocker.object_id in eligible and blocker.power > 0:
-                    assignments.append(self._combat_assignment(blocker, target=attacker))
-
-        if len(
-            {
-                (assignment.source_id, assignment.target_id, assignment.target_player)
-                for assignment in assignments
-            }
-        ) != len(assignments):
-            raise AssertionError("a combatant repeated one assignment in a damage step")
-        for source_id in {assignment.source_id for assignment in assignments}:
-            source_assignments = [
-                assignment for assignment in assignments if assignment.source_id == source_id
-            ]
-            if len(source_assignments) <= 1:
-                continue
-            source = self._combat_permanent(source_id, "damage source")
-            is_multi_block_attacker = source_id in attackers and len(blocks.get(source_id, ())) > 1
-            if (not self.evaluated_trample(source) and not is_multi_block_attacker) or sum(
-                item.target_player is not None for item in source_assignments
-            ) > 1:
-                raise AssertionError("split assignments require bounded combat assignment")
-        before_remaining = {
-            permanent.object_id
-            for permanent in tuple(attackers.values())
-            + tuple(
-                blocker
-                for group in blocks.values()
-                for blocker in (group if isinstance(group, tuple) else (group,))
-            )
-            if self.is_authoritative(permanent, "battlefield")
-        }
-        trample_life_before: dict[str, int] = {}
-        trample_life_after: dict[str, int] = {}
-        lifelink_assignments: dict[str, list[CombatDamageAssignment]] = {}
-        for assignment in assignments:
-            source = self._combat_permanent(assignment.source_id, "damage source")
-            if self.evaluated_lifelink(source):
-                lifelink_assignments.setdefault(source.object_id, []).append(assignment)
-            if assignment.source_id in trample_inputs:
-                trample_life_before.setdefault(
-                    assignment.source_id, self.players[defender_index].life
-                )
-            if assignment.target_player is not None:
-                self.players[assignment.target_player].life -= assignment.amount
-                self.log(
-                    "combat_damage_player",
-                    source=source.card.name,
-                    damage=assignment.amount,
-                    damage_step=self._combat_damage_step_kind.value,
-                    role=assignment.role,
-                )
-            else:
-                assert assignment.target_id is not None
-                target = self._combat_permanent(assignment.target_id, "damage target")
-                target.damage += assignment.amount
-                self.log(
-                    "combat_damage_assignment",
-                    source=source.card.name,
-                    source_id=source.object_id,
-                    target=target.card.name,
-                    target_id=target.object_id,
-                    damage=assignment.amount,
-                    damage_step=self._combat_damage_step_kind.value,
-                    role=assignment.role,
-                )
-            if assignment.source_id in trample_inputs:
-                trample_life_after[assignment.source_id] = self.players[defender_index].life
-        for source_id, source_assignments in lifelink_assignments.items():
-            source = self._combat_permanent(source_id, "Lifelink damage source")
-            self._apply_lifelink_result(
-                source,
-                sum(assignment.amount for assignment in source_assignments),
-                combat=True,
-                damage_step=self._combat_damage_step_kind,
-                target_ids=tuple(
-                    assignment.target_id
-                    for assignment in source_assignments
-                    if assignment.target_id is not None
-                ),
+            raise ValueError("combat state assigns aYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô‰±½­•ÈÑ¼„¹½¹…ÑÑ…­•Èˆ¤(€€€€€€€•±¥¥‰±”€ôÍ•±˜¹}‘…µ…•}ÍÑ•Á}•±¥¥‰±•}¥‘Ì ¤(€€€€€€€…ÍÍ¥¹µ•¹ÑÌè±¥ÍÑm½µ‰…Ñ…µ…•ÍÍ¥¹µ•¹Ñt€ômt(€€€€€€€‘…µ…•‘}Á…¥ÉÌè±¥ÍÑmÑÕÁ±•mA•Éµ…¹•¹Ğ°A•Éµ…¹•¹Ñut€ômt(€€€€€€€ÑÉ…µÁ±•}¥¹ÁÕÑÌè‘¥Ñl(€€€€€€€€€€€ÍÑÈ°ÑÕÁ±•mÍÑÈğ9½¹”°¥¹Ğ°¥¹Ğğ9½¹”°¥¹Ğğ9½¹”°¥¹Ğ°¥¹Ğ°¥¹Ñt(€€€€€€€t€ôíô(€€€€€€€™½È…ÑÑ…­•É}¥°…ÑÑ…­•È¥¸…ÑÑ…­•ÉÌ¹¥Ñ•µÌ ¤è(€€€€€€€€€€€…ÑÑ…­•É}ÁÉ•Í•¹Ğ€ôÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡…ÑÑ…­•È°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€‰±½­•ÉÌ€ô‰±½­Ì¹•Ğ¡…ÑÑ…­•É}¥°€ ¤¤(€€€€€€€€€€€ÁÉ•Í•¹Ğ€ôÑÕÁ±” (€€€€€€€€€€€€€€€‰±½­•È™½È‰±½­•È¥¸‰±½­•ÉÌ¥˜Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡‰±½­•È°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜¹½Ğ‰±½­•ÉÌè(€€€€€€€€€€€€€€€¥˜…ÑÑ…­•É}ÁÉ•Í•¹Ğ…¹…ÑÑ…­•É}¥¥¸•±¥¥‰±”…¹…ÑÑ…­•È¹Á½İ•È€ø€Àè(€€€€€€€€€€€€€€€€€€€…ÍÍ¥¹µ•¹ÑÌ¹…ÁÁ•¹ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}½µ‰…Ñ}…ÍÍ¥¹µ•¹Ğ¡…ÑÑ…­•È°Ñ…É•Ñ}Á±…å•Èõ‘•™•¹‘•É}¥¹‘•à¤(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€¥˜…ÑÑ…­•É}ÁÉ•Í•¹Ğ…¹…ÑÑ…­•É}¥¥¸•±¥¥‰±”…¹…ÑÑ…­•È¹Á½İ•È€ø€Àè(€€€€€€€€€€€€€€€Á½İ•È€ôµ…à À°…ÑÑ…­•È¹Á½İ•È¤(€€€€€€€€€€€€€€€É•µ…¥¹¥¹œ€ôÁ½İ•È(€€€€€€€€€€€€€€€™¥ÉÍĞ€ôÁÉ•Í•¹ÑlÁt¥˜ÁÉ•Í•¹Ğ•±Í”9½¹”(€€€€€€€€€€€€€€€™¥ÉÍÑ}…¹ä€ô‰±½­•ÉÍlÁt¥˜‰±½­•ÉÌ•±Í”9½¹”(€€€€€€€€€€€€€€€™½È¥¹‘•à°‰±½­•È¥¸•¹Õµ•É…Ñ”¡ÁÉ•Í•¹Ğ¤è(€€€€€€€€€€€€€€€€€€€¥˜É•µ…¥¹¥¹œ€ğô€Àè(€€€€€€€€€€€€€€€€€€€€€€€‰É•…¬(€€€€€€€€€€€€€€€€€€€±•Ñ¡…°€ôµ…à À°‰±½­•È¹Ñ½Õ¡¹•ÍÌ€´‰±½­•È¹‘…µ…”¤(€€€€€€€€€€€€€€€€€€€¥Í}±…ÍĞ€ô¥¹‘•à€ôô±•¸¡ÁÉ•Í•¹Ğ¤€´€Ä(€€€€€€€€€€€€€€€€€€€…µ½Õ¹Ğ€ô€ (€€€€€€€€€€€€€€€€€€€€€€€µ¥¸¡É•µ…¥¹¥¹œ°±•Ñ¡…°¤(€€€€€€€€€€€€€€€€€€€€€€€¥˜Í•±˜¹•Ù…±Õ…Ñ•‘}ÑÉ…µÁ±”¡…ÑÑ…­•È¤½È¹½Ğ¥Í}±…ÍĞ(€€€€€€€€€€€€€€€€€€€€€€€•±Í”É•µ…¥¹¥¹œ(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€…ÍÍ¥¹µ•¹ÑÌ¹…ÁÁ•¹ (€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹}½µ‰…Ñ}…ÍÍ¥¹µ•¹Ğ (€€€€€€€€€€€€€€€€€€€€ƒ}5¶‰Ëkºwµçb¢–b&VÖ–æ–æs ¢76–væÖVçG2æVæB€¢6VÆbåö6öÖ&Eö76–væÖVçB€¢GF6¶W"À¢F&vWE÷Æ–W#ÖFVfVæFW%ö–æFW‚À¢Ö÷VçC×&VÖ–æ–ærÀ¢G&×ÆSÕG'VRÀ¢ÆWF†Å÷&WV—&VCÓÀ¢¢¢f÷"&Æö6¶W"–â&W6VçC ¢–b&Æö6¶W"æö&¦V7Eö–B–âVÆ–v–&ÆRæB&Æö6¶W"ç÷vW"â ¢76–væÖVçG2æVæB‡6VÆbåö6öÖ&Eö76–væÖVçB†&Æö6¶W"ÂF&vWCÖGF6¶W"’ ¢–bÆVâ€¢°¢†76–væÖVçBç6÷W&6Uö–BÂ76–væÖVçBçF&vWEö–BÂ76–væÖVçBçF&vWE÷Æ–W"¢f÷"76–væÖVçB–â76–væÖVçG0¢Ğ¢’ÒÆVâ†76–væÖVçG2“ ¢&—6R76W'F–öäW'&÷"‚&6öÖ&FçB&WVFVBöæR76–væÖVçB–âFÖvR7FW"¢f÷"6÷W&6Uö–B–â¶76–væÖVçBç6÷W&6Uö–Bf÷"76–væÖVçB–â76–væÖVçG7Ó ¢6÷W&6Uö76–væÖVçG2Ò°¢76–væÖVçBf÷"76–væÖVçB–â76–væÖVçG2–b76–væÖVçBç6÷W&6Uö–BÓÒ6÷W&6Uö–@¢Ğ¢–bÆVâ‡6÷W&6Uö76–væÖVçG2’ÃÒ ¢6öçF–çVP¢6÷W&6RÒ6VÆbåö6öÖ&E÷W&ÖæVçB‡6÷W&6Uö–BÂ&FÖvR6÷W&6R"¢—5ö×VÇF•ö&Æö6µöGF6¶W"Ò6÷W&6Uö–B–âGF6¶W'2æBÆVâ†&Æö6·2ævWB‡6÷W&6Uö–BÂ‚’’’â¢–b†æ÷B6VÆbæWfÇVFVE÷G&×ÆR‡6÷W&6R’æBæ÷B—5ö×VÇF•ö&Æö6µöGF6¶W"’÷"7VÒ€¢—FVÒçF&vWE÷Æ–W"—2æ÷BæöæRf÷"—FVÒ–â6÷W&6Uö76–væÖVçG0¢’â ¢&—6R76W'F–öäW'&÷"‚'7Æ—B76–væÖVçG2&WV—&R&÷VæFVB6öÖ&B76–væÖVçB"¢&Vf÷&U÷&VÖ–æ–ærÒ°¢W&ÖæVçBæö&¦V7Eö–@¢f÷"W&ÖæVçB–âGWÆR†Eš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ]XÚÙ\œË˜[Y\Ê
+JBˆ
+È\Jˆ›ØÚÙ\‚ˆ›ÜˆÜ›İ\[ˆ›ØÚÜË˜[Y\Ê
+Bˆ›Üˆ›ØÚÙ\ˆ[ˆ
+Ü›İ\Yˆ\Ú[œİ[˜ÙJÜ›İ\\JH[ÙH
+Ü›İ\
+JBˆ
+BˆYˆÙ[‹š\×Ø]]Üš]]]™J\›X[™[˜˜]YšY[ŠBˆBˆ˜[\WÛY™WØ™Y›Ü™NˆXİÜİ‹[HHßBˆ˜[\WÛY™WØY\ˆXİÜİ‹[HHßBˆY™[[š×Ø\ÜÚYÛ›Y[ÎˆXİÜİ‹\İĞÛÛX˜][XYÙP\ÜÚYÛ›Y[WHHßBˆ›Üˆ\ÜÚYÛ›Y[[ˆ\ÜÚYÛ›Y[Î‚ˆÛİ\˜ÙHHÙ[‹—ØÛÛX˜]Ü\›X[™[
+\ÜÚYÛ›Y[œÛİ\˜ÙWÚY™[XYÙHÛİ\˜ÙHŠBˆYˆÙ[‹™]˜[X]YÛY™[[šÊÛİ\˜ÙJN‚ˆY™[[š×Ø\ÜÚYÛ›Y[ËœÙ]Y˜][
+Ûİ\˜ÙK›Øš™XİÚY×JK˜\[™
+\ÜÚYÛ›Y[
+BˆYˆ\ÜÚYÛ›Y[œÛİ\˜ÙWÚY[ˆ˜[\WÚ[œ]Î‚ˆ˜[\WÛY™WØ™Y›Ü™KœÙ]Y˜][
+ˆ\ÜÚYÛ›Y[œÛİ\˜ÙWÚYÙ[‹œ^Y\œÖÙY™[™\—Ú[™^K›Y™Bˆ
+BˆYˆ\ÜÚYÛ›Y[\™Ù]Ü^Y\ˆ\È›İ›Û™N‚ˆÙ[‹œ^Y\œÖØ\ÜÚYÛ›Y[\™Ù]Ü^Y\—K›Y™HOH\ÜÚYÛ›Y[˜[[İ[ˆÙ[‹›ÙÊˆ˜ÛÛX˜]Ù[XYÙWÜ^Y\ˆ‹ˆÛİ\˜ÙO\Ûİ\˜ÙK˜Ø\™›˜[YKˆ[XYÙOX\ÜÚYÛ›Y[˜[[İ[ˆ[XYÙWÜİ\\Ù[‹—ØÛÛX˜]Ù[XYÙWÜİ\ÚÚ[™˜[YKˆ›ÛOX\ÜÚYÛ›Y[œ›ÛKˆ
+Bˆ[ÙN‚ˆ\ÜÙ\\ÜÚYÛ›Y[\™Ù]ÚY\È›İ›Û™Bˆ\™Ù]HÙ[‹—ØÛÛX˜]Ü\›X[™[
+\ÜÚYÛ›Y[\™Ù]ÚY™[XYÙH\™Ù]ŠBˆ\™Ù]™[XYÙH
+ÏH\ÜÚYÛ›Y[˜[[İ[ˆÙ[‹›ÙÊˆ˜ÛÛX˜]Ù[XYÙWØ\ÜÚYÛ›Y[‹ˆÛİ\˜ÙO\Ûİ\˜ÙK˜Ø\™›˜[YKˆÛİ\˜ÙWÚY\Ûİ\˜ÙK›Øš™XİÚYˆ\™Ù]]\™Ù]˜Ø\™›˜[YKˆ\™Ù]ÚY]\™Ù]›Øš™XİÚY·Ó[h‘éì¶»§q«^t            ),
                 target_players=tuple(
                     assignment.target_player
                     for assignment in source_assignments
@@ -5308,194 +2231,37 @@ class Game(
             )
             trample_results.append(
                 TrampleDamageEvidence(
-                    source_id,
-                    blocker_id,
-                    resolved_kind,
-                    attacker_power,
-                    blocker_toughness,
-                    blocker_damage_before,
-                    lethal,
-                    blocker_assigned,
-                    player_assigned,
-                    defender_index,
-                    trample_life_before[source_id],
-                    trample_life_after[source_id],
-                    blocker_after.damage if blocker_survived else None,
-                    blocker_survived,
-                )
-            )
-        evidence = CombatDamageStepEvidence(
-            resolved_kind,
-            resolved_sequence,
-            resolved_total,
-            tuple(assignments),
-            removed,
-            tuple(trample_results),
-        )
-        self.combat_damage_evidence.append(evidence)
-        self.log(
-            "combat_damage_step_resolved",
-            damage_step=resolved_kind.value,
-            sequence=resolved_sequence,
-            total_steps=resolved_total,
-            assignments=len(assignments),
-            removed_before_next_step=list(removed),
-        )
-        self._combat_damage_resolved = True
-        self._advance_after_combat_damage()
-        return evidence
+     YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€€€€Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€‰±½­•É}¥°(€€€€€€€€€€€€€€€€€€€É•Í½±Ù•‘}­¥¹°(€€€€€€€€€€€€€€€€€€€…ÑÑ…­•É}Á½İ•È°(€€€€€€€€€€€€€€€€€€€‰±½­•É}Ñ½Õ¡¹•ÍÌ°(€€€€€€€€€€€€€€€€€€€‰±½­•É}‘…µ…•}‰•™½É”°(€€€€€€€€€€€€€€€€€€€±•Ñ¡…°°(€€€€€€€€€€€€€€€€€€€‰±½­•É}…ÍÍ¥¹•°(€€€€€€€€€€€€€€€€€€€Á±…å•É}…ÍÍ¥¹•°(€€€€€€€€€€€€€€€€€€€‘•™•¹‘•É}¥¹‘•à°(€€€€€€€€€€€€€€€€€€€ÑÉ…µÁ±•}±¥™•}‰•™½É•mÍ½ÕÉ•}¥‘t°(€€€€€€€€€€€€€€€€€€€ÑÉ…µÁ±•}±¥™•}…™Ñ•ÉmÍ½ÕÉ•}¥‘t°(€€€€€€€€€€€€€€€€€€€‰±½­•É}…™Ñ•È¹‘…µ…”¥˜‰±½­•É}ÍÕÉÙ¥Ù••±Í”9½¹”°(€€€€€€€€€€€€€€€€€€€‰±½­•É}ÍÕÉÙ¥Ù•°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€¤(€€€€€€€•Ù¥‘•¹”€ô½µ‰…Ñ…µ…•MÑ•ÁÙ¥‘•¹” (€€€€€€€€€€€É•Í½±Ù•‘}­¥¹°(€€€€€€€€€€€É•Í½±Ù•‘}Í•ÅÕ•¹”°(€€€€€€€€€€€É•Í½±Ù•‘}Ñ½Ñ…°°(€€€€€€€€€€€ÑÕÁ±”¡…ÍÍ¥¹µ•¹ÑÌ¤°(€€€€€€€€€€€É•µ½Ù•°(€€€€€€€€€€€ÑÕÁ±”¡ÑÉ…µÁ±•}É•ÍÕ±ÑÌ¤°(€€€€€€€€¤(€€€€€€€Í•±˜¹½µ‰…Ñ}‘…µ…•}•Ù¥‘•¹”¹…ÁÁ•¹¡•Ù¥‘•¹”¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰½µ‰…Ñ}‘…µ…•}ÍÑ•Á}É•Í½±Ù•ˆ°(€€€€€€€€€€€‘…µ…•}ÍÑ•ÀõÉ•Í½±Ù•‘}­¥¹¹Ù…±Õ”°(€€€€€€€€€€€Í•ÅÕ•¹”õÉ•Í½±Ù•‘}Í•ÅÕ•¹”°(€€€€€€€€€€€Ñ½Ñ…±}ÍÑ•ÁÌõÉ•Í½±Ù•‘}Ñ½Ñ…°°(€€€€€€€€€€€…ÍÍ¥¹µ•¹ÑÌõ±•¸¡…ÍÍ¥¹µ•¹ÑÌ¤°(€€€€€€€€€€€É•µ½Ù•‘}‰•™½É•}¹•áÑ}ÍÑ•Àõ±¥ÍĞ¡É•µ½Ù•¤°(€€€€€€€€¤(€€€€€€€Í•±˜¹}½µ‰…Ñ}‘…µ…•}É•Í½±Ù•€ôQÉÕ”(€€€€€€€Í•±˜¹}…‘Ù…¹•}…™Ñ•É}½µ‰…Ñ}‘…µ…” ¤(€€€€€€€É•ÑÕÉ¸•Ù¥‘•¹”((€€€‘•˜}É…Á¡…•±}Á•Éµ¥ÍÍ¥½¹}™½È¡Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ°…Éè…É‘=‰©•Ğ¤€´øÍÑÈğ9½¹”è(€€€€€€€™½ÈÍ½ÕÉ•}¥°€¡•áÁ¥Éå}ÑÕÉ¸°¡½Í•¹}¥¤¥¸Í•±˜¹}É…Á¡…•±}Á•Éµ¥ÍÍ¥½¹Ì¹¥Ñ•µÌ ¤è(€€€€€€€€€€€¥˜•áÁ¥Éå}ÑÕÉ¸€„ôÍ•±˜¹ÑÕÉ¸½È¡½Í•¹}¥€„ô…É¹½‰©•Ñ}¥è(€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€¥˜…¹ä (€€€€€€€€€€€€€€€±¥¹­•‘}¥€ôô…É¹½‰©•Ñ}¥…¹½İ¹•É}¥€ôôÍ½ÕÉ•}¥(€€€€€€€€€€€€€€€™½È±¥¹­•‘}¥°}±¥¹­•‘}…É°½İ¹•É}¥¥¸Í•±˜¹}É…Á¡…•±}±¥¹­•‘}•á¥±”¹•Ğ (€€€€€€€€€€€€€€€€€€€Í½ÕÉ•}¥°€ ¤(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€¤è+}5¶‰ËkºwµçB÷"Æ–W"æÆæG5÷Æ–VBãÒ¢÷"†g&öÕ÷&†VÂæB6VÆbå÷&†VÅ÷W&Ö—76–öåöf÷"‡Æ–W%ö–æFW‚Â6&B’—2æöæR¢“ ¢&WGW&âfÇ6P¢6VÆbæÖ÷fUöö&¦V7B€¢6&BÀ¢&&GFÆVf–VÆB"À¢6öçG&öÆÆW#×Æ–W%ö–æFW‚À¢7VÖÖöæ–æu÷6–6³ÔfÇ6RÀ¢&V6öãÒ'&†VÅöÆæE÷Æ–VB"–bg&öÕ÷&†VÂVÇ6R&ÆæE÷Æ–VB"À¢¢6VÆbç&Vg&W6…÷7FF–5÷EöÖöF–f–W'2‚¢Æ–W"æÆæG5÷Æ–VB³Ò¢6VÆbæÆör‚&ÆæE÷Æ–VB"ÂÆ–W#×Æ–W"ææÖRÂ6&CÖ6&BææÖR¢&WGW&âG'VP ¢7FF–6ÖWF†ö@¢FVböÖæö6öÆ÷"‡6÷W&6S¢W&ÖæVçB’Óâ7G"ÂæöæS ¢ÖF6‚Ò&Rç6V&6‚‡"$FBÇ²…µuT%$uÒ•ÇÒ"Â6÷W&6Rç'VÆW5ö6&Bæ÷&6ÆU÷FW‡B¢–bÖF6ƒ ¢&WGW&âÖF6‚æw&÷Wƒ¢&WGW&â°¢%Æ–ç2#¢%r"À¢$—6ÆæB#¢%R"À¢%7v×#¢$""À¢$Ö÷VçF–â#¢%""À¢$f÷&W7B#¢$r"À¢ÒævWB‡6÷W&6Ræ6&BææÖR ¢7FF–6ÖWF†ö@¢FVböÖæ÷7–Ö&öÅö÷F–öç2‡7–Ö&öÃ¢7G"’ÓâGWÆU·7G"ÂââåÒÂæöæS ¢""%&WGW&âF†R6öÆ÷'2F†B6â’öæRf—†VB÷"‡–'&–B7–Ö&öÂâ"" ¢–b7–Ö&öÂ–â²%r"Â%R"Â$""Â%""Â$r'Ó ¢&WGW&â‡7–Ö&öÂÂ¢÷F–öç2ÒGWÆR‡7–Ö&öÂç7Æ—B‚"ò"’¢–bÆVâ†÷F–öç2’ÓÒ"æB6WB†÷F–öç2’ÓÒ²%R"Â%"'Ó ¢&WGW&â÷F–öç0¢&WGW&âæöæP ¢FVb÷6VÆV7EöÖæ÷6÷W&6W2€¢6VÆbÀ¢&WV—&VÖVçC¢Öæ&WV—&VÖVçBÀ¢f–Æ&ÆS¢Æ—7EµW&ÖæVçEÒÀ¢fÆöF–æs¢F–7E·7G"Â–çEÒÂæöæRÒæöæRÀ¢’ÓâGWÆU¶Æ—7E·7G%ÒÂÆ—7EµW&ÖæVçEÕÒÂæöæS ¢""%6VÆV7B6öÆ÷&VBæBvVæW&–2–ÖVçB6÷W&6W2FWFW&Ö–æ—7F–6ÆÇ’â"" ¢ööÂÒ·Ò–bfÆöF–ær—2æöæRVÇ6RF–7B†fÆöF–ær¢fÆöF–æuö6öÆ÷'3¢Æ—7E·7G%ÒÒµĞ¢6†÷6Vã¢Æ—7EµW&ÖæVçEÒÒµĞ¢f÷"7–Ö&öÂ–â&WV—&VÖVçBæ6öÅš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[Ü™Y‚ˆÜ[ÛœÈHÙ[‹—ÛX[˜WÜŞ[X›ÛÛÜ[ÛœÊŞ[X›Û
+BˆYˆÜ[ÛœÈ\È›Û™N‚ˆ™]\›ˆ›Û™Bˆ›Ø][™×ØÛÛÜˆH™^
 
-    def _raphael_permission_for(self, player_index: int, card: CardObject) -> str | None:
-        for source_id, (expiry_turn, chosen_id) in self._raphael_permissions.items():
-            if expiry_turn != self.turn or chosen_id != card.object_id:
-                continue
-            if any(
-                linked_id == card.object_id and owner_id == source_id
-                for linked_id, _linked_card, owner_id in self._raphael_linked_exile.get(
-                    source_id, ()
-                )
-            ):
-                source = self._objects.get(source_id)
-                if (
-                    isinstance(source, Permanent)
-                    and source.controller == player_index
-                    and card.owner == player_index
-                ):
-                    return source_id
-        return None
+ÛÛÜˆ›ÜˆÛÛÜˆ[ˆÜ[ÛœÈYˆÛÛ™Ù]
+ÛÛÜ‹
+JK›Û™JBˆYˆ›Ø][™×ØÛÛÜˆ\È›İ›Û™N‚ˆÛÛÙ›Ø][™×ØÛÛÜ—HOHBˆ›Ø][™×ØÛÛÜœË˜\[™
+›Ø][™×ØÛÛÜŠBˆÛÛ[YBˆÛİ\˜ÙHH™^
+ˆ
+\›X[™[›Üˆ\›X[™[[ˆ]˜Z[X›HYˆÙ[‹—ÛX[˜WØÛÛÜŠ\›X[™[
+H[ˆÜ[ÛœÊKˆ›Û™Kˆ
+BˆYˆÛİ\˜ÙH\È›Û™N‚ˆ™]\›ˆ›Û™BˆÚÜÙ[‹˜\[™
+Ûİ\˜ÙJBˆ]˜Z[X›Kœ™[[İ™JÛİ\˜ÙJBˆ™[XZ[š[™×ÙÙ[™\šXÈH™\]Z\™[Y[™Ù[™\šXÂˆ›ÜˆÛÛÜˆ[ˆÛÜY
+ÛÛ
+N‚ˆZÙHHZ[ŠÛÛØÛÛÜ—K™[XZ[š[™×ÙÙ[™\šXÊBˆ›Ø][™×ØÛÛÜœË™^[™
+ØÛÛÜ—H
+ˆZÙJBˆ™[XZ[š[™×ÙÙ[™\šXÈOHZÙBˆYˆ™[XZ[š[™×ÙÙ[™\šXÈOH‚ˆœ™XZÂˆYˆ[Š]˜Z[X›JH™[XZ[š[™×ÙÙ[™\šXÎ‚ˆ™]\›ˆ›Û™BˆÚÜÙ[‹™^[™
+]˜Z[X›VÎœ™[XZ[š[™×ÙÙ[™\šX×JBˆ™]\›ˆ›Ø][™×ØÛÛÜœËÚÜÙ[‚‚ˆİ]XÛY]ÙˆYˆX[˜WÜ™\]Z\™[Y[
+Ø\™ˆØ\™˜XİØ\™Øš™Xİ
+HOˆX[˜T™\]Z\™[Y[›Û™N‚ˆˆˆÛÛœİXİHš^YÙ[™\šXËØÛÛÜ™YX[˜HÛÜİ[˜ÛY[™ÈXœšYŞ[X›ÛËˆˆˆ‚ˆŞ[X›ÛÈH™K™š[™[
+ˆ—Ê×ŸWJÊWH‹Ø\™›X[˜WØÛÜİ
+BˆÙ[™\šXÈHˆÛÛÜ™Yˆ\İÜİ—HH×Bˆ›ÜˆŞ[X›Û[ˆŞ[X›ÛÎ‚ˆYˆŞ[X›Ûš\ÙXÚ[X[
 
-    def play_land(self, player_index: int, card: CardObject, *, from_raphael: bool = False) -> bool:
-        player = self.players[player_index]
-        if player_index != self.active_player or self.step not in {
-            TurnStep.PRECOMBAT_MAIN,
-            TurnStep.POSTCOMBAT_MAIN,
-        }:
-            return False
-        if (
-            not card.is_land
-            or not (
-                self.is_authoritative(card, "exile")
-                if from_raphael
-                else self.is_authoritative(card, "hand")
-            )
-            or card.owner != player_index
-            or player.lands_played >= 1
-            or (from_raphael and self._raphael_permission_for(player_index, card) is None)
-        ):
-            return False
-        self.move_object(
-            card,
-            "battlefield",
-            controller=player_index,
-            summoning_sick=False,
-            reason="raphael_land_played" if from_raphael else "land_played",
-        )
-        self.refresh_static_pt_modifiers()
-        player.lands_played += 1
-        self.log("land_played", player=player.name, card=card.name)
-        return True
-
-    @staticmethod
-    def _mana_color(source: Permanent) -> str | None:
-        match = re.search(r"Add \{([WUBRG])\}", source.rules_card.oracle_text)
-        if match:
-            return match.group(1)
-        return {
-            "Plains": "W",
-            "Island": "U",
-            "Swamp": "B",
-            "Mountain": "R",
-            "Forest": "G",
-        }.get(source.card.name)
-
-    @staticmethod
-    def _mana_symbol_options(symbol: str) -> tuple[str, ...] | None:
-        """Return the colors that can pay one fixed or hybrid symbol."""
-        if symbol in {"W", "U", "B", "R", "G"}:
-            return (symbol,)
-        options = tuple(symbol.split("/"))
-        if len(options) == 2 and set(options) == {"U", "R"}:
-            return options
-        return None
-
-    def _select_mana_sources(
-        self,
-        requirement: ManaRequirement,
-        available: list[Permanent],
-        floating: dict[str, int] | None = None,
-    ) -> tuple[list[str], list[Permanent]] | None:
-        """Select colored and generic payment sources deterministically."""
-        pool = {} if floating is None else dict(floating)
-        floating_colors: list[str] = []
-        chosen: list[Permanent] = []
-        for symbol in requirement.colored:
-            options = self._mana_symbol_options(symbol)
-            if options is None:
-                return None
-            floating_color = next((color for color in options if pool.get(color, 0)), None)
-            if floating_color is not None:
-                pool[floating_color] -= 1
-                floating_colors.append(floating_color)
-                continue
-            source = next(
-                (permanent for permanent in available if self._mana_color(permanent) in options),
-                None,
-            )
-            if source is None:
-                return None
-            chosen.append(source)
-            available.remove(source)
-        remaining_generic = requirement.generic
-        for color in sorted(pool):
-            take = min(pool[color], remaining_generic)
-            floating_colors.extend([color] * take)
-            remaining_generic -= take
-            if remaining_generic == 0:
-                break
-        if len(available) < remaining_generic:
-            return None
-        chosen.extend(available[:remaining_generic])
-        return floating_colors, chosen
-
-    @staticmethod
-    def mana_requirement(card: CardFact | CardObject) -> ManaRequirement | None:
-        """Construct a fixed generic/colored mana cost, including hybrid symbols."""
-        symbols = re.findall(r"\{([^}]+)\}", card.mana_cost)
-        generic = 0
-        colored: list[str] = []
-        for symbol in symbols:
-            if symbol.isdecimal():
-                generic += int(symbol)
-            elif Game._mana_symbol_options(symbol) is not None:
-                colored.append(symbol)
-            else:
-                return None
-        requirement = ManaRequirement(generic, tuple(colored))
-        if requirement.total != card.mana_value:
-            return None
-        return requirement
-
-    @staticmethod
-    def activation_mana_requirement(mana_cost: str) -> ManaRequirement | None:
-        """Construct one represented fixed activation mana requirement."""
-        symbols = re.findall(r"\{([^}]+)\}", mana_cost)
-        if "".join(f"{{{symbol}}}" for symbol in symbols) != mana_cost:
-            return None
-        generic = 0
-        colored: list[str] = []
-        for symbol in symbols:
-            if symbol.isdecimal():
-                generic += int(symbol)
-            elif Game._mana_symbol_options(symbol) is not None:
-                colored.append(symbol)
-            else:
-                return None
-        return ManaRequirement(generic, tuple(colored))
-
-    def activation_payment_plan(
-        self, player_index: int, source: Permanent, oracle_fragment: str
-    ) -> ActivationPaymentPlan | None:
-        """Build a deterministic activation payment without mutating game state."""
+N‚ˆÙ[™\šXÈ
+ÏH[
+Ş[X›Û
+Bˆ[YˆØ[YK—ÛX[˜WÜŞ[X›ÛÛÜ[ÛœÊŞ[X›Û
+H\È›İ›Û™N‚ˆÛÛÜ™Y˜\[™
+Ş[X›Û
+Bˆ[ÙN‚ˆ™]\›ˆ›Û™Bˆ™\]Z\™[Y[HX[˜T™\]Z\™[Y[
+Ù[™\šXË\JÛÛÜ™Y
+JBˆYˆ™\]Z\™[Y[İ[OHØ\™›X[˜Wİ˜[YN‚ˆ™]7Ó[h‘éì¶»§q«^w activation payment without mutating game state."""
         if (
             player_index not in range(2)
             or not self.is_authoritative(source, "battlefield")
@@ -5539,159 +2305,20 @@ class Game(
             selected = self._select_mana_sources(requirement, available)
             if selected is None:
                 return None
-            _floating_colors, chosen = selected
-        else:
-            chosen = []
-            for color in requirement.colored:
-                mana_source = next(
-                    (permanent for permanent in available if self._mana_color(permanent) == color),
-                    None,
-                )
-                if mana_source is None:
-                    return None
-                chosen.append(mana_source)
-                available.remove(mana_source)
-            if len(available) < requirement.generic:
-                return None
-            chosen.extend(available[: requirement.generic])
-        counter_target_id = None
-        if cost.remove_counter_target:
-            eligible = tuple(
-                permanent
-                for permanent in self.players[player_index].battlefield
-                if self.is_authoritative(permanent, "battlefield")
-                and permanent.card.is_creature
-                and permanent.counters.get("+1/+1", 0) > 0
-            )
-            offered = tuple(sorted(permanent.object_id for permanent in eligible))
-            if not offered:
-                return None
-            counter_target_id = self.counter_target_chooser(player_index, source.object_id, offered)
-            if counter_target_id not in offered:
-                raise ValueError("counter-cost target chooser must return an eligible creature")
-        return ActivationPaymentPlan(
-            player_index,
-            source.object_id,
-            oracle_fragment,
-            requirement,
-            tuple(permanent.object_id for permanent in chosen),
-            cost.tap_source,
-            cost.sacrifice_source,
-            counter_target_id,
-        )
-
-    def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
-        """Generate bounded engine-owned activation options for the current priority window."""
-        if (
-            player_index != self.active_player
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-            or self.stack
-        ):
-            return ()
-        options: list[ActionOption] = []
-        for source in self.players[player_index].battlefield:
-            for fragment in self.interpreter.fragments(source.rules_card):
-                plan = self.activation_payment_plan(player_index, source, fragment)
-                if plan is None:
-                    continue
-                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
-                if semantics is None or not semantics.coverage.fully_supported:
-                    continue
-                if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
-                    for target in self.players[0].battlefield + self.players[1].battlefield:
-                        if self.is_authoritative(target, "battlefield") and target.card.is_creature:
-                            options.append(
-                                ActionOption(
-                                    ActionKind.ACTIVATE_ABILITY,
-                                    player_index,
-                                    object_id=source.object_id,
-                                    target_id=target.object_id,
-                                    oracle_fragment=fragment,
-                                )
-                            )
-                elif (
-                    semantics.program.effect_kind
-                    is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
-                ):
-                    for target in self.players[player_index].battlefield:
-                        if target is source or not target.card.is_creature:
-                            continue
-                        options.append(
-                            ActionOption(
-                                ActionKind.ACTIVATE_ABILITY,
-                                player_index,
-                                object_id=source.object_id,
-                                target_id=target.object_id,
-                                oracle_fragment=fragment,
-                            )
-                        )
-                elif semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT:
-                    for target in self.players[player_index].battlefield:
-                        if target.card.is_creature and target.controller == player_index:
-                            options.append(
-                                ActionOption(
-                                    ActionKind.ACTIVATE_ABILITY,
-                                    player_index,
-                                    object_id=source.object_id,
-                                    target_id=target.object_id,
-                                    oracle_fragment=fragment,
-                                )
-                            )
-                else:
-                    options.append(
-                        ActionOption(
-                            ActionKind.ACTIVATE_ABILITY,
-                            player_index,
-                            object_id=source.object_id,
-                            oracle_fragment=fragment,
-                        )
-                    )
-        return tuple(options)
-
-    def legal_hand_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
-        """Offer Oracle-derived landcycling from hand at its ordinary instant timing."""
-        return tuple(
-            ActionOption(
-                ActionKind.ACTIVATE_ABILITY,
-                player_index,
-                object_id=card.object_id,
-                oracle_fragment=fragment,
-                priority_epoch=self.priority_state.epoch if self.priority_state else None,
-            )
-            for card in self.players[player_index].hand
-            for fragment in self.interpreter.fragments(card.card)
-            if self._hand_activation_mana_sources(player_index, card, fragment) is not None
-        )
-
-    def _hand_activation_mana_sources(
-        self, player_index: int, card: CardObject, fragment: str
-    ) -> tuple[Permanent, ...] | None:
-        if (
-            not self.is_authoritative(card, "hand")
-            or card.owner != player_index
-            or player_index not in range(2)
-        ):
-            return None
-        semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
-        if (
-            fragment not in self.interpreter.fragments(card.card)
-            or semantics is None
-            or not semantics.coverage.fully_supported
-            or semantics.program.effect_kind is not ActivatedEffectKind.SEARCH_LAND_TYPE
-            or not semantics.program.cost.discard_source
-        ):
-            return None
-        requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
-        if requirement is None:
-            return None
-        available = [
-            land
-            for land in self.players[player_index].battlefield
-            if land.card.is_land and not land.tapped and self.is_authoritative(land, "battlefield")
-        ]
-        selected = self._select_mana_sources(requirement, available)
-        if selected is None:
-            return None
+            _floating_colorYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÌ°¡½Í•¸€ôÍ•±•Ñ•(€€€€€€€•±Í”è(€€€€€€€€€€€¡½Í•¸€ômt(€€€€€€€€€€€™½È½±½È¥¸É•ÅÕ¥É•µ•¹Ğ¹½±½É•è(€€€€€€€€€€€€€€€µ…¹…}Í½ÕÉ”€ô¹•áĞ (€€€€€€€€€€€€€€€€€€€€¡Á•Éµ…¹•¹Ğ™½ÈÁ•Éµ…¹•¹Ğ¥¸…Ù…¥±…‰±”¥˜Í•±˜¹}µ…¹…}½±½È¡Á•Éµ…¹•¹Ğ¤€ôô½±½È¤°(€€€€€€€€€€€€€€€€€€€9½¹”°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜µ…¹…}Í½ÕÉ”¥Ì9½¹”è(€€€€€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€€€€€¡½Í•¸¹…ÁÁ•¹¡µ…¹…}Í½ÕÉ”¤(€€€€€€€€€€€€€€€…Ù…¥±…‰±”¹É•µ½Ù”¡µ…¹…}Í½ÕÉ”¤(€€€€€€€€€€€¥˜±•¸¡…Ù…¥±…‰±”¤€ğÉ•ÅÕ¥É•µ•¹Ğ¹•¹•É¥Œè(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€¡½Í•¸¹•áÑ•¹¡…Ù…¥±…‰±•lèÉ•ÅÕ¥É•µ•¹Ğ¹•¹•É¥t¤(€€€€€€€½Õ¹Ñ•É}Ñ…É•Ñ}¥€ô9½¹”(€€€€€€€¥˜½ÍĞ¹É•µ½Ù•}½Õ¹Ñ•É}Ñ…É•Ğè(€€€€€€€€€€€•±¥¥‰±”€ôÑÕÁ±” (€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ(€€€€€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Í•±˜¹Á±…å•ÉÍmÁ±…å•É}¥¹‘•át¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€€€€€¥˜Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Á•Éµ…¹•¹Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€…¹Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€€€€€…¹Á•Éµ…¹•¹Ğ¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ¬Ä¼¬Äˆ°€À¤€ø€À(€€€€€€€€€€€€¤(€€€€€€€€€€€½™™•É•€ôÑÕÁ±”¡Í½ÉÑ•¡Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥™½ÈÁ•Éµ…¹•¹Ğ¥¸•±¥¥‰±”¤¤(€€€€€€€€€€€¥˜¹½Ğ½™™•É•è(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€½Õ¹Ñ•É}Ñ…É•Ñ}¥€ôÍ•±˜¹½Õ¹Ñ•É}Ñ…É•Ñ}¡½½Í•È¡Á±…å•É}¥¹‘•à°Í½ÕÉ”¹½‰©•Ñ}¥°½™™•É•¤(€€€€€€€€€€€¥˜½Õ¹Ñ•É}Ñ…É•Ñ}¥¹½Ğ¥¸½™™•É•è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰½Õ¹Ñ•Èµ½ÍĞÑ…É•Ğ¡½½Í•ÈµÕÍĞÉ•ÑÕÉ¸…¸•±¥¥‰±”É•…ÑÕÉ”ˆ¤(€€€€€€€É•ÑÕÉ¸Ñ¥Ù…Ñ¥½¹A…åµ•¹ÑA±…¸ (€€€€€€€€€€€Á±…å•É}¥¹‘•à°(€€€€€€€€€€€Í½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€É•ÅÕ¥É•µ•¹Ğ°(€€€€€€€€€€€ÑÕÁ±”¡Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥™½ÈÁ•Éµ…¹•¹Ğ¥¸¡½Í•¸¤°(€€€€€€€€€€€½ÍĞ¹Ñ…Á}Í½ÕÉ”°(€€€€€€€€€€€½ÍĞ¹Í…É¥™¥•}Í½ÕÉ”°(€€€€€€€€€€€½Õ¹Ñ•É}Ñ…É•Ñ}¥°(€€€€€€€€¤((€€€‘•˜±•…±}…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}…Ñ¥½¹Ì¡Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ¤€´øÑÕÁ±•mÑ¥½¹=ÁÑ¥½¸°€¸¸¹tè(€€€€€€€€ˆˆ‰•¹•É…Ñ”‰½Õ¹‘•ƒ}5¶‰ËkºwµçBf÷"F&vWB–â6VÆbçÆ–W'5³Òæ&GFÆVf–VÆB²6VÆbçÆ–W'5³Òæ&GFÆVf–VÆC ¢–b6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ&&GFÆVf–VÆB"’æBF&vWBæ6&Bæ—5ö7&VGW&S ¢÷F–öç2æVæB€¢7F–öä÷F–öâ€¢7F–öä¶–æBä5D•dDUô$”Ä•E’À¢Æ–W%ö–æFW‚À¢ö&¦V7Eö–C×6÷W&6Ræö&¦V7Eö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢¢¢VÆ–b€¢6VÖçF–72ç&öw&ÒæVffV7Eö¶–æ@¢—27F—fFVDVffV7D¶–æBå$UEU$åôäõD„U%ô5$TEU$Uõ”õUô4ôåE$ôÅõDõôõtäU%5ô„ä@¢“ ¢f÷"F&vWB–â6VÆbçÆ–W'5·Æ–W%ö–æFW…Òæ&GFÆVf–VÆC ¢–bF&vWB—26÷W&6R÷"æ÷BF&vWBæ6&Bæ—5ö7&VGW&S ¢6öçF–çVP¢÷F–öç2æVæB€¢7F–öä÷F–öâ€¢7F–öä¶–æBä5D•dDUô$”Ä•E’À¢Æ–W%ö–æFW‚À¢ö&¦V7Eö–C×6÷W&6Ræö&¦V7Eö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçCÖg&vÖVçBÀ¢¢¢VÆ–b6VÖçF–72ç&öw&ÒæVffV7Eö¶–æB—27F—fFVDVffV7D¶–æBäED4…ôUT•ÔTåC ¢f÷"F&vWB–â6VÆbçÆ–W'5·Æ–W%ö–æFW…Òæ&GFÆVf–VÆC ¢–bF&vWBæ6&Bæ—5ö7&VGW&RæBF&vWBæ6öçG&öÆÆW"ÓÒÆ–W%ö–æFWƒ ¢÷F–öç2æVæB€¢7F–öä÷F–öâ€¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHXİ[Û’Ú[™PÕUUWĞP’SUKˆ^Y\—Ú[™^ˆØš™XİÚY\Ûİ\˜ÙK›Øš™XİÚYˆ\™Ù]ÚY]\™Ù]›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[Yœ˜YÛY[ˆ
+Bˆ
+Bˆ[ÙN‚ˆÜ[ÛœË˜\[™
+ˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™PÕUUWĞP’SUKˆ^Y\—Ú[™^ˆØš™XİÚY\Ûİ\˜ÙK›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[Yœ˜YÛY[ˆ
+Bˆ
+Bˆ™]\›ˆ\JÜ[ÛœÊB‚ˆYˆYØ[Ú[™ØXİ]˜]YØXš[]WØXİ[ÛœÊÙ[‹^Y\—Ú[™^ˆ[
+HOˆ\VĞXİ[Û“Ü[Û‹‹‹—N‚ˆˆˆ“Ù™™\ˆÜ˜XÛKY\š]™Y[™ŞXÛ[™Èœ›ÛH[™]]ÈÜ™[˜\H[œİ[[Z[™Ëˆˆˆ‚ˆ™]\›ˆ\JˆXİ[Û“Ü[ÛŠˆXİ[Û’Ú[™PÕUUWĞP’SUKˆ^Y\—Ú[™^ˆØš™XİÚYXØ\™›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[Yœ˜YÛY[ˆš[Üš]WÙ\ØÚ\Ù[‹œš[Üš]WÜİ]K™\ØÚYˆÙ[‹œš[Üš]WÜİ]H[ÙH›Û™Kˆ
+Bˆ›ÜˆØ\™[ˆÙ[‹œ^Y\œÖÜ^Y\—Ú[™^Kš[™ˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊØ\™˜Ø\™
+BˆYˆÙ[‹—Ú[™ØXİ]˜][Û—ÛX[˜WÜÛİ\˜Ù\Ê^Y\—Ú[™^Ø\™œ˜YÛY[
+H\È›İ›Û™Bˆ
+B‚ˆYˆÚ[™ØXİ]˜][Û—ÛX[˜WÜÛİ\˜Ù\ÊˆÙ[‹^Y\—Ú[™^ˆ[Ø\™ˆØ\™Øš™Xİœ˜YÛY[ˆİ‚ˆ
+HOˆ\VÔ\›X[™[‹‹—H›Û™N‚ˆYˆ
+ˆ›İÙ[‹š\×Ø]]Üš]]]™JØ\™š[™ŠBˆÜˆØ\™›İÛ™\ˆOH^Y\—Ú[™^ˆÜˆ^Y\—Ú[™^›İ[ˆ˜[™ÙJŠBˆ
+N‚ˆ™]\›ˆ›Û™Bˆ÷Ó[h‘éì¶»§q«^ve
         _floating, chosen = selected
         return tuple(chosen)
 
@@ -5738,192 +2365,28 @@ class Game(
                 semantics.program,
                 tuple(land.object_id for land in lands),
                 False,
-                discarded_destination_id=discarded.object_id,
-            )
-            for land in lands:
-                land.tapped = True
-            owner.hand.pop(hand_index)
-            owner.graveyard.append(discarded)
-            card.zone = "former"
-            self._register(discarded)
-            self._register(ability)
-            self.stack.append(ability)
-        except Exception:
-            for land, tapped in zip(lands, previous_taps, strict=True):
-                land.tapped = tapped
-            if discarded is not None:
-                owner.graveyard[:] = [item for item in owner.graveyard if item is not discarded]
-                self._objects.pop(discarded.object_id, None)
-            if card not in owner.hand:
-                owner.hand.insert(hand_index, card)
-            card.zone = "hand"
-            if ability is not None:
-                self.stack[:] = [item for item in self.stack if item is not ability]
-                self._objects.pop(ability.object_id, None)
-            self._next_object_number = previous_number
-            raise
-        self.activation_evidence.append(
-            ActivationEvidence(
-                ability.object_id,
-                card.object_id,
-                player_index,
-                fragment,
-                ability.mana_source_ids,
-                False,
-                False,
-            )
-        )
-        self.log(
-            "zone_changed",
-            card=card.name,
-            owner=owner.name,
-            source_object_id=card.object_id,
-            destination_object_id=discarded.object_id,
-            source_zone="hand",
-            destination_zone="graveyard",
-            reason="landcycling_discard_cost",
-        )
-        self.log(
-            "activation_cost_paid",
-            player=owner.name,
-            source_id=card.object_id,
-            stack_object_id=ability.object_id,
-            generic=semantics.program.cost.mana_cost,
-            mana_source_ids=list(ability.mana_source_ids),
-            discard_source=True,
-            discarded_destination_id=discarded.object_id,
-        )
-        self.log(
-            "activation_announced",
-            player=owner.name,
-            source=card.name,
-            source_id=card.object_id,
-            stack_object_id=ability.object_id,
-            oracle_fragment=fragment,
-        )
-        self._begin_priority_window()
-        return ability
+                discardYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ•‘}‘•ÍÑ¥¹…Ñ¥½¹}¥õ‘¥Í…É‘•¹½‰©•Ñ}¥°(€€€€€€€€€€€€¤(€€€€€€€€€€€™½È±…¹¥¸±…¹‘Ìè(€€€€€€€€€€€€€€€±…¹¹Ñ…ÁÁ•€ôQÉÕ”(€€€€€€€€€€€½İ¹•È¹¡…¹¹Á½À¡¡…¹‘}¥¹‘•à¤(€€€€€€€€€€€½İ¹•È¹É…Ù•å…É¹…ÁÁ•¹¡‘¥Í…É‘•¤(€€€€€€€€€€€…É¹é½¹”€ô€‰™½Éµ•Èˆ(€€€€€€€€€€€Í•±˜¹}É•¥ÍÑ•È¡‘¥Í…É‘•¤(€€€€€€€€€€€Í•±˜¹}É•¥ÍÑ•È¡…‰¥±¥Ñä¤(€€€€€€€€€€€Í•±˜¹ÍÑ…¬¹…ÁÁ•¹¡…‰¥±¥Ñä¤(€€€€€€€•á•ÁĞá•ÁÑ¥½¸è(€€€€€€€€€€€™½È±…¹°Ñ…ÁÁ•¥¸é¥À¡±…¹‘Ì°ÁÉ•Ù¥½ÕÍ}Ñ…ÁÌ°ÍÑÉ¥ĞõQÉÕ”¤è(€€€€€€€€€€€€€€€±…¹¹Ñ…ÁÁ•€ôÑ…ÁÁ•(€€€€€€€€€€€¥˜‘¥Í…É‘•¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€½İ¹•È¹É…Ù•å…É‘lét€ôm¥Ñ•´™½È¥Ñ•´¥¸½İ¹•È¹É…Ù•å…É¥˜¥Ñ•´¥Ì¹½Ğ‘¥Í…É‘•‘t(€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ¹Á½À¡‘¥Í…É‘•¹½‰©•Ñ}¥°9½¹”¤(€€€€€€€€€€€¥˜…É¹½Ğ¥¸½İ¹•È¹¡…¹è(€€€€€€€€€€€€€€€½İ¹•È¹¡…¹¹¥¹Í•ÉĞ¡¡…¹‘}¥¹‘•à°…É¤(€€€€€€€€€€€…É¹é½¹”€ô€‰¡…¹ˆ(€€€€€€€€€€€¥˜…‰¥±¥Ñä¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€Í•±˜¹ÍÑ…­lét€ôm¥Ñ•´™½È¥Ñ•´¥¸Í•±˜¹ÍÑ…¬¥˜¥Ñ•´¥Ì¹½Ğ…‰¥±¥Ñåt(€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ¹Á½À¡…‰¥±¥Ñä¹½‰©•Ñ}¥°9½¹”¤(€€€€€€€€€€€Í•±˜¹}¹•áÑ}½‰©•Ñ}¹Õµ‰•È€ôÁÉ•Ù¥½ÕÍ}¹Õµ‰•È(€€€€€€€€€€€É…¥Í”(€€€€€€€Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹”¹…ÁÁ•¹ (€€€€€€€€€€€Ñ¥Ù…Ñ¥½¹Ù¥‘•¹” (€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€…É¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Á±…å•É}¥¹‘•à°(€€€€€€€€€€€€€€€™É…µ•¹Ğ°(€€€€€€€€€€€€€€€…‰¥±¥Ñä¹µ…¹…}Í½ÕÉ•}¥‘Ì°(€€€€€€€€€€€€€€€…±Í”°(€€€€€€€€€€€€€€€…±Í”°(€€€€€€€€€€€€¤(€€€€€€€€¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰é½¹•}¡…¹•ˆ°(€€€€€€€€€€€…Éõ…É¹¹…µ”°(€€€€€€€€€€€½İ¹•Èõ½İ¹•È¹¹…µ”°(€€€€€€€€€€€Í½ÕÉ•}½‰©•Ñ}¥õ…É¹½‰©•Ñ}¥°(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}½‰©•Ñ}¥õ‘¥Í…É‘•¹½‰©•Ñ}¥°(€€€€€€€€€€€Í½ÕÉ•}é½¹”ô‰¡…¹ˆ°(€€€€€€€€€€€‘•ÍÑ¥¹…Ñ¥½¹}é½¹”ô‰É…Ù•å…Éˆ°(€€€€€€€€€€€É•…Í½¸ô‰±…¹‘å±¥¹}‘¥Í…É‘}½ÍĞˆ°(€€€€€€€€¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰…Ñ¥Ù…Ñ¥½¹}½ÍÑ}Á…¥ˆ°(€€€€€€€€€€€Á±…å•Èõ½İ¹•È¹¹…µ”°(€€€€€€€€€€€Í½ÕÉ}5¶‰ËkºwµçF–W%ö–æFW€¢÷"6VÆbç7FWæ÷B–âµGW&å7FWå$T4ôÔ$EôÔ”âÂGW&å7FWåõ5D4ôÔ$EôÔ”çĞ¢“ ¢&WGW&âæöæP¢6VÖçF–72Ò6VÆbæ–çFW'&WFW"æ7F—fFVEö&–Æ—G•÷6VÖçF–72‡6÷W&6Ræ6&BÂ÷&6ÆUög&vÖVçB¢–b€¢6VÖçF–72—2æöæP¢÷"æ÷B6VÖçF–72æ6÷fW&vRægVÆÇ•÷7W÷'FV@¢÷"6VÖçF–72ç&öw&ÒæVffV7Eö¶–æ@¢—2æ÷B7F—fFVDVffV7D¶–æBå$UEU$åõ4TÄeôe$ôÕôu$dU”$EõDT@¢“ ¢&WGW&âæöæP¢f–Æ&ÆRÒ°¢f÷"–â6VÆbçÆ–W'5·Æ–W%ö–æFW…Òæ&GFÆVf–VÆB–bæ6&Bæ—5öÆæBæBæ÷BçFV@¢Ğ¢&Æ6²ÒæW‡B‚‡f÷"–âf–Æ&ÆR–b6VÆbåöÖæö6öÆ÷"‡’ÓÒ$""’ÂæöæR¢–b&Æ6²—2æöæR÷"ÆVâ†f–Æ&ÆR’ÂS ¢&WGW&âæöæP¢6†÷6VâÒ¶&Æ6µÒ²·f÷"–âf–Æ&ÆR–b—2æ÷B&Æ6µÕ³£EĞ¢f÷"–â6†÷6Vã ¢çFVBÒG'VP¢&–Æ—G’Ò7F—fFVD&–Æ—G”ö&¦V7B€¢6VÆbåöÆÆö6FUöö&¦V7Eö–B‚’À¢Æ–W%ö–æFW‚À¢6÷W&6Ræö&¦V7Eö–BÀ¢6÷W&6Ræ6&BÀ¢÷&6ÆUög&vÖVçBÀ¢6VÖçF–72ç&öw&ÒÀ¢GWÆR‡æö&¦V7Eö–Bf÷"–â6†÷6Vâ’À¢fÇ6RÀ¢fÇ6RÀ¢¢6VÆbå÷&Vv—7FW"†&–Æ—G’¢6VÆbç7F6²æVæB†&–Æ—G’¢6÷W&6Rç¦öæRÒ&f÷&ÖW" ¢6VÆbçÆ–W'5·Æ–W%ö–æFW…Òæw&fW–&Bç&VÖ÷fR‡6÷W&6R¢6VÆbæ7F—fF–öåöWf–FVæ6RæVæB€¢7F—fF–öäWf–FVæ6R€¢&–Æ—G’æö&¦V7Eö–BÀ¢6÷W&6Ræö&¦V7Eö–BÀ¢Æ–W%ö–æFW‚À¢÷&6ÆUög&vÖVçBÀ¢&–Æ—G’æÖæ÷6÷W&6Uö–G2À¢fÇ6RÀ¢fÇ6RÀ¢¢¢6VÆbæÆör€¢&w&fW–&Eö&–Æ—G•öææ÷Væ6VB"À¢6÷W&6Uö–C×6÷W&6Ræö&¦V7Eö–BÀ¢7F6µöö&¦V5š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ]ÚYXXš[]K›Øš™XİÚYˆ™X\ÛÛH[›™[Ü˜]×Ü™]\›ˆ‹ˆ
+Bˆ™]\›ˆXš[]B‚ˆYˆ[››İ[˜ÙWØXİ]˜]YØXš[]JˆÙ[‹ˆ^Y\—Ú[™^ˆ[ˆÛİ\˜ÙNˆ\›X[™[ˆÜ˜XÛWÙœ˜YÛY[ˆİ‹ˆ
+‹ˆ\™Ù]ÚYÎˆ\VÜİ‹‹‹—HH
 
-    def announce_graveyard_activated_ability(
-        self, player_index: int, source: CardObject, oracle_fragment: str
-    ) -> ActivatedAbilityObject | None:
-        if (
-            player_index not in range(2)
-            or not self.is_authoritative(source, "graveyard")
-            or source.owner != player_index
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-        ):
-            return None
-        semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
-        if (
-            semantics is None
-            or not semantics.coverage.fully_supported
-            or semantics.program.effect_kind
-            is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
-        ):
-            return None
-        available = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-        ]
-        black = next((p for p in available if self._mana_color(p) == "B"), None)
-        if black is None or len(available) < 5:
-            return None
-        chosen = [black] + [p for p in available if p is not black][:4]
-        for p in chosen:
-            p.tapped = True
-        ability = ActivatedAbilityObject(
-            self._allocate_object_id(),
-            player_index,
-            source.object_id,
-            source.card,
-            oracle_fragment,
-            semantics.program,
-            tuple(p.object_id for p in chosen),
-            False,
-            False,
-        )
-        self._register(ability)
-        self.stack.append(ability)
-        source.zone = "former"
-        self.players[player_index].graveyard.remove(source)
-        self.activation_evidence.append(
-            ActivationEvidence(
-                ability.object_id,
-                source.object_id,
-                player_index,
-                oracle_fragment,
-                ability.mana_source_ids,
-                False,
-                False,
-            )
-        )
-        self.log(
-            "graveyard_ability_announced",
-            source_id=source.object_id,
-            stack_object_id=ability.object_id,
-            reason="tunnel_rats_return",
-        )
-        return ability
+KˆÚÚXÙWÚYÎˆ\VÜİ‹‹‹—HH
 
-    def announce_activated_ability(
-        self,
-        player_index: int,
-        source: Permanent,
-        oracle_fragment: str,
-        *,
-        target_ids: tuple[str, ...] = (),
-        choice_ids: tuple[str, ...] = (),
-    ) -> ActivatedAbilityObject | None:
-        """Revalidate, transactionally pay, and put one activated ability on the stack."""
-        if (
-            not self.is_authoritative(source, "battlefield")
-            or (
-                player_index != self.active_player
-                and not (
-                    self.priority_state is not None
-                    and self.priority_state.player_index == player_index
-                    and self.stack
-                )
-            )
-            or (
-                self.stack
-                and not (
-                    self.priority_state is not None
-                    and self.priority_state.player_index == player_index
-                )
-            )
-            or source.controller != player_index
-        ):
-            return None
-        if oracle_fragment not in self.interpreter.fragments(source.rules_card):
-            return None
-        semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
-        if semantics is None or not semantics.coverage.fully_supported:
-            return None
-        if semantics.program.cost.discard_source:
-            return None
-        if semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL and (
-            self.priority_state is not None
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-        ):
-            return None
-        if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER and (
-            player_index != self.active_player
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
-            or self.stack
-            or self.priority_state is not None
-        ):
-            return None
-        counter_target = semantics.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL
-        mutagen_counter = semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER
-        targeted_return = (
-            semantics.program.effect_kind
-            is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
-        )
-        targeted_equipment = semantics.program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT
-        if semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA and (
-            choice_ids or semantics.program.choices_required
-        ):
+Kˆ
+HOˆXİ]˜]YXš[]SØš™Xİ›Û™N‚ˆˆˆ”™]˜[Y]K˜[œØXİ[Û˜[H^K[™]Û™HXİ]˜]YXš[]HÛˆHİXÚËˆˆˆ‚ˆYˆ
+ˆ›İÙ[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆÜˆ
+ˆ^Y\—Ú[™^OHÙ[‹˜Xİ]™WÜ^Y\‚ˆ[™›İ
+ˆÙ[‹œš[Üš]WÜİ]H\È›İ›Û™Bˆ[™Ù[‹œš[Üš]WÜİ]Kœ^Y\—Ú[™^OH^Y\—Ú[™^ˆ[™Ù[‹œİXÚÂˆ
+Bˆ
+BˆÜˆ
+ˆÙ[‹œİXÚÂˆ[™›İ
+ˆÙ[‹œš[Üš]WÜİ]H\È›İ›Û™Bˆ[™Ù[‹œš[Üš]WÜİ]Kœ^Y\—Ú[™^OH^Y\—Ú[™^ˆ
+Bˆ
+BˆÜˆÛİ\˜ÙK˜ÛÛ›Û\ˆOH^Y\—Ú[™^ˆ
+N‚ˆ™]\›ˆ›Û™BˆYˆÜ˜XÛWÙœ˜YÛY[›İ[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÛİ\˜ÙKœ[\×ØØ\™
+N‚ˆ™]\›ˆ›Û™BˆÙ[X[XÜÈHÙ[‹š[\œ™]\‹˜Xİ]˜]YØXš[]WÜÙ[X[XÜÊÛİ\˜ÙK˜Ø\™Ü˜XÛWÙœ˜YÛY[
+BˆYˆÙ[X[XÜÈ\È›Û™HÜˆ›İÙ[X[XÜË˜Ûİ™\˜YÙK™[WÜİ\ÜY‚ˆ™]\›ˆ›Û™BˆYˆÙ[X[XÜËœ›ÙÜ˜[K˜ÛÜİ™\ØØ\™ÜÛİ\˜ÙN‚ˆ™]\›ˆ›Û™BˆYˆÙ[X[XÜËœ›ÙÜ˜[K™Y™™XİÚÚ[™\ÈXİ]˜]YY™™XİÚ[™QSÑWĞÓTÔ×ÓU‘S[™
+ˆÙ[‹œš[Üš]WÜİ]H\È›İ›Û™BˆÜˆÙ[‹œİ\›İ[ˆÕ\›”İ\”‘PÓÓPUÓPRS‹\›”İ\”ÔÕÓÓPUÓPRSŸBˆ
+N‚ˆ™]\›ˆ›Û™BˆYˆÙ[X[XÜËœ›ÙÜ˜[K™Y™™XİÚÚ[™\ÈXİ7Ó[h‘éì¶»§q«^v
             return None
         if (
             semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
@@ -5970,163 +2433,14 @@ class Game(
                 return None
         elif target_ids or semantics.program.target_count:
             return None
-        plan = self.activation_payment_plan(player_index, source, oracle_fragment)
-        if plan is None:
-            return None
-        mana_sources: list[Permanent] = []
-        for object_id in plan.mana_source_ids:
-            candidate = self._objects.get(object_id)
-            if not isinstance(candidate, Permanent) or not self.is_authoritative(
-                candidate, "battlefield"
-            ):
-                raise ValueError("activation mana source is not authoritative")
-            mana_sources.append(candidate)
-        if len({candidate.object_id for candidate in mana_sources}) != len(mana_sources):
-            raise ValueError("activation payment cannot reuse a mana source")
-        prior_mana_taps = tuple(candidate.tapped for candidate in mana_sources)
-        prior_source_tapped = source.tapped
-        counter_target = (
-            self._objects.get(plan.counter_target_id) if plan.counter_target_id else None
-        )
-        prior_counter_count = (
-            counter_target.counters.get("+1/+1", 0)
-            if isinstance(counter_target, Permanent)
-            else None
-        )
-        starting_object_number = self._next_object_number
-        source_index = self.players[source.controller].battlefield.index(source)
-        sacrificed: CardObject | None = None
-        ability: ActivatedAbilityObject | None = None
-        try:
-            if plan.sacrifice_source:
-                sacrificed = CardObject(
-                    self._allocate_object_id(),
-                    source.card,
-                    source.owner,
-                    source.owner,
-                    "graveyard",
-                    is_token=source.is_token,
-                )
-            ability = ActivatedAbilityObject(
-                object_id=self._allocate_object_id(),
-                controller=player_index,
-                source_id=source.object_id,
-                source_card=source.card,
-                oracle_fragment=oracle_fragment,
-                program=semantics.program,
-                mana_source_ids=plan.mana_source_ids,
-                tap_source=plan.tap_source,
-                sacrifice_source=plan.sacrifice_source,
-                sacrificed_destination_id=(
-                    sacrificed.object_id if sacrificed is not None else None
-                ),
-                target_ids=target_ids,
-                choice_ids=choice_ids,
-                cost_target_id=plan.counter_target_id,
-                cost_target_card=(
-                    counter_target.card if isinstance(counter_target, Permanent) else None
-                ),
-                cost_target_object=counter_target
-                if isinstance(counter_target, Permanent)
-                else None,
-            )
-            for mana_source in mana_sources:
-                mana_source.tapped = True
-            if plan.tap_source:
-                source.tapped = True
-            if plan.counter_target_id is not None:
-                if (
-                    not isinstance(counter_target, Permanent)
-                    or not self.is_authoritative(counter_target, "battlefield")
-                    or counter_target.controller != player_index
-                    or not counter_target.card.is_creature
-                    or counter_target.counters.get("+1/+1", 0) <= 0
-                ):
-                    raise ValueError("counter-cost target became illegal")
-                counter_target.counters["+1/+1"] -= 1
-                if counter_target.counters["+1/+1"] == 0:
-                    del counter_target.counters["+1/+1"]
-                self.log(
-                    "counter_removed_as_activation_cost",
-                    source_id=source.object_id,
-                    cost_target_id=counter_target.object_id,
-                    counter_type="+1/+1",
-                    counters_before=prior_counter_count,
-                    counters_after=counter_target.counters.get("+1/+1", 0),
-                )
-            if sacrificed is not None:
-                self.players[source.controller].battlefield.pop(source_index)
-                self.players[source.owner].graveyard.append(sacrificed)
-                source.zone = "former"
-                self._register(sacrificed)
-            self._register(ability)
-            self.stack.append(ability)
-        except Exception:
-            for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
-                mana_source.tapped = tapped
-            source.tapped = prior_source_tapped
-            if isinstance(counter_target, Permanent) and prior_counter_count is not None:
-                counter_target.counters["+1/+1"] = prior_counter_count
-            if sacrificed is not None:
-                self.players[source.owner].graveyard[:] = [
-                    item for item in self.players[source.owner].graveyard if item is not sacrificed
-                ]
-                self._objects.pop(sacrificed.object_id, None)
-                if source not in self.players[source.controller].battlefield:
-                    self.players[source.controller].battlefield.insert(source_index, source)
-                source.zone = "battlefield"
-            if ability is not None:
-                self.stack[:] = [entry for entry in self.stack if entry is not ability]
-                self._objects.pop(ability.object_id, None)
-            self._next_object_number = starting_object_number
-            raise
-        evidence = ActivationEvidence(
-            ability.object_id,
-            source.object_id,
-            player_index,
-            oracle_fragment,
-            plan.mana_source_ids,
-            plan.tap_source,
-            False,
-            plan.counter_target_id,
-        )
-        self.activation_evidence.append(evidence)
-        if sacrificed is not None:
-            self.log(
-                "zone_changed",
-                card=source.card.name,
-                owner=self.players[source.owner].name,
-                source_object_id=source.object_id,
-                destination_object_id=sacrificed.object_id,
-                source_zone="battlefield",
-                destination_zone="graveyard",
-                reason="activation_sacrifice_cost",
-            )
-        self.log(
-            "activation_announced",
-            player=self.players[player_index].name,
-            source=source.card.name,
-            source_id=source.object_id,
-            stack_object_id=ability.object_id,
-            oracle_fragment=oracle_fragment,
-        )
-        self.log(
-            "activation_cost_paid",
-            player=self.players[player_index].name,
-            source_id=source.object_id,
-            stack_object_id=ability.object_id,
-            generic=plan.requirement.generic,
-            colored=list(plan.requirement.colored),
-            mana_source_ids=list(plan.mana_source_ids),
-            tap_source=plan.tap_source,
-            sacrifice_source=plan.sacrifice_source,
-            sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
-        )
-        self.log(
-            "activated_ability_stacked",
-            stack_object_id=ability.object_id,
-            source_id=source.object_id,
-            controller=self.players[player_index].name,
+  YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€Á±…¸€ôÍ•±˜¹…Ñ¥Ù…Ñ¥½¹}Á…åµ•¹Ñ}Á±…¸¡Á±…å•É}¥¹‘•à°Í½ÕÉ”°½É…±•}™É…µ•¹Ğ¤(€€€€€€€¥˜Á±…¸¥Ì9½¹”è(€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€µ…¹…}Í½ÕÉ•Ìè±¥ÍÑmA•Éµ…¹•¹Ñt€ômt(€€€€€€€™½È½‰©•Ñ}¥¥¸Á±…¸¹µ…¹…}Í½ÕÉ•}¥‘Ìè(€€€€€€€€€€€…¹‘¥‘…Ñ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½‰©•Ñ}¥¤(€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡…¹‘¥‘…Ñ”°A•Éµ…¹•¹Ğ¤½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù” (€€€€€€€€€€€€€€€…¹‘¥‘…Ñ”°€‰‰…ÑÑ±•™¥•±ˆ(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰…Ñ¥Ù…Ñ¥½¸µ…¹„Í½ÕÉ”¥Ì¹½Ğ…ÕÑ¡½É¥Ñ…Ñ¥Ù”ˆ¤(€€€€€€€€€€€µ…¹…}Í½ÕÉ•Ì¹…ÁÁ•¹¡…¹‘¥‘…Ñ”¤(€€€€€€€¥˜±•¸¡í…¹‘¥‘…Ñ”¹½‰©•Ñ}¥™½È…¹‘¥‘…Ñ”¥¸µ…¹…}Í½ÕÉ•Íô¤€„ô±•¸¡µ…¹…}Í½ÕÉ•Ì¤è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰…Ñ¥Ù…Ñ¥½¸Á…åµ•¹Ğ…¹¹½ĞÉ•ÕÍ”„µ…¹„Í½ÕÉ”ˆ¤(€€€€€€€ÁÉ¥½É}µ…¹…}Ñ…ÁÌ€ôÑÕÁ±”¡…¹‘¥‘…Ñ”¹Ñ…ÁÁ•™½È…¹‘¥‘…Ñ”¥¸µ…¹…}Í½ÕÉ•Ì¤(€€€€€€€ÁÉ¥½É}Í½ÕÉ•}Ñ…ÁÁ•€ôÍ½ÕÉ”¹Ñ…ÁÁ•(€€€€€€€½Õ¹Ñ•É}Ñ…É•Ğ€ô€ (€€€€€€€€€€€Í•±˜¹}½‰©•ÑÌ¹•Ğ¡Á±…¸¹½Õ¹Ñ•É}Ñ…É•Ñ}¥¤¥˜Á±…¸¹½Õ¹Ñ•É}Ñ…É•Ñ}¥•±Í”9½¹”(€€€€€€€€¤(€€€€€€€ÁÉ¥½É}½Õ¹Ñ•É}½Õ¹Ğ€ô€ (€€€€€€€€€€€½Õ¹Ñ•É}Ñ…É•Ğ¹½Õ¹Ñ•ÉÌ¹•Ğ ˆ¬Ä¼¬Äˆ°€À¤(€€€€€€€€€€€¥˜¥Í¥¹ÍÑ…¹”¡½Õ¹Ñ•É}Ñ…É•Ğ°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€•±Í”9½¹”(€€€€€€€€¤(€€€€€€€ÍÑ…ÉÑ¥¹}½‰©•Ñ}¹Õµ‰•È€ôÍ•±˜¹}¹•áÑ}½‰©•Ñ}¹Õµ‰•È(€€€€€€€Í½ÕÉ•}¥¹‘•à€ôÍ•±˜¹Á±…å•ÉÍmÍ½ÕÉ”¹½¹ÑÉ½±±•Ét¹‰…ÑÑ±•™¥•±¹¥¹‘•à¡Í½ÕÉ”¤(€€€€€€€Í…É¥™¥•è…É‘=‰©•Ğğ9½¹”€ô9½¹”(€€€€€€€…‰¥±¥ÑäèÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•Ğğ9½¹”€ô9½¹”(€€€€€€€ÑÉäè(€€€€€€€€€€€¥˜Á±…¸¹Í…É¥™¥•}Í½ÕÉ”è(€€€€€€€€€€€€€€€Í…É¥™¥•€ô…É‘=‰©•Ğ (€€€€€€€€€€€€€€€€€€€Í•±˜¹}…±±½…Ñ•}½‰©•Ñ}¥ ¤°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ”¹…É°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ”¹½İ¹•È°(€€€€€€€€€€€€€€€€€€€Í½ÕÉ”¹½İ¹•È°(€€€€€€€€€€€€€€€€€€€€‰É…Ù•å…Éˆ°(€€€€€€€€€€€€€€€€€€€¥Í}Ñ½­•¸õÍ½ÕÉ”¹¥Í}Ñ½­•¸°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€…‰¥±¥Ñä€ôÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•Ğ (€€€€€€€€€€€€€€€½‰©•Ñ}¥õÍ•±˜¹}…±±½…Ñ•}½‰©•Ñ}¥ ¤°(€ƒ}5¶‰ËkºwµçBVÇ6RæöæRÀ¢¢f÷"Öæ÷6÷W&6R–âÖæ÷6÷W&6W3 ¢Öæ÷6÷W&6RçFVBÒG'VP¢–bÆâçF÷6÷W&6S ¢6÷W&6RçFVBÒG'VP¢–bÆâæ6÷VçFW%÷F&vWEö–B—2æ÷BæöæS ¢–b€¢æ÷B—6–ç7Fæ6R†6÷VçFW%÷F&vWBÂW&ÖæVçB¢÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR†6÷VçFW%÷F&vWBÂ&&GFÆVf–VÆB"¢÷"6÷VçFW%÷F&vWBæ6öçG&öÆÆW"ÒÆ–W%ö–æFW€¢÷"æ÷B6÷VçFW%÷F&vWBæ6&Bæ—5ö7&VGW&P¢÷"6÷VçFW%÷F&vWBæ6÷VçFW'2ævWB‚"³ò³"Â’ÃÒ ¢“ ¢&—6RfÇVTW'&÷"‚&6÷VçFW"Ö6÷7BF&vWB&V6ÖR–ÆÆVvÂ"¢6÷VçFW%÷F&vWBæ6÷VçFW'5²"³ò³%ÒÓÒ¢–b6÷VçFW%÷F&vWBæ6÷VçFW'5²"³ò³%ÒÓÒ ¢FVÂ6÷VçFW%÷F&vWBæ6÷VçFW'5²"³ò³%Ğ¢6VÆbæÆör€¢&6÷VçFW%÷&VÖ÷fVEö5ö7F—fF–öåö6÷7B"À¢6÷W&6Uö–C×6÷W&6Ræö&¦V7Eö–BÀ¢6÷7E÷F&vWEö–CÖ6÷VçFW%÷F&vWBæö&¦V7Eö–BÀ¢6÷VçFW%÷G—SÒ"³ò³"À¢6÷VçFW'5ö&Vf÷&S×&–÷%ö6÷VçFW%ö6÷VçBÀ¢6÷VçFW'5ögFW#Ö6÷VçFW%÷F&vWBæ6÷VçFW'2ævWB‚"³ò³"Â’À¢¢–b67&–f–6VB—2æ÷BæöæS ¢6VÆbçÆ–W'5·6÷W&6Ræ6öçG&öÆÆW%Òæ&GFÆVf–VÆBç÷‡6÷W&6Uö–æFW‚¢6VÆbçÆ–W'5·6÷W&6Ræ÷væW%Òæw&fW–&BæVæB‡67&–f–6VB¢6÷W&6Rç¦öæRÒ&f÷&ÖW" ¢6VÆbå÷&Vv—7FW"‡67&–f–6VB¢6VÆbå÷&Vv—7FW"†&–Æ—G’¢6VÆbç7F6²æVæB†&–Æ—G’¢W†6WBW†6WF–öã ¢f÷"Öæ÷6÷W&6RÂFVB–â¦—†Öæ÷6÷W&6W2Â&–÷%öÖæ÷F2Â7G&–7CÕG'VR“ ¢Öæ÷6÷W&6RçFVBÒFV@¢6÷W&6RçFVBÒ&–÷%÷6÷W&6U÷FV@¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHYˆ\Ú[œİ[˜ÙJÛİ[\—İ\™Ù]\›X[™[
+H[™š[Ü—ØÛİ[\—ØÛİ[\È›İ›Û™N‚ˆÛİ[\—İ\™Ù]˜Ûİ[\œÖÈŠÌKÊÌH—HHš[Ü—ØÛİ[\—ØÛİ[ˆYˆØXÜšYšXÙY\È›İ›Û™N‚ˆÙ[‹œ^Y\œÖÜÛİ\˜ÙK›İÛ™\—K™Ü˜]™^X\™Î—HHÂˆ][H›Üˆ][H[ˆÙ[‹œ^Y\œÖÜÛİ\˜ÙK›İÛ™\—K™Ü˜]™^X\™Yˆ][H\È›İØXÜšYšXÙYˆBˆÙ[‹—ÛØš™XİËœÜ
+ØXÜšYšXÙY›Øš™XİÚY›Û™JBˆYˆÛİ\˜ÙH›İ[ˆÙ[‹œ^Y\œÖÜÛİ\˜ÙK˜ÛÛ›Û\—K˜˜]YšY[‚ˆÙ[‹œ^Y\œÖÜÛİ\˜ÙK˜ÛÛ›Û\—K˜˜]YšY[š[œÙ\
+Ûİ\˜ÙWÚ[™^Ûİ\˜ÙJBˆÛİ\˜ÙK›Û™HH˜˜]YšY[‚ˆYˆXš[]H\È›İ›Û™N‚ˆÙ[‹œİXÚÖÎ—HHÙ[H›Üˆ[H[ˆÙ[‹œİXÚÈYˆ[H\È›İXš[]WBˆÙ[‹—ÛØš™XİËœÜ
+Xš[]K›Øš™XİÚY›Û™JBˆÙ[‹—Û™^ÛØš™XİÛ[X™\ˆHİ\[™×ÛØš™XİÛ[X™\‚ˆ˜Z\ÙBˆ]šY[˜ÙHHXİ]˜][Û‘]šY[˜ÙJˆXš[]K›Øš™XİÚYˆÛİ\˜ÙK›Øš™XİÚYˆ^Y\—Ú[™^ˆÜ˜XÛWÙœ˜YÛY[ˆ[‹›X[˜WÜÛİ\˜ÙWÚYËˆ[‹\ÜÛİ\˜ÙKˆ˜[ÙKˆ[‹˜Ûİ[\—İ\™Ù]ÚYˆ
+BˆÙ[‹˜Xİ]˜][Û—Ù]šY[˜ÙK˜\[™
+]šY[˜ÙJBˆYˆØXÜšYšXÙY\È›İ›Û™N‚ˆÙ[‹›ÙÊˆ›Û™WØÚ[™ÙY‹ˆØ\™\Ûİ\˜ÙK˜Ø\™›˜[YKˆİÛ™\\Ù[‹œ^Y\œÖÜÛİ\˜ÙK›İÛ™\—K›˜[YKˆÛİ\˜ÙWÛØš™XİÚY\Ûİ\˜ÙK›Øš™XİÚYˆ\İ[˜][Û—ÛØš™XİÚY\ØXÜšYšXÙY›Øš™XİÚYˆÛİ\˜ÙWŞ›Û™OH˜˜]YšY[‹ˆ\İ[˜][Û—Ş›Û™OH™Ü˜]™^X\™‹ˆ™X\ÛÛH˜Xİ]˜][Û—ÜØXÜšYšXÙWØÛÜİ‹ˆ
+BˆÙ[‹›ÙÊˆ˜Xİ]˜][Û—Ø[››İ[˜ÙY‹ˆ^Y\\Ù[‹œ^Y\œÖÜ^Y\—Ú[™^K›·Ó[h‘éì¶»§q«^welf.players[player_index].name,
         )
         if sacrificed is not None:
             self.check_state_based_actions()
@@ -6171,162 +2485,26 @@ class Game(
         *,
         target_ids: tuple[str, ...] = (),
     ) -> bool:
-        """Announce one ability and open the bounded engine-owned priority window."""
-        ability = self.announce_activated_ability(
-            player_index, source, oracle_fragment, target_ids=target_ids
-        )
-        return ability is not None
+        """YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ¹¹½Õ¹”½¹”…‰¥±¥Ñä…¹½Á•¸Ñ¡”‰½Õ¹‘••¹¥¹”µ½İ¹•ÁÉ¥½É¥Ñäİ¥¹‘½Ü¸ˆˆˆ(€€€€€€€…‰¥±¥Ñä€ôÍ•±˜¹…¹¹½Õ¹•}…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñä (€€€€€€€€€€€Á±…å•É}¥¹‘•à°Í½ÕÉ”°½É…±•}™É…µ•¹Ğ°Ñ…É•Ñ}¥‘ÌõÑ…É•Ñ}¥‘Ì(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸…‰¥±¥Ñä¥Ì¹½Ğ9½¹”((€€€‘•˜}Ù…±¥‘…Ñ•}½Õ¹Ñ•ÉÍÁ•±±}ÁÉ½Ù•¹…¹”¡Í•±˜°…‰¥±¥ÑäèÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•Ğ¤€´ø9½¹”è(€€€€€€€¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥Ì¹½ĞÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹=U9QI}QIQ}MA10è(€€€€€€€€€€€É•ÑÕÉ¸(€€€€€€€Í•µ…¹Ñ¥Ì€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}Í•µ…¹Ñ¥Ì (€€€€€€€€€€€…‰¥±¥Ñä¹Í½ÕÉ•}…É°…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€¤(€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹Í½ÕÉ•}¥¤(€€€€€€€…Ñ¥Ù…Ñ¥½¸€ô¹•áĞ (€€€€€€€€€€€€ (€€€€€€€€€€€€€€€¥Ñ•´(€€€€€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹”(€€€€€€€€€€€€€€€¥˜¥Ñ•´¹ÍÑ…­}½‰©•Ñ}¥€ôô…‰¥±¥Ñä¹½‰©•Ñ}¥(€€€€€€€€€€€€¤°(€€€€€€€€€€€9½¹”°(€€€€€€€€¤(€€€€€€€Í…É¥™¥•€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…‰¥±¥Ñä¹Í…É¥™¥•‘}‘•ÍÑ¥¹…Ñ¥½¹}¥½È€ˆˆ¤(€€€€€€€¥˜€ (€€€€€€€€€€€Í•µ…¹Ñ¥Ì¥Ì9½¹”(€€€€€€€€€€€½È¹½ĞÍ•µ…¹Ñ¥Ì¹½Ù•É…”¹™Õ±±å}ÍÕÁÁ½ÉÑ•(€€€€€€€€€€€½ÈÍ•µ…¹Ñ¥Ì¹ÁÉ½É…´€„ô…‰¥±¥Ñä¹ÁÉ½É…´(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¥Ì9½¹”(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¹É•Í½±Ù•¥Ì¹½Ğ…±Í”(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¹Í½ÕÉ•}¥€„ô…‰¥±¥Ñä¹Í½ÕÉ•}¥(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¹½¹ÑÉ½±±•È€„ô…‰¥±¥Ñä¹½¹ÑÉ½±±•È(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¹½É…±•}™É…µ•¹Ğ€„ô…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€½È…Ñ¥Ù…Ñ¥½¸¹µ…¹…}Í½ÕÉ•}¥‘Ì€„ô…‰¥±¥Ñä¹µ…¹…}Í½ÕÉ•}¥‘Ì(€€€€€€€€€€€½È¹½Ğ…‰¥±¥Ñä¹Í…É¥™¥•}Í½ÕÉ”(€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤(€€€€€€€€€€€½ÈÍ½ÕÉ”¹…É¥Ì¹½Ğ…‰¥±¥Ñä¹Í½ÕÉ•}…É(€€€€€€€€€€€½ÈÍ½ÕÉ”¹é½¹”€„ô€‰™½Éµ•Èˆ(€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Í…É¥™¥•°…É‘=‰©•Ğ¤(€€€€€€€€€€€½ÈÍ…É¥™¥•¹…É¥Ì¹½Ğ…‰¥±¥Ñä¹Í½ÕÉ•}…É(€€€€€€€€€€€½ÈÍ…É¥™¥•¹é½¹”€„ô€‰É…Ù•å…Éˆ(€€€€€€€€€€€½È±•¸¡…‰¥±¥Ñä¹Ñ…É•Ñ}¥‘Ì¤€„ô€Ç}5¶‰ËkºwµçG&÷fVææ6R—2–çfÆ–B" ¢FVb÷&W6öÇfUö7F—fFVEö&–Æ—G’‡6VÆbÂ&–Æ—G“¢7F—fFVD&–Æ—G”ö&¦V7B’ÓâæöæS ¢–b€¢æ÷B6VÆbç7F6°¢÷"6VÆbç7F6µ²ÓÒ—2æ÷B&–Æ—G¢÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR†&–Æ—G’Â'7F6²"¢“ ¢&—6RfÇVTW'&÷"‚&7F—fFVB&–Æ—G’×W7B&RF†RWF†÷&—FF—fRF÷7F6²ö&¦V7B"¢–bç’†—FVÒç7F6µöö&¦V7Eö–BÓÒ&–Æ—G’æö&¦V7Eö–Bf÷"—FVÒ–â6VÆbæfööEö7F—fF–öåöWf–FVæ6R“ ¢6VÆbå÷fÆ–FFUöfööEö7F—fF–öåöÆ–æ¶vR†&–Æ—G’¢6VÆbå÷fÆ–FFUö6÷VçFW'7VÆÅ÷&÷fVææ6R†&–Æ—G’¢6VÆbå÷fÆ–FFUö6÷VçFW%ö6÷7E÷&÷fVææ6R†&–Æ—G’¢6VÖçF–72Ò6VÆbæ–çFW'&WFW"æ7F—fFVEö&–Æ—G•÷6VÖçF–72€¢&–Æ—G’ç6÷W&6Uö6&BÂ&–Æ—G’æ÷&6ÆUög&vÖVç@¢¢–b€¢6VÖçF–72—2æöæP¢÷"æ÷B6VÖçF–72æ6÷fW&vRægVÆÇ•÷7W÷'FV@¢÷"6VÖçF–72ç&öw&ÒÒ&–Æ—G’ç&öw&Ğ¢“ ¢&—6R76W'F–öäW'&÷"‚'7F6¶VB7F—fF–öâæòÆöævW"†2W†V7WF&ÆR6VÖçF–72"¢–b&–Æ—G’ç&öw&ÒæVffV7Eö¶–æB—27F—fFVDVffV7D¶–æBå4T$4…ôÄäEõE•S ¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’ç6÷W&6Uö–B¢F—66&FVBÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’æF—66&FVEöFW7F–æF–öåö–B÷"""¢–b€¢æ÷B—6–ç7Fæ6R‡6÷W&6RÂ6&Dö&¦V7B¢÷"6÷W&6Rç¦öæRÒ&f÷&ÖW" ¢÷"6÷W&6Ræ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢÷"æ÷B—6–ç7Fæ6R†F—66&FVBÂ6&Dö&¦V7B¢÷"F—66&FVBæ6&B—2æ÷B&–Æ—G’ç6÷W&6Uö6&@¢÷"F—66&FVBæ÷væW"Ò&–Æ—G’æ6öçG&öÆÆW ¢÷"&–Æ—G’æF—66&FVEöFW7F–æF–öåö–BÒF—66&FVBæö&¦V7Eö–@¢÷"æ÷B6VÆbæ—5öWF†÷&—FF—fR†F—66&FVBÂ&w&fW–&B"¢“ ¢&—6RfÇVTW'&÷"‚&ÆæF7–6Æ–ærF—66&B&÷fVææ6Rš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍZ\È[˜[YŠBˆÙ[‹œİXÚËœÜ
 
-    def _validate_counterspell_provenance(self, ability: ActivatedAbilityObject) -> None:
-        if ability.program.effect_kind is not ActivatedEffectKind.COUNTER_TARGET_SPELL:
-            return
-        semantics = self.interpreter.activated_ability_semantics(
-            ability.source_card, ability.oracle_fragment
-        )
-        source = self._objects.get(ability.source_id)
-        activation = next(
-            (
-                item
-                for item in self.activation_evidence
-                if item.stack_object_id == ability.object_id
-            ),
-            None,
-        )
-        sacrificed = self._objects.get(ability.sacrificed_destination_id or "")
-        if (
-            semantics is None
-            or not semantics.coverage.fully_supported
-            or semantics.program != ability.program
-            or activation is None
-            or activation.resolved is not False
-            or activation.source_id != ability.source_id
-            or activation.controller != ability.controller
-            or activation.oracle_fragment != ability.oracle_fragment
-            or activation.mana_source_ids != ability.mana_source_ids
-            or not ability.sacrifice_source
-            or not isinstance(source, Permanent)
-            or source.card is not ability.source_card
-            or source.zone != "former"
-            or not isinstance(sacrificed, CardObject)
-            or sacrificed.card is not ability.source_card
-            or sacrificed.zone != "graveyard"
-            or len(ability.target_ids) != 1
-            or not isinstance(self._objects.get(ability.target_ids[0]), StackObject)
-            or self._objects.get(ability.target_ids[0]).object_id != ability.target_ids[0]
-        ):
-            raise ValueError("counter activation provenance is invalid")
-
-    def _validate_counter_cost_provenance(self, ability: ActivatedAbilityObject) -> None:
-        if not ability.program.cost.remove_counter_target:
-            return
-        target = self._objects.get(ability.cost_target_id or "")
-        if (
-            ability.cost_target_id is None
-            or ability.cost_target_object is None
-            or ability.cost_target_object.object_id != ability.cost_target_id
-            or ability.cost_target_object.card is not ability.cost_target_card
-            or (target is not None and target is not ability.cost_target_object)
-        ):
-            raise ValueError("counter-cost target provenance is invalid")
-
-    def _resolve_activated_ability(self, ability: ActivatedAbilityObject) -> None:
-        if (
-            not self.stack
-            or self.stack[-1] is not ability
-            or not self.is_authoritative(ability, "stack")
-        ):
-            raise ValueError("activated ability must be the authoritative top stack object")
-        if any(item.stack_object_id == ability.object_id for item in self.food_activation_evidence):
-            self._validate_food_activation_linkage(ability)
-        self._validate_counterspell_provenance(ability)
-        self._validate_counter_cost_provenance(ability)
-        semantics = self.interpreter.activated_ability_semantics(
-            ability.source_card, ability.oracle_fragment
-        )
-        if (
-            semantics is None
-            or not semantics.coverage.fully_supported
-            or semantics.program != ability.program
-        ):
-            raise AssertionError("stacked activation no longer has executable semantics")
-        if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
-            source = self._objects.get(ability.source_id)
-            discarded = self._objects.get(ability.discarded_destination_id or "")
-            if (
-                not isinstance(source, CardObject)
-                or source.zone != "former"
-                or source.card is not ability.source_card
-                or not isinstance(discarded, CardObject)
-                or discarded.card is not ability.source_card
-                or discarded.owner != ability.controller
-                or ability.discarded_destination_id != discarded.object_id
-                or not self.is_authoritative(discarded, "graveyard")
-            ):
-                raise ValueError("landcycling discard provenance is invalid")
-        self.stack.pop()
-        ability.zone = "former"
-        source = self._objects.get(ability.source_id)
-        source_permanent = (
-            source
-            if isinstance(source, Permanent) and self.is_authoritative(source, "battlefield")
-            else None
-        )
-        delivered = False
-        food_life_before: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.SEARCH_LAND_TYPE:
-            land_type = self.interpreter.LANDCYCLING.fullmatch(ability.oracle_fragment)
-            assert land_type is not None
-            player = self.players[ability.controller]
-            matches = sorted(
-                (
-                    card
-                    for card in player.library
-                    if re.search(rf"\b{land_type.group('land')}\b", card.card.type_line)
-                ),
-                key=lambda card: card.object_id,
-            )
-            found = matches[0] if matches else None
-            if found is not None:
-                self.log(
-                    "landcycling_revealed",
-                    source_id=ability.source_id,
-                    stack_object_id=ability.object_id,
-                    card=found.name,
-                    library_object_id=found.object_id,
-                )
-                in_hand = self.move_object(found, "hand", reason="landcycling_search")
-                delivered = True
-                self.log(
-                    "landcycling_found",
-                    source_id=ability.source_id,
-                    stack_object_id=ability.object_id,
-                    card=in_hand.name,
-                    hand_object_id=in_hand.object_id,
-                )
-            player.library[:] = self.rng.shuffled(
-                player.library, domain=f"landcycling:{ability.object_id}"
-            )
-            self.log(
-                "landcycling_shuffled",
-                source_id=ability.source_id,
-                stack_object_id=ability.object_id,
-                found=delivered,
-                library_size=len(player.library),
-            )
-        if (
-            ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
-            and source_permanent is not None
-            and source_permanent.class_level == 1
-            and "Class" in source_permanent.card.type_line
-        ):
-            source_permanent.class_level = 2
-            event = self._new_rules_event(
-                RulesEventKind.CLASS_LEVEL_ADVANCED,
-                ability.controller,
-                (source_permanent.object_id,),
-                source_id=source_permanent.object_id,
-            )
-            recovery_fragment = CardInterpreter.CLASS_LEVEL_TWO_RECOVERY
+BˆXš[]K›Û™HH™›Ü›Y\ˆ‚ˆÛİ\˜ÙHHÙ[‹—ÛØš™XİË™Ù]
+Xš[]KœÛİ\˜ÙWÚY
+BˆÛİ\˜ÙWÜ\›X[™[H
+ˆÛİ\˜ÙBˆYˆ\Ú[œİ[˜ÙJÛİ\˜ÙK\›X[™[
+H[™Ù[‹š\×Ø]]Üš]]]™JÛİ\˜ÙK˜˜]YšY[ŠBˆ[ÙH›Û™Bˆ
+Bˆ[]™\™YH˜[ÙBˆ›ÛÙÛY™WØ™Y›Ü™Nˆ[›Û™HH›Û™BˆYˆXš[]Kœ›ÙÜ˜[K™Y™™XİÚÚ[™\ÈXİ]˜]YY™™XİÚ[™”ÑPTÒÓS‘ÕTN‚ˆ[™İ\HHÙ[‹š[\œ™]\‹“S‘ÖPÓS‘Ë™[X]Ú
+Xš[]K›Ü˜XÛWÙœ˜YÛY[
+Bˆ\ÜÙ\[™İ\H\È›İ›Û™Bˆ^Y\ˆHÙ[‹œ^Y\œÖØXš[]K˜ÛÛ›Û\—BˆX]Ú\ÈHÛÜY
+ˆ
+ˆØ\™ˆ›ÜˆØ\™[ˆ^Y\‹›Xœ˜\BˆYˆ™KœÙX\˜Ú
+™ˆ—Û[™İ\K™Ü›İ\
+	Û[™	Ê_Wˆ‹Ø\™˜Ø\™\WÛ[™JBˆ
+KˆÙ^O[[X™HØ\™ˆØ\™›Øš™XİÚYˆ
+Bˆ›İ[™HX]Ú\ÖÌHYˆX]Ú\È[ÙH›Û™BˆYˆ›İ[™\È›İ›Û™N‚ˆÙ[‹›ÙÊˆ›[™ŞXÛ[™×Ü™]™X[Y‹ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆØ\™Y›İ[™›˜[YKˆXœ˜\WÛØš™XİÚYY›İ[™›Øš™XİÚYˆ
+Bˆ[—Ú[™HÙ[‹›[İ™WÛØš™Xİ
+›İ[™š[™‹™X\ÛÛH›[™ŞXÛ[™×ÜÙX\˜ÚŠBˆ[]™\™YHYBˆÙ[‹›ÙÊˆ›[™ŞXÛ[™×Ù›İ[™‹ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆØ\™Z[—Ú[™›˜[YKˆ[™ÛØš™XİÚYZ[—Ú[™›Øš™XİÚYˆ
+Bˆ^Y\‹›Xœ˜\VÎ—HHÙ[‹œ›™ËœÚY™›Y
+ˆ^Y\‹›Xœ˜\KÛXZ[Yˆ›[™ŞXÛ[™ÎØwÓ[h‘éì¶»§q«^wTWO_RECOVERY
             self._enqueue_trigger(
                 event,
                 source_permanent,
@@ -6368,169 +2546,17 @@ class Game(
             self.log(
                 "floating_mana_produced",
                 source_id=ability.source_id,
-                stack_object_id=ability.object_id,
-                color=ability.choice_ids[0],
-                quantity=1,
-            )
-            delivered = True
-        if (
-            ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
-            and isinstance(source, CardObject)
-        ):
-            returned = self.create_permanent(
-                source.card, ability.controller, tapped=True, summoning_sick=False
-            )
-            self.log(
-                "tunnel_rats_returned",
-                source_id=source.object_id,
-                permanent_id=returned.object_id,
-                tapped=True,
-            )
-            delivered = True
-        food_life_after: int | None = None
-        if ability.program.effect_kind is ActivatedEffectKind.DRAW_CARD:
-            before = len(self.players[ability.controller].hand)
-            drew = self.draw(self.players[ability.controller], 1)
-            self.log(
-                "ray_fillets_draw_resolved",
-                stack_object_id=ability.object_id,
-                source_id=ability.source_id,
-                cost_target_id=ability.cost_target_id,
-                cards_drawn=1 if drew else 0,
-                hand_size_before=before,
-                hand_size_after=len(self.players[ability.controller].hand),
-            )
-            delivered = drew
-        elif ability.program.effect_kind is ActivatedEffectKind.GRANT_TOKEN_HASTE_UNTIL_EOT:
-            recipients = [
-                p
-                for player in self.players
-                for p in player.battlefield
-                if p.controller == ability.controller and p.is_token and p.card.is_creature
-            ]
-            for recipient in recipients:
-                if not any(
-                    e.keyword is TemporaryKeyword.HASTE
-                    and e.source_id == ability.source_id
-                    and e.oracle_fragment == ability.oracle_fragment
-                    for e in recipient.temporary_keyword_effects
-                ):
-                    recipient.temporary_keyword_effects.append(
-                        TemporaryKeywordEffect(
-                            TemporaryKeyword.HASTE,
-                            "until_end_of_turn",
-                            ability.source_id,
-                            ability.oracle_fragment,
-                            timestamp=self._effect_timestamp(),
-                        )
-                    )
-            self.log(
-                "token_haste_resolved",
-                stack_object_id=ability.object_id,
-                source_id=ability.source_id,
-                recipient_ids=[p.object_id for p in recipients],
-                quantity=len(recipients),
-            )
-        elif ability.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
-            target = self._objects.get(ability.target_ids[0]) if ability.target_ids else None
-            if (
-                isinstance(target, Permanent)
-                and self.is_authoritative(target, "battlefield")
-                and target.card.is_creature
-            ):
-                self.place_counters(
-                    target,
-                    "+1/+1",
-                    1,
-                    source_card=ability.source_card.name,
-                    oracle_fragment=ability.oracle_fragment,
-                    source_id=ability.source_id,
-                    stack_object_id=ability.object_id,
-                )
-                self.log(
-                    "mutagen_counter_placed",
-                    source_id=ability.source_id,
-                    target_id=target.object_id,
-                    stack_object_id=ability.object_id,
-                )
-                delivered = True
-            else:
-                self.log(
-                    "mutagen_counter_failed_closed",
-                    source_id=ability.source_id,
-                    target_id=ability.target_ids[0] if ability.target_ids else None,
-                )
-        elif ability.program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
-            target = (
-                self._objects.get(ability.target_ids[0]) if len(ability.target_ids) == 1 else None
-            )
-            legal = self._is_legal_counter_target(target, ability.controller)
-            if legal:
-                assert isinstance(target, StackObject)
-                target_card = self.move_object(target, "graveyard", reason="spell_countered")
-                self.log(
-                    "spell_countered",
-                    stack_object_id=ability.object_id,
-                    ability_source_id=ability.source_id,
-                    target_spell_id=target.object_id,
-                    target_object_id=target.target_id,
-                    target_card=target.card.name,
-                    controller=ability.controller,
-                    oracle_fragment=ability.oracle_fragment,
-                    target_relationship="targets_artifact_or_creature_you_control",
-                    countered_object_id=target_card.object_id,
-                )
-                delivered = True
-            else:
-                self.log(
-                    "activated_ability_resolved_no_effect",
-                    stack_object_id=ability.object_id,
-                    source_id=ability.source_id,
-                    target_spell_id=(ability.target_ids[0] if ability.target_ids else None),
-                    reason="counter_target_illegal_at_resolution",
-                )
-        elif (
-            ability.program.effect_kind is ActivatedEffectKind.GRANT_SELF_FIRST_STRIKE_UNTIL_EOT
-            and source_permanent is not None
-        ):
-            source_permanent.temporary_keyword_effects.append(
-                TemporaryKeywordEffect(
-                    StrikeKeyword.FIRST_STRIKE,
-                    "until_end_of_turn",
-                    ability.source_id,
-                    ability.oracle_fragment,
-                    timestamp=self._effect_timestamp(),
-                )
-            )
-            delivered = True
-            self.log(
-                "temporary_keyword_granted",
-                source_id=ability.source_id,
-                target_id=source_permanent.object_id,
-                keyword=StrikeKeyword.FIRST_STRIKE.value,
-                duration="until_end_of_turn",
-                oracle_fragment=ability.oracle_fragment,
-            )
-        elif (
-            ability.program.effect_kind
-            is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
-        ):
-            target = self._objects.get(ability.target_ids[0])
-            if (
-                isinstance(target, Permanent)
-                and self.is_authoritative(target, "battlefield")
-                and target.object_id != ability.source_id
-                and target.controller == ability.controller
-                and target.card.is_creature
-            ):
-                replacement = self.move_object(
-                    target, "hand", reason="activated_return_to_owners_hand"
-                )
-                delivered = True
-                self.log(
-                    "target_returned_to_hand",
-                    stack_object_id=ability.object_id,
-                    source_id=ability.source_id,
+                stack_object_id=ability.object_iYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ°(€€€€€€€€€€€€€€€½±½Èõ…‰¥±¥Ñä¹¡½¥•}¥‘ÍlÁt°(€€€€€€€€€€€€€€€ÅÕ…¹Ñ¥ÑäôÄ°(€€€€€€€€€€€€¤(€€€€€€€€€€€‘•±¥Ù•É•€ôQÉÕ”(€€€€€€€¥˜€ (€€€€€€€€€€€…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹IQUI9}M1}I=5}IYeI}QAA(€€€€€€€€€€€…¹¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°…É‘=‰©•Ğ¤(€€€€€€€€¤è(€€€€€€€€€€€É•ÑÕÉ¹•€ôÍ•±˜¹É•…Ñ•}Á•Éµ…¹•¹Ğ (€€€€€€€€€€€€€€€Í½ÕÉ”¹…É°…‰¥±¥Ñä¹½¹ÑÉ½±±•È°Ñ…ÁÁ•õQÉÕ”°ÍÕµµ½¹¥¹}Í¥¬õ…±Í”(€€€€€€€€€€€€¤(€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€‰ÑÕ¹¹•±}É…ÑÍ}É•ÑÕÉ¹•ˆ°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õÍ½ÕÉ”¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ñ}¥õÉ•ÑÕÉ¹•¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Ñ…ÁÁ•õQÉÕ”°(€€€€€€€€€€€€¤(€€€€€€€€€€€‘•±¥Ù•É•€ôQÉÕ”(€€€€€€€™½½‘}±¥™•}…™Ñ•Èè¥¹Ğğ9½¹”€ô9½¹”(€€€€€€€¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I]}Iè(€€€€€€€€€€€‰•™½É”€ô±•¸¡Í•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét¹¡…¹¤(€€€€€€€€€€€‘É•Ü€ôÍ•±˜¹‘É…Ü¡Í•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét°€Ä¤(€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€‰É…å}™¥±±•ÑÍ}‘É…İ}É•Í½±Ù•ˆ°(€€€€€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õ…‰¥±¥Ñä¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€½ÍÑ}Ñ…É•Ñ}¥õ…‰¥±¥Ñä¹½ÍÑ}Ñ…É•Ñ}¥°(€€€€€€€€€€€€€€€…É‘Í}‘É…İ¸ôÄ¥˜‘É•Ü•±Í”€À°(€€€€€€€€€€€€€€€¡…¹‘}Í¥é•}‰•™½É”õ‰•™½É”°(€€€€€€€€€€€€€€€¡…¹‘}Í¥é•}…™Ñ•Èõ±•¸¡Í•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét¹¡…¹¤°(€€€€€€€€€€€€¤(€€€€€€€€€€€‘•±¥Ù•É•€ô‘É•Ü(€€€€€€€•±¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹I9Q}Q=-9}!MQ}U9Q%1}=Pè(€€€€€€€€€€€É•¥Á¥•¹ÑÌ€ôl(€€€€€€€€€€€€€€€À(€€€€€€€€€€€€€€€™½ÈÁ±…å•È¥¸Í•±˜¹Á±…å•ÉÌ(€€€€€€€€€€€€€€€™½ÈÀ¥¸Á±…å•È¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€€€€€¥˜À¹½¹ÑÉ½±±•È€ôô…‰¥±¥Ñä¹½¹ÑÉ½±±•È…¹À¹¥Í}Ñ½­•¸…¹À¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€t(€€€€€€€€€€€™½ÈÉ•¥Á¥•¹Ğ¥¸É•¥Á¥•¹ÑÌè(€€€€€€€€€€€€€€€¥˜¹½Ğ…¹ä (€€€€€€€€€€€€€€€€€€€”¹­•åİ½É¥ÌQ•µÁ½É…Éå-•åİ½É¹!MQ(€€€€€€€€€€€€€€€€ƒ}5¶‰ËkºwµçBVÆ–b&–Æ—G’ç&öw&ÒæVffV7Eö¶–æB—27F—fFVDVffV7D¶–æBäÕUDtTåô4õTåDU# ¢F&vWBÒ6VÆbåöö&¦V7G2ævWB†&–Æ—G’çF&vWEö–G5³Ò’–b&–Æ—G’çF&vWEö–G2VÇ6RæöæP¢–b€¢—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB¢æB6VÆbæ—5öWF†÷&—FF—fR‡F&vWBÂ&&GFÆVf–VÆB"¢æBF&vWBæ6&Bæ—5ö7&VGW&P¢“ ¢6VÆbçÆ6Uö6÷VçFW'2€¢F&vWBÀ¢"³ò³"À¢À¢6÷W&6Uö6&CÖ&–Æ—G’ç6÷W&6Uö6&BææÖRÀ¢÷&6ÆUög&vÖVçCÖ&–Æ—G’æ÷&6ÆUög&vÖVçBÀ¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢¢6VÆbæÆör€¢&×WFvVåö6÷VçFW%÷Æ6VB"À¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢F&vWEö–C×F&vWBæö&¦V7Eö–BÀ¢7F6µöö&¦V7Eö–CÖ&–Æ—G’æö&¦V7Eö–BÀ¢¢FVÆ—fW&VBÒG'VP¢VÇ6S ¢6VÆbæÆör€¢&×WFvVåö6÷VçFW%öf–ÆVEö6Æ÷6VB"À¢6÷W&6Uö–CÖ&–Æ—G’ç6÷W&6Uö–BÀ¢F&vWEö–CÖ&–Æ—G’çF&vWEö–G5³Ò–b&–Æ—G’çF&vWEö–G2VÇ6RæöæRÀ¢¢VÆ–b&–Æ—G’ç&öw&ÒæVffV7Eö¶–æB—27F—fFVDVffV7D¶–æBä4õTåDU%õD$tUEõ5TÄÃ ¢F&vWBÒ€¢6VÆbåöö&¦V7G2ævWB†&–Æ—G’çF&vWEö–G5³Ò’–bÆVâ†&–Æ—G’çF&vWEö–G2’ÓÒVÇ6RæöæP¢¢ÆVvÂÒ6VÆbåö—5öÆVvÅö6÷VçFW%÷F&vWB‡F&vWBÂ&–Æ—G’æ6öçG&öÆÆW"¢–bÆVvÃ ¢76W'B—6–ç7Fæ6R‡F&vWBÂ7F6´ö&¦V7B¢F&vWEö6&BÒ6VÆbæÖ÷fUöö&¦V7B‡F&vWBÂ&w&fW–&B"Â&V6öãÒ'7VÆÅö6÷VçFW&VB"¢6VÆbæÆör€¢'7VÆÅö6÷VçFW&VB"À¢7Fš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆXš[]WÜÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ\™Ù]ÜÜ[ÚY]\™Ù]›Øš™XİÚYˆ\™Ù]ÛØš™XİÚY]\™Ù]\™Ù]ÚYˆ\™Ù]ØØ\™]\™Ù]˜Ø\™›˜[YKˆÛÛ›Û\XXš[]K˜ÛÛ›Û\‹ˆÜ˜XÛWÙœ˜YÛY[XXš[]K›Ü˜XÛWÙœ˜YÛY[ˆ\™Ù]Ü™[][ÛœÚ\H\™Ù]×Ø\Y˜XİÛÜ—ØÜ™X]\™WŞ[İWØÛÛ›Û‹ˆÛİ[\™YÛØš™XİÚY]\™Ù]ØØ\™›Øš™XİÚYˆ
+Bˆ[]™\™YHYBˆ[ÙN‚ˆÙ[‹›ÙÊˆ˜Xİ]˜]YØXš[]WÜ™\ÛÛ™YÛ›×ÙY™™Xİ‹ˆİXÚ×ÛØš™XİÚYXXš[]K›Øš™XİÚYˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ\™Ù]ÜÜ[ÚYJXš[]K\™Ù]ÚYÖÌHYˆXš[]K\™Ù]ÚYÈ[ÙH›Û™JKˆ™X\ÛÛH˜Ûİ[\—İ\™Ù]Ú[YØ[Ø]Ü™\ÛÛ][Ûˆ‹ˆ
+Bˆ[Yˆ
+ˆXš[]Kœ›ÙÜ˜[K™Y™™XİÚÚ[™\ÈXİ]˜]YY™™XİÚ[™‘ÔS•ÔÑS—Ñ’T”ÕÔÕ’RÑWÕS•SÑSÕˆ[™Ûİ\˜ÙWÜ\›X[™[\È›İ›Û™Bˆ
+N‚ˆÛİ\˜ÙWÜ\›X[™[[\Ü˜\WÚÙ^]ÛÜ™ÙY™™XİË˜\[™
+ˆ[\Ü˜\RÙ^]ÛÜ™Y™™Xİ
+ˆİšZÙRÙ^]ÛÜ™‘’T”ÕÔÕ’RÑKˆ[[Ù[™ÛÙ—İ\›ˆ‹ˆXš[]KœÛİ\˜ÙWÚYˆXš[]K›Ü˜XÛWÙœ˜YÛY[ˆ[Y\İ[\\Ù[‹—ÙY™™Xİİ[Y\İ[\
+
+Kˆ
+Bˆ
+Bˆ[]™\™YHYBˆÙ[‹›ÙÊˆ[\Ü˜\WÚÙ^]ÛÜ™ÙÜ˜[Y‹ˆÛİ\˜ÙWÚYXXš[]KœÛİ\˜ÙWÚYˆ\™Ù]ÚY\Ûİ\˜ÙWÜ\›X[™[›Øš™XİÚYˆÙ^]ÛÜ™TİšZÙRÙ^]ÛÜ™‘’T”ÕÔÕ’RÑK˜[YKˆ\˜][ÛH[[Ù[™ÛÙ—İ\›ˆ‹ˆÜ˜XÛWÙœ·Ó[h‘éì¶»§q«^vility.source_id,
                     target_id=target.object_id,
                     destination_object_id=replacement.object_id,
                     owner=self.players[target.owner].name,
@@ -6568,165 +2594,24 @@ class Game(
                 self.log(
                     "equipment_attach_failed_closed",
                     stack_object_id=ability.object_id,
-                    source_id=ability.source_id,
-                    target_id=ability.target_ids[0] if ability.target_ids else None,
-                )
-        elif ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
-            food_life_before = self.players[ability.controller].life
-            self.gain_life(
-                ability.controller,
-                3,
-                source_card=ability.source_card.name,
-                oracle_fragment=ability.oracle_fragment,
-                defer_trigger_delivery=True,
-            )
-            food_life_after = self.players[ability.controller].life
-            delivered = True
-        elif ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL:
-            pass
-        else:
-            self.log(
-                "activated_ability_resolved_no_effect",
-                stack_object_id=ability.object_id,
-                source_id=ability.source_id,
-                reason="source_not_on_battlefield",
-            )
-        for index, evidence in enumerate(self.activation_evidence):
-            if evidence.stack_object_id == ability.object_id:
-                self.activation_evidence[index] = ActivationEvidence(
-                    evidence.stack_object_id,
-                    evidence.source_id,
-                    evidence.controller,
-                    evidence.oracle_fragment,
-                    evidence.mana_source_ids,
-                    evidence.tap_source,
-                    True,
-                    evidence.cost_target_id,
-                )
-                break
-        if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
-            for index, evidence in enumerate(self.food_activation_evidence):
-                if evidence.stack_object_id == ability.object_id:
-                    self.food_activation_evidence[index] = replace(
-                        evidence,
-                        resolved=True,
-                        life_before=food_life_before,
-                        life_after=food_life_after,
-                        amount_gained=(
-                            food_life_after - food_life_before
-                            if food_life_before is not None and food_life_after is not None
-                            else None
-                        ),
-                    )
-                    break
-        self.log(
-            "activated_ability_resolved",
-            stack_object_id=ability.object_id,
-            source_id=ability.source_id,
-            card=ability.source_card.name,
-            controller=self.players[ability.controller].name,
-            delivered=delivered,
-        )
-        if ability.program.effect_kind in {
-            ActivatedEffectKind.GAIN_THREE_LIFE,
-            ActivatedEffectKind.ADVANCE_CLASS_LEVEL,
-        }:
-            self._put_pending_triggers_on_stack()
-
-    def _validate_food_activation_linkage(self, ability: ActivatedAbilityObject) -> None:
-        """Authenticate one canonical Food stack object from immutable payment evidence."""
-        activations = [
-            item for item in self.activation_evidence if item.stack_object_id == ability.object_id
-        ]
-        foods = [
-            item
-            for item in self.food_activation_evidence
-            if item.stack_object_id == ability.object_id
-        ]
-        if len(activations) != 1 or len(foods) != 1:
-            raise AssertionError("Food stack object lacks unique activation provenance")
-        activation = activations[0]
-        food = foods[0]
-        sacrificed = self._objects.get(food.sacrificed_destination_id)
-        if (
-            activation.resolved != food.resolved
-            or ability.source_id != activation.source_id
-            or ability.source_id != food.source_id
-            or ability.controller != activation.controller
-            or ability.controller != food.controller
-            or ability.oracle_fragment != activation.oracle_fragment
-            or ability.oracle_fragment != food.oracle_fragment
-            or ability.mana_source_ids != activation.mana_source_ids
-            or ability.mana_source_ids != food.mana_source_ids
-            or ability.tap_source != activation.tap_source
-            or ability.tap_source != food.tap_paid
-            or not ability.sacrifice_source
-            or not food.sacrifice_paid
-            or ability.sacrificed_destination_id != food.sacrificed_destination_id
-            or ability.source_card.name != food.source_name
-            or ability.source_card.type_line != food.source_type_line
-            or not isinstance(sacrificed, CardObject)
-            or sacrificed.card != ability.source_card
-            or sacrificed.owner != food.source_owner
-            or sacrificed.is_token != food.source_was_token
-            or ability.program.effect_kind is not ActivatedEffectKind.GAIN_THREE_LIFE
-        ):
-            raise AssertionError("Food stack object disagrees with activation provenance")
-
-    def payment_plan(
-        self,
-        player_index: int,
-        card: CardObject,
-        *,
-        allow_graveyard: bool = False,
-        allow_exile: bool = False,
-    ) -> PaymentPlan | None:
-        source_zone = "graveyard" if allow_graveyard else ("exile" if allow_exile else "hand")
-        if not self.is_authoritative(card, source_zone) or card.owner != player_index:
-            return None
-        requirement = self.mana_requirement(card)
-        if requirement is None:
-            return None
-        if not any("/" in symbol for symbol in requirement.colored):
-            pool = self.floating_mana.snapshot(player_index)
-            floating: list[str] = []
-            for color in requirement.colored:
-                if pool.get(color, 0):
-                    pool[color] -= 1
-                    floating.append(color)
-                else:
-                    break
-            else:
-                remaining_generic = requirement.generic
-                for color, quantity in sorted(pool.items()):
-                    take = min(quantity, remaining_generic)
-                    floating.extend([color] * take)
-                    remaining_generic -= take
-                    if remaining_generic == 0:
-                        break
-            available = [
-                p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-            ]
-            chosen: list[Permanent] = []
-            for color in requirement.colored[len(floating) :]:
-                source = next((p for p in available if self._mana_color(p) == color), None)
-                if source is None:
-                    return None
-                chosen.append(source)
-                available.remove(source)
-            need = requirement.generic - max(0, len(floating) - len(requirement.colored))
-            if len(available) < need:
-                return None
-            chosen.extend(available[:need])
-            return PaymentPlan(
-                player_index,
-                card.object_id,
-                requirement,
-                tuple(p.object_id for p in chosen),
-                tuple(floating),
-            )
-        available = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
+                    source_id=ability.source_YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ¥°(€€€€€€€€€€€€€€€€€€€Ñ…É•Ñ}¥õ…‰¥±¥Ñä¹Ñ…É•Ñ}¥‘ÍlÁt¥˜…‰¥±¥Ñä¹Ñ…É•Ñ}¥‘Ì•±Í”9½¹”°(€€€€€€€€€€€€€€€€¤(€€€€€€€•±¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹%9}Q!I}1%è(€€€€€€€€€€€™½½‘}±¥™•}‰•™½É”€ôÍ•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét¹±¥™”(€€€€€€€€€€€Í•±˜¹…¥¹}±¥™” (€€€€€€€€€€€€€€€…‰¥±¥Ñä¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€Ì°(€€€€€€€€€€€€€€€Í½ÕÉ•}…Éõ…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”°(€€€€€€€€€€€€€€€½É…±•}™É…µ•¹Ğõ…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€‘•™•É}ÑÉ¥•É}‘•±¥Ù•ÉäõQÉÕ”°(€€€€€€€€€€€€¤(€€€€€€€€€€€™½½‘}±¥™•}…™Ñ•È€ôÍ•±˜¹Á±…å•ÉÍm…‰¥±¥Ñä¹½¹ÑÉ½±±•Ét¹±¥™”(€€€€€€€€€€€‘•±¥Ù•É•€ôQÉÕ”(€€€€€€€•±¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹Y9}1MM}1Y0è(€€€€€€€€€€€Á…ÍÌ(€€€€€€€•±Í”è(€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€‰…Ñ¥Ù…Ñ•‘}…‰¥±¥Ñå}É•Í½±Ù•‘}¹½}•™™•Ğˆ°(€€€€€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õ…‰¥±¥Ñä¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õ…‰¥±¥Ñä¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€É•…Í½¸ô‰Í½ÕÉ•}¹½Ñ}½¹}‰…ÑÑ±•™¥•±ˆ°(€€€€€€€€€€€€¤(€€€€€€€™½È¥¹‘•à°•Ù¥‘•¹”¥¸•¹Õµ•É…Ñ”¡Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹”¤è(€€€€€€€€€€€¥˜•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥€ôô…‰¥±¥Ñä¹½‰©•Ñ}¥è(€€€€€€€€€€€€€€€Í•±˜¹…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹•m¥¹‘•át€ôÑ¥Ù…Ñ¥½¹Ù¥‘•¹” (€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹µ…¹…}Í½ÕÉ•}¥‘Ì°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹Ñ…Á}Í½ÕÉ”°(€€€€€€€€€€€€€€€€€€€QÉÕ”°(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹½ÍÑ}Ñ…É•Ñ}¥°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€‰É•…¬(€€€€€€€¥˜…‰¥±¥Ñä¹ÁÉ½É…´¹•™™•Ñ}­¥¹¥ÌÑ¥Ù…Ñ•‘™™•Ñ-¥¹¹%9}Q!I}1%è(€€€€€€€€€€€™½È¥¹‘•à°•Ù¥‘•¹”¥¸•¹Õµ•É…Ñ”¡Í•±˜¹™½½‘}…Ñ¥Ù…Ñ¥½¹}•Ù¥‘•¹”¤è(€€€€€€€€€€€€€€€¥˜•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥€ôô…‰¥±¥Ñä¹½‰©•Ñ}¥è(€€€€€€€€€€€€€€€€€€€Í•±˜¹™½½‘}…Ñ¥Ù…Ñ¥½¹}•Ù§}5¶‰ËkºwµçB7F—fFVDVffV7D¶–æBäEdä4Uô4Ä55ôÄUdTÂÀ¢Ó ¢6VÆbå÷WE÷VæF–æu÷G&–vvW'5ööå÷7F6²‚ ¢FVb÷fÆ–FFUöfööEö7F—fF–öåöÆ–æ¶vR‡6VÆbÂ&–Æ—G“¢7F—fFVD&–Æ—G”ö&¦V7B’ÓâæöæS ¢""$WF†VçF–6FRöæR6æöæ–6ÂfööB7F6²ö&¦V7Bg&öÒ–Ö×WF&ÆR–ÖVçBWf–FVæ6Râ"" ¢7F—fF–öç2Ò°¢—FVÒf÷"—FVÒ–â6VÆbæ7F—fF–öåöWf–FVæ6R–b—FVÒç7F6µöö&¦V7Eö–BÓÒ&–Æ—G’æö&¦V7Eö–@¢Ğ¢fööG2Ò°¢—FVĞ¢f÷"—FVÒ–â6VÆbæfööEö7F—fF–öåöWf–FVæ6P¢–b—FVÒç7F6µöö&¦V7Eö–BÓÒ&–Æ—G’æö&¦V7Eö–@¢Ğ¢–bÆVâ†7F—fF–öç2’Ò÷"ÆVâ†fööG2’Ò ¢&—6R76W'F–öäW'&÷"‚$fööB7F6²ö&¦V7BÆ6·2Væ—VR7F—fF–öâ&÷fVææ6R"¢7F—fF–öâÒ7F—fF–öç5³Ğ¢fööBÒfööG5³Ğ¢67&–f–6VBÒ6VÆbåöö&¦V7G2ævWB†fööBç67&–f–6VEöFW7F–æF–öåö–B¢–b€¢7F—fF–öâç&W6öÇfVBÒfööBç&W6öÇfV@¢÷"&–Æ—G’ç6÷W&6Uö–BÒ7F—fF–öâç6÷W&6Uö–@¢÷"&–Æ—G’ç6÷W&6Uö–BÒfööBç6÷W&6Uö–@¢÷"&–Æ—G’æ6öçG&öÆÆW"Ò7F—fF–öâæ6öçG&öÆÆW ¢÷"&–Æ—G’æ6öçG&öÆÆW"ÒfööBæ6öçG&öÆÆW ¢÷"&–Æ—G’æ÷&6ÆUög&vÖVçBÒ7F—fF–öâæ÷&6ÆUög&vÖVç@¢÷"&–Æ—G’æ÷&6ÆUög&vÖVçBÒfööBæ÷&6ÆUög&vÖVç@¢÷"&–Æ—G’æÖæ÷6÷W&6Uö–G2Ò7F—fF–öâæÖæ÷6÷W&6Uö–G0¢÷"&–Æ—G’æÖæ÷6÷W&6Uö–G2ÒfööBæÖæ÷6÷W&6Uö–G0¢÷"&–Æ—G’çF÷6÷W&6RÒ7F—fF–öâçF÷6÷W&6P¢÷"&–Æ—G’çF÷6÷W&6RÒfööBçF÷–@¢÷"æ÷B&–Æ—G’ç67&–f–6U÷6÷W&6P¢÷"æ÷BfööBç67&–f–6U÷–@¢÷"&–Æ—G’ç67&–f–6VEöFW7F–æF–öåö–BÒfööBç67&–f–6VEöFW7F–æF–öåö–@¢÷"&–Æ—G’ç6÷W&6Uö6&BææÖRÒfööBç6÷W&6UöæÖP¢÷"&–Æ—G’ç6÷W&6Uö6&BçG—UöÆ–æRÒfööBç6÷W&6Uš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍWİ\WÛ[™BˆÜˆ›İ\Ú[œİ[˜ÙJØXÜšYšXÙYØ\™Øš™Xİ
+BˆÜˆØXÜšYšXÙY˜Ø\™OHXš[]KœÛİ\˜ÙWØØ\™ˆÜˆØXÜšYšXÙY›İÛ™\ˆOH›ÛÙœÛİ\˜ÙWÛİÛ™\‚ˆÜˆØXÜšYšXÙYš\×İÚÙ[ˆOH›ÛÙœÛİ\˜ÙWİØ\×İÚÙ[‚ˆÜˆXš[]Kœ›ÙÜ˜[K™Y™™XİÚÚ[™\È›İXİ]˜]YY™™XİÚ[™‘ĞRS—Õ‘QWÓQ‘Bˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ‘›ÛÙİXÚÈØš™Xİ\ØYÜ™Y\ÈÚ]Xİ]˜][Ûˆ›İ™[˜[˜ÙHŠB‚ˆYˆ^[Y[Ü[ŠˆÙ[‹ˆ^Y\—Ú[™^ˆ[ˆØ\™ˆØ\™Øš™Xİˆ
+‹ˆ[İ×ÙÜ˜]™^X\™ˆ›ÛÛH˜[ÙKˆ[İ×Ù^[Nˆ›ÛÛH˜[ÙKˆ
+HOˆ^[Y[[ˆ›Û™N‚ˆÛİ\˜ÙWŞ›Û™HH™Ü˜]™^X\™ˆYˆ[İ×ÙÜ˜]™^X\™[ÙH
+™^[HˆYˆ[İ×Ù^[H[ÙHš[™ŠBˆYˆ›İÙ[‹š\×Ø]]Üš]]]™JØ\™Ûİ\˜ÙWŞ›Û™JHÜˆØ\™›İÛ™\ˆOH^Y\—Ú[™^‚ˆ™]\›ˆ›Û™Bˆ™\]Z\™[Y[HÙ[‹›X[˜WÜ™\]Z\™[Y[
+Ø\™
+BˆYˆ™\]Z\™[Y[\È›Û™N‚ˆ™]\›ˆ›Û™BˆYˆ›İ[J‹Èˆ[ˆŞ[X›Û›ÜˆŞ[X›Û[ˆ™\]Z\™[Y[˜ÛÛÜ™Y
+N‚ˆÛÛHÙ[‹™›Ø][™×ÛX[˜KœÛ˜\Úİ
+^Y\—Ú[™^
+Bˆ›Ø][™Îˆ\İÜİ—HH×Bˆ›ÜˆÛÛÜˆ[ˆ™\]Z\™[Y[˜ÛÛÜ™Y‚ˆYˆÛÛ™Ù]
+ÛÛÜ‹
+N‚ˆÛÛØÛÛÜ—HOHBˆ›Ø][™Ë˜\[™
+ÛÛÜŠBˆ[ÙN‚ˆœ™XZÂˆ[ÙN‚ˆ™[XZ[š[™×ÙÙ[™\šXÈH™\]Z\™[Y[™Ù[™\šXÂˆ›ÜˆÛÛÜ‹]X[]H[ˆÛÜY
+ÛÛš][\Ê
+JN‚ˆZÙHHZ[Š]X[]K™[XZ[š[™×ÙÙ[™\šXÊBˆ›Ø][™Ë™^[™
+ØÛÛÜ—H
+ˆZÙJBˆ™[XZ[š[™×ÙÙ[™\šXÈOHZÙBˆYˆ™[XZ[š[™×ÙÙ[™\šXÈOH‚ˆœ™XZÂˆ]˜Z[X›HHÂˆ›Üˆ[ˆÙ[‹œ^Y\œÖÜ^Y\—Ú[™^K˜˜]YšY[Yˆ˜Ø\™š\×Û[™[™7Ó[h‘éì¶»§q«^tp.tapped
         ]
         selected = self._select_mana_sources(
             requirement, available, self.floating_mana.snapshot(player_index)
@@ -6776,192 +2661,15 @@ class Game(
             raise ValueError("payment plan is no longer legal")
         for color in plan.floating_colors:
             self.floating_mana.consume(plan.player_index, color, 1, card.object_id)
-        sources: list[Permanent] = []
-        for object_id in plan.source_ids:
-            source = self._objects.get(object_id)
-            if not isinstance(source, Permanent) or not self.is_authoritative(
-                source, "battlefield"
-            ):
-                raise ValueError("payment source is not authoritative")
-            sources.append(source)
-        previous_tapped = tuple(source.tapped for source in sources)
-        try:
-            for source in sources:
-                source.tapped = True
-            spell = self.move_object(
-                card,
-                "stack",
-                controller=plan.player_index,
-                cast_kind=cast_kind,
-                target_id=target_id,
-                cast_from_graveyard=cast_from_graveyard,
-                finality_on_entry=finality_on_entry,
-                cast_from_raphael=cast_from_raphael,
-                reason="spell_cast_from_graveyard" if cast_from_graveyard else "spell_cast",
-            )
-        except Exception:
-            for source, tapped in zip(sources, previous_tapped, strict=True):
-                source.tapped = tapped
-            raise
-        assert isinstance(spell, StackObject)
-        self.log(
-            "cost_paid",
-            player=self.players[plan.player_index].name,
-            card=card.name,
-            generic=plan.requirement.generic,
-            colored=list(plan.requirement.colored),
-            source_ids=list(plan.source_ids),
-        )
-        return spell
-
-    def _commit_sneak_announcement(
-        self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan
-    ) -> StackObject:
-        """Atomically pay fixed Sneak mana plus the authoritative return cost."""
-        if plan != self.sneak_payment_plan(plan.player_index, card, attacker):
-            raise ValueError("Sneak payment plan is no longer legal")
-        sources: list[Permanent] = []
-        for object_id in plan.mana_source_ids:
-            source = self._objects.get(object_id)
-            if (
-                not isinstance(source, Permanent)
-                or not self.is_authoritative(source, "battlefield")
-                or source.tapped
-                or not source.card.is_land
-            ):
-                raise ValueError("Sneak mana source is not authoritative")
-            sources.append(source)
-        if len({source.object_id for source in sources}) != len(sources):
-            raise ValueError("Sneak payment cannot reuse a mana source")
-
-        # Construct both new zone incarnations before mutating any authoritative container.
-        returned = CardObject(
-            self._allocate_object_id(),
-            attacker.card,
-            attacker.owner,
-            attacker.owner,
-            "hand",
-            is_token=attacker.is_token,
-        )
-        spell = StackObject(
-            self._allocate_object_id(),
-            card.card,
-            card.owner,
-            plan.player_index,
-            self.interpreter.cast_program(card.card).kind,
-            sneak_returned_attacker_id=attacker.object_id,
-            sneak_returned_hand_id=returned.object_id,
-            sneak_defending_player=plan.defending_player,
-            sneak_oracle_fragment=plan.oracle_fragment,
-            sneak_mana_source_ids=plan.mana_source_ids,
-        )
-
-        battlefield = self.players[attacker.controller].battlefield
-        hand = self.players[card.owner].hand
-        if not self._identity_contains(battlefield, attacker) or not self._identity_contains(
-            hand, card
-        ):
-            raise ValueError("Sneak source zones changed before commitment")
-        attacker_index = next(i for i, value in enumerate(battlefield) if value is attacker)
-        card_index = next(i for i, value in enumerate(hand) if value is card)
-        for source in sources:
-            source.tapped = True
-        battlefield.pop(attacker_index)
-        hand.pop(card_index)
-        self.players[attacker.owner].hand.append(returned)
-        self.stack.append(spell)
-        attacker.zone = "former"
-        card.zone = "former"
-        self._register(returned)
-        self._register(spell)
-        self._combat_attackers = tuple(
-            object_id for object_id in self._combat_attackers if object_id != attacker.object_id
-        )
-        self._combat_blocks = tuple(
-            pair for pair in self._combat_blocks if pair[0] != attacker.object_id
-        )
-        self.refresh_static_pt_modifiers()
-
-        self.log(
-            "zone_changed",
-            card=attacker.card.name,
-            owner=self.players[attacker.owner].name,
-            source_object_id=attacker.object_id,
-            destination_object_id=returned.object_id,
-            source_zone="battlefield",
-            destination_zone="hand",
-            reason="sneak_return_cost",
-        )
-        self.log(
-            "zone_changed",
-            card=card.card.name,
-            owner=self.players[card.owner].name,
-            source_object_id=card.object_id,
-            destination_object_id=spell.object_id,
-            source_zone="hand",
-            destination_zone="stack",
-            reason="sneak_spell_cast",
-        )
-        self.log(
-            "sneak_cost_paid",
-            player=self.players[plan.player_index].name,
-            card=card.card.name,
-            mana_source_ids=list(plan.mana_source_ids),
-            returned_attacker_id=attacker.object_id,
-            returned_hand_id=returned.object_id,
-        )
-        self.log(
-            "sneak_announced",
-            player=self.players[plan.player_index].name,
-            card=spell.name,
-            hand_object_id=card.object_id,
-            stack_object_id=spell.object_id,
-            oracle_fragment=plan.oracle_fragment,
-        )
-        self.check_state_based_actions()
-        self._begin_priority_window()
-        assert self.priority_state is not None
-        self.sneak_evidence.append(
-            SneakEvidence(
-                card.card.name,
-                card.object_id,
-                plan.player_index,
-                self.turn,
-                self.step.value,
-                plan.oracle_fragment,
-                plan.requirement,
-                plan.mana_source_ids,
-                attacker.object_id,
-                returned.object_id,
-                plan.defending_player,
-                spell.object_id,
-                self.priority_state.epoch,
-            )
-        )
-        return spell
-
-    def cast(
-        self,
-        player_index: int,
-        card: CardObject,
-        target: Permanent | None = None,
-        *,
-        cast_from_graveyard: bool = False,
-    ) -> bool:
-        """Compatibility action: announce a represented spell, then resolve it immediately.
-
-        Immediate resolution is an explicit temporary boundary until a priority controller owns
-        pass sequencing. Every represented spell still traverses the authoritative stack lifecycle.
-        """
-        spell = self.announce_spell(
-            player_index, card, target, cast_from_graveyard=cast_from_graveyard
-        )
-        if spell is None:
-            return False
-        self.resolve_top_of_stack()
-        return True
-
-    def announce_spell(
+   YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€Í½ÕÉ•Ìè±¥ÍÑmA•Éµ…¹•¹Ñt€ômt(€€€€€€€™½È½‰©•Ñ}¥¥¸Á±…¸¹Í½ÕÉ•}¥‘Ìè(€€€€€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡½‰©•Ñ}¥¤(€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù” (€€€€€€€€€€€€€€€Í½ÕÉ”°€‰‰…ÑÑ±•™¥•±ˆ(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰Á…åµ•¹ĞÍ½ÕÉ”¥Ì¹½Ğ…ÕÑ¡½É¥Ñ…Ñ¥Ù”ˆ¤(€€€€€€€€€€€Í½ÕÉ•Ì¹…ÁÁ•¹¡Í½ÕÉ”¤(€€€€€€€ÁÉ•Ù¥½ÕÍ}Ñ…ÁÁ•€ôÑÕÁ±”¡Í½ÕÉ”¹Ñ…ÁÁ•™½ÈÍ½ÕÉ”¥¸Í½ÕÉ•Ì¤(€€€€€€€ÑÉäè(€€€€€€€€€€€™½ÈÍ½ÕÉ”¥¸Í½ÕÉ•Ìè(€€€€€€€€€€€€€€€Í½ÕÉ”¹Ñ…ÁÁ•€ôQÉÕ”(€€€€€€€€€€€ÍÁ•±°€ôÍ•±˜¹µ½Ù•}½‰©•Ğ (€€€€€€€€€€€€€€€…É°(€€€€€€€€€€€€€€€€‰ÍÑ…¬ˆ°(€€€€€€€€€€€€€€€½¹ÑÉ½±±•ÈõÁ±…¸¹Á±…å•É}¥¹‘•à°(€€€€€€€€€€€€€€€…ÍÑ}­¥¹õ…ÍÑ}­¥¹°(€€€€€€€€€€€€€€€Ñ…É•Ñ}¥õÑ…É•Ñ}¥°(€€€€€€€€€€€€€€€…ÍÑ}™É½µ}É…Ù•å…Éõ…ÍÑ}™É½µ}É…Ù•å…É°(€€€€€€€€€€€€€€€™¥¹…±¥Ñå}½¹}•¹ÑÉäõ™¥¹…±¥Ñå}½¹}•¹ÑÉä°(€€€€€€€€€€€€€€€…ÍÑ}™É½µ}É…Á¡…•°õ…ÍÑ}™É½µ}É…Á¡…•°°(€€€€€€€€€€€€€€€É•…Í½¸ô‰ÍÁ•±±}…ÍÑ}™É½µ}É…Ù•å…Éˆ¥˜…ÍÑ}™É½µ}É…Ù•å…É•±Í”€‰ÍÁ•±±}…ÍĞˆ°(€€€€€€€€€€€€¤(€€€€€€€•á•ÁĞá•ÁÑ¥½¸è(€€€€€€€€€€€™½ÈÍ½ÕÉ”°Ñ…ÁÁ•¥¸é¥À¡Í½ÕÉ•Ì°ÁÉ•Ù¥½ÕÍ}Ñ…ÁÁ•°ÍÑÉ¥ĞõQÉÕ”¤è(€€€€€€€€€€€€€€€Í½ÕÉ”¹Ñ…ÁÁ•€ôÑ…ÁÁ•(€€€€€€€€€€€É…¥Í”(€€€€€€€…ÍÍ•ÉĞ¥Í¥¹ÍÑ…¹”¡ÍÁ•±°°MÑ…­=‰©•Ğ¤(€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€‰½ÍÑ}Á…¥ˆ°(€€€€€€€€€€€Á±…å•ÈõÍ•±˜¹Á±…å•ÉÍmÁ±…¸¹Á±…å•É}¥¹‘•át¹¹…µ”°(€€€€€€€€€€€…Éõ…É¹¹…µ”°(€€€€€€€€€€€•¹•É¥ŒõÁ±…¸¹É•ÅÕ¥É•µ•¹Ğ¹•¹•É¥Œ°(€€€€€€€€€€€½±½É•õ±¥ÍĞ¡Á±…¸¹É•ÅÕ¥É•µ•¹Ğ¹½±½É•¤°(€€€€€€€€€€€Í½ÕÉ•}¥‘Ìõ±¥ÍĞ¡Á±…¸¹Í½ÕÉ•}¥‘Ì¤°(€€€€€€€€¤(€€€€€€€É•ÑÕÉ¸ÍÁ•±°((€€€‘•˜}½µµ¥Ñ}Í¹•…­}…¹¹½Õ¹•µ•¹Ğ (€€€€€€€Í•±˜°…Éè…É‘=‰©•Ğ°…ÑÑ…­•ÈèA•Éµ…¹•¹Ğ°Á±…¸èM¹•…­A…åµ•¹ÑA±…¸(€€€€¤€´øMÑ…­=‰©•Ğè(€€€€€€€€ˆˆ‰Ñ½µ¥…±±äÁ…ä™¥á•M¹•…¬µ…¹„Á±ÕÌÑ¡”…ÕÑ¡½É¥Ñ…Ñ¥Ù”É•ÑÕÉ¸½ÍĞ¸ˆˆˆ(€€€€€€€¥˜Á±…¸€„ôÍ•±˜¹Í¹•…­}Á…åµ•¹Ñ}Á±…¸¡Á±…¸¹Á±…å•É}¥¹‘•à°…É°…ÑÑ…­•È¤ë}5¶‰Ëkºwµçf÷væW"À¢GF6¶W"æ÷væW"À¢&†æB"À¢—5÷Fö¶VãÖGF6¶W"æ—5÷Fö¶VâÀ¢¢7VÆÂÒ7F6´ö&¦V7B€¢6VÆbåöÆÆö6FUöö&¦V7Eö–B‚’À¢6&Bæ6&BÀ¢6&Bæ÷væW"À¢ÆâçÆ–W%ö–æFW‚À¢6VÆbæ–çFW'&WFW"æ67E÷&öw&Ò†6&Bæ6&B’æ¶–æBÀ¢6æVµ÷&WGW&æVEöGF6¶W%ö–CÖGF6¶W"æö&¦V7Eö–BÀ¢6æVµ÷&WGW&æVEö†æEö–C×&WGW&æVBæö&¦V7Eö–BÀ¢6æVµöFVfVæF–æu÷Æ–W#×ÆâæFVfVæF–æu÷Æ–W"À¢6æVµö÷&6ÆUög&vÖVçC×Æâæ÷&6ÆUög&vÖVçBÀ¢6æVµöÖæ÷6÷W&6Uö–G3×ÆâæÖæ÷6÷W&6Uö–G2À¢ ¢&GFÆVf–VÆBÒ6VÆbçÆ–W'5¶GF6¶W"æ6öçG&öÆÆW%Òæ&GFÆVf–VÆ@¢†æBÒ6VÆbçÆ–W'5¶6&Bæ÷væW%Òæ†æ@¢–bæ÷B6VÆbåö–FVçF—G•ö6öçF–ç2†&GFÆVf–VÆBÂGF6¶W"’÷"æ÷B6VÆbåö–FVçF—G•ö6öçF–ç2€¢†æBÂ6&@¢“ ¢&—6RfÇVTW'&÷"‚%6æV²6÷W&6R¦öæW26†ævVB&Vf÷&R6öÖÖ—FÖVçB"¢GF6¶W%ö–æFW‚ÒæW‡B†’f÷"’ÂfÇVR–âVçVÖW&FR†&GFÆVf–VÆB’–bfÇVR—2GF6¶W"¢6&Eö–æFW‚ÒæW‡B†’f÷"’ÂfÇVR–âVçVÖW&FR††æB’–bfÇVR—26&B¢f÷"6÷W&6R–â6÷W&6W3 ¢6÷W&6RçFVBÒG'VP¢&GFÆVf–VÆBç÷†GF6¶W%ö–æFW‚¢†æBç÷†6&Eö–æFW‚¢6VÆbçÆ–W'5¶GF6¶W"æ÷væW%Òæ†æBæVæB‡&WGW&æVB¢6VÆbç7F6²æVæB‡7VÆÂ¢GF6¶W"ç¦öæRÒ&f÷&ÖW" ¢6&Bç¦öæRÒ&f÷&ÖW" ¢6VÆbå÷&Vv—7FW"‡&WGW&æVB¢6VÆbå÷&Vv—7FW"‡7VÆÂ¢6VÆbåö6öÖ&EöGF6¶W'2ÒGWÆR€¢ö&¦V7Eö–Bf÷"ö&¦V7Eö–B–â6VÆbåö6öÖ&EöGF6¶W'2–bö&¦V7Eö–BÒGF6¶W"æö&¦V7Eö–@¢¢6VÆbåö6öÖ&Eö&Æö6·2ÒGWÆR€¢—"f÷"—"–â6VÆbåö6öÖ&Eö&Æö6·2–b—%³ÒÒGF6¶W"æö&¦V7Eö–@¢¢6VÆbç&Vg&W6…÷7FF–5÷EöÖöF–f–W'2‚ ¢6VÆbæÆör€¢'¦öåš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYWØÚ[™ÙY‹ˆØ\™X]XÚÙ\‹˜Ø\™›˜[YKˆİÛ™\\Ù[‹œ^Y\œÖØ]XÚÙ\‹›İÛ™\—K›˜[YKˆÛİ\˜ÙWÛØš™XİÚYX]XÚÙ\‹›Øš™XİÚYˆ\İ[˜][Û—ÛØš™XİÚY\™]\›™Y›Øš™XİÚYˆÛİ\˜ÙWŞ›Û™OH˜˜]YšY[‹ˆ\İ[˜][Û—Ş›Û™OHš[™‹ˆ™X\ÛÛHœÛ™XZ×Ü™]\›—ØÛÜİ‹ˆ
+BˆÙ[‹›ÙÊˆ›Û™WØÚ[™ÙY‹ˆØ\™XØ\™˜Ø\™›˜[YKˆİÛ™\\Ù[‹œ^Y\œÖØØ\™›İÛ™\—K›˜[YKˆÛİ\˜ÙWÛØš™XİÚYXØ\™›Øš™XİÚYˆ\İ[˜][Û—ÛØš™XİÚY\Ü[›Øš™XİÚYˆÛİ\˜ÙWŞ›Û™OHš[™‹ˆ\İ[˜][Û—Ş›Û™OHœİXÚÈ‹ˆ™X\ÛÛHœÛ™XZ×ÜÜ[ØØ\İ‹ˆ
+BˆÙ[‹›ÙÊˆœÛ™XZ×ØÛÜİÜZY‹ˆ^Y\\Ù[‹œ^Y\œÖÜ[‹œ^Y\—Ú[™^K›˜[YKˆØ\™XØ\™˜Ø\™›˜[YKˆX[˜WÜÛİ\˜ÙWÚYÏ[\İ
+[‹›X[˜WÜÛİ\˜ÙWÚYÊKˆ™]\›™YØ]XÚÙ\—ÚYX]XÚÙ\‹›Øš™XİÚYˆ™]\›™YÚ[™ÚY\™]\›™Y›Øš™XİÚYˆ
+BˆÙ[‹›ÙÊˆœÛ™XZ×Ø[››İ[˜ÙY‹ˆ^Y\\Ù[‹œ^Y\œÖÜ[‹œ^Y\—Ú[™^K›˜[YKˆØ\™\Ü[›˜[YKˆ[™ÛØš™XİÚYXØ\™›Øš™XİÚYˆİXÚ×ÛØš™XİÚY\Ü[›Øš™XİÚYˆÜ˜XÛWÙœ˜YÛY[\[‹›Ü˜XÛWÙœ˜YÛY[ˆ
+BˆÙ[‹˜ÚXÚ×Üİ]WØ˜\ÙYØXİ[ÛœÊ
+BˆÙ[‹—Ø™YÚ[—Üš[Üš]WİÚ[™İÊ
+Bˆ\ÜÙ\Ù[‹œš[Üš]WÜİ]H\È›İ›Û™BˆÙ[‹œÛ™XZ×Ù]šY[˜ÙK˜\[™
+ˆÛ™XZÑ]šY[˜ÙJˆØ\™˜Ø\™›˜[YKˆØ\™›Øš™XİÚYˆ[‹œ^Y\—Ú[™^ˆÙ[‹\›‹ˆÙ[‹œİ\˜[YKˆ[‹›Ü˜XÛWÙœ˜YÛY[ˆ[‹œ™\]Z\™[Y[ˆ[‹›X[˜WÜÛİ\˜ÙWÚYËˆ]XÚÙ\‹›Øš™XİÚYˆ™]\›™Y›Øš™XİÚYˆ7Ó[h‘éì¶»§q«^tell(
         self,
         player_index: int,
         card: CardObject,
@@ -7008,174 +2716,19 @@ class Game(
             return None
         if cast_from_graveyard:
             permission = next(
-                (
-                    self._graveyard_cast_permission(source)
-                    for source in player.battlefield
-                    if self._graveyard_cast_permission(source) is not None
-                ),
-                None,
-            )
-            if (
-                permission is None
-                or not card.card.is_creature
-                or not self._graveyard_card_qualifies(card.card, permission[0])
-            ):
-                return None
-        program = self.interpreter.cast_program(card.card)
-        target_id: str | None = None
-        if program.kind is CastKind.AURA:
-            if not self.legal_aura_target(card.card, target, player_index):
-                return None
-            target_id = target.object_id
-        elif program.kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
-            if (
-                target is None
-                or not self.is_authoritative(target, "battlefield")
-                or target.controller == player_index
-            ):
-                self.log(
-                    "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
-                )
-                return None
-            target_id = target.object_id
-        elif program.kind is CastKind.OOZE_SPILL:
-            if (
-                target is None
-                or not isinstance(target, StackObject)
-                or not self._is_legal_ooze_target(target, player_index)
-            ):
-                return None
-            target_id = target.object_id
-        elif program.kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
-            if (
-                target is None
-                or not self.is_authoritative(target, "battlefield")
-                or not self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
-            ):
-                self.log(
-                    "dead_interaction", player=player.name, card=card.name, reason="no_legal_target"
-                )
-                return None
-            target_id = target.object_id
-        elif program.kind is CastKind.UNSUPPORTED:
-            fragments = [line.strip() for line in card.oracle_text.splitlines() if line.strip()]
-            for fragment in fragments or [card.type_line]:
-                self.unsupported(
-                    card.card,
-                    "spell_or_permanent_semantics_not_implemented",
-                    player_index=player_index,
-                    oracle_fragment=fragment,
-                )
-            return None
-
-        requirement = self.mana_requirement(card)
-        if requirement is None:
-            self.unsupported(
-                card.card,
-                "mana_cost_not_implemented",
-                player_index=player_index,
-                oracle_fragment=card.mana_cost or "zero mana cost",
-            )
-            return None
-        plan = self.payment_plan(
-            player_index, card, allow_graveyard=cast_from_graveyard, allow_exile=cast_from_exile
-        )
-        if plan is None:
-            return None
-        spell = self._commit_announcement_payment(
-            card,
-            plan,
-            cast_kind=program.kind,
-            target_id=target_id,
-            cast_from_graveyard=cast_from_graveyard,
-            finality_on_entry=cast_from_graveyard,
-            cast_from_raphael=cast_from_exile,
-        )
-        self.log(
-            "spell_cast",
-            player=player.name,
-            card=spell.name,
-            stack_object_id=spell.object_id,
-            target_id=target_id,
-        )
-        return spell
-
-    def resolve_top_of_stack(self) -> CardObject | Permanent | None:
-        """Resolve the authoritative top spell or triggered ability."""
-        if not self.stack:
-            raise ValueError("cannot resolve an empty stack")
-        spell = self.stack[-1]
-        stack_object_id = spell.object_id
-        if not self.is_authoritative(spell, "stack"):
-            raise ValueError("top stack object is not authoritative")
-        if isinstance(spell, TriggeredAbilityObject):
-            if spell.effect in {
-                TriggerEffect.LTB_MUTAGEN,
-                TriggerEffect.PARAMECIA_EXILE_CHOICE,
-                TriggerEffect.PARAMECIA_REFLEXIVE_RETURN,
-                TriggerEffect.RAPHAEL_ALLIANCE_EXILE,
-                TriggerEffect.RAPHAEL_ATTACK_PLAY,
-                TriggerEffect.ETB_VIGILANTE,
-                TriggerEffect.VIGILANTE_DISCARD,
-                TriggerEffect.ETB_KRANG_REFILL,
-                TriggerEffect.ETB_MILL_THREE,
-                TriggerEffect.ETB_JURY_RIG,
-                TriggerEffect.ETB_FOOD_SEARCH,
-                TriggerEffect.ETB_DRAW_DISCARD,
-                TriggerEffect.ETB_MILL_DRAW_DISCARD,
-                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
-                TriggerEffect.DISCARD_DRAW,
-                TriggerEffect.DIES_DRAW,
-                TriggerEffect.SNEAK_ETB_CONDITION,
-                TriggerEffect.ETB_DRAIN_GAIN_SCRY,
-                TriggerEffect.ETB_SELF_LIFE_GAIN,
-                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
-                TriggerEffect.ETB_ARTIFACT_DRAW,
-                TriggerEffect.ETB_TAP_STUN,
-            } and (
-                not self._priority_resolution_in_progress
-                and (self.priority_state is None or not self.priority_state.resolution_pending)
-            ):
-                raise ValueError(
-                    "represented triggered ability cannot resolve before all players pass"
-                )
-            self._resolve_triggered_ability(spell)
-            return None
-        if isinstance(spell, ActivatedAbilityObject):
-            if not self._priority_resolution_in_progress and (
-                self.priority_state is None or not self.priority_state.resolution_pending
-            ):
-                raise ValueError("activated ability cannot resolve before all players pass")
-            self._resolve_activated_ability(spell)
-            return None
-        player = self.players[spell.controller]
-        target = self._objects.get(spell.target_id or "")
-        sneak_cast = spell.sneak_returned_attacker_id is not None
-        if sneak_cast and (
-            not self._priority_resolution_in_progress
-            and (self.priority_state is None or not self.priority_state.resolution_pending)
-        ):
-            raise ValueError("Sneak spell cannot resolve before all players pass")
-
-        if spell.cast_kind is CastKind.AURA and not self.legal_aura_target(
-            spell.card, target, spell.controller
-        ):
-            resolved = self.move_object(spell, "graveyard", reason="aura_all_targets_illegal")
-            self.log(
-                "aura_failed",
-                card=spell.name,
-                source_id=stack_object_id,
-                target_id=spell.target_id,
-                reason="all_targets_illegal",
-            )
-            return resolved
-        if spell.cast_kind in {CastKind.CREATURE, CastKind.PERMANENT, CastKind.AURA}:
-            permanent = self.move_object(
-                spell,
-                "battlefield",
-                controller=spell.controller,
-                summoning_sick=True,
-                reason=(
+                YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô (€€€€€€€€€€€€€€€€€€€Í•±˜¹}É…Ù•å…É‘}…ÍÑ}Á•Éµ¥ÍÍ¥½¸¡Í½ÕÉ”¤(€€€€€€€€€€€€€€€€€€€™½ÈÍ½ÕÉ”¥¸Á±…å•È¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€€€€€€€€€¥˜Í•±˜¹}É…Ù•å…É‘}…ÍÑ}Á•Éµ¥ÍÍ¥½¸¡Í½ÕÉ”¤¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€€€€9½¹”°(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€Á•Éµ¥ÍÍ¥½¸¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½Ğ…É¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹}É…Ù•å…É‘}…É‘}ÅÕ…±¥™¥•Ì¡…É¹…É°Á•Éµ¥ÍÍ¥½¹lÁt¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€ÁÉ½É…´€ôÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹…ÍÑ}ÁÉ½É…´¡…É¹…É¤(€€€€€€€Ñ…É•Ñ}¥èÍÑÈğ9½¹”€ô9½¹”(€€€€€€€¥˜ÁÉ½É…´¹­¥¹¥Ì…ÍÑ-¥¹¹UIè(€€€€€€€€€€€¥˜¹½ĞÍ•±˜¹±•…±}…ÕÉ…}Ñ…É•Ğ¡…É¹…É°Ñ…É•Ğ°Á±…å•É}¥¹‘•à¤è(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€Ñ…É•Ñ}¥€ôÑ…É•Ğ¹½‰©•Ñ}¥(€€€€€€€•±¥˜ÁÉ½É…´¹­¥¹¥¸í…ÍÑ-¥¹¹5|Í}=AA=M%9}IQUI°…ÍÑ-¥¹¹1}5ôè(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€Ñ…É•Ğ¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Ñ…É•Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€½ÈÑ…É•Ğ¹½¹ÑÉ½±±•È€ôôÁ±…å•É}¥¹‘•à(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€€€€€‰‘•…‘}¥¹Ñ•É…Ñ¥½¸ˆ°Á±…å•ÈõÁ±…å•È¹¹…µ”°…Éõ…É¹¹…µ”°É•…Í½¸ô‰¹½}±•…±}Ñ…É•Ğˆ(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€Ñ…É•Ñ}¥€ôÑ…É•Ğ¹½‰©•Ñ}¥(€€€€€€€•±¥˜ÁÉ½É…´¹­¥¹¥Ì…ÍÑ-¥¹¹==i}MA%10è(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€Ñ…É•Ğ¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Ñ…É•Ğ°MÑ…­=‰©•Ğ¤(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹}¥Í}±•…±}½½é•}Ñ…É•Ğ¡Ñ…É•Ğ°Á±…å•É}¥¹‘•à¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É•ÑÕÉ¸9½¹”(€€€€€€€€€€€Ñ…É•Ñ}¥€ôÑ…É•Ğ¹½‰©•Ñ}¥(€€€€€€€•±¥˜ÁÉ½É…´¹­¥¹¥Ì…ÍÑ-¥¹¹MQI=e}IQ%Q}9!9Q59Q}=I}A=]I|Ñ}IQUIè(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€Ñ…É•Ğ¥Ì9½¹”(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Ñ…É•Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹}¥Í}‘•ÍÑÉ½å}…ÉÑ¥™…Ñ}•»}5¶‰ËkºwµçB&Öæö6÷7Eöæ÷Eö–×ÆVÖVçFVB"À¢Æ–W%ö–æFWƒ×Æ–W%ö–æFW‚À¢÷&6ÆUög&vÖVçCÖ6&BæÖæö6÷7B÷"'¦W&òÖæ6÷7B"À¢¢&WGW&âæöæP¢ÆâÒ6VÆbç–ÖVçE÷Æâ€¢Æ–W%ö–æFW‚Â6&BÂÆÆ÷uöw&fW–&CÖ67Eög&öÕöw&fW–&BÂÆÆ÷uöW†–ÆSÖ67Eög&öÕöW†–ÆP¢¢–bÆâ—2æöæS ¢&WGW&âæöæP¢7VÆÂÒ6VÆbåö6öÖÖ—Eöææ÷Væ6VÖVçE÷–ÖVçB€¢6&BÀ¢ÆâÀ¢67Eö¶–æC×&öw&Òæ¶–æBÀ¢F&vWEö–C×F&vWEö–BÀ¢67Eög&öÕöw&fW–&CÖ67Eög&öÕöw&fW–&BÀ¢f–æÆ—G•ööåöVçG'“Ö67Eög&öÕöw&fW–&BÀ¢67Eög&öÕ÷&†VÃÖ67Eög&öÕöW†–ÆRÀ¢¢6VÆbæÆör€¢'7VÆÅö67B"À¢Æ–W#×Æ–W"ææÖRÀ¢6&C×7VÆÂææÖRÀ¢7F6µöö&¦V7Eö–C×7VÆÂæö&¦V7Eö–BÀ¢F&vWEö–C×F&vWEö–BÀ¢¢&WGW&â7VÆÀ ¢FVb&W6öÇfU÷F÷ööe÷7F6²‡6VÆb’Óâ6&Dö&¦V7BÂW&ÖæVçBÂæöæS ¢""%&W6öÇfRF†RWF†÷&—FF—fRF÷7VÆÂ÷"G&–vvW&VB&–Æ—G’â"" ¢–bæ÷B6VÆbç7F6³ ¢&—6RfÇVTW'&÷"‚&6ææ÷B&W6öÇfRâV×G’7F6²"¢7VÆÂÒ6VÆbç7F6µ²ÓĞ¢7F6µöö&¦V7Eö–BÒ7VÆÂæö&¦V7Eö–@¢–bæ÷B6VÆbæ—5öWF†÷&—FF—fR‡7VÆÂÂ'7F6²"“ ¢&—6RfÇVTW'&÷"‚'F÷7F6²ö&¦V7B—2æ÷BWF†÷&—FF—fR"¢–b—6–ç7Fæ6R‡7VÆÂÂG&–vvW&VD&–Æ—G”ö&¦V7B“ ¢–b7VÆÂæVffV7B–â°¢G&–vvW$VffV7BäÅD%ôÕUDtTâÀ¢G&–vvW$VffV7Bå$ÔT4”ôU„”ÄUô4„ô”4RÀ¢G&–vvW$VffV7Bå$ÔT4”õ$TdÄU„•dUõ$UEU$âÀ¢G&–vvW$VffV7Bå$„TÅôÄÄ”ä4UôU„”ÄRÀ¢G&–vvW$VffV7Bå$„TÅôED4µõÄ’À¢G&–vvW$VffV7BäUD%õd”t”ÄåDRÀ¢G&–vvW$VffV7Båd”t”ÄåDUôD•44$BÀ¢G&–vvW$VffUš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXİ‘U—ÒÔS‘×Ô‘Q’SˆšYÙÙ\‘Y™™Xİ‘U—ÓRSÕ‘QKˆšYÙÙ\‘Y™™Xİ‘U—Ò•T–WÔ’QËˆšYÙÙ\‘Y™™Xİ‘U—Ñ“ÓÑÔÑPTÒˆšYÙÙ\‘Y™™Xİ‘U—ÑU×ÑTĞĞT‘ˆšYÙÙ\‘Y™™Xİ‘U—ÓRSÑU×ÑTĞĞT‘ˆšYÙÙ\‘Y™™XİÓTÔ×ÓU‘SÕÓ×Ô‘PÓÕ‘T–KˆšYÙÙ\‘Y™™Xİ‘TĞĞT‘ÑUËˆšYÙÙ\‘Y™™Xİ‘QT×ÑUËˆšYÙÙ\‘Y™™Xİ”Ó‘PR×ÑU—ĞÓÓ‘USÓ‹ˆšYÙÙ\‘Y™™Xİ‘U—ÑRS—ÑĞRS—ÔĞÔ–KˆšYÙÙ\‘Y™™Xİ‘U—ÔÑS—ÓQ‘WÑĞRS‹ˆšYÙÙ\‘Y™™Xİ”T“PS‘S•ÓQ•ÔÑS—ĞÓÕS•T‹ˆšYÙÙ\‘Y™™Xİ‘U—ĞT•QPÕÑUËˆšYÙÙ\‘Y™™Xİ‘U—ÕTÔÕS‹ˆH[™
+ˆ›İÙ[‹—Üš[Üš]WÜ™\ÛÛ][Û—Ú[—Ü›ÙÜ™\ÜÂˆ[™
+Ù[‹œš[Üš]WÜİ]H\È›Û™HÜˆ›İÙ[‹œš[Üš]WÜİ]Kœ™\ÛÛ][Û—Ü[™[™ÊBˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠˆœ™\™\Ù[YšYÙÙ\™YXš[]HØ[››İ™\ÛÛ™H™Y›Ü™H[^Y\œÈ\ÜÈ‚ˆ
+BˆÙ[‹—Ü™\ÛÛ™WİšYÙÙ\™YØXš[]JÜ[
+Bˆ™]\›ˆ›Û™BˆYˆ\Ú[œİ[˜ÙJÜ[Xİ]˜]YXš[]SØš™Xİ
+N‚ˆYˆ›İÙ[‹—Üš[Üš]WÜ™\ÛÛ][Û—Ú[—Ü›ÙÜ™\ÜÈ[™
+ˆÙ[‹œš[Üš]WÜİ]H\È›Û™HÜˆ›İÙ[‹œš[Üš]WÜİ]Kœ™\ÛÛ][Û—Ü[™[™Âˆ
+N‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠ˜Xİ]˜]YXš[]HØ[››İ™\ÛÛ™H™Y›Ü™H[^Y\œÈ\ÜÈŠBˆÙ[‹—Ü™\ÛÛ™WØXİ]˜]YØXš[]JÜ[
+Bˆ™]\›ˆ›Û™Bˆ^Y\ˆHÙ[‹œ^Y\œÖÜÜ[˜ÛÛ›Û\—Bˆ\™Ù]HÙ[‹—ÛØš™XİË™Ù]
+Ü[\™Ù]ÚYÜˆˆŠBˆÛ™XZ×ØØ\İHÜ[œÛ™XZ×Ü™]\›™YØ]XÚÙ\—ÚY\È›İ›Û™BˆYˆÛ™XZ×ØØ\İ[™
+ˆ›İÙ[‹—Üš[Üš]WÜ™\ÛÛ][Û—Ú[—Ü›ÙÜ™\ÜÂˆ[™
+Ù[‹œš[Üš]WÜİ]H\È›Û™H7Ó[h‘éì¶»§q«^t            reason=(
                     "sneak_creature_resolved"
                     if sneak_cast
                     else (
@@ -7216,160 +2769,17 @@ class Game(
                 self.log(
                     "sneak_creature_resolved",
                     player=player.name,
-                    card=spell.name,
-                    stack_object_id=stack_object_id,
-                    permanent_object_id=permanent.object_id,
-                    defending_player=spell.sneak_defending_player,
-                    tapped=True,
-                    attacking=True,
-                )
-                for index, evidence in enumerate(self.sneak_evidence):
-                    if evidence.stack_object_id == stack_object_id:
-                        self.sneak_evidence[index] = SneakEvidence(
-                            evidence.card_name,
-                            evidence.hand_object_id,
-                            evidence.controller,
-                            evidence.turn,
-                            evidence.step,
-                            evidence.oracle_fragment,
-                            evidence.mana_requirement,
-                            evidence.mana_source_ids,
-                            evidence.returned_attacker_id,
-                            evidence.returned_hand_id,
-                            evidence.defending_player,
-                            evidence.stack_object_id,
-                            evidence.priority_epoch,
-                            permanent.object_id,
-                            True,
-                            True,
-                        )
-                        break
-            else:
-                self.log(
-                    "creature_resolved"
-                    if spell.cast_kind is CastKind.CREATURE
-                    else "permanent_resolved",
-                    player=player.name,
-                    card=spell.name,
-                )
-            self.refresh_static_pt_modifiers()
-            self._process_creatures_entered_triggers(
-                (permanent,),
-                source_id=stack_object_id if sneak_cast else None,
-                defer_triggers=sneak_cast,
-                after_event=lambda source, _event: self.report_unsupported_abilities(
-                    spell.controller, spell.card, source=source
-                ),
-            )
-            if not sneak_cast:
-                self.check_state_based_actions()
-            return permanent
-
-        legal_target = spell.cast_kind is CastKind.DRAW_CARDS or (
-            isinstance(target, Permanent) and self.is_authoritative(target, "battlefield")
-        )
-        if spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
-            legal_target = legal_target and target.controller != spell.controller
-        elif spell.cast_kind is CastKind.OOZE_SPILL:
-            legal_target = self._is_legal_ooze_target(target, spell.controller)
-        elif spell.cast_kind is CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE:
-            legal_target = (
-                legal_target
-                and isinstance(target, Permanent)
-                and self._is_destroy_artifact_enchantment_or_power_4_creature_target(target)
-            )
-        if not legal_target:
-            resolved_card = self.move_object(spell, "graveyard", reason="spell_resolved")
-            assert isinstance(resolved_card, CardObject)
-            self.log(
-                "spell_resolved_no_effect",
-                event_id=f"spell:{stack_object_id}:resolved",
-                player=player.name,
-                card=spell.name,
-                source_id=resolved_card.object_id,
-                oracle_fragment=spell.card.oracle_text,
-                target_source_id=spell.target_id,
-                reason="all_targets_illegal",
-            )
-            return resolved_card
-        if spell.cast_kind not in {CastKind.OOZE_SPILL, CastKind.DRAW_CARDS}:
-            assert isinstance(target, Permanent)
-        filter_plan = None
-        filter_semantics = None
-        if spell.cast_kind is CastKind.OOZE_SPILL:
-            assert isinstance(target, StackObject)
-            countered = self.move_object(target, "graveyard", reason="ooze_spill_countered")
-            self.log(
-                "spell_countered",
-                stack_object_id=spell.object_id,
-                target_spell_id=target.object_id,
-                target_object_id=target.target_id,
-                target_card=target.card.name,
-                controller=spell.controller,
-                oracle_fragment=spell.card.oracle_text,
-                target_relationship="counter_target_spell",
-                countered_object_id=countered.object_id,
-            )
-            mutagen = self.interpreter.PREDEFINED_TOKENS["mutagen"]
-            program = TokenCreationProgram(mutagen, 1)
-            created = self.create_tokens(
-                spell.controller,
-                program,
-                source_card=spell.card.name,
-                oracle_fragment=spell.card.oracle_text,
-                source_id=spell.object_id,
-            )
-            self.log(
-                "ooze_spill_resolved",
-                stack_object_id=spell.object_id,
-                target_spell_id=target.object_id,
-                countered_object_id=countered.object_id,
-                mutagen_token_id=created[0].object_id,
-            )
-        elif spell.cast_kind is CastKind.DRAW_CARDS:
-            draw_semantics = next(
-                (
-                    self.interpreter.draw_cards_semantic_coverage(spell.card, fragment)
-                    for fragment in self.interpreter.fragments(spell.card)
-                    if self.interpreter.draw_cards_semantic_coverage(spell.card, fragment)
-                    is not None
-                ),
-                None,
-            )
-            if draw_semantics is None or not draw_semantics.coverage.fully_supported:
-                raise AssertionError("stacked draw spell no longer has executable semantics")
-            draw_succeeded = self.draw(player, draw_semantics.program.quantity)
-            self.log(
-                "draw_spell_resolved",
-                stack_object_id=spell.object_id,
-                player=player.name,
-                card=spell.name,
-                quantity=draw_semantics.program.quantity,
-                draw_succeeded=draw_succeeded,
-            )
-        elif spell.cast_kind in {CastKind.DAMAGE_3_OPPOSING_CREATURE, CastKind.DEAL_DAMAGE}:
-            semantics = self.interpreter.damage_semantic_coverage(
-                spell.card, spell.card.oracle_text
-            )
-            if semantics is None or not semantics.coverage.payload_executable:
-                raise AssertionError("stacked damage spell no longer has executable semantics")
-            assert semantics.program.amount is not None
-            filter_semantics = self.interpreter.hand_bottom_draw_semantic_coverage(
-                spell.card, spell.card.oracle_text
-            )
-            filter_executable = (
-                filter_semantics is not None and filter_semantics.coverage.fully_supported
-            )
-            self.deal_damage(
-                DamageTransaction(
-                    spell.controller,
-                    spell,
-                    DamageTargetKind.CREATURE,
-                    semantics.program.amount,
-                    spell.card.oracle_text,
-                    target=target,
-                ),
-                defer_post_damage=filter_executable,
+                    YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ…ÉõÍÁ•±°¹¹…µ”°(€€€€€€€€€€€€€€€€€€€ÍÑ…­}½‰©•Ñ}¥õÍÑ…­}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ñ}½‰©•Ñ}¥õÁ•Éµ…¹•¹Ğ¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€‘•™•¹‘¥¹}Á±…å•ÈõÍÁ•±°¹Í¹•…­}‘•™•¹‘¥¹}Á±…å•È°(€€€€€€€€€€€€€€€€€€€Ñ…ÁÁ•õQÉÕ”°(€€€€€€€€€€€€€€€€€€€…ÑÑ…­¥¹œõQÉÕ”°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€™½È¥¹‘•à°•Ù¥‘•¹”¥¸•¹Õµ•É…Ñ”¡Í•±˜¹Í¹•…­}•Ù¥‘•¹”¤è(€€€€€€€€€€€€€€€€€€€¥˜•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥€ôôÍÑ…­}½‰©•Ñ}¥è(€€€€€€€€€€€€€€€€€€€€€€€Í•±˜¹Í¹•…­}•Ù¥‘•¹•m¥¹‘•át€ôM¹•…­Ù¥‘•¹” (€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹…É‘}¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹¡…¹‘}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹ÑÕÉ¸°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹ÍÑ•À°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹µ…¹…}É•ÅÕ¥É•µ•¹Ğ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹µ…¹…}Í½ÕÉ•}¥‘Ì°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹É•ÑÕÉ¹•‘}…ÑÑ…­•É}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹É•ÑÕÉ¹•‘}¡…¹‘}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹‘•™•¹‘¥¹}Á±…å•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹ÍÑ…­}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”¹ÁÉ¥½É¥Ñå}•Á½ °(€€€€€€€€€€€€€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€QÉÕ”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€QÉÕ”°(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€€€€€€€‰É•…¬(€€€€€€€€€€€•±Í”è(€€€€€€€€€€€€€€€Í•±˜¹±½œ (€€€€€€€€€€€€€€€€€€€€‰É•…ÑÕÉ•}É•Í½±Ù•ˆ(€€€€€€€€€€€€€€€€€€€¥˜ÍÁ•±°¹…ÍÑ}­¥¹¥Ì…ÍÑ-¥¹¹IQUI(€€€€€€€€€€€€€€€€€€€•±Í”€‰Á•Éµ…¹•¹Ñ}É•Í½±Ù•ˆ°(€€€€€€€€€€€€€€€€€€€Á±…å•ÈõÁ±…å•È¹¹…µ”°(€€€€€€€€€€€€€€€€€€€…ÉõÍÁ•±°¹¹…µ”°(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€Í•±˜¹É•™É•Í¡}ÍÑ…Ñ¥}ÁÑ}µ½‘¥™¥•ÉÌ ¤(€€€€€€€€€€€Í•±˜¹}ÁÉ½•ÍÍ}É•…ÑÕÉ•Í}•¹Ñ•É•‘}ÑÉ¥•ÉÌ (€€€€€€€€€€€€€€€€¡Á•Éµ…¹•¹Ğ°¤°(€€€€€€€€€€€€€€€Í½ÕÉ•}¥õÍÑ…­}½‰©•Ñ}¥§}5¶‰ËkºwµçTåEôõ%õõtU%óEô5$TEU$S ¢ÆVvÅ÷F&vWBÒ€¢ÆVvÅ÷F&vW@¢æB—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB¢æB6VÆbåö—5öFW7G&÷•ö'F–f7EöVæ6†çFÖVçEö÷%÷÷vW%óEö7&VGW&U÷F&vWB‡F&vWB¢¢–bæ÷BÆVvÅ÷F&vWC ¢&W6öÇfVEö6&BÒ6VÆbæÖ÷fUöö&¦V7B‡7VÆÂÂ&w&fW–&B"Â&V6öãÒ'7VÆÅ÷&W6öÇfVB"¢76W'B—6–ç7Fæ6R‡&W6öÇfVEö6&BÂ6&Dö&¦V7B¢6VÆbæÆör€¢'7VÆÅ÷&W6öÇfVEöæõöVffV7B"À¢WfVçEö–CÖb'7VÆÃ§·7F6µöö&¦V7Eö–GÓ§&W6öÇfVB"À¢Æ–W#×Æ–W"ææÖRÀ¢6&C×7VÆÂææÖRÀ¢6÷W&6Uö–C×&W6öÇfVEö6&Bæö&¦V7Eö–BÀ¢÷&6ÆUög&vÖVçC×7VÆÂæ6&Bæ÷&6ÆU÷FW‡BÀ¢F&vWE÷6÷W&6Uö–C×7VÆÂçF&vWEö–BÀ¢&V6öãÒ&ÆÅ÷F&vWG5ö–ÆÆVvÂ"À¢¢&WGW&â&W6öÇfVEö6&@¢–b7VÆÂæ67Eö¶–æBæ÷B–â´67D¶–æBäôõ¤Uõ5”ÄÂÂ67D¶–æBäE$uô4$E7Ó ¢76W'B—6–ç7Fæ6R‡F&vWBÂW&ÖæVçB¢f–ÇFW%÷ÆâÒæöæP¢f–ÇFW%÷6VÖçF–72ÒæöæP¢–b7VÆÂæ67Eö¶–æB—267D¶–æBäôõ¤Uõ5”ÄÃ ¢76W'B—6–ç7Fæ6R‡F&vWBÂ7F6´ö&¦V7B¢6÷VçFW&VBÒ6VÆbæÖ÷fUöö&¦V7B‡F&vWBÂ&w&fW–&B"Â&V6öãÒ&ö÷¦U÷7–ÆÅö6÷VçFW&VB"¢6VÆbæÆör€¢'7VÆÅö6÷VçFW&VB"À¢7F6µöö&¦V7Eö–C×7VÆÂæö&¦V7Eö–BÀ¢F&vWE÷7VÆÅö–C×F&vWBæö&¦V7Eö–BÀ¢F&vWEöö&¦V7Eö–C×F&vWBçF&vWEö–BÀ¢F&vWEö6&C×F&vWBæ6&BææÖRÀ¢6öçG&öÆÆW#×7VÆÂæ6öçG&öÆÆW"À¢÷&6ÆUög&vÖVçC×7VÆÂæ6&Bæ÷&6ÆU÷FW‡BÀ¢F&vWE÷&VÆF–öç6†—Ò&6÷VçFW%÷F&vWE÷7VÆÂ"À¢6÷VçFW&VEöö&¦V7Eö–CÖ6÷VçFW&VBæö&¦V7Eö–BÀ¢¢×WFvVâÒ6VÆbæ–çFW'&WFW"å$TDTd”äTEõDô´Tå5²&×WFvVâ%Ğ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›ÙÜ˜[HHÚÙ[Ü™X][Û”›ÙÜ˜[J]]YÙ[‹JBˆÜ™X]YHÙ[‹˜Ü™X]WİÚÙ[œÊˆÜ[˜ÛÛ›Û\‹ˆ›ÙÜ˜[KˆÛİ\˜ÙWØØ\™\Ü[˜Ø\™›˜[YKˆÜ˜XÛWÙœ˜YÛY[\Ü[˜Ø\™›Ü˜XÛWİ^ˆÛİ\˜ÙWÚY\Ü[›Øš™XİÚYˆ
+BˆÙ[‹›ÙÊˆ›ÛŞ™WÜÜ[Ü™\ÛÛ™Y‹ˆİXÚ×ÛØš™XİÚY\Ü[›Øš™XİÚYˆ\™Ù]ÜÜ[ÚY]\™Ù]›Øš™XİÚYˆÛİ[\™YÛØš™XİÚYXÛİ[\™Y›Øš™XİÚYˆ]]YÙ[—İÚÙ[—ÚYXÜ™X]YÌK›Øš™XİÚYˆ
+Bˆ[YˆÜ[˜Ø\İÚÚ[™\ÈØ\İÚ[™‘U×ĞĞT‘Î‚ˆ˜]×ÜÙ[X[XÜÈH™^
+ˆ
+ˆÙ[‹š[\œ™]\‹™˜]×ØØ\™×ÜÙ[X[X×ØÛİ™\˜YÙJÜ[˜Ø\™œ˜YÛY[
+Bˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[ÊÜ[˜Ø\™
+BˆYˆÙ[‹š[\œ™]\‹™˜]×ØØ\™×ÜÙ[X[X×ØÛİ™\˜YÙJÜ[˜Ø\™œ˜YÛY[
+Bˆ\È›İ›Û™Bˆ
+Kˆ›Û™Kˆ
+BˆYˆ˜]×ÜÙ[X[XÜÈ\È›Û™HÜˆ›İ˜]×ÜÙ[X[XÜË˜Ûİ™\˜YÙK™[WÜİ\ÜY‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠœİXÚÙY˜]ÈÜ[›ÈÛ™Ù\ˆ\È^Xİ]X›HÙ[X[XÜÈŠBˆ˜]×ÜİXØÙYYYHÙ[‹™˜]Ê^Y\‹˜]×ÜÙ[X[XÜËœ›ÙÜ˜[Kœ]X[]JBˆÙ[‹›ÙÊˆ™˜]×ÜÜ[Ü™\ÛÛ™Y‹ˆİXÚ×ÛØš™XİÚY\Ü[›Øš™XİÚYˆ^Y\\^Y\‹›˜[YKˆØ\™\Ü[›˜[YKˆ]X[]OY˜]×ÜÙ[X[XÜËœ›ÙÜ˜[Kœ]X[]Kˆ˜]×ÜİXØÙYYYY˜]×ÜİXØÙYYYˆ
+Bˆ[YˆÜ[˜Ø\İÚÚ[™[ˆĞØ\İÚ[™‘SPQÑWÌ×ÓÔÔÒS‘×ĞÔ‘PUT‘KØ\İÚ[™‘PSÑSPQÑ_N‚ˆÙ[X[XÜÈHÙ[‹š[\œ™]\‹™[XYÙWÜÙ[X[X×ØÛİ™\˜YÙJˆÜ[˜Ø\™Ü[˜Ø\™7Ó[h‘éì¶»§q«^ufilter_executable,
             )
             if filter_executable:
                 assert filter_semantics is not None
@@ -7410,163 +2820,31 @@ class Game(
     def _is_destroy_artifact_enchantment_or_power_4_creature_target(
         target: Permanent,
     ) -> bool:
-        """Evaluate the bounded target predicate from current battlefield characteristics."""
-        card_types = set(target.type_line.split(" â€” ", 1)[0].split())
-        return (
-            "Artifact" in card_types
-            or "Enchantment" in card_types
-            or ("Creature" in card_types and target.power >= 4)
-        )
+       YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€ˆˆ‰Ù…±Õ…Ñ”Ñ¡”‰½Õ¹‘•Ñ…É•ĞÁÉ•‘¥…Ñ”™É½´ÕÉÉ•¹Ğ‰…ÑÑ±•™¥•±¡…É…Ñ•É¥ÍÑ¥Ì¸ˆˆˆ(€€€€€€€…É‘}ÑåÁ•Ì€ôÍ•Ğ¡Ñ…É•Ğ¹ÑåÁ•}±¥¹”¹ÍÁ±¥Ğ ˆƒŠP€ˆ°€Ä¥lÁt¹ÍÁ±¥Ğ ¤¤(€€€€€€€É•ÑÕÉ¸€ (€€€€€€€€€€€€‰ÉÑ¥™…Ğˆ¥¸…É‘}ÑåÁ•Ì(€€€€€€€€€€€½È€‰¹¡…¹Ñµ•¹Ğˆ¥¸…É‘}ÑåÁ•Ì(€€€€€€€€€€€½È€ ‰É•…ÑÕÉ”ˆ¥¸…É‘}ÑåÁ•Ì…¹Ñ…É•Ğ¹Á½İ•È€øô€Ğ¤(€€€€€€€€¤((€€€‘•˜±•…±}…ÑÑ…­•ÉÌ¡Í•±˜°Á±…å•É}¥¹‘•àè¥¹Ğ¤€´ø±¥ÍÑmA•Éµ…¹•¹Ñtè(€€€€€€€É•ÑÕÉ¸l(€€€€€€€€€€€À(€€€€€€€€€€€™½ÈÀ¥¸Í•±˜¹Á±…å•ÉÍmÁ±…å•É}¥¹‘•át¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€¥˜À¹…É¹¥Í}É•…ÑÕÉ”(€€€€€€€€€€€…¹¹½ĞÀ¹Ñ…ÁÁ•(€€€€€€€€€€€…¹€ (€€€€€€€€€€€€€€€¹½ĞÀ¹ÍÕµµ½¹¥¹}Í¥¬(€€€€€€€€€€€€€€€½ÈÍ•±˜¹}¡…Í}­•åİ½É¡À°€‰!…ÍÑ”ˆ¤(€€€€€€€€€€€€€€€½ÈÍ•±˜¹¡…Í}Ñ•µÁ½É…Éå}­•åİ½É¡À°Q•µÁ½É…Éå-•åİ½É¹!MQ¤(€€€€€€€€€€€€¤(€€€€€€€€€€€…¹Í•±˜¹…ÑÑ…­¥¹}É•ÍÑÉ¥Ñ¥½¸¡À¤¥Ì9½¹”(€€€€€€€t((€€€‘•˜…ÑÑ…­¥¹}É•ÍÑÉ¥Ñ¥½¸¡Í•±˜°…ÑÑ…­•ÈèA•Éµ…¹•¹Ğ¤€´øÑÕÁ±•mÍÑÈ°ÍÑÉtğ9½¹”è(€€€€€€€€ˆˆ‰I•ÑÕÉ¸Ñ¡”™¥ÉÍĞ=É…±”µ‘•É¥Ù•É•ÍÑÉ¥Ñ¥½¸Ñ¡…Ğµ…­•Ì…¸…ÑÑ…¬¥±±•…°¸ˆˆˆ(€€€€€€€¥˜…ÑÑ…­•È¹…ÕÉ…}…ÑÑ…­}É•ÍÑÉ¥Ñ¥½¹Ìè(€€€€€€€€€€€É•ÑÕÉ¸…ÑÑ…­•È¹…ÕÉ…}…ÑÑ…­}É•ÍÑÉ¥Ñ¥½¹ÍlÁulÅt°€‰…ÕÉ…}…¹Ñ}…ÑÑ…¬ˆ(€€€€€€€™½È™É…µ•¹Ğ¥¸Í•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹™É…µ•¹ÑÌ¡…ÑÑ…­•È¹ÉÕ±•Í}…É¤è(€€€€€€€€€€€¥˜¹½ĞÍ•±˜¹¥¹Ñ•ÉÁÉ•Ñ•È¹9Q}QQ-}U91MM}9=Q!I}IQ%P¹™Õ±±µ…Ñ ¡™É…µ•¹Ğ¤è(€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€¡…Í}½Ñ¡•É}…ÉÑ¥™…Ğ€ô…¹ä (€€€€€€€€€€€€€€€Á•Éµ…¹•¹Ğ¥Ì¹½Ğ…ÑÑ…­•È(€€€€€€€€€€€€€€€…¹Á•Éµ…¹•¹Ğ¹½¹ÑÉ½±±•È€ôô…ÑÑ…­•È¹½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€…¹Í•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡Á•Éµ…¹•¹Ğ°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€…¹€‰ÉÑ¥™…Ğˆ¥¸Á•Éµ…¹•¹Ğ¹…É¹ÑåÁ•}±¥¹”(€€€€€€€€€€€€€€€™½ÈÁ•Éµ…¹•¹Ğ¥¸Í•±˜¹Á±…å•ÉÍm…ÑÑ…­•È¹½¹ÑÉ½±±•Ét¹‰…ÑÑ±•™¥•±(€€€€€€€€€€€€¤(€€€€€€€€€€€¥˜¹½Ğ¡…Í}½Ñ¡•É}…ÉÑ¥™…Ğè(€€€€€€€€€€€€€€€É•ÑÕÉ¸™É…µ•¹Ğ°€‰…ÑÑ…­}É•ÅÕ¥É•Í}…¹½Ñ¡•É}½¹ÑÉ½±±•‘}…ÉÑ¥™…Ğˆ(€€€€€€€É•ÑÕÉ¸9½¹”+}5¶‰ËkºwµçTDU"ægVÆÆÖF6‚†g&vÖVçB¢–bÖF6‚æB&Æö6¶W"ç÷vW"ãÒ–çB†ÖF6‚æw&÷Wƒ’“ ¢&WGW&âg&vÖVçBÂ&&Æö6¶W%÷÷vW%öEö÷%ö&÷fU÷&W7G&–7F–öâ ¢–b€¢6VÆbæ–çFW'&WFW"ä4åEô$Uô$Äô4´TEô%•ôu$TDU%õõtU"ægVÆÆÖF6‚†g&vÖVçB¢æB&Æö6¶W"ç÷vW"âGF6¶W"ç÷vW ¢“ ¢&WGW&âg&vÖVçBÂ&&Æö6¶W%÷÷vW%öw&VFW%÷F†åöGF6¶W" ¢&WGW&âæöæP ¢7FF–6ÖWF†ö@¢FVbö†5ö¶W—v÷&B‡W&ÖæVçC¢W&ÖæVçBÂ¶W—v÷&C¢7G"’Óâ&ööÃ ¢&WGW&â¶W—v÷&Bæ66VföÆB‚’–â·fÇVRæ66VföÆB‚’f÷"fÇVR–âW&ÖæVçBç'VÆW5ö6&Bæ¶W—v÷&G7Ğ ¢FVbö†5öfÇ––ær‡6VÆbÂW&ÖæVçC¢W&ÖæVçB’Óâ&ööÃ ¢&WGW&â6VÆbåö†5ö¶W—v÷&B‡W&ÖæVçBÂ$fÇ––ær"’÷"ç’€¢VffV7Bæ¶W—v÷&B—2FV×÷&'”¶W—v÷&BädÅ””äp¢f÷"VffV7B–âW&ÖæVçBæ7F—fU÷FV×÷&'•ö¶W—v÷&EöVffV7G0¢ ¢FVbö†5÷&V6‚‡6VÆbÂW&ÖæVçC¢W&ÖæVçB’Óâ&ööÃ ¢&WGW&â6VÆbåö†5ö¶W—v÷&B‡W&ÖæVçBÂ%&V6‚"’÷"ç’€¢VffV7Bæ¶W—v÷&B—2FV×÷&'”¶W—v÷&Bå$T4€¢f÷"VffV7B–âW&ÖæVçBæ7F—fU÷FV×÷&'•ö¶W—v÷&EöVffV7G0¢ ¢FVbö†5ö–æFW7G'V7F–&ÆR‡6VÆbÂW&ÖæVçC¢W&ÖæVçB’Óâ&ööÃ ¢&WGW&â6VÆbåö†5ö¶W—v÷&B‡W&ÖæVçBÂ$–æFW7G'V7F–&ÆR"’÷"6VÆbæ†5÷FV×÷&'•ö¶W—v÷&B€¢W&ÖæVçBÂFV×÷&'”¶W—v÷&Bä”äDU5E%T5D”$ÄP¢ ¢FVbö†5öÖVæ6R‡6VÆbÂGF6¶W#¢W&ÖæVçB’Óâ&ööÃ ¢&WGW&â€¢&ÖVæ6R"–â¶¶W—v÷&Bæ66VföÆB‚’f÷"¶W—v÷&B–âGF6¶W"ç'VÆW5ö6&Bæ¶W—v÷&G7Ğ¢÷"ç’€¢VffV7Bæ¶W—v÷&B—2FV×÷&'”¶W—v÷&BäÔTä4P¢f÷"VffV7B–âGF6¶W"æ7F—fU÷FV×÷&'•ö¶W—v÷&EöVffV7G0¢¢÷"ç’€¢g&vÖVçBæ66VföÆB‚’ç7F'G7v—F‚‚&ÖVæ6R"¢f÷"g&vÖVçB–â6VÆbæ–çFW'&WFW"æg&vÖVçG2†GFš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍXÚÙ\‹œ[\×ØØ\™
+Bˆ
+Bˆ
+B‚ˆYˆİ˜[YØ›ØÚ×Ø\ÜÚYÛ›Y[
+ˆÙ[‹ˆ]XÚÙ\œÎˆ\İÔ\›X[™[Kˆ\ÜÚYÛ›Y[ˆ\Vİ\VÜİ‹İ—K‹‹—KˆY™[™\—Ú[™^ˆ[ˆ
+HOˆ›ÛÛ‚ˆWØ]XÚÙ\ˆXİÜİ‹\İÜİ—WHHßBˆ›Üˆ]XÚÙ\—ÚY›ØÚÙ\—ÚY[ˆ\ÜÚYÛ›Y[‚ˆWØ]XÚÙ\‹œÙ]Y˜][
+]XÚÙ\—ÚY×JK˜\[™
+›ØÚÙ\—ÚY
+BˆYˆ[ŠØ›ØÚÙ\—ÚY›ÜˆË›ØÚÙ\—ÚY[ˆ\ÜÚYÛ›Y[JHOH[Š\ÜÚYÛ›Y[
+N‚ˆ™]\›ˆ˜[ÙBˆ]XÚÙ\—ÛX\HØ]XÚÙ\‹›Øš™XİÚYˆ]XÚÙ\ˆ›Üˆ]XÚÙ\ˆ[ˆ]XÚÙ\œßBˆYˆÙ]
+WØ]XÚÙ\ŠHHÙ]
+]XÚÙ\—ÛX\
+N‚ˆ™]\›ˆ˜[ÙBˆ›Üˆ]XÚÙ\ˆ[ˆ]XÚÙ\œÎ‚ˆ›ØÚÙ\—ÚYÈHWØ]XÚÙ\‹™Ù]
+]XÚÙ\‹›Øš™XİÚY×JBˆYˆÙ[‹—Ú\×ÛY[˜XÙJ]XÚÙ\ŠH[™›ØÚÙ\—ÚYÈ[™[Š›ØÚÙ\—ÚYÊH‚ˆ™]\›ˆ˜[ÙBˆYˆ›ØÚÙ\—ÚYÈ[™[Jˆ˜Ø[‰İ™H›ØÚÙYH[Ü™H[ˆÛ™HÜ™X]\™Hˆ[ˆœ˜YÛY[˜Ø\ÙY›Û
 
-    def legal_attackers(self, player_index: int) -> list[Permanent]:
-        return [
-            p
-            for p in self.players[player_index].battlefield
-            if p.card.is_creature
-            and not p.tapped
-            and (
-                not p.summoning_sick
-                or self._has_keyword(p, "Haste")
-                or self.has_temporary_keyword(p, TemporaryKeyword.HASTE)
-            )
-            and self.attacking_restriction(p) is None
-        ]
-
-    def attacking_restriction(self, attacker: Permanent) -> tuple[str, str] | None:
-        """Return the first Oracle-derived restriction that makes an attack illegal."""
-        if attacker.aura_attack_restrictions:
-            return attacker.aura_attack_restrictions[0][1], "aura_cant_attack"
-        for fragment in self.interpreter.fragments(attacker.rules_card):
-            if not self.interpreter.CANT_ATTACK_UNLESS_ANOTHER_ARTIFACT.fullmatch(fragment):
-                continue
-            has_other_artifact = any(
-                permanent is not attacker
-                and permanent.controller == attacker.controller
-                and self.is_authoritative(permanent, "battlefield")
-                and "Artifact" in permanent.card.type_line
-                for permanent in self.players[attacker.controller].battlefield
-            )
-            if not has_other_artifact:
-                return fragment, "attack_requires_another_controlled_artifact"
-        return None
-
-    def has_temporary_keyword(self, permanent: Permanent, keyword: TemporaryKeyword) -> bool:
-        """Read a current bounded temporary keyword from authoritative incarnation state."""
-        return self.is_authoritative(permanent, "battlefield") and any(
-            effect.keyword is keyword for effect in permanent.active_temporary_keyword_effects
-        )
-
-    def blocking_restriction(
-        self, attacker: Permanent, blocker: Permanent
-    ) -> tuple[str, str] | None:
-        """Return the first Oracle-derived restriction that makes this block illegal."""
-        if self._has_flying(attacker) and not (
-            self._has_flying(blocker) or self._has_reach(blocker)
-        ):
-            return "Flying", "flying_requires_flying_or_reach"
-        for fragment in self.interpreter.fragments(attacker.rules_card):
-            match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
-            if match and blocker.power >= int(match.group(1)):
-                return fragment, "blocker_power_at_or_above_restriction"
-            if (
-                self.interpreter.CANT_BE_BLOCKED_BY_GREATER_POWER.fullmatch(fragment)
-                and blocker.power > attacker.power
-            ):
-                return fragment, "blocker_power_greater_than_attacker"
-        return None
-
-    @staticmethod
-    def _has_keyword(permanent: Permanent, keyword: str) -> bool:
-        return keyword.casefold() in {value.casefold() for value in permanent.rules_card.keywords}
-
-    def _has_flying(self, permanent: Permanent) -> bool:
-        return self._has_keyword(permanent, "Flying") or any(
-            effect.keyword is TemporaryKeyword.FLYING
-            for effect in permanent.active_temporary_keyword_effects
-        )
-
-    def _has_reach(self, permanent: Permanent) -> bool:
-        return self._has_keyword(permanent, "Reach") or any(
-            effect.keyword is TemporaryKeyword.REACH
-            for effect in permanent.active_temporary_keyword_effects
-        )
-
-    def _has_indestructible(self, permanent: Permanent) -> bool:
-        return self._has_keyword(permanent, "Indestructible") or self.has_temporary_keyword(
-            permanent, TemporaryKeyword.INDESTRUCTIBLE
-        )
-
-    def _has_menace(self, attacker: Permanent) -> bool:
-        return (
-            "menace" in {keyword.casefold() for keyword in attacker.rules_card.keywords}
-            or any(
-                effect.keyword is TemporaryKeyword.MENACE
-                for effect in attacker.active_temporary_keyword_effects
-            )
-            or any(
-                fragment.casefold().startswith("menace")
-                for fragment in self.interpreter.fragments(attacker.rules_card)
-            )
-        )
-
-    def _valid_block_assignment(
-        self,
-        attackers: list[Permanent],
-        assignment: tuple[tuple[str, str], ...],
-        defender_index: int,
-    ) -> bool:
-        by_attacker: dict[str, list[str]] = {}
-        for attacker_id, blocker_id in assignment:
-            by_attacker.setdefault(attacker_id, []).append(blocker_id)
-        if len({blocker_id for _, blocker_id in assignment}) != len(assignment):
-            return False
-        attacker_map = {attacker.object_id: attacker for attacker in attackers}
-        if set(by_attacker) - set(attacker_map):
-            return False
-        for attacker in attackers:
-            blocker_ids = by_attacker.get(attacker.object_id, [])
-            if self._has_menace(attacker) and blocker_ids and len(blocker_ids) < 2:
-                return False
-            if blocker_ids and any(
-                "can't be blocked by more than one creature" in fragment.casefold()
-                for fragment in self.interpreter.fragments(attacker.rules_card)
-            ):
-                return False
-            for blocker_id in blocker_ids:
-                blocker = self._objects.get(blocker_id)
-                if not isinstance(blocker, Permanent) or not self.can_block(
-                    attacker, blocker, defender_index
-                ):
-                    return False
-        return True
-
-    def _witness_unsupported_block_context(self, attacker: Permanent, blocker: Permanent) -> None:
-        """Record a Menace opportunity only for an authoritative blocker candidate."""
-        if not (
-            self.step is TurnStep.DECLARE_BLOCKERS
-            and self.is_authoritative(attacker, "battlefield")
-            and self.is_authoritative(blocker, "battlefield")
-            and attacker.object_id in self._combat_attackers
-        ):
-            return
-        for occurrence in self.semantic_occurrences:
-            if occurrence.object_id == attacker.object_id and occurrence.oracle_fragment.startswith(
-                "Menace "
-            ):
-                self._record_opportunity(
-                    occurrence,
-                    cause_kind="legal_block_context",
-                    cause_id=(
-                        f"block:{self.turn}:{self.step.value}:"
-                        f"{attacker.object_id}:{blocker.object_id}"
-                    ),
-                    cause_subject_ids=(attacker.object_id, blocker.object_id),
-                )
-
-    def can_block(self, attacker: Permanent, blocker: Permanent, defender_index: int) -> bool:
-        return (
-            blocker.controller == defender_index
-            and any(candidate is blocker for candidate in self.players[defender_index].battlefield)
+Bˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[Ê]XÚÙ\‹œ[\×ØØ\™
+Bˆ
+N‚ˆ™]\›ˆ˜[ÙBˆ›Üˆ›ØÚÙ\—ÚY[ˆ›ØÚÙ\—ÚYÎ‚ˆ›ØÚÙ\ˆHÙ[‹—ÛØš™XİË™Ù]
+›ØÚÙ\—ÚY
+BˆYˆ›İ\Ú[œİ[˜ÙJ›ØÚÙ\‹\›X[™[
+HÜˆ›İÙ[‹˜Ø[—Ø›ØÚÊˆ]XÚÙ\‹›ØÚÙ\‹Y™[™\—Ú[™^ˆ
+N‚ˆ™]\›ˆ˜[ÙBˆ™]\›ˆYB‚ˆYˆİÚ]™\Ü×İ[œİ\ÜYØ›ØÚ×ØÛÛ^
+Ù[‹]XÚÙ\ˆ\›X[™[›ØÚÙ\ˆ\›X[™[
+HOˆ›Û™N‚ˆˆˆ”™XÛÜ™HY[˜XÙHÜÜ[š]HÛ›H›Üˆ[ˆ]]Üš]]]™H›ØÚÙ\ˆØ[™Y]Kˆˆˆ‚ˆYˆ›İ
+ˆÙ[‹œİ\\È\›”İ\‘PÓT‘WĞ“ĞÒÑT”Âˆ[™Ù[‹š\×Ø]]Üš]]]™J]XÚÙ\‹˜˜]YšY[ŠBˆ[™Ù[‹š\×Ø]]Üš]]]™J›ØÚÙ\‹˜˜]YšY[ŠBˆwÓ[h‘éì¶»§q«^tin self.players[defender_index].battlefield)
             and blocker.card.is_creature
             and not blocker.tapped
             and self.blocking_restriction(attacker, blocker) is None
@@ -7612,163 +2890,27 @@ class Game(
         self,
         attackers: list[Permanent],
         blocks: dict[str, Permanent] | None = None,
-        *,
-        auto_assign_blockers: bool = False,
-    ) -> None:
-        """Compatibility adapter over the three authoritative combat actions."""
-        if self.step is not TurnStep.DECLARE_ATTACKERS:
-            raise ValueError("attackers can be declared only during declare attackers")
-        attacker_ids = tuple(attacker.object_id for attacker in attackers)
-        attack = next(
-            (
-                option
-                for option in self.legal_attack_options(self.active_player)
-                if option.attacker_ids == attacker_ids
-                and all(self._objects.get(attacker.object_id) is attacker for attacker in attackers)
-            ),
-            None,
-        )
-        if attack is None:
-            raise ValueError("illegal attacker")
-        defender = 1 - self.active_player
-        if not auto_assign_blockers:
-            blocks = blocks or {}
-            attacker_id_set = set(attacker_ids)
-            if any(attacker_id not in attacker_id_set for attacker_id in blocks):
-                raise ValueError("block assigned to a nonattacker")
-            if len({blocker.object_id for blocker in blocks.values()}) != len(blocks):
-                raise ValueError("illegal blocker")
-            if any(
-                not self.is_authoritative(blocker, "battlefield")
-                or not self.can_block(
-                    self._objects[attacker_id],
-                    blocker,
-                    defender,  # type: ignore[arg-type]
-                )
-                for attacker_id, blocker in blocks.items()
-            ):
-                raise ValueError("illegal blocker")
-        self.execute_attack_action(attack)
-        if auto_assign_blockers:
-            if blocks is not None:
-                raise ValueError("cannot provide blocks when auto-assigning blockers")
-            block_options = self.legal_block_options(attack, defender)
-            max_blocks = max(len(option.blocks) for option in block_options)
-            block_option = max(
-                (option for option in block_options if len(option.blocks) == max_blocks),
-                key=lambda option: tuple(
-                    -attack.attacker_ids.index(attacker_id) for attacker_id, _ in option.blocks
-                ),
-            )
-        else:
-            assert blocks is not None
-            block_option = ActionOption(
-                ActionKind.DECLARE_BLOCKERS,
-                defender,
-                blocks=tuple(
-                    (attacker_id, blocker.object_id) for attacker_id, blocker in blocks.items()
-                ),
-            )
-        self.execute_block_action(block_option)
-        if self.step is TurnStep.DECLARE_BLOCKERS:
-            self.execute_sneak_action(ActionOption(ActionKind.PASS, self.active_player))
-        while self.step is TurnStep.COMBAT_DAMAGE:
-            self.resolve_combat_damage()
+   YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€¨°(€€€€€€€…ÕÑ½}…ÍÍ¥¹}‰±½­•ÉÌè‰½½°€ô…±Í”°(€€€€¤€´ø9½¹”è(€€€€€€€€ˆˆ‰½µÁ…Ñ¥‰¥±¥Ñä…‘…ÁÑ•È½Ù•ÈÑ¡”Ñ¡É•”…ÕÑ¡½É¥Ñ…Ñ¥Ù”½µ‰…Ğ…Ñ¥½¹Ì¸ˆˆˆ(€€€€€€€¥˜Í•±˜¹ÍÑ•À¥Ì¹½ĞQÕÉ¹MÑ•À¹1I}QQ-ILè(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰…ÑÑ…­•ÉÌ…¸‰”‘•±…É•½¹±ä‘ÕÉ¥¹œ‘•±…É”…ÑÑ…­•ÉÌˆ¤(€€€€€€€…ÑÑ…­•É}¥‘Ì€ôÑÕÁ±”¡…ÑÑ…­•È¹½‰©•Ñ}¥™½È…ÑÑ…­•È¥¸…ÑÑ…­•ÉÌ¤(€€€€€€€…ÑÑ…¬€ô¹•áĞ (€€€€€€€€€€€€ (€€€€€€€€€€€€€€€½ÁÑ¥½¸(€€€€€€€€€€€€€€€™½È½ÁÑ¥½¸¥¸Í•±˜¹±•…±}…ÑÑ…­}½ÁÑ¥½¹Ì¡Í•±˜¹…Ñ¥Ù•}Á±…å•È¤(€€€€€€€€€€€€€€€¥˜½ÁÑ¥½¸¹…ÑÑ…­•É}¥‘Ì€ôô…ÑÑ…­•É}¥‘Ì(€€€€€€€€€€€€€€€…¹…±°¡Í•±˜¹}½‰©•ÑÌ¹•Ğ¡…ÑÑ…­•È¹½‰©•Ñ}¥¤¥Ì…ÑÑ…­•È™½È…ÑÑ…­•È¥¸…ÑÑ…­•ÉÌ¤(€€€€€€€€€€€€¤°(€€€€€€€€€€€9½¹”°(€€€€€€€€¤(€€€€€€€¥˜…ÑÑ…¬¥Ì9½¹”è(€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¥±±•…°…ÑÑ…­•Èˆ¤(€€€€€€€‘•™•¹‘•È€ô€Ä€´Í•±˜¹…Ñ¥Ù•}Á±…å•È(€€€€€€€¥˜¹½Ğ…ÕÑ½}…ÍÍ¥¹}‰±½­•ÉÌè(€€€€€€€€€€€‰±½­Ì€ô‰±½­Ì½Èíô(€€€€€€€€€€€…ÑÑ…­•É}¥‘}Í•Ğ€ôÍ•Ğ¡…ÑÑ…­•É}¥‘Ì¤(€€€€€€€€€€€¥˜…¹ä¡…ÑÑ…­•É}¥¹½Ğ¥¸…ÑÑ…­•É}¥‘}Í•Ğ™½È…ÑÑ…­•É}¥¥¸‰±½­Ì¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰‰±½¬…ÍÍ¥¹•Ñ¼„¹½¹…ÑÑ…­•Èˆ¤(€€€€€€€€€€€¥˜±•¸¡í‰±½­•È¹½‰©•Ñ}¥™½È‰±½­•È¥¸‰±½­Ì¹Ù…±Õ•Ì ¥ô¤€„ô±•¸¡‰±½­Ì¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¥±±•…°‰±½­•Èˆ¤(€€€€€€€€€€€¥˜…¹ä (€€€€€€€€€€€€€€€¹½ĞÍ•±˜¹¥Í}…ÕÑ¡½É¥Ñ…Ñ¥Ù”¡‰±½­•È°€‰‰…ÑÑ±•™¥•±ˆ¤(€€€€€€€€€€€€€€€½È¹½ĞÍ•±˜¹…¹}‰±½¬ (€€€€€€€€€€€€€€€€€€€Í•±˜¹}½‰©•ÑÍm…ÑÑ…­•É}¥‘t°(€€€€€€€€€€€€€€€€€€€‰±½­•È°(€€€€€€€€€€€€€€€€€€€‘•™•¹‘•È°€€ŒÑåÁ”è¥¹½É•m…ÉœµÑåÁ•t(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€™½È…ÑÑ…­•É}¥°‰±½­•È¥¸‰±½­Ì¹¥Ñ•µÌ ¤(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰¥±±•…°‰±½­•Èˆ¤(€€€€€€€Í•±˜¹•á•ÕÑ•}…ÑÑ…­}…Ñ¥½¸¡…ÑÑ…¬¤(€€€€€€€¥˜…ÕÑ½}…ÍÍ¥¹}‰±½­•ÉÌè(€€€€€€€€€€€¥˜‰±½­Ì¥Ì¹½Ğ9½¹”è(€€€€€€€€€€€€€€€É…¥Í”Y…±Õ•ÉÉ½È ‰…¹¹½ĞÁÉ½Ù¥‘”‰±½­Ìİ¡—}5¶‰ËkºwµçB6VÆbæW†V7WFU÷6æVµö7F–öâ„7F–öä÷F–öâ„7F–öä¶–æBå52Â6VÆbæ7F—fU÷Æ–W"’¢v†–ÆR6VÆbç7FW—2GW&å7FWä4ôÔ$EôDÔtS ¢6VÆbç&W6öÇfUö6öÖ&EöFÖvR‚ ¢FVbVæE÷GW&â‡6VÆb’ÓâæöæS ¢""$6ö×F–&–Æ—G’†VÇW#¢föÆÆ÷rÆVvÂG&ç6—F–öç2F‡&÷Vv‚6ÆVçWâ"" ¢–b6VÆbç7FW–âµGW&å7FWå4UEUÂGW&å7FWä4ÄTåUÓ ¢&—6RfÇVTW'&÷"‚&VæE÷GW&â—2ÆVvÂöæÇ’GW&–ærâ7F—fRGW&â"¢v†–ÆR6VÆbç7FW—2æ÷BGW&å7FWåõ5D4ôÔ$EôÔ”ã ¢–b6VÆbç7FW—2GW&å7FWä4ôÔ$EôDÔtS ¢6VÆbç&W6öÇfUö6öÖ&EöFÖvR‚¢VÇ6S ¢6VÆbæGfæ6U÷7FW‚¢6VÆbæGfæ6U÷Fò…GW&å7FWä4ÄTåU ¢FVbWE÷W&ÖæVçG5ö–çFõöw&fW–&B€¢6VÆbÀ¢W&ÖæVçG3¢GWÆUµW&ÖæVçBÂââåÒÀ¢¢À¢7FFUö&6VEö7F–öã¢7G"ÂæöæRÒæöæRÀ¢’ÓâGWÆU´6&Dö&¦V7BÂââåÓ ¢""$Ö÷fRöæR6–×VÇFæV÷W2&GFÆVf–VÆB&F6‚v—F‚6†&VBÆ7BÖ¶æ÷vâG&–vvW"6æ6†÷Bâ"" ¢–bÆVâ‡·W&ÖæVçBæö&¦V7Eö–Bf÷"W&ÖæVçB–âW&ÖæVçG7Ò’ÒÆVâ‡W&ÖæVçG2“ ¢&—6RfÇVTW'&÷"‚'6–×VÇFæV÷W2FW'GW&R&F6‚6öçF–ç2GWÆ–6FRö&¦V7G2"¢–bç’†æ÷B6VÆbæ—5öWF†÷&—FF—fR‡W&ÖæVçBÂ&&GFÆVf–VÆB"’f÷"W&ÖæVçB–âW&ÖæVçG2“ ¢&—6RfÇVTW'&÷"‚'6–×VÇFæV÷W2FW'GW&R&WV—&W2WF†÷&—FF—fRW&ÖæVçG2"¢WF†÷&—G’Ò6VÆbåö&GFÆVf–VÆEöWF†÷&—G•÷6æ6†÷B‚¢6÷W&6W2Ò6VÆbå÷W&ÖæVçEöÆVgE÷G&–vvW%÷6÷W&6W2‚¢2ÆÂFW'F–ærö&¦V7G2W6R&RÖWfVçB&–Æ—F–W2Â–æ6ÇVF–ær7W&W76VBF–W2ôÅD"FW‡Bà¢FVfW'&VBÒvWFGG"‡6VÆbÂ%ö6öçF–çV÷W5÷&Vg&W6…öFVfW'&VB"ÂfÇ6R¢6VÆbåö6öçF–çV÷W5÷&Vg&W6…öFVfW'&VBÒG'VP¢G'“ ¢&WGW&âGWÆR€¢6VÆbçWEö–çFõöw&fW–&B€¢W&ÖæVçBÀ¢7FFUö&6VEö7F–öã×7FFUš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍWØ˜\ÙYØXİ[Û‹ˆÙ\\\™WØ]]Üš]OX]]Üš]KˆÙ\\\™WÜÛİ\˜Ù\Ï\Ûİ\˜Ù\Ëˆ
+Bˆ›Üˆ\›X[™[[ˆ\›X[™[Âˆ
+Bˆš[˜[N‚ˆÙ[‹—ØÛÛ[[İ\×Ü™Yœ™\ÚÙY™\œ™YHY™\œ™YˆÙ[‹œ™Yœ™\ÚÜİ]X×ÜÛ[ÙYšY\œÊ
+B‚ˆYˆ]Ú[×ÙÜ˜]™^X\™
+ˆÙ[‹ˆ\›X[™[ˆ\›X[™[ˆ
+‹ˆİ]WØ˜\ÙYØXİ[Ûˆİˆ›Û™HH›Û™KˆÙ\\\™WØ]]Üš]Nˆ\Vİ\VÜİ‹[K‹‹—H›Û™HH›Û™KˆÙ\\\™WÜÛİ\˜Ù\Îˆ\Vİ\VÔ\›X[™[İ—K‹‹—H›Û™HH›Û™Kˆ
+HOˆØ\™Øš™Xİ‚ˆYˆ›İÙ[‹š\×Ø]]Üš]]]™J\›X[™[˜˜]YšY[ŠN‚ˆ˜Z\ÙH˜[YQ\œ›ÜŠœ\›X[™[\È›İÛˆH˜]YšY[ŠBˆİÛ™\ˆHÙ[‹œ^Y\œÖÜ\›X[™[›İÛ™\—BˆÛÛ›Û\ˆH\›X[™[˜ÛÛ›Û\‚ˆ˜]YšY[Ø]]Üš]HH
+ˆÙ[‹—Ø˜]YšY[Ø]]Üš]WÜÛ˜\Úİ
 
-    def end_turn(self) -> None:
-        """Compatibility helper: follow legal transitions through cleanup."""
-        if self.step in {TurnStep.SETUP, TurnStep.CLEANUP}:
-            raise ValueError("end_turn is legal only during an active turn")
-        while self.step is not TurnStep.POSTCOMBAT_MAIN:
-            if self.step is TurnStep.COMBAT_DAMAGE:
-                self.resolve_combat_damage()
-            else:
-                self.advance_step()
-        self.advance_to(TurnStep.CLEANUP)
-
-    def put_permanents_into_graveyard(
-        self,
-        permanents: tuple[Permanent, ...],
-        *,
-        state_based_action: str | None = None,
-    ) -> tuple[CardObject, ...]:
-        """Move one simultaneous battlefield batch with a shared last-known trigger snapshot."""
-        if len({permanent.object_id for permanent in permanents}) != len(permanents):
-            raise ValueError("simultaneous departure batch contains duplicate objects")
-        if any(not self.is_authoritative(permanent, "battlefield") for permanent in permanents):
-            raise ValueError("simultaneous departure requires authoritative permanents")
-        authority = self._battlefield_authority_snapshot()
-        sources = self._permanent_left_trigger_sources()
-        # All departing objects use pre-event abilities, including suppressed dies/LTB text.
-        deferred = getattr(self, "_continuous_refresh_deferred", False)
-        self._continuous_refresh_deferred = True
-        try:
-            return tuple(
-                self.put_into_graveyard(
-                    permanent,
-                    state_based_action=state_based_action,
-                    _departure_authority=authority,
-                    _departure_sources=sources,
-                )
-                for permanent in permanents
-            )
-        finally:
-            self._continuous_refresh_deferred = deferred
-            self.refresh_static_pt_modifiers()
-
-    def put_into_graveyard(
-        self,
-        permanent: Permanent,
-        *,
-        state_based_action: str | None = None,
-        _departure_authority: tuple[tuple[str, int], ...] | None = None,
-        _departure_sources: tuple[tuple[Permanent, str], ...] | None = None,
-    ) -> CardObject:
-        if not self.is_authoritative(permanent, "battlefield"):
-            raise ValueError("permanent is not on the battlefield")
-        owner = self.players[permanent.owner]
-        controller = permanent.controller
-        battlefield_authority = (
-            self._battlefield_authority_snapshot()
-            if _departure_authority is None
-            else _departure_authority
-        )
-        paramecia_fragment = self._paramecia_fragment(permanent.rules_card)
-        dies_draw_fragments = tuple(
-            fragment
-            for fragment in self.interpreter.fragments(permanent.rules_card)
-            if (coverage := self.interpreter.dies_draw_semantic_coverage(permanent.card, fragment))
-            is not None
-            and coverage.fully_supported
-        )
-        last_known_type_line = permanent.type_line
-        last_known_is_creature = permanent.is_creature
-        self.alliance_modes_chosen.pop(permanent.object_id, None)
-        finality = permanent.counters.get("finality", 0) > 0
-        destination = "exile" if finality else "graveyard"
-        replacement = self.move_object(
-            permanent,
-            destination,
-            reason=("finality_exile" if finality else (state_based_action or "put_into_graveyard")),
-            _departure_authority=battlefield_authority,
-            _departure_sources=_departure_sources,
-        )
-        assert isinstance(replacement, CardObject)
-        self.refresh_static_pt_modifiers()
-        self.log(
-            "permanent_to_exile" if finality else "permanent_to_graveyard",
-            player=owner.name,
-            card=permanent.card.name,
-            state_based_action=state_based_action,
-        )
-        if (dies_draw_fragments or paramecia_fragment) and last_known_is_creature and not finality:
-            event = self._new_rules_event(
-                RulesEventKind.CREATURE_DIED,
-                controller,
-                (permanent.object_id,),
-                source_id=permanent.object_id,
-                battlefield_authority=battlefield_authority,
-                last_known_battlefield=(
+BˆYˆÙ\\\™WØ]]Üš]H\È›Û™Bˆ[ÙHÙ\\\™WØ]]Üš]Bˆ
+Bˆ\˜[YXÚXWÙœ˜YÛY[HÙ[‹—Ü\˜[YXÚXWÙœ˜YÛY[
+\›X[™[œ[\×ØØ\™
+BˆY\×Ù˜]×Ùœ˜YÛY[ÈH\Jˆœ˜YÛY[ˆ›Üˆœ˜YÛY[[ˆÙ[‹š[\œ™]\‹™œ˜YÛY[Ê\›X[™[œ[\×ØØ\™
+BˆYˆ
+Ûİ™\˜YÙHHÙ[‹š[\œ™]\‹™Y\×Ù˜]×ÜÙ[X[X×ØÛİ™\˜YÙJ\›X[™[˜Ø\™œ˜YÛY[
+JBˆ\È›İ›Û™Bˆ[™Ûİ™\˜YÙK™[WÜİ\ÜYˆ
+Bˆ\İÚÛ›İÛ—İ\WÛ[™HH\›X[™[\WÛ[™Bˆ\İÚÛ›İÛ—Ú\×ØÜ™X]\™HH\›X[™[š\×ØÜ™X]\™BˆÙ[‹˜[X[˜ÙWÛ[Ù\×ØÚÜÙ[‹œÜ
+\›X[™[›Øš™XİÚY›Û™JBˆš[˜[]HH\›X[™[˜Ûİ[\œË™Ù]
+™š[˜[]H‹
+Hˆˆ\İ[˜][ÛˆH™^[HˆYˆš[˜[]H[ÙH™Ü˜]™^X\™‚ˆ™\XÙ[Y[HÙ[‹›[İ™WÛØš™Xİ
+ˆ\›X[™[ˆ\İ[˜][Û‹ˆ™X\ÛÛJ™šwÓ[h‘éì¶»§q«^vown_battlefield=(
                     (
                         permanent.object_id,
                         controller,
@@ -7814,148 +2956,18 @@ class Game(
                 break
         self.check_life()
         if self.winner is None and self._put_pending_triggers_on_stack(
-            {
-                TriggerEffect.DIES_DRAW,
-                TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
-                TriggerEffect.LTB_MUTAGEN,
-                TriggerEffect.PARAMECIA_EXILE_CHOICE,
-            }
-        ):
-            self._drain_triggered_abilities()
-        self.check_invariants()
-
-    def check_invariants(self) -> None:
-        try:
-            self._validate_stun_history()
-        except ValueError as error:
-            raise AssertionError(str(error)) from error
-        combat_ids = self._combat_attackers + tuple(
-            blocker_id for _attacker_id, blocker_id in self._combat_blocks
-        )
-        evidence_ids = [item.event_id for item in self._rules_event_evidence]
-        if (
-            len(evidence_ids) != len(set(evidence_ids))
-            or set(evidence_ids) != set(self._rules_events)
-            or [item.event_cursor for item in self._rules_event_evidence]
-            != list(range(1, len(self._rules_event_evidence) + 1))
-        ):
-            raise AssertionError("rules-event evidence ledger is incomplete or duplicated")
-        for event in self._rules_events.values():
-            try:
-                self._authenticate_original_rules_event(event)
-            except ValueError as error:
-                raise AssertionError(str(error)) from error
-        occurrence_by_id = {item.occurrence_id: item for item in self.semantic_occurrences}
-        if len(occurrence_by_id) != len(self.semantic_occurrences):
-            raise AssertionError("semantic occurrence IDs must be unique")
-        if len({item.opportunity_key for item in self.opportunity_witnesses}) != len(
-            self.opportunity_witnesses
-        ):
-            raise AssertionError("opportunity witnesses must be deterministically deduplicated")
-        context_by_id = {item.context_id: item for item in self.opportunity_contexts}
-        if len(context_by_id) != len(self.opportunity_contexts):
-            raise AssertionError("opportunity context IDs must be unique")
-        for context in self.opportunity_contexts:
-            if (
-                context.source_id not in self._objects
-                or any(subject_id not in self._objects for subject_id in context.subject_ids)
-                or len(context.subject_ids) != len(context.subject_zones)
-                or context.controller not in range(2)
-                or not re.fullmatch(r"[0-9a-f]{64}", context.state_fingerprint)
-                or context.context_key
-                != opportunity_context_key(
-                    context.context_id,
-                    context.context_kind,
-                    context.turn,
-                    context.phase,
-                    context.step,
-                    context.active_player,
-                    context.controller,
-                    context.source_id,
-                    context.subject_ids,
-                    context.subject_zones,
-                    context.facts,
-                    context.event_id,
-                    context.stack_object_id,
-                    context.state_fingerprint,
-                )
-            ):
-                raise AssertionError("opportunity context provenance is malformed")
-            if context.event_id is not None and context.event_id not in self._rules_events:
-                raise AssertionError("opportunity context event provenance is missing")
-            if context.stack_object_id is not None and context.stack_object_id not in self._objects:
-                raise AssertionError("opportunity context Stack provenance is missing")
-        for occurrence in self.semantic_occurrences:
-            source = self._objects.get(occurrence.object_id)
-            if not isinstance(source, (CardObject, Permanent)):
-                raise AssertionError("semantic occurrence references a nonexistent object")
-            fragments = self._semantic_fragments(source.card)
-            if (
-                occurrence.fragment_index >= len(fragments)
-                or fragments[occurrence.fragment_index] != occurrence.oracle_fragment
-                or fragment_digest(occurrence.oracle_fragment) != occurrence.fragment_hash
-                or semantic_key(
-                    getattr(source.card, "oracle_id", ""),
-                    occurrence.face_index,
-                    occurrence.fragment_index,
-                    occurrence.oracle_fragment,
-                )
-                != occurrence.semantic_key
-            ):
-                raise AssertionError("semantic occurrence mismatches authoritative Oracle data")
-        for witness in self.opportunity_witnesses:
-            occurrence = occurrence_by_id.get(witness.occurrence_id)
-            if occurrence is None or (
-                witness.semantic_key != occurrence.semantic_key
-                or witness.object_id != occurrence.object_id
-                or witness.oracle_fragment != occurrence.oracle_fragment
-            ):
-                raise AssertionError("opportunity witness mismatches semantic presence")
-            try:
-                facts = self._validate_opportunity_applicability(
-                    occurrence,
-                    cause_kind=witness.cause_kind,
-                    cause_id=witness.cause_id,
-                    cause_subject_ids=witness.cause_subject_ids,
-                    historical=witness,
-                )
-            except ValueError as error:
-                raise AssertionError(str(error)) from error
-            if facts != (
-                witness.source_zone,
-                witness.source_controller,
-                witness.cause_subject_zones,
-                witness.cause_event_kind,
-            ):
-                raise AssertionError("opportunity witness applicability facts are inconsistent")
-            if (
-                witness.cause_kind == "authoritative_context"
-                and witness.cause_id not in context_by_id
-            ):
-                raise AssertionError("opportunity witness context provenance is missing")
-        if len(set(self._combat_attackers)) != len(self._combat_attackers):
-            raise AssertionError("combat state contains duplicate attackers")
-        if len({blocker_id for _attacker_id, blocker_id in self._combat_blocks}) != len(
-            self._combat_blocks
-        ):
-            raise AssertionError("combat state contains duplicate blockers")
-        if any(object_id not in combat_ids for object_id in self._first_damage_qualified_ids):
-            raise AssertionError("first-strike qualification references a noncombatant")
-        if any(object_id not in combat_ids for object_id in self._regular_damage_initial_ids):
-            raise AssertionError("regular-step qualification references a noncombatant")
-        if any(
-            len(
-                {
-                    (assignment.source_id, assignment.target_id, assignment.target_player)
-                    for assignment in evidence.assignments
-                }
-            )
-            != len(evidence.assignments)
-            for evidence in self.combat_damage_evidence
-        ):
-            raise AssertionError("combatant repeated one assignment in a damage step")
-        if any(
-            assignment.amount <= 0
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€ì(€€€€€€€€€€€€€€€QÉ¥•É™™•Ğ¹%M}I\°(€€€€€€€€€€€€€€€QÉ¥•É™™•Ğ¹AI599Q}1Q}M1}=U9QH°(€€€€€€€€€€€€€€€QÉ¥•É™™•Ğ¹1Q	}5UQ8°(€€€€€€€€€€€€€€€QÉ¥•É™™•Ğ¹AI5%}a%1}!=%°(€€€€€€€€€€€ô(€€€€€€€€¤è(€€€€€€€€€€€Í•±˜¹}‘É…¥¹}ÑÉ¥•É•‘}…‰¥±¥Ñ¥•Ì ¤(€€€€€€€Í•±˜¹¡•­}¥¹Ù…É¥…¹ÑÌ ¤((€€€‘•˜¡•­}¥¹Ù…É¥…¹ÑÌ¡Í•±˜¤€´ø9½¹”è(€€€€€€€ÑÉäè(€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}ÍÑÕ¹}¡¥ÍÑ½Éä ¤(€€€€€€€•á•ÁĞY…±Õ•ÉÉ½È…Ì•ÉÉ½Èè(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È¡ÍÑÈ¡•ÉÉ½È¤¤™É½´•ÉÉ½È(€€€€€€€½µ‰…Ñ}¥‘Ì€ôÍ•±˜¹}½µ‰…Ñ}…ÑÑ…­•ÉÌ€¬ÑÕÁ±” (€€€€€€€€€€€‰±½­•É}¥™½È}…ÑÑ…­•É}¥°‰±½­•É}¥¥¸Í•±˜¹}½µ‰…Ñ}‰±½­Ì(€€€€€€€€¤(€€€€€€€•Ù¥‘•¹•}¥‘Ì€ôm¥Ñ•´¹•Ù•¹Ñ}¥™½È¥Ñ•´¥¸Í•±˜¹}ÉÕ±•Í}•Ù•¹Ñ}•Ù¥‘•¹•t(€€€€€€€¥˜€ (€€€€€€€€€€€±•¸¡•Ù¥‘•¹•}¥‘Ì¤€„ô±•¸¡Í•Ğ¡•Ù¥‘•¹•}¥‘Ì¤¤(€€€€€€€€€€€½ÈÍ•Ğ¡•Ù¥‘•¹•}¥‘Ì¤€„ôÍ•Ğ¡Í•±˜¹}ÉÕ±•Í}•Ù•¹ÑÌ¤(€€€€€€€€€€€½Èm¥Ñ•´¹•Ù•¹Ñ}ÕÉÍ½È™½È¥Ñ•´¥¸Í•±˜¹}ÉÕ±•Í}•Ù•¹Ñ}•Ù¥‘•¹•t(€€€€€€€€€€€€„ô±¥ÍĞ¡É…¹” Ä°±•¸¡Í•±˜¹}ÉÕ±•Í}•Ù•¹Ñ}•Ù¥‘•¹”¤€¬€Ä¤¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÉÕ±•Ìµ•Ù•¹Ğ•Ù¥‘•¹”±•‘•È¥Ì¥¹½µÁ±•Ñ”½È‘ÕÁ±¥…Ñ•ˆ¤(€€€€€€€™½È•Ù•¹Ğ¥¸Í•±˜¹}ÉÕ±•Í}•Ù•¹ÑÌ¹Ù…±Õ•Ì ¤è(€€€€€€€€€€€ÑÉäè(€€€€€€€€€€€€€€€Í•±˜¹}…ÕÑ¡•¹Ñ¥…Ñ•}½É¥¥¹…±}ÉÕ±•Í}•Ù•¹Ğ¡•Ù•¹Ğ¤(€€€€€€€€€€€•á•ÁĞY…±Õ•ÉÉ½È…Ì•ÉÉ½Èè(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È¡ÍÑÈ¡•ÉÉ½È¤¤™É½´•ÉÉ½È(€€€€€€€½ÕÉÉ•¹•}‰å}¥€ôí¥Ñ•´¹½ÕÉÉ•¹•}¥è¥Ñ•´™½È¥Ñ•´¥¸Í•±˜¹Í•µ…¹Ñ¥}½ÕÉÉ•¹•Íô(€€€€€€€¥˜±•¸¡½ÕÉÉ•¹•}‰å}¥¤€„ô±•¸¡Í•±˜¹Í•µ…¹Ñ¥}½ÕÉÉ•¹•Ì¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Í•µ…¹Ñ¥Œ½ÕÉÉ•¹”%ÌµÕÍĞ‰”Õ¹¥ÅÕ”ˆ¤(€€€€€€€¥˜±•¸¡í¥Ñ•´¹½ÁÁ½ÉÑÕ¹¥Ñå}­•ä™½È¥Ñ•´¥¸Í•±˜¹½ÁÁ½ÉÑÕ¹¥Ñå}İ¥Ñ¹•ÍÍ•Íô¤€„ô±•¸ (€€€€€€€€€€€Í•±˜¹½ÁÁ½ÉÑÕ¹¥Ñå}İ¥Ñ¹•ÍÍ•Ì(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰½ÁÁ½ÉÑÕ¹¥Ñäİ¥Ñ¹•ÍÍ•ÌµÕÍĞ‰”‘•Ñ•Éµ¥¹¥ÍÑ¥…±±ä‘•‘ÕÁ±¥…Ñ•ˆ¤(€€€€€€€½»}5¶‰Ëkºwµçg7FWÀ¢6öçFW‡Bæ7F—fU÷Æ–W"À¢6öçFW‡Bæ6öçG&öÆÆW"À¢6öçFW‡Bç6÷W&6Uö–BÀ¢6öçFW‡Bç7V&¦V7Eö–G2À¢6öçFW‡Bç7V&¦V7E÷¦öæW2À¢6öçFW‡Bæf7G2À¢6öçFW‡BæWfVçEö–BÀ¢6öçFW‡Bç7F6µöö&¦V7Eö–BÀ¢6öçFW‡Bç7FFUöf–ævW'&–çBÀ¢¢“ ¢&—6R76W'F–öäW'&÷"‚&÷÷'GVæ—G’6öçFW‡B&÷fVææ6R—2ÖÆf÷&ÖVB"¢–b6öçFW‡BæWfVçEö–B—2æ÷BæöæRæB6öçFW‡BæWfVçEö–Bæ÷B–â6VÆbå÷'VÆW5öWfVçG3 ¢&—6R76W'F–öäW'&÷"‚&÷÷'GVæ—G’6öçFW‡BWfVçB&÷fVææ6R—2Ö—76–ær"¢–b6öçFW‡Bç7F6µöö&¦V7Eö–B—2æ÷BæöæRæB6öçFW‡Bç7F6µöö&¦V7Eö–Bæ÷B–â6VÆbåöö&¦V7G3 ¢&—6R76W'F–öäW'&÷"‚&÷÷'GVæ—G’6öçFW‡B7F6²&÷fVææ6R—2Ö—76–ær"¢f÷"ö67W'&Væ6R–â6VÆbç6VÖçF–5öö67W'&Væ6W3 ¢6÷W&6RÒ6VÆbåöö&¦V7G2ævWB†ö67W'&Væ6Ræö&¦V7Eö–B¢–bæ÷B—6–ç7Fæ6R‡6÷W&6RÂ„6&Dö&¦V7BÂW&ÖæVçB’“ ¢&—6R76W'F–öäW'&÷"‚'6VÖçF–2ö67W'&Væ6R&VfW&Væ6W2æöæW†—7FVçBö&¦V7B"¢g&vÖVçG2Ò6VÆbå÷6VÖçF–5ög&vÖVçG2‡6÷W&6Ræ6&B¢–b€¢ö67W'&Væ6Ræg&vÖVçEö–æFW‚ãÒÆVâ†g&vÖVçG2¢÷"g&vÖVçG5¶ö67W'&Væ6Ræg&vÖVçEö–æFW…ÒÒö67W'&Væ6Ræ÷&6ÆUög&vÖVç@¢÷"g&vÖVçEöF–vW7B†ö67W'&Væ6Ræ÷&6ÆUög&vÖVçB’Òö67W'&Væ6Ræg&vÖVçEö†6€¢÷"6VÖçF–5ö¶W’€¢vWFGG"‡6÷W&6Ræ6&BÂ&÷&6ÆUö–B"Â""’À¢ö67W'&Væ6Ræf6Uö–æFW‚À¢ö67W'&Væ6Ræg&vÖVçEö–æFW‚À¢ö67W'&Væ6Ræ÷&6ÆUög&vÖVçBÀ¢¢Òö67W'&Væ6Rç6VÖçF–5ö¶W¢“ ¢&—6R76W'F–öäW'&÷"‚'6VÖçEš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍZXÈØØİ\œ™[˜ÙHZ\ÛX]Ú\È]]Üš]]]™HÜ˜XÛH]HŠBˆ›ÜˆÚ]™\ÜÈ[ˆÙ[‹›ÜÜ[š]WİÚ]™\ÜÙ\Î‚ˆØØİ\œ™[˜ÙHHØØİ\œ™[˜ÙWØWÚY™Ù]
+Ú]™\ÜË›ØØİ\œ™[˜ÙWÚY
+BˆYˆØØİ\œ™[˜ÙH\È›Û™HÜˆ
+ˆÚ]™\ÜËœÙ[X[X×ÚÙ^HOHØØİ\œ™[˜ÙKœÙ[X[X×ÚÙ^BˆÜˆÚ]™\ÜË›Øš™XİÚYOHØØİ\œ™[˜ÙK›Øš™XİÚYˆÜˆÚ]™\ÜË›Ü˜XÛWÙœ˜YÛY[OHØØİ\œ™[˜ÙK›Ü˜XÛWÙœ˜YÛY[ˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ›ÜÜ[š]HÚ]™\ÜÈZ\ÛX]Ú\ÈÙ[X[XÈ™\Ù[˜ÙHŠBˆN‚ˆ˜XİÈHÙ[‹—İ˜[Y]WÛÜÜ[š]WØ\XØXš[]JˆØØİ\œ™[˜ÙKˆØ]\ÙWÚÚ[™]Ú]™\ÜË˜Ø]\ÙWÚÚ[™ˆØ]\ÙWÚY]Ú]™\ÜË˜Ø]\ÙWÚYˆØ]\ÙWÜİXš™XİÚYÏ]Ú]™\ÜË˜Ø]\ÙWÜİXš™XİÚYËˆ\İÜšXØ[]Ú]™\ÜËˆ
+Bˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠİŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆYˆ˜XİÈOH
+ˆÚ]™\ÜËœÛİ\˜ÙWŞ›Û™KˆÚ]™\ÜËœÛİ\˜ÙWØÛÛ›Û\‹ˆÚ]™\ÜË˜Ø]\ÙWÜİXš™XİŞ›Û™\ËˆÚ]™\ÜË˜Ø]\ÙWÙ]™[ÚÚ[™ˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ›ÜÜ[š]HÚ]™\ÜÈ\XØXš[]H˜XİÈ\™H[˜ÛÛœÚ\İ[ŠBˆYˆ
+ˆÚ]™\ÜË˜Ø]\ÙWÚÚ[™OH˜]]Üš]]]™WØÛÛ^‚ˆ[™Ú]™\ÜË˜Ø]\ÙWÚY›İ[ˆÛÛ^ØWÚYˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ›ÜÜ[š]HÚ]™\ÜÈÛÛ^›İ™[˜[˜ÙH\ÈZ\ÜÚ[™ÈŠBˆYˆ[ŠÙ]
+Ù[‹—ØÛÛX˜]Ø]XÚÙ\œÊJHOH[ŠÙ[‹—ØÛÛX˜]Ø]XÚÙ\œÊN‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ˜ÛÛX˜]İ]HÛÛZ[œÈ\XØ]H]XÚÙ\œÈŠBˆYˆ[ŠØ›ØÚÙ\—ÚY›ÜˆØ]XÚÙ\—ÚY›ØÚÙ\—ÚY[ˆÙ[‹—ØÛÛX˜]Ø›ØÚÜßJHOH[ŠˆÙ[‹—ØÛÛX˜]Ø›ØÚÜÂˆ
+N‚ˆ˜Z\ÙwÓ[h‘éì¶»§q«^t <= 0
             for evidence in self.combat_damage_evidence
             for assignment in evidence.assignments
         ):
@@ -7986,128 +2998,18 @@ class Game(
                 if result.blocker_survived != (result.blocker_marked_damage_after is not None):
                     raise AssertionError("Trample evidence blocker result is inconsistent")
         if len({item.stack_object_id for item in self.etb_drain_gain_scry_evidence}) != len(
-            self.etb_drain_gain_scry_evidence
-        ):
-            raise AssertionError("ETB drain/gain/Scry evidence stack IDs must be unique")
-        for item in self.etb_drain_gain_scry_evidence:
-            ability = self._objects.get(item.stack_object_id)
-            if not isinstance(ability, TriggeredAbilityObject) or ability.zone != "former":
-                raise AssertionError("ETB drain/gain/Scry evidence lacks resolved Stack authority")
-            try:
-                self._validate_etb_drain_gain_scry_trigger(ability)
-            except ValueError as error:
-                raise AssertionError(str(error)) from error
-            if (
-                item.event_id != ability.event.event_id
-                or item.source_id != ability.source_id
-                or item.source_card != ability.source_card.name
-                or item.controller != ability.controller
-                or item.opponent != 1 - item.controller
-                or item.oracle_fragment != ability.oracle_fragment
-                or item.turn != ability.event.turn
-                or item.step != ability.event.step
-                or item.opponent_life_after != item.opponent_life_before - 1
-            ):
-                raise AssertionError("ETB drain/gain/Scry evidence provenance is inconsistent")
-            if item.terminal_after_life_loss:
-                if (
-                    item.opponent_life_after > 0
-                    or item.controller_life_after != item.controller_life_before
-                    or item.scry_event_id is not None
-                ):
-                    raise AssertionError("terminal ETB drain/gain/Scry evidence is inconsistent")
-            else:
-                matching_scry = [
-                    evidence
-                    for evidence in self.scry_evidence
-                    if evidence.event_id == item.scry_event_id
-                ]
-                if (
-                    item.opponent_life_after <= 0
-                    or item.controller_life_after != item.controller_life_before + 1
-                    or len(matching_scry) != 1
-                    or matching_scry[0].player_index != item.controller
-                    or matching_scry[0].requested != 1
-                    or matching_scry[0].source_id != item.source_id
-                    or matching_scry[0].oracle_fragment != item.oracle_fragment
-                ):
-                    raise AssertionError("completed ETB drain/gain/Scry evidence is inconsistent")
-        if len({item.stack_object_id for item in self.activation_evidence}) != len(
-            self.activation_evidence
-        ):
-            raise AssertionError("activation evidence stack IDs must be unique")
-        for item in self.activation_evidence:
-            if item.controller not in range(2) or item.source_id not in self._objects:
-                raise AssertionError("activation evidence references invalid authority")
-            ability = self._objects.get(item.stack_object_id)
-            if not isinstance(ability, ActivatedAbilityObject):
-                raise AssertionError("activation evidence lacks its runtime stack object")
-            if item.resolved != (ability.zone == "former"):
-                raise AssertionError("activation resolution evidence disagrees with stack state")
-        if len({item.stack_object_id for item in self.food_activation_evidence}) != len(
-            self.food_activation_evidence
-        ):
-            raise AssertionError("Food activation evidence stack IDs must be unique")
-        for item in self.food_activation_evidence:
-            ability = self._objects.get(item.stack_object_id)
-            sacrificed = self._objects.get(item.sacrificed_destination_id)
-            if not isinstance(ability, ActivatedAbilityObject):
-                raise AssertionError("Food activation evidence lacks its stack object")
-            self._validate_food_activation_linkage(ability)
-            if item.source_id not in self._objects or not isinstance(sacrificed, CardObject):
-                raise AssertionError("Food activation evidence lacks immutable cost identities")
-            if not item.tap_paid or not item.sacrifice_paid:
-                raise AssertionError("Food activation evidence lacks complete canonical costs")
-            if item.source_was_token and item.final_source_disposition != "former":
-                raise AssertionError("sacrificed Food token must cease at the SBA boundary")
-            if item.resolved != (ability.zone == "former"):
-                raise AssertionError("Food activation resolution evidence disagrees with stack")
-            if item.resolved and (
-                item.life_before is None
-                or item.life_after is None
-                or item.amount_gained != 3
-                or item.life_after - item.life_before != 3
-                or item.priority_passes != (item.controller, 1 - item.controller)
-                or not item.resolution_permitted
-            ):
-                raise AssertionError("Food activation life evidence is inconsistent")
-        if len({item.stack_object_id for item in self.sneak_evidence}) != len(self.sneak_evidence):
-            raise AssertionError("Sneak evidence stack IDs must be unique")
-        for item in self.sneak_evidence:
-            spell = self._objects.get(item.stack_object_id)
-            if not isinstance(spell, StackObject):
-                raise AssertionError("Sneak evidence lacks its runtime stack object")
-            if item.controller not in range(2) or item.defending_player != 1 - item.controller:
-                raise AssertionError("Sneak evidence has invalid player authority")
-            if (
-                item.hand_object_id not in self._objects
-                or item.returned_attacker_id not in self._objects
-            ):
-                raise AssertionError("Sneak evidence lacks immutable source identities")
-            if item.returned_hand_id not in self._objects:
-                raise AssertionError("Sneak evidence lacks returned-object identity")
-            resolved = item.resolved_object_id is not None
-            countered = any(
-                event.get("event") == "spell_countered"
-                and event.get("target_spell_id") == spell.object_id
-                for event in self.events
-            )
-            if spell.cast_kind is CastKind.CREATURE:
-                if resolved and spell.zone != "former":
-                    raise AssertionError("Sneak evidence resolution disagrees with stack state")
-                if not resolved and spell.zone == "former" and not countered:
-                    raise AssertionError("Sneak evidence resolution disagrees with stack state")
-                if resolved and (
-                    item.resolved_object_id not in self._objects
-                    or item.entered_tapped is not True
-                    or item.entered_attacking is not True
-                ):
-                    raise AssertionError("resolved Sneak evidence lacks battlefield result")
-            elif resolved:
-                raise AssertionError("noncreature Sneak evidence has a battlefield result")
-        if self.priority_state is not None:
-            state = self.priority_state
-            if not self.stack:
+            self.etb_drain_gain_scry_evidenYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Õ”(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Q‘É…¥¸½…¥¸½MÉä•Ù¥‘•¹”ÍÑ…¬%ÌµÕÍĞ‰”Õ¹¥ÅÕ”ˆ¤(€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹•Ñ‰}‘É…¥¹}…¥¹}ÍÉå}•Ù¥‘•¹”è(€€€€€€€€€€€…‰¥±¥Ñä€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡¥Ñ•´¹ÍÑ…­}½‰©•Ñ}¥¤(€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡…‰¥±¥Ñä°QÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ¤½È…‰¥±¥Ñä¹é½¹”€„ô€‰™½Éµ•Èˆè(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Q‘É…¥¸½…¥¸½MÉä•Ù¥‘•¹”±…­ÌÉ•Í½±Ù•MÑ…¬…ÕÑ¡½É¥Ñäˆ¤(€€€€€€€€€€€ÑÉäè(€€€€€€€€€€€€€€€Í•±˜¹}Ù…±¥‘…Ñ•}•Ñ‰}‘É…¥¹}…¥¹}ÍÉå}ÑÉ¥•È¡…‰¥±¥Ñä¤(€€€€€€€€€€€•á•ÁĞY…±Õ•ÉÉ½È…Ì•ÉÉ½Èè(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È¡ÍÑÈ¡•ÉÉ½È¤¤™É½´•ÉÉ½È(€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€¥Ñ•´¹•Ù•¹Ñ}¥€„ô…‰¥±¥Ñä¹•Ù•¹Ğ¹•Ù•¹Ñ}¥(€€€€€€€€€€€€€€€½È¥Ñ•´¹Í½ÕÉ•}¥€„ô…‰¥±¥Ñä¹Í½ÕÉ•}¥(€€€€€€€€€€€€€€€½È¥Ñ•´¹Í½ÕÉ•}…É€„ô…‰¥±¥Ñä¹Í½ÕÉ•}…É¹¹…µ”(€€€€€€€€€€€€€€€½È¥Ñ•´¹½¹ÑÉ½±±•È€„ô…‰¥±¥Ñä¹½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€½È¥Ñ•´¹½ÁÁ½¹•¹Ğ€„ô€Ä€´¥Ñ•´¹½¹ÑÉ½±±•È(€€€€€€€€€€€€€€€½È¥Ñ•´¹½É…±•}™É…µ•¹Ğ€„ô…‰¥±¥Ñä¹½É…±•}™É…µ•¹Ğ(€€€€€€€€€€€€€€€½È¥Ñ•´¹ÑÕÉ¸€„ô…‰¥±¥Ñä¹•Ù•¹Ğ¹ÑÕÉ¸(€€€€€€€€€€€€€€€½È¥Ñ•´¹ÍÑ•À€„ô…‰¥±¥Ñä¹•Ù•¹Ğ¹ÍÑ•À(€€€€€€€€€€€€€€€½È¥Ñ•´¹½ÁÁ½¹•¹Ñ}±¥™•}…™Ñ•È€„ô¥Ñ•´¹½ÁÁ½¹•¹Ñ}±¥™•}‰•™½É”€´€Ä(€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Q‘É…¥¸½…¥¸½MÉä•Ù¥‘•¹”ÁÉ½Ù•¹…¹”¥Ì¥¹½¹Í¥ÍÑ•¹Ğˆ¤(€€€€€€€€€€€¥˜¥Ñ•´¹Ñ•Éµ¥¹…±}…™Ñ•É}±¥™•}±½ÍÌè(€€€€€€€€€€€€€€€¥˜€ (€€€€€€€€€€€€€€€€€€€¥Ñ•´¹½ÁÁ½¹•¹Ñ}±¥™•}…™Ñ•È€ø€À(€€€€€€€€€€€€€€€€€€€½È¥Ñ•´¹½¹ÑÉ½±±•É}±¥™•}…™Ñ•È€„ô¥Ñ•´¹½¹ÑÉ½±±•É}±¥™•}‰•™½É”(€€€€€€€€€€€€€€€€€€€½È¥Ñ•´¹ÍÉå}•Ù•¹Ñ}¥¥Ì¹½Ğ9½¹”(€€€€€€€€€€€€€€€€¤è(€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Ñ•Éµ¥¹…°Q‘É…¥¸½…¥¸½MÉä•Ù¥‘•¹”¥Ì¥¹½¹Í¥ÍÑ•¹Ğˆ¤(€€€€€€€€€€€•±Í”è(€€€€€€€€€€€€€€€µ…Ñ¡¥¹}ÍÉä€ôl(€€€€€€€€€€€€€€€€€€€•Ù¥‘•¹”(€€€€€€€€€€€€€€€€€€€™½È•Ù¥‘•¹”¥¸Í•±˜¹ÍÉå}•Ù¥‘•¹”(€€€€€€€€€€€€€€€€€€€¥˜•Ù¥‘•¹”¹•Ù•»}5¶‰ËkºwµçB–b—FVÒæ6öçG&öÆÆW"æ÷B–â&ævRƒ"’÷"—FVÒç6÷W&6Uö–Bæ÷B–â6VÆbåöö&¦V7G3 ¢&—6R76W'F–öäW'&÷"‚&7F—fF–öâWf–FVæ6R&VfW&Væ6W2–çfÆ–BWF†÷&—G’"¢&–Æ—G’Ò6VÆbåöö&¦V7G2ævWB†—FVÒç7F6µöö&¦V7Eö–B¢–bæ÷B—6–ç7Fæ6R†&–Æ—G’Â7F—fFVD&–Æ—G”ö&¦V7B“ ¢&—6R76W'F–öäW'&÷"‚&7F—fF–öâWf–FVæ6RÆ6·2—G2'VçF–ÖR7F6²ö&¦V7B"¢–b—FVÒç&W6öÇfVBÒ†&–Æ—G’ç¦öæRÓÒ&f÷&ÖW""“ ¢&—6R76W'F–öäW'&÷"‚&7F—fF–öâ&W6öÇWF–öâWf–FVæ6RF—6w&VW2v—F‚7F6²7FFR"¢–bÆVâ‡¶—FVÒç7F6µöö&¦V7Eö–Bf÷"—FVÒ–â6VÆbæfööEö7F—fF–öåöWf–FVæ6WÒ’ÒÆVâ€¢6VÆbæfööEö7F—fF–öåöWf–FVæ6P¢“ ¢&—6R76W'F–öäW'&÷"‚$fööB7F—fF–öâWf–FVæ6R7F6²”G2×W7B&RVæ—VR"¢f÷"—FVÒ–â6VÆbæfööEö7F—fF–öåöWf–FVæ6S ¢&–Æ—G’Ò6VÆbåöö&¦V7G2ævWB†—FVÒç7F6µöö&¦V7Eö–B¢67&–f–6VBÒ6VÆbåöö&¦V7G2ævWB†—FVÒç67&–f–6VEöFW7F–æF–öåö–B¢–bæ÷B—6–ç7Fæ6R†&–Æ—G’Â7F—fFVD&–Æ—G”ö&¦V7B“ ¢&—6R76W'F–öäW'&÷"‚$fööB7F—fF–öâWf–FVæ6RÆ6·2—G27F6²ö&¦V7B"¢6VÆbå÷fÆ–FFUöfööEö7F—fF–öåöÆ–æ¶vR†&–Æ—G’¢–b—FVÒç6÷W&6Uö–Bæ÷B–â6VÆbåöö&¦V7G2÷"æ÷B—6–ç7Fæ6R‡67&–f–6VBÂ6&Dö&¦V7B“ ¢&—6R76W'F–öäW'&÷"‚$fööB7F—fF–öâWf–FVæ6RÆ6·2–Ö×WF&ÆR6÷7B–FVçF—F–W2"¢–bæ÷B—FVÒçF÷–B÷"æ÷B—FVÒç67&–f–6U÷–C ¢&—6R76W'F–öäW'&÷"‚$fööB7F—fF–öâWf–FVæ6RÆ6·26ö×ÆWFR6æöæ–6Â6÷7G2"¢–b—FVÒç6÷W&6U÷v5÷Fö¶VâæB—FVÒæf–æÅ÷6÷W&6UöF—7÷6—F–öâÒ&f÷&ÖW"# ¢&—6R76W'F–öäW'&÷"‚'67&–f–6VBfööBFö¶Vâ×W7B6V6RBF†R4$&÷VæF'’"¢–b—FVÒç&W6öÇfVBÒ†&–Æ—G’ç¦öæRÓÒ&f÷&ÖW""“ ¢&—6R76W'F–öäW'&÷%š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍJ‘›ÛÙXİ]˜][Ûˆ™\ÛÛ][Ûˆ]šY[˜ÙH\ØYÜ™Y\ÈÚ]İXÚÈŠBˆYˆ][Kœ™\ÛÛ™Y[™
+ˆ][K›Y™WØ™Y›Ü™H\È›Û™BˆÜˆ][K›Y™WØY\ˆ\È›Û™BˆÜˆ][K˜[[İ[ÙØZ[™YOHÂˆÜˆ][K›Y™WØY\ˆH][K›Y™WØ™Y›Ü™HOHÂˆÜˆ][Kœš[Üš]WÜ\ÜÙ\ÈOH
+][K˜ÛÛ›Û\‹HH][K˜ÛÛ›Û\ŠBˆÜˆ›İ][Kœ™\ÛÛ][Û—Ü\›Z]Yˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ‘›ÛÙXİ]˜][ÛˆY™H]šY[˜ÙH\È[˜ÛÛœÚ\İ[ŠBˆYˆ[ŠÚ][KœİXÚ×ÛØš™XİÚY›Üˆ][H[ˆÙ[‹œÛ™XZ×Ù]šY[˜Ù_JHOH[ŠÙ[‹œÛ™XZ×Ù]šY[˜ÙJN‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ”Û™XZÈ]šY[˜ÙHİXÚÈQÈ]\İ™H[š\]YHŠBˆ›Üˆ][H[ˆÙ[‹œÛ™XZ×Ù]šY[˜ÙN‚ˆÜ[HÙ[‹—ÛØš™XİË™Ù]
+][KœİXÚ×ÛØš™XİÚY
+BˆYˆ›İ\Ú[œİ[˜ÙJÜ[İXÚÓØš™Xİ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ”Û™XZÈ]šY[˜ÙHXÚÜÈ]È[[YHİXÚÈØš™XİŠBˆYˆ][K˜ÛÛ›Û\ˆ›İ[ˆ˜[™ÙJŠHÜˆ][K™Y™[™[™×Ü^Y\ˆOHHH][K˜ÛÛ›Û\‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ”Û™XZÈ]šY[˜ÙH\È[˜[Y^Y\ˆ]]Üš]HŠBˆYˆ
+ˆ][Kš[™ÛØš™XİÚY›İ[ˆÙ[‹—ÛØš™XİÂˆÜˆ][Kœ™]\›™YØ]XÚÙ\—ÚY›İ[ˆÙ[‹—ÛØš™XİÂˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ”Û™XZÈ]šY[˜ÙHXÚÜÈ[[]]X›HÛİ\˜ÙHY[]Y\ÈŠBˆYˆ][Kœ™]\›™YÚ[™ÚY›İ[ˆÙ[‹—ÛØš™XİÎ‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ”Û™XZÈ]šY[˜ÙHXÚÜÈ™]\›™Y[Øš™XİY[]HŠBˆ™\ÛÛ™YH][Kœ™\ÛÛ™YÛØš™XİÚY\È›İ›Û™BˆÛİ[\™YH[Jˆ]™[™Ù]
+™]™[ŠHOHœÜ[ØÛİ[\™Y‚ˆ[™]™[™Ù]
+\™Ù]ÜÜ[ÚYŠHOHÜ[›Øš™XİÚYˆ›Üˆ]™[[ˆÙ[‹™]™[Âˆ
+BˆYˆÜ[˜Ø\İÚÚ[™\ÈØwÓ[h‘éì¶»§q«^w:
                 raise AssertionError("priority state requires a nonempty stack")
             if state.player_index not in range(2):
                 raise AssertionError("priority player is invalid")
@@ -8143,137 +3045,11 @@ class Game(
             or self._first_double_strike_ids
             or self._regular_damage_initial_ids
         ):
-            raise AssertionError("completed combat state leaked outside the combat phase")
-        if [record.sequence for record in self.rng.records] != list(
-            range(1, len(self.rng.records) + 1)
-        ):
-            raise AssertionError("RNG consumption sequence is not contiguous")
-        if any(
-            previous.state_after != current.state_before
-            for previous, current in zip(self.rng.records, self.rng.records[1:], strict=False)
-        ):
-            raise AssertionError("RNG state evidence does not form one chain")
-        if self.rng.records and self.rng.records[-1].state_after != self.rng.state_digest:
-            raise AssertionError("RNG current state does not match its consumption ledger")
-        occupied: dict[
-            str,
-            tuple[
-                int | None,
-                str,
-                CardObject
-                | StackObject
-                | TriggeredAbilityObject
-                | ActivatedAbilityObject
-                | Permanent,
-            ],
-        ] = {}
-        for obj in self.stack:
-            if not isinstance(obj, (StackObject, TriggeredAbilityObject, ActivatedAbilityObject)):
-                raise AssertionError("stack may contain only spell or ability objects")
-            if obj.object_id in occupied:
-                raise AssertionError("runtime object occupies more than one zone")
-            if self._objects.get(obj.object_id) is not obj:
-                raise AssertionError("stack contains an unregistered or aliased object")
-            if obj.zone != "stack":
-                raise AssertionError("stack object zone does not match its container")
-            if obj.controller not in range(2):
-                raise AssertionError("stack object controller is invalid")
-            if isinstance(obj, StackObject):
-                if obj.cast_kind is CastKind.UNSUPPORTED:
-                    raise AssertionError("unsupported spells cannot become stack objects")
-                if obj.target_id is not None and obj.target_id not in self._objects:
-                    raise AssertionError("stack target ID was never registered")
-            elif isinstance(obj, TriggeredAbilityObject):
-                if obj.event.player_index not in range(2):
-                    raise AssertionError("trigger event player is invalid")
-                if obj.effect is TriggerEffect.DIES_DRAW:
-                    try:
-                        self._validate_dies_draw_trigger(obj)
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if obj.effect is TriggerEffect.ETB_DRAIN_GAIN_SCRY:
-                    try:
-                        self._validate_etb_drain_gain_scry_trigger(obj)
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if obj.effect is TriggerEffect.ETB_SELF_LIFE_GAIN:
-                    try:
-                        self._validate_etb_self_life_gain_trigger(obj)
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if obj.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
-                    try:
-                        self._validate_permanent_left_counter_provenance(
-                            controller=obj.controller,
-                            source_id=obj.source_id,
-                            source_card=obj.source_card,
-                            oracle_fragment=obj.oracle_fragment,
-                            event=obj.event,
-                            trigger_id=obj.trigger_id,
-                        )
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if obj.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
-                    try:
-                        self._validate_etb_artifact_draw_provenance(
-                            controller=obj.controller,
-                            source_id=obj.source_id,
-                            source_card=obj.source_card,
-                            oracle_fragment=obj.oracle_fragment,
-                            event=obj.event,
-                            trigger_id=obj.trigger_id,
-                            require_current_condition=False,
-                        )
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if obj.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
-                    try:
-                        self._validate_alliance_temporary_keyword_choice_trigger(obj)
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-            elif isinstance(obj, ActivatedAbilityObject):
-                if obj.source_id not in self._objects:
-                    raise AssertionError("activated ability source ID was never registered")
-                if any(target_id not in self._objects for target_id in obj.target_ids):
-                    raise AssertionError("activated ability target ID was never registered")
-            occupied[obj.object_id] = (None, "stack", obj)
-        if len({trigger.trigger_id for trigger in self.pending_triggers}) != len(
-            self.pending_triggers
-        ):
-            raise AssertionError("pending trigger IDs must be unique")
-        for trigger in self.pending_triggers:
-            if trigger.effect is TriggerEffect.PERMANENT_LEFT_SELF_COUNTER:
-                try:
-                    self._validate_permanent_left_counter_provenance(
-                        controller=trigger.controller,
-                        source_id=trigger.source_id,
-                        source_card=trigger.source_card,
-                        oracle_fragment=trigger.oracle_fragment,
-                        event=trigger.event,
-                        trigger_id=trigger.trigger_id,
-                    )
-                except ValueError as error:
-                    raise AssertionError(str(error)) from error
-            if trigger.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
-                try:
-                    self._validate_etb_artifact_draw_provenance(
-                        controller=trigger.controller,
-                        source_id=trigger.source_id,
-                        source_card=trigger.source_card,
-                        oracle_fragment=trigger.oracle_fragment,
-                        event=trigger.event,
-                        trigger_id=trigger.trigger_id,
-                        require_current_condition=False,
-                    )
-                except ValueError as error:
-                    raise AssertionError(str(error)) from error
-        for player_index, player in enumerate(self.players):
-            for zone_name in ("library", "hand", "battlefield", "graveyard", "exile"):
-                for obj in getattr(player, zone_name):
-                    if not isinstance(obj, (CardObject, Permanent)):
-                        raise AssertionError("zones may contain only registered runtime objects")
-                    if obj.object_id in occupied:
-                        raise AssertionError("runtime object occupies more than one zone")
+            raise AsserYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ¥½¹ÉÉ½È ‰½µÁ±•Ñ•½µ‰…ĞÍÑ…Ñ”±•…­•½ÕÑÍ¥‘”Ñ¡”½µ‰…ĞÁ¡…Í”ˆ¤(€€€€€€€¥˜mÉ•½É¹Í•ÅÕ•¹”™½ÈÉ•½É¥¸Í•±˜¹É¹œ¹É•½É‘Ít€„ô±¥ÍĞ (€€€€€€€€€€€É…¹” Ä°±•¸¡Í•±˜¹É¹œ¹É•½É‘Ì¤€¬€Ä¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰I9½¹ÍÕµÁÑ¥½¸Í•ÅÕ•¹”¥Ì¹½Ğ½¹Ñ¥Õ½ÕÌˆ¤(€€€€€€€¥˜…¹ä (€€€€€€€€€€€ÁÉ•Ù¥½ÕÌ¹ÍÑ…Ñ•}…™Ñ•È€„ôÕÉÉ•¹Ğ¹ÍÑ…Ñ•}‰•™½É”(€€€€€€€€€€€™½ÈÁÉ•Ù¥½ÕÌ°ÕÉÉ•¹Ğ¥¸é¥À¡Í•±˜¹É¹œ¹É•½É‘Ì°Í•±˜¹É¹œ¹É•½É‘ÍlÄét°ÍÑÉ¥Ğõ…±Í”¤(€€€€€€€€¤è(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰I9ÍÑ…Ñ”•Ù¥‘•¹”‘½•Ì¹½Ğ™½É´½¹”¡…¥¸ˆ¤(€€€€€€€¥˜Í•±˜¹É¹œ¹É•½É‘Ì…¹Í•±˜¹É¹œ¹É•½É‘Íl´Åt¹ÍÑ…Ñ•}…™Ñ•È€„ôÍ•±˜¹É¹œ¹ÍÑ…Ñ•}‘¥•ÍĞè(€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰I9ÕÉÉ•¹ĞÍÑ…Ñ”‘½•Ì¹½Ğµ…Ñ ¥ÑÌ½¹ÍÕµÁÑ¥½¸±•‘•Èˆ¤(€€€€€€€½ÕÁ¥•è‘¥Ñl(€€€€€€€€€€€ÍÑÈ°(€€€€€€€€€€€ÑÕÁ±•l(€€€€€€€€€€€€€€€¥¹Ğğ9½¹”°(€€€€€€€€€€€€€€€ÍÑÈ°(€€€€€€€€€€€€€€€…É‘=‰©•Ğ(€€€€€€€€€€€€€€€ğMÑ…­=‰©•Ğ(€€€€€€€€€€€€€€€ğQÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ(€€€€€€€€€€€€€€€ğÑ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•Ğ(€€€€€€€€€€€€€€€ğA•Éµ…¹•¹Ğ°(€€€€€€€€€€€t°(€€€€€€€t€ôíô(€€€€€€€™½È½‰¨¥¸Í•±˜¹ÍÑ…¬è(€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡½‰¨°€¡MÑ…­=‰©•Ğ°QÉ¥•É•‘‰¥±¥Ñå=‰©•Ğ°Ñ¥Ù…Ñ•‘‰¥±¥Ñå=‰©•Ğ¤¤è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÍÑ…¬µ…ä½¹Ñ…¥¸½¹±äÍÁ•±°½È…‰¥±¥Ñä½‰©•ÑÌˆ¤(€€€€€€€€€€€¥˜½‰¨¹½‰©•Ñ}¥¥¸½ÕÁ¥•è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÉÕ¹Ñ¥µ”½‰©•Ğ½ÕÁ¥•Ìµ½É”Ñ¡…¸½¹”é½¹”ˆ¤(€€€€€€€€€€€¥˜Í•±˜¹}½‰©•ÑÌ¹•Ğ¡½‰¨¹½‰©•Ñ}¥¤¥Ì¹½Ğ½‰¨è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÍÑ…¬½¹Ñ…¥¹Ì…¸Õ¹É•¥ÍÑ•É•½È…±¥…Í•½‰©•Ğˆ¤(€€€€€€€€€€€¥˜½‰¨¹é½¹”€„ô€‰ÍÑ…¬ˆè(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÍÑ…¬½‰©•Ğé½¹”‘½•Ì¹½Ğµ…Ñ ¥ÑÌ½¹Ñ…¥¹•Èˆ¤(€€€€€€€€€€€¥˜½‰¨¹½¹ÑÉ½±±•È¹½Ğ¥¸É…¹” È¤è(€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰ÍÑ…¬½‰©•Ğ½¹ÑÉ½±±•È¥Ì¥¹Ù…±¥ˆ¤(€€€€€€€€€€€¥˜¥Í¥¹ÍÑ…¹”¡½‰¨°MÑ…­=‰©—}5¶‰ËkºwµçVFFUöWF%öG&–åöv–å÷67'•÷G&–vvW"†ö&¢¢W†6WBfÇVTW'&÷"2W'&÷# ¢&—6R76W'F–öäW'&÷"‡7G"†W'&÷"’’g&öÒW'&÷ ¢–bö&¢æVffV7B—2G&–vvW$VffV7BäUD%õ4TÄeôÄ”dUôt”ã ¢G'“ ¢6VÆbå÷fÆ–FFUöWF%÷6VÆeöÆ–fUöv–å÷G&–vvW"†ö&¢¢W†6WBfÇVTW'&÷"2W'&÷# ¢&—6R76W'F–öäW'&÷"‡7G"†W'&÷"’’g&öÒW'&÷ ¢–bö&¢æVffV7B—2G&–vvW$VffV7BåU$ÔäTåEôÄTeEõ4TÄeô4õTåDU# ¢G'“ ¢6VÆbå÷fÆ–FFU÷W&ÖæVçEöÆVgEö6÷VçFW%÷&÷fVææ6R€¢6öçG&öÆÆW#Öö&¢æ6öçG&öÆÆW"À¢6÷W&6Uö–CÖö&¢ç6÷W&6Uö–BÀ¢6÷W&6Uö6&CÖö&¢ç6÷W&6Uö6&BÀ¢÷&6ÆUög&vÖVçCÖö&¢æ÷&6ÆUög&vÖVçBÀ¢WfVçCÖö&¢æWfVçBÀ¢G&–vvW%ö–CÖö&¢çG&–vvW%ö–BÀ¢¢W†6WBfÇVTW'&÷"2W'&÷# ¢&—6R76W'F–öäW'&÷"‡7G"†W'&÷"’’g&öÒW'&÷ ¢–bö&¢æVffV7B—2G&–vvW$VffV7BäUD%ô%D”d5EôE$s ¢G'“ ¢6VÆbå÷fÆ–FFUöWF%ö'F–f7EöG&u÷&÷fVææ6R€¢6öçG&öÆÆW#Öö&¢æ6öçG&öÆÆW"À¢6÷W&6Uö–CÖö&¢ç6÷W&6Uö–BÀ¢6÷W&6Uö6&CÖö&¢ç6÷W&6Uö6&BÀ¢÷&6ÆUög&vÖVçCÖö&¢æ÷&6ÆUög&vÖVçBÀ¢WfVçCÖö&¢æWfVçBÀ¢G&–vvW%ö–CÖö&¢çG&–vvW%ö–BÀ¢&WV—&Uö7W'&VçEö6öæF—F–öãÔfÇ6RÀ¢¢W†6WBfÇVTW'&÷"2W'&÷# ¢&—6R76W'F–öäW'&÷"‡7G"†W'&÷"’’g&öÒW'&÷ ¢–bö&¢æVfeš®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍYXİ\ÈšYÙÙ\‘Y™™XİSPSÑWÕSTÔT–WÒÑVUÓÔ‘ĞÒÒPÑN‚ˆN‚ˆÙ[‹—İ˜[Y]WØ[X[˜ÙWİ[\Ü˜\WÚÙ^]ÛÜ™ØÚÚXÙWİšYÙÙ\ŠØšŠBˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠİŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ[Yˆ\Ú[œİ[˜ÙJØš‹Xİ]˜]YXš[]SØš™Xİ
+N‚ˆYˆØš‹œÛİ\˜ÙWÚY›İ[ˆÙ[‹—ÛØš™XİÎ‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ˜Xİ]˜]YXš[]HÛİ\˜ÙHQØ\È™]™\ˆ™YÚ\İ\™YŠBˆYˆ[J\™Ù]ÚY›İ[ˆÙ[‹—ÛØš™XİÈ›Üˆ\™Ù]ÚY[ˆØš‹\™Ù]ÚYÊN‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠ˜Xİ]˜]YXš[]H\™Ù]QØ\È™]™\ˆ™YÚ\İ\™YŠBˆØØİ\YYÛØš‹›Øš™XİÚYHH
+›Û™KœİXÚÈ‹ØšŠBˆYˆ[ŠİšYÙÙ\‹šYÙÙ\—ÚY›ÜˆšYÙÙ\ˆ[ˆÙ[‹œ[™[™×İšYÙÙ\œßJHOH[ŠˆÙ[‹œ[™[™×İšYÙÙ\œÂˆ
+N‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠœ[™[™ÈšYÙÙ\ˆQÈ]\İ™H[š\]YHŠBˆ›ÜˆšYÙÙ\ˆ[ˆÙ[‹œ[™[™×İšYÙÙ\œÎ‚ˆYˆšYÙÙ\‹™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ”T“PS‘S•ÓQ•ÔÑS—ĞÓÕS•T‚ˆN‚ˆÙ[‹—İ˜[Y]WÜ\›X[™[ÛYØÛİ[\—Ü›İ™[˜[˜ÙJˆÛÛ›Û\]šYÙÙ\‹˜ÛÛ›Û\‹ˆÛİ\˜ÙWÚY]šYÙÙ\‹œÛİ\˜ÙWÚYˆÛİ\˜ÙWØØ\™]šYÙÙ\‹œÛİ\˜ÙWØØ\™ˆÜ˜XÛWÙœ˜YÛY[]šYÙÙ\‹›Ü˜XÛWÙœ˜YÛY[ˆ]™[]šYÙÙ\‹™]™[ˆšYÙÙ\—ÚY]šYÙÙ\‹šYÙÙ\—ÚYˆ
+Bˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆ˜Z\ÙH\ÜÙ\[Û‘\œ›ÜŠİŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆYˆšYÙÙ\‹™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ĞT•QPÕÑUÎ‚ˆN‚ˆÙ[‹—İ˜[Y]WÙ]—Ø\Y˜XİÙ˜]×Ü›İ™[˜[˜ÙJˆÛÛ›Û\]šYÙÙ\‹˜ÛÛ·Ó[h‘éì¶»§q«^t            raise AssertionError("runtime object occupies more than one zone")
                     if self._objects.get(obj.object_id) is not obj:
                         raise AssertionError("zone contains an unregistered or aliased object")
                     if obj.zone != zone_name:
@@ -8300,152 +3076,21 @@ class Game(
             for permanent in player.battlefield:
                 if permanent.controller != player_index:
                     raise AssertionError("battlefield controller does not match player zone")
-                if permanent.entered_battlefield_turn > self.turn:
-                    raise AssertionError("permanent entered the battlefield in a future turn")
-                if permanent.is_token != isinstance(permanent.card, TokenDefinition):
-                    raise AssertionError("token runtime state does not match its token definition")
-                if not permanent.type_line:
-                    raise AssertionError("permanent type line must remain nonempty")
-                if permanent.card.is_creature:
-                    if permanent.card.power is None or permanent.card.toughness is None:
-                        raise AssertionError("creature permanent lacks printed power/toughness")
-                    if permanent.toughness <= 0:
-                        raise AssertionError("nonpositive toughness must be handled by an SBA")
-                invalid_counters = any(
-                    not isinstance(counter_type, str)
-                    or not counter_type
-                    or not isinstance(value, int)
-                    or isinstance(value, bool)
-                    or value <= 0
-                    for counter_type, value in permanent.counters.items()
-                )
-                if invalid_counters:
-                    raise AssertionError("counter quantities must be nonnegative integers")
-                for modifier in permanent.pt_modifiers:
-                    if modifier.duration not in {"persistent", "until_end_of_turn"}:
-                        raise AssertionError("unknown P/T modifier duration")
-                    if modifier.created_turn > self.turn:
-                        raise AssertionError("P/T modifier originates in a future turn")
-                if any(
-                    effect.duration != "until_end_of_turn"
-                    or not isinstance(effect.keyword, (StrikeKeyword, TemporaryKeyword))
-                    for effect in permanent.temporary_keyword_effects
-                ):
-                    raise AssertionError("temporary keyword effect is malformed")
-                effect_ids = {effect.effect_id for effect in permanent.characteristic_effects}
-                if len(effect_ids) != len(permanent.characteristic_effects):
-                    raise AssertionError("characteristic effect IDs must be unique")
-                if any(
-                    dependency not in effect_ids
-                    for effect in permanent.characteristic_effects
-                    for dependency in effect.depends_on
-                ):
-                    raise AssertionError("characteristic effect dependency is missing")
-                if permanent.card.is_creature:
-                    try:
-                        permanent.evaluate_power_toughness()
-                    except ValueError as error:
-                        raise AssertionError(str(error)) from error
-                if "Legendary" in permanent.card.type_line:
-                    if permanent.card.name in legendary_names:
-                        raise AssertionError("legend rule left duplicate names on battlefield")
-                    legendary_names.add(permanent.card.name)
+                if permanenYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕĞ¹•¹Ñ•É•‘}‰…ÑÑ±•™¥•±‘}ÑÕÉ¸€øÍ•±˜¹ÑÕÉ¸è(€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Á•Éµ…¹•¹Ğ•¹Ñ•É•Ñ¡”‰…ÑÑ±•™¥•±¥¸„™ÕÑÕÉ”ÑÕÉ¸ˆ¤(€€€€€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹¥Í}Ñ½­•¸€„ô¥Í¥¹ÍÑ…¹”¡Á•Éµ…¹•¹Ğ¹…É°Q½­•¹•™¥¹¥Ñ¥½¸¤è(€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Ñ½­•¸ÉÕ¹Ñ¥µ”ÍÑ…Ñ”‘½•Ì¹½Ğµ…Ñ ¥ÑÌÑ½­•¸‘•™¥¹¥Ñ¥½¸ˆ¤(€€€€€€€€€€€€€€€¥˜¹½ĞÁ•Éµ…¹•¹Ğ¹ÑåÁ•}±¥¹”è(€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Á•Éµ…¹•¹ĞÑåÁ”±¥¹”µÕÍĞÉ•µ…¥¸¹½¹•µÁÑäˆ¤(€€€€€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹…É¹¥Í}É•…ÑÕÉ”è(€€€€€€€€€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹…É¹Á½İ•È¥Ì9½¹”½ÈÁ•Éµ…¹•¹Ğ¹…É¹Ñ½Õ¡¹•ÍÌ¥Ì9½¹”è(€€€€€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰É•…ÑÕÉ”Á•Éµ…¹•¹Ğ±…­ÌÁÉ¥¹Ñ•Á½İ•È½Ñ½Õ¡¹•ÍÌˆ¤(€€€€€€€€€€€€€€€€€€€¥˜Á•Éµ…¹•¹Ğ¹Ñ½Õ¡¹•ÍÌ€ğô€Àè(€€€€€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰¹½¹Á½Í¥Ñ¥Ù”Ñ½Õ¡¹•ÍÌµÕÍĞ‰”¡…¹‘±•‰ä…¸M	ˆ¤(€€€€€€€€€€€€€€€¥¹Ù…±¥‘}½Õ¹Ñ•ÉÌ€ô…¹ä (€€€€€€€€€€€€€€€€€€€¹½Ğ¥Í¥¹ÍÑ…¹”¡½Õ¹Ñ•É}ÑåÁ”°ÍÑÈ¤(€€€€€€€€€€€€€€€€€€€½È¹½Ğ½Õ¹Ñ•É}ÑåÁ”(€€€€€€€€€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹”¡Ù…±Õ”°¥¹Ğ¤(€€€€€€€€€€€€€€€€€€€½È¥Í¥¹ÍÑ…¹”¡Ù…±Õ”°‰½½°¤(€€€€€€€€€€€€€€€€€€€½ÈÙ…±Õ”€ğô€À(€€€€€€€€€€€€€€€€€€€™½È½Õ¹Ñ•É}ÑåÁ”°Ù…±Õ”¥¸Á•Éµ…¹•¹Ğ¹½Õ¹Ñ•ÉÌ¹¥Ñ•µÌ ¤(€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€¥˜¥¹Ù…±¥‘}½Õ¹Ñ•ÉÌè(€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰½Õ¹Ñ•ÈÅÕ…¹Ñ¥Ñ¥•ÌµÕÍĞ‰”¹½¹¹•…Ñ¥Ù”¥¹Ñ••ÉÌˆ¤(€€€€€€€€€€€€€€€™½Èµ½‘¥™¥•È¥¸Á•Éµ…¹•¹Ğ¹ÁÑ}µ½‘¥™¥•ÉÌè(€€€€€€€€€€€€€€€€€€€¥˜µ½‘¥™¥•È¹‘ÕÉ…Ñ¥½¸¹½Ğ¥¸ì‰Á•ÉÍ¥ÍÑ•¹Ğˆ°€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸‰ôè(€€€€€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰Õ¹­¹½İ¸@½Pµ½‘¥™¥•È‘ÕÉ…Ñ¥½¸ˆ¤(€€€€€€€€€€€€€€€€€€€¥˜µ½‘¥™¥•È¹É•…Ñ•‘}ÑÕÉ¸€øÍ•±˜¹ÑÕÉ¸è(€€€€€€€€€€€€€€€€€€€€€€€É…¥Í”ÍÍ•ÉÑ¥½¹ÉÉ½È ‰@½Pµ½‘¥™¥•È½É¥¥¹…Ñ•Ì¥¸„™ÕÑÕÉ”ÑÕÉ¸ˆ¤(€€€€€€€€€€€€€€€¥˜…¹ä (€€€€€€€€€€€€€€€€€€€•™™•Ğ¹‘ÕÉ…Ñ¥½¸€„ô€‰Õ¹Ñ¥±}•¹‘}½™}ÑÕÉ¸ˆ(€€€€€€€€€€€€€€€€€€€½È¹½Ğ¥Í¥¹ÍÑ…¹—}5¶‰ËkºwµçvW%÷F÷Vv†æW72‚¢W†6WBfÇVTW'&÷"2W'&÷# ¢&—6R76W'F–öäW'&÷"‡7G"†W'&÷"’’g&öÒW'&÷ ¢–b$ÆVvVæF'’"–âW&ÖæVçBæ6&BçG—UöÆ–æS ¢–bW&ÖæVçBæ6&BææÖR–âÆVvVæF'•öæÖW3 ¢&—6R76W'F–öäW'&÷"‚&ÆVvVæB'VÆRÆVgBGWÆ–6FRæÖW2öâ&GFÆVf–VÆB"¢ÆVvVæF'•öæÖW2æFB‡W&ÖæVçBæ6&BææÖR ¢FVb6†V6µöÆ–fR‡6VÆb’ÓâæöæS ¢f÷"–æFW‚ÂÆ–W"–âVçVÖW&FR‡6VÆbçÆ–W'2“ ¢–bÆ–W"æÆ–fRÃÒæBæ÷BÆ–W"æÆ÷7C ¢Æ–W"æÆ÷7BÒG'VP¢Æ–W"æÆ÷75÷&V6öâÒ&Æ–fU÷¦W&õö÷%öÆW72 ¢6VÆbçv–ææW"ÒÒ–æFW€¢6VÆbæÆör‚'Æ–W%öÆ÷7B"ÂÆ–W#×Æ–W"ææÖRÂ&V6öã×Æ–W"æÆ÷75÷&V6öâ ¢FVb&V6÷&Eö6öæf÷&Öæ6U÷7F÷€¢6VÆbÂ¶–æC¢7G"Â&Vf÷&Uöf–ævW'&–çC¢7G"Â¢ÂFWF–Ã¢7G ¢’Óâ6öæf÷&Öæ6U7F÷&V6÷&C ¢""%&V6÷&Bâ–ÆÆVvÂÖ×WFF–öâ÷"Væ6Æ76–f–VB×&V6‚7F÷FWFW&Ö–æ—7F–6ÆÇ’â"" ¢–b¶–æBæ÷B–â²&–ÆÆVvÅö×WFF–öâ"Â'Væ6Æ76–f–VE÷&V6‚"Â'6–ÆVçEö&÷†–ÖF–öâ'Ó ¢&—6RfÇVTW'&÷"‚&6öæf÷&Öæ6R7F÷¶–æB—2Vç7W÷'FVB"¢gFW"Ò6VÆbæWF†÷&—FF—fU÷7FFUöf–ævW'&–çB‚¢–b¶–æBÓÒ&–ÆÆVvÅö×WFF–öâ"æB&Vf÷&Uöf–ævW'&–çBÓÒgFW# ¢&—6RfÇVTW'&÷"‚&–ÆÆVvÂÖ×WFF–öâ7F÷&WV—&W2âö'6W'fVB7FFR6†ævR"¢&V6÷&BÒ6öæf÷&Öæ6U7F÷&V6÷&B€¢b'7F÷×¶ÆVâ‡6VÆbæ6öæf÷&Öæ6U÷7F÷÷&V6÷&G2’²£fGÒ"À¢¶–æBÀ¢6VÆbçGW&âÀ¢6VÆbç†6RÀ¢6VÆbç7FWçfÇVRÀ¢&Vf÷&Uöf–ævW'&–çBÀ¢gFW"À¢FWF–ÂÀ¢¢6VÆbæ6öæf÷&Öæ6U÷7F÷÷&V6÷&G2æVæB‡&V6÷&B¢&WGW&â&V6÷&@ ¢FVbWF†÷&—FF—fU÷7FFUöf–ævW'&–çB‡6VÆb’Óâ7G# ¢""%7F&ÆR×WFF•š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍ[Û‹X›İ[™\HYÙ\İ^ÛY[™ÈXYÛ›ÜİXÜÈ[™]šY[˜ÙHYÙ\œËˆˆˆ‚ˆ™]\›ˆÚLMŠˆ™\ŠÙ[‹—Ø]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ü™Z[XYÙJ
+JK™[˜ÛÙJ]‹NŠBˆ
+Kš^YÙ\İ
 
-    def check_life(self) -> None:
-        for index, player in enumerate(self.players):
-            if player.life <= 0 and not player.lost:
-                player.lost = True
-                player.loss_reason = "life_zero_or_less"
-                self.winner = 1 - index
-                self.log("player_lost", player=player.name, reason=player.loss_reason)
-
-    def record_conformance_stop(
-        self, kind: str, before_fingerprint: str, *, detail: str
-    ) -> ConformanceStopRecord:
-        """Record an illegal-mutation or unclassified-reach stop deterministically."""
-        if kind not in {"illegal_mutation", "unclassified_reach", "silent_approximation"}:
-            raise ValueError("conformance stop kind is unsupported")
-        after = self.authoritative_state_fingerprint()
-        if kind == "illegal_mutation" and before_fingerprint == after:
-            raise ValueError("illegal-mutation stop requires an observed state change")
-        record = ConformanceStopRecord(
-            f"stop-{len(self.conformance_stop_records) + 1:06d}",
-            kind,
-            self.turn,
-            self.phase,
-            self.step.value,
-            before_fingerprint,
-            after,
-            detail,
-        )
-        self.conformance_stop_records.append(record)
-        return record
-
-    def authoritative_state_fingerprint(self) -> str:
-        """Stable mutation-boundary digest excluding diagnostics and evidence ledgers."""
-        return sha256(
-            repr(self._authoritative_state_fingerprint_preimage()).encode("utf-8")
-        ).hexdigest()
-
-    def _authoritative_state_fingerprint_preimage(self) -> tuple[object, ...]:
-        """Return the complete canonical preimage used by the existing state fingerprint."""
-        zones = tuple(
-            (
-                tuple(card.object_id for card in player.library),
-                tuple(card.object_id for card in player.hand),
-                tuple(permanent.object_id for permanent in player.battlefield),
-                tuple(card.object_id for card in player.graveyard),
-                tuple(card.object_id for card in player.exile),
-                player.life,
-                player.lost,
-                player.failed_draw_pending,
-            )
-            for player in self.players
-        )
-        return (
-            self.turn,
-            self.active_player,
-            self.step.value,
-            tuple(item.object_id for item in self.stack),
-            self._combat_attackers,
-            self._combat_blocks,
-            zones,
-            self.rng.state_digest,
-            self.winner,
-        )
-
-    def authoritative_state_fingerprint_evidence(self) -> dict[str, object]:
-        """Serialize the existing fingerprint preimage without defining a second state model."""
-        authority = self._authoritative_state_fingerprint_preimage()
-        zones = authority[6]
-        return {
-            "scheme": "engine07-authoritative-state-fingerprint-preimage-v1",
-            "turn": authority[0],
-            "active_player_index": authority[1],
-            "step": authority[2],
-            "stack_object_ids": list(authority[3]),
-            "combat_attacker_ids": list(authority[4]),
-            "combat_blocks": [list(item) for item in authority[5]],
-            "players": [
-                {
-                    "library_object_ids": list(player[0]),
-                    "hand_object_ids": list(player[1]),
-                    "battlefield_object_ids": list(player[2]),
-                    "graveyard_object_ids": list(player[3]),
-                    "exile_object_ids": list(player[4]),
-                    "life": player[5],
-                    "lost": player[6],
-                    "failed_draw_pending": player[7],
-                }
-                for player in zones
-            ],
-            "rng_state_digest": authority[7],
-            "winner_index": authority[8],
-        }
-
-    def _executed_conformance_references(self) -> list[dict[str, object]]:
-        """Index mature Action evidence without replacing or weakening that evidence."""
-        self._validate_stun_history()
+B‚ˆYˆØ]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ü™Z[XYÙJÙ[ŠHOˆ\VÛØš™Xİ‹‹—N‚ˆˆˆ”™]\›ˆHÛÛ\]HØ[›ÛšXØ[™Z[XYÙH\ÙYHH^\İ[™Èİ]Hš[™Ù\œš[ˆˆˆ‚ˆ›Û™\ÈH\Jˆ
+ˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹›Xœ˜\JKˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹š[™
+Kˆ\J\›X[™[›Øš™XİÚY›Üˆ\›X[™[[ˆ^Y\‹˜˜]YšY[
+Kˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹™Ü˜]™^X\™
+Kˆ\JØ\™›Øš™XİÚY›ÜˆØ\™[ˆ^Y\‹™^[JKˆ^Y\‹›Y™Kˆ^Y\‹›Üİˆ^Y\‹™˜Z[YÙ˜]×Ü[™[™Ëˆ
+Bˆ›Üˆ^Y\ˆ[ˆÙ[‹œ^Y\œÂˆ
+Bˆ™]\›ˆ
+ˆÙ[‹\›‹ˆÙ[‹˜Xİ]™WÜ^Y\‹ˆÙ[‹œİ\˜[YKˆ\J][K›Øš™XİÚY›Üˆ][H[ˆÙ[‹œİXÚÊKˆÙ[‹—ØÛÛX˜]Ø]XÚÙ\œËˆÙ[‹—ØÛÛX˜]Ø›ØÚÜËˆ›Û™\ËˆÙ[‹œ›™Ëœİ]WÙYÙ\İˆÙ[‹Ú[›™\‹ˆ
+B‚ˆYˆ]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ù]šY[˜ÙJÙ[ŠHOˆXİÜİ‹Øš™XİN‚ˆˆˆ”Ù\šX[^™HH^\İ[™Èš[™Ù\œš[™Z[XYÙHÚ]İ]Yš[š[™ÈHÙXÛÛ™İ]H[Ù[ˆˆˆ‚ˆ]]Üš]HHÙ[‹—Ø]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ü™Z[XYÙJ
+Bˆ›Û™\ÈH]]Üš]VÍ—Bˆ™]\›ˆÂˆœØÚ[YHˆ™[™Ú[™LËX]]Üš]]]™K\İ]KYš[™Ù\œš[\™Z[XYÙK]ŒH‹ˆ\›ˆˆ]]Üš]VÌKˆ˜Xİ]™WÜ^Y\—Ú[™^ˆ]]Üš]VÌWKˆœİ\ˆ]]Üš]VÌ—KˆœİXÚ×ÛØš™XİÚYÈˆ\İ
+]]Üš]VÌ×JKˆ˜ÛÛX˜]Ø]XÚÙ\—ÚYÈˆ7Ó[h‘éì¶»§q«^tf._validate_stun_history()
         self._check_mill_three_history()
         self._validate_krang_refill_live()
         self._check_jury_rig_history()
@@ -8484,167 +3129,13 @@ class Game(
                 add("food_activation", item.stack_object_id, item.source_id, item.oracle_fragment)
         for item in self.sneak_evidence:
             if item.resolved_object_id is not None:
-                add("sneak", item.stack_object_id, item.hand_object_id, item.oracle_fragment)
-        for item in self.hand_bottom_draw_evidence:
-            add("hand_bottom_draw", item.event_id, item.source_id, item.oracle_fragment)
-        for item in self.discard_draw_evidence:
-            add("discard_draw", item.event_id, item.source_id, item.oracle_fragment)
-        for item in self.lifelink_evidence:
-            add("lifelink", item.event_id, item.source_id, "Lifelink")
-        for item in self.etb_drain_gain_scry_evidence:
-            add(
-                "etb_drain_gain_scry",
-                item.stack_object_id,
-                item.source_id,
-                item.oracle_fragment,
-            )
-        for evidence in self.combat_damage_evidence:
-            for assignment in evidence.assignments:
-                source = self._objects.get(assignment.source_id)
-                if not isinstance(source, Permanent):
-                    continue
-                if assignment.trample:
-                    add(
-                        "trample",
-                        f"combat:{evidence.sequence}:{assignment.source_id}:trample",
-                        assignment.source_id,
-                        "Trample",
-                    )
-                for keyword in ("First strike", "Double strike"):
-                    if keyword in self._semantic_fragments(source.card):
-                        add(
-                            "strike_damage_step",
-                            f"combat:{evidence.sequence}:{assignment.source_id}:{keyword}",
-                            assignment.source_id,
-                            keyword,
-                        )
-        for event in self.events:
-            if CardInterpreter.is_krang_refill_fragment(event.get("oracle_fragment")):
-                if event.get("event") == "krang_refill_committed" and event["requested"] > 0:
-                    add(
-                        "krang_refill",
-                        event["stack_object_id"],
-                        event["source_id"],
-                        event["oracle_fragment"],
-                    )
-                continue
-            if event.get("oracle_fragment") == CardInterpreter.MILL_THREE_FRAGMENT:
-                if event.get("event") == "mill_three_committed":
-                    add(
-                        "mill_three",
-                        event["stack_object_id"],
-                        event["source_id"],
-                        event["oracle_fragment"],
-                    )
-                continue
-            if event.get("oracle_fragment") == CardInterpreter.JURY_RIG_FRAGMENT:
-                if event.get("event") == "jury_rig_committed":
-                    add(
-                        "jury_rig",
-                        event["stack_object_id"],
-                        event["source_id"],
-                        event["oracle_fragment"],
-                    )
-                continue
-            if event.get("effect") == "etb_vigilante":
-                continue
-            if event.get("event") in {
-                "damage_dealt",
-                "scry_committed",
-                "tokens_created",
-                "trigger_resolved",
-                "spell_resolved",
-                "spell_resolved_no_effect",
-                "aura_resolved",
-            }:
-                source_id = event.get("source_id")
-                fragment = event.get("oracle_fragment")
-                evidence_id = event.get("event_id") or event.get("stack_object_id")
-                if all(isinstance(value, str) for value in (source_id, fragment, evidence_id)):
-                    add(
-                        str(event["event"]),
-                        str(evidence_id),
-                        str(source_id),
-                        str(fragment),
-                    )
-        unique = {
-            (
-                str(item["evidence_kind"]),
-                str(item["evidence_id"]),
-                str(item["source_id"]),
-                str(item["semantic_key"]),
-            ): item
-            for item in references
-        }
-        return sorted(
-            unique.values(),
-            key=lambda item: (str(item["evidence_kind"]), str(item["evidence_id"])),
-        )
+                add("sneak", item.stack_objeYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬ÕÑ}¥°¥Ñ•´¹¡…¹‘}½‰©•Ñ}¥°¥Ñ•´¹½É…±•}™É…µ•¹Ğ¤(€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹¡…¹‘}‰½ÑÑ½µ}‘É…İ}•Ù¥‘•¹”è(€€€€€€€€€€€…‘ ‰¡…¹‘}‰½ÑÑ½µ}‘É…Üˆ°¥Ñ•´¹•Ù•¹Ñ}¥°¥Ñ•´¹Í½ÕÉ•}¥°¥Ñ•´¹½É…±•}™É…µ•¹Ğ¤(€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹‘¥Í…É‘}‘É…İ}•Ù¥‘•¹”è(€€€€€€€€€€€…‘ ‰‘¥Í…É‘}‘É…Üˆ°¥Ñ•´¹•Ù•¹Ñ}¥°¥Ñ•´¹Í½ÕÉ•}¥°¥Ñ•´¹½É…±•}™É…µ•¹Ğ¤(€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹±¥™•±¥¹­}•Ù¥‘•¹”è(€€€€€€€€€€€…‘ ‰±¥™•±¥¹¬ˆ°¥Ñ•´¹•Ù•¹Ñ}¥°¥Ñ•´¹Í½ÕÉ•}¥°€‰1¥™•±¥¹¬ˆ¤(€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹•Ñ‰}‘É…¥¹}…¥¹}ÍÉå}•Ù¥‘•¹”è(€€€€€€€€€€€…‘ (€€€€€€€€€€€€€€€€‰•Ñ‰}‘É…¥¹}…¥¹}ÍÉäˆ°(€€€€€€€€€€€€€€€¥Ñ•´¹ÍÑ…­}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€¥Ñ•´¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€¥Ñ•´¹½É…±•}™É…µ•¹Ğ°(€€€€€€€€€€€€¤(€€€€€€€™½È•Ù¥‘•¹”¥¸Í•±˜¹½µ‰…Ñ}‘…µ…•}•Ù¥‘•¹”è(€€€€€€€€€€€™½È…ÍÍ¥¹µ•¹Ğ¥¸•Ù¥‘•¹”¹…ÍÍ¥¹µ•¹ÑÌè(€€€€€€€€€€€€€€€Í½ÕÉ”€ôÍ•±˜¹}½‰©•ÑÌ¹•Ğ¡…ÍÍ¥¹µ•¹Ğ¹Í½ÕÉ•}¥¤(€€€€€€€€€€€€€€€¥˜¹½Ğ¥Í¥¹ÍÑ…¹”¡Í½ÕÉ”°A•Éµ…¹•¹Ğ¤è(€€€€€€€€€€€€€€€€€€€½¹Ñ¥¹Õ”(€€€€€€€€€€€€€€€¥˜…ÍÍ¥¹µ•¹Ğ¹ÑÉ…µÁ±”è(€€€€€€€€€€€€€€€€€€€…‘ (€€€€€€€€€€€€€€€€€€€€€€€€‰ÑÉ…µÁ±”ˆ°(€€€€€€€€€€€€€€€€€€€€€€€˜‰½µ‰…Ğéí•Ù¥‘•¹”¹Í•ÅÕ•¹•ôéí…ÍÍ¥¹µ•¹Ğ¹Í½ÕÉ•}¥‘ôéÑÉ…µÁ±”ˆ°(€€€€€€€€€€€€€€€€€€€€€€€…ÍÍ¥¹µ•¹Ğ¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰QÉ…µÁ±”ˆ°(€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€™½È­•åİ½É¥¸€ ‰¥ÉÍĞÍÑÉ¥­”ˆ°€‰½Õ‰±”ÍÑÉ¥­”ˆ¤è(€€€€€€€€€€€€€€€€€€€¥˜­•åİ½É¥¸Í•±˜¹}Í•µ…¹Ñ¥}™É…µ•¹ÑÌ¡Í½ÕÉ”¹…É¤è(€€€€€€€€€€€€€€€€€€€€€€€…‘ (€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑÉ¥­•}‘…µ…•}ÍÑ•Àˆ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€˜‰½µ‰…Ğéí•Ù¥‘•¹”¹Í•ÅÕ•¹•ôéí…ÍÍ¥¹µ•¹Ğ¹Í½ÕÉ•}¥‘ôéí­•åİ½É‘ôˆ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€…ÍÍ¥¹µ•¹Ğ¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€­•åİ½É°(€€€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€™½È•Ù•¹Ğ¥¸Í•±˜¹•Ù•¹ÑÌè(€€€€€€€€€€€¥˜…É‘%¹Ñ•ÉÁÉ•Ñ•È¹¥Í}­É…¹}É•™¥±±}™É…µ•¹Ğ¡•Ù•¹Ğ¹•Ğ ‰½É…±•}™É…µ•¹Ğˆ¤¤è(€€€€€€€€€€€€€€€¥˜•Ù•¹Ğ¹•Ğ ‰•Ù•¹Ğˆ¤€ôô€‰¯}5¶‰ËkºwµçB&§W'•÷&–r"À¢WfVçE²'7F6µöö&¦V7Eö–B%ÒÀ¢WfVçE²'6÷W&6Uö–B%ÒÀ¢WfVçE²&÷&6ÆUög&vÖVçB%ÒÀ¢¢6öçF–çVP¢–bWfVçBævWB‚&VffV7B"’ÓÒ&WF%÷f–v–ÆçFR# ¢6öçF–çVP¢–bWfVçBævWB‚&WfVçB"’–â°¢&FÖvUöFVÇB"À¢'67'•ö6öÖÖ—GFVB"À¢'Fö¶Vç5ö7&VFVB"À¢'G&–vvW%÷&W6öÇfVB"À¢'7VÆÅ÷&W6öÇfVB"À¢'7VÆÅ÷&W6öÇfVEöæõöVffV7B"À¢&W&÷&W6öÇfVB"À¢Ó ¢6÷W&6Uö–BÒWfVçBævWB‚'6÷W&6Uö–B"¢g&vÖVçBÒWfVçBævWB‚&÷&6ÆUög&vÖVçB"¢Wf–FVæ6Uö–BÒWfVçBævWB‚&WfVçEö–B"’÷"WfVçBævWB‚'7F6µöö&¦V7Eö–B"¢–bÆÂ†—6–ç7Fæ6R‡fÇVRÂ7G"’f÷"fÇVR–â‡6÷W&6Uö–BÂg&vÖVçBÂWf–FVæ6Uö–B’“ ¢FB€¢7G"†WfVçE²&WfVçB%Ò’À¢7G"†Wf–FVæ6Uö–B’À¢7G"‡6÷W&6Uö–B’À¢7G"†g&vÖVçB’À¢¢Væ—VRÒ°¢€¢7G"†—FVÕ²&Wf–FVæ6Uö¶–æB%Ò’À¢7G"†—FVÕ²&Wf–FVæ6Uö–B%Ò’À¢7G"†—FVÕ²'6÷W&6Uö–B%Ò’À¢7G"†—FVÕ²'6VÖçF–5ö¶W’%Ò’À¢“¢—FVĞ¢f÷"—FVÒ–â&VfW&Væ6W0¢Ğ¢&WGW&â6÷'FVB€¢Væ—VRçfÇVW2‚’À¢¶W“ÖÆÖ&F—FVÓ¢‡7G"†—FVÕ²&Wf–FVæ6Uö¶–æB%Ò’Â7G"†—FVÕ²&Wf–FVæ6Uö–B%Ò’’À¢ ¢FVb6æ6†÷B‡6VÆb’ÓâF–7E·7G"Âö&¦V7EÓ ¢&WGW&â°¢&Væv–æU÷fW'6–öâ#¢Tät”äUõdU%4”ôâÀ¢'GW&â#¢6VÆbçGW&âÀ¢'GW&ç5÷7F'FVB#¢6VÆbçGW&âÀ¢'FW&Ö–æÂ#¢6VÆbçv–ææW"—2æ÷BæöæRÀ¢&7F—fU÷Æ–W"#¢6VÆbçÆ–W'5·6VÆbæ7F—fU÷Æ–W%ÒææÖRÀ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍHœ\ÙHˆÙ[‹œ\ÙKˆœİ\ˆÙ[‹œİ\˜[YKˆÚ[›™\ˆˆ›Û™HYˆÙ[‹Ú[›™\ˆ\È›Û™H[ÙHÙ[‹œ^Y\œÖÜÙ[‹Ú[›™\—K›˜[YKˆ˜]]Üš]]]™WÜİ]WÙš[™Ù\œš[ˆÙ[‹˜]]Üš]]]™WÜİ]WÙš[™Ù\œš[
 
-    def snapshot(self) -> dict[str, object]:
-        return {
-            "engine_version": ENGINE_VERSION,
-            "turn": self.turn,
-            "turns_started": self.turn,
-            "terminal": self.winner is not None,
-            "active_player": self.players[self.active_player].name,
-            "phase": self.phase,
-            "step": self.step.value,
-            "winner": None if self.winner is None else self.players[self.winner].name,
-            "authoritative_state_fingerprint": self.authoritative_state_fingerprint(),
-            "authoritative_state_fingerprint_preimage": (
-                self.authoritative_state_fingerprint_evidence()
-            ),
-            "rules_event_evidence": [
-                {
-                    "event_id": item.event_id,
-                    "event_cursor": item.event_cursor,
-                    "kind": item.kind.value,
-                    "player_index": item.player_index,
-                    "subject_ids": list(item.subject_ids),
-                    "source_id": item.source_id,
-                    "target_player": item.target_player,
-                    "amount": item.amount,
-                    "turn": item.turn,
-                    "step": item.step,
-                    "active_player": item.active_player,
-                    "battlefield_authority": [
-                        {"object_id": object_id, "controller": controller}
-                        for object_id, controller in item.battlefield_authority
-                    ],
-                    "battlefield_characteristics": [
-                        {
-                            "object_id": object_id,
-                            "controller": controller,
-                            "type_line": type_line,
-                        }
-                        for object_id, controller, type_line in item.battlefield_characteristics
-                    ],
-                    "last_known_battlefield": [
-                        {
-                            "object_id": object_id,
-                            "controller": controller,
-                            "type_line": type_line,
-                            "is_creature": is_creature,
-                        }
-                        for object_id, controller, type_line, is_creature in (
-                            item.last_known_battlefield
-                        )
-                    ],
-                }
-                for item in self._rules_event_evidence
-            ],
-            "conformance": {
-                "semantic_occurrences": [
-                    {
-                        "occurrence_id": item.occurrence_id,
-                        "semantic_key": item.semantic_key,
-                        "oracle_id": item.oracle_id,
-                        "face_index": item.face_index,
-                        "fragment_index": item.fragment_index,
-                        "fragment_hash": item.fragment_hash,
-                        "object_id": item.object_id,
-                        "controller": item.controller,
+Kˆ˜]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ü™Z[XYÙHˆ
+ˆÙ[‹˜]]Üš]]]™WÜİ]WÙš[™Ù\œš[Ù]šY[˜ÙJ
+Bˆ
+Kˆœ[\×Ù]™[Ù]šY[˜ÙHˆÂˆÂˆ™]™[ÚYˆ][K™]™[ÚYˆ™]™[Øİ\œÛÜˆˆ][K™]™[Øİ\œÛÜ‹ˆšÚ[™ˆ][KšÚ[™˜[YKˆœ^Y\—Ú[™^ˆ][Kœ^Y\—Ú[™^ˆœİXš™XİÚYÈˆ\İ
+][KœİXš™XİÚYÊKˆœÛİ\˜ÙWÚYˆ][KœÛİ\˜ÙWÚYˆ\™Ù]Ü^Y\ˆˆ][K\™Ù]Ü^Y\‹ˆ˜[[İ[ˆ][K˜[[İ[ˆ\›ˆˆ][K\›‹ˆœİ\ˆ][Kœİ\ˆ˜Xİ]™WÜ^Y\ˆˆ][K˜Xİ]™WÜ^Y\‹ˆ˜˜]YšY[Ø]]Üš]HˆÂˆÈ›Øš™XİÚYˆØš™XİÚY˜ÛÛ›Û\ˆˆÛÛ›Û\ŸBˆ›ÜˆØš™XİÚYÛÛ›Û\ˆ[ˆ][K˜˜]YšY[Ø]]Üš]BˆKˆ˜˜]YšY[ØÚ\˜Xİ\š\İXÜÈˆÂˆÂˆ›Øš™XİÚYˆØš™XİÚYˆ˜ÛÛ›Û\ˆˆÛÛ›Û\‹ˆ\WÛ[™Hˆ\WÛ[™KˆBˆ›ÜˆØš™XİÚYÛÛ›Û\‹\WÛ[™H[ˆ][K˜˜]YšY[ØÚ\˜Xİ\š\İXÜÂˆKˆ›\İÚÛ›İÛ—Ø˜]YšY[ˆÂˆÂˆ›Øš™XİÚYˆØš™XİÚYˆ˜ÛÛ›Û\ˆˆÛÛ›Û\‹ˆwÓ[h‘éì¶»§q«^vtroller": item.controller,
                         "zone": item.zone,
                         "oracle_fragment": item.oracle_fragment,
                         "limitations": list(item.limitations),
@@ -8679,157 +3170,18 @@ class Game(
                         "cause_id": item.cause_id,
                         "cause_subject_ids": list(item.cause_subject_ids),
                         "source_zone": item.source_zone,
-                        "source_controller": item.source_controller,
-                        "cause_subject_zones": list(item.cause_subject_zones),
-                        "cause_event_kind": item.cause_event_kind,
-                        "classification": item.classification.value,
-                    }
-                    for item in self.opportunity_witnesses
-                ],
-                "opportunity_contexts": [
-                    {
-                        "context_id": item.context_id,
-                        "context_key": item.context_key,
-                        "context_kind": item.context_kind,
-                        "turn": item.turn,
-                        "phase": item.phase,
-                        "step": item.step,
-                        "active_player": item.active_player,
-                        "controller": item.controller,
-                        "source_id": item.source_id,
-                        "subject_ids": list(item.subject_ids),
-                        "subject_zones": list(item.subject_zones),
-                        "facts": {key: value for key, value in item.facts},
-                        "event_id": item.event_id,
-                        "stack_object_id": item.stack_object_id,
-                        "state_fingerprint": item.state_fingerprint,
-                    }
-                    for item in self.opportunity_contexts
-                ],
-                "stop_records": [
-                    {
-                        "stop_id": item.stop_id,
-                        "kind": item.kind,
-                        "turn": item.turn,
-                        "phase": item.phase,
-                        "step": item.step,
-                        "before_fingerprint": item.before_fingerprint,
-                        "after_fingerprint": item.after_fingerprint,
-                        "detail": item.detail,
-                    }
-                    for item in self.conformance_stop_records
-                ],
-                "executed_references": self._executed_conformance_references(),
-            },
-            "mill_three_evidence": self.mill_three_snapshot_evidence(),
-            "krang_refill_evidence": self.krang_refill_snapshot_evidence(),
-            "jury_rig_evidence": self.jury_rig_snapshot_evidence(),
-            "vigilante_evidence": self.vigilante_snapshot_evidence(),
-            "food_search_evidence": self.food_search_snapshot_evidence(),
-            "rng": {
-                "seed": self.rng.seed,
-                "state_digest": self.rng.state_digest,
-                "records": [
-                    {
-                        "sequence": record.sequence,
-                        "domain": record.domain,
-                        "operation": record.operation,
-                        "result": (
-                            list(record.result)
-                            if isinstance(record.result, tuple)
-                            else record.result
-                        ),
-                        "state_before": record.state_before,
-                        "state_after": record.state_after,
-                    }
-                    for record in self.rng.records
-                ],
-            },
-            "stack": [
-                (
-                    {
-                        "object_id": entry.object_id,
-                        "kind": "spell",
-                        "card": entry.card.name,
-                        "owner": entry.owner,
-                        "controller": entry.controller,
-                        "cast_kind": entry.cast_kind.value,
-                        "target_id": entry.target_id,
-                        "sneak_returned_attacker_id": entry.sneak_returned_attacker_id,
-                        "sneak_returned_hand_id": entry.sneak_returned_hand_id,
-                        "sneak_defending_player": entry.sneak_defending_player,
-                        "sneak_oracle_fragment": entry.sneak_oracle_fragment,
-                        "sneak_mana_source_ids": list(entry.sneak_mana_source_ids),
-                    }
-                    if isinstance(entry, StackObject)
-                    else {
-                        "object_id": entry.object_id,
-                        "kind": "activated_ability",
-                        "source": entry.source_card.name,
-                        "source_id": entry.source_id,
-                        "controller": entry.controller,
-                        "oracle_fragment": entry.oracle_fragment,
-                        "target_ids": list(entry.target_ids),
-                        "choice_ids": list(entry.choice_ids),
-                    }
-                    if isinstance(entry, ActivatedAbilityObject)
-                    else {
-                        "object_id": entry.object_id,
-                        "kind": "triggered_ability",
-                        **(
-                            {"target_id": entry.target_id}
-                            if entry.effect is TriggerEffect.ETB_TAP_STUN
-                            else {}
-                        ),
-                        "source": entry.source_card.name,
-                        "source_id": entry.source_id,
-                        "controller": entry.controller,
-                        "effect": entry.effect.value,
-                        "event_id": entry.event.event_id,
-                        "trigger_id": entry.trigger_id,
-                        "target_ids": list(entry.target_ids),
-                    }
-                )
-                for entry in self.stack
-            ],
-            "priority": (
-                None
-                if self.priority_state is None
-                else {
-                    "epoch": self.priority_state.epoch,
-                    "player_index": self.priority_state.player_index,
-                    "consecutive_passes": list(self.priority_state.consecutive_passes),
-                    "resolution_pending": self.priority_state.resolution_pending,
-                }
-            ),
-            "pending_triggers": [trigger.trigger_id for trigger in self.pending_triggers],
-            "stun_history": [
-                {"event_cursor": cursor, "record": dict(record)}
-                for cursor, record in self._stun_history
-            ],
-            "scry": [
-                {
-                    "event_id": item.event_id,
-                    "player_index": item.player_index,
-                    "requested": item.requested,
-                    "inspected_ids": list(item.inspected_ids),
-                    "top_ids": list(item.top_ids),
-                    "bottom_ids": list(item.bottom_ids),
-                    "source_card": item.source_card,
-                    "source_id": item.source_id,
-                    "oracle_fragment": item.oracle_fragment,
-                }
-                for item in self.scry_evidence
-            ],
-            "etb_drain_gain_scry": [
-                {
-                    "event_id": item.event_id,
-                    "stack_object_id": item.stack_object_id,
-                    "source_id": item.source_id,
-                    "source_card": item.source_card,
-                    "controller": item.controller,
-                    "opponent": item.opponent,
-                    "oracle_fragment": item.oracle_fragment,
+                        "source_controller": itemYªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô¹Í½ÕÉ•}½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€€‰…ÕÍ•}ÍÕ‰©•Ñ}é½¹•Ìˆè±¥ÍĞ¡¥Ñ•´¹…ÕÍ•}ÍÕ‰©•Ñ}é½¹•Ì¤°(€€€€€€€€€€€€€€€€€€€€€€€€‰…ÕÍ•}•Ù•¹Ñ}­¥¹ˆè¥Ñ•´¹…ÕÍ•}•Ù•¹Ñ}­¥¹°(€€€€€€€€€€€€€€€€€€€€€€€€‰±…ÍÍ¥™¥…Ñ¥½¸ˆè¥Ñ•´¹±…ÍÍ¥™¥…Ñ¥½¸¹Ù…±Õ”°(€€€€€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹½ÁÁ½ÉÑÕ¹¥Ñå}İ¥Ñ¹•ÍÍ•Ì(€€€€€€€€€€€€€€€t°(€€€€€€€€€€€€€€€€‰½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áÑÌˆèl(€€€€€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€€€€€‰½¹Ñ•áÑ}¥ˆè¥Ñ•´¹½¹Ñ•áÑ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰½¹Ñ•áÑ}­•äˆè¥Ñ•´¹½¹Ñ•áÑ}­•ä°(€€€€€€€€€€€€€€€€€€€€€€€€‰½¹Ñ•áÑ}­¥¹ˆè¥Ñ•´¹½¹Ñ•áÑ}­¥¹°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÑÕÉ¸ˆè¥Ñ•´¹ÑÕÉ¸°(€€€€€€€€€€€€€€€€€€€€€€€€‰Á¡…Í”ˆè¥Ñ•´¹Á¡…Í”°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑ•Àˆè¥Ñ•´¹ÍÑ•À°(€€€€€€€€€€€€€€€€€€€€€€€€‰…Ñ¥Ù•}Á±…å•Èˆè¥Ñ•´¹…Ñ¥Ù•}Á±…å•È°(€€€€€€€€€€€€€€€€€€€€€€€€‰½¹ÑÉ½±±•Èˆè¥Ñ•´¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€€‰Í½ÕÉ•}¥ˆè¥Ñ•´¹Í½ÕÉ•}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÕ‰©•Ñ}¥‘Ìˆè±¥ÍĞ¡¥Ñ•´¹ÍÕ‰©•Ñ}¥‘Ì¤°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÕ‰©•Ñ}é½¹•Ìˆè±¥ÍĞ¡¥Ñ•´¹ÍÕ‰©•Ñ}é½¹•Ì¤°(€€€€€€€€€€€€€€€€€€€€€€€€‰™…ÑÌˆèí­•äèÙ…±Õ”™½È­•ä°Ù…±Õ”¥¸¥Ñ•´¹™…ÑÍô°(€€€€€€€€€€€€€€€€€€€€€€€€‰•Ù•¹Ñ}¥ˆè¥Ñ•´¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑ…­}½‰©•Ñ}¥ˆè¥Ñ•´¹ÍÑ…­}½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑ…Ñ•}™¥¹•ÉÁÉ¥¹Ğˆè¥Ñ•´¹ÍÑ…Ñ•}™¥¹•ÉÁÉ¥¹Ğ°(€€€€€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹½ÁÁ½ÉÑÕ¹¥Ñå}½¹Ñ•áÑÌ(€€€€€€€€€€€€€€€t°(€€€€€€€€€€€€€€€€‰ÍÑ½Á}É•½É‘Ìˆèl(€€€€€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑ½Á}¥ˆè¥Ñ•´¹ÍÑ½Á}¥°(€€€€€€€€€€€€€€€€€€€€€€€€‰­¥¹ˆè¥Ñ•´¹­¥¹°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÑÕÉ¸ˆè¥Ñ•´¹ÑÕÉ¸°(€€€€€€€€€€€€€€€€€€€€€€€€‰Á¡…Í”ˆè¥Ñ•´¹Á¡…Í”°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÑ•Àˆè¥Ñ•´¹ÍÑ•À°(€€€€€€€€€€€€€€€€€€€€€€€€‰‰•™½É•}™¥¹•ÉÁÉ¥¹Ğˆè¥Ñ•´¹‰•™½É•}™¥¹•ÉÁÉ¥¹Ğ°(€€€€€€€€€€€€€€€€€€€€€€€€‰…™Ñ•É}™¥¹•ÉÁÉ¥¹Ğˆè¥Ñ•´¹…™Ñ•É}™¥¹•ÉÁÉ¥¹Ğ°(€€€€€€€€€€€€€€€€€€€€ƒ}5¶‰ËkºwµçWF–öâÀ¢'&W7VÇB#¢€¢Æ—7B‡&V6÷&Bç&W7VÇB¢–b—6–ç7Fæ6R‡&V6÷&Bç&W7VÇBÂGWÆR¢VÇ6R&V6÷&Bç&W7VÇ@¢’À¢'7FFUö&Vf÷&R#¢&V6÷&Bç7FFUö&Vf÷&RÀ¢'7FFUögFW"#¢&V6÷&Bç7FFUögFW"À¢Ğ¢f÷"&V6÷&B–â6VÆbç&ærç&V6÷&G0¢ÒÀ¢ÒÀ¢'7F6²#¢°¢€¢°¢&ö&¦V7Eö–B#¢VçG'’æö&¦V7Eö–BÀ¢&¶–æB#¢'7VÆÂ"À¢&6&B#¢VçG'’æ6&BææÖRÀ¢&÷væW"#¢VçG'’æ÷væW"À¢&6öçG&öÆÆW"#¢VçG'’æ6öçG&öÆÆW"À¢&67Eö¶–æB#¢VçG'’æ67Eö¶–æBçfÇVRÀ¢'F&vWEö–B#¢VçG'’çF&vWEö–BÀ¢'6æVµ÷&WGW&æVEöGF6¶W%ö–B#¢VçG'’ç6æVµ÷&WGW&æVEöGF6¶W%ö–BÀ¢'6æVµ÷&WGW&æVEö†æEö–B#¢VçG'’ç6æVµ÷&WGW&æVEö†æEö–BÀ¢'6æVµöFVfVæF–æu÷Æ–W"#¢VçG'’ç6æVµöFVfVæF–æu÷Æ–W"À¢'6æVµö÷&6ÆUög&vÖVçB#¢VçG'’ç6æVµö÷&6ÆUög&vÖVçBÀ¢'6æVµöÖæ÷6÷W&6Uö–G2#¢Æ—7B†VçG'’ç6æVµöÖæ÷6÷W&6Uö–G2’À¢Ğ¢–b—6–ç7Fæ6R†VçG'’Â7F6´ö&¦V7B¢VÇ6R°¢&ö&¦V7Eö–B#¢VçG'’æö&¦V7Eö–BÀ¢&¶–æB#¢&7F—fFVEö&–Æ—G’"À¢'6÷W&6R#¢VçG'’ç6÷W&6Uö6&BææÖRÀ¢'6÷W&6Uö–B#¢VçG'’ç6÷W&6Uö–BÀ¢&6öçG&öÆÆW"#¢VçG'’æ6öçG&öÆÆW"À¢&÷&6ÆUög&vÖVçB#¢VçG'’æ÷&6ÆUög&vÖVçBÀ¢'F&vWEö–G2#¢Æ—7B†VçG'’çF&vWEö–G2’À¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH˜ÚÚXÙWÚYÈˆ\İ
+[K˜ÚÚXÙWÚYÊKˆBˆYˆ\Ú[œİ[˜ÙJ[KXİ]˜]YXš[]SØš™Xİ
+Bˆ[ÙHÂˆ›Øš™XİÚYˆ[K›Øš™XİÚYˆšÚ[™ˆšYÙÙ\™YØXš[]H‹ˆ
+ŠŠˆÈ\™Ù]ÚYˆ[K\™Ù]ÚYBˆYˆ[K™Y™™Xİ\ÈšYÙÙ\‘Y™™Xİ‘U—ÕTÔÕS‚ˆ[ÙHßBˆ
+KˆœÛİ\˜ÙHˆ[KœÛİ\˜ÙWØØ\™›˜[YKˆœÛİ\˜ÙWÚYˆ[KœÛİ\˜ÙWÚYˆ˜ÛÛ›Û\ˆˆ[K˜ÛÛ›Û\‹ˆ™Y™™Xİˆ[K™Y™™Xİ˜[YKˆ™]™[ÚYˆ[K™]™[™]™[ÚYˆšYÙÙ\—ÚYˆ[KšYÙÙ\—ÚYˆ\™Ù]ÚYÈˆ\İ
+[K\™Ù]ÚYÊKˆBˆ
+Bˆ›Üˆ[H[ˆÙ[‹œİXÚÂˆKˆœš[Üš]Hˆ
+ˆ›Û™BˆYˆÙ[‹œš[Üš]WÜİ]H\È›Û™Bˆ[ÙHÂˆ™\ØÚˆÙ[‹œš[Üš]WÜİ]K™\ØÚˆœ^Y\—Ú[™^ˆÙ[‹œš[Üš]WÜİ]Kœ^Y\—Ú[™^ˆ˜ÛÛœÙXİ]]™WÜ\ÜÙ\Èˆ\İ
+Ù[‹œš[Üš]WÜİ]K˜ÛÛœÙXİ]]™WÜ\ÜÙ\ÊKˆœ™\ÛÛ][Û—Ü[™[™ÈˆÙ[‹œš[Üš]WÜİ]Kœ™\ÛÛ][Û—Ü[™[™ËˆBˆ
+Kˆœ[™[™×İšYÙÙ\œÈˆİšYÙÙ\‹šYÙÙ\—ÚY›ÜˆšYÙÙ\ˆ[ˆÙ[‹œ[™[™×İšYÙÙ\œ×Kˆœİ[—Ú\İÜHˆÂˆÈ™]™[Øİ\œÛÜˆˆİ\œÛÜ‹œ™XÛÜ™ˆXİ
+™XÛÜ™
+_Bˆ›Üˆİ\œÛÜ‹™XÛÜ™[ˆÙ[‹—Üİ[—Ú\İÜBˆKˆœØÜHˆÂˆÂˆ™]™[ÚYˆ][K™]™[ÚYˆ7Ó[h‘éì¶»§q«^unt": item.oracle_fragment,
                     "turn": item.turn,
                     "step": item.step,
                     "opponent_life_before": item.opponent_life_before,
@@ -8862,138 +3214,15 @@ class Game(
                                 "trample": assignment.trample,
                                 "lethal_required": assignment.lethal_required,
                             }
-                            for assignment in item.assignments
-                        ],
-                        "removed_before_next_step": list(item.removed_before_next_step),
-                        "trample_results": [
-                            {
-                                "attacker_id": result.attacker_id,
-                                "blocker_id": result.blocker_id,
-                                "damage_step": result.damage_step.value,
-                                "attacker_power": result.attacker_power,
-                                "blocker_toughness": result.blocker_toughness,
-                                "blocker_marked_damage_before": (
-                                    result.blocker_marked_damage_before
-                                ),
-                                "lethal_required": result.lethal_required,
-                                "blocker_damage_assigned": result.blocker_damage_assigned,
-                                "player_damage_assigned": result.player_damage_assigned,
-                                "defending_player": result.defending_player,
-                                "defending_life_before": result.defending_life_before,
-                                "defending_life_after": result.defending_life_after,
-                                "blocker_marked_damage_after": (result.blocker_marked_damage_after),
-                                "blocker_survived": result.blocker_survived,
-                            }
-                            for result in item.trample_results
-                        ],
-                    }
-                    for item in self.combat_damage_evidence
-                ],
-            },
-            "lifelink": [
-                {
-                    "event_id": item.event_id,
-                    "source_id": item.source_id,
-                    "controller": item.controller,
-                    "amount": item.amount,
-                    "combat": item.combat,
-                    "damage_step": (None if item.damage_step is None else item.damage_step.value),
-                    "target_ids": list(item.target_ids),
-                    "target_players": list(item.target_players),
-                    "life_before": item.life_before,
-                    "life_after": item.life_after,
-                }
-                for item in self.lifelink_evidence
-            ],
-            "hand_bottom_draw": [
-                {
-                    "event_id": item.event_id,
-                    "player_index": item.player_index,
-                    "source_id": item.source_id,
-                    "oracle_fragment": item.oracle_fragment,
-                    "offered_choice_ids": list(item.offered_choice_ids),
-                    "pre_hand_ids": list(item.pre_hand_ids),
-                    "pre_library_ids": list(item.pre_library_ids),
-                    "selected_hand_id": item.selected_hand_id,
-                    "library_bottom_id": item.library_bottom_id,
-                    "movement_succeeded": item.movement_succeeded,
-                    "conditional_draw_performed": item.conditional_draw_performed,
-                    "drawn_library_id": item.drawn_library_id,
-                    "drawn_hand_id": item.drawn_hand_id,
-                    "post_hand_ids": list(item.post_hand_ids),
-                    "post_library_ids": list(item.post_library_ids),
-                    "declined": item.declined,
-                }
-                for item in self.hand_bottom_draw_evidence
-            ],
-            "discard_draw": [
-                {
-                    "event_id": item.event_id,
-                    "player_index": item.player_index,
-                    "attack_provenance": {
-                        "event_id": item.attack_provenance.event_id,
-                        "event_kind": item.attack_provenance.event_kind.value,
-                        "event_player_index": item.attack_provenance.event_player_index,
-                        "subject_ids": list(item.attack_provenance.subject_ids),
-                        "attacker_id": item.attack_provenance.attacker_id,
-                        "controller": item.attack_provenance.controller,
-                        "turn": item.attack_provenance.turn,
-                        "step": item.attack_provenance.step,
-                        "active_player": item.attack_provenance.active_player,
-                    },
-                    "stack_object_id": item.stack_object_id,
-                    "source_id": item.source_id,
-                    "oracle_fragment": item.oracle_fragment,
-                    "offered_choice_ids": list(item.offered_choice_ids),
-                    "pre_hand_ids": list(item.pre_hand_ids),
-                    "pre_library_ids": list(item.pre_library_ids),
-                    "pre_graveyard_ids": list(item.pre_graveyard_ids),
-                    "selected_hand_id": item.selected_hand_id,
-                    "discarded_graveyard_id": item.discarded_graveyard_id,
-                    "movement_succeeded": item.movement_succeeded,
-                    "conditional_draw_performed": item.conditional_draw_performed,
-                    "pre_draw_top_id": item.pre_draw_top_id,
-                    "drawn_hand_id": item.drawn_hand_id,
-                    "post_hand_ids": list(item.post_hand_ids),
-                    "post_library_ids": list(item.post_library_ids),
-                    "post_graveyard_ids": list(item.post_graveyard_ids),
-                    "declined": item.declined,
-                }
-                for item in self.discard_draw_evidence
-            ],
-            "activated_abilities": [
-                {
-                    "stack_object_id": item.stack_object_id,
-                    "source_id": item.source_id,
-                    "controller": item.controller,
-                    "oracle_fragment": item.oracle_fragment,
-                    "mana_source_ids": list(item.mana_source_ids),
-                    "tap_source": item.tap_source,
-                    "resolved": item.resolved,
-                    "cost_target_id": item.cost_target_id,
-                }
-                for item in self.activation_evidence
-            ],
-            "food_activations": [
-                {
-                    "source_id": item.source_id,
-                    "source_name": item.source_name,
-                    "source_type_line": item.source_type_line,
-                    "source_owner": item.source_owner,
-                    "controller": item.controller,
-                    "source_was_token": item.source_was_token,
-                    "oracle_fragment": item.oracle_fragment,
-                    "turn": item.turn,
-                    "step": item.step,
-                    "source_zone_before": item.source_zone_before,
-                    "mana_requirement": {
-                        "generic": item.mana_requirement.generic,
-                        "colored": list(item.mana_requirement.colored),
-                    },
-                    "mana_source_ids": list(item.mana_source_ids),
-                    "source_tapped_before": item.source_tapped_before,
-                    "tap_paid": item.tap_paid,
-                    "sacrifice_paid": item.sacrifice_paid,
+                YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€™½È…ÍÍ¥¹µ•¹Ğ¥¸¥Ñ•´¹…ÍÍ¥¹µ•¹ÑÌ(€€€€€€€€€€€€€€€€€€€€€€€t°(€€€€€€€€€€€€€€€€€€€€€€€€‰É•µ½Ù•‘}‰•™½É•}¹•áÑ}ÍÑ•Àˆè±¥ÍĞ¡¥Ñ•´¹É•µ½Ù•‘}‰•™½É•}¹•áÑ}ÍÑ•À¤°(€€€€€€€€€€€€€€€€€€€€€€€€‰ÑÉ…µÁ±•}É•ÍÕ±ÑÌˆèl(€€€€€€€€€€€€€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰…ÑÑ…­•É}¥ˆèÉ•ÍÕ±Ğ¹…ÑÑ…­•É}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}¥ˆèÉ•ÍÕ±Ğ¹‰±½­•É}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‘…µ…•}ÍÑ•ÀˆèÉ•ÍÕ±Ğ¹‘…µ…•}ÍÑ•À¹Ù…±Õ”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰…ÑÑ…­•É}Á½İ•ÈˆèÉ•ÍÕ±Ğ¹…ÑÑ…­•É}Á½İ•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}Ñ½Õ¡¹•ÍÌˆèÉ•ÍÕ±Ğ¹‰±½­•É}Ñ½Õ¡¹•ÍÌ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}µ…É­•‘}‘…µ…•}‰•™½É”ˆè€ (€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€É•ÍÕ±Ğ¹‰±½­•É}µ…É­•‘}‘…µ…•}‰•™½É”(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰±•Ñ¡…±}É•ÅÕ¥É•ˆèÉ•ÍÕ±Ğ¹±•Ñ¡…±}É•ÅÕ¥É•°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}‘…µ…•}…ÍÍ¥¹•ˆèÉ•ÍÕ±Ğ¹‰±½­•É}‘…µ…•}…ÍÍ¥¹•°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰Á±…å•É}‘…µ…•}…ÍÍ¥¹•ˆèÉ•ÍÕ±Ğ¹Á±…å•É}‘…µ…•}…ÍÍ¥¹•°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‘•™•¹‘¥¹}Á±…å•ÈˆèÉ•ÍÕ±Ğ¹‘•™•¹‘¥¹}Á±…å•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‘•™•¹‘¥¹}±¥™•}‰•™½É”ˆèÉ•ÍÕ±Ğ¹‘•™•¹‘¥¹}±¥™•}‰•™½É”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‘•™•¹‘¥¹}±¥™•}…™Ñ•ÈˆèÉ•ÍÕ±Ğ¹‘•™•¹‘¥¹}±¥™•}…™Ñ•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}µ…É­•‘}‘…µ…•}…™Ñ•Èˆè€¡É•ÍÕ±Ğ¹‰±½­•É}µ…É­•‘}‘…µ…•}…™Ñ•È¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰‰±½­•É}ÍÕÉÙ¥Ù•ˆèÉ•ÍÕ±Ğ¹‰±½­•É}ÍÕÉÙ¥Ù•°(€€€€€€€€€€€€€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€€€€€€€€€€€€€™½ÈÉ•ÍÕ±Ğ¥¸¥Ñ•´¹ÑÉ…µÁ±•}É•ÍÕ±ÑÌ(€€€€€€€€€€€€€€€€€€€€€€€t°(€€€€€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹½µ‰…Ñ}‘…µ…•}•Ù¥‘•¹”(€€€€€€€€€€€€€€€t°(€€€€€€€€€€€ô°(€€€€€€€€€€€€‰±¥™•±¥¹¬ˆèl(€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€‰•Ù•¹Ñ}¥ˆè¥Ñ•´¹•Ù•¹Ñ}¥°(€€€€€€€€€€€€€€€€€€€€‰Í¿}5¶‰ËkºwµçvUö–G2’À¢'&Uö†æEö–G2#¢Æ—7B†—FVÒç&Uö†æEö–G2’À¢'&UöÆ–'&'•ö–G2#¢Æ—7B†—FVÒç&UöÆ–'&'•ö–G2’À¢'6VÆV7FVEö†æEö–B#¢—FVÒç6VÆV7FVEö†æEö–BÀ¢&Æ–'&'•ö&÷GFöÕö–B#¢—FVÒæÆ–'&'•ö&÷GFöÕö–BÀ¢&Ö÷fVÖVçE÷7V66VVFVB#¢—FVÒæÖ÷fVÖVçE÷7V66VVFVBÀ¢&6öæF—F–öæÅöG&u÷W&f÷&ÖVB#¢—FVÒæ6öæF—F–öæÅöG&u÷W&f÷&ÖVBÀ¢&G&våöÆ–'&'•ö–B#¢—FVÒæG&våöÆ–'&'•ö–BÀ¢&G&våö†æEö–B#¢—FVÒæG&våö†æEö–BÀ¢'÷7Eö†æEö–G2#¢Æ—7B†—FVÒç÷7Eö†æEö–G2’À¢'÷7EöÆ–'&'•ö–G2#¢Æ—7B†—FVÒç÷7EöÆ–'&'•ö–G2’À¢&FV6Æ–æVB#¢—FVÒæFV6Æ–æVBÀ¢Ğ¢f÷"—FVÒ–â6VÆbæ†æEö&÷GFöÕöG&uöWf–FVæ6P¢ÒÀ¢&F—66&EöG&r#¢°¢°¢&WfVçEö–B#¢—FVÒæWfVçEö–BÀ¢'Æ–W%ö–æFW‚#¢—FVÒçÆ–W%ö–æFW‚À¢&GF6µ÷&÷fVææ6R#¢°¢&WfVçEö–B#¢—FVÒæGF6µ÷&÷fVææ6RæWfVçEö–BÀ¢&WfVçEö¶–æB#¢—FVÒæGF6µ÷&÷fVææ6RæWfVçEö¶–æBçfÇVRÀ¢&WfVçE÷Æ–W%ö–æFW‚#¢—FVÒæGF6µ÷&÷fVææ6RæWfVçE÷Æ–W%ö–æFW‚À¢'7V&¦V7Eö–G2#¢Æ—7B†—FVÒæGF6µ÷&÷fVææ6Rç7V&¦V7Eö–G2’À¢&GF6¶W%ö–B#¢—FVÒæGF6µ÷&÷fVææ6RæGF6¶W%ö–BÀ¢&6öçG&öÆÆW"#¢—FVÒæGF6µ÷&÷fVææ6Ræ6öçG&öÆÆW"À¢'GW&â#¢—FVÒæGF6µ÷&÷fVææ6RçGW&âÀ¢'7FW#¢—FVÒæGF6µ÷&÷fVææ6Rç7FWÀ¢&7F—fU÷Æ–W"#¢—FVÒæGF6µ÷&÷fVææ6Ræ7F—fU÷Æ–W"À¢ÒÀ¢'7F6µöö&¦V7Eö–B#¢—FVÒç7F6µöö&¦V7Eö–BÀ¢'6÷W&6Uö–B#¢—FVÒç6÷W&6Uö–BÀ¢š®x§‚ÚîÆ­yÚ.¶›­¢¸ Šv¥¶‰Ê.İyÓTèµ©hºÚn¶X§zÍH›Ü˜XÛWÙœ˜YÛY[ˆ][K›Ü˜XÛWÙœ˜YÛY[ˆ›Ù™™\™YØÚÚXÙWÚYÈˆ\İ
+][K›Ù™™\™YØÚÚXÙWÚYÊKˆœ™WÚ[™ÚYÈˆ\İ
+][Kœ™WÚ[™ÚYÊKˆœ™WÛXœ˜\WÚYÈˆ\İ
+][Kœ™WÛXœ˜\WÚYÊKˆœ™WÙÜ˜]™^X\™ÚYÈˆ\İ
+][Kœ™WÙÜ˜]™^X\™ÚYÊKˆœÙ[XİYÚ[™ÚYˆ][KœÙ[XİYÚ[™ÚYˆ™\ØØ\™YÙÜ˜]™^X\™ÚYˆ][K™\ØØ\™YÙÜ˜]™^X\™ÚYˆ›[İ™[Y[ÜİXØÙYYYˆ][K›[İ™[Y[ÜİXØÙYYYˆ˜ÛÛ™][Û˜[Ù˜]×Ü\™›Ü›YYˆ][K˜ÛÛ™][Û˜[Ù˜]×Ü\™›Ü›YYˆœ™WÙ˜]×İÜÚYˆ][Kœ™WÙ˜]×İÜÚYˆ™˜]Û—Ú[™ÚYˆ][K™˜]Û—Ú[™ÚYˆœÜİÚ[™ÚYÈˆ\İ
+][KœÜİÚ[™ÚYÊKˆœÜİÛXœ˜\WÚYÈˆ\İ
+][KœÜİÛXœ˜\WÚYÊKˆœÜİÙÜ˜]™^X\™ÚYÈˆ\İ
+][KœÜİÙÜ˜]™^X\™ÚYÊKˆ™XÛ[™Yˆ][K™XÛ[™YˆBˆ›Üˆ][H[ˆÙ[‹™\ØØ\™Ù˜]×Ù]šY[˜ÙBˆKˆ˜Xİ]˜]YØXš[]Y\ÈˆÂˆÂˆœİXÚ×ÛØš™XİÚYˆ][KœİXÚ×ÛØš™XİÚYˆœÛİ\˜ÙWÚYˆ][KœÛİ\˜ÙWÚYˆ˜ÛÛ›Û\ˆˆ][K˜ÛÛ›Û\‹ˆ›Ü˜XÛWÙœ˜YÛY[ˆ][K›Ü˜XÛWÙœ˜YÛY[ˆ›X[˜WÜÛİ\˜ÙWÚYÈˆ\İ
+][K›X[˜WÜÛİ\˜ÙWÚYÊKˆ\ÜÛİ\˜ÙHˆ][K\ÜÛİ\˜ÙKˆœ™\ÛÛ™Yˆ][Kœ™\ÛÛ™Yˆ˜ÛÜİİ\™Ù]ÚYˆ][K˜ÛÜİİ\™Ù]ÚYˆBˆ›Üˆ][H[ˆÙ[‹˜Xİ]˜][Û—Ù]šY[˜ÙBˆKˆ™›ÛÙØXİ]˜][ÛœÈˆÂˆÂˆœÛİ\˜ÙWÚYˆ][KœÛİ\˜ÙWÚYˆœÛİ\˜ÙWÛ˜[YH·Ó[h‘éì¶»§q«^ud,
                     "sacrificed_destination_id": item.sacrificed_destination_id,
                     "sacrificed_destination_zone": item.sacrificed_destination_zone,
                     "stack_object_id": item.stack_object_id,
@@ -9027,150 +3256,4 @@ class Game(
                     "stack_object_id": item.stack_object_id,
                     "priority_epoch": item.priority_epoch,
                     "resolved_object_id": item.resolved_object_id,
-                    "entered_tapped": item.entered_tapped,
-                    "entered_attacking": item.entered_attacking,
-                }
-                for item in self.sneak_evidence
-            ],
-            "players": [
-                {
-                    "name": p.name,
-                    "life": p.life,
-                    "library": len(p.library),
-                    "library_object_ids": [card.object_id for card in p.library],
-                    "hand": [c.name for c in p.hand],
-                    "hand_object_ids": [card.object_id for card in p.hand],
-                    "battlefield": [
-                        {
-                            "object_id": x.object_id,
-                            "card": {
-                                "name": x.card.name,
-                                "mana_cost": x.card.mana_cost,
-                                "mana_value": x.card.mana_value,
-                                "type_line": x.card.type_line,
-                                "oracle_text": x.card.oracle_text,
-                                "power": x.card.power,
-                                "toughness": x.card.toughness,
-                                "keywords": list(x.card.keywords),
-                            },
-                            "owner": x.owner,
-                            "controller": x.controller,
-                            "zone": x.zone,
-                            "is_token": x.is_token,
-                            "evaluated_type_line": x.type_line,
-                            "colors": (
-                                list(x.card.colors) if isinstance(x.card, TokenDefinition) else []
-                            ),
-                            "tapped": x.tapped,
-                            "summoning_sick": x.summoning_sick,
-                            "entered_battlefield_turn": x.entered_battlefield_turn,
-                            **({"class_level": x.class_level} if x.class_level is not None else {}),
-                            **({"attached_to": x.attached_to} if x.attached_to is not None else {}),
-                            "entered_timestamp": list(x.entered_timestamp),
-                            "attachment_timestamp": list(x.attachment_timestamp),
-                            "ability_loss_timestamp": x.ability_loss_timestamp,
-                            "aura_creature_type": x.aura_creature_type,
-                            "aura_effect_ids": list(x.aura_effect_ids),
-                            "aura_attack_restrictions": list(x.aura_attack_restrictions),
-                            "damage": x.damage,
-                            "counters": dict(x.counters),
-                            "pt_modifiers": [
-                                {
-                                    "power": modifier.power,
-                                    "toughness": modifier.toughness,
-                                    "duration": modifier.duration,
-                                    "source_card": modifier.source_card,
-                                    "oracle_fragment": modifier.oracle_fragment,
-                                    "created_turn": modifier.created_turn,
-                                    "created_order": modifier.created_order,
-                                    "derived_static": modifier.derived_static,
-                                    **(
-                                        {"source_object_id": modifier.source_object_id}
-                                        if modifier.source_object_id is not None
-                                        else {}
-                                    ),
-                                }
-                                for modifier in x.pt_modifiers
-                            ],
-                            "characteristic_effects": [
-                                {
-                                    "effect_id": effect.effect_id,
-                                    "layer": effect.layer.value,
-                                    "sublayer": (
-                                        None if effect.sublayer is None else effect.sublayer.value
-                                    ),
-                                    "operation": effect.operation.value,
-                                    "power": effect.power,
-                                    "toughness": effect.toughness,
-                                    "timestamp": list(effect.timestamp),
-                                    "depends_on": list(effect.depends_on),
-                                    "source_card": effect.source_card,
-                                }
-                                for effect in x.characteristic_effects
-                            ],
-                            "temporary_keyword_effects": [
-                                {
-                                    "keyword": effect.keyword.value,
-                                    "timestamp": list(effect.timestamp),
-                                    "duration": effect.duration,
-                                    "source_id": effect.source_id,
-                                    "oracle_fragment": effect.oracle_fragment,
-                                }
-                                for effect in x.temporary_keyword_effects
-                            ],
-                        }
-                        for x in p.battlefield
-                    ],
-                    "graveyard": [c.name for c in p.graveyard],
-                    "graveyard_object_ids": [card.object_id for card in p.graveyard],
-                    "lost": p.lost,
-                    "loss_reason": p.loss_reason,
-                    "failed_draw_pending": p.failed_draw_pending,
-                }
-                for p in self.players
-            ],
-            "limitations": sorted(self.limitations),
-            "events": self.events,
-        }
-
-
-def _integer_characteristic(value: str | None) -> int | None:
-    if value is None:
-        return None
-    try:
-        return int(value)
-    except ValueError:
-        return None
-
-
-def load_facts(catalog: CardDataCatalog, names: set[str]) -> dict[str, CardFact]:
-    facts = {}
-    for name in sorted(names):
-        row = catalog.resolve_name(name)
-        mana_value = int(row.mana_value)
-        if mana_value != row.mana_value:
-            raise ValueError(f"Engine 0.7 cannot represent nonintegral mana value for {name}")
-        facts[name] = CardFact(
-            name=row.name,
-            mana_cost=row.mana_cost,
-            mana_value=mana_value,
-            type_line=row.type_line,
-            oracle_text=row.oracle_text,
-            power=_integer_characteristic(row.power),
-            toughness=_integer_characteristic(row.toughness),
-            keywords=row.keywords,
-            oracle_id=row.oracle_id,
-        )
-    return facts
-
-
-def load_deck(path: Path, facts: dict[str, CardFact]) -> list[CardFact]:
-    cards: list[CardFact] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line or line == "Deck":
-            continue
-        quantity, name = line.split(" ", 1)
-        cards.extend([facts[name]] * int(quantity))
-    if len(cards) != 60:
-        raise ValueError(f"{path}: expected 60 cards, found {len(cards)}")
-    return cards
+      YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×5N‹Z–‹­¦ëeŠw¬Ô€€€€€€€€€€€€€€‰•¹Ñ•É•‘}Ñ…ÁÁ•ˆè¥Ñ•´¹•¹Ñ•É•‘}Ñ…ÁÁ•°(€€€€€€€€€€€€€€€€€€€€‰•¹Ñ•É•‘}…ÑÑ…­¥¹œˆè¥Ñ•´¹•¹Ñ•É•‘}…ÑÑ…­¥¹œ°(€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€™½È¥Ñ•´¥¸Í•±˜¹Í¹•…­}•Ù¥‘•¹”(€€€€€€€€€€€t°(€€€€€€€€€€€€‰Á±…å•ÉÌˆèl(€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€‰¹…µ”ˆèÀ¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€‰±¥™”ˆèÀ¹±¥™”°(€€€€€€€€€€€€€€€€€€€€‰±¥‰É…Éäˆè±•¸¡À¹±¥‰É…Éä¤°(€€€€€€€€€€€€€€€€€€€€‰±¥‰É…Éå}½‰©•Ñ}¥‘Ìˆèm…É¹½‰©•Ñ}¥™½È…É¥¸À¹±¥‰É…Éåt°(€€€€€€€€€€€€€€€€€€€€‰¡…¹ˆèmŒ¹¹…µ”™½ÈŒ¥¸À¹¡…¹‘t°(€€€€€€€€€€€€€€€€€€€€‰¡…¹‘}½‰©•Ñ}¥‘Ìˆèm…É¹½‰©•Ñ}¥™½È…É¥¸À¹¡…¹‘t°(€€€€€€€€€€€€€€€€€€€€‰‰…ÑÑ±•™¥•±ˆèl(€€€€€€€€€€€€€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰½‰©•Ñ}¥ˆèà¹½‰©•Ñ}¥°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰…Éˆèì(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰¹…µ”ˆèà¹…É¹¹…µ”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰µ…¹…}½ÍĞˆèà¹…É¹µ…¹…}½ÍĞ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰µ…¹…}Ù…±Õ”ˆèà¹…É¹µ…¹…}Ù…±Õ”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰ÑåÁ•}±¥¹”ˆèà¹…É¹ÑåÁ•}±¥¹”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰½É…±•}Ñ•áĞˆèà¹…É¹½É…±•}Ñ•áĞ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰Á½İ•Èˆèà¹…É¹Á½İ•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰Ñ½Õ¡¹•ÍÌˆèà¹…É¹Ñ½Õ¡¹•ÍÌ°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰­•åİ½É‘Ìˆè±¥ÍĞ¡à¹…É¹­•åİ½É‘Ì¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€ô°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰½İ¹•Èˆèà¹½İ¹•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰½¹ÑÉ½±±•Èˆèà¹½¹ÑÉ½±±•È°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰é½¹”ˆèà¹é½¹”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰¥Í}Ñ½­•¸ˆèà¹¥Í}Ñ½­•¸°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰•Ù…±Õ…Ñ•‘}ÑåÁ•}±¥¹”ˆèà¹ÑåÁ•}±¥¹”°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰½±½ÉÌˆè€ (€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€±¥ÍĞ¡à¹…É¹½±½ÉÌ¤¥˜¥Í¥¹ÍÑ…¹”¡à¹…É°Q½­•¹•™¥¹¥Ñ¥½¸¤•±Í”mt(€€€€€€€€€€€€€€€€€€€€€€€€€€€€¤°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰Ñ…ÁÁ•ˆèà¹Ñ…ÁÁ•°(€€€€€€€€€€€€€€€€€€€€€€€€€€€€‰ÍÕµµ½¹¥¹}Í¥¬ˆèà¹ÍÕµµ½¹¥¹}Í¥¬°(ƒ}5¶‰ËkºwµçVW'2#¢°¢°¢'÷vW"#¢ÖöF–f–W"ç÷vW"À¢'F÷Vv†æW72#¢ÖöF–f–W"çF÷Vv†æW72À¢&GW&F–öâ#¢ÖöF–f–W"æGW&F–öâÀ¢'6÷W&6Uö6&B#¢ÖöF–f–W"ç6÷W&6Uö6&BÀ¢&÷&6ÆUög&vÖVçB#¢ÖöF–f–W"æ÷&6ÆUög&vÖVçBÀ¢&7&VFVE÷GW&â#¢ÖöF–f–W"æ7&VFVE÷GW&âÀ¢&7&VFVEö÷&FW"#¢ÖöF–f–W"æ7&VFVEö÷&FW"À¢&FW&—fVE÷7FF–2#¢ÖöF–f–W"æFW&—fVE÷7FF–2À¢¢¢€¢²'6÷W&6Uöö&¦V7Eö–B#¢ÖöF–f–W"ç6÷W&6Uöö&¦V7Eö–GĞ¢–bÖöF–f–W"ç6÷W&6Uöö&¦V7Eö–B—2æ÷BæöæP¢VÇ6R·Ğ¢’À¢Ğ¢f÷"ÖöF–f–W"–â‚çEöÖöF–f–W'0¢ÒÀ¢&6†&7FW&—7F–5öVffV7G2#¢°¢°¢&VffV7Eö–B#¢VffV7BæVffV7Eö–BÀ¢&Æ–W"#¢VffV7BæÆ–W"çfÇVRÀ¢'7V&Æ–W"#¢€¢æöæR–bVffV7Bç7V&Æ–W"—2æöæRVÇ6RVffV7Bç7V&Æ–W"çfÇVP¢’À¢&÷W&F–öâ#¢VffV7Bæ÷W&F–öâçfÇVRÀ¢'÷vW"#¢VffV7Bç÷vW"À¢'F÷Vv†æW72#¢VffV7BçF÷Vv†æW72À¢'F–ÖW7F×#¢Æ—7B†VffV7BçF–ÖW7F×’À¢&FWVæG5ööâ#¢Æ—7B†VffV7BæFWVæG5ööâ’À¢'6÷W&6Uö6&B#¢VffV7Bç6÷W&6Uö6&BÀ¢Ğ¢f÷"VffV7B–â‚æ6†&7FW&—7F–5öVffV7G0¢ÒÀ¢'FV×÷&'•ö¶W—v÷&EöVffV7G2#¢°¢°¢&¶W—v÷&B#¢VffV7Bæ¶W—v÷&BçfÇVRÀ¢'F–ÖW7F×#¢Æ—7B†VffV7BçF–ÖW7F×’À¢&GW&F–öâ#¢VffV7BæGW&F–öâÀ¢'6÷W&6Uö–B#¢VffV7Bç6÷W&6Uö–BÀ¢&÷&6ÆUög&vÖVçB#¢VffV7Bæ÷&6ÆUög&vÖVçBÀ¢Ğ¢f÷"VffV7B–â‚çFV×÷&'•ö¶W—v÷&EöVffV7G0¢ÒÀ¢Ğ¢f÷"‚–âæ&GFÆVf–VÆ@¢ÒÀ¢&w&fW–&B#¢¶2ææÖRf÷"2–âæw&fW–&EÒÀ¢&w&fW–&Eöö&¦V7Eö–G2#¢¶6&Bæö&¦V7Eö–Bf÷"6&B–âæw&fW–&EÒÀ¢&Æ÷7B#¢æÆ÷7BÀ¢&Æ÷75÷&V6öâ#¢æÆ÷75÷&V6öâÀ¢&f–ÆVEöG&u÷VæF–ær#¢æf–ÆVEöG&u÷VæF–ærÀ¢Ğ¢f÷"–â6VÆbçÆ–W'0¢ÒÀ¢&Æ–Ö—FF–öç2#¢6÷'FVB‡6VÆbæÆ–Ö—FF–öç2’À¢&WfVçG2#¢6VÆbæWfVçG2À¢Ğ  ¦FVbö–çFVvW%ö6†&7FW&—7F–2‡fÇVS¢7G"ÂæöæR’Óâ–çBÂæöæS ¢–bfÇVR—2æöæS ¢&WGW&âæöæP¢G'“ ¢&WGW&â–çB‡fÇVR¢W†6WBfÇVTW'&÷# ¢&WGW&âæöæP  ¦FVbÆöEöf7G2†6FÆös¢6&DFF6FÆörÂæÖW3¢6WE·7G%Ò’ÓâF–7E·7G"Â6&Df7EÓ ¢f7G2Ò·Ğ¢f÷"æÖR–â6÷'FVB†æÖW2“ ¢&÷rÒ6FÆörç&W6öÇfUöæÖR†æÖR¢Öæ÷fÇVRÒ–çB‡&÷ræÖæ÷fÇVR¢–bÖæ÷fÇVRÒ&÷ræÖæ÷fÇVS ¢&—6RfÇVTW'&÷"†b$Væv–æRãr6ææ÷B&W&W6VçBæöæ–çFVw&ÂÖæfÇVRf÷"¶æÖWÒ"¢f7G5¶æÖUÒÒ6&Df7B€¢æÖS×&÷rææÖRÀ¢Öæö6÷7C×&÷ræÖæö6÷7BÀ¢Öæ÷fÇVSÖÖæ÷fÇVRÀ¢G—UöÆ–æS×&÷rçG—UöÆ–æRÀ¢÷&6ÆU÷FW‡C×&÷ræ÷&6ÆU÷FW‡BÀ¢÷vW#Õö–çFVvW%ö6†&7FW&—7F–2‡&÷rç÷vW"’À¢F÷Vv†æW73Õö–çFVvW%ö6†&7FW&—7F–2‡&÷rçF÷Vv†æW72’À¢¶W—v÷&G3×&÷ræ¶W—v÷&G2À¢÷&6ÆUö–C×&÷ræ÷&6ÆUö–BÀ¢¢&WGW&âf7G0  ¦FVbÆöEöFV6²‡Fƒ¢F‚Âf7G3¢F–7E·7G"Â6&Df7EÒ’ÓâÆ—7E´6&Df7EÓ ¢6&G3¢Æ—7E´6&Df7EÒÒµĞ¢f÷"Æ–æR–âF‚ç&VE÷FW‡B†Væ6öF–æsÒ'WFbÓ‚"’ç7Æ—FÆ–æW2‚“ ¢–bæ÷BÆ–æR÷"Æ–æRÓÒ$FV6²# ¢6öçF–çVP¢VçF—G’ÂæÖRÒÆ–æRç7Æ—B‚""Â¢6&G2æW‡FVæB…¶f7G5¶æÖUÕÒ¢–çB‡VçF—G’’¢–bÆVâ†6&G2’Òc ¢&—6RfÇVTW'&÷"†b'·F‡Ó¢W‡V7FVBc6&G2Âf÷VæB¶ÆVâ†6&G2—Ò"¢&WGW&â6&G0

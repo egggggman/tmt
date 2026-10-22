@@ -1,71 +1,1 @@
-# Bad Guys Cronies Sandbox 0.2 â€” Work Packets A/B
-
-Status: **READY for independent review; BLOCKED for gameplay testing**
-
-This checkpoint implements only the two authorized semantic remediation packets for
-`OBL-BAD-GUYS-CRONIES-SANDBOX-0.2`. No deck list, Baseline 005 artifact, R9-B
-evidence, or gameplay simulation was changed or run.
-
-## Provenance
-
-- Pre-change semantic runtime: `d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924`
-- Post-change semantic runtime: `00fc49eb47d9ffd3d0243564cc7c9763d11738ca9698811306102747a060d374`
-- Implementation commit: `5017d35` (stacked on PR #363 head `0569ed82c90b6fab21fcc91b1bdba0b04615415f`)
-- Candidate and Baseline 005 hashes are unchanged from the authenticated PR #363 report.
-
-## Work Packet A â€” generic attack-target effect
-
-The interpreter now recognizes the Oracle-shaped attack trigger generically and
-produces an executable semantic program for another target creature controlled by
-the attacking creature's controller. The engine creates the trigger, offers only
-legal targets, rechecks the target at resolution, applies `+1/+0`, and records a
-temporary indestructible effect through the normal end-of-turn cleanup path.
-
-Indestructibility is honored by both lethal-damage state-based actions and explicit
-destroy operations. A departed or otherwise illegal target fails closed. No card or
-deck name is consulted by the execution path.
-
-## Work Packet B â€” generic conditional ETB/Disappear effect
-
-The engine now retains a typed permanent-departure history with the controller and
-turn of departure. A conditional ETB token trigger is created only when the
-intervening condition is true, and it is checked again at resolution. The token
-creation program is the existing generic token machinery, including normal entry
-events and object identities. Departure control, turn boundaries, and source
-independence are preserved; unrelated lifelink behavior is unchanged.
-
-History-only records do not perturb pre-existing event IDs or provenance ledgers for
-other leave-the-battlefield mechanics. Existing authenticated LTB/Mutagen and
-permanent-left counter evidence remains strict and regression-covered.
-
-## Deterministic evidence
-
-Focused Work Packet A/B tests: **3 passed**. The focused existing semantic,
-permanent-left, Mutagen, and related regression fixtures passed (**86 passed**).
-The complete repository suite passed: **1,629 passed, 10 skipped**.
-
-Static checks passed:
-
-- `uv run ruff check .`
-- `uv run ruff format --check .`
-- `git diff --check`
-- `uv run python tools/validate_objective_balance_lab_baseline005.py`
-
-The focused fixtures demonstrate full interpreter coverage, valid attack targeting,
-temporary modifier and indestructible cleanup, lethal-damage and destroy prevention,
-same-turn departure token creation, and rejection of departure under the wrong
-controller. No smoke, isolation, matchup, or calibration games were executed.
-
-## Coverage and remaining gate
-
-Foot Elite and Foot Mystic's represented fragments now classify as fully executable
-under the generic interpreter. The ten-deck readiness audit must be regenerated
-under the post-change runtime before any additional coverage rows are considered
-closed. Remaining required families include Rocksteady/Boar blocking restrictions,
-mandatory sacrifice-or-discard obligations, Mutagen X/token and activation-discount
-semantics, Stomped by the Foot, Mutant Chain Reaction, Tainted Treats, Cowabunga!,
-Paramecia recursion, and menace grants.
-
-**Recommendation:** READY for independent acceptance of Work Packets A/B. BLOCKED
-for the next remediation packet and for all gameplay testing until HQ accepts this
-checkpoint and a refreshed card-level coverage audit is published.
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×n:N‹Z–‹­¦ëeŠw¬ÔŒ	…ÕåÌÉ½¹¥•ÌM…¹‘‰½à€À¸ÈƒŠP]½É¬A…­•ÑÌ½()MÑ…ÑÕÌè€¨©Id™½È¥¹‘•Á•¹‘•¹ĞÉ•Ù¥•Üì	1=-™½È…µ•Á±…äÑ•ÍÑ¥¹œ¨¨()Q¡¥Ì¡•­Á½¥¹Ğ¥µÁ±•µ•¹ÑÌ½¹±äÑ¡”Ñİ¼…ÕÑ¡½É¥é•Í•µ…¹Ñ¥ŒÉ•µ•‘¥…Ñ¥½¸Á…­•ÑÌ™½È)=	0µ	µUeLµI=9%LµM9	=`´À¸É€¸9¼‘•¬±¥ÍĞ°	…Í•±¥¹”€ÀÀÔ…ÉÑ¥™…Ğ°Häµ)•Ù¥‘•¹”°½È…µ•Á±…äÍ¥µÕ±…Ñ¥½¸İ…Ì¡…¹•½ÈÉÕ¸¸((ŒŒAÉ½Ù•¹…¹”((´AÉ”µ¡…¹”Í•µ…¹Ñ¥ŒÉÕ¹Ñ¥µ”èĞĞØØÈĞÅ˜Á™™•…„àÀåÙ„ÀÔÈÄÁ…ÔÍˆå…˜ÄÀÄÅ„Åİ˜àÌÍ‘”ààØÔİŒÅ˜ÀÀäÈÑ€(´A½ÍĞµ¡…¹”Í•µ…¹Ñ¥ŒÉÕ¹Ñ¥µ”è€ÀÁ™ŒĞå•ˆĞİå™™ÍÀÈĞÌÔØÑŒİŒäÜØÍÄÄÜÌá„äØäààÄÄÌÀØÄÀÈÜĞİ„ÀØÁÌÜÑ€(´%µÁ±•µ•¹Ñ…Ñ¥½¸½µµ¥Ğè€ÔÀÄİÌÕ€€¡ÍÑ…­•½¸AH€ŒÌØÌ¡•…€ÀÔØå•àÉŒäÁˆÙ™…ˆÈÅ™ŒäÅˆÅ‰‘‰„ÁˆÀĞØÄÔĞÄÕ™€¤(´…¹‘¥‘…Ñ”…¹	…Í•±¥¹”€ÀÀÔ¡…Í¡•Ì…É”Õ¹¡…¹•™É½´Ñ¡”…ÕÑ¡•¹Ñ¥…Ñ•AH€ŒÌØÌÉ•Á½ÉĞ¸((ŒŒ]½É¬A…­•ĞƒŠP•¹•É¥Œ…ÑÑ…¬µÑ…É•Ğ•™™•Ğ()Q¡”¥¹Ñ•ÉÁÉ•Ñ•È¹½ÜÉ•½¹¥é•ÌÑ¡”=É…±”µÍ¡…Á•…ÑÑ…¬ÑÉ¥•È•¹•É¥…±±ä…¹)ÁÉ½‘Õ•Ì…¸•á•ÕÑ…‰±”Í•µ…¹Ñ¥ŒÁÉ½É…´™½È…¹½Ñ¡•ÈÑ…É•ĞÉ•…ÑÕÉ”½¹ÑÉ½±±•‰ä)Ñ¡”…ÑÑ…­¥¹œÉ•…ÑÕÉ”Ì½¹ÑÉ½±±•È¸Q¡”•¹¥¹”É•…Ñ•ÌÑ¡”ÑÉ¥•È°½™™•ÉÌ½¹±ä)±•…°Ñ…É•ÑÌ°É•¡•­ÌÑ¡”Ñ…É•Ğ…ĞÉ•Í½±ÕÑ¥½¸°…ÁÁ±¥•Ì€¬Ä¼¬Á€°…¹É•½É‘Ì„)Ñ•µÁ½É…Éä¥¹‘•ÍÑÉÕÑ¥‰±”•™™•ĞÑ¡É½Õ Ñ¡”¹½Éµ…°•¹µ½˜µÑÕÉ¸±•…¹ÕÀÁ…Ñ ¸()%¹‘•ÍÑÉÕÑ¥‰¥±¥Ñä¥Ì¡½¹½É•‰ä‰½Ñ ±•Ñ¡…°µ‘…µ…”ÍÑ…Ñ”µ‰…Í•…Ñ¥½¹Ì…¹•áÁ±¥¥Ğ)‘•ÍÑÉ½ä½Á•É…Ñ¥½¹Ì¸‘•Á…ÉÑ•½È½Ñ¡•Éİ¥Í”¥±±•…°Ñ…É•Ğ™…¥±Ì±½Í•¸9¼…É½È)‘•¬¹…µ”¥Ì½¹ÍÕ±Ñ•‰äÑ¡”•á•ÕÑ¥½¸Á…Ñ ¸((ŒŒ]½É¬A…­•ĞƒŠP•¹•É¥Œ½¹‘¥Ñ¥½¹…°Q½¥Í…ÁÁ•…È•™™•Ğ()Q¡”•¹¥¹”¹½ÜÉ•Ñ…¥¹Ì„ÑåÁ•Á•Éµ…¹•¹Ğµ‘•Á…ÉÑÕÉ”¡¥ÍÑ½Éäİ¥Ñ Ñ¡”½¹ÑÉ½±±•È…¹)ÑÕÉ¸½˜‘•Á…ÉÑÕÉ”¸½¹‘¥Ñ¥½¹…°QÑ½­•¸ÑÉ¥•È¥ÌÉ•…Ñ•½¹±äİ¡•¸Ñ¡”)¥¹Ñ•ÉÙ•¹¥¹œ½¹‘¥Ñ¥½¸¥ÌÑÉÕ”°…¹¥Ğ¥Ì¡•­•……¥¸…ĞÉ•Í½±ÕÑ¥½¸¸Q¡”Ñ½­•¸)É•…Ñ¥½¸ÁÉ½É…´¥ÌÑ¡”•á¥ÍÑ¥¹œ•¹•É¥ŒÑ½­•¸µ…¡¥¹•Éä°¥¹±Õ‘¥¹œ¹½Éµ…°•¹ÑÉä)•Û­¢G§²ÚîÆ­yÙ¡…¹•¸()!¥ÍÑ½Éäµ½¹±äÉ•½É‘Ì‘¼¹½ĞÁ•ÉÑÕÉˆÁÉ”µ•á¥ÍÑ¥¹œ•Ù•¹Ğ%Ì½ÈÁÉ½Ù•¹…¹”±•‘•ÉÌ™½È)½Ñ¡•È±•…Ù”µÑ¡”µ‰…ÑÑ±•™¥•±µ•¡…¹¥Ì¸á¥ÍÑ¥¹œ…ÕÑ¡•¹Ñ¥…Ñ•1Q½5ÕÑ…•¸…¹)Á•Éµ…¹•¹Ğµ±•™Ğ½Õ¹Ñ•È•Ù¥‘•¹”É•µ…¥¹ÌÍÑÉ¥Ğ…¹É•É•ÍÍ¥½¸µ½Ù•É•¸((ŒŒ•Ñ•Éµ¥¹¥ÍÑ¥Œ•Ù¥‘•¹”()½ÕÍ•]½É¬A…­•Ğ½Ñ•ÍÑÌè€¨¨ÌÁ…ÍÍ•¨¨¸Q¡”™½ÕÍ••á¥ÍÑ¥¹œÍ•µ…¹Ñ¥Œ°)Á•Éµ…¹•¹Ğµ±•™Ğ°5ÕÑ…•¸°…¹É•±…Ñ•É•É•ÍÍ¥½¸™¥áÑÕÉ•ÌÁ…ÍÍ•€ ¨¨àØÁ…ÍÍ•¨¨¤¸)Q¡”½µÁ±•Ñ”É•Á½Í¥Ñ½ÉäÍÕ¥Ñ”Á…ÍÍ•è€¨¨Ä°ØÈäÁ…ÍÍ•°€ÄÀÍ­¥ÁÁ•¨¨¸()MÑ…Ñ¥Œ¡•­ÌÁ…ÍÍ•è((´ÕØÉÕ¸ÉÕ™˜¡•¬€¹€(´ÕØÉÕ¸ÉÕ™˜™½Éµ…Ğ€´µ¡•¬€¹€(´¥Ğ‘¥™˜€´µ¡•­€(´ÕØÉÕ¸ÁåÑ¡½¸Ñ½½±Ì½Ù…±¥‘…Ñ•}½‰©•Ñ¥Ù•}‰…±…¹•}±…‰}‰…Í•±¥¹”ÀÀÔ¹Áå€()Q¡”™½ÕÍ•™¥áÑÕÉ•Ì‘•µ½¹ÍÑÉ…Ñ”™Õ±°¥¹Ñ•ÉÁÉ•Ñ•È½Ù•É…”°Ù…±¥…ÑÑ…¬Ñ…É•Ñ¥¹œ°)Ñ•µÁ½É…Éäµ½‘¥™¥•È…¹¥¹‘•ÍÑÉÕÑ¥‰±”±•…¹ÕÀ°±•Ñ¡…°µ‘…µ…”…¹‘•ÍÑÉ½äÁÉ•Ù•¹Ñ¥½¸°)Í…µ”µÑÕÉ¸‘•Á…ÉÑÕÉ”Ñ½­•¸É•…Ñ¥½¸°…¹É•©•Ñ¥½¸½˜‘•Á…ÉÑÕÉ”Õ¹‘•ÈÑ¡”İÉ½¹œ)½¹ÑÉ½±±•È¸9¼Íµ½­”°¥Í½±…Ñ¥½¸°µ…Ñ¡ÕÀ°½È…±¥‰É…Ñ¥½¸…µ•Ìİ•É”•á•ÕÑ•¸((ŒŒ½Ù•É…”…¹É•µ…¥¹¥¹œ…Ñ”()½½Ğ±¥Ñ”…¹½½Ğ5åÍÑ¥ŒÌÉ•ÁÉ•Í•¹Ñ•™É…µ•¹ÑÌ¹½Ü±…ÍÍ¥™ä…Ì™Õ±±ä•á•ÕÑ…‰±”)Õ¹‘•ÈÑ¡”•¹•É¥Œ¥¹Ñ•ÉÁÉ•Ñ•È¸Q¡”Ñ•¸µ‘•¬É•…‘¥¹•ÍÌ…Õ‘¥ĞµÕÍĞ‰”É••¹•É…Ñ•)Õ¹‘•ÈÑ¡”Á½ÍĞµ¡…¹”ÉÕ¹Ñ¥µ”‰•™½É”…¹ä…‘‘¥Ñ¥½¹…°½Ù•É…”É½İÌ…É”½¹Í¥‘•É•)±½Í•¸I•µ…¥¹¥¹œÉ•ÅÕ¥É•™…µ¥±¥•Ì¥¹±Õ‘”I½­ÍÑ•…‘ä½	½…È‰±½­¥¹œÉ•ÍÑÉ¥Ñ¥½¹Ì°)µ…¹‘…Ñ½ÉäÍ…É¥™¥”µ½Èµ‘¥Í…É½‰±¥…Ñ¥½¹Ì°5ÕÑ…•¸`½Ñ½­•¸…¹…Ñ¥Ù…Ñ¥½¸µ‘¥Í½Õ¹Ğ)Í•µ…¹Ñ¥Ì°MÑ½µÁ•‰äÑ¡”½½Ğ°5ÕÑ…¹Ğ¡…¥¸I•…Ñ¥½¸°Q…¥¹Ñ•QÉ•…ÑÌ°½İ…‰Õ¹„„°)A…É…µ•¥„É•ÕÉÍ¥½¸°…¹µ•¹…”É…¹ÑÌ¸((¨©I•½µµ•¹‘…Ñ¥½¸è¨¨Id™½È¥¹‘•Á•¹‘•¹Ğ…•ÁÑ…¹”½˜]½É¬A…­•ÑÌ½¸	1=-)™½ÈÑ¡”¹•áĞÉ•µ•‘¥…Ñ¥½¸Á…­•Ğ…¹™½È…±°…µ•Á±…äÑ•ÍÑ¥¹œÕ¹Ñ¥°!D…•ÁÑÌÑ¡¥Ì)¡•­Á½¥¹Ğ…¹„É•™É•Í¡•…Éµ±•Ù•°½Ù•É…”…Õ‘¥Ğ¥ÌÁÕ‰±¥Í¡•¸(
