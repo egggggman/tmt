@@ -2,7 +2,7 @@
   "schema": "baseline005-provenance-overlay.v1",
   "overlay_id": "OBL-BASELINE-005-PROVENANCE-OVERLAY-001",
   "manifest_repository_commit": "df15e8bff151d07ea5018d8766bba3553eb7b200",
-  "source_commit": "5a7de1c205891590e60ad13ca1ebd59f981c87f1",
+  "source_commit": "c96b13fcc4e32179e3283dbf92d378885064d5fd",
   "historical_manifest": "docs/objective-balance-lab/baselines/OBL_BASELINE_005_MANIFEST.json",
   "verification_method": "raw-byte SHA-256 where unchanged; authorized LF/CRLF equivalence only for records explicitly marked CRLF; canonical UTF-8 normalized content, deck rows, and Git blob identity are always checked",
   "decks": [
