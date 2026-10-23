@@ -112,6 +112,22 @@ class CheckpointAccumulator:
             "records": records,
         }
 
+    def restore(self, payload: dict[str, Any]) -> None:
+        """Restore a validated partial checkpoint without replaying completed IDs."""
+        validate_checkpoint(payload, self._schedule)
+        for record in payload["records"]:
+            game_id = record["game_id"]
+            if game_id in self._records:
+                raise CheckpointIntegrityError(f"duplicate restored game ID: {game_id}")
+            self._records[game_id] = copy.deepcopy(record)
+
+    def assert_complete(self) -> None:
+        if set(self._records) != set(self._expected):
+            missing = sorted(set(self._expected) - set(self._records))
+            raise CheckpointIntegrityError(
+                f"checkpoint is incomplete; missing {len(missing)} games"
+            )
+
     def write(self, path: Path, *, writer_id: str) -> dict[str, Any]:
         self.claim(writer_id)
         payload = self.snapshot()
@@ -149,3 +165,36 @@ def validate_checkpoint(payload: dict[str, Any], schedule: list[dict[str, Any]])
     authorized = {row["game_id"] for row in schedule}
     if set(ids) - authorized:
         raise CheckpointIntegrityError("checkpoint contains unauthorized game IDs")
+
+
+class WriterLock:
+    """Exclusive process-level ownership marker for one checkpoint path."""
+
+    def __init__(self, path: Path, writer_id: str):
+        self.path = Path(f"{path}.lock")
+        self.writer_id = writer_id
+        self._held = False
+
+    def acquire(self) -> None:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            fd = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError as exc:
+            raise CheckpointIntegrityError("checkpoint writer ownership is already held") from exc
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(self.writer_id + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        self._held = True
+
+    def release(self) -> None:
+        if self._held:
+            self.path.unlink(missing_ok=True)
+            self._held = False
+
+    def __enter__(self) -> WriterLock:
+        self.acquire()
+        return self
+
+    def __exit__(self, _type: object, _value: object, _traceback: object) -> None:
+        self.release()
