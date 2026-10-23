@@ -167,6 +167,28 @@ class InterpretedStaticKeywordGrantSemantics:
 
 
 @dataclass(frozen=True)
+class StaticActivationCostReductionProgram:
+    """Controller-scoped reduction for activated abilities of qualifying tokens."""
+
+    quality: str
+    reduction: int
+
+    @property
+    def executable(self) -> bool:
+        return bool(self.quality) and self.reduction > 0
+
+
+@dataclass(frozen=True)
+class InterpretedStaticActivationCostReductionSemantics:
+    program: StaticActivationCostReductionProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class AttackTargetPTProgram:
     power: int
     toughness: int
@@ -776,6 +798,11 @@ class CardInterpreter:
     )
     STATIC_KEYWORD_GRANT = re.compile(
         r"^(?P<quality>[A-Za-z]+)s you control have (?P<keyword>[A-Za-z ]+)\.$",
+        re.IGNORECASE,
+    )
+    STATIC_ACTIVATION_COST_REDUCTION = re.compile(
+        r"^Activated abilities of (?P<quality>[A-Za-z]+) tokens you control "
+        r"cost \{(?P<reduction>[0-9]+)\} less to activate\.$",
         re.IGNORECASE,
     )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
@@ -1416,6 +1443,26 @@ class CardInterpreter:
         executable = permanent_source and program.executable
         limitations = () if executable else ("static_keyword_grant_not_executable",)
         return InterpretedStaticKeywordGrantSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
+        )
+
+    def static_activation_cost_reduction_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticActivationCostReductionSemantics | None:
+        match = self.STATIC_ACTIVATION_COST_REDUCTION.fullmatch(fragment)
+        if match is None:
+            return None
+        program = StaticActivationCostReductionProgram(
+            match.group("quality").casefold(), int(match.group("reduction"))
+        )
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Battle", "Creature", "Enchantment", "Land", "Planeswalker")
+        )
+        executable = permanent_source and program.executable
+        limitations = () if executable else ("static_activation_cost_reduction_not_executable",)
+        return InterpretedStaticActivationCostReductionSemantics(
             program,
             SemanticCoverage(executable, executable, executable, limitations),
         )
@@ -3013,6 +3060,14 @@ class CardInterpreter:
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
                 unsupported.extend((fragment, reason) for reason in static_team.limitations)
+                continue
+            activation_reduction = self.static_activation_cost_reduction_semantic_coverage(
+                card, fragment
+            )
+            if activation_reduction is not None:
+                unsupported.extend(
+                    (fragment, reason) for reason in activation_reduction.limitations
+                )
                 continue
             static_keyword_grant = self.static_keyword_grant_semantic_coverage(card, fragment)
             if static_keyword_grant is not None:
