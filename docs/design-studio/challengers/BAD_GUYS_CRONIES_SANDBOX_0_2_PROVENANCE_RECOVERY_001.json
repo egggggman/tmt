@@ -1,0 +1,53 @@
+{
+  "schema": "bad_guys_cronies_provenance_recovery.v1",
+  "status": "ROOT_CAUSE_VERIFIED",
+  "investigation_date": "2026-10-23",
+  "simulation_run": false,
+  "classification": "FORMAT_DRIFT_IN_INHERITED_MANIFEST_HASHING",
+  "source_repository_commit": "df15e8bff151d07ea5018d8766bba3553eb7b200",
+  "baseline_005_promotion_commit": "479920496961d1fd98985a3743780a2f54effc8c0",
+  "deck_content_author_commit": "ed3ec1e5c01a238c4028c3c61c8a9e1972631ca4",
+  "decks": {
+    "michelangelo": {
+      "path": "decks/michelangelo/PROTOTYPE_0.1.txt",
+      "manifest_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "current_lf_sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f",
+      "current_as_crlf_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9",
+      "git_blob_sha1": "70e5104e109405b2ad0a3bdd93e16c5bf75f39e9",
+      "parsed_card_rows": 14,
+      "normalized_content_equal": true,
+      "card_list_equal": true
+    },
+    "splinter": {
+      "path": "decks/splinter/PROTOTYPE_0.1.txt",
+      "manifest_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "current_lf_sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42",
+      "current_as_crlf_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a",
+      "git_blob_sha1": "354e56cf9dca8e84e8824afe20cd6239d076fd37",
+      "parsed_card_rows": 13,
+      "normalized_content_equal": true,
+      "card_list_equal": true
+    }
+  },
+  "historical_lineage": {
+    "same_source_blobs_at_df15_and_4799": true,
+    "manifest_values_inherited_across_baselines_001_to_005": true,
+    "deck_content_drift_detected": false,
+    "manifest_hash_generation_environment_mismatch": "Windows CRLF historical serialization versus LF Git checkout"
+  },
+  "proposed_correction": {
+    "type": "forward_only_provenance_overlay_and_validator_update",
+    "rewrite_historical_manifests": false,
+    "modify_decks": false,
+    "modify_runtime_semantics": false,
+    "canonical_compare": "newline-normalized content with explicit LF/CRLF serialization fields",
+    "preserve_original_manifest_hashes": true,
+    "requires_hq_authorization": true
+  },
+  "evidence_boundaries": {
+    "prior_smoke_valid_games": 0,
+    "prior_smoke_total_scheduled": 180,
+    "prior_smoke_reclassified": false,
+    "gameplay_simulation_this_investigation": false
+  }
+}
