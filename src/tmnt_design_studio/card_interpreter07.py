@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 30583)
-Total output lines: 3103
-
 """Pure Oracle-to-rules-construct interpretation for Cardcade Engine 0.8b."""
 
 from __future__ import annotations
@@ -1679,7 +1676,62 @@ class CardInterpreter:
                 keyword
                 for keyword in ("Flying", "Haste", "Vigilance", "Trample", "Menace")
                 if re.search(rf"\bwith {keyword.casefold()}\b", fragment, re.I)
-         …583 tokens truncated…ount_not_implemented" if amount is None else None
+            )
+            definition = TokenDefinition(
+                token_name,
+                type_line,
+                tuple(colors),
+                int(explicit.group("power")),
+                int(explicit.group("toughness")),
+                keywords=keywords,
+            )
+
+        unsupported_reason = None
+        if definition is None:
+            unsupported_reason = "token_characteristics_not_safely_derived"
+        elif variable_quantity:
+            unsupported_reason = "variable_token_quantity_not_implemented"
+        elif re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I):
+            unsupported_reason = "token_attacking_context_not_implemented"
+
+        tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
+        retained_limitation = None
+        if (
+            definition is not None
+            and definition.oracle_text
+            and not self._is_canonical_food_source(definition)
+            and not (
+                "Artifact" in definition.type_line
+                and self.COUNTER_TOKEN_ACTIVATION.fullmatch(definition.oracle_text)
+            )
+        ):
+            retained_limitation = "token_activated_ability_not_implemented"
+        elif re.search(
+            r"\b(?:attach (?:this|that)|destroy it|sacrifice it|gains? haste until end of turn|"
+            r"then if|and put)\b",
+            fragment[match.end() :],
+            re.I,
+        ):
+            retained_limitation = "token_followup_semantics_not_implemented"
+        return TokenCreationProgram(
+            definition,
+            quantity,
+            tapped=tapped,
+            unsupported_reason=unsupported_reason,
+            retained_limitation=retained_limitation,
+        )
+
+    def damage_program(self, fragment: str) -> DamageProgram | None:
+        """Recognize damage payloads without confusing damage with adjacent outcomes."""
+        match = self.DEAL_DAMAGE.search(fragment)
+        if match is None:
+            return None
+        amount_text = (match.group("amount") or match.group("dynamic_amount")).casefold()
+        amount = int(amount_text) if amount_text.isdecimal() else None
+        target_text = match.group("target").casefold()
+        target_kind = None
+        target_scope = None
+        amount_limitation = "dynamic_damage_amount_not_implemented" if amount is None else None
         targeting_limitation = None
         if target_text in {"target opponent", "each opponent", "you"}:
             target_kind = DamageTargetKind.PLAYER
@@ -3048,4 +3100,3 @@ class CardInterpreter:
                 continue
             unsupported.append((fragment, "oracle_ability_not_implemented"))
         return tuple(unsupported)
-
