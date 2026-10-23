@@ -349,4 +349,3 @@ def test_graveyard_reconstruction_accounts_for_prior_token_cessation():
     next(e for e in corrupt["events"] if e["event"] == "token_ceased")["object_id"] = "fake"
     with pytest.raises(ValueError, match="reconstruct"):
         Game.validate_mill_three_snapshot_evidence(corrupt)
-
