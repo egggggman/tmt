@@ -182,4 +182,3 @@ def test_injected_executor_proves_simulator_is_not_invoked(monkeypatch, tmp_path
         lambda *_args, **_kwargs: pytest.fail("Magic simulator was invoked"),
     )
     launcher.run_calibration(tmp_path, tmp_path / "mock.json", executor=_result)
-
