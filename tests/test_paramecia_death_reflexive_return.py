@@ -150,4 +150,3 @@ def test_ordinary_death_keeps_normal_dies_event():
         and e.get("oracle_fragment") == "When this creature dies, draw a card."
         for e in game.events
     )
-
