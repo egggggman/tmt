@@ -246,6 +246,7 @@ class ActivationPaymentPlan:
     tap_source: bool
     sacrifice_source: bool
     counter_target_id: str | None = None
+    cost_reduction: int = 0
 
 
 @dataclass(frozen=True)
@@ -8887,6 +8888,12 @@ class Game(
         requirement = self.activation_mana_requirement(cost.mana_cost)
         if requirement is None:
             return None
+        cost_reduction = self._activation_cost_reduction(player_index, source)
+        if cost_reduction:
+            requirement = replace(
+                requirement,
+                generic=max(0, requirement.generic - cost_reduction),
+            )
         if cost.tap_source and (
             source.tapped
             or (
@@ -8947,7 +8954,34 @@ class Game(
             cost.tap_source,
             cost.sacrifice_source,
             counter_target_id,
+            cost_reduction,
         )
+
+    def _activation_cost_reduction(self, player_index: int, source: Permanent) -> int:
+        """Apply live controller-scoped reductions to qualifying token abilities."""
+        if (
+            not source.is_token
+            or source.controller != player_index
+            or "Artifact" not in source.type_line.split(" — ", 1)[0].split()
+        ):
+            return 0
+        reduction = 0
+        source_types = {value.casefold() for value in source.type_line.split(" — ", 1)[0].split()}
+        source_subtypes = self._subtypes(source)
+        for player in self.players:
+            for grantor in player.battlefield:
+                if grantor.controller != player_index:
+                    continue
+                for fragment in self.interpreter.fragments(grantor.rules_card):
+                    semantics = self.interpreter.static_activation_cost_reduction_semantic_coverage(
+                        grantor.card, fragment
+                    )
+                    if semantics is None or not semantics.coverage.fully_supported:
+                        continue
+                    quality = semantics.program.quality
+                    if quality in source_types or quality in source_subtypes:
+                        reduction += semantics.program.reduction
+        return reduction
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate bounded engine-owned activation options for the current priority window."""
@@ -9484,7 +9518,9 @@ class Game(
             player=self.players[player_index].name,
             source_id=source.object_id,
             stack_object_id=ability.object_id,
+            printed_generic=plan.requirement.generic + plan.cost_reduction,
             generic=plan.requirement.generic,
+            cost_reduction=plan.cost_reduction,
             colored=list(plan.requirement.colored),
             mana_source_ids=list(plan.mana_source_ids),
             tap_source=plan.tap_source,
