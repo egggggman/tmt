@@ -137,6 +137,36 @@ class InterpretedStaticTeamModifierSemantics:
 
 
 @dataclass(frozen=True)
+class StaticKeywordGrantProgram:
+    """A controller-scoped continuous keyword grant."""
+
+    quality: str
+    keyword: str
+    controller_scoped: bool = True
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.controller_scoped
+            and self.quality
+            and self.keyword
+            in {
+                "menace",
+            }
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedStaticKeywordGrantSemantics:
+    program: StaticKeywordGrantProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class AttackTargetPTProgram:
     power: int
     toughness: int
@@ -743,6 +773,10 @@ class CardInterpreter:
     STATIC_OTHER_QUALIFIED_CREATURES = re.compile(
         r"^Other (?P<quality>artifact) creatures you control get "
         r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
+    )
+    STATIC_KEYWORD_GRANT = re.compile(
+        r"^(?P<quality>[A-Za-z]+)s you control have (?P<keyword>[A-Za-z ]+)\.$",
+        re.IGNORECASE,
     )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
         r"^Alliance — Whenever another creature you control enters, this creature gets "
@@ -1364,6 +1398,26 @@ class CardInterpreter:
         return InterpretedStaticTeamModifierSemantics(
             program,
             SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
+        )
+
+    def static_keyword_grant_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticKeywordGrantSemantics | None:
+        match = self.STATIC_KEYWORD_GRANT.fullmatch(fragment)
+        if match is None:
+            return None
+        program = StaticKeywordGrantProgram(
+            match.group("quality").casefold(), match.group("keyword").strip().casefold()
+        )
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        executable = permanent_source and program.executable
+        limitations = () if executable else ("static_keyword_grant_not_executable",)
+        return InterpretedStaticKeywordGrantSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
         )
 
     def supports_pt_fragment(self, fragment: str) -> bool:
@@ -2959,6 +3013,12 @@ class CardInterpreter:
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
                 unsupported.extend((fragment, reason) for reason in static_team.limitations)
+                continue
+            static_keyword_grant = self.static_keyword_grant_semantic_coverage(card, fragment)
+            if static_keyword_grant is not None:
+                unsupported.extend(
+                    (fragment, reason) for reason in static_keyword_grant.limitations
+                )
                 continue
             stun = self.etb_tap_stun_semantic_coverage(card, fragment)
             if stun is not None:
