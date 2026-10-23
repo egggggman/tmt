@@ -1,11 +1,20 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.baseline005_provenance import ProvenanceError, verify_overlay
+_MODULE_SPEC = importlib.util.spec_from_file_location(
+    "baseline005_provenance",
+    Path(__file__).resolve().parents[1] / "tools/baseline005_provenance.py",
+)
+assert _MODULE_SPEC and _MODULE_SPEC.loader
+_MODULE = importlib.util.module_from_spec(_MODULE_SPEC)
+_MODULE_SPEC.loader.exec_module(_MODULE)
+ProvenanceError = _MODULE.ProvenanceError
+verify_overlay = _MODULE.verify_overlay
 
 ROOT = Path(__file__).resolve().parents[1]
 OVERLAY = ROOT / "docs/objective-balance-lab/baselines/OBL_BASELINE_005_PROVENANCE_OVERLAY_001.json"
