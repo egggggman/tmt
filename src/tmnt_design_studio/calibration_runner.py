@@ -13,6 +13,13 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
+from tmnt_design_studio.calibration_integrity import (
+    CheckpointAccumulator,
+    WriterLock,
+    validate_checkpoint,
+    validate_schedule,
+)
+
 
 @dataclass(frozen=True)
 class ProtocolMember:
@@ -26,6 +33,50 @@ class ProtocolMember:
 
 class ProtocolViolation(RuntimeError):
     pass
+
+
+def run_checkpointed_schedule(
+    schedule: list[dict],
+    checkpoint: Path,
+    executor: Callable[[dict], dict],
+    *,
+    writer_id: str,
+    expected_matchups: int,
+    games_per_matchup: int,
+) -> dict:
+    """Run a schedule through the fail-closed checkpoint path.
+
+    The executor is deliberately injected so integrity tests can use mock
+    results without invoking the game engine.  Existing records are restored
+    and never replayed; final completion is accepted only after every schedule
+    identity is present exactly once.
+    """
+    contract = validate_schedule(
+        schedule,
+        expected_games=len(schedule),
+        expected_matchups=expected_matchups,
+        games_per_matchup=games_per_matchup,
+    )
+    accumulator = CheckpointAccumulator(schedule, writer_id=writer_id)
+    with WriterLock(checkpoint, writer_id):
+        if checkpoint.exists():
+            payload = json.loads(checkpoint.read_text(encoding="utf-8"))
+            validate_checkpoint(payload, schedule)
+            if payload.get("schedule_digest") != contract["schedule_digest"]:
+                raise ProtocolViolation("checkpoint schedule identity mismatch")
+            accumulator.restore(payload)
+        for row in schedule:
+            if row["game_id"] in {
+                record["game_id"] for record in accumulator.snapshot()["records"]
+            }:
+                continue
+            result = executor(dict(row))
+            if result.get("game_id") != row["game_id"]:
+                raise ProtocolViolation("executor returned the wrong game identity")
+            accumulator.append(result, writer_id=writer_id)
+            accumulator.write(checkpoint, writer_id=writer_id)
+        accumulator.assert_complete()
+        return accumulator.write(checkpoint, writer_id=writer_id)
 
 
 def load_members(

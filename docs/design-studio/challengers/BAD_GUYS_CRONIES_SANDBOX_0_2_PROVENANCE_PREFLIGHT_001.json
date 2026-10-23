@@ -1,0 +1,23 @@
+{
+  "schema": "bad_guys_cronies_provenance_preflight.v1",
+  "status": "PROVENANCE_PREFLIGHT_READY",
+  "semantic_runtime": "c087f84bab4916b516ec6745f5a8e9f2a2d33f9117856bf959da4eb9a7be8e54",
+  "overlay_id": "OBL-BASELINE-005-PROVENANCE-OVERLAY-001",
+  "overlay_schema": "baseline005-provenance-overlay.v1",
+  "verified_deck_count": 10,
+  "authorized_crlf_decks": ["michelangelo", "splinter"],
+  "raw_byte_decks": ["leonardo", "raphael", "donatello", "shredder", "krang", "bebop_rocksteady", "april_oneil", "casey_jones"],
+  "candidate_sha256": "cacc77648a4d1659b8ae640d95ac2672694e6951553980246e6d001e5152bfb4",
+  "snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+  "focused_provenance_tests": {"passed": 4, "failed": 0},
+  "full_regression": {"passed": 1694, "skipped": 10, "failed": 0},
+  "ruff_format": "passed",
+  "ruff_check": "passed",
+  "terminology_check": "passed",
+  "gameplay_simulation": false,
+  "smoke_attempt_001_reclassified": false,
+  "historical_manifests_modified": false,
+  "decks_modified": false,
+  "runtime_semantics_modified": false,
+  "recommendation": "PROVENANCE PREFLIGHT READY — REQUEST HQ SMOKE REAUTHORIZATION"
+}
