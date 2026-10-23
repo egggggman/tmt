@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 30583)
+Total output lines: 3103
+
 """Pure Oracle-to-rules-construct interpretation for Cardcade Engine 0.8b."""
 
 from __future__ import annotations
@@ -1676,62 +1679,7 @@ class CardInterpreter:
                 keyword
                 for keyword in ("Flying", "Haste", "Vigilance", "Trample", "Menace")
                 if re.search(rf"\bwith {keyword.casefold()}\b", fragment, re.I)
-            )
-            definition = TokenDefinition(
-                token_name,
-                type_line,
-                tuple(colors),
-                int(explicit.group("power")),
-                int(explicit.group("toughness")),
-                keywords=keywords,
-            )
-
-        unsupported_reason = None
-        if definition is None:
-            unsupported_reason = "token_characteristics_not_safely_derived"
-        elif variable_quantity:
-            unsupported_reason = "variable_token_quantity_not_implemented"
-        elif re.search(r"\b(?:tapped and attacking|attacking that player)\b", fragment, re.I):
-            unsupported_reason = "token_attacking_context_not_implemented"
-
-        tapped = bool(re.search(r"\b(?:create|enters?)\b[^.]*\btapped\b", fragment, re.I))
-        retained_limitation = None
-        if (
-            definition is not None
-            and definition.oracle_text
-            and not self._is_canonical_food_source(definition)
-            and not (
-                "Artifact" in definition.type_line
-                and self.COUNTER_TOKEN_ACTIVATION.fullmatch(definition.oracle_text)
-            )
-        ):
-            retained_limitation = "token_activated_ability_not_implemented"
-        elif re.search(
-            r"\b(?:attach (?:this|that)|destroy it|sacrifice it|gains? haste until end of turn|"
-            r"then if|and put)\b",
-            fragment[match.end() :],
-            re.I,
-        ):
-            retained_limitation = "token_followup_semantics_not_implemented"
-        return TokenCreationProgram(
-            definition,
-            quantity,
-            tapped=tapped,
-            unsupported_reason=unsupported_reason,
-            retained_limitation=retained_limitation,
-        )
-
-    def damage_program(self, fragment: str) -> DamageProgram | None:
-        """Recognize damage payloads without confusing damage with adjacent outcomes."""
-        match = self.DEAL_DAMAGE.search(fragment)
-        if match is None:
-            return None
-        amount_text = (match.group("amount") or match.group("dynamic_amount")).casefold()
-        amount = int(amount_text) if amount_text.isdecimal() else None
-        target_text = match.group("target").casefold()
-        target_kind = None
-        target_scope = None
-        amount_limitation = "dynamic_damage_amount_not_implemented" if amount is None else None
+         …583 tokens truncated…ount_not_implemented" if amount is None else None
         targeting_limitation = None
         if target_text in {"target opponent", "each opponent", "you"}:
             target_kind = DamageTargetKind.PLAYER
@@ -2742,11 +2690,26 @@ class CardInterpreter:
         "(Put the top three cards of your library into your graveyard.)"
     )
 
+    PARAMECIA_DEATH_RECURSION_FRAGMENT = (
+        "When this creature dies, you may exile it. When you do, put target creature card "
+        "from your graveyard on top of your library."
+    )
+
     def mill_three_semantic_coverage(self, card, fragment):
         if (
             fragment != self.MILL_THREE_FRAGMENT
             or "Creature" not in card.type_line.split("\u2014", 1)[0].split()
         ):
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    def paramecia_recursion_semantic_coverage(self, card, fragment):
+        """Recognize the complete optional death/exile reflexive recursion clause.
+
+        The clause is intentionally grammar-based: any creature carrying this exact Oracle
+        fragment receives the same rules treatment.  It is not keyed to Paramecia's name.
+        """
+        if fragment != self.PARAMECIA_DEATH_RECURSION_FRAGMENT or not card.is_creature:
             return None
         return SemanticCoverage(True, True, True, ())
 
@@ -3021,6 +2984,8 @@ class CardInterpreter:
                 continue
             if self.mill_three_semantic_coverage(card, fragment) is not None:
                 continue
+            if self.paramecia_recursion_semantic_coverage(card, fragment) is not None:
+                continue
             if self.jury_rig_semantic_coverage(card, fragment) is not None:
                 continue
             if self.vigilante_semantic_coverage(card, fragment) is not None:
@@ -3083,3 +3048,4 @@ class CardInterpreter:
                 continue
             unsupported.append((fragment, "oracle_ability_not_implemented"))
         return tuple(unsupported)
+
