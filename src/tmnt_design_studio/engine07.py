@@ -3914,12 +3914,14 @@ class Game(
         return source if self.is_authoritative(source, "battlefield") else None
 
     def _paramecia_fragment(self, card: CardFact) -> str | None:
-        target = (
-            "When this creature dies, you may exile it. When you do, put target creature card "
-            "from your graveyard on top of your library."
-        )
         return next(
-            (fragment for fragment in self.interpreter.fragments(card) if fragment == target), None
+            (
+                fragment
+                for fragment in self.interpreter.fragments(card)
+                if self.interpreter.paramecia_recursion_semantic_coverage(card, fragment)
+                is not None
+            ),
+            None,
         )
 
     def _enqueue_trigger(
@@ -4689,15 +4691,25 @@ class Game(
                 and self._objects.get(grave.object_id) is grave
                 and self.is_authoritative(grave, "graveyard")
             ):
-                exiled = self.move_object(grave, "exile", reason="paramecia_optional_exile")
                 options = tuple(
                     card.object_id
                     for card in self.players[ability.controller].graveyard
-                    if card.card.is_creature
+                    if card.card.is_creature and card.object_id != grave.object_id
                 )
                 target_id = self.paramecia_target_chooser(
                     ability.controller, ability.source_id, options
                 )
+                if options and target_id not in options:
+                    raise ValueError("Paramecia target chooser must return a listed creature")
+                exiled = self.move_object(grave, "exile", reason="paramecia_optional_exile")
+                if not options:
+                    self.log(
+                        "paramecia_no_legal_target",
+                        source_id=ability.source_id,
+                        event_id=ability.event.event_id,
+                        exiled_object_id=exiled.object_id,
+                    )
+                    return
                 reflexive = TriggeredAbilityObject(
                     self._allocate_object_id(),
                     ability.controller,
@@ -12766,6 +12778,3 @@ def load_deck(path: Path, facts: dict[str, CardFact]) -> list[CardFact]:
             continue
         quantity, name = line.split(" ", 1)
         cards.extend([facts[name]] * int(quantity))
-    if len(cards) != 60:
-        raise ValueError(f"{path}: expected 60 cards, found {len(cards)}")
-    return cards
