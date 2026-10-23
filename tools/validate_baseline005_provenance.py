@@ -7,7 +7,10 @@ import hashlib
 import json
 from pathlib import Path
 
-from baseline005_provenance import ProvenanceError, verify_overlay
+try:
+    from baseline005_provenance import ProvenanceError, verify_overlay
+except ModuleNotFoundError:  # pragma: no cover - package import path
+    from tools.baseline005_provenance import ProvenanceError, verify_overlay
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = "c087f84bab4916b516ec6745f5a8e9f2a2d33f9117856bf959da4eb9a7be8e54"
@@ -65,3 +68,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
