@@ -12778,3 +12778,6 @@ def load_deck(path: Path, facts: dict[str, CardFact]) -> list[CardFact]:
             continue
         quantity, name = line.split(" ", 1)
         cards.extend([facts[name]] * int(quantity))
+    if len(cards) != 60:
+        raise ValueError(f"{path}: expected 60 cards, found {len(cards)}")
+    return cards
