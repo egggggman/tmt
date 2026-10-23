@@ -11065,7 +11065,7 @@ class Game(
         )
 
     def _has_menace(self, attacker: Permanent) -> bool:
-        return (
+        if (
             "menace" in {keyword.casefold() for keyword in attacker.rules_card.keywords}
             or any(
                 effect.keyword is TemporaryKeyword.MENACE
@@ -11075,7 +11075,29 @@ class Game(
                 fragment.casefold().startswith("menace")
                 for fragment in self.interpreter.fragments(attacker.rules_card)
             )
-        )
+        ):
+            return True
+        return self._has_continuous_keyword_grant(attacker, "menace")
+
+    def _has_continuous_keyword_grant(self, permanent: Permanent, keyword: str) -> bool:
+        """Evaluate controller-scoped keyword grants from current battlefield state."""
+        if not self.is_authoritative(permanent, "battlefield"):
+            return False
+        for player in self.players:
+            for source in player.battlefield:
+                for fragment in self.interpreter.fragments(source.rules_card):
+                    semantics = self.interpreter.static_keyword_grant_semantic_coverage(
+                        source.card, fragment
+                    )
+                    if (
+                        semantics is not None
+                        and semantics.coverage.fully_supported
+                        and semantics.program.keyword == keyword.casefold()
+                        and source.controller == permanent.controller
+                        and semantics.program.quality in self._subtypes(permanent)
+                    ):
+                        return True
+        return False
 
     @staticmethod
     def _subtypes(permanent: Permanent) -> frozenset[str]:
