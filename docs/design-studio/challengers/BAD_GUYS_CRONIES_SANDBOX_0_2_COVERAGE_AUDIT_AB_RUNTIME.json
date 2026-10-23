@@ -1,7 +1,8 @@
 {
   "audit": "BAD_GUYS_CRONIES_SANDBOX_0_2_COVERAGE_AUDIT_AB_RUNTIME",
-  "status": "BLOCKED",
-  "runtime": "832c37effb02af7351f7d29836c9eb793a008de29c8d77b2ae79431eb9445ad7",
+  "status": "READY_FOR_INDEPENDENT_C9_ACCEPTANCE",
+  "runtime": "c483d71cbc63b47d94736f018dd052c57f6a11a2443a74e98bc930aee5754bff",
+  "pre_c8_runtime": "832c37effb02af7351f7d29836c9eb793a008de29c8d77b2ae79431eb9445ad7",
   "pre_c7_runtime": "197c2acd50c95d669d549f1fe99342740a48b7d7a7fe8ff814c21a449927209f",
   "pre_c6_runtime": "5860e357c084973aac2eae3f4b5f27b9948caa866bad3bf3d5c48cc8d5db4cf8",
   "pre_c5_runtime": "6b2f86bf1834aece9dc1b3bc3817451601fb5c88e8581f1c7f6ba2a1d50d63a0",
@@ -14,12 +15,12 @@
   "snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
   "simulations_run": false,
   "coverage": {
-    "supported": ["Foot Elite attack trigger", "Foot Mystic lifelink", "Foot Mystic conditional Disappear ETB/token", "Rocksteady Forestcycling", "Bebop & Rocksteady mandatory sacrifice/discard", "Generic variable-X announcement/payment and ETB token creation", "Generic kicker sacrifice payment and conditional temporary creature removal", "Mutant Chain Reaction optional removal and Mutagen creation", "Tainted Treats mana-value-gated Food creation"],
+    "supported": ["Foot Elite attack trigger", "Foot Mystic lifelink", "Foot Mystic conditional Disappear ETB/token", "Rocksteady Forestcycling", "Bebop & Rocksteady mandatory sacrifice/discard", "Generic variable-X announcement/payment and ETB token creation", "Generic kicker sacrifice payment and conditional temporary creature removal", "Mutant Chain Reaction optional removal and Mutagen creation", "Tainted Treats mana-value-gated Food creation", "Paramecia Coloniex death/exile recursion", "Menace/Rhino-wide continuous keyword grants and blocking restrictions"],
     "partial": ["Intrinsic deathtouch/trample/reach/ordinary land entry"],
-    "unsupported": ["Mutagen artifact-token activation discount", "Menace/Rhino grants"]
+    "unsupported": ["Mutagen artifact-token activation discount"]
   },
-  "completed_batch": "C8 Paramecia death/exile recursion",
-  "recommended_batches": ["C9 Menace/Rhino grants", "C10 Mutagen artifact-token activation discount"],
-  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "focused_c4": 4, "focused_c5": 5, "focused_c6": 7, "focused_c7": 10, "focused_c8": 8, "combat_regression": 18, "full_passed": 1676, "full_skipped": 10}
+  "completed_batch": "C9 Menace and Rhino-wide keyword grants",
+  "recommended_batches": ["C10 Mutagen artifact-token activation discount"],
+  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "focused_c4": 4, "focused_c5": 5, "focused_c6": 7, "focused_c7": 10, "focused_c8": 8, "focused_c9": 7, "combat_regression": 18, "full_passed": 1683, "full_skipped": 10}
 }
 
