@@ -7,7 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from tmnt_design_studio.baseline005_provenance import ProvenanceError, verify_overlay
+from baseline005_provenance import ProvenanceError, verify_overlay
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = "c087f84bab4916b516ec6745f5a8e9f2a2d33f9117856bf959da4eb9a7be8e54"
