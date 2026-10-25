@@ -16,7 +16,6 @@ from pathlib import Path
 from tmnt_design_studio.calibration_integrity import (
     CheckpointAccumulator,
     WriterLock,
-    validate_checkpoint,
     validate_schedule,
 )
 
@@ -60,12 +59,9 @@ def run_checkpointed_schedule(
     accumulator = CheckpointAccumulator(schedule, writer_id=writer_id)
     with WriterLock(checkpoint, writer_id):
         if checkpoint.exists():
-            payload = json.loads(checkpoint.read_text(encoding="utf-8"))
-            validate_checkpoint(payload, schedule)
-            if payload.get("schedule_digest") != contract["schedule_digest"]:
+            accumulator.restore_stream(checkpoint)
+            if accumulator.schedule_digest != contract["schedule_digest"]:
                 raise ProtocolViolation("checkpoint schedule identity mismatch")
-            accumulator.restore(payload, take_ownership=True)
-            del payload
         completed = accumulator.completed_ids
         last_write = None
         for row in schedule:

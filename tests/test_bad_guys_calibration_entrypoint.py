@@ -146,7 +146,7 @@ def test_corrupt_checkpoint_is_rejected(monkeypatch, tmp_path, small_contract):
     monkeypatch.setattr(launcher, "authenticate_inputs", lambda root: {})
     checkpoint = tmp_path / "corrupt.json"
     checkpoint.write_text('{"records": [}', encoding="utf-8")
-    with pytest.raises(json.JSONDecodeError):
+    with pytest.raises(CheckpointIntegrityError):
         launcher.run_calibration(tmp_path, checkpoint, executor=_result)
 
 
