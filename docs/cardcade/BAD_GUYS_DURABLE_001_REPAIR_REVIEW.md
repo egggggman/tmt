@@ -13,7 +13,7 @@ Status: **REPAIR CANDIDATE ONLY; LIVE RESUME NOT AUTHORIZED**. This branch start
 
 - The original 732-record checkpoint SHA-256 remained `ab1ecf83c6acbaf084ee142e5d2d84c0407c4ab82f63d2cbded9c5e4858c7c7a` after testing.
 - A disposable copy of the actual 709,602,686-byte checkpoint resumed with a mock executor. The first call was exactly the first missing ID `bad_guys_cronies_sandbox_0_2--shredder:candidate_first:1000732`; one mock record was written, giving 733. The second call was the next ID and deliberately stopped. None of the 732 persisted IDs was executed. Peak process working set was **2,297,761,792 bytes (2.14 GiB)**. The source checkpoint stayed unchanged, and the fixture was removed after the test.
-- Disposable G: tests reproduced transient and persistent WinError 5. The transient reader released and the same replacement succeeded. Persistent denial failed closed with the old file intact and the original error preserved. Replacement also succeeded while the repaired monitor held its read handle open.
+- Disposable G: tests reproduced transient and persistent WinError 5. The transient reader released and the same replacement succeeded. Persistent denial failed closed with the old file intact and the original error preserved. Replacement also succeeded while the repaired monitor held its read handle open. A separate exclusive reader caused the monitor to report `UNAVAILABLE` without modifying the file or exiting in error.
 - Focused mock-only tests: 29 passed. Repository-wide Ruff check and formatting passed. CI results should be recorded from the review branch's GitHub workflow before HQ accepts the repair.
 
 ## Proposed resume gate and command

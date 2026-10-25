@@ -13,11 +13,14 @@ from pathlib import Path
 from tmnt_design_studio.calibration_integrity import _replace_with_retry
 
 
-def hold_reader(path: Path, ready: Path, milliseconds: int) -> subprocess.Popen:
+def hold_reader(
+    path: Path, ready: Path, milliseconds: int, *, share_mode: str = "Read"
+) -> subprocess.Popen:
+    assert share_mode in ("Read", "None")
     script = (
         f"$p='{path}'; $r='{ready}'; "
         "$f=[System.IO.FileStream]::new($p,[System.IO.FileMode]::Open,"
-        "[System.IO.FileAccess]::Read,[System.IO.FileShare]::Read); "
+        f"[System.IO.FileAccess]::Read,[System.IO.FileShare]::{share_mode}); "
         "try { [System.IO.File]::WriteAllText($r,'ready'); "
         f"Start-Sleep -Milliseconds {milliseconds} }} "
         "finally { $f.Dispose() }"
@@ -98,6 +101,27 @@ def main() -> None:
         assert reader.returncode == 0, errors
         assert "ReportedCompletedGames : 732" in output
         assert json.loads(monitor_target.read_text())["completed_games"] == 733
+
+        locked = hold_reader(monitor_target, directory / "reader3.ready", 2500, share_mode="None")
+        unavailable = subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(monitor),
+                "-Checkpoint",
+                str(monitor_target),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=8,
+            check=True,
+        )
+        assert "IdentityCheck" in unavailable.stdout
+        assert "UNAVAILABLE:" in unavailable.stdout
+        assert locked.wait(timeout=8) == 0
         print(
             json.dumps(
                 {
@@ -107,6 +131,7 @@ def main() -> None:
                     "original_error": str(first_error),
                     "checkpoint_unchanged_after_failure": True,
                     "replacement_succeeded_with_safe_monitor_open": True,
+                    "monitor_reports_temporary_unavailability": True,
                     "probe_root": str(root),
                 },
                 sort_keys=True,

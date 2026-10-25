@@ -11,11 +11,12 @@ $modified = $null
 $file = Get-Item -LiteralPath $Checkpoint -ErrorAction SilentlyContinue
 if ($file) {
     $modified = $file.LastWriteTimeUtc.ToString('o')
-    $share = [System.IO.FileShare]::ReadWrite -bor [System.IO.FileShare]::Delete
-    $stream = [System.IO.FileStream]::new(
-        $Checkpoint, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, $share
-    )
+    $stream = $null
     try {
+        $share = [System.IO.FileShare]::ReadWrite -bor [System.IO.FileShare]::Delete
+        $stream = [System.IO.FileStream]::new(
+            $Checkpoint, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, $share
+        )
         if ($stream.Length -lt 256) { throw 'Checkpoint too small' }
         $head = New-Object byte[] 256
         $tail = New-Object byte[] 256
@@ -41,7 +42,7 @@ if ($file) {
         $identity = "UNAVAILABLE: $($_.Exception.Message)"
     }
     finally {
-        $stream.Dispose()
+        if ($null -ne $stream) { $stream.Dispose() }
     }
 }
 
