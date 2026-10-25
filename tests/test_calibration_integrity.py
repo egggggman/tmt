@@ -1,7 +1,10 @@
+import errno
+import json
 from pathlib import Path
 
 import pytest
 
+import tmnt_design_studio.calibration_integrity as integrity
 from tmnt_design_studio.calibration_integrity import (
     CheckpointAccumulator,
     CheckpointIntegrityError,
@@ -82,3 +85,78 @@ def test_checkpoint_digest_is_deterministic() -> None:
     acc = CheckpointAccumulator(schedule(), writer_id="runner")
     acc.append({"game_id": "b-3", "winner": "x"}, writer_id="runner")
     assert acc.snapshot() == acc.snapshot()
+
+
+def test_streamed_write_keeps_original_json_format(tmp_path: Path) -> None:
+    acc = CheckpointAccumulator(schedule(), writer_id="runner")
+    acc.append({"game_id": "a-0", "winner": "x", "events": [{"kind": "mock"}]}, writer_id="runner")
+    path = tmp_path / "checkpoint.json"
+    summary = acc.write(path, writer_id="runner", return_snapshot=False)
+    expected = (json.dumps(acc.snapshot(), sort_keys=True, indent=2) + "\n").encode("utf-8")
+    assert path.read_bytes() == expected
+    assert summary["completed_games"] == 1 and "records" not in summary
+
+
+def test_replace_retries_same_temporary_file(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    acc = CheckpointAccumulator(schedule(), writer_id="runner")
+    acc.append({"game_id": "a-0", "winner": "x"}, writer_id="runner")
+    path = tmp_path / "checkpoint.json"
+    real_replace = integrity.os.replace
+    calls: list[str] = []
+    delays: list[float] = []
+
+    def transient(source, destination):
+        calls.append(source)
+        if len(calls) < 3:
+            raise PermissionError(errno.EACCES, "temporary sharing denial")
+        real_replace(source, destination)
+
+    monkeypatch.setattr(integrity.os, "replace", transient)
+    monkeypatch.setattr(integrity.time, "sleep", delays.append)
+    acc.write(path, writer_id="runner", return_snapshot=False)
+    assert len(calls) == 3 and len(set(calls)) == 1
+    assert delays == [0.05, 0.1]
+    assert json.loads(path.read_text())["completed_games"] == 1
+
+
+def test_replace_failure_preserves_prior_checkpoint(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    acc = CheckpointAccumulator(schedule(), writer_id="runner")
+    acc.append({"game_id": "a-0", "winner": "x"}, writer_id="runner")
+    path = tmp_path / "checkpoint.json"
+    acc.write(path, writer_id="runner", return_snapshot=False)
+    original = path.read_bytes()
+    acc.append({"game_id": "a-1", "winner": "y"}, writer_id="runner")
+    first_error = PermissionError(errno.EACCES, "first denial")
+    calls = 0
+
+    def denied(_source, _destination):
+        nonlocal calls
+        calls += 1
+        raise first_error if calls == 1 else PermissionError(errno.EACCES, "later denial")
+
+    monkeypatch.setattr(integrity.os, "replace", denied)
+    monkeypatch.setattr(integrity.time, "sleep", lambda _seconds: None)
+    with pytest.raises(PermissionError) as raised:
+        acc.write(path, writer_id="runner", return_snapshot=False)
+    assert raised.value is first_error
+    assert calls == 8
+    assert path.read_bytes() == original
+    assert not list(tmp_path.glob(".checkpoint.json.*"))
+
+
+def test_checkpoint_rejects_wrong_counts_and_order() -> None:
+    acc = CheckpointAccumulator(schedule(), writer_id="runner")
+    acc.append({"game_id": "a-0"}, writer_id="runner")
+    acc.append({"game_id": "a-1"}, writer_id="runner")
+    payload = acc.snapshot()
+    payload["completed_games"] = 3
+    with pytest.raises(CheckpointIntegrityError, match="completed count"):
+        validate_checkpoint(payload, schedule())
+    payload["completed_games"] = 2
+    payload["records"].reverse()
+    with pytest.raises(CheckpointIntegrityError, match="out of schedule order"):
+        validate_checkpoint(payload, schedule())

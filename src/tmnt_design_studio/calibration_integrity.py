@@ -7,16 +7,40 @@ interpret gameplay results.
 from __future__ import annotations
 
 import copy
+import errno
 import hashlib
 import json
 import os
 import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
 
 class CheckpointIntegrityError(ValueError):
     """Raised when a schedule, result set, writer, or checkpoint is invalid."""
+
+
+def _replace_with_retry(source: str, destination: Path) -> None:
+    """Retry only a transient Windows replacement denial of the same fsynced file."""
+    first_error: PermissionError | None = None
+    for attempt in range(8):
+        try:
+            os.replace(source, destination)
+            return
+        except PermissionError as exc:
+            if getattr(exc, "winerror", None) not in (5, 32) and exc.errno not in (
+                errno.EACCES,
+                errno.EPERM,
+            ):
+                raise
+            if first_error is None:
+                first_error = exc
+            if attempt == 7:
+                if first_error is exc:
+                    raise
+                raise first_error from exc
+            time.sleep(min(0.05 * (2**attempt), 1.0))
 
 
 def canonical_digest(value: Any) -> str:
@@ -112,14 +136,18 @@ class CheckpointAccumulator:
             "records": records,
         }
 
-    def restore(self, payload: dict[str, Any]) -> None:
-        """Restore a validated partial checkpoint without replaying completed IDs."""
+    def restore(self, payload: dict[str, Any], *, take_ownership: bool = False) -> None:
+        """Restore validated records; transfer ownership only from a disposable payload."""
         validate_checkpoint(payload, self._schedule)
         for record in payload["records"]:
             game_id = record["game_id"]
             if game_id in self._records:
                 raise CheckpointIntegrityError(f"duplicate restored game ID: {game_id}")
-            self._records[game_id] = copy.deepcopy(record)
+            self._records[game_id] = record if take_ownership else copy.deepcopy(record)
+
+    @property
+    def completed_ids(self) -> set[str]:
+        return set(self._records)
 
     def assert_complete(self) -> None:
         if set(self._records) != set(self._expected):
@@ -128,9 +156,15 @@ class CheckpointAccumulator:
                 f"checkpoint is incomplete; missing {len(missing)} games"
             )
 
-    def write(self, path: Path, *, writer_id: str) -> dict[str, Any]:
+    def write(self, path: Path, *, writer_id: str, return_snapshot: bool = True) -> dict[str, Any]:
         self.claim(writer_id)
-        payload = self.snapshot()
+        records = [self._records[game_id] for game_id in self._expected if game_id in self._records]
+        payload = {
+            "schedule_digest": self._schedule_digest,
+            "schedule_games": len(self._schedule),
+            "completed_games": len(records),
+            "records": records,
+        }
         path.parent.mkdir(parents=True, exist_ok=True)
         fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
         try:
@@ -139,11 +173,13 @@ class CheckpointAccumulator:
                 handle.write("\n")
                 handle.flush()
                 os.fsync(handle.fileno())
-            os.replace(temporary, path)
+            _replace_with_retry(temporary, path)
         finally:
             if os.path.exists(temporary):
                 os.unlink(temporary)
-        return copy.deepcopy(payload)
+        if return_snapshot:
+            return self.snapshot()
+        return {key: value for key, value in payload.items() if key != "records"}
 
 
 def validate_checkpoint(payload: dict[str, Any], schedule: list[dict[str, Any]]) -> None:
@@ -156,15 +192,22 @@ def validate_checkpoint(payload: dict[str, Any], schedule: list[dict[str, Any]])
     )
     if payload.get("schedule_digest") != expected["schedule_digest"]:
         raise CheckpointIntegrityError("checkpoint schedule identity does not match")
+    if payload.get("schedule_games") != len(schedule):
+        raise CheckpointIntegrityError("checkpoint schedule count does not match")
     records = payload.get("records")
     if not isinstance(records, list):
         raise CheckpointIntegrityError("checkpoint records must be a list")
+    if payload.get("completed_games") != len(records):
+        raise CheckpointIntegrityError("checkpoint completed count does not match")
     ids = [record.get("game_id") for record in records if isinstance(record, dict)]
     if len(ids) != len(records) or len(set(ids)) != len(ids):
         raise CheckpointIntegrityError("checkpoint contains missing or duplicate game IDs")
+    id_set = set(ids)
     authorized = {row["game_id"] for row in schedule}
-    if set(ids) - authorized:
+    if id_set - authorized:
         raise CheckpointIntegrityError("checkpoint contains unauthorized game IDs")
+    if ids != [row["game_id"] for row in schedule if row["game_id"] in id_set]:
+        raise CheckpointIntegrityError("checkpoint records are out of schedule order")
 
 
 class WriterLock:

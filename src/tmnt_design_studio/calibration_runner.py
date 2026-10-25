@@ -64,19 +64,25 @@ def run_checkpointed_schedule(
             validate_checkpoint(payload, schedule)
             if payload.get("schedule_digest") != contract["schedule_digest"]:
                 raise ProtocolViolation("checkpoint schedule identity mismatch")
-            accumulator.restore(payload)
+            accumulator.restore(payload, take_ownership=True)
+            del payload
+        completed = accumulator.completed_ids
+        last_write = None
         for row in schedule:
-            if row["game_id"] in {
-                record["game_id"] for record in accumulator.snapshot()["records"]
-            }:
+            if row["game_id"] in completed:
                 continue
             result = executor(dict(row))
             if result.get("game_id") != row["game_id"]:
                 raise ProtocolViolation("executor returned the wrong game identity")
             accumulator.append(result, writer_id=writer_id)
-            accumulator.write(checkpoint, writer_id=writer_id)
+            completed.add(row["game_id"])
+            last_write = accumulator.write(checkpoint, writer_id=writer_id, return_snapshot=False)
         accumulator.assert_complete()
-        return accumulator.write(checkpoint, writer_id=writer_id)
+        return last_write or {
+            "schedule_digest": contract["schedule_digest"],
+            "schedule_games": len(schedule),
+            "completed_games": len(completed),
+        }
 
 
 def load_members(
