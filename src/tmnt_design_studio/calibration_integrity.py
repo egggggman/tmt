@@ -16,6 +16,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+_MAX_CHECKPOINT_LINE_BYTES = 8 * 1024 * 1024
+_MAX_CHECKPOINT_RECORD_BYTES = 64 * 1024 * 1024
+
 
 class CheckpointIntegrityError(ValueError):
     """Raised when a schedule, result set, writer, or checkpoint is invalid."""
@@ -144,6 +147,128 @@ class CheckpointAccumulator:
             if game_id in self._records:
                 raise CheckpointIntegrityError(f"duplicate restored game ID: {game_id}")
             self._records[game_id] = record if take_ownership else copy.deepcopy(record)
+
+    def restore_stream(self, path: Path) -> None:
+        """Restore the writer's canonical JSON format one record at a time.
+
+        The schema emitted by ``write`` has a stable four-field envelope and
+        pretty-printed record boundaries. Parsing one record at a time avoids
+        retaining a second, whole-file Unicode string alongside the decoded
+        event trees. Any deviation from that canonical envelope fails closed.
+        """
+        path = Path(path)
+        expected_order = {game_id: index for index, game_id in enumerate(self._expected)}
+        restored: dict[str, dict[str, Any]] = {}
+        last_index = -1
+
+        def read_line(handle) -> bytes:
+            line = handle.readline(_MAX_CHECKPOINT_LINE_BYTES + 1)
+            if len(line) > _MAX_CHECKPOINT_LINE_BYTES:
+                raise CheckpointIntegrityError("checkpoint line exceeds the streaming limit")
+            if line and not line.endswith(b"\n"):
+                raise CheckpointIntegrityError("checkpoint line is truncated or too long")
+            return line
+
+        def field_value(handle, name: str, *, comma: bool) -> Any:
+            line = read_line(handle)
+            prefix = f'  "{name}": '.encode("ascii")
+            suffix = b",\n" if comma else b"\n"
+            if not line.startswith(prefix) or not line.endswith(suffix):
+                raise CheckpointIntegrityError(f"checkpoint {name} field is malformed")
+            raw = line[len(prefix) : -len(suffix)]
+            try:
+                return json.loads(raw)
+            except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+                raise CheckpointIntegrityError(f"checkpoint {name} field is invalid JSON") from exc
+
+        try:
+            with path.open("rb", buffering=1024 * 1024) as handle:
+                if read_line(handle) != b"{\n":
+                    raise CheckpointIntegrityError("checkpoint root object is malformed")
+                completed = field_value(handle, "completed_games", comma=True)
+                if type(completed) is not int or not 0 <= completed <= len(self._schedule):
+                    raise CheckpointIntegrityError("checkpoint completed count is invalid")
+
+                records_header = read_line(handle)
+                if records_header == b'  "records": [],\n':
+                    record_count = 0
+                elif records_header == b'  "records": [\n':
+                    record_count = 0
+                    while True:
+                        boundary = read_line(handle)
+                        if boundary == b"  ],\n":
+                            break
+                        if boundary != b"    {\n":
+                            raise CheckpointIntegrityError(
+                                "checkpoint record boundary is malformed"
+                            )
+                        record_bytes = bytearray(boundary)
+                        while True:
+                            part = read_line(handle)
+                            if not part:
+                                raise CheckpointIntegrityError("checkpoint record is truncated")
+                            if part in (b"    },\n", b"    }\n"):
+                                break
+                            record_bytes.extend(part)
+                            if len(record_bytes) > _MAX_CHECKPOINT_RECORD_BYTES:
+                                raise CheckpointIntegrityError(
+                                    "checkpoint record exceeds the streaming limit"
+                                )
+                        if part == b"    },\n":
+                            record_bytes.extend(b"    }\n")
+                        else:
+                            record_bytes.extend(part)
+                        try:
+                            record = json.loads(record_bytes)
+                        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+                            raise CheckpointIntegrityError(
+                                f"checkpoint record {record_count} is invalid JSON"
+                            ) from exc
+                        if not isinstance(record, dict):
+                            raise CheckpointIntegrityError(
+                                f"checkpoint record {record_count} is not an object"
+                            )
+                        game_id = record.get("game_id")
+                        if not isinstance(game_id, str) or game_id not in expected_order:
+                            raise CheckpointIntegrityError(
+                                f"checkpoint contains an unauthorized game ID: {game_id!r}"
+                            )
+                        if game_id in restored:
+                            raise CheckpointIntegrityError(
+                                f"checkpoint contains a duplicate game ID: {game_id}"
+                            )
+                        index = expected_order[game_id]
+                        if index <= last_index:
+                            raise CheckpointIntegrityError(
+                                "checkpoint records are out of schedule order"
+                            )
+                        last_index = index
+                        restored[game_id] = record
+                        record_count += 1
+                        if record_count > len(self._schedule):
+                            raise CheckpointIntegrityError(
+                                "checkpoint has more records than the schedule"
+                            )
+                else:
+                    raise CheckpointIntegrityError("checkpoint records array is malformed")
+
+                if field_value(handle, "schedule_digest", comma=True) != self._schedule_digest:
+                    raise CheckpointIntegrityError("checkpoint schedule identity does not match")
+                schedule_games = field_value(handle, "schedule_games", comma=False)
+                if type(schedule_games) is not int or schedule_games != len(self._schedule):
+                    raise CheckpointIntegrityError("checkpoint schedule count does not match")
+                if read_line(handle) != b"}\n" or handle.read(1):
+                    raise CheckpointIntegrityError("checkpoint has malformed or trailing data")
+                if completed != record_count:
+                    raise CheckpointIntegrityError(
+                        "checkpoint completed count does not match its records"
+                    )
+        except OSError as exc:
+            raise CheckpointIntegrityError(f"unable to read checkpoint: {exc}") from exc
+
+        if self._records.keys() & restored.keys():
+            raise CheckpointIntegrityError("checkpoint duplicates an already restored game ID")
+        self._records.update(restored)
 
     @property
     def completed_ids(self) -> set[str]:
