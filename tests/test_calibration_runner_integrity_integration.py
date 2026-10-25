@@ -31,9 +31,10 @@ def run(path: Path, fn=result):
 
 
 def test_fresh_progression_and_exact_completion(tmp_path: Path) -> None:
-    payload = run(tmp_path / "checkpoint.json")
-    assert payload["completed_games"] == 8
-    assert len(payload["records"]) == 8
+    path = tmp_path / "checkpoint.json"
+    summary = run(path)
+    assert summary["completed_games"] == 8
+    assert len(json.loads(path.read_text())["records"]) == 8
 
 
 def test_interrupted_resume_does_not_replay_completed_records(tmp_path: Path) -> None:
