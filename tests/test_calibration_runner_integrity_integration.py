@@ -163,6 +163,7 @@ def test_stream_restore_accepts_empty_partial_checkpoint(tmp_path: Path) -> None
         "unauthorized_id",
         "record_order",
         "missing_game_id",
+        "noncanonical_layout",
         "truncated_file",
         "trailing_data",
         "malformed_record_json",
@@ -198,6 +199,10 @@ def test_stream_restore_rejects_corrupt_checkpoints(tmp_path: Path, corruption: 
             records[0], records[1] = records[1], records[0]
         elif corruption == "missing_game_id":
             del records[0]["game_id"]
-        path.write_text(json.dumps(payload, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+        if corruption == "noncanonical_layout":
+            compact = json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n"
+            path.write_text(compact, encoding="utf-8")
+        else:
+            path.write_text(json.dumps(payload, sort_keys=True, indent=2) + "\n", encoding="utf-8")
     with pytest.raises(CheckpointIntegrityError):
         run(path)

@@ -26,7 +26,7 @@ The implementation still retains all restored event objects because the resumed 
 
 ## Integrity tests and checks
 
-The focused deterministic suite passed: **42 passed** across `test_calibration_runner_integrity_integration.py`, `test_calibration_integrity.py`, and `test_bad_guys_calibration_entrypoint.py`. Coverage includes empty and partial checkpoints; equality against whole-file restore; byte-identical serialized output; and rejected count, schedule-digest, schedule-size, duplicate-ID, unauthorized-ID, ordering, missing-ID, malformed-record, oversized-line, truncation, and trailing-data cases. Existing resume/no-replay and writer-lock tests also pass.
+The focused deterministic suite passed: **43 passed** across `test_calibration_runner_integrity_integration.py`, `test_calibration_integrity.py`, and `test_bad_guys_calibration_entrypoint.py`. Coverage includes empty and partial checkpoints; equality against whole-file restore; byte-identical serialized output; and rejected count, schedule-digest, schedule-size, duplicate-ID, unauthorized-ID, ordering, missing-ID, noncanonical layout, malformed-record, oversized-line, truncation, and trailing-data cases. Existing resume/no-replay and writer-lock tests also pass.
 
 Ruff check and format check passed for all changed Python files. No remote CI ran: the branch is local, with no PR or push, as directed.
 
