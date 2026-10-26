@@ -7,7 +7,6 @@ candidate, runtime, coverage, and Baseline 003 control evidence.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import subprocess
 import sys
@@ -15,8 +14,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-
 import run_objective_balance_lab_round6c as prior  # noqa: E402
+from historical_validation import authenticated_bytes, authenticated_sha256  # noqa: E402
 from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 from tmnt_design_studio.card_interpreter07 import CardInterpreter  # noqa: E402
@@ -40,7 +39,7 @@ EXPECTED_DIFF = {
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def git(*args: str) -> bytes:
@@ -53,7 +52,7 @@ def snapshot() -> dict:
         "b4b0082ee633acfa814292b74191a49984abf725"
     )
     for path in (PLAN, CLOSURE, CANDIDATE):
-        assert (ROOT / path).read_bytes() == git("show", f"{MERGED_AUTHORITY}:{path}")
+        authenticated_bytes(ROOT / path, ROOT, MERGED_AUTHORITY)
     assert sha(ROOT / CANDIDATE) == CANDIDATE_SHA256
     assert git("hash-object", CANDIDATE).decode().strip() == CANDIDATE_BLOB
 

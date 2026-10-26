@@ -11,8 +11,10 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_sha256  # noqa: E402
+
+OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "src"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
@@ -83,7 +85,7 @@ def validate() -> dict:
     ).returncode
 
     snapshot = ROOT / record["card_snapshot_path"]
-    assert hashlib.sha256(snapshot.read_bytes()).hexdigest() == record["card_snapshot_sha256"]
+    assert authenticated_sha256(snapshot, ROOT) == record["card_snapshot_sha256"]
     frozen = load_catalog(ROOT).resolve_name("Chrome Dome")
     assert frozen.oracle_id == record["chrome_dome_oracle_id"]
     assert frozen.mana_cost == record["chrome_dome_mana_cost"] == "{2}"

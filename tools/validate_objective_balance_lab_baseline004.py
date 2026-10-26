@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
-import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_blob_oid, authenticated_sha256  # noqa: E402
+
 OBL = ROOT / "docs/objective-balance-lab"
 RUNTIME = "f40c4888ef9128d03819fc1be86dde1316b2115fd0d4fb365cd03b288453afa1"
 PARENT = "OBL-BASELINE-003"
@@ -22,7 +24,7 @@ def load(path: Path) -> dict:
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def main() -> int:
@@ -45,15 +47,9 @@ def main() -> int:
     if registry["environment_id"] == "OBL-BASELINE-005":
         assert registry["baseline_004_historical_reference"]["manifest"] == {
             "path": "docs/objective-balance-lab/baselines/OBL_BASELINE_004_MANIFEST.json",
-            "git_blob_sha1": subprocess.check_output(
-                [
-                    "git",
-                    "hash-object",
-                    "docs/objective-balance-lab/baselines/OBL_BASELINE_004_MANIFEST.json",
-                ],
-                cwd=ROOT,
-                text=True,
-            ).strip(),
+            "git_blob_sha1": authenticated_blob_oid(
+                OBL / "baselines/OBL_BASELINE_004_MANIFEST.json", ROOT
+            ),
         }
     assert new["lineage_parent_environment"] == PARENT
     assert new["source_combined_environment"] == COMBINED

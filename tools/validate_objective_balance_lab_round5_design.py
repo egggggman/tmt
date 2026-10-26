@@ -12,8 +12,10 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_sha256  # noqa: E402
+
+OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "src"))
 
 import run_objective_balance_lab_round1 as r1  # noqa: E402
@@ -52,8 +54,7 @@ def _recorded_sha_matches(path: Path, recorded: str) -> bool:
 
 
 def _git_authored_sha(path: Path) -> str:
-    """Candidate identity is the LF Git blob, independent of Windows checkout EOL."""
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def _payable(mana_cost: str, allowed_color: str) -> bool:
@@ -88,10 +89,7 @@ def validate(*, allow_results: bool = False) -> dict[str, object]:
 
     cards = r1.catalog()
     snapshot_manifest = json.loads(r1.SNAPSHOT_MANIFEST.read_text(encoding="utf-8"))
-    assert (
-        hashlib.sha256(r1.SNAPSHOT.read_bytes()).hexdigest()
-        == snapshot_manifest["snapshot"]["sha256"]
-    )
+    assert authenticated_sha256(r1.SNAPSHOT, ROOT) == snapshot_manifest["snapshot"]["sha256"]
     assert plan["card_snapshot"] == r1.SNAPSHOT.relative_to(ROOT).as_posix()
     assert (
         plan["reference_evidence"]

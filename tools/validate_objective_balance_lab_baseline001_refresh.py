@@ -5,18 +5,17 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
+import sys
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import recorded_checkout_sha_matches  # noqa: E402
+
 OBL = ROOT / "docs/objective-balance-lab"
-
-
-def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def main() -> int:
@@ -53,7 +52,7 @@ def main() -> int:
     assert identity["comparisons"]["r4c_equals_current"] is True
     assert evidence["r4c_compatibility"]["status"] == "REUSE_ELIGIBLE_FOR_COMBINED_003"
     original = OBL / "ROUND_1_EVIDENCE.json"
-    assert sha(original) == evidence["original_evidence_sha256"]
+    assert recorded_checkout_sha_matches(original, evidence["original_evidence_sha256"], ROOT)
     assert not subprocess.check_output(
         ["git", "diff", "--name-only", "--", "decks"], cwd=ROOT, text=True
     ).strip()

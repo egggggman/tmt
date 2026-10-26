@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 # ruff: noqa: E501
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_sha256  # noqa: E402
+
 OBL = ROOT / "docs/objective-balance-lab"
 DECKS = {
     "LEONARDO",
@@ -33,14 +36,7 @@ PROMOTED = {
 
 
 def sha(path: Path) -> str:
-    relative = path.relative_to(ROOT).as_posix()
-    try:
-        content = subprocess.check_output(
-            ["git", "show", f"HEAD:{relative}"], stderr=subprocess.DEVNULL
-        )
-    except subprocess.CalledProcessError:
-        content = path.read_bytes()
-    return hashlib.sha256(content).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def main() -> None:

@@ -9,10 +9,14 @@ import gzip
 import hashlib
 import json
 import statistics
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_bytes, authenticated_sha256  # noqa: E402
+
 OBL = ROOT / "docs/objective-balance-lab"
 CONTROL = OBL / "BASELINE_003_R7A_SEMANTIC_CONTROL.json.gz"
 CANDIDATE = OBL / "ROUND_7_A_EVIDENCE.json.gz"
@@ -36,7 +40,7 @@ def load(path: Path) -> dict:
     return (
         json.loads(gzip.decompress(path.read_bytes()))
         if path.suffix == ".gz"
-        else json.loads(path.read_text())
+        else json.loads(path.read_text(encoding="utf-8"))
     )
 
 
@@ -80,7 +84,7 @@ def validate() -> dict:
         == candidate["schedule_sha256"]
     )
     assert manifest["baseline_manifest_sha256"] == sha(
-        (OBL / "baselines/OBL_BASELINE_003_MANIFEST.json").read_bytes()
+        authenticated_bytes(OBL / "baselines/OBL_BASELINE_003_MANIFEST.json", ROOT)
     )
     assert (
         control["baseline_manifest_sha256"]
@@ -93,12 +97,12 @@ def validate() -> dict:
         == readiness["candidate_sha256"]
         == CANDIDATE_SHA
     )
-    assert sha((ROOT / candidate["candidate_path"]).read_bytes()) == CANDIDATE_SHA
+    assert authenticated_sha256((ROOT / candidate["candidate_path"]), ROOT) == CANDIDATE_SHA
     assert sha(CONTROL.read_bytes()) == candidate["control_sha256"]
-    assert evidence["manifest_sha256"] == sha(MANIFEST.read_bytes())
+    assert evidence["manifest_sha256"] == authenticated_sha256(MANIFEST, ROOT)
     assert evidence["manifest_path"] == MANIFEST.relative_to(ROOT).as_posix()
     assert (
-        sha((OBL / "ROUND_7_A_SEMANTIC_READINESS.json").read_bytes())
+        authenticated_sha256((OBL / "ROUND_7_A_SEMANTIC_READINESS.json"), ROOT)
         == control["readiness_sha256"]
         == candidate["readiness_sha256"]
     )
