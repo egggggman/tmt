@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import run_objective_balance_lab_baseline003_runtime_refresh as old  # noqa: E402
 import run_objective_balance_lab_round1 as r1  # noqa: E402
 import run_objective_balance_lab_round5 as r5  # noqa: E402
+from historical_validation import authenticated_bytes, authenticated_sha256  # noqa: E402
 from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
 AUTHORITY = OBL / "ROUND_7_A_SEMANTIC_READINESS.json"
@@ -62,10 +63,7 @@ def save(path, payload):
 
 
 def preflight(*, historical=False):
-    authority = json.loads(AUTHORITY.read_text())
-    assert AUTHORITY.read_bytes() == subprocess.check_output(
-        ["git", "show", f"HEAD:{AUTHORITY.relative_to(ROOT).as_posix()}"], cwd=ROOT
-    )
+    authority = json.loads(authenticated_bytes(AUTHORITY, ROOT))
     runtime = identity()
     if historical:
         # Frozen evidence remains verifiable after later pilot/runtime changes.
@@ -109,7 +107,11 @@ def preflight(*, historical=False):
         ), "runtime must be committed and unchanged"
     assert (
         runtime["aggregate_semantic_runtime_sha256"]
-        != (json.loads((OBL / "ROUND_7_A_READINESS.json").read_text())["semantic_runtime_sha256"])
+        != (
+            json.loads(authenticated_bytes(OBL / "ROUND_7_A_READINESS.json", ROOT))[
+                "semantic_runtime_sha256"
+            ]
+        )
     )
     source_available = (
         subprocess.run(
@@ -133,17 +135,16 @@ def preflight(*, historical=False):
         assert [(row["path"], row["sha256"]) for row in runtime["files"]] == [
             (row["path"], row["sha256"]) for row in authority["semantic_runtime_identity"]["files"]
         ]
-    manifest = json.loads(old.MANIFEST.read_text())
-    assert old.file_sha(old.MANIFEST) == authority["baseline_manifest_sha256"]
+    manifest = json.loads(authenticated_bytes(old.MANIFEST, ROOT))
+    assert authenticated_sha256(old.MANIFEST, ROOT) == authority["baseline_manifest_sha256"]
     paths = {}
     for row in manifest["decks"]:
         old.verify_deck(row)
         r1.validate_deck(ROOT / row["source_path"], r1.catalog())
         paths[row["deck_key"]] = row["source_path"]
     assert set(paths) == set(r1.DECKS)
-    candidate = (ROOT / CANDIDATE).read_bytes()
+    candidate = authenticated_bytes(ROOT / CANDIDATE, ROOT)
     assert hashlib.sha256(candidate).hexdigest() == CANDIDATE_SHA
-    assert candidate == subprocess.check_output(["git", "show", f"HEAD:{CANDIDATE}"], cwd=ROOT)
     assert r1.diff(
         r1.validate_deck(ROOT / paths["krang"], r1.catalog())["cards"],
         r1.validate_deck(ROOT / CANDIDATE, r1.catalog())["cards"],
@@ -181,9 +182,9 @@ def template(authority, manifest, schedule, *, candidate=False):
         "environment_id": "OBL-BASELINE-003",
         "evidence_id": "OBL-R7-KRANG-A" if candidate else CONTROL_ID,
         "semantic_runtime_sha256": authority["semantic_runtime_sha256"],
-        "readiness_sha256": old.file_sha(AUTHORITY),
+        "readiness_sha256": authenticated_sha256(AUTHORITY, ROOT),
         "runtime_repository_sha": authority["runtime_repository_sha"],
-        "baseline_manifest_sha256": old.file_sha(old.MANIFEST),
+        "baseline_manifest_sha256": authenticated_sha256(old.MANIFEST, ROOT),
         "baseline_decks": manifest["decks"],
         "schedule_sha256": old.SCHEDULE_SHA,
         "selected_schedule_sha256": digest(schedule),

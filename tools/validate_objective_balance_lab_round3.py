@@ -7,12 +7,12 @@ from __future__ import annotations
 
 import hashlib
 import json
-import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_sha256  # noqa: E402
 import run_objective_balance_lab_round1 as r1  # noqa: E402
 import run_objective_balance_lab_round3 as r3  # noqa: E402
 
@@ -20,12 +20,7 @@ OBL = ROOT / "docs/objective-balance-lab"
 
 
 def sha(path: Path) -> str:
-    relative = path.relative_to(ROOT).as_posix()
-    try:
-        data = subprocess.check_output(["git", "show", f"HEAD:{relative}"])
-    except subprocess.CalledProcessError:
-        data = path.read_bytes()
-    return hashlib.sha256(data).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def main() -> int:

@@ -29,9 +29,9 @@ def test_frozen_runtime_control_candidate_and_reports_match(accepted):
         complete=True,
     )
     analysis = report.build()
-    assert analysis == json.loads(report.ANALYSIS.read_text())
-    assert report.report(analysis) == report.REPORT.read_text()
-    assert report.control_report(analysis) == report.CONTROL_REPORT.read_text()
+    assert analysis == json.loads(report.ANALYSIS.read_text(encoding="utf-8"))
+    assert report.report(analysis) == report.REPORT.read_text(encoding="utf-8")
+    assert report.control_report(analysis) == report.CONTROL_REPORT.read_text(encoding="utf-8")
     assert analysis["validation"]["candidate_replays_matched"] == 900
     assert analysis["mechanism"]["candidate"]["mutagen_counters_placed"] > 0
     assert analysis["mechanism"]["candidate"]["islandcycling_reveals"] > 0

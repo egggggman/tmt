@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 import gzip
-import hashlib
 import json
-import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OBL = ROOT / "docs/objective-balance-lab"
 sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import authenticated_blob_oid, authenticated_sha256  # noqa: E402
+
+OBL = ROOT / "docs/objective-balance-lab"
 
 from objective_balance_lab_semantic_identity import identity  # noqa: E402
 
@@ -21,13 +21,11 @@ def load(path: Path) -> dict:
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def blob(path: Path) -> str:
-    return subprocess.check_output(
-        ["git", "hash-object", str(path.relative_to(ROOT))], cwd=ROOT, text=True
-    ).strip()
+    return authenticated_blob_oid(path, ROOT)
 
 
 def main() -> None:
@@ -58,7 +56,7 @@ def main() -> None:
         assert saved["deterministic_replay_samples"] == len(control["replays"]) == 6
         assert control["runtime_errors"] == saved["decks_changed"] == 0
         assert historical["reference_evidence"] == {
-            "path": str(report_path.relative_to(ROOT)),
+            "path": report_path.relative_to(ROOT).as_posix(),
             "git_blob_sha1": blob(report_path),
         }
         assert historical["environment_metrics"] == {
@@ -91,7 +89,7 @@ def main() -> None:
     assert manifest["promotion_experiment_ids"] == ["OBL-R7-KRANG-A"]
 
     assert current["control_id"] == control["evidence_id"] == diagnosis["control_id"]
-    assert current["path"] == str(control_path.relative_to(ROOT))
+    assert current["path"] == control_path.relative_to(ROOT).as_posix()
     assert (
         current["sha256"]
         == sha(control_path)
@@ -102,7 +100,7 @@ def main() -> None:
     assert current["analysis_git_blob_sha1"] == blob(analysis_path)
     assert current["diagnosis_git_blob_sha1"] == blob(diagnosis_path)
     assert registry["reference_evidence"] == {
-        "path": str(report_path.relative_to(ROOT)),
+        "path": report_path.relative_to(ROOT).as_posix(),
         "git_blob_sha1": blob(report_path),
     }
     runtime = identity()["aggregate_semantic_runtime_sha256"]

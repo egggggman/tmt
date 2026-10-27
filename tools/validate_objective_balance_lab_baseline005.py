@@ -3,13 +3,19 @@
 from __future__ import annotations
 
 import gzip
-import hashlib
 import json
-import subprocess
+import sys
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from historical_validation import (  # noqa: E402
+    authenticated_blob_oid,
+    authenticated_bytes,
+    authenticated_sha256,
+)
+
 OBL = ROOT / "docs/objective-balance-lab"
 SOURCE_COMMIT = "df15e8bff151d07ea5018d8766bba3553eb7b200"
 RUNTIME = "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924"
@@ -20,24 +26,20 @@ def load(path: Path) -> dict:
     return (
         json.loads(gzip.decompress(path.read_bytes()))
         if path.suffix == ".gz"
-        else json.loads(path.read_text())
+        else json.loads(path.read_text(encoding="utf-8"))
     )
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(
-        path.read_bytes().replace(b"\r\n", b"\n") if path.suffix != ".gz" else path.read_bytes()
-    ).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def blob(path: Path) -> str:
-    return subprocess.check_output(
-        ["git", "hash-object", str(path.relative_to(ROOT))], cwd=ROOT, text=True
-    ).strip()
+    return authenticated_blob_oid(path, ROOT)
 
 
 def deck(path: Path) -> Counter[str]:
-    lines = path.read_text().splitlines()
+    lines = path.read_text(encoding="utf-8").splitlines()
     assert lines[0] == "Deck"
     cards: Counter[str] = Counter()
     for line in lines[1:]:
@@ -58,12 +60,7 @@ def validate() -> None:
     combined = load(OBL / "COMBINED_007_R8A_EVIDENCE.json.gz")
     isolated = load(OBL / "ROUND_8_A_EVIDENCE.json.gz")
     readiness = load(OBL / "ROUND_8_A_SEMANTIC_READINESS.json")
-    assert (
-        subprocess.check_output(
-            ["git", "show", f"{SOURCE_COMMIT}:{old_path.relative_to(ROOT)}"], cwd=ROOT
-        )
-        == old_path.read_bytes()
-    )
+    authenticated_bytes(old_path, ROOT, SOURCE_COMMIT)
     assert old["environment_id"] == "OBL-BASELINE-004"
     assert (
         new["environment_id"]
@@ -105,11 +102,11 @@ def validate() -> None:
         k: row["win_rate"] for k, row in combined["combined_per_deck"].items()
     }
     assert registry["current_baseline_manifest"] == {
-        "path": str(new_path.relative_to(ROOT)),
+        "path": new_path.relative_to(ROOT).as_posix(),
         "git_blob_sha1": blob(new_path),
     }
     assert registry["baseline_004_historical_reference"]["manifest"] == {
-        "path": str(old_path.relative_to(ROOT)),
+        "path": old_path.relative_to(ROOT).as_posix(),
         "git_blob_sha1": blob(old_path),
     }
     assert registry["current_simulation_reference"]["sha256"] == sha(
@@ -125,7 +122,10 @@ def validate() -> None:
         ("source_combined_results", OBL / "COMBINED_007_R8A_RESULTS.md"),
         ("source_combined_manifest", OBL / "combined/OBL_COMBINED_007_MANIFEST.json"),
     ):
-        assert new[label] == {"path": str(path.relative_to(ROOT)), "git_blob_sha1": blob(path)}
+        assert new[label] == {
+            "path": path.relative_to(ROOT).as_posix(),
+            "git_blob_sha1": blob(path),
+        }
     assert new["promotion_evidence"] == [
         {
             "path": "docs/objective-balance-lab/ROUND_8_A_EVIDENCE.json.gz",
@@ -147,9 +147,7 @@ def validate() -> None:
             assert new_decks[key]["source_path"] == old_decks[key]["source_path"]
             assert new_decks[key]["sha256"] == old_decks[key]["sha256"]
             path = ROOT / new_decks[key]["source_path"]
-            assert path.read_bytes() == subprocess.check_output(
-                ["git", "show", f"{SOURCE_COMMIT}:{path.relative_to(ROOT)}"], cwd=ROOT
-            )
+            authenticated_bytes(path, ROOT, SOURCE_COMMIT)
     candidate = OBL / "candidates/BEBOP_ROCKSTEADY_OBL_R8_A.txt"
     promoted = OBL / "baselines/BEBOP_ROCKSTEADY_OBL_BASELINE_005.txt"
     prototype = ROOT / "decks/bebop_rocksteady/PROTOTYPE_0.3.txt"
@@ -176,24 +174,24 @@ def validate() -> None:
     } == {"Primordial Pachyderm": 2}
     catalog = {
         row["name"]: row
-        for row in json.loads((ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json").read_text())
+        for row in json.loads(
+            (ROOT / "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json").read_text(encoding="utf-8")
+        )
     }
     assert catalog["Illegitimate Business"]["type_line"] == "Land"
     assert parent["Forest"] + parent["Swamp"] == child["Forest"] + child["Swamp"] == 20
     assert sum(n for name, n in parent.items() if "Land" in catalog[name]["type_line"]) == 24
     assert sum(n for name, n in child.items() if "Land" in catalog[name]["type_line"]) == 22
     for path in (OBL / "ROUND_8_A_EVIDENCE.json.gz", OBL / "COMBINED_007_R8A_EVIDENCE.json.gz"):
-        assert path.read_bytes() == subprocess.check_output(
-            ["git", "show", f"{SOURCE_COMMIT}:{path.relative_to(ROOT)}"], cwd=ROOT
-        )
+        authenticated_bytes(path, ROOT, SOURCE_COMMIT)
     record = next(r for r in ledger["experiments"] if r["experiment_id"] == "OBL-R8-BEBOP-A")
     assert record["promotion_status"] == record["verdict"] == "PROMOTED"
     assert record["promotion"]["new_environment"] == "OBL-BASELINE-005"
     assert ledger["combined_validation_state"]["OBL-COMBINED-007"] == "COMBINED_VALIDATED"
-    assert "20 basic lands" in (OBL / "ROUND_8_A_RESULTS.md").read_text()
-    assert "20 basic lands" in (OBL / "COMBINED_007_R8A_RESULTS.md").read_text()
-    assert "total lands" in (OBL / "ROUND_8_A_LAND_COUNT_PROVENANCE.md").read_text()
-    assert "no R8-B authorized" in (OBL / "ENVIRONMENT_REGISTRY.md").read_text()
+    assert "20 basic lands" in (OBL / "ROUND_8_A_RESULTS.md").read_text(encoding="utf-8")
+    assert "20 basic lands" in (OBL / "COMBINED_007_R8A_RESULTS.md").read_text(encoding="utf-8")
+    assert "total lands" in (OBL / "ROUND_8_A_LAND_COUNT_PROVENANCE.md").read_text(encoding="utf-8")
+    assert "no R8-B authorized" in (OBL / "ENVIRONMENT_REGISTRY.md").read_text(encoding="utf-8")
     print(
         "Baseline 005 promotion draft: PASS; B&R only; "
         "20 basics unchanged, 24 -> 22 total lands; 0 new games"

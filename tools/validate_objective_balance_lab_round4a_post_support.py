@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -10,15 +9,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import run_objective_balance_lab_round4a_post_support as runner  # noqa: E402
+from historical_validation import recorded_checkout_sha_matches  # noqa: E402
 
 OBL = ROOT / "docs" / "objective-balance-lab"
 POST = OBL / "ROUND_4A_POST_SUPPORT_EVIDENCE.json"
 DIAGNOSTIC = OBL / "ROUND_4A_POST_SUPPORT_DIAGNOSTIC.json"
 PRE = OBL / "ROUND_4A_RAPHAEL_EVIDENCE.json"
-
-
-def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def main() -> None:
@@ -36,7 +32,7 @@ def main() -> None:
         "completed_games": 80,
         "runtime_errors": 0,
     }
-    assert sha(PRE) == post["pre_support_evidence_sha256"]
+    assert recorded_checkout_sha_matches(PRE, post["pre_support_evidence_sha256"], ROOT)
     assert post["schedule_sha256"] == pre["schedule_sha256"]
     assert set(post["candidate_results"]) == {"OBL-R4-RAPHAEL-A", "OBL-R4-RAPHAEL-B"}
     for experiment_id, rows in post["candidate_results"].items():
