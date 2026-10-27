@@ -20,7 +20,18 @@ jobs:
       - run: uv sync --locked --dev
       - run: uv run ruff format --check .
       - run: uv run ruff check .
-      - run: uv run pytest
+      - name: Synthetic-only Durable review regression (no simulator calls)
+        if: github.head_ref == 'review/durable001-resume-safety' || github.ref_name == 'review/durable001-resume-safety'
+        run: >-
+          uv run pytest -q
+          tests/test_durable_resume_safety.py
+          tests/test_durable_status_only.py
+          tests/test_bad_guys_calibration_entrypoint.py
+          tests/test_calibration_integrity.py
+          tests/test_calibration_runner_integrity_integration.py
+      - name: Full regression outside the restricted Durable review branch
+        if: github.head_ref != 'review/durable001-resume-safety' && github.ref_name != 'review/durable001-resume-safety'
+        run: uv run pytest
       - name: Canonical terminology scan
         run: |
           ! grep -R -n -E 'Casual Deck|Design Profile' README.md src tests

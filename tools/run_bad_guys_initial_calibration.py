@@ -1,7 +1,7 @@
 """Authoritative, checkpointed launcher for the Bad Guys 0.2 calibration contract.
 
 This module owns the input preflight and schedule construction only.  Result
-persistence is delegated to :func:`run_checkpointed_schedule`; there is no
+persistence is delegated to :func:`run_authorized_resume`; there is no
 second checkpoint format or legacy writer in this entrypoint.  Tests inject a
 mock executor, so the integrity contract can be exercised without running the
 Magic simulator.
@@ -12,7 +12,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import tempfile
 from collections.abc import Callable
 from pathlib import Path
 
@@ -21,9 +20,8 @@ try:  # Script execution puts ``tools`` on sys.path; package imports do not.
 except ModuleNotFoundError:  # pragma: no cover - exercised by package imports
     from tools.baseline005_provenance import ProvenanceError, verify_overlay
 from tmnt_design_studio.calibration_integrity import validate_schedule
-from tmnt_design_studio.calibration_runner import run_checkpointed_schedule
-from tmnt_design_studio.smoke01 import run_smoke_game
-from tmnt_design_studio.stage002 import DeckSpec, GameSpec
+from tmnt_design_studio.calibration_runner import run_authorized_resume
+from tmnt_design_studio.resume_authorization import ReviewLease, require
 
 try:
     from validate_baseline005_provenance import validate
@@ -117,52 +115,25 @@ def run_calibration(
     *,
     executor: Callable[[dict[str, object]], dict[str, object]] | None = None,
     writer_id: str = "bad-guys-cronies-sandbox-0-2",
+    lease: ReviewLease | None = None,
+    status: Path | None = None,
 ) -> dict[str, object]:
-    """Authenticate, construct, and run the guarded schedule.
+    """No live adapter is approved. Synthetic review requires a trusted lease.
 
-    Supplying ``executor`` is the supported integrity-test seam.  The default
-    executor is the only path that invokes the actual game simulator, and it is
-    reached only after input authentication and schedule validation.
+    There is deliberately no default simulator executor or new-run fallback.
+    ``writer_id`` remains a compatibility argument; authority owns writer identity.
     """
+    require(executor is not None and lease is not None, "explicit review resume authority required")
+    require(status is not None, "isolated status path required")
+    require(checkpoint is not None, "existing working checkpoint required")
+    require(checkpoint.resolve() == lease.checkpoint.resolve(), "checkpoint authority mismatch")
     authenticate_inputs(root)
     schedule = build_schedule(root)
-    if checkpoint is None:
-        raise ValueError("a new checkpoint path is required")
-    if executor is None:
-        with tempfile.NamedTemporaryFile(
-            mode="w", encoding="utf-8", suffix=".txt", delete=False
-        ) as candidate_file:
-            candidate_file.write(_candidate_text(root))
-            candidate_path = Path(candidate_file.name)
-
-        def execute(row: dict[str, object]) -> dict[str, object]:
-            opponent = str(row["opponent"])
-            manifest = json.loads((root / MANIFEST_PATH).read_text(encoding="utf-8"))
-            opponent_row = next(item for item in manifest["decks"] if item["deck_key"] == opponent)
-            candidate = DeckSpec("bad_guys_cronies_sandbox_0_2", str(candidate_path))
-            opponent_spec = DeckSpec(opponent, opponent_row["source_path"])
-            seats = (candidate, opponent_spec)
-            if row["orientation"] == "opponent_first":
-                seats = (opponent_spec, candidate)
-            spec = GameSpec(
-                str(row["game_id"]),
-                str(row["pairing_id"]),
-                int(row["seed"]),
-                str(row["orientation"]),
-                seats,
-            )
-            result = run_smoke_game(root, spec)
-            return {"game_id": str(row["game_id"]), **result}
-
-    else:
-        execute = executor
-    return run_checkpointed_schedule(
+    return run_authorized_resume(
         schedule,
-        checkpoint,
-        execute,
-        writer_id=writer_id,
-        expected_matchups=EXPECTED_MATCHUPS,
-        games_per_matchup=GAMES_PER_MATCHUP,
+        executor,
+        lease=lease,
+        status=status,
     )
 
 
