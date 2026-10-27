@@ -6,7 +6,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import statistics
 import sys
@@ -20,6 +19,7 @@ import build_baseline003_runtime_refresh_report as refresh  # noqa: E402
 import build_combined003_runtime_compatible as metrics  # noqa: E402
 import build_objective_balance_lab_round5_results as normal  # noqa: E402
 import run_objective_balance_lab_round7a as run  # noqa: E402
+from historical_validation import authenticated_sha256  # noqa: E402
 
 ANALYSIS = run.OBL / "ROUND_7_A_ANALYSIS.json"
 REPORT = run.OBL / "ROUND_7_A_RESULTS.md"
@@ -38,7 +38,7 @@ ORDER = (
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return authenticated_sha256(path, ROOT)
 
 
 def distribution(games: list[dict]) -> dict:
