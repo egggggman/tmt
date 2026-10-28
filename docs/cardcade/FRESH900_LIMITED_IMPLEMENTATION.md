@@ -1,5 +1,10 @@
 # Fresh 900 limited implementation — draft review candidate
 
+> Historical description/results for audited head `45311da`. The current scoped
+> correction, preserved adversarial evidence and complete-path measurements are
+> documented in [FRESH900_FOUR_DEFECT_CORRECTIONS.md](FRESH900_FOUR_DEFECT_CORRECTIONS.md)
+> and `FRESH900_CORRECTION_VALIDATION.json`. No execution authority follows.
+
 HQ selected a fresh experiment, not recovery of Durable 001. This packet implements
 the synthetic execution/persistence/preflight boundary. **No live adapter, gameplay
 CLI, automatic recovery, production reservation, merge or deployment is authorized.**

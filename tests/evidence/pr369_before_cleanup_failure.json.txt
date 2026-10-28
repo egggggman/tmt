@@ -1,0 +1,1 @@
+{"errno":13,"error":"[Errno 13] SECONDARY_LOCK_CLEANUP_FAILURE","error_type":"PermissionError","last_observed_committed":0,"recovery":"STOPPED_REVIEW_REQUIRED","stage":"EXECUTOR","synthetic":true,"winerror":null}

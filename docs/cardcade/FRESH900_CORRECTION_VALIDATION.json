@@ -1,0 +1,340 @@
+{
+  "audited_sha": "45311dadd1c14e0c183c86085b47e8d3dd670b6f",
+  "results": {
+    "before-c": {
+      "tests": 27,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 20,
+      "seconds": 13.242
+    },
+    "before-full": {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 0,
+      "seconds": 16.87
+    },
+    "before-g": {
+      "tests": 26,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 20,
+      "seconds": 9.568
+    },
+    "first-after": {
+      "tests": 27,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 26,
+      "seconds": 13.369
+    },
+    "targeted-final": {
+      "tests": 69,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 69,
+      "seconds": 32.118
+    },
+    "full-windows": {
+      "tests": 143,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 142,
+      "seconds": 489.889
+    },
+    "after-g": {
+      "tests": 72,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 72,
+      "seconds": 38.118
+    }
+  },
+  "profiles": {
+    "c": {
+      "synthetic": true,
+      "games_executed": 0,
+      "production_checkpoint_accessed": false,
+      "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\projects\\tmt-current\\.durable001-environment\\venv\\Scripts\\python.exe",
+      "resources_before": {
+        "physical": 8320212992,
+        "commit": 10722746368,
+        "disk_free": 424992854016,
+        "memory_gate": 2997492240
+      },
+      "records": 900,
+      "target_bytes_per_record": 969401,
+      "shape": "nested",
+      "baseline": {
+        "working_set": 21606400,
+        "peak_working_set": 22237184,
+        "private_commit": 12881920,
+        "peak_private_commit": 13729792
+      },
+      "source_file_sha256": "c2835f2da91170f816b40083fe04c136336deef8654211e1467c43abbccd8c46",
+      "retained": {
+        "working_set": 1332633600,
+        "peak_working_set": 1334738944,
+        "private_commit": 1328349184,
+        "peak_private_commit": 1330528256
+      },
+      "samples": [
+        {
+          "records": 225,
+          "write_verified_seconds": 19.56386009999551,
+          "bytes": 218110662,
+          "timings": {
+            "serialization_seconds": 18.745092199998908,
+            "flush_fsync_seconds": 0.2774343999917619,
+            "replacement_seconds": 0.0011730999976862222,
+            "readback_hash_seconds": 0.5383132999995723
+          },
+          "status_hash_seconds": 0.5295894999871962,
+          "status_publish_seconds": 0.0085356000054162,
+          "memory": {
+            "working_set": 349118464,
+            "peak_working_set": 351223808,
+            "private_commit": 342007808,
+            "peak_private_commit": 344182784
+          }
+        },
+        {
+          "records": 450,
+          "write_verified_seconds": 43.7500044000044,
+          "bytes": 436221162,
+          "timings": {
+            "serialization_seconds": 42.628529300010996,
+            "flush_fsync_seconds": 0.018777200020849705,
+            "replacement_seconds": 0.023363899992546067,
+            "readback_hash_seconds": 1.077146299998276
+          },
+          "status_hash_seconds": 1.0617489000142086,
+          "status_publish_seconds": 0.01035940001020208,
+          "memory": {
+            "working_set": 678621184,
+            "peak_working_set": 680726528,
+            "private_commit": 671539200,
+            "peak_private_commit": 673718272
+          }
+        },
+        {
+          "records": 900,
+          "write_verified_seconds": 87.26159149999148,
+          "bytes": 872442162,
+          "timings": {
+            "serialization_seconds": 85.06164659999195,
+            "flush_fsync_seconds": 0.005259400000795722,
+            "replacement_seconds": 0.04155059999902733,
+            "readback_hash_seconds": 2.150339999992866
+          },
+          "status_hash_seconds": 2.1429642000002787,
+          "status_publish_seconds": 0.008510999992722645,
+          "memory": {
+            "working_set": 1332633600,
+            "peak_working_set": 1334738944,
+            "private_commit": 1328349184,
+            "peak_private_commit": 1330528256
+          }
+        }
+      ],
+      "after_write": {
+        "working_set": 1332633600,
+        "peak_working_set": 1334738944,
+        "private_commit": 1328349184,
+        "peak_private_commit": 1330528256
+      },
+      "checkpoint_bytes": 872442162,
+      "checkpoint_sha256": "9fa958a172daf46643e239692ebea43859078489870e5cd45c7c2119f402c22b",
+      "final_validation_seconds": 24.918247599998722,
+      "after_final_validation": {
+        "working_set": 794800128,
+        "peak_working_set": 2536083456,
+        "private_commit": 788246528,
+        "peak_private_commit": 2533052416
+      },
+      "release_seconds": 0.0008373000018764287,
+      "resources_after": {
+        "physical": 7629832192,
+        "commit": 10099298304,
+        "disk_free": 424117452800,
+        "memory_gate": 2997492240
+      },
+      "verified_records": 900,
+      "checkpoint_hash_unchanged": true,
+      "after_complete_path": {
+        "working_set": 794812416,
+        "peak_working_set": 2536083456,
+        "private_commit": 788254720,
+        "peak_private_commit": 2533052416
+      },
+      "peak_comparison_threshold_bytes": 2997492240,
+      "threshold_exceeded": false,
+      "recommendation": "WITHIN_MEASURED_THRESHOLD",
+      "projected_900_checkpoint_write_bytes": 393035193981.0,
+      "projected_900_checkpoint_read_bytes": 786070387962,
+      "projected_persistence_seconds": 40305.50479594301,
+      "ownership_unresolved": false
+    },
+    "g": {
+      "synthetic": true,
+      "games_executed": 0,
+      "production_checkpoint_accessed": false,
+      "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\projects\\tmt-current\\.durable001-environment\\venv\\Scripts\\python.exe",
+      "resources_before": {
+        "physical": 8276656128,
+        "commit": 10742927360,
+        "disk_free": 744139567104,
+        "memory_gate": 2997492240
+      },
+      "records": 900,
+      "target_bytes_per_record": 969401,
+      "shape": "nested",
+      "baseline": {
+        "working_set": 21647360,
+        "peak_working_set": 22228992,
+        "private_commit": 13086720,
+        "peak_private_commit": 13635584
+      },
+      "source_file_sha256": "8b2da9095e925546dfe05ec47a9f1a9a42139dc3215fc66336067948499b7c74",
+      "component_sha256": {
+        "src/tmnt_design_studio/calibration_integrity.py": "361ade70b128084324a416037f0773a4d42d27e38beb6f26b53313cfbffffa18",
+        "src/tmnt_design_studio/fresh900.py": "f6cd849f4057ac1cde054dc25f7c072d64d74230726d9066e1ba9cfa51bc3866",
+        "src/tmnt_design_studio/fresh900_identity.py": "8ea20509b2aa27e3b62ec2378351873f44e43de23375aaf05fd8038f54872760"
+      },
+      "retained": {
+        "working_set": 1334194176,
+        "peak_working_set": 1336299520,
+        "private_commit": 1328930816,
+        "peak_private_commit": 1331109888
+      },
+      "samples": [
+        {
+          "records": 225,
+          "write_verified_seconds": 20.728750200010836,
+          "bytes": 218110662,
+          "timings": {
+            "serialization_seconds": 20.150451800000155,
+            "flush_fsync_seconds": 0.023729100008495152,
+            "replacement_seconds": 0.0007115000043995678,
+            "readback_hash_seconds": 0.5532391000015195
+          },
+          "status_hash_seconds": 0.5424765000061598,
+          "status_publish_seconds": 0.0070364999992307276,
+          "memory": {
+            "working_set": 351559680,
+            "peak_working_set": 353660928,
+            "private_commit": 343474176,
+            "peak_private_commit": 345649152
+          }
+        },
+        {
+          "records": 450,
+          "write_verified_seconds": 44.821837799972855,
+          "bytes": 436221162,
+          "timings": {
+            "serialization_seconds": 43.65271439999924,
+            "flush_fsync_seconds": 0.057700200006365776,
+            "replacement_seconds": 0.02133829999365844,
+            "readback_hash_seconds": 1.0886344999889843
+          },
+          "status_hash_seconds": 1.058936800021911,
+          "status_publish_seconds": 0.09529199998360127,
+          "memory": {
+            "working_set": 679616512,
+            "peak_working_set": 681721856,
+            "private_commit": 672129024,
+            "peak_private_commit": 674308096
+          }
+        },
+        {
+          "records": 900,
+          "write_verified_seconds": 92.20908790000249,
+          "bytes": 872442162,
+          "timings": {
+            "serialization_seconds": 89.87161010000273,
+            "flush_fsync_seconds": 0.023632399999769405,
+            "replacement_seconds": 0.06072779998066835,
+            "readback_hash_seconds": 2.25145949999569
+          },
+          "status_hash_seconds": 2.2281695999845397,
+          "status_publish_seconds": 0.008461999997962266,
+          "memory": {
+            "working_set": 1334194176,
+            "peak_working_set": 1336299520,
+            "private_commit": 1328930816,
+            "peak_private_commit": 1331109888
+          }
+        }
+      ],
+      "after_write": {
+        "working_set": 1334194176,
+        "peak_working_set": 1336299520,
+        "private_commit": 1328930816,
+        "peak_private_commit": 1331109888
+      },
+      "checkpoint_bytes": 872442162,
+      "checkpoint_sha256": "9fa958a172daf46643e239692ebea43859078489870e5cd45c7c2119f402c22b",
+      "final_validation_seconds": 25.257669100014027,
+      "after_final_validation": {
+        "working_set": 794836992,
+        "peak_working_set": 2535682048,
+        "private_commit": 788254720,
+        "peak_private_commit": 2532544512
+      },
+      "release_seconds": 0.0009504999907221645,
+      "resources_after": {
+        "physical": 7578349568,
+        "commit": 10068951040,
+        "disk_free": 743267123200,
+        "memory_gate": 2997492240
+      },
+      "verified_records": 900,
+      "checkpoint_hash_unchanged": true,
+      "after_complete_path": {
+        "working_set": 794849280,
+        "peak_working_set": 2535682048,
+        "private_commit": 788262912,
+        "peak_private_commit": 2532544512
+      },
+      "peak_comparison_threshold_bytes": 2997492240,
+      "threshold_exceeded": false,
+      "recommendation": "WITHIN_MEASURED_THRESHOLD",
+      "projected_900_checkpoint_write_bytes": 393035193981.0,
+      "projected_900_checkpoint_read_bytes": 786070387962,
+      "projected_persistence_seconds": 42573.05430384325,
+      "ownership_unresolved": false
+    }
+  },
+  "before_record_sha256": {
+    "tests/evidence/pr369_before_corrupted_content.json.txt": "ef553b802a2ffae15d29fcb714425c20fcd6a4ca439f158595ad88683c52df73",
+    "tests/evidence/pr369_before_pairing_id.json.txt": "10028ccb60efbeed061807f98c3e406526a934d6a2c3391b165438b6b0f82793",
+    "tests/evidence/pr369_before_orientation.json.txt": "cd12603200528bf141b4541d964df70a53d57d6cd613777b11c9d0301c48ce6f",
+    "tests/evidence/pr369_before_seed.json.txt": "90814be5496e2ae0279e7b28e623652e5f9c02c2bc7562f2d99ffa17a73b75f7",
+    "tests/evidence/pr369_before_fullplan_seed.json.txt": "5b1bd30f6c39b45dccd5fec741885de5eb7c82c9460222b490dcb773f7927f63",
+    "tests/evidence/pr369_before_cleanup_failure.json.txt": "7ed4eded8982ecd1a107630b1f008382ca8e1c1a7c3d786e2607c68f2b740c51"
+  },
+  "original_predicates": {
+    "pr369_test_independent.py.txt": "f8210adda237543adefb9c8e7f1668cae38384fcae51fcd10ed66488a13b088e",
+    "pr369_test_fullplan_boundary.py.txt": "ad93699112f6b5e9cfd4d5c2217cb25229b264ac0d971df6be09f9d7e3007bb4"
+  },
+  "memory_threshold_unchanged": 2997492240,
+  "measured_peak_exceeded": false,
+  "games_executed": 0,
+  "historical_checkpoint_accessed": false,
+  "limitations": [
+    "Synthetic mean-density 900-record nested topology only; not a gameplay bound",
+    "Per-game full-checkpoint architecture retained; cost budget needs HQ decision",
+    "Runtime/input attestation cost per dispatch and device endurance unqualified",
+    "Cooperating-process path/ownership policy, not hostile same-user ACL isolation"
+  ]
+}

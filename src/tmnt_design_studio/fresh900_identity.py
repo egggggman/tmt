@@ -39,8 +39,34 @@ def digest(value: object) -> str:
 
 
 def plain(path: Path) -> Path:
-    """Reject links/reparse points at every existing component, including hardlinks."""
+    """Fail closed on ambiguous Windows spellings; resolve real existing ancestry."""
+    spelling = os.fspath(path)
+    original_parts = path.parts
+    if os.name == "nt":
+        # Device/extended/UNC namespaces are not part of this local-drive policy.
+        # Reject rather than stripping a prefix and accidentally changing meaning.
+        require(not spelling.startswith(("\\\\", "\\??\\")), "ambiguous Windows namespace")
+        require(path.is_absolute(), "absolute Windows path required")
     path = Path(os.path.abspath(path))
+    if os.name == "nt":
+        require(len(path.drive) == 2 and path.drive[1] == ":", "local drive required")
+        for part in original_parts[1:]:
+            require(part == part.rstrip(" .") and ":" not in part, "ambiguous Windows component")
+            stem = part.split(".", 1)[0].upper()
+            require(
+                stem not in {"CON", "PRN", "AUX", "NUL", "CONIN$", "CONOUT$"}
+                and stem not in {f"{prefix}{i}" for prefix in ("COM", "LPT") for i in range(1, 10)},
+                "reserved Windows device",
+            )
+    _check_components(path)
+    # realpath uses filesystem resolution for existing parents (including DOS
+    # short names / substituted drives), retaining an absent leaf for reservation.
+    resolved = Path(os.path.realpath(path))
+    _check_components(resolved)
+    return resolved
+
+
+def _check_components(path: Path) -> None:
     for part in (*reversed(path.parents), path):
         try:
             info = part.lstat()
@@ -50,11 +76,23 @@ def plain(path: Path) -> Path:
         require(not getattr(info, "st_file_attributes", 0) & 0x400, "reparse point forbidden")
         if stat.S_ISREG(info.st_mode):
             require(info.st_nlink == 1, "hardlink forbidden")
-    return path
 
 
 def disjoint(left: Path, right: Path) -> bool:
-    return not (left.is_relative_to(right) or right.is_relative_to(left))
+    left, right = plain(left), plain(right)
+    if left.is_relative_to(right) or right.is_relative_to(left):
+        return False
+    # Verify existing protected endpoints against actual ancestors as well as
+    # canonical spellings. Missing endpoints use resolved parent + literal tail.
+    for endpoint, other in ((left, right), (right, left)):
+        if endpoint.exists():
+            identity = (endpoint.stat().st_dev, endpoint.stat().st_ino)
+            for ancestor in (other, *other.parents):
+                if ancestor.exists():
+                    info = ancestor.stat()
+                    if (info.st_dev, info.st_ino) == identity:
+                        return False
+    return True
 
 
 def verify_inventory(inventory: dict[str, str]) -> None:

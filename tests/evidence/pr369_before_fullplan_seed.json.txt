@@ -1,0 +1,33 @@
+{
+  "completed_games": 1,
+  "records": [
+    {
+      "events": [],
+      "fresh_run_id": "FRESH_900_full_plan_proof",
+      "game_id": "bad_guys_cronies_sandbox_0_2--april_oneil:candidate_first:1000000",
+      "invariant_violations": [],
+      "plan_sha256": "8c23745f342ce482ecb387b3834e80cc37cc24e9c42f7a2225c1475b1e4b88ae",
+      "rules_event_evidence": [],
+      "schedule_row": {
+        "game_id": "bad_guys_cronies_sandbox_0_2--april_oneil:candidate_first:1000000",
+        "opponent": "april_oneil",
+        "orientation": "candidate_first",
+        "pairing_id": "bebop_rocksteady--april_oneil",
+        "seats": [
+          "bad_guys_cronies_sandbox_0_2",
+          "april_oneil"
+        ],
+        "seed": 1000000
+      },
+      "seed": 999999,
+      "stage002_presence": [],
+      "stop_records": [],
+      "synthetic": true,
+      "terminal": true,
+      "turn": 10,
+      "winner": "bad_guys_cronies_sandbox_0_2"
+    }
+  ],
+  "schedule_digest": "4da440bc83b9790876d1020ae83cf2147c4e60a67feba8bb7181421e196b303e",
+  "schedule_games": 900
+}

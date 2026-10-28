@@ -1,0 +1,37 @@
+{
+  "completed_games": 1,
+  "records": [
+    {
+      "events": [
+        {
+          "kind": "synthetic",
+          "value": 17
+        }
+      ],
+      "fresh_run_id": "FRESH_900_independent_fixture",
+      "game_id": "audit-0",
+      "invariant_violations": [],
+      "plan_sha256": "1727700bbd14e07246a5d559c50435abf038ac0ef9c4dbac5fb05ac7fbb28f0f",
+      "rules_event_evidence": [],
+      "schedule_row": {
+        "game_id": "audit-0",
+        "orientation": "candidate_first",
+        "pairing_id": "audit-pair",
+        "seats": [
+          "candidate",
+          "opponent"
+        ],
+        "seed": 700
+      },
+      "seed": 999999,
+      "stage002_presence": [],
+      "stop_records": [],
+      "synthetic": true,
+      "terminal": true,
+      "turn": 10,
+      "winner": "candidate"
+    }
+  ],
+  "schedule_digest": "c9c66e5286990e5914c6d5079f490823e2cb2c21b1c6e4436a38863ae4c8de6a",
+  "schedule_games": 2
+}

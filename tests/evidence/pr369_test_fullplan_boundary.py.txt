@@ -1,0 +1,44 @@
+"""Full 900-row plan proof with original runtime/input/schedule/resource checks."""
+import copy
+import json
+from pathlib import Path
+
+import pytest
+
+from tmnt_design_studio import fresh900 as runner
+from tmnt_design_studio import fresh900_identity as identity
+
+
+def test_conflicting_seed_refused_with_unmodified_full_plan(tmp_path):
+    root=Path(__file__).resolve().parents[1]
+    report=root/'.fresh900-readiness/preflight-final-head.json'
+    raw=report.read_bytes()
+    approved=json.loads(raw.decode('utf-16' if raw[:2]==b'\xff\xfe' else 'utf-8'))
+    runtime=copy.deepcopy(approved['runtime'])
+    runtime['files'][str(Path(__file__).absolute())]=identity.file_hash(Path(__file__))
+    schedule=json.loads((root/'.fresh900-readiness/proposed-schedule.json').read_text())
+    source=Path(runtime['source'])
+    plan=dict(protocol='fresh900-plan-v1',games=900,run_id='FRESH_900_full_plan_proof',
+              output=str(tmp_path/'FRESH_900_full_plan_proof'),protected=[str(tmp_path/'history')],
+              runtime=runtime,inputs={str(source/p):h for p,h in identity.FROZEN_INPUTS.items()},
+              schedule=schedule)
+    approval=dict(action='synthetic-review',approved_by='independent synthetic fixture',
+                  plan_sha256=identity.digest(plan))
+    calls=[]
+    class BoundaryStop(RuntimeError): pass
+    def callback(row):
+        calls.append(row)
+        if len(calls)>1: raise BoundaryStop('after first synthetic commit')
+        return dict(game_id=row['game_id'],synthetic=True,terminal=True,winner=row['seats'][0],
+                    seed=row['seed']-1,turn=10,events=[],stage002_presence=[],
+                    rules_event_evidence=[],invariant_violations=[],stop_records=[])
+    try:
+        runner.run_synthetic(plan,approval,expected_authorization_sha256=identity.digest(approval),
+                             executor=callback)
+    except (identity.FreshRefused,BoundaryStop): pass
+    checkpoint=Path(plan['output'])/'checkpoints/checkpoint.json'
+    assert checkpoint.exists(), 'fixture must pass the complete initial preflight'
+    saved=json.loads(checkpoint.read_bytes())
+    assert saved['completed_games']==0, (
+        f"unmodified 900-plan checks accepted seed {saved['records'][0]['seed']} "
+        f"against schedule seed {saved['records'][0]['schedule_row']['seed']}")
