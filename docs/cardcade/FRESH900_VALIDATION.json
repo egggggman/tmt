@@ -1,0 +1,310 @@
+{
+  "timestamp_utc": "2026-10-28T15:20:13.132943+00:00",
+  "base_commit": "fd28f68915c4e7cb6af3444bf41b96608dee712c",
+  "reused_persistence_commit": "01ee617683bbc50f38098923c56102738eec9f37",
+  "candidate_source_files": {
+    "src/tmnt_design_studio/fresh900.py": "cd010402f1b5151b05e5860389d981d13d878abcf8bfbed0b1be4b1c89d00bf0",
+    "src/tmnt_design_studio/fresh900_identity.py": "5afed8aaa228f00aa2a33d550175ac36fdbb6584a8beb143fd39207b69b46906",
+    "src/tmnt_design_studio/fresh900_monitor.py": "451d2b93d27c5e9a7328c5c120c1c17f2ce6ce3bd2d66a874c844a19611d1750",
+    "tools/preflight_fresh900.py": "ba8f2aa34367fb72d5e27fdee84aeabcd23933d57c2cf836d830631ee2623337",
+    "tools/profile_fresh900_synthetic.py": "451bf41611bc377698e85acbaecaab5f35025d2cdf3ff7c57bade8aef5b2bd4c"
+  },
+  "synthetic": true,
+  "games_executed": 0,
+  "production_checkpoint_accessed": false,
+  "dependency_verification": {
+    "packages": [
+      {
+        "name": "annotated-doc",
+        "version": "0.0.5",
+        "wheel_sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+        "payloads": 7
+      },
+      {
+        "name": "colorama",
+        "version": "0.4.6",
+        "wheel_sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+        "payloads": 16
+      },
+      {
+        "name": "iniconfig",
+        "version": "2.3.0",
+        "wheel_sha256": "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+        "payloads": 9
+      },
+      {
+        "name": "markdown-it-py",
+        "version": "4.2.0",
+        "wheel_sha256": "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+        "payloads": 73
+      },
+      {
+        "name": "mdurl",
+        "version": "0.1.2",
+        "wheel_sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+        "payloads": 10
+      },
+      {
+        "name": "packaging",
+        "version": "26.2",
+        "wheel_sha256": "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e",
+        "payloads": 26
+      },
+      {
+        "name": "pluggy",
+        "version": "1.6.0",
+        "wheel_sha256": "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+        "payloads": 13
+      },
+      {
+        "name": "pygments",
+        "version": "2.20.0",
+        "wheel_sha256": "81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176",
+        "payloads": 344
+      },
+      {
+        "name": "pytest",
+        "version": "8.4.2",
+        "wheel_sha256": "872f880de3fc3a5bdc88a11b39c9710c3497a547cfa9320bc3c5e62fbf272e79",
+        "payloads": 80
+      },
+      {
+        "name": "rich",
+        "version": "15.0.0",
+        "wheel_sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+        "payloads": 104
+      },
+      {
+        "name": "ruff",
+        "version": "0.16.1",
+        "wheel_sha256": "09b05e8b90c2cb06ad63464350e7a45e8e44a2dfe52072ebfba6666ca8d3f596",
+        "payloads": 8
+      },
+      {
+        "name": "shellingham",
+        "version": "1.5.4",
+        "wheel_sha256": "7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+        "payloads": 12
+      },
+      {
+        "name": "typer",
+        "version": "0.27.0",
+        "wheel_sha256": "6f4b27631e47f077871b7dc30e933ec0131c1390fbe0e387ea5574b5bac9ccf1",
+        "payloads": 39
+      }
+    ],
+    "payloads": 741
+  },
+  "input_git_checks": 17,
+  "loaded_runtime_seal_files": 2569,
+  "prospective_interpreter": {
+    "version": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+    "base_executable_sha256": "85b71d8c6ec1905935f74be0c9869aae198d00e98f39df699ec66f9c5a84cecd"
+  },
+  "no_game_preflight_resources": {
+    "physical": 8505323520,
+    "commit": 11001208832,
+    "disk_free": 425033379840,
+    "memory_gate": 2997492240
+  },
+  "precommit_attestation_limitation": "This diagnostic ran before the final commit; final-head no-game attestation is repeated and retained separately. No historical equivalence claimed.",
+  "profiles": {
+    "mean900_C": {
+      "synthetic": true,
+      "games_executed": 0,
+      "production_checkpoint_accessed": false,
+      "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\projects\\tmt-current\\.durable001-environment\\venv\\Scripts\\python.exe",
+      "resources_before": {
+        "physical": 8265904128,
+        "commit": 10807746560,
+        "disk_free": 426179178496,
+        "memory_gate": 2997492240
+      },
+      "records": 900,
+      "target_bytes_per_record": 969401,
+      "baseline": {
+        "working_set": 21413888,
+        "peak_working_set": 21413888,
+        "private_commit": 12877824,
+        "peak_private_commit": 12877824
+      },
+      "source_file_sha256": "451bf41611bc377698e85acbaecaab5f35025d2cdf3ff7c57bade8aef5b2bd4c",
+      "retained": {
+        "working_set": 1117470720,
+        "peak_working_set": 1117470720,
+        "private_commit": 1111748608,
+        "peak_private_commit": 1111748608
+      },
+      "write_seconds": 22.48272630001884,
+      "after_write": {
+        "working_set": 1118515200,
+        "peak_working_set": 1118515200,
+        "private_commit": 1112752128,
+        "peak_private_commit": 1112752128
+      },
+      "checkpoint_bytes": 872442162,
+      "checkpoint_sha256": "c6d72919a6a82f4445714bf3a14040717f7f1b2f2c9e6be9863f9ad5945eb805",
+      "restore_seconds": 7.75529309999547,
+      "after_restore": {
+        "working_set": 1179803648,
+        "peak_working_set": 2051371008,
+        "private_commit": 1177419776,
+        "peak_private_commit": 2050469888
+      },
+      "resources_after": {
+        "physical": 7291637760,
+        "commit": 9772236800,
+        "disk_free": 425306787840,
+        "memory_gate": 2997492240
+      },
+      "verified_records": 900,
+      "checkpoint_hash_unchanged": true
+    },
+    "large90_C": {
+      "synthetic": true,
+      "games_executed": 0,
+      "production_checkpoint_accessed": false,
+      "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\projects\\tmt-current\\.durable001-environment\\venv\\Scripts\\python.exe",
+      "resources_before": {
+        "physical": 8481964032,
+        "commit": 10972549120,
+        "disk_free": 425313009664,
+        "memory_gate": 2997492240
+      },
+      "records": 90,
+      "target_bytes_per_record": 2910563,
+      "baseline": {
+        "working_set": 20979712,
+        "peak_working_set": 20979712,
+        "private_commit": 12292096,
+        "peak_private_commit": 12292096
+      },
+      "source_file_sha256": "451bf41611bc377698e85acbaecaab5f35025d2cdf3ff7c57bade8aef5b2bd4c",
+      "retained": {
+        "working_set": 305586176,
+        "peak_working_set": 307863552,
+        "private_commit": 298147840,
+        "peak_private_commit": 300437504
+      },
+      "write_seconds": 1.125432400003774,
+      "after_write": {
+        "working_set": 305627136,
+        "peak_working_set": 310493184,
+        "private_commit": 298147840,
+        "peak_private_commit": 303099904
+      },
+      "checkpoint_bytes": 261948940,
+      "checkpoint_sha256": "d3ea54870eef23e129d456ae0edbbba567ee649efaeade6793d0a95e8834cac9",
+      "restore_seconds": 0.6036951999994926,
+      "after_restore": {
+        "working_set": 311910400,
+        "peak_working_set": 573784064,
+        "private_commit": 304427008,
+        "peak_private_commit": 566886400
+      },
+      "resources_after": {
+        "physical": 8200056832,
+        "commit": 10693160960,
+        "disk_free": 425051013120,
+        "memory_gate": 2997492240
+      },
+      "verified_records": 90,
+      "checkpoint_hash_unchanged": true
+    },
+    "mean900_G": {
+      "synthetic": true,
+      "games_executed": 0,
+      "production_checkpoint_accessed": false,
+      "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\projects\\tmt-current\\.durable001-environment\\venv\\Scripts\\python.exe",
+      "resources_before": {
+        "physical": 8501088256,
+        "commit": 11056861184,
+        "disk_free": 745889017856,
+        "memory_gate": 2997492240
+      },
+      "records": 900,
+      "target_bytes_per_record": 969401,
+      "baseline": {
+        "working_set": 21155840,
+        "peak_working_set": 21385216,
+        "private_commit": 12664832,
+        "peak_private_commit": 13058048
+      },
+      "source_file_sha256": "451bf41611bc377698e85acbaecaab5f35025d2cdf3ff7c57bade8aef5b2bd4c",
+      "retained": {
+        "working_set": 1119043584,
+        "peak_working_set": 1119043584,
+        "private_commit": 1113317376,
+        "peak_private_commit": 1113317376
+      },
+      "write_seconds": 35.78621120000025,
+      "after_write": {
+        "working_set": 1120051200,
+        "peak_working_set": 1120100352,
+        "private_commit": 1114222592,
+        "peak_private_commit": 1114320896
+      },
+      "checkpoint_bytes": 872442162,
+      "checkpoint_sha256": "c6d72919a6a82f4445714bf3a14040717f7f1b2f2c9e6be9863f9ad5945eb805",
+      "restore_seconds": 7.964703100005863,
+      "after_restore": {
+        "working_set": 1179795456,
+        "peak_working_set": 2051399680,
+        "private_commit": 1177554944,
+        "peak_private_commit": 2050625536
+      },
+      "resources_after": {
+        "physical": 7458721792,
+        "commit": 9972027392,
+        "disk_free": 745016573952,
+        "memory_gate": 2997492240
+      },
+      "verified_records": 900,
+      "checkpoint_hash_unchanged": true
+    }
+  },
+  "windows_tests": {
+    "local": {
+      "tests": 70,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 69
+    },
+    "external_G": {
+      "passed": 64,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "added_wheel_tests": {
+      "passed": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "final_identity_tests": {
+      "passed": 10,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "deselected": 44
+    },
+    "skip_reason": "Native symlink creation privilege unavailable; junction/hardlink and held-reader tests passed"
+  },
+  "prior_attempts": [
+    "Initial test harness: 8 pass/49 setup errors, missing parent for pytest basetemp; corrected harness.",
+    "First 900-step synthetic test: 55 pass/1 fail/1 skip. Transient WinError 5 on status publication. Same bounded replacement helper applied; subsequent suites passed.",
+    "Initial no-game preflight refused CRLF checkout lock bytes. New review input files materialized from exact unchanged Git blobs; no historical tree or Git input blob changed."
+  ],
+  "limitations": [
+    "No gameplay peak measured",
+    "No approved live adapter or launch authority",
+    "No adversarial ACL isolation or power-loss guarantee",
+    "90-record stress sample is not 900-record worst-case certification",
+    "No independent acceptance; full gameplay-containing suite excluded"
+  ]
+}

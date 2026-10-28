@@ -20,7 +20,15 @@ jobs:
       - run: uv sync --locked --dev
       - run: uv run ruff format --check .
       - run: uv run ruff check .
-      - run: uv run pytest
+      - name: Fresh 900 synthetic-only review (no gameplay)
+        if: github.head_ref == 'review/fresh900-minimal' || github.ref_name == 'review/fresh900-minimal'
+        env:
+          PYTHONHASHSEED: "0"
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: uv run python -s -B -m pytest -q tests/test_fresh900.py tests/test_calibration_integrity.py tests/test_bad_guys_calibration_entrypoint.py
+      - name: Full regression outside restricted Fresh 900 review
+        if: github.head_ref != 'review/fresh900-minimal' && github.ref_name != 'review/fresh900-minimal'
+        run: uv run pytest
       - name: Canonical terminology scan
         run: |
           ! grep -R -n -E 'Casual Deck|Design Profile' README.md src tests
