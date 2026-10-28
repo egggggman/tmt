@@ -27,6 +27,28 @@ def trace_refusal(frame, event, arg):
     return trace_refusal
 
 
+def linux_resources() -> dict[str, int]:
+    """Actual Linux counters for the public synthetic measurement seam only.
+
+    Linux commit accounting is not Windows commit accounting. This provider does
+    not qualify Linux for production; the production default must still refuse it.
+    No resource gate or disk check is replaced.
+    """
+    values = {}
+    for line in Path("/proc/meminfo").read_text().splitlines():
+        key, raw = line.split(":", 1)
+        parts = raw.split()
+        if len(parts) == 2 and parts[1] == "kB":
+            values[key] = int(parts[0]) * 1024
+    return dict(
+        physical=values["MemAvailable"],
+        commit=min(
+            values["CommitLimit"] - values["Committed_AS"],
+            values["MemAvailable"] + values["SwapFree"],
+        ),
+    )
+
+
 def run_original(layout: Path) -> None:
     layout.mkdir()
     proof = layout / "proof/original.py"
@@ -34,6 +56,31 @@ def run_original(layout: Path) -> None:
     proof.write_bytes(ORIGINAL.read_bytes())
     authority = layout / ".fresh900-readiness"
     authority.mkdir()
+    # Execute imports BEFORE sealing them. Collection order must not determine
+    # which real modules the fixture approves. The original source is unchanged.
+    namespace = {"__file__": str(proof), "__name__": "original_fullplan_predicate"}
+    exec(compile(ORIGINAL.read_bytes(), str(proof), "exec"), namespace)
+    runner = namespace["runner"]
+    if os.name != "nt":
+        from functools import partial
+        from types import SimpleNamespace
+
+        import pytest
+
+        # Prove the production default remains unsupported, then use ONLY the
+        # existing explicit synthetic measurement seam. All identities, actual
+        # disk checks and resource thresholds still run unchanged.
+        with pytest.raises(identity.FreshRefused, match="Windows resource provider required"):
+            runner.resources()
+        namespace["runner"] = SimpleNamespace(
+            run_synthetic=partial(runner.run_synthetic, measure=linux_resources)
+        )
+    # Warm up lazy imports and require actual resources before capturing a seal.
+    # Windows uses the original default provider and call with no injected seam.
+    measured = runner.check_resources(
+        layout, runner.resources if os.name == "nt" else linux_resources
+    )
+    print("FULLPLAN_ACTUAL_RESOURCES " + json.dumps(measured), flush=True)
     files = {}
     for module in tuple(sys.modules.values()):
         origin = getattr(module, "__file__", None)
@@ -87,11 +134,15 @@ def run_original(layout: Path) -> None:
                 )
             )
     (authority / "proposed-schedule.json").write_text(json.dumps(schedule))
-    namespace = {"__file__": str(proof), "__name__": "original_fullplan_predicate"}
-    exec(compile(ORIGINAL.read_bytes(), str(proof), "exec"), namespace)
     output = layout / "outputs"
     output.mkdir()
     namespace["test_conflicting_seed_refused_with_unmodified_full_plan"](output)
+    failure = json.loads((output / "FRESH_900_full_plan_proof/failures/stop.json").read_bytes())
+    assert failure["error"] == "conflicting result seed"
+    assert failure["stage"] == "RESULT_VALIDATION"
+    assert failure["last_observed_committed"] == 0
+    assert failure["checkpoint_integrity_verified"] is True
+    print("FULLPLAN_ORIGINAL_PREDICATE " + json.dumps(failure), flush=True)
 
 
 def test_original_full_900_plan_predicate(tmp_path):
@@ -130,3 +181,22 @@ def test_original_full_900_plan_predicate(tmp_path):
             capture_output=True,
         )
         assert child.returncode == 0, child.stderr.decode(errors="replace")
+        print(child.stdout.decode(errors="replace"), end="")
+
+
+def test_fullplan_resource_checks_remain_active(tmp_path):
+    import pytest
+
+    from tmnt_design_studio import fresh900 as runner
+
+    if os.name != "nt":
+        with pytest.raises(identity.FreshRefused, match="Windows resource provider required"):
+            runner.resources()
+        sample = linux_resources()
+        assert isinstance(sample["physical"], int) and isinstance(sample["commit"], int)
+    # Deliberately insufficient synthetic samples prove that neither threshold
+    # has been bypassed by using the public measurement seam.
+    with pytest.raises(identity.FreshRefused, match="physical memory gate"):
+        runner.check_resources(tmp_path, lambda: dict(physical=0, commit=runner.MEMORY_GATE))
+    with pytest.raises(identity.FreshRefused, match="system commit gate"):
+        runner.check_resources(tmp_path, lambda: dict(physical=runner.MEMORY_GATE, commit=0))
