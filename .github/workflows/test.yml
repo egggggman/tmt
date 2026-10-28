@@ -23,7 +23,7 @@ jobs:
       - run: uv run ruff format --check .
       - run: uv run ruff check .
       - name: Fresh 900 synthetic-only review (no gameplay)
-        if: github.head_ref == 'review/fresh900-minimal' || github.ref_name == 'review/fresh900-minimal'
+        if: startsWith(github.head_ref, 'review/fresh900-') || startsWith(github.ref_name, 'review/fresh900-')
         env:
           PYTHONHASHSEED: "0"
           PYTHONDONTWRITEBYTECODE: "1"
@@ -32,8 +32,9 @@ jobs:
           tests/test_fresh900.py tests/test_fresh900_independent.py
           tests/test_fresh900_fullplan.py tests/test_fresh900_corrections.py
           tests/test_calibration_integrity.py tests/test_bad_guys_calibration_entrypoint.py
+          tests/test_fresh900_live.py
       - name: Full regression outside restricted Fresh 900 review
-        if: github.head_ref != 'review/fresh900-minimal' && github.ref_name != 'review/fresh900-minimal'
+        if: ${{ !startsWith(github.head_ref, 'review/fresh900-') && !startsWith(github.ref_name, 'review/fresh900-') }}
         run: uv run pytest
       - name: Canonical terminology scan
         run: |

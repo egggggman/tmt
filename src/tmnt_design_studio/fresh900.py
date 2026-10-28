@@ -110,10 +110,12 @@ def atomic_json(path: Path, value: dict) -> None:
             note_cleanup(failure, cleanup, "TEMPORARY_CLEANUP", temporary)
 
 
-def validate_result(result: dict, row: dict, index: int, plan: dict, plan_hash: str) -> None:
+def validate_result(
+    result: dict, row: dict, index: int, plan: dict, plan_hash: str, *, synthetic: bool = True
+) -> None:
     """Validate redundant identity before adding derived fields, never repair it."""
     require(isinstance(result, dict), "result object required")
-    require(result.get("synthetic") is True, "synthetic records required")
+    require(result.get("synthetic") is synthetic, "result execution mode mismatch")
     require(result.get("game_id") == row["game_id"], "wrong result ID")
     require(result.get("terminal") is True, "incomplete result")
     require(result.get("winner") in row["seats"], "unexplained/no winner")
@@ -147,7 +149,7 @@ def validate_result(result: dict, row: dict, index: int, plan: dict, plan_hash: 
         "terminal": True,
         "winner": result["winner"],
         "turn": result["turn"],
-        "synthetic": True,
+        "synthetic": synthetic,
         "participants": row["seats"],
         "schedule_index": index,
         "schedule_position": index + 1,
@@ -190,6 +192,8 @@ def validate_final_checkpoint(
     schedule: list[dict],
     expected_records: dict[str, str],
     expected_file: str,
+    *,
+    synthetic: bool = True,
 ) -> dict:
     """Read-back after caller releases its accumulator; bind bytes AND content."""
     from tmnt_design_studio.calibration_integrity import validate_checkpoint
@@ -220,7 +224,7 @@ def validate_final_checkpoint(
         completed_games=len(schedule),
         checkpoint_sha256=expected_file,
         checkpoint_bytes=after.st_size,
-        synthetic=True,
+        synthetic=synthetic,
     )
 
 
@@ -232,7 +236,27 @@ def run_synthetic(
     executor: Callable[[dict], dict],
     measure: Callable = resources,
 ) -> dict:
-    """Explicit synthetic seam only. Cannot select a live adapter or recover a run.
+    """Synthetic review only; never selects the live adapter."""
+    return _run_fresh(
+        plan,
+        authorization,
+        expected_authorization_sha256=expected_authorization_sha256,
+        executor=executor,
+        measure=measure,
+        synthetic=True,
+    )
+
+
+def _run_fresh(
+    plan: dict,
+    authorization: dict,
+    *,
+    expected_authorization_sha256: str,
+    executor: Callable[[dict], dict],
+    measure: Callable,
+    synthetic: bool,
+) -> dict:
+    """Shared fresh-run persistence; callers must select an explicit action/mode.
 
     The caller's independently pinned approval digest is governance evidence,
     not a same-user tamper-proof cryptographic issuer or a resume capability.
@@ -240,7 +264,8 @@ def run_synthetic(
     plan = copy.deepcopy(plan)
     authorization = copy.deepcopy(authorization)
     require(digest(authorization) == expected_authorization_sha256, "approval bytes mismatch")
-    require(authorization.get("action") == "synthetic-review", "live execution not implemented")
+    action = "synthetic-review" if synthetic else "fresh900-live-execution"
+    require(authorization.get("action") == action, "execution action not authorized")
     require(authorization.get("approved_by"), "explicit external approval required")
     require(authorization.get("plan_sha256") == digest(plan), "wrong approved plan")
     run_id = plan["run_id"]
@@ -328,7 +353,7 @@ def run_synthetic(
                     dict(
                         protocol=PROTOCOL,
                         run_id=run_id,
-                        synthetic=True,
+                        synthetic=synthetic,
                         state=state,
                         committed_games=committed,
                         checkpoint_sha256=expected_file,
@@ -364,13 +389,13 @@ def run_synthetic(
                         heartbeat=time.time(),
                         committed_games=committed,
                         stage=stage,
-                        synthetic=True,
+                        synthetic=synthetic,
                     ),
                 )
                 result = executor(copy.deepcopy(row))
                 stage = "RESULT_VALIDATION"
                 try:
-                    validate_result(result, row, index, plan, plan_hash)
+                    validate_result(result, row, index, plan, plan_hash, synthetic=synthetic)
                 except BaseException as primary:
                     try:
                         guard()
@@ -410,7 +435,7 @@ def run_synthetic(
                         completed_games=committed,
                         checkpoint_sha256=expected_file,
                         plan_sha256=plan_hash,
-                        synthetic=True,
+                        synthetic=synthetic,
                     ),
                 )
                 stage = "STATUS"
@@ -421,7 +446,7 @@ def run_synthetic(
             gc.collect()
             guard()
             final = validate_final_checkpoint(
-                checkpoint, plan["schedule"], expected_records, expected_file
+                checkpoint, plan["schedule"], expected_records, expected_file, synthetic=synthetic
             )
             final.update(plan_sha256=plan_hash, operation_state="VERIFIED_CHECKPOINT")
         # No COMPLETE publication or successful return until ownership release.
@@ -452,10 +477,11 @@ def run_synthetic(
             stage=stage,
             last_observed_committed=committed,
             error_type=type(error).__name__,
+            original_error_type=getattr(error, "original_error_type", type(error).__name__),
             error=str(error),
             errno=getattr(error, "errno", None),
             winerror=getattr(error, "winerror", None),
-            synthetic=True,
+            synthetic=synthetic,
             recovery="STOPPED_REVIEW_REQUIRED",
             operation_state="STOPPED_REVIEW_REQUIRED",
             checkpoint_integrity_verified=integrity_verified,
@@ -474,6 +500,22 @@ def run_synthetic(
             ],
         )
         error.failure_report = failure
+        partial = getattr(error, "partial_snapshot", None)
+        if partial is not None:
+            try:
+                guard()
+                atomic_json(root / "failures/game-snapshot.json", partial)
+            except BaseException as cleanup:
+                note_cleanup(error, cleanup, "PARTIAL_GAME_EVIDENCE", str(root / "failures"))
+                failure["cleanup_failures"].append(
+                    dict(
+                        stage="PARTIAL_GAME_EVIDENCE",
+                        error_type=type(cleanup).__name__,
+                        error=str(cleanup),
+                        resource=str(root / "failures"),
+                    )
+                )
+                failure["resources_unresolved"] = True
         try:
             guard()
             atomic_json(root / "failures/stop.json", failure)
