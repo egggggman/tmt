@@ -81,6 +81,9 @@ def current_identity(root):
         "scripts/durable_status_monitor.py",
     ):
         source[name] = pin(root / name)
+    # sysconfig may lazily import Linux's generated configuration module.
+    # Complete that trusted setup before snapshotting actual imported origins.
+    interpreter = interpreter_inventory()
     files, origins = dependency_inventory()
     return RuntimeIdentity(
         root,
@@ -89,7 +92,7 @@ def current_identity(root):
         pin(Path(sys.executable)),
         files,
         origins,
-        interpreter_inventory(),
+        interpreter,
     )
 
 
