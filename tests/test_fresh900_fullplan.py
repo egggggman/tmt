@@ -16,6 +16,17 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / "tests/evidence/pr369_test_fullplan_boundary.py.txt"
 
 
+def trace_refusal(frame, event, arg):
+    """Expose refusals swallowed by the preserved predicate, without changing it."""
+    if (
+        event == "exception"
+        and isinstance(arg[1], identity.FreshRefused)
+        and frame.f_code.co_name == "require"
+    ):
+        print("ORIGINAL_PREFLIGHT_REFUSAL " + str(arg[1]), file=sys.stderr, flush=True)
+    return trace_refusal
+
+
 def run_original(layout: Path) -> None:
     layout.mkdir()
     proof = layout / "proof/original.py"
@@ -97,9 +108,10 @@ def test_original_full_900_plan_predicate(tmp_path):
         code = (
             "import sys; from pathlib import Path; "
             "sys.path[:0]=sys.argv[1:4]; "
-            "from test_fresh900_fullplan import run_original; run_original(Path(sys.argv[4]))"
+            "from test_fresh900_fullplan import run_original, trace_refusal; "
+            "sys.settrace(trace_refusal); run_original(Path(sys.argv[4]))"
         )
-        subprocess.run(
+        child = subprocess.run(
             [
                 str(Path(sys.executable).resolve()),
                 "-P",
@@ -113,7 +125,8 @@ def test_original_full_900_plan_predicate(tmp_path):
                 str(tmp_path / "layout"),
             ],
             env={**os.environ, "PYTHONHASHSEED": "0"},
-            check=True,
+            check=False,
             timeout=120,
             capture_output=True,
         )
+        assert child.returncode == 0, child.stderr.decode(errors="replace")
