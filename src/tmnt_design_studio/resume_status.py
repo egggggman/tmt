@@ -6,12 +6,13 @@ import multiprocessing
 import os
 import secrets
 import tempfile
-import threading
 import time
 from contextlib import suppress
 from pathlib import Path
 
 from tmnt_design_studio.calibration_integrity import _replace_with_retry
+from tmnt_design_studio.monitor_cleanup import MonitorFailure, claim_monitor
+from tmnt_design_studio.monitor_cleanup import cleanup_status as cleanup_status
 from tmnt_design_studio.resume_authorization import (
     ResumeRefused,
     encoded,
@@ -164,58 +165,15 @@ def read_status(
     max_age: float = 5.0,
     grant: TelemetryGrant | None = None,
 ) -> dict:
-    """Return UNKNOWN on unavailable/incompatible telemetry; kill slow read workers.
+    """Bound the caller, retain unresolved ownership, and never accept a late sample.
 
-    Timeout includes worker startup; a slow host may report UNKNOWN. This is a
-    supervisory deadline, not a hard real-time scheduling guarantee.
+    Failure keeps the legacy UNKNOWN mapping; MonitorFailure.report() exposes
+    timeout/ownership and original cleanup errors. OS exit cannot be guaranteed.
     """
     if type(timeout) not in (int, float) or not 0 < timeout <= 0.25:
         return {"state": "UNKNOWN"}
     started = time.monotonic()
     deadline = started + timeout
-    work_deadline = started + timeout * 0.6  # Reserve time for termination and reap.
-    worker = None
-    buffer = None
-    ready, cancelled = threading.Event(), threading.Event()
-    cleanup = threading.Lock()
-    launch_errors = []
-
-    def stop() -> None:
-        if not cleanup.acquire(timeout=max(0, deadline - time.monotonic())):
-            return
-        try:
-            if worker is not None and worker.pid is not None:
-                if worker.is_alive():
-                    worker.terminate()
-                worker.join(timeout=max(0, deadline - time.monotonic()))
-                if not worker.is_alive():
-                    worker.close()
-        except (OSError, ValueError, AssertionError):
-            return  # A concurrent late start/cleanup still returns UNKNOWN.
-        finally:
-            cleanup.release()
-
-    def launch() -> None:
-        nonlocal worker, buffer
-        try:
-            context = multiprocessing.get_context("spawn")
-            if cancelled.is_set():
-                return
-            buffer = context.RawArray("B", MAX_BYTES + 4)
-            if cancelled.is_set():
-                return
-            worker = context.Process(target=_worker, args=(str(path), grant, buffer), daemon=True)
-            if cancelled.is_set():
-                worker.close()
-                return
-            worker.start()
-        except Exception as error:
-            launch_errors.append(error)
-        finally:
-            ready.set()
-        if cancelled.is_set():
-            stop()  # Also cancel a start that completed after the caller's budget.
-
     try:
         require(grant is not None, "authorized telemetry root required")
         # Only lexical checks here. Disk metadata and handle validation run in
@@ -224,22 +182,51 @@ def read_status(
         require(path == grant.root.absolute() / STATUS_NAME, "outside authorized telemetry root")
         require(grant.authorization == authorization, "telemetry authority mismatch")
         require(0 < timeout <= 0.25 and 0 < max_age <= 5.0, "invalid monitor bounds")
-        # Fixed shared memory replaces framed pipe receive completely. Read only
-        # after child exit: partial/in-progress responses are never accepted.
-        threading.Thread(target=launch, daemon=True).start()
-        require(ready.wait(max(0, work_deadline - time.monotonic())), "startup timeout")
-        require(not launch_errors, "worker startup failed")
-        worker.join(timeout=max(0, work_deadline - time.monotonic()))
-        require(not worker.is_alive() and worker.exitcode == 0, "status timeout/failure")
-        length = int.from_bytes(bytes(buffer[:4]), "little")
-        require(0 < length <= MAX_BYTES, "incomplete status response")
-        payload = parse_status(
-            bytes(buffer[4 : 4 + length]), authorization=authorization, max_age=max_age
-        )
-        require(time.monotonic() <= deadline, "status deadline exceeded")
-        return payload
     except (OSError, ValueError, TypeError, EOFError, ResumeRefused):
         return {"state": "UNKNOWN"}
-    finally:
-        cancelled.set()
-        stop()
+
+    owner, claimed = claim_monitor(deadline)
+    if not claimed:
+        return MonitorFailure("OWNERSHIP_UNRESOLVED", owner)
+
+    def sample() -> None:
+        context = multiprocessing.get_context("spawn")
+        require(not owner.cancelled.is_set(), "cancelled setup")
+        owner.buffer = context.RawArray("B", MAX_BYTES + 4)
+        require(not owner.cancelled.is_set(), "cancelled setup")
+        owner.worker = context.Process(
+            target=_worker, args=(str(path), grant, owner.buffer), daemon=True
+        )
+        require(not owner.cancelled.is_set(), "cancelled start")
+        owner.stage = "STARTING"
+        owner.worker.start()
+        if time.monotonic() >= owner.work_deadline:
+            owner.cancelled.set()
+            raise ResumeRefused("startup timeout")
+        owner.stage = "READING"
+        owner.worker.join(timeout=max(0, owner.work_deadline - time.monotonic()))
+        if owner.worker.is_alive():
+            owner.cancelled.set()
+            raise ResumeRefused("sample timeout")
+        require(owner.worker.exitcode == 0, "sample failure")
+        length = int.from_bytes(bytes(owner.buffer[:4]), "little")
+        require(0 < length <= MAX_BYTES, "incomplete status response")
+        payload = parse_status(
+            bytes(owner.buffer[4 : 4 + length]), authorization=authorization, max_age=max_age
+        )
+        require(time.monotonic() <= deadline and not owner.cancelled.is_set(), "late sample")
+        owner.result = payload
+
+    owner.launch(sample)
+    completed = owner.finished.wait(max(0, deadline - time.monotonic()))
+    if not completed or time.monotonic() > deadline or owner.cancelled.is_set():
+        owner.cancelled.set()
+        return MonitorFailure("TIMEOUT", owner)
+    if (
+        owner.closed.is_set()
+        and owner.result is not None
+        and not owner.cancelled.is_set()
+        and not owner.errors
+    ):
+        return owner.result
+    return MonitorFailure("UNAVAILABLE" if owner.closed.is_set() else "OWNERSHIP_UNRESOLVED", owner)

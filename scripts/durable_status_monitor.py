@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from tmnt_design_studio.monitor_cleanup import MonitorFailure
 from tmnt_design_studio.resume_status import read_status
 
 
@@ -14,7 +15,12 @@ def main() -> int:
     parser.add_argument("--status", type=Path, required=True)
     parser.add_argument("--authorization", required=True)
     args = parser.parse_args()
-    print(json.dumps(read_status(args.status, authorization=args.authorization), sort_keys=True))
+    result = read_status(args.status, authorization=args.authorization)
+    print(
+        json.dumps(
+            result.report() if isinstance(result, MonitorFailure) else result, sort_keys=True
+        )
+    )
     return 0
 
 

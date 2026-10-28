@@ -1,5 +1,9 @@
 # PR #368 four-defect correction review
 
+Re-audit addendum: cleanup did not meet the unconditional deadline/closure claim
+below. See [the monitor cleanup candidate and required contract decision](PR368_MONITOR_CLEANUP_CONTRACT.md).
+The original validation is retained as historical context, not current acceptance.
+
 Original audited head: `8b1764ab74dfcab558f8f0e11d6ecc4ddd14b190`.
 This is a correction to the existing synthetic adapter, not a persistence redesign,
 deployment, authority issuer or historical-identity exception. The #365 checkpoint

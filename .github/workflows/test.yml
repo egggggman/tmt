@@ -28,6 +28,8 @@ jobs:
           tests/test_durable_status_only.py
           tests/test_durable_original_four.py
           tests/test_durable_four_corrections.py
+          tests/test_durable_monitor_adversarial.py
+          tests/test_durable_monitor_cleanup.py
           tests/test_bad_guys_calibration_entrypoint.py
           tests/test_calibration_integrity.py
           tests/test_calibration_runner_integrity_integration.py

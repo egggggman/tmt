@@ -82,15 +82,17 @@ def test_deadline_terminates_and_joins_worker(monkeypatch, tmp_path):
     class Process:
         pid = 123
         exitcode = None
+        alive = True
 
         def start(self):
             calls.append("start")
 
         def is_alive(self):
-            return True
+            return self.alive
 
         def terminate(self):
             calls.append("terminate")
+            self.alive = False
 
         def join(self, timeout):
             assert 0 <= timeout <= 0.25
@@ -110,4 +112,4 @@ def test_deadline_terminates_and_joins_worker(monkeypatch, tmp_path):
     assert status.read_status(
         tmp_path / status.STATUS_NAME, authorization="test", grant=telemetry_grant(tmp_path)
     ) == {"state": "UNKNOWN"}
-    assert "terminate" in calls and calls[-1] == "join"
+    assert "terminate" in calls and calls[-1] == "close"
