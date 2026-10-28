@@ -1,0 +1,75 @@
+"""Additional independent authority/path/persistence probes; mocks only."""
+import json
+from pathlib import Path
+import subprocess
+
+import pytest
+from test_independent_adapter import boundary as boundary
+from test_independent_adapter import ROOT, run
+
+from tmnt_design_studio import calibration_integrity as storage
+from tmnt_design_studio import fresh900 as persistence
+from tmnt_design_studio import fresh900_identity as identity
+from tmnt_design_studio import fresh900_live as adapter
+from tools.run_bad_guys_initial_calibration import build_schedule
+
+
+@pytest.mark.parametrize('case', ['missing-approval','altered-approval','wrong-plan',
+                                  'wrong-runtime','wrong-source','wrong-deck',
+                                  'wrong-schedule','occupied','historical-path'])
+def test_full_identity_and_authority_reject_before_mock(boundary,monkeypatch,case):
+    plan,approval,mock = boundary
+    plan['schedule'] = build_schedule(ROOT)
+    monkeypatch.setattr(persistence,'verify_plan',identity.verify_plan)
+    if case == 'wrong-runtime':
+        plan['runtime']['version'] = 'not the running interpreter'
+    elif case == 'wrong-source':
+        plan['runtime']['source_commit'] = '0b3f9040f3d18a3ab5fd20df310c4abcbad5c665'
+    elif case == 'wrong-deck':
+        key = next(k for k in plan['inputs'] if 'CANDIDATE' in k)
+        plan['inputs'][key] = '0'*64
+    elif case == 'wrong-schedule':
+        plan['schedule'][1] = plan['schedule'][0]
+    elif case == 'occupied':
+        Path(plan['output']).mkdir()
+    elif case == 'historical-path':
+        protected = Path(plan['protected'][0])
+        protected.mkdir()
+        reference = protected/'synthetic-reference.txt'
+        reference.write_bytes(b'PROTECTED SYNTHETIC AUDIT REFERENCE')
+        plan['output'] = str(protected/plan['run_id'])
+    approval['plan_sha256'] = identity.digest(plan)
+    if case == 'missing-approval':
+        approval.clear()
+    elif case == 'wrong-plan':
+        approval['plan_sha256'] = '0'*64
+    pin = identity.digest(approval)
+    if case == 'altered-approval':
+        approval['approved_by'] += ' altered after pinning'
+    with pytest.raises((identity.FreshRefused,subprocess.CalledProcessError)):
+        adapter.run_authorized_live(plan,approval,expected_authorization_sha256=pin)
+    mock.assert_not_called()
+    assert not (Path(plan['output'])/'checkpoints').exists()
+    if case == 'historical-path':
+        assert reference.read_bytes() == b'PROTECTED SYNTHETIC AUDIT REFERENCE'
+
+
+def test_replacement_failure_after_mock_result_preserves_prior_checkpoint(boundary,monkeypatch):
+    plan,_,mock = boundary
+    replace = storage._replace_with_retry
+    def denied(source,destination):
+        if destination.name == 'checkpoint.json':
+            proposed = json.loads(Path(source).read_bytes())
+            if proposed['completed_games'] > 0:
+                raise PermissionError('AUDIT replacement denied after mock result')
+        return replace(source,destination)
+    monkeypatch.setattr(storage,'_replace_with_retry',denied)
+    with pytest.raises(PermissionError,match='replacement denied'):
+        run(boundary)
+    assert mock.call_count == 1
+    root = Path(plan['output'])
+    saved = json.loads((root/'checkpoints/checkpoint.json').read_bytes())
+    stop = json.loads((root/'failures/stop.json').read_bytes())
+    assert saved['completed_games'] == 0
+    assert stop['stage'] == 'CHECKPOINT' and stop['checkpoint_integrity_verified'] is True
+    assert not (root/'results/summary.json').exists()

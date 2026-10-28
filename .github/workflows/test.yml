@@ -16,8 +16,8 @@ jobs:
           enable-cache: true
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13.15"
-      - run: uv sync --locked --dev
+          python-version: ${{ (startsWith(github.head_ref, 'review/fresh900-') || startsWith(github.ref_name, 'review/fresh900-')) && '3.13.15' || '3.12' }}
+      - run: uv sync --locked --dev --python python
         env:
           UV_LINK_MODE: copy
       - run: uv run ruff format --check .
