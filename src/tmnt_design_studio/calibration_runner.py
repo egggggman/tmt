@@ -35,6 +35,101 @@ class ProtocolViolation(RuntimeError):
     pass
 
 
+def run_authorized_resume(
+    schedule: list[dict],
+    executor: Callable[[dict], dict],
+    *,
+    lease,
+    status: Path,
+    stop_after: int | None = None,
+) -> dict:
+    """Synthetic review adapter; reuse #365's accumulator and bounded writer.
+
+    No CLI grants live authority. A stopped/failed session cannot renew itself.
+    A trusted new lease must pin the last receipt tip before another invocation.
+    """
+    from tmnt_design_studio.resume_authorization import (
+        Receipts,
+        ResumeRefused,
+        encoded,
+        file_hash,
+        require,
+        sha256,
+    )
+    from tmnt_design_studio.resume_status import publish_status
+
+    require(lease is not None, "explicit resume authority required")
+    lease.claim(schedule)
+    checkpoint = lease.checkpoint
+    telemetry = lease.validate_outputs(status)
+    require(stop_after is None or type(stop_after) is int and stop_after > 0, "invalid step bound")
+    # Canonical checkpoint and control paths need separate cooperative ownership.
+    with (
+        WriterLock(checkpoint.resolve(), lease.authorization_id, hold_handle=True),
+        WriterLock(lease.control.resolve(), lease.authorization_id, hold_handle=True),
+    ):
+        receipts = Receipts(lease)
+        payload = receipts.restore(schedule)
+        accumulator = CheckpointAccumulator(schedule, writer_id=lease.authorization_id)
+        accumulator.restore(payload, take_ownership=True)
+        count = payload["completed_games"]
+        current_hash = sha256(checkpoint.read_bytes())
+        del payload
+        for written, row in enumerate(schedule[count:], start=1):
+            lease.identity.verify()
+            lease.validate_outputs(status)
+            require(sha256(checkpoint.read_bytes()) == current_hash, "checkpoint changed")
+            receipts.append(
+                "start", checkpoint_sha256=current_hash, count=count, game_id=row["game_id"]
+            )
+            result = executor(dict(row))
+            require(result.get("game_id") == row["game_id"], "wrong result identity")
+            accumulator.append(result, writer_id=lease.authorization_id)
+
+            # Hash the SAME flushed temporary file that #365 will replace.
+            def prepare(temporary: Path, next_count: int = count + 1) -> None:
+                lease.validate_outputs(status)
+                receipts.append("prepare", count=next_count, checkpoint_sha256=file_hash(temporary))
+
+            accumulator.write(
+                checkpoint,
+                writer_id=lease.authorization_id,
+                return_snapshot=False,
+                before_replace=prepare,
+                before_create=lambda: lease.validate_outputs(status),
+            )
+            current_hash = sha256(checkpoint.read_bytes())
+            require(
+                current_hash == receipts.events[-1]["checkpoint_sha256"],
+                "persisted bytes differ from prepared checkpoint",
+            )
+            # Never rewrite PREPARE. COMMIT authenticates the exact persisted bytes.
+            receipts.append(
+                "commit",
+                count=count + 1,
+                checkpoint_sha256=current_hash,
+                record_sha256=sha256(encoded(result)),
+            )
+            count += 1
+            try:
+                publish_status(
+                    status,
+                    authorization=lease.authorization_id,
+                    count=count,
+                    checkpoint_sha256=current_hash,
+                    grant=telemetry,
+                )
+            except OSError as error:
+                raise ResumeRefused("telemetry unavailable; stop before next dispatch") from error
+            if stop_after is not None and written >= stop_after:
+                break
+        return {
+            "completed_games": count,
+            "receipt_tip": receipts.tip,
+            "checkpoint_sha256": current_hash,
+        }
+
+
 def run_checkpointed_schedule(
     schedule: list[dict],
     checkpoint: Path,

@@ -13,6 +13,7 @@ import json
 import os
 import tempfile
 import time
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -21,12 +22,15 @@ class CheckpointIntegrityError(ValueError):
     """Raised when a schedule, result set, writer, or checkpoint is invalid."""
 
 
-def _replace_with_retry(source: str, destination: Path) -> None:
+def _replace_with_retry(source: str, destination: Path, *, directory_fd: int | None = None) -> None:
     """Retry only a transient Windows replacement denial of the same fsynced file."""
     first_error: PermissionError | None = None
     for attempt in range(8):
         try:
-            os.replace(source, destination)
+            if directory_fd is None:
+                os.replace(source, destination)
+            else:
+                os.replace(source, destination, src_dir_fd=directory_fd, dst_dir_fd=directory_fd)
             return
         except PermissionError as exc:
             if getattr(exc, "winerror", None) not in (5, 32) and exc.errno not in (
@@ -156,7 +160,15 @@ class CheckpointAccumulator:
                 f"checkpoint is incomplete; missing {len(missing)} games"
             )
 
-    def write(self, path: Path, *, writer_id: str, return_snapshot: bool = True) -> dict[str, Any]:
+    def write(
+        self,
+        path: Path,
+        *,
+        writer_id: str,
+        return_snapshot: bool = True,
+        before_replace: Callable[[Path], None] | None = None,
+        before_create: Callable[[], None] | None = None,
+    ) -> dict[str, Any]:
         self.claim(writer_id)
         records = [self._records[game_id] for game_id in self._expected if game_id in self._records]
         payload = {
@@ -165,6 +177,8 @@ class CheckpointAccumulator:
             "completed_games": len(records),
             "records": records,
         }
+        if before_create is not None:
+            before_create()
         path.parent.mkdir(parents=True, exist_ok=True)
         fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
         try:
@@ -173,6 +187,8 @@ class CheckpointAccumulator:
                 handle.write("\n")
                 handle.flush()
                 os.fsync(handle.fileno())
+            if before_replace is not None:
+                before_replace(Path(temporary))
             _replace_with_retry(temporary, path)
         finally:
             if os.path.exists(temporary):
@@ -213,10 +229,12 @@ def validate_checkpoint(payload: dict[str, Any], schedule: list[dict[str, Any]])
 class WriterLock:
     """Exclusive process-level ownership marker for one checkpoint path."""
 
-    def __init__(self, path: Path, writer_id: str):
+    def __init__(self, path: Path, writer_id: str, *, hold_handle: bool = False):
         self.path = Path(f"{path}.lock")
         self.writer_id = writer_id
         self._held = False
+        self._hold_handle = hold_handle
+        self._fd: int | None = None
 
     def acquire(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -229,8 +247,25 @@ class WriterLock:
             handle.flush()
             os.fsync(handle.fileno())
         self._held = True
+        if self._hold_handle:
+            try:
+                self._fd = os.open(self.path, os.O_RDWR)
+                if os.name == "nt":
+                    import msvcrt
+
+                    msvcrt.locking(self._fd, msvcrt.LK_NBLCK, 1)
+                else:
+                    import fcntl
+
+                    fcntl.flock(self._fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BaseException:
+                self.release()
+                raise
 
     def release(self) -> None:
+        if self._fd is not None:
+            os.close(self._fd)
+            self._fd = None
         if self._held:
             self.path.unlink(missing_ok=True)
             self._held = False
