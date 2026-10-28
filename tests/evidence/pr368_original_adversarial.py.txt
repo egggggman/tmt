@@ -1,0 +1,252 @@
+"""Fresh adversarial audit; imported PR code is never edited.
+
+All records are synthetic and every write targets pytest disposable fixtures.
+"""
+from __future__ import annotations
+import dataclasses
+import json
+import multiprocessing
+import os
+import subprocess
+import sys
+import time
+import types
+from pathlib import Path
+import pytest
+from tmnt_design_studio import calibration_integrity as integrity
+from tmnt_design_studio import resume_authorization as auth
+from tmnt_design_studio import resume_status as monitor
+from tmnt_design_studio.calibration_runner import run_authorized_resume
+
+REPO=Path(__file__).resolve().parents[1]/'.durable-implementation'
+
+@pytest.fixture
+def sample(tmp_path):
+    schedule=[dict(game_id=f'audit-{i}',seed=i,pairing_id='audit',synthetic_review=True,
+                   orientation='candidate_first' if i<450 else 'opponent_first') for i in range(900)]
+    records=[dict(game_id=f'audit-{i}',audit_evidence=i) for i in range(732)]
+    raw=auth.encoded(dict(completed_games=732,schedule_games=900,
+                          schedule_digest=auth.sha256(auth.encoded(schedule)),records=records))
+    for name in ('audit-reference','working','telemetry'):(tmp_path/name).mkdir()
+    reference=tmp_path/'audit-reference/reference.json';reference.write_bytes(raw)
+    checkpoint=tmp_path/'working/working.json';checkpoint.write_bytes(raw)
+    source={p.relative_to(REPO).as_posix():auth.file_hash(p) for p in (REPO/'src').rglob('*.py')}
+    for name in ('tools/run_bad_guys_initial_calibration.py','tools/baseline005_provenance.py',
+                 'tools/validate_baseline005_provenance.py','scripts/durable_status_monitor.py'):
+        source[name]=auth.file_hash(REPO/name)
+    identity=auth.RuntimeIdentity(REPO,source,{'uv.lock':auth.file_hash(REPO/'uv.lock')},auth.file_hash(Path(sys.executable)))
+    lease=auth.ReviewLease('independent-fixture',checkpoint,reference,tmp_path/'receipts',
+                           auth.sha256(raw),auth.sha256(auth.encoded(schedule)),identity,b'independent-fixture-key-only-123456789')
+    return schedule,lease,tmp_path/'telemetry/durable-status.json',raw
+
+def step(sample,executor=None):
+    rows,lease,status,_=sample
+    return run_authorized_resume(rows,executor or (lambda row:{'game_id':row['game_id'],'synthetic':'audit'}),lease=lease,status=status,stop_after=1)
+
+def forbidden(_):pytest.fail('unauthorized dispatch')
+
+def test_independent_progress_preserves_prefix_and_reference(sample):
+    rows,lease,status,raw=sample;calls=[]
+    def result(row):calls.append(row['game_id']);return dict(game_id=row['game_id'])
+    first=step(sample,result)
+    fresh=dataclasses.replace(lease,expected_tip=first['receipt_tip'])
+    second=step((rows,fresh,status,raw),result)
+    assert (first['completed_games'],second['completed_games'])==(733,734)
+    assert calls==['audit-732','audit-733'] and lease.reference.read_bytes()==raw
+
+@pytest.mark.parametrize('kind',['missing','hash','action','initial-count','schedule','non-synthetic','live-mode','source','interpreter'])
+def test_independent_gate_negatives(sample,kind):
+    rows,lease,status,raw=sample
+    if kind=='missing':lease.checkpoint.unlink()
+    elif kind=='hash':lease=dataclasses.replace(lease,initial_sha256='0'*64)
+    elif kind=='action':lease=dataclasses.replace(lease,action='new-run')
+    elif kind=='initial-count':lease=dataclasses.replace(lease,initial_count=733)
+    elif kind=='schedule':rows=[dict(r,seed=555) for r in rows]
+    elif kind=='non-synthetic':
+        rows=[dict(r,synthetic_review=False) for r in rows]
+        lease=dataclasses.replace(lease,schedule_sha256=auth.sha256(auth.encoded(rows)))
+    elif kind=='live-mode':lease=dataclasses.replace(lease,synthetic_review=False)
+    elif kind=='source':
+        files=dict(lease.identity.source_files);files['src/tmnt_design_studio/resume_authorization.py']='0'*64
+        lease=dataclasses.replace(lease,identity=dataclasses.replace(lease.identity,source_files=files))
+    else:lease=dataclasses.replace(lease,identity=dataclasses.replace(lease.identity,executable_sha256='0'*64))
+    with pytest.raises((auth.ResumeRefused,OSError)):step((rows,lease,status,raw),forbidden)
+
+def test_no_authority(sample):
+    rows,_,status,_=sample
+    with pytest.raises(auth.ResumeRefused):run_authorized_resume(rows,forbidden,lease=None,status=status)
+
+@pytest.mark.parametrize('kind',['duplicate','reordered','hole','count','digest'])
+def test_independent_structural_rejection(sample,kind):
+    rows,lease,status,raw=sample;p=json.loads(raw)
+    if kind=='duplicate':p['records'][22]=p['records'][21]
+    elif kind=='reordered':p['records'][12],p['records'][13]=p['records'][13],p['records'][12]
+    elif kind=='hole':p['records'][-1]['game_id']='audit-800'
+    elif kind=='count':p['completed_games']=731
+    else:p['schedule_digest']='0'*64
+    altered=auth.encoded(p);lease.reference.write_bytes(altered);lease.checkpoint.write_bytes(altered)
+    # Reach inner validators with a test-only trusted pin to malformed fixture bytes.
+    lease=dataclasses.replace(lease,initial_sha256=auth.sha256(altered))
+    with pytest.raises(auth.ResumeRefused):step((rows,lease,status,altered),forbidden)
+
+@pytest.mark.parametrize('kind',['missing','forged','conflicting','stale','partial','rollback'])
+def test_independent_receipt_rejection(sample,kind):
+    rows,lease,status,raw=sample;first=step(sample)
+    fresh=dataclasses.replace(lease,expected_tip=first['receipt_tip'])
+    path=lease.control/'000002.json'
+    if kind=='missing':path.unlink()
+    elif kind=='forged':
+        p=json.loads(path.read_bytes());p['mac']='f'*64;path.write_bytes(auth.encoded(p))
+    elif kind=='conflicting':
+        p=json.loads(path.read_bytes());p['checkpoint_sha256']='0'*64;path.write_bytes(auth.encoded(p))
+    elif kind=='stale':fresh=dataclasses.replace(lease)
+    elif kind=='partial':path.write_bytes(b'{"partial receipt":')
+    else:lease.checkpoint.write_bytes(raw)
+    with pytest.raises((auth.ResumeRefused,ValueError)):step((rows,fresh,status,raw),forbidden)
+
+@pytest.mark.parametrize('phase',['prepare','commit'])
+def test_independent_interrupted_receipt(sample,monkeypatch,phase):
+    rows,lease,status,raw=sample;original=auth.Receipts.append
+    def fail(self,event,**kw):
+        if event==phase:raise OSError('audit-injected interruption')
+        return original(self,event,**kw)
+    monkeypatch.setattr(auth.Receipts,'append',fail)
+    with pytest.raises(OSError):step(sample)
+    assert lease.reference.read_bytes()==raw
+    if phase=='prepare':assert lease.checkpoint.read_bytes()==raw
+    else:assert json.loads(lease.checkpoint.read_bytes())['completed_games']==733
+    monkeypatch.undo()
+    with pytest.raises(auth.ResumeRefused):step((rows,dataclasses.replace(lease),status,raw),forbidden)
+
+def test_competing_cooperative_owner(sample):
+    with integrity.WriterLock(sample[1].checkpoint,'competitor',hold_handle=True):
+        with pytest.raises(integrity.CheckpointIntegrityError):step(sample,forbidden)
+
+def test_defect_status_must_not_overwrite_reference(sample):
+    rows,lease,_,raw=sample
+    destination=lease.reference.with_name('durable-status.json')
+    lease.reference.rename(destination)
+    lease=dataclasses.replace(lease,reference=destination)
+    try:step((rows,lease,destination,raw))
+    except auth.ResumeRefused:pass
+    assert destination.read_bytes()==raw,'status publication replaced the immutable audit reference'
+
+def test_defect_dependency_mismatch_must_be_rejected(sample,tmp_path,monkeypatch):
+    dependency=tmp_path/'tampered_typer.py';dependency.write_text('synthetic changed dependency')
+    module=types.ModuleType('typer');module.__file__=str(dependency)
+    monkeypatch.setitem(sys.modules,'typer',module)
+    with pytest.raises(auth.ResumeRefused,match='dependency|identity|import'):
+        sample[1].identity.verify()
+
+class Pipe:
+    def __init__(self,shared):self.shared=shared
+    def send_bytes(self,data):self.shared['data']=data
+    def close(self):pass
+    def poll(self,_timeout):return True
+    def recv_bytes(self,_maximum):
+        if self.shared.get('delay'):time.sleep(self.shared['delay'])
+        return self.shared.get('data',b'')
+
+class ImmediateProcess:
+    pid=123
+    def __init__(self,target,args):self.target=target;self.args=args
+    def start(self):self.target(*self.args)
+    def is_alive(self):return False
+    def join(self):pass
+
+class ImmediateContext:
+    def __init__(self,shared):self.shared=shared
+    def Pipe(self,**_):return Pipe(self.shared),Pipe(self.shared)
+    def Process(self,target,args,**_):return ImmediateProcess(target,args)
+
+def test_defect_supported_monitor_must_not_read_active_checkpoint(sample,monkeypatch):
+    rows,lease,telemetry,raw=sample
+    checkpoint=lease.checkpoint.with_name('durable-status.json')
+    lease.checkpoint.rename(checkpoint)
+    lease=dataclasses.replace(lease,checkpoint=checkpoint)
+    assert step((rows,lease,telemetry,raw))['completed_games']==733
+    before=checkpoint.read_bytes()
+    opened=[];read=monitor._read_shared
+    def observe(path):opened.append(Path(path));return read(path)
+    monkeypatch.setattr(monitor,'_read_shared',observe)
+    monkeypatch.setattr(multiprocessing,'get_context',lambda _:ImmediateContext({}))
+    with integrity.WriterLock(checkpoint,'active-owner',hold_handle=True):
+        monitor.read_status(checkpoint,authorization=lease.authorization_id)
+    assert not opened,'supported status API opened an active checkpoint with the allowed basename'
+    assert checkpoint.read_bytes()==before
+
+def test_defect_receive_phase_must_respect_monitor_deadline(tmp_path,monkeypatch):
+    shared={'delay':.35,'data':b''}
+    # Simulate a ready IPC header with an incomplete frame body / suspended sender.
+    class Process(ImmediateProcess):
+        def start(self):pass
+    class Context(ImmediateContext):
+        def Process(self,target,args,**_):return Process(target,args)
+    monkeypatch.setattr(multiprocessing,'get_context',lambda _:Context(shared))
+    start=time.monotonic()
+    result=monitor.read_status(tmp_path/'durable-status.json',authorization='audit',timeout=.02)
+    elapsed=time.monotonic()-start
+    assert result=={'state':'UNKNOWN'}
+    assert elapsed<.25,f'IPC receive exceeded 20ms budget: {elapsed:.3f}s'
+
+def test_actual_process_interruption_leaves_no_implicit_recovery(sample,tmp_path):
+    rows,lease,status,raw=sample
+    ready=tmp_path/'child-ready'
+    config=dict(root=str(lease.identity.root),source=lease.identity.source_files,inputs=lease.identity.input_files,
+                executable=lease.identity.executable_sha256,authorization=lease.authorization_id,
+                checkpoint=str(lease.checkpoint),reference=str(lease.reference),control=str(lease.control),
+                initial=lease.initial_sha256,schedule_digest=lease.schedule_sha256,key=lease.receipt_key.hex(),
+                ready=str(ready),schedule=rows,status=str(status))
+    path=tmp_path/'child-fixture.json';path.write_text(json.dumps(config))
+    child=subprocess.Popen([sys.executable,'-B',str(Path(__file__).with_name('interrupted_worker.py')),str(path)],
+                           stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                           creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+    try:
+        deadline=time.monotonic()+10
+        while not ready.exists() and child.poll() is None and time.monotonic()<deadline:time.sleep(.01)
+        assert ready.exists(),'disposable child did not reach executor'
+        child.terminate();child.communicate(timeout=5)
+        assert lease.checkpoint.read_bytes()==raw and lease.reference.read_bytes()==raw
+        assert Path(str(lease.checkpoint)+'.lock').exists()
+        receipts=list(lease.control.glob('*.json'));assert len(receipts)==1
+        assert json.loads(receipts[0].read_bytes())['phase']=='start'
+        with pytest.raises(integrity.CheckpointIntegrityError):step(sample,forbidden)
+        interrupted=dataclasses.replace(lease,expected_tip=auth.file_hash(receipts[0]))
+        with pytest.raises(auth.ResumeRefused,match='ambiguous'):
+            auth.Receipts(interrupted)
+    finally:
+        if child.poll() is None:child.terminate();child.communicate(timeout=5)
+
+def native_reader(path,sharing):
+    import ctypes
+    import ctypes.wintypes as w
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+    kernel.CreateFileW.argtypes=[w.LPCWSTR,w.DWORD,w.DWORD,w.LPVOID,w.DWORD,w.DWORD,w.HANDLE]
+    kernel.CreateFileW.restype=w.HANDLE;kernel.CloseHandle.argtypes=[w.HANDLE]
+    handle=kernel.CreateFileW(str(path),0x80000000,sharing,None,3,0x80,None)
+    assert handle!=w.HANDLE(-1).value
+    return kernel,handle
+
+@pytest.mark.skipif(os.name!='nt',reason='Windows native sharing test')
+def test_independent_held_status_commits_then_stops(sample):
+    rows,lease,status,raw=sample;status.write_text('old status');called=[]
+    kernel,handle=native_reader(status,1)
+    try:
+        def mock(row):called.append(row['game_id']);return dict(game_id=row['game_id'])
+        with pytest.raises(auth.ResumeRefused,match='telemetry'):step(sample,mock)
+        assert json.loads(lease.checkpoint.read_bytes())['completed_games']==733
+        assert called==['audit-732'] and lease.reference.read_bytes()==raw
+    finally:kernel.CloseHandle(handle)
+    commit=lease.control/'000002.json'
+    assert json.loads(commit.read_bytes())['phase']=='commit'
+    fresh=dataclasses.replace(lease,expected_tip=auth.file_hash(commit))
+    assert step((rows,fresh,status,raw))['completed_games']==734
+
+@pytest.mark.skipif(os.name!='nt',reason='Windows native sharing test')
+def test_independent_held_checkpoint_preserves_old_bytes(sample):
+    _,lease,_,raw=sample;kernel,handle=native_reader(lease.checkpoint,7)
+    try:
+        with pytest.raises(PermissionError):step(sample)
+        assert lease.checkpoint.read_bytes()==raw and lease.reference.read_bytes()==raw
+        assert len(list(lease.control.glob('*.json')))==2
+    finally:kernel.CloseHandle(handle)

@@ -4,6 +4,7 @@ import multiprocessing
 import time
 
 import pytest
+from resume_test_support import telemetry_grant
 
 from tmnt_design_studio import resume_status as status
 from tmnt_design_studio.resume_authorization import ResumeRefused, encoded
@@ -21,9 +22,12 @@ def payload():
 
 def test_actual_read_handle_is_closed_and_read_only(tmp_path):
     path = tmp_path / status.STATUS_NAME
-    status.publish_status(path, authorization="test", count=733, checkpoint_sha256="a" * 64)
+    grant = telemetry_grant(tmp_path)
+    status.publish_status(
+        path, authorization="test", count=733, checkpoint_sha256="a" * 64, grant=grant
+    )
     before = path.read_bytes()
-    observed = status._read_shared(str(path))
+    observed = status._read_shared(str(path), grant)
     assert status.parse_status(observed, authorization="test")["committed_games"] == 733
     assert path.read_bytes() == before
     replacement = tmp_path / "replacement"
@@ -75,16 +79,9 @@ def test_checkpoint_argument_refused(tmp_path):
 def test_deadline_terminates_and_joins_worker(monkeypatch, tmp_path):
     calls = []
 
-    class Pipe:
-        def close(self):
-            calls.append("close")
-
-        def poll(self, timeout):
-            assert 0 <= timeout <= 0.25
-            return False
-
     class Process:
         pid = 123
+        exitcode = None
 
         def start(self):
             calls.append("start")
@@ -95,18 +92,22 @@ def test_deadline_terminates_and_joins_worker(monkeypatch, tmp_path):
         def terminate(self):
             calls.append("terminate")
 
-        def join(self):
+        def join(self, timeout):
+            assert 0 <= timeout <= 0.25
             calls.append("join")
 
+        def close(self):
+            calls.append("close")
+
     class Context:
-        def Pipe(self, **_):
-            return Pipe(), Pipe()
+        def RawArray(self, _, size):
+            return bytearray(size)
 
         def Process(self, **_):
             return Process()
 
     monkeypatch.setattr(multiprocessing, "get_context", lambda _: Context())
-    assert status.read_status(tmp_path / status.STATUS_NAME, authorization="test") == {
-        "state": "UNKNOWN"
-    }
-    assert calls.index("terminate") < calls.index("join")
+    assert status.read_status(
+        tmp_path / status.STATUS_NAME, authorization="test", grant=telemetry_grant(tmp_path)
+    ) == {"state": "UNKNOWN"}
+    assert "terminate" in calls and calls[-1] == "join"

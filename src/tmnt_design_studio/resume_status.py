@@ -4,31 +4,46 @@ from __future__ import annotations
 
 import multiprocessing
 import os
+import secrets
 import tempfile
+import threading
 import time
+from contextlib import suppress
 from pathlib import Path
 
 from tmnt_design_studio.calibration_integrity import _replace_with_retry
 from tmnt_design_studio.resume_authorization import (
     ResumeRefused,
     encoded,
-    plain_path,
     require,
     strict_json,
 )
+from tmnt_design_studio.resume_paths import STATUS_NAME as STATUS_NAME
+from tmnt_design_studio.resume_paths import (
+    TelemetryGrant,
+    telemetry_root,
+    verify_status_handle,
+)
 
 PROTOCOL = "durable-status-v1"
-STATUS_NAME = "durable-status.json"
 MAX_BYTES = 4096
 
 
-def status_path(path: Path) -> Path:
-    require(path.name == STATUS_NAME, "status-only filename required")
-    return plain_path(path)
+def status_path(path: Path, grant: TelemetryGrant | None = None) -> Path:
+    require(grant is not None, "authorized telemetry root required")
+    return grant.validate(path)
 
 
-def publish_status(path: Path, *, authorization: str, count: int, checkpoint_sha256: str) -> None:
-    path = status_path(path)
+def publish_status(
+    path: Path,
+    *,
+    authorization: str,
+    count: int,
+    checkpoint_sha256: str,
+    grant: TelemetryGrant | None = None,
+) -> None:
+    path = status_path(path, grant)
+    require(grant.authorization == authorization, "telemetry authority mismatch")
     data = encoded(
         dict(
             protocol=PROTOCOL,
@@ -39,21 +54,46 @@ def publish_status(path: Path, *, authorization: str, count: int, checkpoint_sha
         )
     )
     require(len(data) <= MAX_BYTES, "status too large")
-    fd, temporary = tempfile.mkstemp(prefix=".status-", dir=path.parent)
-    try:
-        with os.fdopen(fd, "wb") as handle:
-            handle.write(data)
-            handle.flush()
-            os.fsync(handle.fileno())
-        _replace_with_retry(temporary, path)
-    finally:
-        if os.path.exists(temporary):
-            os.unlink(temporary)
+    with telemetry_root(grant, path) as directory_fd:
+        if directory_fd is None:
+            fd, temporary = tempfile.mkstemp(prefix=".status-", dir=path.parent)
+        else:
+            temporary = ".status-" + secrets.token_hex(16)
+            fd = os.open(
+                temporary,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                0o600,
+                dir_fd=directory_fd,
+            )
+        try:
+            with os.fdopen(fd, "wb") as handle:
+                handle.write(data)
+                handle.flush()
+                os.fsync(handle.fileno())
+            grant.validate(path)
+            if directory_fd is None:
+                _replace_with_retry(temporary, path)
+            else:
+                _replace_with_retry(temporary, Path(STATUS_NAME), directory_fd=directory_fd)
+        finally:
+            if directory_fd is None:
+                if os.path.exists(temporary):
+                    os.unlink(temporary)
+            else:
+                with suppress(FileNotFoundError):
+                    os.unlink(temporary, dir_fd=directory_fd)
 
 
-def _read_shared(path: str) -> bytes:
+def _read_shared(path: str, grant: TelemetryGrant) -> bytes:
+    with telemetry_root(grant, Path(path)) as directory_fd:
+        return _read_handle(path, grant, directory_fd)
+
+
+def _read_handle(path: str, grant: TelemetryGrant, directory_fd: int | None = None) -> bytes:
     if os.name != "nt":
-        with open(path, "rb") as handle:
+        descriptor = os.open(STATUS_NAME, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory_fd)
+        with os.fdopen(descriptor, "rb") as handle:
+            verify_status_handle(handle.fileno(), Path(path), grant)
             return handle.read(MAX_BYTES + 1)
     import ctypes
     import ctypes.wintypes as w
@@ -72,7 +112,7 @@ def _read_shared(path: str) -> bytes:
     kernel.CreateFileW.restype = w.HANDLE
     kernel.CloseHandle.argtypes = [w.HANDLE]
     # Read access only; non-inheritable; share read/write/delete. No checkpoint path.
-    handle = kernel.CreateFileW(path, 0x80000000, 7, None, 3, 0x80, None)
+    handle = kernel.CreateFileW(path, 0x80000000, 7, None, 3, 0x00200080, None)
     if handle == w.HANDLE(-1).value:
         raise ctypes.WinError(ctypes.get_last_error())
     try:
@@ -81,17 +121,18 @@ def _read_shared(path: str) -> bytes:
         kernel.CloseHandle(handle)
         raise
     with os.fdopen(fd, "rb") as stream:
+        verify_status_handle(stream.fileno(), Path(path), grant)
         return stream.read(MAX_BYTES + 1)
 
 
-def _worker(path: str, connection) -> None:
+def _worker(path: str, grant: TelemetryGrant, buffer) -> None:
     try:
-        # Close the file before sending bytes; no tail-following persistent handle.
-        connection.send_bytes(_read_shared(path))
-    except (OSError, ValueError):
-        connection.send_bytes(b"")
-    finally:
-        connection.close()
+        data = _read_shared(path, grant)
+        require(len(data) <= MAX_BYTES, "oversized status")
+        buffer[4 : 4 + len(data)] = data
+        buffer[:4] = len(data).to_bytes(4, "little")
+    except (OSError, ValueError, ResumeRefused):
+        return
 
 
 def parse_status(data: bytes, *, authorization: str, max_age: float = 5.0) -> dict:
@@ -116,34 +157,89 @@ def parse_status(data: bytes, *, authorization: str, max_age: float = 5.0) -> di
 
 
 def read_status(
-    path: Path, *, authorization: str, timeout: float = 0.25, max_age: float = 5.0
+    path: Path,
+    *,
+    authorization: str,
+    timeout: float = 0.25,
+    max_age: float = 5.0,
+    grant: TelemetryGrant | None = None,
 ) -> dict:
     """Return UNKNOWN on unavailable/incompatible telemetry; kill slow read workers.
 
     Timeout includes worker startup; a slow host may report UNKNOWN. This is a
     supervisory deadline, not a hard real-time scheduling guarantee.
     """
+    if type(timeout) not in (int, float) or not 0 < timeout <= 0.25:
+        return {"state": "UNKNOWN"}
+    started = time.monotonic()
+    deadline = started + timeout
+    work_deadline = started + timeout * 0.6  # Reserve time for termination and reap.
     worker = None
-    receiver = sender = None
+    buffer = None
+    ready, cancelled = threading.Event(), threading.Event()
+    cleanup = threading.Lock()
+    launch_errors = []
+
+    def stop() -> None:
+        if not cleanup.acquire(timeout=max(0, deadline - time.monotonic())):
+            return
+        try:
+            if worker is not None and worker.pid is not None:
+                if worker.is_alive():
+                    worker.terminate()
+                worker.join(timeout=max(0, deadline - time.monotonic()))
+                if not worker.is_alive():
+                    worker.close()
+        except (OSError, ValueError, AssertionError):
+            return  # A concurrent late start/cleanup still returns UNKNOWN.
+        finally:
+            cleanup.release()
+
+    def launch() -> None:
+        nonlocal worker, buffer
+        try:
+            context = multiprocessing.get_context("spawn")
+            if cancelled.is_set():
+                return
+            buffer = context.RawArray("B", MAX_BYTES + 4)
+            if cancelled.is_set():
+                return
+            worker = context.Process(target=_worker, args=(str(path), grant, buffer), daemon=True)
+            if cancelled.is_set():
+                worker.close()
+                return
+            worker.start()
+        except Exception as error:
+            launch_errors.append(error)
+        finally:
+            ready.set()
+        if cancelled.is_set():
+            stop()  # Also cancel a start that completed after the caller's budget.
+
     try:
-        path = status_path(path)
+        require(grant is not None, "authorized telemetry root required")
+        # Only lexical checks here. Disk metadata and handle validation run in
+        # the supervised child, so slow storage cannot block this caller.
+        path = Path(path).absolute()
+        require(path == grant.root.absolute() / STATUS_NAME, "outside authorized telemetry root")
+        require(grant.authorization == authorization, "telemetry authority mismatch")
         require(0 < timeout <= 0.25 and 0 < max_age <= 5.0, "invalid monitor bounds")
-        context = multiprocessing.get_context("spawn")
-        receiver, sender = context.Pipe(duplex=False)
-        worker = context.Process(target=_worker, args=(str(path), sender), daemon=True)
-        started = time.monotonic()
-        worker.start()
-        sender.close()
-        require(receiver.poll(max(0, timeout - (time.monotonic() - started))), "status timeout")
-        data = receiver.recv_bytes(MAX_BYTES + 1)
-        return parse_status(data, authorization=authorization, max_age=max_age)
+        # Fixed shared memory replaces framed pipe receive completely. Read only
+        # after child exit: partial/in-progress responses are never accepted.
+        threading.Thread(target=launch, daemon=True).start()
+        require(ready.wait(max(0, work_deadline - time.monotonic())), "startup timeout")
+        require(not launch_errors, "worker startup failed")
+        worker.join(timeout=max(0, work_deadline - time.monotonic()))
+        require(not worker.is_alive() and worker.exitcode == 0, "status timeout/failure")
+        length = int.from_bytes(bytes(buffer[:4]), "little")
+        require(0 < length <= MAX_BYTES, "incomplete status response")
+        payload = parse_status(
+            bytes(buffer[4 : 4 + length]), authorization=authorization, max_age=max_age
+        )
+        require(time.monotonic() <= deadline, "status deadline exceeded")
+        return payload
     except (OSError, ValueError, TypeError, EOFError, ResumeRefused):
         return {"state": "UNKNOWN"}
     finally:
-        if worker is not None and worker.pid is not None:
-            if worker.is_alive():
-                worker.terminate()
-            worker.join()
-        for pipe in (receiver, sender):
-            if pipe is not None:
-                pipe.close()
+        cancelled.set()
+        stop()

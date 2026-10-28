@@ -75,8 +75,16 @@ class RuntimeIdentity:
     source_files: dict[str, str]
     input_files: dict[str, str]
     executable_sha256: str
+    dependency_files: dict[str, str] | None = None
+    dependency_origins: dict[str, str] | None = None
+    interpreter_files: dict[str, str] | None = None
 
     def verify(self) -> None:
+        require(
+            bool(self.dependency_files) and bool(self.dependency_origins),
+            "dependency manifest required",
+        )
+        require(bool(self.interpreter_files), "base interpreter manifest required")
         root = plain_path(self.root)
         require(not self.source_files.keys() & self.input_files.keys(), "overlapping identity maps")
         actual = {
@@ -95,6 +103,12 @@ class RuntimeIdentity:
             require(path.is_relative_to(root), "identity path escapes root")
             require(file_hash(path) == expected, f"identity mismatch: {name}")
         require(file_hash(Path(sys.executable)) == self.executable_sha256, "interpreter mismatch")
+        base = str(Path(sys._base_executable).resolve())
+        require(base in self.interpreter_files, "base interpreter is not pinned")
+        checked = set()
+        for name, expected in self.interpreter_files.items():
+            require(file_hash(Path(name)) == expected, "interpreter payload mismatch")
+            checked.add(name)
         for name, module in tuple(sys.modules.items()):
             if name == "tmnt_design_studio" or name.startswith("tmnt_design_studio."):
                 origin = getattr(module, "__file__", None)
@@ -104,6 +118,36 @@ class RuntimeIdentity:
                 relative = path.relative_to(root).as_posix()
                 require(relative in self.source_files, f"unsealed import: {name}")
                 require(file_hash(path) == self.source_files[relative], "import bytes changed")
+            elif name not in ("__main__", "__mp_main__"):
+                origin = getattr(module, "__file__", None)
+                if not origin:
+                    if name.split(".")[0] in sys.stdlib_module_names:
+                        continue
+                    paths = getattr(module, "__path__", None)
+                    require(bool(paths), f"unverifiable dependency module: {name}")
+                    actual = "namespace:" + str(sorted(str(Path(p).resolve()) for p in paths or []))
+                    require(
+                        self.dependency_origins.get(name) == actual, f"dependency origin: {name}"
+                    )
+                    continue
+                path = str(Path(origin).resolve())
+                if name.split(".")[0] in sys.stdlib_module_names:
+                    require(path in self.interpreter_files, f"unsealed interpreter module: {name}")
+                    continue
+                require(self.dependency_origins.get(name) == path, f"dependency origin: {name}")
+                require(path in self.dependency_files, f"dependency payload missing: {name}")
+                spec_origin = getattr(getattr(module, "__spec__", None), "origin", None)
+                if spec_origin not in (None, "built-in", "frozen"):
+                    require(
+                        str(Path(spec_origin).resolve()) == path,
+                        f"dependency loader origin: {name}",
+                    )
+                if path not in checked:
+                    require(
+                        file_hash(Path(path)) == self.dependency_files[path],
+                        f"dependency hash: {name}",
+                    )
+                    checked.add(path)
 
 
 @dataclass
@@ -128,6 +172,8 @@ class ReviewLease:
     final_count: int = 900
     monitor_protocol: str = "durable-status-v1"
     synthetic_review: bool = True
+    telemetry_root: Path | None = None
+    telemetry_root_identity: tuple[int, int] | None = None
     used: bool = field(default=False, init=False)
 
     def claim(self, schedule: list[dict]) -> None:
@@ -166,9 +212,40 @@ class ReviewLease:
                     "source": self.identity.source_files,
                     "inputs": self.identity.input_files,
                     "interpreter": self.identity.executable_sha256,
+                    "dependency_files": self.identity.dependency_files,
+                    "dependency_origins": self.identity.dependency_origins,
+                    "interpreter_files": self.identity.interpreter_files,
+                    "telemetry_root": str(self.telemetry_root),
+                    "telemetry_root_identity": self.telemetry_root_identity,
                 }
             )
         )
+
+    def validate_outputs(self, status: Path):
+        from tmnt_design_studio.resume_paths import TelemetryGrant, disjoint
+
+        require(
+            self.telemetry_root is not None and self.telemetry_root_identity is not None,
+            "separately authorized telemetry root required",
+        )
+        reference = plain_path(self.reference)
+        checkpoint = plain_path(self.checkpoint)
+        control = plain_path(self.control)
+        roles = (reference.parent, checkpoint.parent, control)
+        for index, left in enumerate(roles):
+            for right in roles[index + 1 :]:
+                require(disjoint(left, right), "unsafe output/reference directory overlap")
+        protected = (*roles, plain_path(self.identity.root))
+        # No writer or receipt artifact may be placed in the source/input tree.
+        for output in (checkpoint, control):
+            require(
+                disjoint(output, plain_path(self.identity.root)), "output overlaps source identity"
+            )
+        grant = TelemetryGrant(
+            self.telemetry_root, self.telemetry_root_identity, protected, self.authorization_id
+        )
+        grant.validate(status)
+        return grant
 
 
 class Receipts:
@@ -182,6 +259,7 @@ class Receipts:
             names = sorted(lease.control.iterdir())
             require(bool(names), "empty existing control store")
             for index, path in enumerate(names):
+                plain_path(path)
                 require(path.name == f"{index:06d}.json", "missing/conflicting receipt")
                 event = strict_json(path.read_bytes())
                 require(isinstance(event, dict) and "mac" in event, "invalid receipt")
@@ -201,6 +279,8 @@ class Receipts:
         return hmac.new(self.lease.receipt_key, encoded(event), hashlib.sha256).hexdigest()
 
     def append(self, phase: str, **fields: Any) -> None:
+        require(self.lease.telemetry_root is not None, "telemetry root required")
+        self.lease.validate_outputs(self.lease.telemetry_root / "durable-status.json")
         event = dict(phase=phase, parent=self.tip, policy=self.lease.policy_digest(), **fields)
         signed = {**event, "mac": self.sign(event)}
         self.lease.control.mkdir(exist_ok=True)

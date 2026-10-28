@@ -10,15 +10,14 @@ import sys
 from pathlib import Path
 
 import pytest
+from resume_test_support import current_identity
 
 from tmnt_design_studio import calibration_integrity as integrity
 from tmnt_design_studio.calibration_runner import run_authorized_resume
 from tmnt_design_studio.resume_authorization import (
     ResumeRefused,
     ReviewLease,
-    RuntimeIdentity,
     encoded,
-    file_hash,
     sha256,
     strict_json,
 )
@@ -53,22 +52,7 @@ def contract(tmp_path):
     checkpoint = tmp_path / "working/checkpoint.json"
     reference.write_bytes(initial)
     checkpoint.write_bytes(initial)
-    source_files = {
-        p.relative_to(ROOT).as_posix(): file_hash(p) for p in (ROOT / "src").rglob("*.py")
-    }
-    for name in (
-        "tools/run_bad_guys_initial_calibration.py",
-        "tools/baseline005_provenance.py",
-        "tools/validate_baseline005_provenance.py",
-        "scripts/durable_status_monitor.py",
-    ):
-        source_files[name] = file_hash(ROOT / name)
-    identity = RuntimeIdentity(
-        ROOT,
-        source_files,
-        {"pyproject.toml": file_hash(ROOT / "pyproject.toml")},
-        file_hash(Path(sys.executable)),
-    )
+    identity = current_identity(ROOT)
     lease = ReviewLease(
         "synthetic-authority",
         checkpoint,
@@ -78,6 +62,11 @@ def contract(tmp_path):
         sha256(encoded(schedule)),
         identity,
         b"test-key-" * 8,
+        telemetry_root=tmp_path / "telemetry",
+        telemetry_root_identity=(
+            (tmp_path / "telemetry").stat().st_dev,
+            (tmp_path / "telemetry").stat().st_ino,
+        ),
     )
     return schedule, lease, tmp_path / "telemetry/durable-status.json", initial
 

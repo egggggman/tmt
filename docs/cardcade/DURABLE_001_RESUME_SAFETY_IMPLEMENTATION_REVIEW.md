@@ -2,6 +2,12 @@
 
 Status: DRAFT / SYNTHETIC REVIEW ONLY. No production deployment or games authorized.
 
+Correction addendum: see [the four-defect correction review](PR368_FOUR_DEFECT_CORRECTIONS.md).
+Current APIs require a trusted telemetry-root capability and dependency/interpreter
+payload manifests. The bounded shared-buffer monitor replaces the original pipe
+transport. CLI arguments alone no longer provide telemetry access. Original-head
+validation below is retained as historical context, not current acceptance.
+
 This review is stacked on PR #365 commit `01ee617683bbc50f38098923c56102738eec9f37`.
 PR #366 `679fc2ed879f18240106b2cbd7e4af05644271ca` was inspected but is not required
 or selected. The existing #365 accumulator, JSON format, same-directory fsynced
@@ -97,7 +103,7 @@ filename/protocol check substitutes for those controls or excludes privileged
 third-party readers. The live adapter remains disabled until those requirements
 and the independent exact-identity governance gate are resolved explicitly.
 
-## Independent-review validation
+## Original-head validation (superseded by the correction addendum)
 
 On Windows / recovered CPython 3.13.15 AMD64: **80 passed, 0 failed, 0 skipped,
 0 errors** in 14.17 seconds. The selected regression comprises:

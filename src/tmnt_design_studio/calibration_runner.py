@@ -53,18 +53,15 @@ def run_authorized_resume(
         ResumeRefused,
         encoded,
         file_hash,
-        plain_path,
         require,
         sha256,
     )
-    from tmnt_design_studio.resume_status import publish_status, status_path
+    from tmnt_design_studio.resume_status import publish_status
 
     require(lease is not None, "explicit resume authority required")
     lease.claim(schedule)
     checkpoint = lease.checkpoint
-    status = status_path(status)
-    require(status.parent != checkpoint.resolve().parent, "monitor directory not isolated")
-    require(not status.is_relative_to(plain_path(lease.control)), "status aliases control store")
+    telemetry = lease.validate_outputs(status)
     require(stop_after is None or type(stop_after) is int and stop_after > 0, "invalid step bound")
     # Canonical checkpoint and control paths need separate cooperative ownership.
     with (
@@ -80,6 +77,7 @@ def run_authorized_resume(
         del payload
         for written, row in enumerate(schedule[count:], start=1):
             lease.identity.verify()
+            lease.validate_outputs(status)
             require(sha256(checkpoint.read_bytes()) == current_hash, "checkpoint changed")
             receipts.append(
                 "start", checkpoint_sha256=current_hash, count=count, game_id=row["game_id"]
@@ -90,6 +88,7 @@ def run_authorized_resume(
 
             # Hash the SAME flushed temporary file that #365 will replace.
             def prepare(temporary: Path, next_count: int = count + 1) -> None:
+                lease.validate_outputs(status)
                 receipts.append("prepare", count=next_count, checkpoint_sha256=file_hash(temporary))
 
             accumulator.write(
@@ -97,6 +96,7 @@ def run_authorized_resume(
                 writer_id=lease.authorization_id,
                 return_snapshot=False,
                 before_replace=prepare,
+                before_create=lambda: lease.validate_outputs(status),
             )
             current_hash = sha256(checkpoint.read_bytes())
             require(
@@ -117,6 +117,7 @@ def run_authorized_resume(
                     authorization=lease.authorization_id,
                     count=count,
                     checkpoint_sha256=current_hash,
+                    grant=telemetry,
                 )
             except OSError as error:
                 raise ResumeRefused("telemetry unavailable; stop before next dispatch") from error

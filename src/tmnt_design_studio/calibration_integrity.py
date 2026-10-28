@@ -22,12 +22,15 @@ class CheckpointIntegrityError(ValueError):
     """Raised when a schedule, result set, writer, or checkpoint is invalid."""
 
 
-def _replace_with_retry(source: str, destination: Path) -> None:
+def _replace_with_retry(source: str, destination: Path, *, directory_fd: int | None = None) -> None:
     """Retry only a transient Windows replacement denial of the same fsynced file."""
     first_error: PermissionError | None = None
     for attempt in range(8):
         try:
-            os.replace(source, destination)
+            if directory_fd is None:
+                os.replace(source, destination)
+            else:
+                os.replace(source, destination, src_dir_fd=directory_fd, dst_dir_fd=directory_fd)
             return
         except PermissionError as exc:
             if getattr(exc, "winerror", None) not in (5, 32) and exc.errno not in (
@@ -164,6 +167,7 @@ class CheckpointAccumulator:
         writer_id: str,
         return_snapshot: bool = True,
         before_replace: Callable[[Path], None] | None = None,
+        before_create: Callable[[], None] | None = None,
     ) -> dict[str, Any]:
         self.claim(writer_id)
         records = [self._records[game_id] for game_id in self._expected if game_id in self._records]
@@ -173,6 +177,8 @@ class CheckpointAccumulator:
             "completed_games": len(records),
             "records": records,
         }
+        if before_create is not None:
+            before_create()
         path.parent.mkdir(parents=True, exist_ok=True)
         fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
         try:
