@@ -1595,6 +1595,34 @@ class CardInterpreter:
             len(fragment),
         )
 
+    def combat_damage_draw_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedDiscardDrawSemantics | None:
+        """Self combat damage to a player: draw the damage amount, then discard one."""
+        names = {card.name, card.name.split(",", 1)[0], "this creature"}
+        reference = (
+            "(?:" + "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True)) + ")"
+        )
+        if (
+            "Creature" not in card.type_line
+            or re.fullmatch(
+                rf"Whenever {reference} deals combat damage to a player, "
+                r"draw that many cards, then discard a card\.",
+                fragment,
+                re.IGNORECASE,
+            )
+            is None
+        ):
+            return None
+        # The event's positive damage amount supplies the draw count at resolution.
+        return InterpretedDiscardDrawSemantics(
+            DiscardDrawProgram(1, 1, False, False, draw_first=True),
+            SemanticCoverage(True, True, True, ()),
+            fragment,
+            0,
+            len(fragment),
+        )
+
     def discard_draw_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDiscardDrawSemantics | None:
@@ -2637,6 +2665,8 @@ class CardInterpreter:
             if self.etb_food_search_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.combat_damage_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
