@@ -62,6 +62,13 @@ def result(row):
 
 @pytest.fixture
 def contract(tmp_path, monkeypatch):
+    import shutil
+    import types
+
+    # Match the existing synthetic physical/commit provider: test control flow
+    # must not depend on a CI runner having 20 GiB free. Dedicated disk-failure
+    # tests override this value; no-game profiles use real disk counters.
+    monkeypatch.setattr(shutil, "disk_usage", lambda _: types.SimpleNamespace(free=30 * 2**30))
     # Runner/persistence fixtures do not pretend to attest the test interpreter.
     # Real runtime/import checks are separately exercised below without this seam.
     monkeypatch.setattr(identity, "verify_runtime", lambda runtime: None)
@@ -713,3 +720,26 @@ def test_unsealed_loaded_bytecode_rejected(tmp_path, monkeypatch):
     cached.write_bytes(b"unsealed compiled payload")
     with pytest.raises(FreshRefused, match="unsealed import bytecode"):
         identity.verify_runtime(runtime)
+
+
+def test_isolated_interpreter_cannot_claim_active_hashseed_zero():
+    code = """
+import sys
+sys.path.insert(0,sys.argv[1])
+from tmnt_design_studio.fresh900_identity import verify_runtime, FreshRefused
+runtime=dict(version=sys.version,executable=sys.executable,base_executable=sys._base_executable)
+try:
+    verify_runtime(runtime)
+except FreshRefused as error:
+    assert 'hash seed is inactive' in str(error), str(error)
+else:
+    raise AssertionError('isolated mode ignores PYTHONHASHSEED')
+"""
+    subprocess.run(
+        [sys.executable, "-I", "-B", "-c", code, str(ROOT / "src")],
+        env={**os.environ, "PYTHONHASHSEED": "0"},
+        check=True,
+        timeout=10,
+        capture_output=True,
+        creationflags=0x08000000 if os.name == "nt" else 0,
+    )

@@ -1,12 +1,12 @@
 {
-  "timestamp_utc": "2026-10-28T15:20:13.132943+00:00",
+  "timestamp_utc": "2026-10-28T15:30:48.850262+00:00",
   "base_commit": "fd28f68915c4e7cb6af3444bf41b96608dee712c",
   "reused_persistence_commit": "01ee617683bbc50f38098923c56102738eec9f37",
   "candidate_source_files": {
     "src/tmnt_design_studio/fresh900.py": "cd010402f1b5151b05e5860389d981d13d878abcf8bfbed0b1be4b1c89d00bf0",
-    "src/tmnt_design_studio/fresh900_identity.py": "5afed8aaa228f00aa2a33d550175ac36fdbb6584a8beb143fd39207b69b46906",
+    "src/tmnt_design_studio/fresh900_identity.py": "f86aa1af491eddd44604d227b9cf33b5c7926b811a180fc37f1afb32e82f87fb",
     "src/tmnt_design_studio/fresh900_monitor.py": "451d2b93d27c5e9a7328c5c120c1c17f2ce6ce3bd2d66a874c844a19611d1750",
-    "tools/preflight_fresh900.py": "ba8f2aa34367fb72d5e27fdee84aeabcd23933d57c2cf836d830631ee2623337",
+    "tools/preflight_fresh900.py": "d1c793d541a24c59af0c649f44e75b749f5bb585f2b3d502b105459af716eb0c",
     "tools/profile_fresh900_synthetic.py": "451bf41611bc377698e85acbaecaab5f35025d2cdf3ff7c57bade8aef5b2bd4c"
   },
   "synthetic": true,
@@ -102,10 +102,17 @@
     "base_executable_sha256": "85b71d8c6ec1905935f74be0c9869aae198d00e98f39df699ec66f9c5a84cecd"
   },
   "no_game_preflight_resources": {
-    "physical": 8505323520,
-    "commit": 11001208832,
-    "disk_free": 425033379840,
+    "physical": 8544743424,
+    "commit": 11068366848,
+    "disk_free": 425008848896,
     "memory_gate": 2997492240
+  },
+  "startup": {
+    "ignore_environment": 0,
+    "hash_randomization": 0,
+    "no_user_site": 1,
+    "safe_path": true,
+    "dont_write_bytecode": true
   },
   "precommit_attestation_limitation": "This diagnostic ran before the final commit; final-head no-game attestation is repeated and retained separately. No historical equivalence claimed.",
   "profiles": {
@@ -268,11 +275,11 @@
   },
   "windows_tests": {
     "local": {
-      "tests": 70,
+      "tests": 71,
       "failures": 0,
       "errors": 0,
       "skipped": 1,
-      "passed": 69
+      "passed": 70
     },
     "external_G": {
       "passed": 64,
@@ -287,7 +294,7 @@
       "skipped": 0
     },
     "final_identity_tests": {
-      "passed": 10,
+      "passed": 11,
       "failed": 0,
       "errors": 0,
       "skipped": 0,
@@ -298,7 +305,9 @@
   "prior_attempts": [
     "Initial test harness: 8 pass/49 setup errors, missing parent for pytest basetemp; corrected harness.",
     "First 900-step synthetic test: 55 pass/1 fail/1 skip. Transient WinError 5 on status publication. Same bounded replacement helper applied; subsequent suites passed.",
-    "Initial no-game preflight refused CRLF checkout lock bytes. New review input files materialized from exact unchanged Git blobs; no historical tree or Git input blob changed."
+    "Initial no-game preflight refused CRLF checkout lock bytes. New review input files materialized from exact unchanged Git blobs; no historical tree or Git input blob changed.",
+    "Initial Linux CI at e123be3: 47 pass/12 fail/11 skip. Hosted disk below 20 GiB correctly stopped dispatch; deterministic contract fixture now supplies synthetic disk capacity without changing production reserve.",
+    "Initial -I diagnostic ignored PYTHONHASHSEED. Actual ignore_environment/hash_randomization flags are now checked; corrected -P -s -B identity preflight passes. Earlier startup attestation is superseded."
   ],
   "limitations": [
     "No gameplay peak measured",

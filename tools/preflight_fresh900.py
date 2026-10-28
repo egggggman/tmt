@@ -87,6 +87,13 @@ def main():
                 dependencies=wheels,
                 resources=check_resources(args.disposable_parent),
                 games_executed=0,
+                startup=dict(
+                    ignore_environment=sys.flags.ignore_environment,
+                    hash_randomization=sys.flags.hash_randomization,
+                    no_user_site=sys.flags.no_user_site,
+                    safe_path=sys.flags.safe_path,
+                    dont_write_bytecode=sys.dont_write_bytecode,
+                ),
                 blockers=[
                     "No approved live adapter or launch authorization",
                     "Independent acceptance and execution preflight pending",

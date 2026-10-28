@@ -145,6 +145,10 @@ def verify_runtime(runtime: dict) -> None:
     require(sys._base_executable == runtime["base_executable"], "base interpreter mismatch")
     require(sys.maxsize > 2**32, "64-bit interpreter required")
     require(os.environ.get("PYTHONHASHSEED") == "0", "declared hash seed required")
+    require(
+        not sys.flags.ignore_environment and sys.flags.hash_randomization == 0,
+        "hash seed is inactive under startup flags",
+    )
     require(sys.flags.no_user_site and sys.dont_write_bytecode, "unsafe startup flags")
     inventory = runtime["files"]
     require(runtime["executable"] in inventory, "unsealed interpreter")

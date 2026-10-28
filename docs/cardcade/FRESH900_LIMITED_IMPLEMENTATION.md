@@ -95,7 +95,7 @@ $env:PYTHONHASHSEED='0'
 $env:PYTHONDONTWRITEBYTECODE='1'
 $env:PYTHONPATH='<review-checkout>\src;<review-checkout>'
 & <python.exe> -s -B -m pytest -q tests/test_fresh900.py tests/test_calibration_integrity.py tests/test_bad_guys_calibration_entrypoint.py -p no:cacheprovider --basetemp=<unused-disposable-directory>
-& <python.exe> -I -B tools/preflight_fresh900.py --git <git.exe> --wheelhouse <verified-wheelhouse> --disposable-parent <existing-disposable-parent>
+& <python.exe> -P -s -B tools/preflight_fresh900.py --git <git.exe> --wheelhouse <verified-wheelhouse> --disposable-parent <existing-disposable-parent>
 & <python.exe> -I -B tools/profile_fresh900_synthetic.py --parent <existing-disposable-parent> --records 900
 ```
 
@@ -110,6 +110,14 @@ frozen raw Git input checks, installed dependency versions and wheel-payload
 comparison against the immutable lock, and Windows physical/commit/disk counters.
 The caller must independently approve the exact final source commit/inventory.
 The returned candidate is not automatically a fully assembled/approved run plan.
+
+Use `-P -s -B` with `PYTHONHASHSEED=0` for identity preflight: `-I` ignores
+that environment setting and is now explicitly rejected. Both the environment
+value and actual interpreter hash-randomization/ignore-environment flags must
+agree. The initial `-I` diagnostic's input/package/resource measurements remain
+measurements, but its startup attestation is superseded by this corrected check.
+The memory-only profile uses no gameplay seeds and makes no startup-equivalence
+claim; its measured persistence bytes remain unchanged.
 
 The reconstructed interpreter is qualified prospectively, not proven historically
 identical. A fresh deployment still requires its own isolated source binding;
@@ -148,13 +156,13 @@ Recorded Windows CPython 3.13.15 validation:
 
 | Run | Passed | Failed | Errors | Skipped |
 |---|---:|---:|---:|---:|
-| Final combined synthetic/persistence/entrypoint suite | 69 | 0 | 0 | 1 |
-| G: disposable target-volume suite, before five added identity cases | 64 | 0 | 0 | 1 |
-| Final targeted import/wheel/bytecode identity slice | 10 | 0 | 0 | 0 |
+| Final combined synthetic/persistence/entrypoint suite | 70 | 0 | 0 | 1 |
+| G: disposable target-volume suite, before six added identity/startup cases | 64 | 0 | 0 | 1 |
+| Final targeted import/wheel/bytecode/startup identity slice | 11 | 0 | 0 | 0 |
 
 The one skip is native symlink creation privilege. Windows junction, hardlink,
 held-status-reader and actual process interruption cases passed. The final
-combined run took 115.36 seconds; the G: run took 73.73 seconds. Ruff, formatting
+combined run took 78.74 seconds; the G: run took 73.73 seconds. Ruff, formatting
 and whitespace checks passed. Linux CI is recorded in the PR/checks at its exact
 published head, not inferred from these Windows results.
 
@@ -179,6 +187,14 @@ Earlier attempts remain accounted for: a missing pytest basetemp parent caused
 failure, fixed by reusing bounded replacement; CRLF checkout bytes caused a
 correct preflight refusal until exact unchanged input Git blobs were materialized
 in this new review tree. No historical record was normalized or repaired.
+
+Initial Linux CI at `e123be3` recorded 47 passed/12 failed/11 skipped because
+the hosted runner lacked the real 20 GiB disk reserve. The runner correctly
+refused before dispatch. Synthetic contract fixtures now supply a deterministic
+30 GiB disk reading alongside their existing synthetic physical/commit readings;
+dedicated low-disk tests still exercise refusal. Real C:/G: profiling/preflight
+counters and the production 20 GiB reserve are unchanged. This test-harness fix
+does not qualify the Linux hosted runner for execution.
 
 1. Independent review of this draft's synthetic safety implementation and frozen
    base/integration decision. Neither author tests nor CI are acceptance.
