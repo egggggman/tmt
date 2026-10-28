@@ -1,5 +1,51 @@
 # Fresh 900 frozen-gameplay adapter — draft, not execution authority
 
+## Four-defect correction addendum (supersedes initial boundary assumptions)
+
+The original audited head was `82729fa5e18848110d3ace5fc725223854d4cf79`.
+Its five failing independent predicates are preserved byte-for-byte in
+`tests/evidence/pr370_independent_adapter.py.txt` (SHA-256
+`fc8d0df270e0ed3f82486d2539be5eeb3705f2e290c07a56fafa11553e02b8a3`).
+The runnable wrapper changes fixture checkout/commit/platform identities only and
+explicitly supplies a test-only mock binding for native/error probes; the executor
+substitution predicate always uses the real binding verifier. Predicate bodies,
+negative snapshots and assertions are not rewritten. Controlled monkeypatching in
+tests is not an execution option in the production API.
+
+Successful native snapshots must now contain every field emitted by the frozen
+`Game.snapshot` plus the frozen runner's presence evidence. Structural, terminal,
+participant, zone, RNG and authority consistency checks run before reconciliation.
+The existing fingerprint tuple is reconstructed from its exposed preimage and
+SHA-256 checked; winner/player/turn/stack/RNG disagreements are rejected. Reconciled
+identity and authoritative evidence must agree with the unchanged raw snapshot.
+This validates serialized evidence, not a newly implemented game/state model.
+
+The adapter authenticates the actual callable's code object against a compile-only
+read of fd28 `run_smoke_game`, including module/globals/origin/default/closure
+constraints. The verified function reference is pinned and checked before every
+dispatch. Mock, wrapper, replaced code/defaults and foreign-origin callables are
+refused without invocation. This detects cooperative-process substitution; it is
+not an OS sandbox against code able to patch the verifier or its trusted globals.
+
+Gameplay errors are established before attempting snapshot copies. Copy/access
+errors are separate cleanup evidence. A copy failure retains the original snapshot
+reference where available and reports `REFERENCE_ONLY_COPY_FAILED`; a failed JSON
+publication remains a separate error. The initiating cause/type/message survive,
+and none of these paths permits completion.
+
+The C: baseline rerun reproduced all five failures. Replacement mock/Windows/Linux
+results and exact replacement SHA are recorded in the PR and local
+`PR_370_FOUR_DEFECT_CORRECTION_REPORT.md`. CI uses an actual Python 3.13.15 and
+resolved interpreter path for original full-identity probes; Linux resource fixtures
+read real counters through the existing measurement seam. No interpreter identity,
+resource threshold or production Windows provider is falsified or relaxed.
+
+Production authorization independent of a caller-controlled pin, compatible live
+monitoring, full gameplay-path resource profiling, #363 integration, Design Studio
+confirmation and final execution preflight remain separate gates, not implemented
+by this correction. The approved approximately 393 GB budget and memory threshold
+remain unchanged. No real game or production checkpoint access is authorized.
+
 Stack: this branch → accepted synthetic PR #369 at
 `0b3f9040f3d18a3ab5fd20df310c4abcbad5c665` → draft PR #363 at
 `fd28f68915c4e7cb6af3444bf41b96608dee712c` → main.

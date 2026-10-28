@@ -1,0 +1,181 @@
+"""Independent disposable probes. No real game is ever invoked."""
+from __future__ import annotations
+
+import copy
+import json
+import sys
+from pathlib import Path
+from unittest.mock import Mock
+
+import pytest
+
+from tmnt_design_studio import fresh900 as persistence
+from tmnt_design_studio import fresh900_identity as identity
+from tmnt_design_studio import fresh900_live as adapter
+from tmnt_design_studio import smoke01, stage002
+from tools.run_bad_guys_initial_calibration import build_schedule
+
+ROOT = Path('C:/projects/tmt-current/.audit-pr370-independent')
+GIT = 'C:/Program Files/Git/cmd/git.exe'
+HEAD = '82729fa5e18848110d3ace5fc725223854d4cf79'
+
+
+def minimal_native(spec):
+    return dict(terminal=True, winner=spec.seats[0].display_id, turn=1,
+                rng=dict(seed=spec.seed, state_digest='mock-digest'), events=[],
+                rules_event_evidence=[], stage002_presence=[],
+                conformance=dict(semantic_occurrences=[], opportunity_witnesses=[],
+                                 opportunity_contexts=[], executed_references=[], stop_records=[]))
+
+
+@pytest.fixture
+def boundary(tmp_path, monkeypatch):
+    # Only the 900-row scale is shortened; all actual source/import/input checks
+    # and the frozen reconciler run. The per-game function is ALWAYS a mock.
+    complete = build_schedule(ROOT)
+    rows = [complete[0], complete[50]]
+    files = {}
+    for module in tuple(sys.modules.values()):
+        origin = getattr(module,'__file__',None)
+        if origin:
+            path = Path(origin).absolute()
+            if path.suffix == '.pyc':
+                import importlib.util
+                path = Path(importlib.util.source_from_cache(str(path)))
+            files[str(path)] = identity.file_hash(path)
+        cached = getattr(module,'__cached__',None)
+        if cached and Path(cached).exists():
+            files[str(Path(cached).absolute())] = identity.file_hash(Path(cached))
+    for executable in (sys.executable,sys._base_executable):
+        files[executable] = identity.file_hash(Path(executable))
+    plan = dict(protocol='fresh900-plan-v1',games=900,
+                run_id='FRESH_900_independent_adapter_probe',
+                output=str(tmp_path/'FRESH_900_independent_adapter_probe'),
+                protected=[str(tmp_path/'protected')],
+                runtime=dict(version=sys.version,executable=sys.executable,
+                             base_executable=sys._base_executable,source=str(ROOT),
+                             source_commit=HEAD,git_executable=GIT,files=files),
+                inputs={str(ROOT/name):value for name,value in identity.FROZEN_INPUTS.items()},
+                schedule=copy.deepcopy(rows),
+                adapter=dict(version=adapter.VERSION,frozen_source=adapter.FROZEN_SOURCE,
+                             source_sha256=identity.file_hash(Path(adapter.__file__))))
+    def verify(value):
+        assert value['schedule'] == rows
+        identity.verify_runtime(value['runtime'])
+        identity.verify_inventory(value['inputs'])
+    monkeypatch.setattr(persistence,'verify_plan',verify)
+    mock = Mock(side_effect=lambda root,spec:minimal_native(spec))
+    monkeypatch.setattr(smoke01,'run_smoke_game',mock)
+    approval = dict(action='fresh900-live-execution',approved_by='DISPOSABLE AUDIT FIXTURE',
+                    plan_sha256=identity.digest(plan),independent_review_sha256='1'*64,
+                    design_approval_sha256='2'*64,preflight_sha256='3'*64)
+    return plan,approval,mock
+
+
+def run(boundary):
+    plan,approval,_ = boundary
+    return adapter.run_authorized_live(plan,approval,
+                                      expected_authorization_sha256=identity.digest(approval))
+
+
+def test_missing_native_players_cannot_complete(boundary):
+    plan,_,_ = boundary
+    refused = False
+    try:
+        run(boundary)
+    except (identity.FreshRefused,adapter.AdapterGameFailure):
+        refused = True
+    checkpoint = Path(plan['output'])/'checkpoints/checkpoint.json'
+    saved = json.loads(checkpoint.read_bytes()) if checkpoint.exists() else {'records':[]}
+    assert refused and len(saved['records']) == 0, (
+        'Incomplete native snapshot was committed/completed; missing players, native '
+        'fingerprint/preimage, RNG records and other native evidence')
+
+
+def test_conflicting_native_fingerprint_winner_cannot_complete(boundary):
+    plan,_,mock = boundary
+    def wrong(root,spec):
+        value = minimal_native(spec)
+        value['players'] = [{'name':seat.display_id} for seat in spec.seats]
+        value['authoritative_state_fingerprint_preimage'] = {'winner_index':1}
+        value['authoritative_state_fingerprint'] = 'contradicts-row-winner'
+        return value
+    mock.side_effect = wrong
+    refused = False
+    try:
+        run(boundary)
+    except (identity.FreshRefused,adapter.AdapterGameFailure):
+        refused = True
+    assert refused, 'Conflicting native winner authority completed successfully'
+
+
+def test_replaced_executor_is_detected_before_invocation(boundary):
+    _,_,mock = boundary
+    mock.side_effect = RuntimeError('AUDIT MOCK ONLY; substituted executor reached')
+    with pytest.raises((identity.FreshRefused,adapter.AdapterGameFailure)):
+        run(boundary)
+    assert mock.call_count == 0, 'Module hashes did not authenticate the actual executor callable'
+
+
+def test_fabricating_approval_and_digest_is_application_not_production_authority(boundary):
+    # Deliberate trust-boundary characterization, not a claim of real permission.
+    plan,approval,mock = boundary
+    approval['approved_by'] = 'FABRICATED AUDIT ISSUER'
+    approval['design_approval_sha256'] = 'a'*64
+    mock.side_effect = RuntimeError('audit stops at mocked executor')
+    with pytest.raises(adapter.AdapterGameFailure):
+        run(boundary)
+    assert mock.call_count == 1
+    assert not (Path(plan['output'])/'results/summary.json').exists()
+
+
+@pytest.mark.parametrize('field,value', [('seed',-1),('orientation','opponent_first'),
+                                      ('winner','foreign'),('terminal',False),
+                                      ('events',None),('game_id','duplicate')])
+def test_bad_native_metadata_never_commits(boundary,field,value):
+    plan,_,mock = boundary
+    def bad(root,spec):
+        result = minimal_native(spec)
+        result[field] = value
+        return result
+    mock.side_effect = bad
+    with pytest.raises((identity.FreshRefused,adapter.AdapterGameFailure)):
+        run(boundary)
+    saved = json.loads((Path(plan['output'])/'checkpoints/checkpoint.json').read_bytes())
+    assert saved['completed_games'] == 0
+
+
+def test_snapshot_capture_failure_does_not_mask_original(boundary):
+    _,_,mock = boundary
+    class Uncopyable:
+        def __deepcopy__(self,memo):
+            raise ValueError('AUDIT snapshot-copy failure')
+    error = RuntimeError('AUDIT original game failure')
+    error.snapshot = {'partial':Uncopyable()}
+    mock.side_effect = error
+    with pytest.raises(BaseException) as caught:
+        run(boundary)
+    assert caught.value is error or caught.value.__cause__ is error, (
+        f'Original gameplay error masked by {type(caught.value).__name__}: {caught.value}')
+
+
+def test_full_900_identity_does_not_accept_first_incomplete_native_result(boundary,monkeypatch):
+    plan,approval,mock = boundary
+    plan['schedule'] = build_schedule(ROOT)
+    approval['plan_sha256'] = identity.digest(plan)
+    # Restore the ACTUAL full production plan verifier, including all 900 rows,
+    # inputs and runtime identity. No shortened schedule seam remains here.
+    monkeypatch.setattr(persistence,'verify_plan',identity.verify_plan)
+    calls = []
+    def stop_after_first(root,spec):
+        calls.append(spec.game_id)
+        if len(calls)>1:
+            raise RuntimeError('AUDIT STOP: second mock dispatch, never a game')
+        return minimal_native(spec)
+    mock.side_effect = stop_after_first
+    with pytest.raises((identity.FreshRefused,adapter.AdapterGameFailure)):
+        run(boundary)
+    assert calls, 'Audit did not reach the mocked gameplay boundary'
+    saved = json.loads((Path(plan['output'])/'checkpoints/checkpoint.json').read_bytes())
+    assert saved['completed_games'] == 0, (
+        'Full authenticated 900-row plan committed an incomplete native record')

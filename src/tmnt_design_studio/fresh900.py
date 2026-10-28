@@ -478,6 +478,7 @@ def _run_fresh(
             last_observed_committed=committed,
             error_type=type(error).__name__,
             original_error_type=getattr(error, "original_error_type", type(error).__name__),
+            snapshot_capture_state=getattr(error, "snapshot_capture_state", None),
             error=str(error),
             errno=getattr(error, "errno", None),
             winerror=getattr(error, "winerror", None),

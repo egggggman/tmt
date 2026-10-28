@@ -11,7 +11,8 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from test_fresh900_independent import execute, record, rows
+from fresh900_native_fixtures import native_snapshot, reconciliation
+from test_fresh900_independent import execute, rows
 from test_fresh900_independent import fixture as fixture
 
 from tmnt_design_studio import fresh900 as persistence
@@ -39,6 +40,7 @@ class Spec:
 @pytest.fixture
 def boundary(fixture, monkeypatch):
     plan = fixture
+    plan["runtime"]["git_executable"] = "mock-binding-only"
     for row in plan["schedule"]:
         row["opponent"] = "opponent"
         row["seats"] = (
@@ -63,12 +65,8 @@ def boundary(fixture, monkeypatch):
     def game(root, spec):
         calls.append(spec)
         row = next(r for r in plan["schedule"] if r["game_id"] == spec.game_id)
-        value = record(row)
-        value["winner"] = row["seats"][0]
-        value.pop("synthetic")
-        value["rng"] = {"seed": spec.seed, "records": [{"detail": "retain RNG evidence"}]}
-        value["native_extra"] = {"nested": [1, {"complete": "retain all"}]}
-        return value
+        assert row["seats"] == [seat.display_id for seat in spec.seats]
+        return native_snapshot(spec)
 
     smoke = SimpleNamespace(
         __file__=str(source / "src/tmnt_design_studio/smoke01.py"),
@@ -80,12 +78,15 @@ def boundary(fixture, monkeypatch):
         GameSpec=Spec,
         load_catalog=Mock(return_value="mock catalog"),
         build_deck_manifest=Mock(return_value={"cards": []}),
-        reconcile_snapshot=Mock(return_value=dict(stop_records=[], invariant_violations=[])),
+        reconcile_snapshot=Mock(side_effect=reconciliation),
     )
     # Boundary fixture explicitly replaces attestation/source roles. Separate
     # frozen-source/runtime checks are tested independently without these seams.
     monkeypatch.setattr(live, "authenticate_source", lambda _: None)
     monkeypatch.setattr(live, "bindings", lambda: (smoke, stage, lambda _: "Deck\n60 Mock Card\n"))
+    # Explicit unit-test-only binding seam. Actual binding rejection is separately
+    # exercised with the real verifier; production has no mock/executor argument.
+    monkeypatch.setattr(live, "_bind_executor", lambda *_: smoke.run_smoke_game)
     monkeypatch.setattr(live, "plain", lambda p: Path(p).absolute())
     monkeypatch.setattr(live, "sys", SimpleNamespace(version_info=(3, 13, 15)))
     monkeypatch.setattr(
@@ -126,8 +127,17 @@ def test_mock_mapping_and_all_telemetry_reach_checkpoint(boundary):
         )
     saved = json.loads((Path(plan["output"]) / "checkpoints/checkpoint.json").read_bytes())
     for value in saved["records"]:
-        assert value["events"] == [{"kind": "synthetic", "value": 17}]
-        assert value["rng"]["records"] == [{"detail": "retain RNG evidence"}]
+        assert value["events"] == [
+            {
+                "event": "AUDIT_SYNTHETIC",
+                "kind": "synthetic",
+                "value": 17,
+                "turn": 10,
+                "phase": "main",
+                "step": "precombat_main",
+            }
+        ]
+        assert value["rng"]["records"][0]["detail"] == "retain RNG evidence"
         assert value["native_extra"] == {"nested": [1, {"complete": "retain all"}]}
     with pytest.raises(FreshRefused, match="unused"):
         run(boundary)
