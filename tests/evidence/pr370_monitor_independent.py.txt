@@ -1,0 +1,52 @@
+"""Disposable Windows status-handle isolation; no gameplay."""
+import ctypes
+import json
+import os
+import time
+from ctypes import wintypes
+from pathlib import Path
+
+import pytest
+
+from tmnt_design_studio.fresh900 import PROTOCOL
+from tmnt_design_studio.fresh900_monitor import MonitorLocation,read_status
+
+
+@pytest.mark.parametrize('synthetic',[True,False])
+def test_status_reader_never_opens_or_blocks_checkpoint(tmp_path,monkeypatch,synthetic):
+    root = tmp_path/'FRESH_900_monitor_audit'
+    telemetry = root/'telemetry'
+    checkpoint_dir = root/'checkpoints'
+    telemetry.mkdir(parents=True)
+    checkpoint_dir.mkdir()
+    checkpoint = checkpoint_dir/'checkpoint.json'
+    checkpoint.write_bytes(b'old synthetic bytes')
+    status = telemetry/'status.json'
+    status.write_text(json.dumps(dict(protocol=PROTOCOL,run_id=root.name,synthetic=synthetic,
+                                     state='RUNNING',committed_games=1,heartbeat=time.time())))
+    info = telemetry.stat()
+    location = MonitorLocation(telemetry,(info.st_dev,info.st_ino),root.name,(checkpoint_dir,))
+    api = ctypes.WinDLL('kernel32',use_last_error=True)
+    api.CreateFileW.argtypes = [wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,
+                               wintypes.LPVOID,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
+    api.CreateFileW.restype = wintypes.HANDLE
+    api.CloseHandle.argtypes = [wintypes.HANDLE]
+    api.CloseHandle.restype = wintypes.BOOL
+    held = api.CreateFileW(str(status),0x80000000,1,None,3,0x80,None)
+    assert held != ctypes.c_void_p(-1).value
+    opened = []
+    original = Path.open
+    def record(path,*args,**kwargs):
+        opened.append(path)
+        return original(path,*args,**kwargs)
+    monkeypatch.setattr(Path,'open',record)
+    try:
+        result = read_status(location)
+        assert result['state'] == ('REPORTED_ONLY' if synthetic else 'UNKNOWN')
+        assert opened == [status]
+        replacement = checkpoint_dir/'temporary-synthetic.json'
+        replacement.write_bytes(b'new synthetic bytes')
+        os.replace(replacement,checkpoint)
+        assert checkpoint.read_bytes() == b'new synthetic bytes'
+    finally:
+        assert api.CloseHandle(held)

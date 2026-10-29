@@ -16,3 +16,4 @@ docs/cardcade/CALIBRATION_V1_*/launcher.py -text
 
 # New immutable PR #369 adversarial evidence, never checkout-normalize its bytes.
 tests/evidence/pr369_*.txt -text
+tests/evidence/pr370_*.txt -text
