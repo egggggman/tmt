@@ -5,7 +5,8 @@
 ## Identity and scope
 
 - First-correction head: `110e44577df09ff595d44930a9514113e53574d4`.
-- Current pushed head: `059ee7362ca4df9f96a3b8393a6bd35361b889c2`.
+- Validated code/test head: `059ee7362ca4df9f96a3b8393a6bd35361b889c2`.
+- PR head when the report was first published: `a966f24dfa7b3dd280662792af42885434fb8a2a` (report-only commit follows the validated code/test head).
 - Original audited head: `8e0cf697cd3bd28679665d00dad08d6ab5533d11`.
 - Frozen gameplay, decks, schedule, memory threshold, and Durable 001 data were not changed.
 - No gameplay or production checkpoint operation was run.
