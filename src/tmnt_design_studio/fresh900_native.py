@@ -7,6 +7,7 @@ import random
 import re
 
 from tmnt_design_studio.fresh900_identity import encoded, require
+from tmnt_design_studio.engine07 import phase_for_step
 
 LIST_FIELDS = frozenset(
     [
@@ -116,6 +117,14 @@ def validate_native(snapshot: dict, spec) -> None:
             )
     for field in DICT_FIELDS:
         require(type(snapshot[field]) is dict, f"invalid native object: {field}")
+    combat_damage = snapshot["combat_damage"]
+    require(
+        {"step_kind", "sequence", "total_steps", "first_qualified_ids", "regular_initial_ids", "evidence"}
+        <= combat_damage.keys()
+        and type(combat_damage["evidence"]) is list
+        and all(type(item) is dict for item in combat_damage["evidence"]),
+        "incomplete native combat damage evidence",
+    )
     require(
         snapshot["priority"] is None or type(snapshot["priority"]) is dict,
         "invalid native priority",
@@ -133,6 +142,11 @@ def validate_native(snapshot: dict, spec) -> None:
         all(type(snapshot[k]) is str and snapshot[k] for k in ("phase", "step")),
         "invalid native phase/step",
     )
+    try:
+        expected_phase = phase_for_step(snapshot["step"])
+    except (TypeError, ValueError, KeyError) as exc:
+        raise ValueError("invalid native step") from exc
+    require(snapshot["phase"] == expected_phase, "native phase/step mismatch")
     require(
         snapshot["events"]
         and all(
@@ -143,6 +157,7 @@ def validate_native(snapshot: dict, spec) -> None:
             and v["turn"] >= 0
             and type(v["phase"]) is str
             and type(v["step"]) is str
+            and v["phase"] == phase_for_step(v["step"])
             for v in snapshot["events"]
         ),
         "missing native event evidence",

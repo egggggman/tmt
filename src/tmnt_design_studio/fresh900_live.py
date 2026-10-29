@@ -149,7 +149,9 @@ def _bind_executor(smoke, root: Path, git: str):
         function.__module__ == "tmnt_design_studio.smoke01"
         and function.__name__ == function.__qualname__ == "run_smoke_game"
         and function.__globals__ is vars(smoke)
-        and function.__defaults__ == (None,)
+        and type(function.__defaults__) is tuple
+        and len(function.__defaults__) == 1
+        and function.__defaults__[0] is None
         and function.__kwdefaults__ is None
         and function.__closure__ is None,
         "wrapped or altered gameplay callable",
