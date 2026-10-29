@@ -133,7 +133,7 @@ def test_mock_mapping_and_all_telemetry_reach_checkpoint(boundary):
                 "kind": "synthetic",
                 "value": 17,
                 "turn": 10,
-                "phase": "main",
+                "phase": "precombat_main",
                 "step": "precombat_main",
             }
         ]

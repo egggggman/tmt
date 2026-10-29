@@ -49,7 +49,7 @@ def native_snapshot(spec):
         turns_started=10,
         terminal=True,
         active_player=names[0],
-        phase="main",
+        phase="precombat_main",
         step="precombat_main",
         winner=names[0],
         priority=None,
@@ -88,7 +88,7 @@ def native_snapshot(spec):
                 kind="synthetic",
                 value=17,
                 turn=10,
-                phase="main",
+                phase="precombat_main",
                 step="precombat_main",
             )
         ],

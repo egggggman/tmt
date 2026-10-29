@@ -6,8 +6,8 @@ import hashlib
 import random
 import re
 
-from tmnt_design_studio.fresh900_identity import encoded, require
 from tmnt_design_studio.engine07 import phase_for_step
+from tmnt_design_studio.fresh900_identity import encoded, require
 
 LIST_FIELDS = frozenset(
     [
@@ -119,7 +119,14 @@ def validate_native(snapshot: dict, spec) -> None:
         require(type(snapshot[field]) is dict, f"invalid native object: {field}")
     combat_damage = snapshot["combat_damage"]
     require(
-        {"step_kind", "sequence", "total_steps", "first_qualified_ids", "regular_initial_ids", "evidence"}
+        {
+            "step_kind",
+            "sequence",
+            "total_steps",
+            "first_qualified_ids",
+            "regular_initial_ids",
+            "evidence",
+        }
         <= combat_damage.keys()
         and type(combat_damage["evidence"]) is list
         and all(type(item) is dict for item in combat_damage["evidence"]),
