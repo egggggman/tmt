@@ -21,8 +21,8 @@ raise SystemExit(
             "tests/test_fresh900_live.py",
             "tests/test_fresh900_live_audit.py",
             "tests/test_fresh900_native.py",
-        "tests/test_fresh900_live_audit_paths.py",
-        "tests/test_fresh900_live_audit_monitor.py",
+            "tests/test_fresh900_live_audit_paths.py",
+            "tests/test_fresh900_live_audit_monitor.py",
         ]
     )
 )
