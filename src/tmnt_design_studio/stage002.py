@@ -628,9 +628,11 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             and game.priority_state is None
         ):
             game.transition_to(TurnStep.DECLARE_BLOCKERS)
-        blocks = chosen_pilot.choose_blocks(
-            game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
-        )
+        defender = 1 - active
+        block_options = game.legal_block_options(attack, defender)
+        game.record_block_options_presented(attack, defender, block_options)
+        blocks = chosen_pilot.choose_blocks(game.pilot_view(defender), block_options)
+        game.record_block_option_selected(attack, block_options, blocks)
         _checked_action(
             game,
             lambda blocks=blocks: game.execute_block_action(blocks),

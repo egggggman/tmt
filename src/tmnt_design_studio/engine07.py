@@ -8050,6 +8050,73 @@ class Game(
         visit(0, tuple(available), ())
         return tuple(options)
 
+    def record_block_options_presented(
+        self,
+        attack: ActionOption,
+        defender_index: int,
+        options: tuple[ActionOption, ...],
+    ) -> None:
+        """Record the exact blocker choices supplied to the pilot."""
+        if (
+            self.step is not TurnStep.DECLARE_BLOCKERS
+            or attack.attacker_ids != self._combat_attackers
+            or defender_index != 1 - self.active_player
+        ):
+            raise ValueError("block decision evidence does not match the current combat")
+        attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
+        if not all(isinstance(attacker, Permanent) for attacker in attackers):
+            raise ValueError("block decision evidence references a nonpermanent attacker")
+        menace_attackers = [attacker for attacker in attackers if self._has_menace(attacker)]
+        if not menace_attackers:
+            return
+        available = [
+            blocker
+            for blocker in self.players[defender_index].battlefield
+            if blocker.card.is_creature and not blocker.tapped
+        ]
+        serialized_options = [
+            {
+                "kind": option.kind.value,
+                "blocks": [list(pair) for pair in option.blocks],
+            }
+            for option in options
+        ]
+        self.log(
+            "block_options_presented",
+            defender=self.players[defender_index].name,
+            attacker_ids=list(attack.attacker_ids),
+            menace_attacker_ids=[attacker.object_id for attacker in menace_attackers],
+            untapped_creature_blocker_ids=[blocker.object_id for blocker in available],
+            eligible_blockers_by_attacker={
+                attacker.object_id: [
+                    blocker.object_id
+                    for blocker in available
+                    if self.can_block(attacker, blocker, defender_index)
+                ]
+                for attacker in attackers
+            },
+            offered_options=serialized_options,
+        )
+
+    def record_block_option_selected(
+        self,
+        attack: ActionOption,
+        options: tuple[ActionOption, ...],
+        selected: ActionOption,
+    ) -> None:
+        """Record the pilot's returned blocker choice before engine revalidation."""
+        attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
+        if not any(
+            isinstance(attacker, Permanent) and self._has_menace(attacker) for attacker in attackers
+        ):
+            return
+        self.log(
+            "block_option_selected",
+            kind=selected.kind.value,
+            blocks=[list(pair) for pair in selected.blocks],
+            was_offered=selected in options,
+        )
+
     def _sneak_semantics(self, card: CardObject):
         for fragment in self.interpreter.fragments(card.card):
             semantics = self.interpreter.sneak_semantic_coverage(card.card, fragment)
