@@ -905,7 +905,43 @@ def test_parameterized_runner_preserves_acceptance_001_gameplay():
     generic = run_game(ROOT, spec)
     presence = generic.pop("stage002_presence")
     assert presence
-    assert generic == module.run(ROOT, 7001)
+    expected = module.run(ROOT, 7001)
+    menace_events = [
+        (index, event)
+        for index, event in enumerate(generic["events"])
+        if event["event"] in {"block_options_presented", "block_option_selected"}
+    ]
+    assert [event["event"] for _index, event in menace_events] == [
+        "block_options_presented",
+        "block_option_selected",
+    ]
+    presented_index, presented = menace_events[0]
+    selected_index, selected = menace_events[1]
+    assert presented_index < selected_index
+    assert presented["menace_attacker_ids"]
+    assert selected["was_offered"] is True
+    assert {
+        "kind": selected["kind"],
+        "blocks": selected["blocks"],
+    } in presented["offered_options"]
+    declared_index, declared = next(
+        (index, event)
+        for index, event in enumerate(generic["events"])
+        if index > selected_index
+        and event["event"] == "blockers_declared"
+        and event["turn"] == selected["turn"]
+    )
+    assert selected_index < declared_index
+    assert selected["blocks"] == declared["blocks"]
+
+    # Preserve the historical acceptance snapshot exactly after removing only
+    # the two additive Menace observability events.
+    generic["events"] = [
+        event
+        for event in generic["events"]
+        if event["event"] not in {"block_options_presented", "block_option_selected"}
+    ]
+    assert generic == expected
     generic["stage002_presence"] = presence
     catalog = load_catalog(ROOT)
     manifest = {"decks": [build_deck_manifest(ROOT, seat, catalog) for seat in spec.seats]}
