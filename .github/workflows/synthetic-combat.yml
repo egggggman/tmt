@@ -1,0 +1,53 @@
+name: Synthetic Combat Validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  synthetic-combat:
+    name: Synthetic-only combat regressions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --dev
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - name: Verify synthetic allowlist collection (153 tests)
+        shell: bash
+        run: |
+          set -euo pipefail
+          collected=$(uv run pytest --collect-only -q \
+            tests/test_deathtouch_damage_state_based.py \
+            tests/test_deal_damage_action.py \
+            tests/test_shredder_deathtouch_action.py \
+            tests/test_strike_damage_steps.py \
+            tests/test_trample_action.py \
+            tests/test_menace_action.py \
+            tests/test_block_option_enumeration.py \
+            tests/test_menace_decision_evidence.py \
+            tests/test_destroy_permanent_action.py \
+            tests/test_frog_butler_reach.py | tail -n 1 | awk '{print $1}')
+          echo "Collected allowlist tests: $collected (expected 153)"
+          test "$collected" = "153"
+      - name: Run synthetic allowlist (153 tests expected)
+        run: >-
+          uv run pytest -q --tb=short
+          tests/test_deathtouch_damage_state_based.py
+          tests/test_deal_damage_action.py
+          tests/test_shredder_deathtouch_action.py
+          tests/test_strike_damage_steps.py
+          tests/test_trample_action.py
+          tests/test_menace_action.py
+          tests/test_block_option_enumeration.py
+          tests/test_menace_decision_evidence.py
+          tests/test_destroy_permanent_action.py
+          tests/test_frog_butler_reach.py

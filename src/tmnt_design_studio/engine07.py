@@ -953,6 +953,7 @@ class Permanent:
     summoning_sick: bool = True
     entered_battlefield_turn: int = 0
     damage: int = 0
+    damage_from_deathtouch: bool = False
     counters: dict[str, int] = field(default_factory=dict)
     pt_modifiers: list[PowerToughnessModifier] = field(default_factory=list)
     characteristic_effects: list[CharacteristicEffect] = field(default_factory=list)
@@ -1121,7 +1122,10 @@ class LethalDamageStateBasedAction:
             for permanent in player.battlefield
             if (
                 permanent.card.is_creature
-                and permanent.damage >= permanent.toughness
+                and (
+                    permanent.damage >= permanent.toughness
+                    or (permanent.toughness > 0 and permanent.damage_from_deathtouch)
+                )
                 and not game._has_indestructible(permanent)
             )
         )
@@ -3060,6 +3064,8 @@ class Game(
 
         if target is not None:
             target.damage += transaction.amount
+            if target.is_creature and self.evaluated_deathtouch(source):
+                target.damage_from_deathtouch = True
             subject_ids = (target.object_id,)
         else:
             assert target_player is not None
@@ -7042,6 +7048,7 @@ class Game(
                 ]
                 expired += before - len(permanent.pt_modifiers)
                 permanent.damage = 0
+                permanent.damage_from_deathtouch = False
         self._reset_current_combat_state()
         self.refresh_static_pt_modifiers()
         self.alliance_modes_chosen.clear()
@@ -8470,6 +8477,19 @@ class Game(
             is not None
         )
 
+    def evaluated_deathtouch(self, source: CardObject | StackObject | Permanent) -> bool:
+        """Evaluate Deathtouch on the authoritative damage source at damage time."""
+        if not (
+            self.is_authoritative(source, "battlefield") or self.is_authoritative(source, "stack")
+        ):
+            return False
+        if self._has_keyword(source, "Deathtouch"):
+            return True
+        return isinstance(source, Permanent) and (
+            self.has_temporary_keyword(source, TemporaryKeyword.DEATHTOUCH)
+            or self._has_continuous_keyword_grant(source, "deathtouch")
+        )
+
     def _apply_lifelink_result(
         self,
         source: CardObject | StackObject | Permanent,
@@ -8671,6 +8691,8 @@ class Game(
                 assert assignment.target_id is not None
                 target = self._combat_permanent(assignment.target_id, "damage target")
                 target.damage += assignment.amount
+                if target.is_creature and self.evaluated_deathtouch(source):
+                    target.damage_from_deathtouch = True
                 self.log(
                     "combat_damage_assignment",
                     source=source.card.name,
@@ -11541,6 +11563,9 @@ class Game(
                 if action.apply(self):
                     changed = True
                     self.refresh_static_pt_modifiers()
+            for permanent in self._objects.values():
+                if isinstance(permanent, Permanent):
+                    permanent.damage_from_deathtouch = False
             if not changed:
                 break
         self.check_life()
@@ -12133,7 +12158,7 @@ class Game(
             )
             for player in self.players
         )
-        return (
+        preimage = (
             self.turn,
             self.active_player,
             self.step.value,
@@ -12144,12 +12169,21 @@ class Game(
             self.rng.state_digest,
             self.winner,
         )
+        deathtouch_damage_ids = tuple(
+            permanent.object_id
+            for player in self.players
+            for permanent in player.battlefield
+            if permanent.damage_from_deathtouch
+        )
+        if not deathtouch_damage_ids:
+            return preimage
+        return (*preimage, ("deathtouch_damage", deathtouch_damage_ids))
 
     def authoritative_state_fingerprint_evidence(self) -> dict[str, object]:
         """Serialize the existing fingerprint preimage without defining a second state model."""
         authority = self._authoritative_state_fingerprint_preimage()
         zones = authority[6]
-        return {
+        evidence = {
             "scheme": "engine07-authoritative-state-fingerprint-preimage-v1",
             "turn": authority[0],
             "active_player_index": authority[1],
@@ -12173,6 +12207,9 @@ class Game(
             "rng_state_digest": authority[7],
             "winner_index": authority[8],
         }
+        if len(authority) > 9:
+            evidence["deathtouch_damage_object_ids"] = list(authority[9][1])
+        return evidence
 
     def _executed_conformance_references(self) -> list[dict[str, object]]:
         """Index mature Action evidence without replacing or weakening that evidence."""
@@ -12805,6 +12842,9 @@ class Game(
                             "aura_effect_ids": list(x.aura_effect_ids),
                             "aura_attack_restrictions": list(x.aura_attack_restrictions),
                             "damage": x.damage,
+                            **(
+                                {"damage_from_deathtouch": True} if x.damage_from_deathtouch else {}
+                            ),
                             "counters": dict(x.counters),
                             "pt_modifiers": [
                                 {
