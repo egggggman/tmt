@@ -1,0 +1,35 @@
+{
+  "finding": "ROOT_CAUSE_VERIFIED",
+  "control": "BAD_GUYS_CRONIES_SANDBOX_0_2_INITIAL_CALIBRATION_001",
+  "raw_checkpoint_sha256": "c74ad8c537b73480bc25e2495371bc18df8b3567a230a734cde6f1bb831c30f4",
+  "authorized_game_count": 900,
+  "observed_game_rows": 1211,
+  "observed_schedule_rows": 606,
+  "observed_unique_game_ids": 606,
+  "observed_duplicate_rows": 605,
+  "earliest_divergence": {
+    "game_index": 2,
+    "game_id": "bad_guys_cronies_sandbox_0_2--leonardo:candidate_first:1000001",
+    "detail": "The second persisted row for seed 1000001 is byte-for-byte equal to the first row for that seed."
+  },
+  "root_cause": {
+    "class": "runner_checkpoint_accumulator_aliasing",
+    "description": "The runner appended each completed row to games and base['games'], then assigned base['games'] = games. After the first iteration both names referenced the same list, so every subsequent row was appended twice.",
+    "formula": "1 + 2 * (n - 1)",
+    "n_from_observed_rows": 606,
+    "formula_result": 1211,
+    "gameplay_execution_duplicate_proven": false,
+    "persistence_duplication_proven": true
+  },
+  "schedule_integrity": {
+    "authorized_cells": 9,
+    "authorized_games_per_cell": 100,
+    "authorized_start_split": "50 candidate_first / 50 opponent_first",
+    "observed_schedule_prefix_is_unique": true,
+    "observed_schedule_rows_are_partial": true,
+    "observed_schedule_row_count_is_not_authoritative": true
+  },
+  "impact": "All calibration outcomes are inadmissible. The raw checkpoint is preserved and must not be salvaged.",
+  "correction": "Use one authoritative row accumulator; append each row exactly once; checkpoint from an immutable snapshot or a separate copy; validate unique IDs, exact schedule cardinality, per-cell counts, orientation counts, and idempotent resume before publication.",
+  "no_gameplay_or_code_change_investigation": true
+}

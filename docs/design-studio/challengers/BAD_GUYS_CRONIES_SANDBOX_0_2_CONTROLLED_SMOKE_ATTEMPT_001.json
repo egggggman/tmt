@@ -1,0 +1,19 @@
+{
+  "control": "BAD_GUYS_CRONIES_SANDBOX_0_2_CONTROLLED_SMOKE_ATTEMPT_001",
+  "status": "SMOKE_BLOCKED",
+  "recommendation": "SMOKE BLOCKED — Baseline 005 deck-identity mismatch",
+  "pr": 363,
+  "pr_head": "de266d95ccd25948c0b387575df81f51cd0ff7ec",
+  "runtime": "c087f84bab4916b516ec6745f5a8e9f2a2d33f9117856bf959da4eb9a7be8e54",
+  "candidate_sha256": "cacc77648a4d1659b8ae640d95ac2672694e6951553980246e6d001e5152bfb4",
+  "baseline_005_bebop_rocksteady_sha256": "aaa61d3a3d65f7c8ab74062cc8f41d220a46066b44c28e3c71921c570a6b66ed",
+  "snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+  "schedule": {"matchups": 9, "games_per_matchup": 20, "total_games": 180, "balanced_first_player": true},
+  "games_started_in_valid_matrix": 0,
+  "deck_identity_mismatches": [
+    {"deck": "michelangelo", "path": "decks/michelangelo/PROTOTYPE_0.1.txt", "manifest_sha256": "f5dd228b6e3636bd0de367b9d1a2bd836c0388bf37b00f0c0c047a932973ebf9", "pr_head_sha256": "a35dfd61a87ec5377d7eda930afc22449d86bb2385b6d5e59d40e23211fe514f"},
+    {"deck": "splinter", "path": "decks/splinter/PROTOTYPE_0.1.txt", "manifest_sha256": "74b6d7f4cab4bcda9eeb80ffc7a779529115c98c161345f13ac1251d85163b0a", "pr_head_sha256": "a6c61786654f6d37c7b7ee779fdcb4252ee77d9d43a6e0160154831c204d8e42"}
+  ],
+  "preflight_probe": {"excluded_from_smoke": true, "seed": 50000, "matchup": "bad_guys/raphael", "orientation": "candidate-first", "winner": "raphael", "turn": 12, "result_digest": "90815aa18e877f5d0baa52f0c6fdd192e80865456dbb78e00ed26cfc492443cb", "replay_run": false},
+  "required_recovery": "Reconcile or recover the authenticated historical Michelangelo and Splinter deck bytes before any smoke games."
+}
