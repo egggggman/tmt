@@ -322,6 +322,7 @@ class CorrectedVerifierFixture(unittest.TestCase):
         with self.assertRaises(verifier.VerificationError):
             self._verify()
 
+    @unittest.skipUnless(sys.platform == "win32", "junction creation uses Windows PowerShell")
     def test_windows_junction_escape_is_rejected(self) -> None:
         row = self.manifest["games"][0]
         output = self.output_root / row["run_id"]
