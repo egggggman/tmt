@@ -33,7 +33,7 @@
 - Safe test total: **34 run, 33 passed, 1 skipped**.
 - Full Ruff lint: **13 findings remain** across preserved verifier candidate/source copies and their tests. They include `B905` on `zip()` without `strict=`, import ordering, line-length, and an unused local. No lint exclusions were added; in particular, `B905` was not suppressed.
 - Pytest: not run. The qualified isolated Python has no pytest package; `.venv\Scripts\pytest.exe` is an unusable uv trampoline. The repository workflow's full pytest step can call `run_smoke_game`, which is outside this authorization.
-- Repository-wide GitHub Actions was not triggered. Thus there is no exact-head CI success claim.
+- Exact-head GitHub Actions run [41524179067](https://github.com/egggggman/tmt/actions/runs/41524179067) for `0e83c5a2401e34310febd455861aeac17dfef2b9`: format check passed, Ruff lint failed, and pytest was skipped. No gameplay-capable test ran.
 
 ## Recommendation
 
