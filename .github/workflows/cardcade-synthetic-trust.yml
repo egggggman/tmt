@@ -44,5 +44,6 @@ jobs:
         run: >-
           uv run pytest -q
           .diag003-memory-independent-review/completion-receipt-chain-v1/test_synthetic_chain.py
+          .diag003-memory-independent-review/300-game-exploratory-r1/tests/test_batch_integrity_validation.py
           .diag003-memory-independent-review/verifier-trust-review/test_corrected_verifier_integrity.py
           .diag003-memory-independent-review/verifier-trust-review/test_verify_completed_batch_trust.py

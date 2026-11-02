@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import importlib.util
 import json
 import sys
 import tempfile
@@ -11,7 +12,16 @@ from pathlib import Path
 TEST_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TEST_ROOT))
 
-import batch_integrity_validation as integrity  # noqa: E402
+INTEGRITY_HELPER = TEST_ROOT / "batch_integrity_validation.integrity-v2.py"
+INTEGRITY_SPEC = importlib.util.spec_from_file_location(
+    "batch_integrity_validation_integrity_v2", INTEGRITY_HELPER
+)
+assert INTEGRITY_SPEC is not None and INTEGRITY_SPEC.loader is not None
+integrity = importlib.util.module_from_spec(INTEGRITY_SPEC)
+INTEGRITY_SPEC.loader.exec_module(integrity)
+CORRECTED_VERIFIER = (
+    TEST_ROOT.parent / "verifier-trust-review" / "corrected" / "verify_completed_batch.py"
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 FIXTURE_TEMP = tempfile.TemporaryDirectory()
@@ -95,12 +105,12 @@ class VerifierAndRepositoryIdentityTests(unittest.TestCase):
                 expected_root=root,
             )
 
-    def test_observed_verifier_pin_matches_candidate(self) -> None:
-        verifier = TEST_ROOT / "verify_completed_batch.candidate.py"
+    def test_active_verifier_pin_matches_candidate(self) -> None:
+        verifier = CORRECTED_VERIFIER
         integrity.verify_file_identity(verifier, integrity.EXPECTED_VERIFIER_SHA256)
 
     def test_modified_verifier_rejected(self) -> None:
-        verifier = TEST_ROOT / "verify_completed_batch.candidate.py"
+        verifier = CORRECTED_VERIFIER
         with tempfile.TemporaryDirectory() as temporary:
             changed = Path(temporary) / "verify_completed_batch.py"
             changed.write_bytes(verifier.read_bytes() + b"\n# changed\n")
@@ -145,10 +155,10 @@ class VerifierAndRepositoryIdentityTests(unittest.TestCase):
 
 class WrapperOrderingTests(unittest.TestCase):
     def test_wrapper_pins_exact_integrity_helper_and_verifier(self) -> None:
-        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v2.ps1").read_text(
+        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v3.ps1").read_text(
             encoding="utf-8"
         )
-        helper_path = TEST_ROOT / "batch_integrity_validation.py"
+        helper_path = INTEGRITY_HELPER
         helper_hash = integrity.file_sha256(helper_path)
         self.assertIn(f"$expectedIntegrityHelper = '{helper_hash}'", wrapper)
         self.assertIn(f"$expectedVerifier = '{integrity.EXPECTED_VERIFIER_SHA256}'", wrapper)
@@ -158,7 +168,7 @@ class WrapperOrderingTests(unittest.TestCase):
         )
 
     def test_integrity_gate_precedes_first_grant_issuance(self) -> None:
-        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v2.ps1").read_text(
+        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v3.ps1").read_text(
             encoding="utf-8"
         )
         integrity_call = wrapper.index("$integrityLines = @(& $python")
@@ -170,7 +180,7 @@ class WrapperOrderingTests(unittest.TestCase):
         self.assertLess(create_execution_log, issue_grant)
 
     def test_verifier_rechecked_immediately_before_execution(self) -> None:
-        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v2.ps1").read_text(
+        wrapper = (TEST_ROOT / "execute_approved_batch.integrity-v3.ps1").read_text(
             encoding="utf-8"
         )
         existence = wrapper.index("Pinned post-run verifier candidate is missing")
