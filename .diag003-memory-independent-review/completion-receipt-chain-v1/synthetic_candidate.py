@@ -482,4 +482,3 @@ def verify_completion_receipt(
     ):
         raise TrustValidationError("receipt does not bind the approved completed batch")
     verify_signature(receipt, receipt_public_key)
-
