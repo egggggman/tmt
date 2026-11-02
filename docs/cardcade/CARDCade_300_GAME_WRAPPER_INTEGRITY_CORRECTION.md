@@ -63,4 +63,4 @@ No signature or certificate was created, no execution-policy setting was changed
 
 ## Review publication
 
-The correction package is available as draft [PR #374](https://github.com/egggggman/tmt/pull/374), branch `fix/cardcade-300-wrapper-integrity`, head `9f93145e77a0eb78625cbaa24d711e918bd4387c`, targeting `main` at `1454e657310c4e5ffc8e3468a8da6ff1ccc3a6de`. The PR is open and draft; it is not merged or approved.
+The correction package is available as draft [PR #374](https://github.com/egggggman/tmt/pull/374), branch `fix/cardcade-300-wrapper-integrity`, targeting `main`. The current PR head is recorded by the branch ref; the report avoids self-referencing the commit that contains it. The PR is open and draft; it is not merged or approved.
