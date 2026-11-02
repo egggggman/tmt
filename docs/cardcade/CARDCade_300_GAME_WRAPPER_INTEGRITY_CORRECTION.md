@@ -12,6 +12,7 @@ This correction addresses the schedule-binding and path/verifier-integrity defec
 | Corrected wrapper candidate | `d715ba13d17a1510a980300549f956c853cef070d61baf6229ae090fda24327f` | Separate artifact; not signed or independently approved |
 | Integrity helper | `21a86fbbabfb8da83252b486b4a3561ec78e792763ba1ece8fb19932da362686` | Exact helper pinned by the corrected wrapper |
 | Post-run verifier candidate | `259c5f18edbfe262778ba351651c28f845901f687764193afb2d0ef85402f39a` | Byte-for-byte copy of the preserved 100-game verifier; independent approval was not found |
+| Synthetic schedule fixture bundle | `030e2744fdf94a306eba9c7f9008f0710037f709850bdf6c19a6d9794b31ec79` | ZIP contains the unchanged schedule, sidecars, 30 manifests, and 30 preflight log/exit-code pairs |
 
 The original unsigned wrapper remains at `.diag003-memory-independent-review/300-game-exploratory-r1/execute_approved_batch.ps1`. The corrected candidate is `execute_approved_batch.integrity-v2.ps1`; the other correction artifacts are in the same directory. The report is at `docs/cardcade/CARDCade_300_GAME_WRAPPER_INTEGRITY_CORRECTION.md`.
 

@@ -96,17 +96,11 @@ class VerifierAndRepositoryIdentityTests(unittest.TestCase):
             )
 
     def test_observed_verifier_pin_matches_candidate(self) -> None:
-        verifier = (
-            TEST_ROOT
-            / "verify_completed_batch.candidate.py"
-        )
+        verifier = TEST_ROOT / "verify_completed_batch.candidate.py"
         integrity.verify_file_identity(verifier, integrity.EXPECTED_VERIFIER_SHA256)
 
     def test_modified_verifier_rejected(self) -> None:
-        verifier = (
-            TEST_ROOT
-            / "verify_completed_batch.candidate.py"
-        )
+        verifier = TEST_ROOT / "verify_completed_batch.candidate.py"
         with tempfile.TemporaryDirectory() as temporary:
             changed = Path(temporary) / "verify_completed_batch.py"
             changed.write_bytes(verifier.read_bytes() + b"\n# changed\n")
