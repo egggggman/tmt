@@ -23,5 +23,14 @@ target-version = "py312"
 line-length = 100
 extend-exclude = ["docs/cardcade/CALIBRATION_V1_*/**"]
 
+[tool.ruff.format]
+# These are byte-pinned review artifacts. Keep their recorded source/test bytes
+# intact; active code and tests remain subject to the normal Ruff formatter.
+exclude = [
+    ".diag003-memory-independent-review/verifier-trust-review/corrected/verify_completed_batch.py",
+    ".diag003-memory-independent-review/verifier-trust-review/test_corrected_verifier_integrity.py",
+    ".diag003-memory-independent-review/verifier-trust-review/test_verify_completed_batch_trust.py",
+]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]

@@ -8,9 +8,9 @@ import importlib.util
 import json
 import math
 import random
-import re
 import sys
 import unittest
+from collections.abc import Mapping
 from dataclasses import replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
