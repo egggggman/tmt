@@ -9,6 +9,7 @@ on:
       - ".diag003-memory-independent-review/300-game-exploratory-r1/**"
       - "pyproject.toml"
       - "uv.lock"
+      - "CARDCade_300_GAME_INDEPENDENT_REVIEW_AND_READINESS.md"
       - ".github/workflows/cardcade-synthetic-trust.yml"
       - ".github/workflows/test.yml"
   push:
@@ -19,6 +20,7 @@ on:
       - ".diag003-memory-independent-review/300-game-exploratory-r1/**"
       - "pyproject.toml"
       - "uv.lock"
+      - "CARDCade_300_GAME_INDEPENDENT_REVIEW_AND_READINESS.md"
       - ".github/workflows/cardcade-synthetic-trust.yml"
       - ".github/workflows/test.yml"
 
