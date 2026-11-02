@@ -66,7 +66,21 @@ def _probable_prime(candidate: int, rng: random.Random) -> bool:
     while d % 2 == 0:
         s += 1
         d //= 2
-    for base in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, *[rng.randrange(2, candidate - 2) for _ in range(8)]):
+    for base in (
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        *[rng.randrange(2, candidate - 2) for _ in range(8)],
+    ):
         value = pow(base, d, candidate)
         if value in (1, candidate - 1):
             continue
@@ -101,7 +115,9 @@ def _rsa_sign(payload: bytes, private: int, public: dict[str, Any]) -> str:
     digest_info = _SHA_PREFIX + hashlib.sha256(payload).digest()
     pad = size - len(digest_info) - 3
     encoded = b"\x00\x01" + b"\xff" * pad + b"\x00" + digest_info
-    return base64.b64encode(pow(int.from_bytes(encoded, "big"), private, modulus).to_bytes(size, "big")).decode("ascii")
+    return base64.b64encode(
+        pow(int.from_bytes(encoded, "big"), private, modulus).to_bytes(size, "big")
+    ).decode("ascii")
 
 
 def _sign_document(
@@ -197,9 +213,7 @@ class SyntheticChain(unittest.TestCase):
         )
 
     def _build_snapshot(self) -> EvidenceSnapshot:
-        attestor = TestSigner(
-            ATTEST_PUB, ATTEST_D, "test-supervisor-key-002", ATTESTATION_PURPOSE
-        )
+        attestor = TestSigner(ATTEST_PUB, ATTEST_D, "test-supervisor-key-002", ATTESTATION_PURPOSE)
         games: dict[str, MappingProxyType] = {}
         attestations: dict[str, bytes] = {}
         grants: dict[str, bytes] = {}
@@ -221,7 +235,12 @@ class SyntheticChain(unittest.TestCase):
                 "seats": [seat["deck_key"] for seat in row["seats"]],
                 "deck_sha256": deck_hashes,
                 "completion_state": "COMPLETE",
-                "snapshot": {"winner": row["seats"][0]["deck_key"], "turn": 25, "events": [], "stage002_presence": []},
+                "snapshot": {
+                    "winner": row["seats"][0]["deck_key"],
+                    "turn": 25,
+                    "events": [],
+                    "stage002_presence": [],
+                },
             }
             run_manifest = {
                 "run_id": run_id,
@@ -234,7 +253,10 @@ class SyntheticChain(unittest.TestCase):
                 "deck_sha256": deck_hashes,
             }
             files = {
-                "status.json": json.dumps({"label": "DIAGNOSTIC", "state": "RETURNED", "child_exit_code": 0}, sort_keys=True).encode(),
+                "status.json": json.dumps(
+                    {"label": "DIAGNOSTIC", "state": "RETURNED", "child_exit_code": 0},
+                    sort_keys=True,
+                ).encode(),
                 "run_manifest.json": json.dumps(run_manifest, sort_keys=True).encode(),
                 "result.json": json.dumps(result, sort_keys=True).encode(),
                 "stdout.log": b"test-only worker output\n",
@@ -278,8 +300,17 @@ class SyntheticChain(unittest.TestCase):
                     "run_id": run_id,
                     "state": "RETURNED",
                     "exit_code": 0,
-                    "resource_gate": {"available_physical_bytes": 8_000_000_000, "system_commit_headroom_bytes": 8_000_000_000, "minimum_each_bytes": 2_997_489_664},
-                    "storage_gate": {"file_system": "NTFS", "volume_label": "TMT", "available_bytes": 50_000_000, "required_free_bytes": 1_000_000},
+                    "resource_gate": {
+                        "available_physical_bytes": 8_000_000_000,
+                        "system_commit_headroom_bytes": 8_000_000_000,
+                        "minimum_each_bytes": 2_997_489_664,
+                    },
+                    "storage_gate": {
+                        "file_system": "NTFS",
+                        "volume_label": "TMT",
+                        "available_bytes": 50_000_000,
+                        "required_free_bytes": 1_000_000,
+                    },
                     "artifacts_sha256": inventory,
                 }
             )
@@ -362,7 +393,11 @@ class SyntheticChain(unittest.TestCase):
         artifacts[run_id] = MappingProxyType(files)
         status = self._status()
         status["games"][0]["artifacts_sha256"] = inventory
-        snapshot = replace(self.snapshot, artifacts=MappingProxyType(artifacts), status_raw=json.dumps(status, sort_keys=True).encode())
+        snapshot = replace(
+            self.snapshot,
+            artifacts=MappingProxyType(artifacts),
+            status_raw=json.dumps(status, sort_keys=True).encode(),
+        )
         signer = self.receipt_signer
         with self.assertRaises(TrustValidationError):
             self._issuer(signer).issue(snapshot)
@@ -385,7 +420,9 @@ class SyntheticChain(unittest.TestCase):
         artifacts[run_id] = MappingProxyType(files)
         signer = self.receipt_signer
         with self.assertRaises(TrustValidationError):
-            self._issuer(signer).issue(replace(self.snapshot, artifacts=MappingProxyType(artifacts)))
+            self._issuer(signer).issue(
+                replace(self.snapshot, artifacts=MappingProxyType(artifacts))
+            )
         self.assertEqual(signer.sign_calls, 0)
 
     def test_bad_supervisor_attestation_signature_fails_before_signing(self) -> None:
@@ -396,7 +433,9 @@ class SyntheticChain(unittest.TestCase):
         attestations[run_id] = json.dumps(doc, sort_keys=True).encode()
         signer = self.receipt_signer
         with self.assertRaises(ValueError):
-            self._issuer(signer).issue(replace(self.snapshot, attestations_raw=MappingProxyType(attestations)))
+            self._issuer(signer).issue(
+                replace(self.snapshot, attestations_raw=MappingProxyType(attestations))
+            )
         self.assertEqual(signer.sign_calls, 0)
 
     def test_tampered_grant_or_consumption_fails_before_signing(self) -> None:
@@ -414,7 +453,9 @@ class SyntheticChain(unittest.TestCase):
         ledger = dict(self.snapshot.consumption_raw)
         ledger[nonce] = b"0" * 64 + b"\n"
         with self.assertRaises(TrustValidationError):
-            self._issuer(signer).issue(replace(self.snapshot, consumption_raw=MappingProxyType(ledger)))
+            self._issuer(signer).issue(
+                replace(self.snapshot, consumption_raw=MappingProxyType(ledger))
+            )
         self.assertEqual(signer.sign_calls, 0)
 
     def test_path_escape_fails_before_signing(self) -> None:
@@ -425,11 +466,15 @@ class SyntheticChain(unittest.TestCase):
         artifacts[run_id] = MappingProxyType(files)
         signer = self.receipt_signer
         with self.assertRaises(TrustValidationError):
-            self._issuer(signer).issue(replace(self.snapshot, artifacts=MappingProxyType(artifacts)))
+            self._issuer(signer).issue(
+                replace(self.snapshot, artifacts=MappingProxyType(artifacts))
+            )
         self.assertEqual(signer.sign_calls, 0)
 
     def test_receipt_key_substitution_fails_and_wrong_verifier_key_rejects(self) -> None:
-        same_key_signer = TestSigner(AUTH_PUB, AUTH_D, "test-authorization-key-001", RECEIPT_PURPOSE)
+        same_key_signer = TestSigner(
+            AUTH_PUB, AUTH_D, "test-authorization-key-001", RECEIPT_PURPOSE
+        )
         with self.assertRaisesRegex(TrustValidationError, "receipt signing key differs"):
             self._issuer(same_key_signer).issue(self.snapshot)
         self.assertEqual(same_key_signer.sign_calls, 0)

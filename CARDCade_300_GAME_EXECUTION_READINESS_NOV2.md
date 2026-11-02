@@ -25,8 +25,8 @@ The previous verifier, wrapper, helper, schedule, manifests, dependencies, and r
 | Schedule-integrity helper | `b1fafc333a3c4a0720c8b84c23639eac70c40a09c6f180ac70d9ab9fa93af41d` | Candidate |
 | `stage002_authorization.py` dependency | `1fd4db87131a0fef996fc2df7aee5f6634fdbc2d7b90f226c76217596fdb6540` | Pinned reviewed source candidate |
 | `stage002_batch.py` dependency | `30720c8d720b52a9538b79063d785e57dc37762bf5099215b7ee05cef0a80293` | Pinned reviewed source candidate |
-| Synthetic chain model | `36c851894acdaef68a64d3fb91f1782ec0501a08bb525896e4727ebb2fec57e3` | Non-production candidate |
-| Synthetic chain tests | `5a03c7c69bc4468293c02660ca50e620515e7cd2a39778033625eed84e96d3b5` | Test-only RSA keys/data |
+| Synthetic chain model | `26b0eceff50a4ea8128d518e89b6c82614802b5519558e3a2d9bdb1ca28bc0ef` | Non-production candidate |
+| Synthetic chain tests | `7f09f004720dd2e342a64c19850ce581e26790c5f34ba8c36e9c5726d9107d1c` | Test-only RSA keys/data |
 
 The test source rechecks the two dependency hashes before import. No production private key or public-key file was read. Test-only 512-bit RSA keys are intentionally below production strength and must never be used outside disposable fixtures.
 
@@ -50,7 +50,7 @@ The following deterministic disposable suites ran successfully:
 
 Total across the three invocations: **34 tests, 33 passed, 1 skipped**. The synthetic chain positive path signs only with test keys and independently verifies the receipt with the separate test receipt key. Invalid batch inputs and existing destinations are rejected before receipt signing; injected key failure and publication interruption leave no final receipt. The interruption/conflict test uses a mock atomic publisher and is not proof of Windows filesystem atomicity.
 
-AST parsing and trailing-whitespace checks passed for the synthetic candidate files. Ruff is not installed in the qualified local interpreter. Existing GitHub Actions run **41371824932** for PR #374 head `41f8f8b10583e342dd2f9db85946a1998cd2a80a` failed at `ruff format --check .`; lint and pytest steps were skipped. The failure output identified formatting differences in existing verifier-review files. The new synthetic candidates were not part of that CI run, and no CI result exists for them. No full gameplay test was run.
+AST parsing and trailing-whitespace checks passed for the synthetic candidate files. Ruff is not installed in the qualified local interpreter. Existing GitHub Actions run **41371824932** for PR #374 head `41f8f8b10583e342dd2f9db85946a1998cd2a80a` failed at `ruff format --check .`; lint and pytest steps were skipped. Run **41481911285** for head `cba82e68b576f566fda5cbb1bf7ada5587a3a143` also failed at the format step, identifying two new candidate files plus three pre-existing verifier-review files. Lint and pytest were skipped. The two new candidates have since been formatted to match the reported Ruff output and locally revalidated; the three prior files are preserved unchanged. An exact-head CI run for these formatting-only updates is pending. No full gameplay test was run.
 
 ## 5. Independent review findings and readiness
 

@@ -153,7 +153,11 @@ class CompletionReceiptIssuer:
             raise TrustValidationError("manifest differs from independently approved digest")
         batch_id = manifest.get("batch_id")
         rows = manifest.get("games")
-        if not isinstance(batch_id, str) or not isinstance(rows, list) or len(rows) != self.expected_games:
+        if (
+            not isinstance(batch_id, str)
+            or not isinstance(rows, list)
+            or len(rows) != self.expected_games
+        ):
             raise TrustValidationError("approved schedule is incomplete")
         runtime = manifest.get("runtime")
         if (
@@ -206,15 +210,17 @@ class CompletionReceiptIssuer:
             ):
                 raise TrustValidationError(f"game {index} identity differs from schedule")
             expected_output = (output_root / run_id).resolve(strict=False)
-            expected_authorization = (
-                authorization_root / batch_id / f"{run_id}.json"
-            ).resolve(strict=False)
+            expected_authorization = (authorization_root / batch_id / f"{run_id}.json").resolve(
+                strict=False
+            )
             if (
                 Path(row.get("output_destination", "")).resolve(strict=False) != expected_output
                 or Path(row.get("authorization_file", "")).resolve(strict=False)
                 != expected_authorization
             ):
-                raise TrustValidationError(f"game {index} output or grant path differs from contract")
+                raise TrustValidationError(
+                    f"game {index} output or grant path differs from contract"
+                )
             if (
                 type(record.get("index")) is not int
                 or record.get("index") != index
@@ -240,7 +246,9 @@ class CompletionReceiptIssuer:
             ledger_raw = snapshot.consumption_raw.get(nonce)
             expected_grant_digest = _sha(self.canonical_claims(grant))
             if ledger_raw != (expected_grant_digest + "\n").encode("ascii"):
-                raise TrustValidationError(f"game {index} grant consumption is absent or inconsistent")
+                raise TrustValidationError(
+                    f"game {index} grant consumption is absent or inconsistent"
+                )
 
             if (
                 attestation.get("batch_id") != batch_id
@@ -258,7 +266,9 @@ class CompletionReceiptIssuer:
             ):
                 raise TrustValidationError(f"game {index} supervisor attestation claims mismatch")
             if record.get("artifacts_sha256") != attestation.get("artifacts_sha256"):
-                raise TrustValidationError(f"game {index} status inventory differs from attestation")
+                raise TrustValidationError(
+                    f"game {index} status inventory differs from attestation"
+                )
             resource = record.get("resource_gate")
             if not isinstance(resource, dict):
                 raise TrustValidationError(f"game {index} resource evidence is missing")
@@ -290,14 +300,18 @@ class CompletionReceiptIssuer:
                 raise TrustValidationError(f"game {index} is missing required artifacts")
             inventory = attestation.get("artifacts_sha256")
             if not isinstance(inventory, dict) or set(inventory) != actual_names:
-                raise TrustValidationError(f"game {index} artifact inventory is incomplete or extra")
+                raise TrustValidationError(
+                    f"game {index} artifact inventory is incomplete or extra"
+                )
             folded_names = [name.casefold() for name in inventory]
             if len(folded_names) != len(set(folded_names)):
                 raise TrustValidationError(f"game {index} inventory has a Windows path collision")
             for name, content in files.items():
                 _safe_path(name)
                 if not isinstance(content, bytes) or inventory.get(name) != _sha(content):
-                    raise TrustValidationError(f"game {index} artifact differs from attested snapshot")
+                    raise TrustValidationError(
+                        f"game {index} artifact differs from attested snapshot"
+                    )
             self._validate_game_documents(manifest, row, manifest_sha, files, index)
 
         receipt = {
@@ -316,7 +330,9 @@ class CompletionReceiptIssuer:
         try:
             publisher.reserve_no_replace()
         except Exception as exc:
-            raise TrustValidationError("receipt destination is occupied or cannot be reserved") from exc
+            raise TrustValidationError(
+                "receipt destination is occupied or cannot be reserved"
+            ) from exc
         receipt = self.issue(snapshot)
         publish_no_replace(publisher, receipt)
         return receipt
@@ -404,7 +420,9 @@ def create_execution_attestation(observed: Mapping[str, Any], signer: Signer) ->
         "artifacts_sha256",
     }
     if set(observed) != required:
-        raise TrustValidationError("supervisor observation does not match strict attestation schema")
+        raise TrustValidationError(
+            "supervisor observation does not match strict attestation schema"
+        )
     if (
         type(observed.get("index")) is not int
         or observed.get("index", 0) < 1
