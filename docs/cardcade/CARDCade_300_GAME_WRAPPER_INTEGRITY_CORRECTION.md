@@ -60,3 +60,7 @@ The wrapper remains tied to the expected `C:\projects\tmt` checkout and its exis
 No signature or certificate was created, no execution-policy setting was changed, no grant was issued, and no gameplay was launched. The approved schedule digest remains `9206c4267027473218f18e9482abcccb8a64dcfc62a7511d39b711a427a2179c`.
 
 **Recommendation: BLOCKED pending independent review and approval of the verifier identity.** After review, the workstation owner must separately approve the signing method; the signed artifact must receive independent signature/hash review; HQ must separately authorize gameplay. Passing this synthetic suite alone does not clear those gates.
+
+## Review publication
+
+The correction package is available as draft [PR #374](https://github.com/egggggman/tmt/pull/374), branch `fix/cardcade-300-wrapper-integrity`, head `9f93145e77a0eb78625cbaa24d711e918bd4387c`, targeting `main` at `1454e657310c4e5ffc8e3468a8da6ff1ccc3a6de`. The PR is open and draft; it is not merged or approved.
