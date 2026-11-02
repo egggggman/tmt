@@ -1,0 +1,51 @@
+name: Cardcade synthetic trust validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".diag003-memory-independent-review/completion-receipt-chain-v1/**"
+      - ".diag003-memory-independent-review/verifier-trust-review/**"
+      - ".diag003-memory-independent-review/300-game-exploratory-r1/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - "CARDCade_300_GAME_INDEPENDENT_REVIEW_AND_READINESS.md"
+      - ".github/workflows/cardcade-synthetic-trust.yml"
+      - ".github/workflows/test.yml"
+  push:
+    branches: [fix/cardcade-300-wrapper-integrity]
+    paths:
+      - ".diag003-memory-independent-review/completion-receipt-chain-v1/**"
+      - ".diag003-memory-independent-review/verifier-trust-review/**"
+      - ".diag003-memory-independent-review/300-game-exploratory-r1/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - "CARDCade_300_GAME_INDEPENDENT_REVIEW_AND_READINESS.md"
+      - ".github/workflows/cardcade-synthetic-trust.yml"
+      - ".github/workflows/test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-trust:
+    name: Synthetic trust allowlist (no gameplay)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --dev
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - name: Run exact synthetic-only allowlist
+        run: >-
+          uv run pytest -q
+          .diag003-memory-independent-review/completion-receipt-chain-v1/test_synthetic_chain.py
+          .diag003-memory-independent-review/300-game-exploratory-r1/tests/test_batch_integrity_validation.py
+          .diag003-memory-independent-review/verifier-trust-review/test_corrected_verifier_integrity.py
+          .diag003-memory-independent-review/verifier-trust-review/test_verify_completed_batch_trust.py

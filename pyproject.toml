@@ -25,3 +25,9 @@ extend-exclude = ["docs/cardcade/CALIBRATION_V1_*/**"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# Preserve exact historical candidates; only their known import-order and
+# pre-existing zip(strict=) findings are excluded from lint.
+".diag003-memory-independent-review/300-game-exploratory-r1/verify_completed_batch.candidate.py" = ["I001", "B905"]
+".diag003-memory-independent-review/verifier-trust-review/sources/verify_completed_batch.py" = ["I001", "B905"]
