@@ -8,6 +8,7 @@ import importlib.util
 import json
 import math
 import os
+import random
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,46 @@ _D = pow(_E, -1, math.lcm(_P - 1, _Q - 1))
 _DIGEST_INFO_PREFIX = bytes.fromhex("3031300d060960864801650304020105000420")
 
 
+def _probable_prime(candidate: int, rng: random.Random) -> bool:
+    if candidate % 2 == 0:
+        return False
+    d = candidate - 1
+    s = 0
+    while d % 2 == 0:
+        s += 1
+        d //= 2
+    for base in (2, 3, 5, 7, 11, 13, 17, 19, *[rng.randrange(2, candidate - 2) for _ in range(8)]):
+        value = pow(base, d, candidate)
+        if value in (1, candidate - 1):
+            continue
+        for _ in range(s - 1):
+            value = pow(value, 2, candidate)
+            if value == candidate - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def _test_rsa(seed: int) -> tuple[dict[str, Any], int]:
+    rng = random.Random(seed)
+    factors = []
+    for _ in range(2):
+        while True:
+            candidate = rng.getrandbits(256) | (1 << 255) | 1
+            if _probable_prime(candidate, rng):
+                factors.append(candidate)
+                break
+    p, q = factors
+    n = p * q
+    return {"modulus_hex": format(n, "x"), "public_exponent": _E}, pow(
+        _E, -1, math.lcm(p - 1, q - 1)
+    )
+
+
+_RECEIPT_PUBLIC_KEY, _RECEIPT_PRIVATE_KEY = _test_rsa(3740001)
+
+
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -50,15 +91,21 @@ def _load_module(name: str, path: Path):
     return module
 
 
-def _sign(document: dict[str, Any], auth_module: Any) -> dict[str, Any]:
+def _sign(
+    document: dict[str, Any],
+    auth_module: Any,
+    *,
+    private_key: int = _D,
+    modulus: int = _N,
+) -> dict[str, Any]:
     signed = dict(document)
     digest_info = (
         _DIGEST_INFO_PREFIX + hashlib.sha256(auth_module.canonical_claims(signed)).digest()
     )
-    key_size = (_N.bit_length() + 7) // 8
+    key_size = (modulus.bit_length() + 7) // 8
     padding_length = key_size - len(digest_info) - 3
     encoded = b"\x00\x01" + b"\xff" * padding_length + b"\x00" + digest_info
-    signature = pow(int.from_bytes(encoded, "big"), _D, _N).to_bytes(key_size, "big")
+    signature = pow(int.from_bytes(encoded, "big"), private_key, modulus).to_bytes(key_size, "big")
     signed["signature_b64"] = base64.b64encode(signature).decode("ascii")
     return signed
 
@@ -86,9 +133,12 @@ class CorrectedVerifierFixture(unittest.TestCase):
         self.auth_root = self.root / "grants"
         self.used_ledger = self.root / "consumed"
         self.public_key_path = self.root / "mock-public-key.json"
+        self.receipt_public_key_path = self.root / "mock-receipt-public-key.json"
         self.public_key = {"modulus_hex": format(_N, "x"), "public_exponent": _E}
         _write_json(self.public_key_path, self.public_key)
         self.public_key_hash = _sha256_file(self.public_key_path)
+        _write_json(self.receipt_public_key_path, _RECEIPT_PUBLIC_KEY)
+        self.receipt_public_key_hash = _sha256_file(self.receipt_public_key_path)
         self.dependencies = self.root / "dependencies"
         self.dependencies.mkdir()
         for name in SOURCE_HASHES:
@@ -223,18 +273,30 @@ class CorrectedVerifierFixture(unittest.TestCase):
             "status_sha256": _sha256_file(self.status_path),
             "completed_games": 10,
         }
-        _write_json(self.receipt_path, _sign(receipt, auth))
+        receipt_modulus = int(_RECEIPT_PUBLIC_KEY["modulus_hex"], 16)
+        _write_json(
+            self.receipt_path,
+            _sign(
+                receipt,
+                auth,
+                private_key=_RECEIPT_PRIVATE_KEY,
+                modulus=receipt_modulus,
+            ),
+        )
 
     def _verify(self) -> dict[str, Any]:
         return verifier.verify(
             self.manifest_path,
             output_root=self.output_root,
             public_key_path=self.public_key_path,
+            receipt_public_key_path=self.receipt_public_key_path,
             used_ledger=self.used_ledger,
             dependency_root=self.dependencies,
             expected_dependency_hashes=SOURCE_HASHES,
             expected_public_key_sha256=self.public_key_hash,
             expected_public_key_bits=512,
+            expected_receipt_public_key_sha256=self.receipt_public_key_hash,
+            expected_receipt_public_key_bits=512,
         )
 
     def _resign_status(self) -> None:
@@ -246,6 +308,38 @@ class CorrectedVerifierFixture(unittest.TestCase):
         self.assertEqual(result["state"], "VERIFIED_COMPLETE")
         self.assertEqual(result["games_verified"], 10)
         self.assertEqual(result["artifact_hashes_rechecked"], 50)
+
+    def test_authorization_key_cannot_authenticate_completion_receipt(self) -> None:
+        receipt = {
+            "schema": verifier.RECEIPT_SCHEMA,
+            "batch_id": self.manifest["batch_id"],
+            "manifest_sha256": self.manifest_sha,
+            "status_sha256": _sha256_file(self.status_path),
+            "completed_games": 10,
+        }
+        _write_json(self.receipt_path, _sign(receipt, auth))
+        with self.assertRaisesRegex(
+            ValueError, "outside the RSA modulus|signature verification failed"
+        ):
+            self._verify()
+
+    def test_receipt_public_key_substitution_is_rejected(self) -> None:
+        _write_json(self.receipt_public_key_path, self.public_key)
+        with self.assertRaisesRegex(verifier.VerificationError, "public-key identity mismatch"):
+            self._verify()
+
+    def test_missing_separate_receipt_trust_anchor_fails_closed(self) -> None:
+        with self.assertRaisesRegex(verifier.VerificationError, "separate approved receipt"):
+            verifier.verify(
+                self.manifest_path,
+                output_root=self.output_root,
+                public_key_path=self.public_key_path,
+                used_ledger=self.used_ledger,
+                dependency_root=self.dependencies,
+                expected_dependency_hashes=SOURCE_HASHES,
+                expected_public_key_sha256=self.public_key_hash,
+                expected_public_key_bits=512,
+            )
 
     def test_modified_result_with_unchanged_status_is_rejected(self) -> None:
         row = self.manifest["games"][0]

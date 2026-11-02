@@ -18,6 +18,7 @@ OUTPUT_ROOT = Path(r"G:\cardcade\diagnostics")
 PUBLIC_KEY_PATH = Path(
     r"C:\Users\cowabunga\AppData\Roaming\Cardcade\Stage002Diagnostic\hq-public-key.json"
 )
+RECEIPT_PUBLIC_KEY_PATH: Path | None = None
 USED_LEDGER = Path(
     r"C:\Users\cowabunga\AppData\Roaming\Cardcade\Stage002Diagnostic\used-authorizations"
 )
@@ -27,6 +28,10 @@ EXPECTED_MEMORY = 2_997_489_664
 EXPECTED_RUNTIME = 600
 EXPECTED_PUBLIC_KEY_SHA256 = "7cfe29b81f719601fd7c0a75925d6cdf4347d18e010df610745dc4d8642f3427"
 EXPECTED_PUBLIC_KEY_BITS = 3072
+# No production receipt key has been approved or provisioned. Keep the CLI
+# fail-closed until an independent receipt trust anchor is supplied and reviewed.
+EXPECTED_RECEIPT_PUBLIC_KEY_SHA256: str | None = None
+EXPECTED_RECEIPT_PUBLIC_KEY_BITS = 3072
 EXPECTED_DEPENDENCY_SHA256 = {
     "stage002_authorization.py": "1fd4db87131a0fef996fc2df7aee5f6634fdbc2d7b90f226c76217596fdb6540",
     "stage002_batch.py": "30720c8d720b52a9538b79063d785e57dc37762bf5099215b7ee05cef0a80293",
@@ -227,7 +232,7 @@ def _verify_completion_receipt(
     batch_id: str,
     manifest_sha: str,
     status_raw: bytes,
-    public_key: dict[str, Any],
+    receipt_public_key: dict[str, Any],
     authorization_module: Any,
 ) -> None:
     receipt, _raw = _read_json_regular(receipt_path)
@@ -249,7 +254,7 @@ def _verify_completion_receipt(
         or receipt.get("completed_games") != 10
     ):
         raise VerificationError("completion receipt does not bind the exact completed batch")
-    authorization_module.verify_rsa_sha256(receipt, public_key)
+    authorization_module.verify_rsa_sha256(receipt, receipt_public_key)
 
 
 def _validate_batch_roots(manifest: dict[str, Any], output_root: Path) -> None:
@@ -273,12 +278,17 @@ def verify(
     *,
     output_root: Path = OUTPUT_ROOT,
     public_key_path: Path = PUBLIC_KEY_PATH,
+    receipt_public_key_path: Path | None = RECEIPT_PUBLIC_KEY_PATH,
     used_ledger: Path = USED_LEDGER,
     dependency_root: Path = TOOLS,
     expected_dependency_hashes: dict[str, str] = EXPECTED_DEPENDENCY_SHA256,
     expected_public_key_sha256: str = EXPECTED_PUBLIC_KEY_SHA256,
     expected_public_key_bits: int = EXPECTED_PUBLIC_KEY_BITS,
+    expected_receipt_public_key_sha256: str | None = EXPECTED_RECEIPT_PUBLIC_KEY_SHA256,
+    expected_receipt_public_key_bits: int = EXPECTED_RECEIPT_PUBLIC_KEY_BITS,
 ) -> dict[str, Any]:
+    if receipt_public_key_path is None or expected_receipt_public_key_sha256 is None:
+        raise VerificationError("separate approved receipt trust anchor is not configured")
     authorization_module, batch_module = load_pinned_dependencies(
         dependency_root, expected_hashes=expected_dependency_hashes
     )
@@ -287,11 +297,18 @@ def verify(
     _assert_no_reparse_chain(output_root)
     output_root = output_root.resolve(strict=True)
     _validate_batch_roots(manifest, output_root)
-    public_key = load_pinned_public_key(
+    authorization_public_key = load_pinned_public_key(
         public_key_path,
         expected_sha256=expected_public_key_sha256,
         expected_bits=expected_public_key_bits,
     )
+    receipt_public_key = load_pinned_public_key(
+        receipt_public_key_path,
+        expected_sha256=expected_receipt_public_key_sha256,
+        expected_bits=expected_receipt_public_key_bits,
+    )
+    if receipt_public_key == authorization_public_key:
+        raise VerificationError("receipt and authorization trust anchors must be distinct")
 
     batch_id = manifest["batch_id"]
     status_path = _contained_regular_file(output_root, f"{batch_id}.status.json")
@@ -302,7 +319,7 @@ def verify(
         batch_id=batch_id,
         manifest_sha=manifest_sha,
         status_raw=status_raw,
-        public_key=public_key,
+        receipt_public_key=receipt_public_key,
         authorization_module=authorization_module,
     )
     status_games = status.get("games")
@@ -409,7 +426,9 @@ def verify(
             raise VerificationError(f"game {index} authorization path differs from the contract")
         grant, _ = _read_json_regular(auth_path)
         nonce = authorization_module.verify_claims(
-            grant, public_key, batch_module.entry_claims(manifest, manifest_sha, index)
+            grant,
+            authorization_public_key,
+            batch_module.entry_claims(manifest, manifest_sha, index),
         )
         if nonce in nonces:
             raise VerificationError("batch reused a one-use authorization nonce")
@@ -447,6 +466,8 @@ def main() -> int:
     parser.add_argument("manifest", type=Path)
     args = parser.parse_args()
     try:
+        if RECEIPT_PUBLIC_KEY_PATH is None or EXPECTED_RECEIPT_PUBLIC_KEY_SHA256 is None:
+            raise VerificationError("separate approved receipt trust anchor is not configured")
         print(json.dumps(verify(args.manifest.resolve(strict=True)), sort_keys=True))
     except Exception as exc:
         print(f"VERIFICATION_FAILED: {type(exc).__name__}: {exc}", file=sys.stderr)

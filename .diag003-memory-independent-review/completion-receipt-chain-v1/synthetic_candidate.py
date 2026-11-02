@@ -14,6 +14,7 @@ import re
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
+from types import MappingProxyType
 from typing import Any, Protocol
 
 RECEIPT_SCHEMA = "cardcade-stage002-batch-completion-v1"
@@ -40,7 +41,7 @@ class Signer(Protocol):
 
 @dataclass(frozen=True)
 class EvidenceSnapshot:
-    """Caller-provided immutable byte snapshot; production capture is separate."""
+    """Defensively copied immutable byte snapshot; production capture is separate."""
 
     manifest_raw: bytes
     status_raw: bytes
@@ -50,6 +51,29 @@ class EvidenceSnapshot:
     grants_raw: Mapping[str, bytes]
     # Nonce -> ASCII hex digest record bytes, captured from protected ledger.
     consumption_raw: Mapping[str, bytes]
+
+    def __post_init__(self) -> None:
+        for name in ("manifest_raw", "status_raw"):
+            if not isinstance(getattr(self, name), bytes):
+                raise TypeError(f"{name} must be immutable bytes")
+        object.__setattr__(
+            self,
+            "artifacts",
+            MappingProxyType(
+                {run_id: MappingProxyType(dict(files)) for run_id, files in self.artifacts.items()}
+            ),
+        )
+        for name in ("attestations_raw", "grants_raw", "consumption_raw"):
+            object.__setattr__(self, name, MappingProxyType(dict(getattr(self, name))))
+        for mapping_name in ("attestations_raw", "grants_raw", "consumption_raw"):
+            if any(not isinstance(value, bytes) for value in getattr(self, mapping_name).values()):
+                raise TypeError(f"{mapping_name} values must be immutable bytes")
+        if any(
+            not isinstance(content, bytes)
+            for files in self.artifacts.values()
+            for content in files.values()
+        ):
+            raise TypeError("artifact snapshot values must be immutable bytes")
 
 
 def _canonical(value: Any) -> bytes:

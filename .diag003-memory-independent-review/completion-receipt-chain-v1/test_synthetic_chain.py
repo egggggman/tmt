@@ -362,6 +362,29 @@ class SyntheticChain(unittest.TestCase):
     def _status(self) -> dict[str, Any]:
         return json.loads(self.snapshot.status_raw)
 
+    def test_evidence_snapshot_defensively_freezes_nested_inputs(self) -> None:
+        files = {"result.json": b"original"}
+        artifact_map = {"run-1": files}
+        attestation_map = {"run-1": b"attestation"}
+        snapshot = EvidenceSnapshot(
+            manifest_raw=b"manifest",
+            status_raw=b"status",
+            artifacts=artifact_map,
+            attestations_raw=attestation_map,
+            grants_raw={"run-1": b"grant"},
+            consumption_raw={"nonce": b"record"},
+        )
+
+        files["result.json"] = b"mutated"
+        artifact_map["run-2"] = {"result.json": b"extra"}
+        attestation_map["run-1"] = b"mutated"
+
+        self.assertEqual(snapshot.artifacts["run-1"]["result.json"], b"original")
+        self.assertNotIn("run-2", snapshot.artifacts)
+        self.assertEqual(snapshot.attestations_raw["run-1"], b"attestation")
+        with self.assertRaises(TypeError):
+            snapshot.artifacts["run-1"]["result.json"] = b"replace"  # type: ignore[index]
+
     def test_complete_ten_game_chain_issues_distinctly_signed_receipt(self) -> None:
         publisher = NoReplacePublisher()
         receipt = self._issuer().issue_and_publish(self.snapshot, publisher)

@@ -43,9 +43,9 @@ $expectedIssuer = '47d4adee5c4ff36f0117375777ae76d8c34217e40d63812f505ad202bb702
 $expectedSupervisor = 'f23939f4bb656de73588ae9202437d093b38fc7cbaf4e92b7776cb542ee22b1d'
 $expectedRuntime = '85b71d8c6ec1905935f74be0c9869aae198d00e98f39df699ec66f9c5a84cecd'
 $expectedLock = '0c9863fb82c65e8c457b6903b13ab978e1012dc9252e9cca3e95807ef3ded11a'
-$expectedIntegrityHelper = 'fba562af86871074a2b86cdd289a648d2f292465acf8db27aa46d866827459b3'
+$expectedIntegrityHelper = 'e342ac4ebca9103627a83028c0f6ca21c5be2bf916a955d54eb1fc815a7043ce'
 # Candidate pin only; independent reviewer approval of this identity remains required.
-$expectedVerifier = 'a6268208b5616628485a329c412964f7dbcb5c6fe353419fecd9f591d82bd245'
+$expectedVerifier = '5f4b3b87b37afc8c4f4a8d18f0740e2b5504751106d448d597d6b41bb660d603'
 $outputRoot = 'G:\cardcade\diagnostics'
 $authorizationRoot = 'C:\Users\cowabunga\AppData\Roaming\Cardcade\Stage002Diagnostic\batches'
 $usedLedger = 'C:\Users\cowabunga\AppData\Roaming\Cardcade\Stage002Diagnostic\used-authorizations'
