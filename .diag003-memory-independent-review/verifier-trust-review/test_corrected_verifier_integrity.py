@@ -52,7 +52,9 @@ def _load_module(name: str, path: Path):
 
 def _sign(document: dict[str, Any], auth_module: Any) -> dict[str, Any]:
     signed = dict(document)
-    digest_info = _DIGEST_INFO_PREFIX + hashlib.sha256(auth_module.canonical_claims(signed)).digest()
+    digest_info = (
+        _DIGEST_INFO_PREFIX + hashlib.sha256(auth_module.canonical_claims(signed)).digest()
+    )
     key_size = (_N.bit_length() + 7) // 8
     padding_length = key_size - len(digest_info) - 3
     encoded = b"\x00\x01" + b"\xff" * padding_length + b"\x00" + digest_info
@@ -72,9 +74,7 @@ for _name, _expected in SOURCE_HASHES.items():
 
 auth = _load_module("test_pinned_stage002_authorization", SOURCE_ROOT / "stage002_authorization.py")
 batch = _load_module("test_pinned_stage002_batch", SOURCE_ROOT / "stage002_batch.py")
-verifier = _load_module(
-    "corrected_batch_verifier", CORRECTED_ROOT / "verify_completed_batch.py"
-)
+verifier = _load_module("corrected_batch_verifier", CORRECTED_ROOT / "verify_completed_batch.py")
 
 
 class CorrectedVerifierFixture(unittest.TestCase):
@@ -116,7 +116,9 @@ class CorrectedVerifierFixture(unittest.TestCase):
         self.manifest_path = self.root / "manifest.json"
         _write_json(self.manifest_path, self.manifest)
         self.status_path, self.status = self._create_batch()
-        self.receipt_path = self.output_root / f"{self.manifest['batch_id']}.completion-receipt.json"
+        self.receipt_path = (
+            self.output_root / f"{self.manifest['batch_id']}.completion-receipt.json"
+        )
         self._write_receipt()
 
     def tearDown(self) -> None:
@@ -165,8 +167,7 @@ class CorrectedVerifierFixture(unittest.TestCase):
             (output / "stdout.log").write_bytes(b"mock worker stdout\n")
             (output / "stderr.log").write_bytes(b"")
             artifacts = {
-                name: _sha256_file(output / name)
-                for name in verifier.REQUIRED_COMPLETED_ARTIFACTS
+                name: _sha256_file(output / name) for name in verifier.REQUIRED_COMPLETED_ARTIFACTS
             }
             status_games.append(
                 {
@@ -287,15 +288,12 @@ class CorrectedVerifierFixture(unittest.TestCase):
     def test_path_traversal_is_rejected(self) -> None:
         outside = self.root / "outside.bin"
         outside.write_bytes(b"disposable only")
-        self.status["games"][0]["artifacts_sha256"]["..\\..\\outside.bin"] = _sha256_file(
-            outside
-        )
+        self.status["games"][0]["artifacts_sha256"]["..\\..\\outside.bin"] = _sha256_file(outside)
         self._resign_status()
         with self.assertRaisesRegex(verifier.VerificationError, "traversal"):
             self._verify()
 
     def test_absolute_and_out_of_tree_paths_are_rejected(self) -> None:
-        row = self.manifest["games"][0]
         outside = self.root / "outside.bin"
         outside.write_bytes(b"disposable only")
         self.status["games"][0]["artifacts_sha256"][str(outside)] = _sha256_file(outside)
@@ -319,9 +317,7 @@ class CorrectedVerifierFixture(unittest.TestCase):
             os.symlink(external, link)
         except (OSError, NotImplementedError) as exc:
             self.skipTest(f"filesystem denied disposable symlink creation: {exc}")
-        self.status["games"][0]["artifacts_sha256"]["telemetry-link.bin"] = _sha256_file(
-            external
-        )
+        self.status["games"][0]["artifacts_sha256"]["telemetry-link.bin"] = _sha256_file(external)
         self._resign_status()
         with self.assertRaises(verifier.VerificationError):
             self._verify()

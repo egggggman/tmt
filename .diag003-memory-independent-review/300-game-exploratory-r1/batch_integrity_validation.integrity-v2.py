@@ -22,7 +22,7 @@ EXPECTED_RUNTIME_SHA256 = "85b71d8c6ec1905935f74be0c9869aae198d00e98f39df699ec66
 EXPECTED_UV_LOCK_SHA256 = "0c9863fb82c65e8c457b6903b13ab978e1012dc9252e9cca3e95807ef3ded11a"
 # Candidate copied byte-for-byte from the preserved 100-game preflight verifier.
 # Its independent approval is a separate review gate; this constant is only a pin.
-EXPECTED_VERIFIER_SHA256 = "45d920a2128e430574ab2eed96f3bc62281d8128ab4e81b0155b7bc710232385"
+EXPECTED_VERIFIER_SHA256 = "a6268208b5616628485a329c412964f7dbcb5c6fe353419fecd9f591d82bd245"
 
 SCHEMA = "cardcade-stage002-batch-v1"
 ENTRY_SCHEMA = "cardcade-stage002-batch-entry-v1"

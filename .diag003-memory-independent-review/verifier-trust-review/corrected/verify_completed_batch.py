@@ -158,7 +158,9 @@ def _contained_regular_file(root: Path, relative: str) -> Path:
     try:
         resolved.relative_to(root)
     except ValueError as exc:
-        raise VerificationError(f"artifact resolves outside its assigned output: {relative}") from exc
+        raise VerificationError(
+            f"artifact resolves outside its assigned output: {relative}"
+        ) from exc
     if not resolved.is_file():
         raise VerificationError(f"artifact is not a regular file: {relative}")
     return resolved
@@ -197,7 +199,9 @@ def _validated_inventory(record: dict[str, Any], output: Path) -> dict[str, str]
         raise VerificationError(f"required completed-game artifacts are missing: {missing}")
     actual = {name.casefold() for name in _regular_files_below(output)}
     if actual != set(normalized):
-        raise VerificationError("artifact inventory does not exactly cover the assigned game output")
+        raise VerificationError(
+            "artifact inventory does not exactly cover the assigned game output"
+        )
     for relative in inventory:
         path = _contained_regular_file(output, relative)
         if _sha256_file(path) != inventory[relative]:
@@ -317,7 +321,7 @@ def verify(
     nonces: set[str] = set()
     outcomes: list[dict[str, Any]] = []
     artifacts_checked = 0
-    for index, (row, record) in enumerate(zip(manifest["games"], status_games), 1):
+    for index, (row, record) in enumerate(zip(manifest["games"], status_games, strict=True), 1):
         if not isinstance(row, dict) or not isinstance(record, dict):
             raise VerificationError(f"game {index} evidence row is malformed")
         run_id = row.get("run_id")
@@ -411,9 +415,13 @@ def verify(
             raise VerificationError("batch reused a one-use authorization nonce")
         nonces.add(nonce)
         used = _contained_regular_file(used_ledger, f"{nonce}.used")
-        expected_claim_digest = hashlib.sha256(authorization_module.canonical_claims(grant)).hexdigest()
+        expected_claim_digest = hashlib.sha256(
+            authorization_module.canonical_claims(grant)
+        ).hexdigest()
         if used.read_text(encoding="ascii").strip() != expected_claim_digest:
-            raise VerificationError(f"game {index} authorization consumption record is missing or wrong")
+            raise VerificationError(
+                f"game {index} authorization consumption record is missing or wrong"
+            )
         outcomes.append(
             {
                 "seed": row["seed"],

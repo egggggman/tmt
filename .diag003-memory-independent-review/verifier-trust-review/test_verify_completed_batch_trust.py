@@ -65,9 +65,9 @@ _DIGEST_INFO_PREFIX = bytes.fromhex("3031300d060960864801650304020105000420")
 
 def _sign_test_claims(document: dict[str, Any]) -> dict[str, Any]:
     signed = dict(document)
-    digest_info = _DIGEST_INFO_PREFIX + hashlib.sha256(
-        authorization.canonical_claims(signed)
-    ).digest()
+    digest_info = (
+        _DIGEST_INFO_PREFIX + hashlib.sha256(authorization.canonical_claims(signed)).digest()
+    )
     size = (_TEST_N.bit_length() + 7) // 8
     padding_length = size - len(digest_info) - 3
     encoded = b"\x00\x01" + b"\xff" * padding_length + b"\x00" + digest_info
@@ -134,7 +134,9 @@ class VerifierFixture(unittest.TestCase):
             output = self.output_root / row["run_id"]
             output.mkdir()
             telemetry = output / "telemetry.json"
-            telemetry.write_text(json.dumps({"run_id": row["run_id"], "events": []}), encoding="utf-8")
+            telemetry.write_text(
+                json.dumps({"run_id": row["run_id"], "events": []}), encoding="utf-8"
+            )
             run_manifest = {
                 "run_id": row["run_id"],
                 "batch_manifest_sha256": self.manifest_sha,
@@ -284,4 +286,3 @@ class VerifierFixture(unittest.TestCase):
         (self.ledger / f"{nonce}.used").write_text("0" * 64 + "\n", encoding="ascii")
         with self.assertRaisesRegex(ValueError, "consumption record is missing or wrong"):
             verifier.verify(self.manifest_path)
-
