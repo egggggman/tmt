@@ -1,0 +1,27 @@
+{
+  "audit": "BAD_GUYS_CRONIES_SANDBOX_0_2_COVERAGE_AUDIT_AB_RUNTIME",
+  "status": "READY_FOR_INDEPENDENT_C10_ACCEPTANCE",
+  "runtime": "c087f84bab4916b516ec6745f5a8e9f2a2d33f9117856bf959da4eb9a7be8e54",
+  "pre_c9_runtime": "c483d71cbc63b47d94736f018dd052c57f6a11a2443a74e98bc930aee5754bff",
+  "pre_c8_runtime": "832c37effb02af7351f7d29836c9eb793a008de29c8d77b2ae79431eb9445ad7",
+  "pre_c7_runtime": "197c2acd50c95d669d549f1fe99342740a48b7d7a7fe8ff814c21a449927209f",
+  "pre_c6_runtime": "5860e357c084973aac2eae3f4b5f27b9948caa866bad3bf3d5c48cc8d5db4cf8",
+  "pre_c5_runtime": "6b2f86bf1834aece9dc1b3bc3817451601fb5c88e8581f1c7f6ba2a1d50d63a0",
+  "pre_c4_runtime": "ab38515951c7faa1b1006a3e03ec4620c03a646538c2a3e54e44733716f44a37",
+  "pre_c3_runtime": "c95426fe7baba7794884782e781df1deda0c8d162cf70df03f0a8da1528a6691",
+  "pre_c1_runtime": "00fc49eb47d9ffd3d0243564cc7c9763d11738ca9698811306102747a060d374",
+  "predecessor_runtime": "d4466241f0ffeaca809cd6a05210ad53b9af1011a1d7f833de88657c1cf00924",
+  "candidate_sha256": "cacc77648a4d1659b8ae640d95ac2672694e6951553980246e6d001e5152bfb4",
+  "baseline_sha256": "aaa61d3a3d65f7c8ab74062cc8f41d220a46066b44c28e3c71921c570a6b66ed",
+  "snapshot_sha256": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+  "simulations_run": false,
+  "coverage": {
+    "supported": ["Foot Elite attack trigger", "Foot Mystic lifelink", "Foot Mystic conditional Disappear ETB/token", "Rocksteady Forestcycling", "Bebop & Rocksteady mandatory sacrifice/discard", "Generic variable-X announcement/payment and ETB token creation", "Generic kicker sacrifice payment and conditional temporary creature removal", "Mutant Chain Reaction optional removal and Mutagen creation", "Tainted Treats mana-value-gated Food creation", "Paramecia Coloniex death/exile recursion", "Menace/Rhino-wide continuous keyword grants and blocking restrictions", "Generic artifact-token activated-ability cost reduction"],
+    "partial": ["Intrinsic deathtouch/trample/reach/ordinary land entry"],
+    "unsupported": []
+  },
+  "completed_batch": "C10 Mutagen artifact-token activation-cost reduction",
+  "recommended_batches": [],
+  "tests": {"focused_c1": 4, "focused_c2": 8, "focused_c3": 5, "focused_c4": 4, "focused_c5": 5, "focused_c6": 7, "focused_c7": 10, "focused_c8": 8, "focused_c9": 7, "focused_c10": 7, "combat_regression": 18, "full_passed": 1690, "full_skipped": 10}
+}
+

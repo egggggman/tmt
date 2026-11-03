@@ -98,12 +98,9 @@ def test_renaming_and_sibling_boundary():
         is None
     )
     assert interpreter.mill_three_semantic_coverage(SOURCE, SIBLING) is None
-    assert any(
-        f == SIBLING
-        for f, _ in interpreter.unsupported_fragments(
-            replace(SOURCE, oracle_text=FRAGMENT + "\n" + SIBLING)
-        )
-    )
+    combined = replace(SOURCE, oracle_text=FRAGMENT + "\n" + SIBLING)
+    assert interpreter.paramecia_recursion_semantic_coverage(combined, SIBLING)
+    assert not any(f == SIBLING for f, _ in interpreter.unsupported_fragments(combined))
 
 
 def test_resolution_time_library_and_later_movement():

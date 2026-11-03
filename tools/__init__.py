@@ -1,1 +1,1 @@
-"""Repository-owned command-line tools."""
+"""Repository validation tools."""

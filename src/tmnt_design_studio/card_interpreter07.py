@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from typing import Protocol
 
@@ -33,6 +33,10 @@ class CastKind(Enum):
     DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE = (
         "destroy_artifact_enchantment_or_power_4_creature"
     )
+    KICKED_CREATURE_PT = "kicked_creature_pt"
+    COMPOUND_REMOVAL_TOKEN = "compound_removal_token"
+    CONDITIONAL_REMOVAL_TOKEN = "conditional_removal_token"
+    TOP_LIBRARY_SELECTION = "top_library_selection"
     UNSUPPORTED = "unsupported"
 
 
@@ -40,6 +44,64 @@ class CastKind(Enum):
 class CastProgram:
     kind: CastKind
     draw_quantity: int | None = None
+    variable_x: bool = False
+
+
+@dataclass(frozen=True)
+class TopLibrarySelectionProgram:
+    """Look at a bounded library prefix, optionally reveal one qualifying card."""
+
+    quantity: int
+    eligible_types: tuple[str, ...]
+    destination: str = "hand"
+    random_bottom: bool = True
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.quantity > 0
+            and bool(self.eligible_types)
+            and self.destination == "hand"
+            and self.random_bottom
+        )
+
+
+@dataclass(frozen=True)
+class KickedCreaturePTProgram:
+    """Complete generic kicker cost and conditional temporary P/T effect."""
+
+    sacrifice_types: tuple[str, ...]
+    ordinary: tuple[int, int]
+    kicked: tuple[int, int]
+
+
+@dataclass(frozen=True)
+class CompoundRemovalTokenProgram:
+    """Optional permanent removal followed by one token creation."""
+
+    target_kinds: tuple[str, ...]
+    token_program: TokenCreationProgram
+
+    @property
+    def executable(self) -> bool:
+        return bool(self.target_kinds) and self.token_program.executable
+
+
+@dataclass(frozen=True)
+class ConditionalRemovalTokenProgram:
+    """Destroy one artifact/creature, then conditionally create a token."""
+
+    target_kinds: tuple[str, ...]
+    mana_value_at_most: int
+    token_program: TokenCreationProgram
+
+    @property
+    def executable(self) -> bool:
+        return (
+            bool(self.target_kinds)
+            and self.mana_value_at_most >= 0
+            and self.token_program.executable
+        )
 
 
 @dataclass(frozen=True)
@@ -67,6 +129,85 @@ class StaticTeamModifierProgram:
 @dataclass(frozen=True)
 class InterpretedStaticTeamModifierSemantics:
     program: StaticTeamModifierProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class StaticKeywordGrantProgram:
+    """A controller-scoped continuous keyword grant."""
+
+    quality: str
+    keyword: str
+    controller_scoped: bool = True
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.controller_scoped
+            and self.quality
+            and self.keyword
+            in {
+                "menace",
+            }
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedStaticKeywordGrantSemantics:
+    program: StaticKeywordGrantProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class StaticActivationCostReductionProgram:
+    """Controller-scoped reduction for activated abilities of qualifying tokens."""
+
+    quality: str
+    reduction: int
+
+    @property
+    def executable(self) -> bool:
+        return bool(self.quality) and self.reduction > 0
+
+
+@dataclass(frozen=True)
+class InterpretedStaticActivationCostReductionSemantics:
+    program: StaticActivationCostReductionProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
+class AttackTargetPTProgram:
+    power: int
+    toughness: int
+    duration: str
+    grants_indestructible: bool
+    source_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return (
+            self.duration == "until_end_of_turn"
+            and self.grants_indestructible
+            and self.source_reference
+        )
+
+
+@dataclass(frozen=True)
+class InterpretedAttackTargetPTSemantics:
+    program: AttackTargetPTProgram
     coverage: SemanticCoverage
 
     @property
@@ -448,6 +589,27 @@ class InterpretedDiscardDrawSemantics:
 
 
 @dataclass(frozen=True)
+class CombatSacrificeDiscardProgram:
+    """Resolution-time choice: discard a card or sacrifice a permanent."""
+
+    source_reference: bool
+
+    @property
+    def executable(self) -> bool:
+        return self.source_reference
+
+
+@dataclass(frozen=True)
+class InterpretedCombatSacrificeDiscardSemantics:
+    program: CombatSacrificeDiscardProgram
+    coverage: SemanticCoverage
+
+    @property
+    def limitations(self) -> tuple[str, ...]:
+        return self.coverage.limitations
+
+
+@dataclass(frozen=True)
 class ActivationCostProgram:
     """Oracle-derived activation costs, before authoritative payment."""
 
@@ -551,7 +713,7 @@ class TokenCreationProgram:
     """One recognized token-creation instruction, executable only when fully bounded."""
 
     definition: TokenDefinition | None
-    quantity: int | None
+    quantity: int | str | None
     tapped: bool = False
     unsupported_reason: str | None = None
     retained_limitation: str | None = None
@@ -561,7 +723,7 @@ class TokenCreationProgram:
         return (
             self.definition is not None
             and self.quantity is not None
-            and self.quantity > 0
+            and (self.quantity == "X" or self.quantity > 0)
             and self.unsupported_reason is None
         )
 
@@ -634,6 +796,15 @@ class CardInterpreter:
         r"^Other (?P<quality>artifact) creatures you control get "
         r"\+(?P<power>\d+)/\+(?P<toughness>\d+)\.$"
     )
+    STATIC_KEYWORD_GRANT = re.compile(
+        r"^(?P<quality>[A-Za-z]+)s you control have (?P<keyword>[A-Za-z ]+)\.$",
+        re.IGNORECASE,
+    )
+    STATIC_ACTIVATION_COST_REDUCTION = re.compile(
+        r"^Activated abilities of (?P<quality>[A-Za-z]+) tokens you control "
+        r"cost \{(?P<reduction>[0-9]+)\} less to activate\.$",
+        re.IGNORECASE,
+    )
     ALLIANCE_THIS_UNTIL_EOT = re.compile(
         r"^Alliance — Whenever another creature you control enters, this creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
@@ -646,11 +817,23 @@ class CardInterpreter:
         r"^Whenever .+ attacks, each other attacking creature gets "
         r"\+(\d+)/\+(\d+) until end of turn\.$"
     )
+    ATTACK_TARGET_CREATURE_UNTIL_EOT = re.compile(
+        r"^Whenever (?P<source>.+) attacks, another target creature you control gets "
+        r"\+(?P<power>\d+)/\+(?P<toughness>\d+) and gains indestructible until end of turn\. "
+        r"\(Damage and effects that say \"destroy\" don't destroy it\.\)$"
+    )
     CANT_BE_BLOCKED_BY_POWER_OR_GREATER = re.compile(
         r"^.+ can't be blocked by creatures with power (\d+) or greater\.$"
     )
     CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
         r"^This creature can't be blocked by creatures with greater power\.$"
+    )
+    CANT_BE_BLOCKED_BY_MORE_THAN_ONE = re.compile(
+        r"^(?P<subject>.+) can't be blocked by more than one creature\."
+    )
+    COMBAT_SACRIFICE_UNLESS_DISCARD = re.compile(
+        r"^Whenever (?P<source>.+) attack or block, sacrifice a permanent unless you "
+        r"discard a card\.$"
     )
     ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
         r"^Alliance — Whenever another creature you control enters, put "
@@ -900,6 +1083,14 @@ class CardInterpreter:
         return InterpretedDrawCardsSemantics(DrawCardsProgram(quantity), coverage)
 
     def cast_program(self, card: CardDefinition) -> CastProgram:
+        if self.kicked_creature_pt_program(card) is not None:
+            return CastProgram(CastKind.KICKED_CREATURE_PT)
+        if self.conditional_removal_token_program(card) is not None:
+            return CastProgram(CastKind.CONDITIONAL_REMOVAL_TOKEN)
+        if self.compound_removal_token_program(card) is not None:
+            return CastProgram(CastKind.COMPOUND_REMOVAL_TOKEN)
+        if self.top_library_selection_program(card) is not None:
+            return CastProgram(CastKind.TOP_LIBRARY_SELECTION)
         if "Aura" in card.type_line:
             return CastProgram(
                 CastKind.AURA if self.aura_program(card) is not None else CastKind.UNSUPPORTED
@@ -936,8 +1127,146 @@ class CardInterpreter:
         ):
             return CastProgram(CastKind.PERMANENT)
         if card.is_creature and card.power is not None and card.toughness is not None:
-            return CastProgram(CastKind.CREATURE)
+            variable_x = "{X}" in card.mana_cost and any(
+                (semantics := self.token_semantic_coverage(card, fragment)) is not None
+                and semantics.coverage.fully_supported
+                and semantics.program.quantity == "X"
+                for fragment in self.fragments(card)
+            )
+            return CastProgram(CastKind.CREATURE, variable_x=variable_x)
         return CastProgram(CastKind.UNSUPPORTED)
+
+    TOP_LIBRARY_SELECTION = re.compile(
+        r"^Look at the top (?P<quantity>"
+        r"[1-9][0-9]*|one|two|three|four|five|six|seven|eight|nine|ten"
+        r") cards? of your library\. "
+        r"You may reveal a (?P<types>.+?) card from among them and put it into your hand\. "
+        r"Put the rest on the bottom of your library in a random order\.$",
+        re.I,
+    )
+
+    def top_library_selection_program(
+        self, card: CardDefinition
+    ) -> TopLibrarySelectionProgram | None:
+        """Recognize the generic optional top-library reveal/hand transaction."""
+        if card.type_line.split(" — ", 1)[0].strip() not in {"Sorcery", "Instant"}:
+            return None
+        match = self.TOP_LIBRARY_SELECTION.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        types = tuple(
+            value.strip().casefold()
+            for value in re.split(r",|\bor\b", match.group("types"), flags=re.I)
+            if value.strip()
+        )
+        if not types or any(value not in {"mutant", "ninja", "turtle", "land"} for value in types):
+            return None
+        quantity_text = match.group("quantity").casefold()
+        quantity = self.DRAW_QUANTITIES.get(
+            quantity_text, int(quantity_text) if quantity_text.isdigit() else None
+        )
+        if quantity is None:
+            return None
+        program = TopLibrarySelectionProgram(quantity, types)
+        return program if program.executable else None
+
+    def top_library_selection_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.top_library_selection_program(card)
+        if program is None or fragment.strip() != card.oracle_text.strip():
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    KICKED_CREATURE_PT = re.compile(
+        r"Kicker—Sacrifice an artifact or creature\. \(You may sacrifice an artifact or creature "
+        r"in addition to any other costs as you cast this spell\.\)\n"
+        r"Target creature gets (?P<base_p>-?\d+)/(?P<base_t>-?\d+) until end of turn\. "
+        r"If this spell was kicked, that creature gets (?P<kick_p>-?\d+)/(?P<kick_t>-?\d+) "
+        r"until end of turn instead\."
+    )
+
+    def kicked_creature_pt_program(self, card: CardDefinition) -> KickedCreaturePTProgram | None:
+        """Recognize a complete kicker cost plus conditional temporary P/T spell."""
+        if "Instant" not in card.type_line.split(" — ", 1)[0].split():
+            return None
+        match = self.KICKED_CREATURE_PT.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        return KickedCreaturePTProgram(
+            ("Artifact", "Creature"),
+            (int(match["base_p"]), int(match["base_t"])),
+            (int(match["kick_p"]), int(match["kick_t"])),
+        )
+
+    def shared_kicker_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.kicked_creature_pt_program(card)
+        if program is not None and fragment in self.fragments(card):
+            return SemanticCoverage(True, True, True, ())
+        return None
+
+    COMPOUND_REMOVAL_TOKEN = re.compile(
+        r"^Destroy up to one target artifact, enchantment, or creature with flying\. "
+        r'(?P<token>Create (?:a|an|one) [^.]+ token\. \(It.s an artifact with "[^\"]+"\))$',
+        re.I,
+    )
+
+    def compound_removal_token_program(
+        self, card: CardDefinition
+    ) -> CompoundRemovalTokenProgram | None:
+        """Recognize optional artifact/enchantment/flying-creature removal plus a token."""
+        if not card.type_line.startswith("Sorcery"):
+            return None
+        match = self.COMPOUND_REMOVAL_TOKEN.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token_program = self.token_creation_program(match.group("token"))
+        if token_program is None or not token_program.executable:
+            return None
+        return CompoundRemovalTokenProgram(
+            ("artifact", "enchantment", "creature_flying"), token_program
+        )
+
+    def compound_removal_token_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.compound_removal_token_program(card)
+        if program is None or fragment not in self.fragments(card):
+            return None
+        return SemanticCoverage(program.executable, True, True, ())
+
+    CONDITIONAL_REMOVAL_TOKEN = re.compile(
+        r"^Destroy target artifact or creature\. If its mana value was (?P<threshold>[0-9]+) "
+        r"or less, (?P<token>Create (?:a|an|one) [^.]+ token\. "
+        r'\(It(?:\'|’)s an artifact with "[^"]+"\))$',
+        re.I,
+    )
+
+    def conditional_removal_token_program(
+        self, card: CardDefinition
+    ) -> ConditionalRemovalTokenProgram | None:
+        """Recognize a complete destroy-then-mana-value-gated token spell."""
+        if not card.type_line.startswith("Instant"):
+            return None
+        match = self.CONDITIONAL_REMOVAL_TOKEN.fullmatch(card.oracle_text.strip())
+        if match is None:
+            return None
+        token_program = self.token_creation_program(match.group("token"))
+        if token_program is None or not token_program.executable:
+            return None
+        return ConditionalRemovalTokenProgram(
+            ("artifact", "creature"), int(match.group("threshold")), token_program
+        )
+
+    def conditional_removal_token_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        program = self.conditional_removal_token_program(card)
+        if program is None or fragment not in self.fragments(card):
+            return None
+        return SemanticCoverage(program.executable, True, True, ())
 
     AURA_SUPPRESSION = re.compile(
         r"^Enchanted creature is a (?P<type>[A-Z][a-z]+) with base power and toughness "
@@ -1098,6 +1427,46 @@ class CardInterpreter:
             SemanticCoverage(permanent_source, permanent_source, permanent_source, limitations),
         )
 
+    def static_keyword_grant_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticKeywordGrantSemantics | None:
+        match = self.STATIC_KEYWORD_GRANT.fullmatch(fragment)
+        if match is None:
+            return None
+        program = StaticKeywordGrantProgram(
+            match.group("quality").casefold(), match.group("keyword").strip().casefold()
+        )
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        executable = permanent_source and program.executable
+        limitations = () if executable else ("static_keyword_grant_not_executable",)
+        return InterpretedStaticKeywordGrantSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
+        )
+
+    def static_activation_cost_reduction_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedStaticActivationCostReductionSemantics | None:
+        match = self.STATIC_ACTIVATION_COST_REDUCTION.fullmatch(fragment)
+        if match is None:
+            return None
+        program = StaticActivationCostReductionProgram(
+            match.group("quality").casefold(), int(match.group("reduction"))
+        )
+        permanent_source = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Battle", "Creature", "Enchantment", "Land", "Planeswalker")
+        )
+        executable = permanent_source and program.executable
+        limitations = () if executable else ("static_activation_cost_reduction_not_executable",)
+        return InterpretedStaticActivationCostReductionSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, limitations),
+        )
+
     def supports_pt_fragment(self, fragment: str) -> bool:
         return any(
             pattern.fullmatch(fragment)
@@ -1107,7 +1476,39 @@ class CardInterpreter:
                 self.ALLIANCE_THIS_UNTIL_EOT,
                 self.SNEAK_ETB_TEAM_UNTIL_EOT,
                 self.ATTACK_OTHER_ATTACKERS_UNTIL_EOT,
+                self.ATTACK_TARGET_CREATURE_UNTIL_EOT,
             )
+        )
+
+    def attack_target_pt_semantic_coverage(self, card, fragment):
+        match = self.ATTACK_TARGET_CREATURE_UNTIL_EOT.fullmatch(fragment)
+        if match is None:
+            return None
+        names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = (
+            match.group("source").casefold() in names
+            or match.group("source").casefold() == "this creature"
+        )
+        program = AttackTargetPTProgram(
+            int(match.group("power")),
+            int(match.group("toughness")),
+            "until_end_of_turn",
+            True,
+            source_reference,
+        )
+        source_is_creature = "Creature" in card.type_line
+        limitations = (
+            ()
+            if source_reference and source_is_creature
+            else (
+                "attack_target_pt_source_mismatch"
+                if not source_reference
+                else "attack_target_pt_source_not_creature",
+            )
+        )
+        executable = program.executable and source_is_creature
+        return InterpretedAttackTargetPTSemantics(
+            program, SemanticCoverage(executable, executable, executable, limitations)
         )
 
     def supports_blocking_fragment(self, fragment: str) -> bool:
@@ -1116,6 +1517,7 @@ class CardInterpreter:
             for pattern in (
                 self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
                 self.CANT_BE_BLOCKED_BY_GREATER_POWER,
+                self.CANT_BE_BLOCKED_BY_MORE_THAN_ONE,
             )
         )
 
@@ -1319,9 +1721,20 @@ class CardInterpreter:
         quantity = self.TOKEN_QUANTITIES.get(quantity_text)
         if quantity is None and quantity_text.isdecimal():
             quantity = int(quantity_text)
-        variable_quantity = quantity is None or bool(
-            re.search(
-                r"\b(?:for each|equal to|twice that many|where X|that many)\b", fragment, re.I
+        if quantity is None and quantity_text == "x":
+            quantity = "X"
+        variable_quantity = (
+            quantity is None
+            or (
+                quantity == "X"
+                and not re.search(
+                    r"\bwhere X is the amount of mana spent to cast it\b", fragment, re.I
+                )
+            )
+            or bool(
+                re.search(
+                    r"\b(?:for each|equal to|twice that many|where X|that many)\b", fragment, re.I
+                )
             )
         )
         if re.search(
@@ -1593,6 +2006,34 @@ class CardInterpreter:
             fragment,
             0,
             len(fragment),
+        )
+
+    def combat_sacrifice_discard_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> InterpretedCombatSacrificeDiscardSemantics | None:
+        """Recognize the generic attack-or-block sacrifice/unless-discard trigger."""
+        match = self.COMBAT_SACRIFICE_UNLESS_DISCARD.fullmatch(fragment)
+        if match is None:
+            return None
+        names = {card.name.casefold(), card.name.split(",", 1)[0].casefold()}
+        source_reference = (
+            match.group("source").casefold() in names
+            or match.group("source").casefold() == "this creature"
+        )
+        source_is_permanent = any(
+            kind in card.type_line
+            for kind in ("Artifact", "Creature", "Enchantment", "Land", "Planeswalker", "Battle")
+        )
+        limitations = []
+        if not source_reference:
+            limitations.append("combat_obligation_source_mismatch")
+        if not source_is_permanent:
+            limitations.append("combat_obligation_source_not_permanent")
+        program = CombatSacrificeDiscardProgram(source_reference and source_is_permanent)
+        executable = program.executable
+        return InterpretedCombatSacrificeDiscardSemantics(
+            program,
+            SemanticCoverage(executable, executable, executable, tuple(limitations)),
         )
 
     def discard_draw_semantic_coverage(
@@ -2402,11 +2843,26 @@ class CardInterpreter:
         "(Put the top three cards of your library into your graveyard.)"
     )
 
+    PARAMECIA_DEATH_RECURSION_FRAGMENT = (
+        "When this creature dies, you may exile it. When you do, put target creature card "
+        "from your graveyard on top of your library."
+    )
+
     def mill_three_semantic_coverage(self, card, fragment):
         if (
             fragment != self.MILL_THREE_FRAGMENT
             or "Creature" not in card.type_line.split("\u2014", 1)[0].split()
         ):
+            return None
+        return SemanticCoverage(True, True, True, ())
+
+    def paramecia_recursion_semantic_coverage(self, card, fragment):
+        """Recognize the complete optional death/exile reflexive recursion clause.
+
+        The clause is intentionally grammar-based: any creature carrying this exact Oracle
+        fragment receives the same rules treatment.  It is not keyed to Paramecia's name.
+        """
+        if fragment != self.PARAMECIA_DEATH_RECURSION_FRAGMENT or not card.is_creature:
             return None
         return SemanticCoverage(True, True, True, ())
 
@@ -2464,12 +2920,34 @@ class CardInterpreter:
         self, card: CardDefinition, fragment: str
     ) -> InterpretedTokenSemantics | None:
         """Keep a bounded child payload separate from its delivery and follow-up semantics."""
+        compound = self.compound_removal_token_program(card)
+        if compound is not None and fragment == card.oracle_text:
+            return self._token_semantics(compound.token_program, True)
+        conditional_removal = self.conditional_removal_token_program(card)
+        if conditional_removal is not None and fragment == card.oracle_text:
+            return self._token_semantics(conditional_removal.token_program, True)
         ltb = self.ltb_mutagen_semantic_coverage(card, fragment)
         if ltb is not None:
             return ltb
+        conditional = self.conditional_etb_token_semantic_coverage(card, fragment)
+        if conditional is not None:
+            return conditional
         program = self.token_creation_program(fragment)
         if program is None:
             return None
+
+        # A variable token quantity is bounded when the same permanent has an X
+        # mana cost and the Oracle clause creates X tokens on entry.  X is then
+        # the announcement-time amount, retained by the spell/permanent object;
+        # no card identity is consulted here.
+        if (
+            program.quantity == "X"
+            and program.unsupported_reason == "variable_token_quantity_not_implemented"
+            and "{X}" in card.mana_cost
+            and "Creature" in card.type_line
+            and re.match(r"^When .+ enters, (?:you )?create X .+ tokens?\.", fragment, re.I)
+        ):
+            program = replace(program, unsupported_reason=None)
 
         match = self.CREATE_TOKEN.search(fragment)
         assert match is not None
@@ -2516,6 +2994,18 @@ class CardInterpreter:
             reason = "token_spell_context_not_implemented"
         return self._token_semantics(program, False, reason)
 
+    def conditional_etb_token_semantic_coverage(self, card, fragment):
+        if not re.match(
+            r"^(?:Disappear — )?When .+ enters, if a permanent left the battlefield "
+            r"under your control this turn, ",
+            fragment,
+        ):
+            return None
+        program = self.token_creation_program(fragment)
+        if program is None or "Creature" not in card.type_line:
+            return None
+        return self._token_semantics(program, True)
+
     @staticmethod
     def _token_semantics(
         program: TokenCreationProgram,
@@ -2548,11 +3038,42 @@ class CardInterpreter:
             if not any(re.search(rf"\b{re.escape(keyword)}\b", line, re.I) for line in fragments):
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
+            kicker = self.shared_kicker_semantic_coverage(card, fragment)
+            if kicker is not None:
+                continue
+            conditional = self.conditional_removal_token_semantic_coverage(card, fragment)
+            if conditional is not None:
+                for reason in conditional.limitations:
+                    unsupported.append((fragment, reason))
+                continue
+            compound = self.compound_removal_token_semantic_coverage(card, fragment)
+            if compound is not None:
+                for reason in compound.limitations:
+                    unsupported.append((fragment, reason))
+                continue
             if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
+            attack_target = self.attack_target_pt_semantic_coverage(card, fragment)
+            if attack_target is not None:
+                unsupported.extend((fragment, reason) for reason in attack_target.limitations)
                 continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
                 unsupported.extend((fragment, reason) for reason in static_team.limitations)
+                continue
+            activation_reduction = self.static_activation_cost_reduction_semantic_coverage(
+                card, fragment
+            )
+            if activation_reduction is not None:
+                unsupported.extend(
+                    (fragment, reason) for reason in activation_reduction.limitations
+                )
+                continue
+            static_keyword_grant = self.static_keyword_grant_semantic_coverage(card, fragment)
+            if static_keyword_grant is not None:
+                unsupported.extend(
+                    (fragment, reason) for reason in static_keyword_grant.limitations
+                )
                 continue
             stun = self.etb_tap_stun_semantic_coverage(card, fragment)
             if stun is not None:
@@ -2630,6 +3151,8 @@ class CardInterpreter:
                 continue
             if self.mill_three_semantic_coverage(card, fragment) is not None:
                 continue
+            if self.paramecia_recursion_semantic_coverage(card, fragment) is not None:
+                continue
             if self.jury_rig_semantic_coverage(card, fragment) is not None:
                 continue
             if self.vigilante_semantic_coverage(card, fragment) is not None:
@@ -2639,6 +3162,11 @@ class CardInterpreter:
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            combat_obligation = self.combat_sacrifice_discard_semantic_coverage(card, fragment)
+            if combat_obligation is not None:
+                for reason in combat_obligation.limitations:
+                    unsupported.append((fragment, reason))
                 continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
                 continue
