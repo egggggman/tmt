@@ -8034,6 +8034,9 @@ class Game(
             attacker = attackers[index]
             for count in range(len(remaining) + 1):
                 for group in permutations(remaining, count):
+                    for blocker in group:
+                        if self.can_block(attacker, blocker, defender_index):
+                            self._witness_unsupported_block_context(attacker, blocker)
                     blocks = tuple((attacker.object_id, blocker.object_id) for blocker in group)
                     if not self._valid_block_assignment([attacker], blocks, defender_index):
                         continue
@@ -11252,7 +11255,13 @@ class Game(
         blocks: dict[str, Permanent] = {}
         for attacker in attackers:
             for blocker in available:
-                self._witness_unsupported_block_context(attacker, blocker)
+                if (
+                    blocker.controller == defender_index
+                    and self.is_authoritative(blocker, "battlefield")
+                    and blocker.card.is_creature
+                    and not blocker.tapped
+                ):
+                    self._witness_unsupported_block_context(attacker, blocker)
                 restriction = self.blocking_restriction(attacker, blocker)
                 if restriction is not None:
                     fragment, reason = restriction
