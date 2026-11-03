@@ -228,3 +228,21 @@ def test_menace_options_are_deterministic_for_repeated_identity_observations():
     ) == tuple(
         (a, b) for a, b in next(option for option in second if len(option.blocks) == 2).blocks
     )
+
+
+def test_legal_block_options_witnesses_authoritative_blocker_opportunities():
+    game = Game(([LAND] * 20, [LAND] * 20), seed=9111)
+    game.begin_turn()
+    attacker = game.create_permanent(MENACE, 0, summoning_sick=False)
+    blocker = game.create_permanent(BEAR, 1, summoning_sick=False)
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    attack = next(option for option in game.legal_attack_options(0) if option.attacker_ids)
+    game.execute_attack_action(attack)
+    witnessed = []
+    original = game._witness_unsupported_block_context
+    game._witness_unsupported_block_context = lambda source, candidate: witnessed.append(
+        (source.object_id, candidate.object_id)
+    )
+    game.legal_block_options(attack, 1)
+    game._witness_unsupported_block_context = original
+    assert witnessed == [(attacker.object_id, blocker.object_id)]
