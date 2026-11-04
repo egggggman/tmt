@@ -4929,7 +4929,15 @@ class Game(
                     "power": target.power if target.is_creature else None,
                     "toughness": target.toughness if target.is_creature else None,
                 }
-                target.counters["+1/+1"] = target.counters.get("+1/+1", 0) + 3
+                self.place_counters(
+                    target,
+                    "+1/+1",
+                    3,
+                    source_card=ability.source_card.name,
+                    oracle_fragment=ability.oracle_fragment,
+                    source_id=ability.source_id,
+                    stack_object_id=ability.object_id,
+                )
                 if not target.is_creature:
                     separator = next(
                         (value for value in (" — ", " � ", " â€” ") if value in target.type_line),
@@ -4940,6 +4948,20 @@ class Game(
                     new_subtypes = [item for item in subtypes.split() if item != "Robot"]
                     new_subtypes.append("Robot")
                     target.type_line_override = new_types + separator + " ".join(new_subtypes)
+                    self.add_characteristic_effect(
+                        target,
+                        CharacteristicEffect(
+                            effect_id=f"{ability.object_id}:does-machines-level-three-base-pt",
+                            layer=CharacteristicLayer.POWER_TOUGHNESS,
+                            sublayer=PowerToughnessSubLayer.SET_BASE,
+                            operation=CharacteristicOperation.SET,
+                            power=0,
+                            toughness=0,
+                            timestamp=(self.turn, self._next_effect_number),
+                            source_card=ability.source_card.name,
+                        ),
+                    )
+                    self._next_effect_number += 1
                     if "Equipment" in target.type_line and target.attached_to is not None:
                         target.attached_to = None
                 self.check_state_based_actions()

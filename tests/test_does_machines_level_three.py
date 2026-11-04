@@ -25,6 +25,8 @@ def _facts():
             "Sewer-veillance Cam",
             "Fugitive Droid",
             "Quintessential Katana",
+            "Turtle Van",
+            "Michelangelo, Weirdness to 11",
             "Island",
         },
     )
@@ -262,6 +264,53 @@ def test_level_three_targeted_equipment_becomes_robot_and_detaches():
     assert equipment.attached_to is None
     assert equipment.counters["+1/+1"] == 3
     assert (equipment.power, equipment.toughness) == (3, 3)
+
+
+def test_level_three_vehicle_animation_sets_zero_base_stats_before_counters():
+    game, source, _facts, targets = _game(artifacts=("Turtle Van",))
+    source.class_level = 3
+    vehicle = targets["Turtle Van"]
+    original_types = set(vehicle.type_line.replace("—", " ").replace("�", " ").split())
+
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    _resolve_top(game)
+
+    resulting_types = set(vehicle.type_line.replace("—", " ").replace("�", " ").split())
+    assert {"Artifact", "Vehicle", "Creature", "Robot"} <= resulting_types
+    assert original_types <= resulting_types
+    assert vehicle.counters["+1/+1"] == 3
+    assert (vehicle.power, vehicle.toughness) == (3, 3)
+    assert vehicle.characteristic_effects[-1].power == 0
+    assert vehicle.characteristic_effects[-1].toughness == 0
+
+
+def test_level_three_counter_placement_uses_michelangelo_replacement():
+    game, source, _facts, targets = _game(
+        artifacts=("Fugitive Droid", "Michelangelo, Weirdness to 11")
+    )
+    source.class_level = 3
+    target = targets["Fugitive Droid"]
+    replacement = targets["Michelangelo, Weirdness to 11"]
+    replacement_fragment = game.interpreter.fragments(replacement.card)[-1]
+    game._register_semantic_occurrence(replacement, 0, replacement_fragment, ())
+
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    _resolve_top(game)
+
+    assert target.counters["+1/+1"] == 4
+    replacement_event = next(
+        event for event in game.events if event["event"] == "counter_replacement_applied"
+    )
+    assert replacement_event["source_id"] == replacement.object_id
+    assert replacement_event["target_id"] == target.object_id
+    assert replacement_event["quantity_before"] == 3
+    assert replacement_event["quantity_after"] == 4
+    result_event = next(
+        event for event in game.events if event["event"] == "does_machines_level_three_resolved"
+    )
+    assert result_event["result"]["counters"] == 4
 
 
 @pytest.mark.parametrize("invalidation", ["leaves", "controller", "not_artifact"])
