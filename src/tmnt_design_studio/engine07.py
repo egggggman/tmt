@@ -304,6 +304,7 @@ class RulesEventKind(Enum):
     VIGILANTE_UPKEEP = "vigilante_upkeep"
     PERMANENT_LEFT = "permanent_left"
     CLASS_LEVEL_ADVANCED = "class_level_advanced"
+    BEGINNING_OF_COMBAT = "beginning_of_combat"
 
 
 class TriggerEffect(Enum):
@@ -326,6 +327,7 @@ class TriggerEffect(Enum):
     ETB_DRAW_DISCARD = "etb_draw_discard"
     ETB_MILL_DRAW_DISCARD = "etb_mill_draw_discard"
     CLASS_LEVEL_TWO_RECOVERY = "class_level_two_recovery"
+    DOES_MACHINES_LEVEL_THREE = "does_machines_level_three"
     LTB_MUTAGEN = "ltb_mutagen"
     DIES_DRAW = "dies_draw"
     ETB_DRAIN_GAIN_SCRY = "etb_drain_gain_scry"
@@ -1007,11 +1009,15 @@ class Permanent:
 
     @property
     def printed_power(self) -> int:
+        if self.card.power is None and self.is_creature:
+            return 0
         assert self.card.power is not None
         return self.card.power
 
     @property
     def printed_toughness(self) -> int:
+        if self.card.toughness is None and self.is_creature:
+            return 0
         assert self.card.toughness is not None
         return self.card.toughness
 
@@ -1309,6 +1315,7 @@ class Game(
         discard_draw_chooser=None,
         draw_discard_chooser=None,
         class_recovery_chooser=None,
+        does_machines_target_chooser=None,
         food_search_chooser=None,
         jury_rig_chooser=None,
         paramecia_exile_chooser=None,
@@ -1404,8 +1411,12 @@ class Game(
         self._mill_draw_discard_sources = {}
         self._mill_draw_discard_consumed: set[str] = set()
         self._class_recovery_targets = {}
+        self._does_machines_targets = {}
         self.class_recovery_chooser = class_recovery_chooser or (
             lambda _player_index, _source_id, offered: tuple(offered[:2])
+        )
+        self.does_machines_target_chooser = does_machines_target_chooser or (
+            lambda _player_index, _source_id, offered: offered[0]
         )
         self._mandatory_discard_choice_active = False
         self.draw_discard_chooser = draw_discard_chooser or (lambda _view, options: options[0])
@@ -3973,6 +3984,24 @@ class Game(
                 is None
             ):
                 raise ValueError("Class level recovery entry provenance is invalid")
+        if effect is TriggerEffect.DOES_MACHINES_LEVEL_THREE:
+            self._authenticate_original_rules_event(event)
+            if (
+                not self.is_authoritative(source, "battlefield")
+                or source.class_level is None
+                or source.class_level < 3
+                or source.card.name != "Does Machines"
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.BEGINNING_OF_COMBAT
+                or event.player_index != source.controller
+                or event.active_player != source.controller
+                or event.turn != self.turn
+                or event.step != TurnStep.BEGINNING_OF_COMBAT.value
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment != CardInterpreter.DOES_MACHINES_LEVEL_THREE
+                or fragment not in self.interpreter.fragments(source.rules_card)
+            ):
+                raise ValueError("Does Machines level 3 trigger provenance is invalid")
         if effect is TriggerEffect.LTB_MUTAGEN:
             self._validate_ltb_mutagen_departure(source, fragment, event, source.controller)
             key = (source.object_id, event.event_id, fragment)
@@ -4058,6 +4087,8 @@ class Game(
                     self._mill_draw_discard_anchors[ability.object_id] = (source, trigger)
                 if ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
                     self._select_class_recovery_targets(ability, trigger)
+                if ability.effect is TriggerEffect.DOES_MACHINES_LEVEL_THREE:
+                    self._select_does_machines_target(ability, trigger)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._anchor_mill_three(ability, trigger)
@@ -4115,6 +4146,53 @@ class Game(
             controller=trigger.controller,
             offered_ids=list(offered),
             selected_ids=list(selected),
+            oracle_fragment=trigger.oracle_fragment,
+        )
+
+    def _select_does_machines_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        source = self._objects.get(trigger.source_id)
+        self._authenticate_original_rules_event(trigger.event)
+        if (
+            not isinstance(source, Permanent)
+            or not self.is_authoritative(source, "battlefield")
+            or source.card is not trigger.source_card
+            or source.class_level is None
+            or source.class_level < 3
+            or trigger.event.kind is not RulesEventKind.BEGINNING_OF_COMBAT
+            or trigger.event.player_index != trigger.controller
+            or trigger.event.active_player != trigger.controller
+            or (source.object_id, source.controller) not in trigger.event.battlefield_authority
+            or trigger.oracle_fragment != CardInterpreter.DOES_MACHINES_LEVEL_THREE
+        ):
+            raise ValueError("Does Machines level 3 trigger has invalid provenance")
+        offered = tuple(
+            sorted(
+                permanent.object_id
+                for permanent in self.players[trigger.controller].battlefield
+                if self.is_authoritative(permanent, "battlefield")
+                and "Artifact" in permanent.type_line
+            )
+        )
+        if not offered:
+            raise ValueError("Does Machines trigger cannot be stacked without a legal target")
+        selected = self.does_machines_target_chooser(
+            trigger.controller, trigger.source_id, offered
+        )
+        if selected not in offered:
+            raise ValueError("Does Machines target chooser must select an offered artifact")
+        ability.target_ids = (selected,)
+        self._does_machines_targets[ability.object_id] = (selected, offered)
+        self.log(
+            "does_machines_level_three_target_selected",
+            event_id=trigger.event.event_id,
+            stack_object_id=ability.object_id,
+            trigger_id=trigger.trigger_id,
+            source_id=trigger.source_id,
+            controller=trigger.controller,
+            offered_ids=list(offered),
+            target_id=selected,
             oracle_fragment=trigger.oracle_fragment,
         )
 
@@ -4819,6 +4897,78 @@ class Game(
             self._resolve_etb_draw_discard(ability)
         elif ability.effect is TriggerEffect.ETB_MILL_DRAW_DISCARD:
             self._resolve_etb_mill_draw_discard(ability)
+        elif ability.effect is TriggerEffect.DOES_MACHINES_LEVEL_THREE:
+            trigger = self._triggers.get(ability.trigger_id)
+            selected, offered = self._does_machines_targets.get(
+                ability.object_id, (None, ())
+            )
+            target = self._objects.get(selected) if selected is not None else None
+            self._authenticate_original_rules_event(ability.event)
+            if (
+                trigger is None
+                or trigger.event is not ability.event
+                or trigger.source_id != ability.source_id
+                or trigger.source_card is not ability.source_card
+                or trigger.oracle_fragment != ability.oracle_fragment
+                or ability.event.kind is not RulesEventKind.BEGINNING_OF_COMBAT
+                or ability.event.player_index != ability.controller
+                or ability.event.active_player != ability.controller
+                or ability.oracle_fragment != CardInterpreter.DOES_MACHINES_LEVEL_THREE
+                or ability.target_ids != (selected,)
+                or selected not in offered
+            ):
+                raise ValueError("Does Machines level 3 resolution provenance is invalid")
+            applied = bool(
+                isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.controller == ability.controller
+                and "Artifact" in target.type_line
+            )
+            before = None
+            if applied:
+                before = {
+                    "type_line": target.type_line,
+                    "counters": target.counters.get("+1/+1", 0),
+                    "power": target.power if target.is_creature else None,
+                    "toughness": target.toughness if target.is_creature else None,
+                }
+                target.counters["+1/+1"] = target.counters.get("+1/+1", 0) + 3
+                if not target.is_creature:
+                    separator = next(
+                        (value for value in (" — ", " � ", " â€” ") if value in target.type_line),
+                        " — ",
+                    )
+                    types, _, subtypes = target.type_line.partition(separator)
+                    new_types = types if "Creature" in types.split() else types + " Creature"
+                    new_subtypes = [item for item in subtypes.split() if item != "Robot"]
+                    new_subtypes.append("Robot")
+                    target.type_line_override = (
+                        new_types + separator + " ".join(new_subtypes)
+                    )
+                    if "Equipment" in target.type_line and target.attached_to is not None:
+                        target.attached_to = None
+                self.check_state_based_actions()
+            resulting = None
+            if isinstance(target, Permanent) and self.is_authoritative(target, "battlefield"):
+                resulting = {
+                    "type_line": target.type_line,
+                    "counters": target.counters.get("+1/+1", 0),
+                    "power": target.power if target.is_creature else None,
+                    "toughness": target.toughness if target.is_creature else None,
+                    "controller": target.controller,
+                }
+            self.log(
+                "does_machines_level_three_resolved",
+                event_id=ability.event.event_id,
+                stack_object_id=ability.object_id,
+                trigger_id=ability.trigger_id,
+                source_id=ability.source_id,
+                target_id=selected,
+                applied=applied,
+                before=before,
+                result=resulting,
+                oracle_fragment=ability.oracle_fragment,
+            )
         elif ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
             selected = self._class_recovery_targets.get(ability.object_id, ((), ()))[0]
             recovered = []
@@ -6666,6 +6816,26 @@ class Game(
         elif step is TurnStep.BEGINNING_OF_COMBAT:
             self._reset_current_combat_state()
             self.log("combat_state_reset")
+            event = self._new_rules_event(
+                RulesEventKind.BEGINNING_OF_COMBAT, self.active_player, ()
+            )
+            for source in tuple(self.players[self.active_player].battlefield):
+                if source.class_level is not None and source.class_level >= 3:
+                    if not any(
+                        self.is_authoritative(permanent, "battlefield")
+                        and "Artifact" in permanent.type_line
+                        for permanent in self.players[self.active_player].battlefield
+                    ):
+                        continue
+                    for fragment in self.interpreter.fragments(source.rules_card):
+                        if fragment == CardInterpreter.DOES_MACHINES_LEVEL_THREE:
+                            self._enqueue_trigger(
+                                event,
+                                source,
+                                fragment,
+                                TriggerEffect.DOES_MACHINES_LEVEL_THREE,
+                            )
+            self._put_pending_triggers_on_stack()
         elif step is TurnStep.COMBAT_DAMAGE:
             self._begin_combat_damage_steps()
         elif step is TurnStep.POSTCOMBAT_MAIN:
@@ -7469,7 +7639,7 @@ class Game(
         available = [
             p
             for p in self.players[defender_index].battlefield
-            if p.card.is_creature and not p.tapped
+            if p.is_creature and not p.tapped
         ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
 
@@ -8319,7 +8489,7 @@ class Game(
             return None
         if (
             semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
-            and source.class_level != 1
+            and source.class_level != semantics.program.class_level_target - 1
         ):
             return None
         cost = semantics.program.cost
@@ -8713,6 +8883,7 @@ class Game(
         if semantics.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL and (
             self.priority_state is not None
             or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            or source.class_level != semantics.program.class_level_target - 1
         ):
             return None
         if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER and (
@@ -9124,29 +9295,31 @@ class Game(
         if (
             ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL
             and source_permanent is not None
-            and source_permanent.class_level == 1
+            and source_permanent.class_level == ability.program.class_level_target - 1
             and "Class" in source_permanent.card.type_line
         ):
-            source_permanent.class_level = 2
+            previous_level = source_permanent.class_level
+            source_permanent.class_level = ability.program.class_level_target
             event = self._new_rules_event(
                 RulesEventKind.CLASS_LEVEL_ADVANCED,
                 ability.controller,
                 (source_permanent.object_id,),
                 source_id=source_permanent.object_id,
             )
-            recovery_fragment = CardInterpreter.CLASS_LEVEL_TWO_RECOVERY
-            self._enqueue_trigger(
-                event,
-                source_permanent,
-                recovery_fragment,
-                TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
-            )
+            if source_permanent.class_level == 2:
+                recovery_fragment = CardInterpreter.CLASS_LEVEL_TWO_RECOVERY
+                self._enqueue_trigger(
+                    event,
+                    source_permanent,
+                    recovery_fragment,
+                    TriggerEffect.CLASS_LEVEL_TWO_RECOVERY,
+                )
             self.log(
                 "class_level_advanced",
                 source_id=source_permanent.object_id,
                 stack_object_id=ability.object_id,
-                from_level=1,
-                to_level=2,
+                from_level=previous_level,
+                to_level=source_permanent.class_level,
                 oracle_fragment=ability.oracle_fragment,
             )
             delivered = True
@@ -10230,7 +10403,7 @@ class Game(
         return [
             p
             for p in self.players[player_index].battlefield
-            if p.card.is_creature
+            if p.is_creature
             and not p.tapped
             and (
                 not p.summoning_sick

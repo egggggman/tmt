@@ -490,6 +490,7 @@ class ActivatedAbilityProgram:
     target_count: int
     choices_required: bool
     activation_instructions: str | None = None
+    class_level_target: int | None = None
 
 
 @dataclass(frozen=True)
@@ -978,9 +979,15 @@ class CardInterpreter:
         re.I,
     )
     CLASS_LEVEL_UP = re.compile(r"^\{1\}\{U\}: Level 2$")
+    DOES_MACHINES_LEVEL_THREE_ACTIVATION = "{4}{U}: Level 3"
     CLASS_LEVEL_TWO_RECOVERY = (
         "When this Class becomes level 2, return up to two target artifact cards "
         "from your graveyard to your hand."
+    )
+    DOES_MACHINES_LEVEL_THREE = (
+        "At the beginning of combat on your turn, put three +1/+1 counters on target "
+        "artifact you control. If it isn't a creature, it becomes a 0/0 Robot creature "
+        "in addition to its other types."
     )
 
     def class_level_recovery_semantic_coverage(self, card, fragment):
@@ -1979,8 +1986,13 @@ class CardInterpreter:
 
         cost_text = fragment[:colon].strip()
         effect_text = fragment[colon + 1 :].strip()
-        class_level = (
-            "Class" in card.type_line and self.CLASS_LEVEL_UP.fullmatch(fragment) is not None
+        class_level_match = self.CLASS_LEVEL_UP.fullmatch(fragment)
+        does_machines_level_three = (
+            card.name == "Does Machines"
+            and fragment == self.DOES_MACHINES_LEVEL_THREE_ACTIVATION
+        )
+        class_level = "Class" in card.type_line and (
+            class_level_match is not None or does_machines_level_three
         )
         cost_parts = tuple(part.strip() for part in cost_text.split(",") if part.strip())
         tap_source = "{T}" in {part.upper() for part in cost_parts}
@@ -2210,6 +2222,7 @@ class CardInterpreter:
             target_count,
             choices_required,
             instructions,
+            3 if does_machines_level_three else 2 if class_level else None,
         )
         return InterpretedActivatedAbilitySemantics(
             program,
