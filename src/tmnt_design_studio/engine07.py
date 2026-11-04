@@ -6453,6 +6453,7 @@ class Game(
                     isinstance(source, Permanent)
                     and self.is_authoritative(source, "battlefield")
                     and source.controller == target.controller
+                    and target.is_creature
                     and occurrence.oracle_fragment.startswith(
                         "If one or more +1/+1 counters would be put on a creature you control,"
                     )

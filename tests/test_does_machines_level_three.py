@@ -267,9 +267,12 @@ def test_level_three_targeted_equipment_becomes_robot_and_detaches():
 
 
 def test_level_three_vehicle_animation_sets_zero_base_stats_before_counters():
-    game, source, _facts, targets = _game(artifacts=("Turtle Van",))
+    game, source, _facts, targets = _game(artifacts=("Turtle Van", "Michelangelo, Weirdness to 11"))
     source.class_level = 3
     vehicle = targets["Turtle Van"]
+    replacement = targets["Michelangelo, Weirdness to 11"]
+    replacement_fragment = game.interpreter.fragments(replacement.card)[-1]
+    game._register_semantic_occurrence(replacement, 0, replacement_fragment, ())
     original_types = set(vehicle.type_line.replace("—", " ").replace("�", " ").split())
 
     game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
@@ -281,6 +284,10 @@ def test_level_three_vehicle_animation_sets_zero_base_stats_before_counters():
     assert original_types <= resulting_types
     assert vehicle.counters["+1/+1"] == 3
     assert (vehicle.power, vehicle.toughness) == (3, 3)
+    assert not any(
+        event["event"] == "counter_replacement_applied" and event["target_id"] == vehicle.object_id
+        for event in game.events
+    )
     assert vehicle.characteristic_effects[-1].power == 0
     assert vehicle.characteristic_effects[-1].toughness == 0
 
