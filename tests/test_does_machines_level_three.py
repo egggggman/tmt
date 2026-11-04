@@ -7,7 +7,6 @@ from tmnt_design_studio.card_interpreter07 import ActivatedEffectKind, CardInter
 from tmnt_design_studio.engine07 import Game, TurnStep, load_facts
 from tmnt_design_studio.stage002 import _authoritative_execution_index
 
-
 ROOT = Path(__file__).resolve().parents[1]
 LEVEL_TWO = "{1}{U}: Level 2"
 LEVEL_THREE = "{4}{U}: Level 3"
@@ -43,8 +42,7 @@ def _game(*, island_count=5, target_chooser=None, artifacts=()):
         game.create_permanent(facts["Island"], 0, summoning_sick=False)
     source = game.create_permanent(facts["Does Machines"], 0, summoning_sick=False)
     targets = {
-        name: game.create_permanent(facts[name], 0, summoning_sick=False)
-        for name in artifacts
+        name: game.create_permanent(facts[name], 0, summoning_sick=False) for name in artifacts
     }
     game.begin_turn()
     return game, source, facts, targets
@@ -72,16 +70,15 @@ def test_level_two_exposes_level_three_action_and_pays_five_mana():
     game, source, _facts_by_name, _targets = _game()
     source.class_level = 2
 
-    action = next(
-        action
-        for action in game.legal_main_actions(0)
-        if action.oracle_fragment == LEVEL_THREE
-    )
+    assert any(action.oracle_fragment == LEVEL_THREE for action in game.legal_main_actions(0))
     plan = game.activation_payment_plan(0, source, LEVEL_THREE)
     assert plan is not None
     assert len(plan.mana_source_ids) == 5
     assert game.activate_ability(0, source, LEVEL_THREE) is not None
-    assert sum(permanent.tapped for permanent in game.players[0].battlefield if permanent.card.is_land) == 5
+    assert (
+        sum(permanent.tapped for permanent in game.players[0].battlefield if permanent.card.is_land)
+        == 5
+    )
     _resolve_top(game)
 
     assert source.class_level == 3
@@ -111,21 +108,22 @@ def test_insufficient_mana_rejects_level_three_without_payment():
     source.class_level = 2
 
     assert game.activation_payment_plan(0, source, LEVEL_THREE) is None
-    assert not any(
-        action.oracle_fragment == LEVEL_THREE for action in game.legal_main_actions(0)
-    )
+    assert not any(action.oracle_fragment == LEVEL_THREE for action in game.legal_main_actions(0))
     assert game.activate_ability(0, source, LEVEL_THREE) is False
-    assert all(not permanent.tapped for permanent in game.players[0].battlefield if permanent.card.is_land)
+    assert all(
+        not permanent.tapped for permanent in game.players[0].battlefield if permanent.card.is_land
+    )
     assert source.class_level == 2
 
 
 @pytest.mark.parametrize("card_name", ["Sewer-veillance Cam", "Fugitive Droid"])
 def test_level_three_trigger_resolves_for_noncreature_and_creature_artifacts(card_name):
-    game, source, facts, targets = _game(artifacts=(card_name,), target_chooser=lambda _player, _source, offered: next(
-        object_id
-        for object_id in offered
-        if game._objects[object_id].card.name == card_name
-    ))
+    game, source, facts, targets = _game(
+        artifacts=(card_name,),
+        target_chooser=lambda _player, _source, offered: next(
+            object_id for object_id in offered if game._objects[object_id].card.name == card_name
+        ),
+    )
     source.class_level = 3
     target = targets[card_name]
     initial_type_line = target.type_line
@@ -146,12 +144,10 @@ def test_level_three_trigger_resolves_for_noncreature_and_creature_artifacts(car
         assert "Robot" in target.type_line
         assert (target.power, target.toughness) == (3, 3)
         original_types = {
-            part
-            for part in initial_type_line.replace("—", " ").replace("�", " ").split()
+            part for part in initial_type_line.replace("—", " ").replace("�", " ").split()
         }
         resulting_types = {
-            part
-            for part in target.type_line.replace("—", " ").replace("�", " ").split()
+            part for part in target.type_line.replace("—", " ").replace("�", " ").split()
         }
         assert original_types <= resulting_types
     else:
@@ -164,9 +160,16 @@ def test_level_three_trigger_resolves_for_noncreature_and_creature_artifacts(car
         and event["applied"]
         for event in game.events
     )
-    assert len(
-        [event for event in game.events if event["event"] == "does_machines_level_three_resolved"]
-    ) == 1
+    assert (
+        len(
+            [
+                event
+                for event in game.events
+                if event["event"] == "does_machines_level_three_resolved"
+            ]
+        )
+        == 1
+    )
     game.transition_to(TurnStep.DECLARE_ATTACKERS)
     legal_attacks = game.legal_attack_options(0)
     if card_name == "Sewer-veillance Cam":
@@ -225,8 +228,7 @@ def test_level_three_trigger_does_not_stack_without_a_legal_artifact_target():
 
     assert game.stack == []
     assert not any(
-        event["event"] == "trigger_pending"
-        and event["oracle_fragment"] == LEVEL_THREE_TRIGGER
+        event["event"] == "trigger_pending" and event["oracle_fragment"] == LEVEL_THREE_TRIGGER
         for event in game.events
     )
 
@@ -255,4 +257,3 @@ def test_level_three_targeted_equipment_becomes_robot_and_detaches():
     assert equipment.attached_to is None
     assert equipment.counters["+1/+1"] == 3
     assert (equipment.power, equipment.toughness) == (3, 3)
-

@@ -1988,8 +1988,7 @@ class CardInterpreter:
         effect_text = fragment[colon + 1 :].strip()
         class_level_match = self.CLASS_LEVEL_UP.fullmatch(fragment)
         does_machines_level_three = (
-            card.name == "Does Machines"
-            and fragment == self.DOES_MACHINES_LEVEL_THREE_ACTIVATION
+            card.name == "Does Machines" and fragment == self.DOES_MACHINES_LEVEL_THREE_ACTIVATION
         )
         class_level = "Class" in card.type_line and (
             class_level_match is not None or does_machines_level_three

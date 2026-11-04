@@ -4177,9 +4177,7 @@ class Game(
         )
         if not offered:
             raise ValueError("Does Machines trigger cannot be stacked without a legal target")
-        selected = self.does_machines_target_chooser(
-            trigger.controller, trigger.source_id, offered
-        )
+        selected = self.does_machines_target_chooser(trigger.controller, trigger.source_id, offered)
         if selected not in offered:
             raise ValueError("Does Machines target chooser must select an offered artifact")
         ability.target_ids = (selected,)
@@ -4899,9 +4897,7 @@ class Game(
             self._resolve_etb_mill_draw_discard(ability)
         elif ability.effect is TriggerEffect.DOES_MACHINES_LEVEL_THREE:
             trigger = self._triggers.get(ability.trigger_id)
-            selected, offered = self._does_machines_targets.get(
-                ability.object_id, (None, ())
-            )
+            selected, offered = self._does_machines_targets.get(ability.object_id, (None, ()))
             target = self._objects.get(selected) if selected is not None else None
             self._authenticate_original_rules_event(ability.event)
             if (
@@ -4942,9 +4938,7 @@ class Game(
                     new_types = types if "Creature" in types.split() else types + " Creature"
                     new_subtypes = [item for item in subtypes.split() if item != "Robot"]
                     new_subtypes.append("Robot")
-                    target.type_line_override = (
-                        new_types + separator + " ".join(new_subtypes)
-                    )
+                    target.type_line_override = new_types + separator + " ".join(new_subtypes)
                     if "Equipment" in target.type_line and target.attached_to is not None:
                         target.attached_to = None
                 self.check_state_based_actions()
@@ -7637,9 +7631,7 @@ class Game(
         if not all(isinstance(obj, Permanent) for obj in attackers):
             return ()
         available = [
-            p
-            for p in self.players[defender_index].battlefield
-            if p.is_creature and not p.tapped
+            p for p in self.players[defender_index].battlefield if p.is_creature and not p.tapped
         ]
         options = [ActionOption(ActionKind.DECLARE_BLOCKERS, defender_index)]
 
