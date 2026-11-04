@@ -4433,6 +4433,7 @@ class Game(
             self._preflight_mill_three(ability)
         self.stack.pop()
         ability.zone = "former"
+        ability_resolved = True
         for index, evidence in enumerate(self.activation_evidence):
             if evidence.stack_object_id == ability.object_id:
                 self.activation_evidence[index] = replace(evidence, resolved=True)
@@ -4951,18 +4952,34 @@ class Game(
                     "toughness": target.toughness if target.is_creature else None,
                     "controller": target.controller,
                 }
-            self.log(
-                "does_machines_level_three_resolved",
-                event_id=ability.event.event_id,
-                stack_object_id=ability.object_id,
-                trigger_id=ability.trigger_id,
-                source_id=ability.source_id,
-                target_id=selected,
-                applied=applied,
-                before=before,
-                result=resulting,
-                oracle_fragment=ability.oracle_fragment,
-            )
+            if applied:
+                self.log(
+                    "does_machines_level_three_resolved",
+                    event_id=ability.event.event_id,
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                    source_id=ability.source_id,
+                    target_id=selected,
+                    applied=True,
+                    before=before,
+                    result=resulting,
+                    oracle_fragment=ability.oracle_fragment,
+                )
+            else:
+                ability_resolved = False
+                self.log(
+                    "does_machines_level_three_resolution_skipped",
+                    event_id=ability.event.event_id,
+                    stack_object_id=ability.object_id,
+                    trigger_id=ability.trigger_id,
+                    source_id=ability.source_id,
+                    target_id=selected,
+                    applied=False,
+                    before=before,
+                    result=resulting,
+                    reason="all_targets_illegal",
+                    oracle_fragment=ability.oracle_fragment,
+                )
         elif ability.effect is TriggerEffect.CLASS_LEVEL_TWO_RECOVERY:
             selected = self._class_recovery_targets.get(ability.object_id, ((), ()))[0]
             recovered = []
@@ -5276,16 +5293,28 @@ class Game(
         record_resolution = (
             self._record_stun_event if ability.effect is TriggerEffect.ETB_TAP_STUN else self.log
         )
-        record_resolution(
-            "trigger_resolved",
-            stack_object_id=ability.object_id,
-            event_id=ability.event.event_id,
-            source=ability.source_card.name,
-            source_id=ability.source_id,
-            oracle_fragment=ability.oracle_fragment,
-            effect=ability.effect.value,
-            trigger_id=ability.trigger_id,
-        )
+        if ability_resolved:
+            record_resolution(
+                "trigger_resolved",
+                stack_object_id=ability.object_id,
+                event_id=ability.event.event_id,
+                source=ability.source_card.name,
+                source_id=ability.source_id,
+                oracle_fragment=ability.oracle_fragment,
+                effect=ability.effect.value,
+                trigger_id=ability.trigger_id,
+            )
+        else:
+            self.log(
+                "trigger_resolution_skipped",
+                stack_object_id=ability.object_id,
+                event_id=ability.event.event_id,
+                source_id=ability.source_id,
+                oracle_fragment=ability.oracle_fragment,
+                effect=ability.effect.value,
+                trigger_id=ability.trigger_id,
+                reason="all_targets_illegal",
+            )
 
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
@@ -10535,7 +10564,7 @@ class Game(
         return (
             blocker.controller == defender_index
             and any(candidate is blocker for candidate in self.players[defender_index].battlefield)
-            and blocker.card.is_creature
+            and blocker.is_creature
             and not blocker.tapped
             and self.blocking_restriction(attacker, blocker) is None
         )
@@ -10551,7 +10580,7 @@ class Game(
         available = [
             permanent
             for permanent in self.players[defender_index].battlefield
-            if permanent.card.is_creature and not permanent.tapped
+            if permanent.is_creature and not permanent.tapped
         ]
         blocks: dict[str, Permanent] = {}
         for attacker in attackers:

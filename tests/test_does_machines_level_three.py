@@ -4,7 +4,7 @@ import pytest
 
 from tmnt_design_studio.card_data import load_card_data
 from tmnt_design_studio.card_interpreter07 import ActivatedEffectKind, CardInterpreter
-from tmnt_design_studio.engine07 import Game, TurnStep, load_facts
+from tmnt_design_studio.engine07 import ActionKind, ActionOption, Game, TurnStep, load_facts
 from tmnt_design_studio.stage002 import _authoritative_execution_index
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -128,6 +128,9 @@ def test_level_three_trigger_resolves_for_noncreature_and_creature_artifacts(car
     target = targets[card_name]
     initial_type_line = target.type_line
     initial_power = target.power if target.is_creature else None
+    initial_printed_stats = (
+        (target.printed_power, target.printed_toughness) if target.is_creature else None
+    )
 
     game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
     assert len(game.stack) == 1
@@ -153,6 +156,8 @@ def test_level_three_trigger_resolves_for_noncreature_and_creature_artifacts(car
     else:
         assert target.type_line == initial_type_line
         assert target.power == initial_power + 3
+        assert initial_printed_stats is not None
+        assert (target.printed_power, target.printed_toughness) == initial_printed_stats
     assert any(
         event["event"] == "does_machines_level_three_resolved"
         and event["source_id"] == source.object_id
@@ -257,3 +262,137 @@ def test_level_three_targeted_equipment_becomes_robot_and_detaches():
     assert equipment.attached_to is None
     assert equipment.counters["+1/+1"] == 3
     assert (equipment.power, equipment.toughness) == (3, 3)
+
+
+@pytest.mark.parametrize("invalidation", ["leaves", "controller", "not_artifact"])
+def test_level_three_trigger_skips_resolution_when_its_target_becomes_illegal(invalidation):
+    game, source, _facts, targets = _game(artifacts=("Sewer-veillance Cam",))
+    source.class_level = 3
+    target = targets["Sewer-veillance Cam"]
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    ability = game.stack[-1]
+
+    if invalidation == "leaves":
+        game.move_object(target, "graveyard", reason="synthetic target legality check")
+    elif invalidation == "controller":
+        game.change_controller(target, 1)
+    else:
+        target.type_line_override = "Creature â€” Robot"
+
+    _resolve_top(game)
+
+    assert target.counters.get("+1/+1", 0) == 0
+    assert not any(
+        event["event"] == "does_machines_level_three_resolved"
+        and event["stack_object_id"] == ability.object_id
+        for event in game.events
+    )
+    assert any(
+        event["event"] == "does_machines_level_three_resolution_skipped"
+        and event["stack_object_id"] == ability.object_id
+        and event["reason"] == "all_targets_illegal"
+        for event in game.events
+    )
+    assert not any(
+        event["event"] == "trigger_resolved" and event["stack_object_id"] == ability.object_id
+        for event in game.events
+    )
+    snapshot = game.snapshot()
+    assert ("trigger_resolved", ability.event.event_id) not in _authoritative_execution_index(
+        snapshot
+    )
+
+
+def test_level_three_trigger_resolves_after_source_leaves_play():
+    game, source, _facts, targets = _game(artifacts=("Sewer-veillance Cam",))
+    source.class_level = 3
+    target = targets["Sewer-veillance Cam"]
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    ability = game.stack[-1]
+    game.move_object(source, "graveyard", reason="synthetic source departure")
+
+    _resolve_top(game)
+
+    assert target.counters["+1/+1"] == 3
+    assert any(
+        event["event"] == "trigger_resolved" and event["stack_object_id"] == ability.object_id
+        for event in game.events
+    )
+    assert ("trigger_resolved", ability.event.event_id) in _authoritative_execution_index(
+        game.snapshot()
+    )
+
+
+def test_newly_animated_artifact_remains_summoning_sick_and_cannot_attack():
+    game, source, facts, _targets = _game()
+    source.class_level = 3
+    target = game.create_permanent(facts["Sewer-veillance Cam"], 0)
+    assert target.summoning_sick
+
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    _resolve_top(game)
+    game.transition_to(TurnStep.DECLARE_ATTACKERS)
+
+    assert target.is_creature and target.summoning_sick
+    assert all(
+        target.object_id not in action.attacker_ids for action in game.legal_attack_options(0)
+    )
+
+
+def test_animated_artifact_can_block_as_a_creature():
+    game, source, facts, _targets = _game()
+    source.class_level = 3
+    blocker = game.create_permanent(facts["Sewer-veillance Cam"], 0)
+    attacker = game.create_permanent(facts["Fugitive Droid"], 1, summoning_sick=False)
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    _resolve_top(game)
+    game._step = TurnStep.DECLARE_BLOCKERS
+    game._combat_attackers = (attacker.object_id,)
+    attack = ActionOption(
+        ActionKind.DECLARE_ATTACKERS,
+        1,
+        attacker_ids=(attacker.object_id,),
+    )
+
+    assert blocker.summoning_sick
+    assert game.can_block(attacker, blocker, 0)
+    assert any(
+        (attacker.object_id, blocker.object_id) in option.blocks
+        for option in game.legal_block_options(attack, 0)
+    )
+    assert game.generate_blocks([attacker], 0, log_rejections=False) == {
+        attacker.object_id: blocker
+    }
+
+
+def test_animation_preserves_types_counters_and_temporary_base_stat_modifier():
+    game, source, _facts, targets = _game(artifacts=("Sewer-veillance Cam",))
+    source.class_level = 3
+    target = targets["Sewer-veillance Cam"]
+    original_types = set(target.type_line.replace("â€”", " ").replace("ï¿½", " ").split())
+    game.place_counters(target, "+1/+1", 2, source_card="Synthetic", oracle_fragment="synthetic")
+    game.apply_pt_modifier(
+        target,
+        1,
+        0,
+        duration="until_end_of_turn",
+        source_card="Synthetic",
+        oracle_fragment="synthetic",
+    )
+    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+    game._begin_priority_window()
+    _resolve_top(game)
+
+    resulting_types = set(target.type_line.replace("â€”", " ").replace("ï¿½", " ").split())
+    assert original_types <= resulting_types
+    assert {"Artifact", "Creature", "Robot"} <= resulting_types
+    assert target.counters["+1/+1"] == 5
+    assert (target.power, target.toughness) == (6, 5)
+
+    game._perform_cleanup()
+    assert target.counters["+1/+1"] == 5
+    assert (target.power, target.toughness) == (5, 5)
