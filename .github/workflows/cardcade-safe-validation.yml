@@ -132,8 +132,8 @@ jobs:
           {
             echo '## Cardcade safe synthetic validation'
             echo
-            echo "- Requested source: `${SOURCE_SHA}`"
-            echo "- Format: `${FORMAT_RESULT:-not reached}`; lint: `${LINT_RESULT:-not reached}`; selected tests: `${TEST_RESULT:-not reached}`."
+            echo "- Requested source: \`${SOURCE_SHA}\`"
+            echo "- Format: \`${FORMAT_RESULT:-not reached}\`; lint: \`${LINT_RESULT:-not reached}\`; selected tests: \`${TEST_RESULT:-not reached}\`."
             echo '- Selection: 28 explicit pytest node IDs; complete-game tests are not selected.'
             echo '- Dependency lock: `uv sync --locked --dev`; workflow is manual-only.'
             if [[ -f repo/validation-record.txt ]]; then
