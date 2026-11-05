@@ -15,7 +15,7 @@ EXPECTED_HASHES = {
         "32346c75bbe5fec9bba9076061b7f8352a765f2081fb57b691527e46675d3d51"
     ),
     "tests/test_stage002_runner.py": (
-        "27483a3a139dbce2743d98da265560d0ed61a262755f10776c59cc8894c6507f"
+        "a323a8c50ae01c78940d1018a84fee06047fb6faab64d2b352bcd926a9bd1b67"
     ),
 }
 
