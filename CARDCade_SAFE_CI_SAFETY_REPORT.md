@@ -113,4 +113,4 @@ Proposed commit/PR title: `ci(cardcade): add manual safe validation workflow [sk
 
 ## Verdict
 
-**Prepared for independent review; publication and dispatch remain unauthorized.**
+**Independent review complete; publication and dispatch await separate HQ authorization.**
