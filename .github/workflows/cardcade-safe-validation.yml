@@ -1,0 +1,149 @@
+# Unpublished branch candidate; dispatch only after independent review and HQ approval.
+name: Cardcade safe synthetic validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Full 40-character commit SHA to validate
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cardcade-safe-validation-${{ inputs.source_sha }}
+  cancel-in-progress: false
+
+jobs:
+  targeted-non-game-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Reject non-commit or non-default-branch dispatch
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          APPROVED_SOURCE_SHA: 21dd5152b235c2355f1b3f182d223660f1fcdde4
+          REF: ${{ github.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          [[ "$REF" == "refs/heads/$DEFAULT_BRANCH" ]]
+          [[ "$SOURCE_SHA" =~ ^[0-9a-fA-F]{40}$ ]]
+          [[ "${SOURCE_SHA,,}" == "$APPROVED_SOURCE_SHA" ]]
+
+      # The workflow implementation and its guard come from the default-branch
+      # dispatch commit; the source under test is checked out separately.
+      - name: Checkout workflow guard source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          path: workflow-source
+          persist-credentials: false
+
+      - name: Checkout requested source commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ inputs.source_sha }}
+          path: repo
+          persist-credentials: false
+
+      - name: Confirm requested source commit
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: |
+          set -euo pipefail
+          actual="$(git -C repo rev-parse HEAD)"
+          [[ "$actual" == "${SOURCE_SHA,,}" ]]
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.13.5'
+          enable-cache: false
+
+      - name: Verify selected tests and reviewed source fingerprints
+        working-directory: repo
+        run: python ../workflow-source/.github/workflow-candidates/validate_selection.py .
+
+      - name: Install locked project and dev dependencies
+        working-directory: repo
+        run: uv sync --locked --dev
+
+      - name: Record interpreter, tools, and resolved dependencies
+        working-directory: repo
+        run: |
+          set -euo pipefail
+          {
+            echo "source_sha=$(git rev-parse HEAD)"
+            echo "python=$(uv run --locked python --version)"
+            echo "pytest=$(uv run --locked pytest --version)"
+            echo "ruff=$(uv run --locked ruff --version)"
+            echo "uv=$(uv --version)"
+            echo '--- locked dependency tree ---'
+            uv tree --locked
+          } | tee validation-record.txt
+
+      - name: Ruff format check
+        id: format
+        working-directory: repo
+        run: uv run --locked ruff format --check .
+
+      - name: Ruff lint
+        id: lint
+        working-directory: repo
+        run: uv run --locked ruff check .
+
+      - name: Collect only the enumerated synthetic tests
+        working-directory: repo
+        run: |
+          set -euo pipefail
+          mapfile -t nodes < ../workflow-source/.github/workflow-candidates/cardcade-safe-nodeids.txt
+          test "${#nodes[@]}" -eq 28
+          uv run --locked pytest --collect-only -q -p no:cacheprovider "${nodes[@]}"
+
+      - name: Run only the enumerated synthetic tests
+        id: selected_tests
+        working-directory: repo
+        run: |
+          set -euo pipefail
+          mapfile -t nodes < ../workflow-source/.github/workflow-candidates/cardcade-safe-nodeids.txt
+          test "${#nodes[@]}" -eq 28
+          uv run --locked pytest -q -ra -p no:cacheprovider \
+            --junitxml=selected-tests.xml "${nodes[@]}"
+
+      - name: Summarize validation record
+        if: always()
+        env:
+          FORMAT_RESULT: ${{ steps.format.outcome }}
+          LINT_RESULT: ${{ steps.lint.outcome }}
+          TEST_RESULT: ${{ steps.selected_tests.outcome }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: |
+          {
+            echo '## Cardcade safe synthetic validation'
+            echo
+            echo "- Requested source: `${SOURCE_SHA}`"
+            echo "- Format: `${FORMAT_RESULT:-not reached}`; lint: `${LINT_RESULT:-not reached}`; selected tests: `${TEST_RESULT:-not reached}`."
+            echo '- Selection: 28 explicit pytest node IDs; complete-game tests are not selected.'
+            echo '- Dependency lock: `uv sync --locked --dev`; workflow is manual-only.'
+            if [[ -f repo/validation-record.txt ]]; then
+              echo '- Interpreter/tool versions and locked dependency tree are recorded in the job log and repo/validation-record.txt.'
+            else
+              echo '- Environment recording was not reached.'
+            fi
+            if [[ -f repo/selected-tests.xml ]]; then
+              echo '- Pytest JUnit result: repo/selected-tests.xml was generated.'
+            else
+              echo '- Pytest did not produce a JUnit result file.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
