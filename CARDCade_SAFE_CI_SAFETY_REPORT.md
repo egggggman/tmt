@@ -84,8 +84,10 @@ The recorded SHA-256 values are:
 | Test module | SHA-256 |
 |---|---|
 | `tests/test_does_machines_level_three.py` | `0dbcfd5b c22b3664 eba883d7 c04707ab 0bf9d526 c3f0c231 bb78d1fc aec86262` (remove spaces) |
-| `tests/test_does_machines_level_two.py` | `010436e3eb70750ceb5c70d8c3d77d8b2cf4ef72ca88f6f443d2d7672b160f62` |
+| `tests/test_does_machines_level_two.py` | `32346c75bbe5fec9bba9076061b7f8352a765f2081fb57b691527e46675d3d51` |
 | `tests/test_stage002_runner.py` | `27483a3a139dbce2743d98da265560d0ed61a262755f10776c59cc8894c6507f` |
+
+The Level 2 digest is the SHA-256 of the LF Git blob at pinned source commit `21dd5152b235c2355f1b3f182d223660f1fcdde4`. Windows working copies with `core.autocrlf=true` use CRLF bytes and therefore have the distinct raw SHA-256 `010436e3eb70750ceb5c70d8c3d77d8b2cf4ef72ca88f6f443d2d7672b160f62`; after normalizing CRLF to LF, those bytes match the pinned Git blob. This is an EOL representation difference, not a test source-content change.
 
 > Spaces above are only visual grouping; remove them to obtain the exact 64-character SHA-256 value.
 

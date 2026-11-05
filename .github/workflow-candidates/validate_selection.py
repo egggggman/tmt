@@ -12,7 +12,7 @@ EXPECTED_HASHES = {
         "0dbcfd5bc22b3664eba883d7c04707ab0bf9d526c3f0c231bb78d1fcaec86262"
     ),
     "tests/test_does_machines_level_two.py": (
-        "010436e3eb70750ceb5c70d8c3d77d8b2cf4ef72ca88f6f443d2d7672b160f62"
+        "32346c75bbe5fec9bba9076061b7f8352a765f2081fb57b691527e46675d3d51"
     ),
     "tests/test_stage002_runner.py": (
         "27483a3a139dbce2743d98da265560d0ed61a262755f10776c59cc8894c6507f"
