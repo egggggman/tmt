@@ -13,7 +13,7 @@ from pathlib import Path
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import opportunity_context_key, semantic_key
-from tmnt_design_studio.engine07 import Game, TurnStep, load_deck, load_facts
+from tmnt_design_studio.engine07 import ActionKind, Game, TurnStep, load_deck, load_facts
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
 
@@ -645,17 +645,12 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             lambda attack=attack: game.execute_attack_action(attack),
             "attack action",
         )
-        _drain_priority(game, chosen_pilot)
+        _drain_ordinary_step_priority(game, chosen_pilot)
         if game.winner is not None:
             break
-        if (
-            game.winner is None
-            and game.step is TurnStep.DECLARE_ATTACKERS
-            and game._attackers_declared
-            and game._combat_attackers
-            and game.priority_state is None
-        ):
-            game.transition_to(TurnStep.DECLARE_BLOCKERS)
+        if game.step is not TurnStep.DECLARE_ATTACKERS or not game._attackers_declared:
+            raise RuntimeError("attack declaration priority did not complete")
+        _checked_action(game, game.advance_step, "advance after attacker priority")
         blocks = chosen_pilot.choose_blocks(
             game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
         )
@@ -664,15 +659,23 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             lambda blocks=blocks: game.execute_block_action(blocks),
             "block action",
         )
-        while game.winner is None and game.step.value == "declare_blockers":
+        while game.winner is None and game.step is TurnStep.DECLARE_BLOCKERS:
             options = game.legal_sneak_actions(active)
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
             _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
             _drain_priority(game, chosen_pilot)
+            if choice.kind is ActionKind.PASS:
+                break
         if game.winner is not None:
             break
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
+        if game.step is not TurnStep.DECLARE_BLOCKERS or not game._blockers_declared:
+            raise RuntimeError("block declaration priority did not complete")
+        _checked_action(game, game.advance_step, "advance after blocker priority")
         _resolve_combat_damage_steps(game, chosen_pilot)
         if game.winner is not None:
             break
