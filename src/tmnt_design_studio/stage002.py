@@ -415,10 +415,23 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
     return result
 
 
-def _drain_priority(game: Game, pilot: Pilot) -> None:
+def _drain_priority(
+    game: Game, pilot: Pilot, *, follow_on_empty_window: bool = False
+) -> None:
     while game.winner is None and game.priority_state is not None:
         if game.priority_state.resolution_pending:
+            resolving_stack = bool(game.stack)
+            resolving_step = game.step
             _checked_action(game, game.process_priority_resolution, "priority resolution")
+            if (
+                follow_on_empty_window
+                and resolving_stack
+                and game.winner is None
+                and game.step is resolving_step
+                and game.priority_state is None
+                and not game.stack
+            ):
+                game._begin_priority_window(allow_empty=True)
             continue
         options = game.legal_priority_actions(game.priority_state.player_index)
         choice = pilot.choose_priority(
@@ -437,7 +450,7 @@ def _drain_ordinary_step_priority(game: Game, pilot: Pilot) -> None:
         return
     if game.priority_state is None:
         game._begin_priority_window(allow_empty=True)
-    _drain_priority(game, pilot)
+    _drain_priority(game, pilot, follow_on_empty_window=True)
 
 
 def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
@@ -663,8 +676,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         _resolve_combat_damage_steps(game, chosen_pilot)
         if game.winner is not None:
             break
-        if game.step is TurnStep.END_OF_COMBAT:
-            _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.step is not TurnStep.END_OF_COMBAT:
+            raise RuntimeError("expected end-of-combat step after damage")
+        _drain_ordinary_step_priority(game, chosen_pilot)
         if game.winner is not None:
             break
         _checked_action(game, game.advance_step, "advance after combat")
