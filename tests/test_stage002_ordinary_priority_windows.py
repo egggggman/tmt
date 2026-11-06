@@ -173,3 +173,31 @@ def test_legacy_combat_adapter_keeps_explicit_diagnostic_transitions():
     assert game.step is TurnStep.END_OF_COMBAT
     assert game._combat_damage_resolved
     assert game.priority_state is None
+
+
+def test_postcombat_main_has_ordinary_priority_before_end_step():
+    game = _synthetic_game()
+    # Isolate a transition; do not execute any complete game.
+    game._step = TurnStep.END_OF_COMBAT
+    game.advance_step()
+    assert game.step is TurnStep.POSTCOMBAT_MAIN
+
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+
+    assert game.step is TurnStep.POSTCOMBAT_MAIN
+    assert [entry[0] for entry in _passes(game)] == [0, 1]
+    assert game.priority_state is None
+
+
+def test_defending_player_receives_priority_before_block_choices():
+    game, attack = _declared_attacker_game()
+    assert game.step is TurnStep.DECLARE_ATTACKERS
+    assert game.legal_block_options(attack, 1) == ()
+
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+    passes = _passes(game)
+    assert [player for player, _epoch in passes] == [0, 1]
+
+    game.advance_step()
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+    assert game.legal_block_options(attack, 1)
