@@ -84,9 +84,10 @@ synthetics, but the response action is not offered.
 This correction is narrow within the existing stack-priority model: enumerate
 fully supported `GRANT_REACH_UNTIL_EOT` activations for the player holding
 priority, and route them through the existing `announce_activated_ability`
-executor. It should be a separate focused PR. The engine does not open ordinary
-empty-stack priority windows between steps, so the separate change can cover
-existing stack windows while that broader timing limitation remains explicit.
+executor. This is prepared separately in draft [PR #382](https://github.com/egggggman/tmt/pull/382),
+HEAD `013248622442d58246274f90291be74ede9a2c23`. The engine does not open
+ordinary empty-stack priority windows between steps, so that PR covers existing
+stack windows while the broader timing limitation remains explicit.
 
 ## Validation
 
@@ -110,8 +111,8 @@ returned no runs.
 ## Gate 5 — Readiness
 
 **BLOCKED** for a controlled smoke test. PR #381 still needs independent review
-of this updated candidate, and the narrow Frog Butler Reach priority omission
-needs its own reviewable correction. In addition, the empty-stack end-step
+of this updated candidate, and Frog Butler Reach PR #382 still needs independent
+review. In addition, the empty-stack end-step
 priority window is not opened by the current Stage 002 driver. These are
 demonstrated reachability/provenance limitations, not hypothetical mechanics
 coverage. No complete games, calibration, merge, or deck changes are authorized
