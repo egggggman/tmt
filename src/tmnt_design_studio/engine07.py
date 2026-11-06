@@ -1376,6 +1376,7 @@ class Game(
         self._first_damage_qualified_ids: tuple[str, ...] = ()
         self._first_double_strike_ids: tuple[str, ...] = ()
         self._regular_damage_initial_ids: tuple[str, ...] = ()
+        self._defer_attacker_step_transition = False
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
         self.floating_mana = FloatingManaLedger()
@@ -6827,6 +6828,8 @@ class Game(
             self._turn = 1
             self._active_player = 0
         self._step = step
+        if previous is TurnStep.DECLARE_ATTACKERS:
+            self._defer_attacker_step_transition = False
         self.log("step_started", step=step.value, previous_step=previous.value)
         self._on_enter_step(step)
 
@@ -7504,6 +7507,7 @@ class Game(
             self.winner is None
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
+            and not self._defer_attacker_step_transition
         ):
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
         return True
@@ -7822,8 +7826,10 @@ class Game(
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
-    def execute_attack_action(self, attack: ActionOption) -> None:
-        """Revalidate and execute the declare-attackers turn-based action."""
+    def execute_attack_action(
+        self, attack: ActionOption, *, defer_step_transition: bool = False
+    ) -> None:
+        """Declare attackers; optionally defer the next step for Stage 002 priority."""
         if attack not in self.legal_attack_options(attack.player_index):
             raise ValueError("attack option is not currently legal")
         attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
@@ -7835,11 +7841,14 @@ class Game(
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
         self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
-        if self.priority_state is None:
+        self._defer_attacker_step_transition = defer_step_transition
+        if not defer_step_transition and self.priority_state is None:
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
 
-    def execute_block_action(self, blocks: ActionOption) -> None:
-        """Revalidate and execute the declare-blockers turn-based action."""
+    def execute_block_action(
+        self, blocks: ActionOption, *, defer_step_transition: bool = False
+    ) -> None:
+        """Declare blockers; optionally defer combat damage for Stage 002 priority."""
         attack = ActionOption(
             ActionKind.DECLARE_ATTACKERS,
             self.active_player,
@@ -7856,18 +7865,21 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
-        if not any(
+        if not defer_step_transition and not any(
             option.kind is ActionKind.CAST
             for option in self.legal_sneak_actions(self.active_player)
         ):
             self.transition_to(TurnStep.COMBAT_DAMAGE)
 
-    def execute_sneak_action(self, option: ActionOption) -> bool:
-        """Revalidate and execute one engine-generated Sneak action or decline."""
+    def execute_sneak_action(
+        self, option: ActionOption, *, defer_step_transition: bool = False
+    ) -> bool:
+        """Revalidate one Sneak choice; Stage 002 can defer post-blocker priority."""
         if option not in self.legal_sneak_actions(option.player_index):
             raise ValueError("Sneak action is not currently legal")
         if option.kind is ActionKind.PASS:
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
+            if not defer_step_transition:
+                self.transition_to(TurnStep.COMBAT_DAMAGE)
             return True
         card = self._objects.get(option.object_id or "")
         attacker = self._objects.get(option.cost_object_id or "")
