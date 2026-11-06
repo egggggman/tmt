@@ -1378,6 +1378,7 @@ class Game(
         self._regular_damage_initial_ids: tuple[str, ...] = ()
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
+        self._artifact_entries_this_turn: list[tuple[int, int, str]] = []
         self.floating_mana = FloatingManaLedger()
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
@@ -1539,7 +1540,21 @@ class Game(
         )
         self._register(permanent)
         self.players[permanent.controller].battlefield.append(permanent)
+        self._record_artifact_entry(permanent)
         return permanent
+
+    def _record_artifact_entry(self, permanent: Permanent) -> None:
+        if "Artifact" not in permanent.type_line:
+            return
+        self._artifact_entries_this_turn.append(
+            (self.turn, permanent.controller, permanent.object_id)
+        )
+        self.log(
+            "artifact_entered_battlefield",
+            object_id=permanent.object_id,
+            controller=permanent.controller,
+            type_line=permanent.type_line,
+        )
 
     def create_tokens(
         self,
@@ -1595,6 +1610,8 @@ class Game(
             self._next_object_number = starting_number
             raise
 
+        for token in created:
+            self._record_artifact_entry(token)
         object_ids = tuple(token.object_id for token in created)
         event = self._new_rules_event(
             RulesEventKind.TOKENS_CREATED,
@@ -1841,6 +1858,8 @@ class Game(
             destination_container.append(replacement)
         obj.zone = "former"
         self._register(replacement)
+        if isinstance(replacement, Permanent):
+            self._record_artifact_entry(replacement)
         self.log(
             "zone_changed",
             card=obj.card.name,
@@ -6823,6 +6842,7 @@ class Game(
         if previous is TurnStep.CLEANUP:
             self._turn += 1
             self._active_player = (self._turn - 1) % len(self.players)
+            self._artifact_entries_this_turn.clear()
         elif previous is TurnStep.SETUP:
             self._turn = 1
             self._active_player = 0
@@ -7093,6 +7113,7 @@ class Game(
         options.extend(self._aura_cast_options(player_index))
         options.extend(self.legal_hand_activated_ability_actions(player_index))
         options.extend(self.legal_activated_ability_actions(player_index))
+        options.extend(self.legal_graveyard_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
@@ -7394,6 +7415,7 @@ class Game(
             *self._hand_response_options(player_index),
             *self._aura_cast_options(player_index, priority=True),
             *self.legal_hand_activated_ability_actions(player_index),
+            *self.legal_graveyard_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
         )
 
@@ -7404,6 +7426,13 @@ class Game(
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             source = self._objects.get(option.object_id or "")
             if isinstance(source, CardObject) and option.oracle_fragment is not None:
+                if self.is_authoritative(source, "graveyard"):
+                    return (
+                        self.announce_graveyard_activated_ability(
+                            option.player_index, source, option.oracle_fragment
+                        )
+                        is not None
+                    )
                 return (
                     self.announce_hand_activated_ability(
                         option.player_index, source, option.oracle_fragment
@@ -7641,6 +7670,13 @@ class Game(
             )
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             if isinstance(obj, CardObject) and option.oracle_fragment is not None:
+                if self.is_authoritative(obj, "graveyard"):
+                    return (
+                        self.announce_graveyard_activated_ability(
+                            option.player_index, obj, option.oracle_fragment
+                        )
+                        is not None
+                    )
                 return (
                     self.announce_hand_activated_ability(
                         option.player_index, obj, option.oracle_fragment
@@ -8685,6 +8721,72 @@ class Game(
             if self._hand_activation_mana_sources(player_index, card, fragment) is not None
         )
 
+    def legal_graveyard_activated_ability_actions(
+        self, player_index: int
+    ) -> tuple[ActionOption, ...]:
+        """Offer Tunnel Rats from the graveyard whenever its controller can activate it."""
+        state = self.priority_state
+        if self.stack:
+            if state is None or state.resolution_pending or state.player_index != player_index:
+                return ()
+        elif player_index != self.active_player or self.step not in {
+            TurnStep.PRECOMBAT_MAIN,
+            TurnStep.POSTCOMBAT_MAIN,
+        }:
+            return ()
+        options = []
+        for source in self.players[player_index].graveyard:
+            for fragment in self.interpreter.fragments(source.card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind
+                    is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+                    or self._graveyard_activation_mana_sources(player_index, source, fragment)
+                    is None
+                ):
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch if state is not None else None,
+                    )
+                )
+        return tuple(options)
+
+    def _graveyard_activation_mana_sources(
+        self, player_index: int, source: CardObject, oracle_fragment: str
+    ) -> tuple[Permanent, ...] | None:
+        if (
+            player_index not in range(2)
+            or not self.is_authoritative(source, "graveyard")
+            or source.owner != player_index
+        ):
+            return None
+        semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
+        if (
+            semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program.effect_kind
+            is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+        ):
+            return None
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped
+        ]
+        black = next(
+            (permanent for permanent in available if self._mana_color(permanent) == "B"), None
+        )
+        if black is None or len(available) < 5:
+            return None
+        return (black, *[permanent for permanent in available if permanent is not black][:4])
+
     def _hand_activation_mana_sources(
         self, player_index: int, card: CardObject, fragment: str
     ) -> tuple[Permanent, ...] | None:
@@ -8833,7 +8935,21 @@ class Game(
             player_index not in range(2)
             or not self.is_authoritative(source, "graveyard")
             or source.owner != player_index
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            or (
+                self.stack
+                and (
+                    self.priority_state is None
+                    or self.priority_state.resolution_pending
+                    or self.priority_state.player_index != player_index
+                )
+            )
+            or (
+                not self.stack
+                and (
+                    player_index != self.active_player
+                    or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+                )
+            )
         ):
             return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
@@ -8844,13 +8960,9 @@ class Game(
             is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
         ):
             return None
-        available = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-        ]
-        black = next((p for p in available if self._mana_color(p) == "B"), None)
-        if black is None or len(available) < 5:
+        chosen = self._graveyard_activation_mana_sources(player_index, source, oracle_fragment)
+        if chosen is None:
             return None
-        chosen = [black] + [p for p in available if p is not black][:4]
         for p in chosen:
             p.tapped = True
         ability = ActivatedAbilityObject(
@@ -8866,8 +8978,6 @@ class Game(
         )
         self._register(ability)
         self.stack.append(ability)
-        source.zone = "former"
-        self.players[player_index].graveyard.remove(source)
         self.activation_evidence.append(
             ActivationEvidence(
                 ability.object_id,
@@ -8885,6 +8995,33 @@ class Game(
             stack_object_id=ability.object_id,
             reason="tunnel_rats_return",
         )
+        self.log(
+            "activation_announced",
+            player=self.players[player_index].name,
+            source=source.card.name,
+            source_id=source.object_id,
+            stack_object_id=ability.object_id,
+            oracle_fragment=oracle_fragment,
+        )
+        self.log(
+            "activation_cost_paid",
+            player=self.players[player_index].name,
+            source_id=source.object_id,
+            stack_object_id=ability.object_id,
+            generic=4,
+            colored=["B"],
+            mana_source_ids=[p.object_id for p in chosen],
+            tap_source=False,
+            sacrifice_source=False,
+            sacrificed_destination_id=None,
+        )
+        self.log(
+            "activated_ability_stacked",
+            stack_object_id=ability.object_id,
+            source_id=source.object_id,
+            controller=self.players[player_index].name,
+        )
+        self._begin_priority_window()
         return ability
 
     def announce_activated_ability(
@@ -9082,8 +9219,12 @@ class Game(
                 self.players[source.owner].graveyard.append(sacrificed)
                 source.zone = "former"
                 self._register(sacrificed)
+            mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
             self._register(ability)
-            self.stack.append(ability)
+            if mana_ability:
+                ability.zone = "former"
+            else:
+                self.stack.append(ability)
         except Exception:
             for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
                 mana_source.tapped = tapped
@@ -9103,6 +9244,7 @@ class Game(
                 self._objects.pop(ability.object_id, None)
             self._next_object_number = starting_object_number
             raise
+        mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
         evidence = ActivationEvidence(
             ability.object_id,
             source.object_id,
@@ -9110,7 +9252,7 @@ class Game(
             oracle_fragment,
             plan.mana_source_ids,
             plan.tap_source,
-            False,
+            mana_ability,
             plan.counter_target_id,
         )
         self.activation_evidence.append(evidence)
@@ -9145,15 +9287,37 @@ class Game(
             sacrifice_source=plan.sacrifice_source,
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
         )
-        self.log(
-            "activated_ability_stacked",
-            stack_object_id=ability.object_id,
-            source_id=source.object_id,
-            controller=self.players[player_index].name,
-        )
+        if mana_ability:
+            self.floating_mana.add(
+                player_index, source.object_id, choice_ids[0], 1, ability.object_id
+            )
+            self.log(
+                "floating_mana_produced",
+                source_id=source.object_id,
+                stack_object_id=ability.object_id,
+                color=choice_ids[0],
+                quantity=1,
+            )
+            self.log(
+                "activated_ability_resolved",
+                stack_object_id=ability.object_id,
+                source_id=source.object_id,
+                card=source.card.name,
+                controller=self.players[player_index].name,
+                delivered=True,
+                mana_ability=True,
+            )
+        else:
+            self.log(
+                "activated_ability_stacked",
+                stack_object_id=ability.object_id,
+                source_id=source.object_id,
+                controller=self.players[player_index].name,
+            )
         if sacrificed is not None:
             self.check_state_based_actions()
-        self._begin_priority_window()
+        if not mana_ability:
+            self._begin_priority_window()
         if (
             sacrificed is not None
             and semantics.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE
@@ -9401,7 +9565,10 @@ class Game(
         if (
             ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             and isinstance(source, CardObject)
+            and self.is_authoritative(source, "graveyard")
         ):
+            self.players[source.owner].graveyard.remove(source)
+            source.zone = "former"
             returned = self.create_permanent(
                 source.card, ability.controller, tapped=True, summoning_sick=False
             )
@@ -9609,6 +9776,13 @@ class Game(
             delivered = True
         elif ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL:
             pass
+        elif ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED:
+            self.log(
+                "activated_ability_resolved_no_effect",
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                reason="source_no_longer_in_graveyard",
+            )
         else:
             self.log(
                 "activated_ability_resolved_no_effect",
@@ -10490,6 +10664,13 @@ class Game(
         ):
             return "Flying", "flying_requires_flying_or_reach"
         for fragment in self.interpreter.fragments(attacker.rules_card):
+            if self.interpreter.CANT_BE_BLOCKED_IF_ARTIFACT_ENTERED_THIS_TURN.fullmatch(
+                fragment
+            ) and any(
+                turn == self.turn and controller == attacker.controller
+                for turn, controller, _object_id in self._artifact_entries_this_turn
+            ):
+                return fragment, "artifact_entered_under_your_control_this_turn"
             match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
                 return fragment, "blocker_power_at_or_above_restriction"

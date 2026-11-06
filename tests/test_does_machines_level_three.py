@@ -403,6 +403,12 @@ def test_animated_artifact_can_block_as_a_creature():
     source.class_level = 3
     blocker = game.create_permanent(facts["Sewer-veillance Cam"], 0)
     attacker = game.create_permanent(facts["Fugitive Droid"], 1, summoning_sick=False)
+    # Model a Droid that entered on an earlier turn; its own artifact entry must not
+    # make this an ineligible block in the current turn.
+    game._artifact_entries_this_turn = [
+        entry for entry in game._artifact_entries_this_turn if entry[2] != attacker.object_id
+    ]
+    attacker.entered_battlefield_turn = game.turn - 1
     game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
     game._begin_priority_window()
     _resolve_top(game)
