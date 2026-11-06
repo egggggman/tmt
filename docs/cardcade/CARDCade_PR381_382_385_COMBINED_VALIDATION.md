@@ -114,3 +114,109 @@ This branch is a local review candidate, not a merge or gameplay restart.
 Outstanding limits include broader end-to-end provenance validation and HQ
 review of the combined engine diff. No complete games, smoke batches,
 calibration, deck revisions, or unrestricted CI were authorized or run.
+
+## Final fidelity gate — 2026-11-06
+
+**Starting validated HEAD:** `b885d545d07031162e7e12169ce586cd22788bf6`.
+**Validated code and test source:**
+`4af1f08aa18b9a164160ddb0cfba328535a85464`, parent `b885d545d07031162e7e12169ce586cd22788bf6`.
+The final PR head will be a documentation-only child that records this source
+identity; no engine or test files change after this validated commit.
+
+### Priority transitions
+
+- `Game.transition_to` previously rejected an unresolved Stack but permitted a
+  step change while an ordinary empty-stack priority window was open. It now
+  rejects any live `priority_state` before changing state or logging events.
+  The rejection preserves the authoritative fingerprint, event sequence, and
+  step. Tests cover no passes, one pass, both passes before closure, and valid
+  closure followed by turn progression.
+- `check_invariants` now accepts empty-stack priority in ordinary steps and
+  rejects it in Setup, Untap, and Cleanup. Stack-backed priority and resolution
+  retain their existing behavior. Legacy `Game.combat()` and direct combat
+  transition tests pass.
+- Generated Frog Butler mana actions now carry each explicit color choice.
+  The same immediate, no-Stack options are available to the current priority
+  holder. This closes the gap where a legal ability was listed without an
+  executable choice.
+
+### Execution and provenance traces
+
+Controlled synthetic `Game` fixtures use the actual CardInterpreter, engine
+action entry points, serialized `Game.snapshot()`, runtime `stage002_presence`,
+`_authoritative_execution_index`, and `reconcile_snapshot`. Each fixture's
+static synthetic manifest is frozen from its initial CardFact presence before
+actions; it does not derive semantic identity or execution attribution from
+runtime evidence.
+
+- Tunnel Rats was offered and activated through the ordinary Stage 002
+  empty-stack end-step driver, paid `{4}{B}`, resolved once, and was
+  authenticated against its original graveyard source lineage.
+- Two Frog Butler mana activations selected blue and green. The blue mana paid
+  for a blue synthetic spell with consumption linked to its production event
+  and hand-object payment identity; the remaining green mana emptied at the
+  step boundary. Both activations authenticated by source and fragment.
+- Frog Butler Reach activated for the defending player after attackers and
+  resolved before blockers; the Frog then legally blocked the flyer. The
+  resolved source/fragment pair authenticated through the reconciler.
+- Fugitive Droid remained unblockable after its controller's artifact entered
+  and left. An opponent's artifact entry followed by a controller change did
+  not grant the restriction. The snapshot reconciled with no invented
+  execution references or stop records.
+- A second Reach activation was offered in a fresh empty-stack follow-on window
+  after the first Reach Stack object resolved. The two activations had distinct
+  priority epochs and source evidence; both authenticated.
+
+### Second main and combat sequence
+
+The engine already generates the same land, supported activation, and spell
+actions in precombat and postcombat main. Stage 002 previously ran the existing
+five stages (`land`, `activate`, `damage`, `destroy`, `creature`) only before
+combat, omitting all of those legal postcombat actions from the pilot. The
+runner now applies the same existing `AcceptancePilot` stage policy in
+postcombat main before its ordinary priority window. This is a bounded policy
+reuse, not a new decision model. It can change second-main land drops, activations,
+and casts in the frozen ten-deck environment; the size or outcome impact is not
+measured because complete games are outside this gate.
+
+An explicit synthetic sequence covers beginning of combat, attack declaration,
+defender priority, block declaration, Sneak decline, combat damage, end of
+combat, postcombat main, and end step. Every consecutive-pass pair belongs to
+one epoch; stale priority options are rejected without mutation; the winner
+terminates priority dispatch. The legacy combat adapter remains intact.
+
+### Final selected validation
+
+The exact final selection is the 42 node IDs above plus these 14 individually
+selected nodes in `tests/test_pr386_final_fidelity_gate.py`:
+
+```text
+test_transition_rejects_open_empty_priority_window_before_passes
+test_transition_rejects_open_empty_priority_window_after_one_pass
+test_transition_rejects_two_passes_until_empty_window_closure_is_processed
+test_priority_action_from_closed_epoch_is_rejected_without_mutation
+test_stack_resolution_and_legacy_combat_transitions_remain_valid
+test_natural_tunnel_rats_execution_authenticates_through_reconciler
+test_frog_mana_action_produces_pays_and_expires_with_authenticated_lineage
+test_frog_mana_ability_is_an_immediate_priority_action_with_color_choice
+test_defender_reach_execution_authenticates_before_block_declaration
+test_fugitive_droid_controller_specific_entry_restriction_survives_reconcile
+test_follow_on_empty_priority_after_resolution_can_execute_reach
+test_existing_main_action_policy_runs_during_postcombat_main
+test_full_combat_priority_and_sneak_sequence_uses_fresh_epochs
+test_priority_driver_stops_prompting_after_winner
+```
+
+All selected test bodies were inspected; no complete-game runner, launcher,
+smoke, or calibration path is called. Under Python 3.12.10 and pytest 8.4.2,
+the combined selection passed **56 tests, 0 failed, 0 skipped**. Ruff 0.16.1
+format and lint checks passed, as did `git diff --check`. The exact corrected
+source SHA is the PR head. No Baseline 005 deck, historical game artifact, or
+protected G: archive content was modified.
+
+This closes the bounded synthetic fidelity gate only. It does not validate
+full-game behavior, quantify the second-main impact, settle broader historical
+provenance questions, authorize a smoke test, or authorize merge. PR #386
+remains draft for HQ acceptance. The separate evidence-only commit is excluded
+from the tested code source; the PR description identifies both its final head
+and the exact validated source commit.
