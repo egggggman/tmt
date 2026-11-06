@@ -6831,6 +6831,16 @@ class Game(
             )
         if self._step is TurnStep.COMBAT_DAMAGE and not self._combat_damage_resolved:
             raise ValueError("combat damage step must be resolved before it can end")
+        for player_index in range(len(self.players)):
+            pool = self.floating_mana.snapshot(player_index)
+            if pool:
+                self.floating_mana.empty(player_index)
+                self.log(
+                    "mana_pool_emptied",
+                    player_index=player_index,
+                    previous_step=self._step.value,
+                    mana=pool,
+                )
         if self._step is TurnStep.DECLARE_ATTACKERS and not self._attackers_declared:
             self._attackers_declared = True
             self._combat_attackers = ()
@@ -8727,13 +8737,18 @@ class Game(
     ) -> tuple[ActionOption, ...]:
         """Offer Tunnel Rats from the graveyard whenever its controller can activate it."""
         state = self.priority_state
-        if self.stack:
-            if state is None or state.resolution_pending or state.player_index != player_index:
+        if state is not None:
+            if state.resolution_pending or state.player_index != player_index:
                 return ()
-        elif player_index != self.active_player or self.step not in {
-            TurnStep.PRECOMBAT_MAIN,
-            TurnStep.POSTCOMBAT_MAIN,
-        }:
+        elif (
+            self.stack
+            or player_index != self.active_player
+            or self.step
+            not in {
+                TurnStep.PRECOMBAT_MAIN,
+                TurnStep.POSTCOMBAT_MAIN,
+            }
+        ):
             return ()
         options = []
         for source in self.players[player_index].graveyard:
@@ -8954,22 +8969,20 @@ class Game(
     def announce_graveyard_activated_ability(
         self, player_index: int, source: CardObject, oracle_fragment: str
     ) -> ActivatedAbilityObject | None:
+        state = self.priority_state
         if (
             player_index not in range(2)
             or not self.is_authoritative(source, "graveyard")
             or source.owner != player_index
             or (
-                self.stack
-                and (
-                    self.priority_state is None
-                    or self.priority_state.resolution_pending
-                    or self.priority_state.player_index != player_index
-                )
+                state is not None
+                and (state.resolution_pending or state.player_index != player_index)
             )
             or (
-                not self.stack
+                state is None
                 and (
-                    player_index != self.active_player
+                    self.stack
+                    or player_index != self.active_player
                     or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
                 )
             )

@@ -1,5 +1,6 @@
 from tmnt_design_studio.card_interpreter07 import ActivatedEffectKind, CardInterpreter
 from tmnt_design_studio.engine07 import CardFact, CastKind, Game, StackObject, TurnStep
+from tmnt_design_studio.stage002 import _authoritative_execution_index
 
 LAND = CardFact("Swamp", "", 0, "Basic Land ? Swamp")
 ISLAND = CardFact("Island", "", 0, "Basic Land ? Island")
@@ -60,6 +61,52 @@ def test_tunnel_rats_can_activate_at_priority_and_remains_in_graveyard_until_res
     assert "activation_announced" in event_kinds
     assert "activation_cost_paid" in event_kinds
     assert "activated_ability_resolved" in event_kinds
+    game.check_invariants()
+
+
+def test_tunnel_rats_is_offered_in_empty_stack_end_step_priority():
+    game = Game(([LAND] * 30, [LAND] * 30), seed=917)
+    game.begin_turn()
+    lands = [game.create_permanent(LAND, 0, summoning_sick=False) for _ in range(5)]
+    source = game._create_card_object(RATS, 0, "graveyard")
+    game.players[0].graveyard.append(source)
+    while game.step is not TurnStep.END_STEP:
+        if game.step is TurnStep.COMBAT_DAMAGE:
+            game.resolve_combat_damage()
+        game.advance_step()
+    assert game.stack == []
+
+    game._begin_priority_window(allow_empty=True, priority_player=0)
+    option = next(
+        item
+        for item in game.legal_priority_actions(0)
+        if item.object_id == source.object_id and item.oracle_fragment == FRAGMENT
+    )
+    assert game.execute_priority_action(option)
+    ability = game.stack[-1]
+    assert source.zone == "graveyard" and source in game.players[0].graveyard
+    assert all(land.tapped for land in lands)
+    payment = next(
+        item
+        for item in game.events
+        if item["event"] == "activation_cost_paid" and item["stack_object_id"] == ability.object_id
+    )
+    assert payment["colored"] == ["B"] and payment["generic"] == 4
+
+    while game.priority_state is not None:
+        if game.priority_state.resolution_pending:
+            game.process_priority_resolution()
+        else:
+            game.execute_priority_action(
+                game.legal_priority_actions(game.priority_state.player_index)[0]
+            )
+    returned = [p for p in game.players[0].battlefield if p.card.name == "Tunnel Rats"]
+    assert len(returned) == 1 and returned[0].tapped
+    evidence = _authoritative_execution_index(game.snapshot())
+    assert evidence[("activated_ability", ability.object_id)] == [
+        {"source_id": source.object_id, "oracle_fragment": FRAGMENT}
+    ]
+    assert sum(event["event"] == "tunnel_rats_returned" for event in game.events) == 1
     game.check_invariants()
 
 
