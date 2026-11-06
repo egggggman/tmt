@@ -668,10 +668,13 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
-            _checked_action(game, lambda choice=choice: game.execute_sneak_action(
+            _checked_action(
+                game,
+                lambda choice=choice: game.execute_sneak_action(
                     choice, defer_step_transition=True
                 ),
-                "sneak",)
+                "sneak",
+            )
             _drain_priority(game, chosen_pilot)
             if choice.kind is ActionKind.PASS:
                 break
