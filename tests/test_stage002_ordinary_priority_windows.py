@@ -89,3 +89,73 @@ def test_empty_window_does_not_create_stack_objects():
     assert set(game._objects) == objects_before
     assert game.stack == []
     assert game.priority_state is None
+
+
+ATTACKER = CardFact(
+    "Synthetic Attacker", "{1}{W}", 2, "Creature — Human", power=2, toughness=2
+)
+BLOCKER = CardFact(
+    "Synthetic Blocker", "{1}{W}", 2, "Creature — Human", power=1, toughness=3
+)
+
+
+def _declared_attacker_game():
+    game = _synthetic_game()
+    attacker = game.create_permanent(ATTACKER, 0, summoning_sick=False)
+    game.create_permanent(BLOCKER, 1, summoning_sick=False)
+    game.advance_step()
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+    game.advance_step()
+    attack = next(
+        option
+        for option in game.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+    game.execute_attack_action(attack)
+    return game, attack
+
+
+def test_attacker_declaration_waits_for_both_players_to_pass():
+    game, attack = _declared_attacker_game()
+
+    assert game.step is TurnStep.DECLARE_ATTACKERS
+    assert game._attackers_declared
+    assert game.legal_block_options(attack, 1) == ()
+
+    before = len(_passes(game))
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+    assert game.step is TurnStep.DECLARE_ATTACKERS
+    assert [entry[0] for entry in _passes(game)[before:]] == [0, 1]
+
+    game.advance_step()
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+    assert game.legal_block_options(attack, 1)
+
+
+def test_blocker_declaration_and_sneak_decline_preserve_priority_before_damage():
+    game, attack = _declared_attacker_game()
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+    game.advance_step()
+
+    block = next(
+        option for option in game.legal_block_options(attack, 1) if option.blocks
+    )
+    game.execute_block_action(block)
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+    assert game._blockers_declared
+
+    sneak_pass = next(
+        option
+        for option in game.legal_sneak_actions(0)
+        if option.kind is ActionKind.PASS
+    )
+    assert game.execute_sneak_action(sneak_pass)
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+
+    before = len(_passes(game))
+    _drain_ordinary_step_priority(game, PassOnlyPilot())
+    assert [entry[0] for entry in _passes(game)[before:]] == [0, 1]
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+
+    game.advance_step()
+    assert game.step is TurnStep.COMBAT_DAMAGE
