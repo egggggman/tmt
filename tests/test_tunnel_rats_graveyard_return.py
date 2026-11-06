@@ -3,6 +3,7 @@ from tmnt_design_studio.engine07 import CardFact, CastKind, Game, StackObject, T
 
 LAND = CardFact("Swamp", "", 0, "Basic Land ? Swamp")
 ISLAND = CardFact("Island", "", 0, "Basic Land ? Island")
+FOREST = CardFact("Forest", "", 0, "Basic Land ? Forest")
 RATS = CardFact(
     "Tunnel Rats",
     "{1}{B}",
@@ -105,6 +106,30 @@ def test_tunnel_rats_requires_a_black_source_even_with_five_available_lands():
         item.object_id == source.object_id and item.oracle_fragment == FRAGMENT
         for item in game.legal_main_actions(0)
     )
+
+
+def test_tunnel_rats_spends_floating_black_mana_and_four_generic_sources():
+    game = Game(([LAND] * 30, [LAND] * 30), seed=916)
+    game.begin_turn()
+    for _ in range(4):
+        game.create_permanent(FOREST, 0, summoning_sick=False)
+    source = game._create_card_object(RATS, 0, "graveyard")
+    game.players[0].graveyard.append(source)
+    game.floating_mana.add(0, "synthetic-mana-source", "B", 1, "synthetic-production")
+
+    option = next(
+        item
+        for item in game.legal_main_actions(0)
+        if item.object_id == source.object_id and item.oracle_fragment == FRAGMENT
+    )
+    assert game.execute_main_action(option)
+    ability = game.stack[-1]
+    assert game.floating_mana.snapshot(0) == {}
+    consumption = game.floating_mana.consumptions(0)
+    assert len(consumption) == 1
+    assert consumption[0].source_event_id == "synthetic-production"
+    assert consumption[0].payment_id == ability.object_id
+    assert all(land.tapped for land in game.players[0].battlefield if land.card.is_land)
 
 
 def test_tunnel_rats_does_not_return_if_graveyard_object_leaves_before_resolution():

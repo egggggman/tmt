@@ -8761,7 +8761,7 @@ class Game(
 
     def _graveyard_activation_mana_sources(
         self, player_index: int, source: CardObject, oracle_fragment: str
-    ) -> tuple[Permanent, ...] | None:
+    ) -> tuple[tuple[Permanent, ...], tuple[tuple[str, int], ...]] | None:
         if (
             player_index not in range(2)
             or not self.is_authoritative(source, "graveyard")
@@ -8781,12 +8781,34 @@ class Game(
             for permanent in self.players[player_index].battlefield
             if permanent.card.is_land and not permanent.tapped
         ]
-        black = next(
-            (permanent for permanent in available if self._mana_color(permanent) == "B"), None
-        )
-        if black is None or len(available) < 5:
+        pool = self.floating_mana.snapshot(player_index)
+        floating_payment: dict[str, int] = {}
+        chosen: list[Permanent] = []
+        if pool.get("B", 0):
+            floating_payment["B"] = 1
+            pool["B"] -= 1
+        else:
+            black = next(
+                (permanent for permanent in available if self._mana_color(permanent) == "B"),
+                None,
+            )
+            if black is None:
+                return None
+            chosen.append(black)
+            available.remove(black)
+        generic_from_pool = 0
+        for color in "WUBRGC":
+            take = min(pool.get(color, 0), 4 - generic_from_pool)
+            if take:
+                floating_payment[color] = floating_payment.get(color, 0) + take
+                generic_from_pool += take
+            if generic_from_pool == 4:
+                break
+        lands_for_generic = 4 - generic_from_pool
+        if len(available) < lands_for_generic:
             return None
-        return (black, *[permanent for permanent in available if permanent is not black][:4])
+        chosen.extend(available[:lands_for_generic])
+        return tuple(chosen), tuple(sorted(floating_payment.items()))
 
     def _hand_activation_mana_sources(
         self, player_index: int, card: CardObject, fragment: str
@@ -8961,9 +8983,12 @@ class Game(
             is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
         ):
             return None
-        chosen = self._graveyard_activation_mana_sources(player_index, source, oracle_fragment)
-        if chosen is None:
+        payment_plan = self._graveyard_activation_mana_sources(
+            player_index, source, oracle_fragment
+        )
+        if payment_plan is None:
             return None
+        chosen, floating_payment = payment_plan
         for p in chosen:
             p.tapped = True
         ability = ActivatedAbilityObject(
@@ -8979,6 +9004,8 @@ class Game(
         )
         self._register(ability)
         self.stack.append(ability)
+        for color, quantity in floating_payment:
+            self.floating_mana.consume(player_index, color, quantity, ability.object_id)
         self.activation_evidence.append(
             ActivationEvidence(
                 ability.object_id,
@@ -9012,6 +9039,9 @@ class Game(
             generic=4,
             colored=["B"],
             mana_source_ids=[p.object_id for p in chosen],
+            floating_mana=[
+                {"color": color, "quantity": quantity} for color, quantity in floating_payment
+            ],
             tap_source=False,
             sacrifice_source=False,
             sacrificed_destination_id=None,
