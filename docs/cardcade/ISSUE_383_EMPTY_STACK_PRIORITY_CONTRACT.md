@@ -42,7 +42,7 @@
 | Beginning of combat with no trigger | Window opens before attack declaration; two passes close and permit declaration |
 | Beginning of combat with Does Machines L3 trigger | Existing mandatory stack/triggers and target provenance preserved; no phantom empty window or duplicate trigger |
 | Declare attackers, then non-active player responding before blocks | Both players receive legitimate priority; blocks cannot be declared until window closed |
-| Declare blockers, then Frog Butler Reach | Existing legal `{2}` option can be offered to priority holder and resolved before combat damage; rule-constrained opportunity timing checked |
+| After attackers are declared, before blockers are declared: Frog Butler Reach | Defending player can pay `{2}` and resolve Reach so Frog can legally block a flying attacker in the upcoming declare-blockers action |\n| After blockers are declared: Frog Butler Reach | Ability can still be activated with priority, but does **not** retroactively make a previously illegal block legal; existing block assignments stay fixed |
 | Two passes, no actions, empty stack | Exactly one window completes, no phantom Stack object and no duplicate progression |
 | Stack resolves then empties | A follow-on legal priority opportunity exists before the step advances |
 | Floating mana at same-step window and step exit | Mana remains within step; unspent mana expires only on transition |
