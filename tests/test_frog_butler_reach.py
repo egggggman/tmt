@@ -71,6 +71,53 @@ def test_frog_butler_reach_exact_activation_and_payment():
     )
 
 
+def test_frog_butler_reach_is_offered_during_stack_priority():
+    g, frog = setup()
+    g._begin_priority_window()
+    option = next(
+        item
+        for item in g.legal_priority_actions(0)
+        if item.object_id == frog.object_id and item.oracle_fragment == FRAGMENT
+    )
+
+    assert option.priority_epoch == g.priority_state.epoch
+    assert g.execute_priority_action(option)
+    pass_priority(g)
+
+    assert g.has_temporary_keyword(frog, TemporaryKeyword.REACH)
+    assert any(
+        event["event"] == "frog_butler_reach_granted" and event["source_id"] == frog.object_id
+        for event in g.events
+    )
+
+
+def test_summoning_sick_frog_can_use_non_tap_reach_ability_at_priority():
+    g, frog = setup()
+    frog.summoning_sick = True
+    g._begin_priority_window()
+
+    option = next(
+        item
+        for item in g.legal_priority_actions(0)
+        if item.object_id == frog.object_id and item.oracle_fragment == FRAGMENT
+    )
+
+    assert g.execute_priority_action(option)
+    pass_priority(g)
+    assert g.has_temporary_keyword(frog, TemporaryKeyword.REACH)
+
+
+def test_reach_priority_action_requires_both_generic_mana():
+    g, frog = setup()
+    g.players[0].battlefield[0].tapped = True
+    g._begin_priority_window()
+
+    assert not any(
+        item.object_id == frog.object_id and item.oracle_fragment == FRAGMENT
+        for item in g.legal_priority_actions(0)
+    )
+
+
 def test_reach_changes_defensive_flying_block_legality():
     g, frog = setup()
     assert not g.has_temporary_keyword(frog, TemporaryKeyword.REACH)

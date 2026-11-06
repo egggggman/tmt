@@ -7412,6 +7412,39 @@ class Game(
                     )
         return tuple(options)
 
+    def _priority_reach_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer supported reach grants to the player holding stack priority."""
+        state = self.priority_state
+        if (
+            state is None
+            or state.resolution_pending
+            or state.player_index != player_index
+            or not self.stack
+        ):
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+            for fragment in self.interpreter.fragments(source.rules_card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind
+                    is not ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
+                    or self.activation_payment_plan(player_index, source, fragment) is None
+                ):
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch,
+                    )
+                )
+        return tuple(options)
+
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
@@ -7428,6 +7461,7 @@ class Game(
             *self.legal_hand_activated_ability_actions(player_index),
             *self.legal_graveyard_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
+            *self._priority_reach_activation_options(player_index),
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
