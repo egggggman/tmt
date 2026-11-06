@@ -7500,12 +7500,8 @@ class Game(
             and self._combat_damage_resolved
         ):
             self._advance_after_combat_damage()
-        elif (
-            self.winner is None
-            and self.step is TurnStep.DECLARE_ATTACKERS
-            and self._attackers_declared
-        ):
-            self.transition_to(TurnStep.DECLARE_BLOCKERS)
+        # Do not advance after resolving a response in declare attackers:
+        # both players must receive the follow-on priority opportunity first.
         return True
 
     def _advance_after_combat_damage(self) -> None:
@@ -7835,8 +7831,7 @@ class Game(
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
         self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
-        if self.priority_state is None:
-            self.transition_to(TurnStep.DECLARE_BLOCKERS)
+        # The Stage 002 driver offers ordinary priority before block declaration.
 
     def execute_block_action(self, blocks: ActionOption) -> None:
         """Revalidate and execute the declare-blockers turn-based action."""
@@ -7856,18 +7851,15 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
-        if not any(
-            option.kind is ActionKind.CAST
-            for option in self.legal_sneak_actions(self.active_player)
-        ):
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
+        # Remain in declare blockers until optional Sneak choices and the ordinary
+        # post-blocker priority window have both been handled by the driver.
 
     def execute_sneak_action(self, option: ActionOption) -> bool:
         """Revalidate and execute one engine-generated Sneak action or decline."""
         if option not in self.legal_sneak_actions(option.player_index):
             raise ValueError("Sneak action is not currently legal")
         if option.kind is ActionKind.PASS:
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
+            # Declining Sneak is not a substitute for both players passing priority.
             return True
         card = self._objects.get(option.object_id or "")
         attacker = self._objects.get(option.cost_object_id or "")
