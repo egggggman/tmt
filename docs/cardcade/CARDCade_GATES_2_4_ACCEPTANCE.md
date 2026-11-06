@@ -3,7 +3,7 @@
 **Review target:** PR #381, base `main` at `10d2ac80ef5b81b3a209a3133eb0a84633a1f944`.
 **Pre-correction PR head:** `ef5d4fa44019cd744fdaf9fd9e725ad21787ca0b`.
 **Correction commit:** `c8cd9407a7289b0cd87d7f4e6898a215d8216ade`.
-**PR head after evidence documentation:** `b2bbe5827972aeca46e456a959fb01c1416e709a`.
+**First evidence-package commit:** `b2bbe5827972aeca46e456a959fb01c1416e709a`.
 **Working candidate engine Git blob:** `67ce3bf797d944c83c1fa02ca2287ea3b129bf93`.
 **Status:** pushed to the still-draft PR; pending independent review.
 
@@ -117,3 +117,13 @@ priority window is not opened by the current Stage 002 driver. These are
 demonstrated reachability/provenance limitations, not hypothetical mechanics
 coverage. No complete games, calibration, merge, or deck changes are authorized
 by this package.
+
+The frozen Baseline 005 deck manifest remains identified by SHA-256
+`c6111aeaa972cd3bba0f65dce3d6ee78391ea72e122f4f8f0724ad4535ec28ac`; the frozen
+card-data snapshot is SHA-256
+`56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402`. No deck
+identity was changed. Gate 1's preservation-index note remains: one workspace
+copy path for the historical `RUN_STOP.json` is absent, while the separate
+`G:\cardcade\pre-reboot-20261103-200c45c808-39e99509\protected-state\RUN_STOP.json`
+copy is intact at 718 bytes with SHA-256
+`c85474eae9ed9c61fd8ce86dc352becaac9cdbe0d927fb9d1c5a215f2a4c03ff`.
