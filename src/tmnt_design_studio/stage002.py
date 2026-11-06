@@ -642,7 +642,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         )
         _checked_action(
             game,
-            lambda attack=attack: game.execute_attack_action(attack),
+            lambda attack=attack: game.execute_attack_action(
+                attack, defer_step_transition=True
+            ),
             "attack action",
         )
         _drain_ordinary_step_priority(game, chosen_pilot)
@@ -656,7 +658,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         )
         _checked_action(
             game,
-            lambda blocks=blocks: game.execute_block_action(blocks),
+            lambda blocks=blocks: game.execute_block_action(
+                blocks, defer_step_transition=True
+            ),
             "block action",
         )
         while game.winner is None and game.step is TurnStep.DECLARE_BLOCKERS:
@@ -664,7 +668,10 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
-            _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
+            _checked_action(game, lambda choice=choice: game.execute_sneak_action(
+                    choice, defer_step_transition=True
+                ),
+                "sneak",)
             _drain_priority(game, chosen_pilot)
             if choice.kind is ActionKind.PASS:
                 break
