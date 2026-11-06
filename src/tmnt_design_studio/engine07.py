@@ -7418,12 +7418,7 @@ class Game(
     def _priority_reach_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
         """Offer supported reach grants to the player holding stack priority."""
         state = self.priority_state
-        if (
-            state is None
-            or state.resolution_pending
-            or state.player_index != player_index
-            or not self.stack
-        ):
+        if state is None or state.resolution_pending or state.player_index != player_index:
             return ()
         options = []
         for source in self.players[player_index].battlefield:
@@ -9131,7 +9126,6 @@ class Game(
                 and not (
                     self.priority_state is not None
                     and self.priority_state.player_index == player_index
-                    and self.stack
                 )
             )
             or (
