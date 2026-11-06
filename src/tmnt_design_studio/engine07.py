@@ -160,11 +160,12 @@ class ActionOption:
     attacker_ids: tuple[str, ...] = ()
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
+    choice_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
 class PriorityState:
-    """Authoritative bounded 1v1 priority state for a nonempty stack."""
+    """Authoritative bounded 1v1 priority window, with or without a Stack object."""
 
     epoch: int
     player_index: int
@@ -1376,8 +1377,10 @@ class Game(
         self._first_damage_qualified_ids: tuple[str, ...] = ()
         self._first_double_strike_ids: tuple[str, ...] = ()
         self._regular_damage_initial_ids: tuple[str, ...] = ()
+        self._defer_attacker_step_transition = False
         self.winner: int | None = None
         self.events: list[dict[str, object]] = []
+        self._artifact_entries_this_turn: list[tuple[int, int, str]] = []
         self.floating_mana = FloatingManaLedger()
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
@@ -1539,7 +1542,21 @@ class Game(
         )
         self._register(permanent)
         self.players[permanent.controller].battlefield.append(permanent)
+        self._record_artifact_entry(permanent)
         return permanent
+
+    def _record_artifact_entry(self, permanent: Permanent) -> None:
+        if "Artifact" not in permanent.type_line:
+            return
+        self._artifact_entries_this_turn.append(
+            (self.turn, permanent.controller, permanent.object_id)
+        )
+        self.log(
+            "artifact_entered_battlefield",
+            object_id=permanent.object_id,
+            controller=permanent.controller,
+            type_line=permanent.type_line,
+        )
 
     def create_tokens(
         self,
@@ -1613,6 +1630,8 @@ class Game(
             source_id=source_id,
             oracle_fragment=oracle_fragment,
         )
+        for token in created:
+            self._record_artifact_entry(token)
         creatures = tuple(token for token in created if token.card.is_creature)
         if creatures:
             self._process_creatures_entered_triggers(creatures)
@@ -1629,6 +1648,7 @@ class Game(
         if any(self._identity_contains(zone, permanent) for zone in self._all_zone_lists()):
             raise ValueError("runtime object already occupies a zone")
         self.players[permanent.controller].battlefield.append(permanent)
+        self._record_artifact_entry(permanent)
 
     def set_hand_for_testing(self, owner: int, cards: list[CardFact]) -> list[CardObject]:
         """Replace a hand for deterministic rule-test setup, outside gameplay transitions."""
@@ -1852,6 +1872,8 @@ class Game(
             reason=reason,
             library_position=library_position,
         )
+        if isinstance(replacement, Permanent):
+            self._record_artifact_entry(replacement)
         if departure_authority is not None:
             assert departure_sources is not None and departure_last_known is not None
             qualifying_sources = tuple(
@@ -6803,6 +6825,8 @@ class Game(
         """Perform the one legal deterministic CR 500-series step transition."""
         if self.stack:
             raise ValueError("cannot advance the turn with an unresolved stack")
+        if self.priority_state is not None:
+            raise ValueError("cannot advance the turn with an open priority window")
         expected = NEXT_STEP[self._step]
         if step is not expected:
             raise ValueError(
@@ -6811,6 +6835,16 @@ class Game(
             )
         if self._step is TurnStep.COMBAT_DAMAGE and not self._combat_damage_resolved:
             raise ValueError("combat damage step must be resolved before it can end")
+        for player_index in range(len(self.players)):
+            pool = self.floating_mana.snapshot(player_index)
+            if pool:
+                self.floating_mana.empty(player_index)
+                self.log(
+                    "mana_pool_emptied",
+                    player_index=player_index,
+                    previous_step=self._step.value,
+                    mana=pool,
+                )
         if self._step is TurnStep.DECLARE_ATTACKERS and not self._attackers_declared:
             self._attackers_declared = True
             self._combat_attackers = ()
@@ -6823,10 +6857,13 @@ class Game(
         if previous is TurnStep.CLEANUP:
             self._turn += 1
             self._active_player = (self._turn - 1) % len(self.players)
+            self._artifact_entries_this_turn.clear()
         elif previous is TurnStep.SETUP:
             self._turn = 1
             self._active_player = 0
         self._step = step
+        if previous is TurnStep.DECLARE_ATTACKERS:
+            self._defer_attacker_step_transition = False
         self.log("step_started", step=step.value, previous_step=previous.value)
         self._on_enter_step(step)
 
@@ -7093,6 +7130,7 @@ class Game(
         options.extend(self._aura_cast_options(player_index))
         options.extend(self.legal_hand_activated_ability_actions(player_index))
         options.extend(self.legal_activated_ability_actions(player_index))
+        options.extend(self.legal_graveyard_activated_ability_actions(player_index))
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
@@ -7380,6 +7418,63 @@ class Game(
                     )
         return tuple(options)
 
+    def _priority_reach_activation_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer supported reach grants to the player holding stack priority."""
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+            for fragment in self.interpreter.fragments(source.rules_card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind
+                    is not ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
+                    or self.activation_payment_plan(player_index, source, fragment) is None
+                ):
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch,
+                    )
+                )
+        return tuple(options)
+
+    def _priority_mana_ability_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer immediate mana abilities to the player who currently holds priority."""
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+            for fragment in self.interpreter.fragments(source.rules_card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    or self.activation_payment_plan(player_index, source, fragment) is None
+                ):
+                    continue
+                options.extend(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch,
+                        choice_ids=(color,),
+                    )
+                    for color in ("W", "U", "B", "R", "G", "C")
+                )
+        return tuple(options)
+
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
@@ -7394,7 +7489,10 @@ class Game(
             *self._hand_response_options(player_index),
             *self._aura_cast_options(player_index, priority=True),
             *self.legal_hand_activated_ability_actions(player_index),
+            *self.legal_graveyard_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
+            *self._priority_reach_activation_options(player_index),
+            *self._priority_mana_ability_options(player_index),
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
@@ -7404,6 +7502,13 @@ class Game(
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             source = self._objects.get(option.object_id or "")
             if isinstance(source, CardObject) and option.oracle_fragment is not None:
+                if self.is_authoritative(source, "graveyard"):
+                    return (
+                        self.announce_graveyard_activated_ability(
+                            option.player_index, source, option.oracle_fragment
+                        )
+                        is not None
+                    )
                 return (
                     self.announce_hand_activated_ability(
                         option.player_index, source, option.oracle_fragment
@@ -7414,7 +7519,11 @@ class Game(
                 raise ValueError("counter activation option is malformed")
             target_ids = () if option.target_id is None else (option.target_id,)
             ability = self.announce_activated_ability(
-                option.player_index, source, option.oracle_fragment, target_ids=target_ids
+                option.player_index,
+                source,
+                option.oracle_fragment,
+                target_ids=target_ids,
+                choice_ids=option.choice_ids,
             )
             if ability is None:
                 raise ValueError("counter activation option became illegal")
@@ -7504,6 +7613,7 @@ class Game(
             self.winner is None
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
+            and not self._defer_attacker_step_transition
         ):
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
         return True
@@ -7641,6 +7751,13 @@ class Game(
             )
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             if isinstance(obj, CardObject) and option.oracle_fragment is not None:
+                if self.is_authoritative(obj, "graveyard"):
+                    return (
+                        self.announce_graveyard_activated_ability(
+                            option.player_index, obj, option.oracle_fragment
+                        )
+                        is not None
+                    )
                 return (
                     self.announce_hand_activated_ability(
                         option.player_index, obj, option.oracle_fragment
@@ -7653,7 +7770,11 @@ class Game(
                 raise ValueError("activation option lacks an Oracle fragment")
             target_ids = () if option.target_id is None else (option.target_id,)
             return self.activate_ability(
-                option.player_index, obj, option.oracle_fragment, target_ids=target_ids
+                option.player_index,
+                obj,
+                option.oracle_fragment,
+                target_ids=target_ids,
+                choice_ids=option.choice_ids,
             )
         raise ValueError("unsupported main action kind")
 
@@ -7822,8 +7943,10 @@ class Game(
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
-    def execute_attack_action(self, attack: ActionOption) -> None:
-        """Revalidate and execute the declare-attackers turn-based action."""
+    def execute_attack_action(
+        self, attack: ActionOption, *, defer_step_transition: bool = False
+    ) -> None:
+        """Declare attackers; optionally defer the next step for Stage 002 priority."""
         if attack not in self.legal_attack_options(attack.player_index):
             raise ValueError("attack option is not currently legal")
         attackers = [self._objects[object_id] for object_id in attack.attacker_ids]
@@ -7835,11 +7958,14 @@ class Game(
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
         self.resolve_attack_pt_effects(attackers)  # type: ignore[arg-type]
-        if self.priority_state is None:
+        self._defer_attacker_step_transition = defer_step_transition
+        if not defer_step_transition and self.priority_state is None:
             self.transition_to(TurnStep.DECLARE_BLOCKERS)
 
-    def execute_block_action(self, blocks: ActionOption) -> None:
-        """Revalidate and execute the declare-blockers turn-based action."""
+    def execute_block_action(
+        self, blocks: ActionOption, *, defer_step_transition: bool = False
+    ) -> None:
+        """Declare blockers; optionally defer combat damage for Stage 002 priority."""
         attack = ActionOption(
             ActionKind.DECLARE_ATTACKERS,
             self.active_player,
@@ -7856,18 +7982,21 @@ class Game(
         self._combat_blocks = blocks.blocks
         self._blockers_declared = True
         self.log("blockers_declared", blocks=[list(pair) for pair in blocks.blocks])
-        if not any(
+        if not defer_step_transition and not any(
             option.kind is ActionKind.CAST
             for option in self.legal_sneak_actions(self.active_player)
         ):
             self.transition_to(TurnStep.COMBAT_DAMAGE)
 
-    def execute_sneak_action(self, option: ActionOption) -> bool:
-        """Revalidate and execute one engine-generated Sneak action or decline."""
+    def execute_sneak_action(
+        self, option: ActionOption, *, defer_step_transition: bool = False
+    ) -> bool:
+        """Revalidate one Sneak choice; Stage 002 can defer post-blocker priority."""
         if option not in self.legal_sneak_actions(option.player_index):
             raise ValueError("Sneak action is not currently legal")
         if option.kind is ActionKind.PASS:
-            self.transition_to(TurnStep.COMBAT_DAMAGE)
+            if not defer_step_transition:
+                self.transition_to(TurnStep.COMBAT_DAMAGE)
             return True
         card = self._objects.get(option.object_id or "")
         attacker = self._objects.get(option.cost_object_id or "")
@@ -8619,6 +8748,11 @@ class Game(
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
                 if semantics is None or not semantics.coverage.fully_supported:
                     continue
+                choice_sets = (
+                    tuple((color,) for color in ("W", "U", "B", "R", "G", "C"))
+                    if semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    else ((),)
+                )
                 if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
                     for target in self.players[0].battlefield + self.players[1].battlefield:
                         if self.is_authoritative(target, "battlefield") and target.card.is_creature:
@@ -8660,13 +8794,15 @@ class Game(
                                 )
                             )
                 else:
-                    options.append(
+                    options.extend(
                         ActionOption(
                             ActionKind.ACTIVATE_ABILITY,
                             player_index,
                             object_id=source.object_id,
                             oracle_fragment=fragment,
+                            choice_ids=choice_ids,
                         )
+                        for choice_ids in choice_sets
                     )
         return tuple(options)
 
@@ -8684,6 +8820,99 @@ class Game(
             for fragment in self.interpreter.fragments(card.card)
             if self._hand_activation_mana_sources(player_index, card, fragment) is not None
         )
+
+    def legal_graveyard_activated_ability_actions(
+        self, player_index: int
+    ) -> tuple[ActionOption, ...]:
+        """Offer Tunnel Rats from the graveyard whenever its controller can activate it."""
+        state = self.priority_state
+        if state is not None:
+            if state.resolution_pending or state.player_index != player_index:
+                return ()
+        elif (
+            self.stack
+            or player_index != self.active_player
+            or self.step
+            not in {
+                TurnStep.PRECOMBAT_MAIN,
+                TurnStep.POSTCOMBAT_MAIN,
+            }
+        ):
+            return ()
+        options = []
+        for source in self.players[player_index].graveyard:
+            for fragment in self.interpreter.fragments(source.card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind
+                    is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+                    or self._graveyard_activation_mana_sources(player_index, source, fragment)
+                    is None
+                ):
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch if state is not None else None,
+                    )
+                )
+        return tuple(options)
+
+    def _graveyard_activation_mana_sources(
+        self, player_index: int, source: CardObject, oracle_fragment: str
+    ) -> tuple[tuple[Permanent, ...], tuple[tuple[str, int], ...]] | None:
+        if (
+            player_index not in range(2)
+            or not self.is_authoritative(source, "graveyard")
+            or source.owner != player_index
+        ):
+            return None
+        semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
+        if (
+            semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program.effect_kind
+            is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+        ):
+            return None
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped
+        ]
+        pool = self.floating_mana.snapshot(player_index)
+        floating_payment: dict[str, int] = {}
+        chosen: list[Permanent] = []
+        if pool.get("B", 0):
+            floating_payment["B"] = 1
+            pool["B"] -= 1
+        else:
+            black = next(
+                (permanent for permanent in available if self._mana_color(permanent) == "B"),
+                None,
+            )
+            if black is None:
+                return None
+            chosen.append(black)
+            available.remove(black)
+        generic_from_pool = 0
+        for color in "WUBRGC":
+            take = min(pool.get(color, 0), 4 - generic_from_pool)
+            if take:
+                floating_payment[color] = floating_payment.get(color, 0) + take
+                generic_from_pool += take
+            if generic_from_pool == 4:
+                break
+        lands_for_generic = 4 - generic_from_pool
+        if len(available) < lands_for_generic:
+            return None
+        chosen.extend(available[:lands_for_generic])
+        return tuple(chosen), tuple(sorted(floating_payment.items()))
 
     def _hand_activation_mana_sources(
         self, player_index: int, card: CardObject, fragment: str
@@ -8829,11 +9058,23 @@ class Game(
     def announce_graveyard_activated_ability(
         self, player_index: int, source: CardObject, oracle_fragment: str
     ) -> ActivatedAbilityObject | None:
+        state = self.priority_state
         if (
             player_index not in range(2)
             or not self.is_authoritative(source, "graveyard")
             or source.owner != player_index
-            or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+            or (
+                state is not None
+                and (state.resolution_pending or state.player_index != player_index)
+            )
+            or (
+                state is None
+                and (
+                    self.stack
+                    or player_index != self.active_player
+                    or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+                )
+            )
         ):
             return None
         semantics = self.interpreter.activated_ability_semantics(source.card, oracle_fragment)
@@ -8844,13 +9085,12 @@ class Game(
             is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
         ):
             return None
-        available = [
-            p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-        ]
-        black = next((p for p in available if self._mana_color(p) == "B"), None)
-        if black is None or len(available) < 5:
+        payment_plan = self._graveyard_activation_mana_sources(
+            player_index, source, oracle_fragment
+        )
+        if payment_plan is None:
             return None
-        chosen = [black] + [p for p in available if p is not black][:4]
+        chosen, floating_payment = payment_plan
         for p in chosen:
             p.tapped = True
         ability = ActivatedAbilityObject(
@@ -8866,8 +9106,8 @@ class Game(
         )
         self._register(ability)
         self.stack.append(ability)
-        source.zone = "former"
-        self.players[player_index].graveyard.remove(source)
+        for color, quantity in floating_payment:
+            self.floating_mana.consume(player_index, color, quantity, ability.object_id)
         self.activation_evidence.append(
             ActivationEvidence(
                 ability.object_id,
@@ -8885,6 +9125,36 @@ class Game(
             stack_object_id=ability.object_id,
             reason="tunnel_rats_return",
         )
+        self.log(
+            "activation_announced",
+            player=self.players[player_index].name,
+            source=source.card.name,
+            source_id=source.object_id,
+            stack_object_id=ability.object_id,
+            oracle_fragment=oracle_fragment,
+        )
+        self.log(
+            "activation_cost_paid",
+            player=self.players[player_index].name,
+            source_id=source.object_id,
+            stack_object_id=ability.object_id,
+            generic=4,
+            colored=["B"],
+            mana_source_ids=[p.object_id for p in chosen],
+            floating_mana=[
+                {"color": color, "quantity": quantity} for color, quantity in floating_payment
+            ],
+            tap_source=False,
+            sacrifice_source=False,
+            sacrificed_destination_id=None,
+        )
+        self.log(
+            "activated_ability_stacked",
+            stack_object_id=ability.object_id,
+            source_id=source.object_id,
+            controller=self.players[player_index].name,
+        )
+        self._begin_priority_window()
         return ability
 
     def announce_activated_ability(
@@ -8904,7 +9174,6 @@ class Game(
                 and not (
                     self.priority_state is not None
                     and self.priority_state.player_index == player_index
-                    and self.stack
                 )
             )
             or (
@@ -9082,8 +9351,12 @@ class Game(
                 self.players[source.owner].graveyard.append(sacrificed)
                 source.zone = "former"
                 self._register(sacrificed)
+            mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
             self._register(ability)
-            self.stack.append(ability)
+            if mana_ability:
+                ability.zone = "former"
+            else:
+                self.stack.append(ability)
         except Exception:
             for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
                 mana_source.tapped = tapped
@@ -9103,6 +9376,7 @@ class Game(
                 self._objects.pop(ability.object_id, None)
             self._next_object_number = starting_object_number
             raise
+        mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
         evidence = ActivationEvidence(
             ability.object_id,
             source.object_id,
@@ -9110,7 +9384,7 @@ class Game(
             oracle_fragment,
             plan.mana_source_ids,
             plan.tap_source,
-            False,
+            mana_ability,
             plan.counter_target_id,
         )
         self.activation_evidence.append(evidence)
@@ -9145,15 +9419,37 @@ class Game(
             sacrifice_source=plan.sacrifice_source,
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
         )
-        self.log(
-            "activated_ability_stacked",
-            stack_object_id=ability.object_id,
-            source_id=source.object_id,
-            controller=self.players[player_index].name,
-        )
+        if mana_ability:
+            self.floating_mana.add(
+                player_index, source.object_id, choice_ids[0], 1, ability.object_id
+            )
+            self.log(
+                "floating_mana_produced",
+                source_id=source.object_id,
+                stack_object_id=ability.object_id,
+                color=choice_ids[0],
+                quantity=1,
+            )
+            self.log(
+                "activated_ability_resolved",
+                stack_object_id=ability.object_id,
+                source_id=source.object_id,
+                card=source.card.name,
+                controller=self.players[player_index].name,
+                delivered=True,
+                mana_ability=True,
+            )
+        else:
+            self.log(
+                "activated_ability_stacked",
+                stack_object_id=ability.object_id,
+                source_id=source.object_id,
+                controller=self.players[player_index].name,
+            )
         if sacrificed is not None:
             self.check_state_based_actions()
-        self._begin_priority_window()
+        if not mana_ability:
+            self._begin_priority_window()
         if (
             sacrificed is not None
             and semantics.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE
@@ -9193,10 +9489,11 @@ class Game(
         oracle_fragment: str,
         *,
         target_ids: tuple[str, ...] = (),
+        choice_ids: tuple[str, ...] = (),
     ) -> bool:
         """Announce one ability and open the bounded engine-owned priority window."""
         ability = self.announce_activated_ability(
-            player_index, source, oracle_fragment, target_ids=target_ids
+            player_index, source, oracle_fragment, target_ids=target_ids, choice_ids=choice_ids
         )
         return ability is not None
 
@@ -9401,7 +9698,10 @@ class Game(
         if (
             ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             and isinstance(source, CardObject)
+            and self.is_authoritative(source, "graveyard")
         ):
+            self.players[source.owner].graveyard.remove(source)
+            source.zone = "former"
             returned = self.create_permanent(
                 source.card, ability.controller, tapped=True, summoning_sick=False
             )
@@ -9609,6 +9909,13 @@ class Game(
             delivered = True
         elif ability.program.effect_kind is ActivatedEffectKind.ADVANCE_CLASS_LEVEL:
             pass
+        elif ability.program.effect_kind is ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED:
+            self.log(
+                "activated_ability_resolved_no_effect",
+                stack_object_id=ability.object_id,
+                source_id=ability.source_id,
+                reason="source_no_longer_in_graveyard",
+            )
         else:
             self.log(
                 "activated_ability_resolved_no_effect",
@@ -10490,6 +10797,13 @@ class Game(
         ):
             return "Flying", "flying_requires_flying_or_reach"
         for fragment in self.interpreter.fragments(attacker.rules_card):
+            if self.interpreter.CANT_BE_BLOCKED_IF_ARTIFACT_ENTERED_THIS_TURN.fullmatch(
+                fragment
+            ) and any(
+                turn == self.turn and controller == attacker.controller
+                for turn, controller, _object_id in self._artifact_entries_this_turn
+            ):
+                return fragment, "artifact_entered_under_your_control_this_turn"
             match = self.interpreter.CANT_BE_BLOCKED_BY_POWER_OR_GREATER.fullmatch(fragment)
             if match and blocker.power >= int(match.group(1)):
                 return fragment, "blocker_power_at_or_above_restriction"
@@ -11119,8 +11433,12 @@ class Game(
                 raise AssertionError("noncreature Sneak evidence has a battlefield result")
         if self.priority_state is not None:
             state = self.priority_state
-            if not self.stack:
-                raise AssertionError("priority state requires a nonempty stack")
+            if not self.stack and self.step in {
+                TurnStep.SETUP,
+                TurnStep.UNTAP,
+                TurnStep.CLEANUP,
+            }:
+                raise AssertionError("empty-stack priority is not legal in this step")
             if state.player_index not in range(2):
                 raise AssertionError("priority player is invalid")
             if len(state.consecutive_passes) > 2:
