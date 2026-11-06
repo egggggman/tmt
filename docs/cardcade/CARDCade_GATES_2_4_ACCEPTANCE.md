@@ -136,3 +136,121 @@ copy path for the historical `RUN_STOP.json` is absent, while the separate
 `G:\cardcade\pre-reboot-20261103-200c45c808-39e99509\protected-state\RUN_STOP.json`
 copy is intact at 718 bytes with SHA-256
 `c85474eae9ed9c61fd8ce86dc352becaac9cdbe0d927fb9d1c5a215f2a4c03ff`.
+
+## Independent PR #381 review follow-up — 2026-11-06
+
+**Reviewed starting head:** `b4e1fc437079faac582a477259f93a0de277283a`, based on
+accepted `main` `10d2ac80ef5b81b3a209a3133eb0a84633a1f944`. The protected
+historical `G:` archive was read only; no archive file was written.
+
+### Ledger source identity and row mapping
+
+The builder was independently rerun against the 300 preserved `result.json`
+files and the frozen Stage 002 source at blob
+`bed173e3f4f3f13b0d1320a3a910153c38d844be`. It reproduced 300 unique runs,
+485 unique ledger `record_id` values across 201 affected games, with
+303 indeterminate / 126 conformance-provenance / 56 unsupported-semantic rows.
+The committed CSV and read-only rebuilt output have the same SHA-256:
+`4476cc931b91354c076dedc543c9fea89ef5c43c62c0cf786a889a3bc7b884c5`.
+The row identities and CSV bytes therefore match the committed ledger exactly.
+The existing ledger contains 0 direct raw-stop rows and 485 frozen-reconciler
+derived rows. Those derived rows point to `/snapshot/conformance` and include
+the reconciler stop index/hash in their record/evidence identity; no raw stop
+index is claimed for them.
+
+The frozen reconciler starts with `list(conformance["stop_records"])`, then
+extends/appends its derived findings; it does not insert into or reorder that
+prefix. The builder now verifies canonical equality of every raw stop against
+the reconciler prefix for each run before creating any ledger source pointer.
+It fails closed on raw-stop omission, insertion before the raw suffix, or raw
+stop reordering. Four pure mapping regressions cover the preserved prefix,
+derived identity, inserted record, reordered records, and omitted record.
+The previous 317 / 126 / 42 aggregate remains unreconciled at the row level;
+no old row membership map exists, so the 303 / 126 / 56 classification does
+not invent identities for the old 42.
+
+Read-only reproduction command (CSV output is local temp, not the protected
+archive):
+
+```powershell
+$outPath=Join-Path $env:TEMP 'pr381-ledger-prefix-audit.csv'
+$env:PYTHONDONTWRITEBYTECODE='1'
+& .venv\Scripts\python.exe -B tools\cardcade_stage002_silent_stop_ledger.py --archive-root G:\cardcade\diagnostics --frozen-root C:\projects\tmt\.diag003-frozen-32a8022 --manifest docs\cardcade\ACCEPTANCE_STAGE_002_RESULTS.json --output $outPath
+Get-FileHash -Algorithm SHA256 -LiteralPath $outPath
+```
+
+### Rules-path checks
+
+- **Tunnel Rats:** the selected tests cover controller/owner, five-mana `{4}{B}`
+  payment (including floating black), action freshness/source identity, the
+  source remaining in the graveyard until resolution, one tapped new-object
+  return, and authenticated execution. Its empty-stack end-step action is
+  engine-legal when an empty `PriorityState` is explicitly open. The isolated
+  PR #381 Stage 002 driver does not naturally open that window; PR #385 is the
+  separately identified driver change needed for natural end-step availability.
+- **Frog Butler mana:** authenticated execution indexing includes the
+  immediate mana ability. Selected tests check non-stack resolution, unchanged
+  priority/stack, one production event, source/tap provenance, same-step use,
+  and expiration at the step boundary.
+- **Fugitive Droid:** tested artifact entry through permanent creation, direct
+  battlefield placement, token creation, and graveyard-to-battlefield zone
+  transition. Tests cover entry controller (not later controller), one record
+  per object, departure, and expiration at the next turn boundary.
+- **Does Machines regression:** the previous-turn Fugitive Droid fixture now
+  advances through two actual synthetic turn boundaries instead of deleting a
+  private artifact-entry ledger row or editing `entered_battlefield_turn`.
+  It retains an explicitly constructed synthetic blocker-decision context.
+
+An initial version of that revised fixture failed because Does Machines only
+triggers at the beginning of combat on its controller's turn. A subsequent
+attempt correctly reached that trigger but tried to declare an attack for the
+non-active player. The final fixture advances to the source controller's turn
+and constructs only the blocker decision state under test; its selected test
+passes. These were fixture errors, not engine failures.
+
+### Bounded validation on the corrected worktree
+
+Environment: Python 3.12.10, pytest 8.4.2, Ruff 0.16.1. Every selected test
+body was inspected; the selection contains no `run_game`, launcher, runner
+suite, or calibration call.
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+$env:PYTHONPATH=(Resolve-Path src).Path
+& .venv\Scripts\python.exe -B -m pytest -q `
+  tests/test_cardcade_stage002_silent_stop_ledger.py::test_raw_stops_keep_exact_indices_and_derived_stops_keep_distinct_identity `
+  tests/test_cardcade_stage002_silent_stop_ledger.py::test_inserted_reconciler_stop_before_raw_suffix_is_rejected `
+  tests/test_cardcade_stage002_silent_stop_ledger.py::test_reordered_reconciler_raw_stops_are_rejected `
+  tests/test_cardcade_stage002_silent_stop_ledger.py::test_omitted_reconciler_raw_stop_is_rejected `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_exact_graveyard_semantics `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_can_activate_at_priority_and_remains_in_graveyard_until_resolution `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_is_offered_in_empty_stack_end_step_priority `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_main_action_exposes_only_when_five_lands_include_black `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_requires_a_black_source_even_with_five_available_lands `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_spends_floating_black_mana_and_four_generic_sources `
+  tests/test_tunnel_rats_graveyard_return.py::test_tunnel_rats_does_not_return_if_graveyard_object_leaves_before_resolution `
+  tests/test_frog_butler_mana.py::test_frog_butler_produces_chosen_color_with_source_provenance `
+  tests/test_frog_butler_mana.py::test_frog_butler_mana_ability_rejects_summoning_sick_source `
+  tests/test_frog_butler_mana.py::test_frog_butler_mana_is_immediate_and_empties_at_step_end `
+  tests/test_fugitive_droid_unblockability.py::test_fugitive_droid_cannot_be_blocked_after_controlled_artifact_entry_even_if_it_left `
+  tests/test_fugitive_droid_unblockability.py::test_fugitive_droid_does_not_get_unblockability_from_artifact_entering_for_opponent `
+  tests/test_fugitive_droid_unblockability.py::test_artifact_token_entry_is_recorded_once_and_uses_entry_controller `
+  tests/test_fugitive_droid_unblockability.py::test_direct_battlefield_placement_records_a_noncreature_artifact_once `
+  tests/test_fugitive_droid_unblockability.py::test_artifact_moved_from_graveyard_enters_as_a_new_tracked_object `
+  tests/test_fugitive_droid_unblockability.py::test_fugitive_droid_artifact_entry_condition_expires_at_next_turn `
+  tests/test_does_machines_level_three.py::test_animated_artifact_can_block_as_a_creature
+& .venv\Scripts\ruff.exe format --check tools\cardcade_stage002_silent_stop_ledger.py tests\test_cardcade_stage002_silent_stop_ledger.py tests\test_does_machines_level_three.py tests\test_frog_butler_mana.py tests\test_fugitive_droid_unblockability.py
+& .venv\Scripts\ruff.exe check tools\cardcade_stage002_silent_stop_ledger.py tests\test_cardcade_stage002_silent_stop_ledger.py tests\test_does_machines_level_three.py tests\test_frog_butler_mana.py tests\test_fugitive_droid_unblockability.py
+git diff --check
+```
+
+Result on the corrected #381 worktree: **21 passed, 0 failed, 0 skipped**;
+Ruff format, Ruff lint, and `git diff --check` passed. The ledger builder also
+reproduced the committed CSV hash with the new source-prefix guard enabled.
+No complete game, smoke batch, calibration, merge, deck change, or archive
+write occurred in this validation.
+
+**Disposition:** the ledger mapping, Tunnel Rats engine legality, Frog Butler
+mana authentication, and artifact-entry checks are locally validated. Natural
+empty-stack end-step reachability remains an integration requirement for #385;
+this isolated #381 head does not claim to satisfy it.

@@ -1,5 +1,5 @@
 from tmnt_design_studio.card_interpreter07 import TokenCreationProgram, TokenDefinition
-from tmnt_design_studio.engine07 import CardFact, Game, TurnStep
+from tmnt_design_studio.engine07 import CardFact, Game, Permanent, TurnStep
 
 LAND = CardFact("Island", "", 0, "Basic Land — Island")
 ARTIFACT = CardFact("Artifact", "{1}", 1, "Artifact")
@@ -61,6 +61,20 @@ def test_artifact_token_entry_is_recorded_once_and_uses_entry_controller():
 
     assert game._artifact_entries_this_turn[-1] == (game.turn, 1, token.object_id)
     assert game.blocking_restriction(attacker, blocker) is None
+
+
+def test_direct_battlefield_placement_records_a_noncreature_artifact_once():
+    game = Game(([LAND] * 12, [LAND] * 12), seed=412)
+    game.begin_turn()
+    artifact = Permanent(
+        game._allocate_object_id(), ARTIFACT, 0, 0, entered_battlefield_turn=game.turn
+    )
+    game._register(artifact)
+
+    game.place_on_battlefield(artifact)
+
+    assert artifact in game.players[0].battlefield
+    assert game._artifact_entries_this_turn == [(game.turn, 0, artifact.object_id)]
 
 
 def test_artifact_moved_from_graveyard_enters_as_a_new_tracked_object():

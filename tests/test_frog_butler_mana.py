@@ -48,6 +48,18 @@ def test_frog_butler_produces_chosen_color_with_source_provenance():
         and item["color"] == "U"
         for item in game.events
     )
+    assert (
+        sum(
+            item["event"] == "floating_mana_produced" and item["source_id"] == frog.object_id
+            for item in game.events
+        )
+        == 1
+    )
+    assert not any(
+        item["event"] == "activated_ability_stacked"
+        and item["stack_object_id"] == ability.object_id
+        for item in game.events
+    )
     spell_card = CardFact("Off Color Spell", "{U}", 1, "Creature", "", power=1, toughness=1)
     game.set_hand_for_testing(0, [spell_card])
     second = StackObject(game._allocate_object_id(), FROG, 1, 1, CastKind.CREATURE)
@@ -94,6 +106,13 @@ def test_frog_butler_mana_is_immediate_and_empties_at_step_end():
         and event["source_id"] == frog.object_id
         and event["color"] == "G"
         for event in game.events
+    )
+    assert (
+        sum(
+            event["event"] == "floating_mana_produced" and event["source_id"] == frog.object_id
+            for event in game.events
+        )
+        == 1
     )
     game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
     assert game.floating_mana.snapshot(0) == {}

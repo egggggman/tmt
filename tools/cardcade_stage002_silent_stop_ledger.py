@@ -61,6 +61,37 @@ def canonical_json(value: object) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
+def reconciled_stop_sources(
+    run_id: str,
+    raw_stops: list[dict[str, object]],
+    reconciled_stops: list[dict[str, object]],
+) -> list[tuple[str, str]]:
+    """Map reconciler stops only when raw snapshot stops remain an exact prefix."""
+    if len(reconciled_stops) < len(raw_stops):
+        raise ValueError("frozen reconciler omitted raw snapshot stop records")
+    for raw_index, raw_stop in enumerate(raw_stops):
+        if canonical_json(raw_stop) != canonical_json(reconciled_stops[raw_index]):
+            raise ValueError(
+                "frozen reconciler stop records do not preserve the raw snapshot prefix "
+                f"at index {raw_index}"
+            )
+
+    return [
+        (
+            (
+                f"{run_id}:snapshot.conformance.stop_records[{stop_index}]",
+                f"/snapshot/conformance/stop_records/{stop_index}",
+            )
+            if stop_index < len(raw_stops)
+            else (
+                f"{run_id}:frozen-reconciler-derived-stop:{stop_index}",
+                "/snapshot/conformance",
+            )
+        )
+        for stop_index in range(len(reconciled_stops))
+    ]
+
+
 def classify_mechanic(fragment: str) -> str:
     text = fragment.casefold()
     if "block" in text or "menace" in text or "attack" in text:
@@ -293,17 +324,11 @@ def build_ledger(
         )
         report = reconcile_snapshot(spec, result["snapshot"], stage_manifest)
         raw_stops = result["snapshot"]["conformance"].get("stop_records", [])
+        stop_sources = reconciled_stop_sources(run_id, raw_stops, report["stop_records"])
         for stop_index, stop in enumerate(report["stop_records"]):
             if stop.get("kind") != "silent_approximation":
                 continue
-            if stop_index < len(raw_stops):
-                raw_index = stop_index
-                identity = f"{run_id}:snapshot.conformance.stop_records[{raw_index}]"
-                pointer = f"/snapshot/conformance/stop_records/{raw_index}"
-            else:
-                raw_index = None
-                identity = f"{run_id}:frozen-reconciler-derived-stop:{stop_index}"
-                pointer = "/snapshot/conformance"
+            identity, pointer = stop_sources[stop_index]
             rows.append(
                 row_for_stop(
                     run_manifest=run_manifest,
