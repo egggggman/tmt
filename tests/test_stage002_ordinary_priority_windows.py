@@ -111,7 +111,7 @@ def _declared_attacker_game():
         for option in game.legal_attack_options(0)
         if option.attacker_ids == (attacker.object_id,)
     )
-    game.execute_attack_action(attack)
+    game.execute_attack_action(attack, defer_step_transition=True)
     return game, attack
 
 
@@ -140,7 +140,7 @@ def test_blocker_declaration_and_sneak_decline_preserve_priority_before_damage()
     block = next(
         option for option in game.legal_block_options(attack, 1) if option.blocks
     )
-    game.execute_block_action(block)
+    game.execute_block_action(block, defer_step_transition=True)
     assert game.step is TurnStep.DECLARE_BLOCKERS
     assert game._blockers_declared
 
@@ -149,7 +149,7 @@ def test_blocker_declaration_and_sneak_decline_preserve_priority_before_damage()
         for option in game.legal_sneak_actions(0)
         if option.kind is ActionKind.PASS
     )
-    assert game.execute_sneak_action(sneak_pass)
+    assert game.execute_sneak_action(sneak_pass, defer_step_transition=True)
     assert game.step is TurnStep.DECLARE_BLOCKERS
 
     before = len(_passes(game))
@@ -201,3 +201,41 @@ def test_defending_player_receives_priority_before_block_choices():
     game.advance_step()
     assert game.step is TurnStep.DECLARE_BLOCKERS
     assert game.legal_block_options(attack, 1)
+
+
+def test_legacy_direct_attacker_action_keeps_original_transition():
+    game = _synthetic_game()
+    attacker = game.create_permanent(ATTACKER, 0, summoning_sick=False)
+    game.advance_step()
+    game.advance_step()
+    attack = next(
+        option
+        for option in game.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+
+    game.execute_attack_action(attack)
+
+    assert game.step is TurnStep.DECLARE_BLOCKERS
+    assert not game._defer_attacker_step_transition
+
+
+def test_legacy_direct_block_action_keeps_original_transition():
+    game = _synthetic_game()
+    attacker = game.create_permanent(ATTACKER, 0, summoning_sick=False)
+    game.advance_step()
+    game.advance_step()
+    attack = next(
+        option
+        for option in game.legal_attack_options(0)
+        if option.attacker_ids == (attacker.object_id,)
+    )
+    game.execute_attack_action(attack)
+    block = next(
+        option for option in game.legal_block_options(attack, 1)
+        if not option.blocks
+    )
+
+    game.execute_block_action(block)
+
+    assert game.step is TurnStep.COMBAT_DAMAGE
