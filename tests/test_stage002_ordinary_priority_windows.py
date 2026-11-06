@@ -65,11 +65,15 @@ def test_existing_open_empty_window_is_not_reopened():
     game.advance_step()
     game._begin_priority_window(allow_empty=True)
     epoch = game.priority_state.epoch
-    openings_before = sum(event["event"] == "response_window_opened" for event in game.events)
+    openings_before = sum(
+        event["event"] == "response_window_opened" for event in game.events
+    )
 
     _drain_ordinary_step_priority(game, PassOnlyPilot())
 
-    openings_after = sum(event["event"] == "response_window_opened" for event in game.events)
+    openings_after = sum(
+        event["event"] == "response_window_opened" for event in game.events
+    )
     assert openings_after == openings_before
     assert {entry[1] for entry in _passes(game)} == {epoch}
 
