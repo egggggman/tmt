@@ -159,3 +159,17 @@ def test_blocker_declaration_and_sneak_decline_preserve_priority_before_damage()
 
     game.advance_step()
     assert game.step is TurnStep.COMBAT_DAMAGE
+
+
+def test_legacy_combat_adapter_keeps_explicit_diagnostic_transitions():
+    game = _synthetic_game()
+    attacker = game.create_permanent(ATTACKER, 0, summoning_sick=False)
+    game.create_permanent(BLOCKER, 1, summoning_sick=False)
+    game.advance_step()
+    game.advance_step()
+
+    game.combat([attacker], blocks={})
+
+    assert game.step is TurnStep.END_OF_COMBAT
+    assert game._combat_damage_resolved
+    assert game.priority_state is None
