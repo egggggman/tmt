@@ -65,15 +65,11 @@ def test_existing_open_empty_window_is_not_reopened():
     game.advance_step()
     game._begin_priority_window(allow_empty=True)
     epoch = game.priority_state.epoch
-    openings_before = sum(
-        event["event"] == "response_window_opened" for event in game.events
-    )
+    openings_before = sum(event["event"] == "response_window_opened" for event in game.events)
 
     _drain_ordinary_step_priority(game, PassOnlyPilot())
 
-    openings_after = sum(
-        event["event"] == "response_window_opened" for event in game.events
-    )
+    openings_after = sum(event["event"] == "response_window_opened" for event in game.events)
     assert openings_after == openings_before
     assert {entry[1] for entry in _passes(game)} == {epoch}
 
@@ -91,12 +87,8 @@ def test_empty_window_does_not_create_stack_objects():
     assert game.priority_state is None
 
 
-ATTACKER = CardFact(
-    "Synthetic Attacker", "{1}{W}", 2, "Creature — Human", power=2, toughness=2
-)
-BLOCKER = CardFact(
-    "Synthetic Blocker", "{1}{W}", 2, "Creature — Human", power=1, toughness=3
-)
+ATTACKER = CardFact("Synthetic Attacker", "{1}{W}", 2, "Creature — Human", power=2, toughness=2)
+BLOCKER = CardFact("Synthetic Blocker", "{1}{W}", 2, "Creature — Human", power=1, toughness=3)
 
 
 def _declared_attacker_game():
@@ -137,17 +129,13 @@ def test_blocker_declaration_and_sneak_decline_preserve_priority_before_damage()
     _drain_ordinary_step_priority(game, PassOnlyPilot())
     game.advance_step()
 
-    block = next(
-        option for option in game.legal_block_options(attack, 1) if option.blocks
-    )
+    block = next(option for option in game.legal_block_options(attack, 1) if option.blocks)
     game.execute_block_action(block, defer_step_transition=True)
     assert game.step is TurnStep.DECLARE_BLOCKERS
     assert game._blockers_declared
 
     sneak_pass = next(
-        option
-        for option in game.legal_sneak_actions(0)
-        if option.kind is ActionKind.PASS
+        option for option in game.legal_sneak_actions(0) if option.kind is ActionKind.PASS
     )
     assert game.execute_sneak_action(sneak_pass, defer_step_transition=True)
     assert game.step is TurnStep.DECLARE_BLOCKERS
@@ -233,10 +221,7 @@ def test_legacy_direct_block_action_keeps_original_transition():
         if option.attacker_ids == (attacker.object_id,)
     )
     game.execute_attack_action(attack)
-    block = next(
-        option for option in game.legal_block_options(attack, 1)
-        if not option.blocks
-    )
+    block = next(option for option in game.legal_block_options(attack, 1) if not option.blocks)
 
     game.execute_block_action(block)
 

@@ -415,9 +415,7 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
     return result
 
 
-def _drain_priority(
-    game: Game, pilot: Pilot, *, follow_on_empty_window: bool = False
-) -> None:
+def _drain_priority(game: Game, pilot: Pilot, *, follow_on_empty_window: bool = False) -> None:
     while game.winner is None and game.priority_state is not None:
         if game.priority_state.resolution_pending:
             resolving_stack = bool(game.stack)
@@ -642,9 +640,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         )
         _checked_action(
             game,
-            lambda attack=attack: game.execute_attack_action(
-                attack, defer_step_transition=True
-            ),
+            lambda attack=attack: game.execute_attack_action(attack, defer_step_transition=True),
             "attack action",
         )
         _drain_ordinary_step_priority(game, chosen_pilot)
@@ -658,9 +654,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         )
         _checked_action(
             game,
-            lambda blocks=blocks: game.execute_block_action(
-                blocks, defer_step_transition=True
-            ),
+            lambda blocks=blocks: game.execute_block_action(blocks, defer_step_transition=True),
             "block action",
         )
         while game.winner is None and game.step is TurnStep.DECLARE_BLOCKERS:
@@ -670,9 +664,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
             _checked_action(
                 game,
-                lambda choice=choice: game.execute_sneak_action(
-                    choice, defer_step_transition=True
-                ),
+                lambda choice=choice: game.execute_sneak_action(choice, defer_step_transition=True),
                 "sneak",
             )
             _drain_priority(game, chosen_pilot)
