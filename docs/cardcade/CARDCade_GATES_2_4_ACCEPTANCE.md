@@ -96,17 +96,26 @@ Environment: Python 3.12.10, Ruff 0.16.1.
 ```powershell
 & .venv\Scripts\ruff.exe format --check src/tmnt_design_studio/engine07.py tests/test_frog_butler_mana.py tests/test_fugitive_droid_unblockability.py tests/test_tunnel_rats_graveyard_return.py tools/cardcade_stage002_silent_stop_ledger.py
 & .venv\Scripts\ruff.exe check src/tmnt_design_studio/engine07.py tests/test_frog_butler_mana.py tests/test_fugitive_droid_unblockability.py tests/test_tunnel_rats_graveyard_return.py tools/cardcade_stage002_silent_stop_ledger.py
-$env:PYTHONDONTWRITEBYTECODE='1'; & .venv\Scripts\python.exe -B -m pytest -q tests/test_activated_abilities.py tests/test_tunnel_rats_graveyard_return.py tests/test_frog_butler_mana.py tests/test_frog_butler_reach.py tests/test_does_machines_level_three.py tests/test_fugitive_droid_unblockability.py tests/test_stage002_runner.py
+$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTHONPATH=(Resolve-Path src).Path; & .venv\Scripts\python.exe -B -m pytest -q tests/test_activated_abilities.py tests/test_tunnel_rats_graveyard_return.py tests/test_frog_butler_mana.py tests/test_frog_butler_reach.py tests/test_does_machines_level_three.py tests/test_fugitive_droid_unblockability.py
+& .venv\Scripts\python.exe -B -m pytest -q tests/test_stage002_runner.py -k "not parameterized_runner_preserves_acceptance_001_gameplay and not calibration_member_b0011_p06_canonical_terminal_replay_is_identical and not v15_terminal_sneak_state_does_not_reenter_pilot"
 git diff --check
 ```
 
-Results: Ruff format check passed; Ruff lint passed; 115 selected synthetic
-tests passed; `git diff --check` passed. No skips or failures. No complete-game
-test or unrestricted suite was run. The stop-ledger builder separately passed
+Results: Ruff format check passed; Ruff lint passed; `git diff --check` passed.
+The safe rerun passed 67 focused fidelity tests plus 45 non-game Stage 002
+runner tests; the three runner test cases that call `run_game` were explicitly
+deselected (112 passed, 3 deselected). The stop-ledger builder separately passed
 against all 300 preserved result files and produced 485 rows; CSV SHA-256 is
 `4476cc931b91354c076dedc543c9fea89ef5c43c62c0cf786a889a3bc7b884c5`.
-The PR-triggered workflow lookup for head `b2bbe5827972aeca46e456a959fb01c1416e709a`
-returned no runs.
+The first broad selection of `tests/test_stage002_runner.py` mistakenly included
+three complete-game test cases and ran six full games in memory. This violated
+the no-game restriction. No workflow ran and those tests did not modify archived
+results or persistent game evidence. The unfiltered result is not counted as
+permitted validation. The command that caused this was `python -B -m pytest -q`
+with the six focused fidelity modules followed by the whole
+`tests/test_stage002_runner.py` file. Only the explicit safe rerun above is
+counted as permitted validation. The
+PR-triggered workflow lookup for the pushed commits returned no runs.
 
 ## Gate 5 — Readiness
 
