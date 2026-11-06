@@ -2,8 +2,9 @@
 
 **Review target:** PR #381, base `main` at `10d2ac80ef5b81b3a209a3133eb0a84633a1f944`.
 **Pre-correction PR head:** `ef5d4fa44019cd744fdaf9fd9e725ad21787ca0b`.
+**Correction commit:** `c8cd9407a7289b0cd87d7f4e6898a215d8216ade`.
 **Working candidate engine Git blob:** `67ce3bf797d944c83c1fa02ca2287ea3b129bf93`.
-**Status:** local validation complete; pending publication and independent review.
+**Status:** committed locally; pending publication and independent review.
 
 ## Gate 2 — Historical stop ledger
 
