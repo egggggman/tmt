@@ -111,7 +111,7 @@ def test_april_end_step_draw_remains_classified_unimplemented():
     assert (APRIL.oracle_text, "oracle_ability_not_implemented") in limitations
 
 
-def test_spicy_pizza_damage_parent_is_not_enqueued_on_entry():
+def test_spicy_pizza_damage_trigger_waits_for_priority_and_resolves_in_oracle_order():
     game = Game(([LAND] * 20, [LAND] * 20), seed=8103)
     game.begin_turn()
     lands = [game.create_permanent(LAND, 0, summoning_sick=False) for _ in range(3)]
@@ -125,19 +125,29 @@ def test_spicy_pizza_damage_parent_is_not_enqueued_on_entry():
     )
 
     game.execute_main_action(cast)
+    while game.priority_state is not None and game.winner is None:
+        state = game.priority_state
+        if state.resolution_pending:
+            game.process_priority_resolution()
+        else:
+            option = next(
+                action
+                for action in game.legal_priority_actions(state.player_index)
+                if action.kind is ActionKind.PASS_PRIORITY
+            )
+            game.execute_priority_action(option)
 
     reasons = {
         event["reason"]
         for event in game.events
         if event.get("event") == "unsupported_semantics" and event.get("card") == PIZZA.name
     }
-    assert reasons == {
-        "damage_any_target_not_implemented",
-        "damage_trigger_context_not_implemented",
-        "damage_followup_semantics_not_implemented",
-    }
-    assert game.players[0].life == 20
-    assert not any(event.get("event") == "damage_dealt" for event in game.events)
+    assert not reasons
+    assert game.players[0].life == 17
+    damage = [event for event in game.events if event.get("event") == "damage_dealt"]
+    assert [event["amount"] for event in damage] == [4, 3]
+    assert damage[0]["target_player"] == game.players[1].name
+    assert damage[1]["target_player"] == game.players[0].name
 
 
 def test_purple_dragon_restricted_mana_ability_is_not_offered():

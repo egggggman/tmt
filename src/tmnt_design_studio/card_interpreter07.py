@@ -182,6 +182,7 @@ class DamageTargetKind(Enum):
 
     PLAYER = "player"
     CREATURE = "creature"
+    ANY = "any"
 
 
 @dataclass(frozen=True)
@@ -194,6 +195,7 @@ class DamageProgram:
     unsupported_reason: str | None = None
     retained_limitation: str | None = None
     additional_limitation: str | None = None
+    followup_amount: int | None = None
 
     @property
     def executable(self) -> bool:
@@ -201,7 +203,9 @@ class DamageProgram:
             self.amount is not None
             and self.amount > 0
             and self.target_kind is not None
-            and self.target_scope in {"target_opponent", "each_opponent", "you", "target_creature"}
+            and self.target_scope
+            in {"target_opponent", "each_opponent", "you", "target_creature", "any_target"}
+            and (self.target_kind is not DamageTargetKind.ANY or self.followup_amount is not None)
             and self.unsupported_reason is None
             and self.additional_limitation is None
         )
@@ -1456,6 +1460,9 @@ class CardInterpreter:
             "each of those creatures",
         }:
             targeting_limitation = "multiple_damage_targets_not_implemented"
+        elif target_text == "any target":
+            target_kind = DamageTargetKind.ANY
+            target_scope = "any_target"
         elif re.fullmatch(r"each of (?:one or two|up to [0-9]+) targets", target_text):
             targeting_limitation = "variable_count_multiple_damage_targets_not_implemented"
         elif target_text.startswith("target opponent,"):
@@ -1465,6 +1472,11 @@ class CardInterpreter:
 
         suffix = fragment[match.end() :]
         retained = None
+        followup_amount = None
+        followup_match = re.fullmatch(r"\s+and (?P<amount>[0-9]+) damage to you\.", suffix, re.I)
+        if followup_match is not None:
+            followup_amount = int(followup_match.group("amount"))
+            suffix = ""
         hand_bottom_draw = self.HAND_BOTTOM_DRAW.fullmatch(suffix.strip().lstrip(". "))
         if hand_bottom_draw is None and (
             suffix.strip(" .")
@@ -1487,6 +1499,7 @@ class CardInterpreter:
             unsupported_reason,
             retained,
             additional_limitation,
+            followup_amount,
         )
 
     def damage_semantic_coverage(
@@ -1499,13 +1512,20 @@ class CardInterpreter:
         match = self.DEAL_DAMAGE.search(fragment)
         assert match is not None
         prefix = fragment[: match.start()]
+        entry_match = re.match(
+            r"^When this (?P<kind>artifact|creature|permanent) enters,", fragment, re.I
+        )
+        permanent_entry = entry_match is not None and (
+            entry_match.group("kind").casefold() == "permanent"
+            or entry_match.group("kind").casefold() in card.type_line.casefold()
+        )
         alliance = bool(
             re.match(r"^Alliance — Whenever another creature you control enters,", fragment)
         )
         direct_spell = not prefix.strip() or bool(
             re.match(r"^(?:• )?[^,.]+ deals?\b", fragment, re.I)
         )
-        if alliance:
+        if alliance or permanent_entry:
             parent_executable = True
             parent_limitation = None
         elif fragment.startswith("• "):
@@ -1529,16 +1549,25 @@ class CardInterpreter:
                 for reason in (
                     program.unsupported_reason,
                     program.additional_limitation,
+                    (
+                        "damage_any_target_not_implemented"
+                        if program.target_kind is DamageTargetKind.ANY
+                        and not (permanent_entry and program.followup_amount is not None)
+                        else None
+                    ),
                     parent_limitation,
                     program.retained_limitation,
                 )
                 if reason is not None
             )
         )
+        any_target_supported = program.target_kind is not DamageTargetKind.ANY or (
+            permanent_entry and program.followup_amount is not None
+        )
         coverage = SemanticCoverage(
-            program.executable,
+            program.executable and any_target_supported,
             parent_executable,
-            program.retained_limitation is None,
+            program.retained_limitation is None and any_target_supported,
             limitations,
         )
         return InterpretedDamageSemantics(program, coverage, parent_limitation)
