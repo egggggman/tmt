@@ -160,11 +160,12 @@ class ActionOption:
     attacker_ids: tuple[str, ...] = ()
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
+    choice_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
 class PriorityState:
-    """Authoritative bounded 1v1 priority state for a nonempty stack."""
+    """Authoritative bounded 1v1 priority window, with or without a Stack object."""
 
     epoch: int
     player_index: int
@@ -6824,6 +6825,8 @@ class Game(
         """Perform the one legal deterministic CR 500-series step transition."""
         if self.stack:
             raise ValueError("cannot advance the turn with an unresolved stack")
+        if self.priority_state is not None:
+            raise ValueError("cannot advance the turn with an open priority window")
         expected = NEXT_STEP[self._step]
         if step is not expected:
             raise ValueError(
@@ -7443,6 +7446,35 @@ class Game(
                 )
         return tuple(options)
 
+    def _priority_mana_ability_options(self, player_index: int) -> tuple[ActionOption, ...]:
+        """Offer immediate mana abilities to the player who currently holds priority."""
+        state = self.priority_state
+        if state is None or state.resolution_pending or state.player_index != player_index:
+            return ()
+        options = []
+        for source in self.players[player_index].battlefield:
+            for fragment in self.interpreter.fragments(source.rules_card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    or self.activation_payment_plan(player_index, source, fragment) is None
+                ):
+                    continue
+                options.extend(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=source.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=state.epoch,
+                        choice_ids=(color,),
+                    )
+                    for color in ("W", "U", "B", "R", "G", "C")
+                )
+        return tuple(options)
+
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
@@ -7460,6 +7492,7 @@ class Game(
             *self.legal_graveyard_activated_ability_actions(player_index),
             *self._counter_activation_options(player_index),
             *self._priority_reach_activation_options(player_index),
+            *self._priority_mana_ability_options(player_index),
         )
 
     def execute_priority_action(self, option: ActionOption) -> bool:
@@ -7486,7 +7519,11 @@ class Game(
                 raise ValueError("counter activation option is malformed")
             target_ids = () if option.target_id is None else (option.target_id,)
             ability = self.announce_activated_ability(
-                option.player_index, source, option.oracle_fragment, target_ids=target_ids
+                option.player_index,
+                source,
+                option.oracle_fragment,
+                target_ids=target_ids,
+                choice_ids=option.choice_ids,
             )
             if ability is None:
                 raise ValueError("counter activation option became illegal")
@@ -7733,7 +7770,11 @@ class Game(
                 raise ValueError("activation option lacks an Oracle fragment")
             target_ids = () if option.target_id is None else (option.target_id,)
             return self.activate_ability(
-                option.player_index, obj, option.oracle_fragment, target_ids=target_ids
+                option.player_index,
+                obj,
+                option.oracle_fragment,
+                target_ids=target_ids,
+                choice_ids=option.choice_ids,
             )
         raise ValueError("unsupported main action kind")
 
@@ -8707,6 +8748,11 @@ class Game(
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
                 if semantics is None or not semantics.coverage.fully_supported:
                     continue
+                choice_sets = (
+                    tuple((color,) for color in ("W", "U", "B", "R", "G", "C"))
+                    if semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    else ((),)
+                )
                 if semantics.program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
                     for target in self.players[0].battlefield + self.players[1].battlefield:
                         if self.is_authoritative(target, "battlefield") and target.card.is_creature:
@@ -8748,13 +8794,15 @@ class Game(
                                 )
                             )
                 else:
-                    options.append(
+                    options.extend(
                         ActionOption(
                             ActionKind.ACTIVATE_ABILITY,
                             player_index,
                             object_id=source.object_id,
                             oracle_fragment=fragment,
+                            choice_ids=choice_ids,
                         )
+                        for choice_ids in choice_sets
                     )
         return tuple(options)
 
@@ -9441,10 +9489,11 @@ class Game(
         oracle_fragment: str,
         *,
         target_ids: tuple[str, ...] = (),
+        choice_ids: tuple[str, ...] = (),
     ) -> bool:
         """Announce one ability and open the bounded engine-owned priority window."""
         ability = self.announce_activated_ability(
-            player_index, source, oracle_fragment, target_ids=target_ids
+            player_index, source, oracle_fragment, target_ids=target_ids, choice_ids=choice_ids
         )
         return ability is not None
 
@@ -11384,8 +11433,12 @@ class Game(
                 raise AssertionError("noncreature Sneak evidence has a battlefield result")
         if self.priority_state is not None:
             state = self.priority_state
-            if not self.stack:
-                raise AssertionError("priority state requires a nonempty stack")
+            if not self.stack and self.step in {
+                TurnStep.SETUP,
+                TurnStep.UNTAP,
+                TurnStep.CLEANUP,
+            }:
+                raise AssertionError("empty-stack priority is not legal in this step")
             if state.player_index not in range(2):
                 raise AssertionError("priority player is invalid")
             if len(state.consecutive_passes) > 2:

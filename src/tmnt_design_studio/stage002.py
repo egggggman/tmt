@@ -465,6 +465,18 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
             _drain_priority(game, pilot)
 
 
+def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
+    """Apply the established land/activation/spell policy in either main phase."""
+    active = game.active_player
+    for stage in ("land", "activate", "damage", "destroy", "creature"):
+        if game.winner is not None:
+            return
+        options = game.legal_main_actions(active)
+        choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
+        _checked_action(game, lambda choice=choice: game.execute_main_action(choice), "main action")
+        _drain_priority(game, pilot)
+
+
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
     while game.winner is None and game.step.value == "combat_damage":
@@ -618,18 +630,10 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         _begin_turn_with_priority(game, chosen_pilot)
         if game.winner is not None:
             break
-        active = game.active_player
-        for stage in ("land", "activate", "damage", "destroy", "creature"):
-            options = game.legal_main_actions(active)
-            choice = chosen_pilot.choose_main_action(game.pilot_view(active), options, stage)
-            _checked_action(
-                game, lambda choice=choice: game.execute_main_action(choice), "main action"
-            )
-            _drain_priority(game, chosen_pilot)
-            if game.winner is not None:
-                break
+        _run_main_action_stages(game, chosen_pilot)
         if game.winner is not None:
             break
+        active = game.active_player
         _checked_action(game, game.advance_step, "advance to combat")
         _drain_ordinary_step_priority(game, chosen_pilot)
         if game.winner is not None:
@@ -688,9 +692,10 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
-        # Preserve the postcombat main's legal priority opportunity before end step.
-        # The existing pilot's postcombat main spell-selection policy is separately
-        # scoped; this does not synthesize or substitute a second spell phase.
+        # Apply the same bounded action stages during the normal second main phase.
+        _run_main_action_stages(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _drain_ordinary_step_priority(game, chosen_pilot)
         if game.winner is not None:
             break
