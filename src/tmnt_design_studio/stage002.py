@@ -431,6 +431,15 @@ def _drain_priority(game: Game, pilot: Pilot) -> None:
         )
 
 
+def _drain_ordinary_step_priority(game: Game, pilot: Pilot) -> None:
+    """Offer an ordinary priority opportunity before leaving the current step."""
+    if game.winner is not None:
+        return
+    if game.priority_state is None:
+        game._begin_priority_window(allow_empty=True)
+    _drain_priority(game, pilot)
+
+
 def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
     """Expose the existing beginning steps and service upkeep Stack/Priority."""
     from tmnt_design_studio.engine07 import TurnStep
@@ -439,7 +448,10 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
         raise ValueError("begin turn requires setup or cleanup")
     while game.winner is None and game.step is not TurnStep.PRECOMBAT_MAIN:
         _checked_action(game, game.advance_step, "beginning step")
-        _drain_priority(game, pilot)
+        if game.step not in {TurnStep.UNTAP, TurnStep.CLEANUP}:
+            _drain_ordinary_step_priority(game, pilot)
+        else:
+            _drain_priority(game, pilot)
 
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
@@ -608,6 +620,9 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         if game.winner is not None:
             break
         _checked_action(game, game.advance_step, "advance to combat")
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _checked_action(game, game.advance_step, "advance to attackers")
         attack = chosen_pilot.choose_attack(
             game.pilot_view(active), game.legal_attack_options(active)
@@ -648,9 +663,17 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         _resolve_combat_damage_steps(game, chosen_pilot)
         if game.winner is not None:
             break
+        if game.step is TurnStep.END_OF_COMBAT:
+            _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
-        _checked_action(game, game.end_turn, "end turn")
+        _checked_action(game, game.advance_step, "advance to end step")
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
+        _checked_action(game, game.advance_step, "advance to cleanup")
     if game.winner is None:
         game.log("acceptance_incomplete", reason="turn_limit")
     snapshot = game.snapshot()
