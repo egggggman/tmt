@@ -1610,8 +1610,6 @@ class Game(
             self._next_object_number = starting_number
             raise
 
-        for token in created:
-            self._record_artifact_entry(token)
         object_ids = tuple(token.object_id for token in created)
         event = self._new_rules_event(
             RulesEventKind.TOKENS_CREATED,
@@ -1630,6 +1628,8 @@ class Game(
             source_id=source_id,
             oracle_fragment=oracle_fragment,
         )
+        for token in created:
+            self._record_artifact_entry(token)
         creatures = tuple(token for token in created if token.card.is_creature)
         if creatures:
             self._process_creatures_entered_triggers(creatures)
@@ -1646,6 +1646,7 @@ class Game(
         if any(self._identity_contains(zone, permanent) for zone in self._all_zone_lists()):
             raise ValueError("runtime object already occupies a zone")
         self.players[permanent.controller].battlefield.append(permanent)
+        self._record_artifact_entry(permanent)
 
     def set_hand_for_testing(self, owner: int, cards: list[CardFact]) -> list[CardObject]:
         """Replace a hand for deterministic rule-test setup, outside gameplay transitions."""
@@ -1858,8 +1859,6 @@ class Game(
             destination_container.append(replacement)
         obj.zone = "former"
         self._register(replacement)
-        if isinstance(replacement, Permanent):
-            self._record_artifact_entry(replacement)
         self.log(
             "zone_changed",
             card=obj.card.name,
@@ -1871,6 +1870,8 @@ class Game(
             reason=reason,
             library_position=library_position,
         )
+        if isinstance(replacement, Permanent):
+            self._record_artifact_entry(replacement)
         if departure_authority is not None:
             assert departure_sources is not None and departure_last_known is not None
             qualifying_sources = tuple(
