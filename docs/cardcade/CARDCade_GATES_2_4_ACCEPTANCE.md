@@ -3,8 +3,9 @@
 **Review target:** PR #381, base `main` at `10d2ac80ef5b81b3a209a3133eb0a84633a1f944`.
 **Pre-correction PR head:** `ef5d4fa44019cd744fdaf9fd9e725ad21787ca0b`.
 **Correction commit:** `c8cd9407a7289b0cd87d7f4e6898a215d8216ade`.
+**PR head after evidence documentation:** `b2bbe5827972aeca46e456a959fb01c1416e709a`.
 **Working candidate engine Git blob:** `67ce3bf797d944c83c1fa02ca2287ea3b129bf93`.
-**Status:** committed locally; pending publication and independent review.
+**Status:** pushed to the still-draft PR; pending independent review.
 
 ## Gate 2 — Historical stop ledger
 
@@ -103,6 +104,8 @@ tests passed; `git diff --check` passed. No skips or failures. No complete-game
 test or unrestricted suite was run. The stop-ledger builder separately passed
 against all 300 preserved result files and produced 485 rows; CSV SHA-256 is
 `4476cc931b91354c076dedc543c9fea89ef5c43c62c0cf786a889a3bc7b884c5`.
+The PR-triggered workflow lookup for head `b2bbe5827972aeca46e456a959fb01c1416e709a`
+returned no runs.
 
 ## Gate 5 — Readiness
 
