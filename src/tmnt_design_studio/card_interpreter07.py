@@ -2567,6 +2567,8 @@ class CardInterpreter:
         for fragment in fragments:
             if self.aura_semantic_coverage(card, fragment) is not None:
                 continue
+            if self.static_keyword_line_semantic_coverage(card, fragment) is not None:
+                continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
                 unsupported.extend((fragment, reason) for reason in static_team.limitations)
@@ -2704,3 +2706,21 @@ class CardInterpreter:
                 continue
             unsupported.append((fragment, "oracle_ability_not_implemented"))
         return tuple(unsupported)
+
+    @staticmethod
+    def static_keyword_line_semantic_coverage(
+        card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the static combat keywords enforced by the engine."""
+        keywords = tuple(item.strip().casefold() for item in fragment.split(","))
+        supported = {"flying", "vigilance"}
+        card_keywords = {keyword.casefold() for keyword in card.keywords}
+        if (
+            "Creature" not in card.type_line
+            or not keywords
+            or any(keyword not in supported for keyword in keywords)
+            or not set(keywords).issubset(card_keywords)
+            or not {"flying", "vigilance"}.intersection(keywords)
+        ):
+            return None
+        return SemanticCoverage(True, True, True)

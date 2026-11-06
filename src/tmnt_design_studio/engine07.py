@@ -2394,7 +2394,7 @@ class Game(
         self._next_opportunity_witness_number += 1
         self.opportunity_witnesses.append(witness)
         self.log(
-            "unsupported_opportunity_witnessed",
+            "semantic_opportunity_witnessed",
             witness_id=witness.witness_id,
             opportunity_key=opportunity_key,
             occurrence_id=occurrence.occurrence_id,
@@ -7953,7 +7953,8 @@ class Game(
         if not all(isinstance(obj, Permanent) for obj in attackers):
             raise ValueError("combat option references a nonpermanent")
         for attacker in attackers:
-            attacker.tapped = True  # type: ignore[union-attr]
+            if not self._has_keyword(attacker, "Vigilance"):  # type: ignore[arg-type]
+                attacker.tapped = True  # type: ignore[union-attr]
         self._combat_attackers = attack.attacker_ids
         self._attackers_declared = True
         self.log("attackers_declared", attackers=list(attack.attacker_ids))
