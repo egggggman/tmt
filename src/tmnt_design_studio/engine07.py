@@ -10661,6 +10661,11 @@ class Game(
             ):
                 raise ValueError("illegal blocker")
         self.execute_attack_action(attack)
+        # The diagnostic compatibility adapter does not dispatch a Pilot. Preserve
+        # its former direct transition without changing Stage 002 priority order.
+        if self.stack or self.priority_state is not None:
+            raise ValueError("combat adapter cannot bypass unresolved priority")
+        self.transition_to(TurnStep.DECLARE_BLOCKERS)
         if auto_assign_blockers:
             if blocks is not None:
                 raise ValueError("cannot provide blocks when auto-assigning blockers")
@@ -10684,6 +10689,9 @@ class Game(
         self.execute_block_action(block_option)
         if self.step is TurnStep.DECLARE_BLOCKERS:
             self.execute_sneak_action(ActionOption(ActionKind.PASS, self.active_player))
+            if self.stack or self.priority_state is not None:
+                raise ValueError("combat adapter cannot bypass unresolved priority")
+            self.transition_to(TurnStep.COMBAT_DAMAGE)
         while self.step is TurnStep.COMBAT_DAMAGE:
             self.resolve_combat_damage()
 
