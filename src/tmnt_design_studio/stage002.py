@@ -686,6 +686,12 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
+        # Preserve the postcombat main's legal priority opportunity before end step.
+        # The existing pilot's postcombat main spell-selection policy is separately
+        # scoped; this does not synthesize or substitute a second spell phase.
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.winner is not None:
+            break
         _checked_action(game, game.advance_step, "advance to end step")
         _drain_ordinary_step_priority(game, chosen_pilot)
         if game.winner is not None:
