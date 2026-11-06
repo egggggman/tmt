@@ -194,9 +194,11 @@ def test_defending_player_receives_priority_before_block_choices():
     assert game.step is TurnStep.DECLARE_ATTACKERS
     assert game.legal_block_options(attack, 1) == ()
 
+    prior_passes = len(_passes(game))
     _drain_ordinary_step_priority(game, PassOnlyPilot())
-    passes = _passes(game)
-    assert [player for player, _epoch in passes] == [0, 1]
+    new_passes = _passes(game)[prior_passes:]
+    assert [player for player, _epoch in new_passes] == [0, 1]
+    assert len({epoch for _player, epoch in new_passes}) == 1
 
     game.advance_step()
     assert game.step is TurnStep.DECLARE_BLOCKERS
