@@ -883,6 +883,19 @@ class CardInterpreter:
         "ten": 10,
     }
 
+    APRIL_END_STEP_DRAW = (
+        "At the beginning of your end step, draw a card for each card type among spells "
+        "you've cast this turn."
+    )
+
+    def april_end_step_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize April's exact cast-history draw trigger grammar."""
+        if fragment != self.APRIL_END_STEP_DRAW or "Creature" not in card.type_line.split():
+            return None
+        return SemanticCoverage(True, True, True)
+
     def draw_cards_semantic_coverage(
         self, card: CardDefinition, fragment: str
     ) -> InterpretedDrawCardsSemantics | None:
@@ -2687,6 +2700,8 @@ class CardInterpreter:
             if self.etb_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.april_end_step_draw_semantic_coverage(card, fragment) is not None:
                 continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
                 continue
