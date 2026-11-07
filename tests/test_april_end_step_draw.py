@@ -5,6 +5,7 @@ from pathlib import Path
 from tmnt_design_studio.conformance07 import semantic_key
 from tmnt_design_studio.engine07 import (
     ActionKind,
+    ActionOption,
     CardFact,
     CastKind,
     Game,
@@ -49,6 +50,22 @@ ARTIFACT_BEAR = CardFact(
     power=2,
     toughness=2,
     oracle_id="00000000-0000-4000-8000-000000000002",
+)
+PLAINS = CardFact("Plains", "", 0, "Basic Land — Plains")
+SNEAK_FRAGMENT = (
+    "Sneak {W} (You may cast this spell for {W} if you also return an unblocked attacker "
+    "you control to hand during the declare blockers step. It enters tapped and attacking.)"
+)
+SNEAK_CREATURE = CardFact(
+    "Synthetic Sneak Ninja",
+    "{3}{W}",
+    4,
+    "Creature — Ninja",
+    SNEAK_FRAGMENT,
+    power=4,
+    toughness=4,
+    keywords=("Sneak",),
+    oracle_id="00000000-0000-4000-8000-000000000003",
 )
 
 
@@ -203,6 +220,44 @@ def test_distinct_card_types_count_once_with_multitype_spell_and_repeated_casts(
     assert result["card_types"] == ["Artifact", "Creature"]
     assert result["requested_draw_count"] == len(result["drawn_object_ids"]) == 2
     assert len(result["cast_event_ids_by_type"]["Creature"]) == 3
+
+
+def test_rejected_spell_announcement_creates_no_cast_event():
+    game = make_game()
+    card = game.set_hand_for_testing(0, [BEAR])[0]
+    assert game.announce_spell(0, card) is None
+    assert not [event for event in game._rules_event_evidence if event.kind.value == "spell_cast"]
+
+
+def test_sneak_announcement_creates_one_authenticated_cast_event():
+    game = make_game()
+    card = game.set_hand_for_testing(0, [SNEAK_CREATURE])[0]
+    game.create_permanent(PLAINS, 0, summoning_sick=False)
+    attacker = game.create_permanent(BEAR, 0, summoning_sick=False)
+    game.advance_to(TurnStep.DECLARE_ATTACKERS)
+    game.execute_attack_action(
+        ActionOption(ActionKind.DECLARE_ATTACKERS, 0, attacker_ids=(attacker.object_id,))
+    )
+    game.execute_block_action(ActionOption(ActionKind.DECLARE_BLOCKERS, 1))
+    option = next(
+        choice
+        for choice in game.legal_sneak_actions(0)
+        if choice.kind is ActionKind.CAST and choice.object_id == card.object_id
+    )
+    assert game.execute_sneak_action(option)
+
+    spell = game.stack[-1]
+    cast_events = [
+        event
+        for event in game._rules_event_evidence
+        if event.kind.value == "spell_cast" and event.source_id == spell.object_id
+    ]
+    assert len(cast_events) == 1
+    event = cast_events[0]
+    assert event.player_index == spell.controller == 0
+    assert event.subject_ids == (spell.object_id,)
+    assert event.card_oracle_id == spell.card.oracle_id == SNEAK_CREATURE.oracle_id
+    assert event.card_type_line == spell.card.type_line == SNEAK_CREATURE.type_line
 
 
 def test_april_departure_before_trigger_and_after_trigger_boundaries():
