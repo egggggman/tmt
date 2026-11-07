@@ -45,7 +45,12 @@ from tmnt_design_studio.conformance07 import (
 from tmnt_design_studio.food_search07 import FoodSearchMixin
 from tmnt_design_studio.jury_rig07 import JuryRigMixin
 from tmnt_design_studio.krang_refill07 import KrangRefillMixin
-from tmnt_design_studio.mana_ledger07 import FloatingManaLedger
+from tmnt_design_studio.mana_ledger07 import (
+    FloatingManaLedger,
+    ManaPaymentPlan,
+    ManaSpendingContext,
+    PaymentAllocation,
+)
 from tmnt_design_studio.mill_three07 import MillThreeMixin
 from tmnt_design_studio.pilot_input_v2 import (
     DiscardDrawViewV2,
@@ -194,6 +199,24 @@ class PaymentPlan:
     requirement: ManaRequirement
     source_ids: tuple[str, ...]
     floating_colors: tuple[str, ...] = ()
+    mana_payment: ManaPaymentPlan | None = None
+
+
+@dataclass(frozen=True)
+class SpellPaymentEvidence:
+    """Authenticated bridge from exact payment lots to an actual cast event."""
+
+    payment_id: str
+    card_object_id: str
+    spell_object_id: str
+    spell_event_id: str
+    controller: int
+    card_oracle_id: str
+    card_type_line: str
+    spending_context: ManaSpendingContext
+    requirement: ManaRequirement
+    land_source_ids: tuple[str, ...]
+    mana_allocations: tuple[PaymentAllocation, ...]
 
 
 @dataclass(frozen=True)
@@ -1392,6 +1415,7 @@ class Game(
         self.events: list[dict[str, object]] = []
         self._artifact_entries_this_turn: list[tuple[int, int, str]] = []
         self.floating_mana = FloatingManaLedger()
+        self.spell_payment_evidence: list[SpellPaymentEvidence] = []
         self.scry_evidence: list[ScryEvidence] = []
         self.etb_drain_gain_scry_evidence: list[EtbDrainGainScryEvidence] = []
         self._stun_selections: dict[str, StunTargetSelection] = {}
@@ -9951,6 +9975,7 @@ class Game(
                 "floating_mana_produced",
                 source_id=source.object_id,
                 stack_object_id=ability.object_id,
+                player_index=player_index,
                 color=choice_ids[0],
                 quantity=1,
             )
@@ -10221,6 +10246,7 @@ class Game(
                 "floating_mana_produced",
                 source_id=ability.source_id,
                 stack_object_id=ability.object_id,
+                player_index=ability.controller,
                 color=ability.choice_ids[0],
                 quantity=1,
             )
@@ -10549,59 +10575,40 @@ class Game(
         requirement = self.mana_requirement(card)
         if requirement is None:
             return None
-        if not any("/" in symbol for symbol in requirement.colored):
-            pool = self.floating_mana.snapshot(player_index)
-            floating: list[str] = []
-            for color in requirement.colored:
-                if pool.get(color, 0):
-                    pool[color] -= 1
-                    floating.append(color)
-                else:
-                    break
-            else:
-                remaining_generic = requirement.generic
-                for color, quantity in sorted(pool.items()):
-                    take = min(quantity, remaining_generic)
-                    floating.extend([color] * take)
-                    remaining_generic -= take
-                    if remaining_generic == 0:
-                        break
-            available = [
-                p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
-            ]
-            chosen: list[Permanent] = []
-            for color in requirement.colored[len(floating) :]:
-                source = next((p for p in available if self._mana_color(p) == color), None)
-                if source is None:
-                    return None
-                chosen.append(source)
-                available.remove(source)
-            need = requirement.generic - max(0, len(floating) - len(requirement.colored))
-            if len(available) < need:
-                return None
-            chosen.extend(available[:need])
-            return PaymentPlan(
-                player_index,
-                card.object_id,
-                requirement,
-                tuple(p.object_id for p in chosen),
-                tuple(floating),
-            )
+        card_types = self._card_types_from_type_line(card.card.type_line)
+        spending_context = (
+            ManaSpendingContext.ARTIFACT_SPELL
+            if "Artifact" in card_types
+            else ManaSpendingContext.NONARTIFACT_SPELL
+        )
+        pool = self.floating_mana.snapshot(player_index, spending_context)
         available = [
             p for p in self.players[player_index].battlefield if p.card.is_land and not p.tapped
         ]
-        selected = self._select_mana_sources(
-            requirement, available, self.floating_mana.snapshot(player_index)
-        )
+        selected = self._select_mana_sources(requirement, available, pool)
         if selected is None:
             return None
         floating, chosen = selected
+        mana_payment = None
+        if floating:
+            floating_requirements: dict[str, int] = {}
+            for color in floating:
+                floating_requirements[color] = floating_requirements.get(color, 0) + 1
+            mana_payment = self.floating_mana.plan_payment(
+                player_index,
+                floating_requirements,
+                card.object_id,
+                spending_context,
+            )
+            if mana_payment is None:
+                return None
         return PaymentPlan(
             player_index,
             card.object_id,
             requirement,
             tuple(p.object_id for p in chosen),
             tuple(floating),
+            mana_payment,
         )
 
     def can_afford(self, player_index: int, card: CardFact | CardObject) -> bool:
@@ -10636,8 +10643,10 @@ class Game(
             allow_exile=cast_from_raphael,
         ):
             raise ValueError("payment plan is no longer legal")
-        for color in plan.floating_colors:
-            self.floating_mana.consume(plan.player_index, color, 1, card.object_id)
+        if plan.mana_payment is not None:
+            self.floating_mana.validate_payment(plan.player_index, plan.mana_payment)
+        elif plan.floating_colors:
+            raise ValueError("floating mana is missing exact production allocations")
         sources: list[Permanent] = []
         for object_id in plan.source_ids:
             source = self._objects.get(object_id)
@@ -10666,7 +10675,32 @@ class Game(
                 source.tapped = tapped
             raise
         assert isinstance(spell, StackObject)
-        self._record_spell_cast_event(spell)
+        allocations = (
+            ()
+            if plan.mana_payment is None
+            else self.floating_mana.commit_payment(plan.player_index, plan.mana_payment)
+        )
+        cast_event = self._record_spell_cast_event(spell)
+        spending_context = (
+            ManaSpendingContext.ARTIFACT_SPELL
+            if "Artifact" in self._card_types_from_type_line(card.card.type_line)
+            else ManaSpendingContext.NONARTIFACT_SPELL
+        )
+        self.spell_payment_evidence.append(
+            SpellPaymentEvidence(
+                card.object_id,
+                card.object_id,
+                spell.object_id,
+                cast_event.event_id,
+                plan.player_index,
+                card.card.oracle_id,
+                card.card.type_line,
+                spending_context,
+                plan.requirement,
+                plan.source_ids,
+                allocations,
+            )
+        )
         self.log(
             "cost_paid",
             player=self.players[plan.player_index].name,
@@ -10674,6 +10708,18 @@ class Game(
             generic=plan.requirement.generic,
             colored=list(plan.requirement.colored),
             source_ids=list(plan.source_ids),
+            payment_id=card.object_id,
+            spell_object_id=spell.object_id,
+            spell_event_id=cast_event.event_id,
+            spending_context=spending_context.value,
+            mana_allocations=[
+                {
+                    "production_event_id": item.production_event_id,
+                    "color": item.color,
+                    "quantity": item.quantity,
+                }
+                for item in allocations
+            ],
         )
         return spell
 
@@ -12522,6 +12568,39 @@ class Game(
                 self.authoritative_state_fingerprint_evidence()
             ),
             "floating_mana_ledger": self.floating_mana.evidence_snapshot(),
+            "spell_payment_evidence": [
+                {
+                    "payment_id": item.payment_id,
+                    "card_object_id": item.card_object_id,
+                    "spell_object_id": item.spell_object_id,
+                    "spell_event_id": item.spell_event_id,
+                    "controller": item.controller,
+                    "card_oracle_id": item.card_oracle_id,
+                    "card_type_line": item.card_type_line,
+                    "spending_context": item.spending_context.value,
+                    "mana_requirement": {
+                        "generic": item.requirement.generic,
+                        "colored": list(item.requirement.colored),
+                    },
+                    "land_source_ids": list(item.land_source_ids),
+                    "mana_allocations": [
+                        {
+                            "production_event_id": allocation.production_event_id,
+                            "controller": allocation.controller,
+                            "color": allocation.color,
+                            "quantity": allocation.quantity,
+                            "payment_id": allocation.payment_id,
+                            "spending_context": (
+                                None
+                                if allocation.spending_context is None
+                                else allocation.spending_context.value
+                            ),
+                        }
+                        for allocation in item.mana_allocations
+                    ],
+                }
+                for item in self.spell_payment_evidence
+            ],
             "rules_event_evidence": [
                 {
                     "event_id": item.event_id,
