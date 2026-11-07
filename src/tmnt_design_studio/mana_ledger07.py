@@ -352,14 +352,37 @@ class FloatingManaLedger:
         purpose: ManaSpendingContext | str | None = None,
     ) -> PaymentAllocation:
         """Compatibility consumption; untyped callers can spend unrestricted lots only."""
-        if color not in MANA_COLORS or not isinstance(quantity, int) or quantity <= 0:
+        self._check_player(player)
+        if (
+            color not in MANA_COLORS
+            or not isinstance(quantity, int)
+            or isinstance(quantity, bool)
+            or quantity <= 0
+            or not isinstance(payment_id, str)
+            or not payment_id
+        ):
             raise ValueError("floating mana unavailable")
-        plan = self.plan_payment(player, {color: quantity}, payment_id, purpose)
-        if plan is None:
+        context = _context(purpose)
+        remaining = quantity
+        allocations: list[ManaAllocation] = []
+        for production in self._productions[player]:
+            available = self._remaining[production.event_id]
+            if (
+                production.color != color
+                or available <= 0
+                or not self._eligible(production, context)
+            ):
+                continue
+            take = min(remaining, available)
+            allocations.append(
+                ManaAllocation(production.event_id, production.controller, color, take)
+            )
+            remaining -= take
+            if remaining == 0:
+                break
+        if remaining:
             raise ValueError("floating mana unavailable for spending context")
-        consumed = self._consume_legacy_plan(
-            player, plan.allocations, payment_id, _context(purpose)
-        )
+        consumed = self._consume_legacy_plan(player, tuple(allocations), payment_id, context)
         return consumed[-1]
 
     def _consume_legacy_plan(

@@ -221,6 +221,21 @@ def test_lifecycle_evidence_preserves_consumption_expiration_and_boundary():
     assert evidence["expirations"][0]["boundary_id"] == "turn-1:step-end:precombat_main"
 
 
+def test_legacy_payment_can_consume_multiple_colors_under_one_payment_id():
+    ledger = FloatingManaLedger()
+    ledger.add(0, "red-source", "R", 1, "red-production")
+    ledger.add(0, "blue-source", "U", 1, "blue-production")
+
+    red = ledger.consume(0, "R", 1, "multicolor-spell")
+    blue = ledger.consume(0, "U", 1, "multicolor-spell")
+
+    assert red.payment_id == blue.payment_id == "multicolor-spell"
+    assert [item.source_event_id for item in ledger.consumptions(0)] == [
+        "red-production",
+        "blue-production",
+    ]
+
+
 def test_game_snapshot_and_fingerprint_include_authenticated_frog_mana_lifecycle():
     land = CardFact("Forest", "", 0, "Basic Land — Forest")
     frog = CardFact(
