@@ -292,6 +292,7 @@ class FoodActivationEvidence:
 
 
 class RulesEventKind(Enum):
+    SPELL_CAST = "spell_cast"
     CREATURE_ENTERED = "creature_entered"
     PERMANENT_ENTERED = "permanent_entered"
     CREATURE_DIED = "creature_died"
@@ -306,6 +307,7 @@ class RulesEventKind(Enum):
     PERMANENT_LEFT = "permanent_left"
     CLASS_LEVEL_ADVANCED = "class_level_advanced"
     BEGINNING_OF_COMBAT = "beginning_of_combat"
+    BEGINNING_OF_END_STEP = "beginning_of_end_step"
 
 
 class TriggerEffect(Enum):
@@ -317,6 +319,7 @@ class TriggerEffect(Enum):
     SNEAK_ETB_CONDITION = "sneak_etb_condition"
     CREATE_TOKEN = "create_token"
     DEAL_DAMAGE = "deal_damage"
+    APRIL_END_STEP_DRAW = "april_end_step_draw"
     SCRY = "scry"
     DISCARD_DRAW = "discard_draw"
     ETB_KRANG_REFILL = "etb_krang_refill"
@@ -369,6 +372,8 @@ class RulesEvent:
     battlefield_authority: tuple[tuple[str, int], ...] = ()
     battlefield_characteristics: tuple[tuple[str, int, str], ...] = ()
     last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = ()
+    card_oracle_id: str | None = None
+    card_type_line: str | None = None
 
 
 @dataclass(frozen=True)
@@ -389,6 +394,8 @@ class RulesEventEvidence:
     battlefield_authority: tuple[tuple[str, int], ...]
     battlefield_characteristics: tuple[tuple[str, int, str], ...]
     last_known_battlefield: tuple[tuple[str, int, str, bool], ...]
+    card_oracle_id: str | None = None
+    card_type_line: str | None = None
 
 
 @dataclass(frozen=True)
@@ -2499,7 +2506,18 @@ class Game(
                 and event.step == TurnStep.DECLARE_ATTACKERS.value
                 and self._event_number(event.event_id) > occurrence.registration_event_cursor
             )
-            if not (self_etb or alliance or attacks):
+            end_step_draw = (
+                event.kind is RulesEventKind.BEGINNING_OF_END_STEP
+                and self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
+                is not None
+                and occurrence.object_id in event.subject_ids
+                and event.player_index == source_controller
+                and event.active_player == source_controller
+                and event.turn == occurrence.turn
+                and event.step == TurnStep.END_STEP.value
+                and self._event_number(event.event_id) > occurrence.registration_event_cursor
+            )
+            if not (self_etb or alliance or attacks or end_step_draw):
                 raise ValueError("event does not establish semantic applicability")
             if source_zone != "battlefield":
                 raise ValueError("event opportunity source was not on the battlefield")
@@ -2735,6 +2753,16 @@ class Game(
             and bool(re.match(r"^Whenever .+ attacks,", fragment))
             and source_is_live
             and source_id in event.subject_ids
+        ) or (
+            event.kind is RulesEventKind.BEGINNING_OF_END_STEP
+            and self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
+            is not None
+            and source_is_live
+            and event.player_index == occurrence.controller
+            and event.active_player == occurrence.controller
+            and event.turn == occurrence.turn
+            and event.step == TurnStep.END_STEP.value
+            and source_id in event.subject_ids
         ):
             self._record_opportunity(
                 occurrence,
@@ -2766,6 +2794,8 @@ class Game(
         battlefield_authority: tuple[tuple[str, int], ...] | None = None,
         battlefield_characteristics: tuple[tuple[str, int, str], ...] | None = None,
         last_known_battlefield: tuple[tuple[str, int, str, bool], ...] = (),
+        card_oracle_id: str | None = None,
+        card_type_line: str | None = None,
     ) -> RulesEvent:
         event = RulesEvent(
             f"event-{self._next_event_number:06d}",
@@ -2793,6 +2823,8 @@ class Game(
                 else battlefield_characteristics
             ),
             last_known_battlefield,
+            card_oracle_id,
+            card_type_line,
         )
         self._next_event_number += 1
         self._rules_events[event.event_id] = event
@@ -2812,6 +2844,8 @@ class Game(
                 event.battlefield_authority,
                 event.battlefield_characteristics,
                 event.last_known_battlefield,
+                event.card_oracle_id,
+                event.card_type_line,
             )
         )
         self.log(
@@ -2823,6 +2857,8 @@ class Game(
             source_id=source_id,
             target_player=target_player,
             amount=amount,
+            card_oracle_id=card_oracle_id,
+            card_type_line=card_type_line,
             event_turn=event.turn,
             event_step=event.step,
             event_active_player=event.active_player,
@@ -2938,6 +2974,8 @@ class Game(
             evidence.battlefield_authority,
             evidence.battlefield_characteristics,
             evidence.last_known_battlefield,
+            evidence.card_oracle_id,
+            evidence.card_type_line,
         )
         actual = (
             event.event_id,
@@ -2953,6 +2991,8 @@ class Game(
             event.battlefield_authority,
             event.battlefield_characteristics,
             event.last_known_battlefield,
+            event.card_oracle_id,
+            event.card_type_line,
         )
         log = ledger[0]
         serialized_authority = tuple(
@@ -2984,6 +3024,8 @@ class Game(
             or log.get("source_id") != evidence.source_id
             or log.get("target_player") != evidence.target_player
             or log.get("amount") != evidence.amount
+            or log.get("card_oracle_id") != evidence.card_oracle_id
+            or log.get("card_type_line") != evidence.card_type_line
             or log.get("event_turn") != evidence.turn
             or log.get("event_step") != evidence.step
             or log.get("event_active_player") != evidence.active_player
@@ -2992,6 +3034,21 @@ class Game(
             or serialized_last_known != evidence.last_known_battlefield
         ):
             raise ValueError("rules event disagrees with immutable original evidence")
+        if event.kind is RulesEventKind.SPELL_CAST:
+            cast_spell = (
+                self._objects.get(event.subject_ids[0]) if len(event.subject_ids) == 1 else None
+            )
+            if (
+                not isinstance(cast_spell, StackObject)
+                or event.source_id != cast_spell.object_id
+                or event.subject_ids != (cast_spell.object_id,)
+                or event.player_index != cast_spell.controller
+                or event.card_oracle_id != cast_spell.card.oracle_id
+                or event.card_type_line != cast_spell.card.type_line
+            ):
+                raise ValueError("spell-cast event lacks its original card and caster identity")
+        elif event.card_oracle_id is not None or event.card_type_line is not None:
+            raise ValueError("non-cast rules event contains spell card identity")
         return evidence
 
     def deal_damage(
@@ -3917,6 +3974,33 @@ class Game(
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.APRIL_END_STEP_DRAW:
+            self._authenticate_original_rules_event(event)
+            coverage = self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
+            if (
+                coverage is None
+                or not coverage.fully_supported
+                or not self.is_authoritative(source, "battlefield")
+                or self._rules_events.get(event.event_id) is not event
+                or event.kind is not RulesEventKind.BEGINNING_OF_END_STEP
+                or event.player_index != source.controller
+                or event.active_player != source.controller
+                or event.turn != self.turn
+                or event.step != TurnStep.END_STEP.value
+                or source.object_id not in event.subject_ids
+                or (source.object_id, source.controller) not in event.battlefield_authority
+            ):
+                raise ValueError("April end-step trigger has invalid source or event provenance")
+            if any(
+                trigger.event is event
+                and trigger.source_id == source.object_id
+                and trigger.source_card is source.card
+                and trigger.oracle_fragment == fragment
+                and trigger.effect is effect
+                for trigger in self._triggers.values()
+            ):
+                return
+            self._register_semantic_occurrence(source, source.controller, fragment, ())
         if effect is TriggerEffect.ETB_KRANG_REFILL:
             self._enqueue_krang_refill(event, source, fragment)
             return
@@ -4491,6 +4575,8 @@ class Game(
                 trigger_id=ability.trigger_id,
                 require_current_condition=False,
             )
+        if ability.effect is TriggerEffect.APRIL_END_STEP_DRAW:
+            self._validate_april_end_step_trigger(ability)
         if ability.effect is TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE:
             self._validate_alliance_temporary_keyword_choice_trigger(ability)
         if (
@@ -5012,6 +5098,8 @@ class Game(
                 ),
                 oracle_fragment=ability.oracle_fragment,
             )
+        elif ability.effect is TriggerEffect.APRIL_END_STEP_DRAW:
+            self._resolve_april_end_step_draw(ability)
         elif ability.effect is TriggerEffect.ETB_ARTIFACT_DRAW:
             condition_met = self._validate_etb_artifact_draw_provenance(
                 controller=ability.controller,
@@ -5534,6 +5622,7 @@ class Game(
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.DEAL_DAMAGE,
+                TriggerEffect.APRIL_END_STEP_DRAW,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
@@ -6206,6 +6295,80 @@ class Game(
         if require_current_condition and not current_condition and not allow_condition_failure:
             raise ValueError("ETB artifact/Draw resolution condition is false")
         return current_condition if require_current_condition else True
+
+    def _validate_april_end_step_trigger(self, ability: TriggeredAbilityObject) -> None:
+        event = ability.event
+        source = self._objects.get(ability.source_id)
+        trigger = self._triggers.get(ability.trigger_id)
+        coverage = self.interpreter.april_end_step_draw_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        self._authenticate_original_rules_event(event)
+        if (
+            ability.effect is not TriggerEffect.APRIL_END_STEP_DRAW
+            or coverage is None
+            or not coverage.fully_supported
+            or self._rules_events.get(event.event_id) is not event
+            or event.kind is not RulesEventKind.BEGINNING_OF_END_STEP
+            or event.player_index != ability.controller
+            or event.active_player != ability.controller
+            or event.turn != self.turn
+            or event.step != TurnStep.END_STEP.value
+            or ability.source_id not in event.subject_ids
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or trigger is None
+            or trigger.event is not event
+            or trigger.controller != ability.controller
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.effect is not ability.effect
+        ):
+            raise ValueError("April end-step trigger has mismatched source/event provenance")
+        if any(
+            item.get("event") == "trigger_resolved"
+            and item.get("stack_object_id") == ability.object_id
+            for item in self.events
+        ):
+            raise ValueError("April end-step trigger has already resolved")
+
+    def _resolve_april_end_step_draw(self, ability: TriggeredAbilityObject) -> None:
+        self._validate_april_end_step_trigger(ability)
+        card_types, cast_events = self._april_cast_type_evidence(
+            ability.controller, ability.event.turn
+        )
+        player = self.players[ability.controller]
+        hand_before = tuple(card.object_id for card in player.hand)
+        library_before = tuple(card.object_id for card in player.library)
+        draw_succeeded = self.draw(player, len(card_types))
+        hand_after = tuple(card.object_id for card in player.hand)
+        library_after = tuple(card.object_id for card in player.library)
+        before_ids = set(hand_before)
+        drawn_ids = tuple(object_id for object_id in hand_after if object_id not in before_ids)
+        self.log(
+            "april_end_step_draw_committed",
+            event_id=ability.event.event_id,
+            stack_object_id=ability.object_id,
+            trigger_id=ability.trigger_id,
+            source_id=ability.source_id,
+            source_oracle_id=ability.source_card.oracle_id,
+            source_card=ability.source_card.name,
+            controller=ability.controller,
+            turn=ability.event.turn,
+            oracle_fragment=ability.oracle_fragment,
+            card_types=list(card_types),
+            cast_event_ids_by_type={key: list(value) for key, value in cast_events.items()},
+            requested_draw_count=len(card_types),
+            drawn_object_ids=list(drawn_ids),
+            draw_succeeded=draw_succeeded,
+            hand_before=list(hand_before),
+            hand_after=list(hand_after),
+            library_before=list(library_before),
+            library_after=list(library_after),
+        )
 
     def _validate_etb_drain_gain_scry_trigger(self, ability: TriggeredAbilityObject) -> None:
         """Authenticate the bounded compound trigger against its exact self-ETB event."""
@@ -7041,6 +7204,72 @@ class Game(
             if visited > len(TurnStep):
                 raise ValueError(f"cannot reach {step.value} from current turn state")
 
+    def _begin_end_step(self) -> None:
+        eligible: list[tuple[Permanent, str]] = []
+        for source in tuple(self.players[self.active_player].battlefield):
+            if not self.is_authoritative(source, "battlefield"):
+                continue
+            for fragment in self.interpreter.fragments(source.rules_card):
+                coverage = self.interpreter.april_end_step_draw_semantic_coverage(
+                    source.card, fragment
+                )
+                if coverage is None or not coverage.fully_supported:
+                    continue
+                self._register_semantic_occurrence(source, source.controller, fragment, ())
+                eligible.append((source, fragment))
+        event = self._new_rules_event(
+            RulesEventKind.BEGINNING_OF_END_STEP,
+            self.active_player,
+            tuple(source.object_id for source, _fragment in eligible),
+        )
+        for source, fragment in eligible:
+            self._enqueue_trigger(event, source, fragment, TriggerEffect.APRIL_END_STEP_DRAW)
+        self._put_pending_triggers_on_stack()
+
+    @staticmethod
+    def _card_types_from_type_line(type_line: str) -> frozenset[str]:
+        card_types = {
+            "Artifact",
+            "Battle",
+            "Conspiracy",
+            "Creature",
+            "Dungeon",
+            "Enchantment",
+            "Instant",
+            "Kindred",
+            "Land",
+            "Phenomenon",
+            "Plane",
+            "Planeswalker",
+            "Scheme",
+            "Sorcery",
+            "Tribal",
+            "Vanguard",
+        }
+        type_words = type_line.split(" — ", 1)[0].split()
+        return frozenset(card_type for card_type in type_words if card_type in card_types)
+
+    def _april_cast_type_evidence(
+        self, controller: int, turn: int
+    ) -> tuple[tuple[str, ...], dict[str, tuple[str, ...]]]:
+        event_ids_by_type: dict[str, list[str]] = {}
+        for event in self._rules_events.values():
+            if (
+                event.kind is not RulesEventKind.SPELL_CAST
+                or event.player_index != controller
+                or event.turn != turn
+            ):
+                continue
+            self._authenticate_original_rules_event(event)
+            assert event.card_type_line is not None
+            for card_type in self._card_types_from_type_line(event.card_type_line):
+                event_ids_by_type.setdefault(card_type, []).append(event.event_id)
+        normalized = {
+            card_type: tuple(sorted(event_ids))
+            for card_type, event_ids in sorted(event_ids_by_type.items())
+        }
+        return tuple(normalized), normalized
+
     def _on_enter_step(self, step: TurnStep) -> None:
         player = self.players[self.active_player]
         if step is TurnStep.UNTAP:
@@ -7081,6 +7310,8 @@ class Game(
                                 TriggerEffect.DOES_MACHINES_LEVEL_THREE,
                             )
             self._put_pending_triggers_on_stack()
+        elif step is TurnStep.END_STEP:
+            self._begin_end_step()
         elif step is TurnStep.COMBAT_DAMAGE:
             self._begin_combat_damage_steps()
         elif step is TurnStep.POSTCOMBAT_MAIN:
@@ -10311,6 +10542,7 @@ class Game(
                 source.tapped = tapped
             raise
         assert isinstance(spell, StackObject)
+        self._record_spell_cast_event(spell)
         self.log(
             "cost_paid",
             player=self.players[plan.player_index].name,
@@ -10320,6 +10552,19 @@ class Game(
             source_ids=list(plan.source_ids),
         )
         return spell
+
+    def _record_spell_cast_event(self, spell: StackObject) -> RulesEvent:
+        """Record the actual cast at its authoritative Hand-to-Stack boundary."""
+        if not self.is_authoritative(spell, "stack"):
+            raise ValueError("spell cast evidence requires an authoritative stack object")
+        return self._new_rules_event(
+            RulesEventKind.SPELL_CAST,
+            spell.controller,
+            (spell.object_id,),
+            source_id=spell.object_id,
+            card_oracle_id=spell.card.oracle_id,
+            card_type_line=spell.card.type_line,
+        )
 
     def _commit_sneak_announcement(
         self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan
@@ -10381,6 +10626,7 @@ class Game(
         card.zone = "former"
         self._register(returned)
         self._register(spell)
+        self._record_spell_cast_event(spell)
         self._combat_attackers = tuple(
             object_id for object_id in self._combat_attackers if object_id != attacker.object_id
         )
@@ -10642,6 +10888,7 @@ class Game(
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
                 TriggerEffect.DEAL_DAMAGE,
+                TriggerEffect.APRIL_END_STEP_DRAW,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -12148,6 +12395,8 @@ class Game(
                             item.last_known_battlefield
                         )
                     ],
+                    "card_oracle_id": item.card_oracle_id,
+                    "card_type_line": item.card_type_line,
                 }
                 for item in self._rules_event_evidence
             ],
