@@ -1,7 +1,7 @@
 """Authoritative floating-mana production lots, allocations, and history."""
 
 from collections.abc import Iterable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 MANA_COLORS = frozenset("WUBRGC")
@@ -83,6 +83,8 @@ class ManaPaymentPlan:
     spending_context: ManaSpendingContext | None
     requirements: tuple[tuple[str, int], ...]
     allocations: tuple[ManaAllocation, ...]
+    ledger_revision: int = 0
+    _ledger_authority: object | None = field(default=None, repr=False, compare=False)
 
 
 @dataclass(frozen=True)
@@ -130,8 +132,9 @@ class FloatingManaLedger:
         self._consumptions: list[list[PaymentAllocation]] = [[] for _ in range(players)]
         self._expirations: list[list[ManaExpiration]] = [[] for _ in range(players)]
         self._committed_allocation_keys: set[tuple[int, str, str]] = set()
-        self._committed_payment_ids: set[tuple[int, str]] = set()
-        self._issued_payment_plans: dict[tuple[int, str], ManaPaymentPlan] = {}
+        self._committed_payment_ids: set[str] = set()
+        self._revision = 0
+        self._plan_authority = object()
 
     def _check_player(self, player: int) -> None:
         if (
@@ -185,6 +188,7 @@ class FloatingManaLedger:
         self._productions[player].append(production)
         self._production_by_event[event_id] = production
         self._remaining[event_id] = quantity
+        self._revision += 1
 
     def _eligible(
         self,
@@ -221,38 +225,20 @@ class FloatingManaLedger:
                 raise ValueError("invalid mana payment requirement")
             normalized[color] = quantity
 
-        allocations: list[ManaAllocation] = []
-        for color in sorted(normalized):
-            remaining = normalized[color]
-            for production in self._productions[player]:
-                available = self._remaining[production.event_id]
-                if (
-                    production.color != color
-                    or available <= 0
-                    or not self._eligible(production, purpose)
-                ):
-                    continue
-                quantity = min(remaining, available)
-                allocations.append(
-                    ManaAllocation(production.event_id, production.controller, color, quantity)
-                )
-                remaining -= quantity
-                if remaining == 0:
-                    break
-            if remaining:
-                return None
-        plan = ManaPaymentPlan(
+        allocations = self._allocate_lots(player, normalized, purpose)
+        if allocations is None:
+            return None
+        if payment_id in self._committed_payment_ids:
+            raise ValueError("payment identity was already committed")
+        return ManaPaymentPlan(
             player,
             payment_id,
             purpose,
             tuple(sorted(normalized.items())),
-            tuple(allocations),
+            allocations,
+            self._revision,
+            self._plan_authority,
         )
-        key = (player, payment_id)
-        if key in self._issued_payment_plans or key in self._committed_payment_ids:
-            raise ValueError("payment identity was already issued")
-        self._issued_payment_plans[key] = plan
-        return plan
 
     def commit_payment(
         self,
@@ -260,6 +246,23 @@ class FloatingManaLedger:
         plan: ManaPaymentPlan,
     ) -> tuple[PaymentAllocation, ...]:
         """Validate every lot before atomically recording any consumption."""
+        committed = self.validate_payment(player, plan)
+        for allocation in committed:
+            self._remaining[allocation.source_event_id] -= allocation.quantity
+            self._committed_allocation_keys.add(
+                (player, allocation.payment_id, allocation.source_event_id)
+            )
+            self._consumptions[player].append(allocation)
+        self._committed_payment_ids.add(plan.payment_id)
+        self._revision += 1
+        return committed
+
+    def validate_payment(
+        self,
+        player: int,
+        plan: ManaPaymentPlan,
+    ) -> tuple[PaymentAllocation, ...]:
+        """Check an exact plan without changing ledger authorization or mana state."""
         self._check_player(player)
         if (
             not isinstance(plan, ManaPaymentPlan)
@@ -268,13 +271,19 @@ class FloatingManaLedger:
             or plan.controller != player
             or not isinstance(plan.payment_id, str)
             or not plan.payment_id
-            or (player, plan.payment_id) in self._committed_payment_ids
-            or self._issued_payment_plans.get((player, plan.payment_id)) != plan
             or not isinstance(plan.requirements, tuple)
             or not isinstance(plan.allocations, tuple)
             or not plan.allocations
         ):
             raise ValueError("payment requires immutable exact allocations")
+        if (
+            plan._ledger_authority is not self._plan_authority
+            or not isinstance(plan.ledger_revision, int)
+            or isinstance(plan.ledger_revision, bool)
+            or plan.ledger_revision != self._revision
+            or plan.payment_id in self._committed_payment_ids
+        ):
+            raise ValueError("payment plan is stale, unissued, or already committed")
         purpose = _context(plan.spending_context)
         requirements = dict(plan.requirements)
         if (
@@ -289,6 +298,9 @@ class FloatingManaLedger:
             )
         ):
             raise ValueError("payment plan requirements are malformed")
+        expected_allocations = self._allocate_lots(player, requirements, purpose)
+        if expected_allocations is None or expected_allocations != plan.allocations:
+            raise ValueError("payment allocation is forged or stale")
         allocated: dict[str, int] = {}
         seen_events: set[str] = set()
         staged: list[tuple[ManaProduction, ManaAllocation]] = []
@@ -299,6 +311,8 @@ class FloatingManaLedger:
             if (
                 production is None
                 or allocation.production_event_id in seen_events
+                or not isinstance(allocation.controller, int)
+                or isinstance(allocation.controller, bool)
                 or allocation.controller != player
                 or allocation.controller != production.controller
                 or allocation.color != production.color
@@ -332,15 +346,35 @@ class FloatingManaLedger:
                     purpose,
                 )
             )
-        # Validation above is side-effect free; mutation begins only after all checks pass.
-        for allocation in committed:
-            self._remaining[allocation.source_event_id] -= allocation.quantity
-            self._committed_allocation_keys.add(
-                (player, allocation.payment_id, allocation.source_event_id)
-            )
-            self._consumptions[player].append(allocation)
-        self._committed_payment_ids.add((player, plan.payment_id))
         return tuple(committed)
+
+    def _allocate_lots(
+        self,
+        player: int,
+        requirements: Mapping[str, int],
+        purpose: ManaSpendingContext | None,
+    ) -> tuple[ManaAllocation, ...] | None:
+        allocations: list[ManaAllocation] = []
+        for color in sorted(requirements):
+            remaining = requirements[color]
+            for production in self._productions[player]:
+                available = self._remaining[production.event_id]
+                if (
+                    production.color != color
+                    or available <= 0
+                    or not self._eligible(production, purpose)
+                ):
+                    continue
+                quantity = min(remaining, available)
+                allocations.append(
+                    ManaAllocation(production.event_id, production.controller, color, quantity)
+                )
+                remaining -= quantity
+                if remaining == 0:
+                    break
+            if remaining:
+                return None
+        return tuple(allocations)
 
     def consume(
         self,
@@ -419,6 +453,7 @@ class FloatingManaLedger:
         for allocation in committed:
             self._remaining[allocation.source_event_id] -= allocation.quantity
             self._consumptions[player].append(allocation)
+        self._revision += 1
         return committed
 
     def available(
@@ -493,6 +528,8 @@ class FloatingManaLedger:
             self._expired_at[production.event_id] = boundary_id
             self._expirations[player].append(record)
             expired.append(record)
+        if expired:
+            self._revision += 1
         return tuple(expired)
 
     def empty(self, player: int, boundary_id: str | None = None) -> None:
@@ -586,6 +623,7 @@ class FloatingManaLedger:
         """Canonical ledger state included in the engine authoritative fingerprint."""
         return tuple(
             (
+                self._revision,
                 player,
                 tuple(
                     (
