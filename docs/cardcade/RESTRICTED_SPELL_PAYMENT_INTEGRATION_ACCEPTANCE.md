@@ -4,7 +4,7 @@
 
 - Authorized parent: `aa15c76e4e270562e317716866e0fd22b35ee873` (PR #392, `review/cardcade-restricted-mana-ledger`).
 - Isolated branch: `review/cardcade-restricted-spell-payments`.
-- Isolated worktree: `C:`projects`tmt`.cardcade-restricted-mana-spell-payments`.
+- Isolated worktree: `C:/projects/tmt/.cardcade-restricted-mana-spell-payments`.
 - Tested implementation: `e4e29d27b8f7c3e8d72333c584b4b93c87e9eee5`.
 - Regression-first test commit: `f5f0b93c912b831eac81cb3519437656b45b7de0`.
 - Accepted main at audit: `10d2ac80ef5b81b3a209a3133eb0a84633a1f944`.
@@ -21,14 +21,14 @@ Snapshots include spell-payment evidence. Stage 002 reconciliation verifies the 
 
 ## Validation
 
-Environment: Python 3.12.10, pytest 8.4.2, Ruff 0.16.1, using `C:`projects`tmt`.cardcade-fidelity-correction`.venv`Scripts`python.exe` and `ruff.exe`.
+Environment: Python 3.12.10, pytest 8.4.2, Ruff 0.16.1, using `C:/projects/tmt/.cardcade-fidelity-correction/.venv/Scripts/python.exe` and `ruff.exe`.
 
 Exactly 38 individually selected synthetic nodes passed: 38 passed, 0 failed, 0 skipped. No complete-game runner was selected.
 
 ```powershell
 $env:PYTHONDONTWRITEBYTECODE='1'
-$env:PYTHONPATH='C:`projects`tmt`.cardcade-restricted-mana-spell-payments`src'
-& 'C:`projects`tmt`.cardcade-fidelity-correction`.venv`Scripts`python.exe' -B -m pytest -q `
+$env:PYTHONPATH='C:/projects/tmt/.cardcade-restricted-mana-spell-payments/src'
+& 'C:/projects/tmt/.cardcade-fidelity-correction/.venv/Scripts/python.exe' -B -m pytest -q `
   tests/test_restricted_spell_payment.py::test_repeated_ledger_payment_planning_is_pure_and_deterministic `
   tests/test_restricted_spell_payment.py::test_ledger_payment_plan_is_stale_after_any_mana_state_change `
   tests/test_restricted_spell_payment.py::test_committed_payment_identity_cannot_be_reused_by_another_controller `
