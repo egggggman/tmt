@@ -258,6 +258,9 @@ def test_sneak_announcement_creates_one_authenticated_cast_event():
     assert event.subject_ids == (spell.object_id,)
     assert event.card_oracle_id == spell.card.oracle_id == SNEAK_CREATURE.oracle_id
     assert event.card_type_line == spell.card.type_line == SNEAK_CREATURE.type_line
+    authenticated = game._authenticate_original_rules_event(game._rules_events[event.event_id])
+    assert authenticated.source_id == spell.object_id
+    assert authenticated.event_id == event.event_id
 
 
 def test_april_departure_before_trigger_and_after_trigger_boundaries():
