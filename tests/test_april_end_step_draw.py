@@ -154,7 +154,11 @@ def test_april_creates_authenticated_trigger_at_its_controllers_end_step():
     )
     assert game.priority_state is not None and game.priority_state.resolution_pending
     game.process_priority_resolution()
-    assert any(event["event"] == "april_end_step_draw_committed" for event in game.events)
+    result = next(
+        event for event in game.events if event["event"] == "april_end_step_draw_committed"
+    )
+    assert result["card_types"] == ["Creature"]
+    assert result["requested_draw_count"] == len(result["drawn_object_ids"]) == 1
 
 
 def test_zero_spell_types_draw_zero():

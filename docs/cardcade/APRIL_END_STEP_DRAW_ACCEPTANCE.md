@@ -91,10 +91,11 @@ $env:PYTHONDONTWRITEBYTECODE='1'
   tests\test_spicy_oatmeal_pizza_trigger.py::test_pizza_damage_semantics_are_card_name_independent_and_fully_supported
 ```
 
-Result: **14 passed, 0 failed, 0 skipped**. The April cases cover zero and
-multiple distinct types; Artifact Creature contributing two types; repeated
-Creature casts; resolution-time counting; opponent exclusion; a countered
-spell; source present/absent at trigger time and source departure afterward;
+Result: **14 passed, 0 failed, 0 skipped**. The April cases cover zero, one,
+and multiple distinct types with exact draw quantities; Artifact Creature
+contributing two types; repeated Creature casts; resolution-time counting;
+opponent exclusion; a countered spell; source present/absent at trigger time
+and source departure afterward;
 turn filtering; two-player priority epochs; duplicate enqueue prevention;
 single authenticated execution; and snapshot reconciliation without stop
 records. Four selected Pizza regressions passed unchanged, including Stack
