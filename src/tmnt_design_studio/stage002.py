@@ -416,7 +416,7 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
 
 
 def _drain_priority(game: Game, pilot: Pilot, *, follow_on_empty_window: bool = False) -> None:
-    while game.winner is None and game.priority_state is not None:
+    while not game.terminal and game.priority_state is not None:
         if game.priority_state.resolution_pending:
             resolving_stack = bool(game.stack)
             resolving_step = game.step
@@ -424,7 +424,7 @@ def _drain_priority(game: Game, pilot: Pilot, *, follow_on_empty_window: bool = 
             if (
                 follow_on_empty_window
                 and resolving_stack
-                and game.winner is None
+                and not game.terminal
                 and game.step is resolving_step
                 and game.priority_state is None
                 and not game.stack
@@ -444,7 +444,7 @@ def _drain_priority(game: Game, pilot: Pilot, *, follow_on_empty_window: bool = 
 
 def _drain_ordinary_step_priority(game: Game, pilot: Pilot) -> None:
     """Offer an ordinary priority opportunity before leaving the current step."""
-    if game.winner is not None:
+    if game.terminal:
         return
     if game.priority_state is None:
         game._begin_priority_window(allow_empty=True)
@@ -457,7 +457,7 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
 
     if game.step not in {TurnStep.SETUP, TurnStep.CLEANUP}:
         raise ValueError("begin turn requires setup or cleanup")
-    while game.winner is None and game.step is not TurnStep.PRECOMBAT_MAIN:
+    while not game.terminal and game.step is not TurnStep.PRECOMBAT_MAIN:
         _checked_action(game, game.advance_step, "beginning step")
         if game.step not in {TurnStep.UNTAP, TurnStep.CLEANUP}:
             _drain_ordinary_step_priority(game, pilot)
@@ -469,7 +469,7 @@ def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
     """Apply the established land/activation/spell policy in either main phase."""
     active = game.active_player
     for stage in ("land", "activate", "damage", "destroy", "creature"):
-        if game.winner is not None:
+        if game.terminal:
             return
         options = game.legal_main_actions(active)
         choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
@@ -479,9 +479,9 @@ def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
-    while game.winner is None and game.step.value == "combat_damage":
+    while not game.terminal and game.step.value == "combat_damage":
         _checked_action(game, game.resolve_combat_damage, "combat damage")
-        if game.winner is None:
+        if not game.terminal:
             _drain_priority(game, pilot)
 
 
@@ -624,19 +624,19 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
-    while game.winner is None and game.turn < 120:
+    while not game.terminal and game.turn < 120:
         if game.turn >= 119:
             raise RuntimeError("attempted to begin turn 120")
         _begin_turn_with_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _run_main_action_stages(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         active = game.active_player
         _checked_action(game, game.advance_step, "advance to combat")
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _checked_action(game, game.advance_step, "advance to attackers")
         attack = chosen_pilot.choose_attack(
@@ -648,7 +648,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             "attack action",
         )
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         if game.step is not TurnStep.DECLARE_ATTACKERS or not game._attackers_declared:
             raise RuntimeError("attack declaration priority did not complete")
@@ -661,7 +661,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             lambda blocks=blocks: game.execute_block_action(blocks, defer_step_transition=True),
             "block action",
         )
-        while game.winner is None and game.step is TurnStep.DECLARE_BLOCKERS:
+        while not game.terminal and game.step is TurnStep.DECLARE_BLOCKERS:
             options = game.legal_sneak_actions(active)
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
@@ -674,37 +674,37 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
             _drain_priority(game, chosen_pilot)
             if choice.kind is ActionKind.PASS:
                 break
-        if game.winner is not None:
+        if game.terminal:
             break
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         if game.step is not TurnStep.DECLARE_BLOCKERS or not game._blockers_declared:
             raise RuntimeError("block declaration priority did not complete")
         _checked_action(game, game.advance_step, "advance after blocker priority")
         _resolve_combat_damage_steps(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         if game.step is not TurnStep.END_OF_COMBAT:
             raise RuntimeError("expected end-of-combat step after damage")
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
         # Apply the same bounded action stages during the normal second main phase.
         _run_main_action_stages(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _checked_action(game, game.advance_step, "advance to end step")
         _drain_ordinary_step_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
             break
         _checked_action(game, game.advance_step, "advance to cleanup")
-    if game.winner is None:
+    if not game.terminal:
         game.log("acceptance_incomplete", reason="turn_limit")
     snapshot = game.snapshot()
     _add_created_token_presence(game, presence, snapshot["events"])
@@ -1156,6 +1156,7 @@ def reconcile_snapshot(
         "seed": spec.seed,
         "orientation": spec.orientation,
         "seats": [seat.display_id for seat in spec.seats],
+        "terminal": snapshot.get("terminal"),
         "winner": snapshot["winner"],
         "turn": snapshot["turn"],
         "rng_state_digest": snapshot["rng"]["state_digest"],
@@ -1201,6 +1202,7 @@ def reconcile_snapshot(
                 "sneak",
                 "players",
                 "events",
+                "terminal",
             )
         },
         "stop_records": stops,

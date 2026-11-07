@@ -1500,6 +1500,11 @@ class Game(
     def phase(self) -> str:
         return phase_for_step(self._step)
 
+    @property
+    def terminal(self) -> bool:
+        """Whether the game has ended, including simultaneous loss with no winner."""
+        return self.winner is not None or any(player.lost for player in self.players)
+
     def _allocate_object_id(self) -> str:
         object_id = f"object-{self._next_object_number:06d}"
         self._next_object_number += 1
@@ -4078,6 +4083,8 @@ class Game(
 
     def _put_pending_triggers_on_stack(self, effects: set[TriggerEffect] | None = None) -> bool:
         """Put one detected batch on the stack in deterministic APNAP/source order."""
+        if self.terminal:
+            return False
         batch = [
             trigger
             for trigger in self.pending_triggers
@@ -4657,7 +4664,7 @@ class Game(
             chosen = bool(self.paramecia_exile_chooser(ability.controller, ability.source_id))
             if (
                 chosen
-                and self.winner is None
+                and not self.terminal
                 and self._objects.get(grave.object_id) is grave
                 and self.is_authoritative(grave, "graveyard")
             ):
@@ -4881,7 +4888,7 @@ class Game(
                 oracle_fragment=ability.oracle_fragment,
             )
             self.check_life()
-            if self.winner is not None:
+            if self.terminal:
                 evidence = EtbDrainGainScryEvidence(
                     ability.event.event_id,
                     ability.object_id,
@@ -5501,7 +5508,9 @@ class Game(
 
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
-        while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
+        while (
+            not self.terminal and self.stack and isinstance(self.stack[-1], TriggeredAbilityObject)
+        ):
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
@@ -6974,6 +6983,8 @@ class Game(
 
     def transition_to(self, step: TurnStep) -> None:
         """Perform the one legal deterministic CR 500-series step transition."""
+        if self.terminal:
+            raise ValueError("cannot advance a terminal game")
         if self.stack:
             raise ValueError("cannot advance the turn with an unresolved stack")
         if self.priority_state is not None:
@@ -7166,7 +7177,8 @@ class Game(
     def legal_main_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate every currently represented legal main-phase option."""
         if (
-            self.priority_state is not None
+            self.terminal
+            or self.priority_state is not None
             or player_index != self.active_player
             or self.step
             not in {
@@ -7629,7 +7641,12 @@ class Game(
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
-        if state is None or state.resolution_pending or player_index != state.player_index:
+        if (
+            self.terminal
+            or state is None
+            or state.resolution_pending
+            or player_index != state.player_index
+        ):
             return ()
         return (
             ActionOption(
@@ -7737,6 +7754,8 @@ class Game(
 
     def process_priority_resolution(self) -> bool:
         """Perform an engine-permitted resolution after the represented all-pass sequence."""
+        if self.terminal:
+            raise ValueError("terminal game cannot resolve the stack")
         state = self.priority_state
         if state is None or not state.resolution_pending:
             raise ValueError("stack resolution is not permitted")
@@ -7750,18 +7769,18 @@ class Game(
         finally:
             self._priority_resolution_in_progress = False
         self.check_state_based_actions()
-        if self.winner is None:
+        if not self.terminal:
             self._put_pending_triggers_on_stack()
-        if self.winner is None and self.stack and self.priority_state is None:
+        if not self.terminal and self.stack and self.priority_state is None:
             self._begin_priority_window()
         elif (
-            self.winner is None
+            not self.terminal
             and self.step is TurnStep.COMBAT_DAMAGE
             and self._combat_damage_resolved
         ):
             self._advance_after_combat_damage()
         elif (
-            self.winner is None
+            not self.terminal
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
             and not self._defer_attacker_step_transition
@@ -7775,10 +7794,7 @@ class Game(
             raise ValueError("combat damage is not ready to advance")
         if self.stack or self.priority_state is not None:
             return
-        if (
-            self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
-            and self.winner is None
-        ):
+        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE and not self.terminal:
             self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
         else:
             self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
@@ -7805,6 +7821,8 @@ class Game(
     def _begin_priority_window(
         self, *, allow_empty: bool = False, priority_player: int | None = None
     ) -> None:
+        if self.terminal:
+            raise ValueError("terminal game cannot open a priority window")
         if not self.stack and not allow_empty:
             raise ValueError("priority requires a nonempty stack")
         if allow_empty and self.step in {TurnStep.SETUP, TurnStep.UNTAP, TurnStep.CLEANUP}:
@@ -7930,7 +7948,11 @@ class Game(
         raise ValueError("unsupported main action kind")
 
     def legal_attack_options(self, player_index: int) -> tuple[ActionOption, ...]:
-        if player_index != self.active_player or self.step is not TurnStep.DECLARE_ATTACKERS:
+        if (
+            self.terminal
+            or player_index != self.active_player
+            or self.step is not TurnStep.DECLARE_ATTACKERS
+        ):
             return ()
         attacker_ids = tuple(obj.object_id for obj in self.legal_attackers(player_index))
         options = [ActionOption(ActionKind.DECLARE_ATTACKERS, player_index)]
@@ -7947,7 +7969,7 @@ class Game(
     def legal_block_options(
         self, attack: ActionOption, defender_index: int
     ) -> tuple[ActionOption, ...]:
-        if self.step is not TurnStep.DECLARE_BLOCKERS:
+        if self.terminal or self.step is not TurnStep.DECLARE_BLOCKERS:
             return ()
         if attack.attacker_ids != self._combat_attackers:
             return ()
@@ -8067,7 +8089,8 @@ class Game(
     def legal_sneak_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate represented Sneak announcements after blockers are declared."""
         if (
-            player_index != self.active_player
+            self.terminal
+            or player_index != self.active_player
             or self.step is not TurnStep.DECLARE_BLOCKERS
             or not self._blockers_declared
             or self.priority_state is not None
@@ -10586,6 +10609,8 @@ class Game(
 
     def resolve_top_of_stack(self) -> CardObject | Permanent | None:
         """Resolve the authoritative top spell or triggered ability."""
+        if self.terminal:
+            raise ValueError("terminal game cannot resolve the stack")
         if not self.stack:
             raise ValueError("cannot resolve an empty stack")
         spell = self.stack[-1]
@@ -11292,7 +11317,7 @@ class Game(
             if not changed:
                 break
         self.check_life()
-        if self.winner is None and self._put_pending_triggers_on_stack(
+        if not self.terminal and self._put_pending_triggers_on_stack(
             {
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
@@ -11837,6 +11862,8 @@ class Game(
     def check_life(self) -> None:
         losers = [index for index, player in enumerate(self.players) if player.life <= 0]
         if not losers:
+            if self.terminal:
+                self.priority_state = None
             return
         for index in losers:
             player = self.players[index]
@@ -11846,6 +11873,8 @@ class Game(
                 self.log("player_lost", player=player.name, reason=player.loss_reason)
         remaining = [index for index, player in enumerate(self.players) if not player.lost]
         self.winner = remaining[0] if len(remaining) == 1 else None
+        if self.terminal:
+            self.priority_state = None
 
     def record_conformance_stop(
         self, kind: str, before_fingerprint: str, *, detail: str
@@ -12074,7 +12103,7 @@ class Game(
             "engine_version": ENGINE_VERSION,
             "turn": self.turn,
             "turns_started": self.turn,
-            "terminal": self.winner is not None,
+            "terminal": self.terminal,
             "active_player": self.players[self.active_player].name,
             "phase": self.phase,
             "step": self.step.value,
