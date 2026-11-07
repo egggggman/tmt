@@ -7270,14 +7270,17 @@ class Game(
         if self._step is TurnStep.COMBAT_DAMAGE and not self._combat_damage_resolved:
             raise ValueError("combat damage step must be resolved before it can end")
         for player_index in range(len(self.players)):
-            pool = self.floating_mana.snapshot(player_index)
+            pool = self.floating_mana.total_snapshot(player_index)
+            boundary_id = f"turn-{self.turn}:step-end:{self.step.value}"
+            expired = self.floating_mana.expire(player_index, boundary_id)
             if pool:
-                self.floating_mana.empty(player_index)
                 self.log(
                     "mana_pool_emptied",
                     player_index=player_index,
                     previous_step=self._step.value,
                     mana=pool,
+                    boundary_id=boundary_id,
+                    expired_production_events=[item.production_event_id for item in expired],
                 )
         if self._step is TurnStep.DECLARE_ATTACKERS and not self._attackers_declared:
             self._attackers_declared = True
@@ -9936,7 +9939,13 @@ class Game(
         )
         if mana_ability:
             self.floating_mana.add(
-                player_index, source.object_id, choice_ids[0], 1, ability.object_id
+                player_index,
+                source.object_id,
+                choice_ids[0],
+                1,
+                ability.object_id,
+                controller=player_index,
+                expiration_boundary=(f"turn-{self.turn}:step-end:{self.step.value}"),
             )
             self.log(
                 "floating_mana_produced",
@@ -10200,7 +10209,13 @@ class Game(
                 delivered = True
         elif ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
             self.floating_mana.add(
-                ability.controller, ability.source_id, ability.choice_ids[0], 1, ability.object_id
+                ability.controller,
+                ability.source_id,
+                ability.choice_ids[0],
+                1,
+                ability.object_id,
+                controller=ability.controller,
+                expiration_boundary=(f"turn-{self.turn}:step-end:{self.step.value}"),
             )
             self.log(
                 "floating_mana_produced",
@@ -12291,7 +12306,7 @@ class Game(
         return record
 
     def authoritative_state_fingerprint(self) -> str:
-        """Stable mutation-boundary digest excluding diagnostics and evidence ledgers."""
+        """Stable digest of gameplay state, including spendable mana lots."""
         return sha256(
             repr(self._authoritative_state_fingerprint_preimage()).encode("utf-8")
         ).hexdigest()
@@ -12321,6 +12336,7 @@ class Game(
             zones,
             self.rng.state_digest,
             self.winner,
+            self.floating_mana.fingerprint_state(),
         )
 
     def authoritative_state_fingerprint_evidence(self) -> dict[str, object]:
@@ -12350,6 +12366,7 @@ class Game(
             ],
             "rng_state_digest": authority[7],
             "winner_index": authority[8],
+            "floating_mana_ledger": authority[9],
         }
 
     def _executed_conformance_references(self) -> list[dict[str, object]]:
@@ -12504,6 +12521,7 @@ class Game(
             "authoritative_state_fingerprint_preimage": (
                 self.authoritative_state_fingerprint_evidence()
             ),
+            "floating_mana_ledger": self.floating_mana.evidence_snapshot(),
             "rules_event_evidence": [
                 {
                     "event_id": item.event_id,
