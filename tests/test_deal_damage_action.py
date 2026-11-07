@@ -12,7 +12,13 @@ from tmnt_design_studio.card_interpreter07 import (
     DamageProgram,
     DamageTargetKind,
 )
-from tmnt_design_studio.engine07 import CardFact, DamageTransaction, Game, RulesEventKind
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    CardFact,
+    DamageTransaction,
+    Game,
+    RulesEventKind,
+)
 from tmnt_design_studio.semantic_coverage import SemanticCoverage
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,9 +68,15 @@ EXECUTABLE_NAMES = {
     "Mouser Foundry",
     "Raphael, Tough Turtle",
     "Slash, Reptile Rampager",
+    "Spicy Oatmeal Pizza",
     "Swift Demise",
 }
-FULL_NAMES = {"Manhole Missile", "Raphael, Tough Turtle", "Slash, Reptile Rampager"}
+FULL_NAMES = {
+    "Manhole Missile",
+    "Raphael, Tough Turtle",
+    "Slash, Reptile Rampager",
+    "Spicy Oatmeal Pizza",
+}
 ROSTER_RECOGNIZED = {
     "Cool but Rude",
     "Manhole Missile",
@@ -78,6 +90,7 @@ ROSTER_EXECUTABLE = {
     "Manhole Missile",
     "Mouser Foundry",
     "Raphael, Tough Turtle",
+    "Spicy Oatmeal Pizza",
 }
 
 
@@ -410,6 +423,17 @@ def test_alliance_damage_executes_only_through_supported_parent():
     before = current.players[1].life
     current.create_permanent(BEAR, 0)
     current._process_creature_entered_triggers(current.players[0].battlefield[-1])
+    while current.priority_state is not None and current.winner is None:
+        state = current.priority_state
+        if state.resolution_pending:
+            current.process_priority_resolution()
+        else:
+            action = next(
+                option
+                for option in current.legal_priority_actions(state.player_index)
+                if option.kind is ActionKind.PASS_PRIORITY
+            )
+            current.execute_priority_action(action)
 
     assert current.players[1].life == before - 1
     damage = [event for event in current.events if event["event"] == "damage_dealt"]
@@ -430,16 +454,16 @@ def test_unsupported_trigger_parent_is_not_delivered_by_engine():
 def test_authoritative_memberships_and_digests_are_locked():
     recognized, executable, fully_supported = coverage_sets()
     assert len({member[0] for member in recognized}) == 28 and len(recognized) == 29
-    assert len({member[0] for member in executable}) == 12 and len(executable) == 12
-    assert len({member[0] for member in fully_supported}) == 3 and len(fully_supported) == 3
+    assert len({member[0] for member in executable}) == 13 and len(executable) == 13
+    assert len({member[0] for member in fully_supported}) == 4 and len(fully_supported) == 4
     assert {member[1] for member in recognized} == RECOGNIZED_NAMES
     assert {member[1] for member in executable} == EXECUTABLE_NAMES
     assert {member[1] for member in fully_supported} == FULL_NAMES
     assert digest(recognized) == "b8aa5f14cda90075a37af4cac2fab889d6c5f3299973cf4303f603e180e0d39a"
-    assert digest(executable) == "5c977d6a1386af69dc65c694dcb146d1e5b52a7278a085df61ae667b852a89f1"
+    assert digest(executable) == "23c6582f50e00b2b833c69dc43844b18cbe017a4b74842114d6d25942f02f908"
     assert (
         digest(fully_supported)
-        == "94f348e8fc17c6cd1fe7f4da62a45735c0641df27b7ea44582c3f007b4765e9c"
+        == "dcf37bf34c6885d774da5d414bd4c4f393fec24f1bfcf0ec24618a363fbd8991"
     )
 
 
@@ -459,6 +483,7 @@ def test_frozen_roster_memberships_are_locked():
     assert {member[1] for member in fully_supported} & all_names == {
         "Manhole Missile",
         "Raphael, Tough Turtle",
+        "Spicy Oatmeal Pizza",
     }
     assert {name for name, cards in decks.items() if cards & ROSTER_RECOGNIZED} == {
         "casey_jones",

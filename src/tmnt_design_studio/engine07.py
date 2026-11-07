@@ -402,6 +402,7 @@ class DamageTransaction:
     oracle_fragment: str
     target: Permanent | None = None
     target_player: int | None = None
+    trigger_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -883,6 +884,7 @@ class TriggeredAbilityObject:
     zone: Zone = "stack"
     target_id: str | None = None
     target_ids: tuple[str, ...] = ()
+    target_player: int | None = None
 
     @property
     def owner(self) -> int:
@@ -1324,6 +1326,7 @@ class Game(
         raphael_exile_chooser=None,
         raphael_play_chooser=None,
         interpreter: CardInterpreter | None = None,
+        damage_target_chooser=None,
     ):
         self.rng = DeterministicRNG(seed)
         shuffled: list[list[CardFact]] = []
@@ -1469,6 +1472,9 @@ class Game(
         self.paramecia_target_chooser = paramecia_target_chooser or (
             lambda _controller, _source_id, options: options[0] if options else None
         )
+        self.damage_target_chooser = damage_target_chooser or (
+            lambda controller, _source_id, offered: f"player:{1 - controller}"
+        )
         self.raphael_exile_chooser = raphael_exile_chooser or (lambda _controller, _source_id: True)
         self.raphael_play_chooser = raphael_play_chooser or (
             lambda _controller, _source_id, options: options[0] if options else None
@@ -1493,6 +1499,11 @@ class Game(
     @property
     def phase(self) -> str:
         return phase_for_step(self._step)
+
+    @property
+    def terminal(self) -> bool:
+        """Whether the game has ended, including simultaneous loss with no winner."""
+        return self.winner is not None or any(player.lost for player in self.players)
 
     def _allocate_object_id(self) -> str:
         object_id = f"object-{self._next_object_number:06d}"
@@ -2999,6 +3010,18 @@ class Game(
         source_authoritative = self.is_authoritative(
             source, "battlefield"
         ) or self.is_authoritative(source, "stack")
+        if not source_authoritative and transaction.trigger_id is not None:
+            trigger = self._triggers.get(transaction.trigger_id)
+            source_authoritative = (
+                isinstance(source, Permanent)
+                and self._objects.get(source.object_id) is source
+                and source.zone == "former"
+                and trigger is not None
+                and trigger.source_id == source.object_id
+                and trigger.source_card is source.card
+                and trigger.oracle_fragment == transaction.oracle_fragment
+                and self._rules_events.get(trigger.event.event_id) is trigger.event
+            )
         if not source_authoritative:
             raise ValueError("damage source is not authoritative")
         if transaction.controller != source.controller:
@@ -4060,6 +4083,8 @@ class Game(
 
     def _put_pending_triggers_on_stack(self, effects: set[TriggerEffect] | None = None) -> bool:
         """Put one detected batch on the stack in deterministic APNAP/source order."""
+        if self.terminal:
+            return False
         batch = [
             trigger
             for trigger in self.pending_triggers
@@ -4111,6 +4136,16 @@ class Game(
                     self._select_class_recovery_targets(ability, trigger)
                 if ability.effect is TriggerEffect.DOES_MACHINES_LEVEL_THREE:
                     self._select_does_machines_target(ability, trigger)
+                if ability.effect is TriggerEffect.DEAL_DAMAGE:
+                    semantics = self.interpreter.damage_semantic_coverage(
+                        trigger.source_card, trigger.oracle_fragment
+                    )
+                    if (
+                        semantics is not None
+                        and semantics.program.target_scope == "any_target"
+                        and semantics.program.followup_amount is not None
+                    ):
+                        self._select_damage_target(ability, trigger)
                 if ability.effect is TriggerEffect.LTB_MUTAGEN:
                     self._ltb_mutagen_anchors[ability.object_id] = (ability, trigger)
                 self._anchor_mill_three(ability, trigger)
@@ -4128,6 +4163,46 @@ class Game(
                     controller=self.players[trigger.controller].name,
                 )
         return True
+
+    def _select_damage_target(
+        self, ability: TriggeredAbilityObject, trigger: TriggerInstance
+    ) -> None:
+        source = self._objects.get(trigger.source_id)
+        semantics = self.interpreter.damage_semantic_coverage(
+            trigger.source_card, trigger.oracle_fragment
+        )
+        if (
+            not isinstance(source, Permanent)
+            or not self.is_authoritative(source, "battlefield")
+            or source.card is not trigger.source_card
+            or trigger.controller != source.controller
+            or trigger.event.kind
+            not in {RulesEventKind.PERMANENT_ENTERED, RulesEventKind.CREATURE_ENTERED}
+            or self._rules_events.get(trigger.event.event_id) is not trigger.event
+            or trigger.event.subject_ids != (source.object_id,)
+            or trigger.event.player_index != trigger.controller
+            or (source.object_id, trigger.controller) not in trigger.event.battlefield_authority
+            or semantics is None
+            or not semantics.coverage.fully_supported
+            or semantics.program.target_scope != "any_target"
+            or semantics.program.followup_amount is None
+        ):
+            raise ValueError("damage trigger has invalid source, event, or target provenance")
+        offered = tuple(
+            [f"player:{index}" for index in range(2)]
+            + [
+                permanent.object_id
+                for player in self.players
+                for permanent in player.battlefield
+                if permanent.card.is_creature and self.is_authoritative(permanent, "battlefield")
+            ]
+        )
+        selected = self.damage_target_chooser(trigger.controller, trigger.source_id, offered)
+        if selected not in offered:
+            raise ValueError("damage target chooser must select one listed legal target")
+        ability.target_id = selected
+        if selected.startswith("player:"):
+            ability.target_player = int(selected.partition(":")[2])
 
     def _select_class_recovery_targets(
         self, ability: TriggeredAbilityObject, trigger: TriggerInstance
@@ -4589,7 +4664,7 @@ class Game(
             chosen = bool(self.paramecia_exile_chooser(ability.controller, ability.source_id))
             if (
                 chosen
-                and self.winner is None
+                and not self.terminal
                 and self._objects.get(grave.object_id) is grave
                 and self.is_authoritative(grave, "graveyard")
             ):
@@ -4679,31 +4754,102 @@ class Game(
             semantics = self.interpreter.damage_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
             )
-            if (
-                semantics is None
-                or not semantics.coverage.payload_executable
-                or not semantics.coverage.parent_executable
-            ):
+            if semantics is None or not semantics.coverage.fully_supported:
                 raise AssertionError("stacked damage trigger no longer has executable semantics")
             program = semantics.program
-            assert program.amount is not None and program.target_kind is DamageTargetKind.PLAYER
-            if source_permanent is None:
-                raise AssertionError("represented damage source must remain authoritative")
-            if program.target_scope == "you":
-                targets = (ability.controller,)
+            if program.target_kind is DamageTargetKind.PLAYER and program.followup_amount is None:
+                if source_permanent is None:
+                    raise AssertionError(
+                        "represented Alliance damage source must remain authoritative"
+                    )
+                targets = (
+                    (ability.controller,)
+                    if program.target_scope == "you"
+                    else tuple(index for index in range(2) if index != ability.controller)
+                )
+                for target_player in targets:
+                    assert program.amount is not None
+                    self.deal_damage(
+                        DamageTransaction(
+                            ability.controller,
+                            source_permanent,
+                            DamageTargetKind.PLAYER,
+                            program.amount,
+                            ability.oracle_fragment,
+                            target_player=target_player,
+                        )
+                    )
+                self.log(
+                    "trigger_resolved",
+                    stack_object_id=ability.object_id,
+                    event_id=ability.event.event_id,
+                    source=ability.source_card.name,
+                    source_id=ability.source_id,
+                    oracle_fragment=ability.oracle_fragment,
+                    effect=ability.effect.value,
+                    trigger_id=ability.trigger_id,
+                )
+                return
+            assert (
+                program.amount is not None
+                and program.target_kind is DamageTargetKind.ANY
+                and program.followup_amount is not None
+            )
+            source = self._objects.get(ability.source_id)
+            target = self._objects.get(ability.target_id or "")
+            target_player = ability.target_player
+            target_is_legal = (
+                target_player in range(2) and ability.target_id == f"player:{target_player}"
+            ) or (
+                target_player is None
+                and isinstance(target, Permanent)
+                and self.is_authoritative(target, "battlefield")
+                and target.card.is_creature
+                and target.object_id == ability.target_id
+            )
+            if not isinstance(source, Permanent) or not target_is_legal:
+                ability_resolved = False
             else:
-                targets = tuple(index for index in range(2) if index != ability.controller)
-            for target_player in targets:
+                trigger = self._triggers.get(ability.trigger_id or "")
+                if (
+                    trigger is None
+                    or trigger.source_id != ability.source_id
+                    or trigger.event is not ability.event
+                    or trigger.oracle_fragment != ability.oracle_fragment
+                ):
+                    raise ValueError("damage trigger lost its authenticated source event")
+                target_kind = (
+                    DamageTargetKind.PLAYER
+                    if target_player is not None
+                    else DamageTargetKind.CREATURE
+                )
                 self.deal_damage(
                     DamageTransaction(
                         ability.controller,
-                        source_permanent,
-                        program.target_kind,
+                        source,
+                        target_kind,
                         program.amount,
                         ability.oracle_fragment,
+                        target=target if isinstance(target, Permanent) else None,
                         target_player=target_player,
-                    )
+                        trigger_id=ability.trigger_id,
+                    ),
+                    defer_post_damage=True,
                 )
+                self.deal_damage(
+                    DamageTransaction(
+                        ability.controller,
+                        source,
+                        DamageTargetKind.PLAYER,
+                        program.followup_amount,
+                        ability.oracle_fragment,
+                        target_player=ability.controller,
+                        trigger_id=ability.trigger_id,
+                    ),
+                    defer_post_damage=True,
+                )
+                self.check_state_based_actions()
+                self.check_life()
         elif ability.effect is TriggerEffect.SCRY:
             semantics = self.interpreter.scry_semantic_coverage(
                 ability.source_card, ability.oracle_fragment
@@ -4742,7 +4888,7 @@ class Game(
                 oracle_fragment=ability.oracle_fragment,
             )
             self.check_life()
-            if self.winner is not None:
+            if self.terminal:
                 evidence = EtbDrainGainScryEvidence(
                     ability.event.event_id,
                     ability.object_id,
@@ -5362,7 +5508,9 @@ class Game(
 
     def _drain_triggered_abilities(self) -> None:
         """Immediate compatibility drain until Priority owns all-pass resolution."""
-        while self.stack and isinstance(self.stack[-1], TriggeredAbilityObject):
+        while (
+            not self.terminal and self.stack and isinstance(self.stack[-1], TriggeredAbilityObject)
+        ):
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
@@ -5385,6 +5533,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.DEAL_DAMAGE,
                 TriggerEffect.ROCK_SOLDIERS_ETB_DESTROY,
                 TriggerEffect.SHREDDER_DEATHTOUCH,
                 TriggerEffect.ALLIANCE_TEMPORARY_KEYWORD_CHOICE,
@@ -6186,6 +6335,17 @@ class Game(
                     self._enqueue_trigger(
                         event, entering, fragment, TriggerEffect.ETB_DRAIN_GAIN_SCRY
                     )
+        if TriggerEffect.DEAL_DAMAGE in enabled:
+            for fragment in self.interpreter.fragments(entering.rules_card):
+                semantics = self.interpreter.damage_semantic_coverage(entering.card, fragment)
+                if (
+                    semantics is not None
+                    and semantics.coverage.fully_supported
+                    and semantics.program.target_scope == "any_target"
+                    and semantics.program.followup_amount is not None
+                    and re.match(r"^When this .+ enters,", fragment, re.I)
+                ):
+                    self._enqueue_trigger(event, entering, fragment, TriggerEffect.DEAL_DAMAGE)
         if TriggerEffect.ETB_SELF_LIFE_GAIN in enabled:
             for fragment in self.interpreter.fragments(entering.rules_card):
                 semantics = self.interpreter.etb_self_life_gain_semantics(entering.card, fragment)
@@ -6823,6 +6983,8 @@ class Game(
 
     def transition_to(self, step: TurnStep) -> None:
         """Perform the one legal deterministic CR 500-series step transition."""
+        if self.terminal:
+            raise ValueError("cannot advance a terminal game")
         if self.stack:
             raise ValueError("cannot advance the turn with an unresolved stack")
         if self.priority_state is not None:
@@ -7015,7 +7177,8 @@ class Game(
     def legal_main_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate every currently represented legal main-phase option."""
         if (
-            self.priority_state is not None
+            self.terminal
+            or self.priority_state is not None
             or player_index != self.active_player
             or self.step
             not in {
@@ -7478,7 +7641,12 @@ class Game(
     def legal_priority_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Expose only immutable engine-generated choices for the bounded priority window."""
         state = self.priority_state
-        if state is None or state.resolution_pending or player_index != state.player_index:
+        if (
+            self.terminal
+            or state is None
+            or state.resolution_pending
+            or player_index != state.player_index
+        ):
             return ()
         return (
             ActionOption(
@@ -7586,6 +7754,8 @@ class Game(
 
     def process_priority_resolution(self) -> bool:
         """Perform an engine-permitted resolution after the represented all-pass sequence."""
+        if self.terminal:
+            raise ValueError("terminal game cannot resolve the stack")
         state = self.priority_state
         if state is None or not state.resolution_pending:
             raise ValueError("stack resolution is not permitted")
@@ -7599,18 +7769,18 @@ class Game(
         finally:
             self._priority_resolution_in_progress = False
         self.check_state_based_actions()
-        if self.winner is None:
+        if not self.terminal:
             self._put_pending_triggers_on_stack()
-        if self.winner is None and self.stack and self.priority_state is None:
+        if not self.terminal and self.stack and self.priority_state is None:
             self._begin_priority_window()
         elif (
-            self.winner is None
+            not self.terminal
             and self.step is TurnStep.COMBAT_DAMAGE
             and self._combat_damage_resolved
         ):
             self._advance_after_combat_damage()
         elif (
-            self.winner is None
+            not self.terminal
             and self.step is TurnStep.DECLARE_ATTACKERS
             and self._attackers_declared
             and not self._defer_attacker_step_transition
@@ -7624,10 +7794,7 @@ class Game(
             raise ValueError("combat damage is not ready to advance")
         if self.stack or self.priority_state is not None:
             return
-        if (
-            self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
-            and self.winner is None
-        ):
+        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE and not self.terminal:
             self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
         else:
             self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
@@ -7654,6 +7821,8 @@ class Game(
     def _begin_priority_window(
         self, *, allow_empty: bool = False, priority_player: int | None = None
     ) -> None:
+        if self.terminal:
+            raise ValueError("terminal game cannot open a priority window")
         if not self.stack and not allow_empty:
             raise ValueError("priority requires a nonempty stack")
         if allow_empty and self.step in {TurnStep.SETUP, TurnStep.UNTAP, TurnStep.CLEANUP}:
@@ -7779,7 +7948,11 @@ class Game(
         raise ValueError("unsupported main action kind")
 
     def legal_attack_options(self, player_index: int) -> tuple[ActionOption, ...]:
-        if player_index != self.active_player or self.step is not TurnStep.DECLARE_ATTACKERS:
+        if (
+            self.terminal
+            or player_index != self.active_player
+            or self.step is not TurnStep.DECLARE_ATTACKERS
+        ):
             return ()
         attacker_ids = tuple(obj.object_id for obj in self.legal_attackers(player_index))
         options = [ActionOption(ActionKind.DECLARE_ATTACKERS, player_index)]
@@ -7796,7 +7969,7 @@ class Game(
     def legal_block_options(
         self, attack: ActionOption, defender_index: int
     ) -> tuple[ActionOption, ...]:
-        if self.step is not TurnStep.DECLARE_BLOCKERS:
+        if self.terminal or self.step is not TurnStep.DECLARE_BLOCKERS:
             return ()
         if attack.attacker_ids != self._combat_attackers:
             return ()
@@ -7916,7 +8089,8 @@ class Game(
     def legal_sneak_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Generate represented Sneak announcements after blockers are declared."""
         if (
-            player_index != self.active_player
+            self.terminal
+            or player_index != self.active_player
             or self.step is not TurnStep.DECLARE_BLOCKERS
             or not self._blockers_declared
             or self.priority_state is not None
@@ -10435,6 +10609,8 @@ class Game(
 
     def resolve_top_of_stack(self) -> CardObject | Permanent | None:
         """Resolve the authoritative top spell or triggered ability."""
+        if self.terminal:
+            raise ValueError("terminal game cannot resolve the stack")
         if not self.stack:
             raise ValueError("cannot resolve an empty stack")
         spell = self.stack[-1]
@@ -10465,6 +10641,7 @@ class Game(
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
                 TriggerEffect.ETB_ARTIFACT_DRAW,
                 TriggerEffect.ETB_TAP_STUN,
+                TriggerEffect.DEAL_DAMAGE,
             } and (
                 not self._priority_resolution_in_progress
                 and (self.priority_state is None or not self.priority_state.resolution_pending)
@@ -11140,7 +11317,7 @@ class Game(
             if not changed:
                 break
         self.check_life()
-        if self.winner is None and self._put_pending_triggers_on_stack(
+        if not self.terminal and self._put_pending_triggers_on_stack(
             {
                 TriggerEffect.DIES_DRAW,
                 TriggerEffect.PERMANENT_LEFT_SELF_COUNTER,
@@ -11683,12 +11860,21 @@ class Game(
                     legendary_names.add(permanent.card.name)
 
     def check_life(self) -> None:
-        for index, player in enumerate(self.players):
-            if player.life <= 0 and not player.lost:
+        losers = [index for index, player in enumerate(self.players) if player.life <= 0]
+        if not losers:
+            if self.terminal:
+                self.priority_state = None
+            return
+        for index in losers:
+            player = self.players[index]
+            if not player.lost:
                 player.lost = True
                 player.loss_reason = "life_zero_or_less"
-                self.winner = 1 - index
                 self.log("player_lost", player=player.name, reason=player.loss_reason)
+        remaining = [index for index, player in enumerate(self.players) if not player.lost]
+        self.winner = remaining[0] if len(remaining) == 1 else None
+        if self.terminal:
+            self.priority_state = None
 
     def record_conformance_stop(
         self, kind: str, before_fingerprint: str, *, detail: str
@@ -11917,7 +12103,7 @@ class Game(
             "engine_version": ENGINE_VERSION,
             "turn": self.turn,
             "turns_started": self.turn,
-            "terminal": self.winner is not None,
+            "terminal": self.terminal,
             "active_player": self.players[self.active_player].name,
             "phase": self.phase,
             "step": self.step.value,
@@ -12109,7 +12295,13 @@ class Game(
                         "kind": "triggered_ability",
                         **(
                             {"target_id": entry.target_id}
-                            if entry.effect is TriggerEffect.ETB_TAP_STUN
+                            if entry.effect
+                            in {TriggerEffect.ETB_TAP_STUN, TriggerEffect.DEAL_DAMAGE}
+                            else {}
+                        ),
+                        **(
+                            {"target_player": entry.target_player}
+                            if entry.effect is TriggerEffect.DEAL_DAMAGE
                             else {}
                         ),
                         "source": entry.source_card.name,
