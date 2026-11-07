@@ -266,6 +266,8 @@ class ActivationPaymentPlan:
     tap_source: bool
     sacrifice_source: bool
     counter_target_id: str | None = None
+    payment_id: str = ""
+    mana_payment: ManaPaymentPlan | None = None
 
 
 @dataclass(frozen=True)
@@ -280,6 +282,9 @@ class ActivationEvidence:
     tap_source: bool
     resolved: bool
     cost_target_id: str | None = None
+    payment_id: str | None = None
+    mana_requirement: ManaRequirement | None = None
+    mana_allocations: tuple[PaymentAllocation, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -9185,6 +9190,58 @@ class Game(
                 return None
         return ManaRequirement(generic, tuple(colored))
 
+    def _build_activation_payment_plan(
+        self,
+        player_index: int,
+        source_id: str,
+        oracle_fragment: str,
+        requirement: ManaRequirement,
+        available: list[Permanent],
+        *,
+        tap_source: bool = False,
+        sacrifice_source: bool = False,
+        counter_target_id: str | None = None,
+        discard_source: bool = False,
+    ) -> ActivationPaymentPlan | None:
+        """Plan a supported activation with one typed, source-exact mana allocation."""
+        if player_index not in range(2):
+            return None
+        ability_object_number = self._next_object_number + int(sacrifice_source or discard_source)
+        payment_id = f"object-{ability_object_number:06d}"
+        selected = self._select_mana_sources(
+            requirement,
+            list(available),
+            self.floating_mana.snapshot(player_index, ManaSpendingContext.ACTIVATED_ABILITY),
+        )
+        if selected is None:
+            return None
+        floating_colors, chosen = selected
+        mana_payment = None
+        if floating_colors:
+            requirements: dict[str, int] = {}
+            for color in floating_colors:
+                requirements[color] = requirements.get(color, 0) + 1
+            mana_payment = self.floating_mana.plan_payment(
+                player_index,
+                requirements,
+                payment_id,
+                ManaSpendingContext.ACTIVATED_ABILITY,
+            )
+            if mana_payment is None:
+                return None
+        return ActivationPaymentPlan(
+            player_index,
+            source_id,
+            oracle_fragment,
+            requirement,
+            tuple(permanent.object_id for permanent in chosen),
+            tap_source,
+            sacrifice_source,
+            counter_target_id,
+            payment_id,
+            mana_payment,
+        )
+
     def activation_payment_plan(
         self, player_index: int, source: Permanent, oracle_fragment: str
     ) -> ActivationPaymentPlan | None:
@@ -9228,25 +9285,6 @@ class Game(
             and not permanent.tapped
             and (not cost.tap_source or permanent is not source)
         ]
-        if any("/" in symbol for symbol in requirement.colored):
-            selected = self._select_mana_sources(requirement, available)
-            if selected is None:
-                return None
-            _floating_colors, chosen = selected
-        else:
-            chosen = []
-            for color in requirement.colored:
-                mana_source = next(
-                    (permanent for permanent in available if self._mana_color(permanent) == color),
-                    None,
-                )
-                if mana_source is None:
-                    return None
-                chosen.append(mana_source)
-                available.remove(mana_source)
-            if len(available) < requirement.generic:
-                return None
-            chosen.extend(available[: requirement.generic])
         counter_target_id = None
         if cost.remove_counter_target:
             eligible = tuple(
@@ -9262,15 +9300,15 @@ class Game(
             counter_target_id = self.counter_target_chooser(player_index, source.object_id, offered)
             if counter_target_id not in offered:
                 raise ValueError("counter-cost target chooser must return an eligible creature")
-        return ActivationPaymentPlan(
+        return self._build_activation_payment_plan(
             player_index,
             source.object_id,
             oracle_fragment,
             requirement,
-            tuple(permanent.object_id for permanent in chosen),
-            cost.tap_source,
-            cost.sacrifice_source,
-            counter_target_id,
+            available,
+            tap_source=cost.tap_source,
+            sacrifice_source=cost.sacrifice_source,
+            counter_target_id=counter_target_id,
         )
 
     def legal_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
@@ -9407,7 +9445,7 @@ class Game(
 
     def _graveyard_activation_mana_sources(
         self, player_index: int, source: CardObject, oracle_fragment: str
-    ) -> tuple[tuple[Permanent, ...], tuple[tuple[str, int], ...]] | None:
+    ) -> ActivationPaymentPlan | None:
         if (
             player_index not in range(2)
             or not self.is_authoritative(source, "graveyard")
@@ -9422,43 +9460,25 @@ class Game(
             is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
         ):
             return None
+        requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
+        if requirement is None:
+            return None
         available = [
             permanent
             for permanent in self.players[player_index].battlefield
             if permanent.card.is_land and not permanent.tapped
         ]
-        pool = self.floating_mana.snapshot(player_index)
-        floating_payment: dict[str, int] = {}
-        chosen: list[Permanent] = []
-        if pool.get("B", 0):
-            floating_payment["B"] = 1
-            pool["B"] -= 1
-        else:
-            black = next(
-                (permanent for permanent in available if self._mana_color(permanent) == "B"),
-                None,
-            )
-            if black is None:
-                return None
-            chosen.append(black)
-            available.remove(black)
-        generic_from_pool = 0
-        for color in "WUBRGC":
-            take = min(pool.get(color, 0), 4 - generic_from_pool)
-            if take:
-                floating_payment[color] = floating_payment.get(color, 0) + take
-                generic_from_pool += take
-            if generic_from_pool == 4:
-                break
-        lands_for_generic = 4 - generic_from_pool
-        if len(available) < lands_for_generic:
-            return None
-        chosen.extend(available[:lands_for_generic])
-        return tuple(chosen), tuple(sorted(floating_payment.items()))
+        return self._build_activation_payment_plan(
+            player_index,
+            source.object_id,
+            oracle_fragment,
+            requirement,
+            available,
+        )
 
     def _hand_activation_mana_sources(
         self, player_index: int, card: CardObject, fragment: str
-    ) -> tuple[Permanent, ...] | None:
+    ) -> ActivationPaymentPlan | None:
         if (
             not self.is_authoritative(card, "hand")
             or card.owner != player_index
@@ -9482,11 +9502,14 @@ class Game(
             for land in self.players[player_index].battlefield
             if land.card.is_land and not land.tapped and self.is_authoritative(land, "battlefield")
         ]
-        selected = self._select_mana_sources(requirement, available)
-        if selected is None:
-            return None
-        _floating, chosen = selected
-        return tuple(chosen)
+        return self._build_activation_payment_plan(
+            player_index,
+            card.object_id,
+            fragment,
+            requirement,
+            available,
+            discard_source=True,
+        )
 
     def announce_hand_activated_ability(
         self, player_index: int, card: CardObject, fragment: str
@@ -9507,8 +9530,13 @@ class Game(
             )
         ):
             return None
-        lands = self._hand_activation_mana_sources(player_index, card, fragment)
-        if lands is None:
+        plan = self._hand_activation_mana_sources(player_index, card, fragment)
+        if plan is None:
+            return None
+        if plan.mana_payment is not None:
+            self.floating_mana.validate_payment(player_index, plan.mana_payment)
+        lands = tuple(self._objects[item] for item in plan.mana_source_ids)
+        if not all(isinstance(land, Permanent) for land in lands):
             return None
         semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
         assert semantics is not None
@@ -9516,6 +9544,7 @@ class Game(
         hand_index = owner.hand.index(card)
         previous_number = self._next_object_number
         previous_taps = tuple(land.tapped for land in lands)
+        allocations: tuple[PaymentAllocation, ...] = ()
         discarded = None
         ability = None
         try:
@@ -9541,6 +9570,8 @@ class Game(
             self._register(discarded)
             self._register(ability)
             self.stack.append(ability)
+            if plan.mana_payment is not None:
+                allocations = self.floating_mana.commit_payment(player_index, plan.mana_payment)
         except Exception:
             for land, tapped in zip(lands, previous_taps, strict=True):
                 land.tapped = tapped
@@ -9564,6 +9595,9 @@ class Game(
                 ability.mana_source_ids,
                 False,
                 False,
+                payment_id=plan.payment_id,
+                mana_requirement=plan.requirement,
+                mana_allocations=allocations,
             )
         )
         self.log(
@@ -9579,16 +9613,31 @@ class Game(
         self.log(
             "activation_cost_paid",
             player=owner.name,
+            player_index=player_index,
             source_id=card.object_id,
             stack_object_id=ability.object_id,
-            generic=semantics.program.cost.mana_cost,
+            oracle_fragment=fragment,
+            generic=plan.requirement.generic,
+            colored=list(plan.requirement.colored),
+            mana_cost=semantics.program.cost.mana_cost,
             mana_source_ids=list(ability.mana_source_ids),
+            payment_id=plan.payment_id,
+            spending_context=ManaSpendingContext.ACTIVATED_ABILITY.value,
+            mana_allocations=[
+                {
+                    "production_event_id": item.production_event_id,
+                    "color": item.color,
+                    "quantity": item.quantity,
+                }
+                for item in allocations
+            ],
             discard_source=True,
             discarded_destination_id=discarded.object_id,
         )
         self.log(
             "activation_announced",
             player=owner.name,
+            player_index=player_index,
             source=card.name,
             source_id=card.object_id,
             stack_object_id=ability.object_id,
@@ -9632,24 +9681,43 @@ class Game(
         )
         if payment_plan is None:
             return None
-        chosen, floating_payment = payment_plan
-        for p in chosen:
-            p.tapped = True
-        ability = ActivatedAbilityObject(
-            self._allocate_object_id(),
-            player_index,
-            source.object_id,
-            source.card,
-            oracle_fragment,
-            semantics.program,
-            tuple(p.object_id for p in chosen),
-            False,
-            False,
-        )
-        self._register(ability)
-        self.stack.append(ability)
-        for color, quantity in floating_payment:
-            self.floating_mana.consume(player_index, color, quantity, ability.object_id)
+        if payment_plan.mana_payment is not None:
+            self.floating_mana.validate_payment(player_index, payment_plan.mana_payment)
+        chosen = tuple(self._objects[item] for item in payment_plan.mana_source_ids)
+        if not all(isinstance(permanent, Permanent) for permanent in chosen):
+            return None
+        previous_taps = tuple(permanent.tapped for permanent in chosen)
+        previous_number = self._next_object_number
+        ability = None
+        allocations: tuple[PaymentAllocation, ...] = ()
+        try:
+            for permanent in chosen:
+                permanent.tapped = True
+            ability = ActivatedAbilityObject(
+                self._allocate_object_id(),
+                player_index,
+                source.object_id,
+                source.card,
+                oracle_fragment,
+                semantics.program,
+                payment_plan.mana_source_ids,
+                False,
+                False,
+            )
+            self._register(ability)
+            self.stack.append(ability)
+            if payment_plan.mana_payment is not None:
+                allocations = self.floating_mana.commit_payment(
+                    player_index, payment_plan.mana_payment
+                )
+        except Exception:
+            for permanent, tapped in zip(chosen, previous_taps, strict=True):
+                permanent.tapped = tapped
+            if ability is not None:
+                self.stack[:] = [item for item in self.stack if item is not ability]
+                self._objects.pop(ability.object_id, None)
+            self._next_object_number = previous_number
+            raise
         self.activation_evidence.append(
             ActivationEvidence(
                 ability.object_id,
@@ -9659,6 +9727,9 @@ class Game(
                 ability.mana_source_ids,
                 False,
                 False,
+                payment_id=payment_plan.payment_id,
+                mana_requirement=payment_plan.requirement,
+                mana_allocations=allocations,
             )
         )
         self.log(
@@ -9670,6 +9741,7 @@ class Game(
         self.log(
             "activation_announced",
             player=self.players[player_index].name,
+            player_index=player_index,
             source=source.card.name,
             source_id=source.object_id,
             stack_object_id=ability.object_id,
@@ -9678,13 +9750,25 @@ class Game(
         self.log(
             "activation_cost_paid",
             player=self.players[player_index].name,
+            player_index=player_index,
             source_id=source.object_id,
             stack_object_id=ability.object_id,
-            generic=4,
-            colored=["B"],
+            oracle_fragment=oracle_fragment,
+            generic=payment_plan.requirement.generic,
+            colored=list(payment_plan.requirement.colored),
             mana_source_ids=[p.object_id for p in chosen],
+            payment_id=payment_plan.payment_id,
+            spending_context=ManaSpendingContext.ACTIVATED_ABILITY.value,
+            mana_allocations=[
+                {
+                    "production_event_id": item.production_event_id,
+                    "color": item.color,
+                    "quantity": item.quantity,
+                }
+                for item in allocations
+            ],
             floating_mana=[
-                {"color": color, "quantity": quantity} for color, quantity in floating_payment
+                {"color": item.color, "quantity": item.quantity} for item in allocations
             ],
             tap_source=False,
             sacrifice_source=False,
@@ -9807,6 +9891,8 @@ class Game(
         plan = self.activation_payment_plan(player_index, source, oracle_fragment)
         if plan is None:
             return None
+        if plan.mana_payment is not None:
+            self.floating_mana.validate_payment(player_index, plan.mana_payment)
         mana_sources: list[Permanent] = []
         for object_id in plan.mana_source_ids:
             candidate = self._objects.get(object_id)
@@ -9831,6 +9917,7 @@ class Game(
         source_index = self.players[source.controller].battlefield.index(source)
         sacrificed: CardObject | None = None
         ability: ActivatedAbilityObject | None = None
+        allocations: tuple[PaymentAllocation, ...] = ()
         try:
             if plan.sacrifice_source:
                 sacrificed = CardObject(
@@ -9899,6 +9986,8 @@ class Game(
                 ability.zone = "former"
             else:
                 self.stack.append(ability)
+            if plan.mana_payment is not None:
+                allocations = self.floating_mana.commit_payment(player_index, plan.mana_payment)
         except Exception:
             for mana_source, tapped in zip(mana_sources, prior_mana_taps, strict=True):
                 mana_source.tapped = tapped
@@ -9928,6 +10017,9 @@ class Game(
             plan.tap_source,
             mana_ability,
             plan.counter_target_id,
+            payment_id=plan.payment_id,
+            mana_requirement=plan.requirement,
+            mana_allocations=allocations,
         )
         self.activation_evidence.append(evidence)
         if sacrificed is not None:
@@ -9944,6 +10036,7 @@ class Game(
         self.log(
             "activation_announced",
             player=self.players[player_index].name,
+            player_index=player_index,
             source=source.card.name,
             source_id=source.object_id,
             stack_object_id=ability.object_id,
@@ -9952,11 +10045,23 @@ class Game(
         self.log(
             "activation_cost_paid",
             player=self.players[player_index].name,
+            player_index=player_index,
             source_id=source.object_id,
             stack_object_id=ability.object_id,
+            oracle_fragment=oracle_fragment,
             generic=plan.requirement.generic,
             colored=list(plan.requirement.colored),
             mana_source_ids=list(plan.mana_source_ids),
+            payment_id=plan.payment_id,
+            spending_context=ManaSpendingContext.ACTIVATED_ABILITY.value,
+            mana_allocations=[
+                {
+                    "production_event_id": item.production_event_id,
+                    "color": item.color,
+                    "quantity": item.quantity,
+                }
+                for item in allocations
+            ],
             tap_source=plan.tap_source,
             sacrifice_source=plan.sacrifice_source,
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
@@ -10481,16 +10586,7 @@ class Game(
             )
         for index, evidence in enumerate(self.activation_evidence):
             if evidence.stack_object_id == ability.object_id:
-                self.activation_evidence[index] = ActivationEvidence(
-                    evidence.stack_object_id,
-                    evidence.source_id,
-                    evidence.controller,
-                    evidence.oracle_fragment,
-                    evidence.mana_source_ids,
-                    evidence.tap_source,
-                    True,
-                    evidence.cost_target_id,
-                )
+                self.activation_evidence[index] = replace(evidence, resolved=True)
                 break
         if ability.program.effect_kind is ActivatedEffectKind.GAIN_THREE_LIFE:
             for index, evidence in enumerate(self.food_activation_evidence):
@@ -12001,6 +12097,20 @@ class Game(
                 raise AssertionError("activation evidence lacks its runtime stack object")
             if item.resolved != (ability.zone == "former"):
                 raise AssertionError("activation resolution evidence disagrees with stack state")
+            if item.payment_id is not None:
+                if item.mana_requirement is None:
+                    raise AssertionError("activation payment evidence lacks its mana requirement")
+                ledger_allocations = tuple(
+                    allocation
+                    for allocation in self.floating_mana.consumptions(item.controller)
+                    if allocation.payment_id == item.payment_id
+                )
+                if ledger_allocations != item.mana_allocations or any(
+                    allocation.spending_context is not ManaSpendingContext.ACTIVATED_ABILITY
+                    or allocation.controller != item.controller
+                    for allocation in item.mana_allocations
+                ):
+                    raise AssertionError("activation payment evidence disagrees with mana ledger")
         if len({item.stack_object_id for item in self.food_activation_evidence}) != len(
             self.food_activation_evidence
         ):
@@ -12985,6 +13095,35 @@ class Game(
                     "tap_source": item.tap_source,
                     "resolved": item.resolved,
                     "cost_target_id": item.cost_target_id,
+                    "payment_id": item.payment_id,
+                    "spending_context": (
+                        None
+                        if item.payment_id is None
+                        else ManaSpendingContext.ACTIVATED_ABILITY.value
+                    ),
+                    "mana_requirement": (
+                        None
+                        if item.mana_requirement is None
+                        else {
+                            "generic": item.mana_requirement.generic,
+                            "colored": list(item.mana_requirement.colored),
+                        }
+                    ),
+                    "mana_allocations": [
+                        {
+                            "production_event_id": allocation.production_event_id,
+                            "controller": allocation.controller,
+                            "color": allocation.color,
+                            "quantity": allocation.quantity,
+                            "payment_id": allocation.payment_id,
+                            "spending_context": (
+                                None
+                                if allocation.spending_context is None
+                                else allocation.spending_context.value
+                            ),
+                        }
+                        for allocation in item.mana_allocations
+                    ],
                 }
                 for item in self.activation_evidence
             ],

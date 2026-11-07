@@ -1248,6 +1248,7 @@ def _spell_payment_evidence_stops(snapshot: dict[str, object]) -> list[dict[str,
             or isinstance(remaining, bool)
         ):
             malformed = True
+
             continue
         expirations = expirations_by_event.get(event_id, [])
         expired_quantity = sum(
@@ -1287,6 +1288,279 @@ def _spell_payment_evidence_stops(snapshot: dict[str, object]) -> list[dict[str,
     return stops
 
 
+def _activation_payment_evidence_stops(snapshot: dict[str, object]) -> list[dict[str, object]]:
+    """Join restricted activation payments to their authenticated ability evidence."""
+    ledger = snapshot.get("floating_mana_ledger")
+    abilities = snapshot.get("activated_abilities")
+    if not isinstance(ledger, dict):
+        if isinstance(abilities, list) and any(
+            isinstance(item, dict)
+            and item.get("spending_context") == "activated_ability"
+            and item.get("mana_allocations")
+            for item in abilities
+        ):
+            return [
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": ["activation_payment_ledger_missing"],
+                }
+            ]
+        return []
+    players = ledger.get("players")
+    if not isinstance(players, list):
+        return [{"kind": "mana_payment_provenance", "detail": ["activation_ledger_invalid"]}]
+
+    has_activation_payment = any(
+        isinstance(player, dict)
+        and isinstance(player.get("payments"), list)
+        and any(
+            isinstance(payment, dict) and payment.get("spending_context") == "activated_ability"
+            for payment in player["payments"]
+        )
+        for player in players
+    )
+    if not isinstance(abilities, list):
+        if has_activation_payment:
+            return [
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": ["activation_payment_evidence_missing"],
+                }
+            ]
+        return []
+
+    productions: dict[str, dict[str, object]] = {}
+    allocations_by_payment: dict[str, list[dict[str, object]]] = {}
+    malformed = False
+    for player in players:
+        if not isinstance(player, dict):
+            malformed = True
+            continue
+        player_productions = player.get("productions", [])
+        player_payments = player.get("payments", [])
+        if not isinstance(player_productions, list) or not isinstance(player_payments, list):
+            malformed = True
+            continue
+        for production in player_productions:
+            if not isinstance(production, dict):
+                malformed = True
+                continue
+            event_id = production.get("event_id")
+            if not isinstance(event_id, str) or not event_id or event_id in productions:
+                malformed = True
+                continue
+            productions[event_id] = production
+        for payment in player_payments:
+            if not isinstance(payment, dict):
+                malformed = True
+                continue
+            if payment.get("spending_context") != "activated_ability":
+                continue
+            payment_id = payment.get("payment_id")
+            if not isinstance(payment_id, str) or not payment_id:
+                malformed = True
+                continue
+            allocations_by_payment.setdefault(payment_id, []).append(payment)
+
+    evidence_by_payment: dict[str, dict[str, object]] = {}
+    for item in abilities:
+        if not isinstance(item, dict):
+            malformed = True
+            continue
+        raw_allocations = item.get("mana_allocations", [])
+        if not isinstance(raw_allocations, list):
+            malformed = True
+            continue
+        payment_id = item.get("payment_id")
+        if payment_id is None:
+            if raw_allocations:
+                malformed = True
+            continue
+        if not isinstance(payment_id, str) or not payment_id or payment_id in evidence_by_payment:
+            malformed = True
+            continue
+        evidence_by_payment[payment_id] = item
+        if item.get("spending_context") != "activated_ability":
+            malformed = True
+        if (
+            not isinstance(item.get("stack_object_id"), str)
+            or not item.get("stack_object_id")
+            or not isinstance(item.get("source_id"), str)
+            or not item.get("source_id")
+            or not isinstance(item.get("oracle_fragment"), str)
+            or not item.get("oracle_fragment")
+            or not isinstance(item.get("controller"), int)
+            or isinstance(item.get("controller"), bool)
+            or item.get("controller") not in {0, 1}
+        ):
+            malformed = True
+
+    cost_events: dict[str, list[dict[str, object]]] = {}
+    announced_events: dict[str, list[dict[str, object]]] = {}
+    events = snapshot.get("events", [])
+    if not isinstance(events, list):
+        events = []
+        malformed = True
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        if event.get("event") == "activation_cost_paid":
+            payment_id = event.get("payment_id")
+            if isinstance(payment_id, str):
+                cost_events.setdefault(payment_id, []).append(event)
+        elif event.get("event") == "activation_announced":
+            stack_id = event.get("stack_object_id")
+            if isinstance(stack_id, str):
+                announced_events.setdefault(stack_id, []).append(event)
+
+    stops: list[dict[str, object]] = []
+
+    def canonical(values: list[dict[str, object]]) -> list[tuple[object, ...]]:
+        return sorted(
+            (
+                (
+                    item.get("production_event_id"),
+                    item.get("controller"),
+                    item.get("color"),
+                    item.get("quantity"),
+                    item.get("payment_id"),
+                    item.get("spending_context"),
+                )
+                for item in values
+            ),
+            key=repr,
+        )
+
+    for payment_id in sorted(set(allocations_by_payment) | set(evidence_by_payment)):
+        ledger_allocations = allocations_by_payment.get(payment_id, [])
+        evidence = evidence_by_payment.get(payment_id)
+        detail: list[str] = []
+        if evidence is None:
+            detail.append(f"activation_payment_evidence_missing:{payment_id}")
+        else:
+            evidence_allocations = evidence.get("mana_allocations")
+            if not isinstance(evidence_allocations, list) or not all(
+                isinstance(item, dict) for item in evidence_allocations
+            ):
+                detail.append(f"activation_payment_allocations_malformed:{payment_id}")
+                evidence_allocations = []
+            if canonical(
+                [item for item in evidence_allocations if isinstance(item, dict)]
+            ) != canonical(ledger_allocations):
+                detail.append(f"activation_payment_ledger_link_invalid:{payment_id}")
+            controller = evidence.get("controller")
+            cost_matches = cost_events.get(payment_id, [])
+            stack_id = evidence.get("stack_object_id")
+            announcement_matches = (
+                announced_events.get(stack_id, []) if isinstance(stack_id, str) else []
+            )
+            cost_event = cost_matches[0] if len(cost_matches) == 1 else None
+            announcement = announcement_matches[0] if len(announcement_matches) == 1 else None
+            if (
+                not isinstance(cost_event, dict)
+                or cost_event.get("payment_id") != payment_id
+                or cost_event.get("player_index") != controller
+                or cost_event.get("source_id") != evidence.get("source_id")
+                or cost_event.get("stack_object_id") != stack_id
+                or cost_event.get("oracle_fragment") != evidence.get("oracle_fragment")
+                or cost_event.get("spending_context") != "activated_ability"
+                or cost_event.get("mana_source_ids") != evidence.get("mana_source_ids")
+            ):
+                detail.append(f"activation_payment_cost_event_invalid:{payment_id}")
+            if (
+                not isinstance(announcement, dict)
+                or announcement.get("player_index") != controller
+                or announcement.get("source_id") != evidence.get("source_id")
+                or announcement.get("oracle_fragment") != evidence.get("oracle_fragment")
+            ):
+                detail.append(f"activation_announcement_link_invalid:{payment_id}")
+            requirement = evidence.get("mana_requirement")
+            if (
+                not isinstance(requirement, dict)
+                or not isinstance(requirement.get("generic"), int)
+                or isinstance(requirement.get("generic"), bool)
+                or not isinstance(requirement.get("colored"), list)
+                or not isinstance(cost_event, dict)
+                or cost_event.get("generic") != requirement.get("generic")
+                or cost_event.get("colored") != requirement.get("colored")
+            ):
+                detail.append(f"activation_payment_requirement_invalid:{payment_id}")
+            if isinstance(cost_event, dict):
+                logged_allocations = cost_event.get("mana_allocations", [])
+
+                def event_allocations(values: list[object]) -> list[tuple[object, ...]]:
+                    return sorted(
+                        [
+                            (
+                                item.get("production_event_id"),
+                                item.get("color"),
+                                item.get("quantity"),
+                            )
+                            for item in values
+                            if isinstance(item, dict)
+                        ],
+                        key=repr,
+                    )
+
+                if (
+                    not isinstance(logged_allocations, list)
+                    or not all(isinstance(item, dict) for item in logged_allocations)
+                    or event_allocations(logged_allocations)
+                    != event_allocations(evidence_allocations)
+                ):
+                    detail.append(f"activation_payment_event_allocations_invalid:{payment_id}")
+            for allocation in evidence_allocations:
+                if not isinstance(allocation, dict):
+                    continue
+                production_event_id = allocation.get("production_event_id")
+                production = (
+                    productions.get(production_event_id)
+                    if isinstance(production_event_id, str)
+                    else None
+                )
+                allowed = None if production is None else production.get("allowed_contexts")
+                if (
+                    allocation.get("payment_id") != payment_id
+                    or allocation.get("controller") != controller
+                    or allocation.get("spending_context") != "activated_ability"
+                    or production is None
+                    or production.get("controller") != controller
+                    or production.get("color") != allocation.get("color")
+                    or not isinstance(allocation.get("quantity"), int)
+                    or isinstance(allocation.get("quantity"), bool)
+                    or allocation.get("quantity", 0) <= 0
+                    or (
+                        allowed is not None
+                        and (not isinstance(allowed, list) or "activated_ability" not in allowed)
+                    )
+                ):
+                    detail.append(f"activation_payment_allocation_invalid:{payment_id}")
+                    break
+            if isinstance(requirement, dict):
+                mana_sources = evidence.get("mana_source_ids")
+                allocated_quantity = sum(
+                    item.get("quantity", 0)
+                    for item in evidence_allocations
+                    if isinstance(item, dict) and isinstance(item.get("quantity"), int)
+                )
+                if not isinstance(mana_sources, list) or len(
+                    mana_sources
+                ) + allocated_quantity != requirement.get("generic", -1) + len(
+                    requirement.get("colored", [])
+                ):
+                    detail.append(f"activation_payment_quantity_invalid:{payment_id}")
+        if detail:
+            stops.append({"kind": "mana_payment_provenance", "detail": detail})
+    if malformed:
+        stops.append(
+            {
+                "kind": "mana_payment_provenance",
+                "detail": ["activation_payment_evidence_malformed"],
+            }
+        )
+    return stops
+
+
 def reconcile_snapshot(
     spec: GameSpec, snapshot: dict[str, object], manifest: dict[str, object]
 ) -> dict[str, object]:
@@ -1301,6 +1575,7 @@ def reconcile_snapshot(
     stops = list(conformance["stop_records"])
     stops.extend(_context_evidence_stops(contexts, witnesses))
     stops.extend(_spell_payment_evidence_stops(snapshot))
+    stops.extend(_activation_payment_evidence_stops(snapshot))
     presence = snapshot.get("stage002_presence")
     if not isinstance(presence, list):
         stops.append({"kind": "silent_approximation", "detail": ["presence_evidence_missing"]})
