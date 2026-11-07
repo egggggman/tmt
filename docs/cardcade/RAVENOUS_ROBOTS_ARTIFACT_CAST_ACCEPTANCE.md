@@ -43,6 +43,7 @@ $env:PYTHONPATH='C:\projects\tmt\.cardcade-ravenous-robots\src'
   tests\test_ravenous_robots_artifact_cast.py::test_artifact_cast_trigger_reconciles_with_original_spell_event `
   tests\test_ravenous_robots_artifact_cast.py::test_artifact_cast_event_keeps_april_cast_history_compatible `
   tests\test_ravenous_robots_artifact_cast.py::test_robot_token_definition_is_interpreted_from_frozen_oracle_text `
+  tests\test_create_token_action.py::test_generic_etb_delivery_uses_oracle_shape_not_source_card_name `
   tests\test_ravenous_robots_artifact_cast.py::test_trigger_uses_cast_event_once_even_when_event_delivery_is_repeated `
   tests\test_ravenous_robots_artifact_cast.py::test_cast_trigger_does_not_need_source_to_remain_on_battlefield_at_resolution `
   tests\test_ravenous_robots_artifact_cast.py::test_countered_artifact_spell_keeps_original_cast_event_and_trigger_result `
@@ -50,7 +51,7 @@ $env:PYTHONPATH='C:\projects\tmt\.cardcade-ravenous-robots\src'
   tests\test_april_end_step_draw.py::test_sneak_announcement_creates_one_authenticated_cast_event
 ```
 
-Result: **17 passed, 0 failed, 0 skipped**. The 15 Ravenous nodes cover ordinary Pizza and artifact-creature casts, nonartifact and opponent exclusions, non-cast entry, late source entry, source departure, multiple sources, trigger deduplication, Stack order, two-player priority, token characteristics and artifact-entry tracking, event reconciliation, countering, and April compatibility. The additional selected April nodes verify historical cast evidence after countering and a single authenticated Sneak cast event.
+Result: **18 passed, 0 failed, 0 skipped**. The 15 Ravenous nodes cover ordinary Pizza and artifact-creature casts, nonartifact and opponent exclusions, non-cast entry, late source entry, source departure, multiple sources, trigger deduplication, Stack order, two-player priority, token characteristics and artifact-entry tracking, event reconciliation, countering, and April compatibility. The additional selected nodes verify historical cast evidence after countering, a single authenticated Sneak cast event, and the existing generic ETB token delivery path.
 
 Quality checks on the same source:
 
