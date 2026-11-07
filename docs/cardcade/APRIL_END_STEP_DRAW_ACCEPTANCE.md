@@ -39,8 +39,8 @@ trigger objects. That failing reproduction was preserved in the test history
 and recorded before the correction.
 
 The correction uses one immutable `SPELL_CAST` rules event at each supported
-spell's actual hand-to-Stack announcement boundary (including the existing
-Sneak cast boundary). The event authenticates the original Stack object,
+spell's actual authoritative move-to-Stack announcement boundary (including
+the existing Sneak cast commitment). The event authenticates the original Stack object,
 controller, Oracle ID, type line, event ID, turn, and source ID. Countering a
 spell or moving its permanent does not erase that historical event. Card types
 are parsed from the type-line type segment, excluding supertypes and subtypes;
