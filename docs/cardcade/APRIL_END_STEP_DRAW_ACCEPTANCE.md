@@ -125,3 +125,71 @@ trigger counts at resolution, not creation. No complete games, retries, smoke,
 calibration, unrestricted CI, merges, or deck revisions were performed.
 
 **Recommendation: READY FOR HQ REVIEW.**
+
+## PR #389 independent acceptance closure — 2026-11-07
+
+**Required starting HEAD:** `af56de1b0f0a11a6d6261a5b595c44e7a82f6c3d`
+**Worktree:** `C:\projects\tmt\.cardcade-april-end-step-draw`
+**Branch:** `review/cardcade-april-end-step-draw`
+**Validated test/source HEAD:** `2b3fc0c5ac84e2c28d3ff7b816689577a0904e7b`
+
+The required starting HEAD was exact and the worktree clean. Validation used
+the existing sibling Cardcade Python environment: Python 3.12.10, pytest
+8.4.2, Ruff 0.16.1. The original 14 selected nodes were rerun unchanged; two
+additional individually selected synthetic nodes cover rejected spell casts
+and Sneak event uniqueness/authentication:
+
+```powershell
+$env:PYTHONPATH='C:\projects\tmt\.cardcade-april-end-step-draw\src'
+$env:PYTHONDONTWRITEBYTECODE='1'
+& 'C:\projects\tmt\.cardcade-fidelity-correction\.venv\Scripts\python.exe' -B -m pytest -q `
+  tests\test_april_end_step_draw.py::test_april_creates_authenticated_trigger_at_its_controllers_end_step `
+  tests\test_april_end_step_draw.py::test_zero_spell_types_draw_zero `
+  tests\test_april_end_step_draw.py::test_distinct_card_types_count_once_with_multitype_spell_and_repeated_casts `
+  tests\test_april_end_step_draw.py::test_april_departure_before_trigger_and_after_trigger_boundaries `
+  tests\test_april_end_step_draw.py::test_april_entering_after_end_step_begins_does_not_trigger_retroactively `
+  tests\test_april_end_step_draw.py::test_april_execution_reconciles_with_authenticated_spell_cast_lineage `
+  tests\test_april_end_step_draw.py::test_countered_spell_remains_in_april_cast_history `
+  tests\test_april_end_step_draw.py::test_spell_type_cast_during_response_is_counted_at_resolution `
+  tests\test_april_end_step_draw.py::test_opponent_cast_during_april_priority_is_excluded `
+  tests\test_april_end_step_draw.py::test_previous_turn_spell_events_are_excluded_after_turn_boundary `
+  tests\test_spicy_oatmeal_pizza_trigger.py::test_pizza_etb_target_damage_then_controller_damage_has_authenticated_priority `
+  tests\test_spicy_oatmeal_pizza_trigger.py::test_pizza_trigger_resolves_after_source_leaves_and_simultaneous_lethal_effects `
+  tests\test_spicy_oatmeal_pizza_trigger.py::test_ordinary_life_loss_remains_a_terminal_win `
+  tests\test_spicy_oatmeal_pizza_trigger.py::test_pizza_damage_semantics_are_card_name_independent_and_fully_supported `
+  tests\test_april_end_step_draw.py::test_rejected_spell_announcement_creates_no_cast_event `
+  tests\test_april_end_step_draw.py::test_sneak_announcement_creates_one_authenticated_cast_event
+```
+
+**Result: 16 passed, 0 failed, 0 skipped.** Ruff format check reported all four
+selected files already formatted; Ruff lint passed; `git diff --check` passed.
+
+### Cast-event authenticity findings
+
+- The ordinary `announce_spell` path commits a cast only after legality and
+  payment succeed. It creates the Stack object through
+  `_commit_announcement_payment`, which calls `_record_spell_cast_event`
+  exactly once. Main-action casts, compatibility casts, graveyard/exile casts,
+  and hand response spells funnel through that same commit boundary.
+- The separate Sneak path constructs/registers its Stack object in
+  `_commit_sneak_announcement`, then calls the recorder once. The new test
+  confirms exactly one matching `SPELL_CAST` RulesEvent and passes it through
+  `_authenticate_original_rules_event`.
+- The tests verify caster/player, original Stack object source/subject, Oracle
+  ID, and type line. The ordinary path's three successful casts produce exactly
+  three RulesEvents, and April's resolution authenticates each before reading
+  its type. The countered-spell case retains the original event and counts the
+  Creature type after the spell is countered. Stack response resolution and
+  follow-on priority continue to pass their selected synthetic coverage.
+- The rejected no-mana announcement returns no spell and creates no
+  `SPELL_CAST` RulesEvent. Other invalid announcement checks return before the
+  shared commit boundary; no code change was required.
+- The legacy `spell_cast` log record is separate diagnostic output; it does not
+  create a second typed RulesEvent or authenticated cast-history entry.
+
+This closure changed only synthetic tests and this report; engine behavior was
+not changed. The original 14-test report remains accurate, with the two added
+tests strengthening the cast-event contract. No complete games, smoke,
+calibration, unrestricted CI, merges, deck changes, or archive writes occurred.
+
+**Closure recommendation: READY FOR HQ ACCEPTANCE.**
