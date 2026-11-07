@@ -31,7 +31,21 @@ Executed on code/test HEAD `e87d4b37fa96cdacc33a42104635e6b4720f710e`:
 $env:PYTHONDONTWRITEBYTECODE='1'
 $env:PYTHONPATH='C:\projects\tmt\.cardcade-ravenous-robots\src'
 & 'C:\projects\tmt\.cardcade-fidelity-correction\.venv\Scripts\python.exe' -B -m pytest -q `
-  tests\test_ravenous_robots_artifact_cast.py `
+  tests\test_ravenous_robots_artifact_cast.py::test_ravenous_robots_triggers_for_normally_cast_spicy_oatmeal_pizza `
+  tests\test_ravenous_robots_artifact_cast.py::test_ravenous_artifact_spell_trigger_resolves_to_exact_robot_token `
+  tests\test_ravenous_robots_artifact_cast.py::test_artifact_creature_spell_triggers_and_nonartifact_spell_does_not `
+  tests\test_ravenous_robots_artifact_cast.py::test_opponent_artifact_cast_does_not_trigger_controller_robots `
+  tests\test_ravenous_robots_artifact_cast.py::test_robots_leaving_after_trigger_does_not_remove_trigger `
+  tests\test_ravenous_robots_artifact_cast.py::test_robots_entering_after_cast_does_not_trigger_retroactively `
+  tests\test_ravenous_robots_artifact_cast.py::test_artifact_permanent_entry_without_a_cast_does_not_trigger `
+  tests\test_ravenous_robots_artifact_cast.py::test_each_simultaneous_robots_source_creates_one_trigger_and_token `
+  tests\test_ravenous_robots_artifact_cast.py::test_artifact_cast_trigger_priority_is_two_player_and_epoch_bound `
+  tests\test_ravenous_robots_artifact_cast.py::test_artifact_cast_trigger_reconciles_with_original_spell_event `
+  tests\test_ravenous_robots_artifact_cast.py::test_artifact_cast_event_keeps_april_cast_history_compatible `
+  tests\test_ravenous_robots_artifact_cast.py::test_robot_token_definition_is_interpreted_from_frozen_oracle_text `
+  tests\test_ravenous_robots_artifact_cast.py::test_trigger_uses_cast_event_once_even_when_event_delivery_is_repeated `
+  tests\test_ravenous_robots_artifact_cast.py::test_cast_trigger_does_not_need_source_to_remain_on_battlefield_at_resolution `
+  tests\test_ravenous_robots_artifact_cast.py::test_countered_artifact_spell_keeps_original_cast_event_and_trigger_result `
   tests\test_april_end_step_draw.py::test_countered_spell_remains_in_april_cast_history `
   tests\test_april_end_step_draw.py::test_sneak_announcement_creates_one_authenticated_cast_event
 ```
