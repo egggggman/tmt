@@ -758,6 +758,9 @@ class CardInterpreter:
         r"a number of|one or more) (?P<body>.*?\btokens?)\b",
         re.IGNORECASE,
     )
+    ARTIFACT_CAST_TOKEN_TRIGGER = re.compile(
+        r"^Whenever you cast an artifact spell, create .+\.$", re.IGNORECASE
+    )
     EXPLICIT_CREATURE_TOKEN = re.compile(
         r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\s+"
         r"(?P<descriptor>.+?)\s+creature tokens?\b",
@@ -2532,6 +2535,7 @@ class CardInterpreter:
 
         match = self.CREATE_TOKEN.search(fragment)
         assert match is not None
+        artifact_cast_trigger = self.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is not None
         fragments = self.fragments(card)
         alliance_mode = fragment.startswith("• ") and any(
             self.ALLIANCE_MODAL_HEADER.fullmatch(candidate) for candidate in fragments
@@ -2551,7 +2555,7 @@ class CardInterpreter:
                 re.I,
             )
         )
-        if alliance_mode or direct_creature_etb or direct_creature_attack:
+        if artifact_cast_trigger or alliance_mode or direct_creature_etb or direct_creature_attack:
             return self._token_semantics(program, True)
 
         prefix = fragment[: match.start()]

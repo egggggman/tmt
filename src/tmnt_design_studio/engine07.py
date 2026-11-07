@@ -2517,7 +2517,21 @@ class Game(
                 and event.step == TurnStep.END_STEP.value
                 and self._event_number(event.event_id) > occurrence.registration_event_cursor
             )
-            if not (self_etb or alliance or attacks or end_step_draw):
+            artifact_cast_token = (
+                event.kind is RulesEventKind.SPELL_CAST
+                and self.interpreter.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is not None
+                and self.interpreter.token_semantic_coverage(source.card, fragment) is not None
+                and self.interpreter.token_semantic_coverage(
+                    source.card, fragment
+                ).coverage.fully_supported
+                and event.player_index == source_controller
+                and event.source_id is not None
+                and event.subject_ids == (event.source_id,)
+                and event.card_type_line is not None
+                and "Artifact" in self._card_types_from_type_line(event.card_type_line)
+                and (occurrence.object_id, source_controller) in event.battlefield_authority
+            )
+            if not (self_etb or alliance or attacks or end_step_draw or artifact_cast_token):
                 raise ValueError("event does not establish semantic applicability")
             if source_zone != "battlefield":
                 raise ValueError("event opportunity source was not on the battlefield")
@@ -2749,21 +2763,37 @@ class Game(
                     cause_subject_ids=event.subject_ids,
                 )
         elif (
-            event.kind is RulesEventKind.ATTACKERS_DECLARED
-            and bool(re.match(r"^Whenever .+ attacks,", fragment))
-            and source_is_live
-            and source_id in event.subject_ids
-        ) or (
-            event.kind is RulesEventKind.BEGINNING_OF_END_STEP
-            and self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
-            is not None
-            and source_is_live
-            and event.player_index == occurrence.controller
-            and event.active_player == occurrence.controller
-            and event.turn == occurrence.turn
-            and event.step == TurnStep.END_STEP.value
-            and source_id in event.subject_ids
+            (
+                event.kind is RulesEventKind.ATTACKERS_DECLARED
+                and bool(re.match(r"^Whenever .+ attacks,", fragment))
+                and source_is_live
+                and source_id in event.subject_ids
+            )
+            or (
+                event.kind is RulesEventKind.BEGINNING_OF_END_STEP
+                and self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
+                is not None
+                and source_is_live
+                and event.player_index == occurrence.controller
+                and event.active_player == occurrence.controller
+                and event.turn == occurrence.turn
+                and event.step == TurnStep.END_STEP.value
+                and source_id in event.subject_ids
+            )
+            or (
+                event.kind is RulesEventKind.SPELL_CAST
+                and self.interpreter.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is not None
+                and source_is_live
+                and event.player_index == occurrence.controller
+                and event.source_id is not None
+                and event.subject_ids == (event.source_id,)
+                and event.card_type_line is not None
+                and "Artifact" in self._card_types_from_type_line(event.card_type_line)
+                and (source_id, occurrence.controller) in event.battlefield_authority
+            )
         ):
+            if event.kind is RulesEventKind.SPELL_CAST:
+                self._authenticate_original_rules_event(event)
             self._record_opportunity(
                 occurrence,
                 cause_kind="rules_event",
@@ -3974,6 +4004,35 @@ class Game(
         fragment: str,
         effect: TriggerEffect,
     ) -> None:
+        if effect is TriggerEffect.CREATE_TOKEN and event.kind is RulesEventKind.SPELL_CAST:
+            self._authenticate_original_rules_event(event)
+            coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
+            if (
+                coverage is None
+                or not coverage.fully_supported
+                or self._rules_events.get(event.event_id) is not event
+                or not self.is_authoritative(source, "battlefield")
+                or event.player_index != source.controller
+                or event.card_type_line is None
+                or "Artifact" not in self._card_types_from_type_line(event.card_type_line)
+                or event.source_id is None
+                or event.subject_ids != (event.source_id,)
+                or (source.object_id, source.controller) not in event.battlefield_authority
+                or fragment not in self.interpreter.fragments(source.rules_card)
+                or self.interpreter.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is None
+            ):
+                raise ValueError("artifact-cast token trigger has invalid event provenance")
+            if any(
+                trigger.event is event
+                and trigger.source_id == source.object_id
+                and trigger.source_card is source.card
+                and trigger.oracle_fragment == fragment
+                and trigger.effect is effect
+                for trigger in self._triggers.values()
+            ):
+                return
+            occurrence = self._register_semantic_occurrence(source, source.controller, fragment, ())
+            self._witness_from_event(occurrence, event)
         if effect is TriggerEffect.APRIL_END_STEP_DRAW:
             self._authenticate_original_rules_event(event)
             coverage = self.interpreter.april_end_step_draw_semantic_coverage(source.card, fragment)
@@ -4522,6 +4581,45 @@ class Game(
         ):
             raise ValueError("Rock Soldiers trigger has invalid source provenance")
 
+    def _validate_artifact_cast_token_trigger(self, ability: TriggeredAbilityObject) -> None:
+        event = ability.event
+        trigger = self._triggers.get(ability.trigger_id)
+        source = self._objects.get(ability.source_id)
+        self._authenticate_original_rules_event(event)
+        coverage = self.interpreter.token_semantic_coverage(
+            ability.source_card, ability.oracle_fragment
+        )
+        if (
+            trigger is None
+            or trigger.event is not event
+            or trigger.source_id != ability.source_id
+            or trigger.source_card is not ability.source_card
+            or trigger.oracle_fragment != ability.oracle_fragment
+            or trigger.effect is not TriggerEffect.CREATE_TOKEN
+            or trigger.controller != ability.controller
+            or not isinstance(source, Permanent)
+            or source.card is not ability.source_card
+            or source.zone not in {"battlefield", "former"}
+            or event.kind is not RulesEventKind.SPELL_CAST
+            or event.player_index != ability.controller
+            or event.source_id is None
+            or event.subject_ids != (event.source_id,)
+            or event.card_type_line is None
+            or "Artifact" not in self._card_types_from_type_line(event.card_type_line)
+            or (ability.source_id, ability.controller) not in event.battlefield_authority
+            or self.interpreter.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(ability.oracle_fragment)
+            is None
+            or coverage is None
+            or not coverage.fully_supported
+            or ability.oracle_fragment not in self.interpreter.fragments(ability.source_card)
+            or any(
+                record.get("event") == "trigger_resolved"
+                and record.get("stack_object_id") == ability.object_id
+                for record in self.events
+            )
+        ):
+            raise ValueError("artifact-cast token trigger has invalid Stack provenance")
+
     def _resolve_triggered_ability(self, ability: TriggeredAbilityObject) -> None:
         if (
             not self.stack
@@ -4529,6 +4627,11 @@ class Game(
             or not self.is_authoritative(ability, "stack")
         ):
             raise ValueError("triggered ability must be the authoritative top stack object")
+        if (
+            ability.effect is TriggerEffect.CREATE_TOKEN
+            and ability.event.kind is RulesEventKind.SPELL_CAST
+        ):
+            self._validate_artifact_cast_token_trigger(ability)
         if (
             ability.effect is TriggerEffect.ETB_TAP_STUN
             or ability.object_id in self._stun_selections
@@ -5599,6 +5702,12 @@ class Game(
         while (
             not self.terminal and self.stack and isinstance(self.stack[-1], TriggeredAbilityObject)
         ):
+            if (
+                self.stack[-1].effect is TriggerEffect.CREATE_TOKEN
+                and self.stack[-1].event.kind is RulesEventKind.SPELL_CAST
+            ):
+                self._begin_priority_window()
+                return
             if self.stack[-1].effect in {
                 TriggerEffect.LTB_MUTAGEN,
                 TriggerEffect.PARAMECIA_EXILE_CHOICE,
@@ -10557,7 +10666,7 @@ class Game(
         """Record the actual cast at its authoritative Hand-to-Stack boundary."""
         if not self.is_authoritative(spell, "stack"):
             raise ValueError("spell cast evidence requires an authoritative stack object")
-        return self._new_rules_event(
+        event = self._new_rules_event(
             RulesEventKind.SPELL_CAST,
             spell.controller,
             (spell.object_id,),
@@ -10565,6 +10674,35 @@ class Game(
             card_oracle_id=spell.card.oracle_id,
             card_type_line=spell.card.type_line,
         )
+        self._process_artifact_spell_cast_triggers(event)
+        return event
+
+    def _process_artifact_spell_cast_triggers(self, event: RulesEvent) -> None:
+        """Deliver supported artifact-cast token abilities from authenticated casts."""
+        self._authenticate_original_rules_event(event)
+        if (
+            event.kind is not RulesEventKind.SPELL_CAST
+            or event.player_index not in {0, 1}
+            or event.card_type_line is None
+            or "Artifact" not in self._card_types_from_type_line(event.card_type_line)
+            or event.source_id is None
+            or event.subject_ids != (event.source_id,)
+        ):
+            return
+        spell = self._objects.get(event.source_id)
+        if not isinstance(spell, StackObject) or spell.card.oracle_id != event.card_oracle_id:
+            raise ValueError("artifact cast event lost its original spell object")
+        for source in tuple(self.players[event.player_index].battlefield):
+            if not self.is_authoritative(source, "battlefield"):
+                continue
+            for fragment in self.interpreter.fragments(source.rules_card):
+                if self.interpreter.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is None:
+                    continue
+                coverage = self.interpreter.token_semantic_coverage(source.card, fragment)
+                if coverage is None or not coverage.fully_supported:
+                    continue
+                self._enqueue_trigger(event, source, fragment, TriggerEffect.CREATE_TOKEN)
+        self._put_pending_triggers_on_stack({TriggerEffect.CREATE_TOKEN})
 
     def _commit_sneak_announcement(
         self, card: CardObject, attacker: Permanent, plan: SneakPaymentPlan
@@ -10896,6 +11034,13 @@ class Game(
                 raise ValueError(
                     "represented triggered ability cannot resolve before all players pass"
                 )
+            if (
+                spell.effect is TriggerEffect.CREATE_TOKEN
+                and spell.event.kind is RulesEventKind.SPELL_CAST
+                and not self._priority_resolution_in_progress
+                and (self.priority_state is None or not self.priority_state.resolution_pending)
+            ):
+                raise ValueError("artifact-cast token trigger requires Priority resolution")
             self._resolve_triggered_ability(spell)
             return None
         if isinstance(spell, ActivatedAbilityObject):
