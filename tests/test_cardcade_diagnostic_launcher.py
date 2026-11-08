@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio.engine07 import Game
 from tools.cardcade_diagnostic_launcher import (
     EvidencePersistenceError,
     OneShotDiagnosticLauncher,
@@ -29,7 +28,7 @@ def _synthetic_executor(root, spec, *, diagnostic_capture):
     deck_paths = tuple(root / seat.relative_path for seat in spec.seats)
     names = {name for path in deck_paths for _quantity, name in stage002._deck_rows(path)}
     facts = stage002.load_facts(catalog, names)
-    game = Game(
+    game = stage002.Game(
         (
             stage002.load_deck(deck_paths[0], facts),
             stage002.load_deck(deck_paths[1], facts),
