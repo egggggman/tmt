@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import re
+import traceback
 from collections import Counter
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
@@ -691,7 +693,72 @@ def _finish_presence(
     )
 
 
-def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str, object]:
+class DiagnosticExecutionCapture:
+    """Retain the exact runner state needed to snapshot a failed diagnostic call."""
+
+    def __init__(self) -> None:
+        self._game: Game | None = None
+        self._presence: list[dict[str, object]] | None = None
+        self._binding_seen = False
+        self._ambiguous = False
+        self.failure: dict[str, object] | None = None
+
+    def bind(self, game: Game, presence: list[dict[str, object]]) -> None:
+        """Bind runner-owned state explicitly; never infer it from traceback locals."""
+        if self._binding_seen:
+            self._ambiguous = True
+            self._game = None
+            self._presence = None
+            return
+        self._binding_seen = True
+        self._game = game
+        self._presence = presence
+
+    def capture_exception(self, error: BaseException) -> dict[str, object]:
+        details: dict[str, object] = {
+            "type": type(error).__name__,
+            "message": str(error),
+            "traceback": "".join(
+                traceback.format_exception(type(error), error, error.__traceback__)
+            ),
+            "snapshot": None,
+            "capture_error": None,
+        }
+        if self._ambiguous:
+            details["capture_error"] = "diagnostic runner state was bound more than once"
+        elif self._game is None or self._presence is None:
+            details["capture_error"] = "diagnostic runner state was not bound"
+        else:
+            try:
+                snapshot = self._game.snapshot()
+                presence = copy.deepcopy(self._presence)
+                _add_created_token_presence(self._game, presence, snapshot["events"])
+                snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
+                details["snapshot"] = snapshot
+            except BaseException as capture_error:
+                details["capture_error"] = f"{type(capture_error).__name__}: {capture_error}"
+        self.failure = details
+        return details
+
+
+def capture_diagnostic_call(
+    capture: DiagnosticExecutionCapture, operation: Callable[[], object]
+) -> object:
+    """Capture runner-owned state on failure, then re-raise the original exception."""
+    try:
+        return operation()
+    except BaseException as error:
+        capture.capture_exception(error)
+        raise
+
+
+def run_game(
+    root: Path,
+    spec: GameSpec,
+    pilot: Pilot | None = None,
+    *,
+    diagnostic_capture: DiagnosticExecutionCapture | None = None,
+) -> dict[str, object]:
     """Run one parameterized game through the same Engine/Interpreter/Pilot boundary as #001."""
     catalog = load_catalog(root)
     paths = tuple(root / seat.relative_path for seat in spec.seats)
@@ -703,6 +770,8 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         seed=spec.seed,
     )
     presence = _initial_presence(game)
+    if diagnostic_capture is not None:
+        diagnostic_capture.bind(game, presence)
     chosen_pilot = pilot or AcceptancePilot()
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
