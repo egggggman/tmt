@@ -715,12 +715,20 @@ class DiagnosticExecutionCapture:
         self._presence = presence
 
     def capture_exception(self, error: BaseException) -> dict[str, object]:
+        try:
+            message = str(error)
+        except BaseException as format_error:
+            message = f"<exception message unavailable: {type(format_error).__name__}>"
+        try:
+            error_traceback = "".join(
+                traceback.format_exception(type(error), error, error.__traceback__)
+            )
+        except BaseException as format_error:
+            error_traceback = f"<traceback unavailable: {type(format_error).__name__}>"
         details: dict[str, object] = {
             "type": type(error).__name__,
-            "message": str(error),
-            "traceback": "".join(
-                traceback.format_exception(type(error), error, error.__traceback__)
-            ),
+            "message": message,
+            "traceback": error_traceback,
             "snapshot": None,
             "capture_error": None,
         }
