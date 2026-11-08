@@ -25,6 +25,13 @@ PIZZA = CardFact(
     "Artifact",
     "When this artifact enters, it deals 4 damage to any target and 3 damage to you.",
 )
+TARGETED_ARTIFACT = CardFact(
+    "Manhole Missile",
+    "{R}",
+    1,
+    "Artifact Instant",
+    "Manhole Missile deals 3 damage to target creature.",
+)
 ARTIFACT_CREATURE = CardFact(
     "Synthetic Artifact Creature", "{R}", 1, "Artifact Creature — Test", "", 1, 1
 )
@@ -180,6 +187,19 @@ def test_main_action_driver_rechecks_after_useful_punks_mana_activation():
     assert any(permanent.card == ARTIFACT_CREATURE for permanent in game.players[0].battlefield)
 
 
+def test_punks_targeted_artifact_followup_executes_when_one_legal_target_exists():
+    game = make_game()
+    punks = game.create_permanent(PUNKS, 0, summoning_sick=False)
+    target = game.create_permanent(BEAR, 1, summoning_sick=False)
+    game.set_hand_for_testing(0, [TARGETED_ARTIFACT])
+    option = next(item for item in game.legal_main_actions(0) if item.object_id == punks.object_id)
+    assert option.mana_followups
+
+    _run_main_action_stages(game, AcceptancePilot())
+
+    assert target.zone == "former"
+
+
 def test_main_action_driver_prefers_advertised_activated_ability_followup():
     game = make_game()
     punks = game.create_permanent(PUNKS, 0, summoning_sick=False)
@@ -218,14 +238,20 @@ def test_unavailable_advertised_followup_is_ignored_in_favor_of_current_options(
     current = ActionOption(ActionKind.ACTIVATE_ABILITY, 0, "live", oracle_fragment="{R}: Live.")
     unrelated = ActionOption(ActionKind.PASS, 0)
 
-    assert (
-        _matching_main_followup(
-            (current, unrelated),
-            ("cast:stale-card", "activate:live:{R}: Live."),
-        )
-        == current
+    assert _matching_main_followup(
+        (current, unrelated),
+        ("cast:stale-card", "activate:live:{R}: Live."),
+    ) == (current,)
+    assert _matching_main_followup((unrelated,), ("cast:stale-card",)) == ()
+
+
+def test_followup_identity_ignores_unrelated_legal_cast_options():
+    unrelated = ActionOption(ActionKind.CAST, 0, "other-card")
+    advertised = ActionOption(ActionKind.CAST, 0, "advertised-card")
+
+    assert _matching_main_followup((unrelated, advertised), ("cast:advertised-card",)) == (
+        advertised,
     )
-    assert _matching_main_followup((unrelated,), ("cast:stale-card",)) is None
 
 
 def test_main_action_followup_rechecks_stop_after_three_mana_activations():
