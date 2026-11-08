@@ -4,6 +4,7 @@ __pycache__/
 *.sqlite*
 .pytest_cache/
 .ruff_cache/
+.cardcade-diagnostic-runs/
 .venv/
 .deps/
 dist/

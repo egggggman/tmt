@@ -20,7 +20,15 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from tmnt_design_studio import stage002
+# Always load the implementation from this exact checkout, even when the selected
+# Python environment has another editable Cardcade worktree installed.
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_DIRECTORY = str(REPOSITORY_ROOT / "src")
+if SOURCE_DIRECTORY in sys.path:
+    sys.path.remove(SOURCE_DIRECTORY)
+sys.path.insert(0, SOURCE_DIRECTORY)
+
+from tmnt_design_studio import stage002  # noqa: E402
 
 SUPPORTED_SOURCE_BASE = "6612ba7ee36d7eeeb2b090a3a7664662d6fcdeac"
 ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
@@ -235,6 +243,7 @@ class OneShotDiagnosticLauncher:
             "output_directory": str(self.output_directory),
             "python_version": platform.python_version(),
             "python_executable": sys.executable,
+            "stage002_module_path": str(Path(stage002.__file__).resolve()),
             "game_id": spec.game_id,
             "pairing_id": spec.pairing_id,
             "orientation": spec.orientation,
