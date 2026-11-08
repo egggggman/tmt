@@ -29,7 +29,6 @@ def test_nested_failure_uses_explicit_runner_binding_not_innermost_game_local():
     game = _game()
     presence: list[dict[str, object]] = []
     capture = stage002.DiagnosticExecutionCapture()
-    capture.bind(game, presence)
     original_fingerprint = game.authoritative_state_fingerprint()
     original_error = RuntimeError("injected nested diagnostic failure")
 
@@ -42,10 +41,13 @@ def test_nested_failure_uses_explicit_runner_binding_not_innermost_game_local():
             _ = game
             raise original_error
 
-        return stage002.capture_diagnostic_call(capture, nested_action)
+        return nested_action()
 
     with pytest.raises(RuntimeError) as raised:
-        wrapper()
+        stage002.capture_diagnostic_call(
+            capture,
+            lambda: (capture.bind(game, presence), wrapper())[1],
+        )
 
     assert raised.value is original_error
     assert capture.failure is not None
@@ -62,13 +64,15 @@ def test_run_game_exception_capture_preserves_presence_and_authenticates_token(
 ):
     capture = stage002.DiagnosticExecutionCapture()
     bound_game: Game | None = None
+    live_presence: list[dict[str, object]] | None = None
     original_presence: list[dict[str, object]] | None = None
     injected = RuntimeError("injected after runner state binding")
 
     def fail_after_token_creation(game, _pilot):
-        nonlocal bound_game, original_presence
+        nonlocal bound_game, live_presence, original_presence
         bound_game = game
         assert capture._presence is not None
+        live_presence = capture._presence
         original_presence = copy.deepcopy(capture._presence)
         game.create_tokens(
             0,
@@ -99,8 +103,9 @@ def test_run_game_exception_capture_preserves_presence_and_authenticates_token(
     snapshot = capture.failure["snapshot"]
     assert isinstance(snapshot, dict)
     assert bound_game is not None
+    assert live_presence is not None
     assert original_presence is not None
-    assert capture._presence == original_presence
+    assert live_presence == original_presence
     assert snapshot["authoritative_state_fingerprint"] == (
         bound_game.authoritative_state_fingerprint()
     )
@@ -144,13 +149,17 @@ def test_missing_or_ambiguous_runner_binding_fails_closed_without_hiding_error()
     ambiguous = stage002.DiagnosticExecutionCapture()
     first_presence: list[dict[str, object]] = []
     second_presence: list[dict[str, object]] = []
-    ambiguous.bind(game, first_presence)
-    ambiguous.bind(game, second_presence)
 
     with pytest.raises(RuntimeError) as ambiguous_raised:
-        stage002.capture_diagnostic_call(ambiguous, lambda: (_ for _ in ()).throw(error))
+        stage002.capture_diagnostic_call(
+            ambiguous,
+            lambda: (
+                ambiguous.bind(game, first_presence),
+                ambiguous.bind(game, second_presence),
+            ),
+        )
 
-    assert ambiguous_raised.value is error
+    assert str(ambiguous_raised.value) == "diagnostic runner state was bound more than once"
     assert ambiguous.failure is not None
     assert ambiguous.failure["snapshot"] is None
     assert ambiguous.failure["capture_error"] == (
@@ -170,14 +179,168 @@ def test_capture_finalizes_a_copy_of_presence_without_mutating_live_ledger():
     )
     presence: list[dict[str, object]] = []
     capture = stage002.DiagnosticExecutionCapture()
-    capture.bind(game, presence)
     original_presence = copy.deepcopy(presence)
 
     with pytest.raises(RuntimeError):
-        stage002.capture_diagnostic_call(
-            capture, lambda: (_ for _ in ()).throw(RuntimeError("capture now"))
-        )
+
+        def fail_after_binding():
+            capture.bind(game, presence)
+            raise RuntimeError("capture now")
+
+        stage002.capture_diagnostic_call(capture, fail_after_binding)
 
     assert presence == original_presence
     assert capture.failure is not None
     assert len(capture.failure["snapshot"]["stage002_presence"]) == 1
+
+
+def test_reused_capture_does_not_attach_previous_game_to_unbound_failure():
+    previous_game = _game()
+    capture = stage002.DiagnosticExecutionCapture()
+
+    with pytest.raises(RuntimeError, match="first execution failed"):
+
+        def first_failure():
+            capture.bind(previous_game, [])
+            raise RuntimeError("first execution failed")
+
+        stage002.capture_diagnostic_call(capture, first_failure)
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is not None
+
+    with pytest.raises(RuntimeError, match="failure before a new binding"):
+        stage002.capture_diagnostic_call(
+            capture,
+            lambda: (_ for _ in ()).throw(RuntimeError("failure before a new binding")),
+        )
+
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is None
+    assert capture.failure["capture_error"] == "diagnostic runner state was not bound"
+
+
+def test_unprintable_snapshot_capture_error_does_not_mask_original_exception():
+    class UnprintableSnapshotError(RuntimeError):
+        def __str__(self):
+            raise RuntimeError("snapshot error formatting failed")
+
+    game = _game()
+    capture = stage002.DiagnosticExecutionCapture()
+    game.snapshot = lambda: (_ for _ in ()).throw(UnprintableSnapshotError())
+    original = ValueError("original diagnostic execution error")
+
+    with pytest.raises(ValueError) as raised:
+
+        def snapshot_failure():
+            capture.bind(game, [])
+            raise original
+
+        stage002.capture_diagnostic_call(capture, snapshot_failure)
+
+    assert raised.value is original
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is None
+    assert "UnprintableSnapshotError" in capture.failure["capture_error"]
+
+
+def test_non_game_success_after_failure_clears_stale_failure_and_binding():
+    game = _game()
+    capture = stage002.DiagnosticExecutionCapture()
+
+    def first_execution():
+        capture.bind(game, [])
+        raise RuntimeError("first run failed")
+
+    with pytest.raises(RuntimeError, match="first run failed"):
+        stage002.capture_diagnostic_call(capture, first_execution)
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is not None
+
+    marker = object()
+    result = stage002.capture_diagnostic_call(capture, lambda: marker)
+
+    assert result is marker
+    assert capture.failure is None
+    assert capture._game is None
+    assert capture._presence is None
+
+
+def test_presence_finalization_and_traceback_format_failures_keep_original_exception(
+    monkeypatch,
+):
+    class UnprintableFinalizationError(RuntimeError):
+        def __str__(self):
+            raise RuntimeError("finalization formatting failed")
+
+    game = _game()
+    capture = stage002.DiagnosticExecutionCapture()
+    original = ValueError("original execution failure")
+
+    def fail_finalize(_presence, _events):
+        raise UnprintableFinalizationError()
+
+    monkeypatch.setattr(stage002, "_finish_presence", fail_finalize)
+
+    def failing_operation():
+        capture.bind(game, [])
+        raise original
+
+    with pytest.raises(ValueError) as raised:
+        stage002.capture_diagnostic_call(capture, failing_operation)
+
+    assert raised.value is original
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is None
+    assert "UnprintableFinalizationError" in capture.failure["capture_error"]
+
+    monkeypatch.undo()
+
+    class UnprintableExecutionError(RuntimeError):
+        def __str__(self):
+            raise RuntimeError("execution formatting failed")
+
+    capture2 = stage002.DiagnosticExecutionCapture()
+    capture_error = UnprintableExecutionError()
+    monkeypatch.setattr(
+        stage002.traceback,
+        "format_exception",
+        lambda *_args: (_ for _ in ()).throw(RuntimeError("traceback unavailable")),
+    )
+
+    def fail_traceback_format():
+        capture2.bind(game, [])
+        raise capture_error
+
+    with pytest.raises(RuntimeError) as traceback_raised:
+        stage002.capture_diagnostic_call(capture2, fail_traceback_format)
+
+    assert traceback_raised.value is capture_error
+    assert capture2.failure is not None
+    assert capture2.failure["message"].startswith("<exception message unavailable:")
+    assert capture2.failure["traceback"] == "<traceback unavailable>"
+    assert isinstance(capture2.failure["snapshot"], dict)
+
+
+def test_failure_inside_capture_bookkeeping_cannot_replace_execution_exception(
+    monkeypatch,
+):
+    game = _game()
+    capture = stage002.DiagnosticExecutionCapture()
+    original = ValueError("authoritative execution failure")
+
+    def fail_recording(_error):
+        raise RuntimeError("capture bookkeeping failed")
+
+    monkeypatch.setattr(capture, "capture_exception", fail_recording)
+
+    def failing_operation():
+        capture.bind(game, [])
+        raise original
+
+    with pytest.raises(ValueError) as raised:
+        stage002.capture_diagnostic_call(capture, failing_operation)
+
+    assert raised.value is original
+    assert capture.failure is not None
+    assert capture.failure["snapshot"] is None
+    assert capture.failure["capture_error"] == "RuntimeError"

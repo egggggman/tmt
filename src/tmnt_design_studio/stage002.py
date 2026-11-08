@@ -699,32 +699,75 @@ class DiagnosticExecutionCapture:
     def __init__(self) -> None:
         self._game: Game | None = None
         self._presence: list[dict[str, object]] | None = None
-        self._binding_seen = False
+        self._binding_count = 0
         self._ambiguous = False
+        self._call_active = False
         self.failure: dict[str, object] | None = None
+
+    @staticmethod
+    def _safe_text(value: object, *, fallback: str) -> str:
+        try:
+            return str(value)
+        except BaseException as format_error:
+            return f"{fallback}: {type(format_error).__name__}>"
+
+    @classmethod
+    def _safe_exception_detail(cls, error: BaseException) -> str:
+        return f"{type(error).__name__}: {cls._safe_text(error, fallback='message unavailable')}"
+
+    def _begin_call(self) -> None:
+        if self._call_active:
+            raise RuntimeError("diagnostic capture call is already active")
+        self._game = None
+        self._presence = None
+        self._binding_count = 0
+        self._ambiguous = False
+        self.failure = None
+        self._call_active = True
+
+    def _finish_call(self) -> None:
+        self._call_active = False
+        self._game = None
+        self._presence = None
 
     def bind(self, game: Game, presence: list[dict[str, object]]) -> None:
         """Bind runner-owned state explicitly; never infer it from traceback locals."""
-        if self._binding_seen:
+        if not self._call_active:
+            raise RuntimeError(
+                "diagnostic runner state can only bind during an active capture call"
+            )
+        if self._binding_count:
             self._ambiguous = True
             self._game = None
             self._presence = None
-            return
-        self._binding_seen = True
+            self._binding_count += 1
+            raise RuntimeError("diagnostic runner state was bound more than once")
+        self._binding_count = 1
         self._game = game
         self._presence = presence
 
+    def _record_fallback(self, error: BaseException, capture_error: BaseException) -> None:
+        self.failure = {
+            "type": type(error).__name__,
+            "message": "<diagnostic exception capture failed>",
+            "traceback": "<diagnostic traceback capture failed>",
+            "snapshot": None,
+            "capture_error": type(capture_error).__name__,
+        }
+
     def capture_exception(self, error: BaseException) -> dict[str, object]:
+        if not self._call_active:
+            raise RuntimeError("diagnostic exception capture has no active call")
         try:
-            message = str(error)
-        except BaseException as format_error:
-            message = f"<exception message unavailable: {type(format_error).__name__}>"
+            message = self._safe_text(error, fallback="<exception message unavailable")
+        except BaseException:
+            message = "<exception message unavailable>"
         try:
             error_traceback = "".join(
                 traceback.format_exception(type(error), error, error.__traceback__)
             )
-        except BaseException as format_error:
-            error_traceback = f"<traceback unavailable: {type(format_error).__name__}>"
+        except BaseException:
+            error_traceback = "<traceback unavailable>"
         details: dict[str, object] = {
             "type": type(error).__name__,
             "message": message,
@@ -732,9 +775,9 @@ class DiagnosticExecutionCapture:
             "snapshot": None,
             "capture_error": None,
         }
-        if self._ambiguous:
+        if self._ambiguous or self._binding_count > 1:
             details["capture_error"] = "diagnostic runner state was bound more than once"
-        elif self._game is None or self._presence is None:
+        elif self._binding_count == 0 or self._game is None or self._presence is None:
             details["capture_error"] = "diagnostic runner state was not bound"
         else:
             try:
@@ -744,20 +787,39 @@ class DiagnosticExecutionCapture:
                 snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
                 details["snapshot"] = snapshot
             except BaseException as capture_error:
-                details["capture_error"] = f"{type(capture_error).__name__}: {capture_error}"
+                details["capture_error"] = self._safe_exception_detail(capture_error)
         self.failure = details
         return details
 
 
-def capture_diagnostic_call(
-    capture: DiagnosticExecutionCapture, operation: Callable[[], object]
-) -> object:
+def capture_diagnostic_call[DiagnosticResult](
+    capture: DiagnosticExecutionCapture,
+    operation: Callable[[], DiagnosticResult],
+) -> DiagnosticResult:
     """Capture runner-owned state on failure, then re-raise the original exception."""
+    capture._begin_call()
     try:
-        return operation()
+        result = operation()
     except BaseException as error:
-        capture.capture_exception(error)
+        try:
+            capture.capture_exception(error)
+        except BaseException as capture_error:
+            try:
+                capture._record_fallback(error, capture_error)
+            except BaseException:
+                capture.failure = {
+                    "type": type(error).__name__,
+                    "message": "<diagnostic exception capture failed>",
+                    "traceback": "<diagnostic traceback capture failed>",
+                    "snapshot": None,
+                    "capture_error": "capture bookkeeping failed",
+                }
+        finally:
+            capture._finish_call()
         raise
+    else:
+        capture._finish_call()
+        return result
 
 
 def run_game(
