@@ -265,6 +265,20 @@ def test_non_game_success_after_failure_clears_stale_failure_and_binding():
     assert capture._presence is None
 
 
+def test_run_game_without_capture_preserves_setup_exception(monkeypatch):
+    original = RuntimeError("legacy runner setup exception")
+
+    def fail_before_gameplay_loop(_game, _pilot):
+        raise original
+
+    monkeypatch.setattr(stage002, "_wire_damage_target_chooser", fail_before_gameplay_loop)
+
+    with pytest.raises(RuntimeError) as raised:
+        stage002.run_game(ROOT, stage002.stage_games()[0])
+
+    assert raised.value is original
+
+
 def test_presence_finalization_and_traceback_format_failures_keep_original_exception(
     monkeypatch,
 ):
