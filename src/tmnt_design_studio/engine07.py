@@ -7993,10 +7993,19 @@ class Game(
                 if (
                     semantics is None
                     or not semantics.coverage.fully_supported
-                    or semantics.program.effect_kind is not ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    or semantics.program.effect_kind
+                    not in {
+                        ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+                        ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+                    }
                     or self.activation_payment_plan(player_index, source, fragment) is None
                 ):
                     continue
+                choices = (
+                    tuple((color,) for color in ("W", "U", "B", "R", "G", "C"))
+                    if semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                    else ((),)
+                )
                 options.extend(
                     ActionOption(
                         ActionKind.ACTIVATE_ABILITY,
@@ -8004,9 +8013,9 @@ class Game(
                         object_id=source.object_id,
                         oracle_fragment=fragment,
                         priority_epoch=state.epoch,
-                        choice_ids=(color,),
+                        choice_ids=choice_ids,
                     )
-                    for color in ("W", "U", "B", "R", "G", "C")
+                    for choice_ids in choices
                 )
         return tuple(options)
 
@@ -9980,7 +9989,10 @@ class Game(
                 self.players[source.owner].graveyard.append(sacrificed)
                 source.zone = "former"
                 self._register(sacrificed)
-            mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+            mana_ability = semantics.program.effect_kind in {
+                ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+                ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+            }
             self._register(ability)
             if mana_ability:
                 ability.zone = "former"
@@ -10007,7 +10019,10 @@ class Game(
                 self._objects.pop(ability.object_id, None)
             self._next_object_number = starting_object_number
             raise
-        mana_ability = semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+        mana_ability = semantics.program.effect_kind in {
+            ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+            ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+        }
         evidence = ActivationEvidence(
             ability.object_id,
             source.object_id,
@@ -10067,13 +10082,22 @@ class Game(
             sacrificed_destination_id=(sacrificed.object_id if sacrificed is not None else None),
         )
         if mana_ability:
+            mana_color = (
+                choice_ids[0]
+                if semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                else semantics.program.mana_color
+            )
+            if mana_color is None:
+                raise AssertionError("fixed mana ability lacks its interpreted output color")
+            allowed_contexts = semantics.program.mana_allowed_contexts
             self.floating_mana.add(
                 player_index,
                 source.object_id,
-                choice_ids[0],
+                mana_color,
                 1,
                 ability.object_id,
                 controller=player_index,
+                allowed_contexts=allowed_contexts,
                 expiration_boundary=(f"turn-{self.turn}:step-end:{self.step.value}"),
             )
             self.log(
@@ -10081,8 +10105,13 @@ class Game(
                 source_id=source.object_id,
                 stack_object_id=ability.object_id,
                 player_index=player_index,
-                color=choice_ids[0],
+                controller=player_index,
+                color=mana_color,
                 quantity=1,
+                allowed_contexts=allowed_contexts,
+                oracle_fragment=oracle_fragment,
+                source_oracle_id=source.card.oracle_id,
+                source_type_line=source.card.type_line,
             )
             self.log(
                 "activated_ability_resolved",
@@ -10337,14 +10366,25 @@ class Game(
                     stack_object_id=ability.object_id,
                 )
                 delivered = True
-        elif ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA:
+        elif ability.program.effect_kind in {
+            ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+            ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+        }:
+            mana_color = (
+                ability.choice_ids[0]
+                if ability.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
+                else ability.program.mana_color
+            )
+            if mana_color is None:
+                raise AssertionError("fixed mana ability lacks its interpreted output color")
             self.floating_mana.add(
                 ability.controller,
                 ability.source_id,
-                ability.choice_ids[0],
+                mana_color,
                 1,
                 ability.object_id,
                 controller=ability.controller,
+                allowed_contexts=ability.program.mana_allowed_contexts,
                 expiration_boundary=(f"turn-{self.turn}:step-end:{self.step.value}"),
             )
             self.log(
@@ -10352,8 +10392,9 @@ class Game(
                 source_id=ability.source_id,
                 stack_object_id=ability.object_id,
                 player_index=ability.controller,
-                color=ability.choice_ids[0],
+                color=mana_color,
                 quantity=1,
+                allowed_contexts=ability.program.mana_allowed_contexts,
             )
             delivered = True
         if (
