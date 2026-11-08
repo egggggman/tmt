@@ -54,6 +54,8 @@ class Pilot(Protocol):
         self, view: PriorityViewV2, options: tuple[ActionOption, ...]
     ) -> ActionOption: ...
 
+    def choose_damage_target(self, view: GameView, offered: tuple[str, ...]) -> str | None: ...
+
 
 class AcceptancePilot:
     """Preserved Acceptance Match strategy; it never owns legality or state mutation."""
@@ -72,6 +74,58 @@ class AcceptancePilot:
             and any(card[0] == option.object_id for card in view.hands[option.player_index])
         )
 
+    @staticmethod
+    def choose_damage_target(view: GameView, offered: tuple[str, ...]) -> str | None:
+        """Choose among engine-offered Pizza targets using terminal and board state."""
+        if not offered:
+            return None
+        controller = view.observer_index
+        opponent = 1 - controller
+        battlefield = {
+            permanent.object_id: permanent for side in view.battlefields for permanent in side
+        }
+
+        def outcome_rank(own_life: int, opposing_life: int) -> int:
+            if own_life <= 0 and opposing_life <= 0:
+                return 1  # draw
+            if opposing_life <= 0:
+                return 3  # win
+            if own_life <= 0:
+                return 0  # loss
+            return 2  # ongoing
+
+        def score(target_id: str, index: int) -> tuple[int, int, int, int, int]:
+            life = list(view.life)
+            victim = None
+            if target_id.startswith("player:"):
+                try:
+                    victim = int(target_id.partition(":")[2])
+                except ValueError:
+                    victim = None
+                if victim not in (0, 1):
+                    return (-1, 0, 0, 0, -index)
+                life[victim] -= 4
+            # The Oracle's mandatory follow-up damage is applied to the controller.
+            life[controller] -= 3
+            rank = outcome_rank(life[controller], life[opponent])
+            permanent = battlefield.get(target_id)
+            removes_opponent = int(
+                permanent is not None
+                and permanent.controller == opponent
+                and permanent.toughness is not None
+                and permanent.damage + 4 >= permanent.toughness
+            )
+            removes_creature = int(
+                permanent is not None
+                and permanent.toughness is not None
+                and permanent.damage + 4 >= permanent.toughness
+            )
+            threat = (permanent.power or 0) if removes_opponent and permanent else 0
+            opponent_damage = 4 if victim == opponent else 0
+            return (rank, removes_opponent, removes_creature, threat + opponent_damage, -index)
+
+        return max(enumerate(offered), key=lambda row: score(row[1], row[0]))[1]
+
     def choose_main_action(
         self, view: GameView, options: tuple[ActionOption, ...], stage: str
     ) -> ActionOption:
@@ -81,12 +135,23 @@ class AcceptancePilot:
                 (option for option in options if option.kind is ActionKind.PLAY_LAND), fallback
             )
         if stage == "activate":
+            useful_mana = next(
+                (
+                    option
+                    for option in options
+                    if option.kind is ActionKind.ACTIVATE_ABILITY and option.mana_followups
+                ),
+                None,
+            )
+            if useful_mana is not None:
+                return useful_mana
             return next(
                 (
                     option
                     for option in options
                     if option.kind is ActionKind.ACTIVATE_ABILITY
                     and not self._hand_cycling(view, option)
+                    and not (option.restricted_mana_ability and not option.mana_followups)
                 ),
                 fallback,
             )
@@ -235,6 +300,12 @@ class AcceptancePilot:
                 option.kind in {ActionKind.ACTIVATE_ABILITY, ActionKind.CAST}
                 and option.target_id in opposing_spells
             ):
+                return option
+        for option in options:
+            if option.kind is ActionKind.ACTIVATE_ABILITY and option.mana_followups:
+                return option
+        for option in options:
+            if option.kind is ActionKind.ACTIVATE_ABILITY and option.uses_restricted_mana:
                 return option
         return next(option for option in options if option.kind is ActionKind.PASS_PRIORITY)
 
