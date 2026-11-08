@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from tmnt_design_studio import stage002
 from tmnt_design_studio.engine07 import Game
 from tools.cardcade_diagnostic_launcher import (
     EvidencePersistenceError,
     OneShotDiagnosticLauncher,
+    stage002,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def _launcher(tmp_path: Path) -> OneShotDiagnosticLauncher:
     output_root = ROOT / ".cardcade-diagnostic-runs"
     output_root.mkdir(exist_ok=True)
-    output = output_root / f"diagnostic-game-test-{tmp_path.name}"
+    output = output_root / f"diagnostic-game-test-{tmp_path.parent.name}-{tmp_path.name}"
     return OneShotDiagnosticLauncher(ROOT, output)
 
 

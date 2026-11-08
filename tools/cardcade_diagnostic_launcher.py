@@ -92,8 +92,14 @@ class OneShotDiagnosticLauncher:
         branch = self._git(self.root, "branch", "--show-current") or "(detached HEAD)"
         status = self._git(self.root, "status", "--porcelain=v1")
         main = self._git(self.root, "rev-parse", "refs/remotes/origin/main")
+        expected_stage002 = (self.root / "src/tmnt_design_studio/stage002.py").resolve()
+        imported_stage002 = Path(stage002.__file__).resolve()
         if status:
             raise DiagnosticLauncherError(f"launcher worktree is not clean: {status}")
+        if imported_stage002 != expected_stage002:
+            raise DiagnosticLauncherError(
+                f"Stage 002 imported from {imported_stage002}, expected {expected_stage002}"
+            )
         if main != ACCEPTED_MAIN:
             raise DiagnosticLauncherError(f"accepted main changed: {main}")
         try:
