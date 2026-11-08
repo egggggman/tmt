@@ -1,8 +1,9 @@
-﻿# Diagnostic Game 001 — Terminal Combat Fix
+# Diagnostic Game 001 — Terminal Combat Fix
 
 ## Source and scope
 
 - Starting source: `67b9bb3083c9f4b2fe02e7fed258c4739581225f` (PR #404).
+- Tested implementation source commit: `a33f0369a4c56be8ce85f3863f3b7e2fbac220ba` (the engine and test files were unchanged after the 30-case run).
 - Worktree: `C:\projects\tmt\.diag001-terminal-recovery`.
 - Branch: `fix/cardcade-terminal-combat-advance`.
 - Engine source imported for validation: this worktree's `src/tmnt_design_studio/engine07.py` (enforced with `PYTHONPATH=src`).
