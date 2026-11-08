@@ -50,9 +50,25 @@ Environment: Python 3.12.10, pytest 8.4.2, Ruff 0.16.1, using the existing envir
 `C:\projects\tmt\.cardcade-fidelity-correction\.venv`. `PYTHONPATH` pointed to this worktree's
 `src` directory. The environment was not rebuilt or modified.
 
-The run retained the original 68 named nodes (72 parameter-expanded cases) documented across
-`PILOT_FIDELITY_CORRECTION_ACCEPTANCE.md` and `PR399_INDEPENDENT_ACCEPTANCE_AUDIT.md`, then added
-three named nodes:
+The run retained the original 68 named nodes (72 parameter-expanded cases): the 54 nodes listed
+in `PILOT_FIDELITY_CORRECTION_ACCEPTANCE.md` plus these 14 supplemental nodes:
+
+- `tests/test_pr397_independent_audit_repro.py::test_pizza_target_policy_ranks_terminal_outcomes`
+- `tests/test_pr397_independent_audit_repro.py::test_pilot_executes_the_artifact_followup_that_justified_punks_mana`
+- `tests/test_restricted_spell_payment.py::test_repeated_ledger_payment_planning_is_pure_and_deterministic`
+- `tests/test_restricted_spell_payment.py::test_legal_action_planning_is_repeatable_and_does_not_authorize_payment`
+- `tests/test_restricted_spell_payment.py::test_spell_payment_snapshot_reconciles_without_invented_execution_reference`
+- `tests/test_restricted_ability_payment.py::test_activation_action_enumeration_is_repeatable_and_pure`
+- `tests/test_restricted_ability_payment.py::test_activation_payment_snapshot_reconciles_exact_source_and_allocation`
+- `tests/test_frog_butler_mana.py::test_frog_butler_produces_chosen_color_with_source_provenance`
+- `tests/test_frog_butler_mana.py::test_frog_butler_mana_ability_rejects_summoning_sick_source`
+- `tests/test_frog_butler_mana.py::test_frog_butler_mana_is_immediate_and_empties_at_step_end`
+- `tests/test_spicy_oatmeal_pizza_trigger.py::test_pizza_trigger_with_illegal_target_does_not_deal_either_damage`
+- `tests/test_pilot_fidelity_correction.py::test_main_action_driver_prefers_advertised_activated_ability_followup`
+- `tests/test_pilot_fidelity_correction.py::test_unavailable_advertised_followup_is_ignored_in_favor_of_current_options`
+- `tests/test_pilot_fidelity_correction.py::test_main_action_followup_rechecks_stop_after_three_mana_activations`
+
+Three further nodes were added for this correction:
 
 - `tests/test_pr399_independent_audit_repro.py::test_punks_followup_preserves_existing_target_policy_for_targeted_casts`
 - `tests/test_pilot_fidelity_correction.py::test_punks_targeted_artifact_followup_executes_when_one_legal_target_exists`
