@@ -8580,7 +8580,7 @@ class Game(
                     card=obj.name,
                     object_id=obj.object_id,
                 )
-            return self.cast(
+            spell = self.announce_spell(
                 option.player_index,
                 obj,
                 target,
@@ -8590,6 +8590,36 @@ class Game(
                     and self.is_authoritative(obj, "graveyard")
                 ),
             )
+            if spell is None:
+                return False
+
+            # A cast can create authenticated triggered abilities above the spell on the
+            # Stack. Main-action execution must yield to the ordinary priority lifecycle
+            # before resolving any of those objects. Keep the legacy Game.cast() wrapper
+            # unchanged for callers that explicitly rely on its immediate-resolution
+            # compatibility behavior.
+            cast_event = next(
+                (
+                    event
+                    for event in self._rules_events.values()
+                    if event.kind is RulesEventKind.SPELL_CAST
+                    and event.source_id == spell.object_id
+                    and event.subject_ids == (spell.object_id,)
+                ),
+                None,
+            )
+            cast_trigger_pending = cast_event is not None and any(
+                isinstance(stack_object, TriggeredAbilityObject)
+                and stack_object.event is cast_event
+                for stack_object in self.stack
+            )
+            if cast_trigger_pending:
+                if self.priority_state is None:
+                    self._begin_priority_window()
+                return True
+
+            self.resolve_top_of_stack()
+            return True
         if option.kind is ActionKind.ACTIVATE_ABILITY:
             if isinstance(obj, CardObject) and option.oracle_fragment is not None:
                 if self.is_authoritative(obj, "graveyard"):
