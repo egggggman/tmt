@@ -1,0 +1,7388 @@
+[
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 1,
+    "step": "upkeep",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 1,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 1,
+    "step": "upkeep",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 1,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 2,
+    "step": "draw",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 2,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 2,
+    "step": "draw",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 2,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 3,
+    "step": "precombat_main",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 3,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 3,
+    "step": "precombat_main",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 3,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 4,
+    "step": "beginning_of_combat",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 4,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 4,
+    "step": "beginning_of_combat",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 4,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 1
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 5,
+    "step": "declare_attackers",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 5,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 5,
+    "step": "declare_attackers",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 5,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 1
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 6,
+    "step": "declare_blockers",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 6,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 6,
+    "step": "declare_blockers",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 6,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 7,
+    "step": "end_of_combat",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 7,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 7,
+    "step": "end_of_combat",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 7,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 8,
+    "step": "postcombat_main",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 8,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 8,
+    "step": "postcombat_main",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 8,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 9,
+    "step": "end_step",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 9,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 9,
+    "step": "end_step",
+    "turn": 1
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 9,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 1
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 10,
+    "step": "upkeep",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 10,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 10,
+    "step": "upkeep",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 10,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 11,
+    "step": "draw",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 11,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 11,
+    "step": "draw",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 11,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 12,
+    "step": "precombat_main",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 12,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 12,
+    "step": "precombat_main",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 12,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 13,
+    "step": "beginning_of_combat",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 13,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 13,
+    "step": "beginning_of_combat",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 13,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 2
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 14,
+    "step": "declare_attackers",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 14,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 14,
+    "step": "declare_attackers",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 14,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 2
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 15,
+    "step": "declare_blockers",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 15,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 15,
+    "step": "declare_blockers",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 15,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 16,
+    "step": "end_of_combat",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 16,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 16,
+    "step": "end_of_combat",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 16,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 17,
+    "step": "postcombat_main",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 17,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 17,
+    "step": "postcombat_main",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 17,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 18,
+    "step": "end_step",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 18,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 18,
+    "step": "end_step",
+    "turn": 2
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 18,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 2
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 19,
+    "step": "upkeep",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 19,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 19,
+    "step": "upkeep",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 19,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 20,
+    "step": "draw",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 20,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 20,
+    "step": "draw",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 20,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 21,
+    "step": "precombat_main",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 21,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 21,
+    "step": "precombat_main",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 21,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 22,
+    "step": "beginning_of_combat",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 22,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 22,
+    "step": "beginning_of_combat",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 22,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 3
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 23,
+    "step": "declare_attackers",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 23,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 23,
+    "step": "declare_attackers",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 23,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 3
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 24,
+    "step": "declare_blockers",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 24,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 24,
+    "step": "declare_blockers",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 24,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 25,
+    "step": "end_of_combat",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 25,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 25,
+    "step": "end_of_combat",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 25,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 26,
+    "step": "postcombat_main",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 26,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 26,
+    "step": "postcombat_main",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 26,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 27,
+    "step": "end_step",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 27,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 27,
+    "step": "end_step",
+    "turn": 3
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 27,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 3
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 28,
+    "step": "upkeep",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 28,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 28,
+    "step": "upkeep",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 28,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 29,
+    "step": "draw",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 29,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 29,
+    "step": "draw",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 29,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 30,
+    "step": "precombat_main",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 30,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 30,
+    "step": "precombat_main",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 30,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 31,
+    "step": "beginning_of_combat",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 31,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 31,
+    "step": "beginning_of_combat",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 31,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 4
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 32,
+    "step": "declare_attackers",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 32,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 32,
+    "step": "declare_attackers",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 32,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 4
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 33,
+    "step": "declare_blockers",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 33,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 33,
+    "step": "declare_blockers",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 33,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 34,
+    "step": "end_of_combat",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 34,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 34,
+    "step": "end_of_combat",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 34,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 35,
+    "step": "postcombat_main",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 35,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 35,
+    "step": "postcombat_main",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 35,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 36,
+    "step": "end_step",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 36,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 36,
+    "step": "end_step",
+    "turn": 4
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 36,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 4
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 37,
+    "step": "upkeep",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 37,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 37,
+    "step": "upkeep",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 37,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 38,
+    "step": "draw",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 38,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 38,
+    "step": "draw",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 38,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 39,
+    "step": "precombat_main",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 39,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 39,
+    "step": "precombat_main",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 39,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 40,
+    "step": "beginning_of_combat",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 40,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 40,
+    "step": "beginning_of_combat",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 40,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 5
+  },
+  {
+    "attackers": [
+      "object-000141"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 41,
+    "step": "declare_attackers",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 41,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 41,
+    "step": "declare_attackers",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 41,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 5
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 42,
+    "step": "declare_blockers",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 42,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 42,
+    "step": "declare_blockers",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 42,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 43,
+    "step": "end_of_combat",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 43,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 43,
+    "step": "end_of_combat",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 43,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 44,
+    "step": "postcombat_main",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 44,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 44,
+    "step": "postcombat_main",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 44,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 45,
+    "step": "end_step",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 45,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 45,
+    "step": "end_step",
+    "turn": 5
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 45,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 5
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 46,
+    "step": "upkeep",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 46,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 46,
+    "step": "upkeep",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 46,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 47,
+    "step": "draw",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 47,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 47,
+    "step": "draw",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 47,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 48,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 48,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 48,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 48,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 49,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 49,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 49,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 49,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 49,
+    "stack_object_id": "object-000150",
+    "step": "precombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 50,
+    "step": "beginning_of_combat",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 50,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 50,
+    "step": "beginning_of_combat",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 50,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 6
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 51,
+    "step": "declare_attackers",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 51,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 51,
+    "step": "declare_attackers",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 51,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 6
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 52,
+    "step": "declare_blockers",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 52,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 52,
+    "step": "declare_blockers",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 52,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 53,
+    "step": "end_of_combat",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 53,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 53,
+    "step": "end_of_combat",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 53,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 54,
+    "step": "postcombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 54,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 54,
+    "step": "postcombat_main",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 54,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 55,
+    "step": "end_step",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 55,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 55,
+    "step": "end_step",
+    "turn": 6
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 55,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 6
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 56,
+    "step": "upkeep",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 56,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 56,
+    "step": "upkeep",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 56,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 57,
+    "step": "draw",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 57,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 57,
+    "step": "draw",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 57,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 58,
+    "step": "precombat_main",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 58,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 58,
+    "step": "precombat_main",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 58,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 59,
+    "step": "beginning_of_combat",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 59,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 59,
+    "step": "beginning_of_combat",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 59,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 7
+  },
+  {
+    "attackers": [
+      "object-000141"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 60,
+    "step": "declare_attackers",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 60,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 60,
+    "step": "declare_attackers",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 60,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 7
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 61,
+    "step": "declare_blockers",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 61,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 61,
+    "step": "declare_blockers",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 61,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 62,
+    "step": "end_of_combat",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 62,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 62,
+    "step": "end_of_combat",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 62,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 63,
+    "step": "postcombat_main",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 63,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 63,
+    "step": "postcombat_main",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 63,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 64,
+    "step": "end_step",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 64,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 64,
+    "step": "end_step",
+    "turn": 7
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 64,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 7
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 65,
+    "step": "upkeep",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 65,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 65,
+    "step": "upkeep",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 65,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 66,
+    "step": "draw",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 66,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 66,
+    "step": "draw",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 66,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 67,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 67,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 67,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 67,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 68,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 68,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 68,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 68,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 68,
+    "stack_object_id": "object-000154",
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000027",
+    "phase": "precombat_main",
+    "source": "Casey Jones, Vigilante",
+    "stack_object_id": "object-000157",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000001",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 69,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 69,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 69,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 69,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 69,
+    "stack_object_id": "object-000157",
+    "step": "precombat_main",
+    "turn": 8
+  },
+  {
+    "effect": "etb_vigilante",
+    "event": "trigger_resolved",
+    "event_id": "event-000027",
+    "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+    "phase": "precombat_main",
+    "source": "Casey Jones, Vigilante",
+    "source_id": "object-000156",
+    "stack_object_id": "object-000157",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000001",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 70,
+    "step": "beginning_of_combat",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 70,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 70,
+    "step": "beginning_of_combat",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 70,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 8
+  },
+  {
+    "attackers": [],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 71,
+    "step": "declare_attackers",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 71,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 71,
+    "step": "declare_attackers",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 71,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 8
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 72,
+    "step": "declare_blockers",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 72,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 72,
+    "step": "declare_blockers",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 72,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 73,
+    "step": "end_of_combat",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 73,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 73,
+    "step": "end_of_combat",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 73,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 74,
+    "step": "postcombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 74,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 74,
+    "step": "postcombat_main",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 74,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 75,
+    "step": "end_step",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 75,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 75,
+    "step": "end_step",
+    "turn": 8
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 75,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 8
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 76,
+    "step": "upkeep",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 76,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 76,
+    "step": "upkeep",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 76,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 77,
+    "step": "draw",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 77,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 77,
+    "step": "draw",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 77,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 78,
+    "step": "precombat_main",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 78,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 78,
+    "step": "precombat_main",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 78,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 79,
+    "step": "beginning_of_combat",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 79,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 79,
+    "step": "beginning_of_combat",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 79,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 9
+  },
+  {
+    "attackers": [
+      "object-000141"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 80,
+    "step": "declare_attackers",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 80,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 80,
+    "step": "declare_attackers",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 80,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 9
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 81,
+    "step": "declare_blockers",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 81,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 81,
+    "step": "declare_blockers",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 81,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 82,
+    "step": "end_of_combat",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 82,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 82,
+    "step": "end_of_combat",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 82,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 83,
+    "step": "postcombat_main",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 83,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 83,
+    "step": "postcombat_main",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 83,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 9
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000035",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "stack_object_id": "object-000165",
+    "step": "end_step",
+    "trigger_id": "trigger-000002",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 84,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 84,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 84,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 84,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "ending",
+    "priority_epoch": 84,
+    "stack_object_id": "object-000165",
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "effect": "april_end_step_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000035",
+    "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "source_id": "object-000164",
+    "stack_object_id": "object-000165",
+    "step": "end_step",
+    "trigger_id": "trigger-000002",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 85,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 85,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 85,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 85,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 9
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000036",
+    "phase": "beginning",
+    "source": "Casey Jones, Vigilante",
+    "stack_object_id": "object-000167",
+    "step": "upkeep",
+    "trigger_id": "trigger-000003",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 86,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 86,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 86,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 86,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "beginning",
+    "priority_epoch": 86,
+    "stack_object_id": "object-000167",
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "effect": "vigilante_discard",
+    "event": "trigger_resolved",
+    "event_id": "event-000036",
+    "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+    "phase": "beginning",
+    "source": "Casey Jones, Vigilante",
+    "source_id": "object-000156",
+    "stack_object_id": "object-000167",
+    "step": "upkeep",
+    "trigger_id": "trigger-000003",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 87,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 87,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 87,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 87,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 88,
+    "step": "draw",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 88,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 88,
+    "step": "draw",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 88,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 89,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 89,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 89,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 89,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 90,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 90,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 90,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 90,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 90,
+    "stack_object_id": "object-000173",
+    "step": "precombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 91,
+    "step": "beginning_of_combat",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 91,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 91,
+    "step": "beginning_of_combat",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 91,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 10
+  },
+  {
+    "attackers": [
+      "object-000156"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 92,
+    "step": "declare_attackers",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 92,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 92,
+    "step": "declare_attackers",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 92,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 10
+  },
+  {
+    "blocks": [
+      [
+        "object-000156",
+        "object-000141"
+      ],
+      [
+        "object-000156",
+        "object-000164"
+      ]
+    ],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 93,
+    "step": "declare_blockers",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 93,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 93,
+    "step": "declare_blockers",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 93,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 10
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000041",
+    "phase": "combat",
+    "source": "Buzz Bots",
+    "stack_object_id": "object-000177",
+    "step": "combat_damage",
+    "trigger_id": "trigger-000004",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 94,
+    "step": "combat_damage",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 94,
+    "resolution_pending": false,
+    "step": "combat_damage",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 94,
+    "step": "combat_damage",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 94,
+    "resolution_pending": true,
+    "step": "combat_damage",
+    "turn": 10
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "combat",
+    "priority_epoch": 94,
+    "stack_object_id": "object-000177",
+    "step": "combat_damage",
+    "turn": 10
+  },
+  {
+    "effect": "dies_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000041",
+    "oracle_fragment": "When this creature dies, draw a card.",
+    "phase": "combat",
+    "source": "Buzz Bots",
+    "source_id": "object-000141",
+    "stack_object_id": "object-000177",
+    "step": "combat_damage",
+    "trigger_id": "trigger-000004",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 95,
+    "step": "end_of_combat",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 95,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 95,
+    "step": "end_of_combat",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 95,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 96,
+    "step": "postcombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 96,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 96,
+    "step": "postcombat_main",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 96,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 97,
+    "step": "end_step",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 97,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 97,
+    "step": "end_step",
+    "turn": 10
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 97,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 10
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 98,
+    "step": "upkeep",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 98,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 98,
+    "step": "upkeep",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 98,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 99,
+    "step": "draw",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 99,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 99,
+    "step": "draw",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 99,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 100,
+    "step": "precombat_main",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 100,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 100,
+    "step": "precombat_main",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 100,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 101,
+    "step": "beginning_of_combat",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 101,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 101,
+    "step": "beginning_of_combat",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 101,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 11
+  },
+  {
+    "attackers": [
+      "object-000164"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 102,
+    "step": "declare_attackers",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 102,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 102,
+    "step": "declare_attackers",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 102,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 11
+  },
+  {
+    "blocks": [
+      [
+        "object-000164",
+        "object-000175"
+      ]
+    ],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 103,
+    "step": "declare_blockers",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 103,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 103,
+    "step": "declare_blockers",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 103,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 104,
+    "step": "end_of_combat",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 104,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 104,
+    "step": "end_of_combat",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 104,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 105,
+    "step": "postcombat_main",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 105,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 105,
+    "step": "postcombat_main",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 105,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 11
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000049",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "stack_object_id": "object-000185",
+    "step": "end_step",
+    "trigger_id": "trigger-000005",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 106,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 106,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 106,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 106,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "ending",
+    "priority_epoch": 106,
+    "stack_object_id": "object-000185",
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "effect": "april_end_step_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000049",
+    "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "source_id": "object-000164",
+    "stack_object_id": "object-000185",
+    "step": "end_step",
+    "trigger_id": "trigger-000005",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 107,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 107,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 107,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 107,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 11
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 108,
+    "step": "upkeep",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 108,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 108,
+    "step": "upkeep",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 108,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 109,
+    "step": "draw",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 109,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 109,
+    "step": "draw",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 109,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 110,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 110,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 110,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 110,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 111,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 111,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 111,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 111,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 111,
+    "stack_object_id": "object-000190",
+    "step": "precombat_main",
+    "turn": 12
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000051",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000193",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000006",
+    "turn": 12
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000051",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000175",
+    "stack_object_id": "object-000193",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000006",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 112,
+    "step": "beginning_of_combat",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 112,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 112,
+    "step": "beginning_of_combat",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 112,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 12
+  },
+  {
+    "attackers": [
+      "object-000156",
+      "object-000175"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 113,
+    "step": "declare_attackers",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 113,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 113,
+    "step": "declare_attackers",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 113,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 12
+  },
+  {
+    "blocks": [
+      [
+        "object-000175",
+        "object-000182"
+      ],
+      [
+        "object-000175",
+        "object-000184"
+      ]
+    ],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 114,
+    "step": "declare_blockers",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 114,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 114,
+    "step": "declare_blockers",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 114,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 12
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000054",
+    "phase": "combat",
+    "source": "Buzz Bots",
+    "stack_object_id": "object-000196",
+    "step": "combat_damage",
+    "trigger_id": "trigger-000007",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 115,
+    "step": "combat_damage",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 115,
+    "resolution_pending": false,
+    "step": "combat_damage",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 115,
+    "step": "combat_damage",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 115,
+    "resolution_pending": true,
+    "step": "combat_damage",
+    "turn": 12
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "combat",
+    "priority_epoch": 115,
+    "stack_object_id": "object-000196",
+    "step": "combat_damage",
+    "turn": 12
+  },
+  {
+    "effect": "dies_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000054",
+    "oracle_fragment": "When this creature dies, draw a card.",
+    "phase": "combat",
+    "source": "Buzz Bots",
+    "source_id": "object-000184",
+    "stack_object_id": "object-000196",
+    "step": "combat_damage",
+    "trigger_id": "trigger-000007",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 116,
+    "step": "end_of_combat",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 116,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 116,
+    "step": "end_of_combat",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 116,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 117,
+    "step": "postcombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 117,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 117,
+    "step": "postcombat_main",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 117,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 118,
+    "step": "end_step",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 118,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 118,
+    "step": "end_step",
+    "turn": 12
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 118,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 12
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 119,
+    "step": "upkeep",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 119,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 119,
+    "step": "upkeep",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 119,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 120,
+    "step": "draw",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 120,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 120,
+    "step": "draw",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 120,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 121,
+    "step": "precombat_main",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 121,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 121,
+    "step": "precombat_main",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 121,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 122,
+    "step": "beginning_of_combat",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 122,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 122,
+    "step": "beginning_of_combat",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 122,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 13
+  },
+  {
+    "attackers": [
+      "object-000164"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 123,
+    "step": "declare_attackers",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 123,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 123,
+    "step": "declare_attackers",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 123,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 13
+  },
+  {
+    "blocks": [
+      [
+        "object-000164",
+        "object-000192"
+      ]
+    ],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 124,
+    "step": "declare_blockers",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 124,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 124,
+    "step": "declare_blockers",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 124,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 125,
+    "step": "end_of_combat",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 125,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 125,
+    "step": "end_of_combat",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 125,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 126,
+    "step": "postcombat_main",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 126,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 126,
+    "step": "postcombat_main",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 126,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 13
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000058",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "stack_object_id": "object-000200",
+    "step": "end_step",
+    "trigger_id": "trigger-000008",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 127,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 127,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 127,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 127,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "ending",
+    "priority_epoch": 127,
+    "stack_object_id": "object-000200",
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "effect": "april_end_step_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000058",
+    "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "source_id": "object-000164",
+    "stack_object_id": "object-000200",
+    "step": "end_step",
+    "trigger_id": "trigger-000008",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 128,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 128,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 128,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 128,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 13
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 129,
+    "step": "upkeep",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 129,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 129,
+    "step": "upkeep",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 129,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 130,
+    "step": "draw",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 130,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 130,
+    "step": "draw",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 130,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 131,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 131,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 131,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 131,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 132,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 132,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 132,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 132,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 132,
+    "stack_object_id": "object-000202",
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000060",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000205",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000011",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000060",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000206",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000010",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000060",
+    "phase": "precombat_main",
+    "source": "Casey Jones, Vigilante",
+    "stack_object_id": "object-000207",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000009",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 133,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 133,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 133,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 133,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 133,
+    "stack_object_id": "object-000207",
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "effect": "etb_vigilante",
+    "event": "trigger_resolved",
+    "event_id": "event-000060",
+    "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+    "phase": "precombat_main",
+    "source": "Casey Jones, Vigilante",
+    "source_id": "object-000204",
+    "stack_object_id": "object-000207",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000009",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 134,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 134,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 134,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 134,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 134,
+    "stack_object_id": "object-000206",
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000060",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000175",
+    "stack_object_id": "object-000206",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000010",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 135,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 135,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 135,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 135,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 135,
+    "stack_object_id": "object-000205",
+    "step": "precombat_main",
+    "turn": 14
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000060",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000192",
+    "stack_object_id": "object-000205",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000011",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 136,
+    "step": "beginning_of_combat",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 136,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 136,
+    "step": "beginning_of_combat",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 136,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 14
+  },
+  {
+    "attackers": [
+      "object-000156",
+      "object-000175",
+      "object-000192"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 137,
+    "step": "declare_attackers",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 137,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 137,
+    "step": "declare_attackers",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 137,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 14
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 138,
+    "step": "declare_blockers",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 138,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 138,
+    "step": "declare_blockers",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 138,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 139,
+    "step": "end_of_combat",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 139,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 139,
+    "step": "end_of_combat",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 139,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000063",
+    "phase": "postcombat_main",
+    "source": "Ravenous Robots",
+    "stack_object_id": "object-000214",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000012",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 140,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 140,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 140,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 140,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "postcombat_main",
+    "priority_epoch": 140,
+    "stack_object_id": "object-000214",
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000065",
+    "phase": "postcombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000216",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000014",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000065",
+    "phase": "postcombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000217",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000013",
+    "turn": 14
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000065",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "postcombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000175",
+    "stack_object_id": "object-000217",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000013",
+    "turn": 14
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000065",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "postcombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000192",
+    "stack_object_id": "object-000216",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000014",
+    "turn": 14
+  },
+  {
+    "effect": "create_token",
+    "event": "trigger_resolved",
+    "event_id": "event-000063",
+    "oracle_fragment": "Whenever you cast an artifact spell, create a 1/1 colorless Robot artifact creature token.",
+    "phase": "postcombat_main",
+    "source": "Ravenous Robots",
+    "source_id": "object-000145",
+    "stack_object_id": "object-000214",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000012",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 141,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 141,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 141,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 141,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "postcombat_main",
+    "priority_epoch": 141,
+    "stack_object_id": "object-000213",
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000066",
+    "phase": "postcombat_main",
+    "source": "Spicy Oatmeal Pizza",
+    "stack_object_id": "object-000219",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000015",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 142,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 142,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 142,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 142,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "postcombat_main",
+    "priority_epoch": 142,
+    "stack_object_id": "object-000219",
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "effect": "deal_damage",
+    "event": "trigger_resolved",
+    "event_id": "event-000066",
+    "oracle_fragment": "When this artifact enters, it deals 4 damage to any target and 3 damage to you.",
+    "phase": "postcombat_main",
+    "source": "Spicy Oatmeal Pizza",
+    "source_id": "object-000218",
+    "stack_object_id": "object-000219",
+    "step": "postcombat_main",
+    "trigger_id": "trigger-000015",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 143,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 143,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 143,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 143,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 144,
+    "step": "end_step",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 144,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 144,
+    "step": "end_step",
+    "turn": 14
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 144,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 14
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 145,
+    "step": "upkeep",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 145,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 145,
+    "step": "upkeep",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 145,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 146,
+    "step": "draw",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 146,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 146,
+    "step": "draw",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 146,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 147,
+    "step": "precombat_main",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 147,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 147,
+    "step": "precombat_main",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 147,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 148,
+    "step": "beginning_of_combat",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 148,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 148,
+    "step": "beginning_of_combat",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 148,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 15
+  },
+  {
+    "attackers": [
+      "object-000164"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 149,
+    "step": "declare_attackers",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 149,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 149,
+    "step": "declare_attackers",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 149,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 15
+  },
+  {
+    "blocks": [
+      [
+        "object-000164",
+        "object-000215"
+      ]
+    ],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 150,
+    "step": "declare_blockers",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 150,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 150,
+    "step": "declare_blockers",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 150,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 151,
+    "step": "end_of_combat",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 151,
+    "resolution_pending": false,
+    "step": "end_of_combat",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 151,
+    "step": "end_of_combat",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 151,
+    "resolution_pending": true,
+    "step": "end_of_combat",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 152,
+    "step": "postcombat_main",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 152,
+    "resolution_pending": false,
+    "step": "postcombat_main",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 152,
+    "step": "postcombat_main",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "postcombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 152,
+    "resolution_pending": true,
+    "step": "postcombat_main",
+    "turn": 15
+  },
+  {
+    "controller": "april-oneil-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000072",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "stack_object_id": "object-000224",
+    "step": "end_step",
+    "trigger_id": "trigger-000016",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 153,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 153,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 153,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 153,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "ending",
+    "priority_epoch": 153,
+    "stack_object_id": "object-000224",
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "effect": "april_end_step_draw",
+    "event": "trigger_resolved",
+    "event_id": "event-000072",
+    "oracle_fragment": "At the beginning of your end step, draw a card for each card type among spells you've cast this turn.",
+    "phase": "ending",
+    "source": "April O'Neil, Hacktivist",
+    "source_id": "object-000164",
+    "stack_object_id": "object-000224",
+    "step": "end_step",
+    "trigger_id": "trigger-000016",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 154,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 154,
+    "resolution_pending": false,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "event": "priority_granted",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 154,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "ending",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 154,
+    "resolution_pending": true,
+    "step": "end_step",
+    "turn": 15
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000073",
+    "phase": "beginning",
+    "source": "Casey Jones, Vigilante",
+    "stack_object_id": "object-000225",
+    "step": "upkeep",
+    "trigger_id": "trigger-000017",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 155,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 155,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 155,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 155,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "beginning",
+    "priority_epoch": 155,
+    "stack_object_id": "object-000225",
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "effect": "vigilante_discard",
+    "event": "trigger_resolved",
+    "event_id": "event-000073",
+    "oracle_fragment": "When Casey Jones enters, draw three cards. At the beginning of your next upkeep, discard three cards at random.",
+    "phase": "beginning",
+    "source": "Casey Jones, Vigilante",
+    "source_id": "object-000204",
+    "stack_object_id": "object-000225",
+    "step": "upkeep",
+    "trigger_id": "trigger-000017",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 156,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 156,
+    "resolution_pending": false,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 156,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 156,
+    "resolution_pending": true,
+    "step": "upkeep",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 157,
+    "step": "draw",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 157,
+    "resolution_pending": false,
+    "step": "draw",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 157,
+    "step": "draw",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "beginning",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 157,
+    "resolution_pending": true,
+    "step": "draw",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 158,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 158,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 158,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 158,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 159,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 159,
+    "resolution_pending": false,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 159,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "precombat_main",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 159,
+    "resolution_pending": true,
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "event": "stack_resolution_permitted",
+    "phase": "precombat_main",
+    "priority_epoch": 159,
+    "stack_object_id": "object-000231",
+    "step": "precombat_main",
+    "turn": 16
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000076",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000234",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000019",
+    "turn": 16
+  },
+  {
+    "controller": "casey-jones-p0.1",
+    "event": "trigger_stacked",
+    "event_id": "event-000076",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "stack_object_id": "object-000235",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000018",
+    "turn": 16
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000076",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000175",
+    "stack_object_id": "object-000235",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000018",
+    "turn": 16
+  },
+  {
+    "effect": "alliance_pt",
+    "event": "trigger_resolved",
+    "event_id": "event-000076",
+    "oracle_fragment": "Alliance — Whenever another creature you control enters, this creature gets +1/+0 until end of turn.",
+    "phase": "precombat_main",
+    "source": "Mutant Town Musicians",
+    "source_id": "object-000192",
+    "stack_object_id": "object-000234",
+    "step": "precombat_main",
+    "trigger_id": "trigger-000019",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 160,
+    "step": "beginning_of_combat",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 160,
+    "resolution_pending": false,
+    "step": "beginning_of_combat",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 160,
+    "step": "beginning_of_combat",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 160,
+    "resolution_pending": true,
+    "step": "beginning_of_combat",
+    "turn": 16
+  },
+  {
+    "attackers": [
+      "object-000156",
+      "object-000175",
+      "object-000192"
+    ],
+    "event": "attackers_declared",
+    "phase": "combat",
+    "step": "declare_attackers",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 161,
+    "step": "declare_attackers",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 161,
+    "resolution_pending": false,
+    "step": "declare_attackers",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 161,
+    "step": "declare_attackers",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 161,
+    "resolution_pending": true,
+    "step": "declare_attackers",
+    "turn": 16
+  },
+  {
+    "blocks": [],
+    "event": "blockers_declared",
+    "phase": "combat",
+    "step": "declare_blockers",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 162,
+    "step": "declare_blockers",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 1,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "casey-jones-p0.1",
+    "player_index": 1,
+    "priority_epoch": 162,
+    "resolution_pending": false,
+    "step": "declare_blockers",
+    "turn": 16
+  },
+  {
+    "event": "priority_granted",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 162,
+    "step": "declare_blockers",
+    "turn": 16
+  },
+  {
+    "consecutive_passes": 2,
+    "event": "priority_passed",
+    "phase": "combat",
+    "player": "april-oneil-p0.1",
+    "player_index": 0,
+    "priority_epoch": 162,
+    "resolution_pending": true,
+    "step": "declare_blockers",
+    "turn": 16
+  }
+]
