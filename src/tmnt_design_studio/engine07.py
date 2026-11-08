@@ -8466,7 +8466,9 @@ class Game(
             raise ValueError("combat damage is not ready to advance")
         if self.stack or self.priority_state is not None:
             return
-        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE and not self.terminal:
+        if self.terminal:
+            return
+        if self._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE:
             self._start_combat_damage_step(CombatDamageStepKind.REGULAR, 2, 2)
         else:
             self._combat_damage_step_kind = CombatDamageStepKind.COMPLETE
