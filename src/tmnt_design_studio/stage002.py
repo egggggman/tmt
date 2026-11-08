@@ -13,7 +13,14 @@ from pathlib import Path
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import opportunity_context_key, semantic_key
-from tmnt_design_studio.engine07 import ActionKind, Game, TurnStep, load_deck, load_facts
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    Game,
+    TurnStep,
+    load_deck,
+    load_facts,
+)
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
 
@@ -469,14 +476,49 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
             _drain_priority(game, pilot)
 
 
+def _matching_main_followup(
+    options: tuple[ActionOption, ...], followups: tuple[str, ...]
+) -> ActionOption | None:
+    """Return a freshly legal engine option matching an advertised follow-up."""
+    for descriptor in followups:
+        parts = descriptor.split(":", 2)
+        if len(parts) == 2 and parts[0] in {"cast", "cast-graveyard"}:
+            kind, object_id, fragment = ActionKind.CAST, parts[1], None
+        elif len(parts) == 3 and parts[0] in {
+            "activate",
+            "activate-hand",
+            "activate-graveyard",
+        }:
+            kind, object_id, fragment = ActionKind.ACTIVATE_ABILITY, parts[1], parts[2]
+        else:
+            continue
+        match = next(
+            (
+                option
+                for option in options
+                if option.kind is kind
+                and option.object_id == object_id
+                and (fragment is None or option.oracle_fragment == fragment)
+            ),
+            None,
+        )
+        if match is not None:
+            return match
+    return None
+
+
 def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
     """Apply the established land/activation/spell policy in either main phase."""
     active = game.active_player
     for stage in ("land", "activate", "damage", "destroy", "creature"):
         attempts = 0
+        followups: tuple[str, ...] = ()
         while not game.terminal:
             options = game.legal_main_actions(active)
-            choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
+            choice = _matching_main_followup(options, followups) if followups else None
+            if choice is None:
+                followups = ()
+                choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
             _checked_action(
                 game, lambda choice=choice: game.execute_main_action(choice), "main action"
             )
@@ -486,6 +528,7 @@ def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
             # reported useful follow-up, with a hard cap against faulty pilot loops.
             if stage != "activate" or not choice.mana_followups or attempts >= 3:
                 break
+            followups = choice.mana_followups
 
 
 def _wire_damage_target_chooser(game: Game, pilot: Pilot) -> None:

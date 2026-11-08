@@ -2,13 +2,19 @@
 
 from tmnt_design_studio.engine07 import (
     ActionKind,
+    ActionOption,
     CardFact,
     Game,
+    StrikeKeyword,
     TriggeredAbilityObject,
     TriggerEffect,
 )
 from tmnt_design_studio.pilot07 import AcceptancePilot
-from tmnt_design_studio.stage002 import _run_main_action_stages, _wire_damage_target_chooser
+from tmnt_design_studio.stage002 import (
+    _matching_main_followup,
+    _run_main_action_stages,
+    _wire_damage_target_chooser,
+)
 
 LAND = CardFact("Forest", "", 0, "Basic Land — Forest")
 BEAR = CardFact("Bear", "{1}{G}", 2, "Creature — Bear", "", 2, 2)
@@ -23,6 +29,15 @@ ARTIFACT_CREATURE = CardFact(
     "Synthetic Artifact Creature", "{R}", 1, "Artifact Creature — Test", "", 1, 1
 )
 RED_CREATURE = CardFact("Synthetic Red Creature", "{R}", 1, "Creature — Test", "", 1, 1)
+RESTRICTED_ABILITY_CREATURE = CardFact(
+    "Synthetic Restricted Ability Creature",
+    "",
+    0,
+    "Creature — Test",
+    "{R}: Synthetic Restricted Ability Creature gains first strike until end of turn.",
+    2,
+    2,
+)
 PUNKS = CardFact(
     "Purple Dragon Punks",
     "{2}{R}",
@@ -163,6 +178,104 @@ def test_main_action_driver_rechecks_after_useful_punks_mana_activation():
 
     assert source.tapped
     assert any(permanent.card == ARTIFACT_CREATURE for permanent in game.players[0].battlefield)
+
+
+def test_main_action_driver_prefers_advertised_activated_ability_followup():
+    game = make_game()
+    punks = game.create_permanent(PUNKS, 0, summoning_sick=False)
+    ability_source = game.create_permanent(RESTRICTED_ABILITY_CREATURE, 0, summoning_sick=False)
+    options = game.legal_main_actions(0)
+    punks_option = next(item for item in options if item.object_id == punks.object_id)
+    assert punks_option.mana_followups == (
+        f"activate:{ability_source.object_id}:{RESTRICTED_ABILITY_CREATURE.oracle_text}",
+    )
+
+    _run_main_action_stages(game, AcceptancePilot())
+
+    activation = next(
+        event
+        for event in game.events
+        if event.get("event") == "activation_announced"
+        and event.get("source_id") == ability_source.object_id
+    )
+    production = next(
+        event
+        for event in game.events
+        if event.get("event") == "floating_mana_produced"
+        and event.get("source_id") == punks.object_id
+    )
+    allocation = next(
+        item
+        for item in game.floating_mana.consumptions(0)
+        if item.payment_id == activation["stack_object_id"]
+    )
+    assert allocation.source_event_id == production["stack_object_id"]
+    assert allocation.spending_context.value == "activated_ability"
+    assert StrikeKeyword.FIRST_STRIKE in game.evaluated_strike_keywords(ability_source)
+
+
+def test_unavailable_advertised_followup_is_ignored_in_favor_of_current_options():
+    current = ActionOption(ActionKind.ACTIVATE_ABILITY, 0, "live", oracle_fragment="{R}: Live.")
+    unrelated = ActionOption(ActionKind.PASS, 0)
+
+    assert (
+        _matching_main_followup(
+            (current, unrelated),
+            ("cast:stale-card", "activate:live:{R}: Live."),
+        )
+        == current
+    )
+    assert _matching_main_followup((unrelated,), ("cast:stale-card",)) is None
+
+
+def test_main_action_followup_rechecks_stop_after_three_mana_activations():
+    class RepeatingManaGame:
+        active_player = 0
+        terminal = False
+        priority_state = None
+
+        def __init__(self):
+            self.enumerations = 0
+            self.executions = 0
+            self.mana_executions = 0
+
+        def legal_main_actions(self, _player):
+            self.enumerations += 1
+            if 2 <= self.enumerations <= 4:
+                return (
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        0,
+                        "mana-source",
+                        mana_followups=("cast:no-longer-available",),
+                    ),
+                    ActionOption(ActionKind.PASS, 0),
+                )
+            return (ActionOption(ActionKind.PASS, 0),)
+
+        def authoritative_state_fingerprint(self):
+            return str(self.executions)
+
+        def pilot_view(self, _player):
+            return None
+
+        def execute_main_action(self, option):
+            self.executions += 1
+            if option.kind is ActionKind.ACTIVATE_ABILITY:
+                self.mana_executions += 1
+            return True
+
+    class RepeatingManaPilot:
+        def choose_main_action(self, _view, options, _stage):
+            return next(
+                (item for item in options if item.kind is ActionKind.ACTIVATE_ABILITY),
+                next(item for item in options if item.kind is ActionKind.PASS),
+            )
+
+    game = RepeatingManaGame()
+    _run_main_action_stages(game, RepeatingManaPilot())
+
+    assert game.mana_executions == 3
 
 
 def test_punks_is_not_activated_for_a_nonartifact_spell_without_an_ability_followup():
