@@ -473,12 +473,28 @@ def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
     """Apply the established land/activation/spell policy in either main phase."""
     active = game.active_player
     for stage in ("land", "activate", "damage", "destroy", "creature"):
-        if game.terminal:
-            return
-        options = game.legal_main_actions(active)
-        choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
-        _checked_action(game, lambda choice=choice: game.execute_main_action(choice), "main action")
-        _drain_priority(game, pilot)
+        attempts = 0
+        while not game.terminal:
+            options = game.legal_main_actions(active)
+            choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
+            _checked_action(
+                game, lambda choice=choice: game.execute_main_action(choice), "main action"
+            )
+            _drain_priority(game, pilot)
+            attempts += 1
+            # Immediate mana abilities do not open priority. Re-enumerate once per
+            # reported useful follow-up, with a hard cap against faulty pilot loops.
+            if stage != "activate" or not choice.mana_followups or attempts >= 3:
+                break
+
+
+def _wire_damage_target_chooser(game: Game, pilot: Pilot) -> None:
+    """Connect the engine's offered-target callback to this pilot's public view."""
+    chooser = getattr(pilot, "choose_damage_target", None)
+    if callable(chooser):
+        game.damage_target_chooser = lambda controller, _source_id, offered: chooser(
+            game.pilot_view(controller), offered
+        )
 
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
@@ -628,6 +644,7 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
+    _wire_damage_target_chooser(game, chosen_pilot)
     while not game.terminal and game.turn < 120:
         if game.turn >= 119:
             raise RuntimeError("attempted to begin turn 120")

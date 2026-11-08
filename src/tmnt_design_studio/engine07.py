@@ -166,6 +166,9 @@ class ActionOption:
     blocks: tuple[tuple[str, str], ...] = ()
     priority_epoch: int | None = None
     choice_ids: tuple[str, ...] = ()
+    mana_followups: tuple[str, ...] = ()
+    uses_restricted_mana: bool = False
+    restricted_mana_ability: bool = False
 
 
 @dataclass(frozen=True)
@@ -7666,6 +7669,49 @@ class Game(
         options.extend(self.legal_hand_activated_ability_actions(player_index))
         options.extend(self.legal_activated_ability_actions(player_index))
         options.extend(self.legal_graveyard_activated_ability_actions(player_index))
+        annotated = []
+        for option in options:
+            source = self._objects.get(option.object_id or "")
+            if option.kind is ActionKind.ACTIVATE_ABILITY and isinstance(source, Permanent):
+                semantics = self.interpreter.activated_ability_semantics(
+                    source.card, option.oracle_fragment or ""
+                )
+                if (
+                    semantics is not None
+                    and semantics.coverage.fully_supported
+                    and semantics.program.effect_kind
+                    in {
+                        ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+                        ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+                    }
+                ):
+                    colors = (
+                        (option.choice_ids[0],)
+                        if option.choice_ids
+                        else (semantics.program.mana_color or "",)
+                    )
+                    followups = tuple(
+                        dict.fromkeys(
+                            followup
+                            for color in colors
+                            if color
+                            for followup in self._mana_followups_for(
+                                player_index,
+                                source,
+                                color,
+                                semantics.program.mana_allowed_contexts,
+                            )
+                        )
+                    )
+                    option = replace(
+                        option,
+                        mana_followups=followups,
+                        restricted_mana_ability=(
+                            semantics.program.mana_allowed_contexts is not None
+                        ),
+                    )
+            annotated.append(option)
+        options = annotated
         options.append(ActionOption(ActionKind.PASS, player_index))
         return tuple(options)
 
@@ -7711,6 +7757,238 @@ class Game(
                     ("timing", self.step.value),
                 ),
             )
+
+    def _can_pay_with_hypothetical_mana(
+        self,
+        player_index: int,
+        requirement: ManaRequirement,
+        context: ManaSpendingContext,
+        color: str,
+        *,
+        excluded_source: Permanent | None = None,
+    ) -> bool:
+        """Purely check whether one hypothetical mana would enable this payment."""
+        pool = self.floating_mana.snapshot(player_index, context)
+        pool[color] = pool.get(color, 0) + 1
+        available = [
+            permanent
+            for permanent in self.players[player_index].battlefield
+            if permanent.card.is_land and not permanent.tapped and permanent is not excluded_source
+        ]
+        return self._select_mana_sources(requirement, available, pool) is not None
+
+    def _mana_followups_for(
+        self,
+        player_index: int,
+        mana_source: Permanent,
+        color: str,
+        allowed_contexts: tuple[str, ...] | None,
+        *,
+        priority: bool = False,
+    ) -> tuple[str, ...]:
+        """Describe newly enabled supported actions without authorizing or mutating them."""
+        if not allowed_contexts:
+            return ()
+        contexts = set(allowed_contexts)
+        followups: list[str] = []
+        if "artifact_spell" in contexts and not priority:
+            for card in self.players[player_index].hand:
+                if "Artifact" not in self._card_types_from_type_line(card.card.type_line):
+                    continue
+                if self.payment_plan(player_index, card) is not None:
+                    continue
+                program = self.interpreter.cast_program(card.card)
+                if program.kind not in {
+                    CastKind.CREATURE,
+                    CastKind.PERMANENT,
+                    CastKind.DRAW_CARDS,
+                    CastKind.DAMAGE_3_OPPOSING_CREATURE,
+                    CastKind.DEAL_DAMAGE,
+                    CastKind.DESTROY_ARTIFACT_ENCHANTMENT_OR_POWER_4_CREATURE,
+                }:
+                    continue
+                requirement = self.mana_requirement(card)
+                if requirement is not None and self._can_pay_with_hypothetical_mana(
+                    player_index,
+                    requirement,
+                    ManaSpendingContext.ARTIFACT_SPELL,
+                    color,
+                ):
+                    followups.append(f"cast:{card.object_id}")
+            graveyard_permissions = tuple(
+                (permission, fragment)
+                for source in self.players[player_index].battlefield
+                if (permission := self._graveyard_cast_permission(source)) is not None
+                for fragment in (permission[1],)
+            )
+            for card in self.players[player_index].graveyard:
+                if (
+                    not card.card.is_creature
+                    or self.payment_plan(player_index, card, allow_graveyard=True) is not None
+                ):
+                    continue
+                if not any(
+                    self._graveyard_card_qualifies(card.card, permission[0])
+                    for permission, _fragment in graveyard_permissions
+                ):
+                    continue
+                program = self.interpreter.cast_program(card.card)
+                requirement = self.mana_requirement(card)
+                if (
+                    program.kind is not CastKind.UNSUPPORTED
+                    and requirement is not None
+                    and self._can_pay_with_hypothetical_mana(
+                        player_index,
+                        requirement,
+                        ManaSpendingContext.ARTIFACT_SPELL,
+                        color,
+                    )
+                ):
+                    followups.append(f"cast-graveyard:{card.object_id}")
+        if "activated_ability" not in contexts:
+            return tuple(followups)
+
+        for card in self.players[player_index].hand:
+            for fragment in self.interpreter.fragments(card.card):
+                semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind is not ActivatedEffectKind.SEARCH_LAND_TYPE
+                    or not semantics.program.cost.discard_source
+                    or self._hand_activation_mana_sources(player_index, card, fragment) is not None
+                ):
+                    continue
+                requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
+                if requirement is not None and self._can_pay_with_hypothetical_mana(
+                    player_index,
+                    requirement,
+                    ManaSpendingContext.ACTIVATED_ABILITY,
+                    color,
+                ):
+                    followups.append(f"activate-hand:{card.object_id}:{fragment}")
+
+        for card in self.players[player_index].graveyard:
+            for fragment in self.interpreter.fragments(card.card):
+                semantics = self.interpreter.activated_ability_semantics(card.card, fragment)
+                if (
+                    semantics is None
+                    or not semantics.coverage.fully_supported
+                    or semantics.program.effect_kind
+                    is not ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
+                    or self._graveyard_activation_mana_sources(player_index, card, fragment)
+                    is not None
+                ):
+                    continue
+                requirement = self.activation_mana_requirement(semantics.program.cost.mana_cost)
+                if requirement is not None and self._can_pay_with_hypothetical_mana(
+                    player_index,
+                    requirement,
+                    ManaSpendingContext.ACTIVATED_ABILITY,
+                    color,
+                ):
+                    followups.append(f"activate-graveyard:{card.object_id}:{fragment}")
+
+        if priority:
+            legal_targets = set(self._legal_counter_target_ids(player_index))
+            priority_effects = {
+                ActivatedEffectKind.COUNTER_TARGET_SPELL,
+                ActivatedEffectKind.GRANT_REACH_UNTIL_EOT,
+            }
+        else:
+            legal_targets = set()
+            priority_effects = None
+        for source in self.players[player_index].battlefield:
+            if source is mana_source:
+                continue
+            for fragment in self.interpreter.fragments(source.rules_card):
+                semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                if semantics is None or not semantics.coverage.fully_supported:
+                    continue
+                program = semantics.program
+                if program.effect_kind in {
+                    ActivatedEffectKind.ADD_ANY_COLOR_MANA,
+                    ActivatedEffectKind.ADD_FIXED_COLOR_MANA,
+                }:
+                    continue
+                if priority_effects is not None and program.effect_kind not in priority_effects:
+                    continue
+                if not priority and (
+                    self.stack
+                    or self.step not in {TurnStep.PRECOMBAT_MAIN, TurnStep.POSTCOMBAT_MAIN}
+                ):
+                    continue
+                cost = program.cost
+                if cost.discard_source or cost.sacrifice_source or cost.remove_counter_target:
+                    continue
+                requirement = self.activation_mana_requirement(cost.mana_cost)
+                if requirement is None:
+                    continue
+                if cost.tap_source and (
+                    source.tapped
+                    or (
+                        source.card.is_creature
+                        and source.summoning_sick
+                        and not self._has_keyword(source, "Haste")
+                        and not self.has_temporary_keyword(source, TemporaryKeyword.HASTE)
+                    )
+                ):
+                    continue
+                if program.effect_kind is ActivatedEffectKind.COUNTER_TARGET_SPELL:
+                    if not legal_targets:
+                        continue
+                elif priority and program.effect_kind is ActivatedEffectKind.GRANT_REACH_UNTIL_EOT:
+                    if not self._attackers_declared or self.step is not TurnStep.DECLARE_ATTACKERS:
+                        continue
+                elif program.effect_kind is ActivatedEffectKind.MUTAGEN_COUNTER:
+                    if not any(
+                        permanent.card.is_creature
+                        and self.is_authoritative(permanent, "battlefield")
+                        for player in self.players
+                        for permanent in player.battlefield
+                    ):
+                        continue
+                elif (
+                    program.effect_kind
+                    is ActivatedEffectKind.RETURN_ANOTHER_CREATURE_YOU_CONTROL_TO_OWNERS_HAND
+                ):
+                    if not any(
+                        permanent is not source and permanent.card.is_creature
+                        for permanent in self.players[player_index].battlefield
+                    ):
+                        continue
+                elif program.effect_kind is ActivatedEffectKind.ATTACH_EQUIPMENT:
+                    if not any(
+                        permanent.card.is_creature and permanent.controller == player_index
+                        for permanent in self.players[player_index].battlefield
+                    ):
+                        continue
+                elif program.target_count or program.choices_required:
+                    continue
+                if self.activation_payment_plan(player_index, source, fragment) is not None:
+                    continue
+                if self._can_pay_with_hypothetical_mana(
+                    player_index,
+                    requirement,
+                    ManaSpendingContext.ACTIVATED_ABILITY,
+                    color,
+                    excluded_source=source if cost.tap_source else None,
+                ):
+                    followups.append(f"activate:{source.object_id}:{fragment}")
+        return tuple(followups)
+
+    def _uses_restricted_mana(self, plan: ActivationPaymentPlan | None, player_index: int) -> bool:
+        if plan is None or plan.mana_payment is None:
+            return False
+        restricted = {
+            lot.production.event_id
+            for lot in self.floating_mana.lots(player_index)
+            if lot.production.allowed_contexts is not None
+        }
+        return any(
+            allocation.production_event_id in restricted
+            for allocation in plan.mana_payment.allocations
+        )
 
     def _graveyard_cast_permission(self, source: Permanent) -> tuple[int, str] | None:
         if not self.is_authoritative(source, "battlefield"):
@@ -7933,11 +8211,12 @@ class Game(
         for source in self.players[player_index].battlefield:
             for fragment in self.interpreter.fragments(source.rules_card):
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                plan = self.activation_payment_plan(player_index, source, fragment)
                 if (
                     semantics is None
                     or not semantics.coverage.fully_supported
                     or semantics.program.effect_kind is not ActivatedEffectKind.COUNTER_TARGET_SPELL
-                    or self.activation_payment_plan(player_index, source, fragment) is None
+                    or plan is None
                 ):
                     continue
                 for target_id in target_ids:
@@ -7949,6 +8228,7 @@ class Game(
                             target_id=target_id,
                             oracle_fragment=fragment,
                             priority_epoch=state.epoch,
+                            uses_restricted_mana=self._uses_restricted_mana(plan, player_index),
                         )
                     )
         return tuple(options)
@@ -7962,12 +8242,13 @@ class Game(
         for source in self.players[player_index].battlefield:
             for fragment in self.interpreter.fragments(source.rules_card):
                 semantics = self.interpreter.activated_ability_semantics(source.card, fragment)
+                plan = self.activation_payment_plan(player_index, source, fragment)
                 if (
                     semantics is None
                     or not semantics.coverage.fully_supported
                     or semantics.program.effect_kind
                     is not ActivatedEffectKind.GRANT_REACH_UNTIL_EOT
-                    or self.activation_payment_plan(player_index, source, fragment) is None
+                    or plan is None
                 ):
                     continue
                 options.append(
@@ -7977,6 +8258,7 @@ class Game(
                         object_id=source.object_id,
                         oracle_fragment=fragment,
                         priority_epoch=state.epoch,
+                        uses_restricted_mana=self._uses_restricted_mana(plan, player_index),
                     )
                 )
         return tuple(options)
@@ -8006,6 +8288,7 @@ class Game(
                     if semantics.program.effect_kind is ActivatedEffectKind.ADD_ANY_COLOR_MANA
                     else ((),)
                 )
+                contexts = semantics.program.mana_allowed_contexts
                 options.extend(
                     ActionOption(
                         ActionKind.ACTIVATE_ABILITY,
@@ -8014,6 +8297,14 @@ class Game(
                         oracle_fragment=fragment,
                         priority_epoch=state.epoch,
                         choice_ids=choice_ids,
+                        mana_followups=self._mana_followups_for(
+                            player_index,
+                            source,
+                            choice_ids[0] if choice_ids else semantics.program.mana_color or "",
+                            contexts,
+                            priority=True,
+                        ),
+                        restricted_mana_ability=(contexts is not None),
                     )
                     for choice_ids in choices
                 )
@@ -9397,18 +9688,23 @@ class Game(
 
     def legal_hand_activated_ability_actions(self, player_index: int) -> tuple[ActionOption, ...]:
         """Offer Oracle-derived landcycling from hand at its ordinary instant timing."""
-        return tuple(
-            ActionOption(
-                ActionKind.ACTIVATE_ABILITY,
-                player_index,
-                object_id=card.object_id,
-                oracle_fragment=fragment,
-                priority_epoch=self.priority_state.epoch if self.priority_state else None,
-            )
-            for card in self.players[player_index].hand
-            for fragment in self.interpreter.fragments(card.card)
-            if self._hand_activation_mana_sources(player_index, card, fragment) is not None
-        )
+        options = []
+        for card in self.players[player_index].hand:
+            for fragment in self.interpreter.fragments(card.card):
+                plan = self._hand_activation_mana_sources(player_index, card, fragment)
+                if plan is None:
+                    continue
+                options.append(
+                    ActionOption(
+                        ActionKind.ACTIVATE_ABILITY,
+                        player_index,
+                        object_id=card.object_id,
+                        oracle_fragment=fragment,
+                        priority_epoch=self.priority_state.epoch if self.priority_state else None,
+                        uses_restricted_mana=self._uses_restricted_mana(plan, player_index),
+                    )
+                )
+        return tuple(options)
 
     def legal_graveyard_activated_ability_actions(
         self, player_index: int
@@ -9441,6 +9737,7 @@ class Game(
                     is None
                 ):
                     continue
+                plan = self._graveyard_activation_mana_sources(player_index, source, fragment)
                 options.append(
                     ActionOption(
                         ActionKind.ACTIVATE_ABILITY,
@@ -9448,6 +9745,7 @@ class Game(
                         object_id=source.object_id,
                         oracle_fragment=fragment,
                         priority_epoch=state.epoch if state is not None else None,
+                        uses_restricted_mana=self._uses_restricted_mana(plan, player_index),
                     )
                 )
         return tuple(options)
