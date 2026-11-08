@@ -382,7 +382,7 @@ def test_failed_transition_does_not_clear_or_fabricate_live_combat_state():
     assert before[-1] == (first,)
 
 
-def test_first_step_game_end_is_coherent_without_postcombat_transition():
+def test_lethal_first_strike_damage_ends_without_advancing_terminal_combat():
     current = game()
     attacker = permanent(current, FIRST, 0)
     declare(current, attacker)
@@ -391,12 +391,58 @@ def test_first_step_game_end_is_coherent_without_postcombat_transition():
     evidence = current.resolve_combat_damage()
 
     assert current.winner == 0
-    assert current.step is TurnStep.END_OF_COMBAT
+    assert current.players[1].life == 0
+    assert current.players[1].lost
+    assert current.step is TurnStep.COMBAT_DAMAGE
     assert current._combat_attackers == (attacker.object_id,)
-    assert current._combat_damage_step_kind is CombatDamageStepKind.COMPLETE
+    assert current._combat_damage_step_kind is CombatDamageStepKind.FIRST_STRIKE
     assert tuple(current.combat_damage_evidence)[-1] == evidence
+    assert current.stack == []
+    assert current.priority_state is None
+    assert [event["event"] for event in current.events[-3:]] == [
+        "combat_damage_player",
+        "player_lost",
+        "combat_damage_step_resolved",
+    ]
+    before = current.authoritative_state_fingerprint()
+    with pytest.raises(ValueError, match="cannot advance a terminal game"):
+        current.transition_to(TurnStep.END_OF_COMBAT)
+    assert current.authoritative_state_fingerprint() == before
     with pytest.raises(ValueError, match="not ready"):
         current.resolve_combat_damage()
+    current.check_invariants()
+
+
+def test_lethal_regular_damage_ends_without_terminal_transition_or_duplicate_damage():
+    current = game()
+    attacker = permanent(current, NORMAL, 0)
+    declare(current, attacker)
+    current.players[1].life = attacker.power
+
+    evidence = current.resolve_combat_damage()
+
+    assert current.winner == 0
+    assert current.players[1].life == 0
+    assert current.players[1].lost
+    assert current.step is TurnStep.COMBAT_DAMAGE
+    assert current._combat_damage_step_kind is CombatDamageStepKind.REGULAR
+    assert tuple(current.combat_damage_evidence) == (evidence,)
+    assert current.stack == []
+    assert current.priority_state is None
+    assert [event["event"] for event in current.events[-3:]] == [
+        "combat_damage_player",
+        "player_lost",
+        "combat_damage_step_resolved",
+    ]
+    before = current.authoritative_state_fingerprint()
+    with pytest.raises(ValueError, match="cannot advance a terminal game"):
+        current.transition_to(TurnStep.END_OF_COMBAT)
+    assert current.authoritative_state_fingerprint() == before
+    with pytest.raises(ValueError, match="not ready"):
+        current.resolve_combat_damage()
+    assert tuple(current.combat_damage_evidence) == (evidence,)
+    assert sum(event["event"] == "player_lost" for event in current.events) == 1
+    current.check_invariants()
 
 
 def test_wrong_zone_blocker_remains_a_block_but_deals_no_later_damage():
