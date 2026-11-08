@@ -476,6 +476,7 @@ class ActivatedEffectKind(Enum):
     SEARCH_LAND_TYPE = "search_land_type"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
+    ADD_FIXED_COLOR_MANA = "add_fixed_color_mana"
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
@@ -495,6 +496,8 @@ class ActivatedAbilityProgram:
     choices_required: bool
     activation_instructions: str | None = None
     class_level_target: int | None = None
+    mana_color: str | None = None
+    mana_allowed_contexts: tuple[str, ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -604,6 +607,11 @@ class CardInterpreter:
     COUNTER_TOKEN_ACTIVATION = re.compile(
         r"^\{1\}, \{T\}, Sacrifice this (?:token|artifact): Put a \+1/\+1 counter "
         r"on target creature\. Activate only as a sorcery\.$",
+        re.I,
+    )
+    RESTRICTED_FIXED_MANA_ACTIVATION = re.compile(
+        r"^\{T\}: Add \{(?P<color>[WUBRG])\}\. Spend this mana only to cast an artifact spell "
+        r"or to activate an ability\.$",
         re.I,
     )
     LANDCYCLING = re.compile(
@@ -2060,6 +2068,7 @@ class CardInterpreter:
         frog_mana = (
             card.name == "Frog Butler" and fragment.strip() == "{T}: Add one mana of any color."
         )
+        restricted_fixed_mana = self.RESTRICTED_FIXED_MANA_ACTIVATION.fullmatch(fragment.strip())
         tunnel_rats_return = (
             card.name == "Tunnel Rats"
             and fragment.strip()
@@ -2173,6 +2182,9 @@ class CardInterpreter:
         elif frog_mana:
             effect_kind = ActivatedEffectKind.ADD_ANY_COLOR_MANA
             action_match = True
+        elif restricted_fixed_mana:
+            effect_kind = ActivatedEffectKind.ADD_FIXED_COLOR_MANA
+            action_match = True
         elif tunnel_rats_return:
             effect_kind = ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             action_match = True
@@ -2199,7 +2211,7 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (frog_mana or frog_reach or mutagen_source)
+            (frog_mana or restricted_fixed_mana or frog_reach or mutagen_source)
             and instructions
             or (
                 targeted_return
@@ -2211,7 +2223,11 @@ class CardInterpreter:
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None or frog_mana or frog_reach or mutagen_source
+            else instructions is None
+            or frog_mana
+            or restricted_fixed_mana
+            or frog_reach
+            or mutagen_source
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -2224,6 +2240,7 @@ class CardInterpreter:
             canonical_food
             or counter_target
             or frog_mana
+            or restricted_fixed_mana
             or frog_reach
             or tunnel_rats_return
             or mutagen_source
@@ -2272,6 +2289,8 @@ class CardInterpreter:
             choices_required,
             instructions,
             3 if does_machines_level_three else 2 if class_level else None,
+            None if restricted_fixed_mana is None else restricted_fixed_mana.group("color").upper(),
+            (None if restricted_fixed_mana is None else ("artifact_spell", "activated_ability")),
         )
         return InterpretedActivatedAbilitySemantics(
             program,
