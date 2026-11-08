@@ -478,8 +478,8 @@ def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
 
 def _matching_main_followup(
     options: tuple[ActionOption, ...], followups: tuple[str, ...]
-) -> ActionOption | None:
-    """Return a freshly legal engine option matching an advertised follow-up."""
+) -> tuple[ActionOption, ...]:
+    """Return current legal options matching the first available advertised follow-up."""
     for descriptor in followups:
         parts = descriptor.split(":", 2)
         if len(parts) == 2 and parts[0] in {"cast", "cast-graveyard"}:
@@ -492,32 +492,52 @@ def _matching_main_followup(
             kind, object_id, fragment = ActionKind.ACTIVATE_ABILITY, parts[1], parts[2]
         else:
             continue
-        match = next(
-            (
-                option
-                for option in options
-                if option.kind is kind
-                and option.object_id == object_id
-                and (fragment is None or option.oracle_fragment == fragment)
-            ),
-            None,
+        matches = tuple(
+            option
+            for option in options
+            if option.kind is kind
+            and option.object_id == object_id
+            and (fragment is None or option.oracle_fragment == fragment)
         )
-        if match is not None:
-            return match
-    return None
+        if matches:
+            return matches
+    return ()
 
 
 def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
     """Apply the established land/activation/spell policy in either main phase."""
     active = game.active_player
+    followups: tuple[str, ...] = ()
     for stage in ("land", "activate", "damage", "destroy", "creature"):
         attempts = 0
-        followups: tuple[str, ...] = ()
         while not game.terminal:
             options = game.legal_main_actions(active)
-            choice = _matching_main_followup(options, followups) if followups else None
-            if choice is None:
-                followups = ()
+            matches = _matching_main_followup(options, followups) if followups else ()
+            if matches:
+                if matches[0].kind is ActionKind.ACTIVATE_ABILITY:
+                    choice = matches[0]
+                    followups = ()
+                elif stage == "activate" and len(matches) > 1:
+                    # Let the normal spell stages choose among target variants.
+                    choice = next(item for item in options if item.kind is ActionKind.PASS)
+                elif len(matches) == 1:
+                    choice = matches[0]
+                    followups = ()
+                else:
+                    pass_option = next(item for item in options if item.kind is ActionKind.PASS)
+                    proposed = pilot.choose_main_action(
+                        game.pilot_view(active), (*matches, pass_option), stage
+                    )
+                    if proposed in matches:
+                        choice = proposed
+                        followups = ()
+                    else:
+                        # Keep the preference for the next existing cast stage and
+                        # do not allow an unrelated action to take the opportunity.
+                        choice = pass_option
+            else:
+                if followups:
+                    followups = ()
                 choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
             _checked_action(
                 game, lambda choice=choice: game.execute_main_action(choice), "main action"
