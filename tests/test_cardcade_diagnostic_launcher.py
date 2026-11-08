@@ -64,16 +64,20 @@ def test_synthetic_success_serializes_reconciliation_and_integrity_hashes(tmp_pa
     assert launcher.output_directory.joinpath("priority_stack_combat_trace.json").is_file()
     assert launcher.output_directory.joinpath("reconciliation.json").is_file()
 
-    metadata = json.loads(launcher.output_directory.joinpath("run_metadata.json").read_text())
+    metadata = json.loads(
+        launcher.output_directory.joinpath("run_metadata.json").read_text(encoding="utf-8")
+    )
     assert metadata["retry_count"] == 0
     assert metadata["additional_seeds"] == 0
     assert metadata["batch_or_calibration"] is False
-    status = json.loads(launcher.output_directory.joinpath("run_status.json").read_text())
+    status = json.loads(
+        launcher.output_directory.joinpath("run_status.json").read_text(encoding="utf-8")
+    )
     assert status["run_game_call_count"] == 1
     assert status["reconciliation_completed"] is True
 
     declared_hashes = json.loads(
-        launcher.output_directory.joinpath("artifact_sha256.json").read_text()
+        launcher.output_directory.joinpath("artifact_sha256.json").read_text(encoding="utf-8")
     )
     actual_hashes = {
         path.name: hashlib.sha256(path.read_bytes()).hexdigest()
@@ -99,12 +103,18 @@ def test_injected_failure_preserves_original_exception_and_bound_snapshot(tmp_pa
 
     assert raised.value is original
     assert calls == launcher._run_game_call_count == 1
-    error = json.loads(launcher.output_directory.joinpath("exception.json").read_text())
+    error = json.loads(
+        launcher.output_directory.joinpath("exception.json").read_text(encoding="utf-8")
+    )
     assert error["type"] == "RuntimeError"
     assert "synthetic launcher failure" in error["traceback"]
-    snapshot = json.loads(launcher.output_directory.joinpath("snapshot.json").read_text())
+    snapshot = json.loads(
+        launcher.output_directory.joinpath("snapshot.json").read_text(encoding="utf-8")
+    )
     assert snapshot["stage002_presence"]
-    status = json.loads(launcher.output_directory.joinpath("run_status.json").read_text())
+    status = json.loads(
+        launcher.output_directory.joinpath("run_status.json").read_text(encoding="utf-8")
+    )
     assert status["snapshot_captured"] is True
     assert status["retry_count"] == 0
 
@@ -124,8 +134,10 @@ def test_failure_before_binding_is_persisted_without_fabricated_snapshot(tmp_pat
 
     assert raised.value is original
     assert calls == 1
-    error = json.loads(launcher.output_directory.joinpath("exception.json").read_text())
-    assert error["snapshot"] is None
+    error = json.loads(
+        launcher.output_directory.joinpath("exception.json").read_text(encoding="utf-8")
+    )
+    assert "snapshot" not in error
     assert "not bound" in error["capture_error"]
     assert not launcher.output_directory.joinpath("snapshot.json").exists()
 
@@ -194,3 +206,11 @@ def test_committed_match_configuration_is_exact():
         "april-oneil-p0.1",
         "casey-jones-p0.1",
     )
+
+
+def test_output_directory_cannot_escape_isolated_diagnostic_root(tmp_path):
+    outside = tmp_path / "diagnostic-game-outside"
+    launcher = OneShotDiagnosticLauncher(ROOT, outside)
+    with pytest.raises(RuntimeError, match="inside .cardcade-diagnostic-runs"):
+        launcher._prepare_output()
+    assert not outside.exists()
