@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import copy
 import hashlib
 import json
 import os
@@ -501,7 +502,11 @@ class OneShotDiagnosticLauncher:
                 "snapshot evidence could not be persisted; do not retry this launcher"
             ) from error
         try:
-            reconciliation = stage002.reconcile_snapshot(spec, snapshot, manifest)
+            reconciliation = stage002.reconcile_snapshot(
+                spec,
+                copy.deepcopy(snapshot),
+                copy.deepcopy(manifest),
+            )
         except BaseException as error:
             return None, self._safe_error(error)
         self._write_json(self.output_directory, "reconciliation.json", reconciliation)

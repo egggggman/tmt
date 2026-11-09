@@ -19,7 +19,7 @@ def _unique_launcher(tmp_path: Path, label: str):
     nonce = uuid.uuid4().hex
     return _launcher(
         tmp_path,
-        f"{label}-{nonce}",
+        f"{label[:2]}-{nonce[:8]}",
         authorization_id=f"RED-{nonce}",
     )
 
@@ -112,7 +112,10 @@ def test_actual_reconciliation_digest_and_manifest_binding_are_preserved(tmp_pat
     spec = launcher._match_spec()
     manifest = stage002.build_stage_manifest(launcher.root)
     capture = stage002.DiagnosticExecutionCapture()
-    snapshot = _synthetic_executor(launcher.root, spec, diagnostic_capture=capture)
+    snapshot = stage002.capture_diagnostic_call(
+        capture,
+        lambda: _synthetic_executor(launcher.root, spec, diagnostic_capture=capture),
+    )
     report = stage002.reconcile_snapshot(spec, snapshot, manifest)
 
     assert launcher._validate_reconciliation(report, spec, snapshot, manifest, source) == []
