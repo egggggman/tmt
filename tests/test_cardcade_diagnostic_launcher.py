@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
 
 from tools.cardcade_diagnostic_launcher import (
+    APPROVED_INPUT_SHA256,
+    RUN_AUTHORIZATION_SCHEMA,
+    SOURCE_APPROVAL_SCHEMA,
+    DiagnosticLauncherError,
     EvidencePersistenceError,
     OneShotDiagnosticLauncher,
     stage002,
@@ -15,11 +20,60 @@ from tools.cardcade_diagnostic_launcher import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _launcher(tmp_path: Path) -> OneShotDiagnosticLauncher:
+def _launcher(
+    tmp_path: Path,
+    *,
+    authorization_id: str | None = None,
+    label: str | None = None,
+    input_hashes: dict[str, str] | None = None,
+    implementation_sha: str | None = None,
+) -> OneShotDiagnosticLauncher:
     output_root = ROOT / ".cardcade-diagnostic-runs"
     output_root.mkdir(exist_ok=True)
-    output = output_root / f"diagnostic-game-test-{tmp_path.parent.name}-{tmp_path.name}"
-    return OneShotDiagnosticLauncher(ROOT, output)
+    suffix = label or tmp_path.name
+    output = output_root / f"diagnostic-game-test-{tmp_path.parent.name}-{suffix}"
+    approved_sha = (
+        implementation_sha
+        or subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
+    )
+    run_id = authorization_id or f"SYNTHETIC-{tmp_path.parent.name}-{tmp_path.name}"
+    approval_id = f"SYNTHETIC-SOURCE-{run_id}"
+    hashes = input_hashes or APPROVED_INPUT_SHA256
+    approval_path = tmp_path / f"source-approval-{suffix}.json"
+    authorization_path = tmp_path / f"run-authorization-{suffix}.json"
+    approval_path.write_text(
+        json.dumps(
+            {
+                "schema": SOURCE_APPROVAL_SCHEMA,
+                "approval_id": approval_id,
+                "implementation_sha": approved_sha,
+                "input_sha256": hashes,
+            }
+        ),
+        encoding="utf-8",
+    )
+    authorization_path.write_text(
+        json.dumps(
+            {
+                "schema": RUN_AUTHORIZATION_SCHEMA,
+                "authorization_id": run_id,
+                "source_approval_id": approval_id,
+                "implementation_sha": approved_sha,
+                "input_sha256": hashes,
+                "game_id": "april-casey:canonical:7231",
+                "pairing_id": "april-casey",
+                "orientation": "canonical",
+                "seed": 7231,
+            }
+        ),
+        encoding="utf-8",
+    )
+    return OneShotDiagnosticLauncher(
+        ROOT,
+        output,
+        source_approval_path=approval_path,
+        run_authorization_path=authorization_path,
+    )
 
 
 def _synthetic_executor(root, spec, *, diagnostic_capture):
@@ -52,11 +106,11 @@ def test_synthetic_success_serializes_reconciliation_and_integrity_hashes(tmp_pa
         calls.append((root, spec.game_id))
         return _synthetic_executor(root, spec, diagnostic_capture=diagnostic_capture)
 
-    snapshot = launcher.run_once(executor=executor)
+    with pytest.raises(DiagnosticLauncherError, match="game_not_terminal"):
+        launcher.run_once(executor=executor)
 
     assert len(calls) == 1
     assert calls[0][1] == "april-casey:canonical:7231"
-    assert snapshot["stage002_presence"]
     assert launcher._run_game_call_count == 1
     assert launcher._consumed
     assert launcher.output_directory.joinpath("snapshot.json").is_file()
@@ -75,6 +129,8 @@ def test_synthetic_success_serializes_reconciliation_and_integrity_hashes(tmp_pa
     )
     assert status["run_game_call_count"] == 1
     assert status["reconciliation_completed"] is True
+    assert status["diagnostic_status"] == "BLOCKED"
+    assert "game_not_terminal" in status["blocking_findings"]
 
     declared_hashes = json.loads(
         launcher.output_directory.joinpath("artifact_sha256.json").read_text(encoding="utf-8")
@@ -151,7 +207,8 @@ def test_launcher_instance_cannot_be_reused_for_second_invocation(tmp_path):
         calls += 1
         return _synthetic_executor(root, spec, diagnostic_capture=diagnostic_capture)
 
-    launcher.run_once(executor=executor)
+    with pytest.raises(DiagnosticLauncherError, match="game_not_terminal"):
+        launcher.run_once(executor=executor)
     with pytest.raises(RuntimeError, match="already been consumed"):
         launcher.run_once(executor=executor)
     assert calls == launcher._run_game_call_count == 1
@@ -194,8 +251,9 @@ def test_persistence_failure_after_synthetic_execution_is_never_retried(tmp_path
     assert calls == launcher._run_game_call_count == 1
 
 
-def test_committed_match_configuration_is_exact():
-    spec = OneShotDiagnosticLauncher(ROOT, ROOT / "unused")._match_spec()
+def test_committed_match_configuration_is_exact(tmp_path):
+    launcher = _launcher(tmp_path)
+    spec = launcher._match_spec()
     assert (spec.game_id, spec.pairing_id, spec.orientation, spec.seed) == (
         "april-casey:canonical:7231",
         "april-casey",
@@ -210,7 +268,9 @@ def test_committed_match_configuration_is_exact():
 
 def test_output_directory_cannot_escape_isolated_diagnostic_root(tmp_path):
     outside = tmp_path / "diagnostic-game-outside"
-    launcher = OneShotDiagnosticLauncher(ROOT, outside)
-    with pytest.raises(RuntimeError, match="inside .cardcade-diagnostic-runs"):
+    launcher = _launcher(tmp_path, label="outside")
+    launcher.requested_output_directory = outside.absolute()
+    launcher.output_directory = outside.resolve()
+    with pytest.raises(DiagnosticLauncherError, match="direct child"):
         launcher._prepare_output()
     assert not outside.exists()
