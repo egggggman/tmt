@@ -8,6 +8,7 @@ import uuid
 from pathlib import Path
 
 import pytest
+from cardcade_auth_test_support import install_test_trust_anchor, signed_document
 
 from tools import cardcade_diagnostic_launcher as launcher_module
 from tools.cardcade_diagnostic_launcher import (
@@ -32,6 +33,7 @@ def _launcher(
     implementation_sha: str | None = None,
     input_hashes: dict[str, str] | None = None,
 ) -> OneShotDiagnosticLauncher:
+    install_test_trust_anchor(launcher_module)
     output_root = ROOT / ".cardcade-diagnostic-runs"
     output_root.mkdir(exist_ok=True)
     invocation_nonce = uuid.uuid4().hex
@@ -52,28 +54,32 @@ def _launcher(
     authorization_path = tmp_path / f"run-authorization-{label}.json"
     approval_path.write_text(
         json.dumps(
-            {
-                "schema": SOURCE_APPROVAL_SCHEMA,
-                "approval_id": approval_id,
-                "implementation_sha": approved_sha,
-                "input_sha256": hashes,
-            }
+            signed_document(
+                {
+                    "schema": SOURCE_APPROVAL_SCHEMA,
+                    "approval_id": approval_id,
+                    "implementation_sha": approved_sha,
+                    "input_sha256": hashes,
+                }
+            )
         ),
         encoding="utf-8",
     )
     authorization_path.write_text(
         json.dumps(
-            {
-                "schema": RUN_AUTHORIZATION_SCHEMA,
-                "authorization_id": run_id,
-                "source_approval_id": approval_id,
-                "implementation_sha": approved_sha,
-                "input_sha256": hashes,
-                "game_id": "april-casey:canonical:7231",
-                "pairing_id": "april-casey",
-                "orientation": "canonical",
-                "seed": 7231,
-            }
+            signed_document(
+                {
+                    "schema": RUN_AUTHORIZATION_SCHEMA,
+                    "authorization_id": run_id,
+                    "source_approval_id": approval_id,
+                    "implementation_sha": approved_sha,
+                    "input_sha256": hashes,
+                    "game_id": "april-casey:canonical:7231",
+                    "pairing_id": "april-casey",
+                    "orientation": "canonical",
+                    "seed": 7231,
+                }
+            )
         ),
         encoding="utf-8",
     )

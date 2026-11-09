@@ -7,6 +7,7 @@ inject an executor, but the command-line entry point never exposes that seam.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -20,6 +21,9 @@ from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 # Always load the implementation from this exact checkout, even when the selected
 # Python environment has another editable Cardcade worktree installed.
@@ -66,6 +70,81 @@ APPROVED_INPUT_SHA256 = {
 }
 SOURCE_APPROVAL_SCHEMA = "cardcade-reviewed-implementation-v1"
 RUN_AUTHORIZATION_SCHEMA = "cardcade-diagnostic-run-authorization-v1"
+# Provision the production HQ public key through a reviewed source change. The
+# empty default deliberately fails closed; private signing keys never belong here.
+TRUSTED_HQ_AUTHORIZATION_KEYS: dict[str, bytes] = {}
+SOURCE_APPROVAL_FIELDS = {
+    "schema",
+    "approval_id",
+    "implementation_sha",
+    "input_sha256",
+    "signing_key_id",
+    "signature",
+}
+RUN_AUTHORIZATION_FIELDS = {
+    "schema",
+    "authorization_id",
+    "source_approval_id",
+    "implementation_sha",
+    "input_sha256",
+    "game_id",
+    "pairing_id",
+    "orientation",
+    "seed",
+    "signing_key_id",
+    "signature",
+}
+RECONCILIATION_REPORT_FIELDS = {
+    "game_id",
+    "seed",
+    "orientation",
+    "seats",
+    "terminal",
+    "winner",
+    "turn",
+    "rng_state_digest",
+    "occurrences",
+    "presence",
+    "classification_sets",
+    "executed_references",
+    "authenticated_executed_references",
+    "opportunity_witnesses",
+    "opportunity_contexts",
+    "authoritative_evidence",
+    "stop_records",
+    "invariant_violations",
+    "transaction_counts",
+    "engine_boundary_counts",
+    "report_digest",
+}
+AUTHORITATIVE_EVIDENCE_FIELDS = (
+    "mill_three_evidence",
+    "krang_refill_evidence",
+    "jury_rig_evidence",
+    "vigilante_evidence",
+    "winner",
+    "food_search_evidence",
+    "rng",
+    "stack",
+    "priority",
+    "pending_triggers",
+    "rules_event_evidence",
+    "floating_mana_ledger",
+    "spell_payment_evidence",
+    "scry",
+    "etb_drain_gain_scry",
+    "stun_history",
+    "combat_damage",
+    "lifelink",
+    "hand_bottom_draw",
+    "discard_draw",
+    "activated_abilities",
+    "food_activations",
+    "sneak",
+    "players",
+    "events",
+    "terminal",
+)
 TRACE_EVENTS = {
     "priority_granted",
     "priority_passed",
@@ -121,13 +200,53 @@ class OneShotDiagnosticLauncher:
 
     @staticmethod
     def _read_authorization(path: Path, *, label: str) -> dict[str, Any]:
+        def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+            result: dict[str, Any] = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError(f"duplicate authorization field: {key}")
+                result[key] = value
+            return result
+
         try:
-            document = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
+            document = json.loads(
+                path.read_text(encoding="utf-8"), object_pairs_hook=reject_duplicate_keys
+            )
+        except (OSError, ValueError) as error:
             raise DiagnosticLauncherError(f"cannot read {label}: {error}") from error
         if not isinstance(document, dict):
             raise DiagnosticLauncherError(f"{label} must be a JSON object")
         return document
+
+    @staticmethod
+    def _verify_authorization_signature(
+        document: dict[str, Any], *, label: str, expected_fields: set[str]
+    ) -> str:
+        if set(document) != expected_fields:
+            raise DiagnosticLauncherError(f"{label} has missing or unexpected signed fields")
+        key_id = document.get("signing_key_id")
+        if not isinstance(key_id, str) or not key_id:
+            raise DiagnosticLauncherError(f"{label} is missing signing_key_id")
+        public_key_bytes = TRUSTED_HQ_AUTHORIZATION_KEYS.get(key_id)
+        if public_key_bytes is None:
+            raise DiagnosticLauncherError(f"{label} signature uses an untrusted key ID: {key_id}")
+        if len(public_key_bytes) != 32:
+            raise DiagnosticLauncherError(f"trusted public key {key_id} is not Ed25519")
+        try:
+            signature = base64.b64decode(document["signature"], validate=True)
+            if len(signature) != 64:
+                raise ValueError("Ed25519 signatures must contain 64 bytes")
+            signed_fields = {key: value for key, value in document.items() if key != "signature"}
+            payload = json.dumps(
+                signed_fields,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+            Ed25519PublicKey.from_public_bytes(public_key_bytes).verify(signature, payload)
+        except (InvalidSignature, ValueError, TypeError) as error:
+            raise DiagnosticLauncherError(f"{label} signature verification failed") from error
+        return key_id
 
     def _verify_source(self) -> dict[str, Any]:
         head = self._git(self.root, "rev-parse", "HEAD")
@@ -165,6 +284,20 @@ class OneShotDiagnosticLauncher:
             raise DiagnosticLauncherError("unsupported HQ source approval schema")
         if run_authorization.get("schema") != RUN_AUTHORIZATION_SCHEMA:
             raise DiagnosticLauncherError("unsupported one-use run authorization schema")
+        source_key_id = self._verify_authorization_signature(
+            source_approval,
+            label="HQ source approval",
+            expected_fields=SOURCE_APPROVAL_FIELDS,
+        )
+        run_key_id = self._verify_authorization_signature(
+            run_authorization,
+            label="one-use run authorization",
+            expected_fields=RUN_AUTHORIZATION_FIELDS,
+        )
+        if source_key_id != run_key_id:
+            raise DiagnosticLauncherError(
+                "source approval and run authorization use different HQ signing keys"
+            )
         if source_approval.get("implementation_sha") != head:
             raise DiagnosticLauncherError(
                 f"HEAD {head} does not equal exact approved implementation "
@@ -350,6 +483,7 @@ class OneShotDiagnosticLauncher:
         snapshot: dict[str, Any],
         spec: stage002.GameSpec,
         manifest: dict[str, object],
+        source: dict[str, Any],
     ) -> tuple[dict[str, object] | None, dict[str, object] | None]:
         try:
             self._write_json(self.output_directory, "snapshot.json", snapshot)
@@ -371,7 +505,142 @@ class OneShotDiagnosticLauncher:
         except BaseException as error:
             return None, self._safe_error(error)
         self._write_json(self.output_directory, "reconciliation.json", reconciliation)
+        validation_errors = self._validate_reconciliation(
+            reconciliation, spec, snapshot, manifest, source
+        )
+        if validation_errors:
+            return (
+                reconciliation if isinstance(reconciliation, dict) else None,
+                {
+                    "type": "InvalidReconciliation",
+                    "message": "; ".join(validation_errors),
+                    "traceback": "",
+                },
+            )
+        self._write_json(
+            self.output_directory,
+            "reconciliation_binding.json",
+            {
+                "schema": "cardcade-stage002-reconciliation-binding-v1",
+                "game_id": spec.game_id,
+                "seed": spec.seed,
+                "orientation": spec.orientation,
+                "implementation_sha": source["head"],
+                "stage002_sha256": source["input_sha256"]["src/tmnt_design_studio/stage002.py"],
+                "stage_manifest_digest": manifest["manifest_digest"],
+                "reconciliation_report_digest": reconciliation["report_digest"],
+            },
+        )
         return reconciliation, None
+
+    @staticmethod
+    def _validate_reconciliation(
+        reconciliation: object,
+        spec: stage002.GameSpec,
+        snapshot: dict[str, Any],
+        manifest: dict[str, object],
+        source: dict[str, Any],
+    ) -> list[str]:
+        errors: list[str] = []
+        if not isinstance(manifest, dict):
+            return ["Stage 002 manifest is not an object"]
+        manifest_digest = manifest.get("manifest_digest")
+        manifest_body = {key: value for key, value in manifest.items() if key != "manifest_digest"}
+        if (
+            not isinstance(manifest_digest, str)
+            or stage002.stable_digest(manifest_body) != manifest_digest
+        ):
+            errors.append("Stage 002 manifest digest is missing or invalid")
+        if manifest.get("stage") != "acceptance-002":
+            errors.append("Stage 002 manifest has the wrong stage identity")
+        manifest_games = manifest.get("games")
+        expected_game = {
+            "game_id": spec.game_id,
+            "pairing_id": spec.pairing_id,
+            "seed": spec.seed,
+            "orientation": spec.orientation,
+            "seats": [seat.display_id for seat in spec.seats],
+        }
+        if not isinstance(manifest_games, list) or expected_game not in manifest_games:
+            errors.append("Stage 002 manifest is not bound to the authorized game")
+        expected_catalog_sha = source.get("input_sha256", {}).get(
+            "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json"
+        )
+        if manifest.get("snapshot_sha256") != expected_catalog_sha:
+            errors.append("Stage 002 manifest is not bound to the approved card-data source")
+        if not isinstance(reconciliation, dict):
+            errors.append("Stage 002 reconciliation report is missing or not an object")
+            return errors
+        if set(reconciliation) != RECONCILIATION_REPORT_FIELDS:
+            errors.append("Stage 002 reconciliation report has missing or unexpected fields")
+        report_digest = reconciliation.get("report_digest")
+        report_body = {
+            key: value for key, value in reconciliation.items() if key != "report_digest"
+        }
+        if (
+            not isinstance(report_digest, str)
+            or stage002.stable_digest(report_body) != report_digest
+        ):
+            errors.append("Stage 002 reconciliation report digest is missing or invalid")
+        expected_identity = {
+            "game_id": spec.game_id,
+            "seed": spec.seed,
+            "orientation": spec.orientation,
+            "seats": [seat.display_id for seat in spec.seats],
+            "terminal": snapshot.get("terminal"),
+            "winner": snapshot.get("winner"),
+            "turn": snapshot.get("turn"),
+            "rng_state_digest": snapshot.get("rng", {}).get("state_digest")
+            if isinstance(snapshot.get("rng"), dict)
+            else None,
+        }
+        for key, expected in expected_identity.items():
+            if reconciliation.get(key) != expected:
+                errors.append(f"Stage 002 report {key} does not match authoritative source")
+        if not isinstance(reconciliation.get("occurrences"), list):
+            errors.append("Stage 002 report occurrences are missing")
+        if not isinstance(reconciliation.get("presence"), list):
+            errors.append("Stage 002 report presence evidence is missing")
+        if not isinstance(reconciliation.get("classification_sets"), dict):
+            errors.append("Stage 002 report classification sets are missing")
+        for field in (
+            "executed_references",
+            "authenticated_executed_references",
+            "opportunity_witnesses",
+            "opportunity_contexts",
+            "stop_records",
+            "invariant_violations",
+        ):
+            if not isinstance(reconciliation.get(field), list):
+                errors.append(f"Stage 002 report {field} evidence is missing")
+        for field in ("transaction_counts", "engine_boundary_counts"):
+            if not isinstance(reconciliation.get(field), dict):
+                errors.append(f"Stage 002 report {field} evidence is missing")
+        expected_authoritative = {key: snapshot.get(key) for key in AUTHORITATIVE_EVIDENCE_FIELDS}
+        if reconciliation.get("authoritative_evidence") != expected_authoritative:
+            errors.append("Stage 002 report authoritative evidence does not match the snapshot")
+        conformance = snapshot.get("conformance")
+        if not isinstance(conformance, dict):
+            errors.append("authoritative snapshot conformance evidence is missing")
+        else:
+            if reconciliation.get("executed_references") != conformance.get("executed_references"):
+                errors.append("Stage 002 executed references do not match the snapshot")
+            if reconciliation.get("opportunity_witnesses") != conformance.get(
+                "opportunity_witnesses"
+            ):
+                errors.append("Stage 002 opportunity witnesses do not match the snapshot")
+            if reconciliation.get("opportunity_contexts") != conformance.get(
+                "opportunity_contexts"
+            ):
+                errors.append("Stage 002 opportunity contexts do not match the snapshot")
+        expected_invariants = [
+            event
+            for event in snapshot.get("events", [])
+            if isinstance(event, dict) and event.get("event") == "invariant_violation"
+        ]
+        if reconciliation.get("invariant_violations") != expected_invariants:
+            errors.append("Stage 002 invariant evidence does not match authoritative events")
+        return errors
 
     @staticmethod
     def _blocking_findings(
@@ -494,7 +763,7 @@ class OneShotDiagnosticLauncher:
                 captured_snapshot = failure.get("snapshot")
                 if isinstance(captured_snapshot, dict):
                     _reconciliation, reconciliation_error = self._serialize_snapshot(
-                        captured_snapshot, spec, manifest
+                        captured_snapshot, spec, manifest, source
                     )
                     if reconciliation_error is not None:
                         self._write_json(
@@ -541,7 +810,7 @@ class OneShotDiagnosticLauncher:
             if isinstance(snapshot, dict):
                 try:
                     reconciliation, reconciliation_error = self._serialize_snapshot(
-                        snapshot, spec, manifest
+                        snapshot, spec, manifest, source
                     )
                 except EvidencePersistenceError:
                     raise
