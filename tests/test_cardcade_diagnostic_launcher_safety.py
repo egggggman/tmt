@@ -155,7 +155,8 @@ def test_unapproved_frozen_input_hash_fails_before_executor_call(tmp_path):
 
 
 def test_cross_process_authorization_claim_is_exclusive(tmp_path):
-    launcher = _launcher(tmp_path, "cross-process", authorization_id="CROSS-PROCESS-ONCE")
+    authorization_id = f"CROSS-PROCESS-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
+    launcher = _launcher(tmp_path, "cross-process", authorization_id=authorization_id)
     source = launcher._verify_source()
     context = multiprocessing.get_context("spawn")
     barrier = context.Barrier(2)
@@ -191,7 +192,7 @@ def test_cross_process_authorization_claim_is_exclusive(tmp_path):
 
 
 def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
-    authorization_id = "FAILED-EXECUTION-ONCE"
+    authorization_id = f"FAILED-EXECUTION-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
     first = _launcher(tmp_path, "failed-first", authorization_id=authorization_id)
     second = _launcher(tmp_path, "failed-second", authorization_id=authorization_id)
     calls = 0
@@ -213,7 +214,9 @@ def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
 
 
 def test_failed_reconciliation_persists_evidence_and_blocks_cli(monkeypatch, tmp_path):
-    authorization_id = "FAILED-RECONCILIATION-ONCE"
+    authorization_id = (
+        f"FAILED-RECONCILIATION-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
+    )
     launcher = _launcher(tmp_path, "reconcile-failure", authorization_id=authorization_id)
     second = _launcher(tmp_path, "reconcile-failure-repeat", authorization_id=authorization_id)
     calls = 0
