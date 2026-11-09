@@ -121,6 +121,53 @@ def test_incomplete_stage002_reconciliation_cannot_return_ready(monkeypatch, tmp
     assert launcher_module.stage002 is stage002
 
 
+def test_fabricated_complete_report_with_recomputed_digest_cannot_return_ready(
+    monkeypatch, tmp_path
+):
+    launcher = _unique_launcher(tmp_path, "forged-derived-fields")
+    original_reconcile = stage002.reconcile_snapshot
+
+    def forged_reconcile(spec, snapshot, manifest):
+        report = original_reconcile(spec, snapshot, manifest)
+        report["transaction_counts"] = {"forged_execution": 1}
+        body = {key: value for key, value in report.items() if key != "report_digest"}
+        report["report_digest"] = stage002.stable_digest(body)
+        return report
+
+    monkeypatch.setattr(stage002, "reconcile_snapshot", forged_reconcile)
+
+    def terminal_setup_snapshot(root, spec, *, diagnostic_capture):
+        snapshot = _synthetic_executor(root, spec, diagnostic_capture=diagnostic_capture)
+        snapshot["terminal"] = True
+        return snapshot
+
+    monkeypatch.setattr(stage002, "run_game", terminal_setup_snapshot)
+    exit_code = launcher_module.main(
+        [
+            "--output-directory",
+            str(launcher.output_directory),
+            "--source-approval",
+            str(launcher.source_approval_path),
+            "--run-authorization",
+            str(launcher.run_authorization_path),
+        ]
+    )
+
+    status = json.loads((launcher.output_directory / "run_status.json").read_text(encoding="utf-8"))
+    supplied = json.loads(
+        (launcher.output_directory / "reconciliation.json").read_text(encoding="utf-8")
+    )
+    assert exit_code == 2
+    assert status["diagnostic_status"] == "BLOCKED"
+    assert "reconciliation_failed" in status["blocking_findings"]
+    assert supplied["transaction_counts"] == {"forged_execution": 1}
+    assert supplied["report_digest"] == stage002.stable_digest(
+        {key: value for key, value in supplied.items() if key != "report_digest"}
+    )
+    assert (launcher.output_directory / "snapshot.json").is_file()
+    assert (launcher.output_directory / "reconciliation.json").is_file()
+
+
 def test_actual_reconciliation_digest_and_manifest_binding_are_preserved(tmp_path):
     launcher = _unique_launcher(tmp_path, "actual-contract")
     source = launcher._verify_source()
