@@ -3,7 +3,7 @@ name = "tmnt-design-studio"
 version = "0.5.0"
 description = "Knowledge-driven deck design tools for TMNT Design Studio"
 requires-python = ">=3.12"
-dependencies = ["typer>=0.12,<1"]
+dependencies = ["typer>=0.12,<1", "cryptography>=44,<47"]
 
 [project.scripts]
 tmnt = "tmnt_design_studio.cli:app"
