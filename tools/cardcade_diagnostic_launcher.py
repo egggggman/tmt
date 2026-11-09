@@ -36,6 +36,11 @@ sys.path.insert(0, SOURCE_DIRECTORY)
 
 from tmnt_design_studio import engine07, stage002  # noqa: E402
 
+# Keep a reference to the source-pinned reconciler before callers or tests can
+# replace the module's reporting seam. The expected report is recomputed from
+# copied authoritative inputs through this captured function.
+_TRUSTED_RECONCILE_SNAPSHOT = stage002.reconcile_snapshot
+
 ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
 EXPECTED_GAME_ID = "april-casey:canonical:7231"
 EXPECTED_PAIRING_ID = "april-casey"
@@ -502,6 +507,11 @@ class OneShotDiagnosticLauncher:
                 "snapshot evidence could not be persisted; do not retry this launcher"
             ) from error
         try:
+            trusted_reconciliation = _TRUSTED_RECONCILE_SNAPSHOT(
+                spec,
+                copy.deepcopy(snapshot),
+                copy.deepcopy(manifest),
+            )
             reconciliation = stage002.reconcile_snapshot(
                 spec,
                 copy.deepcopy(snapshot),
@@ -510,8 +520,13 @@ class OneShotDiagnosticLauncher:
         except BaseException as error:
             return None, self._safe_error(error)
         self._write_json(self.output_directory, "reconciliation.json", reconciliation)
+        self._write_json(
+            self.output_directory,
+            "reconciliation_expected.json",
+            trusted_reconciliation,
+        )
         validation_errors = self._validate_reconciliation(
-            reconciliation, spec, snapshot, manifest, source
+            reconciliation, trusted_reconciliation, spec, snapshot, manifest, source
         )
         if validation_errors:
             return (
@@ -534,6 +549,7 @@ class OneShotDiagnosticLauncher:
                 "stage002_sha256": source["input_sha256"]["src/tmnt_design_studio/stage002.py"],
                 "stage_manifest_digest": manifest["manifest_digest"],
                 "reconciliation_report_digest": reconciliation["report_digest"],
+                "trusted_reference_report_digest": trusted_reconciliation["report_digest"],
             },
         )
         return reconciliation, None
@@ -541,6 +557,7 @@ class OneShotDiagnosticLauncher:
     @staticmethod
     def _validate_reconciliation(
         reconciliation: object,
+        trusted_reconciliation: object,
         spec: stage002.GameSpec,
         snapshot: dict[str, Any],
         manifest: dict[str, object],
@@ -576,6 +593,12 @@ class OneShotDiagnosticLauncher:
         if not isinstance(reconciliation, dict):
             errors.append("Stage 002 reconciliation report is missing or not an object")
             return errors
+        if not isinstance(trusted_reconciliation, dict):
+            errors.append("trusted Stage 002 reconciliation result is missing or not an object")
+        elif OneShotDiagnosticLauncher._canonical_json(reconciliation) != (
+            OneShotDiagnosticLauncher._canonical_json(trusted_reconciliation)
+        ):
+            errors.append("Stage 002 report differs from the trusted reconciliation result")
         if set(reconciliation) != RECONCILIATION_REPORT_FIELDS:
             errors.append("Stage 002 reconciliation report has missing or unexpected fields")
         report_digest = reconciliation.get("report_digest")
@@ -646,6 +669,16 @@ class OneShotDiagnosticLauncher:
         if reconciliation.get("invariant_violations") != expected_invariants:
             errors.append("Stage 002 invariant evidence does not match authoritative events")
         return errors
+
+    @staticmethod
+    def _canonical_json(value: object) -> str:
+        return json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        )
 
     @staticmethod
     def _blocking_findings(
