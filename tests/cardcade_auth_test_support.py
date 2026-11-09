@@ -11,9 +11,8 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 TEST_KEY_ID = "cardcade-synthetic-test-only"
 OTHER_TEST_KEY_ID = "cardcade-synthetic-second-test-only"
-_TEST_PRIVATE_SEED = bytes.fromhex("6b" * 32)
-_TEST_PRIVATE_KEY = Ed25519PrivateKey.from_private_bytes(_TEST_PRIVATE_SEED)
-_OTHER_TEST_PRIVATE_KEY = Ed25519PrivateKey.from_private_bytes(bytes.fromhex("94" * 32))
+_TEST_PRIVATE_KEY = Ed25519PrivateKey.generate()
+_OTHER_TEST_PRIVATE_KEY = Ed25519PrivateKey.generate()
 TEST_PUBLIC_KEY = _TEST_PRIVATE_KEY.public_key().public_bytes(
     serialization.Encoding.Raw,
     serialization.PublicFormat.Raw,

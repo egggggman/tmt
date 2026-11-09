@@ -100,8 +100,23 @@ def test_incomplete_stage002_reconciliation_cannot_return_ready(monkeypatch, tmp
         snapshot["terminal"] = True
         return snapshot
 
-    with pytest.raises(DiagnosticLauncherError, match="reconciliation"):
-        launcher.run_once(executor=terminal_setup_snapshot)
+    monkeypatch.setattr(stage002, "run_game", terminal_setup_snapshot)
+    exit_code = launcher_module.main(
+        [
+            "--output-directory",
+            str(launcher.output_directory),
+            "--source-approval",
+            str(launcher.source_approval_path),
+            "--run-authorization",
+            str(launcher.run_authorization_path),
+        ]
+    )
+    assert exit_code == 2
+    status = json.loads((launcher.output_directory / "run_status.json").read_text(encoding="utf-8"))
+    assert status["diagnostic_status"] == "BLOCKED"
+    assert "reconciliation_failed" in status["blocking_findings"]
+    assert (launcher.output_directory / "snapshot.json").is_file()
+    assert (launcher.output_directory / "reconciliation.json").is_file()
 
     assert launcher_module.stage002 is stage002
 
@@ -119,6 +134,14 @@ def test_actual_reconciliation_digest_and_manifest_binding_are_preserved(tmp_pat
     report = stage002.reconcile_snapshot(spec, snapshot, manifest)
 
     assert launcher._validate_reconciliation(report, spec, snapshot, manifest, source) == []
+    with pytest.raises(DiagnosticLauncherError, match="game_not_terminal"):
+        launcher.run_once(executor=_synthetic_executor)
+    binding = json.loads(
+        (launcher.output_directory / "reconciliation_binding.json").read_text(encoding="utf-8")
+    )
+    assert binding["implementation_sha"] == source["head"]
+    assert binding["stage_manifest_digest"] == manifest["manifest_digest"]
+    assert binding["reconciliation_report_digest"] == report["report_digest"]
 
 
 @pytest.mark.parametrize("defect", ["digest", "game_identity", "source_evidence", "manifest_game"])
