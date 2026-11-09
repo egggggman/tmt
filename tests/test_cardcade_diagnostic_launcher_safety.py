@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import multiprocessing
 import subprocess
@@ -37,7 +38,8 @@ def _launcher(
         implementation_sha
         or subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     )
-    run_id = authorization_id or f"SYNTHETIC-SAFETY-{tmp_path.parent.name}-{label}"
+    run_suffix = hashlib.sha256(f"{tmp_path.parent.name}-{label}".encode()).hexdigest()[:16]
+    run_id = authorization_id or f"SYNTHETIC-{run_suffix}"
     approval_id = f"HQ-SYNTHETIC-{run_id}"
     hashes = dict(input_hashes or APPROVED_INPUT_SHA256)
     approval_path = tmp_path / f"source-approval-{label}.json"
