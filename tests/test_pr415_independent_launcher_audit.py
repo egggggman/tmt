@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from tools import cardcade_diagnostic_launcher as launcher_module
 from tools.cardcade_diagnostic_launcher import OneShotDiagnosticLauncher, stage002
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -80,6 +81,25 @@ def test_audit_success_path_returns_normally_when_reconciliation_fails(monkeypat
         launcher.output_directory.joinpath("reconciliation_error.json").read_text(encoding="utf-8")
     )
     assert error["type"] == "ValueError"
+
+
+def test_audit_cli_returns_success_code_when_reconciliation_fails(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "cli-reconcile-failure")
+    monkeypatch.setattr(stage002, "run_game", _synthetic_executor)
+    monkeypatch.setattr(
+        stage002,
+        "reconcile_snapshot",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(ValueError("injected reconcile failure")),
+    )
+
+    exit_code = launcher_module.main(["--output-directory", str(launcher.output_directory)])
+
+    assert exit_code == 0
+    status = json.loads(
+        launcher.output_directory.joinpath("run_status.json").read_text(encoding="utf-8")
+    )
+    assert status["run_returned_normally"] is True
+    assert status["reconciliation_completed"] is False
 
 
 def test_audit_new_launcher_instances_can_each_invoke_executor(tmp_path):
