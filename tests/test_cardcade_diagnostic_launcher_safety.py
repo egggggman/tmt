@@ -4,6 +4,7 @@ import hashlib
 import json
 import multiprocessing
 import subprocess
+import uuid
 from pathlib import Path
 
 import pytest
@@ -33,12 +34,17 @@ def _launcher(
 ) -> OneShotDiagnosticLauncher:
     output_root = ROOT / ".cardcade-diagnostic-runs"
     output_root.mkdir(exist_ok=True)
-    output = output_root / f"diagnostic-game-safety-{tmp_path.parent.name}-{label}"
+    invocation_nonce = uuid.uuid4().hex
+    output = (
+        output_root / f"diagnostic-game-safety-{tmp_path.parent.name}-{label}-{invocation_nonce}"
+    )
     approved_sha = (
         implementation_sha
         or subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     )
-    run_suffix = hashlib.sha256(f"{tmp_path.parent.name}-{label}".encode()).hexdigest()[:16]
+    run_suffix = hashlib.sha256(
+        f"{tmp_path.parent.name}-{label}-{invocation_nonce}".encode()
+    ).hexdigest()[:16]
     run_id = authorization_id or f"SYNTHETIC-{run_suffix}"
     approval_id = f"HQ-SYNTHETIC-{run_id}"
     hashes = dict(input_hashes or APPROVED_INPUT_SHA256)
@@ -155,7 +161,7 @@ def test_unapproved_frozen_input_hash_fails_before_executor_call(tmp_path):
 
 
 def test_cross_process_authorization_claim_is_exclusive(tmp_path):
-    authorization_id = f"CROSS-PROCESS-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
+    authorization_id = f"CROSS-PROCESS-{uuid.uuid4().hex}"
     launcher = _launcher(tmp_path, "cross-process", authorization_id=authorization_id)
     source = launcher._verify_source()
     context = multiprocessing.get_context("spawn")
@@ -192,7 +198,7 @@ def test_cross_process_authorization_claim_is_exclusive(tmp_path):
 
 
 def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
-    authorization_id = f"FAILED-EXECUTION-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
+    authorization_id = f"FAILED-EXECUTION-{uuid.uuid4().hex}"
     first = _launcher(tmp_path, "failed-first", authorization_id=authorization_id)
     second = _launcher(tmp_path, "failed-second", authorization_id=authorization_id)
     calls = 0
@@ -214,9 +220,7 @@ def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
 
 
 def test_failed_reconciliation_persists_evidence_and_blocks_cli(monkeypatch, tmp_path):
-    authorization_id = (
-        f"FAILED-RECONCILIATION-{hashlib.sha256(tmp_path.name.encode()).hexdigest()[:12]}"
-    )
+    authorization_id = f"FAILED-RECONCILIATION-{uuid.uuid4().hex}"
     launcher = _launcher(tmp_path, "reconcile-failure", authorization_id=authorization_id)
     second = _launcher(tmp_path, "reconcile-failure-repeat", authorization_id=authorization_id)
     calls = 0
