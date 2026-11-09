@@ -351,16 +351,21 @@ class OneShotDiagnosticLauncher:
         spec: stage002.GameSpec,
         manifest: dict[str, object],
     ) -> tuple[dict[str, object] | None, dict[str, object] | None]:
-        self._write_json(self.output_directory, "snapshot.json", snapshot)
-        events = snapshot.get("events", [])
-        if not isinstance(events, list):
-            raise DiagnosticLauncherError("snapshot event stream is not a list")
-        self._write_json(self.output_directory, "events.json", events)
-        self._write_json(
-            self.output_directory,
-            "priority_stack_combat_trace.json",
-            [event for event in events if event.get("event") in TRACE_EVENTS],
-        )
+        try:
+            self._write_json(self.output_directory, "snapshot.json", snapshot)
+            events = snapshot.get("events", [])
+            if not isinstance(events, list):
+                raise DiagnosticLauncherError("snapshot event stream is not a list")
+            self._write_json(self.output_directory, "events.json", events)
+            self._write_json(
+                self.output_directory,
+                "priority_stack_combat_trace.json",
+                [event for event in events if event.get("event") in TRACE_EVENTS],
+            )
+        except OSError as error:
+            raise EvidencePersistenceError(
+                "snapshot evidence could not be persisted; do not retry this launcher"
+            ) from error
         try:
             reconciliation = stage002.reconcile_snapshot(spec, snapshot, manifest)
         except BaseException as error:
@@ -538,6 +543,8 @@ class OneShotDiagnosticLauncher:
                     reconciliation, reconciliation_error = self._serialize_snapshot(
                         snapshot, spec, manifest
                     )
+                except EvidencePersistenceError:
+                    raise
                 except BaseException as error:
                     serialization_error = self._safe_error(error)
                     reconciliation_error = serialization_error
