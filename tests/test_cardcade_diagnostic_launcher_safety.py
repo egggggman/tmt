@@ -355,7 +355,7 @@ def test_postmerge_accepted_main_pin_matches_verified_integration(tmp_path):
         "891963754d7cc6342ae963a0bf4b69918861460f"
     )
     source = launcher._verify_source()
-    assert source["main"] == launcher_module.ACCEPTED_MAIN
+    assert source["accepted_main"] == launcher_module.ACCEPTED_MAIN
     assert source["head"] == source["source_approval"]["implementation_sha"]
 
 
