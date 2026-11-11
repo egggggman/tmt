@@ -346,3 +346,38 @@ def test_missing_presence_evidence_blocks_normal_return(tmp_path):
     status = json.loads((launcher.output_directory / "run_status.json").read_text(encoding="utf-8"))
     assert status["diagnostic_status"] == "BLOCKED"
     assert "presence_evidence_missing" in status["blocking_findings"]
+
+
+def test_postmerge_accepted_main_pin_matches_verified_integration(tmp_path):
+    """New source guard accepts the merged main while retaining exact source approval."""
+    launcher = _launcher(tmp_path, "postmerge-main")
+    assert launcher_module.ACCEPTED_MAIN == (
+        "891963754d7cc6342ae963a0bf4b69918861460f"
+    )
+    source = launcher._verify_source()
+    assert source["main"] == launcher_module.ACCEPTED_MAIN
+    assert source["head"] == source["source_approval"]["implementation_sha"]
+
+
+def test_postmerge_pin_rejects_preintegration_main_before_dispatch(tmp_path, monkeypatch):
+    """A stale origin/main must fail closed before any executor or claim is used."""
+    launcher = _launcher(tmp_path, "stale-premerge-main")
+    original_git = launcher._git
+
+    def stale_main_git(root, *args):
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            return "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", stale_main_git)
+    called = 0
+
+    def forbidden_executor(*_args, **_kwargs):
+        nonlocal called
+        called += 1
+        raise AssertionError("stale main must block before dispatch")
+
+    with pytest.raises(DiagnosticLauncherError, match="accepted main changed"):
+        launcher.run_once(executor=forbidden_executor)
+    assert called == launcher._run_game_call_count == 0
+    assert not launcher.output_directory.exists()
