@@ -41,7 +41,7 @@ from tmnt_design_studio import engine07, stage002  # noqa: E402
 # copied authoritative inputs through this captured function.
 _TRUSTED_RECONCILE_SNAPSHOT = stage002.reconcile_snapshot
 
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+ACCEPTED_MAIN = "891963754d7cc6342ae963a0bf4b69918861460f"
 EXPECTED_GAME_ID = "april-casey:canonical:7231"
 EXPECTED_PAIRING_ID = "april-casey"
 EXPECTED_ORIENTATION = "canonical"
