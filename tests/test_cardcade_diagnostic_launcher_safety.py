@@ -22,7 +22,7 @@ from tools.cardcade_diagnostic_launcher import (
 
 ROOT = Path(__file__).resolve().parents[1]
 PRE_TEST_DESCENDANT = "5cf4a0c6cd631ddeac9dbf8123a4197c25bac66f"
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+TRUSTED_MAINLINE_BASELINE = "891963754d7cc6342ae963a0bf4b69918861460f"
 
 
 def _launcher(
@@ -346,3 +346,119 @@ def test_missing_presence_evidence_blocks_normal_return(tmp_path):
     status = json.loads((launcher.output_directory / "run_status.json").read_text(encoding="utf-8"))
     assert status["diagnostic_status"] == "BLOCKED"
     assert "presence_evidence_missing" in status["blocking_findings"]
+
+
+def test_postmerge_accepted_main_pin_matches_verified_integration(tmp_path):
+    """The trusted baseline is present in main while source approval remains exact."""
+    launcher = _launcher(tmp_path, "postmerge-main")
+    assert launcher_module.TRUSTED_MAINLINE_BASELINE == TRUSTED_MAINLINE_BASELINE
+    source = launcher._verify_source()
+    assert source["accepted_main"] == TRUSTED_MAINLINE_BASELINE
+    assert source["head"] == source["source_approval"]["implementation_sha"]
+
+
+def test_postmerge_pin_rejects_preintegration_main_before_dispatch(tmp_path, monkeypatch):
+    """A stale origin/main must fail closed before any executor or claim is used."""
+    launcher = _launcher(tmp_path, "stale-premerge-main")
+    original_git = launcher._git
+
+    def stale_main_git(root, *args):
+        if args == ("status", "--porcelain=v1"):
+            return ""
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            return "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", stale_main_git)
+    called = 0
+
+    def forbidden_executor(*_args, **_kwargs):
+        nonlocal called
+        called += 1
+        raise AssertionError("stale main must block before dispatch")
+
+    with pytest.raises(DiagnosticLauncherError, match="does not retain trusted baseline"):
+        launcher.run_once(executor=forbidden_executor)
+    assert called == launcher._run_game_call_count == 0
+    assert not launcher.output_directory.exists()
+
+
+def test_future_history_preserving_main_is_accepted(tmp_path, monkeypatch):
+    """A normal merge commit after the trusted baseline must remain compatible."""
+    launcher = _launcher(tmp_path, "future-merge-main")
+    original_git = launcher._git
+    future_main = "f" * 40
+
+    def future_main_git(root, *args):
+        if args == ("status", "--porcelain=v1"):
+            return ""
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            return future_main
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", future_main_git)
+    head = original_git(launcher.root, "rev-parse", "HEAD")
+    ancestry = {
+        (TRUSTED_MAINLINE_BASELINE, future_main),
+        (head, future_main),
+    }
+    monkeypatch.setattr(
+        launcher_module.OneShotDiagnosticLauncher,
+        "_is_ancestor",
+        staticmethod(lambda _root, ancestor, descendant: (ancestor, descendant) in ancestry),
+    )
+    source = launcher._verify_source()
+    assert source["accepted_main"] == future_main
+    assert source["head"] == source["source_approval"]["implementation_sha"]
+
+
+@pytest.mark.parametrize(
+    ("main_sha", "ancestry", "message"),
+    [
+        ("a" * 40, set(), "does not retain trusted baseline"),
+        (
+            "b" * 40,
+            {(TRUSTED_MAINLINE_BASELINE, "b" * 40)},
+            "have diverged",
+        ),
+    ],
+    ids=("unrelated-main", "divergent-main"),
+)
+def test_unrelated_or_divergent_main_is_rejected(
+    tmp_path, monkeypatch, main_sha, ancestry, message
+):
+    launcher = _launcher(tmp_path, "untrusted-main")
+    original_git = launcher._git
+
+    def synthetic_main_git(root, *args):
+        if args == ("status", "--porcelain=v1"):
+            return ""
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            return main_sha
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", synthetic_main_git)
+    monkeypatch.setattr(
+        launcher_module.OneShotDiagnosticLauncher,
+        "_is_ancestor",
+        staticmethod(lambda _root, ancestor, descendant: (ancestor, descendant) in ancestry),
+    )
+    with pytest.raises(DiagnosticLauncherError, match=message):
+        launcher._verify_source()
+
+
+def test_incorrect_source_signature_is_rejected(tmp_path, monkeypatch):
+    launcher = _launcher(tmp_path, "invalid-source-signature")
+    document = json.loads(launcher.source_approval_path.read_text(encoding="utf-8"))
+    document["approval_id"] += "-altered"
+    launcher.source_approval_path.write_text(json.dumps(document), encoding="utf-8")
+    original_git = launcher._git
+
+    def clean_git_status(root, *args):
+        if args == ("status", "--porcelain=v1"):
+            return ""
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", clean_git_status)
+    with pytest.raises(DiagnosticLauncherError, match="signature verification failed"):
+        launcher._verify_source()

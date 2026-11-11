@@ -41,7 +41,9 @@ from tmnt_design_studio import engine07, stage002  # noqa: E402
 # copied authoritative inputs through this captured function.
 _TRUSTED_RECONCILE_SNAPSHOT = stage002.reconcile_snapshot
 
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+# Immutable integration point for the accepted launcher policy. origin/main may
+# advance, but it must retain this baseline and remain on the checkout's lineage.
+TRUSTED_MAINLINE_BASELINE = "891963754d7cc6342ae963a0bf4b69918861460f"
 EXPECTED_GAME_ID = "april-casey:canonical:7231"
 EXPECTED_PAIRING_ID = "april-casey"
 EXPECTED_ORIENTATION = "canonical"
@@ -205,6 +207,20 @@ class OneShotDiagnosticLauncher:
         ).strip()
 
     @staticmethod
+    def _is_ancestor(root: Path, ancestor: str, descendant: str) -> bool:
+        result = subprocess.run(
+            ["git", "-C", str(root), "merge-base", "--is-ancestor", ancestor, descendant],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        if result.returncode == 0:
+            return True
+        if result.returncode == 1:
+            return False
+        raise DiagnosticLauncherError(f"cannot verify Git ancestry for {ancestor} and {descendant}")
+
+    @staticmethod
     def _read_authorization(path: Path, *, label: str) -> dict[str, Any]:
         def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
             result: dict[str, Any] = {}
@@ -277,8 +293,14 @@ class OneShotDiagnosticLauncher:
             raise DiagnosticLauncherError(
                 "Stage 002 and engine imports do not share one Game class"
             )
-        if main != ACCEPTED_MAIN:
-            raise DiagnosticLauncherError(f"accepted main changed: {main}")
+        if not self._is_ancestor(self.root, TRUSTED_MAINLINE_BASELINE, main):
+            raise DiagnosticLauncherError(
+                f"origin/main does not retain trusted baseline {TRUSTED_MAINLINE_BASELINE}"
+            )
+        if not (
+            self._is_ancestor(self.root, main, head) or self._is_ancestor(self.root, head, main)
+        ):
+            raise DiagnosticLauncherError("origin/main and the exact source checkout have diverged")
 
         source_approval = self._read_authorization(
             self.source_approval_path, label="HQ source approval"
