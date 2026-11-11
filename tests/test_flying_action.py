@@ -1,3 +1,4 @@
+from tmnt_design_studio.card_interpreter07 import CardInterpreter
 from tmnt_design_studio.engine07 import CardFact, Game, TurnStep
 
 LAND = CardFact("Plains", "", 0, "Basic Land - Plains")
@@ -36,6 +37,16 @@ DOUBLE_FLYER = CardFact(
     toughness=3,
     keywords=("Flying", "Double strike"),
 )
+VIGILANCE_FLYER = CardFact(
+    "Buzz Bots",
+    "{1}{U}",
+    2,
+    "Artifact Creature - Robot Insect",
+    "Flying, vigilance",
+    power=1,
+    toughness=1,
+    keywords=("Flying", "Vigilance"),
+)
 
 
 def _game(attacker=WAY, blockers=(ORDINARY,), seed=9010):
@@ -64,6 +75,15 @@ def test_flying_attacker_filters_ordinary_blocker_and_attacks_unblocked():
         for item in evidence.assignments
     )
     assert game.players[1].life == 18
+
+
+def test_vigilance_attacker_remains_untapped_after_attack():
+    game, source, _defenders, _attack = _game(attacker=VIGILANCE_FLYER, blockers=(), seed=9020)
+    assert not source.tapped
+
+
+def test_flying_vigilance_keyword_line_is_not_reported_as_unsupported():
+    assert CardInterpreter().unsupported_fragments(VIGILANCE_FLYER) == ()
 
 
 def test_flying_attacker_can_be_blocked_by_flying_or_reach():

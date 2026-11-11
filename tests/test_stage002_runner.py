@@ -191,7 +191,7 @@ def test_terminal_combat_stops_before_new_trigger_priority_or_resolution():
     _resolve_combat_damage_steps(current, AcceptancePilot())
 
     assert current.winner == 0
-    assert current.step is TurnStep.END_OF_COMBAT
+    assert current.step is TurnStep.COMBAT_DAMAGE
     assert current._combat_damage_resolved is True
     assert len(current.combat_damage_evidence) == 1
     assert len(current.players[1].hand) == hand_before
@@ -203,6 +203,7 @@ def test_terminal_combat_stops_before_new_trigger_priority_or_resolution():
     assert "trigger_stacked" not in names
     assert "priority_granted" not in names
     assert "trigger_resolved" not in names
+    current.check_invariants()
 
 
 def test_shared_driver_does_not_drain_priority_after_terminal_state():

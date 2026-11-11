@@ -401,9 +401,23 @@ def test_newly_animated_artifact_remains_summoning_sick_and_cannot_attack():
 def test_animated_artifact_can_block_as_a_creature():
     game, source, facts, _targets = _game()
     source.class_level = 3
-    blocker = game.create_permanent(facts["Sewer-veillance Cam"], 0)
     attacker = game.create_permanent(facts["Fugitive Droid"], 1, summoning_sick=False)
-    game.transition_to(TurnStep.BEGINNING_OF_COMBAT)
+
+    # Advance one bounded synthetic turn so the Droid's actual entry no longer
+    # qualifies, without editing the engine's private artifact-entry ledger.
+    for _ in range(2):
+        while game.step is not TurnStep.END_STEP:
+            if game.step is TurnStep.COMBAT_DAMAGE:
+                game.resolve_combat_damage()
+            game.advance_step()
+        game.transition_to(TurnStep.CLEANUP)
+        game._perform_cleanup()
+        game.transition_to(TurnStep.UNTAP)
+    assert not game._artifact_entries_this_turn
+    assert game.active_player == 0
+
+    blocker = game.create_permanent(facts["Sewer-veillance Cam"], 0)
+    game.advance_to(TurnStep.BEGINNING_OF_COMBAT)
     game._begin_priority_window()
     _resolve_top(game)
     game._step = TurnStep.DECLARE_BLOCKERS
@@ -413,13 +427,11 @@ def test_animated_artifact_can_block_as_a_creature():
         1,
         attacker_ids=(attacker.object_id,),
     )
+    blocks = game.legal_block_options(attack, 0)
 
     assert blocker.summoning_sick
     assert game.can_block(attacker, blocker, 0)
-    assert any(
-        (attacker.object_id, blocker.object_id) in option.blocks
-        for option in game.legal_block_options(attack, 0)
-    )
+    assert any((attacker.object_id, blocker.object_id) in option.blocks for option in blocks)
     assert game.generate_blocks([attacker], 0, log_rejections=False) == {
         attacker.object_id: blocker
     }

@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import re
+import traceback
 from collections import Counter
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
@@ -13,7 +15,14 @@ from pathlib import Path
 from tmnt_design_studio.card_data import CardDataCatalog, load_card_data
 from tmnt_design_studio.card_interpreter07 import CardInterpreter, TokenDefinition
 from tmnt_design_studio.conformance07 import opportunity_context_key, semantic_key
-from tmnt_design_studio.engine07 import Game, TurnStep, load_deck, load_facts
+from tmnt_design_studio.engine07 import (
+    ActionKind,
+    ActionOption,
+    Game,
+    TurnStep,
+    load_deck,
+    load_facts,
+)
 from tmnt_design_studio.pilot07 import AcceptancePilot, Pilot
 
 
@@ -246,6 +255,10 @@ def _semantic_coverage(
         ("lifelink", interpreter.lifelink_semantic_coverage(card, fragment)),
         ("sneak", interpreter.sneak_semantic_coverage(card, fragment)),
         ("draw_cards", interpreter.draw_cards_semantic_coverage(card, fragment)),
+        (
+            "april_end_step_draw",
+            interpreter.april_end_step_draw_semantic_coverage(card, fragment),
+        ),
     )
     for family, interpreted in candidates:
         if interpreted is None:
@@ -415,10 +428,21 @@ def _checked_action(game: Game, operation: Callable[[], object], detail: str) ->
     return result
 
 
-def _drain_priority(game: Game, pilot: Pilot) -> None:
-    while game.winner is None and game.priority_state is not None:
+def _drain_priority(game: Game, pilot: Pilot, *, follow_on_empty_window: bool = False) -> None:
+    while not game.terminal and game.priority_state is not None:
         if game.priority_state.resolution_pending:
+            resolving_stack = bool(game.stack)
+            resolving_step = game.step
             _checked_action(game, game.process_priority_resolution, "priority resolution")
+            if (
+                follow_on_empty_window
+                and resolving_stack
+                and not game.terminal
+                and game.step is resolving_step
+                and game.priority_state is None
+                and not game.stack
+            ):
+                game._begin_priority_window(allow_empty=True)
             continue
         options = game.legal_priority_actions(game.priority_state.player_index)
         choice = pilot.choose_priority(
@@ -431,22 +455,118 @@ def _drain_priority(game: Game, pilot: Pilot) -> None:
         )
 
 
+def _drain_ordinary_step_priority(game: Game, pilot: Pilot) -> None:
+    """Offer an ordinary priority opportunity before leaving the current step."""
+    if game.terminal:
+        return
+    if game.priority_state is None:
+        game._begin_priority_window(allow_empty=True)
+    _drain_priority(game, pilot, follow_on_empty_window=True)
+
+
 def _begin_turn_with_priority(game: Game, pilot: Pilot) -> None:
     """Expose the existing beginning steps and service upkeep Stack/Priority."""
     from tmnt_design_studio.engine07 import TurnStep
 
     if game.step not in {TurnStep.SETUP, TurnStep.CLEANUP}:
         raise ValueError("begin turn requires setup or cleanup")
-    while game.winner is None and game.step is not TurnStep.PRECOMBAT_MAIN:
+    while not game.terminal and game.step is not TurnStep.PRECOMBAT_MAIN:
         _checked_action(game, game.advance_step, "beginning step")
-        _drain_priority(game, pilot)
+        if game.step not in {TurnStep.UNTAP, TurnStep.CLEANUP}:
+            _drain_ordinary_step_priority(game, pilot)
+        else:
+            _drain_priority(game, pilot)
+
+
+def _matching_main_followup(
+    options: tuple[ActionOption, ...], followups: tuple[str, ...]
+) -> tuple[ActionOption, ...]:
+    """Return current legal options matching the first available advertised follow-up."""
+    for descriptor in followups:
+        parts = descriptor.split(":", 2)
+        if len(parts) == 2 and parts[0] in {"cast", "cast-graveyard"}:
+            kind, object_id, fragment = ActionKind.CAST, parts[1], None
+        elif len(parts) == 3 and parts[0] in {
+            "activate",
+            "activate-hand",
+            "activate-graveyard",
+        }:
+            kind, object_id, fragment = ActionKind.ACTIVATE_ABILITY, parts[1], parts[2]
+        else:
+            continue
+        matches = tuple(
+            option
+            for option in options
+            if option.kind is kind
+            and option.object_id == object_id
+            and (fragment is None or option.oracle_fragment == fragment)
+        )
+        if matches:
+            return matches
+    return ()
+
+
+def _run_main_action_stages(game: Game, pilot: Pilot) -> None:
+    """Apply the established land/activation/spell policy in either main phase."""
+    active = game.active_player
+    followups: tuple[str, ...] = ()
+    for stage in ("land", "activate", "damage", "destroy", "creature"):
+        attempts = 0
+        while not game.terminal:
+            options = game.legal_main_actions(active)
+            matches = _matching_main_followup(options, followups) if followups else ()
+            if matches:
+                if matches[0].kind is ActionKind.ACTIVATE_ABILITY:
+                    choice = matches[0]
+                    followups = ()
+                elif stage == "activate" and len(matches) > 1:
+                    # Let the normal spell stages choose among target variants.
+                    choice = next(item for item in options if item.kind is ActionKind.PASS)
+                elif len(matches) == 1:
+                    choice = matches[0]
+                    followups = ()
+                else:
+                    pass_option = next(item for item in options if item.kind is ActionKind.PASS)
+                    proposed = pilot.choose_main_action(
+                        game.pilot_view(active), (*matches, pass_option), stage
+                    )
+                    if proposed in matches:
+                        choice = proposed
+                        followups = ()
+                    else:
+                        # Keep the preference for the next existing cast stage and
+                        # do not allow an unrelated action to take the opportunity.
+                        choice = pass_option
+            else:
+                if followups:
+                    followups = ()
+                choice = pilot.choose_main_action(game.pilot_view(active), options, stage)
+            _checked_action(
+                game, lambda choice=choice: game.execute_main_action(choice), "main action"
+            )
+            _drain_priority(game, pilot)
+            attempts += 1
+            # Immediate mana abilities do not open priority. Re-enumerate once per
+            # reported useful follow-up, with a hard cap against faulty pilot loops.
+            if stage != "activate" or not choice.mana_followups or attempts >= 3:
+                break
+            followups = choice.mana_followups
+
+
+def _wire_damage_target_chooser(game: Game, pilot: Pilot) -> None:
+    """Connect the engine's offered-target callback to this pilot's public view."""
+    chooser = getattr(pilot, "choose_damage_target", None)
+    if callable(chooser):
+        game.damage_target_chooser = lambda controller, _source_id, offered: chooser(
+            game.pilot_view(controller), offered
+        )
 
 
 def _resolve_combat_damage_steps(game: Game, pilot: Pilot) -> None:
     """Resolve each distinct damage step around existing Stack/Priority work."""
-    while game.winner is None and game.step.value == "combat_damage":
+    while not game.terminal and game.step.value == "combat_damage":
         _checked_action(game, game.resolve_combat_damage, "combat damage")
-        if game.winner is None:
+        if not game.terminal:
             _drain_priority(game, pilot)
 
 
@@ -573,7 +693,142 @@ def _finish_presence(
     )
 
 
-def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str, object]:
+class DiagnosticExecutionCapture:
+    """Retain the exact runner state needed to snapshot a failed diagnostic call."""
+
+    def __init__(self) -> None:
+        self._game: Game | None = None
+        self._presence: list[dict[str, object]] | None = None
+        self._binding_count = 0
+        self._ambiguous = False
+        self._call_active = False
+        self.failure: dict[str, object] | None = None
+
+    @staticmethod
+    def _safe_text(value: object, *, fallback: str) -> str:
+        try:
+            return str(value)
+        except BaseException as format_error:
+            return f"{fallback}: {type(format_error).__name__}>"
+
+    @classmethod
+    def _safe_exception_detail(cls, error: BaseException) -> str:
+        return f"{type(error).__name__}: {cls._safe_text(error, fallback='message unavailable')}"
+
+    def _begin_call(self) -> None:
+        if self._call_active:
+            raise RuntimeError("diagnostic capture call is already active")
+        self._game = None
+        self._presence = None
+        self._binding_count = 0
+        self._ambiguous = False
+        self.failure = None
+        self._call_active = True
+
+    def _finish_call(self) -> None:
+        self._call_active = False
+        self._game = None
+        self._presence = None
+
+    def bind(self, game: Game, presence: list[dict[str, object]]) -> None:
+        """Bind runner-owned state explicitly; never infer it from traceback locals."""
+        if not self._call_active:
+            raise RuntimeError(
+                "diagnostic runner state can only bind during an active capture call"
+            )
+        if self._binding_count:
+            self._ambiguous = True
+            self._game = None
+            self._presence = None
+            self._binding_count += 1
+            raise RuntimeError("diagnostic runner state was bound more than once")
+        self._binding_count = 1
+        self._game = game
+        self._presence = presence
+
+    def _record_fallback(self, error: BaseException, capture_error: BaseException) -> None:
+        self.failure = {
+            "type": type(error).__name__,
+            "message": "<diagnostic exception capture failed>",
+            "traceback": "<diagnostic traceback capture failed>",
+            "snapshot": None,
+            "capture_error": type(capture_error).__name__,
+        }
+
+    def capture_exception(self, error: BaseException) -> dict[str, object]:
+        if not self._call_active:
+            raise RuntimeError("diagnostic exception capture has no active call")
+        try:
+            message = self._safe_text(error, fallback="<exception message unavailable")
+        except BaseException:
+            message = "<exception message unavailable>"
+        try:
+            error_traceback = "".join(
+                traceback.format_exception(type(error), error, error.__traceback__)
+            )
+        except BaseException:
+            error_traceback = "<traceback unavailable>"
+        details: dict[str, object] = {
+            "type": type(error).__name__,
+            "message": message,
+            "traceback": error_traceback,
+            "snapshot": None,
+            "capture_error": None,
+        }
+        if self._ambiguous or self._binding_count > 1:
+            details["capture_error"] = "diagnostic runner state was bound more than once"
+        elif self._binding_count == 0 or self._game is None or self._presence is None:
+            details["capture_error"] = "diagnostic runner state was not bound"
+        else:
+            try:
+                snapshot = self._game.snapshot()
+                presence = copy.deepcopy(self._presence)
+                _add_created_token_presence(self._game, presence, snapshot["events"])
+                snapshot["stage002_presence"] = _finish_presence(presence, snapshot["events"])
+                details["snapshot"] = snapshot
+            except BaseException as capture_error:
+                details["capture_error"] = self._safe_exception_detail(capture_error)
+        self.failure = details
+        return details
+
+
+def capture_diagnostic_call[DiagnosticResult](
+    capture: DiagnosticExecutionCapture,
+    operation: Callable[[], DiagnosticResult],
+) -> DiagnosticResult:
+    """Capture runner-owned state on failure, then re-raise the original exception."""
+    capture._begin_call()
+    try:
+        result = operation()
+    except BaseException as error:
+        try:
+            capture.capture_exception(error)
+        except BaseException as capture_error:
+            try:
+                capture._record_fallback(error, capture_error)
+            except BaseException:
+                capture.failure = {
+                    "type": type(error).__name__,
+                    "message": "<diagnostic exception capture failed>",
+                    "traceback": "<diagnostic traceback capture failed>",
+                    "snapshot": None,
+                    "capture_error": "capture bookkeeping failed",
+                }
+        finally:
+            capture._finish_call()
+        raise
+    else:
+        capture._finish_call()
+        return result
+
+
+def run_game(
+    root: Path,
+    spec: GameSpec,
+    pilot: Pilot | None = None,
+    *,
+    diagnostic_capture: DiagnosticExecutionCapture | None = None,
+) -> dict[str, object]:
     """Run one parameterized game through the same Engine/Interpreter/Pilot boundary as #001."""
     catalog = load_catalog(root)
     paths = tuple(root / seat.relative_path for seat in spec.seats)
@@ -585,73 +840,94 @@ def run_game(root: Path, spec: GameSpec, pilot: Pilot | None = None) -> dict[str
         seed=spec.seed,
     )
     presence = _initial_presence(game)
+    if diagnostic_capture is not None:
+        diagnostic_capture.bind(game, presence)
     chosen_pilot = pilot or AcceptancePilot()
     game.scry_chooser = chosen_pilot.choose_scry
     game.hand_bottom_draw_chooser = chosen_pilot.choose_hand_bottom_draw
     game.discard_draw_chooser = chosen_pilot.choose_discard_draw
-    while game.winner is None and game.turn < 120:
+    _wire_damage_target_chooser(game, chosen_pilot)
+    while not game.terminal and game.turn < 120:
         if game.turn >= 119:
             raise RuntimeError("attempted to begin turn 120")
         _begin_turn_with_priority(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
+            break
+        _run_main_action_stages(game, chosen_pilot)
+        if game.terminal:
             break
         active = game.active_player
-        for stage in ("land", "activate", "damage", "destroy", "creature"):
-            options = game.legal_main_actions(active)
-            choice = chosen_pilot.choose_main_action(game.pilot_view(active), options, stage)
-            _checked_action(
-                game, lambda choice=choice: game.execute_main_action(choice), "main action"
-            )
-            _drain_priority(game, chosen_pilot)
-            if game.winner is not None:
-                break
-        if game.winner is not None:
-            break
         _checked_action(game, game.advance_step, "advance to combat")
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
+            break
         _checked_action(game, game.advance_step, "advance to attackers")
         attack = chosen_pilot.choose_attack(
             game.pilot_view(active), game.legal_attack_options(active)
         )
         _checked_action(
             game,
-            lambda attack=attack: game.execute_attack_action(attack),
+            lambda attack=attack: game.execute_attack_action(attack, defer_step_transition=True),
             "attack action",
         )
-        _drain_priority(game, chosen_pilot)
-        if game.winner is not None:
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
             break
-        if (
-            game.winner is None
-            and game.step is TurnStep.DECLARE_ATTACKERS
-            and game._attackers_declared
-            and game._combat_attackers
-            and game.priority_state is None
-        ):
-            game.transition_to(TurnStep.DECLARE_BLOCKERS)
+        if game.step is not TurnStep.DECLARE_ATTACKERS or not game._attackers_declared:
+            raise RuntimeError("attack declaration priority did not complete")
+        _checked_action(game, game.advance_step, "advance after attacker priority")
         blocks = chosen_pilot.choose_blocks(
             game.pilot_view(1 - active), game.legal_block_options(attack, 1 - active)
         )
         _checked_action(
             game,
-            lambda blocks=blocks: game.execute_block_action(blocks),
+            lambda blocks=blocks: game.execute_block_action(blocks, defer_step_transition=True),
             "block action",
         )
-        while game.winner is None and game.step.value == "declare_blockers":
+        while not game.terminal and game.step is TurnStep.DECLARE_BLOCKERS:
             options = game.legal_sneak_actions(active)
             if not options:
                 raise RuntimeError("Sneak decision surface unavailable")
             choice = chosen_pilot.choose_sneak(game.pilot_view(active), options)
-            _checked_action(game, lambda choice=choice: game.execute_sneak_action(choice), "sneak")
+            _checked_action(
+                game,
+                lambda choice=choice: game.execute_sneak_action(choice, defer_step_transition=True),
+                "sneak",
+            )
             _drain_priority(game, chosen_pilot)
-        if game.winner is not None:
+            if choice.kind is ActionKind.PASS:
+                break
+        if game.terminal:
             break
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
+            break
+        if game.step is not TurnStep.DECLARE_BLOCKERS or not game._blockers_declared:
+            raise RuntimeError("block declaration priority did not complete")
+        _checked_action(game, game.advance_step, "advance after blocker priority")
         _resolve_combat_damage_steps(game, chosen_pilot)
-        if game.winner is not None:
+        if game.terminal:
+            break
+        if game.step is not TurnStep.END_OF_COMBAT:
+            raise RuntimeError("expected end-of-combat step after damage")
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
             break
         _checked_action(game, game.advance_step, "advance after combat")
         game.check_invariants()
-        _checked_action(game, game.end_turn, "end turn")
-    if game.winner is None:
+        # Apply the same bounded action stages during the normal second main phase.
+        _run_main_action_stages(game, chosen_pilot)
+        if game.terminal:
+            break
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
+            break
+        _checked_action(game, game.advance_step, "advance to end step")
+        _drain_ordinary_step_priority(game, chosen_pilot)
+        if game.terminal:
+            break
+        _checked_action(game, game.advance_step, "advance to cleanup")
+    if not game.terminal:
         game.log("acceptance_incomplete", reason="turn_limit")
     snapshot = game.snapshot()
     _add_created_token_presence(game, presence, snapshot["events"])
@@ -945,6 +1221,565 @@ def _context_evidence_stops(
     return stops
 
 
+def _spell_payment_evidence_stops(snapshot: dict[str, object]) -> list[dict[str, object]]:
+    """Authenticate typed spell payments against mana lots and actual cast events."""
+    stops: list[dict[str, object]] = []
+    ledger = snapshot.get("floating_mana_ledger")
+    evidence = snapshot.get("spell_payment_evidence")
+    rules_events = snapshot.get("rules_event_evidence")
+    if (
+        not isinstance(ledger, dict)
+        or not isinstance(evidence, list)
+        or not isinstance(rules_events, list)
+    ):
+        if isinstance(ledger, dict) and any(
+            allocation.get("spending_context") in {"artifact_spell", "nonartifact_spell"}
+            for player in ledger.get("players", [])
+            for allocation in player.get("payments", [])
+        ):
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": ["spell_payment_snapshot_evidence_missing"],
+                }
+            )
+        return stops
+
+    production_by_event: dict[str, dict[str, object]] = {}
+    payments_by_id: dict[str, list[dict[str, object]]] = {}
+    expirations_by_event: dict[str, list[dict[str, object]]] = {}
+    consumed_by_event: dict[str, int] = {}
+    malformed = False
+    ledger_players = ledger.get("players")
+    if not isinstance(ledger_players, list):
+        ledger_players = []
+        malformed = True
+    for player in ledger_players:
+        if not isinstance(player, dict):
+            malformed = True
+            continue
+        productions = player.get("productions", [])
+        payments = player.get("payments", [])
+        expirations = player.get("expirations", [])
+        if not all(isinstance(items, list) for items in (productions, payments, expirations)):
+            malformed = True
+            continue
+        for production in productions:
+            if not isinstance(production, dict):
+                malformed = True
+                continue
+            event_id = production.get("event_id")
+            if not isinstance(event_id, str) or not event_id or event_id in production_by_event:
+                malformed = True
+                continue
+            production_by_event[event_id] = production
+        for allocation in payments:
+            if not isinstance(allocation, dict):
+                malformed = True
+                continue
+            payment_id = allocation.get("payment_id")
+            production_event_id = allocation.get("production_event_id")
+            quantity = allocation.get("quantity")
+            if (
+                not isinstance(payment_id, str)
+                or not payment_id
+                or not isinstance(production_event_id, str)
+                or not isinstance(quantity, int)
+                or isinstance(quantity, bool)
+                or quantity <= 0
+            ):
+                malformed = True
+                continue
+            payments_by_id.setdefault(payment_id, []).append(allocation)
+            consumed_by_event[production_event_id] = (
+                consumed_by_event.get(production_event_id, 0) + quantity
+            )
+        for expiration in expirations:
+            if not isinstance(expiration, dict):
+                malformed = True
+                continue
+            event_id = expiration.get("production_event_id")
+            if isinstance(event_id, str):
+                expirations_by_event.setdefault(event_id, []).append(expiration)
+            else:
+                malformed = True
+
+    event_by_id = {
+        item.get("event_id"): item
+        for item in rules_events
+        if isinstance(item, dict) and isinstance(item.get("event_id"), str)
+    }
+    evidence_by_payment: dict[str, dict[str, object]] = {}
+    for item in evidence:
+        if not isinstance(item, dict):
+            malformed = True
+            continue
+        payment_id = item.get("payment_id")
+        if not isinstance(payment_id, str) or not payment_id or payment_id in evidence_by_payment:
+            malformed = True
+            continue
+        evidence_by_payment[payment_id] = item
+        controller = item.get("controller")
+        card_object_id = item.get("card_object_id")
+        spell_object_id = item.get("spell_object_id")
+        event_id = item.get("spell_event_id")
+        context = item.get("spending_context")
+        cast_event = event_by_id.get(event_id) if isinstance(event_id, str) else None
+        card_types = str(item.get("card_type_line", "")).split(" —", 1)[0].split()
+        expected_context = "artifact_spell" if "Artifact" in card_types else "nonartifact_spell"
+        if (
+            payment_id != card_object_id
+            or not isinstance(controller, int)
+            or isinstance(controller, bool)
+            or not isinstance(spell_object_id, str)
+            or not isinstance(event_id, str)
+            or context != expected_context
+            or not isinstance(cast_event, dict)
+            or cast_event.get("kind") != "spell_cast"
+            or cast_event.get("player_index") != controller
+            or cast_event.get("source_id") != spell_object_id
+            or cast_event.get("subject_ids") != [spell_object_id]
+            or cast_event.get("card_oracle_id") != item.get("card_oracle_id")
+            or cast_event.get("card_type_line") != item.get("card_type_line")
+        ):
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"spell_payment_cast_link_invalid:{payment_id}"],
+                }
+            )
+            continue
+
+        allocations = item.get("mana_allocations")
+        if not isinstance(allocations, list):
+            malformed = True
+            continue
+        for allocation in allocations:
+            if not isinstance(allocation, dict):
+                malformed = True
+                continue
+            production_event_id = allocation.get("production_event_id")
+            production = (
+                production_by_event.get(production_event_id)
+                if isinstance(production_event_id, str)
+                else None
+            )
+            allowed = None if production is None else production.get("allowed_contexts")
+            if allowed is not None and not isinstance(allowed, list):
+                malformed = True
+                allowed = []
+            if (
+                allocation.get("payment_id") != payment_id
+                or allocation.get("controller") != controller
+                or allocation.get("spending_context") != context
+                or production is None
+                or production.get("controller") != controller
+                or not isinstance(production.get("source_id"), str)
+                or not production.get("source_id")
+                or production.get("color") != allocation.get("color")
+                or not isinstance(allocation.get("quantity"), int)
+                or isinstance(allocation.get("quantity"), bool)
+                or allocation.get("quantity", 0) <= 0
+                or (allowed is not None and context not in allowed)
+            ):
+                stops.append(
+                    {
+                        "kind": "mana_payment_provenance",
+                        "detail": [f"spell_payment_allocation_invalid:{payment_id}"],
+                    }
+                )
+                continue
+        ledger_allocations = payments_by_id.get(payment_id, [])
+
+        def canonical(values: list[dict[str, object]]) -> list[tuple[object, ...]]:
+            return sorted(
+                (
+                    (
+                        value.get("production_event_id"),
+                        value.get("controller"),
+                        value.get("color"),
+                        value.get("quantity"),
+                        value.get("payment_id"),
+                        value.get("spending_context"),
+                    )
+                    for value in values
+                ),
+                key=repr,
+            )
+
+        if not all(isinstance(value, dict) for value in allocations) or canonical(
+            [value for value in allocations if isinstance(value, dict)]
+        ) != canonical(ledger_allocations):
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"spell_payment_ledger_link_invalid:{payment_id}"],
+                }
+            )
+
+    for payment_id, allocations in payments_by_id.items():
+        if (
+            any(
+                item.get("spending_context") in {"artifact_spell", "nonartifact_spell"}
+                for item in allocations
+            )
+            and payment_id not in evidence_by_payment
+        ):
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"spell_payment_evidence_missing:{payment_id}"],
+                }
+            )
+
+    production_events: dict[str, list[dict[str, object]]] = {}
+    for item in snapshot.get("events", []):
+        if (
+            isinstance(item, dict)
+            and item.get("event") == "floating_mana_produced"
+            and isinstance(item.get("stack_object_id"), str)
+        ):
+            production_events.setdefault(item["stack_object_id"], []).append(item)
+    for event_id, production in production_by_event.items():
+        quantity = production.get("quantity")
+        remaining = production.get("remaining_quantity")
+        production_identity_valid = any(
+            item.get("source_id") == production.get("source_id")
+            and (
+                item.get("player_index") is None
+                or item.get("player_index") == production.get("controller")
+            )
+            and item.get("color") == production.get("color")
+            and item.get("quantity") == quantity
+            for item in production_events.get(event_id, [])
+        )
+        if not production_identity_valid:
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"mana_production_source_event_invalid:{event_id}"],
+                }
+            )
+        if (
+            not isinstance(quantity, int)
+            or isinstance(quantity, bool)
+            or not isinstance(remaining, int)
+            or isinstance(remaining, bool)
+        ):
+            malformed = True
+
+            continue
+        expirations = expirations_by_event.get(event_id, [])
+        expired_quantity = sum(
+            item.get("quantity", 0) for item in expirations if isinstance(item.get("quantity"), int)
+        )
+        valid = production.get("valid")
+        expired_at = production.get("expired_at")
+        expiration_identity_valid = (valid is True and expired_at is None and not expirations) or (
+            valid is False
+            and isinstance(expired_at, str)
+            and len(expirations) == 1
+            and expirations[0].get("boundary_id") == expired_at
+            and expirations[0].get("controller") == production.get("controller")
+            and expirations[0].get("color") == production.get("color")
+        )
+        if not expiration_identity_valid:
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"mana_lot_expiration_invalid:{event_id}"],
+                }
+            )
+        if quantity != consumed_by_event.get(event_id, 0) + remaining + expired_quantity:
+            stops.append(
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": [f"mana_lot_conservation_invalid:{event_id}"],
+                }
+            )
+    if malformed:
+        stops.append(
+            {
+                "kind": "mana_payment_provenance",
+                "detail": ["mana_payment_evidence_malformed"],
+            }
+        )
+    return stops
+
+
+def _activation_payment_evidence_stops(snapshot: dict[str, object]) -> list[dict[str, object]]:
+    """Join restricted activation payments to their authenticated ability evidence."""
+    ledger = snapshot.get("floating_mana_ledger")
+    abilities = snapshot.get("activated_abilities")
+    if not isinstance(ledger, dict):
+        if isinstance(abilities, list) and any(
+            isinstance(item, dict)
+            and item.get("spending_context") == "activated_ability"
+            and item.get("mana_allocations")
+            for item in abilities
+        ):
+            return [
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": ["activation_payment_ledger_missing"],
+                }
+            ]
+        return []
+    players = ledger.get("players")
+    if not isinstance(players, list):
+        return [{"kind": "mana_payment_provenance", "detail": ["activation_ledger_invalid"]}]
+
+    has_activation_payment = any(
+        isinstance(player, dict)
+        and isinstance(player.get("payments"), list)
+        and any(
+            isinstance(payment, dict) and payment.get("spending_context") == "activated_ability"
+            for payment in player["payments"]
+        )
+        for player in players
+    )
+    if not isinstance(abilities, list):
+        if has_activation_payment:
+            return [
+                {
+                    "kind": "mana_payment_provenance",
+                    "detail": ["activation_payment_evidence_missing"],
+                }
+            ]
+        return []
+
+    productions: dict[str, dict[str, object]] = {}
+    allocations_by_payment: dict[str, list[dict[str, object]]] = {}
+    malformed = False
+    for player in players:
+        if not isinstance(player, dict):
+            malformed = True
+            continue
+        player_productions = player.get("productions", [])
+        player_payments = player.get("payments", [])
+        if not isinstance(player_productions, list) or not isinstance(player_payments, list):
+            malformed = True
+            continue
+        for production in player_productions:
+            if not isinstance(production, dict):
+                malformed = True
+                continue
+            event_id = production.get("event_id")
+            if not isinstance(event_id, str) or not event_id or event_id in productions:
+                malformed = True
+                continue
+            productions[event_id] = production
+        for payment in player_payments:
+            if not isinstance(payment, dict):
+                malformed = True
+                continue
+            if payment.get("spending_context") != "activated_ability":
+                continue
+            payment_id = payment.get("payment_id")
+            if not isinstance(payment_id, str) or not payment_id:
+                malformed = True
+                continue
+            allocations_by_payment.setdefault(payment_id, []).append(payment)
+
+    evidence_by_payment: dict[str, dict[str, object]] = {}
+    for item in abilities:
+        if not isinstance(item, dict):
+            malformed = True
+            continue
+        raw_allocations = item.get("mana_allocations", [])
+        if not isinstance(raw_allocations, list):
+            malformed = True
+            continue
+        payment_id = item.get("payment_id")
+        if payment_id is None:
+            if raw_allocations:
+                malformed = True
+            continue
+        if not isinstance(payment_id, str) or not payment_id or payment_id in evidence_by_payment:
+            malformed = True
+            continue
+        evidence_by_payment[payment_id] = item
+        if item.get("spending_context") != "activated_ability":
+            malformed = True
+        if (
+            not isinstance(item.get("stack_object_id"), str)
+            or not item.get("stack_object_id")
+            or not isinstance(item.get("source_id"), str)
+            or not item.get("source_id")
+            or not isinstance(item.get("oracle_fragment"), str)
+            or not item.get("oracle_fragment")
+            or not isinstance(item.get("controller"), int)
+            or isinstance(item.get("controller"), bool)
+            or item.get("controller") not in {0, 1}
+        ):
+            malformed = True
+
+    cost_events: dict[str, list[dict[str, object]]] = {}
+    announced_events: dict[str, list[dict[str, object]]] = {}
+    events = snapshot.get("events", [])
+    if not isinstance(events, list):
+        events = []
+        malformed = True
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        if event.get("event") == "activation_cost_paid":
+            payment_id = event.get("payment_id")
+            if isinstance(payment_id, str):
+                cost_events.setdefault(payment_id, []).append(event)
+        elif event.get("event") == "activation_announced":
+            stack_id = event.get("stack_object_id")
+            if isinstance(stack_id, str):
+                announced_events.setdefault(stack_id, []).append(event)
+
+    stops: list[dict[str, object]] = []
+
+    def canonical(values: list[dict[str, object]]) -> list[tuple[object, ...]]:
+        return sorted(
+            (
+                (
+                    item.get("production_event_id"),
+                    item.get("controller"),
+                    item.get("color"),
+                    item.get("quantity"),
+                    item.get("payment_id"),
+                    item.get("spending_context"),
+                )
+                for item in values
+            ),
+            key=repr,
+        )
+
+    for payment_id in sorted(set(allocations_by_payment) | set(evidence_by_payment)):
+        ledger_allocations = allocations_by_payment.get(payment_id, [])
+        evidence = evidence_by_payment.get(payment_id)
+        detail: list[str] = []
+        if evidence is None:
+            detail.append(f"activation_payment_evidence_missing:{payment_id}")
+        else:
+            evidence_allocations = evidence.get("mana_allocations")
+            if not isinstance(evidence_allocations, list) or not all(
+                isinstance(item, dict) for item in evidence_allocations
+            ):
+                detail.append(f"activation_payment_allocations_malformed:{payment_id}")
+                evidence_allocations = []
+            if canonical(
+                [item for item in evidence_allocations if isinstance(item, dict)]
+            ) != canonical(ledger_allocations):
+                detail.append(f"activation_payment_ledger_link_invalid:{payment_id}")
+            controller = evidence.get("controller")
+            cost_matches = cost_events.get(payment_id, [])
+            stack_id = evidence.get("stack_object_id")
+            announcement_matches = (
+                announced_events.get(stack_id, []) if isinstance(stack_id, str) else []
+            )
+            cost_event = cost_matches[0] if len(cost_matches) == 1 else None
+            announcement = announcement_matches[0] if len(announcement_matches) == 1 else None
+            if (
+                not isinstance(cost_event, dict)
+                or cost_event.get("payment_id") != payment_id
+                or cost_event.get("player_index") != controller
+                or cost_event.get("source_id") != evidence.get("source_id")
+                or cost_event.get("stack_object_id") != stack_id
+                or cost_event.get("oracle_fragment") != evidence.get("oracle_fragment")
+                or cost_event.get("spending_context") != "activated_ability"
+                or cost_event.get("mana_source_ids") != evidence.get("mana_source_ids")
+            ):
+                detail.append(f"activation_payment_cost_event_invalid:{payment_id}")
+            if (
+                not isinstance(announcement, dict)
+                or announcement.get("player_index") != controller
+                or announcement.get("source_id") != evidence.get("source_id")
+                or announcement.get("oracle_fragment") != evidence.get("oracle_fragment")
+            ):
+                detail.append(f"activation_announcement_link_invalid:{payment_id}")
+            requirement = evidence.get("mana_requirement")
+            if (
+                not isinstance(requirement, dict)
+                or not isinstance(requirement.get("generic"), int)
+                or isinstance(requirement.get("generic"), bool)
+                or not isinstance(requirement.get("colored"), list)
+                or not isinstance(cost_event, dict)
+                or cost_event.get("generic") != requirement.get("generic")
+                or cost_event.get("colored") != requirement.get("colored")
+            ):
+                detail.append(f"activation_payment_requirement_invalid:{payment_id}")
+            if isinstance(cost_event, dict):
+                logged_allocations = cost_event.get("mana_allocations", [])
+
+                def event_allocations(values: list[object]) -> list[tuple[object, ...]]:
+                    return sorted(
+                        [
+                            (
+                                item.get("production_event_id"),
+                                item.get("color"),
+                                item.get("quantity"),
+                            )
+                            for item in values
+                            if isinstance(item, dict)
+                        ],
+                        key=repr,
+                    )
+
+                if (
+                    not isinstance(logged_allocations, list)
+                    or not all(isinstance(item, dict) for item in logged_allocations)
+                    or event_allocations(logged_allocations)
+                    != event_allocations(evidence_allocations)
+                ):
+                    detail.append(f"activation_payment_event_allocations_invalid:{payment_id}")
+            for allocation in evidence_allocations:
+                if not isinstance(allocation, dict):
+                    continue
+                production_event_id = allocation.get("production_event_id")
+                production = (
+                    productions.get(production_event_id)
+                    if isinstance(production_event_id, str)
+                    else None
+                )
+                allowed = None if production is None else production.get("allowed_contexts")
+                if (
+                    allocation.get("payment_id") != payment_id
+                    or allocation.get("controller") != controller
+                    or allocation.get("spending_context") != "activated_ability"
+                    or production is None
+                    or production.get("controller") != controller
+                    or production.get("color") != allocation.get("color")
+                    or not isinstance(allocation.get("quantity"), int)
+                    or isinstance(allocation.get("quantity"), bool)
+                    or allocation.get("quantity", 0) <= 0
+                    or (
+                        allowed is not None
+                        and (not isinstance(allowed, list) or "activated_ability" not in allowed)
+                    )
+                ):
+                    detail.append(f"activation_payment_allocation_invalid:{payment_id}")
+                    break
+            if isinstance(requirement, dict):
+                mana_sources = evidence.get("mana_source_ids")
+                allocated_quantity = sum(
+                    item.get("quantity", 0)
+                    for item in evidence_allocations
+                    if isinstance(item, dict) and isinstance(item.get("quantity"), int)
+                )
+                if not isinstance(mana_sources, list) or len(
+                    mana_sources
+                ) + allocated_quantity != requirement.get("generic", -1) + len(
+                    requirement.get("colored", [])
+                ):
+                    detail.append(f"activation_payment_quantity_invalid:{payment_id}")
+        if detail:
+            stops.append({"kind": "mana_payment_provenance", "detail": detail})
+    if malformed:
+        stops.append(
+            {
+                "kind": "mana_payment_provenance",
+                "detail": ["activation_payment_evidence_malformed"],
+            }
+        )
+    return stops
+
+
 def reconcile_snapshot(
     spec: GameSpec, snapshot: dict[str, object], manifest: dict[str, object]
 ) -> dict[str, object]:
@@ -958,6 +1793,8 @@ def reconcile_snapshot(
     witness_occurrences = {item["occurrence_id"] for item in witnesses}
     stops = list(conformance["stop_records"])
     stops.extend(_context_evidence_stops(contexts, witnesses))
+    stops.extend(_spell_payment_evidence_stops(snapshot))
+    stops.extend(_activation_payment_evidence_stops(snapshot))
     presence = snapshot.get("stage002_presence")
     if not isinstance(presence, list):
         stops.append({"kind": "silent_approximation", "detail": ["presence_evidence_missing"]})
@@ -1103,6 +1940,7 @@ def reconcile_snapshot(
         "seed": spec.seed,
         "orientation": spec.orientation,
         "seats": [seat.display_id for seat in spec.seats],
+        "terminal": snapshot.get("terminal"),
         "winner": snapshot["winner"],
         "turn": snapshot["turn"],
         "rng_state_digest": snapshot["rng"]["state_digest"],
@@ -1136,6 +1974,8 @@ def reconcile_snapshot(
                 "priority",
                 "pending_triggers",
                 "rules_event_evidence",
+                "floating_mana_ledger",
+                "spell_payment_evidence",
                 "scry",
                 "etb_drain_gain_scry",
                 "stun_history",
@@ -1148,6 +1988,7 @@ def reconcile_snapshot(
                 "sneak",
                 "players",
                 "events",
+                "terminal",
             )
         },
         "stop_records": stops,

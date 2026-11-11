@@ -182,6 +182,7 @@ class DamageTargetKind(Enum):
 
     PLAYER = "player"
     CREATURE = "creature"
+    ANY = "any"
 
 
 @dataclass(frozen=True)
@@ -194,6 +195,7 @@ class DamageProgram:
     unsupported_reason: str | None = None
     retained_limitation: str | None = None
     additional_limitation: str | None = None
+    followup_amount: int | None = None
 
     @property
     def executable(self) -> bool:
@@ -201,7 +203,9 @@ class DamageProgram:
             self.amount is not None
             and self.amount > 0
             and self.target_kind is not None
-            and self.target_scope in {"target_opponent", "each_opponent", "you", "target_creature"}
+            and self.target_scope
+            in {"target_opponent", "each_opponent", "you", "target_creature", "any_target"}
+            and (self.target_kind is not DamageTargetKind.ANY or self.followup_amount is not None)
             and self.unsupported_reason is None
             and self.additional_limitation is None
         )
@@ -472,6 +476,7 @@ class ActivatedEffectKind(Enum):
     SEARCH_LAND_TYPE = "search_land_type"
     RETURN_SELF_FROM_GRAVEYARD_TAPPED = "return_self_from_graveyard_tapped"
     ADD_ANY_COLOR_MANA = "add_any_color_mana"
+    ADD_FIXED_COLOR_MANA = "add_fixed_color_mana"
     GRANT_REACH_UNTIL_EOT = "grant_reach_until_eot"
     GRANT_TOKEN_HASTE_UNTIL_EOT = "grant_token_haste_until_eot"
     DRAW_CARD = "draw_card"
@@ -491,6 +496,8 @@ class ActivatedAbilityProgram:
     choices_required: bool
     activation_instructions: str | None = None
     class_level_target: int | None = None
+    mana_color: str | None = None
+    mana_allowed_contexts: tuple[str, ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -602,6 +609,11 @@ class CardInterpreter:
         r"on target creature\. Activate only as a sorcery\.$",
         re.I,
     )
+    RESTRICTED_FIXED_MANA_ACTIVATION = re.compile(
+        r"^\{T\}: Add \{(?P<color>[WUBRG])\}\. Spend this mana only to cast an artifact spell "
+        r"or to activate an ability\.$",
+        re.I,
+    )
     LANDCYCLING = re.compile(
         r"^(?P<land>Plains|Island|Swamp|Mountain|Forest)cycling "
         r"(?P<cost>\{[0-9]+\}) \(\2, Discard this card: Search your library "
@@ -652,6 +664,10 @@ class CardInterpreter:
     )
     CANT_BE_BLOCKED_BY_GREATER_POWER = re.compile(
         r"^This creature can't be blocked by creatures with greater power\.$"
+    )
+    CANT_BE_BLOCKED_IF_ARTIFACT_ENTERED_THIS_TURN = re.compile(
+        r"^This creature can't be blocked if an artifact entered the battlefield under your "
+        r"control this turn\."
     )
     ALLIANCE_TARGET_PLUS_COUNTER = re.compile(
         r"^Alliance — Whenever another creature you control enters, put "
@@ -749,6 +765,9 @@ class CardInterpreter:
         r"\bcreates? (?P<quantity>a|an|one|two|three|four|five|[0-9]+|x|that many|"
         r"a number of|one or more) (?P<body>.*?\btokens?)\b",
         re.IGNORECASE,
+    )
+    ARTIFACT_CAST_TOKEN_TRIGGER = re.compile(
+        r"^Whenever you cast an artifact spell, create .+\.$", re.IGNORECASE
     )
     EXPLICIT_CREATURE_TOKEN = re.compile(
         r"(?P<power>[0-9]+)/(?P<toughness>[0-9]+)\s+"
@@ -874,6 +893,19 @@ class CardInterpreter:
         "nine": 9,
         "ten": 10,
     }
+
+    APRIL_END_STEP_DRAW = (
+        "At the beginning of your end step, draw a card for each card type among spells "
+        "you've cast this turn."
+    )
+
+    def april_end_step_draw_semantic_coverage(
+        self, card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize April's exact cast-history draw trigger grammar."""
+        if fragment != self.APRIL_END_STEP_DRAW or "Creature" not in card.type_line.split():
+            return None
+        return SemanticCoverage(True, True, True)
 
     def draw_cards_semantic_coverage(
         self, card: CardDefinition, fragment: str
@@ -1123,6 +1155,7 @@ class CardInterpreter:
             for pattern in (
                 self.CANT_BE_BLOCKED_BY_POWER_OR_GREATER,
                 self.CANT_BE_BLOCKED_BY_GREATER_POWER,
+                self.CANT_BE_BLOCKED_IF_ARTIFACT_ENTERED_THIS_TURN,
             )
         )
 
@@ -1451,6 +1484,9 @@ class CardInterpreter:
             "each of those creatures",
         }:
             targeting_limitation = "multiple_damage_targets_not_implemented"
+        elif target_text == "any target":
+            target_kind = DamageTargetKind.ANY
+            target_scope = "any_target"
         elif re.fullmatch(r"each of (?:one or two|up to [0-9]+) targets", target_text):
             targeting_limitation = "variable_count_multiple_damage_targets_not_implemented"
         elif target_text.startswith("target opponent,"):
@@ -1460,6 +1496,11 @@ class CardInterpreter:
 
         suffix = fragment[match.end() :]
         retained = None
+        followup_amount = None
+        followup_match = re.fullmatch(r"\s+and (?P<amount>[0-9]+) damage to you\.", suffix, re.I)
+        if followup_match is not None:
+            followup_amount = int(followup_match.group("amount"))
+            suffix = ""
         hand_bottom_draw = self.HAND_BOTTOM_DRAW.fullmatch(suffix.strip().lstrip(". "))
         if hand_bottom_draw is None and (
             suffix.strip(" .")
@@ -1482,6 +1523,7 @@ class CardInterpreter:
             unsupported_reason,
             retained,
             additional_limitation,
+            followup_amount,
         )
 
     def damage_semantic_coverage(
@@ -1494,13 +1536,20 @@ class CardInterpreter:
         match = self.DEAL_DAMAGE.search(fragment)
         assert match is not None
         prefix = fragment[: match.start()]
+        entry_match = re.match(
+            r"^When this (?P<kind>artifact|creature|permanent) enters,", fragment, re.I
+        )
+        permanent_entry = entry_match is not None and (
+            entry_match.group("kind").casefold() == "permanent"
+            or entry_match.group("kind").casefold() in card.type_line.casefold()
+        )
         alliance = bool(
             re.match(r"^Alliance — Whenever another creature you control enters,", fragment)
         )
         direct_spell = not prefix.strip() or bool(
             re.match(r"^(?:• )?[^,.]+ deals?\b", fragment, re.I)
         )
-        if alliance:
+        if alliance or permanent_entry:
             parent_executable = True
             parent_limitation = None
         elif fragment.startswith("• "):
@@ -1524,16 +1573,25 @@ class CardInterpreter:
                 for reason in (
                     program.unsupported_reason,
                     program.additional_limitation,
+                    (
+                        "damage_any_target_not_implemented"
+                        if program.target_kind is DamageTargetKind.ANY
+                        and not (permanent_entry and program.followup_amount is not None)
+                        else None
+                    ),
                     parent_limitation,
                     program.retained_limitation,
                 )
                 if reason is not None
             )
         )
+        any_target_supported = program.target_kind is not DamageTargetKind.ANY or (
+            permanent_entry and program.followup_amount is not None
+        )
         coverage = SemanticCoverage(
-            program.executable,
+            program.executable and any_target_supported,
             parent_executable,
-            program.retained_limitation is None,
+            program.retained_limitation is None and any_target_supported,
             limitations,
         )
         return InterpretedDamageSemantics(program, coverage, parent_limitation)
@@ -2010,6 +2068,7 @@ class CardInterpreter:
         frog_mana = (
             card.name == "Frog Butler" and fragment.strip() == "{T}: Add one mana of any color."
         )
+        restricted_fixed_mana = self.RESTRICTED_FIXED_MANA_ACTIVATION.fullmatch(fragment.strip())
         tunnel_rats_return = (
             card.name == "Tunnel Rats"
             and fragment.strip()
@@ -2123,6 +2182,9 @@ class CardInterpreter:
         elif frog_mana:
             effect_kind = ActivatedEffectKind.ADD_ANY_COLOR_MANA
             action_match = True
+        elif restricted_fixed_mana:
+            effect_kind = ActivatedEffectKind.ADD_FIXED_COLOR_MANA
+            action_match = True
         elif tunnel_rats_return:
             effect_kind = ActivatedEffectKind.RETURN_SELF_FROM_GRAVEYARD_TAPPED
             action_match = True
@@ -2149,7 +2211,7 @@ class CardInterpreter:
             action_match = None
         child_payload_executable = effect_kind is not ActivatedEffectKind.UNSUPPORTED
         supported_turn_instruction = bool(
-            (frog_mana or frog_reach or mutagen_source)
+            (frog_mana or restricted_fixed_mana or frog_reach or mutagen_source)
             and instructions
             or (
                 targeted_return
@@ -2161,7 +2223,11 @@ class CardInterpreter:
         activation_parent_executable = (
             return_semantics.coverage.parent_executable
             if targeted_return and return_semantics is not None
-            else instructions is None or frog_mana or frog_reach or mutagen_source
+            else instructions is None
+            or frog_mana
+            or restricted_fixed_mana
+            or frog_reach
+            or mutagen_source
         )
         targets_choices_executable = not choices_required and (
             target_count == 0
@@ -2174,6 +2240,7 @@ class CardInterpreter:
             canonical_food
             or counter_target
             or frog_mana
+            or restricted_fixed_mana
             or frog_reach
             or tunnel_rats_return
             or mutagen_source
@@ -2222,6 +2289,8 @@ class CardInterpreter:
             choices_required,
             instructions,
             3 if does_machines_level_three else 2 if class_level else None,
+            None if restricted_fixed_mana is None else restricted_fixed_mana.group("color").upper(),
+            (None if restricted_fixed_mana is None else ("artifact_spell", "activated_ability")),
         )
         return InterpretedActivatedAbilitySemantics(
             program,
@@ -2485,6 +2554,7 @@ class CardInterpreter:
 
         match = self.CREATE_TOKEN.search(fragment)
         assert match is not None
+        artifact_cast_trigger = self.ARTIFACT_CAST_TOKEN_TRIGGER.fullmatch(fragment) is not None
         fragments = self.fragments(card)
         alliance_mode = fragment.startswith("• ") and any(
             self.ALLIANCE_MODAL_HEADER.fullmatch(candidate) for candidate in fragments
@@ -2504,7 +2574,7 @@ class CardInterpreter:
                 re.I,
             )
         )
-        if alliance_mode or direct_creature_etb or direct_creature_attack:
+        if artifact_cast_trigger or alliance_mode or direct_creature_etb or direct_creature_attack:
             return self._token_semantics(program, True)
 
         prefix = fragment[: match.start()]
@@ -2561,6 +2631,8 @@ class CardInterpreter:
                 unsupported.append((keyword, "keyword_not_implemented"))
         for fragment in fragments:
             if self.aura_semantic_coverage(card, fragment) is not None:
+                continue
+            if self.static_keyword_line_semantic_coverage(card, fragment) is not None:
                 continue
             static_team = self.static_team_modifier_semantic_coverage(card, fragment)
             if static_team is not None:
@@ -2652,6 +2724,8 @@ class CardInterpreter:
                 continue
             if self.etb_mill_draw_discard_semantic_coverage(card, fragment) is not None:
                 continue
+            if self.april_end_step_draw_semantic_coverage(card, fragment) is not None:
+                continue
             if self.class_level_recovery_semantic_coverage(card, fragment) is not None:
                 continue
             discard_draw = self.discard_draw_semantic_coverage(card, fragment)
@@ -2699,3 +2773,21 @@ class CardInterpreter:
                 continue
             unsupported.append((fragment, "oracle_ability_not_implemented"))
         return tuple(unsupported)
+
+    @staticmethod
+    def static_keyword_line_semantic_coverage(
+        card: CardDefinition, fragment: str
+    ) -> SemanticCoverage | None:
+        """Recognize only the static combat keywords enforced by the engine."""
+        keywords = tuple(item.strip().casefold() for item in fragment.split(","))
+        supported = {"flying", "vigilance"}
+        card_keywords = {keyword.casefold() for keyword in card.keywords}
+        if (
+            "Creature" not in card.type_line
+            or not keywords
+            or any(keyword not in supported for keyword in keywords)
+            or not set(keywords).issubset(card_keywords)
+            or not {"flying", "vigilance"}.intersection(keywords)
+        ):
+            return None
+        return SemanticCoverage(True, True, True)
