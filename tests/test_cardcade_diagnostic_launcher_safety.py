@@ -351,9 +351,7 @@ def test_missing_presence_evidence_blocks_normal_return(tmp_path):
 def test_postmerge_accepted_main_pin_matches_verified_integration(tmp_path):
     """New source guard accepts the merged main while retaining exact source approval."""
     launcher = _launcher(tmp_path, "postmerge-main")
-    assert launcher_module.ACCEPTED_MAIN == (
-        "891963754d7cc6342ae963a0bf4b69918861460f"
-    )
+    assert launcher_module.ACCEPTED_MAIN == "891963754d7cc6342ae963a0bf4b69918861460f"
     source = launcher._verify_source()
     assert source["accepted_main"] == launcher_module.ACCEPTED_MAIN
     assert source["head"] == source["source_approval"]["implementation_sha"]
