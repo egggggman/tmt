@@ -24,6 +24,7 @@ EXPECTED_HASHES = {
 }
 
 NODE_LIST = Path(__file__).with_name("cardcade-safe-nodeids.txt")
+APPROVED_SOURCES = Path(__file__).with_name("approved-source-shas.txt")
 EXPECTED_NODE_LIST_HASH = "abea15e90eb6c7e413960d2b25b1945464a354b01efba15828da76f10a2637c1"
 EXPECTED_COUNT = 34
 FORBIDDEN_CALLS = {
@@ -96,12 +97,40 @@ def _validate_changed_paths(source: Path, base_sha: str, selected_paths: set[str
             fail(f"PR changes dependency configuration outside this policy: {path}")
 
 
+def _validate_approved_source(source: Path, pr_number: str, head_sha: str) -> None:
+    if not pr_number.isdecimal() or len(head_sha) != 40:
+        fail("PR identity is malformed")
+    if any(char not in "0123456789abcdef" for char in head_sha):
+        fail("source head is not a full lowercase commit SHA")
+    actual = subprocess.run(
+        ["git", "-C", str(source), "rev-parse", "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if actual.returncode != 0 or actual.stdout.strip() != head_sha:
+        fail("checked-out source does not match the PR head SHA")
+
+    rows = APPROVED_SOURCES.read_text(encoding="utf-8").splitlines()
+    approved: set[tuple[str, str]] = set()
+    for row in rows:
+        fields = row.split()
+        if len(fields) != 2 or not fields[0].isdecimal() or len(fields[1]) != 40:
+            fail("approved-source policy is malformed")
+        if any(char not in "0123456789abcdef" for char in fields[1]):
+            fail("approved-source policy contains a malformed commit SHA")
+        approved.add((fields[0], fields[1]))
+    if len(approved) != len(rows) or (pr_number, head_sha) not in approved:
+        fail("PR head SHA is not in the trusted source allowlist")
+
+
 def main() -> None:
-    if len(sys.argv) != 3:
-        fail("usage: validate_selection.py SOURCE_CHECKOUT TRUSTED_BASE_SHA")
+    if len(sys.argv) != 5:
+        fail("usage: validate_selection.py SOURCE_CHECKOUT TRUSTED_BASE_SHA PR_NUMBER HEAD_SHA")
     source = Path(sys.argv[1]).resolve()
     if not source.is_dir():
         fail(f"source checkout does not exist: {source}")
+    _validate_approved_source(source, sys.argv[3], sys.argv[4])
     selected_paths = set(EXPECTED_HASHES)
     _validate_changed_paths(source, sys.argv[2], selected_paths)
 
