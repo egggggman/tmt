@@ -9,19 +9,22 @@ from pathlib import Path
 
 EXPECTED_HASHES = {
     "tests/test_does_machines_level_three.py": (
-        "0dbcfd5bc22b3664eba883d7c04707ab0bf9d526c3f0c231bb78d1fcaec86262"
+        "98641172e4886383b28a2966acb8813fdd460672bc610c323d81114bba4fb44a"
     ),
     "tests/test_does_machines_level_two.py": (
         "32346c75bbe5fec9bba9076061b7f8352a765f2081fb57b691527e46675d3d51"
     ),
     "tests/test_stage002_runner.py": (
-        "a323a8c50ae01c78940d1018a84fee06047fb6faab64d2b352bcd926a9bd1b67"
+        "adbe57d0c8ef34926d810f310dd3903d1ddfe8cd6294abd8baf7f17542611dcc"
+    ),
+    "tests/test_cardcade_diagnostic_launcher_safety.py": (
+        "087d836c5878b478763a14aae3da26a6d6b308941e8070503cf7f7257ea08c74"
     ),
 }
 
 NODE_LIST = Path(__file__).with_name("cardcade-safe-nodeids.txt")
-EXPECTED_NODE_LIST_HASH = "5b635cb8d9d00a6635158291aef635b71aa5edaeb7b2bea825699e368286a11b"
-EXPECTED_COUNT = 28
+EXPECTED_NODE_LIST_HASH = "abea15e90eb6c7e413960d2b25b1945464a354b01efba15828da76f10a2637c1"
+EXPECTED_COUNT = 34
 FORBIDDEN_CALLS = {
     "run_game",
     "run_full_game",
@@ -33,7 +36,23 @@ FORBIDDEN_CALLS = {
     "run_batch",
     "run_batch_games",
     "run_calibration",
+    "execute_stage",
+    "plan",
+    "run_diagnostic_game",
+    "launch_game",
 }
+
+def _called_names(function: ast.AST) -> set[str]:
+    names: set[str] = set()
+    for node in ast.walk(function):
+        if not isinstance(node, ast.Call):
+            continue
+        target = node.func
+        if isinstance(target, ast.Name):
+            names.add(target.id)
+        elif isinstance(target, ast.Attribute):
+            names.add(target.attr)
+    return names
 
 
 def fail(message: str) -> None:
@@ -79,24 +98,51 @@ def main() -> None:
         tree = ast.parse(test_file.read_text(encoding="utf-8"), filename=relative_path)
         definitions = {
             node.name: node
-            for node in ast.walk(tree)
+            for node in tree.body
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-            and node.name.startswith("test_")
         }
         for name in selected_by_file[relative_path]:
             function = definitions.get(name)
-            if function is None:
+            if function is None or not name.startswith("test_"):
                 fail(f"selected test function is missing: {relative_path}::{name}")
-            calls = {
-                call.func.id
-                for call in ast.walk(function)
-                if isinstance(call, ast.Call) and isinstance(call.func, ast.Name)
-            }
-            unsafe = sorted(calls & FORBIDDEN_CALLS)
-            if unsafe:
-                fail(
-                    f"selected test invokes a complete-game API: {relative_path}::{name}: {unsafe}"
-                )
+
+            pending = [function]
+            visited: set[str] = set()
+            while pending:
+                current = pending.pop()
+                if current.name in visited:
+                    continue
+                visited.add(current.name)
+                calls = _called_names(current)
+                unsafe = sorted(calls & FORBIDDEN_CALLS)
+                if unsafe:
+                    fail(
+                        f"selected test path invokes a complete-game API: "
+                        f"{relative_path}::{name} via {current.name}: {unsafe}"
+                    )
+
+                # The source-guard negative test may enter run_once only with
+                # its fail-fast executor, which proves dispatch is blocked.
+                for node in ast.walk(current):
+                    if (
+                        isinstance(node, ast.Call)
+                        and isinstance(node.func, ast.Attribute)
+                        and node.func.attr == "run_once"
+                    ):
+                        executor = next(
+                            (keyword.value for keyword in node.keywords if keyword.arg == "executor"),
+                            None,
+                        )
+                        if not isinstance(executor, ast.Name) or executor.id != "forbidden_executor":
+                            fail(
+                                f"selected test calls run_once without a fail-fast executor: "
+                                f"{relative_path}::{name}"
+                            )
+
+                for called_name in calls:
+                    helper = definitions.get(called_name)
+                    if helper is not None and helper.name not in visited:
+                        pending.append(helper)
 
     print(
         f"SAFE TEST SELECTION VERIFIED: {len(nodes)} explicit node IDs; "
