@@ -1,0 +1,112 @@
+# Automatic PR candidate. Policy is loaded from the trusted base commit.
+name: Cardcade safe synthetic PR validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cardcade-safe-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  synthetic-only:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Reject unsupported PR event
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          REPOSITORY: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          [[ "$EVENT_NAME" == "pull_request" ]]
+          [[ "$BASE_REF" == "main" ]]
+          [[ "$HEAD_REPO" == "$REPOSITORY" ]]
+          [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+      # The policy files are read from the trusted base commit, never the PR head.
+      - name: Checkout trusted policy
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: policy
+          persist-credentials: false
+
+      - name: Checkout exact PR source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          path: repo
+          persist-credentials: false
+
+      - name: Confirm source SHA and validate trusted test selection
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          actual="$(git -C repo rev-parse HEAD)"
+          [[ "$actual" == "$HEAD_SHA" ]]
+          python policy/.github/cardcade-synthetic-policy/validate_selection.py repo "$BASE_SHA"
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12.8'
+
+      - name: Set up pinned uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.13.5'
+          enable-cache: false
+
+      - name: Install locked dependencies without installing PR package
+        working-directory: repo
+        run: uv sync --locked --dev --no-install-project
+
+      - name: Lint reviewed source scope
+        working-directory: repo
+        env:
+          PYTHONPATH: src
+        run: |
+          uv run --locked --no-sync ruff format --check src
+          uv run --locked --no-sync ruff check src
+
+      - name: Collect only the trusted synthetic nodes
+        working-directory: repo
+        env:
+          PYTHONPATH: src
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          set -euo pipefail
+          mapfile -t nodes < ../policy/.github/cardcade-synthetic-policy/cardcade-safe-nodeids.txt
+          test "${#nodes[@]}" -eq 34
+          uv run --locked --no-sync pytest --collect-only -q -p no:cacheprovider "${nodes[@]}"
+
+      - name: Run only the trusted synthetic nodes
+        id: selected_tests
+        working-directory: repo
+        env:
+          PYTHONPATH: src
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          set -euo pipefail
+          mapfile -t nodes < ../policy/.github/cardcade-synthetic-policy/cardcade-safe-nodeids.txt
+          test "${#nodes[@]}" -eq 34
+          uv run --locked --no-sync pytest -q -ra -p no:cacheprovider "${nodes[@]}"
