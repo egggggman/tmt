@@ -46,7 +46,11 @@ FORBIDDEN_CONFIGS = {
     "pyproject.toml",
     "uv.lock",
     "pytest.ini",
+    ".pytest.ini",
+    "pytest.toml",
+    ".pytest.toml",
     "tox.ini",
+    ".tox.ini",
     "setup.cfg",
     "setup.py",
 }
