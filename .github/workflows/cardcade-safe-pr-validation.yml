@@ -1,8 +1,9 @@
 # Automatic PR candidate. Policy is loaded from the trusted base commit.
+# pull_request_target bypasses commit skip markers; exact source authorization gates checkout.
 name: Cardcade safe synthetic PR validation
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [main]
     types: [opened, reopened, synchronize, ready_for_review]
 
