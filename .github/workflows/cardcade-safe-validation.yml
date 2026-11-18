@@ -112,7 +112,7 @@ jobs:
         run: |
           set -euo pipefail
           mapfile -t nodes < ../workflow-source/.github/workflow-candidates/cardcade-safe-nodeids.txt
-          test "${#nodes[@]}" -eq 28
+          test "${#nodes[@]}" -eq 34
           uv run --locked pytest --collect-only -q -p no:cacheprovider "${nodes[@]}"
 
       - name: Run only the enumerated synthetic tests
@@ -121,7 +121,7 @@ jobs:
         run: |
           set -euo pipefail
           mapfile -t nodes < ../workflow-source/.github/workflow-candidates/cardcade-safe-nodeids.txt
-          test "${#nodes[@]}" -eq 28
+          test "${#nodes[@]}" -eq 34
           uv run --locked pytest -q -ra -p no:cacheprovider \
             --junitxml=selected-tests.xml "${nodes[@]}"
 
@@ -139,7 +139,7 @@ jobs:
             echo "- Requested source: \`${SOURCE_SHA}\`"
             echo "- Format: \`${FORMAT_RESULT:-not reached}\`; lint: \`${LINT_RESULT:-not reached}\`; selected tests: \`${TEST_RESULT:-not reached}\`."
             echo '- Trigger: manual `workflow_dispatch` from the default branch only; no automatic push or pull-request triggers.'
-            echo '- Selection: 28 fingerprinted explicit pytest node IDs; complete-game, Smoke, and calibration tests are not selected.'
+            echo '- Selection: 34 fingerprinted explicit pytest node IDs; complete-game, Smoke, and calibration tests are not selected; six source-guard regressions are included.'
             echo '- Dependency lock: `uv sync --locked --dev`; workflow is manual-only.'
             if [[ -f repo/validation-record.txt ]]; then
               echo '- Interpreter/tool versions and locked dependency tree are recorded in the job log and repo/validation-record.txt.'
