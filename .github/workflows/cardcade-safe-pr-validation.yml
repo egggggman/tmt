@@ -35,7 +35,7 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
-          [[ "$EVENT_NAME" == "pull_request" ]]
+          [[ "$EVENT_NAME" == "pull_request_target" ]]
           [[ "$BASE_REF" == "main" ]]
           [[ "$HEAD_REPO" == "$REPOSITORY" ]]
           [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
