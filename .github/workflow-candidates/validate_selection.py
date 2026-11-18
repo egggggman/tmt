@@ -42,6 +42,7 @@ FORBIDDEN_CALLS = {
     "launch_game",
 }
 
+
 def _called_names(function: ast.AST) -> set[str]:
     names: set[str] = set()
     for node in ast.walk(function):
@@ -130,10 +131,17 @@ def main() -> None:
                         and node.func.attr == "run_once"
                     ):
                         executor = next(
-                            (keyword.value for keyword in node.keywords if keyword.arg == "executor"),
+                            (
+                                keyword.value
+                                for keyword in node.keywords
+                                if keyword.arg == "executor"
+                            ),
                             None,
                         )
-                        if not isinstance(executor, ast.Name) or executor.id != "forbidden_executor":
+                        if (
+                            not isinstance(executor, ast.Name)
+                            or executor.id != "forbidden_executor"
+                        ):
                             fail(
                                 f"selected test calls run_once without a fail-fast executor: "
                                 f"{relative_path}::{name}"
