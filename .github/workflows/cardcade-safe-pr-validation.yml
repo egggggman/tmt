@@ -103,7 +103,7 @@ jobs:
       - name: Collect only the trusted synthetic nodes
         working-directory: repo
         env:
-          PYTHONPATH: src
+          PYTHONPATH: src:.
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
         run: |
           set -euo pipefail
@@ -115,7 +115,7 @@ jobs:
         id: selected_tests
         working-directory: repo
         env:
-          PYTHONPATH: src
+          PYTHONPATH: src:.
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
         run: |
           set -euo pipefail
