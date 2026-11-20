@@ -22,7 +22,7 @@ from tools.cardcade_diagnostic_launcher import (
 
 ROOT = Path(__file__).resolve().parents[1]
 PRE_TEST_DESCENDANT = "5cf4a0c6cd631ddeac9dbf8123a4197c25bac66f"
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+ACCEPTED_MAIN = "891963754d7cc6342ae963a0bf4b69918861460f"
 
 
 def _launcher(
