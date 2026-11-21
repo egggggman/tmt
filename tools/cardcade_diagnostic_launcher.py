@@ -41,7 +41,9 @@ from tmnt_design_studio import engine07, stage002  # noqa: E402
 # copied authoritative inputs through this captured function.
 _TRUSTED_RECONCILE_SNAPSHOT = stage002.reconcile_snapshot
 
-ACCEPTED_MAIN = "891963754d7cc6342ae963a0bf4b69918861460f"
+# Immutable foundation checkpoint, not the moving tip of origin/main.
+# Exact executable HEAD approval is enforced separately by both signed documents.
+ACCEPTED_BASELINE = "891963754d7cc6342ae963a0bf4b69918861460f"
 EXPECTED_GAME_ID = "april-casey:canonical:7231"
 EXPECTED_PAIRING_ID = "april-casey"
 EXPECTED_ORIENTATION = "canonical"
@@ -258,7 +260,10 @@ class OneShotDiagnosticLauncher:
         head = self._git(self.root, "rev-parse", "HEAD")
         branch = self._git(self.root, "branch", "--show-current") or "(detached HEAD)"
         status = self._git(self.root, "status", "--porcelain=v1")
-        main = self._git(self.root, "rev-parse", "refs/remotes/origin/main")
+        try:
+            main = self._git(self.root, "rev-parse", "refs/remotes/origin/main")
+        except subprocess.CalledProcessError as error:
+            raise DiagnosticLauncherError("cannot resolve local origin/main provenance ref") from error
         expected_stage002 = (self.root / "src/tmnt_design_studio/stage002.py").resolve()
         imported_stage002 = Path(stage002.__file__).resolve()
         expected_engine = (self.root / "src/tmnt_design_studio/engine07.py").resolve()
@@ -277,8 +282,17 @@ class OneShotDiagnosticLauncher:
             raise DiagnosticLauncherError(
                 "Stage 002 and engine imports do not share one Game class"
             )
-        if main != ACCEPTED_MAIN:
-            raise DiagnosticLauncherError(f"accepted main changed: {main}")
+        # Mainline may advance without silently approving any implementation.
+        # Check local checkout and cached origin/main ancestry; this is not a live remote check.
+        for label, commit in (("checkout", head), ("origin/main", main)):
+            try:
+                self._git(self.root, "merge-base", "--is-ancestor", ACCEPTED_BASELINE, commit)
+            except subprocess.CalledProcessError as error:
+                raise DiagnosticLauncherError(
+                    f"accepted baseline ancestry failed for {label}: {commit}"
+                ) from error
+        if branch == "(detached HEAD)":
+            raise DiagnosticLauncherError("diagnostic checkout must be on an attached branch")
 
         source_approval = self._read_authorization(
             self.source_approval_path, label="HQ source approval"
