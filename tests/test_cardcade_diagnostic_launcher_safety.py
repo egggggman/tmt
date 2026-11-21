@@ -22,7 +22,7 @@ from tools.cardcade_diagnostic_launcher import (
 
 ROOT = Path(__file__).resolve().parents[1]
 PRE_TEST_DESCENDANT = "5cf4a0c6cd631ddeac9dbf8123a4197c25bac66f"
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+ACCEPTED_MAIN = "891963754d7cc6342ae963a0bf4b69918861460f"
 
 
 def _launcher(
@@ -221,8 +221,19 @@ def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
     with pytest.raises(DiagnosticLauncherError, match="authorization already consumed"):
         second.run_once(executor=executor)
     assert calls == 1
-    claim_directory = ROOT.parent / ".cardcade-diagnostic-claims"
-    assert any(claim_directory.glob("*.json"))
+    common_git_directory = Path(
+        subprocess.check_output(
+            ["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
+            text=True,
+        ).strip()
+    ).resolve()
+    claim_directory = common_git_directory.parent / ".cardcade-diagnostic-claims"
+    claim_key = hashlib.sha256(authorization_id.encode("utf-8")).hexdigest()
+    claim_path = claim_directory / f"{claim_key}.json"
+    assert claim_path.is_file()
+    claim = json.loads(claim_path.read_text(encoding="utf-8"))
+    assert claim["authorization_id"] == authorization_id
+    assert claim["state"] == "consumed-before-invocation"
 
 
 def test_failed_reconciliation_persists_evidence_and_blocks_cli(monkeypatch, tmp_path):
