@@ -138,7 +138,6 @@ def test_exact_source_pin_rejects_approved_ancestor_descendant(tmp_path):
         launcher._verify_source()
 
 
-
 def _with_git_identity(launcher, monkeypatch, *, main=None, head=None, branch=None):
     """Override Git identity reads only; ancestry queries still use real Git."""
     original_git = launcher._git
@@ -175,18 +174,20 @@ def test_main_without_accepted_baseline_ancestry_fails_closed(
 ):
     launcher = _launcher(tmp_path, "invalid-main")
     _with_git_identity(launcher, monkeypatch, main=main)
-    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for origin/main"):
+    with pytest.raises(
+        DiagnosticLauncherError, match="baseline ancestry failed for origin/main"
+    ):
         launcher._verify_source()
 
 
 def test_unapproved_prebaseline_checkout_fails_before_signature_acceptance(
     monkeypatch, tmp_path
 ):
-    launcher = _launcher(
-        tmp_path, "prebaseline-head", implementation_sha=PRE_TEST_DESCENDANT
-    )
+    launcher = _launcher(tmp_path, "prebaseline-head", implementation_sha=PRE_TEST_DESCENDANT)
     _with_git_identity(launcher, monkeypatch, head=PRE_TEST_DESCENDANT)
-    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for checkout"):
+    with pytest.raises(
+        DiagnosticLauncherError, match="baseline ancestry failed for checkout"
+    ):
         launcher._verify_source()
 
 
