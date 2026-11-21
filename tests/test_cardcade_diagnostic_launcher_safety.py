@@ -154,13 +154,9 @@ def _with_git_identity(launcher, monkeypatch, *, main=None, head=None, branch=No
     monkeypatch.setattr(launcher, "_git", git)
 
 
-def test_accepted_baseline_allows_main_to_advance_without_approving_new_head(
-    monkeypatch, tmp_path
-):
+def test_accepted_baseline_allows_main_to_advance_without_approving_new_head(monkeypatch, tmp_path):
     launcher = _launcher(tmp_path, "advanced-main")
-    head = subprocess.check_output(
-        ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
-    ).strip()
+    head = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
     _with_git_identity(launcher, monkeypatch, main=head)
     source = launcher._verify_source()
     assert source["accepted_main"] == head
@@ -169,31 +165,21 @@ def test_accepted_baseline_allows_main_to_advance_without_approving_new_head(
 
 
 @pytest.mark.parametrize("main", [PRE_TEST_DESCENDANT, "0" * 40])
-def test_main_without_accepted_baseline_ancestry_fails_closed(
-    monkeypatch, tmp_path, main
-):
+def test_main_without_accepted_baseline_ancestry_fails_closed(monkeypatch, tmp_path, main):
     launcher = _launcher(tmp_path, "invalid-main")
     _with_git_identity(launcher, monkeypatch, main=main)
-    with pytest.raises(
-        DiagnosticLauncherError, match="baseline ancestry failed for origin/main"
-    ):
+    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for origin/main"):
         launcher._verify_source()
 
 
-def test_unapproved_prebaseline_checkout_fails_before_signature_acceptance(
-    monkeypatch, tmp_path
-):
+def test_unapproved_prebaseline_checkout_fails_before_signature_acceptance(monkeypatch, tmp_path):
     launcher = _launcher(tmp_path, "prebaseline-head", implementation_sha=PRE_TEST_DESCENDANT)
     _with_git_identity(launcher, monkeypatch, head=PRE_TEST_DESCENDANT)
-    with pytest.raises(
-        DiagnosticLauncherError, match="baseline ancestry failed for checkout"
-    ):
+    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for checkout"):
         launcher._verify_source()
 
 
-def test_detached_checkout_fails_closed_even_with_exact_signed_head(
-    monkeypatch, tmp_path
-):
+def test_detached_checkout_fails_closed_even_with_exact_signed_head(monkeypatch, tmp_path):
     launcher = _launcher(tmp_path, "detached")
     _with_git_identity(launcher, monkeypatch, branch="")
     with pytest.raises(DiagnosticLauncherError, match="attached branch"):
