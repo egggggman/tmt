@@ -186,6 +186,36 @@ def test_detached_checkout_fails_closed_even_with_exact_signed_head(monkeypatch,
         launcher._verify_source()
 
 
+def test_mainline_ancestry_does_not_approve_different_signed_implementation(
+    monkeypatch, tmp_path
+):
+    launcher = _launcher(
+        tmp_path, "valid-ancestor-unapproved", implementation_sha=ACCEPTED_BASELINE
+    )
+    current_head = subprocess.check_output(
+        ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
+    ).strip()
+    _with_git_identity(launcher, monkeypatch, main=current_head)
+    with pytest.raises(
+        DiagnosticLauncherError, match="does not equal exact approved implementation"
+    ):
+        launcher._verify_source()
+
+
+def test_missing_local_origin_main_fails_with_explicit_diagnostic(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "missing-origin-main")
+    original_git = launcher._git
+
+    def git(root, *args):
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            raise subprocess.CalledProcessError(128, ("git", *args))
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", git)
+    with pytest.raises(DiagnosticLauncherError, match="cannot resolve local origin/main"):
+        launcher._verify_source()
+
+
 def test_source_approval_and_run_authorization_are_separate_exact_records(tmp_path):
     launcher = _launcher(tmp_path, "exact-source")
     source = launcher._verify_source()
