@@ -186,12 +186,8 @@ def test_detached_checkout_fails_closed_even_with_exact_signed_head(monkeypatch,
         launcher._verify_source()
 
 
-def test_mainline_ancestry_does_not_approve_different_signed_implementation(
-    monkeypatch, tmp_path
-):
-    launcher = _launcher(
-        tmp_path, "valid-ancestor-unapproved", implementation_sha=ACCEPTED_BASELINE
-    )
+def test_mainline_ancestry_does_not_approve_different_signed_implementation(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "valid-ancestor-unapproved", implementation_sha=ACCEPTED_BASELINE)
     current_head = subprocess.check_output(
         ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
     ).strip()
