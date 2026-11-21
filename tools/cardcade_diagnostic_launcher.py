@@ -260,7 +260,10 @@ class OneShotDiagnosticLauncher:
         head = self._git(self.root, "rev-parse", "HEAD")
         branch = self._git(self.root, "branch", "--show-current") or "(detached HEAD)"
         status = self._git(self.root, "status", "--porcelain=v1")
-        main = self._git(self.root, "rev-parse", "refs/remotes/origin/main")
+        try:
+            main = self._git(self.root, "rev-parse", "refs/remotes/origin/main")
+        except subprocess.CalledProcessError as error:
+            raise DiagnosticLauncherError("cannot resolve local origin/main provenance ref") from error
         expected_stage002 = (self.root / "src/tmnt_design_studio/stage002.py").resolve()
         imported_stage002 = Path(stage002.__file__).resolve()
         expected_engine = (self.root / "src/tmnt_design_studio/engine07.py").resolve()
