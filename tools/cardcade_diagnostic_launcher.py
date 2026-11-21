@@ -283,7 +283,7 @@ class OneShotDiagnosticLauncher:
                 "Stage 002 and engine imports do not share one Game class"
             )
         # Mainline may advance without silently approving any implementation.
-        # Both checkout and remote main must still descend from the accepted baseline.
+        # Check local checkout and cached origin/main ancestry; this is not a live remote check.
         for label, commit in (("checkout", head), ("origin/main", main)):
             try:
                 self._git(self.root, "merge-base", "--is-ancestor", ACCEPTED_BASELINE, commit)
