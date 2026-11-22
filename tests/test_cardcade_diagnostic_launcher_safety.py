@@ -22,7 +22,7 @@ from tools.cardcade_diagnostic_launcher import (
 
 ROOT = Path(__file__).resolve().parents[1]
 PRE_TEST_DESCENDANT = "5cf4a0c6cd631ddeac9dbf8123a4197c25bac66f"
-ACCEPTED_MAIN = "10d2ac80ef5b81b3a209a3133eb0a84633a1f944"
+ACCEPTED_BASELINE = "891963754d7cc6342ae963a0bf4b69918861460f"
 
 
 def _launcher(
@@ -138,6 +138,82 @@ def test_exact_source_pin_rejects_approved_ancestor_descendant(tmp_path):
         launcher._verify_source()
 
 
+def _with_git_identity(launcher, monkeypatch, *, main=None, head=None, branch=None):
+    """Override Git identity reads only; ancestry queries still use real Git."""
+    original_git = launcher._git
+
+    def git(root, *args):
+        if args == ("rev-parse", "refs/remotes/origin/main") and main is not None:
+            return main
+        if args == ("rev-parse", "HEAD") and head is not None:
+            return head
+        if args == ("branch", "--show-current") and branch is not None:
+            return branch
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", git)
+
+
+def test_accepted_baseline_allows_main_to_advance_without_approving_new_head(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "advanced-main")
+    head = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
+    _with_git_identity(launcher, monkeypatch, main=head)
+    source = launcher._verify_source()
+    assert source["accepted_main"] == head
+    assert source["head"] == source["source_approval"]["implementation_sha"]
+    assert source["head"] == source["run_authorization"]["implementation_sha"]
+
+
+@pytest.mark.parametrize("main", [PRE_TEST_DESCENDANT, "0" * 40])
+def test_main_without_accepted_baseline_ancestry_fails_closed(monkeypatch, tmp_path, main):
+    launcher = _launcher(tmp_path, "invalid-main")
+    _with_git_identity(launcher, monkeypatch, main=main)
+    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for origin/main"):
+        launcher._verify_source()
+
+
+def test_unapproved_prebaseline_checkout_fails_before_signature_acceptance(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "prebaseline-head", implementation_sha=PRE_TEST_DESCENDANT)
+    _with_git_identity(launcher, monkeypatch, head=PRE_TEST_DESCENDANT)
+    with pytest.raises(DiagnosticLauncherError, match="baseline ancestry failed for checkout"):
+        launcher._verify_source()
+
+
+def test_detached_checkout_fails_closed_even_with_exact_signed_head(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "detached")
+    _with_git_identity(launcher, monkeypatch, branch="")
+    with pytest.raises(DiagnosticLauncherError, match="attached branch"):
+        launcher._verify_source()
+
+
+def test_mainline_ancestry_does_not_approve_different_signed_implementation(monkeypatch, tmp_path):
+    launcher = _launcher(
+        tmp_path, "valid-ancestor-unapproved", implementation_sha=ACCEPTED_BASELINE
+    )
+    current_head = subprocess.check_output(
+        ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
+    ).strip()
+    _with_git_identity(launcher, monkeypatch, main=current_head)
+    with pytest.raises(
+        DiagnosticLauncherError, match="does not equal exact approved implementation"
+    ):
+        launcher._verify_source()
+
+
+def test_missing_local_origin_main_fails_with_explicit_diagnostic(monkeypatch, tmp_path):
+    launcher = _launcher(tmp_path, "missing-origin-main")
+    original_git = launcher._git
+
+    def git(root, *args):
+        if args == ("rev-parse", "refs/remotes/origin/main"):
+            raise subprocess.CalledProcessError(128, ("git", *args))
+        return original_git(root, *args)
+
+    monkeypatch.setattr(launcher, "_git", git)
+    with pytest.raises(DiagnosticLauncherError, match="cannot resolve local origin/main"):
+        launcher._verify_source()
+
+
 def test_source_approval_and_run_authorization_are_separate_exact_records(tmp_path):
     launcher = _launcher(tmp_path, "exact-source")
     source = launcher._verify_source()
@@ -221,8 +297,19 @@ def test_claim_survives_execution_failure_and_blocks_fresh_instance(tmp_path):
     with pytest.raises(DiagnosticLauncherError, match="authorization already consumed"):
         second.run_once(executor=executor)
     assert calls == 1
-    claim_directory = ROOT.parent / ".cardcade-diagnostic-claims"
-    assert any(claim_directory.glob("*.json"))
+    common_git_directory = Path(
+        subprocess.check_output(
+            ["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
+            text=True,
+        ).strip()
+    ).resolve()
+    claim_directory = common_git_directory.parent / ".cardcade-diagnostic-claims"
+    claim_key = hashlib.sha256(authorization_id.encode("utf-8")).hexdigest()
+    claim_path = claim_directory / f"{claim_key}.json"
+    assert claim_path.is_file()
+    claim = json.loads(claim_path.read_text(encoding="utf-8"))
+    assert claim["authorization_id"] == authorization_id
+    assert claim["state"] == "consumed-before-invocation"
 
 
 def test_failed_reconciliation_persists_evidence_and_blocks_cli(monkeypatch, tmp_path):
