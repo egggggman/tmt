@@ -293,6 +293,37 @@ def test_zone_failure_rolls_back_land_and_restricted_mana_payment(monkeypatch):
     assert card.zone == "hand" and not land.tapped and game.stack == []
 
 
+
+def test_restricted_payment_commit_failure_preserves_preannouncement_state(monkeypatch):
+    """Diagnostic reproducer: late payment failure must not leave a cast spell behind."""
+    game, source, card = make_game(MIXED_ARTIFACT)
+    add_restricted_mana(game, source, "mana-event-late-commit-failure")
+    game.create_permanent(MOUNTAIN, 0, summoning_sick=False)
+    game.create_permanent(MOUNTAIN, 0, summoning_sick=False)
+    plan = game.payment_plan(0, card)
+    assert plan is not None and plan.mana_payment is not None
+    before = game.authoritative_state_fingerprint()
+    before_events = tuple(game.events)
+    before_ledger = game.floating_mana.fingerprint_state()
+
+    def fail_commit(*_args, **_kwargs):
+        raise RuntimeError("synthetic payment commit failure")
+
+    monkeypatch.setattr(game.floating_mana, "commit_payment", fail_commit)
+    with pytest.raises(RuntimeError, match="synthetic payment commit failure"):
+        game._commit_announcement_payment(
+            card, plan, cast_kind=CastKind.PERMANENT, target_id=None
+        )
+
+    assert game.authoritative_state_fingerprint() == before
+    assert tuple(game.events) == before_events
+    assert game.floating_mana.fingerprint_state() == before_ledger
+    assert card.zone == "hand"
+    assert not game.stack
+    assert not game.spell_payment_evidence
+    assert not any(event.kind.value == "spell_cast" for event in game._rules_events.values())
+
+
 def test_legal_action_planning_is_repeatable_and_does_not_authorize_payment():
     game, source, _card = make_game(ARTIFACT)
     add_restricted_mana(game, source, "mana-event-repeated-plan")
