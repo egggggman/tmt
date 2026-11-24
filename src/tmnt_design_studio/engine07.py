@@ -11123,6 +11123,13 @@ class Game(
                 raise ValueError("payment source is not authoritative")
             sources.append(source)
         previous_tapped = tuple(source.tapped for source in sources)
+        original_zone = card.zone
+        original_container = self._authoritative_container(card)
+        original_index = next(
+            index for index, obj in enumerate(original_container) if obj is card
+        )
+        starting_object_number = self._next_object_number
+        starting_event_count = len(self.events)
         try:
             for source in sources:
                 source.tapped = True
@@ -11142,11 +11149,25 @@ class Game(
                 source.tapped = tapped
             raise
         assert isinstance(spell, StackObject)
-        allocations = (
-            ()
-            if plan.mana_payment is None
-            else self.floating_mana.commit_payment(plan.player_index, plan.mana_payment)
-        )
+        try:
+            allocations = (
+                ()
+                if plan.mana_payment is None
+                else self.floating_mana.commit_payment(plan.player_index, plan.mana_payment)
+            )
+        except Exception:
+            # The zone move has already committed. A rejected mana payment must
+            # not leave a paid-looking spell, tapped land, or zone-change log.
+            # The ledger validates the exact plan before recording consumption.
+            self.stack.remove(spell)
+            self._objects.pop(spell.object_id, None)
+            original_container.insert(original_index, card)
+            card.zone = original_zone
+            self._next_object_number = starting_object_number
+            del self.events[starting_event_count:]
+            for source, tapped in zip(sources, previous_tapped, strict=True):
+                source.tapped = tapped
+            raise
         cast_event = self._record_spell_cast_event(spell)
         spending_context = (
             ManaSpendingContext.ARTIFACT_SPELL
