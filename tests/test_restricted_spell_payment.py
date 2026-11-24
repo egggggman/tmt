@@ -293,7 +293,6 @@ def test_zone_failure_rolls_back_land_and_restricted_mana_payment(monkeypatch):
     assert card.zone == "hand" and not land.tapped and game.stack == []
 
 
-
 def test_restricted_payment_commit_failure_preserves_preannouncement_state(monkeypatch):
     """Diagnostic reproducer: late payment failure must not leave a cast spell behind."""
     game, source, card = make_game(MIXED_ARTIFACT)
