@@ -304,23 +304,35 @@ def test_restricted_payment_commit_failure_preserves_preannouncement_state(monke
     before = game.authoritative_state_fingerprint()
     before_events = tuple(game.events)
     before_ledger = game.floating_mana.fingerprint_state()
+    before_object_number = game._next_object_number
 
     def fail_commit(*_args, **_kwargs):
         raise RuntimeError("synthetic payment commit failure")
 
-    monkeypatch.setattr(game.floating_mana, "commit_payment", fail_commit)
-    with pytest.raises(RuntimeError, match="synthetic payment commit failure"):
-        game._commit_announcement_payment(
-            card, plan, cast_kind=CastKind.PERMANENT, target_id=None
-        )
+    with monkeypatch.context() as patch:
+        patch.setattr(game.floating_mana, "commit_payment", fail_commit)
+        with pytest.raises(RuntimeError, match="synthetic payment commit failure"):
+            game._commit_announcement_payment(
+                card, plan, cast_kind=CastKind.PERMANENT, target_id=None
+            )
 
     assert game.authoritative_state_fingerprint() == before
     assert tuple(game.events) == before_events
     assert game.floating_mana.fingerprint_state() == before_ledger
-    assert card.zone == "hand"
+    assert game._next_object_number == before_object_number
+    assert game.is_authoritative(card, "hand")
     assert not game.stack
     assert not game.spell_payment_evidence
     assert not any(event.kind.value == "spell_cast" for event in game._rules_events.values())
+    assert all(not p.tapped for p in game.players[0].battlefield if p.card.is_land)
+
+    # The original exact payment plan remains usable after the failed attempt.
+    spell = game._commit_announcement_payment(
+        card, plan, cast_kind=CastKind.PERMANENT, target_id=None
+    )
+    assert game.is_authoritative(spell, "stack")
+    assert len(game.spell_payment_evidence) == 1
+    game.check_invariants()
 
 
 def test_legal_action_planning_is_repeatable_and_does_not_authorize_payment():
