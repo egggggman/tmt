@@ -335,7 +335,6 @@ def test_restricted_payment_commit_failure_preserves_preannouncement_state(monke
     game.check_invariants()
 
 
-
 def test_spell_cast_event_failure_preserves_preannouncement_state(monkeypatch):
     """A failed cast-event/trigger delivery must not leave a paid-looking spell."""
     game, source, card = make_game(MIXED_ARTIFACT)
@@ -367,7 +366,6 @@ def test_spell_cast_event_failure_preserves_preannouncement_state(monkeypatch):
     assert not game.stack
     assert not game.spell_payment_evidence
     assert not any(event.kind.value == "spell_cast" for event in game._rules_events.values())
-
 
 
 def test_legal_action_planning_is_repeatable_and_does_not_authorize_payment():
