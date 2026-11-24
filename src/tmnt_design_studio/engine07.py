@@ -11125,9 +11125,7 @@ class Game(
         previous_tapped = tuple(source.tapped for source in sources)
         original_zone = card.zone
         original_container = self._authoritative_container(card)
-        original_index = next(
-            index for index, obj in enumerate(original_container) if obj is card
-        )
+        original_index = next(index for index, obj in enumerate(original_container) if obj is card)
         starting_object_number = self._next_object_number
         starting_event_count = len(self.events)
         try:
