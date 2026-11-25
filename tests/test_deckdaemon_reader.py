@@ -90,6 +90,29 @@ def test_symlink_file_and_directory_fail_closed(tmp_path):
         read_prototype_01(linked_root, "leonardo")
 
 
+
+@pytest.mark.parametrize("location", ["root", "intermediate", "file"])
+def test_windows_junction_components_fail_closed_without_symlink_privileges(
+    tmp_path, monkeypatch, location
+):
+    """Exercise Path.is_junction fail-closed checks without creating privileged links."""
+    root = fixture_root(tmp_path)
+    destination = {
+        "root": root,
+        "intermediate": root / "decks" / "leonardo",
+        "file": root / "decks" / "leonardo" / "PROTOTYPE_0.1.txt",
+    }[location]
+    original = Path.is_junction
+
+    def simulated_junction(path):
+        return path == destination or original(path)
+
+    monkeypatch.setattr(Path, "is_junction", simulated_junction)
+    with pytest.raises(EvidenceReadError, match="non-link|linked"):
+        read_prototype_01(root, "leonardo")
+
+
+
 def test_oversized_or_non_utf8_deck_rejected(tmp_path):
     root = fixture_root(tmp_path)
     deck = root / "decks/leonardo/PROTOTYPE_0.1.txt"
