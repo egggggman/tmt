@@ -36,7 +36,7 @@ def fixture_manifest() -> dict:
 def fixture_root(tmp_path: Path) -> Path:
     deck = tmp_path / "decks/leonardo/PROTOTYPE_0.1.txt"
     deck.parent.mkdir(parents=True)
-    deck.write_text("4 Test Turtle\n", encoding="utf-8")
+    deck.write_bytes(b"4 Test Turtle\n")
     manifest = tmp_path / BASELINE_PATH
     manifest.parent.mkdir(parents=True)
     manifest.write_text(json.dumps(fixture_manifest()), encoding="utf-8")
