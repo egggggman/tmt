@@ -17,8 +17,16 @@ from typing import Any
 
 DECK_SLUGS = frozenset(
     {
-        "leonardo", "raphael", "donatello", "michelangelo", "splinter",
-        "april_oneil", "casey_jones", "shredder", "krang", "bebop_rocksteady",
+        "leonardo",
+        "raphael",
+        "donatello",
+        "michelangelo",
+        "splinter",
+        "april_oneil",
+        "casey_jones",
+        "shredder",
+        "krang",
+        "bebop_rocksteady",
     }
 )
 BASELINE_PATH = "docs/objective-balance-lab/baselines/OBL_BASELINE_005_MANIFEST.json"
@@ -126,7 +134,10 @@ def read_prototype_01(
     if not text.strip():
         raise EvidenceReadError("empty deck source")
     return InspectedEvidence(
-        "/".join(parts), text, digest, verified,
+        "/".join(parts),
+        text,
+        digest,
+        verified,
         "independently supplied SHA-256 matched" if verified else "unverified local snapshot",
         "Preserved Prototype 0.1 (not a current legal-deck certification)",
     )
@@ -174,8 +185,10 @@ def read_baseline_005(
 ) -> InspectedEvidence:
     """Inspect an existing baseline manifest; never generate new game metrics."""
     text, digest, verified = _read_allowed(
-        snapshot_root, tuple(BASELINE_PATH.split("/")),
-        max_bytes=_MAX_MANIFEST_BYTES, expected_sha256=expected_sha256,
+        snapshot_root,
+        tuple(BASELINE_PATH.split("/")),
+        max_bytes=_MAX_MANIFEST_BYTES,
+        expected_sha256=expected_sha256,
     )
     try:
         decoded = json.loads(text, object_pairs_hook=_duplicate_keys, parse_constant=_nonfinite)
@@ -183,7 +196,11 @@ def read_baseline_005(
         raise EvidenceReadError("invalid baseline JSON") from error
     parsed = _validate_baseline(decoded)
     return InspectedEvidence(
-        BASELINE_PATH, text, digest, verified,
+        BASELINE_PATH,
+        text,
+        digest,
+        verified,
         "independently supplied SHA-256 matched" if verified else "unverified local snapshot",
-        "Historical Baseline 005 — not a live or newly calibrated result", parsed,
+        "Historical Baseline 005 — not a live or newly calibrated result",
+        parsed,
     )
