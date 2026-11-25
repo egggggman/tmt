@@ -2,7 +2,7 @@
 
 **Scope:** HQ authorized read-only data contract only, based on draft architecture PR #435. This is an **unmerged synthetic prototype**, not a GUI, Windows executable, or gameplay launcher.
 
-**Parent source:** `main` `66fb857272365c1427450797ffdf69003365192c`.  
+**Parent source:** `main` `66fb857272365c1427450797ffdf69003365192c`.
 **Engine defect remains separate:** draft PR #434 at `415cd2762b8c6435c314dd1c51619dd46c8b451f`; no edits to that PR or to engine code.
 
 ## Explicitly allowlisted sources
