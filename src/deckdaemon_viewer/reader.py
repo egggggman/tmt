@@ -160,7 +160,11 @@ def _validate_baseline(data: Any) -> dict[str, Any]:
         if not isinstance(opponents, dict) or set(opponents) != (DECK_SLUGS - {slug}):
             raise EvidenceReadError(f"invalid matchup roster for {slug}")
         for opponent, value in opponents.items():
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 1:
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not 0 <= value <= 1
+            ):
                 raise EvidenceReadError(f"invalid matchup {slug}/{opponent}")
     return data
 
