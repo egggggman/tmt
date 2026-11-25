@@ -76,16 +76,16 @@ def _read_allowed(
 ) -> tuple[str, str, bool]:
     expected = _check_digest(expected_sha256)
     root = Path(root)
-    if root.is_symlink() or not root.is_dir():
-        raise EvidenceReadError("snapshot root must exist and be a non-symlink directory")
+    if root.is_symlink() or root.is_junction() or not root.is_dir():
+        raise EvidenceReadError("snapshot root must be a non-link directory")
     resolved_root = root.resolve(strict=True)
     current = resolved_root
     for part in parts:
         if not part or part in {".", ".."} or "/" in part or "\\" in part:
             raise EvidenceReadError("unsafe evidence path component")
         current = current / part
-        if current.is_symlink():
-            raise EvidenceReadError("symlink evidence path is forbidden")
+        if current.is_symlink() or current.is_junction():
+            raise EvidenceReadError("linked evidence path is forbidden")
     try:
         canonical = current.resolve(strict=True)
         if not canonical.is_relative_to(resolved_root):
