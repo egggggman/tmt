@@ -27,11 +27,19 @@ No CLI entry point. No GUI. No `engine07`, `stage002`, diagnostic launcher, `sub
 ## Fail-closed contract
 
 - Static path components and frozen deck slug allowlist; reject traversal/unknown deck.
-- Reject symlink root/path components and out-of-root resolution; require regular file.
+- Reject symlink **and Windows junction** root/path components and out-of-root resolution; require regular file.
 - Bounded read: deck <= 1 MiB, manifest <= 256 KiB, strict UTF-8.
 - Reject missing/inaccessible files, invalid or mismatched SHA-256, malformed JSON, duplicate JSON keys, NaN, incorrect schema/identity/roster, invalid win rates or matchup cell coverage.
 - Explicit historical result labeling; never certify Standard legality, current balance, new gameplay, or trust in mutable files.
 - OS-level sandboxing and hostile concurrent mutation are **not established** by this reader. Production installation must use a version-pinned immutable snapshot, with Windows reparse/junction/ACL checks as a later gate.
+
+## Post-Windows review amendment (new exact-SHA validation pending)
+
+The first exact Windows candidate `212168a...` failed due to a CRLF-sensitive test fixture and formatting; preserved. The later `02707ac416a735091fee43338834a48947515c81` candidate passed **16 tests with 1 symlink-creation skip**, plus Ruff lint, format and diff checks.
+
+This new isolated review changes only the reader's link-component rejection and adds **three synthetic junction-classification tests** (root, intermediate and leaf) using monkeypatching of Python 3.12 `Path.is_junction()`, so Windows user privilege to create symlinks is not required for these test cases. These are tests of the explicit rejection branch, **not real NTFS junction/reparse behavior under concurrent changes**. The original link-creation test remains skipped on unprivileged Windows and must remain reported as a skip. A future real junction test and immutable/ACL-qualified snapshot are separate verification gates.
+
+**This amendment makes no claim that the newer head has passed Windows tests yet.**
 
 ## Synthetic evidence and remaining validation
 
