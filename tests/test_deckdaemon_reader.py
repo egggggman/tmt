@@ -82,11 +82,11 @@ def test_symlink_file_and_directory_fail_closed(tmp_path):
         deck.symlink_to(root / BASELINE_PATH)
     except (OSError, NotImplementedError):
         pytest.skip("symlinks not permitted on this host")
-    with pytest.raises(EvidenceReadError, match="symlink"):
+    with pytest.raises(EvidenceReadError, match="linked|non-link"):
         read_prototype_01(root, "leonardo")
     linked_root = tmp_path / "alternate"
     linked_root.symlink_to(root, target_is_directory=True)
-    with pytest.raises(EvidenceReadError, match="symlink"):
+    with pytest.raises(EvidenceReadError, match="linked|non-link"):
         read_prototype_01(linked_root, "leonardo")
 
 
