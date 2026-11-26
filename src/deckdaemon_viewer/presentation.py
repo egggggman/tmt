@@ -19,7 +19,9 @@ TITLE = "DECKDAEMON 0.1 — INSPECTION ONLY — NO GAMEPLAY"
 
 def describe(evidence: InspectedEvidence) -> tuple[str, str]:
     """Return inert text for the UI without interpreting evidence as code."""
-    status = "VERIFIED AGAINST SUPPLIED DIGEST" if evidence.verified else "UNVERIFIED LOCAL SNAPSHOT"
+    status = (
+        "VERIFIED AGAINST SUPPLIED DIGEST" if evidence.verified else "UNVERIFIED LOCAL SNAPSHOT"
+    )
     header = (
         f"{evidence.classification}\n"
         f"Path: {evidence.relative_path}\n"
