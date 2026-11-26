@@ -1,0 +1,42 @@
+{
+  "accepted_main": "10d2ac80ef5b81b3a209a3133eb0a84633a1f944",
+  "additional_seeds": 0,
+  "authorized_head": "67b9bb3083c9f4b2fe02e7fed258c4739581225f",
+  "batch_or_calibration": false,
+  "branch": "(detached HEAD)",
+  "finished_utc": "2026-11-08T04:15:50.579032+00:00",
+  "game_id": "april-casey:canonical:7231",
+  "input_sha256": {
+    "cardcade/scryfall-tmt-pza-tmc-2026-08-13.json": "56a53af4d0e6f92d8500b7330bbfd37215ab54fbfded0ca600a5452adc06d402",
+    "cardcade/scryfall-tmt-pza-tmc-2026-08-13.manifest.json": "6b5271af75150a361f77e7b89306c709959dfdf497c448dfdc978e5dc9a17950",
+    "decks/april_oneil/PROTOTYPE_0.1.txt": "684c898760a39c5dfc584206ef4675c49d96cfe6bd419f03f86bd0b8358d09f4",
+    "decks/casey_jones/PROTOTYPE_0.1.txt": "0fc0adbb370ecfddad03692a4229a04b23268739914a8f2a004b8e042ff3cebb",
+    "docs/objective-balance-lab/baselines/OBL_BASELINE_005_MANIFEST.json": "532bad7e489eb25f3184b5a90487e1361f7a2b19b8c02cac3c4115a0fc3e14bc",
+    "src/tmnt_design_studio/stage002.py": "c9d7c637bcd8168a5613e20e0cb8689709e4065b0be00bdd8536b9d8491fbbfb"
+  },
+  "invocation": "tmnt_design_studio.stage002.run_game(ROOT, spec, stage002.AcceptancePilot())",
+  "observed_head": "67b9bb3083c9f4b2fe02e7fed258c4739581225f",
+  "orientation": "canonical",
+  "output_directory": "C:\\projects\\tmt\\.cardcade-diagnostic-001-pr404-67b9bb3-20261107",
+  "pairing_id": "april-casey",
+  "python_executable": "C:\\projects\\tmt\\.cardcade-fidelity-correction\\.venv\\Scripts\\python.exe",
+  "python_version": "3.12.10",
+  "retry_count": 0,
+  "run_game_call_count": 1,
+  "run_id": "cardcade-diagnostic-game-001",
+  "runner_control_flow": "single Game constructed inside one run_game call; loop terminates on terminal state or raises at turn 120; no outer game loop/retry",
+  "seats": [
+    {
+      "deck_path": "decks/april_oneil/PROTOTYPE_0.1.txt",
+      "display_id": "april-oneil-p0.1"
+    },
+    {
+      "deck_path": "decks/casey_jones/PROTOTYPE_0.1.txt",
+      "display_id": "casey-jones-p0.1"
+    }
+  ],
+  "seed": 7231,
+  "stage_manifest_digest": "a556f5c03765732f3343270949d09e4a87145e72921582188858ab249e5f98df",
+  "started_utc": "2026-11-08T04:15:49.745533+00:00",
+  "worktree": "C:\\projects\\tmt\\.diag001-pr404-67b9bb3"
+}
