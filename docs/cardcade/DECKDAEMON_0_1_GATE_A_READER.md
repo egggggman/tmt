@@ -1,6 +1,6 @@
-# DECKDAEMON 0.1 — Gate A reader candidate
+# DECKDAEMON 0.1 — Gate A read-only reader (accepted and integrated)
 
-**Scope:** HQ authorized read-only data contract only, based on draft architecture PR #435. This is an **unmerged synthetic prototype**, not a GUI, Windows executable, or gameplay launcher.
+**Scope:** HQ accepted read-only synthetic data contract only, based on architecture draft PR #435. Gate A was squash-merged to `main` through PR #436 at `2e2b43413953d43775793b7fefc5edbab5cea346` from reviewed source `ff9cddb38dde7d678afd492c780b551f0ae17d32`. This is not a GUI, Windows executable, production security certification, or gameplay launcher.
 
 **Parent source:** `main` `66fb857272365c1427450797ffdf69003365192c`.
 **Engine defect remains separate:** draft PR #434 at `415cd2762b8c6435c314dd1c51619dd46c8b451f`; no edits to that PR or to engine code.
@@ -33,16 +33,20 @@ No CLI entry point. No GUI. No `engine07`, `stage002`, diagnostic launcher, `sub
 - Explicit historical result labeling; never certify Standard legality, current balance, new gameplay, or trust in mutable files.
 - OS-level sandboxing and hostile concurrent mutation are **not established** by this reader. Production installation must use a version-pinned immutable snapshot, with Windows reparse/junction/ACL checks as a later gate.
 
-## Post-Windows review amendment (new exact-SHA validation pending)
+## Historical Windows correction and junction-classification amendment
 
 The first exact Windows candidate `212168a...` failed due to a CRLF-sensitive test fixture and formatting; preserved. The later `02707ac416a735091fee43338834a48947515c81` candidate passed **16 tests with 1 symlink-creation skip**, plus Ruff lint, format and diff checks.
 
 This new isolated review changes only the reader's link-component rejection and adds **three synthetic junction-classification tests** (root, intermediate and leaf) using monkeypatching of Python 3.12 `Path.is_junction()`, so Windows user privilege to create symlinks is not required for these test cases. These are tests of the explicit rejection branch, **not real NTFS junction/reparse behavior under concurrent changes**. The original link-creation test remains skipped on unprivileged Windows and must remain reported as a skip. A future real junction test and immutable/ACL-qualified snapshot are separate verification gates.
 
-**This amendment makes no claim that the newer head has passed Windows tests yet.**
+**Historical note:** the amendment above preceded exact-SHA validation of subsequent candidates. The final reviewed source passed the bounded Windows checks as recorded below.
 
-## Synthetic evidence and remaining validation
+## Accepted synthetic Gate A validation and limitations
 
-A local Python 3.13.5 / pytest 9.0.2 **analogous candidate** ran **17 passed** in 0.08 seconds on temporary synthetic fixtures, and `compileall` passed. Because GitHub files were published separately, **this does NOT count as exact-GitHub-head Windows acceptance**. Ruff wasn't installed in the isolated local container and has **not** been claimed as passing. A fresh Windows exact-SHA `uv` test, Ruff lint and format, and `git diff --check` are mandatory before Gate A acceptance. A full suite, real games, workflow activation, GUI and EXE are not authorized.
+The early Python 3.13.5 / pytest 9.0.2 **analogous candidate** ran **17 passed** in 0.08 seconds and `compileall` passed; this was preliminary historical evidence, **not** acceptance evidence for the final GitHub SHA.
 
-**Next move:** validate the exact PR head in a fresh isolated Windows worktree, inspect Windows-specific path behavior, and review any test/format failures. Maintain draft/unmerged status pending HQ review. No baseline/prototype edits or historical evidence overwrites.
+The exact reviewed source `ff9cddb38dde7d678afd492c780b551f0ae17d32` was validated on Windows using Python 3.12.10 in the existing environment and in a fresh temporary `uv` environment: **19 passed, 1 skipped** in each. The single skip was the real symlink-creation test because the host did not permit creating symlinks. Ruff lint and format and `git diff --check HEAD^ HEAD` passed; the validation worktree was clean. The fresh `uv` environment installed pytest 8.4.2 and Ruff 0.17.6 from version ranges, **not a locked dependency reproduction**. See PR #436 Windows receipts and the [independent technical ACCEPT comment review](https://github.com/egggggman/tmt/pull/436#pullrequestreview-6067266155). GitHub recorded this as **COMMENTED**, not formal APPROVED, because the connected account was the PR author.
+
+**Gate A acceptance is restricted to the synthetic, read-only reader contract.** The three junction tests mock `Path.is_junction()` and do not verify real NTFS reparse-point, junction or ACL behavior; the real symlink test was skipped. Hostile concurrent mutation protection, immutable version-pinned snapshot provenance, locked toolchain reproducibility, Windows packaging and production trust remain unestablished. An inspected mutable local file without an independently supplied trusted digest is an **unverified local snapshot**.
+
+**Next move:** Consider a separately scoped Gate B native Python GUI smoke proposal through HQ. Gate A integration does **not** authorize a GUI, executable, gameplay, calibration, deck edits, full simulation suite, workflow activation, or archive writes. Preserve all baseline/prototype histories and PR #436 test receipts.
