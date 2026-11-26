@@ -13,3 +13,8 @@ docs/cardcade/CALIBRATION_V1_20260917T*_v13*/** text eol=lf
 docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V14.* text eol=lf
 docs/cardcade/CALIBRATION_RELEASE_BASELINE_REFRESH_V16.* text eol=lf
 docs/cardcade/CALIBRATION_V1_*/launcher.py -text
+
+# Preserve raw-byte identities used by the Stage 002 trust review tests.
+.diag003-memory-independent-review/verifier-trust-review/sources/*.py -text
+.diag003-memory-independent-review/verifier-trust-review/corrected/verify_completed_batch.py -text
+.diag003-memory-independent-review/300-game-exploratory-r1/batch_integrity_validation.integrity-v2.py -text
