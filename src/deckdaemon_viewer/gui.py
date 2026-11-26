@@ -11,7 +11,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 
-from .presentation import InspectionSession, ROSTER, TITLE
+from .presentation import ROSTER, TITLE, InspectionSession
 from .reader import EvidenceReadError
 
 
