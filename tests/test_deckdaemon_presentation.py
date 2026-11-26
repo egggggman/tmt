@@ -6,7 +6,7 @@ from dataclasses import replace
 
 import pytest
 
-from deckdaemon_viewer.presentation import InspectionSession, ROSTER, TITLE, describe
+from deckdaemon_viewer.presentation import ROSTER, TITLE, InspectionSession, describe
 from deckdaemon_viewer.reader import (
     DECK_SLUGS,
     EvidenceReadError,
@@ -20,7 +20,9 @@ def _evidence(verified: bool = False) -> InspectedEvidence:
         content="4 Test Card\n",
         observed_sha256="a" * 64,
         verified=verified,
-        provenance="unverified local snapshot" if not verified else "independently supplied SHA-256 matched",
+        provenance="unverified local snapshot"
+        if not verified
+        else "independently supplied SHA-256 matched",
         classification="Preserved Prototype 0.1",
     )
 
