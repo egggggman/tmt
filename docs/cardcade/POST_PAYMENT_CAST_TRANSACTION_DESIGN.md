@@ -175,3 +175,91 @@ This design does not authorize:
 ## Review request
 
 Approve or reject this interface contract before implementation is authorized. The next implementation should be a bounded seam change with focused synthetic tests only.
+
+
+---
+
+# Revision 2 — Required isolation proof before implementation
+
+**Revision basis:** design head `7e58a15d40540f643ca66586bbfea8265dcf4587`  
+**Implementation status:** still blocked
+
+## A. Actual current publication boundary
+
+The current `Game._commit_announcement_payment` path has no complete publication barrier. In order, it can:
+
+1. tap payment sources;
+2. call `move_object()`, changing authoritative zones, object registration, Stack state, and gameplay logs;
+3. call `FloatingManaLedger.commit_payment()`, changing committed allocations and ledger revision;
+4. call `_record_spell_cast_event()`, which creates and publishes a `SPELL_CAST` RulesEvent;
+5. call `_process_artifact_spell_cast_triggers()`, which can authenticate the event, enqueue triggers, and place pending triggers on the Stack;
+6. append `spell_payment_evidence`;
+7. append a `cost_paid` gameplay log entry.
+
+An exception at step 5 or later can therefore expose an intermediate state to any observer of the live `Game`. A rollback journal without an isolation barrier would repair state after failure but would not prove that no contradictory state was observed.
+
+## B. Isolation requirement
+
+Before implementation, Cardcade must demonstrate all three properties for the cast-scoped seam:
+
+### Single writer
+
+Only the owning `Game` transaction may mutate the listed structures during the cast. The transaction must acquire an explicit cast-writer guard before the first mutation and release it only after commit or abort. Any second writer, overlapping transaction, or cross-thread entry must fail closed.
+
+### Non-reentrant
+
+While the cast transaction is committing, no public action-generation, pilot, serialization, observer, or cast-entry method may re-enter the same `Game`. Internal transaction helpers may call one another through an allowlisted private path; a nested cast transaction must be rejected.
+
+### No intermediate observable state
+
+Provisional payment, zone, Stack, event, trigger, witness, evidence, and log changes must not be visible through public reads, fingerprints, pilot views, serializers, or callbacks. The implementation must either:
+
+- stage all changed containers and copy-on-write object mutations in a transaction-local state and publish one bundle at the commit gate; or
+- prove that every observer is blocked by the writer guard and that no callback/serialization/pilot call can occur during commit.
+
+A journal that mutates live structures and restores them later is insufficient by itself.
+
+## C. Recommended smallest architecture
+
+Use a cast-scoped `CastIsolationContext` owned by `Game`:
+
+```text
+acquire writer guard
+  -> prepare read-only plan/snapshot
+  -> commit against staged/copy-on-write state
+  -> final invariant + post-state fingerprint
+  -> atomic publication bundle swap
+release writer guard
+```
+
+The context must own:
+
+- the pre-state fingerprint and immutable snapshot;
+- the writer token and re-entry state;
+- staged zone containers and affected object copies;
+- staged `FloatingManaLedger` state;
+- staged Stack and object/event counters;
+- staged RulesEvent/evidence, semantic witnesses, trigger maps/queues;
+- staged payment/cast evidence and gameplay logs;
+- a transaction-owned publication list.
+
+The publication bundle must contain only transaction-owned deltas. Pre-existing game history remains outside the bundle and is never truncated or rewritten.
+
+## D. Proof artifacts required before implementation approval
+
+The implementation proposal must include a call-graph/seam audit proving:
+
+1. all writes in the cast path are routed through the isolation context;
+2. no public observer is callable while provisional state exists;
+3. no trigger delivery path can re-enter cast announcement;
+4. writer ownership is exclusive and released on both success and failure;
+5. a failed transaction publishes zero gameplay-success deltas;
+6. an existing stack, trigger queue, event log, ledger, and evidence remain byte-for-byte unchanged after abort.
+
+The proof must be backed by synthetic seam tests for writer contention, nested cast rejection, observer access during commit, failure at each mutation stage, and repeated abort.
+
+## E. Exact implementation gate
+
+**Do not code yet.** Implementation may begin only after HQ explicitly authorizes a branch based on the revised design SHA and accepts the isolation proof. The next branch must be based on the exact SHA of this revision, not directly on main or the earlier probe head.
+
+Gameplay, smoke, calibration, deck edits, Baseline 005 changes, R9-B changes, and historical evidence rewrites remain blocked.
