@@ -105,3 +105,70 @@ On a separately authorized implementation candidate with an exact new SHA:
 **Smallest next HQ gate:** independently review/approve a concrete **transaction-undo protocol contract** scoped to ledger + existing occurrence/witness and trigger mutations, including exact ownership and fail-closed invariants; then authorize a separately testable narrow implementation at a pinned SHA. If a safe API cannot be demonstrated, prefer a later architecture decision rather than pretending a zones-only patch is sufficient.
 
 **READY/BLOCKED:** Source inspection **READY**; transaction restoration implementation **BLOCKED**; all gameplay/launcher/calibration gates **BLOCKED**.
+
+
+## Revision — Modular, scalable architecture comparison (HQ direction; design only)
+
+**Source inspected:** `main` `3ca09fc53728047a64ead77866660f379c6cea13`; engine `src/tmnt_design_studio/engine07.py` blob `98baebde735fd6f124d789cdee3daaa134fe783b`; mana ledger `src/tmnt_design_studio/mana_ledger07.py` blob `2028c453128b6330db3ebd1cfb2d1d2bbd254d9b`. This is a **targeted cast-path map**, not a proved exhaustive whole-engine mutation audit. No executable code, tests, games, or workflows changed or ran.
+
+### Non-negotiable architecture qualities
+
+- **Modularity:** each subsystem owns its staging and validation contract. The coordinator cannot mutate the ledger's private fields or forge RulesEvents and witnesses.
+- **Scalability:** the transaction *interface* must compose future operations (activated abilities, tokens, combat) without implementing those families now. Avoid card-name-specific exceptions.
+- **Identity:** original authoritative runtime object identity, object ID provenance, payment-plan authority, and preexisting evidence identity/order are preserved; copies of mutable `CardObject`/`Permanent` are never published as a silent substitute for originals.
+- **Observability:** readers must never observe a partially published cast. In-process atomicity is not crash durability; power loss and durable transaction journals remain outside this gate.
+- **Incrementality:** first prove one exact cast transaction boundary with a named synthetic reproducer; no wholesale refactor unless a narrow boundary is shown infeasible.
+
+### Verified targeted reader/mutator map
+
+| Owner / data | Cast-path writer(s) verified in source | Readers / observation surfaces verified | Necessary boundary or unresolved leak |
+| --- | --- | --- | --- |
+| Zones, card incarnation, tap state, `_objects`, object allocator | `_commit_announcement_payment` (11094), `move_object` (1778), `_register` (1552), `_allocate_object_id` (1547) | `_authoritative_container`, `is_authoritative`, `authoritative_state_fingerprint` (12854), `snapshot` (13056), general actions | Live mutable card/permanent fields and lists preclude a private candidate that directly reuses mutable objects. Stage identities + deltas, never mutate originals during prepare |
+| Restricted mana lots, consumes, committed payment IDs, ledger revision/authority | `FloatingManaLedger.commit_payment` (`mana_ledger07.py` 243); `Game._commit_announcement_payment` (11094) | `validate_payment`, `fingerprint_state` (ledger 622), `snapshot` (ledger 475), `Game.snapshot` | Ledger has no proven undo, staging or root-swap API. Need ledger-owned **pure prepared payment delta** bound to original authority/revision; no cloned ledger authority and no caller private-field edits |
+| RulesEvents, event evidence, logs, event counter | `_record_spell_cast_event` (11212), `_new_rules_event` (2847), `log` (2036) | `_authenticate_original_rules_event` (3014), `Game.snapshot`, reconciliation consumers | Event construction currently eagerly publishes and may attach witnesses. Introduce event-subsystem-owned pure draft and authentication against a candidate view |
+| Semantic presence + opportunity witnesses/counters | `_register_semantic_occurrence` (2124), `_record_opportunity` (2398), `_witness_from_event` (2771) | `_validate_opportunity_applicability`, `snapshot` and reconciliation | Some *preexisting* occurrences acquire new witnesses: candidate overlay must express append-without-mutating original, preserve old identity and original ordering |
+| Trigger registries, pending queue, triggered ability Stack objects and counter | `_enqueue_trigger` (4032), `_put_pending_triggers_on_stack` (4259), `_process_artifact_spell_cast_triggers` (11227) | stack/priority and trigger-validation consumers, `snapshot` | Trigger materialization drains existing pending queue; staging must not move or clear existing objects until publication, preserve APNAP order and anchor relations |
+| Payment evidence + cost log | `_commit_announcement_payment` (11094) | `snapshot`, reconciliation | Must be committed with spell event, ledger and trigger linkage, never logged as complete before all other results are valid |
+
+**Scale caution:** source-wide static occurrence scan found `self._objects` on 155 lines, `self.stack` 63, `self._rules_events` 30, `self.events` 25, `self.floating_mana` 22 and `self._triggers` 18 in `engine07.py`. These are **text occurrences, not a complete mutator classification**. A mandatory prerequisite to claiming full reader isolation is an enumerated write/read call-graph audit, including activated abilities, Sneak (`_commit_sneak_announcement` at 11254), `move_object` elsewhere, game snapshots and Stage 002 reconciliation. No claim of exhaustive coverage is made here.
+
+### Alternatives and decision
+
+| Criterion | Whole-`GameStateRoot` publication | Cast-scoped staged coordinator / overlay |
+| --- | --- | --- |
+| Publication model | One root-generation swap after migrating **all** mutable readers/writers | Transaction-specific private deltas, with one *narrow* publication boundary across touched subsystem owners |
+| Identity / existing APIs | Requires indirection for mutable identity-bearing `CardObject` and `Permanent` fields and all observations | Keeps preexisting live object references; staged mutations are declarations, applied only at commit after complete validation |
+| Ledger authority | Must move existing ledger semantics into root without replacing its private `_plan_authority` | Ledger owns validated staged payment delta and publication; exactly one ledger revision change per committed payment |
+| Migration radius | Broad: snapshots, reconciliation, combat, activation, token and direct collection readers/writers | Potentially smaller for one cast, **but cannot honestly promise one-step atomicity while existing direct readers can interleave with several live writes** |
+| Current evidence | Not implemented or proven | Not implemented or proven |
+| Recommendation | Contingency if staged coordinator cannot safely publish | **Preferred first research/proof target** for modularity and smallest meaningful change |
+
+**Critical boundary choice:** The previous `prepare_cast` / `commit_cast` root-swap contract remains a *conditional target*, not an accepted API. An overlay cannot safely claim atomic publication merely by applying a sequence of deltas to current publicly mutable Game fields. A bounded coordinator is viable only if (a) one engine-owned single-writer rule forbids reentrant casts/observers at commit and (b) all supported snapshot/reconciliation/public getters and callbacks are prevented from observing midway, or (c) touched state is redirected through a single published cast-state handle. The correct choice requires an audited reader/mutator ownership map and a proof of non-observability before any implementation. In-process single-thread Python execution alone is **not** proof because callbacks may reenter.
+
+### Proposed public interface and ownership refinement (NOT implemented)
+
+```text
+Game.prepare_cast(request, expected_generation) -> PreparedCast | Rejected
+Game.commit_cast(prepared) -> CommitResult | Rejected
+Game.abort_cast(prepared, reason) -> Aborted | AlreadyCommitted
+Game.cast_outcome(transaction_id) -> InFlight | Committed | Aborted | Unknown
+```
+
+- `PreparedCast` is single-use and opaque; Game owns transaction token creation and an **in-process-only** outcome registry. The token binds original Game identity, base generation, original authoritative object handles, prior indices/taps and the exact ledger plan authority/revision. Never issue public provisional object IDs.
+- The coordinator requests **subsystem-owned drafts**: `ledger.prepare_payment_delta(plan)`; object/zone planned move and tap delta; event/semantic draft; trigger/Stack materialization draft; payment evidence/log draft. These are **conceptual contracts**, not code or evidence of existing methods.
+- If any prepare or commit validation fails *before publication*, discard only private drafts and record Aborted. The previous source state and all authentic event history remain untouched. If a current engine mutator can run during staging, its effect must invalidate the prepared generation rather than be overwritten.
+- A commit needs a verified indivisible visibility boundary for all touched state. The published cast and its in-process transaction outcome must be observed together; `cast_outcome` must report Committed even if the caller experiences a **postpublication** failure. No rollback after publication, no repeated ledger spending from retry.
+- No guarantee of persistence across process crash, power loss, filesystem persistence, or multi-process observers. If recovery beyond this process is desired, design a separate durable log/claim protocol and seek new HQ approval.
+- Existing PR #433 rejected-payment handling remains the compatibility baseline: a failure **before any successful commit** must leave source identity, mana lots and state unchanged. The Punks → Pizza → Ravenous successful cast must retain authentic RulesEvent/event cursors, APNAP trigger order, payment identity and reconstruction.
+- **Legacy terminology correction:** earlier sections say “restore after injected failure” because they describe the *current eager-mutation defect*. Under the proposed staged protocol, prepublication failure means **discard unpublished candidate**, not retroactive restoration of already observable state. Postpublication exceptions mean **Committed**, not Aborted.
+
+### Independent review gates (before implementation)
+
+1. Is there a demonstrably complete cast-scoped reader/mutator boundary, including `snapshot`, fingerprint, Stage 002 reconciler, trigger callbacks, and `_commit_sneak_announcement` compatibility? If not, **BLOCKED**, not an optimistic overlay.
+2. Can subsystem-owned staged deltas preserve real `_plan_authority`, payment revision, object identity, witness references to existing occurrences, APNAP trigger ordering and all preexisting queue history?
+3. Can publication and `cast_outcome` be linearized at one in-process commit point without reentrancy, ambiguous retries or double spending?
+4. Does the design permit the PR #434 injected postpayment failure to become a private prepublication failure without inventing an external card-resolution failure?
+5. Are broader future families modular design inputs only, rather than silently authorized implementation work?
+
+**Verdict for this revision:** Documented architecture comparison **READY FOR INDEPENDENT REVIEW**; chosen publication/reader boundary **NOT VALIDATED**; implementation, testing, gameplay, calibration and merge **BLOCKED**. Do not describe this document as accepted architecture or an implementation authorization.
+
