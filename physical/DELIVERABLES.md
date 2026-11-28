@@ -7,7 +7,7 @@ tests.
 ## Starter-set deliverables
 
 - ten individual deck boxes;
-- one master collector box;
+- one master collector / transport case — current prototype direction is a Deck Fortress-style hard-shell case with a replaceable 3D-printed interior; protection and organization are the immediate priorities, and production-final status is not claimed;
 - Avery OL1067WR label sheets where that stock remains appropriate;
 - **Sewer Stamps** promotional sticker sheets — PLS619 2 in × 1.5 in, 18-up; first sticker set accepted as a prototype visual standard and awaiting physical print validation;
 - deck dividers;
@@ -20,6 +20,47 @@ tests.
 - first-player token;
 - character and art cards;
 - promotional and membership materials.
+
+
+## Master collector / transport case prototype checkpoint
+
+Mr. Paperback has selected a **Deck Fortress-style hard-shell case** as the current master-case
+prototype and possible long-term solution. The decision is intentionally practical: keeping the ten
+playable decks protected, organized, and easy to transport has higher priority than fabricating a
+custom outer shell during the current prototype stage.
+
+The current candidate is the **TheThirdFilament Deck Fortress** described by its maker as a hard-shell
+ABS case with a 3D-printed interior insert, carrying handle, locking clasps, a toploader display slot,
+and capacity for 10 or 12 standard-sized TCG decks. The maker lists exterior dimensions of
+**16.5 in × 4.5 in × 13 in** and describes each deck position as suitable for roughly 100+ double-sleeved
+cards. These are vendor-provided specifications and remain unverified by Mutants the Gathering until
+the physical unit is received and measured.
+
+The 3D-printed interior is a major reason for selecting this prototype direction. The outer hard case
+may remain stable while interior modules can be replaced, duplicated, or redesigned as the physical
+product develops. Future inserts may provide dedicated organization for the ten decks, tokens,
+counters, life counter, first-player marker, dice, spare sleeves, Field Guide / rules-reference
+materials, and other Mr. Paperback accessories.
+
+The current stock configuration appears to provide ten deck positions plus accessory storage, which
+aligns well with the ten-deck battle set. **Do not assume the existing wells fit the official TMNT metal
+tins.** The initial acceptance target is safe organization of the sleeved playable decks. The official
+TMNT tins remain a separate collectible / individual-deck-container track unless physical measurement
+proves that a combined workflow is practical.
+
+This is a **prototype selection, not a production-final manufacturing decision**. Do not design custom
+replacement inserts from exterior dimensions or photographs alone. Once the case is in hand, record
+the actual interior dimensions, deck-well dimensions, accessory-bin dimensions, lid clearance, card
+fit, and transport behavior before authorizing any custom 3D-printed Mutants insert.
+
+### Master-case validation path
+
+**candidate selected → physical case received → dimensions recorded → 10-deck fit verified →
+accessory layout tested → transport / closure test → custom insert need assessed → durability verified →
+production decision**
+
+Preserve the stock insert and any future replacement-insert revisions as prototype history rather
+than overwriting earlier configurations.
 
 ## Sewer Stamps prototype checkpoint
 
