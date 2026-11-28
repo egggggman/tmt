@@ -74,6 +74,7 @@ source Provenance and transactional current/run history.
 - The migrated host is qualified: `C:\Projects\tmt` is code/runtime and `G:\` is prospective live evidence storage (NTFS, 976.56 GiB capacity, 874.66 GiB free, 2,000/2,000 atomic cycles, zero failures).
 - Calibration V1 run `CALIBRATION_V1_20260923T141649Z_3f838930291e` is complete and audited; its analysis and Design Studio interpretation are the current balance-review evidence.
 - HQ Resilience 0.1 is active so GitHub can carry project state, task contracts, validation, evidence, and handoffs across tools.
+- Mr. Paperback has selected a Deck Fortress-style hard-shell case with a replaceable 3D-printed interior as the current master collector / transport case prototype. Protection and organization of the ten playable decks are the immediate priorities; physical dimensions, deck fit, accessory layout, transport behavior, and any custom insert design remain validation work rather than production-ready claims.
 
 The ten-deck battle set is not production-ready until simulator evidence is credible, Design Studio decisions are explicit, human fun testing is recorded, and physical deliverables are validated.
 
