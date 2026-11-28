@@ -31,6 +31,17 @@ the [Glossary](GLOSSARY.md); implementation status lives in [Architecture](ARCHI
    Alignment, Recommendations, and a structured Playtesting Engine do not gate deck construction or
    lightweight playtest notes.
 
+## Physical-product decisions
+
+28. **Master case prototype prioritizes protection, organization, and modularity**  
+    Mr. Paperback will use a Deck Fortress-style hard-shell case with a replaceable 3D-printed
+    interior as the current master collector / transport case prototype and possible long-term
+    solution. The immediate objective is to keep the ten playable decks safe, organized, and easy to
+    transport rather than fabricate a custom outer shell. The stock interior is not assumed to fit
+    the official TMNT metal tins. Physical measurements and fit tests must precede any custom Mutants
+    insert design. The outer hard case may remain stable while 3D-printed interior modules evolve
+    through preserved prototype revisions.
+
 ## Knowledge-model decisions
 
 8. **Separate facts, mechanics, Capabilities, and themes**
