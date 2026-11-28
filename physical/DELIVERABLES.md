@@ -55,9 +55,21 @@ fit, and transport behavior before authorizing any custom 3D-printed Mutants ins
 
 ### Master-case validation path
 
-**candidate selected → physical case received → dimensions recorded → 10-deck fit verified →
-accessory layout tested → transport / closure test → custom insert need assessed → durability verified →
-production decision**
+**candidate selected → physical case received → OL600SP deck-holder label fit test → dimensions recorded →
+10-deck fit verified → accessory layout tested → transport / closure test → custom insert need assessed →
+durability verified → production decision**
+
+### Deck-holder label fit test
+
+Before creating a new label size, test one existing **OL600SP 4 in × 2.5 in** Mutants deck label
+against a Deck Fortress deck holder. Record whether it fits the usable face without overhang, whether
+the rounded corners or edges interfere with card access or the holder opening, and whether the deck
+artwork remains readable when installed in the case.
+
+This is a **fit/no-fit experiment only**. Do not trim the established OL600SP label standard or
+redesign the existing label artwork to compensate for the Deck Fortress. If the label does not fit,
+measure the holder's actual usable flat area (width × height) and create a separate Deck Fortress
+label format while preserving the OL600SP tin-label standard unchanged.
 
 Preserve the stock insert and any future replacement-insert revisions as prototype history rather
 than overwriting earlier configurations.
